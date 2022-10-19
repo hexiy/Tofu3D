@@ -11,4 +11,4 @@ Features editor with
 * Scene/Prefab Serialization
 * Extensible Component class
 
-<a href="url"><img src="http://banas.6f.sk/index_files/images/engine/editor2.png" align="center" width="100%" ></a>
+<a href="url"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editor.png" align="center" width="100%" ></a>
