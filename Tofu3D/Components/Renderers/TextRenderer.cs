@@ -8,6 +8,16 @@ public class TextRenderer : SpriteRenderer
 	private Dictionary<char, int> fontMappings = new Dictionary<char, int>()
 	                                             {
 		                                             {' ', 0},
+		                                             {'0', 16},
+		                                             {'1', 17},
+		                                             {'2', 18},
+		                                             {'3', 19},
+		                                             {'4', 20},
+		                                             {'5', 21},
+		                                             {'6', 22},
+		                                             {'7', 23},
+		                                             {'8', 24},
+		                                             {'9', 25},
 
 		                                             {'A', 33},
 		                                             {'B', 34},
@@ -106,7 +116,7 @@ public class TextRenderer : SpriteRenderer
 		material.shader.SetVector2("u_resolution", texture.size);
 		material.shader.SetMatrix4x4("u_mvp", LatestModelViewProjection);
 		material.shader.SetColor("u_color", color.ToVector4());
-		material.shader.SetVector2("u_scale", boxShape.size/Units.OneWorldUnit);
+		material.shader.SetVector2("u_scale", boxShape.size / Units.OneWorldUnit);
 		material.shader.SetVector2("zoomAmount", spritesCount);
 		material.shader.SetFloat("isGradient", isGradient ? 1 : 0);
 		if (isGradient)
@@ -115,8 +125,8 @@ public class TextRenderer : SpriteRenderer
 			material.shader.SetVector4("u_color_b", gradientColor2.ToVector4());
 		}
 
-		float charSpacing = text.size * 2 + transform.scale.X * text.size;
-		//charSpacing = charSpacing / Units.OneWorldUnit;
+		float charSpacing = text.size * 3f + transform.scale.X * text.size;
+		charSpacing = charSpacing / Units.OneWorldUnit;
 		Vector2 originalPosition = transform.position;
 
 		int symbolInLineIndex = 0;
@@ -132,7 +142,7 @@ public class TextRenderer : SpriteRenderer
 		     symbolInLineIndex++)
 		{
 			transform.position = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex, originalPosition.Y - line * lineSpacing, transform.position.Z);
-			transform.position = originalPosition;
+			//transform.position = originalPosition;
 			UpdateMVP();
 			material.shader.SetMatrix4x4("u_mvp", LatestModelViewProjection);
 

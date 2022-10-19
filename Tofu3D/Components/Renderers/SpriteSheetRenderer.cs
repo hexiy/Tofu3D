@@ -39,7 +39,9 @@ public class SpriteSheetRenderer : SpriteRenderer
 	{
 		if (boxShape != null)
 		{
-			boxShape.size = spriteSize;
+			// find size closes to 1
+			
+			boxShape.size = spriteSize.Normalized()*5;
 		}
 	}
 
