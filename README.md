@@ -1,14 +1,5 @@
-# Tofu3D game engine
-Simple C# OpenTK game engine with component based architecture.
+# <img src="https://github.com/hexiy/Tofu3D/blob/main/Tofu3D/tofu3d.png" width="70px" align="center">   Tofu3D Game Engine 
 
-Features editor with
-* Inspector
-* Hierarchy
-* Scene view
-* Console
-* Asset browser
-* Physics
-* Scene/Prefab Serialization
-* Extensible Component class
+Simple C# OpenTK game engine with component based architecture.
 
 <a href="url"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editor.png" align="center" width="100%" ></a>
