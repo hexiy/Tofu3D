@@ -37,7 +37,7 @@ public class GradientRenderer : Renderer
 		material.shader.SetVector4("u_color_a", gradientColorA.ToVector4());
 		material.shader.SetVector4("u_color_b", gradientColorB.ToVector4());
 
-		material.shader.SetVector2("u_resolution", new Vector2(100, 100));
+		material.shader.SetVector2("u_resolution", Vector2.One);
 		material.shader.SetMatrix4x4("u_mvp", LatestModelViewProjection);
 		material.shader.SetColor("u_color", color.ToVector4());
 		material.shader.SetVector4("u_tint", (Vector4) material.shader.uniforms["u_tint"]);

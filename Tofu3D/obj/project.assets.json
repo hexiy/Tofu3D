@@ -1942,11 +1942,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/hexiy/Desktop/dev/TenebrisCapulusEngine/Tofu3D/Tofu3D.csproj",
+      "projectUniqueName": "/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/Tofu3D.csproj",
       "projectName": "Tofu3D",
-      "projectPath": "/Users/hexiy/Desktop/dev/TenebrisCapulusEngine/Tofu3D/Tofu3D.csproj",
+      "projectPath": "/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/Tofu3D.csproj",
       "packagesPath": "/Users/hexiy/.nuget/packages/",
-      "outputPath": "/Users/hexiy/Desktop/dev/TenebrisCapulusEngine/Tofu3D/obj/",
+      "outputPath": "/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/hexiy/.nuget/NuGet/NuGet.Config"
