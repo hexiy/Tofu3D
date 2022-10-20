@@ -2,7 +2,7 @@ namespace Tofu3D.Tweening;
 
 public static class Tweener
 {
-	public static Tween Tween(int startValue, int endValue, float duration, Action<float> OnUpdate)
+	public static Tween Tween(float startValue, float endValue, float duration, Action<float> OnUpdate)
 	{
 		Tween tween = new Tween(){duration =duration,endValue = endValue,startValue = startValue, currentTime = 0, OnUpdate = OnUpdate}; 
 		return TweenManager.I.StartTween(tween);

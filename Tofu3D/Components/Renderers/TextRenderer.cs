@@ -143,6 +143,15 @@ public class TextRenderer : SpriteRenderer
 		{
 			transform.position = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex, originalPosition.Y - line * lineSpacing, transform.position.Z);
 			//transform.position = originalPosition;
+
+			if (GetComponent<TextReactToMouse>() != null && Global.GameRunning)
+			{
+				float distanceToCursor = Vector2.Distance(transform.position, MouseInput.WorldPosition);
+				transform.scale = Vector3.One * Mathf.Clamp(originalScale.X * ((0.2f / distanceToCursor) + 1f), 1, 2);
+
+				transform.position = transform.position + new Vector2(0, (float) MathHelper.Sin(Time.elapsedTime + symbolIndex * 0.1f) * 1);
+			}
+
 			UpdateMVP();
 			material.shader.SetMatrix4x4("u_mvp", LatestModelViewProjection);
 

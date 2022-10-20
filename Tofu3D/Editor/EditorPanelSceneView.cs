@@ -3,9 +3,9 @@ using Tofu3D.Physics;
 
 namespace Tofu3D;
 
-public class EditorWindow_SceneView : EditorWindow
+public class EditorPanelSceneView : EditorPanel
 {
-	public static EditorWindow_SceneView I { get; private set; }
+	public static EditorPanelSceneView I { get; private set; }
 
 	public override void Draw()
 	{

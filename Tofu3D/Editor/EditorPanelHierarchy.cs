@@ -3,7 +3,7 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class EditorWindow_Hierarchy : EditorWindow
+public class EditorPanelHierarchy : EditorPanel
 {
 	private bool canDelete = true;
 
@@ -14,7 +14,7 @@ public class EditorWindow_Hierarchy : EditorWindow
 
 	private int selectedGameObjectIndex;
 	private bool showUpdatePrefabPopup;
-	public static EditorWindow_Hierarchy I { get; private set; }
+	public static EditorPanelHierarchy I { get; private set; }
 
 	public override void Init()
 	{
@@ -110,7 +110,7 @@ public class EditorWindow_Hierarchy : EditorWindow
 		ResetID();
 		windowWidth = 700;
 		ImGui.SetNextWindowSize(new Vector2(windowWidth, Editor.sceneViewSize.Y), ImGuiCond.Always);
-		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X - EditorWindow_Inspector.I.windowWidth, 0), ImGuiCond.Always, new Vector2(1, 0)); // +1 for double border uglyness
+		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X - EditorPanelInspector.I.windowWidth, 0), ImGuiCond.Always, new Vector2(1, 0)); // +1 for double border uglyness
 		//ImGui.SetNextWindowBgAlpha (0);
 		ImGui.Begin("Hierarchy", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
 		if (ImGui.Button("+"))
@@ -151,6 +151,7 @@ public class EditorWindow_Hierarchy : EditorWindow
 
 		for (int goIndex = 0; goIndex < Scene.I.gameObjects.Count; goIndex++)
 		{
+			PushNextID();
 			DrawGameObjectRow(goIndex);
 		}
 
@@ -159,6 +160,11 @@ public class EditorWindow_Hierarchy : EditorWindow
 
 	private void DrawGameObjectRow(int goIndex, bool isChild = false)
 	{
+		if (isChild == false)
+		{
+			PushNextID();
+		}
+
 		GameObject currentGameObject = Scene.I.gameObjects[goIndex];
 		if (currentGameObject.transform.parent != null && isChild == false) // only draw children from recursive DrawGameObjectRow calls
 		{

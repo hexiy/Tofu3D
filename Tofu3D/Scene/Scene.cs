@@ -239,6 +239,7 @@ public class Scene
 	public bool LoadScene(string path = null)
 	{
 		Serializer.lastScene = path;
+		Window.I.Title = Window.I.WindowTitleText + " | " + Path.GetFileNameWithoutExtension(path);
 
 		//Add method to clean scene
 		while (gameObjects.Count > 0) gameObjects[0].Destroy();
@@ -274,7 +275,7 @@ public class Scene
 		int lastSelectedGameObjectId = PersistentData.GetInt("lastSelectedGameObjectId", 0);
 		if (Global.EditorAttached)
 		{
-			EditorWindow_Hierarchy.I.SelectGameObject(lastSelectedGameObjectId);
+			EditorPanelHierarchy.I.SelectGameObject(lastSelectedGameObjectId);
 		}
 
 		return true;

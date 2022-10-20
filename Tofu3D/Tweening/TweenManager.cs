@@ -44,7 +44,7 @@ public class TweenManager
 
 				if (activeTweens[i].GetLoop() == Tween.LoopType.Yoyo)
 				{
-					activeTweens[i].OnComplete.Invoke();
+					activeTweens[i].OnComplete?.Invoke();
 					activeTweens[i].currentTime = 0;
 
 					float startValue = activeTweens[i].startValue;

@@ -3,9 +3,9 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class EditorWindow_Profiler : EditorWindow
+public class EditorPanelProfiler : EditorPanel
 {
-	public static EditorWindow_Profiler I { get; private set; }
+	public static EditorPanelProfiler I { get; private set; }
 	private List<float> sceneUpdateSamples = new List<float>();
 	private List<float> sceneRenderSamples = new List<float>();
 	private List<float> physicsThreadSamples = new List<float>();

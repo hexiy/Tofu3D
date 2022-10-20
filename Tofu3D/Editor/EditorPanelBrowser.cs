@@ -5,7 +5,7 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class EditorWindow_Browser : EditorWindow
+public class EditorPanelBrowser : EditorPanel
 {
 	private string[] assets = new string[0];
 
@@ -17,7 +17,7 @@ public class EditorWindow_Browser : EditorWindow
 	private Texture fileIcon;
 
 	private Texture[] textures = new Texture[0];
-	public static EditorWindow_Browser I { get; private set; }
+	public static EditorPanelBrowser I { get; private set; }
 
 	private Vector2 iconSize = new Vector2(98, 90) * Global.EditorScale;
 
@@ -300,7 +300,7 @@ public class EditorWindow_Browser : EditorWindow
 			{
 				if (assetExtension.ToLower().Contains(".mat"))
 				{
-					EditorWindow_Inspector.I.OnMaterialSelected(assets[assetIndex]);
+					EditorPanelInspector.I.OnMaterialSelected(assets[assetIndex]);
 				}
 			}
 
@@ -316,7 +316,7 @@ public class EditorWindow_Browser : EditorWindow
 				if (assetExtension == ".prefab")
 				{
 					GameObject go = Serializer.I.LoadPrefab(assets[assetIndex]);
-					EditorWindow_Hierarchy.I.SelectGameObject(go.id);
+					EditorPanelHierarchy.I.SelectGameObject(go.id);
 				}
 
 				if (assetExtension == ".scene")

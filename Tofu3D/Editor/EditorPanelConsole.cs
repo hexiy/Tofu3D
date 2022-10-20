@@ -2,9 +2,9 @@
 
 namespace Tofu3D;
 
-public class EditorWindow_Console : EditorWindow
+public class EditorPanelConsole : EditorPanel
 {
-	public static EditorWindow_Console I { get; private set; }
+	public static EditorPanelConsole I { get; private set; }
 
 	public override void Init()
 	{

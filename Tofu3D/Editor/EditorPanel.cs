@@ -2,7 +2,7 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class EditorWindow
+public class EditorPanel
 {
 	internal bool active = true;
 	public int windowWidth;

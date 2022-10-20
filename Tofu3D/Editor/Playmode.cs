@@ -8,7 +8,7 @@ public static class Playmode
 		Global.GameRunning = true;
 		Scene.I.LoadScene(Scene.I.scenePath);
 
-		EditorWindow_Hierarchy.I?.SelectGameObject(-1);
+		EditorPanelHierarchy.I?.SelectGameObject(-1);
 	}
 
 	public static void PlayMode_Stop()

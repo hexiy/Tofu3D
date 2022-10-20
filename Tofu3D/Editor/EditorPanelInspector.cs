@@ -7,14 +7,14 @@ using Tofu3D.Components.Renderers;
 
 namespace Tofu3D;
 
-public class EditorWindow_Inspector : EditorWindow
+public class EditorPanelInspector : EditorPanel
 {
 	private string addComponentPopupText = "";
 
 	private GameObject selectedGameObject;
 	private Material selectedMaterial;
 	private int contentMaxWidth;
-	public static EditorWindow_Inspector I { get; private set; }
+	public static EditorPanelInspector I { get; private set; }
 
 	public override void Init()
 	{
@@ -92,7 +92,7 @@ public class EditorWindow_Inspector : EditorWindow
 		bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, 20));
 		if (clicked)
 		{
-			EditorWindow_Browser.I.GoToFile(shaderPath);
+			EditorPanelBrowser.I.GoToFile(shaderPath);
 		}
 
 		if (ImGui.BeginDragDropTarget())
@@ -286,7 +286,7 @@ public class EditorWindow_Inspector : EditorWindow
 
 					if (hovering)
 					{
-						ImGui.TextColored(Color.Plum.ToVector4(), info.Name);
+						ImGui.TextColored(new Vector4(0.7f,0.4f,0.6f,1), info.Name);
 					}
 					else
 					{
@@ -365,7 +365,7 @@ public class EditorWindow_Inspector : EditorWindow
 								bool selectableClicked = ImGui.Selectable(listOfGameObjects[j].name);
 								if (selectableClicked)
 								{
-									EditorWindow_Hierarchy.I.SelectGameObject(listOfGameObjects[j].id);
+									EditorPanelHierarchy.I.SelectGameObject(listOfGameObjects[j].id);
 									return;
 								}
 
@@ -408,7 +408,7 @@ public class EditorWindow_Inspector : EditorWindow
 						//ImiGui.Text(textureName);
 						if (clicked)
 						{
-							EditorWindow_Browser.I.GoToFile((currentComponent as TextureRenderer).texture.path);
+							EditorPanelBrowser.I.GoToFile((currentComponent as TextureRenderer).texture.path);
 						}
 
 						if (ImGui.BeginDragDropTarget())
@@ -435,7 +435,7 @@ public class EditorWindow_Inspector : EditorWindow
 						bool clicked = ImGui.Button(materialPath, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 						if (clicked)
 						{
-							EditorWindow_Browser.I.GoToFile(materialPath);
+							EditorPanelBrowser.I.GoToFile(materialPath);
 						}
 
 						if (ImGui.BeginDragDropTarget())
@@ -468,7 +468,7 @@ public class EditorWindow_Inspector : EditorWindow
 						bool clicked = ImGui.Button(fieldGoName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 						if (clicked && goObject != null)
 						{
-							EditorWindow_Hierarchy.I.SelectGameObject(goObject.id);
+							EditorPanelHierarchy.I.SelectGameObject(goObject.id);
 							return;
 						}
 

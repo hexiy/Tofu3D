@@ -24,7 +24,12 @@ public class SceneNavigation
 			cameraEndPos = targetGO.transform.position + new Vector3(0, 0, -2);
 		}
 
-		Tweener.Tween(0, 1, 0.3f, (progress) => { Camera.I.transform.position = Vector3.Lerp(cameraStartPos, cameraEndPos, progress); });
+		float cameraOrthoSize = Camera.I.orthographicSize;
+		Tweener.Tween(0, 1, 1.3f, (progress) =>
+		{
+			Camera.I.orthographicSize = cameraOrthoSize + (float)MathHelper.Sin(progress*Mathf.Pi)*0.8f;
+			Camera.I.transform.position = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
+		});
 	}
 
 	public void Update()

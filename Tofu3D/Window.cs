@@ -24,9 +24,14 @@ public class Window : GameWindow
 
 	public static Window I { get; private set; }
 
+	public string WindowTitleText
+	{
+		get { return $"Tofu3D | {GL.GetString(StringName.Version)}"; }
+	}
+
 	protected override void OnLoad()
 	{
-		Title = $"Tofu3D | {GL.GetString(StringName.Version)}";
+		Title = WindowTitleText;
 
 		//MaterialCache.CacheAllMaterialsInProject();
 		imGuiController = new ImGuiController(ClientSize.X, ClientSize.Y);

@@ -39,7 +39,7 @@ public class BrowserContextItem
 				ImGui.InputText("", ref defaultFileName, 100);
 				if (ImGui.Button("Save"))
 				{
-					string filePath = Path.Combine(EditorWindow_Browser.I.currentDirectory.FullName, defaultFileName + fileExtension);
+					string filePath = Path.Combine(EditorPanelBrowser.I.currentDirectory.FullName, defaultFileName + fileExtension);
 					confirmAction.Invoke(filePath);
 
 					showPopup = false;

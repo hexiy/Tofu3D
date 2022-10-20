@@ -7,7 +7,7 @@ public class Editor
 	public static Vector2 sceneViewPosition = new(0, 0);
 	public static Vector2 sceneViewSize = new(0, 0);
 	//private ImGuiRenderer _imGuiRenderer;
-	private EditorWindow[] editorWindows;
+	private EditorPanel[] editorPanels;
 
 	public TransformHandle transformHandle;
 
@@ -260,37 +260,37 @@ public class Editor
 
 		if (Global.EditorAttached)
 		{
-			editorWindows = new EditorWindow[]
+			editorPanels = new EditorPanel[]
 			                {
-				                new EditorWindow_Hierarchy(),
-				                new EditorWindow_Inspector(),
-				                new EditorWindow_Browser(),
-				                new EditorWindow_Console(),
-				                new EditorWindow_Profiler(),
-				                new EditorWindow_SceneView()
+				                new EditorPanelHierarchy(),
+				                new EditorPanelInspector(),
+				                new EditorPanelBrowser(),
+				                new EditorPanelConsole(),
+				                new EditorPanelProfiler(),
+				                new EditorPanelSceneView()
 			                };
 		}
 
 		else
 		{
-			editorWindows = new EditorWindow[]
+			editorPanels = new EditorPanel[]
 			                {
-				                new EditorWindow_SceneView()
+				                new EditorPanelSceneView()
 			                };
 		}
 
-		for (int i = 0; i < editorWindows.Length; i++) editorWindows[i].Init();
+		for (int i = 0; i < editorPanels.Length; i++) editorPanels[i].Init();
 
 		if (Global.EditorAttached)
 		{
-			EditorWindow_Hierarchy.I.GameObjectSelected += OnGameObjectSelected;
-			EditorWindow_Hierarchy.I.GameObjectSelected += EditorWindow_Inspector.I.OnGameObjectSelected;
+			EditorPanelHierarchy.I.GameObjectSelected += OnGameObjectSelected;
+			EditorPanelHierarchy.I.GameObjectSelected += EditorPanelInspector.I.OnGameObjectSelected;
 		}
 	}
 
 	public void Update()
 	{
-		for (int i = 0; i < editorWindows.Length; i++) editorWindows[i].Update();
+		for (int i = 0; i < editorPanels.Length; i++) editorPanels[i].Update();
 
 		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.IsKeyDown(Keys.S))
 		{
@@ -313,14 +313,14 @@ public class Editor
 	{
 		if (Global.EditorAttached)
 		{
-			for (int i = 0; i < editorWindows.Length; i++)
-				editorWindows[i].Draw();
+			for (int i = 0; i < editorPanels.Length; i++)
+				editorPanels[i].Draw();
 
 			//EditorWindow_Console.I.Draw();
 		}
 		else
 		{
-			EditorWindow_SceneView.I.Draw();
+			EditorPanelSceneView.I.Draw();
 		}
 	}
 

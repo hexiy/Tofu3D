@@ -90,7 +90,7 @@ public class Transform : Component
 		}
 	}
 
-	public void SetParent(Transform par, bool updateTransform = true)
+	public void SetParent(Transform par, bool updateTransform = false)
 	{
 		if (parentID != -1 && Scene.I.GetGameObject(parentID) != null)
 		{

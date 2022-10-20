@@ -2,9 +2,9 @@
 
 namespace Tofu3D;
 
-public class EditorWindow_Floating : EditorWindow
+public class EditorPanelFloating : EditorPanel
 {
-	public static EditorWindow_Floating I { get; private set; }
+	public static EditorPanelFloating I { get; private set; }
 
 	public override void Init()
 	{
