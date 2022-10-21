@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using ImGuiNET;
@@ -116,9 +117,26 @@ public class EditorPanelBrowser : EditorPanel
 
 		if (ImGui.Button("<"))
 		{
-			currentDirectory = currentDirectory.Parent;
-			RefreshAssets();
+			if (currentDirectory.Name.ToLower() != "assets")
+			{
+				currentDirectory = currentDirectory.Parent;
+				RefreshAssets();
+			}
 		}
+
+		ImGui.SameLine();
+
+		if (ImGui.Button("Open in Finder"))
+		{
+			Process.Start(new ProcessStartInfo()
+			              {
+				              FileName = currentDirectory.FullName,
+				              UseShellExecute = true,
+				              Verb = "open"
+			              });
+		}
+
+		ImGui.SameLine();
 
 		ResetID();
 		if (Editor.I.GetSelectedGameObject() != null)
@@ -127,14 +145,10 @@ public class EditorPanelBrowser : EditorPanel
 			bool saveBtnPressed = ImGui.Button("Save Prefab");
 			if (saveBtnPressed)
 			{
-				if (Directory.Exists("Assets/Prefabs") == false)
-				{
-					Directory.CreateDirectory("Assets/Prefabs");
-				}
-
-				Serializer.I.SaveGameObject(Editor.I.GetSelectedGameObject(), "Assets/Prefabs/" + Editor.I.GetSelectedGameObject().name + ".prefab");
+				Serializer.I.SaveGameObject(Editor.I.GetSelectedGameObject(), Path.Combine(currentDirectory.Name, Editor.I.GetSelectedGameObject().name + ".prefab"));
 			}
 		}
+
 
 		//for (int i = 0; i < assets.Length; i++)
 		//{
