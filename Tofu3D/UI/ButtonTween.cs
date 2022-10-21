@@ -2,9 +2,9 @@
 
 public class ButtonTween : Component
 {
-	private bool clicked;
-	public float scaleSpeed = 20;
-	public float scaleTarget = 0.9f;
+	bool _clicked;
+	public float ScaleSpeed = 20;
+	public float ScaleTarget = 0.9f;
 
 	public override void Awake()
 	{
@@ -17,22 +17,22 @@ public class ButtonTween : Component
 		bool mouseInside = MouseInput.WorldPosition.In(GetComponent<BoxShape>());
 		if (MouseInput.ButtonPressed() && mouseInside)
 		{
-			transform.scale = Vector3.One;
+			Transform.Scale = Vector3.One;
 
-			clicked = true;
+			_clicked = true;
 		}
 		else if (MouseInput.ButtonReleased())
 		{
-			clicked = false;
+			_clicked = false;
 		}
 
-		if (clicked)
+		if (_clicked)
 		{
-			transform.scale = Vector3.Lerp(transform.scale, Vector3.One * scaleTarget, Time.deltaTime * scaleSpeed);
+			Transform.Scale = Vector3.Lerp(Transform.Scale, Vector3.One * ScaleTarget, Time.DeltaTime * ScaleSpeed);
 		}
 		else
 		{
-			transform.scale = Vector3.Lerp(transform.scale, Vector3.One, Time.deltaTime * scaleSpeed);
+			Transform.Scale = Vector3.Lerp(Transform.Scale, Vector3.One, Time.DeltaTime * ScaleSpeed);
 		}
 	}
 }

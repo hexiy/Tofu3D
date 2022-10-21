@@ -24,12 +24,14 @@ public struct Point : IEquatable<Point>
 	/// <summary>
 	///         The x coordinate of this <see cref="Point" />.
 	/// </summary>
-	[DataMember] public int X;
+	[DataMember]
+	public int X;
 
 	/// <summary>
 	///         The y coordinate of this <see cref="Point" />.
 	/// </summary>
-	[DataMember] public int Y;
+	[DataMember]
+	public int Y;
 
 	#endregion
 

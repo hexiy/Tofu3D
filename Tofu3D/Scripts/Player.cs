@@ -92,3 +92,4 @@
 // 		Tweener.Tween(1, 0, 0.5f, (f) => { flame.GetComponent<Renderer>().color = flame.GetComponent<Renderer>().color.SetA(f); }).SetDelay(lifetime).SetOnComplete(() => { flame.Destroy(); }).SetTarget(flame);
 // 	}
 // }
+

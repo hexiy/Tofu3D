@@ -9,7 +9,7 @@ public class EditorPanelSceneView : EditorPanel
 
 	public override void Draw()
 	{
-		if (active == false)
+		if (Active == false)
 		{
 			return;
 		}
@@ -18,14 +18,14 @@ public class EditorPanelSceneView : EditorPanel
 		ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 		if (Global.EditorAttached)
 		{
-			Editor.sceneViewSize = Camera.I.size + new Vector2(0, 50);
+			Editor.SceneViewSize = Camera.I.Size + new Vector2(0, 50);
 
-			ImGui.SetNextWindowSize(Camera.I.size + new Vector2(0, 50), ImGuiCond.Always);
+			ImGui.SetNextWindowSize(Camera.I.Size + new Vector2(0, 50), ImGuiCond.Always);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.Always, new Vector2(0, 0));
 			ImGui.Begin("Scene View",
 			            ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
 
-			ImGui.SetCursorPosX(Camera.I.size.X / 2 - 150);
+			ImGui.SetCursorPosX(Camera.I.Size.X / 2 - 150);
 
 			Vector4 activeColor = ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
 			Vector4 inactiveColor = ImGui.GetStyle().Colors[(int) ImGuiCol.TextDisabled];
@@ -72,8 +72,8 @@ public class EditorPanelSceneView : EditorPanel
 			}
 
 			ImGui.SetCursorPosX(0);
-			Editor.sceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
-			ImGui.Image((IntPtr) Window.I.sceneRenderTexture.colorAttachment, Camera.I.size,
+			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
+			ImGui.Image((IntPtr) Window.I.SceneRenderTexture.ColorAttachment, Camera.I.Size,
 			            new Vector2(0, 1), new Vector2(1, 0));
 
 			ImGui.End();
@@ -83,14 +83,14 @@ public class EditorPanelSceneView : EditorPanel
 		}
 		else
 		{
-			ImGui.SetNextWindowSize(Camera.I.size + new Vector2(0, 50), ImGuiCond.Always);
+			ImGui.SetNextWindowSize(Camera.I.Size + new Vector2(0, 50), ImGuiCond.Always);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.Always, new Vector2(0, 0));
 			ImGui.Begin("Scene View",
 			            ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration);
 
 			ImGui.SetCursorPosX(0);
-			Editor.sceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
-			ImGui.Image((IntPtr) Window.I.sceneRenderTexture.colorAttachment, Camera.I.size,
+			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
+			ImGui.Image((IntPtr) Window.I.SceneRenderTexture.ColorAttachment, Camera.I.Size,
 			            new Vector2(0, 1), new Vector2(1, 0));
 
 			ImGui.End();

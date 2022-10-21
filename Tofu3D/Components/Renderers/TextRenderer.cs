@@ -5,82 +5,82 @@ namespace Scripts;
 
 public class TextRenderer : SpriteRenderer
 {
-	private Dictionary<char, int> fontMappings = new Dictionary<char, int>()
-	                                             {
-		                                             {' ', 0},
-		                                             {'0', 16},
-		                                             {'1', 17},
-		                                             {'2', 18},
-		                                             {'3', 19},
-		                                             {'4', 20},
-		                                             {'5', 21},
-		                                             {'6', 22},
-		                                             {'7', 23},
-		                                             {'8', 24},
-		                                             {'9', 25},
+	Dictionary<char, int> _fontMappings = new()
+	                                     {
+		                                     {' ', 0},
+		                                     {'0', 16},
+		                                     {'1', 17},
+		                                     {'2', 18},
+		                                     {'3', 19},
+		                                     {'4', 20},
+		                                     {'5', 21},
+		                                     {'6', 22},
+		                                     {'7', 23},
+		                                     {'8', 24},
+		                                     {'9', 25},
 
-		                                             {'A', 33},
-		                                             {'B', 34},
-		                                             {'C', 35},
-		                                             {'D', 36},
-		                                             {'E', 37},
-		                                             {'F', 38},
-		                                             {'G', 39},
-		                                             {'H', 40},
-		                                             {'I', 41},
-		                                             {'J', 42},
-		                                             {'K', 43},
-		                                             {'L', 44},
-		                                             {'M', 45},
-		                                             {'N', 46},
-		                                             {'O', 47},
-		                                             {'P', 48},
-		                                             {'Q', 49},
-		                                             {'R', 50},
-		                                             {'S', 51},
-		                                             {'T', 52},
-		                                             {'U', 53},
-		                                             {'V', 54},
-		                                             {'W', 55},
-		                                             {'X', 56},
-		                                             {'Y', 57},
-		                                             {'Z', 58},
-	                                             };
-	[LinkableComponent]
-	public Text text;
+		                                     {'A', 33},
+		                                     {'B', 34},
+		                                     {'C', 35},
+		                                     {'D', 36},
+		                                     {'E', 37},
+		                                     {'F', 38},
+		                                     {'G', 39},
+		                                     {'H', 40},
+		                                     {'I', 41},
+		                                     {'J', 42},
+		                                     {'K', 43},
+		                                     {'L', 44},
+		                                     {'M', 45},
+		                                     {'N', 46},
+		                                     {'O', 47},
+		                                     {'P', 48},
+		                                     {'Q', 49},
+		                                     {'R', 50},
+		                                     {'S', 51},
+		                                     {'T', 52},
+		                                     {'U', 53},
+		                                     {'V', 54},
+		                                     {'W', 55},
+		                                     {'X', 56},
+		                                     {'Y', 57},
+		                                     {'Z', 58}
+	                                     };
+	[ShowIf(nameof(IsGradient))]
+	public Color GradientColor1;
+	[ShowIf(nameof(IsGradient))]
+	public Color GradientColor2;
 	// texture will be font signed distance field texture,
 	// render will be basically going through all the characters in Text component and rendering each symbol
 
-	public bool isGradient = true;
-	[ShowIf(nameof(isGradient))]
-	public Color gradientColor1;
-	[ShowIf(nameof(isGradient))]
-	public Color gradientColor2;
+	public bool IsGradient = true;
 
-	private Vector2 spritesCount = new Vector2(1, 1);
+	Vector2 _spritesCount = new(1, 1);
 	[Hide]
-	public Vector2 spriteSize;
+	public Vector2 SpriteSize;
+	[LinkableComponent]
+	public Text Text;
 	public Vector2 SpritesCount
 	{
-		get { return spritesCount; }
+		get { return _spritesCount; }
 		set
 		{
-			spritesCount = value;
-			if (texture != null)
+			_spritesCount = value;
+			if (Texture != null)
 			{
-				spriteSize = new Vector2(texture.size.X / SpritesCount.X, texture.size.Y / SpritesCount.Y);
+				SpriteSize = new Vector2(Texture.Size.X / SpritesCount.X, Texture.Size.Y / SpritesCount.Y);
 			}
 		}
 	}
 
 	public override void CreateMaterial()
 	{
-		if (material == null)
+		if (Material == null)
 		{
-			material = MaterialCache.GetMaterial("TextRenderer");
+			Material = MaterialCache.GetMaterial("TextRenderer");
 		}
 
-		material.additive = false;
+		Material.Additive = false;
 		base.CreateMaterial();
 	}
 
@@ -88,74 +88,74 @@ public class TextRenderer : SpriteRenderer
 	{
 	}
 
-	public override void LoadTexture(string _texturePath)
+	public override void LoadTexture(string texturePath)
 	{
-		if (_texturePath.Contains("Assets") == false)
+		if (texturePath.Contains("Assets") == false)
 		{
-			_texturePath = Path.Combine("Assets", _texturePath);
+			texturePath = Path.Combine("Assets", texturePath);
 		}
 
-		if (File.Exists(_texturePath) == false)
+		if (File.Exists(texturePath) == false)
 		{
 			return;
 		}
 
-		texture.Load(_texturePath, smooth: true);
+		Texture.Load(texturePath, smooth: true);
 	}
 
 	public override void Render()
 	{
-		if (onScreen == false || boxShape == null || texture.loaded == false || text == null)
+		if (OnScreen == false || BoxShape == null || Texture.Loaded == false || Text == null)
 		{
 			return;
 		}
 
 		//Debug.Log("Draw text:" + text?.text);
 
-		ShaderCache.UseShader(material.shader);
-		material.shader.SetVector2("u_resolution", texture.size);
-		material.shader.SetMatrix4x4("u_mvp", LatestModelViewProjection);
-		material.shader.SetColor("u_color", color.ToVector4());
-		material.shader.SetVector2("u_scale", boxShape.size / Units.OneWorldUnit);
-		material.shader.SetVector2("zoomAmount", spritesCount);
-		material.shader.SetFloat("isGradient", isGradient ? 1 : 0);
-		if (isGradient)
+		ShaderCache.UseShader(Material.Shader);
+		Material.Shader.SetVector2("u_resolution", Texture.Size);
+		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+		Material.Shader.SetColor("u_color", Color.ToVector4());
+		Material.Shader.SetVector2("u_scale", BoxShape.Size / Units.OneWorldUnit);
+		Material.Shader.SetVector2("zoomAmount", _spritesCount);
+		Material.Shader.SetFloat("isGradient", IsGradient ? 1 : 0);
+		if (IsGradient)
 		{
-			material.shader.SetVector4("u_color_a", gradientColor1.ToVector4());
-			material.shader.SetVector4("u_color_b", gradientColor2.ToVector4());
+			Material.Shader.SetVector4("u_color_a", GradientColor1.ToVector4());
+			Material.Shader.SetVector4("u_color_b", GradientColor2.ToVector4());
 		}
 
-		float charSpacing = text.size * 3f + transform.scale.X * text.size;
+		float charSpacing = Text.Size * 3f + Transform.Scale.X * Text.Size;
 		charSpacing = charSpacing / Units.OneWorldUnit;
-		Vector2 originalPosition = transform.position;
+		Vector2 originalPosition = Transform.Position;
 
 		int symbolInLineIndex = 0;
 		int line = 0;
-		float lineSpacing = text.size * 3 + transform.scale.Y * text.size;
+		float lineSpacing = Text.Size * 3 + Transform.Scale.Y * Text.Size;
 
-		Vector2 originalScale = transform.scale;
-		transform.scale = Vector3.One * Mathf.Clamp(text.size / 40f, 0, 1000);
+		Vector2 originalScale = Transform.Scale;
+		Transform.Scale = Vector3.One * Mathf.Clamp(Text.Size / 40f, 0, 1000);
 
 		for (int symbolIndex = 0;
-		     symbolIndex < text.text.Length;
+		     symbolIndex < Text.Value.Length;
 		     symbolIndex++,
 		     symbolInLineIndex++)
 		{
-			transform.position = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex, originalPosition.Y - line * lineSpacing, transform.position.Z);
+			Transform.Position = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex, originalPosition.Y - line * lineSpacing, Transform.Position.Z);
 			//transform.position = originalPosition;
 
 			if (GetComponent<TextReactToMouse>() != null && Global.GameRunning)
 			{
-				float distanceToCursor = Vector2.Distance(transform.position, MouseInput.WorldPosition);
-				transform.scale = Vector3.One * Mathf.Clamp(originalScale.X * ((0.2f / distanceToCursor) + 1f), 1, 2);
+				float distanceToCursor = Vector2.Distance(Transform.Position, MouseInput.WorldPosition);
+				Transform.Scale = Vector3.One * Mathf.Clamp(originalScale.X * (0.2f / distanceToCursor + 1f), 1, 2);
 
-				transform.position = transform.position + new Vector2(0, (float) MathHelper.Sin(Time.elapsedTime + symbolIndex * 0.1f) * 1);
+				Transform.Position = Transform.Position + new Vector2(0, (float) MathHelper.Sin(Time.ElapsedTime + symbolIndex * 0.1f) * 1);
 			}
 
-			UpdateMVP();
-			material.shader.SetMatrix4x4("u_mvp", LatestModelViewProjection);
+			UpdateMvp();
+			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 
-			char ch = text.text[symbolIndex].ToString().ToUpper()[0];
+			char ch = Text.Value[symbolIndex].ToString().ToUpper()[0];
 			if (ch == '\n')
 			{
 				symbolInLineIndex = -1;
@@ -166,21 +166,21 @@ public class TextRenderer : SpriteRenderer
 
 			int glyphMappingIndex = 0;
 
-			if (fontMappings.ContainsKey(ch))
+			if (_fontMappings.ContainsKey(ch))
 			{
-				glyphMappingIndex = fontMappings[ch];
+				glyphMappingIndex = _fontMappings[ch];
 			}
 
-			int columnIndex = glyphMappingIndex % (int) spritesCount.X;
-			int rowIndex = (int) Math.Floor(glyphMappingIndex / spritesCount.Y);
+			int columnIndex = glyphMappingIndex % (int) _spritesCount.X;
+			int rowIndex = (int) Math.Floor(glyphMappingIndex / _spritesCount.Y);
 
-			Vector2 drawOffset = new Vector2(columnIndex * spriteSize.X + spriteSize.X / 2, -rowIndex * spriteSize.Y - spriteSize.Y / 2);
+			Vector2 drawOffset = new(columnIndex * SpriteSize.X + SpriteSize.X / 2, -rowIndex * SpriteSize.Y - SpriteSize.Y / 2);
 
-			material.shader.SetVector2("offset", drawOffset);
+			Material.Shader.SetVector2("offset", drawOffset);
 
-			ShaderCache.BindVAO(material.vao);
+			ShaderCache.BindVao(Material.Vao);
 
-			if (material.additive)
+			if (Material.Additive)
 			{
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusConstantColor);
 			}
@@ -189,14 +189,14 @@ public class TextRenderer : SpriteRenderer
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
 
-			TextureCache.BindTexture(texture.id);
+			TextureCache.BindTexture(Texture.Id);
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
 			Debug.CountStat("Draw Calls", 1);
 		}
 
-		transform.position = originalPosition;
-		transform.scale = originalScale;
+		Transform.Position = originalPosition;
+		Transform.Scale = originalScale;
 	}
 }

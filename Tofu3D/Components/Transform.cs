@@ -1,14 +1,15 @@
-﻿
-
-//using Quaternion = Engine.Quaternion;
+﻿//using Quaternion = Engine.Quaternion;
 
 namespace Scripts;
 
+[ExecuteInEditMode]
 public class Transform : Component
 {
 	[XmlIgnore]
-	public List<Transform> children = new();
-	public List<int> childrenIDs = new();
+	public List<Transform> Children = new();
+	public List<int> ChildrenIDs = new();
+
+	Vector3? _lastFramePosition;
 	//[Hide] public Vector3 localPosition { get { return position - GetParentPosition(); } set { position = GetParentPosition() + value; } }
 	//[Hide] public Vector3 initialAngleDifferenceFromParent = Vector3.Zero;
 	//[Hide] public Vector3 up { get { return position + TransformVector(new Vector3(0, 1, 0)); } }
@@ -24,25 +25,23 @@ public class Transform : Component
 		}
 	}*/
 	[XmlIgnore]
-	public Transform parent;
+	public Transform Parent;
 	[Hide]
-	public int parentID = -1;
+	public int ParentId = -1;
 
-	public Vector3 pivot = new(0, 0, 0);
-	public Vector3 position = Vector3.Zero;
-	private Vector3 rotation = Vector3.Zero;
-	public Vector3 Rotation
-	{
-		get { return rotation; }
-		set { rotation = new Vector3(value.X % 360, value.Y % 360, value.Z % 360); }
-	}
-	public Vector3 forward { get; set; }
-
-	private Vector3? lastFramePosition = null;
+	public Vector3 Pivot = new(0, 0, 0);
+	public Vector3 Position = Vector3.Zero;
+	Vector3 _rotation = Vector3.Zero;
 
 	//public new bool enabled { get { return true; } }
 
-	public Vector3 scale = Vector3.One;
+	public Vector3 Scale = Vector3.One;
+	public Vector3 Rotation
+	{
+		get { return _rotation; }
+		set { _rotation = new Vector3(value.X % 360, value.Y % 360, value.Z % 360); }
+	}
+	[Hide] public Vector3 Forward { get; set; }
 
 	public override void EditorUpdate()
 	{
@@ -51,40 +50,40 @@ public class Transform : Component
 
 	public override void Update()
 	{
-		if (lastFramePosition == null)
+		if (_lastFramePosition == null)
 		{
-			lastFramePosition = position;
+			_lastFramePosition = Position;
 		}
 
-		Vector3 positionDelta = position - lastFramePosition.Value;
+		Vector3 positionDelta = Position - _lastFramePosition.Value;
 
-		if (children.Count > 0)
+		if (Children.Count > 0)
 		{
-			for (int i = 0; i < children.Count; i++)
+			for (int i = 0; i < Children.Count; i++)
 			{
-				children[i].transform.position += positionDelta;
+				Children[i].Transform.Position += positionDelta;
 			}
 		}
 
-		lastFramePosition = position;
+		_lastFramePosition = Position;
 	}
 
 	public void RemoveChild(int id)
 	{
-		for (int i = 0; i < children.Count; i++)
+		for (int i = 0; i < Children.Count; i++)
 		{
-			if (children[i].gameObjectID == id)
+			if (Children[i].GameObjectId == id)
 			{
-				children.RemoveAt(i);
+				Children.RemoveAt(i);
 				break;
 			}
 		}
 
-		for (int i = 0; i < childrenIDs.Count; i++)
+		for (int i = 0; i < ChildrenIDs.Count; i++)
 		{
-			if (childrenIDs[i] == id)
+			if (ChildrenIDs[i] == id)
 			{
-				childrenIDs.RemoveAt(i);
+				ChildrenIDs.RemoveAt(i);
 				break;
 			}
 		}
@@ -92,30 +91,30 @@ public class Transform : Component
 
 	public void SetParent(Transform par, bool updateTransform = false)
 	{
-		if (parentID != -1 && Scene.I.GetGameObject(parentID) != null)
+		if (ParentId != -1 && Scene.I.GetGameObject(ParentId) != null)
 		{
-			Scene.I.GetGameObject(parentID).transform.RemoveChild(gameObjectID);
+			Scene.I.GetGameObject(ParentId).Transform.RemoveChild(GameObjectId);
 		}
 
 		if (updateTransform)
 		{
-			Rotation -= par.transform.Rotation;
-			position = par.transform.position + (par.transform.position - transform.position);
+			Rotation -= par.Transform.Rotation;
+			Position = par.Transform.Position + (par.Transform.Position - Transform.Position);
 			//initialAngleDifferenceFromParent = rotation - par.transform.rotation;
 		}
 
-		parent = par;
-		parentID = parent.gameObjectID;
+		Parent = par;
+		ParentId = Parent.GameObjectId;
 
-		par.children.Add(this);
-		par.childrenIDs.Add(gameObjectID);
+		par.Children.Add(this);
+		par.ChildrenIDs.Add(GameObjectId);
 	}
 
 	public Vector3 GetParentPosition()
 	{
-		if (parent != null)
+		if (Parent != null)
 		{
-			return parent.transform.position;
+			return Parent.Transform.Position;
 		}
 
 		return Vector3.Zero;
@@ -124,9 +123,9 @@ public class Transform : Component
 	public Vector3 TransformDirection(Vector3 dir)
 	{
 		Vector3 forward = (Matrix4x4.CreateTranslation(new Vector3(dir.X, dir.Y, -dir.Z))
-		                 * Matrix4x4.CreateFromYawPitchRoll(transform.Rotation.Y / 180 * Mathf.Pi,
-		                                                    -transform.Rotation.X / 180 * Mathf.Pi,
-		                                                    -transform.Rotation.Z / 180 * Mathf.Pi)).Translation;
+		                 * Matrix4x4.CreateFromYawPitchRoll(Transform.Rotation.Y / 180 * Mathf.Pi,
+		                                                    -Transform.Rotation.X / 180 * Mathf.Pi,
+		                                                    -Transform.Rotation.Z / 180 * Mathf.Pi)).Translation;
 		return forward;
 	}
 

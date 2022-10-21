@@ -2,32 +2,32 @@ namespace Tofu3D.Components.Renderers;
 
 public class StressTestGameObjectSpawner : Component
 {
-	public int spawnCount = 1000;
-	[XmlIgnore]
-	public Action Spawn;
 	[XmlIgnore]
 	public Action Despawn;
 
-	public GameObject go;
+	public GameObject Go;
+	[XmlIgnore]
+	public Action Spawn;
+	public int SpawnCount = 1000;
 
 	public override void Awake()
 	{
 		Spawn += () =>
 		{
-			Serializer.I.SaveClipboardGameObject(go);
+			Serializer.I.SaveClipboardGameObject(Go);
 
-			for (int i = 0; i < spawnCount; i++)
+			for (int i = 0; i < SpawnCount; i++)
 			{
 				Serializer.I.LoadClipboardGameObject();
 			}
 		};
 		Despawn += () =>
 		{
-			for (int j = 0; j < Scene.I.gameObjects.Count; j++)
+			for (int j = 0; j < Scene.I.GameObjects.Count; j++)
 			{
 				if (j > 10)
 				{
-					Scene.I.gameObjects[j].Destroy();
+					Scene.I.GameObjects[j].Destroy();
 				}
 			}
 		};

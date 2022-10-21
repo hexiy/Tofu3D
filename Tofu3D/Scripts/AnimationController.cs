@@ -2,22 +2,22 @@
 
 public class AnimationController : Component
 {
-	public float animationSpeed = 1;
+	public float AnimationSpeed = 1;
 
-	public Vector2 animRange_Idle = new(0, 0);
-	public Vector2 animRange_Jump = new(0, 0);
-	public Vector2 animRange_Run = new(0, 0);
-	public Vector2 animRange_MeeleeAttack = new(0, 0);
-	private Vector2? forcedAnimation = null;
-	public Vector2 currentAnimRange = new(0, 0);
+	public Vector2 AnimRangeIdle = new(0, 0);
+	public Vector2 AnimRangeJump = new(0, 0);
+	public Vector2 AnimRangeMeeleeAttack = new(0, 0);
+	public Vector2 AnimRangeRun = new(0, 0);
+	public Vector2 CurrentAnimRange = new(0, 0);
+	Vector2? _forcedAnimation;
 
-	private Action OnAnimationFinished = () => { };
-	private SpriteSheetRenderer spriteSheetRenderer;
-	private float timeOnCurrentFrame;
+	Action _onAnimationFinished = () => { };
+	SpriteSheetRenderer _spriteSheetRenderer;
+	float _timeOnCurrentFrame;
 
 	public override void Awake()
 	{
-		spriteSheetRenderer = GetComponent<SpriteSheetRenderer>();
+		_spriteSheetRenderer = GetComponent<SpriteSheetRenderer>();
 		base.Awake();
 	}
 
@@ -30,23 +30,23 @@ public class AnimationController : Component
 
 	public override void Update()
 	{
-		if (animationSpeed == 0)
+		if (AnimationSpeed == 0)
 		{
 			return;
 		}
 
-		timeOnCurrentFrame += Time.deltaTime * animationSpeed;
-		while (timeOnCurrentFrame > 1 / animationSpeed)
+		_timeOnCurrentFrame += Time.DeltaTime * AnimationSpeed;
+		while (_timeOnCurrentFrame > 1 / AnimationSpeed)
 		{
-			timeOnCurrentFrame -= 1 / animationSpeed;
-			if (spriteSheetRenderer.currentSpriteIndex + 1 >= currentAnimRange.Y)
+			_timeOnCurrentFrame -= 1 / AnimationSpeed;
+			if (_spriteSheetRenderer.CurrentSpriteIndex + 1 >= CurrentAnimRange.Y)
 			{
-				spriteSheetRenderer.currentSpriteIndex = (int) currentAnimRange.X;
-				OnAnimationFinished?.Invoke();
+				_spriteSheetRenderer.CurrentSpriteIndex = (int) CurrentAnimRange.X;
+				_onAnimationFinished?.Invoke();
 			}
 			else
 			{
-				spriteSheetRenderer.currentSpriteIndex++;
+				_spriteSheetRenderer.CurrentSpriteIndex++;
 			}
 		}
 
@@ -55,66 +55,66 @@ public class AnimationController : Component
 
 	public void ResetCurrentAnimation()
 	{
-		timeOnCurrentFrame = 0;
-		spriteSheetRenderer.currentSpriteIndex = (int) currentAnimRange.X;
+		_timeOnCurrentFrame = 0;
+		_spriteSheetRenderer.CurrentSpriteIndex = (int) CurrentAnimRange.X;
 	}
 
 	public void Turn(Vector2 direction)
 	{
 		if (direction == Vector2.Right)
 		{
-			transform.Rotation = new Vector3(transform.Rotation.X, 0, transform.Rotation.Z);
+			Transform.Rotation = new Vector3(Transform.Rotation.X, 0, Transform.Rotation.Z);
 		}
 		else
 		{
-			transform.Rotation = new Vector3(transform.Rotation.X, 180, transform.Rotation.Z);
+			Transform.Rotation = new Vector3(Transform.Rotation.X, 180, Transform.Rotation.Z);
 		}
 	}
 
 	public void Jump()
 	{
-		forcedAnimation = animRange_Jump;
-		SetAnimation(forcedAnimation.Value);
-		animationSpeed = 4.5f;
-		OnAnimationFinished += () =>
+		_forcedAnimation = AnimRangeJump;
+		SetAnimation(_forcedAnimation.Value);
+		AnimationSpeed = 4.5f;
+		_onAnimationFinished += () =>
 		{
-			forcedAnimation = null;
+			_forcedAnimation = null;
 
-			SetAnimation(animRange_Idle);
-			animationSpeed = 3;
+			SetAnimation(AnimRangeIdle);
+			AnimationSpeed = 3;
 
-			OnAnimationFinished = () => { };
+			_onAnimationFinished = () => { };
 		};
 	}
 
 	public void MeleeAttack()
 	{
-		forcedAnimation = animRange_MeeleeAttack;
-		SetAnimation(forcedAnimation.Value);
-		animationSpeed = 3f;
-		OnAnimationFinished += () =>
+		_forcedAnimation = AnimRangeMeeleeAttack;
+		SetAnimation(_forcedAnimation.Value);
+		AnimationSpeed = 3f;
+		_onAnimationFinished += () =>
 		{
-			forcedAnimation = null;
+			_forcedAnimation = null;
 
-			SetAnimation(animRange_Idle);
-			animationSpeed = 3;
+			SetAnimation(AnimRangeIdle);
+			AnimationSpeed = 3;
 
-			OnAnimationFinished = () => { };
+			_onAnimationFinished = () => { };
 		};
 	}
 
 	public void SetAnimation(Vector2 animRange)
 	{
-		if (forcedAnimation != null && forcedAnimation != animRange)
+		if (_forcedAnimation != null && _forcedAnimation != animRange)
 		{
 			return;
 		}
 
-		var oldAnim = currentAnimRange;
+		Vector2 oldAnim = CurrentAnimRange;
 
-		currentAnimRange = animRange;
+		CurrentAnimRange = animRange;
 
-		if (oldAnim != currentAnimRange)
+		if (oldAnim != CurrentAnimRange)
 		{
 			ResetCurrentAnimation();
 		}

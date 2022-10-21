@@ -4,23 +4,24 @@ namespace Scripts;
 
 public class Component : IDestroyable
 {
-	public bool allowMultiple = true;
+	public bool AllowMultiple = true;
 
 	[XmlIgnore]
 	[DefaultValue(false)]
-	public bool awoken;
-	public bool enabled = true;
-	[XmlIgnore]
-	public GameObject gameObject;
+	public bool Awoken;
 
-	public int gameObjectID;
-	public bool started;
+	public bool Enabled = true;
+	[XmlIgnore]
+	public GameObject GameObject;
+
+	public int GameObjectId;
+	public bool Started;
 
 	[XmlIgnore]
-	public Transform transform
+	public Transform Transform
 	{
-		get { return gameObject.transform; }
-		set { gameObject.transform = value; }
+		get { return GameObject.Transform; }
+		set { GameObject.Transform = value; }
 	}
 
 	public virtual void OnDestroyed()
@@ -29,32 +30,32 @@ public class Component : IDestroyable
 
 	public T GetComponent<T>(int? index = null) where T : Component
 	{
-		return gameObject.GetComponent<T>(index);
+		return GameObject.GetComponent<T>(index);
 	}
 
 	public bool HasComponent<T>() where T : Component
 	{
-		return gameObject.HasComponent<T>();
+		return GameObject.HasComponent<T>();
 	}
 
 	public List<T> GetComponents<T>() where T : Component
 	{
-		return gameObject.GetComponents<T>();
+		return GameObject.GetComponents<T>();
 	}
 
 	public Vector3 TransformToWorld(Vector3 localPoint)
 	{
-		return localPoint + transform.position;
+		return localPoint + Transform.Position;
 	}
 
 	public virtual void Awake()
 	{
-		awoken = true;
+		Awoken = true;
 	}
 
 	public virtual void Start()
 	{
-		started = true;
+		Started = true;
 	}
 
 	public virtual void EditorUpdate()

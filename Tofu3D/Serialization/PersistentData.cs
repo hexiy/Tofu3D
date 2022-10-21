@@ -5,18 +5,18 @@ namespace Tofu3D;
 
 public static class PersistentData
 {
-	private static bool inited = false;
-	private static Dictionary<string, object> data = new();
+	static bool _inited = false;
+	static Dictionary<string, object> _data = new();
 
-	private static void LoadAllData()
+	static void LoadAllData()
 	{
 		if (File.Exists("persistentData") == false)
 		{
 			return;
 		}
 
-		data = new Dictionary<string, object>();
-		using (StreamReader sr = new StreamReader("persistentData"))
+		_data = new Dictionary<string, object>();
+		using (StreamReader sr = new("persistentData"))
 		{
 			while (sr.Peek() != -1)
 			{
@@ -25,13 +25,13 @@ public static class PersistentData
 				{
 					string key = line.Substring(0, line.IndexOf(":"));
 					string value = line.Substring(line.IndexOf(":") + 1);
-					data.Add(key, value);
+					_data.Add(key, value);
 				}
 			}
 		}
 	}
 
-	private static void Save()
+	static void Save()
 	{
 		if (File.Exists("persistentData") == false)
 		{
@@ -40,36 +40,39 @@ public static class PersistentData
 
 		FileStream fs = File.Create("persistentData");
 		fs.Close();
-		using (StreamWriter sw = new StreamWriter("persistentData"))
+		using (StreamWriter sw = new("persistentData"))
 		{
-			for (int i = 0; i < data.Count; i++) sw.WriteLine(data.Keys.ElementAt(i) + ":" + data.Values.ElementAt(i));
+			for (int i = 0; i < _data.Count; i++)
+			{
+				sw.WriteLine(_data.Keys.ElementAt(i) + ":" + _data.Values.ElementAt(i));
+			}
 		}
 	}
 
 	public static void DeleteAll()
 	{
-		data = new Dictionary<string, object>();
+		_data = new Dictionary<string, object>();
 		Save();
 	}
 
-	private static object Get(string key, object? defaultValue = null)
+	static object Get(string key, object? defaultValue = null)
 	{
-		if (data.Count == 0)
+		if (_data.Count == 0)
 		{
 			LoadAllData();
 		}
 
-		if (data.ContainsKey(key) == false && defaultValue != null)
+		if (_data.ContainsKey(key) == false && defaultValue != null)
 		{
 			return defaultValue;
 		}
 
-		if (data.ContainsKey(key) == false)
+		if (_data.ContainsKey(key) == false)
 		{
 			return null;
 		}
 
-		return data[key];
+		return _data[key];
 	}
 
 	public static string GetString(string key, string? defaultValue = null)
@@ -89,12 +92,12 @@ public static class PersistentData
 
 	public static void Set(string key, object value)
 	{
-		if (data.Count == 0)
+		if (_data.Count == 0)
 		{
 			LoadAllData();
 		}
 
-		data[key] = value;
+		_data[key] = value;
 
 		Save();
 	}

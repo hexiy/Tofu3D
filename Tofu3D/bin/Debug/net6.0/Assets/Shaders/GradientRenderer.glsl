@@ -31,7 +31,7 @@ void main(void)
 vec2 uv = (texCoord.xy) * vec2(u_resolution.x / u_resolution.y, 1);
 
 
-vec4 col = mix(u_color_b, u_color_a, uv.y+0.5);
+vec4 col = mix(u_color_b, u_color_a, uv.y + 0.5);
 //col+= mix(c1,c2, uv.y);
 
 color = col * u_color;

@@ -1,16 +1,15 @@
 ﻿using System.Diagnostics;
-using System.Linq;
 
 namespace Tofu3D;
 
 public static class Debug
 {
-	private static List<string> logs = new();
+	static List<string> _logs = new();
 
-	public static readonly int LOG_LIMIT = 1000;
+	public static readonly int LogLimit = 1000;
 
-	public static Dictionary<string, Stopwatch> timers = new();
-	public static Dictionary<string, float> stats = new();
+	public static Dictionary<string, Stopwatch> Timers = new();
+	public static Dictionary<string, float> Stats = new();
 
 	public static void Log(string message)
 	{
@@ -20,15 +19,16 @@ public static class Debug
 		}
 
 
-		logs.Add($"[{DateTime.Now.ToString("HH:mm:ss")}]" + message);
+		_logs.Add($"[{DateTime.Now.ToString("HH:mm:ss")}]" + message);
 
 		//Window.I.Title = logs.Last();
 
-		if (logs.Count > LOG_LIMIT + 1)
+		if (_logs.Count > LogLimit + 1)
 		{
-			logs.RemoveAt(0);
+			_logs.RemoveAt(0);
 		}
 	}
+
 	public static void Log(object message)
 	{
 		Log(message.ToString());
@@ -41,15 +41,15 @@ public static class Debug
 			return;
 		}
 
-		if (timers.ContainsKey(timerName))
+		if (Timers.ContainsKey(timerName))
 		{
-			timers[timerName].Restart();
+			Timers[timerName].Restart();
 		}
 		else
 		{
-			Stopwatch sw = new Stopwatch();
+			Stopwatch sw = new();
 			sw.Start();
-			timers.Add(timerName, sw);
+			Timers.Add(timerName, sw);
 		}
 	}
 
@@ -60,12 +60,12 @@ public static class Debug
 			return;
 		}
 
-		if (stats.ContainsKey(statName) == false)
+		if (Stats.ContainsKey(statName) == false)
 		{
-			stats[statName] = 0;
+			Stats[statName] = 0;
 		}
 
-		stats[statName] += value;
+		Stats[statName] += value;
 	}
 
 	public static void Stat(string statName, float value)
@@ -75,12 +75,12 @@ public static class Debug
 			return;
 		}
 
-		if (stats.ContainsKey(statName) == false)
+		if (Stats.ContainsKey(statName) == false)
 		{
-			stats[statName] = 0;
+			Stats[statName] = 0;
 		}
 
-		stats[statName] = value;
+		Stats[statName] = value;
 	}
 
 	public static void EndTimer(string timerName)
@@ -90,26 +90,26 @@ public static class Debug
 			return;
 		}
 
-		timers[timerName].Stop();
+		Timers[timerName].Stop();
 	}
 
 	public static void ClearTimers()
 	{
-		timers.Clear();
+		Timers.Clear();
 	}
 
 	public static void ClearStats()
 	{
-		stats.Clear();
+		Stats.Clear();
 	}
 
 	public static void ClearLogs()
 	{
-		logs.Clear();
+		_logs.Clear();
 	}
 
 	public static ref List<string> GetLogs()
 	{
-		return ref logs;
+		return ref _logs;
 	}
 }

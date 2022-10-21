@@ -1,9 +1,9 @@
 [Serializable]
 public class Model
 {
-	public string path;
-	
-	public float[] vertices =
+	public string Path;
+
+	public float[] Vertices =
 	{
 		-0.5f, -0.5f, 0, 0,
 		0.5f, -0.5f, 1, 0,

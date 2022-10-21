@@ -13,12 +13,12 @@ public class EditorPanelConsole : EditorPanel
 
 	public override void Draw()
 	{
-		if (active == false)
+		if (Active == false)
 		{
 			return;
 		}
 
-		ImGui.SetNextWindowSize(new Vector2(800, Window.I.ClientSize.Y - Editor.sceneViewSize.Y + 1), ImGuiCond.Always);
+		ImGui.SetNextWindowSize(new Vector2(800, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1), ImGuiCond.Always);
 		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X - 800, Window.I.ClientSize.Y), ImGuiCond.Always, new Vector2(1, 1));
 		//ImGui.SetNextWindowBgAlpha (0);
 		ImGui.Begin("Console", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
@@ -29,7 +29,7 @@ public class EditorPanelConsole : EditorPanel
 		}
 
 		int logsCount = Debug.GetLogs().Count;
-		for (int i = 0; i < Mathf.Min(logsCount, Debug.LOG_LIMIT - 1); i++)
+		for (int i = 0; i < Mathf.Min(logsCount, Debug.LogLimit - 1); i++)
 		{
 			ImGui.Separator();
 

@@ -6,7 +6,7 @@ public class CubeSpawner : Component
 		base.Start();
 	}
 
-	private void SpawnCubes()
+	void SpawnCubes()
 	{
 		for (int x = 0; x < 10; x++)
 		{
@@ -14,10 +14,10 @@ public class CubeSpawner : Component
 			{
 				for (int z = 0; z < 10; z++)
 				{
-					GameObject go = GameObject.Create(Camera.I.transform.position + new Vector3(x, y, z) * 500, name: "Cube");
-					go.transform.SetParent(transform);
+					GameObject go = GameObject.Create(Camera.I.Transform.Position + new Vector3(x, y, z) * 500, name: "Cube");
+					go.Transform.SetParent(Transform);
 					go.AddComponent<BoxShape>();
-					go.GetComponent<BoxShape>().size = new Vector3(150);
+					go.GetComponent<BoxShape>().Size = new Vector3(150);
 
 					go.AddComponent<ModelRenderer>();
 					go.Awake();

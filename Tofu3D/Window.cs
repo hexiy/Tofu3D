@@ -1,5 +1,4 @@
-﻿using OpenTK.Mathematics
-	;
+﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 
@@ -7,10 +6,10 @@ namespace Tofu3D;
 
 public class Window : GameWindow
 {
-	public RenderTexture bloomDownscaledRenderTexture;
-	public ImGuiController imGuiController;
-	public RenderTexture postProcessRenderTexture;
-	public RenderTexture sceneRenderTexture;
+	public RenderTexture BloomDownscaledRenderTexture;
+	public ImGuiController ImGuiController;
+	public RenderTexture PostProcessRenderTexture;
+	public RenderTexture SceneRenderTexture;
 
 	public Window() : base(GameWindowSettings.Default,
 	                       new NativeWindowSettings
@@ -34,16 +33,16 @@ public class Window : GameWindow
 		Title = WindowTitleText;
 
 		//MaterialCache.CacheAllMaterialsInProject();
-		imGuiController = new ImGuiController(ClientSize.X, ClientSize.Y);
+		ImGuiController = new ImGuiController(ClientSize.X, ClientSize.Y);
 
-		Vector2 size = new Vector2(100, 100); // temporaly 10x10 textures because we cant access Camera.I.size before Scene started-camera is a gameobject
-		sceneRenderTexture = new RenderTexture(size);
-		postProcessRenderTexture = new RenderTexture(size);
+		Vector2 size = new(100, 100); // temporaly 10x10 textures because we cant access Camera.I.size before Scene started-camera is a gameobject
+		SceneRenderTexture = new RenderTexture(size);
+		PostProcessRenderTexture = new RenderTexture(size);
 
 		Editor.I.Init();
 		Scene.I.Start();
-		sceneRenderTexture = new RenderTexture(Camera.I.size);
-		postProcessRenderTexture = new RenderTexture(Camera.I.size);
+		SceneRenderTexture = new RenderTexture(Camera.I.Size);
+		PostProcessRenderTexture = new RenderTexture(Camera.I.Size);
 
 		//bloomDownscaledRenderTexture = new RenderTexture(Camera.I.size);
 	}
@@ -56,7 +55,7 @@ public class Window : GameWindow
 		//GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
 
 		// Tell ImGui of the new size
-		imGuiController?.WindowResized(ClientSize.X, ClientSize.Y);
+		ImGuiController?.WindowResized(ClientSize.X, ClientSize.Y);
 	}
 
 	protected override void OnUpdateFrame(FrameEventArgs args)
@@ -81,39 +80,39 @@ public class Window : GameWindow
 		GL.ClearColor(0, 0, 0, 0);
 		GL.Clear(ClearBufferMask.ColorBufferBit);
 
-		sceneRenderTexture.Bind(); // start rendering to sceneRenderTexture
-		GL.Viewport(0, 0, (int) Camera.I.size.X, (int) Camera.I.size.Y);
+		SceneRenderTexture.Bind(); // start rendering to sceneRenderTexture
+		GL.Viewport(0, 0, (int) Camera.I.Size.X, (int) Camera.I.Size.Y);
 
 		GL.Enable(EnableCap.Blend);
 		//GL.Enable(EnableCap.Multisample);
 		Scene.I.Render();
 
-		sceneRenderTexture.Unbind(); // end rendering to sceneRenderTexture
+		SceneRenderTexture.Unbind(); // end rendering to sceneRenderTexture
 		GL.Disable(EnableCap.Blend);
 
-		postProcessRenderTexture.Bind();
+		PostProcessRenderTexture.Bind();
 		GL.ClearColor(0, 0, 0, 0);
 		GL.Clear(ClearBufferMask.ColorBufferBit);
 
 		// draw sceneRenderTexture.colorAttachment with post process- into postProcessRenderTexture target
-		postProcessRenderTexture.Render(sceneRenderTexture.colorAttachment);
+		PostProcessRenderTexture.Render(SceneRenderTexture.ColorAttachment);
 
 		//postProcessRenderTexture.RenderWithPostProcess(sceneRenderTexture.colorAttachment);
 		//postProcessRenderTexture.RenderSnow(sceneRenderTexture.colorAttachment);
 
-		postProcessRenderTexture.Unbind();
+		PostProcessRenderTexture.Unbind();
 
 
-		imGuiController.Update(this, (float) e.Time);
+		ImGuiController.Update(this, (float) e.Time);
 		GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
 
-		imGuiController.WindowResized(ClientSize.X, ClientSize.Y);
+		ImGuiController.WindowResized(ClientSize.X, ClientSize.Y);
 
 
 		Editor.I.Draw();
 		//GL.Enable(EnableCap.Multisample);
 
-		imGuiController.Render();
+		ImGuiController.Render();
 
 		// ------------- IMGUI -------------
 
@@ -129,13 +128,13 @@ public class Window : GameWindow
 	{
 		base.OnTextInput(e);
 
-		imGuiController.PressChar((char) e.Unicode);
+		ImGuiController.PressChar((char) e.Unicode);
 	}
 
 	protected override void OnMouseWheel(MouseWheelEventArgs e)
 	{
 		base.OnMouseWheel(e);
 
-		imGuiController.MouseScroll(new Vector2(e.OffsetX, e.OffsetY));
+		ImGuiController.MouseScroll(new Vector2(e.OffsetX, e.OffsetY));
 	}
 }

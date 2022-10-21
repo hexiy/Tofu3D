@@ -9,19 +9,19 @@ public static class PhysicsExtensions
 		switch (shape)
 		{
 			case CircleShape circleCollider:
-				if ((distance = Vector2.Distance(circleCollider.transform.position.ToVector2(), point)) < circleCollider.radius)
+				if ((distance = Vector2.Distance(circleCollider.Transform.Position.ToVector2(), point)) < circleCollider.Radius)
 				{
 					isIn = true;
 				}
 
 				break;
 			case BoxShape boxCollider:
-				Vector2 boxPosition = boxCollider.transform.position;
+				Vector2 boxPosition = boxCollider.Transform.Position;
 
 				//float boxEndX = boxPosition.X + boxCollider.offset.X + (boxCollider.size.X / 2) * boxCollider.transform.pivot.X;
 
-				Vector2 start = boxPosition + boxCollider.offset * boxCollider.transform.scale + boxCollider.size * boxCollider.transform.pivot;
-				Vector2 end = boxPosition + boxCollider.offset * boxCollider.transform.scale + (boxCollider.size + boxCollider.size * boxCollider.transform.pivot) * boxCollider.transform.scale;
+				Vector2 start = boxPosition + boxCollider.Offset * boxCollider.Transform.Scale + boxCollider.Size * boxCollider.Transform.Pivot;
+				Vector2 end = boxPosition + boxCollider.Offset * boxCollider.Transform.Scale + (boxCollider.Size + boxCollider.Size * boxCollider.Transform.Pivot) * boxCollider.Transform.Scale;
 				isIn = point.X < end.X && point.X > start.X && point.Y < end.Y && point.Y > start.Y;
 				break;
 		}

@@ -5,27 +5,27 @@ public class LineShape : Shape
 	//[ShowInEditor]
 	//[System.ComponentModel.Editor(typeof(Editor.MethodEditor), typeof(System.Drawing.Design.UITypeEditor))]
 	//public bool EditPoints { get; set; } = false;
-	public float length = 0;
+	public float Length = 0;
 
-	public float? staticAngle;
+	public float? StaticAngle;
 
 	public Vector2 GetLineStart() // put both methods into tuple method?
 	{
-		if (staticAngle != null)
+		if (StaticAngle != null)
 		{
-			return transform.position + new Vector2((float) Math.Cos((float) staticAngle), (float) Math.Sin((float) staticAngle));
+			return Transform.Position + new Vector2((float) Math.Cos((float) StaticAngle), (float) Math.Sin((float) StaticAngle));
 		}
 
-		return transform.position + new Vector2((float) Math.Cos(transform.Rotation.Z), (float) Math.Sin(transform.Rotation.Z));
+		return Transform.Position + new Vector2((float) Math.Cos(Transform.Rotation.Z), (float) Math.Sin(Transform.Rotation.Z));
 	}
 
 	public Vector2 GetLineEnd()
 	{
-		if (staticAngle != null)
+		if (StaticAngle != null)
 		{
-			return transform.position + new Vector2(-(float) Math.Cos((float) staticAngle), (float) Math.Sin((float) staticAngle)) * length;
+			return Transform.Position + new Vector2(-(float) Math.Cos((float) StaticAngle), (float) Math.Sin((float) StaticAngle)) * Length;
 		}
 
-		return transform.position + new Vector2(-(float) Math.Cos(transform.Rotation.Z), (float) Math.Sin(transform.Rotation.Z)) * length;
+		return Transform.Position + new Vector2(-(float) Math.Cos(Transform.Rotation.Z), (float) Math.Sin(Transform.Rotation.Z)) * Length;
 	}
 }

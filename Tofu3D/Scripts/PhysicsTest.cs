@@ -2,13 +2,13 @@ using Tofu3D.Physics;
 
 public class PhysicsTest : Component
 {
-	private BoxShape boxShape;
-	private ModelRenderer modelRenderer;
+	BoxShape _boxShape;
+	ModelRenderer _modelRenderer;
 
 	public override void Awake()
 	{
-		boxShape = GetComponent<BoxShape>();
-		modelRenderer = GetComponent<ModelRenderer>();
+		_boxShape = GetComponent<BoxShape>();
+		_modelRenderer = GetComponent<ModelRenderer>();
 		base.Awake();
 	}
 
@@ -19,18 +19,18 @@ public class PhysicsTest : Component
 
 	public override void Update()
 	{
-		if (boxShape == null || modelRenderer == null)
+		if (_boxShape == null || _modelRenderer == null)
 		{
 			return;
 		}
 
 		// Ray ray = new Ray(Camera.I.ScreenToWorld(MouseInput.ScreenPosition)*1000, Camera.I.TransformToWorld(Vector3.Forward).Normalized());
-		Ray ray = new Ray(Camera.I.TransformToWorld(MouseInput.ScreenPosition), Camera.I.TransformToWorld(MouseInput.ScreenPosition) + Camera.I.TransformToWorld(Vector3.Forward).Normalized());
+		Ray ray = new(Camera.I.TransformToWorld(MouseInput.ScreenPosition), Camera.I.TransformToWorld(MouseInput.ScreenPosition) + Camera.I.TransformToWorld(Vector3.Forward).Normalized());
 
-		RaycastResult result = Physics.Raycast(ray: ray);
+		RaycastResult result = Physics.Raycast(ray);
 
 		//Debug.Log("Center of screen in world:"+Camera.I.CenterOfScreenToWorld());
-		Debug.Log("Mouse world pos:" + ray.origin);
+		Debug.Log("Mouse world pos:" + ray.Origin);
 		// if (result.hitBodies.Count > 0)
 		// {
 		// 	modelRenderer.color = Color.Red;

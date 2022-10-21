@@ -3,14 +3,14 @@
 public class AudioSource : Component
 {
 	[Show]
-	public AudioClip clip;
-	[SliderF(0, 1)]
-	public float volume;
+	public AudioClip Clip;
 
 	[XmlIgnore]
 	public Action PlaySoundAction;
 	[XmlIgnore]
 	public Action StopSoundAction;
+	[SliderF(0, 1)]
+	public float Volume;
 
 	//private WaveOutEvent outputDevice;
 
@@ -23,7 +23,7 @@ public class AudioSource : Component
 		base.Awake();
 	}
 
-	private void ValidateDevice()
+	void ValidateDevice()
 	{
 		// if (outputDevice == null)
 		// {

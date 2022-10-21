@@ -5,9 +5,12 @@ namespace Scripts;
 public class Rigidbody : Component
 {
 	[Hide]
-	public new bool allowMultiple = false;
+	public new bool AllowMultiple = false;
 
-	public float angularDrag = 1f;
+	public float AngularDrag = 1f;
+	public Vector2 BodyPos;
+	[XmlIgnore]
+	public List<Rigidbody> TouchingRigidbodies = new();
 
 	[XmlIgnore]
 	[LinkableComponent]
@@ -15,9 +18,6 @@ public class Rigidbody : Component
 	{
 		get { return GetComponent<Shape>(); }
 	}
-	[XmlIgnore]
-	public List<Rigidbody> touchingRigidbodies = new List<Rigidbody>();
-	public Vector2 BodyPos;
 
 	public override void Awake()
 	{
@@ -32,7 +32,7 @@ public class Rigidbody : Component
 
 		if (boxShape != null)
 		{
-			BoxShape shape = new BoxShape();
+			BoxShape shape = new();
 
 			lock (PhysicsController.World)
 			{
@@ -58,62 +58,70 @@ public class Rigidbody : Component
 
 	public override void OnDestroyed()
 	{
-		for (int i = 0; i < touchingRigidbodies.Count; i++)
+		for (int i = 0; i < TouchingRigidbodies.Count; i++)
 		{
-			touchingRigidbodies[i].OnCollisionExit(this);
-			OnCollisionExit(touchingRigidbodies[i]);
+			TouchingRigidbodies[i].OnCollisionExit(this);
+			OnCollisionExit(TouchingRigidbodies[i]);
 		}
 	}
 
 	public override void OnCollisionEnter(Rigidbody rigidbody) // TODO-TRANSLATE CURRENT VELOCITY TO COLLIDED RIGIDBODY, ADD FORCE (MassRatio2/MassRatio1)
 	{
-		touchingRigidbodies.Add(rigidbody);
+		TouchingRigidbodies.Add(rigidbody);
 
 		// Call callback on components that implement interface IPhysicsCallbackListener
-		for (int i = 0; i < gameObject.components.Count; i++)
-			if (gameObject.components[i] is Rigidbody == false)
+		for (int i = 0; i < GameObject.Components.Count; i++)
+		{
+			if (GameObject.Components[i] is Rigidbody == false)
 			{
-				gameObject.components[i].OnCollisionEnter(rigidbody);
+				GameObject.Components[i].OnCollisionEnter(rigidbody);
 			}
+		}
 	}
 
 	public override void OnCollisionExit(Rigidbody rigidbody)
 	{
-		if (touchingRigidbodies.Contains(rigidbody))
+		if (TouchingRigidbodies.Contains(rigidbody))
 		{
-			touchingRigidbodies.Remove(rigidbody);
+			TouchingRigidbodies.Remove(rigidbody);
 		}
 
-		for (int i = 0; i < gameObject.components.Count; i++)
-			if (gameObject.components[i] is Rigidbody == false)
+		for (int i = 0; i < GameObject.Components.Count; i++)
+		{
+			if (GameObject.Components[i] is Rigidbody == false)
 			{
-				gameObject.components[i].OnCollisionExit(rigidbody);
+				GameObject.Components[i].OnCollisionExit(rigidbody);
 			}
+		}
 	}
 
 	public override void OnTriggerEnter(Rigidbody rigidbody)
 	{
-		touchingRigidbodies.Add(rigidbody);
+		TouchingRigidbodies.Add(rigidbody);
 
 		// Call callback on components that implement interface IPhysicsCallbackListener
-		for (int i = 0; i < gameObject.components.Count; i++)
-			if (gameObject.components[i] is Rigidbody == false)
+		for (int i = 0; i < GameObject.Components.Count; i++)
+		{
+			if (GameObject.Components[i] is Rigidbody == false)
 			{
-				gameObject.components[i].OnTriggerEnter(rigidbody);
+				GameObject.Components[i].OnTriggerEnter(rigidbody);
 			}
+		}
 	}
 
 	public override void OnTriggerExit(Rigidbody rigidbody)
 	{
-		if (touchingRigidbodies.Contains(rigidbody))
+		if (TouchingRigidbodies.Contains(rigidbody))
 		{
-			touchingRigidbodies.Remove(rigidbody);
+			TouchingRigidbodies.Remove(rigidbody);
 		}
 
-		for (int i = 0; i < gameObject.components.Count; i++)
-			if (gameObject.components[i] is Rigidbody == false)
+		for (int i = 0; i < GameObject.Components.Count; i++)
+		{
+			if (GameObject.Components[i] is Rigidbody == false)
 			{
-				gameObject.components[i].OnTriggerExit(rigidbody);
+				GameObject.Components[i].OnTriggerExit(rigidbody);
 			}
+		}
 	}
 }

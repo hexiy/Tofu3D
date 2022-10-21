@@ -1,7 +1,5 @@
 public class TextReactToMouse : Component
 {
-	
-
 	public override void Awake()
 	{
 		base.Awake();

@@ -6,7 +6,7 @@ public static class Playmode
 	{
 		Scene.I.SaveScene();
 		Global.GameRunning = true;
-		Scene.I.LoadScene(Scene.I.scenePath);
+		Scene.I.LoadScene(Scene.I.ScenePath);
 
 		EditorPanelHierarchy.I?.SelectGameObject(-1);
 	}
@@ -14,14 +14,14 @@ public static class Playmode
 	public static void PlayMode_Stop()
 	{
 		Global.GameRunning = false;
-		Scene.I.LoadScene(Scene.I.scenePath);
+		Scene.I.LoadScene(Scene.I.ScenePath);
 	}
 
-	private static void SaveCurrentSceneBeforePlay()
+	static void SaveCurrentSceneBeforePlay()
 	{
 	}
 
-	private static void LoadSceneSavedBeforePlay()
+	static void LoadSceneSavedBeforePlay()
 	{
 	}
 }

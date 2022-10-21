@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Dear_ImGui_Sample;
 
-internal static class Util
+static class Util
 {
 	[Pure]
 	public static float Clamp(float value, float min, float max)
@@ -13,7 +13,7 @@ internal static class Util
 	}
 
 	[Conditional("DEBUG")]
-	public static void CheckGLError(string title)
+	public static void CheckGlError(string title)
 	{
 		ErrorCode error = GL.GetError();
 		if (error != ErrorCode.NoError)
@@ -29,49 +29,49 @@ internal static class Util
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void CreateTexture(TextureTarget target, string Name, out int Texture)
+	public static void CreateTexture(TextureTarget target, string name, out int texture)
 	{
-		GL.CreateTextures(target, 1, out Texture);
-		LabelObject(ObjectLabelIdentifier.Texture, Texture, $"Texture: {Name}");
+		GL.CreateTextures(target, 1, out texture);
+		LabelObject(ObjectLabelIdentifier.Texture, texture, $"Texture: {name}");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void CreateProgram(string Name, out int Program)
+	public static void CreateProgram(string name, out int program)
 	{
-		Program = GL.CreateProgram();
-		LabelObject(ObjectLabelIdentifier.Program, Program, $"Program: {Name}");
+		program = GL.CreateProgram();
+		LabelObject(ObjectLabelIdentifier.Program, program, $"Program: {name}");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void CreateShader(ShaderType type, string Name, out int Shader)
+	public static void CreateShader(ShaderType type, string name, out int shader)
 	{
-		Shader = GL.CreateShader(type);
-		LabelObject(ObjectLabelIdentifier.Shader, Shader, $"Shader: {type}: {Name}");
+		shader = GL.CreateShader(type);
+		LabelObject(ObjectLabelIdentifier.Shader, shader, $"Shader: {type}: {name}");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void CreateBuffer(string Name, out int Buffer)
+	public static void CreateBuffer(string name, out int buffer)
 	{
-		GL.CreateBuffers(1, out Buffer);
-		LabelObject(ObjectLabelIdentifier.Buffer, Buffer, $"Buffer: {Name}");
+		GL.CreateBuffers(1, out buffer);
+		LabelObject(ObjectLabelIdentifier.Buffer, buffer, $"Buffer: {name}");
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void CreateVertexBuffer(string Name, out int Buffer)
+	public static void CreateVertexBuffer(string name, out int buffer)
 	{
-		CreateBuffer($"VBO: {Name}", out Buffer);
+		CreateBuffer($"VBO: {name}", out buffer);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void CreateElementBuffer(string Name, out int Buffer)
+	public static void CreateElementBuffer(string name, out int buffer)
 	{
-		CreateBuffer($"EBO: {Name}", out Buffer);
+		CreateBuffer($"EBO: {name}", out buffer);
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static void CreateVertexArray(string Name, out int VAO)
+	public static void CreateVertexArray(string name, out int vao)
 	{
-		GL.CreateVertexArrays(1, out VAO);
-		LabelObject(ObjectLabelIdentifier.VertexArray, VAO, $"VAO: {Name}");
+		GL.CreateVertexArrays(1, out vao);
+		LabelObject(ObjectLabelIdentifier.VertexArray, vao, $"VAO: {name}");
 	}
 }

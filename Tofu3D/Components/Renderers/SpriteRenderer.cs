@@ -10,13 +10,13 @@ public class SpriteRenderer : TextureRenderer
 	{
 		SetNativeSize += () => { UpdateBoxShapeSize(); };
 		CreateMaterial();
-		if (texture == null)
+		if (Texture == null)
 		{
-			texture = new Texture();
+			Texture = new Texture();
 		}
 		else
 		{
-			LoadTexture(texture.path);
+			LoadTexture(Texture.Path);
 		}
 
 		base.Awake();
@@ -29,20 +29,19 @@ public class SpriteRenderer : TextureRenderer
 		material.SetShader(shader);
 	}*/
 
-
 	internal virtual void UpdateBoxShapeSize()
 	{
-		if (boxShape != null)
+		if (BoxShape != null)
 		{
-			boxShape.size = texture.size;
+			BoxShape.Size = Texture.Size;
 		}
 	}
 
 	public override void CreateMaterial()
 	{
-		if (material == null)
+		if (Material == null)
 		{
-			material = MaterialCache.GetMaterial("SpriteRenderer");
+			Material = MaterialCache.GetMaterial("SpriteRenderer");
 		}
 
 		base.CreateMaterial();
@@ -56,17 +55,17 @@ public class SpriteRenderer : TextureRenderer
 
 	public override void Render()
 	{
-		if (onScreen == false)
+		if (OnScreen == false)
 		{
 			return;
 		}
 
-		if (boxShape == null)
+		if (BoxShape == null)
 		{
 			return;
 		}
 
-		if (texture.loaded == false)
+		if (Texture.Loaded == false)
 		{
 			return;
 		}
@@ -78,14 +77,14 @@ public class SpriteRenderer : TextureRenderer
 			return;*/
 		}
 
-		ShaderCache.UseShader(material.shader);
-		material.shader.SetVector2("u_resolution", texture.size);
-		material.shader.SetMatrix4x4("u_mvp", LatestModelViewProjection);
-		material.shader.SetColor("u_color", color.ToVector4());
+		ShaderCache.UseShader(Material.Shader);
+		Material.Shader.SetVector2("u_resolution", Texture.Size);
+		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+		Material.Shader.SetColor("u_color", Color.ToVector4());
 
-		ShaderCache.BindVAO(material.vao);
+		ShaderCache.BindVao(Material.Vao);
 
-		if (material.additive)
+		if (Material.Additive)
 		{
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusConstantColor);
 		}
@@ -94,7 +93,7 @@ public class SpriteRenderer : TextureRenderer
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 		}
 
-		TextureCache.BindTexture(texture.id);
+		TextureCache.BindTexture(Texture.Id);
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

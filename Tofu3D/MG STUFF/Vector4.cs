@@ -26,22 +26,26 @@ public struct Vector4 : IEquatable<Vector4>
 	/// <summary>
 	///         The x coordinate of this <see cref="Vector4" />.
 	/// </summary>
-	[DataMember] public float X;
+	[DataMember]
+	public float X;
 
 	/// <summary>
 	///         The y coordinate of this <see cref="Vector4" />.
 	/// </summary>
-	[DataMember] public float Y;
+	[DataMember]
+	public float Y;
 
 	/// <summary>
 	///         The z coordinate of this <see cref="Vector4" />.
 	/// </summary>
-	[DataMember] public float Z;
+	[DataMember]
+	public float Z;
 
 	/// <summary>
 	///         The w coordinate of this <see cref="Vector4" />.
 	/// </summary>
-	[DataMember] public float W;
+	[DataMember]
+	public float W;
 
 	#endregion
 

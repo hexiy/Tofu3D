@@ -1,15 +1,15 @@
 ﻿namespace Tofu3D;
 
 [Show]
-[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, Inherited = false)]
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 public sealed class Slider : Attribute
 {
-	public int minValue;
-	public int maxValue;
+	public int MaxValue;
+	public int MinValue;
 
-	public Slider(int _min, int _max)
+	public Slider(int min, int max)
 	{
-		minValue = _min;
-		maxValue = _max;
+		MinValue = min;
+		MaxValue = max;
 	}
 }

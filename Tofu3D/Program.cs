@@ -4,8 +4,10 @@ namespace Tofu3D;
 
 public static class Program
 {
-	private static void Main()
+	static void Main()
 	{
+		Global.LoadSavedData();
+
 		_ = new Serializer();
 		_ = new Scene();
 		_ = new TweenManager();
@@ -13,10 +15,8 @@ public static class Program
 		_ = new Editor();
 
 
-		using (Window window = new Window())
-		{
-			//window.VSync = VSyncMode.Off;
-			window.Run();
-		}
+		using Window window = new();
+		//window.VSync = VSyncMode.Off;
+		window.Run();
 	}
 }

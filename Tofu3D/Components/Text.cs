@@ -1,5 +1,5 @@
 ﻿public class Text : Component
 {
-	public string text = "test";
-	public int size = 10;
+	public int Size = 10;
+	public string Value = "test";
 }

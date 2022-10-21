@@ -6,30 +6,30 @@ namespace Scripts;
 public class SpriteSheetRenderer : SpriteRenderer
 {
 	[Hide]
-	public int currentSpriteIndex;
+	public int CurrentSpriteIndex;
 
-	private Vector2 spritesCount = new(1, 1);
+	Vector2 _spritesCount = new(1, 1);
 	[Hide]
-	public Vector2 spriteSize;
+	public Vector2 SpriteSize;
 	[Hide] public override bool Batched { get; set; } = true;
 	public Vector2 SpritesCount
 	{
-		get { return spritesCount; }
+		get { return _spritesCount; }
 		set
 		{
-			spritesCount = value;
-			if (texture != null)
+			_spritesCount = value;
+			if (Texture != null)
 			{
-				spriteSize = new Vector2(texture.size.X / SpritesCount.X, texture.size.Y / SpritesCount.Y);
+				SpriteSize = new Vector2(Texture.Size.X / SpritesCount.X, Texture.Size.Y / SpritesCount.Y);
 			}
 		}
 	}
 
 	public override void CreateMaterial()
 	{
-		if (material == null)
+		if (Material == null)
 		{
-			material = MaterialCache.GetMaterial("SpriteSheetRenderer");
+			Material = MaterialCache.GetMaterial("SpriteSheetRenderer");
 		}
 
 		base.CreateMaterial();
@@ -37,11 +37,11 @@ public class SpriteSheetRenderer : SpriteRenderer
 
 	internal override void UpdateBoxShapeSize()
 	{
-		if (boxShape != null)
+		if (BoxShape != null)
 		{
 			// find size closes to 1
-			
-			boxShape.size = spriteSize.Normalized()*5;
+
+			BoxShape.Size = SpriteSize.Normalized() * 5;
 		}
 	}
 
@@ -49,19 +49,19 @@ public class SpriteSheetRenderer : SpriteRenderer
 	{
 	}
 
-	public override void LoadTexture(string _texturePath)
+	public override void LoadTexture(string texturePath)
 	{
-		if (_texturePath.Contains("Assets") == false)
+		if (texturePath.Contains("Assets") == false)
 		{
-			_texturePath = Path.Combine("Assets", _texturePath);
+			texturePath = Path.Combine("Assets", texturePath);
 		}
 
-		if (File.Exists(_texturePath) == false)
+		if (File.Exists(texturePath) == false)
 		{
 			return;
 		}
 
-		texture.Load(_texturePath);
+		Texture.Load(texturePath);
 
 		UpdateBoxShapeSize();
 		if (Batched && false)
@@ -72,53 +72,53 @@ public class SpriteSheetRenderer : SpriteRenderer
 
 	public override void Render()
 	{
-		if (onScreen == false)
+		if (OnScreen == false)
 		{
 			return;
 		}
 
-		if (boxShape == null)
+		if (BoxShape == null)
 		{
 			return;
 		}
 
-		if (texture.loaded == false)
+		if (Texture.Loaded == false)
 		{
 			return;
 		}
 
 		if (Batched && false)
 		{
-			var x = currentSpriteIndex % spritesCount.X;
-			var y = (float) Math.Floor(currentSpriteIndex / spritesCount.X);
+			float x = CurrentSpriteIndex % _spritesCount.X;
+			float y = (float) Math.Floor(CurrentSpriteIndex / _spritesCount.X);
 
-			var drawOffset = new Vector2(x, y) * spriteSize * spritesCount;
+			Vector2 drawOffset = new Vector2(x, y) * SpriteSize * _spritesCount;
 
 			//BatchingManager.UpdateAttribsSpriteSheet(texture.id, gameObjectID, transform.position, new Vector2(GetComponent<BoxShape>().size.X * transform.scale.X, GetComponent<BoxShape>().size.Y * transform.scale.Y),
 			//                                         color, drawOffset);
 		}
 		else
 		{
-			ShaderCache.UseShader(material.shader);
-			material.shader.SetVector2("u_resolution", texture.size);
-			material.shader.SetMatrix4x4("u_mvp", LatestModelViewProjection);
-			material.shader.SetColor("u_color", color.ToVector4());
-			material.shader.SetVector2("u_scale", boxShape.size);
+			ShaderCache.UseShader(Material.Shader);
+			Material.Shader.SetVector2("u_resolution", Texture.Size);
+			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+			Material.Shader.SetColor("u_color", Color.ToVector4());
+			Material.Shader.SetVector2("u_scale", BoxShape.Size);
 
 
-			var columnIndex = currentSpriteIndex % spritesCount.X;
-			var rowIndex = (float) Math.Floor(currentSpriteIndex / spritesCount.X);
+			float columnIndex = CurrentSpriteIndex % _spritesCount.X;
+			float rowIndex = (float) Math.Floor(CurrentSpriteIndex / _spritesCount.X);
 
-			Vector2 drawOffset = new Vector2(columnIndex * spriteSize.X + spriteSize.X / 2, -rowIndex * spriteSize.Y - spriteSize.Y / 2);
+			Vector2 drawOffset = new(columnIndex * SpriteSize.X + SpriteSize.X / 2, -rowIndex * SpriteSize.Y - SpriteSize.Y / 2);
 
-			material.shader.SetVector2("offset", drawOffset);
+			Material.Shader.SetVector2("offset", drawOffset);
 
 			//_zoomAmount = texture.size.X/spriteSize.X*2;
-			material.shader.SetVector2("zoomAmount", spritesCount);
+			Material.Shader.SetVector2("zoomAmount", _spritesCount);
 
-			ShaderCache.BindVAO(material.vao);
+			ShaderCache.BindVao(Material.Vao);
 
-			if (material.additive)
+			if (Material.Additive)
 			{
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusConstantColor);
 			}
@@ -127,7 +127,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
 
-			TextureCache.BindTexture(texture.id);
+			TextureCache.BindTexture(Texture.Id);
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

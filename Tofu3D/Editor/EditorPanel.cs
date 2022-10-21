@@ -4,19 +4,19 @@ namespace Tofu3D;
 
 public class EditorPanel
 {
-	internal bool active = true;
-	public int windowWidth;
+	internal bool Active = true;
 
-	private int currentID;
+	int _currentId;
+	public int WindowWidth;
 
-	internal void ResetID()
+	internal void ResetId()
 	{
-		currentID = 0;
+		_currentId = 0;
 	}
 
-	internal void PushNextID()
+	internal void PushNextId()
 	{
-		ImGui.PushID(currentID++);
+		ImGui.PushID(_currentId++);
 	}
 
 	public virtual void Init()

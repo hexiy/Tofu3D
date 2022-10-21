@@ -5,19 +5,20 @@ namespace Tofu3D;
 
 public class FieldOrPropertyInfo
 {
-	public bool canShowInEditor = true;
-	private FieldInfo fieldInfo;
-	private PropertyInfo propertyInfo;
+	public bool CanShowInEditor = true;
+	FieldInfo _fieldInfo;
+	public bool IsReadonly;
+	PropertyInfo _propertyInfo;
 
 	public FieldOrPropertyInfo(FieldInfo fi, object obj)
 	{
-		fieldInfo = fi;
+		_fieldInfo = fi;
 		UpdateCanShowInEditor(obj);
 	}
 
-	public FieldOrPropertyInfo(PropertyInfo pi,object obj)
+	public FieldOrPropertyInfo(PropertyInfo pi, object obj)
 	{
-		propertyInfo = pi;
+		_propertyInfo = pi;
 		UpdateCanShowInEditor(obj);
 	}
 
@@ -25,14 +26,14 @@ public class FieldOrPropertyInfo
 	{
 		get
 		{
-			if (fieldInfo != null)
+			if (_fieldInfo != null)
 			{
-				return fieldInfo.CustomAttributes;
+				return _fieldInfo.CustomAttributes;
 			}
 
-			if (propertyInfo != null)
+			if (_propertyInfo != null)
 			{
-				return propertyInfo.CustomAttributes;
+				return _propertyInfo.CustomAttributes;
 			}
 
 			return null;
@@ -42,14 +43,14 @@ public class FieldOrPropertyInfo
 	{
 		get
 		{
-			if (fieldInfo != null)
+			if (_fieldInfo != null)
 			{
-				return fieldInfo.Name;
+				return _fieldInfo.Name;
 			}
 
-			if (propertyInfo != null)
+			if (_propertyInfo != null)
 			{
-				return propertyInfo.Name;
+				return _propertyInfo.Name;
 			}
 
 			return null;
@@ -59,37 +60,37 @@ public class FieldOrPropertyInfo
 	{
 		get
 		{
-			if (fieldInfo != null)
+			if (_fieldInfo != null)
 			{
-				return fieldInfo.FieldType;
+				return _fieldInfo.FieldType;
 			}
 
-			if (propertyInfo != null)
+			if (_propertyInfo != null)
 			{
-				return propertyInfo.PropertyType;
+				return _propertyInfo.PropertyType;
 			}
 
 			return null;
 		}
 	}
 
-	private void UpdateCanShowInEditor(object obj)
+	void UpdateCanShowInEditor(object obj)
 	{
-		if (fieldInfo != null && fieldInfo.DeclaringType == typeof(Component))
+		if (_fieldInfo != null && _fieldInfo.DeclaringType == typeof(Component))
 		{
-			canShowInEditor = false;
+			CanShowInEditor = false;
 		}
 
-		if (propertyInfo != null && propertyInfo?.DeclaringType == typeof(Component))
+		if (_propertyInfo != null && _propertyInfo?.DeclaringType == typeof(Component))
 		{
-			canShowInEditor = false;
+			CanShowInEditor = false;
 		}
 
 		for (int i = 0; i < CustomAttributes.Count(); i++)
 		{
 			if (CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(Show))
 			{
-				canShowInEditor = true;
+				CanShowInEditor = true;
 			}
 
 			if (CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(ShowIf))
@@ -100,13 +101,15 @@ public class FieldOrPropertyInfo
 				PropertyInfo property = obj.GetType().GetProperty(name);
 				if (field != null)
 				{
-					canShowInEditor = (bool)field.GetValue(obj);
+					CanShowInEditor = (bool) field.GetValue(obj);
 				}
+
 				if (property != null)
 				{
-					canShowInEditor = (bool)property.GetValue(obj);
+					CanShowInEditor = (bool) property.GetValue(obj);
 				}
 			}
+
 			if (CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(ShowIfNot))
 			{
 				string name = CustomAttributes.ElementAtOrDefault(i).ConstructorArguments[0].Value.ToString();
@@ -115,34 +118,42 @@ public class FieldOrPropertyInfo
 				PropertyInfo property = obj.GetType().GetProperty(name);
 				if (field != null)
 				{
-					canShowInEditor = (bool)field.GetValue(obj)==false;
+					CanShowInEditor = (bool) field.GetValue(obj) == false;
 				}
+
 				if (property != null)
 				{
-					canShowInEditor = (bool)property.GetValue(obj)==false;
+					CanShowInEditor = (bool) property.GetValue(obj) == false;
 				}
 			}
-		}
 
-		for (int i = 0; i < CustomAttributes.Count(); i++)
-		{
 			if (CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(Hide))
 			{
-				canShowInEditor = false;
+				CanShowInEditor = false;
+			}
+
+			if (Global.Debug)
+			{
+				if (CanShowInEditor == false)
+				{
+					IsReadonly = true;
+				}
+
+				CanShowInEditor = true;
 			}
 		}
 	}
 
 	public object? GetValue(object? obj)
 	{
-		if (fieldInfo != null)
+		if (_fieldInfo != null)
 		{
-			return fieldInfo.GetValue(obj);
+			return _fieldInfo.GetValue(obj);
 		}
 
-		if (propertyInfo != null)
+		if (_propertyInfo != null)
 		{
-			return propertyInfo.GetValue(obj);
+			return _propertyInfo.GetValue(obj);
 		}
 
 		return null;
@@ -150,16 +161,16 @@ public class FieldOrPropertyInfo
 
 	public void SetValue(object? obj, object? value)
 	{
-		if (fieldInfo != null)
+		if (_fieldInfo != null)
 		{
-			fieldInfo.SetValue(obj, value);
+			_fieldInfo.SetValue(obj, value);
 		}
 
-		if (propertyInfo != null)
+		if (_propertyInfo != null)
 		{
-			if (propertyInfo.GetSetMethod() != null)
+			if (_propertyInfo.GetSetMethod() != null)
 			{
-				propertyInfo.SetValue(obj, value);
+				_propertyInfo.SetValue(obj, value);
 			}
 		}
 	}

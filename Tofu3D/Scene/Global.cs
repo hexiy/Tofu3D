@@ -3,4 +3,24 @@
 	public static bool GameRunning = false;
 	public static bool EditorAttached = true;
 	public static int EditorScale = 2;
+	static bool _debug;
+	public static bool Debug
+	{
+		get { return _debug; }
+		set
+		{
+			_debug = value;
+			SaveData();
+		}
+	}
+
+	static void SaveData()
+	{
+		PersistentData.Set("Global.Debug", Debug);
+	}
+
+	public static void LoadSavedData()
+	{
+		_debug = PersistentData.GetBool("Global.Debug", false);
+	}
 }

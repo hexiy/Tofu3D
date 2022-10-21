@@ -9,8 +9,8 @@ public static class PhysicsController
 	public static bool Running = true;
 
 	public static World World;
-	private static Task PhysicsTask;
-	private static Stopwatch sw = new();
+	static Task _physicsTask;
+	static Stopwatch _sw = new();
 
 	public static void Init()
 	{
@@ -46,7 +46,7 @@ public static class PhysicsController
 	// 	}
 	// }
 
-	private static void Wait(double seconds)
+	static void Wait(double seconds)
 	{
 		if (seconds < 0)
 		{

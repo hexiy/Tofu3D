@@ -4,7 +4,7 @@ namespace Tofu3D.Components.Renderers;
 
 public class MaterialCache
 {
-	private static List<Material> loadedMaterials = new List<Material>();
+	static List<Material> _loadedMaterials = new();
 
 	public static Material GetMaterial(string name)
 	{
@@ -12,21 +12,22 @@ public class MaterialCache
 		{
 			name += ".mat";
 		}
-		for (int i = 0; i < loadedMaterials.Count; i++)
+
+		for (int i = 0; i < _loadedMaterials.Count; i++)
 		{
-			if (loadedMaterials[i].path.Contains(name))
+			if (_loadedMaterials[i].Path.Contains(name))
 			{
-				return loadedMaterials[i];
+				return _loadedMaterials[i];
 			}
 		}
 
-		loadedMaterials.Add(MaterialAssetManager.LoadMaterial(Path.Combine(Folders.Materials, name)));
+		_loadedMaterials.Add(MaterialAssetManager.LoadMaterial(Path.Combine(Folders.Materials, name)));
 
-		for (int i = 0; i < loadedMaterials.Count; i++)
+		for (int i = 0; i < _loadedMaterials.Count; i++)
 		{
-			if (loadedMaterials[i].path.Contains(name))
+			if (_loadedMaterials[i].Path.Contains(name))
 			{
-				return loadedMaterials[i];
+				return _loadedMaterials[i];
 			}
 		}
 

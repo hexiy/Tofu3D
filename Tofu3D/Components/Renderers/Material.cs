@@ -3,23 +3,23 @@ namespace Scripts;
 [Serializable]
 public class Material
 {
-	public bool additive = false;
-	public string path;
-	public Shader shader;
+	public bool Additive = false;
+	public string Path;
+	public Shader Shader;
 
-	public int vao;
-	public int vbo;
+	public int Vao;
+	public int Vbo;
 
-	public void SetShader(Shader _shader)
+	public void SetShader(Shader shader)
 	{
-		shader = _shader;
+		Shader = shader;
 
-		shader.Load();
+		Shader.Load();
 		BuffersGenerator.CreateBufferForShader(this);
 	}
 
 	public void InitShader()
 	{
-		SetShader(shader);
+		SetShader(Shader);
 	}
 }

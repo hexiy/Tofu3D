@@ -27,17 +27,20 @@ public struct Vector3 : IEquatable<Vector3>
 	/// <summary>
 	///         The x coordinate of this <see cref="Vector3" />.
 	/// </summary>
-	[DataMember] public float X;
+	[DataMember]
+	public float X;
 
 	/// <summary>
 	///         The y coordinate of this <see cref="Vector3" />.
 	/// </summary>
-	[DataMember] public float Y;
+	[DataMember]
+	public float Y;
 
 	/// <summary>
 	///         The z coordinate of this <see cref="Vector3" />.
 	/// </summary>
-	[DataMember] public float Z;
+	[DataMember]
+	public float Z;
 
 	#endregion
 
@@ -988,7 +991,7 @@ public struct Vector3 : IEquatable<Vector3>
 	/// <returns>A <see cref="String" /> representation of this <see cref="Vector3" />.</returns>
 	public override string ToString()
 	{
-		StringBuilder sb = new StringBuilder(32);
+		StringBuilder sb = new(32);
 		sb.Append("[");
 		sb.Append(X.ToString("F1"));
 		sb.Append(" | ");

@@ -4,8 +4,10 @@ namespace Tofu3D;
 
 public class GradientRenderer : Renderer
 {
-	[Show] public Color gradientColorA;
-	[Show] public Color gradientColorB;
+	[Show]
+	public Color GradientColorA;
+	[Show]
+	public Color GradientColorB;
 
 	public override void Awake()
 	{
@@ -16,9 +18,9 @@ public class GradientRenderer : Renderer
 
 	public override void CreateMaterial()
 	{
-		if (material == null)
+		if (Material == null)
 		{
-			material = MaterialCache.GetMaterial("GradientMaterial");
+			Material = MaterialCache.GetMaterial("GradientMaterial");
 		}
 
 		base.CreateMaterial();
@@ -26,27 +28,27 @@ public class GradientRenderer : Renderer
 
 	public override void Render()
 	{
-		if (boxShape == null || material == null)
+		if (BoxShape == null || Material == null)
 		{
 			return;
 		}
 
-		ShaderCache.UseShader(material.shader);
+		ShaderCache.UseShader(Material.Shader);
 
 
-		material.shader.SetVector4("u_color_a", gradientColorA.ToVector4());
-		material.shader.SetVector4("u_color_b", gradientColorB.ToVector4());
+		Material.Shader.SetVector4("u_color_a", GradientColorA.ToVector4());
+		Material.Shader.SetVector4("u_color_b", GradientColorB.ToVector4());
 
-		material.shader.SetVector2("u_resolution", Vector2.One);
-		material.shader.SetMatrix4x4("u_mvp", LatestModelViewProjection);
-		material.shader.SetColor("u_color", color.ToVector4());
-		material.shader.SetVector4("u_tint", (Vector4) material.shader.uniforms["u_tint"]);
-		if (material.shader.uniforms.ContainsKey("time"))
+		Material.Shader.SetVector2("u_resolution", Vector2.One);
+		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+		Material.Shader.SetColor("u_color", Color.ToVector4());
+		Material.Shader.SetVector4("u_tint", (Vector4) Material.Shader.Uniforms["u_tint"]);
+		if (Material.Shader.Uniforms.ContainsKey("time"))
 		{
-			material.shader.SetFloat("time", (float) material.shader.uniforms["time"]);
+			Material.Shader.SetFloat("time", (float) Material.Shader.Uniforms["time"]);
 		}
 
-		ShaderCache.BindVAO(material.vao);
+		ShaderCache.BindVao(Material.Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 

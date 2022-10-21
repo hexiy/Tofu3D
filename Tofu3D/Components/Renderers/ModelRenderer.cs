@@ -2,19 +2,19 @@ using Tofu3D.Components.Renderers;
 
 public class ModelRenderer : TextureRenderer
 {
-	public Model model;
+	public Model Model;
 
 	public override void Awake()
 	{
 		CreateMaterial();
 
-		if (texture == null)
+		if (Texture == null)
 		{
-			texture = new Texture();
+			Texture = new Texture();
 		}
 		else
 		{
-			LoadTexture(texture.path);
+			LoadTexture(Texture.Path);
 		}
 
 		base.Awake();
@@ -22,9 +22,9 @@ public class ModelRenderer : TextureRenderer
 
 	public override void CreateMaterial()
 	{
-		if (material == null)
+		if (Material == null)
 		{
-			material = MaterialCache.GetMaterial("ModelRenderer");
+			Material = MaterialCache.GetMaterial("ModelRenderer");
 		}
 
 		base.CreateMaterial();
@@ -38,36 +38,36 @@ public class ModelRenderer : TextureRenderer
 
 	public override void Render()
 	{
-		if (onScreen == false)
+		if (OnScreen == false)
 		{
 			return;
 		}
 
-		if (boxShape == null)
+		if (BoxShape == null)
 		{
 			return;
 		}
 
-		if (texture.loaded == false)
+		if (Texture.Loaded == false)
 		{
 			return;
 		}
 
-		bool drawOutline = gameObject.selected;
+		bool drawOutline = GameObject.Selected;
 		if (drawOutline)
 		{
 			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
 			GL.StencilMask(0xFF);
 
 			{
-				ShaderCache.UseShader(material.shader);
-				material.shader.SetMatrix4x4("u_mvp", GetMVPForOutline());
-				material.shader.SetColor("u_rendererColor", Color.White.ToVector4());
+				ShaderCache.UseShader(Material.Shader);
+				Material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
+				Material.Shader.SetColor("u_rendererColor", Color.White.ToVector4());
 
-				ShaderCache.BindVAO(material.vao);
+				ShaderCache.BindVao(Material.Vao);
 
 				//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-				TextureCache.BindTexture(texture.id);
+				TextureCache.BindTexture(Texture.Id);
 
 				GL.DrawElements(PrimitiveType.Triangles, 6 * 2 * 3, DrawElementsType.UnsignedInt, (IntPtr) null);
 			}
@@ -79,11 +79,11 @@ public class ModelRenderer : TextureRenderer
 
 
 		{
-			ShaderCache.UseShader(material.shader);
-			material.shader.SetMatrix4x4("u_mvp", LatestModelViewProjection);
-			material.shader.SetColor("u_rendererColor", color);
+			ShaderCache.UseShader(Material.Shader);
+			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+			Material.Shader.SetColor("u_rendererColor", Color);
 			//material.shader.SetMatrix4x4("u_model", GetModelMatrix());
-			if (material.additive)
+			if (Material.Additive)
 			{
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusConstantColor);
 			}
@@ -92,10 +92,10 @@ public class ModelRenderer : TextureRenderer
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
 
-			ShaderCache.BindVAO(material.vao);
+			ShaderCache.BindVao(Material.Vao);
 
 			//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-			TextureCache.BindTexture(texture.id);
+			TextureCache.BindTexture(Texture.Id);
 
 			GL.DrawElements(PrimitiveType.Triangles, 6 * 2 * 3, DrawElementsType.UnsignedInt, (IntPtr) null);
 		}

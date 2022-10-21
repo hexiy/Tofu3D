@@ -2,26 +2,26 @@ using Tofu3D.Tweening;
 
 namespace Tofu3D.Components;
 
-public class UIController : Component
+public class UiController : Component
 {
+	public GameObject Bg;
 	[Show]
-	public GameObject playBtn;
-	public GameObject bg;
+	public GameObject PlayBtn;
 
 	public override void Start()
 	{
-		playBtn.GetComponent<Button>().onReleasedAction += PlayClicked;
+		PlayBtn.GetComponent<Button>().OnReleasedAction += PlayClicked;
 		base.Start();
 	}
 
-	private void PlayClicked()
+	void PlayClicked()
 	{
-		Tweener.Tween(1, 0, 0.7f, (f) =>
+		Tweener.Tween(1, 0, 0.7f, f =>
 		{
 			Debug.Log($"Tweening alpha progress:{f}");
 
-			playBtn.GetComponent<Renderer>().color = playBtn.GetComponent<Renderer>().color.SetA(f);
-			bg.GetComponent<Renderer>().color = bg.GetComponent<Renderer>().color.SetA(f);
+			PlayBtn.GetComponent<Renderer>().Color = PlayBtn.GetComponent<Renderer>().Color.SetA(f);
+			Bg.GetComponent<Renderer>().Color = Bg.GetComponent<Renderer>().Color.SetA(f);
 		});
 		//playBtn.GetComponent<Renderer>();
 	}

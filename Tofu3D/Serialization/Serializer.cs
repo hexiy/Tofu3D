@@ -5,40 +5,40 @@ namespace Tofu3D;
 
 public class Serializer
 {
-	private List<Type> SerializableTypes = new();
+	List<Type> _serializableTypes = new();
 
 	public Serializer()
 	{
 		I = this;
 	}
 
-	public static string lastScene
+	public static string LastScene
 	{
 		get { return PersistentData.GetString("lastOpenedScene", "Assets/scene1.scene"); }
 		set { PersistentData.Set("lastOpenedScene", value); }
 	}
 	public static Serializer I { get; set; }
 
-	private void UpdateSerializableTypes()
+	void UpdateSerializableTypes()
 	{
-		SerializableTypes = new List<Type>();
+		_serializableTypes = new List<Type>();
 
-		SerializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
+		_serializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
 		                                             .Where(type => type.IsSubclassOf(typeof(Component))));
 
 		// delegates
 		//SerializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
 		//                                             .Where(type => { return type.GetCustomAttribute<SerializableType>() != null; }));
 
-		SerializableTypes.AddRange(typeof(Component).Assembly.GetTypes()
+		_serializableTypes.AddRange(typeof(Component).Assembly.GetTypes()
 		                                            .Where(type => type.IsSubclassOf(typeof(Component)) || type.IsSubclassOf(typeof(GameObject)))
 		                                            .ToList());
 	}
 
 	public void SaveGameObject(GameObject go, string prefabPath)
 	{
-		go.isPrefab = true;
-		go.prefabPath = prefabPath;
+		go.IsPrefab = true;
+		go.PrefabPath = prefabPath;
 		SceneFile prefabSceneFile = SceneFile.CreateForOneGameObject(go);
 
 		SaveGameObjects(prefabSceneFile, prefabPath);
@@ -50,6 +50,7 @@ public class Serializer
 		{
 			Directory.CreateDirectory("Temp");
 		}
+
 		SceneFile prefabSceneFile = SceneFile.CreateForOneGameObject(go);
 
 		SaveGameObjects(prefabSceneFile, Path.Combine("Temp", "clipboardGameObject"));
@@ -62,11 +63,11 @@ public class Serializer
 
 	public GameObject LoadPrefab(string prefabPath, bool inBackground = false)
 	{
-		using (StreamReader sr = new StreamReader(prefabPath))
+		using (StreamReader sr = new(prefabPath))
 		{
 			UpdateSerializableTypes();
 
-			XmlSerializer xmlSerializer = new XmlSerializer(typeof(SceneFile), SerializableTypes.ToArray());
+			XmlSerializer xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
 
 			SceneFile sceneFile = (SceneFile) xmlSerializer.Deserialize(sr);
 
@@ -74,10 +75,14 @@ public class Serializer
 
 			ConnectParentsAndChildren(sceneFile, true);
 
-			GameObject mainGo = new GameObject();
+			GameObject mainGo = new();
 			for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 			{
-				for (int j = 0; j < sceneFile.GameObjects[i].components.Count; j++) sceneFile.GameObjects[i].components[j].gameObjectID = sceneFile.GameObjects[i].id;
+				for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
+				{
+					sceneFile.GameObjects[i].Components[j].GameObjectId = sceneFile.GameObjects[i].Id;
+				}
+
 				GameObject go = sceneFile.GameObjects[i];
 
 				if (i == 0)
@@ -98,23 +103,29 @@ public class Serializer
 
 	public void SaveGameObjects(SceneFile sceneFile, string scenePath)
 	{
-		using (StreamWriter sw = new StreamWriter(scenePath))
+		using (StreamWriter sw = new(scenePath))
 		{
 			for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 			{
-				sceneFile.GameObjects[i].awoken = false;
-				for (int j = 0; j < sceneFile.GameObjects[i].components.Count; j++) sceneFile.GameObjects[i].components[j].awoken = false;
+				sceneFile.GameObjects[i].Awoken = false;
+				for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
+				{
+					sceneFile.GameObjects[i].Components[j].Awoken = false;
+				}
 			}
 
 			UpdateSerializableTypes();
 
-			XmlSerializer xmlSerializer = new XmlSerializer(typeof(SceneFile), SerializableTypes.ToArray());
+			XmlSerializer xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
 			xmlSerializer.Serialize(sw, sceneFile);
 
 			for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 			{
-				sceneFile.GameObjects[i].awoken = true;
-				for (int j = 0; j < sceneFile.GameObjects[i].components.Count; j++) sceneFile.GameObjects[i].components[j].awoken = true;
+				sceneFile.GameObjects[i].Awoken = true;
+				for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
+				{
+					sceneFile.GameObjects[i].Components[j].Awoken = true;
+				}
 			}
 		}
 	}
@@ -122,7 +133,7 @@ public class Serializer
 	public SceneFile LoadGameObjects(string scenePath)
 	{
 		string xml = "";
-		using (StreamReader sr = new StreamReader(scenePath))
+		using (StreamReader sr = new(scenePath))
 		{
 			UpdateSerializableTypes();
 
@@ -138,9 +149,9 @@ public class Serializer
 				string name = node.Substring(node.IndexOf("=") + 2);
 
 				bool foundCorrespondingType = false;
-				for (int i = 0; i < SerializableTypes.Count; i++)
+				for (int i = 0; i < _serializableTypes.Count; i++)
 				{
-					string typeName = SerializableTypes[i].Name;
+					string typeName = _serializableTypes[i].Name;
 					if (typeName == name)
 					{
 						foundCorrespondingType = true;
@@ -163,14 +174,14 @@ public class Serializer
 			}
 		}
 
-		using (StreamWriter sw = new StreamWriter(scenePath))
+		using (StreamWriter sw = new(scenePath))
 		{
 			sw.Write(xml);
 		}
 
-		using (StreamReader sr = new StreamReader(scenePath))
+		using (StreamReader sr = new(scenePath))
 		{
-			XmlSerializer xmlSerializer = new XmlSerializer(typeof(SceneFile), SerializableTypes.ToArray());
+			XmlSerializer xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
 
 			SceneFile a = (SceneFile) xmlSerializer.Deserialize(sr);
 
@@ -184,57 +195,71 @@ public class Serializer
 		Component[] comps = sf.Components.ToArray();
 
 		int[] goIndexes = new int[gos.Length];
-		for (int i = 0; i < goIndexes.Length; i++) goIndexes[i] = -1;
+		for (int i = 0; i < goIndexes.Length; i++)
+		{
+			goIndexes[i] = -1;
+		}
 
 		int[] ogIDs = new int[gos.Length];
-		for (int i = 0; i < ogIDs.Length; i++) ogIDs[i] = gos[i].id;
+		for (int i = 0; i < ogIDs.Length; i++)
+		{
+			ogIDs[i] = gos[i].Id;
+		}
+
 		for (int compIndex = 0; compIndex < comps.Length; compIndex++)
+		{
 			if (comps[compIndex].GetType() == typeof(Transform))
 			{
 				Transform tr = comps[compIndex] as Transform;
 				for (int goIndex = 0; goIndex < gos.Length; goIndex++)
-					if (tr.parentID == ogIDs[goIndex]) // found child/parent pair
+				{
+					if (tr.ParentId == ogIDs[goIndex]) // found child/parent pair
 					{
 						if (newIDs)
 						{
 							// we change ID of a parent, but if theres multiple children, we change it again? that dont work
 							if (goIndexes[goIndex] == -1)
 							{
-								gos[goIndex].id = IDsManager.gameObjectNextID;
-								IDsManager.gameObjectNextID++;
+								gos[goIndex].Id = DsManager.GameObjectNextId;
+								DsManager.GameObjectNextId++;
 
-								goIndexes[goIndex] = gos[goIndex].id;
+								goIndexes[goIndex] = gos[goIndex].Id;
 							}
 							else
 							{
-								gos[goIndex].id = goIndexes[goIndex];
+								gos[goIndex].Id = goIndexes[goIndex];
 							}
 
-							comps[compIndex].gameObject.id = IDsManager.gameObjectNextID;
-							IDsManager.gameObjectNextID++;
+							comps[compIndex].GameObject.Id = DsManager.GameObjectNextId;
+							DsManager.GameObjectNextId++;
 						}
 
-						(comps[compIndex] as Transform).SetParent(gos[goIndex].transform, false);
-						(comps[compIndex] as Transform).parentID = gos[goIndex].id;
+						(comps[compIndex] as Transform).SetParent(gos[goIndex].Transform);
+						(comps[compIndex] as Transform).ParentId = gos[goIndex].Id;
 					}
+				}
 			}
+		}
 
 		for (int goIndex = 0; goIndex < gos.Length; goIndex++)
 		{
-			if (gos[goIndex].components.Count == 0)
+			if (gos[goIndex].Components.Count == 0)
 			{
 				continue;
 			}
 
-			if (goIndex == gos.Length - 1 && gos[goIndex].transform.children.Count == 0)
+			if (goIndex == gos.Length - 1 && gos[goIndex].Transform.Children.Count == 0)
 			{
 				if (newIDs)
 				{
-					gos[goIndex].id = IDsManager.gameObjectNextID;
-					IDsManager.gameObjectNextID++;
+					gos[goIndex].Id = DsManager.GameObjectNextId;
+					DsManager.GameObjectNextId++;
 				}
 
-				for (int i = 0; i < gos[goIndex].transform.children.Count; i++) gos[goIndex].transform.children[i].parentID = gos[goIndex].id;
+				for (int i = 0; i < gos[goIndex].Transform.Children.Count; i++)
+				{
+					gos[goIndex].Transform.Children[i].ParentId = gos[goIndex].Id;
+				}
 			}
 		}
 
@@ -250,18 +275,22 @@ public class Serializer
 		for (int i = 0; i < gos.Length; i++)
 		{
 			for (int j = 0; j < comps.Length; j++)
-				if (comps[j].gameObjectID == gos[i].id && comps[j].GetType() == typeof(Transform)) // add transforms first
+			{
+				if (comps[j].GameObjectId == gos[i].Id && comps[j].GetType() == typeof(Transform)) // add transforms first
 				{
 					gos[i].AddExistingComponent(comps[j]);
 					gos[i].LinkComponents(gos[i], comps[j]);
 				}
+			}
 
 			for (int j = 0; j < comps.Length; j++)
-				if (comps[j].gameObjectID == gos[i].id && comps[j].GetType() != typeof(Transform))
+			{
+				if (comps[j].GameObjectId == gos[i].Id && comps[j].GetType() != typeof(Transform))
 				{
 					gos[i].AddExistingComponent(comps[j]);
 					gos[i].LinkComponents(gos[i], comps[j]);
 				}
+			}
 		}
 
 		sf.GameObjects = gos.ToList();

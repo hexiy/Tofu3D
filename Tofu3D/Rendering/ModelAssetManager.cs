@@ -6,11 +6,11 @@ public static class ModelAssetManager
 {
 	public static Model LoadModel(string modelPath)
 	{
-		using (StreamReader sr = new StreamReader(modelPath))
+		using (StreamReader sr = new(modelPath))
 		{
-			XmlSerializer xmlSerializer = new XmlSerializer(typeof(Model));
+			XmlSerializer xmlSerializer = new(typeof(Model));
 			Model model = (Model) xmlSerializer.Deserialize(sr);
-			model.path = modelPath;
+			model.Path = modelPath;
 			/*if (mat.shader != null)
 			{
 				mat.SetShader(mat.shader);
@@ -22,9 +22,9 @@ public static class ModelAssetManager
 
 	public static void SaveModel(Model model)
 	{
-		using (StreamWriter sw = new StreamWriter(model.path))
+		using (StreamWriter sw = new(model.Path))
 		{
-			XmlSerializer xmlSerializer = new XmlSerializer(typeof(Model));
+			XmlSerializer xmlSerializer = new(typeof(Model));
 
 			xmlSerializer.Serialize(sw, model);
 		}

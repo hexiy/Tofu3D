@@ -1,6 +1,6 @@
 namespace Tofu3D;
 
-public struct DrawVert_Box
+public struct DrawVertBox
 {
-	public Vector2 pos;
+	public Vector2 Pos;
 }

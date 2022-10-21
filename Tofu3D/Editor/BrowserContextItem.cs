@@ -5,44 +5,44 @@ namespace Tofu3D;
 
 public class BrowserContextItem
 {
-	private Action<string> confirmAction;
-	private string defaultFileName;
-	private string fileExtension;
-	private string itemName;
-	public bool showPopup;
+	Action<string> _confirmAction;
+	string _defaultFileName;
+	string _fileExtension;
+	string _itemName;
+	public bool ShowPopup;
 
 	public BrowserContextItem(string itemName, string defaultFileName, string fileExtension, Action<string> confirmAction)
 	{
-		this.itemName = itemName;
-		this.defaultFileName = defaultFileName;
-		this.fileExtension = fileExtension;
-		this.confirmAction = confirmAction;
+		this._itemName = itemName;
+		this._defaultFileName = defaultFileName;
+		this._fileExtension = fileExtension;
+		this._confirmAction = confirmAction;
 	}
 
 	public void ShowContextItem()
 	{
-		if (ImGui.Button(itemName))
+		if (ImGui.Button(_itemName))
 		{
-			showPopup = true;
+			ShowPopup = true;
 			ImGui.CloseCurrentPopup();
 		}
 	}
 
 	public void ShowPopupIfOpen()
 	{
-		if (showPopup)
+		if (ShowPopup)
 		{
-			ImGui.OpenPopup(itemName);
+			ImGui.OpenPopup(_itemName);
 
-			if (ImGui.BeginPopupContextWindow(itemName))
+			if (ImGui.BeginPopupContextWindow(_itemName))
 			{
-				ImGui.InputText("", ref defaultFileName, 100);
+				ImGui.InputText("", ref _defaultFileName, 100);
 				if (ImGui.Button("Save"))
 				{
-					string filePath = Path.Combine(EditorPanelBrowser.I.currentDirectory.FullName, defaultFileName + fileExtension);
-					confirmAction.Invoke(filePath);
+					string filePath = Path.Combine(EditorPanelBrowser.I.CurrentDirectory.FullName, _defaultFileName + _fileExtension);
+					_confirmAction.Invoke(filePath);
 
-					showPopup = false;
+					ShowPopup = false;
 					ImGui.CloseCurrentPopup();
 				}
 
@@ -50,7 +50,7 @@ public class BrowserContextItem
 
 				if (ImGui.Button("Cancel"))
 				{
-					showPopup = false;
+					ShowPopup = false;
 					ImGui.CloseCurrentPopup();
 				}
 
@@ -58,7 +58,7 @@ public class BrowserContextItem
 			}
 			else
 			{
-				showPopup = false;
+				ShowPopup = false;
 			}
 		}
 	}

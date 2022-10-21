@@ -11,9 +11,9 @@ public static class MaterialAssetManager
 
 			Shader boxShader = new(Path.Combine(Folders.Shaders, "BoxRenderer.glsl"));
 			boxMaterial.SetShader(boxShader);
-			using (StreamWriter sw = new StreamWriter(Path.Combine(Folders.Materials, "BoxMaterial.mat")))
+			using (StreamWriter sw = new(Path.Combine(Folders.Materials, "BoxMaterial.mat")))
 			{
-				XmlSerializer xmlSerializer = new XmlSerializer(typeof(Material));
+				XmlSerializer xmlSerializer = new(typeof(Material));
 
 				xmlSerializer.Serialize(sw, boxMaterial);
 			}
@@ -23,9 +23,9 @@ public static class MaterialAssetManager
 
 			Shader renderTextureShader = new(Path.Combine(Folders.Shaders, "RenderTexture.glsl"));
 			renderTextureMaterial.SetShader(renderTextureShader);
-			using (StreamWriter sw = new StreamWriter(Path.Combine(Folders.Materials, "RenderTexture.mat")))
+			using (StreamWriter sw = new(Path.Combine(Folders.Materials, "RenderTexture.mat")))
 			{
-				XmlSerializer xmlSerializer = new XmlSerializer(typeof(Material));
+				XmlSerializer xmlSerializer = new(typeof(Material));
 
 				xmlSerializer.Serialize(sw, renderTextureMaterial);
 			}
@@ -35,9 +35,9 @@ public static class MaterialAssetManager
 
 			Shader renderTextureShader = new(Path.Combine(Folders.Shaders, "SpriteRenderer.glsl"));
 			renderTextureMaterial.SetShader(renderTextureShader);
-			using (StreamWriter sw = new StreamWriter(Path.Combine(Folders.Materials, "SpriteRenderer.mat")))
+			using (StreamWriter sw = new(Path.Combine(Folders.Materials, "SpriteRenderer.mat")))
 			{
-				XmlSerializer xmlSerializer = new XmlSerializer(typeof(Material));
+				XmlSerializer xmlSerializer = new(typeof(Material));
 
 				xmlSerializer.Serialize(sw, renderTextureMaterial);
 			}
@@ -46,14 +46,14 @@ public static class MaterialAssetManager
 
 	public static Material LoadMaterial(string materialPath)
 	{
-		using (StreamReader sr = new StreamReader(materialPath))
+		using (StreamReader sr = new(materialPath))
 		{
-			XmlSerializer xmlSerializer = new XmlSerializer(typeof(Material));
+			XmlSerializer xmlSerializer = new(typeof(Material));
 			Material mat = (Material) xmlSerializer.Deserialize(sr);
-			mat.path = materialPath;
-			if (mat.shader != null)
+			mat.Path = materialPath;
+			if (mat.Shader != null)
 			{
-				mat.SetShader(mat.shader);
+				mat.SetShader(mat.Shader);
 			}
 
 			return mat;
@@ -62,9 +62,9 @@ public static class MaterialAssetManager
 
 	public static void SaveMaterial(Material material)
 	{
-		using (StreamWriter sw = new StreamWriter(material.path))
+		using (StreamWriter sw = new(material.Path))
 		{
-			XmlSerializer xmlSerializer = new XmlSerializer(typeof(Material));
+			XmlSerializer xmlSerializer = new(typeof(Material));
 
 			xmlSerializer.Serialize(sw, material);
 		}

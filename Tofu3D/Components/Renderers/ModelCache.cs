@@ -4,7 +4,7 @@ namespace Tofu3D.Components.Renderers;
 
 public class ModelCache
 {
-	private static List<Model> loadedModels = new List<Model>();
+	static List<Model> _loadedModels = new();
 
 	public static Model GetModel(string name)
 	{
@@ -13,21 +13,21 @@ public class ModelCache
 			name += ".model";
 		}
 
-		for (int i = 0; i < loadedModels.Count; i++)
+		for (int i = 0; i < _loadedModels.Count; i++)
 		{
-			if (loadedModels[i].path.Contains(name))
+			if (_loadedModels[i].Path.Contains(name))
 			{
-				return loadedModels[i];
+				return _loadedModels[i];
 			}
 		}
 
-		loadedModels.Add(ModelAssetManager.LoadModel(Path.Combine(Folders.Models, name)));
+		_loadedModels.Add(ModelAssetManager.LoadModel(Path.Combine(Folders.Models, name)));
 
-		for (int i = 0; i < loadedModels.Count; i++)
+		for (int i = 0; i < _loadedModels.Count; i++)
 		{
-			if (loadedModels[i].path.Contains(name))
+			if (_loadedModels[i].Path.Contains(name))
 			{
-				return loadedModels[i];
+				return _loadedModels[i];
 			}
 		}
 

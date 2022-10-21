@@ -1088,7 +1088,7 @@ public struct Vector2 : IEquatable<Vector2>
 	/// <returns>A <see cref="String" /> representation of this <see cref="Vector2" />.</returns>
 	public override string ToString()
 	{
-		StringBuilder sb = new StringBuilder(32);
+		StringBuilder sb = new(32);
 		sb.Append("[");
 		sb.Append(X.ToString("F1"));
 		sb.Append(" | ");
@@ -1155,13 +1155,13 @@ public struct Vector2 : IEquatable<Vector2>
 	/// <param name="result">Transformed <see cref="Vector2" /> as an output parameter.</param>
 	public static void Transform(ref Vector2 value, ref Quaternion rotation, out Vector2 result)
 	{
-		Vector3 rot1 = new Vector3(rotation.X + rotation.X, rotation.Y + rotation.Y, rotation.Z + rotation.Z);
-		Vector3 rot2 = new Vector3(rotation.X, rotation.X, rotation.W);
-		Vector3 rot3 = new Vector3(1, rotation.Y, rotation.Z);
+		Vector3 rot1 = new(rotation.X + rotation.X, rotation.Y + rotation.Y, rotation.Z + rotation.Z);
+		Vector3 rot2 = new(rotation.X, rotation.X, rotation.W);
+		Vector3 rot3 = new(1, rotation.Y, rotation.Z);
 		Vector3 rot4 = rot1 * rot2;
 		Vector3 rot5 = rot1 * rot3;
 
-		Vector2 v = new Vector2();
+		Vector2 v = new();
 		v.X = (float) (value.X * (1.0 - rot5.Y - rot5.Z) + value.Y * (rot4.Y - (double) rot4.Z));
 		v.Y = (float) (value.X * (rot4.Y + (double) rot4.Z) + value.Y * (1.0 - rot4.X - rot5.Z));
 		result.X = v.X;

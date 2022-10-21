@@ -1,10 +1,10 @@
 public class Flame : Component
 {
-	public Rigidbody rb;
+	public Rigidbody Rb;
 
 	public override void Awake()
 	{
-		rb = GetComponent<Rigidbody>();
+		Rb = GetComponent<Rigidbody>();
 		base.Awake();
 	}
 }

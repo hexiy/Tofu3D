@@ -4,14 +4,22 @@ using Point = System.Drawing.Point;
 
 public static class Extensions
 {
-	public static List<int> AllIndexesOf(this string str, string value) {
-		if (String.IsNullOrEmpty(value))
+	public static List<int> AllIndexesOf(this string str, string value)
+	{
+		if (string.IsNullOrEmpty(value))
+		{
 			throw new ArgumentException("the string to find may not be empty", "value");
-		List<int> indexes = new List<int>();
-		for (int index = 0;; index += value.Length) {
+		}
+
+		List<int> indexes = new();
+		for (int index = 0;; index += value.Length)
+		{
 			index = str.IndexOf(value, index);
 			if (index == -1)
+			{
 				return indexes;
+			}
+
 			indexes.Add(index);
 		}
 	}
@@ -20,10 +28,12 @@ public static class Extensions
 	{
 		return Mathf.Lerp(a, b, t);
 	}
+
 	public static Color SetA(ref this Color col, float a)
 	{
 		return new Color(col.R, col.G, col.B, a);
 	}
+
 	public static Vector2 Set(ref this Vector2 vec, Vector2 vec2)
 	{
 		return vec.Set(vec2.X, vec2.Y);
@@ -169,7 +179,7 @@ public static class Extensions
 
 	public static Vector3 Normalized(this Vector3 vec)
 	{
-		Vector3 v = new Vector3(vec.X / vec.Length(), vec.Y / vec.Length(), vec.Z / vec.Length());
+		Vector3 v = new(vec.X / vec.Length(), vec.Y / vec.Length(), vec.Z / vec.Length());
 		if (vec.Length() == 0)
 		{
 			v = Vector3.Zero;
@@ -180,7 +190,7 @@ public static class Extensions
 
 	public static Vector2 Normalized(this Vector2 vec)
 	{
-		Vector2 v = new Vector2(vec.X / vec.Length(), vec.Y / vec.Length());
+		Vector2 v = new(vec.X / vec.Length(), vec.Y / vec.Length());
 		if (vec.Length() == 0)
 		{
 			v = Vector2.Zero;
@@ -191,7 +201,7 @@ public static class Extensions
 
 	public static Vector3 Abs(this Vector3 vec)
 	{
-		Vector3 v = new Vector3(Math.Abs(vec.X), Math.Abs(vec.Y), Math.Abs(vec.Z));
+		Vector3 v = new(Math.Abs(vec.X), Math.Abs(vec.Y), Math.Abs(vec.Z));
 		return v;
 	}
 
@@ -205,7 +215,7 @@ public static class Extensions
 		return new Color(color.R, color.G, color.B, color.A);
 	}
 
-	public static Color ColorFromHSVToXna(double hue, double saturation, double value)
+	public static Color ColorFromHsvToXna(double hue, double saturation, double value)
 	{
 		int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
 		double f = hue / 60 - Math.Floor(hue / 60);
@@ -244,7 +254,7 @@ public static class Extensions
 		return new Color(v, p, q, 255);
 	}
 
-	public static Color ColorFromHSV(double hue, double saturation, double value)
+	public static Color ColorFromHsv(double hue, double saturation, double value)
 	{
 		int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
 		double f = hue / 60 - Math.Floor(hue / 60);

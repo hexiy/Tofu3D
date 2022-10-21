@@ -2,5 +2,5 @@
 
 public class CircleShape : Shape
 {
-	public float radius;
+	public float Radius;
 }

@@ -2,6 +2,6 @@
 
 public class ShaderUniform
 {
-	public Type type;
-	public string name;
+	public string Name;
+	public Type Type;
 }

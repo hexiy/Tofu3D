@@ -1,4 +1,5 @@
-public class Canvas : Component
+[ExecuteInEditMode]
+public class ShowcaseVideoSettings : Component
 {
 	public override void Awake()
 	{
@@ -7,6 +8,7 @@ public class Canvas : Component
 
 	public override void Start()
 	{
+		Camera.I.OrthographicSize = 1.6f;
 		base.Start();
 	}
 

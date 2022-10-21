@@ -53,3 +53,4 @@ public class ParticleSystemRenderer : SpriteRenderer
 		Debug.Stat("Particles", particleSystem.particles.Count);
 	}
 }*/
+

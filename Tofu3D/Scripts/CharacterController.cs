@@ -2,22 +2,22 @@
 
 public class CharacterController : Component
 {
-	public float jumpForce = 10000;
-	private bool jumpKeyDown;
-	public float moveSpeed = 10;
+	public float JumpForce = 10000;
+	bool _jumpKeyDown;
+	public float MoveSpeed = 10;
 
 	// LINKABLECOMPONENT PURGE [LinkableComponent]
-	private Rigidbody rb;
+	Rigidbody _rb;
 
 	public override void Awake()
 	{
-		rb = GetComponent<Rigidbody>();
+		_rb = GetComponent<Rigidbody>();
 		base.Awake();
 	}
 
 	public override void FixedUpdate()
 	{
-		if (rb == null)
+		if (_rb == null)
 		{
 			return;
 		}
@@ -25,20 +25,20 @@ public class CharacterController : Component
 		Vector2 input = Vector2.Zero;
 		if (KeyboardInput.IsKeyDown(Keys.A))
 		{
-			input.X = -moveSpeed;
+			input.X = -MoveSpeed;
 		}
 
 		if (KeyboardInput.IsKeyDown(Keys.D))
 		{
-			input.X = moveSpeed;
+			input.X = MoveSpeed;
 		}
 
-		if (jumpKeyDown == false && KeyboardInput.IsKeyDown(Keys.W))
+		if (_jumpKeyDown == false && KeyboardInput.IsKeyDown(Keys.W))
 		{
 			//rb.body.ApplyForce(new Vector2(0, -JumpForce));
 		}
 
-		jumpKeyDown = KeyboardInput.IsKeyDown(Keys.W);
+		_jumpKeyDown = KeyboardInput.IsKeyDown(Keys.W);
 		//rb.body.ApplyForce(new Vector2(input.X, 0));
 		base.Update();
 	}

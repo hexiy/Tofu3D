@@ -1,22 +1,17 @@
-namespace Tofu3D;
-
 using System.IO;
 using System.Reflection;
 
+namespace Tofu3D;
+
 public static class AssemblyManager
 {
-
-	static AssemblyManager()
-	{
-	}
-
 	public static void CompileScriptsAssembly(string path)
 	{
 		string currentAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
-		using (FileStream fs = new FileStream(currentAssemblyPath, FileMode.Open))
+		using (FileStream fs = new(currentAssemblyPath, FileMode.Open))
 		{
-			using (FileStream newAssemblyFileStream = new FileStream(path, FileMode.Create))
+			using (FileStream newAssemblyFileStream = new(path, FileMode.Create))
 			{
 				fs.CopyTo(newAssemblyFileStream);
 			}

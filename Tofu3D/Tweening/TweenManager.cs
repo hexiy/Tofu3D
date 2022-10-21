@@ -2,69 +2,68 @@ namespace Tofu3D.Tweening;
 
 public class TweenManager
 {
-	public static TweenManager I { get; private set; }
-	public List<Tween> activeTweens = new List<Tween>();
+	public List<Tween> ActiveTweens = new();
 
 	public TweenManager()
 	{
 		I = this;
 	}
 
+	public static TweenManager I { get; private set; }
+
 	public Tween StartTween(Tween tween)
 	{
-		activeTweens.Add(tween);
-		return activeTweens[activeTweens.Count - 1];
+		ActiveTweens.Add(tween);
+		return ActiveTweens[ActiveTweens.Count - 1];
 	}
 
 	public void Update()
 	{
-		for (int i = activeTweens.Count - 1; i >= 0; i--)
+		for (int i = ActiveTweens.Count - 1; i >= 0; i--)
 		{
-			if (activeTweens[i].currentTime == 0 && activeTweens[i].delay > 0)
+			if (ActiveTweens[i].CurrentTime == 0 && ActiveTweens[i].Delay > 0)
 			{
-				activeTweens[i].currentTime = -activeTweens[i].delay;
-				activeTweens[i].delay = -activeTweens[i].delay;
+				ActiveTweens[i].CurrentTime = -ActiveTweens[i].Delay;
+				ActiveTweens[i].Delay = -ActiveTweens[i].Delay;
 			}
 
-			activeTweens[i].currentTime += Time.editorDeltaTime / activeTweens[i].duration;
-			bool isCompleted = activeTweens[i].currentTime > activeTweens[i].duration;
+			ActiveTweens[i].CurrentTime += Time.EditorDeltaTime / ActiveTweens[i].Duration;
+			bool isCompleted = ActiveTweens[i].CurrentTime > ActiveTweens[i].Duration;
 
 			//activeTweens[i].currentTime = Mathf.Clamp(activeTweens[i].currentTime, -Math.Abs(activeTweens[i].delay), activeTweens[i].duration);
-			if (activeTweens[i].currentTime >= 0)
+			if (ActiveTweens[i].CurrentTime >= 0)
 			{
-				activeTweens[i].OnUpdate.Invoke(activeTweens[i].GetValue());
+				ActiveTweens[i].OnUpdate.Invoke(ActiveTweens[i].GetValue());
 			}
 
 			if (isCompleted)
 			{
-				if (activeTweens[i].GetLoop() == Tween.LoopType.Restart)
+				if (ActiveTweens[i].GetLoop() == Tween.LoopType.Restart)
 				{
-					activeTweens[i].currentTime = 0;
+					ActiveTweens[i].CurrentTime = 0;
 				}
 
-				if (activeTweens[i].GetLoop() == Tween.LoopType.Yoyo)
+				if (ActiveTweens[i].GetLoop() == Tween.LoopType.Yoyo)
 				{
-					activeTweens[i].OnComplete?.Invoke();
-					activeTweens[i].currentTime = 0;
+					ActiveTweens[i].OnComplete?.Invoke();
+					ActiveTweens[i].CurrentTime = 0;
 
-					float startValue = activeTweens[i].startValue;
-					activeTweens[i].startValue = activeTweens[i].endValue;
-					activeTweens[i].endValue = startValue;
+					float startValue = ActiveTweens[i].StartValue;
+					ActiveTweens[i].StartValue = ActiveTweens[i].EndValue;
+					ActiveTweens[i].EndValue = startValue;
 				}
 
-				if (activeTweens[i].GetLoop() == Tween.LoopType.NoLoop)
+				if (ActiveTweens[i].GetLoop() == Tween.LoopType.NoLoop)
 				{
-					activeTweens[i].OnComplete?.Invoke();
+					ActiveTweens[i].OnComplete?.Invoke();
 					RemoveTween(i);
 				}
-
-				continue;
 			}
 		}
 	}
 
 	public void RemoveTween(int index)
 	{
-		activeTweens.RemoveAt(index);
+		ActiveTweens.RemoveAt(index);
 	}
 }

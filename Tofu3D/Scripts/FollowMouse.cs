@@ -7,3 +7,4 @@ public class FollowMouse : Component
 		transform.position = MouseInput.ScreenPosition;
 	}
 }*/
+

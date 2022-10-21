@@ -2,32 +2,33 @@
 
 public static class ShaderCache
 {
-	public static int shaderInUse = -1;
-	public static int vaoInUse = -100;
-	
-	public static void BindVAO(int vao)
+	public static int ShaderInUse = -1;
+	public static int VaoInUse = -100;
+
+	public static void BindVao(int vao)
 	{
-		if (vao == vaoInUse)
+		if (vao == VaoInUse)
 		{
 			return;
 		}
 
-		vaoInUse = vao;
+		VaoInUse = vao;
 		GL.BindVertexArray(vao);
 	}
 
 	public static void UseShader(Shader shader)
 	{
-		UseShader(shader.ProgramID);
+		UseShader(shader.ProgramId);
 	}
-	public static void UseShader(int programID)
+
+	public static void UseShader(int programId)
 	{
-		if (programID == shaderInUse)
+		if (programId == ShaderInUse)
 		{
 			return;
 		}
 
-		shaderInUse = programID;
-		GL.UseProgram(programID);
+		ShaderInUse = programId;
+		GL.UseProgram(programId);
 	}
 }

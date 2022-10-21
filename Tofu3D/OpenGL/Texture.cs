@@ -3,24 +3,24 @@
 [Serializable]
 public class Texture
 {
-	public int id;
-	public bool loaded;
-	public string path = "";
-	public Vector2 size;
+	public int Id;
+	public bool Loaded;
+	public string Path = "";
+	public Vector2 Size;
 
-	public void Load(string _path, bool flipX = true, bool smooth = false)
+	public void Load(string path, bool flipX = true, bool smooth = false)
 	{
-		path = _path;
-		Texture loadedTexture = TextureCache.GetTexture(_path, flipX,smooth);
+		Path = path;
+		Texture loadedTexture = TextureCache.GetTexture(path, flipX, smooth);
 
-		id = loadedTexture.id;
-		size = loadedTexture.size;
+		Id = loadedTexture.Id;
+		Size = loadedTexture.Size;
 
-		loaded = true;
+		Loaded = true;
 	}
 
 	public void Delete()
 	{
-		TextureCache.DeleteTexture(path);
+		TextureCache.DeleteTexture(Path);
 	}
 }

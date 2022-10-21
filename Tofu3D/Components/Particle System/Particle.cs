@@ -2,12 +2,12 @@
 
 public class Particle
 {
-	public Color color = Color.White;
-	public float lifetime = 0;
-	public float radius = 10;
-	public Vector2 velocity = new(0, 0);
-	public bool visible = false;
-	public Vector2 worldPosition = new(0, 0);
+	public Color Color = Color.White;
+	public float Lifetime = 0;
+	public float Radius = 10;
+	public Vector2 Velocity = new(0, 0);
+	public bool Visible = false;
+	public Vector2 WorldPosition = new(0, 0);
 
 	/*public override void Update()
 	{

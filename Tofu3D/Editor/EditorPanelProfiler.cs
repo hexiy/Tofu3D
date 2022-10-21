@@ -5,10 +5,10 @@ namespace Tofu3D;
 
 public class EditorPanelProfiler : EditorPanel
 {
+	List<float> _physicsThreadSamples = new();
+	List<float> _sceneRenderSamples = new();
+	List<float> _sceneUpdateSamples = new();
 	public static EditorPanelProfiler I { get; private set; }
-	private List<float> sceneUpdateSamples = new List<float>();
-	private List<float> sceneRenderSamples = new List<float>();
-	private List<float> physicsThreadSamples = new List<float>();
 
 	public override void Init()
 	{
@@ -17,63 +17,63 @@ public class EditorPanelProfiler : EditorPanel
 
 	public override void Draw()
 	{
-		if (active == false)
+		if (Active == false)
 		{
 			return;
 		}
 
-		ImGui.SetNextWindowSize(new Vector2(800, Window.I.ClientSize.Y - Editor.sceneViewSize.Y + 1), ImGuiCond.Always);
+		ImGui.SetNextWindowSize(new Vector2(800, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1), ImGuiCond.Always);
 		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X, Window.I.ClientSize.Y), ImGuiCond.Always, new Vector2(1, 1));
 		//ImGui.SetNextWindowBgAlpha (0);
 		ImGui.Begin("Profiler", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
 
-		ImGui.Text($"GameObjects in scene: {Scene.I.gameObjects.Count}");
+		ImGui.Text($"GameObjects in scene: {Scene.I.GameObjects.Count}");
 
-		for (int i = 0; i < Debug.stats.Count; i++)
+		for (int i = 0; i < Debug.Stats.Count; i++)
 		{
-			ImGui.Text($"{Debug.stats.Keys.ElementAt(i)} : {Debug.stats.Values.ElementAt(i)}");
+			ImGui.Text($"{Debug.Stats.Keys.ElementAt(i)} : {Debug.Stats.Values.ElementAt(i)}");
 		}
 
-		for (int i = 0; i < Debug.timers.Count; i++)
+		for (int i = 0; i < Debug.Timers.Count; i++)
 		{
-			if (Debug.timers.Keys.ElementAt(i) == "Scene Update")
+			if (Debug.Timers.Keys.ElementAt(i) == "Scene Update")
 			{
-				sceneUpdateSamples.Add(Debug.timers["Scene Update"].ElapsedMilliseconds);
-				if (sceneUpdateSamples.Count > 200)
+				_sceneUpdateSamples.Add(Debug.Timers["Scene Update"].ElapsedMilliseconds);
+				if (_sceneUpdateSamples.Count > 200)
 				{
-					sceneUpdateSamples.RemoveAt(0);
+					_sceneUpdateSamples.RemoveAt(0);
 				}
 
-				ImGui.PlotLines("", ref sceneUpdateSamples.ToArray()[0], sceneUpdateSamples.Count, 0, $"Scene Update Time:{sceneUpdateSamples.Last()} ms            ", 0, sceneUpdateSamples.Max() + 1,
+				ImGui.PlotLines("", ref _sceneUpdateSamples.ToArray()[0], _sceneUpdateSamples.Count, 0, $"Scene Update Time:{_sceneUpdateSamples.Last()} ms            ", 0, _sceneUpdateSamples.Max() + 1,
 				                new Vector2(ImGui.GetContentRegionAvail().X, 100));
 			}
-			else if (Debug.timers.Keys.ElementAt(i) == "Scene Render")
+			else if (Debug.Timers.Keys.ElementAt(i) == "Scene Render")
 			{
-				sceneRenderSamples.Add(Debug.timers["Scene Render"].ElapsedMilliseconds);
-				if (sceneRenderSamples.Count > 200)
+				_sceneRenderSamples.Add(Debug.Timers["Scene Render"].ElapsedMilliseconds);
+				if (_sceneRenderSamples.Count > 200)
 				{
-					sceneRenderSamples.RemoveAt(0);
+					_sceneRenderSamples.RemoveAt(0);
 				}
 
-				ImGui.PlotLines("", ref sceneRenderSamples.ToArray()[0], sceneRenderSamples.Count, 0, $"Scene Render Time:{sceneRenderSamples.Last()} ms            ", 0, sceneRenderSamples.Max() + 1,
+				ImGui.PlotLines("", ref _sceneRenderSamples.ToArray()[0], _sceneRenderSamples.Count, 0, $"Scene Render Time:{_sceneRenderSamples.Last()} ms            ", 0, _sceneRenderSamples.Max() + 1,
 				                new Vector2(ImGui.GetContentRegionAvail().X, 100));
 			}
-			else if (Debug.timers.Keys.ElementAt(i) == "Physics thread")
+			else if (Debug.Timers.Keys.ElementAt(i) == "Physics thread")
 			{
-				physicsThreadSamples.Add(Debug.timers["Physics thread"].ElapsedMilliseconds);
-				if (physicsThreadSamples.Count > 200)
+				_physicsThreadSamples.Add(Debug.Timers["Physics thread"].ElapsedMilliseconds);
+				if (_physicsThreadSamples.Count > 200)
 				{
-					physicsThreadSamples.RemoveAt(0);
+					_physicsThreadSamples.RemoveAt(0);
 				}
 
-				ImGui.PlotLines("", ref physicsThreadSamples.ToArray()[0], physicsThreadSamples.Count, 0, $"Physics Update Time:{physicsThreadSamples.Last()} ms            ", 0, physicsThreadSamples.Max() + 1,
+				ImGui.PlotLines("", ref _physicsThreadSamples.ToArray()[0], _physicsThreadSamples.Count, 0, $"Physics Update Time:{_physicsThreadSamples.Last()} ms            ", 0, _physicsThreadSamples.Max() + 1,
 				                new Vector2(ImGui.GetContentRegionAvail().X, 100));
 			}
 			else
 			{
-				float timerDuration = Debug.timers.Values.ElementAt(i).ElapsedMilliseconds;
+				float timerDuration = Debug.Timers.Values.ElementAt(i).ElapsedMilliseconds;
 				ImGui.PushStyleColor(ImGuiCol.Text, Color.Lerp(Color.White, Color.Red, Mathf.Clamp(timerDuration / 40 - 1, 0, 1)).ToVector4());
-				ImGui.Text($"{Debug.timers.Keys.ElementAt(i)} : {timerDuration} ms");
+				ImGui.Text($"{Debug.Timers.Keys.ElementAt(i)} : {timerDuration} ms");
 				ImGui.PopStyleColor();
 			}
 		}

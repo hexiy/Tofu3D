@@ -6,11 +6,11 @@ namespace Tofu3D;
 
 public class Scene
 {
-	public List<GameObject> gameObjects = new();
+	public List<GameObject> GameObjects = new();
 
-	private List<Renderer> renderQueue = new();
+	List<Renderer> _renderQueue = new();
 
-	public string scenePath = "";
+	public string ScenePath = "";
 
 	public Scene()
 	{
@@ -18,58 +18,58 @@ public class Scene
 	}
 
 	public static Scene I { get; private set; }
-	private Camera camera
+	Camera Camera
 	{
 		get { return Camera.I; }
 	}
 
-	private void CreateDefaultObjects()
+	void CreateDefaultObjects()
 	{
-		GameObject camGO = GameObject.Create(name: "Camera");
-		camGO.AddComponent<Camera>();
-		camGO.Awake();
+		GameObject camGo = GameObject.Create(name: "Camera");
+		camGo.AddComponent<Camera>();
+		camGo.Awake();
 
 		for (int i = 0; i < 1; i++)
 		{
 			GameObject go2 = GameObject.Create(name: "sprite " + i);
 			go2.AddComponent<BoxRenderer>();
-			go2.AddComponent<BoxShape>().size = new Vector2(400, 180);
+			go2.AddComponent<BoxShape>().Size = new Vector2(400, 180);
 
 			go2.Awake();
-			go2.transform.position = new Vector2(0, 0);
-			go2.transform.pivot = new Vector2(0.5f, 0.5f);
+			go2.Transform.Position = new Vector2(0, 0);
+			go2.Transform.Pivot = new Vector2(0.5f, 0.5f);
 		}
 
 		CreateTransformHandle();
 	}
 
-	private void SpawnTestSpriteRenderers()
+	void SpawnTestSpriteRenderers()
 	{
 		GameObject parent = GameObject.Create(name: "parent");
 		parent.Awake();
 		for (int i = 0; i < 10000; i++)
 		{
 			GameObject go2 = GameObject.Create(name: "sprite " + i);
-			go2.dynamicallyCreated = true;
+			go2.DynamicallyCreated = true;
 			go2.AddComponent<SpriteRenderer>();
-			go2.AddComponent<BoxShape>().size = new Vector2(400, 180);
+			go2.AddComponent<BoxShape>().Size = new Vector2(400, 180);
 
 			go2.Awake();
 			go2.GetComponent<SpriteRenderer>().LoadTexture("2D/house.png");
-			go2.transform.position = new Vector2(Rendom.Range(-1000, 1000), Rendom.Range(-1000, 1000));
-			go2.transform.pivot = new Vector2(0.5f, 0.5f);
-			go2.transform.SetParent(parent.transform);
+			go2.Transform.Position = new Vector2(Rendom.Range(-1000, 1000), Rendom.Range(-1000, 1000));
+			go2.Transform.Pivot = new Vector2(0.5f, 0.5f);
+			go2.Transform.SetParent(parent.Transform);
 		}
 	}
 
-	private void CreateTransformHandle()
+	void CreateTransformHandle()
 	{
-		GameObject transformHandleGameObject = GameObject.Create(_silent: true);
-		Editor.I.transformHandle = transformHandleGameObject.AddComponent<TransformHandle>();
-		transformHandleGameObject.dynamicallyCreated = true;
-		transformHandleGameObject.alwaysUpdate = true;
-		transformHandleGameObject.name = "Transform Handle";
-		transformHandleGameObject.activeSelf = false;
+		GameObject transformHandleGameObject = GameObject.Create(silent: true);
+		Editor.I.TransformHandle = transformHandleGameObject.AddComponent<TransformHandle>();
+		transformHandleGameObject.DynamicallyCreated = true;
+		transformHandleGameObject.AlwaysUpdate = true;
+		transformHandleGameObject.Name = "Transform Handle";
+		transformHandleGameObject.ActiveSelf = false;
 		transformHandleGameObject.Awake();
 	}
 
@@ -77,9 +77,9 @@ public class Scene
 	{
 		PhysicsController.Init();
 
-		if (Serializer.lastScene != "" && File.Exists(Serializer.lastScene))
+		if (Serializer.LastScene != "" && File.Exists(Serializer.LastScene))
 		{
-			LoadScene(Serializer.lastScene);
+			LoadScene(Serializer.LastScene);
 		}
 		else
 		{
@@ -94,23 +94,23 @@ public class Scene
 		TweenManager.I.Update();
 
 		SceneNavigation.I.Update();
-		if (Time.elapsedTicks % 20 == 0)
+		if (Time.ElapsedTicks % 20 == 0)
 		{
 			SortRenderQueue();
 		}
 
-		for (int i = 0; i < gameObjects.Count; i++)
+		for (int i = 0; i < GameObjects.Count; i++)
 		{
-			gameObjects[i].indexInHierarchy = i;
-			if (Global.GameRunning || gameObjects[i].alwaysUpdate)
+			GameObjects[i].IndexInHierarchy = i;
+			if (Global.GameRunning || GameObjects[i].AlwaysUpdate)
 			{
-				gameObjects[i].Update();
-				gameObjects[i].FixedUpdate();
+				GameObjects[i].Update();
+				GameObjects[i].FixedUpdate();
 			}
 			else if (Global.GameRunning == false)
 			{
 				//gameObjects[i].EditorUpdate();
-				gameObjects[i].Update();
+				GameObjects[i].Update();
 			}
 		}
 	}
@@ -122,24 +122,28 @@ public class Scene
 
 	public void RenderQueueChanged()
 	{
-		renderQueue = new List<Renderer>();
-		for (int i = 0; i < gameObjects.Count; i++)
+		_renderQueue = new List<Renderer>();
+		for (int i = 0; i < GameObjects.Count; i++)
 		{
-			if (gameObjects[i].GetComponent<Renderer>())
+			if (GameObjects[i].GetComponent<Renderer>())
 				//renderQueue.AddRange(gameObjects[i].GetComponents<Renderer>());
 			{
-				renderQueue.AddRange(gameObjects[i].GetComponents<Renderer>());
+				_renderQueue.AddRange(GameObjects[i].GetComponents<Renderer>());
 			}
 		}
 
 
-		for (int i = 0; i < renderQueue.Count; i++) renderQueue[i].layerFromHierarchy = renderQueue[i].gameObject.indexInHierarchy * 0.00000000000000000000000000000001f;
+		for (int i = 0; i < _renderQueue.Count; i++)
+		{
+			_renderQueue[i].LayerFromHierarchy = _renderQueue[i].GameObject.IndexInHierarchy * 0.00000000000000000000000000000001f;
+		}
+
 		SortRenderQueue();
 	}
 
 	public void SortRenderQueue()
 	{
-		renderQueue.Sort();
+		_renderQueue.Sort();
 	}
 
 	public void Render()
@@ -149,49 +153,49 @@ public class Scene
 		GL.Enable(EnableCap.StencilTest);
 		GL.DepthFunc(DepthFunction.Greater);
 
-		GL.ClearColor(camera.color.ToOtherColor());
+		GL.ClearColor(Camera.Color.ToOtherColor());
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 		//BatchingManager.RenderAllBatchers();
 
-		for (int i = 0; i < renderQueue.Count; i++)
+		for (int i = 0; i < _renderQueue.Count; i++)
 		{
-			if (renderQueue[i].enabled && renderQueue[i].awoken && renderQueue[i].gameObject.activeInHierarchy)
+			if (_renderQueue[i].Enabled && _renderQueue[i].Awoken && _renderQueue[i].GameObject.ActiveInHierarchy)
 			{
-				if (renderQueue[i].gameObject == TransformHandle.I.gameObject)
+				if (_renderQueue[i].GameObject == TransformHandle.I.GameObject)
 				{
 					continue;
 				}
 
-				renderQueue[i].Render();
+				_renderQueue[i].Render();
 			}
 		}
 
-		TransformHandle.I.gameObject.Render();
+		TransformHandle.I.GameObject.Render();
 	}
 
 	public SceneFile GetSceneFile()
 	{
-		SceneFile sf = new SceneFile();
+		SceneFile sf = new();
 		sf.Components = new List<Component>();
 		sf.GameObjects = new List<GameObject>();
-		for (int i = 0; i < gameObjects.Count; i++)
+		for (int i = 0; i < GameObjects.Count; i++)
 		{
-			if (gameObjects[i].dynamicallyCreated)
+			if (GameObjects[i].DynamicallyCreated)
 			{
 				continue;
 			}
 
-			sf.Components.AddRange(gameObjects[i].components);
-			sf.GameObjects.Add(gameObjects[i]);
+			sf.Components.AddRange(GameObjects[i].Components);
+			sf.GameObjects.Add(GameObjects[i]);
 		}
 
-		sf.gameObjectNextID = IDsManager.gameObjectNextID;
+		sf.GameObjectNextId = DsManager.GameObjectNextId;
 		return sf;
 	}
 
 	public GameObject FindGameObject(Type type)
 	{
-		foreach (GameObject gameObject in gameObjects)
+		foreach (GameObject gameObject in GameObjects)
 		{
 			Component bl = gameObject.GetComponent(type);
 			if (bl != null)
@@ -205,8 +209,8 @@ public class Scene
 
 	public List<T> FindComponentsInScene<T>() where T : Component
 	{
-		List<T> components = new List<T>();
-		foreach (GameObject gameObject in gameObjects)
+		List<T> components = new();
+		foreach (GameObject gameObject in GameObjects)
 		{
 			T bl = gameObject.GetComponent<T>();
 			if (bl != null)
@@ -218,46 +222,56 @@ public class Scene
 		return components;
 	}
 
-	public GameObject GetGameObject(int ID)
+	public GameObject GetGameObject(int id)
 	{
-		for (int i = 0; i < gameObjects.Count; i++)
-			if (gameObjects[i].id == ID)
+		for (int i = 0; i < GameObjects.Count; i++)
+		{
+			if (GameObjects[i].Id == id)
 			{
-				return gameObjects[i];
+				return GameObjects[i];
 			}
+		}
 
 		return null;
 	}
 
 	public void AddGameObjectToScene(GameObject gameObject)
 	{
-		gameObjects.Add(gameObject);
+		GameObjects.Add(gameObject);
 
 		RenderQueueChanged();
 	}
 
 	public bool LoadScene(string path = null)
 	{
-		Serializer.lastScene = path;
+		Serializer.LastScene = path;
 		Window.I.Title = Window.I.WindowTitleText + " | " + Path.GetFileNameWithoutExtension(path);
 
 		//Add method to clean scene
-		while (gameObjects.Count > 0) gameObjects[0].Destroy();
-		gameObjects.Clear();
+		while (GameObjects.Count > 0)
+		{
+			GameObjects[0].Destroy();
+		}
+
+		GameObjects.Clear();
 
 		//Physics.rigidbodies.Clear();
 
-		gameObjects = new List<GameObject>();
+		GameObjects = new List<GameObject>();
 		SceneFile sceneFile = Serializer.I.LoadGameObjects(path);
 
 		Serializer.I.ConnectGameObjectsWithComponents(sceneFile);
-		IDsManager.gameObjectNextID = sceneFile.gameObjectNextID + 1;
+		DsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
 
 		Serializer.I.ConnectParentsAndChildren(sceneFile);
 
 		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 		{
-			for (int j = 0; j < sceneFile.GameObjects[i].components.Count; j++) sceneFile.GameObjects[i].components[j].gameObjectID = sceneFile.GameObjects[i].id;
+			for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
+			{
+				sceneFile.GameObjects[i].Components[j].GameObjectId = sceneFile.GameObjects[i].Id;
+			}
+
 			I.AddGameObjectToScene(sceneFile.GameObjects[i]);
 		}
 
@@ -265,12 +279,13 @@ public class Scene
 		{
 			sceneFile.GameObjects[i].LinkGameObjectFieldsInComponents();
 			sceneFile.GameObjects[i].Awake();
+			sceneFile.GameObjects[i].Start();
 		}
 
 
 		CreateTransformHandle();
 
-		scenePath = path;
+		ScenePath = path;
 
 		int lastSelectedGameObjectId = PersistentData.GetInt("lastSelectedGameObjectId", 0);
 		if (Global.EditorAttached)
@@ -283,40 +298,40 @@ public class Scene
 
 	public void SaveScene(string path = null)
 	{
-		path = path ?? Serializer.lastScene;
+		path = path ?? Serializer.LastScene;
 		if (path.Length < 1)
 		{
 			path = Path.Combine("Assets", "scene1.scene");
 		}
 
-		Serializer.lastScene = path;
+		Serializer.LastScene = path;
 		Serializer.I.SaveGameObjects(GetSceneFile(), path);
 	}
 
 	public void CreateEmptySceneAndOpenIt(string path)
 	{
-		IDsManager.gameObjectNextID = 0;
-		Serializer.lastScene = path;
-		gameObjects = new List<GameObject>();
+		DsManager.GameObjectNextId = 0;
+		Serializer.LastScene = path;
+		GameObjects = new List<GameObject>();
 		CreateDefaultObjects();
 		Serializer.I.SaveGameObjects(GetSceneFile(), path);
 	}
 
 	public void OnGameObjectDestroyed(GameObject gameObject)
 	{
-		if (gameObjects.Contains(gameObject))
+		if (GameObjects.Contains(gameObject))
 		{
-			gameObjects.Remove(gameObject);
+			GameObjects.Remove(gameObject);
 		}
 
 		RenderQueueChanged();
 	}
 
-	private void OnMouse3Clicked()
+	void OnMouse3Clicked()
 	{
 	}
 
-	private void OnMouse3Released()
+	void OnMouse3Released()
 	{
 	}
 }

@@ -2,9 +2,10 @@ namespace Scripts;
 
 public class PolygonShape : Shape
 {
-	public int highlightEdgeIndex = 0;
-	private float lastRotation;
-	[XmlIgnore] public Action onPointsEdit; // = Engine.ColliderEditor.GetInstance().ToggleEditing;
+	public int HighlightEdgeIndex = 0;
+	float _lastRotation;
+	[XmlIgnore]
+	public Action OnPointsEdit; // = Engine.ColliderEditor.GetInstance().ToggleEditing;
 	public Vector2 Position = new(0, 0);
 
 	/// <summary>
@@ -72,10 +73,10 @@ public class PolygonShape : Shape
 
 	public override void Update()
 	{
-		if (transform.Rotation.Z != lastRotation)
+		if (Transform.Rotation.Z != _lastRotation)
 		{
-			SetRotation(transform.Rotation.Z);
-			lastRotation = transform.Rotation.Z;
+			SetRotation(Transform.Rotation.Z);
+			_lastRotation = Transform.Rotation.Z;
 		}
 
 		base.Update();

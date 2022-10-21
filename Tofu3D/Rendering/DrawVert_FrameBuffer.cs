@@ -1,8 +1,7 @@
-namespace Tofu3D
+namespace Tofu3D;
+
+public struct DrawVertFrameBuffer
 {
-	public struct DrawVert_FrameBuffer
-	{
-		public Vector2 pos;
-		public Vector2 uv;
-	}
+	public Vector2 Pos;
+	public Vector2 Uv;
 }

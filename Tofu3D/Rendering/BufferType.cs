@@ -2,9 +2,9 @@
 
 public enum BufferType
 {
-	RENDERTEXTURE,
-	SPRITE,
-	BOX,
-	MODEL
+	Rendertexture,
+	Sprite,
+	Box,
+	Model
 	//GRADIENT
 }

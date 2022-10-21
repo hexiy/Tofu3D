@@ -2,38 +2,38 @@ namespace Tofu3D.Tweening;
 
 public class Tween
 {
-	public float startValue;
-	public float endValue;
-	public float duration;
-	public float currentTime;
-	public float delay;
-	public Action<float> OnUpdate;
-	public Action OnComplete;
-	public object target;
-
 	public enum LoopType
 	{
 		NoLoop,
 		Yoyo,
 		Restart
-	};
+	}
 
-	private LoopType loopType;
+	public float CurrentTime;
+	public float Delay;
+	public float Duration;
+	public float EndValue;
+
+	LoopType _loopType;
+	public Action OnComplete;
+	public Action<float> OnUpdate;
+	public float StartValue;
+	public object Target;
 
 	public float GetValue()
 	{
-		return Mathf.Lerp(startValue, endValue, Mathf.Clamp(currentTime / duration,0,1));
+		return Mathf.Lerp(StartValue, EndValue, Mathf.Clamp(CurrentTime / Duration, 0, 1));
 	}
 
 	public Tween SetLoop(LoopType lt)
 	{
-		loopType = lt;
+		_loopType = lt;
 		return this;
 	}
 
 	public Tween SetDelay(float dl)
 	{
-		delay = dl;
+		Delay = dl;
 		return this;
 	}
 
@@ -45,12 +45,12 @@ public class Tween
 
 	public LoopType GetLoop()
 	{
-		return loopType;
+		return _loopType;
 	}
 
 	public Tween SetTarget(object obj)
 	{
-		target = obj;
+		Target = obj;
 		return this;
 	}
 }

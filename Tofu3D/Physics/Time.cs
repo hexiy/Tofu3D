@@ -2,33 +2,32 @@
 
 public static class Time
 {
-	public static float deltaTime = 0.01666666f;
-	public static float editorDeltaTime = 0.01666666f;
-	public static float fixedDeltaTime = 0.01f;
-	public static float elapsedTime;
-	public static float editorElapsedTime;
-	public static float elapsedSeconds;
-	public static ulong elapsedTicks;
-	public static ulong timeScale = 0;
+	public static float DeltaTime = 0.01666666f;
+	public static float EditorDeltaTime = 0.01666666f;
+	public static float FixedDeltaTime = 0.01f;
+	public static float ElapsedTime;
+	public static float EditorElapsedTime;
+	public static float ElapsedSeconds;
+	public static ulong ElapsedTicks;
+	public static ulong TimeScale = 0;
 
 	public static void Update()
 	{
-		editorDeltaTime = (float) Window.I.UpdateTime;
-		editorElapsedTime += editorDeltaTime;
+		EditorDeltaTime = (float) Window.I.UpdateTime;
+		EditorElapsedTime += EditorDeltaTime;
 
 
 		if (Global.GameRunning)
 		{
-			deltaTime = (float) Window.I.UpdateTime;
+			DeltaTime = (float) Window.I.UpdateTime;
 
-			elapsedTime += deltaTime;
-			elapsedSeconds = elapsedTime;
-			elapsedTicks++;
+			ElapsedTime += DeltaTime;
+			ElapsedSeconds = ElapsedTime;
+			ElapsedTicks++;
 		}
 		else
 		{
-
-			deltaTime = 0;
+			DeltaTime = 0;
 		}
 	}
 }

@@ -5,15 +5,15 @@ namespace Tofu3D;
 [Serializable]
 public class Shader : IDisposable
 {
-	public BufferType bufferType;
+	public BufferType BufferType;
 
-	public string path;
-	private int uLocation_u_color = -1;
+	public string Path;
+	int _uLocationUColor = -1;
 
-	private int uLocation_u_mvp = -1;
+	int _uLocationUMvp = -1;
 
 	[XmlIgnore]
-	public Dictionary<string, object> uniforms = new Dictionary<string, object>()
+	public Dictionary<string, object> Uniforms = new()
 	                                             {
 		                                             {"u_tint", new Vector4(1, 1, 1, 1)}
 	                                             };
@@ -24,10 +24,10 @@ public class Shader : IDisposable
 
 	public Shader(string filePath)
 	{
-		path = filePath;
+		Path = filePath;
 	}
 
-	[XmlIgnore] public int ProgramID { get; set; }
+	[XmlIgnore] public int ProgramId { get; set; }
 
 	public void Dispose()
 	{
@@ -35,22 +35,22 @@ public class Shader : IDisposable
 
 	public void Load()
 	{
-		if (File.Exists(path) == false)
+		if (File.Exists(Path) == false)
 		{
-			path = Path.Combine("Assets", path);
+			Path = System.IO.Path.Combine("Assets", Path);
 		}
 
-		if (path.Contains(".mat")) // IF ITS mat  not .glsl, just assign SpriteRenderer so we can fix it without crashing
+		if (Path.Contains(".mat")) // IF ITS mat  not .glsl, just assign SpriteRenderer so we can fix it without crashing
 		{
-			path = Path.Combine("Assets", "Shaders", "SpriteRenderer.glsl");
+			Path = System.IO.Path.Combine("Assets", "Shaders", "SpriteRenderer.glsl");
 		}
 
 		GetAllUniforms();
-		string shaderFile = File.ReadAllText(path);
+		string shaderFile = File.ReadAllText(Path);
 
 		string vertexCode = GetVertexShaderFromFileString(shaderFile);
 		string fragmentCode = GetFragmentShaderFromFileString(shaderFile);
-		bufferType = GetBufferTypeFromFileString(shaderFile);
+		BufferType = GetBufferTypeFromFileString(shaderFile);
 
 
 		int vs, fs;
@@ -77,57 +77,57 @@ public class Shader : IDisposable
 			System.Diagnostics.Debug.WriteLine("ERROR COMPILING FRAGMENT SHADER " + error);
 		}
 
-		ProgramID = GL.CreateProgram();
-		GL.AttachShader(ProgramID, vs);
-		GL.AttachShader(ProgramID, fs);
+		ProgramId = GL.CreateProgram();
+		GL.AttachShader(ProgramId, vs);
+		GL.AttachShader(ProgramId, fs);
 
-		GL.LinkProgram(ProgramID);
+		GL.LinkProgram(ProgramId);
 
 		// Delete shaders
-		GL.DetachShader(ProgramID, vs);
-		GL.DetachShader(ProgramID, fs);
+		GL.DetachShader(ProgramId, vs);
+		GL.DetachShader(ProgramId, fs);
 		GL.DeleteShader(vs);
 		GL.DeleteShader(fs);
 	}
 
-	public void SetMatrix4x4(string uniformName, Matrix4x4 mat)
+	public void SetMatrix4X4(string uniformName, Matrix4x4 mat)
 	{
-		if (uLocation_u_mvp == -1)
+		if (_uLocationUMvp == -1)
 		{
-			int location = GL.GetUniformLocation(ProgramID, uniformName);
-			uLocation_u_mvp = location;
+			int location = GL.GetUniformLocation(ProgramId, uniformName);
+			_uLocationUMvp = location;
 		}
 
-		GL.UniformMatrix4(uLocation_u_mvp, 1, false, GetMatrix4x4Values(mat));
-		uniforms[uniformName] = mat;
+		GL.UniformMatrix4(_uLocationUMvp, 1, false, GetMatrix4X4Values(mat));
+		Uniforms[uniformName] = mat;
 	}
 
 	public void SetFloat(string uniformName, float fl)
 	{
-		int location = GL.GetUniformLocation(ProgramID, uniformName);
+		int location = GL.GetUniformLocation(ProgramId, uniformName);
 		GL.Uniform1(location, fl);
-		uniforms[uniformName] = fl;
+		Uniforms[uniformName] = fl;
 	}
 
 	public void SetVector2(string uniformName, Vector2 vec)
 	{
-		int location = GL.GetUniformLocation(ProgramID, uniformName);
+		int location = GL.GetUniformLocation(ProgramId, uniformName);
 		GL.Uniform2(location, vec.X, vec.Y);
-		uniforms[uniformName] = vec;
+		Uniforms[uniformName] = vec;
 	}
 
 	public void SetVector3(string uniformName, Vector3 vec)
 	{
-		int location = GL.GetUniformLocation(ProgramID, uniformName);
+		int location = GL.GetUniformLocation(ProgramId, uniformName);
 		GL.Uniform3(location, vec.X, vec.Y, vec.Z);
-		uniforms[uniformName] = vec;
+		Uniforms[uniformName] = vec;
 	}
 
 	public void SetVector4(string uniformName, Vector4 vec)
 	{
-		int location = GL.GetUniformLocation(ProgramID, uniformName);
+		int location = GL.GetUniformLocation(ProgramId, uniformName);
 		GL.Uniform4(location, vec.X, vec.Y, vec.Z, vec.W);
-		uniforms[uniformName] = vec;
+		Uniforms[uniformName] = vec;
 	}
 
 	public void SetColor(string uniformName, Color col)
@@ -137,14 +137,14 @@ public class Shader : IDisposable
 
 	public void SetColor(string uniformName, Vector4 vec)
 	{
-		if (uLocation_u_color == -1)
+		if (_uLocationUColor == -1)
 		{
-			int location = GL.GetUniformLocation(ProgramID, uniformName);
-			uLocation_u_color = location;
+			int location = GL.GetUniformLocation(ProgramId, uniformName);
+			_uLocationUColor = location;
 		}
 
-		GL.Uniform4(uLocation_u_color, vec.X, vec.Y, vec.Z, vec.W);
-		uniforms[uniformName] = vec;
+		GL.Uniform4(_uLocationUColor, vec.X, vec.Y, vec.Z, vec.W);
+		Uniforms[uniformName] = vec;
 	}
 
 	// uniform sampler2D textureObject;
@@ -152,14 +152,14 @@ public class Shader : IDisposable
 	// todo
 	public ShaderUniform[] GetAllUniforms()
 	{
-		List<ShaderUniform> uniforms = new List<ShaderUniform>();
+		List<ShaderUniform> uniforms = new();
 
-		path = path.Replace(@"\", "/");
-		string filename = Path.GetFileName(path);
+		Path = Path.Replace(@"\", "/");
+		string filename = System.IO.Path.GetFileName(Path);
 
-		path = Path.Combine("Assets", "Shaders", filename);
+		Path = System.IO.Path.Combine("Assets", "Shaders", filename);
 
-		using (StreamReader sr = new StreamReader(path))
+		using (StreamReader sr = new(Path))
 		{
 			string shaderString = sr.ReadToEnd();
 			int currentIndexInString = 0;
@@ -182,12 +182,12 @@ public class Shader : IDisposable
 					break;
 				}
 
-				ShaderUniform uniform = new ShaderUniform();
+				ShaderUniform uniform = new();
 
 				string[] uniformString = trimmedShaderString.Substring(startIndex, endIndex - startIndex).Split(' ');
 
-				uniform.name = uniformString[2];
-				uniform.type = GetUniformType(uniformString[1]);
+				uniform.Name = uniformString[2];
+				uniform.Type = GetUniformType(uniformString[1]);
 				currentIndexInString = endIndex + (shaderString.Length - trimmedShaderString.Length);
 				trimmedShaderString = shaderString.Substring(currentIndexInString);
 
@@ -198,7 +198,7 @@ public class Shader : IDisposable
 		return uniforms.ToArray();
 	}
 
-	private Type GetUniformType(string typeName)
+	Type GetUniformType(string typeName)
 	{
 		if (typeName == "vec4")
 		{
@@ -223,7 +223,7 @@ public class Shader : IDisposable
 		return typeof(string);
 	}
 
-	private float[] GetMatrix4x4Values(Matrix4x4 m)
+	float[] GetMatrix4X4Values(Matrix4x4 m)
 	{
 		return new[]
 		       {
@@ -236,7 +236,7 @@ public class Shader : IDisposable
 
 	public int GetAttribLocation(string attribName)
 	{
-		return GL.GetAttribLocation(ProgramID, attribName);
+		return GL.GetAttribLocation(ProgramId, attribName);
 	}
 
 	public static BufferType GetBufferTypeFromFileString(string shaderFile)

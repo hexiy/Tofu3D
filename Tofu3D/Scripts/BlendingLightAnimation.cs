@@ -12,3 +12,4 @@ public class BlendingLightAnimation : Component
 		base.Update();
 	}
 }*/
+

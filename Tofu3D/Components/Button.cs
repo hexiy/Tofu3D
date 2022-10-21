@@ -6,13 +6,17 @@ public class Button : Component
 {
 	public delegate void MouseAction();
 
-	[LinkableComponent] public BoxShape boxShape;
-	private bool clicked;
-	private bool mouseIsOver;
-	[XmlIgnore] private MouseAction onClickedAction;
-	[XmlIgnore] public MouseAction onReleasedAction;
+	[LinkableComponent]
+	public BoxShape BoxShape;
+	bool _clicked;
+	bool _mouseIsOver;
+	[XmlIgnore]
+	MouseAction _onClickedAction;
+	[XmlIgnore]
+	public MouseAction OnReleasedAction;
 
-	[LinkableComponent] public Renderer renderer;
+	[LinkableComponent]
+	public Renderer Renderer;
 
 	public override void Awake()
 	{
@@ -22,47 +26,47 @@ public class Button : Component
 
 		if (GetComponent<ButtonTween>() == null)
 		{
-			gameObject.AddComponent<ButtonTween>().Awake();
+			GameObject.AddComponent<ButtonTween>().Awake();
 		}
 
-		renderer = GetComponent<Renderer>();
-		boxShape = GetComponent<BoxShape>();
+		Renderer = GetComponent<Renderer>();
+		BoxShape = GetComponent<BoxShape>();
 
 		base.Awake();
 	}
 
 	public override void Update()
 	{
-		if (renderer == false || boxShape == false)
+		if (Renderer == false || BoxShape == false)
 		{
 			return;
 		}
 
-		mouseIsOver = MouseInput.WorldPosition.In(boxShape);
-		if (MouseInput.ButtonPressed() && mouseIsOver)
+		_mouseIsOver = MouseInput.WorldPosition.In(BoxShape);
+		if (MouseInput.ButtonPressed() && _mouseIsOver)
 		{
-			onClickedAction?.Invoke();
-			clicked = true;
+			_onClickedAction?.Invoke();
+			_clicked = true;
 		}
 		else if (MouseInput.ButtonReleased())
 		{
-			if (mouseIsOver)
+			if (_mouseIsOver)
 			{
-				onReleasedAction?.Invoke();
+				OnReleasedAction?.Invoke();
 			}
 
-			clicked = false;
+			_clicked = false;
 		}
 
-		if (clicked == false)
+		if (_clicked == false)
 		{
 			//renderer.color = mouseIsOver ? Color.Gray : Color.White;
 		}
 
-		if (clicked && mouseIsOver == false) // up event when me move out of button bounds, even when clicked
+		if (_clicked && _mouseIsOver == false) // up event when me move out of button bounds, even when clicked
 		{
-			onReleasedAction?.Invoke();
-			clicked = false;
+			OnReleasedAction?.Invoke();
+			_clicked = false;
 		}
 		//renderer.color = Color.Black;
 	}

@@ -81,7 +81,7 @@ public static class MouseInput
 
 	public static Vector2 WorldDelta
 	{
-		get { return ScreenDelta * Camera.I.orthographicSize / Units.OneWorldUnit; }
+		get { return ScreenDelta * Camera.I.OrthographicSize / Units.OneWorldUnit; }
 	}
 
 	public static Vector2 WorldPosition
@@ -146,11 +146,11 @@ public static class MouseInput
 	{
 		MouseState state = Window.I.MouseState;
 
-		ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y)*Global.EditorScale;
+		ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale;
 
 
-		ScreenPosition = new Vector2(Window.I.MouseState.X*Global.EditorScale - Editor.sceneViewPosition.X,
-		                             -Window.I.MouseState.Y*Global.EditorScale + Camera.I.size.Y + Editor.sceneViewPosition.Y);
+		ScreenPosition = new Vector2(Window.I.MouseState.X * Global.EditorScale - Editor.SceneViewPosition.X,
+		                             -Window.I.MouseState.Y * Global.EditorScale + Camera.I.Size.Y + Editor.SceneViewPosition.Y);
 
 		//Debug.Log($"ScreenPos: [{(int)ScreenPosition.X}:{(int)ScreenPosition.Y}]");
 		//Debug.Log($"WorldPos: [{(int)WorldPosition.X}:{(int)WorldPosition.Y}]");
@@ -158,8 +158,8 @@ public static class MouseInput
 		//System.Diagnostics.Debug.WriteLine("mousePos:" + Position.X + ":" + Position.Y);
 	}
 
-	private static bool IsMouseInSceneView()
+	static bool IsMouseInSceneView()
 	{
-		return ScreenPosition.X < Camera.I.size.X && ScreenPosition.Y < Camera.I.size.Y && ScreenPosition.X > 0 && ScreenPosition.Y > 0;
+		return ScreenPosition.X < Camera.I.Size.X && ScreenPosition.Y < Camera.I.Size.Y && ScreenPosition.X > 0 && ScreenPosition.Y > 0;
 	}
 }

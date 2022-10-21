@@ -2,19 +2,19 @@ namespace Tofu3D.Physics;
 
 public class World
 {
-	public static World I { get; private set; }
-
-	public List<Rigidbody> bodies;
+	public List<Rigidbody> Bodies;
 
 	public World()
 	{
 		I = this;
 
-		bodies = new List<Rigidbody>();
+		Bodies = new List<Rigidbody>();
 	}
+
+	public static World I { get; private set; }
 
 	public void AddBody(Rigidbody rb)
 	{
-		bodies.Add(rb);
+		Bodies.Add(rb);
 	}
 }

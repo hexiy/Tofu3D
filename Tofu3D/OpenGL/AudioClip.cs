@@ -3,5 +3,5 @@
 [Serializable]
 public class AudioClip
 {
-	public string path = "";
+	public string Path = "";
 }

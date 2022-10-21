@@ -93,82 +93,98 @@ public struct Matrix : IEquatable<Matrix>
 	/// <summary>
 	///         A first row and first column value.
 	/// </summary>
-	[DataMember] public float M11;
+	[DataMember]
+	public float M11;
 
 	/// <summary>
 	///         A first row and second column value.
 	/// </summary>
-	[DataMember] public float M12;
+	[DataMember]
+	public float M12;
 
 	/// <summary>
 	///         A first row and third column value.
 	/// </summary>
-	[DataMember] public float M13;
+	[DataMember]
+	public float M13;
 
 	/// <summary>
 	///         A first row and fourth column value.
 	/// </summary>
-	[DataMember] public float M14;
+	[DataMember]
+	public float M14;
 
 	/// <summary>
 	///         A second row and first column value.
 	/// </summary>
-	[DataMember] public float M21;
+	[DataMember]
+	public float M21;
 
 	/// <summary>
 	///         A second row and second column value.
 	/// </summary>
-	[DataMember] public float M22;
+	[DataMember]
+	public float M22;
 
 	/// <summary>
 	///         A second row and third column value.
 	/// </summary>
-	[DataMember] public float M23;
+	[DataMember]
+	public float M23;
 
 	/// <summary>
 	///         A second row and fourth column value.
 	/// </summary>
-	[DataMember] public float M24;
+	[DataMember]
+	public float M24;
 
 	/// <summary>
 	///         A third row and first column value.
 	/// </summary>
-	[DataMember] public float M31;
+	[DataMember]
+	public float M31;
 
 	/// <summary>
 	///         A third row and second column value.
 	/// </summary>
-	[DataMember] public float M32;
+	[DataMember]
+	public float M32;
 
 	/// <summary>
 	///         A third row and third column value.
 	/// </summary>
-	[DataMember] public float M33;
+	[DataMember]
+	public float M33;
 
 	/// <summary>
 	///         A third row and fourth column value.
 	/// </summary>
-	[DataMember] public float M34;
+	[DataMember]
+	public float M34;
 
 	/// <summary>
 	///         A fourth row and first column value.
 	/// </summary>
-	[DataMember] public float M41;
+	[DataMember]
+	public float M41;
 
 	/// <summary>
 	///         A fourth row and second column value.
 	/// </summary>
-	[DataMember] public float M42;
+	[DataMember]
+	public float M42;
 
 	/// <summary>
 	///         A fourth row and third column value.
 	/// </summary>
-	[DataMember] public float M43;
+	[DataMember]
+	public float M43;
 
 	/// <summary>
 	///         A fourth row and fourth column value.
 	/// </summary>
-	[DataMember] public float M44;
+	[DataMember]
+	public float M44;
 
 	#endregion
 
@@ -1524,10 +1540,10 @@ public struct Matrix : IEquatable<Matrix>
 			return false;
 		}
 
-		Matrix m1 = new Matrix(M11 / scale.X, M12 / scale.X, M13 / scale.X, 0,
-		                       M21 / scale.Y, M22 / scale.Y, M23 / scale.Y, 0,
-		                       M31 / scale.Z, M32 / scale.Z, M33 / scale.Z, 0,
-		                       0, 0, 0, 1);
+		Matrix m1 = new(M11 / scale.X, M12 / scale.X, M13 / scale.X, 0,
+		                M21 / scale.Y, M22 / scale.Y, M23 / scale.Y, 0,
+		                M31 / scale.Z, M32 / scale.Z, M33 / scale.Z, 0,
+		                0, 0, 0, 1);
 
 		rotation = Quaternion.CreateFromRotationMatrix(m1.ToNumerics());
 		return true;
@@ -2575,9 +2591,9 @@ public struct Matrix : IEquatable<Matrix>
 	///         Helper method for using the Laplace expansion theorem using two rows expansions to calculate major and
 	///         minor determinants of a 4x4 matrix. This method is used for inverting a matrix.
 	/// </summary>
-	private static void FindDeterminants(ref Matrix matrix, out float major,
-	                                     out float minor1, out float minor2, out float minor3, out float minor4, out float minor5, out float minor6,
-	                                     out float minor7, out float minor8, out float minor9, out float minor10, out float minor11, out float minor12)
+	static void FindDeterminants(ref Matrix matrix, out float major,
+	                             out float minor1, out float minor2, out float minor3, out float minor4, out float minor5, out float minor6,
+	                             out float minor7, out float minor8, out float minor9, out float minor10, out float minor11, out float minor12)
 	{
 		double det1 = matrix.M11 * (double) matrix.M22 - matrix.M12 * (double) matrix.M21;
 		double det2 = matrix.M11 * (double) matrix.M23 - matrix.M13 * (double) matrix.M21;

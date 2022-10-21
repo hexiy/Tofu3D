@@ -6,10 +6,10 @@ namespace Tofu3D;
 
 public static class TextureCache
 {
-	private static Dictionary<int, Texture> cachedTextures = new();
-	private static int textureInUse = -1;
+	static Dictionary<int, Texture> _cachedTextures = new();
+	static int _textureInUse = -1;
 
-	private static Texture LoadAndCreateTexture(string texturePath, bool flipX = true, bool smooth = false)
+	static Texture LoadAndCreateTexture(string texturePath, bool flipX = true, bool smooth = false)
 	{
 		int id = GL.GenTexture();
 		BindTexture(id);
@@ -20,7 +20,7 @@ public static class TextureCache
 			image.Mutate(x => x.Flip(FlipMode.Vertical));
 		}
 
-		List<byte> pixels = new List<byte>(4 * image.Width * image.Height);
+		List<byte> pixels = new(4 * image.Width * image.Height);
 
 		for (int y = 0; y < image.Height; y++)
 		{
@@ -41,33 +41,33 @@ public static class TextureCache
 		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, smooth ? (int) TextureMinFilter.Linear : (int) TextureMinFilter.Nearest);
 		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, smooth ? (int) TextureMagFilter.Linear : (int) TextureMagFilter.Nearest);
 
-		Texture texture = new Texture();
-		texture.id = id;
-		texture.size = new Vector2(image.Width, image.Height);
-		texture.loaded = true;
-		texture.path = texturePath;
+		Texture texture = new();
+		texture.Id = id;
+		texture.Size = new Vector2(image.Width, image.Height);
+		texture.Loaded = true;
+		texture.Path = texturePath;
 
-		cachedTextures.Add(GetHash(texturePath), texture);
+		_cachedTextures.Add(GetHash(texturePath), texture);
 		return texture;
 	}
 
 	public static Texture GetTexture(string texturePath, bool flipX = true, bool smooth = false)
 	{
-		if (cachedTextures.ContainsKey(GetHash(texturePath)) == false)
+		if (_cachedTextures.ContainsKey(GetHash(texturePath)) == false)
 		{
 			return LoadAndCreateTexture(texturePath, flipX, smooth);
 		}
 
-		return cachedTextures[GetHash(texturePath)];
+		return _cachedTextures[GetHash(texturePath)];
 	}
 
 	public static void DeleteTexture(string texturePath)
 	{
-		if (cachedTextures.ContainsKey(GetHash(texturePath)))
+		if (_cachedTextures.ContainsKey(GetHash(texturePath)))
 		{
-			GL.DeleteTexture(cachedTextures[GetHash(texturePath)].id);
+			GL.DeleteTexture(_cachedTextures[GetHash(texturePath)].Id);
 
-			cachedTextures.Remove(GetHash(texturePath));
+			_cachedTextures.Remove(GetHash(texturePath));
 		}
 	}
 
@@ -78,12 +78,12 @@ public static class TextureCache
 
 	public static void BindTexture(int id)
 	{
-		if (id == textureInUse)
+		if (id == _textureInUse)
 		{
 			return;
 		}
 
-		textureInUse = id;
+		_textureInUse = id;
 		GL.BindTexture(TextureTarget.Texture2D, id);
 	}
 }

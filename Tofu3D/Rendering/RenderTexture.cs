@@ -4,10 +4,10 @@ namespace Tofu3D;
 
 public class RenderTexture
 {
-	public int colorAttachment;
-	public int id;
+	public int ColorAttachment;
+	public int Id;
 
-	public Material renderTextureMaterial;
+	public Material RenderTextureMaterial;
 
 	public RenderTexture(Vector2 size)
 	{
@@ -16,29 +16,29 @@ public class RenderTexture
 		Invalidate(size);
 	}
 
-	private void CreateMaterial()
+	void CreateMaterial()
 	{
-		renderTextureMaterial = new Material();
+		RenderTextureMaterial = new Material();
 		Shader shader = new(Path.Combine(Folders.Shaders, "RenderTexture.glsl"));
-		renderTextureMaterial.SetShader(shader);
+		RenderTextureMaterial.SetShader(shader);
 	}
 
 	public void Invalidate(Vector2 size)
 	{
-		id = GL.GenFramebuffer();
+		Id = GL.GenFramebuffer();
 
-		GL.BindFramebuffer(FramebufferTarget.Framebuffer, id);
+		GL.BindFramebuffer(FramebufferTarget.Framebuffer, Id);
 
-		colorAttachment = GL.GenTexture();
+		ColorAttachment = GL.GenTexture();
 		//GL.CreateTextures(TextureTarget.Texture2D, 1, out colorAttachment);
-		GL.BindTexture(TextureTarget.Texture2D, colorAttachment);
+		GL.BindTexture(TextureTarget.Texture2D, ColorAttachment);
 		//TextureCache.BindTexture(colorAttachment);
 
 		GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, (int) size.X, (int) size.Y, 0, PixelFormat.Rgba, PixelType.UnsignedByte, (IntPtr) null);
 		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Linear);
 		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMinFilter.Linear);
 
-		GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, colorAttachment, 0);
+		GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, ColorAttachment, 0);
 
 		if (GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer) != FramebufferErrorCode.FramebufferComplete)
 		{
@@ -50,7 +50,7 @@ public class RenderTexture
 
 	public void Bind()
 	{
-		GL.BindFramebuffer(FramebufferTarget.Framebuffer, id);
+		GL.BindFramebuffer(FramebufferTarget.Framebuffer, Id);
 	}
 
 	public void Unbind()
@@ -60,17 +60,17 @@ public class RenderTexture
 
 	public void Render(int targetTexture, float sampleSize = 1)
 	{
-		if (renderTextureMaterial == null)
+		if (RenderTextureMaterial == null)
 		{
 			return;
 		}
 
 		//return;
-		ShaderCache.UseShader(renderTextureMaterial.shader);
+		ShaderCache.UseShader(RenderTextureMaterial.Shader);
 		// renderTextureMaterial.shader.SetVector2("u_resolution", Camera.I.size);
 		//	renderTextureMaterial.shader.SetMatrix4x4("u_mvp", GetModelViewProjection(sampleSize));
 
-		ShaderCache.BindVAO(renderTextureMaterial.vao);
+		ShaderCache.BindVao(RenderTextureMaterial.Vao);
 		GL.Enable(EnableCap.Blend);
 
 
@@ -78,7 +78,7 @@ public class RenderTexture
 
 		//GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
-		ShaderCache.BindVAO(0);
+		ShaderCache.BindVao(0);
 		GL.Disable(EnableCap.Blend);
 	}
 

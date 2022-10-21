@@ -23,22 +23,26 @@ public struct Quaternion : IEquatable<Quaternion>
 	/// <summary>
 	///         The x coordinate of this <see cref="Quaternion" />.
 	/// </summary>
-	[DataMember] public float X;
+	[DataMember]
+	public float X;
 
 	/// <summary>
 	///         The y coordinate of this <see cref="Quaternion" />.
 	/// </summary>
-	[DataMember] public float Y;
+	[DataMember]
+	public float Y;
 
 	/// <summary>
 	///         The z coordinate of this <see cref="Quaternion" />.
 	/// </summary>
-	[DataMember] public float Z;
+	[DataMember]
+	public float Z;
 
 	/// <summary>
 	///         The rotation component of this <see cref="Quaternion" />.
 	/// </summary>
-	[DataMember] public float W;
+	[DataMember]
+	public float W;
 
 	#endregion
 
@@ -655,7 +659,7 @@ public struct Quaternion : IEquatable<Quaternion>
 	{
 		float num = amount;
 		float num2 = 1f - num;
-		Quaternion quaternion = new Quaternion();
+		Quaternion quaternion = new();
 		float num5 = quaternion1.X * quaternion2.X + quaternion1.Y * quaternion2.Y + quaternion1.Z * quaternion2.Z + quaternion1.W * quaternion2.W;
 		if (num5 >= 0f)
 		{

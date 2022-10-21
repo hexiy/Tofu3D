@@ -11,32 +11,33 @@ public class BoxRenderer : Renderer
 
 	public override void CreateMaterial()
 	{
-		if (material == null)
+		if (Material == null)
 		{
-			material = MaterialCache.GetMaterial("BoxMaterial");
+			Material = MaterialCache.GetMaterial("BoxMaterial");
 		}
-		
+
 		base.CreateMaterial();
 	}
 
 	public override void Render()
 	{
-		if (boxShape == null || material == null)
+		if (BoxShape == null || Material == null)
 		{
 			return;
 		}
 
-		
-		ShaderCache.UseShader(material.shader);
 
-		material.shader.SetMatrix4x4("u_mvp", LatestModelViewProjection);
-		material.shader.SetColor("u_color", color.ToVector4());
+		ShaderCache.UseShader(Material.Shader);
+
+		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+		Material.Shader.SetColor("u_color", Color.ToVector4());
 		//material.shader.SetVector4("u_tint", (Vector4) material.shader.uniforms["u_tint"]);
-		if (material.shader.uniforms.ContainsKey("time"))
+		if (Material.Shader.Uniforms.ContainsKey("time"))
 		{
-			material.shader.SetFloat("time", (float) material.shader.uniforms["time"]);
+			Material.Shader.SetFloat("time", (float) Material.Shader.Uniforms["time"]);
 		}
-		ShaderCache.BindVAO(material.vao);
+
+		ShaderCache.BindVao(Material.Vao);
 
 		//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 

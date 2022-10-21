@@ -4,14 +4,14 @@ namespace Tofu3D;
 
 public class Editor
 {
-	public static Vector2 sceneViewPosition = new(0, 0);
-	public static Vector2 sceneViewSize = new(0, 0);
+	public static Vector2 SceneViewPosition = new(0, 0);
+	public static Vector2 SceneViewSize = new(0, 0);
 	//private ImGuiRenderer _imGuiRenderer;
-	private EditorPanel[] editorPanels;
+	EditorPanel[] _editorPanels;
 
-	public TransformHandle transformHandle;
+	List<RangeAccessor<System.Numerics.Vector4>> _themes = new();
 
-	private List<RangeAccessor<System.Numerics.Vector4>> themes = new List<RangeAccessor<System.Numerics.Vector4>>();
+	public TransformHandle TransformHandle;
 
 	//public static Vector2 ScreenToWorld(Vector2 screenPosition)
 	//{
@@ -192,41 +192,41 @@ public class Editor
 
 		if (themeIndex == 3) // custom one to look like my ide
 		{
-			Vector4 c_transparent = new Vector4(0, 0, 0, 0);
-			Vector4 c_beige = new Vector4(1f, 0.96f, 0.90f, 1.00f);
-			Vector4 c_beige_mid = new Vector4(0.97f, 0.94f, 0.88f, 1f);
-			Vector4 c_beige_darker = new Vector4(0.94f, 0.91f, 0.85f, 1f);
-			Vector4 c_scrollbar = new Vector4(0.74f, 0.71f, 0.65f, 0.8f);
-			Vector4 c_scrollbar_darker = new Vector4(0.64f, 0.61f, 0.55f, 1f);
+			Vector4 cTransparent = new(0, 0, 0, 0);
+			Vector4 cBeige = new(1f, 0.96f, 0.90f, 1.00f);
+			Vector4 cBeigeMid = new(0.97f, 0.94f, 0.88f, 1f);
+			Vector4 cBeigeDarker = new(0.94f, 0.91f, 0.85f, 1f);
+			Vector4 cScrollbar = new(0.74f, 0.71f, 0.65f, 0.8f);
+			Vector4 cScrollbarDarker = new(0.64f, 0.61f, 0.55f, 1f);
 
 			colors[(int) ImGuiCol.Text] = new Vector4(0.23f, 0.29f, 0.40f, 1f);
-			colors[(int) ImGuiCol.TextDisabled] =new Vector4(0.23f, 0.29f, 0.40f, 0.5f);
+			colors[(int) ImGuiCol.TextDisabled] = new Vector4(0.23f, 0.29f, 0.40f, 0.5f);
 			colors[(int) ImGuiCol.WindowBg] = new Vector4(0.99f, 0.96f, 0.90f, 1.00f);
-			colors[(int) ImGuiCol.ChildBg] = c_beige;
-			colors[(int) ImGuiCol.PopupBg] = c_beige;
+			colors[(int) ImGuiCol.ChildBg] = cBeige;
+			colors[(int) ImGuiCol.PopupBg] = cBeige;
 			colors[(int) ImGuiCol.Border] = new Vector4(0.81f, 0.79f, 0.74f, 1);
-			colors[(int) ImGuiCol.BorderShadow] = c_transparent;
-			colors[(int) ImGuiCol.FrameBg] = c_beige;
-			colors[(int) ImGuiCol.FrameBgHovered] = c_beige;
-			colors[(int) ImGuiCol.FrameBgActive] = c_beige;
-			colors[(int) ImGuiCol.TitleBg] = c_beige;
-			colors[(int) ImGuiCol.TitleBgActive] = c_beige;
-			colors[(int) ImGuiCol.TitleBgCollapsed] = c_beige;
-			colors[(int) ImGuiCol.MenuBarBg] = c_beige;
-			colors[(int) ImGuiCol.ScrollbarBg] = c_beige;
-			colors[(int) ImGuiCol.ScrollbarGrab] =c_scrollbar;
-			colors[(int) ImGuiCol.ScrollbarGrabHovered] = c_scrollbar_darker;
-			colors[(int) ImGuiCol.ScrollbarGrabActive] = c_scrollbar_darker;
+			colors[(int) ImGuiCol.BorderShadow] = cTransparent;
+			colors[(int) ImGuiCol.FrameBg] = cBeige;
+			colors[(int) ImGuiCol.FrameBgHovered] = cBeige;
+			colors[(int) ImGuiCol.FrameBgActive] = cBeige;
+			colors[(int) ImGuiCol.TitleBg] = cBeige;
+			colors[(int) ImGuiCol.TitleBgActive] = cBeige;
+			colors[(int) ImGuiCol.TitleBgCollapsed] = cBeige;
+			colors[(int) ImGuiCol.MenuBarBg] = cBeige;
+			colors[(int) ImGuiCol.ScrollbarBg] = cBeige;
+			colors[(int) ImGuiCol.ScrollbarGrab] = cScrollbar;
+			colors[(int) ImGuiCol.ScrollbarGrabHovered] = cScrollbarDarker;
+			colors[(int) ImGuiCol.ScrollbarGrabActive] = cScrollbarDarker;
 			colors[(int) ImGuiCol.CheckMark] = new Vector4(0.43f, 0.43f, 0.43f, 1.00f);
 			colors[(int) ImGuiCol.SliderGrab] = new Vector4(0.63f, 0.63f, 0.63f, 0.78f);
 			colors[(int) ImGuiCol.SliderGrabActive] = new Vector4(0.43f, 0.44f, 0.46f, 0.78f);
-			colors[(int) ImGuiCol.Button] = c_beige_darker;
-			colors[(int) ImGuiCol.ButtonHovered] = c_beige_mid;
-			colors[(int) ImGuiCol.ButtonActive] = c_beige_darker;
-			colors[(int) ImGuiCol.Header] = c_beige_darker;
-			colors[(int) ImGuiCol.HeaderHovered] = c_beige_mid;
-			colors[(int) ImGuiCol.HeaderActive] = c_beige_darker;
-			colors[(int) ImGuiCol.Separator] =  new Vector4(0.81f, 0.79f, 0.74f, 1);
+			colors[(int) ImGuiCol.Button] = cBeigeDarker;
+			colors[(int) ImGuiCol.ButtonHovered] = cBeigeMid;
+			colors[(int) ImGuiCol.ButtonActive] = cBeigeDarker;
+			colors[(int) ImGuiCol.Header] = cBeigeDarker;
+			colors[(int) ImGuiCol.HeaderHovered] = cBeigeMid;
+			colors[(int) ImGuiCol.HeaderActive] = cBeigeDarker;
+			colors[(int) ImGuiCol.Separator] = new Vector4(0.81f, 0.79f, 0.74f, 1);
 			colors[(int) ImGuiCol.SeparatorHovered] = new Vector4(0.17f, 0.17f, 0.17f, 0.89f);
 			colors[(int) ImGuiCol.SeparatorActive] = new Vector4(0.17f, 0.17f, 0.17f, 0.89f);
 			colors[(int) ImGuiCol.ResizeGrip] = new Vector4(0.80f, 0.80f, 0.80f, 0.56f);
@@ -260,26 +260,29 @@ public class Editor
 
 		if (Global.EditorAttached)
 		{
-			editorPanels = new EditorPanel[]
-			                {
-				                new EditorPanelHierarchy(),
-				                new EditorPanelInspector(),
-				                new EditorPanelBrowser(),
-				                new EditorPanelConsole(),
-				                new EditorPanelProfiler(),
-				                new EditorPanelSceneView()
-			                };
+			_editorPanels = new EditorPanel[]
+			               {
+				               new EditorPanelHierarchy(),
+				               new EditorPanelInspector(),
+				               new EditorPanelBrowser(),
+				               new EditorPanelConsole(),
+				               new EditorPanelProfiler(),
+				               new EditorPanelSceneView()
+			               };
 		}
 
 		else
 		{
-			editorPanels = new EditorPanel[]
-			                {
-				                new EditorPanelSceneView()
-			                };
+			_editorPanels = new EditorPanel[]
+			               {
+				               new EditorPanelSceneView()
+			               };
 		}
 
-		for (int i = 0; i < editorPanels.Length; i++) editorPanels[i].Init();
+		for (int i = 0; i < _editorPanels.Length; i++)
+		{
+			_editorPanels[i].Init();
+		}
 
 		if (Global.EditorAttached)
 		{
@@ -290,7 +293,10 @@ public class Editor
 
 	public void Update()
 	{
-		for (int i = 0; i < editorPanels.Length; i++) editorPanels[i].Update();
+		for (int i = 0; i < _editorPanels.Length; i++)
+		{
+			_editorPanels[i].Update();
+		}
 
 		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.IsKeyDown(Keys.S))
 		{
@@ -304,7 +310,7 @@ public class Editor
 		{
 			if (Global.GameRunning == false)
 			{
-				Scene.I.LoadScene(Serializer.lastScene);
+				Scene.I.LoadScene(Serializer.LastScene);
 			}
 		}
 	}
@@ -313,8 +319,10 @@ public class Editor
 	{
 		if (Global.EditorAttached)
 		{
-			for (int i = 0; i < editorPanels.Length; i++)
-				editorPanels[i].Draw();
+			for (int i = 0; i < _editorPanels.Length; i++)
+			{
+				_editorPanels[i].Draw();
+			}
 
 			//EditorWindow_Console.I.Draw();
 		}
@@ -328,27 +336,29 @@ public class Editor
 	{
 		if (go != null)
 		{
-			for (int i = 0; i < Scene.I.gameObjects.Count; i++)
-				if (Scene.I.gameObjects[i].id != go.id)
+			for (int i = 0; i < Scene.I.GameObjects.Count; i++)
+			{
+				if (Scene.I.GameObjects[i].Id != go.Id)
 				{
-					Scene.I.gameObjects[i].selected = false;
+					Scene.I.GameObjects[i].Selected = false;
 				}
+			}
 
-			go.selected = true;
+			go.Selected = true;
 		}
 
-		if (go != Camera.I.gameObject && go != transformHandle.gameObject && go != null)
+		if (go != Camera.I?.GameObject && go != TransformHandle.GameObject && go != null)
 		{
-			transformHandle.SelectObject(go);
-			PersistentData.Set("lastSelectedGameObjectId", go.id);
+			TransformHandle.SelectObject(go);
+			PersistentData.Set("lastSelectedGameObjectId", go.Id);
 		}
 		else
 		{
-			transformHandle.SelectObject(null);
+			TransformHandle.SelectObject(null);
 		}
 	}
 
-	private void OnGameObjectSelected(int id)
+	void OnGameObjectSelected(int id)
 	{
 		if (Global.EditorAttached == false)
 		{
@@ -366,40 +376,46 @@ public class Editor
 				return;
 			}
 
-			SelectGameObject(Scene.I.gameObjects[GetGameObjectIndexInHierarchy(id)]);
+			SelectGameObject(Scene.I.GameObjects[GetGameObjectIndexInHierarchy(id)]);
 		}
 	}
 
 	public int GetGameObjectIndexInHierarchy(int id)
 	{
-		for (int i = 0; i < Scene.I.gameObjects.Count; i++)
-			if (Scene.I.gameObjects[i].id == id)
+		for (int i = 0; i < Scene.I.GameObjects.Count; i++)
+		{
+			if (Scene.I.GameObjects[i].Id == id)
 			{
 				return i;
 			}
+		}
 
 		return -1;
 	}
 
 	public List<GameObject> GetSelectedGameObjects()
 	{
-		List<GameObject> selectedGameObjects = new List<GameObject>();
-		for (int i = 0; i < Scene.I.gameObjects.Count; i++)
-			if (Scene.I.gameObjects[i].selected)
+		List<GameObject> selectedGameObjects = new();
+		for (int i = 0; i < Scene.I.GameObjects.Count; i++)
+		{
+			if (Scene.I.GameObjects[i].Selected)
 			{
-				selectedGameObjects.Add(Scene.I.gameObjects[i]);
+				selectedGameObjects.Add(Scene.I.GameObjects[i]);
 			}
+		}
 
 		return selectedGameObjects;
 	}
 
 	public GameObject GetSelectedGameObject()
 	{
-		for (int i = 0; i < Scene.I.gameObjects.Count; i++)
-			if (Scene.I.gameObjects[i].selected)
+		for (int i = 0; i < Scene.I.GameObjects.Count; i++)
+		{
+			if (Scene.I.GameObjects[i].Selected)
 			{
-				return Scene.I.gameObjects[i];
+				return Scene.I.GameObjects[i];
 			}
+		}
 
 		return null;
 	}
