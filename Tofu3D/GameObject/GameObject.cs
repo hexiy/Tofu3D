@@ -360,6 +360,11 @@ public class GameObject
 			components.Clear();
 		}
 
+		if (transform.parent != null)
+		{
+			transform.parent.RemoveChild(id);
+		}
+
 		Scene.I.OnGameObjectDestroyed(this);
 	}
 
