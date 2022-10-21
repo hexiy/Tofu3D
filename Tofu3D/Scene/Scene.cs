@@ -29,37 +29,7 @@ public class Scene
 		camGo.AddComponent<Camera>();
 		camGo.Awake();
 
-		for (int i = 0; i < 1; i++)
-		{
-			GameObject go2 = GameObject.Create(name: "sprite " + i);
-			go2.AddComponent<BoxRenderer>();
-			go2.AddComponent<BoxShape>().Size = new Vector2(400, 180);
-
-			go2.Awake();
-			go2.Transform.Position = new Vector2(0, 0);
-			go2.Transform.Pivot = new Vector2(0.5f, 0.5f);
-		}
-
 		CreateTransformHandle();
-	}
-
-	void SpawnTestSpriteRenderers()
-	{
-		GameObject parent = GameObject.Create(name: "parent");
-		parent.Awake();
-		for (int i = 0; i < 10000; i++)
-		{
-			GameObject go2 = GameObject.Create(name: "sprite " + i);
-			go2.DynamicallyCreated = true;
-			go2.AddComponent<SpriteRenderer>();
-			go2.AddComponent<BoxShape>().Size = new Vector2(400, 180);
-
-			go2.Awake();
-			go2.GetComponent<SpriteRenderer>().LoadTexture("2D/house.png");
-			go2.Transform.Position = new Vector2(Rendom.Range(-1000, 1000), Rendom.Range(-1000, 1000));
-			go2.Transform.Pivot = new Vector2(0.5f, 0.5f);
-			go2.Transform.SetParent(parent.Transform);
-		}
 	}
 
 	void CreateTransformHandle()
@@ -71,6 +41,7 @@ public class Scene
 		transformHandleGameObject.Name = "Transform Handle";
 		transformHandleGameObject.ActiveSelf = false;
 		transformHandleGameObject.Awake();
+		transformHandleGameObject.Start();
 	}
 
 	public void Start()

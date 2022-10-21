@@ -7,7 +7,6 @@ public static class Program
 	static void Main()
 	{
 		Global.LoadSavedData();
-
 		_ = new Serializer();
 		_ = new Scene();
 		_ = new TweenManager();
@@ -16,6 +15,7 @@ public static class Program
 
 
 		using Window window = new();
+		
 		//window.VSync = VSyncMode.Off;
 		window.Run();
 	}

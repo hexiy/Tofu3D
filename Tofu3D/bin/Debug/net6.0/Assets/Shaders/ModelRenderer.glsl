@@ -1,9 +1,9 @@
-﻿[BUFFERTYPE: MODEL]
+﻿[BUFFERTYPE:Model]
 [VERTEX]
 #version 410 core
 
-layout (location = 0) in vec3 a_pos;
-layout (location = 1) in vec2 a_texCoord;
+layout(location = 0) in vec3 a_pos;
+layout(location = 1) in vec2 a_texCoord;
 out vec2 texCoord;
 
 uniform mat4 u_mvp = mat4(1.0);
@@ -17,7 +17,7 @@ texCoord = a_texCoord;
 
 [FRAGMENT]
 #version 410 core
- uniform vec4 u_rendererColor;
+uniform vec4 u_rendererColor;
 out vec4 frag_color;
 in vec2 texCoord;
 uniform sampler2D textureObject;

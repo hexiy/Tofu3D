@@ -1,4 +1,4 @@
-﻿[BUFFERTYPE: BOX]
+﻿[BUFFERTYPE:Box]
 [VERTEX]
 #version 410 core
 

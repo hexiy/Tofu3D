@@ -104,7 +104,7 @@ public class EditorPanelInspector : EditorPanel
 
 		string shaderPath = _selectedMaterial.Shader?.Path ?? "";
 		string shaderName = Path.GetFileName(shaderPath);
-		bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, 20));
+		bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 		if (clicked)
 		{
 			EditorPanelBrowser.I.GoToFile(shaderPath);

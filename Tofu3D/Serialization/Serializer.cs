@@ -14,7 +14,7 @@ public class Serializer
 
 	public static string LastScene
 	{
-		get { return PersistentData.GetString("lastOpenedScene", "Assets/scene1.scene"); }
+		get { return PersistentData.GetString("lastOpenedScene", "Assets/Scenes/scene1.scene"); }
 		set { PersistentData.Set("lastOpenedScene", value); }
 	}
 	public static Serializer I { get; set; }

@@ -15,9 +15,9 @@ public class TransformHandle : Component
 	public BoxShape BoxColliderXy;
 	public BoxShape BoxColliderY;
 	//public BoxShape boxColliderZ;
-	public ModelRenderer BoxRendererX;
-	public ModelRenderer BoxRendererXy;
-	public ModelRenderer BoxRendererY;
+	public ModelRenderer ModelRendererX;
+	public ModelRenderer ModelRendererXy;
+	public ModelRenderer ModelRendererY;
 	//public ModelRenderer boxRendererZ;
 
 	public bool Clicked;
@@ -31,56 +31,41 @@ public class TransformHandle : Component
 		ObjectSelected = false;
 		GameObject.UpdateWhenDisabled = true;
 
-		if (GetComponents<BoxRenderer>().Count > 2)
-		{
-			BoxColliderXy = GetComponent<BoxShape>(0);
-			BoxColliderX = GetComponent<BoxShape>(1);
-			BoxColliderY = GetComponent<BoxShape>(2);
-			//boxColliderZ = GetComponent<BoxShape>(3);
+		BoxColliderX = GameObject.AddComponent<BoxShape>();
+		BoxColliderX.Size = new Vector3(50, 5, 5) / Units.OneWorldUnit;
+		//boxColliderX.offset = new Vector2(25, 2.5f);
 
-			BoxRendererXy = GetComponent<ModelRenderer>(0);
-			BoxRendererX = GetComponent<ModelRenderer>(1);
-			BoxRendererY = GetComponent<ModelRenderer>(2);
-			//boxRendererZ = GetComponent<ModelRenderer>(3);
-		}
-		else
-		{
-			BoxColliderX = GameObject.AddComponent<BoxShape>();
-			BoxColliderX.Size = new Vector3(50, 5, 5) / Units.OneWorldUnit;
-			//boxColliderX.offset = new Vector2(25, 2.5f);
+		BoxColliderY = GameObject.AddComponent<BoxShape>();
+		BoxColliderY.Size = new Vector3(5, 50, 5) / Units.OneWorldUnit;
 
-			BoxColliderY = GameObject.AddComponent<BoxShape>();
-			BoxColliderY.Size = new Vector3(5, 50, 5) / Units.OneWorldUnit;
+		// boxColliderZ = gameObject.AddComponent<BoxShape>();
+		// boxColliderZ.size = new Vector3(5, 5, 50)/Units.OneWorldUnit;
+		//boxColliderY.offset = new Vector2(2.5f, 25);
 
-			// boxColliderZ = gameObject.AddComponent<BoxShape>();
-			// boxColliderZ.size = new Vector3(5, 5, 50)/Units.OneWorldUnit;
-			//boxColliderY.offset = new Vector2(2.5f, 25);
+		BoxColliderXy = GameObject.AddComponent<BoxShape>();
+		BoxColliderXy.Size = new Vector3(10, 10, 10) / Units.OneWorldUnit;
+		//boxColliderXY.offset = new Vector3(5, 5,-5)/Units.OneWorldUnit;
 
-			BoxColliderXy = GameObject.AddComponent<BoxShape>();
-			BoxColliderXy.Size = new Vector3(10, 10, 10) / Units.OneWorldUnit;
-			//boxColliderXY.offset = new Vector3(5, 5,-5)/Units.OneWorldUnit;
-
-			BoxRendererX = GameObject.AddComponent<ModelRenderer>();
-			BoxRendererY = GameObject.AddComponent<ModelRenderer>();
-			// boxRendererZ = gameObject.AddComponent<ModelRenderer>();
-			BoxRendererXy = GameObject.AddComponent<ModelRenderer>();
+		ModelRendererX = GameObject.AddComponent<ModelRenderer>();
+		ModelRendererY = GameObject.AddComponent<ModelRenderer>();
+		// boxRendererZ = gameObject.AddComponent<ModelRenderer>();
+		ModelRendererXy = GameObject.AddComponent<ModelRenderer>();
 
 
-			PremadeComponentSetups.PrepareCube(BoxRendererX);
-			PremadeComponentSetups.PrepareCube(BoxRendererY);
-			PremadeComponentSetups.PrepareCube(BoxRendererXy);
-			// PremadeComponentSetups.PrepareCube(boxRendererZ);
+		PremadeComponentSetups.PrepareCube(ModelRendererX);
+		PremadeComponentSetups.PrepareCube(ModelRendererY);
+		PremadeComponentSetups.PrepareCube(ModelRendererXy);
+		// PremadeComponentSetups.PrepareCube(boxRendererZ);
 
-			BoxRendererXy.Layer = 1000;
-			BoxRendererX.Layer = 1000;
-			BoxRendererY.Layer = 1000;
-			// boxRendererZ.Layer = 1000;
+		ModelRendererXy.Layer = 1000;
+		ModelRendererX.Layer = 1000;
+		ModelRendererY.Layer = 1000;
+		// boxRendererZ.Layer = 1000;
 
-			BoxRendererX.BoxShape = BoxColliderX;
-			BoxRendererXy.BoxShape = BoxColliderXy;
-			BoxRendererY.BoxShape = BoxColliderY;
-			// boxRendererZ.boxShape = boxColliderZ;
-		}
+		ModelRendererX.BoxShape = BoxColliderX;
+		ModelRendererXy.BoxShape = BoxColliderXy;
+		ModelRendererY.BoxShape = BoxColliderY;
+		// boxRendererZ.boxShape = boxColliderZ;
 
 		base.Awake();
 	}
@@ -150,29 +135,29 @@ public class TransformHandle : Component
 		Transform.Position = _selectedTransform.Position;
 		if (MouseInput.WorldPosition.In(BoxColliderX) || CurrentAxisSelected == Axis.X)
 		{
-			BoxRendererX.Color = Color.WhiteSmoke;
+			ModelRendererX.Color = Color.WhiteSmoke;
 		}
 		else
 		{
-			BoxRendererX.Color = Color.Red;
+			ModelRendererX.Color = Color.Red;
 		}
 
 		if (MouseInput.WorldPosition.In(BoxColliderY) || CurrentAxisSelected == Axis.Y)
 		{
-			BoxRendererY.Color = Color.WhiteSmoke;
+			ModelRendererY.Color = Color.WhiteSmoke;
 		}
 		else
 		{
-			BoxRendererY.Color = Color.Cyan;
+			ModelRendererY.Color = Color.Cyan;
 		}
 
 		if (MouseInput.WorldPosition.In(BoxColliderXy) || CurrentAxisSelected == Axis.Xy)
 		{
-			BoxRendererXy.Color = Color.WhiteSmoke;
+			ModelRendererXy.Color = Color.WhiteSmoke;
 		}
 		else
 		{
-			BoxRendererXy.Color = Color.Gold;
+			ModelRendererXy.Color = Color.Gold;
 		}
 
 		base.Update();

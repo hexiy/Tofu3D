@@ -6,8 +6,6 @@ public class ModelRenderer : TextureRenderer
 
 	public override void Awake()
 	{
-		CreateMaterial();
-
 		if (Texture == null)
 		{
 			Texture = new Texture();
@@ -58,20 +56,20 @@ public class ModelRenderer : TextureRenderer
 		{
 			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
 			GL.StencilMask(0xFF);
-
+		
 			{
 				ShaderCache.UseShader(Material.Shader);
 				Material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
 				Material.Shader.SetColor("u_rendererColor", Color.White.ToVector4());
-
+		
 				ShaderCache.BindVao(Material.Vao);
-
+		
 				//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 				TextureCache.BindTexture(Texture.Id);
-
+		
 				GL.DrawElements(PrimitiveType.Triangles, 6 * 2 * 3, DrawElementsType.UnsignedInt, (IntPtr) null);
 			}
-
+		
 			GL.StencilFunc(StencilFunction.Notequal, 1, 0xFF);
 			GL.StencilMask(0x00);
 			GL.Disable(EnableCap.DepthTest);
@@ -105,7 +103,7 @@ public class ModelRenderer : TextureRenderer
 			GL.StencilMask(0xFF);
 			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
 			GL.Enable(EnableCap.DepthTest);
-
+		
 			GL.BindVertexArray(0);
 		}
 

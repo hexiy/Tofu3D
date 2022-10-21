@@ -174,7 +174,7 @@ public class EditorPanelHierarchy : EditorPanel
 			return;
 		}
 
-		if (currentGameObject.Silent)
+		if (currentGameObject.Silent && Global.Debug==false)
 		{
 			return;
 		}
