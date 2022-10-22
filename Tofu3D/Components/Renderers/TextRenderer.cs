@@ -6,46 +6,46 @@ namespace Scripts;
 public class TextRenderer : SpriteRenderer
 {
 	Dictionary<char, int> _fontMappings = new()
-	                                     {
-		                                     {' ', 0},
-		                                     {'0', 16},
-		                                     {'1', 17},
-		                                     {'2', 18},
-		                                     {'3', 19},
-		                                     {'4', 20},
-		                                     {'5', 21},
-		                                     {'6', 22},
-		                                     {'7', 23},
-		                                     {'8', 24},
-		                                     {'9', 25},
+	                                      {
+		                                      {' ', 0},
+		                                      {'0', 16},
+		                                      {'1', 17},
+		                                      {'2', 18},
+		                                      {'3', 19},
+		                                      {'4', 20},
+		                                      {'5', 21},
+		                                      {'6', 22},
+		                                      {'7', 23},
+		                                      {'8', 24},
+		                                      {'9', 25},
 
-		                                     {'A', 33},
-		                                     {'B', 34},
-		                                     {'C', 35},
-		                                     {'D', 36},
-		                                     {'E', 37},
-		                                     {'F', 38},
-		                                     {'G', 39},
-		                                     {'H', 40},
-		                                     {'I', 41},
-		                                     {'J', 42},
-		                                     {'K', 43},
-		                                     {'L', 44},
-		                                     {'M', 45},
-		                                     {'N', 46},
-		                                     {'O', 47},
-		                                     {'P', 48},
-		                                     {'Q', 49},
-		                                     {'R', 50},
-		                                     {'S', 51},
-		                                     {'T', 52},
-		                                     {'U', 53},
-		                                     {'V', 54},
-		                                     {'W', 55},
-		                                     {'X', 56},
-		                                     {'Y', 57},
-		                                     {'Z', 58}
-	                                     };
+		                                      {'A', 33},
+		                                      {'B', 34},
+		                                      {'C', 35},
+		                                      {'D', 36},
+		                                      {'E', 37},
+		                                      {'F', 38},
+		                                      {'G', 39},
+		                                      {'H', 40},
+		                                      {'I', 41},
+		                                      {'J', 42},
+		                                      {'K', 43},
+		                                      {'L', 44},
+		                                      {'M', 45},
+		                                      {'N', 46},
+		                                      {'O', 47},
+		                                      {'P', 48},
+		                                      {'Q', 49},
+		                                      {'R', 50},
+		                                      {'S', 51},
+		                                      {'T', 52},
+		                                      {'U', 53},
+		                                      {'V', 54},
+		                                      {'W', 55},
+		                                      {'X', 56},
+		                                      {'Y', 57},
+		                                      {'Z', 58}
+	                                      };
 	[ShowIf(nameof(IsGradient))]
 	public Color GradientColor1;
 	[ShowIf(nameof(IsGradient))]
@@ -125,7 +125,10 @@ public class TextRenderer : SpriteRenderer
 			Material.Shader.SetVector4("u_color_b", GradientColor2.ToVector4());
 		}
 
-		float charSpacing = Text.Size * 3f + Transform.Scale.X * Text.Size;
+		BoxShape.Size = Vector3.One * 1.2f; // bigger individual characters
+
+
+		float charSpacing = Transform.Scale.X * Text.Size;
 		charSpacing = charSpacing / Units.OneWorldUnit;
 		Vector2 originalPosition = Transform.Position;
 
@@ -134,7 +137,8 @@ public class TextRenderer : SpriteRenderer
 		float lineSpacing = Text.Size * 3 + Transform.Scale.Y * Text.Size;
 
 		Vector2 originalScale = Transform.Scale;
-		Transform.Scale = Vector3.One * Mathf.Clamp(Text.Size / 40f, 0, 1000);
+		Vector2 fontSizeScale = Vector3.One * Mathf.Clamp(Text.Size / 40f, 0, 1000);
+		Transform.Scale = originalScale * fontSizeScale;
 
 		for (int symbolIndex = 0;
 		     symbolIndex < Text.Value.Length;
@@ -146,10 +150,10 @@ public class TextRenderer : SpriteRenderer
 
 			if (GetComponent<TextReactToMouse>() != null && Global.GameRunning)
 			{
-				float distanceToCursor = Vector2.Distance(Transform.Position, MouseInput.WorldPosition);
-				Transform.Scale = Vector3.One * Mathf.Clamp(originalScale.X * (0.2f / distanceToCursor + 1f), 1, 2);
-
 				Transform.Position = Transform.Position + new Vector2(0, (float) MathHelper.Sin(Time.ElapsedTime + symbolIndex * 0.1f) * 1);
+
+				float distanceToCursor = Vector2.Distance(Transform.Position, MouseInput.WorldPosition);
+				Transform.Scale = originalScale * fontSizeScale * Mathf.Clamp((0.2f / distanceToCursor + 1f), 1, 1.3f);
 			}
 
 			UpdateMvp();

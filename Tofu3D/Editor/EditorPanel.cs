@@ -16,7 +16,17 @@ public class EditorPanel
 
 	internal void PushNextId()
 	{
-		ImGui.PushID(_currentId++);
+		ImGui.PushID(int_id: _currentId++);
+	}
+
+	internal void PushNextId(string id)
+	{
+		ImGui.PushID(id);
+	}
+
+	internal void PopId()
+	{
+		ImGui.PopID();
 	}
 
 	public virtual void Init()

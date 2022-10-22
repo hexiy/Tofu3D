@@ -154,7 +154,7 @@ public class EditorPanelHierarchy : EditorPanel
 
 		for (int goIndex = 0; goIndex < Scene.I.GameObjects.Count; goIndex++)
 		{
-			PushNextId();
+			//PushNextId();
 			DrawGameObjectRow(goIndex);
 		}
 
@@ -165,8 +165,9 @@ public class EditorPanelHierarchy : EditorPanel
 	{
 		if (isChild == false)
 		{
-			PushNextId();
+			PushNextId(Scene.I.GameObjects[goIndex].Id.ToString());
 		}
+		
 
 		GameObject currentGameObject = Scene.I.GameObjects[goIndex];
 		if (currentGameObject.Transform.Parent != null && isChild == false) // only draw children from recursive DrawGameObjectRow calls
@@ -197,12 +198,15 @@ public class EditorPanelHierarchy : EditorPanel
 
 		ImGui.PushStyleColor(ImGuiCol.Text, nameColor);
 
-		bool opened = ImGui.TreeNodeEx( /*$"[{currentGameObject.id}]" +*/ currentGameObject.Name, flags);
+		string rowText = (Global.Debug ? $"[{currentGameObject.Id}] " : "") + currentGameObject.Name;
+		bool opened = ImGui.TreeNodeEx(rowText, flags);
 
+		
 		if (ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left) && false) // todo remove false
 		{
 			SceneNavigation.I.MoveToGameObject(Editor.I.GetSelectedGameObject());
 		}
+
 
 		if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
 		{
@@ -224,6 +228,7 @@ public class EditorPanelHierarchy : EditorPanel
 			ImGui.EndDragDropSource();
 		}
 
+
 		if (ImGui.BeginDragDropTarget())
 		{
 			ImGui.AcceptDragDropPayload("GAMEOBJECT", ImGuiDragDropFlags.None);
@@ -237,7 +242,6 @@ public class EditorPanelHierarchy : EditorPanel
 
 			ImGui.EndDragDropTarget();
 		}
-
 		ImGui.PopStyleColor();
 
 		if (ImGui.IsItemClicked(ImGuiMouseButton.Left))

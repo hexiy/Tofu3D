@@ -33,7 +33,7 @@ public class SpriteRenderer : TextureRenderer
 	{
 		if (BoxShape != null)
 		{
-			BoxShape.Size = Texture.Size;
+			BoxShape.Size = Texture.Size/Units.OneWorldUnit;
 		}
 	}
 

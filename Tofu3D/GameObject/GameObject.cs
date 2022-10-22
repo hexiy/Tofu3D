@@ -342,8 +342,6 @@ public class GameObject
 
 	bool CallComponentExecuteInEditModeMethod(Component comp, string methodName)
 	{
-		List<CustomAttributeData> compAttribs = comp.GetType().CustomAttributes.ToList();
-		TypeAttributes x = comp.GetType().Attributes;
 		bool compHasExecuteInEditModeAttrib = comp.GetType().GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
 
 
@@ -355,7 +353,7 @@ public class GameObject
 		{
 			// try
 			// {
-				comp.GetType().GetMethod(methodName).Invoke(comp, null);
+			comp.GetType().GetMethod(methodName).Invoke(comp, null);
 			// }
 			// catch (Exception ex)
 			// {
