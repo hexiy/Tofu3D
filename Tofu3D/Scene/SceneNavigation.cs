@@ -16,19 +16,19 @@ public class SceneNavigation
 
 	public void MoveToGameObject(GameObject targetGo)
 	{
-		Vector3 cameraStartPos = Camera.I.Transform.Position;
-		Vector3 cameraEndPos = targetGo.Transform.Position + new Vector3(0, 0, -4);
+		Vector3 cameraStartPos = Camera.I.Transform.WorldPosition;
+		Vector3 cameraEndPos = targetGo.Transform.WorldPosition + new Vector3(0, 0, -4);
 
 		if (cameraStartPos == cameraEndPos)
 		{
-			cameraEndPos = targetGo.Transform.Position + new Vector3(0, 0, -2);
+			cameraEndPos = targetGo.Transform.WorldPosition + new Vector3(0, 0, -2);
 		}
 
 		float cameraOrthoSize = Camera.I.OrthographicSize;
 		Tweener.Tween(0, 1, 1.3f, progress =>
 		{
 			Camera.I.OrthographicSize = cameraOrthoSize + (float) MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
-			Camera.I.Transform.Position = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
+			Camera.I.Transform.WorldPosition = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
 		});
 	}
 
@@ -97,14 +97,14 @@ public class SceneNavigation
 		if (MouseInput.IsButtonDown())
 		{
 			//MoveCameraInDirection(new Vector2(-MouseInput.ScreenDelta.X, -MouseInput.ScreenDelta.Y));
-			Camera.I.Transform.Position -= Camera.I.Transform.TransformDirection(new Vector2(MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.I.OrthographicSize;
+			Camera.I.Transform.LocalPosition -= Camera.I.Transform.TransformDirection(new Vector2(MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.I.OrthographicSize;
 			MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
 		}
 
-		// ROTATING
-		if (MouseInput.IsButtonDown() && false)
+
+		if (MouseInput.IsButtonDown())
 		{
-			Camera.I.Transform.Rotation += new Vector3(MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * 0.2f;
+			//Camera.I.Transform.Rotation += new Vector3(MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * 0.2f;
 			//Camera.I.transform.Rotation = new Vector3(Camera.I.transform.Rotation.X,Camera.I.transform.Rotation .Y, 0);
 
 			Vector3 keyboardInputDirectionVector = Vector3.Zero;
@@ -128,7 +128,7 @@ public class SceneNavigation
 				keyboardInputDirectionVector += Vector3.Right;
 			}
 
-			float moveSpeed = 0.02f;
+			float moveSpeed = 0.4f;
 			if (KeyboardInput.IsKeyDown(Keys.LeftShift))
 			{
 				moveSpeed = 0.04f;
@@ -140,6 +140,8 @@ public class SceneNavigation
 
 	void MoveCameraInDirection(Vector3 dir, float moveSpeed = 0.02f)
 	{
-		Camera.I.Transform.Position += Camera.I.Transform.TransformDirection(dir) * moveSpeed;
+		Camera.I.Transform.LocalPosition += Camera.I.Transform.TransformDirection(dir) * moveSpeed;
+
+		Camera.I.UpdateMatrices();
 	}
 }

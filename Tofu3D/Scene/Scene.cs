@@ -63,16 +63,24 @@ public class Scene
 		Time.Update();
 		MouseInput.Update();
 		TweenManager.I.Update();
-
 		SceneNavigation.I.Update();
+
+		Camera.I.GameObject.Update();
+
 		if (Time.ElapsedTicks % 20 == 0)
 		{
 			SortRenderQueue();
 		}
 
+
 		for (int i = 0; i < GameObjects.Count; i++)
 		{
 			GameObjects[i].IndexInHierarchy = i;
+			if (GameObjects[i] == Camera.I.GameObject)
+			{
+				continue;
+			}
+
 			if (Global.GameRunning || GameObjects[i].AlwaysUpdate)
 			{
 				GameObjects[i].Update();

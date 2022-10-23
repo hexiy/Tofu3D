@@ -45,7 +45,7 @@ public class Component : IDestroyable
 
 	public Vector3 TransformToWorld(Vector3 localPoint)
 	{
-		return localPoint + Transform.Position;
+		return localPoint + Transform.WorldPosition;
 	}
 
 	public virtual void Awake()

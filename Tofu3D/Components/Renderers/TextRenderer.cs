@@ -130,7 +130,7 @@ public class TextRenderer : SpriteRenderer
 
 		float charSpacing = Transform.Scale.X * Text.Size;
 		charSpacing = charSpacing / Units.OneWorldUnit;
-		Vector2 originalPosition = Transform.Position;
+		Vector2 originalPosition = Transform.WorldPosition;
 
 		int symbolInLineIndex = 0;
 		int line = 0;
@@ -145,14 +145,14 @@ public class TextRenderer : SpriteRenderer
 		     symbolIndex++,
 		     symbolInLineIndex++)
 		{
-			Transform.Position = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex, originalPosition.Y - line * lineSpacing, Transform.Position.Z);
+			Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex, originalPosition.Y - line * lineSpacing, Transform.WorldPosition.Z);
 			//transform.position = originalPosition;
 
 			if (GetComponent<TextReactToMouse>() != null && Global.GameRunning)
 			{
-				Transform.Position = Transform.Position + new Vector2(0, (float) MathHelper.Sin(Time.ElapsedTime + symbolIndex * 0.1f) * 1);
+				Transform.WorldPosition = Transform.WorldPosition + new Vector2(0, (float) MathHelper.Sin(Time.ElapsedTime + symbolIndex * 0.1f) * 1);
 
-				float distanceToCursor = Vector2.Distance(Transform.Position, MouseInput.WorldPosition);
+				float distanceToCursor = Vector2.Distance(Transform.WorldPosition, MouseInput.WorldPosition);
 				Transform.Scale = originalScale * fontSizeScale * Mathf.Clamp((0.2f / distanceToCursor + 1f), 1, 1.3f);
 			}
 
@@ -200,7 +200,7 @@ public class TextRenderer : SpriteRenderer
 			Debug.CountStat("Draw Calls", 1);
 		}
 
-		Transform.Position = originalPosition;
+		Transform.WorldPosition = originalPosition;
 		Transform.Scale = originalScale;
 	}
 }

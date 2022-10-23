@@ -1,4 +1,5 @@
-﻿using Tofu3D.Tweening;
+﻿using OpenTK.Windowing.Common;
+using Tofu3D.Tweening;
 
 namespace Tofu3D;
 
@@ -16,7 +17,6 @@ public static class Program
 
 		using Window window = new();
 		
-		//window.VSync = VSyncMode.Off;
 		window.Run();
 	}
 }

@@ -118,7 +118,7 @@ public class GameObject
 		go.Setup();
 		if (position != null)
 		{
-			go.Transform.Position = position.Value;
+			go.Transform.WorldPosition = position.Value;
 		}
 
 		if (scale != null)
@@ -543,12 +543,26 @@ public class GameObject
 		OnComponentAdded?.Invoke(this, component);
 		if (Awoken && component.Awoken == false)
 		{
-			component.Awake();
+			if (Global.GameRunning == false)
+			{
+				bool foundMethod = CallComponentExecuteInEditModeMethod(component, nameof(Awake));
+			}
+			else
+			{
+				component.Awake();
+			}
 		}
 
 		if (Started && component.Started == false)
 		{
-			component.Start();
+			if (Global.GameRunning == false)
+			{
+				bool foundMethod = CallComponentExecuteInEditModeMethod(component, nameof(Start));
+			}
+			else
+			{
+				component.Start();
+			}
 		}
 
 		/* for (int i = 0; i < ComponentsWaitingToBePaired.Count; i++)
@@ -699,7 +713,14 @@ public class GameObject
 			{
 				if (Components[i].Enabled && Components[i].Awoken)
 				{
-					Components[i].Update();
+					if (Global.GameRunning == false)
+					{
+						bool foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Update));
+					}
+					else
+					{
+						Components[i].Update();
+					}
 				}
 			}
 		}
@@ -756,11 +777,11 @@ public class GameObject
 
 	public Vector3 TransformToWorld(Vector3 localPoint)
 	{
-		return localPoint + Transform.Position;
+		return localPoint + Transform.WorldPosition;
 	}
 
 	public Vector3 TransformToLocal(Vector3 worldPoint)
 	{
-		return worldPoint - Transform.Position;
+		return worldPoint - Transform.WorldPosition;
 	}
 }

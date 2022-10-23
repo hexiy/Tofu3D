@@ -7,11 +7,11 @@ public class BoxShape : Shape
 
 	public Vector3 GetMinPos()
 	{
-		return Transform.Position;
+		return Transform.WorldPosition;
 	}
 
 	public Vector3 GetMaxPos()
 	{
-		return Transform.Position + Size;
+		return Transform.WorldPosition + Size;
 	}
 }

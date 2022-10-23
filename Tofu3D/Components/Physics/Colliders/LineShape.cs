@@ -13,19 +13,19 @@ public class LineShape : Shape
 	{
 		if (StaticAngle != null)
 		{
-			return Transform.Position + new Vector2((float) Math.Cos((float) StaticAngle), (float) Math.Sin((float) StaticAngle));
+			return Transform.WorldPosition + new Vector2((float) Math.Cos((float) StaticAngle), (float) Math.Sin((float) StaticAngle));
 		}
 
-		return Transform.Position + new Vector2((float) Math.Cos(Transform.Rotation.Z), (float) Math.Sin(Transform.Rotation.Z));
+		return Transform.WorldPosition + new Vector2((float) Math.Cos(Transform.Rotation.Z), (float) Math.Sin(Transform.Rotation.Z));
 	}
 
 	public Vector2 GetLineEnd()
 	{
 		if (StaticAngle != null)
 		{
-			return Transform.Position + new Vector2(-(float) Math.Cos((float) StaticAngle), (float) Math.Sin((float) StaticAngle)) * Length;
+			return Transform.WorldPosition + new Vector2(-(float) Math.Cos((float) StaticAngle), (float) Math.Sin((float) StaticAngle)) * Length;
 		}
 
-		return Transform.Position + new Vector2(-(float) Math.Cos(Transform.Rotation.Z), (float) Math.Sin(Transform.Rotation.Z)) * Length;
+		return Transform.WorldPosition + new Vector2(-(float) Math.Cos(Transform.Rotation.Z), (float) Math.Sin(Transform.Rotation.Z)) * Length;
 	}
 }

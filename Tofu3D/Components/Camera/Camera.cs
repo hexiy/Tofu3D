@@ -40,40 +40,31 @@ public class Camera : Component
 		ProjectionMatrix = GetProjectionMatrix();
 		ViewMatrix = GetViewMatrix();
 		TranslationMatrix = GetTranslationRotationMatrix();
-		/*	renderTarget = new RenderTarget2D(
-		  Scene.I.GraphicsDevice,
-		  (int)Size.X,
-		  (int)Size.Y,
-		  false,
-		  Scene.I.GraphicsDevice.PresentationParameters.BackBufferFormat,
-		  DepthFormat.Depth24);*/
 
 		base.Awake();
 	}
 
 	public override void Update()
 	{
+		Transform.Scale = Vector3.One * OrthographicSize;
+		UpdateMatrices();
+		base.Update();
+	}
+
+	public void UpdateMatrices()
+	{
 		ProjectionMatrix = GetProjectionMatrix();
 		ViewMatrix = GetViewMatrix();
 		TranslationMatrix = GetTranslationRotationMatrix();
-		base.Update();
 	}
 
 	Matrix4x4 GetViewMatrix()
 	{
-		//Matrix4x4 _view = Matrix4x4.CreateLookAt(new Vector3(0, 0, 30), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-
-		Vector3 pos = Transform.Position;
-		Vector3 forward = Transform.TransformDirection(Vector3.Forward);
-		Vector3 up = Vector3.Up;
-
-		//Debug.Log($"pos:{pos}|forward:{forward}|up:{up}");
-
-		//Matrix4x4 _view = Matrix4x4.CreateLookAt(forward, pos, up);
-		Matrix4x4 view = Matrix4x4.CreateWorld(pos, forward, up);
-		// Matrix4x4 _view = Matrix4x4.CreateLookAt(pos,forward,up);
-
-		// Matrix4x4 _view = Matrix4x4.CreateLookAt(transform.position,transform.TransformDirection(Vector3.Forward),transform.TransformDirection(Vector3.Up));
+		// Vector3 pos = Transform.WorldPosition;
+		// Vector3 forward = Transform.TransformDirection(Vector3.Forward);
+		// Vector3 up = Vector3.Up;
+		//
+		// Matrix4x4 view = Matrix4x4.CreateWorld(pos, forward, up);
 		return Matrix4x4.Identity;
 	}
 
@@ -111,7 +102,7 @@ public class Camera : Component
 
 	Matrix4x4 GetTranslationRotationMatrix()
 	{
-		Matrix4x4 tr = Matrix4x4.CreateTranslation(-Transform.Position.X * Units.OneWorldUnit, -Transform.Position.Y * Units.OneWorldUnit, Transform.Position.Z * Units.OneWorldUnit);
+		Matrix4x4 tr = Matrix4x4.CreateTranslation(-Transform.LocalPosition.X * Units.OneWorldUnit, -Transform.LocalPosition.Y * Units.OneWorldUnit, Transform.LocalPosition.Z * Units.OneWorldUnit);
 		Matrix4x4 rotationMatrix = Matrix4x4.CreateFromYawPitchRoll(Transform.Rotation.Y / 180 * Mathf.Pi,
 		                                                            -Transform.Rotation.X / 180 * Mathf.Pi,
 		                                                            -Transform.Rotation.Z / 180 * Mathf.Pi);
@@ -126,7 +117,7 @@ public class Camera : Component
 
 	public void Move(Vector2 moveVector)
 	{
-		Transform.Position += moveVector;
+		Transform.WorldPosition += moveVector;
 	}
 
 	public Vector2 WorldToScreen(Vector2 worldPosition)
@@ -166,7 +157,7 @@ public class Camera : Component
 
 	public bool RectangleVisible(BoxShape shape)
 	{
-		bool isIn = Vector2.Distance(shape.Transform.Position, Transform.Position) < Size.X * 1.1f * (OrthographicSize / 2) + shape.Size.X / 2 * shape.Transform.Scale.MaxVectorMember();
+		bool isIn = Vector2.Distance(shape.Transform.WorldPosition, Transform.WorldPosition) < Size.X * 1.1f * (OrthographicSize / 2) + shape.Size.X / 2 * shape.Transform.Scale.MaxVectorMember();
 
 		return isIn;
 	}

@@ -9,14 +9,14 @@ public static class PhysicsExtensions
 		switch (shape)
 		{
 			case CircleShape circleCollider:
-				if ((distance = Vector2.Distance(circleCollider.Transform.Position.ToVector2(), point)) < circleCollider.Radius)
+				if ((distance = Vector2.Distance(circleCollider.Transform.WorldPosition.ToVector2(), point)) < circleCollider.Radius)
 				{
 					isIn = true;
 				}
 
 				break;
 			case BoxShape boxCollider:
-				Vector2 boxPosition = boxCollider.Transform.Position;
+				Vector2 boxPosition = boxCollider.Transform.WorldPosition;
 
 				//float boxEndX = boxPosition.X + boxCollider.offset.X + (boxCollider.size.X / 2) * boxCollider.transform.pivot.X;
 

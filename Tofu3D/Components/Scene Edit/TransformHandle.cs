@@ -86,7 +86,7 @@ public class TransformHandle : Component
 		}
 		else
 		{
-			Transform.Scale = Vector3.One * Vector3.Distance(Transform.Position, Camera.I.Transform.Position) * 0.3f;
+			Transform.Scale = Vector3.One * Vector3.Distance(Transform.WorldPosition, Camera.I.Transform.WorldPosition) * 0.3f;
 		}
 
 		if (MouseInput.ButtonReleased())
@@ -132,7 +132,7 @@ public class TransformHandle : Component
 			return;
 		}
 
-		Transform.Position = _selectedTransform.Position;
+		Transform.WorldPosition = _selectedTransform.WorldPosition;
 		if (MouseInput.WorldPosition.In(BoxColliderX) || CurrentAxisSelected == Axis.X)
 		{
 			ModelRendererX.Color = Color.WhiteSmoke;
@@ -179,8 +179,9 @@ public class TransformHandle : Component
 				break;
 		}
 
-		Transform.Position += moveVector; // we will grab it with offset, soe we want to move it only by change of mouse position
-		_selectedTransform.Position = Transform.Position;
+
+		Transform.WorldPosition += moveVector; // we will grab it with offset, soe we want to move it only by change of mouse position
+		_selectedTransform.WorldPosition = Transform.WorldPosition;
 
 		// todo just do the position delta move in transform component for (int i = 0; i < selectedTransform.children.Count; i++) selectedTransform.children[i].position += moveVector;
 
@@ -202,13 +203,13 @@ public class TransformHandle : Component
 			switch (CurrentAxisSelected)
 			{
 				case Axis.X:
-					_selectedTransform.Position = new Vector3(MouseInput.WorldPosition.TranslateToGrid().X, _selectedTransform.Position.Y, 0);
+					_selectedTransform.WorldPosition = new Vector3(MouseInput.WorldPosition.TranslateToGrid().X, _selectedTransform.WorldPosition.Y, 0);
 					break;
 				case Axis.Y:
-					_selectedTransform.Position = new Vector3(_selectedTransform.Position.X, MouseInput.WorldPosition.TranslateToGrid().Y, 0);
+					_selectedTransform.WorldPosition = new Vector3(_selectedTransform.WorldPosition.X, MouseInput.WorldPosition.TranslateToGrid().Y, 0);
 					break;
 				case Axis.Xy:
-					_selectedTransform.Position = MouseInput.WorldPosition.TranslateToGrid(50);
+					_selectedTransform.WorldPosition = MouseInput.WorldPosition.TranslateToGrid(50);
 					break;
 			}
 		}
@@ -224,7 +225,7 @@ public class TransformHandle : Component
 			return;
 		}
 
-		Transform.Position = selectedGo.Transform.Position;
+		Transform.WorldPosition = selectedGo.Transform.WorldPosition;
 		_selectedTransform = selectedGo.Transform;
 		ObjectSelected = true;
 	}

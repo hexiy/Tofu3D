@@ -25,8 +25,7 @@ public class BoxRenderer : Renderer
 		{
 			return;
 		}
-
-
+		
 		ShaderCache.UseShader(Material.Shader);
 
 		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);

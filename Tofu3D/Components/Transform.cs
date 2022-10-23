@@ -30,18 +30,125 @@ public class Transform : Component
 	public int ParentId = -1;
 
 	public Vector3 Pivot = new(0, 0, 0);
-	public Vector3 Position = Vector3.Zero;
+
+	private Vector3 _worldPosition = Vector3.Zero;
+	[Hide]
+	public Vector3 WorldPosition
+	{
+		get { return _worldPosition; }
+		set
+		{
+			_worldPosition = value;
+
+			Vector3 calculatedLocalPos = TranslateWorldToLocal(_worldPosition);
+			if (LocalPosition != calculatedLocalPos)
+			{
+				//LocalPosition = calculatedLocalPos;
+			}
+
+			UpdateChildrenPositions();
+		}
+	}
+
+	private Vector3 _localPosition;
+	public Vector3 LocalPosition
+	{
+		get { return _localPosition; }
+		set
+		{
+			_localPosition = value;
+
+			Vector3 calculatedWorldPos = TranslateLocalToWorld(_localPosition);
+			if (WorldPosition != calculatedWorldPos)
+			{
+				WorldPosition = calculatedWorldPos;
+			}
+
+			UpdateChildrenPositions();
+		}
+	}
+
+	Vector3 _scale = Vector3.One;
+	public Vector3 Scale
+	{
+		get { return _scale; }
+		set
+		{
+			_scale = value;
+			UpdateChildrenPositions();
+		}
+	}
+
+	[Hide]
+	public Vector3 WorldScale
+	{
+		get
+		{
+			Transform pr = Parent;
+			Vector3 scl = Transform.Scale;
+
+			while (pr != null)
+			{
+				scl = scl * pr.Scale;
+				pr = pr.Parent;
+			}
+
+			return scl;
+		}
+	}
+
 	Vector3 _rotation = Vector3.Zero;
-
-	//public new bool enabled { get { return true; } }
-
-	public Vector3 Scale = Vector3.One;
 	public Vector3 Rotation
 	{
 		get { return _rotation; }
 		set { _rotation = new Vector3(value.X % 360, value.Y % 360, value.Z % 360); }
 	}
 	[Hide] public Vector3 Forward { get; set; }
+
+	private void UpdateChildrenPositions()
+	{
+		for (int i = 0; i < Children.Count; i++)
+		{
+			//Children[i].LocalPosition = Children[i].TranslateWorldToLocal(Children[i].WorldPosition);
+			Children[i].WorldPosition = Children[i].TranslateLocalToWorld(Children[i].LocalPosition);
+		}
+	}
+
+	private Vector3 TranslateLocalToWorld(Vector3 localPos)
+	{
+		Vector3 worldPos;
+		if (Parent)
+		{
+			worldPos = localPos * Parent.Scale + Parent._worldPosition;
+		}
+		else
+		{
+			worldPos = localPos;
+		}
+
+		return worldPos;
+	}
+
+	private Vector3 TranslateWorldToLocal(Vector3 worldPos)
+	{
+		Vector3 localPos;
+		if (Parent)
+		{
+			localPos = worldPos * Parent.Scale - Parent._worldPosition;
+		}
+		else
+		{
+			localPos = worldPos;
+		}
+
+		return localPos;
+	}
+
+	public override void Awake()
+	{
+		LocalPosition = LocalPosition;
+		base.Awake();
+	}
 
 	public override void EditorUpdate()
 	{
@@ -50,22 +157,27 @@ public class Transform : Component
 
 	public override void Update()
 	{
-		if (_lastFramePosition == null)
+		if (Parent)
 		{
-			_lastFramePosition = Position;
+			//WorldPosition = TranslateLocalToWorld(LocalPosition);
+			//LocalPosition = TranslateWorldToLocal(WorldPosition);
 		}
-
-		Vector3 positionDelta = Position - _lastFramePosition.Value;
-
-		if (Children.Count > 0)
-		{
-			for (int i = 0; i < Children.Count; i++)
-			{
-				Children[i].Transform.Position += positionDelta;
-			}
-		}
-
-		_lastFramePosition = Position;
+		// if (_lastFramePosition == null)
+		// {
+		// 	_lastFramePosition = WorldPosition;
+		// }
+		//
+		// Vector3 positionDelta = WorldPosition - _lastFramePosition.Value;
+		//
+		// if (Children.Count > 0)
+		// {
+		// 	for (int i = 0; i < Children.Count; i++)
+		// 	{
+		// 		Children[i].Transform.WorldPosition += positionDelta;
+		// 	}
+		// }
+		//
+		// _lastFramePosition = WorldPosition;
 	}
 
 	public void RemoveChild(int id)
@@ -99,7 +211,7 @@ public class Transform : Component
 		if (updateTransform)
 		{
 			Rotation -= par.Transform.Rotation;
-			Position = par.Transform.Position + (par.Transform.Position - Transform.Position);
+			WorldPosition = par.Transform.WorldPosition + (par.Transform.WorldPosition - Transform.WorldPosition);
 			//initialAngleDifferenceFromParent = rotation - par.transform.rotation;
 		}
 
@@ -114,7 +226,7 @@ public class Transform : Component
 	{
 		if (Parent != null)
 		{
-			return Parent.Transform.Position;
+			return Parent.Transform.WorldPosition;
 		}
 
 		return Vector3.Zero;

@@ -14,7 +14,7 @@ public class CubeSpawner : Component
 			{
 				for (int z = 0; z < 10; z++)
 				{
-					GameObject go = GameObject.Create(Camera.I.Transform.Position + new Vector3(x, y, z) * 500, name: "Cube");
+					GameObject go = GameObject.Create(Camera.I.Transform.WorldPosition + new Vector3(x, y, z) * 500, name: "Cube");
 					go.Transform.SetParent(Transform);
 					go.AddComponent<BoxShape>();
 					go.GetComponent<BoxShape>().Size = new Vector3(150);

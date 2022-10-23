@@ -36,9 +36,11 @@ public class EditorPanelProfiler : EditorPanel
 
 		for (int i = 0; i < Debug.Timers.Count; i++)
 		{
+			float msDuration = (float) Math.Round(Debug.Timers[Debug.Timers.Keys.ElementAt(i)].Elapsed.TotalMilliseconds, 2);
 			if (Debug.Timers.Keys.ElementAt(i) == "Scene Update")
 			{
-				_sceneUpdateSamples.Add(Debug.Timers["Scene Update"].ElapsedMilliseconds);
+				_sceneUpdateSamples.Add(msDuration);
+
 				if (_sceneUpdateSamples.Count > 200)
 				{
 					_sceneUpdateSamples.RemoveAt(0);
@@ -49,7 +51,8 @@ public class EditorPanelProfiler : EditorPanel
 			}
 			else if (Debug.Timers.Keys.ElementAt(i) == "Scene Render")
 			{
-				_sceneRenderSamples.Add(Debug.Timers["Scene Render"].ElapsedMilliseconds);
+				_sceneRenderSamples.Add(msDuration);
+
 				if (_sceneRenderSamples.Count > 200)
 				{
 					_sceneRenderSamples.RemoveAt(0);
@@ -60,7 +63,8 @@ public class EditorPanelProfiler : EditorPanel
 			}
 			else if (Debug.Timers.Keys.ElementAt(i) == "Physics thread")
 			{
-				_physicsThreadSamples.Add(Debug.Timers["Physics thread"].ElapsedMilliseconds);
+				_physicsThreadSamples.Add(msDuration);
+
 				if (_physicsThreadSamples.Count > 200)
 				{
 					_physicsThreadSamples.RemoveAt(0);
@@ -71,7 +75,7 @@ public class EditorPanelProfiler : EditorPanel
 			}
 			else
 			{
-				float timerDuration = Debug.Timers.Values.ElementAt(i).ElapsedMilliseconds;
+				float timerDuration = (float) Debug.Timers.Values.ElementAt(i).Elapsed.TotalMilliseconds;
 				ImGui.PushStyleColor(ImGuiCol.Text, Color.Lerp(Color.White, Color.Red, Mathf.Clamp(timerDuration / 40 - 1, 0, 1)).ToVector4());
 				ImGui.Text($"{Debug.Timers.Keys.ElementAt(i)} : {timerDuration} ms");
 				ImGui.PopStyleColor();
