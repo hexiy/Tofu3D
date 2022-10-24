@@ -92,6 +92,7 @@ public class TransformHandle : Component
 		if (MouseInput.ButtonReleased())
 		{
 			CurrentAxisSelected = null;
+			Clicked = false;
 		}
 
 		if (MouseInput.ButtonPressed())
@@ -181,7 +182,8 @@ public class TransformHandle : Component
 
 
 		Transform.WorldPosition += moveVector; // we will grab it with offset, soe we want to move it only by change of mouse position
-		_selectedTransform.WorldPosition = Transform.WorldPosition;
+		// _selectedTransform.LocalPosition = _selectedTransform.TranslateWorldToLocal(_selectedTransform.WorldPosition);
+		_selectedTransform.LocalPosition += moveVector;
 
 		// todo just do the position delta move in transform component for (int i = 0; i < selectedTransform.children.Count; i++) selectedTransform.children[i].position += moveVector;
 
@@ -203,13 +205,13 @@ public class TransformHandle : Component
 			switch (CurrentAxisSelected)
 			{
 				case Axis.X:
-					_selectedTransform.WorldPosition = new Vector3(MouseInput.WorldPosition.TranslateToGrid().X, _selectedTransform.WorldPosition.Y, 0);
+					_selectedTransform.LocalPosition = new Vector3(MouseInput.WorldPosition.TranslateToGrid().X, _selectedTransform.LocalPosition.Y, 0);
 					break;
 				case Axis.Y:
-					_selectedTransform.WorldPosition = new Vector3(_selectedTransform.WorldPosition.X, MouseInput.WorldPosition.TranslateToGrid().Y, 0);
+					_selectedTransform.LocalPosition = new Vector3(_selectedTransform.LocalPosition.X, MouseInput.WorldPosition.TranslateToGrid().Y, 0);
 					break;
 				case Axis.Xy:
-					_selectedTransform.WorldPosition = MouseInput.WorldPosition.TranslateToGrid(50);
+					_selectedTransform.LocalPosition = MouseInput.WorldPosition.TranslateToGrid(50);
 					break;
 			}
 		}

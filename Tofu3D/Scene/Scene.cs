@@ -25,11 +25,30 @@ public class Scene
 
 	void CreateDefaultObjects()
 	{
-		GameObject camGo = GameObject.Create(name: "Camera");
-		camGo.AddComponent<Camera>();
-		camGo.Awake();
-
+		CreateCamera();
 		CreateTransformHandle();
+		CreateGrid();
+	}
+
+	void CreateCamera()
+	{
+		if (Camera.I == null)
+		{
+			GameObject camGo = GameObject.Create(name: "Camera");
+			camGo.AddComponent<Camera>();
+			camGo.Awake();
+		}
+	}
+
+	void CreateGrid()
+	{
+		GameObject gridGameObject = GameObject.Create(silent: true);
+		gridGameObject.AddComponent<Grid>();
+		gridGameObject.DynamicallyCreated = true;
+		gridGameObject.AlwaysUpdate = true;
+		gridGameObject.Name = "Grid";
+		gridGameObject.Awake();
+		gridGameObject.Start();
 	}
 
 	void CreateTransformHandle()
@@ -262,7 +281,7 @@ public class Scene
 		}
 
 
-		CreateTransformHandle();
+		CreateDefaultObjects();
 
 		ScenePath = path;
 

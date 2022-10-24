@@ -33,6 +33,13 @@ public class Component : IDestroyable
 		return GameObject.GetComponent<T>(index);
 	}
 
+	public TComponent AddComponent<TComponent>() where TComponent : Scripts.Component, new()
+	{
+		TComponent component = new();
+
+		return GameObject.AddComponent<TComponent>();
+	}
+
 	public bool HasComponent<T>() where T : Component
 	{
 		return GameObject.HasComponent<T>();

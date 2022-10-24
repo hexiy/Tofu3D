@@ -16,7 +16,7 @@ public class Canvas : Component
 
 	public override void Update()
 	{
-		Debug.Log(Transform.LocalPosition - Camera.I.Transform.LocalPosition);
+		//Debug.Log(Transform.LocalPosition - Camera.I.Transform.LocalPosition);
 		Transform.LocalPosition = Camera.I.Transform.LocalPosition;
 		Transform.Scale = Camera.I.Transform.Scale;
 

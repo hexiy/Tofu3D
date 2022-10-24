@@ -351,14 +351,15 @@ public class GameObject
 
 		if (methodHasExecuteInEditModeAttrib)
 		{
-			// try
-			// {
-			comp.GetType().GetMethod(methodName).Invoke(comp, null);
-			// }
-			// catch (Exception ex)
-			// {
-			// 	throw ex;
-			// }
+			try
+			{
+				comp.GetType().GetMethod(methodName)?.Invoke(comp, null);
+			}
+			catch (Exception ex)
+			{
+				//Debug.Log(ex.Message);
+				// throw ex;
+			}
 
 			return true;
 		}

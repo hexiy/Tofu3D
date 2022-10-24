@@ -388,17 +388,17 @@ public static class Extensions
 		return new Point((int) Math.Floor(point.X / (float) scale) * scale, (int) Math.Floor(point.Y / (float) scale) * scale);
 	}
 
-	public static float TranslateToGrid(this float value, int gridSize = 10)
+	public static float TranslateToGrid(this float value, int gridSize = 1)
 	{
 		return (int) ((decimal) value / gridSize) * gridSize - gridSize;
 	}
 
-	public static Vector2 TranslateToGrid(this Vector2 vector, float gridSize = 10)
+	public static Vector2 TranslateToGrid(this Vector2 vector, float gridSize = 1)
 	{
 		return new Vector2((int) (vector.X / gridSize) * gridSize - gridSize, (int) (vector.Y / gridSize) * gridSize - gridSize);
 	}
 
-	public static Vector3 TranslateToGrid(this Vector3 vector, float gridSize = 10)
+	public static Vector3 TranslateToGrid(this Vector3 vector, float gridSize = 1)
 	{
 		return new Vector3((int) (vector.X / gridSize) * gridSize - gridSize, (int) (vector.Y / gridSize) * gridSize - gridSize, (int) (vector.Z / gridSize) * gridSize - gridSize);
 	}

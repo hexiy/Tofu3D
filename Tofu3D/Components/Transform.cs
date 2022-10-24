@@ -129,7 +129,7 @@ public class Transform : Component
 		return worldPos;
 	}
 
-	private Vector3 TranslateWorldToLocal(Vector3 worldPos)
+	public Vector3 TranslateWorldToLocal(Vector3 worldPos)
 	{
 		Vector3 localPos;
 		if (Parent)
