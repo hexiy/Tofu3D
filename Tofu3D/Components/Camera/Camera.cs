@@ -46,7 +46,7 @@ public class Camera : Component
 
 	public override void Update()
 	{
-		Transform.Scale = Vector3.One * OrthographicSize;
+		Transform.LocalScale = Vector3.One * OrthographicSize;
 		UpdateMatrices();
 		base.Update();
 	}
@@ -157,7 +157,7 @@ public class Camera : Component
 
 	public bool RectangleVisible(BoxShape shape)
 	{
-		bool isIn = Vector2.Distance(shape.Transform.WorldPosition, Transform.WorldPosition) < Size.X * 1.1f * (OrthographicSize / 2) + shape.Size.X / 2 * shape.Transform.Scale.MaxVectorMember();
+		bool isIn = Vector2.Distance(shape.Transform.WorldPosition, Transform.WorldPosition) < Size.X * 1.1f * (OrthographicSize / 2) + shape.Size.X / 2 * shape.Transform.LocalScale.MaxVectorMember();
 
 		return isIn;
 	}

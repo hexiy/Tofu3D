@@ -99,13 +99,13 @@ public class Renderer : Component, IComparable<Renderer>
 		                                                      -Transform.Rotation.X / 180 * Mathf.Pi,
 		                                                      -Transform.Rotation.Z / 180 * Mathf.Pi);
 		float outlineThickness = 0.03f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime)), 0.5f);
-		Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size.X * Transform.WorldScale.X + outlineThickness, BoxShape.Size.Y * Transform.WorldScale.Y + outlineThickness, Transform.Scale.Z * BoxShape.Size.Z + outlineThickness);
+		Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size.X * Transform.WorldScale.X + outlineThickness, BoxShape.Size.Y * Transform.WorldScale.Y + outlineThickness, Transform.LocalScale.Z * BoxShape.Size.Z + outlineThickness);
 		return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit) * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix;
 	}
 
 	public Vector4 GetSize()
 	{
-		return new Vector4(BoxShape.Size.X * Transform.Scale.X, BoxShape.Size.Y * Transform.Scale.Y, 1, 1);
+		return new Vector4(BoxShape.Size.X * Transform.LocalScale.X, BoxShape.Size.Y * Transform.LocalScale.Y, 1, 1);
 	}
 
 	public override void Update()

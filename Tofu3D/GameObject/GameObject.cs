@@ -97,8 +97,8 @@ public class GameObject
 	{
 		if (Id == -1)
 		{
-			Id = DsManager.GameObjectNextId;
-			DsManager.GameObjectNextId++;
+			Id = IDsManager.GameObjectNextId;
+			IDsManager.GameObjectNextId++;
 		}
 
 		if (Transform == null && GetComponent<Transform>() == null)
@@ -123,7 +123,7 @@ public class GameObject
 
 		if (scale != null)
 		{
-			go.Transform.Scale = scale.Value;
+			go.Transform.LocalScale = scale.Value;
 		}
 
 		return go;
@@ -198,6 +198,11 @@ public class GameObject
 
 					for (int goIndex = 0; goIndex < gosFieldValue.Count; goIndex++)
 					{
+						if (gosFieldValue[goIndex] == null)
+						{
+							continue;
+						}
+
 						gosFieldValue[goIndex] = Scene.I.GetGameObject(gosFieldValue[goIndex].Id);
 						//	gosFieldValue[i].Components();
 					}
@@ -250,6 +255,11 @@ public class GameObject
 							{
 								if (parentClassInfos[j].GetCustomAttribute<LinkableComponent>() != null && infos[i].FieldType == sourceType2) // found linkable field in parent class
 								{
+									if (component.GetType() != Components[compIndex1].GetType())
+									{
+										continue;
+									}
+
 									parentClassInfos[j].SetValue(Components[compIndex1], component);
 								}
 							}

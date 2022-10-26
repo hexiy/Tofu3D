@@ -1,6 +1,6 @@
 ﻿namespace Tofu3D;
 
-public static class DsManager
+public static class IDsManager
 {
 	public static int GameObjectNextId = 0;
 }

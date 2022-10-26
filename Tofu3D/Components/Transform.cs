@@ -32,6 +32,7 @@ public class Transform : Component
 	public Vector3 Pivot = new(0, 0, 0);
 
 	private Vector3 _worldPosition = Vector3.Zero;
+	[XmlIgnore]
 	[Hide]
 	public Vector3 WorldPosition
 	{
@@ -43,6 +44,7 @@ public class Transform : Component
 			Vector3 calculatedLocalPos = TranslateWorldToLocal(_worldPosition);
 			if (LocalPosition != calculatedLocalPos)
 			{
+				//_localPosition = calculatedLocalPos;
 				//LocalPosition = calculatedLocalPos;
 			}
 
@@ -58,7 +60,27 @@ public class Transform : Component
 		{
 			_localPosition = value;
 
+			if (GameObject?.Transform == null)
+			{
+				return;
+			}
+
+			var a = Transform;
+			if (Transform.Parent != null)
+			{
+				var ahaaa = false;
+				//_localPosition = Vector3.Zero;
+			}
+
 			Vector3 calculatedWorldPos = TranslateLocalToWorld(_localPosition);
+			// local to world is okay
+			Vector3 calculatedLocalPos = TranslateWorldToLocal(calculatedWorldPos);
+
+			if (_localPosition != calculatedLocalPos)
+			{
+				Debug.Log($"WORLD/LOCAL calcs not matching:w{calculatedWorldPos.ToVector2()}....l{calculatedLocalPos.ToVector2()}");
+			}
+
 			if (WorldPosition != calculatedWorldPos)
 			{
 				WorldPosition = calculatedWorldPos;
@@ -68,32 +90,57 @@ public class Transform : Component
 		}
 	}
 
-	Vector3 _scale = Vector3.One;
-	public Vector3 Scale
+	[Hide]
+	public Vector3 _localScale = Vector3.One;
+	[XmlIgnore]
+	public Vector3 LocalScale
 	{
-		get { return _scale; }
+		get { return _localScale; }
 		set
 		{
-			_scale = value;
+			_localScale = value;
 			UpdateChildrenPositions();
 		}
 	}
 
+	[XmlIgnore]
 	[Hide]
 	public Vector3 WorldScale
 	{
 		get
 		{
 			Transform pr = Parent;
-			Vector3 scl = Transform.Scale;
+			Vector3 scl = Transform.LocalScale;
 
 			while (pr != null)
 			{
-				scl = scl * pr.Scale;
+				scl = scl * pr.LocalScale;
 				pr = pr.Parent;
 			}
 
 			return scl;
+		}
+		set
+		{
+			Transform pr = Parent;
+			Vector3 parentsScale = Vector3.One;
+			while (pr != null)
+			{
+				parentsScale = parentsScale * pr.LocalScale;
+				pr = pr.Parent;
+			}
+
+			//LocalScale = value / parentsScale;
+
+
+			// p (2)
+			//	c1 (3)
+			//		c2(4)
+
+			// CHILD WORLD SCALE IS 4 * 3 * 2
+			// TO SET WORLD SCALE TO 1, we need to set the c2 localScale to something
+			// that is 1 / (2 * 3)
+			// targetScale / (2*3)
 		}
 	}
 
@@ -111,6 +158,7 @@ public class Transform : Component
 		{
 			//Children[i].LocalPosition = Children[i].TranslateWorldToLocal(Children[i].WorldPosition);
 			Children[i].WorldPosition = Children[i].TranslateLocalToWorld(Children[i].LocalPosition);
+			// setting WorldPosition sets _localPosition too, which just fucks it up
 		}
 	}
 
@@ -119,7 +167,25 @@ public class Transform : Component
 		Vector3 worldPos;
 		if (Parent)
 		{
-			worldPos = localPos * Parent.Scale + Parent._worldPosition;
+			// PARENT (1,1)
+			// CHILD  (1,1)
+
+			// PARENT SCALE(2,2)
+
+			// CHILD WORLD = 1,1  +      1,1 * 2,2     =        3,3
+			// CHILD WORLD = localPos + (Parent.WorldPosition * Parent.LocalScale)
+			// worldPos = localPos * Parent.LocalScale + Parent._worldPosition; old
+
+
+			// parent scale (2,2) world pos(2,2) changing child local pos fks it up
+
+			// PARENT_POS 3
+			// PARENT_SCALE 2
+
+			// CHILD_POS 0
+
+			// CHILD_WORLD = 0   +    3*2          =   6
+			worldPos = localPos * Parent.WorldScale + (Parent.WorldPosition);
 		}
 		else
 		{
@@ -134,7 +200,31 @@ public class Transform : Component
 		Vector3 localPos;
 		if (Parent)
 		{
-			localPos = worldPos * Parent.Scale - Parent._worldPosition;
+			// PARENT_POS 3
+			// PARENT_SCALE 4
+
+			// WORLD_POS = 12
+
+			// LOCAL_POS should be 0
+
+			// 0      =       12   -  (3*4)
+
+			// 1 = 13 - (3*4)
+
+			// LOCAL_POS = WORLD_POS - (PARENT_POS * PARENT_SCALE)
+			localPos = worldPos - (Parent.LocalScale * Parent._worldPosition);
+
+
+			// child moves further with bigger parent position it shouldnt be like that... right?
+
+			// PARENT_POS 10
+			// PARENT_SCALE 2
+
+			// WORLD_POS = 13
+
+			// LOCAL_POS should be 3 ??? or 3/2 shenanigans, try both(2/3 too)
+
+			//localPos = (worldPos - Parent._worldPosition);
 		}
 		else
 		{

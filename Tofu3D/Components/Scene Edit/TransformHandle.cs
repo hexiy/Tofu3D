@@ -82,11 +82,11 @@ public class TransformHandle : Component
 	{
 		if (Camera.I.IsOrthographic)
 		{
-			Transform.Scale = Vector3.One * Global.EditorScale * Camera.I.OrthographicSize * 1.5f;
+			Transform.LocalScale = Vector3.One * Global.EditorScale * Camera.I.OrthographicSize * 1.5f;
 		}
 		else
 		{
-			Transform.Scale = Vector3.One * Vector3.Distance(Transform.WorldPosition, Camera.I.Transform.WorldPosition) * 0.3f;
+			Transform.LocalScale = Vector3.One * Vector3.Distance(Transform.WorldPosition, Camera.I.Transform.WorldPosition) * 0.3f;
 		}
 
 		if (MouseInput.ButtonReleased())
@@ -183,7 +183,7 @@ public class TransformHandle : Component
 
 		Transform.WorldPosition += moveVector; // we will grab it with offset, soe we want to move it only by change of mouse position
 		// _selectedTransform.LocalPosition = _selectedTransform.TranslateWorldToLocal(_selectedTransform.WorldPosition);
-		_selectedTransform.LocalPosition += moveVector;
+		_selectedTransform.LocalPosition += moveVector / (_selectedTransform.Parent?.WorldScale ?? Vector3.One);
 
 		// todo just do the position delta move in transform component for (int i = 0; i < selectedTransform.children.Count; i++) selectedTransform.children[i].position += moveVector;
 

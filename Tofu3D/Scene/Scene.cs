@@ -32,7 +32,7 @@ public class Scene
 
 	void CreateCamera()
 	{
-		if (Camera.I == null)
+		if (FindGameObject(typeof(Camera)) == null)
 		{
 			GameObject camGo = GameObject.Create(name: "Camera");
 			camGo.AddComponent<Camera>();
@@ -187,7 +187,7 @@ public class Scene
 			sf.GameObjects.Add(GameObjects[i]);
 		}
 
-		sf.GameObjectNextId = DsManager.GameObjectNextId;
+		sf.GameObjectNextId = IDsManager.GameObjectNextId;
 		return sf;
 	}
 
@@ -259,7 +259,7 @@ public class Scene
 		SceneFile sceneFile = Serializer.I.LoadGameObjects(path);
 
 		Serializer.I.ConnectGameObjectsWithComponents(sceneFile);
-		DsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
+		IDsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
 
 		Serializer.I.ConnectParentsAndChildren(sceneFile);
 
@@ -308,7 +308,7 @@ public class Scene
 
 	public void CreateEmptySceneAndOpenIt(string path)
 	{
-		DsManager.GameObjectNextId = 0;
+		IDsManager.GameObjectNextId = 0;
 		Serializer.LastScene = path;
 		GameObjects = new List<GameObject>();
 		CreateDefaultObjects();

@@ -16,19 +16,20 @@ public class SceneNavigation
 
 	public void MoveToGameObject(GameObject targetGo)
 	{
-		Vector3 cameraStartPos = Camera.I.Transform.WorldPosition;
-		Vector3 cameraEndPos = targetGo.Transform.WorldPosition + new Vector3(0, 0, -4);
+		Vector3 cameraStartPos = Camera.I.Transform.LocalPosition;
+		Vector3 cameraEndPos = targetGo.Transform.LocalPosition + new Vector3(0, 0, -4);
 
 		if (cameraStartPos == cameraEndPos)
 		{
-			cameraEndPos = targetGo.Transform.WorldPosition + new Vector3(0, 0, -2);
+			cameraEndPos = targetGo.Transform.LocalPosition + new Vector3(0, 0, -2);
 		}
 
 		float cameraOrthoSize = Camera.I.OrthographicSize;
 		Tweener.Tween(0, 1, 1.3f, progress =>
 		{
+			Debug.Log("TWEENING:" + progress);
 			Camera.I.OrthographicSize = cameraOrthoSize + (float) MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
-			Camera.I.Transform.WorldPosition = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
+			Camera.I.Transform.LocalPosition = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
 		});
 	}
 

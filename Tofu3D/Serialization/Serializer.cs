@@ -220,8 +220,8 @@ public class Serializer
 							// we change ID of a parent, but if theres multiple children, we change it again? that dont work
 							if (goIndexes[goIndex] == -1)
 							{
-								gos[goIndex].Id = DsManager.GameObjectNextId;
-								DsManager.GameObjectNextId++;
+								gos[goIndex].Id = IDsManager.GameObjectNextId;
+								IDsManager.GameObjectNextId++;
 
 								goIndexes[goIndex] = gos[goIndex].Id;
 							}
@@ -230,8 +230,8 @@ public class Serializer
 								gos[goIndex].Id = goIndexes[goIndex];
 							}
 
-							comps[compIndex].GameObject.Id = DsManager.GameObjectNextId;
-							DsManager.GameObjectNextId++;
+							comps[compIndex].GameObject.Id = IDsManager.GameObjectNextId;
+							IDsManager.GameObjectNextId++;
 						}
 
 						(comps[compIndex] as Transform).SetParent(gos[goIndex].Transform);
@@ -252,8 +252,8 @@ public class Serializer
 			{
 				if (newIDs)
 				{
-					gos[goIndex].Id = DsManager.GameObjectNextId;
-					DsManager.GameObjectNextId++;
+					gos[goIndex].Id = IDsManager.GameObjectNextId;
+					IDsManager.GameObjectNextId++;
 				}
 
 				for (int i = 0; i < gos[goIndex].Transform.Children.Count; i++)

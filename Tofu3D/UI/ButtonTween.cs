@@ -17,7 +17,7 @@ public class ButtonTween : Component
 		bool mouseInside = MouseInput.WorldPosition.In(GetComponent<BoxShape>());
 		if (MouseInput.ButtonPressed() && mouseInside)
 		{
-			Transform.Scale = Vector3.One;
+			Transform.LocalScale = Vector3.One;
 
 			_clicked = true;
 		}
@@ -28,11 +28,11 @@ public class ButtonTween : Component
 
 		if (_clicked)
 		{
-			Transform.Scale = Vector3.Lerp(Transform.Scale, Vector3.One * ScaleTarget, Time.DeltaTime * ScaleSpeed);
+			Transform.LocalScale = Vector3.Lerp(Transform.LocalScale, Vector3.One * ScaleTarget, Time.DeltaTime * ScaleSpeed);
 		}
 		else
 		{
-			Transform.Scale = Vector3.Lerp(Transform.Scale, Vector3.One, Time.DeltaTime * ScaleSpeed);
+			Transform.LocalScale = Vector3.Lerp(Transform.LocalScale, Vector3.One, Time.DeltaTime * ScaleSpeed);
 		}
 	}
 }

@@ -367,6 +367,13 @@ public class EditorPanelInspector : EditorPanel
 					else if (fieldOrPropertyType == typeof(List<GameObject>))
 					{
 						List<GameObject> listOfGameObjects = (List<GameObject>) info.GetValue(currentComponent);
+						if (ImGui.Button("+"))
+						{
+							listOfGameObjects.Add(null);
+							info.SetValue(currentComponent, listOfGameObjects);
+						}
+
+						ImGui.SameLine();
 						if (ImGui.CollapsingHeader("List<GameObject>", ImGuiTreeNodeFlags.DefaultOpen))
 						{
 							for (int j = 0; j < listOfGameObjects.Count; j++)
@@ -384,8 +391,11 @@ public class EditorPanelInspector : EditorPanel
 
 								ImGui.SameLine();
 
-								bool selectableClicked = ImGui.Selectable(listOfGameObjects[j].Name);
-								if (selectableClicked)
+								bool isNull = listOfGameObjects[j] == null;
+								string name = isNull ? "<null>" : listOfGameObjects[j].Name;
+
+								bool selectableClicked = ImGui.Selectable(name);
+								if (selectableClicked && isNull == false)
 								{
 									EditorPanelHierarchy.I.SelectGameObject(listOfGameObjects[j].Id);
 									return;

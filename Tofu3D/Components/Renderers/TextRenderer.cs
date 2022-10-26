@@ -128,17 +128,17 @@ public class TextRenderer : SpriteRenderer
 		BoxShape.Size = Vector3.One * 1.2f; // bigger individual characters
 
 
-		float charSpacing = Transform.Scale.X * Text.Size;
+		float charSpacing = Transform.WorldScale.X * Text.Size;
 		charSpacing = charSpacing / Units.OneWorldUnit;
 		Vector2 originalPosition = Transform.WorldPosition;
 
 		int symbolInLineIndex = 0;
 		int line = 0;
-		float lineSpacing = Text.Size * 3 + Transform.Scale.Y * Text.Size;
+		float lineSpacing = Text.Size * 3 + Transform.WorldScale.Y * Text.Size;
 
-		Vector2 originalScale = Transform.Scale;
+		Vector2 originalScale = Transform.WorldScale;
 		Vector2 fontSizeScale = Vector3.One * Mathf.Clamp(Text.Size / 40f, 0, 1000);
-		Transform.Scale = originalScale * fontSizeScale;
+		Transform.WorldScale = originalScale * fontSizeScale;
 
 		for (int symbolIndex = 0;
 		     symbolIndex < Text.Value.Length;
@@ -153,7 +153,7 @@ public class TextRenderer : SpriteRenderer
 				Transform.WorldPosition = Transform.WorldPosition + new Vector2(0, (float) MathHelper.Sin(Time.ElapsedTime + symbolIndex * 0.1f) * 1);
 
 				float distanceToCursor = Vector2.Distance(Transform.WorldPosition, MouseInput.WorldPosition);
-				Transform.Scale = originalScale * fontSizeScale * Mathf.Clamp((0.2f / distanceToCursor + 1f), 1, 1.3f);
+				Transform.WorldScale = originalScale * fontSizeScale * Mathf.Clamp((0.2f / distanceToCursor + 1f), 1, 1.3f);
 			}
 
 			UpdateMvp();
@@ -201,6 +201,6 @@ public class TextRenderer : SpriteRenderer
 		}
 
 		Transform.WorldPosition = originalPosition;
-		Transform.Scale = originalScale;
+		Transform.WorldScale = originalScale;
 	}
 }
