@@ -63,7 +63,7 @@ if (isGradient == 1)
 {
 vec2 uv = (texCoord.xy * 10)* vec2(u_resolution.x / u_resolution.y, 1.0);
 
-color = mix(u_color_a,u_color_b, uv.y * 10) * texColor.a;
+color = mix(u_color_a,u_color_b, uv.y * 10) * texColor;
 }
 else{
 color = texColor;

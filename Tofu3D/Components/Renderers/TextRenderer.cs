@@ -117,7 +117,7 @@ public class TextRenderer : SpriteRenderer
 		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 		Material.Shader.SetColor("u_color", Color.ToVector4());
 		Material.Shader.SetVector2("u_scale", BoxShape.Size / Units.OneWorldUnit);
-		Material.Shader.SetVector2("zoomAmount", _spritesCount);
+		Material.Shader.SetVector2("zoomAmount", _spritesCount*2);
 		Material.Shader.SetFloat("isGradient", IsGradient ? 1 : 0);
 		if (IsGradient)
 		{
@@ -128,7 +128,7 @@ public class TextRenderer : SpriteRenderer
 		BoxShape.Size = Vector3.One * 1.2f; // bigger individual characters
 
 
-		float charSpacing = Transform.WorldScale.X * Text.Size;
+		float charSpacing = Transform.WorldScale.X * Text.Size*BoxShape.Size.X+ Text.Size*Transform.WorldScale.X;
 		charSpacing = charSpacing / Units.OneWorldUnit;
 		Vector2 originalPosition = Transform.WorldPosition;
 
@@ -136,17 +136,19 @@ public class TextRenderer : SpriteRenderer
 		int line = 0;
 		float lineSpacing = Text.Size * 3 + Transform.WorldScale.Y * Text.Size;
 
-		Vector2 originalScale = Transform.WorldScale;
+		Vector2 originalScale = Transform.LocalScale;
 		Vector2 fontSizeScale = Vector3.One * Mathf.Clamp(Text.Size / 40f, 0, 1000);
-		Transform.WorldScale = originalScale * fontSizeScale;
+		Transform.LocalScale = originalScale * fontSizeScale;
+
+		float textWidth = charSpacing * (Text.Value.Length-1);
 
 		for (int symbolIndex = 0;
 		     symbolIndex < Text.Value.Length;
 		     symbolIndex++,
 		     symbolInLineIndex++)
 		{
-			Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex, originalPosition.Y - line * lineSpacing, Transform.WorldPosition.Z);
-			//transform.position = originalPosition;
+			Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex - textWidth * Transform.Pivot.X, 
+			                                      originalPosition.Y - line * lineSpacing, Transform.WorldPosition.Z);
 
 			if (GetComponent<TextReactToMouse>() != null && Global.GameRunning)
 			{
@@ -201,6 +203,6 @@ public class TextRenderer : SpriteRenderer
 		}
 
 		Transform.WorldPosition = originalPosition;
-		Transform.WorldScale = originalScale;
+		Transform.LocalScale = originalScale;
 	}
 }

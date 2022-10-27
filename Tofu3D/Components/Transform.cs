@@ -78,7 +78,7 @@ public class Transform : Component
 
 			if (_localPosition != calculatedLocalPos)
 			{
-				Debug.Log($"WORLD/LOCAL calcs not matching:w{calculatedWorldPos.ToVector2()}....l{calculatedLocalPos.ToVector2()}");
+				// Debug.Log($"WORLD/LOCAL calcs not matching:w{calculatedWorldPos.ToVector2()}....l{calculatedLocalPos.ToVector2()}");
 			}
 
 			if (WorldPosition != calculatedWorldPos)
