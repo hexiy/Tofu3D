@@ -181,7 +181,7 @@ public class TransformHandle : Component
 		}
 
 
-		Transform.WorldPosition += moveVector; // we will grab it with offset, soe we want to move it only by change of mouse position
+		Transform.LocalPosition += moveVector; // we will grab it with offset, soe we want to move it only by change of mouse position
 		// _selectedTransform.LocalPosition = _selectedTransform.TranslateWorldToLocal(_selectedTransform.WorldPosition);
 		_selectedTransform.LocalPosition += moveVector / (_selectedTransform.Parent?.WorldScale ?? Vector3.One);
 
