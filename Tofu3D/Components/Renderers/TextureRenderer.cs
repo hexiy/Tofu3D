@@ -26,4 +26,13 @@ public class TextureRenderer : Renderer
 
 		Texture.Load(texturePath);
 	}
+
+	public virtual void SetDefaultTexture(string texturePath)
+	{
+		if (Texture == null)
+		{
+			Texture = new Texture();
+			Texture.Path = texturePath;
+		}
+	}
 }

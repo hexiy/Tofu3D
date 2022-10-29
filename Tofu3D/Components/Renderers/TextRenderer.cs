@@ -47,15 +47,15 @@ public class TextRenderer : SpriteRenderer
 		                                      {'Z', 58}
 	                                      };
 	[ShowIf(nameof(IsGradient))]
-	public Color GradientColor1;
+	public Color GradientColor1 = Tofu3D.Color.White;
 	[ShowIf(nameof(IsGradient))]
-	public Color GradientColor2;
+	public Color GradientColor2 = Tofu3D.Color.White;
 	// texture will be font signed distance field texture,
 	// render will be basically going through all the characters in Text component and rendering each symbol
 
-	public bool IsGradient = true;
+	public bool IsGradient = false;
 
-	Vector2 _spritesCount = new(1, 1);
+	Vector2 _spritesCount = new(8, 8);
 	[Hide]
 	public Vector2 SpriteSize;
 	[LinkableComponent]
@@ -71,6 +71,13 @@ public class TextRenderer : SpriteRenderer
 				SpriteSize = new Vector2(Texture.Size.X / SpritesCount.X, Texture.Size.Y / SpritesCount.Y);
 			}
 		}
+	}
+
+	public override void Awake()
+	{
+		SpritesCount = SpritesCount;
+		SetDefaultTexture(Path.Combine(Folders.Textures, "sdf.png"));
+		base.Awake();
 	}
 
 	public override void CreateMaterial()
@@ -117,7 +124,7 @@ public class TextRenderer : SpriteRenderer
 		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 		Material.Shader.SetColor("u_color", Color.ToVector4());
 		Material.Shader.SetVector2("u_scale", BoxShape.Size / Units.OneWorldUnit);
-		Material.Shader.SetVector2("zoomAmount", _spritesCount*2);
+		Material.Shader.SetVector2("zoomAmount", _spritesCount * 2);
 		Material.Shader.SetFloat("isGradient", IsGradient ? 1 : 0);
 		if (IsGradient)
 		{
@@ -128,7 +135,7 @@ public class TextRenderer : SpriteRenderer
 		BoxShape.Size = Vector3.One * 1.2f; // bigger individual characters
 
 
-		float charSpacing = Transform.WorldScale.X * Text.Size*BoxShape.Size.X+ Text.Size*Transform.WorldScale.X;
+		float charSpacing = Transform.WorldScale.X * Text.Size * BoxShape.Size.X + Text.Size * Transform.WorldScale.X;
 		charSpacing = charSpacing / Units.OneWorldUnit;
 		Vector2 originalPosition = Transform.WorldPosition;
 
@@ -140,14 +147,14 @@ public class TextRenderer : SpriteRenderer
 		Vector2 fontSizeScale = Vector3.One * Mathf.Clamp(Text.Size / 40f, 0, 1000);
 		Transform.LocalScale = originalScale * fontSizeScale;
 
-		float textWidth = charSpacing * (Text.Value.Length-1);
+		float textWidth = charSpacing * (Text.Value.Length - 1);
 
 		for (int symbolIndex = 0;
 		     symbolIndex < Text.Value.Length;
 		     symbolIndex++,
 		     symbolInLineIndex++)
 		{
-			Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex - textWidth * Transform.Pivot.X, 
+			Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex - textWidth * Transform.Pivot.X,
 			                                      originalPosition.Y - line * lineSpacing, Transform.WorldPosition.Z);
 
 			if (GetComponent<TextReactToMouse>() != null && Global.GameRunning)
@@ -194,7 +201,6 @@ public class TextRenderer : SpriteRenderer
 			{
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
-
 			TextureCache.BindTexture(Texture.Id);
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);

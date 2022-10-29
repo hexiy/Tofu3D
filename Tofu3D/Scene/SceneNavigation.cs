@@ -64,9 +64,9 @@ public class SceneNavigation
 			_clickedInsideScene = isMouseOverSceneView;
 		}
 
-		if (isMouseOverSceneView)
+		if (isMouseOverSceneView || _clickedInsideScene)
 		{
-			if ((justClicked && _clickedInsideScene) || justClicked == false)
+			if ((_clickedInsideScene) || (justClicked == false && isMouseOverSceneView && _clickedInsideScene))
 			{
 				HandleMouseControls();
 			}

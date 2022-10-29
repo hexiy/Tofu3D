@@ -104,10 +104,10 @@ public static class MouseInput
 
 	public static bool IsButtonDown(Buttons button = Buttons.Left)
 	{
-		if (IsMouseInSceneView() == false)
-		{
-			return false;
-		}
+		// if (IsMouseInSceneView() == false)
+		// {
+		// 	return false;
+		// }
 
 		return Window.I.MouseState.IsButtonDown((MouseButton) button);
 	}

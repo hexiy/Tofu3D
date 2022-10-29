@@ -1,4 +1,5 @@
-﻿using Tofu3D.Components.Renderers;
+﻿using System.IO;
+using Tofu3D.Components.Renderers;
 
 namespace Tofu3D;
 
@@ -8,6 +9,8 @@ public class SpriteRenderer : TextureRenderer
 	
 	public override void Awake()
 	{
+		SetDefaultTexture(Path.Combine(Folders.Textures, "solidColor.png"));
+
 		SetNativeSize += () => { UpdateBoxShapeSize(); };
 		CreateMaterial();
 		if (Texture == null)

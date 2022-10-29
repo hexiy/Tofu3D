@@ -277,6 +277,10 @@ public class Scene
 		{
 			sceneFile.GameObjects[i].LinkGameObjectFieldsInComponents();
 			sceneFile.GameObjects[i].Awake();
+		}
+
+		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
+		{
 			sceneFile.GameObjects[i].Start();
 		}
 

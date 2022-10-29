@@ -590,30 +590,20 @@ public class GameObject
 
 	public void RemoveComponent(int index)
 	{
-		ActiveSelf = false;
-		Components[index].OnDestroyed();
-		Components.RemoveAt(index);
-		ActiveSelf = true;
+		RemoveComponent(Components[index]);
 	}
 
 	public void RemoveComponent(Component component)
 	{
 		ActiveSelf = false;
-		component.OnDestroyed();
 		Components.Remove(component);
+		component.OnDestroyed();
 		ActiveSelf = true;
 	}
 
 	public void RemoveComponent<T>() where T : Component
 	{
-		for (int i = 0; i < Components.Count; i++)
-		{
-			if (Components[i] is T)
-			{
-				Components[i].OnDestroyed();
-				Components.RemoveAt(i);
-			}
-		}
+		RemoveComponent(typeof(T));
 	}
 
 	public void RemoveComponent(Type type)
@@ -622,8 +612,7 @@ public class GameObject
 		{
 			if (Components[i].GetType() == type)
 			{
-				Components[i].OnDestroyed();
-				Components.RemoveAt(i);
+				RemoveComponent(Components[i]);
 				return;
 			}
 		}
