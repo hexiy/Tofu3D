@@ -130,12 +130,6 @@ public class Scene
 			}
 		}
 
-
-		for (int i = 0; i < _renderQueue.Count; i++)
-		{
-			_renderQueue[i].LayerFromHierarchy = _renderQueue[i].GameObject.IndexInHierarchy * 0.00000000000000000000000000000001f;
-		}
-
 		SortRenderQueue();
 	}
 

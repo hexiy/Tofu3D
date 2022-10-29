@@ -7,10 +7,7 @@ public class Renderer : Component, IComparable<Renderer>
 	public BoxShape BoxShape;
 	public Color Color = Color.White;
 	public float DistanceFromCamera;
-
-	[Hide]
-	public float LayerFromHierarchy = 0;
-
+	
 	[Show]
 	public Material Material;
 	internal bool OnScreen = true;
@@ -25,7 +22,8 @@ public class Renderer : Component, IComparable<Renderer>
 			return 1;
 		}
 
-		return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
+		return (GameObject.IndexInHierarchy * 1e-15f + Layer).CompareTo(comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer);
+		//return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
 	}
 
 	// public int CompareTo(Renderer comparePart)
