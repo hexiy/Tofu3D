@@ -36,9 +36,9 @@ void main(void)
 vec4 texColor = texture(textureObject, vec2(texCoord.x + offset.x / u_resolution.x, texCoord.y + 1 + offset.y/ u_resolution.y));
 
 //texColor.rgb= texColor.rgb * u_color.a;
-texColor.a = (texColor.r + texColor.g +texColor.b) / 3 * u_color.a;
+texColor.a = (texColor.r + texColor.g +texColor.b) / 3;
 
-texColor = texColor * u_color;
+texColor = texColor;
 
 if (texColor.a > 0.80){
 texColor.a = 1;
@@ -66,7 +66,7 @@ vec2 uv = (texCoord.xy * 10)* vec2(u_resolution.x / u_resolution.y, 1.0);
 color = mix(u_color_a,u_color_b, uv.y * 10) * texColor;
 }
 else{
-color = texColor;
+color = vec4(1,1,1,1) * u_color;
 }
 }
 }
