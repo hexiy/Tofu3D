@@ -355,7 +355,7 @@ public class EditorPanelInspector : EditorPanel
 							string fileName = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 							if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && fileName.Length > 0)
 							{
-								fileName = Path.GetRelativePath("Assets", fileName);
+								// fileName = Path.GetRelativePath("Assets", fileName);
 
 								audioClip.Path = fileName;
 								info.SetValue(currentComponent, audioClip);

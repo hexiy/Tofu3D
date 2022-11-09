@@ -16,7 +16,9 @@
 
 	static void SaveData()
 	{
+		
 		PersistentData.Set("Global.Debug", Debug);
+		
 	}
 
 	public static void LoadSavedData()

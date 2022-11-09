@@ -27,7 +27,7 @@ public class SceneNavigation
 		float cameraOrthoSize = Camera.I.OrthographicSize;
 		Tweener.Tween(0, 1, 1.3f, progress =>
 		{
-			Debug.Log("TWEENING:" + progress);
+			// Debug.Log("TWEENING:" + progress);
 			Camera.I.OrthographicSize = cameraOrthoSize + (float) MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
 			Camera.I.Transform.LocalPosition = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
 		});

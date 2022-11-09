@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "70qN4fPis11j8WmVejsi5R4TIy/DPb1MYCHZLmS8FhO/YUDvdpQKhxE/5ry5eUHhH1wqQ+6poYpzvZwnQUWoQw==",
+  "dgSpecHash": "z3J3H/8qM6Hhubx6sDYhSr1FUAhutanWDJmSm4en3OSR1hUCdxMYcZ/3aao8jhoTol9A5IDbtOW80PnxF1SU7Q==",
   "success": true,
   "projectFilePath": "/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/Tofu3D.csproj",
   "expectedPackageFiles": [
+    "/Users/hexiy/.nuget/packages/cliwrap/3.5.0/cliwrap.3.5.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/imgui.net/1.87.3/imgui.net.1.87.3.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
@@ -49,10 +50,10 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Microsoft.CodeDom.Providers.DotNetCompilerPlatform 4.1.0-preview1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "message": "Package 'Microsoft.CodeDom.Providers.DotNetCompilerPlatform 4.1.0-preview1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
       "libraryId": "Microsoft.CodeDom.Providers.DotNetCompilerPlatform",
       "targetGraphs": [
-        "net6.0"
+        "net7.0"
       ]
     }
   ]

@@ -270,3 +270,4 @@
 /Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/obj/Debug/net6.0/Tofu3D.pdb
 /Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/obj/Debug/net6.0/Tofu3D.genruntimeconfig.cache
 /Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/obj/Debug/net6.0/ref/Tofu3D.dll
+/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/bin/Debug/net6.0/CliWrap.dll

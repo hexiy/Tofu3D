@@ -34,7 +34,7 @@ public class Window : GameWindow
 		//MaterialCache.CacheAllMaterialsInProject();
 		ImGuiController = new ImGuiController(ClientSize.X, ClientSize.Y);
 
-		Vector2 size = new(100, 100); // temporaly 10x10 textures because we cant access Camera.I.size before Scene started-camera is a gameobject
+		Vector2 size = new(100, 100); // temporarily 10x10 textures because we cant access Camera.I.size before Scene started-camera is a gameobject
 		SceneRenderTexture = new RenderTexture(size);
 		PostProcessRenderTexture = new RenderTexture(size);
 
