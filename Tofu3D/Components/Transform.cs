@@ -91,7 +91,7 @@ public class Transform : Component
 	}
 
 	[Hide]
-	public Vector3 _localScale = Vector3.One;
+	Vector3 _localScale = Vector3.One;
 	[XmlIgnore]
 	public Vector3 LocalScale
 	{
