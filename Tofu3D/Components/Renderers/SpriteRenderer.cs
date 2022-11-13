@@ -6,7 +6,7 @@ namespace Tofu3D;
 public class SpriteRenderer : TextureRenderer
 {
 	[Hide] public virtual bool Batched { get; set; } = false;
-	
+
 	public override void Awake()
 	{
 		SetDefaultTexture(Path.Combine(Folders.Textures, "solidColor.png"));
@@ -22,6 +22,7 @@ public class SpriteRenderer : TextureRenderer
 			LoadTexture(Texture.Path);
 		}
 
+		BatchingManager.AddObjectToBatcher(Texture.Id, this);
 		base.Awake();
 	}
 
@@ -36,7 +37,7 @@ public class SpriteRenderer : TextureRenderer
 	{
 		if (BoxShape != null)
 		{
-			BoxShape.Size = Texture.Size/Units.OneWorldUnit;
+			BoxShape.Size = Texture.Size / Units.OneWorldUnit;
 		}
 	}
 
@@ -73,14 +74,16 @@ public class SpriteRenderer : TextureRenderer
 			return;
 		}
 
-		if (Batched && false)
+		if (true)
 		{
-			/*BatchingManager.UpdateAttribs(texture.id, gameObjectID, transform.position, new Vector2(GetComponent<BoxShape>().size.X * transform.scale.X, GetComponent<BoxShape>().size.Y * transform.scale.Y),
-			                              color);
-			return;*/
+			BatchingManager.UpdateAttribs(Texture.Id, GameObjectId, Transform.WorldPosition,
+			                              new Vector2(GetComponent<BoxShape>().Size.X * Transform.WorldScale.X,
+			                                          GetComponent<BoxShape>().Size.Y * Transform.WorldScale.Y),
+			                              Transform.Rotation.Z, Color);
+			return;
 		}
 
-		ShaderCache.UseShader(Material.Shader);
+		/*ShaderCache.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
 		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 		Material.Shader.SetColor("u_color", Color.ToVector4());
@@ -101,7 +104,7 @@ public class SpriteRenderer : TextureRenderer
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
-		Debug.CountStat("Draw Calls", 1);
+		Debug.CountStat("Draw Calls", 1);*/
 	}
 }
 

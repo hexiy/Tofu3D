@@ -1,6 +1,6 @@
 ﻿namespace Tofu3D;
 
-public static class BuffersGenerator
+public static class BufferFactory
 {
 	const int VerticesIndex = 0;
 	const int UvsIndex = 1;
@@ -125,16 +125,16 @@ public static class BuffersGenerator
 		// now we define layout in vao
 		vao = GL.GenVertexArray();
 
-		GL.BindVertexArray(vao);
+		ShaderCache.BindVao(vao);
 
 		GL.EnableVertexAttribArray(0);
 		GL.EnableVertexAttribArray(1);
 		GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false,
-		                       sizeof(float) * 4, // 1 row (2 floats for position, 2 uv floats)
+		                       sizeof(float) * 4,
 		                       (IntPtr) 0);
 
 		GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false,
-		                       sizeof(float) * 4, // 1 row (2 floats for position, 2 uv floats)
+		                       sizeof(float) * 4,
 		                       (IntPtr) 0);
 
 

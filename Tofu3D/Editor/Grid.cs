@@ -14,6 +14,7 @@ public class Grid : Component
 		_spriteRenderer.LoadTexture(Path.Combine(Folders.Textures, "grid.png"));
 		_spriteRenderer.Color = new Color(0, 0, 0, 29);
 		_spriteRenderer.Layer = -10;
+		_spriteRenderer.Batched = false;
 		Transform.Pivot = new Vector3(0.5f, 0.5f, 0.5f);
 		base.Awake();
 	}

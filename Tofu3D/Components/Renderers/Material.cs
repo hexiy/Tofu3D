@@ -15,7 +15,7 @@ public class Material
 		Shader = shader;
 
 		Shader.Load();
-		BuffersGenerator.CreateBufferForShader(this);
+		BufferFactory.CreateBufferForShader(this);
 	}
 
 	public void InitShader()

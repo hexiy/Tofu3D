@@ -13,23 +13,13 @@ public class AudioSource : Component
 	[Show]
 	public AudioClip Clip;
 
-	[XmlIgnore]
-	public Action PlaySoundAction;
-	[XmlIgnore]
-	public Action StopSoundAction;
 	[SliderF(0, 1)]
 	public float Volume;
 
 	int _processId = -1;
 
-	//private WaveOutEvent outputDevice;
-
-	//private AudioFileReader audioFile;
-
 	public override void Awake()
 	{
-		PlaySoundAction = () => { PlaySound(); };
-		StopSoundAction = () => { StopSound(); };
 		base.Awake();
 	}
 

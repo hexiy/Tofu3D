@@ -42,6 +42,7 @@ public class Scene
 
 	void CreateGrid()
 	{
+		return;
 		GameObject gridGameObject = GameObject.Create(silent: true);
 		gridGameObject.AddComponent<Grid>();
 		gridGameObject.DynamicallyCreated = true;
@@ -151,7 +152,7 @@ public class Scene
 
 		for (int i = 0; i < _renderQueue.Count; i++)
 		{
-			if (_renderQueue[i].Enabled && _renderQueue[i].Awoken && _renderQueue[i].GameObject.ActiveInHierarchy)
+			if (_renderQueue[i].Enabled && _renderQueue[i].GameObject.Awoken && _renderQueue[i].GameObject.ActiveInHierarchy)
 			{
 				if (_renderQueue[i].GameObject == TransformHandle.I.GameObject)
 				{
@@ -162,6 +163,7 @@ public class Scene
 			}
 		}
 
+		BatchingManager.RenderAllBatchers();
 		TransformHandle.I.GameObject.Render();
 	}
 
