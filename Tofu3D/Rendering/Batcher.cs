@@ -73,7 +73,9 @@ public abstract class Batcher
 			for (int j = 0; j < VertexAttribSize; j++)
 			{
 				Attribs[RendererLocationsInAttribs[index] + i * VertexAttribSize + j] = attribs[j];
+				// go0 [0,0,0
 			}
 		}
+		
 	}
 }

@@ -25,15 +25,15 @@ public class EditorPanelInspector : EditorPanel
 	{
 	}
 
-	public void OnGameObjectSelected(int id)
+	public void OnGameObjectsSelected(List<int> ids)
 	{
-		if (id == -1)
+		if (ids.Count == 0)
 		{
 			_selectedGameObject = null;
 		}
 		else
 		{
-			_selectedGameObject = Scene.I.GetGameObject(id);
+			_selectedGameObject = Scene.I.GetGameObject(ids[0]);
 
 			_selectedMaterial = null;
 		}

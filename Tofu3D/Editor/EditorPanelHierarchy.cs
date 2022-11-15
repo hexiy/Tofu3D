@@ -8,11 +8,10 @@ public class EditorPanelHierarchy : EditorPanel
 	bool _canDelete = true;
 
 	GameObject _clipboardGameObject;
-	int _gameObjectIndexSelectedBefore;
-	List<GameObject> _gameObjectsChildrened = new();
-	public Action<int> GameObjectSelected;
+	List<int> _gameObjectsIndexesSelectedBefore = new List<int>();
+	public Action<List<int>> GameObjectsSelected;
 
-	int _selectedGameObjectIndex;
+	List<int> _selectedGameObjectsIDs = new List<int>();
 	bool _showUpdatePrefabPopup;
 	public static EditorPanelHierarchy I { get; private set; }
 
@@ -29,12 +28,12 @@ public class EditorPanelHierarchy : EditorPanel
 			DestroySelectedGameObjects();
 		}
 
-		if (KeyboardInput.IsKeyUp(Keys.Delete))
+		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.IsKeyUp(Keys.Backspace))
 		{
 			_canDelete = true;
 		}
 
-		if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.IsKeyUp(Keys.C))
+		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.IsKeyUp(Keys.C))
 		{
 			if (Editor.I.GetSelectedGameObject() != null)
 			{
@@ -43,7 +42,7 @@ public class EditorPanelHierarchy : EditorPanel
 			}
 		}
 
-		if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.IsKeyUp(Keys.V))
+		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.IsKeyUp(Keys.V))
 		{
 			if (_clipboardGameObject != null)
 			{
@@ -57,14 +56,10 @@ public class EditorPanelHierarchy : EditorPanel
 	{
 		foreach (GameObject selectedGameObject in Editor.I.GetSelectedGameObjects())
 		{
+			_selectedGameObjectsIDs.Remove(selectedGameObject.Id);
 			selectedGameObject.Destroy();
-			_selectedGameObjectIndex--;
-			if (_selectedGameObjectIndex < 0)
-			{
-				return;
-			}
 
-			GameObjectSelected.Invoke(Scene.I.GameObjects[_selectedGameObjectIndex].Id);
+			GameObjectsSelected.Invoke(_selectedGameObjectsIDs);
 		}
 	}
 
@@ -92,15 +87,32 @@ public class EditorPanelHierarchy : EditorPanel
 		Scene.I.GameObjects.RemoveAt(oldIndex);
 		Scene.I.GameObjects.Insert(oldIndex + direction, go);
 
-		_selectedGameObjectIndex = oldIndex + direction;
-		GameObjectSelected.Invoke(Scene.I.GameObjects[oldIndex + direction].Id);
+
+		//_selectedGameObjectsIndexes = oldIndex + direction;
+		//GameObjectsSelected.Invoke(Scene.I.GameObjects[oldIndex + direction].Id);
+	}
+
+	public void ResetGameObjectSelection()
+	{
+		_selectedGameObjectsIDs.Clear();
+		GameObjectsSelected.Invoke(_selectedGameObjectsIDs);
 	}
 
 	public void SelectGameObject(int id)
 	{
-		_selectedGameObjectIndex = Editor.I.GetGameObjectIndexInHierarchy(id);
-		GameObjectSelected.Invoke(id);
-		//Debug.Log("Selected go: " + id);
+		ResetGameObjectSelection();
+		AddGameObjectToSelection(id);
+	}
+
+	public void AddGameObjectToSelection(int id)
+	{
+		if (_selectedGameObjectsIDs.Contains(id))
+		{
+			return;
+		}
+
+		_selectedGameObjectsIDs.Add(id);
+		GameObjectsSelected.Invoke(_selectedGameObjectsIDs);
 	}
 
 	public override void Draw()
@@ -149,7 +161,7 @@ public class EditorPanelHierarchy : EditorPanel
 		{
 			GameObject go = GameObject.Create(name: "Children");
 			go.Awake();
-			go.Transform.SetParent(Scene.I.GameObjects[_selectedGameObjectIndex].Transform);
+			go.Transform.SetParent(Scene.I.GameObjects[_selectedGameObjectsIDs[0]].Transform);
 		}
 
 		for (int goIndex = 0; goIndex < Scene.I.GameObjects.Count; goIndex++)
@@ -167,7 +179,7 @@ public class EditorPanelHierarchy : EditorPanel
 		{
 			PushNextId(Scene.I.GameObjects[goIndex].Id.ToString());
 		}
-		
+
 
 		GameObject currentGameObject = Scene.I.GameObjects[goIndex];
 		if (currentGameObject.Transform.Parent != null && isChild == false) // only draw children from recursive DrawGameObjectRow calls
@@ -175,17 +187,17 @@ public class EditorPanelHierarchy : EditorPanel
 			return;
 		}
 
-		if (currentGameObject.Silent && Global.Debug==false)
+		if (currentGameObject.Silent && Global.Debug == false)
 		{
 			return;
 		}
 
 		//bool hasAnyChildren = false;
 		bool hasAnyChildren = currentGameObject.Transform.Children?.Count > 0;
-		ImGuiTreeNodeFlags flags = (_selectedGameObjectIndex == goIndex ? ImGuiTreeNodeFlags.Selected : 0) | ImGuiTreeNodeFlags.OpenOnArrow;
+		ImGuiTreeNodeFlags flags = (_selectedGameObjectsIDs.Contains(currentGameObject.Id) ? ImGuiTreeNodeFlags.Selected : 0) | ImGuiTreeNodeFlags.OpenOnArrow;
 		if (hasAnyChildren == false)
 		{
-			flags = (_selectedGameObjectIndex == goIndex ? ImGuiTreeNodeFlags.Selected : 0) | ImGuiTreeNodeFlags.Leaf;
+			flags = (_selectedGameObjectsIDs.Contains(currentGameObject.Id) ? ImGuiTreeNodeFlags.Selected : 0) | ImGuiTreeNodeFlags.Leaf;
 		}
 
 
@@ -201,7 +213,7 @@ public class EditorPanelHierarchy : EditorPanel
 		string rowText = (Global.Debug ? $"[{currentGameObject.Id}] " : "") + currentGameObject.Name;
 		bool opened = ImGui.TreeNodeEx(rowText, flags);
 
-		
+
 		if (ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left) && false) // todo remove false
 		{
 			SceneNavigation.I.MoveToGameObject(Editor.I.GetSelectedGameObject());
@@ -210,9 +222,10 @@ public class EditorPanelHierarchy : EditorPanel
 
 		if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
 		{
-			if (_selectedGameObjectIndex != _gameObjectIndexSelectedBefore)
+			if (_selectedGameObjectsIDs != _gameObjectsIndexesSelectedBefore)
 			{
-				SelectGameObject(Scene.I.GameObjects[_gameObjectIndexSelectedBefore].Id);
+				_selectedGameObjectsIDs = _gameObjectsIndexesSelectedBefore;
+				GameObjectsSelected.Invoke(_selectedGameObjectsIDs);
 			}
 
 			// select gameobject selected before
@@ -242,11 +255,16 @@ public class EditorPanelHierarchy : EditorPanel
 
 			ImGui.EndDragDropTarget();
 		}
+
 		ImGui.PopStyleColor();
 
+		if (ImGui.IsItemClicked(ImGuiMouseButton.Left) && KeyboardInput.IsKeyDown(Keys.LeftSuper))
+		{
+			AddGameObjectToSelection(currentGameObject.Id);
+		}
 		if (ImGui.IsItemClicked(ImGuiMouseButton.Left))
 		{
-			_gameObjectIndexSelectedBefore = _selectedGameObjectIndex;
+			_gameObjectsIndexesSelectedBefore = _selectedGameObjectsIDs;
 			SelectGameObject(currentGameObject.Id);
 		}
 

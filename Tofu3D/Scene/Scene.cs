@@ -229,6 +229,20 @@ public class Scene
 		return null;
 	}
 
+	public List<GameObject> GetGameObjects(List<int> ids)
+	{
+		List<GameObject> foundGameObjects = new List<GameObject>();
+		for (int i = 0; i < GameObjects.Count; i++)
+		{
+			if (ids.Contains(GameObjects[i].Id))
+			{
+				foundGameObjects.Add(GameObjects[i]);
+			}
+		}
+
+		return foundGameObjects;
+	}
+
 	public void AddGameObjectToScene(GameObject gameObject)
 	{
 		GameObjects.Add(gameObject);

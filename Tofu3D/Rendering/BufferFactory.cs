@@ -125,7 +125,7 @@ public static class BufferFactory
 		// now we define layout in vao
 		vao = GL.GenVertexArray();
 
-		ShaderCache.BindVao(vao);
+		ShaderCache.BindVertexArray(vao);
 
 		GL.EnableVertexAttribArray(0);
 		GL.EnableVertexAttribArray(1);

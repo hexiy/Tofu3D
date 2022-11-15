@@ -70,7 +70,7 @@ public class RenderTexture
 		// renderTextureMaterial.shader.SetVector2("u_resolution", Camera.I.size);
 		//	renderTextureMaterial.shader.SetMatrix4x4("u_mvp", GetModelViewProjection(sampleSize));
 
-		ShaderCache.BindVao(RenderTextureMaterial.Vao);
+		ShaderCache.BindVertexArray(RenderTextureMaterial.Vao);
 		GL.Enable(EnableCap.Blend);
 
 
@@ -78,7 +78,7 @@ public class RenderTexture
 
 		//GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
-		ShaderCache.BindVao(0);
+		ShaderCache.BindVertexArray(0);
 		GL.Disable(EnableCap.Blend);
 	}
 

@@ -36,7 +36,7 @@ public class BoxRenderer : Renderer
 			Material.Shader.SetFloat("time", (float) Material.Shader.Uniforms["time"]);
 		}
 
-		ShaderCache.BindVao(Material.Vao);
+		ShaderCache.BindVertexArray(Material.Vao);
 
 		//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 

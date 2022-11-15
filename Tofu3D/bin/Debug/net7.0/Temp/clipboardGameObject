@@ -6,8 +6,8 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>74</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
+      <Id>100</Id>
+      <IndexInHierarchy>1</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>GameObject</Name>
       <PrefabPath />
@@ -21,25 +21,25 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>74</GameObjectId>
+      <GameObjectId>100</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
-        <X>0</X>
-        <Y>0</Y>
+        <X>0.5</X>
+        <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
+      <LocalPosition>
+        <X>5.5193405</X>
+        <Y>3.4443269</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
         <X>1</X>
         <Y>1</Y>
         <Z>1</Z>
-      </_localScale>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
@@ -51,19 +51,90 @@
         <Z>0</Z>
       </Forward>
     </Component>
-    <Component xsi:type="SpriteRenderer">
-      <AllowMultiple>true</AllowMultiple>
+    <Component xsi:type="ParticleSystem">
+      <AllowMultiple>false</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>74</GameObjectId>
+      <GameObjectId>100</GameObjectId>
+      <Started>true</Started>
+      <LatestParticle>
+        <Color>
+          <B>249</B>
+          <G>249</G>
+          <R>249</R>
+          <A>253</A>
+          <PackedValue>4261018105</PackedValue>
+        </Color>
+        <Lifetime>0.0167507</Lifetime>
+        <Radius>0.14</Radius>
+        <Velocity>
+          <X>-3.2332673</X>
+          <Y>-3.7416427</Y>
+          <Z>0</Z>
+        </Velocity>
+        <Visible>true</Visible>
+        <WorldPosition>
+          <X>-3.999859</X>
+          <Y>2.4303763</Y>
+          <Z>0</Z>
+        </WorldPosition>
+        <SpawnColor>
+          <B>249</B>
+          <G>249</G>
+          <R>249</R>
+          <A>255</A>
+          <PackedValue>4294572537</PackedValue>
+        </SpawnColor>
+      </LatestParticle>
+      <ListLock />
+      <StartVelocity>
+        <X>-3.18</X>
+        <Y>-3.68</Y>
+      </StartVelocity>
+      <Speed>0</Speed>
+      <StartSize>0.14</StartSize>
+      <EndSize>0.14</EndSize>
+      <StartColor>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </StartColor>
+      <StartColor2>
+        <B>177</B>
+        <G>177</G>
+        <R>177</R>
+        <A>255</A>
+        <PackedValue>4289835441</PackedValue>
+      </StartColor2>
+      <EndColor>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>100</A>
+        <PackedValue>1694498815</PackedValue>
+      </EndColor>
+      <MaxParticles>100000</MaxParticles>
+      <MaxLifetime>2</MaxLifetime>
+      <SpawnRate>0.001</SpawnRate>
+      <SpawnBoundsSize>
+        <X>14</X>
+        <Y>1</Y>
+      </SpawnBoundsSize>
+    </Component>
+    <Component xsi:type="ParticleSystemRenderer">
+      <AllowMultiple>false</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>100</GameObjectId>
       <Started>true</Started>
       <BoxShape>
         <AllowMultiple>true</AllowMultiple>
         <Enabled>true</Enabled>
-        <GameObjectId>74</GameObjectId>
+        <GameObjectId>100</GameObjectId>
         <Started>true</Started>
         <Offset>
-          <X>0</X>
-          <Y>0</Y>
+          <X>2.16</X>
+          <Y>1.64</Y>
           <Z>0</Z>
         </Offset>
         <Size>
@@ -73,13 +144,13 @@
         </Size>
       </BoxShape>
       <Color>
-        <B>0</B>
-        <G>0</G>
+        <B>255</B>
+        <G>255</G>
         <R>255</R>
         <A>255</A>
-        <PackedValue>4278190335</PackedValue>
+        <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>0</DistanceFromCamera>
+      <DistanceFromCamera>6.5905066</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/SpriteRenderer.mat</Path>
@@ -87,10 +158,10 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets/Shaders/SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>804</Vao>
+        <Vao>5</Vao>
         <Vbo>0</Vbo>
       </Material>
-      <Layer>0</Layer>
+      <Layer>0.52</Layer>
       <Texture>
         <Id>6</Id>
         <Loaded>true</Loaded>
@@ -105,15 +176,87 @@
         <Y>1</Y>
       </Repeats>
       <Batched>false</Batched>
+      <ParticleSystem>
+        <AllowMultiple>false</AllowMultiple>
+        <Enabled>true</Enabled>
+        <GameObjectId>100</GameObjectId>
+        <Started>true</Started>
+        <LatestParticle>
+          <Color>
+            <B>249</B>
+            <G>249</G>
+            <R>249</R>
+            <A>253</A>
+            <PackedValue>4261018105</PackedValue>
+          </Color>
+          <Lifetime>0.0167507</Lifetime>
+          <Radius>0.14</Radius>
+          <Velocity>
+            <X>-3.2332673</X>
+            <Y>-3.7416427</Y>
+            <Z>0</Z>
+          </Velocity>
+          <Visible>true</Visible>
+          <WorldPosition>
+            <X>-3.999859</X>
+            <Y>2.4303763</Y>
+            <Z>0</Z>
+          </WorldPosition>
+          <SpawnColor>
+            <B>249</B>
+            <G>249</G>
+            <R>249</R>
+            <A>255</A>
+            <PackedValue>4294572537</PackedValue>
+          </SpawnColor>
+        </LatestParticle>
+        <ListLock />
+        <StartVelocity>
+          <X>-3.18</X>
+          <Y>-3.68</Y>
+        </StartVelocity>
+        <Speed>0</Speed>
+        <StartSize>0.14</StartSize>
+        <EndSize>0.14</EndSize>
+        <StartColor>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>255</A>
+          <PackedValue>4294967295</PackedValue>
+        </StartColor>
+        <StartColor2>
+          <B>177</B>
+          <G>177</G>
+          <R>177</R>
+          <A>255</A>
+          <PackedValue>4289835441</PackedValue>
+        </StartColor2>
+        <EndColor>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>100</A>
+          <PackedValue>1694498815</PackedValue>
+        </EndColor>
+        <MaxParticles>100000</MaxParticles>
+        <MaxLifetime>2</MaxLifetime>
+        <SpawnRate>0.001</SpawnRate>
+        <SpawnBoundsSize>
+          <X>14</X>
+          <Y>1</Y>
+        </SpawnBoundsSize>
+      </ParticleSystem>
+      <Additive>true</Additive>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>74</GameObjectId>
+      <GameObjectId>100</GameObjectId>
       <Started>true</Started>
       <Offset>
-        <X>0</X>
-        <Y>0</Y>
+        <X>2.16</X>
+        <Y>1.64</Y>
         <Z>0</Z>
       </Offset>
       <Size>

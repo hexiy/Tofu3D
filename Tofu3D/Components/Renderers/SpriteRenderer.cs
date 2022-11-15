@@ -22,7 +22,7 @@ public class SpriteRenderer : TextureRenderer
 			LoadTexture(Texture.Path);
 		}
 
-		BatchingManager.AddObjectToBatcher(Texture.Id, this);
+		//BatchingManager.AddObjectToBatcher(Texture.Id, this);
 		base.Awake();
 	}
 
@@ -74,7 +74,7 @@ public class SpriteRenderer : TextureRenderer
 			return;
 		}
 
-		if (true)
+		if (false)
 		{
 			BatchingManager.UpdateAttribs(Texture.Id, GameObjectId, Transform.WorldPosition,
 			                              new Vector2(GetComponent<BoxShape>().Size.X * Transform.WorldScale.X,
@@ -83,13 +83,13 @@ public class SpriteRenderer : TextureRenderer
 			return;
 		}
 
-		/*ShaderCache.UseShader(Material.Shader);
+		ShaderCache.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
 		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 		Material.Shader.SetColor("u_color", Color.ToVector4());
 		Material.Shader.SetVector2("u_repeats", Repeats);
 
-		ShaderCache.BindVao(Material.Vao);
+		ShaderCache.BindVertexArray(Material.Vao);
 
 		if (Material.Additive)
 		{
@@ -104,7 +104,7 @@ public class SpriteRenderer : TextureRenderer
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
-		Debug.CountStat("Draw Calls", 1);*/
+		Debug.CountStat("Draw Calls", 1);
 	}
 }
 

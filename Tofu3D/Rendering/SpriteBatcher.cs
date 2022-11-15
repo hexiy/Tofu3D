@@ -23,7 +23,7 @@ public class SpriteBatcher : Batcher
 			-0.5f, 0.5f, 0, 1,
 			-0.5f, 0.5f, 0, 1,
 			0.5f, -0.5f, 1, 0,
-			0.5f, 0.5f, 1, 1
+			0.5f, 0.5f, 1, 1,
 		};
 
 		GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.DynamicDraw);
@@ -31,7 +31,7 @@ public class SpriteBatcher : Batcher
 		// now we define layout in vao
 		Vao = GL.GenVertexArray();
 
-		ShaderCache.BindVao(Vao);
+		ShaderCache.BindVertexArray(Vao);
 
 		GL.EnableVertexAttribArray(0);
 		GL.EnableVertexAttribArray(1);
@@ -57,7 +57,7 @@ public class SpriteBatcher : Batcher
 		GL.BufferData(target: BufferTarget.ArrayBuffer, size: attribsArray.Length * sizeof(float), data: attribsArray, usage: BufferUsageHint.DynamicDraw); // dynamic draw/streamcopy
 
 
-		ShaderCache.BindVao(Vao);
+		ShaderCache.BindVertexArray(Vao);
 		// same vao but new vbo
 
 
@@ -67,11 +67,11 @@ public class SpriteBatcher : Batcher
 		//GL.EnableVertexAttribArray(5); // float(col?) 
 		GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false,
 		                       sizeof(float) * VertexAttribSize,
-		                       (IntPtr) 0);
+		                       (IntPtr) 0);// offset is 0, posx and posy are first in the buffer
 
 		GL.VertexAttribPointer(3, 2, VertexAttribPointerType.Float, false,
 		                       sizeof(float) * VertexAttribSize,
-		                       (IntPtr)( sizeof(float)*2));
+		                       (IntPtr)0);// offset is 2 floats
 		// doesnt rly work?
 		// GL.VertexAttribPointer(4, 1, VertexAttribPointerType.Float, false,
 		//                        sizeof(float) * VertexAttribSize,
@@ -101,14 +101,13 @@ public class SpriteBatcher : Batcher
 
 
 		ShaderCache.UseShader(Material.Shader);
-		Material.Shader.SetVector2("u_resolution", Texture.Size);
-		//Material.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
-		Material.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity* Matrix4x4.CreateScale(Units.OneWorldUnit) * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
+		// Material.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
+		Material.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity * Matrix4x4.CreateScale(Units.OneWorldUnit) * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
 		Material.Shader.SetColor("u_color", Color.White.ToVector4());
 		Material.Shader.SetVector2("u_repeats", Vector2.One);
 
-		ShaderCache.BindVao(Vao);
+		ShaderCache.BindVertexArray(Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 

@@ -56,8 +56,8 @@ public class SceneNavigation
 		}
 
 
-		bool isMouseOverSceneView = MouseInput.ScreenPosition.X < Camera.I.Size.X && MouseInput.ScreenPosition.Y < Camera.I.Size.Y;
-
+		bool isMouseOverSceneView = MouseInput.ScreenPosition.X < Camera.I.Size.X && MouseInput.ScreenPosition.Y < Camera.I.Size.Y && MouseInput.ScreenPosition.Y > 0;
+// Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
 		bool justClicked = MouseInput.ButtonPressed();
 		if (justClicked)
 		{

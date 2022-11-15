@@ -62,7 +62,7 @@ public class ModelRenderer : TextureRenderer
 				Material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
 				Material.Shader.SetColor("u_rendererColor", Color.White.ToVector4());
 		
-				ShaderCache.BindVao(Material.Vao);
+				ShaderCache.BindVertexArray(Material.Vao);
 		
 				//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 				TextureCache.BindTexture(Texture.Id);
@@ -90,7 +90,7 @@ public class ModelRenderer : TextureRenderer
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
 
-			ShaderCache.BindVao(Material.Vao);
+			ShaderCache.BindVertexArray(Material.Vao);
 
 			//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			TextureCache.BindTexture(Texture.Id);

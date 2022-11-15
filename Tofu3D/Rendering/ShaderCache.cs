@@ -5,7 +5,7 @@ public static class ShaderCache
 	public static int ShaderInUse = -1;
 	public static int VaoInUse = -100;
 
-	public static void BindVao(int vao)
+	public static void BindVertexArray(int vao)
 	{
 		if (vao == VaoInUse)
 		{

@@ -65,21 +65,9 @@ public class Transform : Component
 				return;
 			}
 
-			var a = Transform;
-			if (Transform.Parent != null)
-			{
-				var ahaaa = false;
-				//_localPosition = Vector3.Zero;
-			}
-
 			Vector3 calculatedWorldPos = TranslateLocalToWorld(_localPosition);
 			// local to world is okay
 			Vector3 calculatedLocalPos = TranslateWorldToLocal(calculatedWorldPos);
-
-			if (_localPosition != calculatedLocalPos)
-			{
-				// Debug.Log($"WORLD/LOCAL calcs not matching:w{calculatedWorldPos.ToVector2()}....l{calculatedLocalPos.ToVector2()}");
-			}
 
 			if (WorldPosition != calculatedWorldPos)
 			{
@@ -91,8 +79,7 @@ public class Transform : Component
 	}
 
 	[Hide]
-	Vector3 _localScale = Vector3.One;
-	[XmlIgnore]
+	private Vector3 _localScale = Vector3.One;
 	public Vector3 LocalScale
 	{
 		get { return _localScale; }

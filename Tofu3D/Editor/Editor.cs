@@ -261,22 +261,22 @@ public class Editor
 		if (Global.EditorAttached)
 		{
 			_editorPanels = new EditorPanel[]
-			               {
-				               new EditorPanelHierarchy(),
-				               new EditorPanelInspector(),
-				               new EditorPanelBrowser(),
-				               new EditorPanelConsole(),
-				               new EditorPanelProfiler(),
-				               new EditorPanelSceneView()
-			               };
+			                {
+				                new EditorPanelHierarchy(),
+				                new EditorPanelInspector(),
+				                new EditorPanelBrowser(),
+				                new EditorPanelConsole(),
+				                new EditorPanelProfiler(),
+				                new EditorPanelSceneView()
+			                };
 		}
 
 		else
 		{
 			_editorPanels = new EditorPanel[]
-			               {
-				               new EditorPanelSceneView()
-			               };
+			                {
+				                new EditorPanelSceneView()
+			                };
 		}
 
 		for (int i = 0; i < _editorPanels.Length; i++)
@@ -286,8 +286,8 @@ public class Editor
 
 		if (Global.EditorAttached)
 		{
-			EditorPanelHierarchy.I.GameObjectSelected += OnGameObjectSelected;
-			EditorPanelHierarchy.I.GameObjectSelected += EditorPanelInspector.I.OnGameObjectSelected;
+			EditorPanelHierarchy.I.GameObjectsSelected += OnGameObjectSelected;
+			EditorPanelHierarchy.I.GameObjectsSelected += EditorPanelInspector.I.OnGameObjectsSelected;
 		}
 	}
 
@@ -332,51 +332,64 @@ public class Editor
 		}
 	}
 
-	public void SelectGameObject(GameObject go)
+	public void SelectGameObjects(List<int> goIds)
 	{
-		if (go != null)
+		if (goIds != null)
 		{
 			for (int i = 0; i < Scene.I.GameObjects.Count; i++)
 			{
-				if (Scene.I.GameObjects[i].Id != go.Id)
+				if (goIds.Contains(Scene.I.GameObjects[i].Id) == false)
 				{
 					Scene.I.GameObjects[i].Selected = false;
 				}
 			}
 
-			go.Selected = true;
+			for (int i = 0; i < goIds.Count; i++)
+			{
+				GameObject go = Scene.I.GetGameObject(goIds[i]);
+				if (go != null)
+				{
+					go.Selected = true;
+				}
+			}
 		}
 
-		if (go != Camera.I?.GameObject && go != TransformHandle.GameObject && go != null)
+		bool isCameraOrTransformHandle = false;
+		if (Camera.I != null)
 		{
-			TransformHandle.SelectObject(go);
-			PersistentData.Set("lastSelectedGameObjectId", go.Id);
+			isCameraOrTransformHandle = goIds.Contains(Camera.I.GameObjectId) || goIds.Contains(TransformHandle.GameObjectId);
+		}
+
+		if (isCameraOrTransformHandle == false && goIds.Count != 0)
+		{
+			TransformHandle.SelectObjects(goIds);
+			PersistentData.Set("lastSelectedGameObjectId", goIds[0]);
 		}
 		else
 		{
-			TransformHandle.SelectObject(null);
+			TransformHandle.SelectObjects(null);
 		}
 	}
 
-	void OnGameObjectSelected(int id)
+	void OnGameObjectSelected(List<int> ids)
 	{
 		if (Global.EditorAttached == false)
 		{
-			id = -1;
+			ids = null;
 		}
 
-		if (id == -1)
+		if (ids == null)
 		{
-			SelectGameObject(null);
+			SelectGameObjects(null);
 		}
 		else
 		{
-			if (GetGameObjectIndexInHierarchy(id) == -1)
-			{
-				return;
-			}
+			// if (GetGameObjectIndexInHierarchy(ids) == -1)
+			// {
+			// 	return;
+			// }
 
-			SelectGameObject(Scene.I.GameObjects[GetGameObjectIndexInHierarchy(id)]);
+			SelectGameObjects(ids);
 		}
 	}
 

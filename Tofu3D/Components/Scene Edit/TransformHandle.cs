@@ -22,7 +22,7 @@ public class TransformHandle : Component
 
 	public bool Clicked;
 	public Axis? CurrentAxisSelected;
-	Transform _selectedTransform;
+	List<Transform> _selectedTransforms;
 	public static TransformHandle I { get; private set; }
 
 	public override void Awake()
@@ -127,13 +127,13 @@ public class TransformHandle : Component
 			SetSelectedObjectRigidbodyAwake(true);
 		}
 
-		if (ObjectSelected == false || _selectedTransform == null)
+		if (ObjectSelected == false || _selectedTransforms == null)
 			//GameObject.Active = false;
 		{
 			return;
 		}
 
-		Transform.WorldPosition = _selectedTransform.WorldPosition;
+		Transform.WorldPosition = GetCenterOfSelection();
 		if (MouseInput.WorldPosition.In(BoxColliderX) || CurrentAxisSelected == Axis.X)
 		{
 			ModelRendererX.Color = Color.WhiteSmoke;
@@ -183,7 +183,11 @@ public class TransformHandle : Component
 
 		Transform.LocalPosition += moveVector; // we will grab it with offset, soe we want to move it only by change of mouse position
 		// _selectedTransform.LocalPosition = _selectedTransform.TranslateWorldToLocal(_selectedTransform.WorldPosition);
-		_selectedTransform.LocalPosition += moveVector / (_selectedTransform.Parent?.WorldScale ?? Vector3.One);
+
+		for (int i = 0; i < _selectedTransforms.Count; i++)
+		{
+			_selectedTransforms[i].LocalPosition += moveVector / (_selectedTransforms[i].Parent?.WorldScale ?? Vector3.One);
+		}
 
 		// todo just do the position delta move in transform component for (int i = 0; i < selectedTransform.children.Count; i++) selectedTransform.children[i].position += moveVector;
 
@@ -202,33 +206,57 @@ public class TransformHandle : Component
 
 		if (KeyboardInput.IsKeyDown(Keys.LeftShift))
 		{
-			switch (CurrentAxisSelected)
+			for (int i = 0; i < _selectedTransforms.Count; i++)
 			{
-				case Axis.X:
-					_selectedTransform.LocalPosition = new Vector3(MouseInput.WorldPosition.TranslateToGrid().X, _selectedTransform.LocalPosition.Y, 0);
-					break;
-				case Axis.Y:
-					_selectedTransform.LocalPosition = new Vector3(_selectedTransform.LocalPosition.X, MouseInput.WorldPosition.TranslateToGrid().Y, 0);
-					break;
-				case Axis.Xy:
-					_selectedTransform.LocalPosition = MouseInput.WorldPosition.TranslateToGrid(50);
-					break;
+				switch (CurrentAxisSelected)
+				{
+					case Axis.X:
+						_selectedTransforms[i].LocalPosition = new Vector3(MouseInput.WorldPosition.TranslateToGrid().X, _selectedTransforms[i].LocalPosition.Y, 0);
+						break;
+					case Axis.Y:
+						_selectedTransforms[i].LocalPosition = new Vector3(_selectedTransforms[i].LocalPosition.X, MouseInput.WorldPosition.TranslateToGrid().Y, 0);
+						break;
+					case Axis.Xy:
+						_selectedTransforms[i].LocalPosition = MouseInput.WorldPosition.TranslateToGrid(50);
+						break;
+				}
 			}
 		}
 	}
 
-	public void SelectObject(GameObject selectedGo)
+	public void SelectObjects(List<int> selection)
 	{
-		GameObject.ActiveSelf = selectedGo != null;
+		GameObject.ActiveSelf = selection != null;
 
-		if (selectedGo == null)
+		if (selection == null)
 		{
 			ObjectSelected = false;
 			return;
 		}
 
-		Transform.WorldPosition = selectedGo.Transform.WorldPosition;
-		_selectedTransform = selectedGo.Transform;
+		_selectedTransforms = new List<Transform>();
+		for (int i = 0; i < selection.Count; i++)
+		{
+			GameObject go = Scene.I.GetGameObject(selection[i]);
+			if (go != null)
+			{
+				_selectedTransforms.Add(go.Transform);
+			}
+		}
+
+		Transform.WorldPosition = GetCenterOfSelection();
 		ObjectSelected = true;
+	}
+
+	private Vector3 GetCenterOfSelection()
+	{
+		Vector3 accumulatedPos = Vector3.Zero;
+		for (int i = 0; i < _selectedTransforms.Count; i++)
+		{
+			accumulatedPos += _selectedTransforms[i].WorldPosition;
+		}
+
+		accumulatedPos = accumulatedPos / _selectedTransforms.Count;
+		return accumulatedPos;
 	}
 }

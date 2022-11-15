@@ -1,56 +1,83 @@
-﻿/*using System.IO;
+﻿using System.IO;
 
 namespace Scripts;
 
 public class ParticleSystemRenderer : SpriteRenderer
 {
-	public new bool allowMultiple = false;
+	public new bool AllowMultiple = false;
 
-	private int particlesInBatcher;
-	public ParticleSystem particleSystem;
-
-	public override void Awake()
-	{
-		material.additive = true;
-		//BatchingManager.AddObjectToBatcher(texture.id, this);
-
-		base.Awake();
-	}
-	public override void CreateMaterial()
-	{
-		material = new Material();
-		Shader shader = new(Path.Combine(Folders.Shaders, "BoxRenderer.glsl"));
-		material.SetShader(shader);
-	}
+	private int _particlesInBatcher;
+	public ParticleSystem ParticleSystem;
+	public bool Additive = true;
 
 	public override void Render()
 	{
-		if (onScreen == false)
+		if (OnScreen == false)
 		{
 			return;
 		}
 
-		if (boxShape == null)
+		if (BoxShape == null)
 		{
 			return;
 		}
 
-		if (texture.loaded == false)
+		if (Texture.Loaded == false)
 		{
 			return;
 		}
 
-		while (particlesInBatcher < particleSystem.particles.Count)
+		while (_particlesInBatcher < ParticleSystem.Particles.Count)
 		{
 			//BatchingManager.AddObjectToBatcher(texture.id, this, particlesInBatcher);
-			particlesInBatcher++;
+			_particlesInBatcher++;
 		}
 
-		for (int i = 0; i < particleSystem.particles.Count; i++)
-			//BatchingManager.UpdateAttribs(texture.id, gameObjectID, particleSystem.particles[i].worldPosition, new Vector2(particleSystem.particles[i].radius),
-			//                              particleSystem.particles[i].color, i);
+		ShaderCache.UseShader(Material.Shader);
+		Material.Shader.SetVector2("u_repeats", Repeats);
+		TextureCache.BindTexture(Texture.Id);
 
-		Debug.Stat("Particles", particleSystem.particles.Count);
+		foreach (Particle particle in ParticleSystem.Particles)
+		{
+			Material.Shader.SetMatrix4X4("u_mvp", GetParticleMvpMatrix(particle));
+			Material.Shader.SetColor("u_color", particle.Color.ToVector4());
+
+			ShaderCache.BindVertexArray(Material.Vao);
+
+
+			// GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.ConstantColor); cool
+			if (Additive)
+			{
+				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+			}
+			else
+			{
+				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+			}
+
+
+			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
+
+			Debug.CountStat("Draw Calls", 1);
+		}
+		//BatchingManager.UpdateAttribs(texture.id, gameObjectID, particleSystem.particles[i].worldPosition, new Vector2(particleSystem.particles[i].radius),
+		//                              particleSystem.particles[i].color, i);
+
+		Debug.Stat("Particles", ParticleSystem.Particles.Count);
 	}
-}*/
 
+	public Matrix4x4 GetParticleMvpMatrix(Particle particle)
+	{
+		Vector3 pivotOffset = -(particle.Radius * Transform.WorldScale) / 2
+		                    + particle.Radius * Transform.WorldScale * Transform.Pivot;
+
+		Matrix4x4 pivot = Matrix4x4.CreateTranslation(-pivotOffset.X, -pivotOffset.Y, -pivotOffset.Z);
+		Matrix4x4 translation = Matrix4x4.CreateTranslation(particle.WorldPosition + BoxShape.Offset * Transform.WorldScale) * Matrix4x4.CreateScale(1, 1, -1);
+
+		Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.Rotation.Y / 180 * Mathf.Pi,
+		                                                      -Transform.Rotation.X / 180 * Mathf.Pi,
+		                                                      -Transform.Rotation.Z / 180 * Mathf.Pi);
+		Matrix4x4 scale = Matrix4x4.CreateScale(particle.Radius * Transform.WorldScale);
+		return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit) * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix;
+	}
+}

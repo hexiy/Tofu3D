@@ -116,7 +116,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 			//_zoomAmount = texture.size.X/spriteSize.X*2;
 			Material.Shader.SetVector2("zoomAmount", _spritesCount);
 
-			ShaderCache.BindVao(Material.Vao);
+			ShaderCache.BindVertexArray(Material.Vao);
 
 			if (Material.Additive)
 			{

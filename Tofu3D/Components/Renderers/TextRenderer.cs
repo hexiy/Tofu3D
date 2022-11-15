@@ -191,7 +191,7 @@ public class TextRenderer : SpriteRenderer
 
 			Material.Shader.SetVector2("offset", drawOffset);
 
-			ShaderCache.BindVao(Material.Vao);
+			ShaderCache.BindVertexArray(Material.Vao);
 
 			if (Material.Additive)
 			{
