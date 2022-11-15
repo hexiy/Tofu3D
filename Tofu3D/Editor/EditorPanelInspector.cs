@@ -27,7 +27,7 @@ public class EditorPanelInspector : EditorPanel
 
 	public void OnGameObjectsSelected(List<int> ids)
 	{
-		if (ids.Count == 0)
+		if (ids.Count != 1)
 		{
 			_selectedGameObject = null;
 		}

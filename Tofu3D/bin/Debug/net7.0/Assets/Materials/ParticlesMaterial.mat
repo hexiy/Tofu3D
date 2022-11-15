@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Additive>false</Additive>
+  <Path>Assets/Materials/ParticlesMaterial.mat</Path>
+  <Shader>
+    <BufferType>Rendertexture</BufferType>
+    <Path>/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/Shaders/SpriteRendererOldBatched.glsl</Path>
+  </Shader>
+  <Vao>0</Vao>
+  <Vbo>0</Vbo>
+</Material>

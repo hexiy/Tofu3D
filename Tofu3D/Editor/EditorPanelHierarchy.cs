@@ -54,12 +54,33 @@ public class EditorPanelHierarchy : EditorPanel
 
 	void DestroySelectedGameObjects()
 	{
+		int firstSelectedGameObjectIndex = Scene.I.GetGameObject(_selectedGameObjectsIDs[0]).IndexInHierarchy;
 		foreach (GameObject selectedGameObject in Editor.I.GetSelectedGameObjects())
 		{
 			_selectedGameObjectsIDs.Remove(selectedGameObject.Id);
 			selectedGameObject.Destroy();
 
 			GameObjectsSelected.Invoke(_selectedGameObjectsIDs);
+		}
+
+		int distance = int.MaxValue;
+		int closestGameObjectId = -1;
+		foreach (GameObject gameObject in Scene.I.GameObjects)
+		{
+			if (gameObject.Silent)
+			{
+				continue;
+			}
+
+			if (Mathf.Distance(gameObject.IndexInHierarchy, firstSelectedGameObjectIndex) < distance)
+			{
+				closestGameObjectId = gameObject.Id;
+			}
+		}
+
+		if (closestGameObjectId != -1)
+		{
+			SelectGameObject(closestGameObjectId);
 		}
 	}
 
@@ -258,11 +279,39 @@ public class EditorPanelHierarchy : EditorPanel
 
 		ImGui.PopStyleColor();
 
-		if (ImGui.IsItemClicked(ImGuiMouseButton.Left) && KeyboardInput.IsKeyDown(Keys.LeftSuper))
+		if (ImGui.IsItemClicked(ImGuiMouseButton.Left) && KeyboardInput.IsKeyDown(Keys.LeftShift))
+		{
+			if (_selectedGameObjectsIDs.Count > 0)
+			{
+				// get 1st selected gameobject
+				// find all gameobjects that have indexInHierarchy between that one and clicked on
+				// select them all
+
+
+				int alreadySelectedGameObjectIndex = Scene.I.GetGameObject(_selectedGameObjectsIDs[0]).IndexInHierarchy;
+				int newlySelectedGameObjectIndex = currentGameObject.IndexInHierarchy;
+
+				int selectionStartGameObjectIndex = Math.Min(alreadySelectedGameObjectIndex, newlySelectedGameObjectIndex);
+				int selectionEndGameObjectIndex = Math.Max(alreadySelectedGameObjectIndex, newlySelectedGameObjectIndex);
+
+				foreach (GameObject gameObject in Scene.I.GameObjects)
+				{
+					for (int i = 0; i < Scene.I.GameObjects.Count; i++)
+					{
+						if (gameObject.IndexInHierarchy >= selectionStartGameObjectIndex && gameObject.IndexInHierarchy <= selectionEndGameObjectIndex)
+						{
+							AddGameObjectToSelection(gameObject.Id);
+						}
+					}
+				}
+			}
+		}
+
+		else if (ImGui.IsItemClicked(ImGuiMouseButton.Left) && KeyboardInput.IsKeyDown(Keys.LeftSuper))
 		{
 			AddGameObjectToSelection(currentGameObject.Id);
 		}
-		if (ImGui.IsItemClicked(ImGuiMouseButton.Left))
+		else if (ImGui.IsItemClicked(ImGuiMouseButton.Left))
 		{
 			_gameObjectsIndexesSelectedBefore = _selectedGameObjectsIDs;
 			SelectGameObject(currentGameObject.Id);
@@ -281,10 +330,10 @@ public class EditorPanelHierarchy : EditorPanel
 			ImGui.TreePop();
 		}
 	}
+}
 
-	enum MoveDirection
-	{
-		Up,
-		Down
-	}
+enum MoveDirection
+{
+	Up,
+	Down
 }
