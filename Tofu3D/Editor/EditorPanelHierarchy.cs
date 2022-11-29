@@ -180,9 +180,12 @@ public class EditorPanelHierarchy : EditorPanel
 		ImGui.SameLine();
 		if (ImGui.Button("Add children"))
 		{
-			GameObject go = GameObject.Create(name: "Children");
-			go.Awake();
-			go.Transform.SetParent(Scene.I.GameObjects[_selectedGameObjectsIDs[0]].Transform);
+			foreach (int gameObjectId in _selectedGameObjectsIDs)
+			{
+				GameObject go = GameObject.Create(name: "Child");
+				go.Awake();
+				go.Transform.SetParent(Scene.I.GetGameObject(gameObjectId).Transform);
+			}
 		}
 
 		for (int goIndex = 0; goIndex < Scene.I.GameObjects.Count; goIndex++)
@@ -232,6 +235,8 @@ public class EditorPanelHierarchy : EditorPanel
 		ImGui.PushStyleColor(ImGuiCol.Text, nameColor);
 
 		string rowText = (Global.Debug ? $"[{currentGameObject.Id}] " : "") + currentGameObject.Name;
+		flags |= ImGuiTreeNodeFlags.SpanFullWidth;
+		flags |= ImGuiTreeNodeFlags.OpenOnDoubleClick;
 		bool opened = ImGui.TreeNodeEx(rowText, flags);
 
 
@@ -259,9 +264,9 @@ public class EditorPanelHierarchy : EditorPanel
 
 			Marshal.FreeHGlobal(stringPointer);
 
+			ImGui.Text(currentGameObject.Name);
 			ImGui.EndDragDropSource();
 		}
-
 
 		if (ImGui.BeginDragDropTarget())
 		{
@@ -271,7 +276,7 @@ public class EditorPanelHierarchy : EditorPanel
 			if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 			{
 				GameObject foundGo = Scene.I.GetGameObject(int.Parse(payload));
-				foundGo.Transform.SetParent(currentGameObject.Transform);
+				SetParent(child: foundGo.Transform, currentGameObject.Transform);
 			}
 
 			ImGui.EndDragDropTarget();
@@ -329,6 +334,11 @@ public class EditorPanelHierarchy : EditorPanel
 
 			ImGui.TreePop();
 		}
+	}
+
+	private void SetParent(Transform child, Transform parent)
+	{
+		child.Transform.SetParent(parent);
 	}
 }
 

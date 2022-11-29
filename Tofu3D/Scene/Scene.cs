@@ -87,6 +87,8 @@ public class Scene
 
 		Camera.I.GameObject.Update();
 
+		TransformHandle.I.GameObject.Update();
+
 		if (Time.ElapsedTicks % 20 == 0)
 		{
 			SortRenderQueue();
@@ -97,6 +99,11 @@ public class Scene
 		{
 			GameObjects[i].IndexInHierarchy = i;
 			if (GameObjects[i] == Camera.I.GameObject)
+			{
+				continue;
+			}
+
+			if (GameObjects[i] == TransformHandle.I.GameObject)
 			{
 				continue;
 			}
