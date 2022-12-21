@@ -38,10 +38,6 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "CliWrap": {
-              "target": "Package",
-              "version": "[3.5.0, )"
-            },
             "ImGui.NET": {
               "target": "Package",
               "version": "[1.87.3, )"
@@ -63,6 +59,14 @@
               "version": "[3.3.7.27, )"
             },
             "SharpAudio": {
+              "target": "Package",
+              "version": "[1.0.65-beta, )"
+            },
+            "SharpAudio.ALBinding": {
+              "target": "Package",
+              "version": "[1.0.65-beta, )"
+            },
+            "SharpAudio.Codec": {
               "target": "Package",
               "version": "[1.0.65-beta, )"
             },

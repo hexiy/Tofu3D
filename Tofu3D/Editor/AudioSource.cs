@@ -3,7 +3,8 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CliWrap;
+using SharpAudio;
+using SharpAudio.Codec;
 
 namespace Tofu3D;
 
@@ -16,62 +17,95 @@ public class AudioSource : Component
 	[SliderF(0, 1)]
 	public float Volume;
 
-	int _processId = -1;
+	[XmlIgnore]
+	public Action PlaySoundBtn;
+	[XmlIgnore]
+	public Action StopSoundBtn;
+
+	SoundStream _soundStream;
+	public static AudioEngine AudioEngine;
+	bool _initialized = false;
+	MemoryStream _audioMemoryStream;
+	string _loadedAudioFileName = "";
 
 	public override void Awake()
 	{
+		AudioEngine = AudioEngine.CreateDefault(new AudioEngineOptions(44800, 2));
+		LoadAudioToMemory(null);
+
+		PlaySoundBtn += PlaySound;
+		StopSoundBtn += StopSound;
+
 		base.Awake();
 	}
 
-	public async void PlaySound()
+	private void LoadAudioToMemory(Action onLoaded)
 	{
-		if (_processId != -1)
+		ThreadStart threadStart = async () =>
 		{
-			StopSound();
-		}
+			byte[] bytes = await File.ReadAllBytesAsync(Clip.Path);
+			_loadedAudioFileName = Clip.Path;
+			if (_audioMemoryStream != null)
+			{
+				_audioMemoryStream.Close();
+				await _audioMemoryStream.DisposeAsync();
+			}
 
-		Thread tr = new Thread(new ThreadStart(() =>
-		{
-			StringBuilder sb = new StringBuilder();
-			CancellationToken token = new CancellationToken(false);
+			_audioMemoryStream = new MemoryStream(bytes);
+			_soundStream = new SoundStream(_audioMemoryStream, AudioEngine);
 
-			string path = Path.GetFullPath(Clip.Path);
-			CancellationTokenSource source = new CancellationTokenSource();
-
-			var x = " -v " + (decimal) Volume;
-			x = x.Replace(',', '.');
-			var command = Cli.Wrap("afplay")
-			                 .WithArguments(string.Join(" ", path) + x)
-			                 .ExecuteAsync(source.Token);
-			_processId = command.ProcessId;
-		}));
-		tr.IsBackground = true;
-
-		tr.Start();
-		//tr.Start();
-		// outputDevice.Play();
+			onLoaded?.Invoke();
+		};
+		threadStart.Invoke();
 	}
 
-	public void PauseSound()
+	public void PlaySound()
 	{
-		// outputDevice.Stop();
-	}
-
-	public void StopSound()
-	{
-		if (_processId == -1)
+		if (_soundStream?.State == SoundStreamState.Playing)
 		{
 			return;
 		}
 
-		var killCommand = Cli.Wrap("kill")
-		                     .WithArguments(" " + _processId)
-		                     .ExecuteAsync();
-		_processId = -1;
+		if (Clip.Path != _loadedAudioFileName)
+		{
+			LoadAudioToMemory(onLoaded: PlaySound);
+			return;
+		}
+
+		_audioMemoryStream.Position = 0;
+
+		_initialized = true;
+		_soundStream.Play();
+	}
+
+	public void PauseSound()
+	{
+		if (_initialized == false)
+		{
+			return;
+		}
+
+		_soundStream.State = SoundStreamState.Paused;
+	}
+
+	public void StopSound()
+	{
+		if (_initialized == false)
+		{
+			return;
+		}
+
+		_soundStream.State = SoundStreamState.Paused;
 	}
 
 	public override void Update()
 	{
+		if (_soundStream == null)
+		{
+			return;
+		}
+
+		_soundStream.Volume = Volume;
 		base.Update();
 	}
 }

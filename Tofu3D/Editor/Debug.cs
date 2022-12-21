@@ -93,6 +93,19 @@ public static class Debug
 		Timers[timerName].Stop();
 	}
 
+	public static void EndAndLogTimer(string timerName)
+	{
+		if (Global.EditorAttached == false)
+		{
+			return;
+		}
+
+		EndTimer(timerName);
+		float msDuration = (float) Math.Round(Timers[timerName].Elapsed.TotalMilliseconds, 2);
+
+		Debug.Log($"[{timerName}] {msDuration}");
+	}
+
 	public static void ClearTimers()
 	{
 		Timers.Clear();

@@ -89,6 +89,7 @@ public class Scene
 
 		TransformHandle.I.GameObject.Update();
 
+
 		if (Time.ElapsedTicks % 20 == 0)
 		{
 			SortRenderQueue();
@@ -132,7 +133,6 @@ public class Scene
 		for (int i = 0; i < GameObjects.Count; i++)
 		{
 			if (GameObjects[i].GetComponent<Renderer>())
-				//renderQueue.AddRange(gameObjects[i].GetComponents<Renderer>());
 			{
 				_renderQueue.AddRange(GameObjects[i].GetComponents<Renderer>());
 			}

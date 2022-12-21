@@ -571,7 +571,15 @@ public class EditorPanelInspector : EditorPanel
 							if (info.CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(SliderF))
 							{
 								FieldInfo fieldType = currentComponent.GetType().GetField(info.Name);
-								sliderAttrib = fieldType.GetCustomAttribute<SliderF>();
+								if (fieldType != null)
+								{
+									sliderAttrib = fieldType.GetCustomAttribute<SliderF>();
+								}
+								else
+								{
+									PropertyInfo propertyType = currentComponent.GetType().GetProperty(info.Name);
+									sliderAttrib = propertyType.GetCustomAttribute<SliderF>();
+								}
 							}
 						}
 

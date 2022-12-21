@@ -21,59 +21,29 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>239</Id>
+      <Id>240</Id>
+      <IndexInHierarchy>1</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Box</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <ActiveSelf>true</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>263</Id>
       <IndexInHierarchy>2</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>GameObject</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>false</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-    </GameObject>
-    <GameObject>
-      <ActiveSelf>true</ActiveSelf>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>240</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <Name>GameObject</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>false</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-    </GameObject>
-    <GameObject>
-      <ActiveSelf>true</ActiveSelf>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>241</Id>
-      <IndexInHierarchy>4</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <Name>GameObject</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>false</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-    </GameObject>
-    <GameObject>
-      <ActiveSelf>true</ActiveSelf>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>242</Id>
-      <IndexInHierarchy>5</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <Name>GameObject</Name>
+      <Name>AudioSource</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
-      <Started>false</Started>
+      <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
   </GameObjects>
@@ -91,8 +61,8 @@
         <Z>0</Z>
       </Pivot>
       <LocalPosition>
-        <X>3.2351623</X>
-        <Y>1.0759557</Y>
+        <X>0</X>
+        <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
@@ -136,17 +106,17 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>239</GameObjectId>
-      <Started>false</Started>
+      <GameObjectId>240</GameObjectId>
+      <Started>true</Started>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
-        <X>0</X>
-        <Y>0</Y>
+        <X>0.5</X>
+        <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
       <LocalPosition>
-        <X>0</X>
+        <X>-6.1883116</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
@@ -166,11 +136,74 @@
         <Z>0</Z>
       </Forward>
     </Component>
-    <Component xsi:type="Transform">
+    <Component xsi:type="TestMoveSin">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
       <GameObjectId>240</GameObjectId>
-      <Started>false</Started>
+      <Started>true</Started>
+    </Component>
+    <Component xsi:type="BoxRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>240</GameObjectId>
+      <Started>true</Started>
+      <BoxShape>
+        <AllowMultiple>true</AllowMultiple>
+        <Enabled>true</Enabled>
+        <GameObjectId>240</GameObjectId>
+        <Started>true</Started>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </Offset>
+        <Size>
+          <X>5</X>
+          <Y>3</Y>
+          <Z>2</Z>
+        </Size>
+      </BoxShape>
+      <Color>
+        <B>62</B>
+        <G>10</G>
+        <R>82</R>
+        <A>255</A>
+        <PackedValue>4282255954</PackedValue>
+      </Color>
+      <DistanceFromCamera>6.1883116</DistanceFromCamera>
+      <Material>
+        <Additive>false</Additive>
+        <Path>Assets/Materials/BoxMaterial.mat</Path>
+        <Shader>
+          <BufferType>Box</BufferType>
+          <Path>Assets/Shaders/BoxRenderer.glsl</Path>
+        </Shader>
+        <Vao>4</Vao>
+        <Vbo>0</Vbo>
+      </Material>
+      <Layer>0</Layer>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>240</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>5</X>
+        <Y>3</Y>
+        <Z>2</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>263</GameObjectId>
+      <Started>true</Started>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
@@ -199,72 +232,16 @@
         <Z>0</Z>
       </Forward>
     </Component>
-    <Component xsi:type="Transform">
+    <Component xsi:type="AudioSource">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>241</GameObjectId>
-      <Started>false</Started>
-      <ChildrenIDs />
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Pivot>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>242</GameObjectId>
-      <Started>false</Started>
-      <ChildrenIDs />
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Pivot>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
+      <GameObjectId>263</GameObjectId>
+      <Started>true</Started>
+      <Clip>
+        <Path>/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/Audio/oriental.mp3</Path>
+      </Clip>
+      <Volume>1</Volume>
     </Component>
   </Components>
-  <GameObjectNextId>243</GameObjectNextId>
+  <GameObjectNextId>284</GameObjectNextId>
 </SceneFile>

@@ -2,15 +2,15 @@
   "version": 3,
   "targets": {
     "net7.0": {
-      "CliWrap/3.5.0": {
+      "FFmpeg.AutoGen/4.4.1.1": {
         "type": "package",
         "compile": {
-          "lib/netcoreapp3.0/CliWrap.dll": {
+          "lib/netstandard2.1/FFmpeg.AutoGen.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.0/CliWrap.dll": {
+          "lib/netstandard2.1/FFmpeg.AutoGen.dll": {
             "related": ".xml"
           }
         }
@@ -380,6 +380,32 @@
           }
         }
       },
+      "NLayer.Core/1.15.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NLayer.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NLayer.Core.dll": {}
+        }
+      },
+      "NVorbis/0.10.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory": "4.5.3",
+          "System.ValueTuple": "4.5.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/NVorbis.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/NVorbis.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "OpenTK/4.7.4": {
         "type": "package",
         "dependencies": {
@@ -610,6 +636,26 @@
         },
         "runtime": {
           "lib/netstandard2.1/SharpAudio.ALBinding.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "SharpAudio.Codec/1.0.65-beta": {
+        "type": "package",
+        "dependencies": {
+          "FFmpeg.AutoGen": "4.4.1.1",
+          "NLayer.Core": "1.15.0",
+          "NVorbis": "0.10.4",
+          "SharpAudio": "1.0.65-beta",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/netstandard2.1/SharpAudio.Codec.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/SharpAudio.Codec.dll": {
             "related": ".pdb;.xml"
           }
         }
@@ -1438,6 +1484,15 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
+      "System.ValueTuple/4.5.0": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/_._": {}
+        }
+      },
       "System.Windows.Extensions/7.0.0-preview.7.22375.6": {
         "type": "package",
         "dependencies": {
@@ -1613,25 +1668,26 @@
     }
   },
   "libraries": {
-    "CliWrap/3.5.0": {
-      "sha512": "JhC8xnY2uVPD8/o/wj8o+5uYQ8jiWJ9rrgTI6i5QqZco++nelZ8RgBjcLmPMJMQMvAXu39obUA/aeEEaYdQUhw==",
+    "FFmpeg.AutoGen/4.4.1.1": {
+      "sha512": "UclXDnnMij9eNYUTrBO0y591ZTJLqjXNnNkNgahQa2ZUaAhn4gkDSfT9BszicCoyX1CZpDI5o8d8lkgmMlNU+Q==",
       "type": "package",
-      "path": "cliwrap/3.5.0",
+      "path": "ffmpeg.autogen/4.4.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Readme.md",
-        "cliwrap.3.5.0.nupkg.sha512",
-        "cliwrap.nuspec",
-        "favicon.png",
-        "lib/net461/CliWrap.dll",
-        "lib/net461/CliWrap.xml",
-        "lib/netcoreapp3.0/CliWrap.dll",
-        "lib/netcoreapp3.0/CliWrap.xml",
-        "lib/netstandard2.0/CliWrap.dll",
-        "lib/netstandard2.0/CliWrap.xml",
-        "lib/netstandard2.1/CliWrap.dll",
-        "lib/netstandard2.1/CliWrap.xml"
+        "LICENSE.txt",
+        "ffmpeg.autogen.4.4.1.1.nupkg.sha512",
+        "ffmpeg.autogen.nuspec",
+        "lib/net40/FFmpeg.AutoGen.dll",
+        "lib/net40/FFmpeg.AutoGen.xml",
+        "lib/net45/FFmpeg.AutoGen.dll",
+        "lib/net45/FFmpeg.AutoGen.xml",
+        "lib/net472/FFmpeg.AutoGen.dll",
+        "lib/net472/FFmpeg.AutoGen.xml",
+        "lib/netstandard2.0/FFmpeg.AutoGen.dll",
+        "lib/netstandard2.0/FFmpeg.AutoGen.xml",
+        "lib/netstandard2.1/FFmpeg.AutoGen.dll",
+        "lib/netstandard2.1/FFmpeg.AutoGen.xml"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -2274,6 +2330,34 @@
         "tools/install.ps1"
       ]
     },
+    "NLayer.Core/1.15.0": {
+      "sha512": "If5lqJxyZ8IM7EAq+1n8lnyxLWjlLNcjrNrzroGSph8El2tFG/Wh+MzDSli0cFooVobxpI97u0rbXiT5aJza9A==",
+      "type": "package",
+      "path": "nlayer.core/1.15.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/NLayer.Core.dll",
+        "nlayer.core.1.15.0.nupkg.sha512",
+        "nlayer.core.nuspec"
+      ]
+    },
+    "NVorbis/0.10.4": {
+      "sha512": "WYnil3DhQHzjCY0dM9I2B3r1vWip90AOuQd25KE4NrjPQBg0tBJFluRLm5YPnO5ZLDmwrfosY8jCQGQRmWI/Pg==",
+      "type": "package",
+      "path": "nvorbis/0.10.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net45/NVorbis.dll",
+        "lib/net45/NVorbis.xml",
+        "lib/netstandard2.0/NVorbis.dll",
+        "lib/netstandard2.0/NVorbis.xml",
+        "nvorbis.0.10.4.nupkg.sha512",
+        "nvorbis.nuspec"
+      ]
+    },
     "OpenTK/4.7.4": {
       "sha512": "BwQYGjJQRE/cdQ4RxoEGTmZC85t7qzJQwtNhmViTxYJFAIT570W9Xwt4K13Jmbc8pJVtZFEOJKb/UmW7oQC5Kw==",
       "type": "package",
@@ -2479,6 +2563,20 @@
         "lib/netstandard2.1/SharpAudio.ALBinding.xml",
         "sharpaudio.albinding.1.0.65-beta.nupkg.sha512",
         "sharpaudio.albinding.nuspec"
+      ]
+    },
+    "SharpAudio.Codec/1.0.65-beta": {
+      "sha512": "zFeIj1wYVOVs16JvO2/pLgkWOzv+3LoezD+htQz+N+Ji+KBRzLt1oBOBrFtjQ8Q3sovZfyeJzV0fpEKDDd7h7A==",
+      "type": "package",
+      "path": "sharpaudio.codec/1.0.65-beta",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/SharpAudio.Codec.dll",
+        "lib/netstandard2.1/SharpAudio.Codec.pdb",
+        "lib/netstandard2.1/SharpAudio.Codec.xml",
+        "sharpaudio.codec.1.0.65-beta.nupkg.sha512",
+        "sharpaudio.codec.nuspec"
       ]
     },
     "SharpGen.Runtime/2.0.0-beta.9": {
@@ -4984,6 +5082,50 @@
         "version.txt"
       ]
     },
+    "System.ValueTuple/4.5.0": {
+      "sha512": "okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ==",
+      "type": "package",
+      "path": "system.valuetuple/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net461/System.ValueTuple.dll",
+        "lib/net461/System.ValueTuple.xml",
+        "lib/net47/System.ValueTuple.dll",
+        "lib/net47/System.ValueTuple.xml",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.0/System.ValueTuple.dll",
+        "lib/netstandard1.0/System.ValueTuple.xml",
+        "lib/netstandard2.0/_._",
+        "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
+        "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.xml",
+        "lib/uap10.0.16299/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net461/System.ValueTuple.dll",
+        "ref/net47/System.ValueTuple.dll",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard2.0/_._",
+        "ref/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
+        "ref/uap10.0.16299/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.valuetuple.4.5.0.nupkg.sha512",
+        "system.valuetuple.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "System.Windows.Extensions/7.0.0-preview.7.22375.6": {
       "sha512": "4ZFyty6SVlrWjsOse2vQpgHdngndMpwx4B5agTvpFduQISx3V5Py0zbLv1wL8aJGX4CdlgBtXNTC87v/s3jfDQ==",
       "type": "package",
@@ -5243,13 +5385,14 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "CliWrap >= 3.5.0",
       "ImGui.NET >= 1.87.3",
       "Microsoft.CodeAnalysis.Workspaces.Common >= 4.4.0-1.final",
       "Microsoft.CodeDom.Providers.DotNetCompilerPlatform >= 4.1.0-preview1",
       "OpenTK >= 4.7.4",
       "OpenTK.redist.glfw >= 3.3.7.27",
       "SharpAudio >= 1.0.65-beta",
+      "SharpAudio.ALBinding >= 1.0.65-beta",
+      "SharpAudio.Codec >= 1.0.65-beta",
       "SixLabors.ImageSharp >= 1.0.4",
       "System.CodeDom >= 7.0.0-preview.7.22375.6",
       "System.Drawing.Common >= 7.0.0-preview.7.22375.6",
@@ -5293,10 +5436,6 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
-          "CliWrap": {
-            "target": "Package",
-            "version": "[3.5.0, )"
-          },
           "ImGui.NET": {
             "target": "Package",
             "version": "[1.87.3, )"
@@ -5318,6 +5457,14 @@
             "version": "[3.3.7.27, )"
           },
           "SharpAudio": {
+            "target": "Package",
+            "version": "[1.0.65-beta, )"
+          },
+          "SharpAudio.ALBinding": {
+            "target": "Package",
+            "version": "[1.0.65-beta, )"
+          },
+          "SharpAudio.Codec": {
             "target": "Package",
             "version": "[1.0.65-beta, )"
           },
