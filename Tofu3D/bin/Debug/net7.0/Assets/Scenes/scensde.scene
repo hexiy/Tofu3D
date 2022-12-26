@@ -26,7 +26,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Box</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -41,7 +41,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>AudioSource</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -116,7 +116,7 @@
         <Z>0</Z>
       </Pivot>
       <LocalPosition>
-        <X>-6.1883116</X>
+        <X>-9.529949</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
@@ -170,7 +170,7 @@
         <A>255</A>
         <PackedValue>4282255954</PackedValue>
       </Color>
-      <DistanceFromCamera>6.1883116</DistanceFromCamera>
+      <DistanceFromCamera>9.529949</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/BoxMaterial.mat</Path>
@@ -243,5 +243,5 @@
       <Volume>1</Volume>
     </Component>
   </Components>
-  <GameObjectNextId>284</GameObjectNextId>
+  <GameObjectNextId>286</GameObjectNextId>
 </SceneFile>

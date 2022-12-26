@@ -14,9 +14,11 @@ public static class Program
 		_ = new SceneNavigation();
 		_ = new Editor();
 
+		AssetsWatcher.StartWatching();
+
 
 		using Window window = new();
-		
+
 		window.Run();
 	}
 }

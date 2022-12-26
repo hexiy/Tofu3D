@@ -54,7 +54,7 @@ public class EditorPanelBrowser : EditorPanel
 			RefreshAssets();
 		});
 		_contextItems = new List<BrowserContextItem>
-		               {createSceneContextItem, createMaterialContextItem};
+		                {createSceneContextItem, createMaterialContextItem};
 	}
 
 	public override void Update()
@@ -194,6 +194,8 @@ public class EditorPanelBrowser : EditorPanel
 			ImGui.BeginGroup();
 			string assetName = Path.GetFileNameWithoutExtension(_assets[assetIndex]);
 			string assetExtension = Path.GetExtension(_assets[assetIndex]).ToLower();
+			string assetsRelativePath = Path.Combine("Assets", Path.GetRelativePath("Assets", _assets[assetIndex]));
+
 			PushNextId();
 
 			//ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0,0,0,0));
@@ -289,6 +291,15 @@ public class EditorPanelBrowser : EditorPanel
 					Marshal.FreeHGlobal(stringPointer);
 
 					ImGui.EndDragDropSource();
+				}
+
+				if (isShader)
+				{
+					if (ImGui.IsItemHovered() && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left))
+					{
+						ShaderCache.QueueShaderReload(assetsRelativePath);
+						Debug.Log($"Reloaded shader:{assetName}");
+					}
 				}
 			}
 

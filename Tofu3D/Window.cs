@@ -46,6 +46,12 @@ public class Window : GameWindow
 		//bloomDownscaledRenderTexture = new RenderTexture(Camera.I.size);
 	}
 
+	protected override void OnUnload()
+	{
+		Scene.I.DisposeScene();
+		base.OnUnload();
+	}
+
 	protected override void OnResize(ResizeEventArgs e)
 	{
 		base.OnResize(e);

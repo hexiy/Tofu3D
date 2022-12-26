@@ -23,15 +23,16 @@ public class AudioSource : Component
 	public Action StopSoundBtn;
 
 	SoundStream _soundStream;
-	public static AudioEngine AudioEngine;
+	public static AudioEngine AudioEngine = AudioEngine.CreateDefault(new AudioEngineOptions(48000, 2));
 	bool _initialized = false;
 	MemoryStream _audioMemoryStream;
 	string _loadedAudioFileName = "";
+	ThreadStart _threadStart;
 
 	public override void Awake()
 	{
-		AudioEngine = AudioEngine.CreateDefault(new AudioEngineOptions(44800, 2));
-		LoadAudioToMemory(null);
+
+		LoadAudioToMemory();
 
 		PlaySoundBtn += PlaySound;
 		StopSoundBtn += StopSound;
@@ -39,24 +40,34 @@ public class AudioSource : Component
 		base.Awake();
 	}
 
-	private void LoadAudioToMemory(Action onLoaded)
+	private void LoadAudioToMemory(Action onLoaded = null)
 	{
-		ThreadStart threadStart = async () =>
+		_threadStart = () =>
 		{
-			byte[] bytes = await File.ReadAllBytesAsync(Clip.Path);
+			byte[] bytes = File.ReadAllBytes(Clip.Path);
 			_loadedAudioFileName = Clip.Path;
 			if (_audioMemoryStream != null)
 			{
 				_audioMemoryStream.Close();
-				await _audioMemoryStream.DisposeAsync();
+				_audioMemoryStream.Dispose();
 			}
 
 			_audioMemoryStream = new MemoryStream(bytes);
+
 			_soundStream = new SoundStream(_audioMemoryStream, AudioEngine);
+
 
 			onLoaded?.Invoke();
 		};
-		threadStart.Invoke();
+		_threadStart.Invoke();
+	}
+
+	public override void Dispose()
+	{
+		//_audioMemoryStream.Close();
+		_audioMemoryStream.Dispose();
+		_soundStream.Dispose();
+		base.Dispose();
 	}
 
 	public void PlaySound()

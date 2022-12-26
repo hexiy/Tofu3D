@@ -84,6 +84,7 @@ public class Scene
 		MouseInput.Update();
 		TweenManager.I.Update();
 		SceneNavigation.I.Update();
+		ShaderCache.ReloadQueuedShaders();
 
 		Camera.I.GameObject.Update();
 
@@ -352,5 +353,16 @@ public class Scene
 
 	void OnMouse3Released()
 	{
+	}
+
+	public void DisposeScene()
+	{
+		foreach (GameObject gameObject in GameObjects)
+		{
+			foreach (Component component in gameObject.Components)
+			{
+				component.Dispose();
+			}
+		}
 	}
 }

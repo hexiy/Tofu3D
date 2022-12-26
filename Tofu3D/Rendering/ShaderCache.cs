@@ -1,9 +1,13 @@
-﻿namespace Tofu3D;
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+namespace Tofu3D;
 
 public static class ShaderCache
 {
 	public static int ShaderInUse = -1;
 	public static int VaoInUse = -100;
+	static List<string> _shadersReloadQueue = new List<string>();
 
 	public static void BindVertexArray(int vao)
 	{
@@ -30,5 +34,37 @@ public static class ShaderCache
 
 		ShaderInUse = programId;
 		GL.UseProgram(programId);
+	}
+
+	public static void QueueShaderReload(string shaderPath)
+	{
+		_shadersReloadQueue.Add(shaderPath);
+	}
+
+	private static void ReloadShader(string shaderPath)
+	{
+		// find all Renderer components, and check if the material has the changed shader and reload it
+		List<Renderer> renderersInScene = Scene.I.FindComponentsInScene<Renderer>();
+		foreach (Renderer renderer in renderersInScene)
+		{
+			if (renderer.Material?.Shader?.Path == shaderPath)
+			{
+				Shader shader = new Shader(shaderPath);
+
+				// we might need to call GL from main thread...
+				shader.Load();
+				renderer.Material?.SetShader(shader);
+			}
+		}
+	}
+
+	public static void ReloadQueuedShaders()
+	{
+		for (int i = 0; i < _shadersReloadQueue.Count; i++)
+		{
+			ReloadShader(_shadersReloadQueue[i]);
+		}
+
+		_shadersReloadQueue.Clear();
 	}
 }

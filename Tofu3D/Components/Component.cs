@@ -2,7 +2,7 @@
 
 namespace Scripts;
 
-public class Component : IDestroyable
+public class Component : IDestroyable, IDisposable
 {
 	public bool AllowMultiple = true;
 
@@ -119,5 +119,9 @@ public class Component : IDestroyable
 		}
 
 		return true;
+	}
+
+	public virtual void Dispose()
+	{
 	}
 }
