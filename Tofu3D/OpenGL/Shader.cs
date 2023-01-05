@@ -92,13 +92,15 @@ public class Shader : IDisposable
 
 	public void SetMatrix4X4(string uniformName, Matrix4x4 mat)
 	{
-		if (_uLocationUMvp == -1)
-		{
-			int location = GL.GetUniformLocation(ProgramId, uniformName);
-			_uLocationUMvp = location;
-		}
+		// if (_uLocationUMvp == -1)
+		// {
+		// 	int location = GL.GetUniformLocation(ProgramId, uniformName);
+		// 	_uLocationUMvp = location;
+		// }
 
-		GL.UniformMatrix4(_uLocationUMvp, 1, false, GetMatrix4X4Values(mat));
+		int location = GL.GetUniformLocation(ProgramId, uniformName);
+
+		GL.UniformMatrix4(location, 1, false, GetMatrix4X4Values(mat));
 		Uniforms[uniformName] = mat;
 	}
 

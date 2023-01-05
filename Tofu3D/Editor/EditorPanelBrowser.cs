@@ -146,7 +146,7 @@ public class EditorPanelBrowser : EditorPanel
 			bool saveBtnPressed = ImGui.Button("Save Prefab");
 			if (saveBtnPressed)
 			{
-				Serializer.I.SaveGameObject(Editor.I.GetSelectedGameObject(), Path.Combine(CurrentDirectory.Name, Editor.I.GetSelectedGameObject().Name + ".prefab"));
+				Serializer.I.SaveGameObject(Editor.I.GetSelectedGameObject(), Path.Combine("Assets",CurrentDirectory.Name, Editor.I.GetSelectedGameObject().Name + ".prefab"));
 			}
 		}
 

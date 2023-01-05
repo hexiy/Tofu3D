@@ -2,9 +2,6 @@
 
 public static class BufferFactory
 {
-	const int VerticesIndex = 0;
-	const int UvsIndex = 1;
-
 	public static void CreateBufferForShader(Material material)
 	{
 		if (material.Shader.BufferType == BufferType.Box)
@@ -143,100 +140,65 @@ public static class BufferFactory
 
 	public static void CreateModelBuffers(ref int vao)
 	{
-		//GL.Enable(EnableCap.DepthTest);
-		float[] vertices =
-		{
-			// Front face
-			0.5f, 0.5f, 0.5f, // top right
-			-0.5f, 0.5f, 0.5f, // top left
-			-0.5f, -0.5f, 0.5f, // down left
-			0.5f, -0.5f, 0.5f, // down right
+		GL.Enable(EnableCap.DepthTest);
+		float[] vertices = new[]
+		                   {
+			                   -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+			                   0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+			                   0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+			                   0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+			                   -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+			                   -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
 
-			// Back face
-			0.5f, 0.5f, -0.5f, // top right
-			-0.5f, 0.5f, -0.5f, // top left
-			-0.5f, -0.5f, -0.5f, // down left
-			0.5f, -0.5f, -0.5f // down right
-			//
-			// // right face
-			// 0.5f, 0.5f, 0.5f,
-			// 0.5f, 0.5f, -0.5f,
-			// 0.5f, -0.5f, -0.5f,
-			// 0.5f, -0.5f, 0.5f,
-			//
-			//
-			// // bottom face
-			// 0.5f, -0.5f, -0.5f, // top right
-			// -0.5f, -0.5f, -0.5f, // top left
-			// -0.5f, 0.5f, -0.5f, // down left
-			// 0.5f, 0.5f, -0.5f, // down right
-			//
-			// // left
-			//
-			// // back
-			//
-			// // top
-		};
+			                   -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+			                   0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+			                   0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+			                   0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+			                   -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+			                   -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
 
-		float[] uvs =
-		{
-			1, 1,
-			0, 1,
-			0, 0,
-			1, 0,
+			                   -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+			                   -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+			                   -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+			                   -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+			                   -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+			                   -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
 
-			1, 1,
-			0, 1,
-			0, 0,
-			1, 0
-		};
-		uint[] triangleIndices =
-		{
-			// Front
-			0, 1, 2,
-			2, 3, 0,
+			                   0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+			                   0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+			                   0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+			                   0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+			                   0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+			                   0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
 
-			// Right
-			0, 3, 7,
-			7, 4, 0,
+			                   -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+			                   0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+			                   0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+			                   0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+			                   -0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+			                   -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
 
-			// Bottom
-			2, 6, 7,
-			7, 3, 2,
+			                   -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			                   0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			                   0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+			                   0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+			                   -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+			                   -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f
+		                   };
 
-			// Left
-			1, 5, 6,
-			6, 2, 1,
-
-			// Back
-			4, 7, 6,
-			6, 5, 4,
-
-			// Top
-			5, 1, 0,
-			0, 4, 5
-		};
 		vao = GL.GenVertexArray();
 		GL.BindVertexArray(vao);
-
-		int trianglesEbo = GL.GenBuffer();
-		GL.BindBuffer(BufferTarget.ElementArrayBuffer, trianglesEbo);
-		GL.BufferData(BufferTarget.ElementArrayBuffer, sizeof(uint) * triangleIndices.Length, triangleIndices, BufferUsageHint.StaticDraw);
 
 		int verticesVbo = GL.GenBuffer();
 		GL.BindBuffer(BufferTarget.ArrayBuffer, verticesVbo);
 		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.StaticDraw);
+		int verticesIndex = 0;
+		GL.VertexAttribPointer(verticesIndex, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), IntPtr.Zero);
+		GL.EnableVertexAttribArray(verticesIndex);
 
-		GL.VertexAttribPointer(VerticesIndex, 3, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
-		GL.EnableVertexAttribArray(VerticesIndex);
-
-
-		int uvsVbo = GL.GenBuffer();
-		GL.BindBuffer(BufferTarget.ArrayBuffer, uvsVbo);
-		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * uvs.Length, uvs, BufferUsageHint.StaticDraw);
-
-		GL.VertexAttribPointer(UvsIndex, 2, VertexAttribPointerType.Float, false, 0, IntPtr.Zero);
-		GL.EnableVertexAttribArray(UvsIndex);
+		int normalsIndex = 1;
+		GL.VertexAttribPointer(normalsIndex, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), IntPtr.Zero);
+		GL.EnableVertexAttribArray(normalsIndex);
 
 		GL.BindVertexArray(0);
 		GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);

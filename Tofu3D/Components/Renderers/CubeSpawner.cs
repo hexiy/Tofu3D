@@ -1,5 +1,8 @@
 public class CubeSpawner : Component
 {
+	[Show]
+	public GameObject _prefab;
+
 	public override void Start()
 	{
 		SpawnCubes();
@@ -8,20 +11,18 @@ public class CubeSpawner : Component
 
 	void SpawnCubes()
 	{
+		if (_prefab == null)
+		{
+			return;
+		}
+
 		for (int x = 0; x < 10; x++)
 		{
 			for (int y = 0; y < 10; y++)
 			{
-				for (int z = 0; z < 10; z++)
-				{
-					GameObject go = GameObject.Create(Camera.I.Transform.WorldPosition + new Vector3(x, y, z) * 500, name: "Cube");
-					go.Transform.SetParent(Transform);
-					go.AddComponent<BoxShape>();
-					go.GetComponent<BoxShape>().Size = new Vector3(150);
-
-					go.AddComponent<ModelRenderer>();
-					go.Awake();
-				}
+				GameObject go = Serializer.I.LoadPrefab(_prefab.PrefabPath);
+				go.Awake();
+				go.Transform.WorldPosition = new Vector3(Rendom.Range(-3, 3), Rendom.Range(-3, 3), Rendom.Range(-3, 3));
 			}
 		}
 	}

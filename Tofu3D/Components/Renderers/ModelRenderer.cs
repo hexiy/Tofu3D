@@ -51,7 +51,7 @@ public class ModelRenderer : TextureRenderer
 			return;
 		}
 
-		bool drawOutline = GameObject.Selected;
+		bool drawOutline = GameObject.Selected && false;
 		if (drawOutline)
 		{
 			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
@@ -60,14 +60,17 @@ public class ModelRenderer : TextureRenderer
 			{
 				ShaderCache.UseShader(Material.Shader);
 				Material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
-				Material.Shader.SetColor("u_rendererColor", new Vector4(1,1,1,0.8f));
+				Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
+				Material.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 0.8f));
+				Material.Shader.SetVector3("lightPos", Vector3.Zero);
 
 				ShaderCache.BindVertexArray(Material.Vao);
 
 				//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-				TextureCache.BindTexture(Texture.Id);
+				// TextureCache.BindTexture(Texture.Id);
 
-				GL.DrawElements(PrimitiveType.Triangles, 6 * 2 * 3, DrawElementsType.UnsignedInt, (IntPtr) null);
+				GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
+				// GL.DrawElements(PrimitiveType.Triangles, 6 * 2 * 3, DrawElementsType.UnsignedInt, (IntPtr) null);
 			}
 
 			GL.StencilFunc(StencilFunction.Notequal, 1, 0xFF);
@@ -77,9 +80,13 @@ public class ModelRenderer : TextureRenderer
 
 
 		{
+
+			
 			ShaderCache.UseShader(Material.Shader);
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+			Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
 			Material.Shader.SetColor("u_rendererColor", Color);
+			Material.Shader.SetVector3("lightPos", Vector3.Zero);
 			//material.shader.SetMatrix4x4("u_model", GetModelMatrix());
 			if (Material.Additive)
 			{
@@ -93,9 +100,10 @@ public class ModelRenderer : TextureRenderer
 			ShaderCache.BindVertexArray(Material.Vao);
 
 			//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-			TextureCache.BindTexture(Texture.Id);
+			// TextureCache.BindTexture(Texture.Id);
 
-			GL.DrawElements(PrimitiveType.Triangles, 6 * 2 * 3, DrawElementsType.UnsignedInt, (IntPtr) null);
+			GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
+			//GL.DrawElements(PrimitiveType.Triangles, 6 * 2 * 3, DrawElementsType.UnsignedInt, (IntPtr) null);
 		}
 
 		if (drawOutline)

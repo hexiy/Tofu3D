@@ -150,9 +150,10 @@ public class Scene
 	public void Render()
 	{
 		GL.Enable(EnableCap.DepthTest);
-		GL.Enable(EnableCap.CullFace);
+		GL.DepthFunc(DepthFunction.Less);
+		//GL.Enable(EnableCap.CullFace);
 		GL.Enable(EnableCap.StencilTest);
-		GL.DepthFunc(DepthFunction.Greater);
+		// GL.DepthFunc(DepthFunction.Greater);
 
 		GL.ClearColor(Camera.Color.ToOtherColor());
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
