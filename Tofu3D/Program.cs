@@ -1,4 +1,6 @@
-﻿using OpenTK.Windowing.Common;
+﻿using System.Globalization;
+using System.Threading;
+using OpenTK.Windowing.Common;
 using Tofu3D.Tweening;
 
 namespace Tofu3D;
@@ -7,6 +9,8 @@ public static class Program
 {
 	static void Main()
 	{
+		Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
+
 		Global.LoadSavedData();
 		_ = new Serializer();
 		_ = new Scene();

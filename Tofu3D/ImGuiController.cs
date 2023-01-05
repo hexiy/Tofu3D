@@ -371,7 +371,7 @@ void main()
 				GL.BufferData(BufferTarget.ElementArrayBuffer, newSize, IntPtr.Zero, BufferUsageHint.DynamicDraw);
 				_indexBufferSize = newSize;
 
-				Debug.Log($"Resized dear imgui index buffer to new size {_indexBufferSize}");
+				//Debug.Log($"Resized dear imgui index buffer to new size {_indexBufferSize}");
 			}
 		}
 

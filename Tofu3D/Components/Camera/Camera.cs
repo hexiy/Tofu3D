@@ -46,7 +46,16 @@ public class Camera : Component
 
 	public override void Update()
 	{
-		Transform.LocalScale = Vector3.One * OrthographicSize;
+		if (IsOrthographic)
+		{
+			Transform.LocalScale = Vector3.One * OrthographicSize;
+		}
+
+		else
+		{
+			Transform.LocalScale = Vector3.One;
+		}
+
 		UpdateMatrices();
 		base.Update();
 	}
@@ -60,12 +69,23 @@ public class Camera : Component
 
 	Matrix4x4 GetViewMatrix()
 	{
-		// Vector3 pos = Transform.WorldPosition;
-		// Vector3 forward = Transform.TransformDirection(Vector3.Forward);
-		// Vector3 up = Vector3.Up;
-		//
-		// Matrix4x4 view = Matrix4x4.CreateWorld(pos, forward, up);
-		return Matrix4x4.Identity;
+		//  const float radius = 500.0f;
+		//  float camX = (float) Math.Sin(Time.EditorElapsedTime) * radius; //sin(glfwGetTime()) * radius;
+		//  float camZ = (float) Math.Cos(Time.EditorElapsedTime) * radius; //cos(glfwGetTime()) * radius;
+		//  float camY = (float) Math.Cos(Time.EditorElapsedTime) * radius; //cos(glfwGetTime()) * radius;
+		//  Matrix4x4 view = Matrix4x4.CreateLookAt(new Vector3(camX, camY, camZ), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+		// return view;
+
+
+		Vector3 forwardWorld = Transform.WorldPosition + Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
+		Vector3 upLocal = Transform.TransformDirectionToWorldSpace(new Vector3(0, 1, 0));
+
+		//Debug.Log($"Forward{forwardWorld}");
+		//Debug.Log($"Up{upLocal}");
+		Matrix4x4 view = Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, -1))
+		               * Matrix4x4.CreateLookAt(cameraPosition: Transform.WorldPosition, cameraTarget: forwardWorld, cameraUpVector: upLocal)
+			; // * Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, 1));
+		return view;
 	}
 
 	Matrix4x4 GetProjectionMatrix()
@@ -83,9 +103,9 @@ public class Camera : Component
 		FieldOfView = Mathf.ClampMin(FieldOfView, 0.0001f);
 		NearPlaneDistance = Mathf.Clamp(NearPlaneDistance, 0.001f, FarPlaneDistance);
 		FarPlaneDistance = Mathf.Clamp(FarPlaneDistance, NearPlaneDistance + 0.001f, Mathf.Infinity);
-		Matrix4x4 pm = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(FieldOfView), Size.X / Size.Y, NearPlaneDistance, FarPlaneDistance);
+		Matrix4x4 perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(FieldOfView), Size.X / Size.Y, NearPlaneDistance, FarPlaneDistance);
 
-		return TranslationMatrix * pm;
+		return perspectiveMatrix;
 	}
 
 	Matrix4x4 GetOrthographicProjectionMatrix()

@@ -6,10 +6,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>263</Id>
+      <Id>354</Id>
       <IndexInHierarchy>2</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>AudioSource</Name>
+      <Name>GameObject</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -21,7 +21,7 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>263</GameObjectId>
+      <GameObjectId>354</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
@@ -31,9 +31,9 @@
         <Z>0</Z>
       </Pivot>
       <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>0.4916982</X>
+        <Y>-0.18430862</Y>
+        <Z>-50</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -46,20 +46,80 @@
         <Z>0</Z>
       </Rotation>
       <Forward>
+        <X>-0</X>
+        <Y>-0</Y>
+        <Z>1</Z>
+      </Forward>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>354</GameObjectId>
+      <Started>true</Started>
+      <BoxShape>
+        <AllowMultiple>true</AllowMultiple>
+        <Enabled>true</Enabled>
+        <GameObjectId>354</GameObjectId>
+        <Started>true</Started>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </Offset>
+        <Size>
+          <X>10</X>
+          <Y>10</Y>
+          <Z>10</Z>
+        </Size>
+      </BoxShape>
+      <Color>
+        <B>2</B>
+        <G>2</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4278321919</PackedValue>
+      </Color>
+      <DistanceFromCamera>0.52510643</DistanceFromCamera>
+      <Material>
+        <Additive>false</Additive>
+        <Path>Assets/Materials/ModelRenderer.mat</Path>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>5</Vao>
+        <Vbo>0</Vbo>
+      </Material>
+      <Layer>0</Layer>
+      <Texture>
+        <Id>6</Id>
+        <Loaded>true</Loaded>
+        <Path>Assets/2D/solidColor.png</Path>
+        <Size>
+          <X>256</X>
+          <Y>256</Y>
+        </Size>
+      </Texture>
+      <Repeats>
+        <X>1</X>
+        <Y>1</Y>
+      </Repeats>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>354</GameObjectId>
+      <Started>true</Started>
+      <Offset>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
-      </Forward>
-    </Component>
-    <Component xsi:type="AudioSource">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>263</GameObjectId>
-      <Started>true</Started>
-      <Clip>
-        <Path>/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/Audio/oriental.mp3</Path>
-      </Clip>
-      <Volume>0.588</Volume>
+      </Offset>
+      <Size>
+        <X>10</X>
+        <Y>10</Y>
+        <Z>10</Z>
+      </Size>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

@@ -92,14 +92,14 @@ public struct Vector3 : IEquatable<Vector3>
 	public static Vector3 Left { get; } = new(-1f, 0f, 0f);
 
 	/// <summary>
-	///         Returns a <see cref="Vector3" /> with components 0, 0, -1.
-	/// </summary>
-	public static Vector3 Forward { get; } = new(0f, 0f, -1f);
-
-	/// <summary>
 	///         Returns a <see cref="Vector3" /> with components 0, 0, 1.
 	/// </summary>
-	public static Vector3 Backward { get; } = new(0f, 0f, 1f);
+	public static Vector3 Forward { get; } = new(0f, 0f, 1f);
+
+	/// <summary>
+	///         Returns a <see cref="Vector3" /> with components 0, 0, -1.
+	/// </summary>
+	public static Vector3 Backward { get; } = new(0f, 0f, -1f);
 
 	#endregion
 
@@ -992,11 +992,12 @@ public struct Vector3 : IEquatable<Vector3>
 	public override string ToString()
 	{
 		StringBuilder sb = new(32);
+		string separator = "  ";
 		sb.Append("[");
 		sb.Append(X.ToString("F1"));
-		sb.Append(" | ");
+		sb.Append(separator);
 		sb.Append(Y.ToString("F1"));
-		sb.Append(" | ");
+		sb.Append(separator);
 		sb.Append(Z.ToString("F1"));
 		sb.Append("]");
 		return sb.ToString();

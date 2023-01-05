@@ -7,7 +7,7 @@ public class Renderer : Component, IComparable<Renderer>
 	public BoxShape BoxShape;
 	public Color Color = Color.White;
 	public float DistanceFromCamera;
-	
+
 	[Show]
 	public Material Material;
 	internal bool OnScreen = true;

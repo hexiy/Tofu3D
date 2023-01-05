@@ -13,12 +13,11 @@
 			SaveData();
 		}
 	}
+	public const string DebugFlag = nameof(Debug);
 
 	static void SaveData()
 	{
-		
 		PersistentData.Set("Global.Debug", Debug);
-		
 	}
 
 	public static void LoadSavedData()

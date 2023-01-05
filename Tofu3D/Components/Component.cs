@@ -50,6 +50,7 @@ public class Component : IDestroyable, IDisposable
 		return GameObject.GetComponents<T>();
 	}
 
+	// Doesnt respect rotation
 	public Vector3 TransformToWorld(Vector3 localPoint)
 	{
 		return localPoint + Transform.WorldPosition;

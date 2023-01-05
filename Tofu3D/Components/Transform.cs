@@ -137,8 +137,8 @@ public class Transform : Component
 		get { return _rotation; }
 		set { _rotation = new Vector3(value.X % 360, value.Y % 360, value.Z % 360); }
 	}
-	[Hide] public Vector3 Forward { get; set; }
-
+	[ShowIf(Global.DebugFlag)] public Vector3 Forward { get; set; }
+	
 	private void UpdateChildrenPositions()
 	{
 		for (int i = 0; i < Children.Count; i++)
@@ -239,6 +239,8 @@ public class Transform : Component
 			//WorldPosition = TranslateLocalToWorld(LocalPosition);
 			//LocalPosition = TranslateWorldToLocal(WorldPosition);
 		}
+
+		Forward = Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
 		// if (_lastFramePosition == null)
 		// {
 		// 	_lastFramePosition = WorldPosition;
@@ -309,23 +311,37 @@ public class Transform : Component
 		return Vector3.Zero;
 	}
 
-	public Vector3 TransformDirection(Vector3 dir)
+	public Vector3 TransformDirectionToWorldSpace(Vector3 dir)
 	{
-		Vector3 forward = (Matrix4x4.CreateTranslation(new Vector3(dir.X, dir.Y, -dir.Z))
-		                 * Matrix4x4.CreateFromYawPitchRoll(Transform.Rotation.Y / 180 * Mathf.Pi,
-		                                                    -Transform.Rotation.X / 180 * Mathf.Pi,
-		                                                    -Transform.Rotation.Z / 180 * Mathf.Pi)).Translation;
-		return forward;
+		// dir = dir.Normalized();
+		// Matrix4x4 transformationMatrix = (Matrix4x4.CreateTranslation(new Vector3(0, 0, 1))
+		//                                 * Matrix4x4.CreateRotationX(Transform.Rotation.X / 180 * Mathf.Pi)
+		//                                 * Matrix4x4.CreateRotationY(Transform.Rotation.Y / 180 * Mathf.Pi)
+		//                                 * Matrix4x4.CreateRotationZ(Transform.Rotation.Z / 180 * Mathf.Pi));
+		//
+		// Vector3 x = transformationMatrix.Translation;
+		//
+		// return x;
+		dir = new Vector3(-dir.X, dir.Y, -dir.Z);
+		//dir = dir.Normalized();
+		Matrix4x4 transformationMatrix = (Matrix4x4.CreateTranslation(dir)
+		                                  * Matrix4x4.CreateRotationX(Transform.Rotation.X / 180 * Mathf.Pi)
+		                                * Matrix4x4.CreateRotationY(Transform.Rotation.Y / 180 * Mathf.Pi)
+		                                * Matrix4x4.CreateRotationZ(Transform.Rotation.Z / 180 * Mathf.Pi));
+
+		Vector3 x = transformationMatrix.Translation;
+// this fucking works, but moving the camera doesnt lmfao
+		return -x;
 	}
 
 	// public Vector3 TransformVector(Vector3 dir)
 	// {
 	// 	Vector3 direction = new Vector3(
-	// 	                                (float) (MathHelper.Sin(MathHelper.DegreesToRadians(transform.Rotation.Y))
-	// 	                                       * MathHelper.Cos(MathHelper.DegreesToRadians(transform.Rotation.X))),
-	// 	                                (float) (MathHelper.Sin(MathHelper.DegreesToRadians(transform.Rotation.X))),
-	// 	                                (float) (MathHelper.Cos(MathHelper.DegreesToRadians(transform.Rotation.Y))
-	// 	                                       * MathHelper.Cos(MathHelper.DegreesToRadians(transform.Rotation.X)))
+	// 	                                (float) (MathHelper.Sin(MathHelper.DegreesToRadians(Transform.Rotation.Y))
+	// 	                                       * MathHelper.Cos(MathHelper.DegreesToRadians(Transform.Rotation.X))),
+	// 	                                (float) (MathHelper.Sin(MathHelper.DegreesToRadians(Transform.Rotation.X))),
+	// 	                                (float) (MathHelper.Cos(MathHelper.DegreesToRadians(Transform.Rotation.Y))
+	// 	                                       * MathHelper.Cos(MathHelper.DegreesToRadians(Transform.Rotation.X)))
 	// 	                               );
 	//
 	// 	direction = direction.Normalized();

@@ -42,7 +42,7 @@ public class SceneNavigation
 
 		if (TransformHandle.I.Clicked)
 		{
-			return;
+			//return;
 		}
 
 		if (Global.EditorAttached == false)
@@ -95,18 +95,19 @@ public class SceneNavigation
 		}
 
 		// PANNING
-		if (MouseInput.IsButtonDown())
+		if (MouseInput.IsButtonDown() && Camera.I.IsOrthographic)
 		{
 			//MoveCameraInDirection(new Vector2(-MouseInput.ScreenDelta.X, -MouseInput.ScreenDelta.Y));
-			Camera.I.Transform.LocalPosition -= Camera.I.Transform.TransformDirection(new Vector2(MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.I.OrthographicSize;
+			Camera.I.Transform.LocalPosition -= Camera.I.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.I.OrthographicSize;
 			MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
 		}
 
 
-		if (MouseInput.IsButtonDown())
+		if (MouseInput.IsButtonDown() && Camera.I.IsOrthographic == false)
 		{
-			//Camera.I.Transform.Rotation += new Vector3(MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * 0.2f;
-			//Camera.I.transform.Rotation = new Vector3(Camera.I.transform.Rotation.X,Camera.I.transform.Rotation .Y, 0);
+			Camera.I.Transform.Rotation += new Vector3(MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * 0.2f;
+			//Debug.Log("Rotate Cam");
+			//Camera.I.transform.Rotation = new Vector3(Camera.I.transform.Rotation.X, Camera.I.transform.Rotation.Y, 0);
 
 			Vector3 keyboardInputDirectionVector = Vector3.Zero;
 			if (KeyboardInput.IsKeyDown(Keys.W))
@@ -135,13 +136,20 @@ public class SceneNavigation
 				moveSpeed = 0.04f;
 			}
 
-			MoveCameraInDirection(keyboardInputDirectionVector, moveSpeed);
+			if (keyboardInputDirectionVector != Vector3.Zero)
+			{
+				MoveCameraInDirection(keyboardInputDirectionVector, moveSpeed);
+			}
 		}
 	}
 
 	void MoveCameraInDirection(Vector3 dir, float moveSpeed = 0.02f)
 	{
-		Camera.I.Transform.LocalPosition += Camera.I.Transform.TransformDirection(dir) * moveSpeed;
+		Vector3 delta = Camera.I.Transform.TransformDirectionToWorldSpace(dir);
+		
+		Debug.Log(delta);
+		Camera.I.Transform.WorldPosition += delta;
+		// Camera.I.Transform.LocalPosition += dir * moveSpeed;
 
 		Camera.I.UpdateMatrices();
 	}
