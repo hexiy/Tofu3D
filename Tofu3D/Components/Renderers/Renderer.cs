@@ -102,7 +102,7 @@ public class Renderer : Component, IComparable<Renderer>
 		Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.Rotation.Y / 180 * Mathf.Pi,
 		                                                      -Transform.Rotation.X / 180 * Mathf.Pi,
 		                                                      -Transform.Rotation.Z / 180 * Mathf.Pi);
-		float outlineThickness = 0.03f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime)), 0.5f);
+		float outlineThickness = 0.03f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime)), 0.5f) * DistanceFromCamera*0.3f;
 		Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size.X * Transform.WorldScale.X + outlineThickness, BoxShape.Size.Y * Transform.WorldScale.Y + outlineThickness, Transform.LocalScale.Z * BoxShape.Size.Z + outlineThickness);
 		return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit) * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix;
 	}

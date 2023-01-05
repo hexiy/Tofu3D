@@ -45,7 +45,7 @@ public class Transform : Component
 			if (LocalPosition != calculatedLocalPos)
 			{
 				//_localPosition = calculatedLocalPos;
-				//LocalPosition = calculatedLocalPos;
+				LocalPosition = calculatedLocalPos;
 			}
 
 			UpdateChildrenPositions();
@@ -137,8 +137,12 @@ public class Transform : Component
 		get { return _rotation; }
 		set { _rotation = new Vector3(value.X % 360, value.Y % 360, value.Z % 360); }
 	}
-	[ShowIf(Global.DebugFlag)] public Vector3 Forward { get; set; }
-	
+	[Hide]
+	public Vector3 Forward
+	{
+		get { return Transform.TransformDirectionToWorldSpace(Vector3.Forward); }
+	}
+
 	private void UpdateChildrenPositions()
 	{
 		for (int i = 0; i < Children.Count; i++)
@@ -240,7 +244,6 @@ public class Transform : Component
 			//LocalPosition = TranslateWorldToLocal(WorldPosition);
 		}
 
-		Forward = Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
 		// if (_lastFramePosition == null)
 		// {
 		// 	_lastFramePosition = WorldPosition;
@@ -325,7 +328,7 @@ public class Transform : Component
 		dir = new Vector3(-dir.X, dir.Y, -dir.Z);
 		//dir = dir.Normalized();
 		Matrix4x4 transformationMatrix = (Matrix4x4.CreateTranslation(dir)
-		                                  * Matrix4x4.CreateRotationX(Transform.Rotation.X / 180 * Mathf.Pi)
+		                                * Matrix4x4.CreateRotationX(Transform.Rotation.X / 180 * Mathf.Pi)
 		                                * Matrix4x4.CreateRotationY(Transform.Rotation.Y / 180 * Mathf.Pi)
 		                                * Matrix4x4.CreateRotationZ(Transform.Rotation.Z / 180 * Mathf.Pi));
 

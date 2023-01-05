@@ -41,7 +41,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>ShowcaseVideoSettings</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -311,7 +311,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Audio</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -333,26 +333,21 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1.6</X>
-        <Y>1.6</Y>
-        <Z>1.6</Z>
-      </_localScale>
       <LocalPosition>
-        <X>-0.098869324</X>
-        <Y>-3.457916</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <Rotation>
         <X>0</X>
-        <Y>0</Y>
+        <Y>0.22046329</Y>
+        <Z>1.6113383</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <Rotation>
+        <X>174.57971</X>
+        <Y>-10.718871</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="Camera">
       <AllowMultiple>true</AllowMultiple>
@@ -366,10 +361,10 @@
         <A>255</A>
         <PackedValue>4289518054</PackedValue>
       </Color>
-      <FarPlaneDistance>50</FarPlaneDistance>
-      <FieldOfView>2</FieldOfView>
-      <IsOrthographic>true</IsOrthographic>
-      <NearPlaneDistance>1</NearPlaneDistance>
+      <FarPlaneDistance>50000</FarPlaneDistance>
+      <FieldOfView>60</FieldOfView>
+      <IsOrthographic>false</IsOrthographic>
+      <NearPlaneDistance>0.1</NearPlaneDistance>
       <OrthographicSize>1.6</OrthographicSize>
       <Size>
         <X>1380</X>
@@ -502,6 +497,11 @@
         <int>307</int>
         <int>307</int>
         <int>307</int>
+        <int>307</int>
+        <int>307</int>
+        <int>307</int>
+        <int>307</int>
+        <int>307</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -509,26 +509,21 @@
         <Y>1</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1.6</X>
-        <Y>1.6</Y>
-        <Z>1.6</Z>
-      </_localScale>
       <LocalPosition>
-        <X>-0.098869324</X>
-        <Y>-3.457916</Y>
-        <Z>0</Z>
+        <X>0</X>
+        <Y>0.22046329</Y>
+        <Z>1.6113383</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="Canvas">
       <AllowMultiple>true</AllowMultiple>
@@ -548,26 +543,21 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="ShowcaseVideoSettings">
       <AllowMultiple>true</AllowMultiple>
@@ -587,26 +577,21 @@
         <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>0</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>0</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="Text">
       <AllowMultiple>true</AllowMultiple>
@@ -660,7 +645,7 @@
         <A>255</A>
         <PackedValue>4278190080</PackedValue>
       </Color>
-      <DistanceFromCamera>3.4593291</DistanceFromCamera>
+      <DistanceFromCamera>0.22046329</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/TextRenderer.mat</Path>
@@ -668,12 +653,12 @@
           <BufferType>Rendertexture</BufferType>
           <Path>Assets/Shaders/TextRenderer.glsl</Path>
         </Shader>
-        <Vao>5</Vao>
+        <Vao>129</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0.1</Layer>
       <Texture>
-        <Id>6</Id>
+        <Id>9</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/sdf.png</Path>
         <Size>
@@ -761,26 +746,21 @@
         <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>0</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="Text">
       <AllowMultiple>true</AllowMultiple>
@@ -842,12 +822,12 @@
           <BufferType>Rendertexture</BufferType>
           <Path>Assets/Shaders/TextRenderer.glsl</Path>
         </Shader>
-        <Vao>7</Vao>
+        <Vao>131</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>-1</Layer>
       <Texture>
-        <Id>6</Id>
+        <Id>9</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/sdf.png</Path>
         <Size>
@@ -1672,6 +1652,31 @@
         <int>110</int>
         <int>113</int>
         <int>126</int>
+        <int>4</int>
+        <int>95</int>
+        <int>110</int>
+        <int>113</int>
+        <int>126</int>
+        <int>4</int>
+        <int>95</int>
+        <int>110</int>
+        <int>113</int>
+        <int>126</int>
+        <int>4</int>
+        <int>95</int>
+        <int>110</int>
+        <int>113</int>
+        <int>126</int>
+        <int>4</int>
+        <int>95</int>
+        <int>110</int>
+        <int>113</int>
+        <int>126</int>
+        <int>4</int>
+        <int>95</int>
+        <int>110</int>
+        <int>113</int>
+        <int>126</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -1679,26 +1684,21 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -1715,26 +1715,21 @@
         <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="SpriteRenderer">
       <AllowMultiple>true</AllowMultiple>
@@ -1764,7 +1759,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>3.4593291</DistanceFromCamera>
+      <DistanceFromCamera>0.22046329</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/SpriteRenderer.mat</Path>
@@ -1772,12 +1767,12 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets/Shaders/SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>9</Vao>
+        <Vao>133</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>7</Id>
+        <Id>10</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/tofu3d.png</Path>
         <Size>
@@ -1829,26 +1824,21 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>24.8</X>
         <Y>20.2</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
@@ -1886,12 +1876,12 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>10</Vao>
+        <Vao>134</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>8</Id>
+        <Id>6</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/solidColor.png</Path>
         <Size>
@@ -1932,26 +1922,21 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>-41.8</X>
         <Y>-0.2</Y>
         <Z>-41.6</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
@@ -1989,12 +1974,12 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>11</Vao>
+        <Vao>135</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>8</Id>
+        <Id>6</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/solidColor.png</Path>
         <Size>
@@ -2807,6 +2792,31 @@
         <int>222</int>
         <int>223</int>
         <int>225</int>
+        <int>220</int>
+        <int>221</int>
+        <int>222</int>
+        <int>223</int>
+        <int>225</int>
+        <int>220</int>
+        <int>221</int>
+        <int>222</int>
+        <int>223</int>
+        <int>225</int>
+        <int>220</int>
+        <int>221</int>
+        <int>222</int>
+        <int>223</int>
+        <int>225</int>
+        <int>220</int>
+        <int>221</int>
+        <int>222</int>
+        <int>223</int>
+        <int>225</int>
+        <int>220</int>
+        <int>221</int>
+        <int>222</int>
+        <int>223</int>
+        <int>225</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -2814,26 +2824,21 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>17.713001</X>
         <Y>8.304378</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -2847,26 +2852,21 @@
         <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>0</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>0</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="Text">
       <AllowMultiple>true</AllowMultiple>
@@ -2920,7 +2920,7 @@
         <A>255</A>
         <PackedValue>4278190080</PackedValue>
       </Color>
-      <DistanceFromCamera>21.345123</DistanceFromCamera>
+      <DistanceFromCamera>19.470493</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/TextRenderer.mat</Path>
@@ -2928,12 +2928,12 @@
           <BufferType>Rendertexture</BufferType>
           <Path>Assets/Shaders/TextRenderer.glsl</Path>
         </Shader>
-        <Vao>13</Vao>
+        <Vao>137</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>6</Id>
+        <Id>9</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/sdf.png</Path>
         <Size>
@@ -3021,26 +3021,21 @@
         <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>0</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>0</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="Text">
       <AllowMultiple>true</AllowMultiple>
@@ -3094,7 +3089,7 @@
         <A>255</A>
         <PackedValue>4278190080</PackedValue>
       </Color>
-      <DistanceFromCamera>21.345123</DistanceFromCamera>
+      <DistanceFromCamera>19.470493</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/TextRenderer.mat</Path>
@@ -3102,12 +3097,12 @@
           <BufferType>Rendertexture</BufferType>
           <Path>Assets/Shaders/TextRenderer.glsl</Path>
         </Shader>
-        <Vao>15</Vao>
+        <Vao>139</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>-1</Layer>
       <Texture>
-        <Id>6</Id>
+        <Id>9</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/sdf.png</Path>
         <Size>
@@ -3173,26 +3168,21 @@
         <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="SpriteRenderer">
       <AllowMultiple>true</AllowMultiple>
@@ -3222,7 +3212,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>21.345123</DistanceFromCamera>
+      <DistanceFromCamera>19.470493</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/SpriteRenderer.mat</Path>
@@ -3230,12 +3220,12 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets/Shaders/SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>17</Vao>
+        <Vao>141</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>7</Id>
+        <Id>10</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/tofu3d.png</Path>
         <Size>
@@ -3287,26 +3277,21 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>24.8</X>
         <Y>20.2</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
@@ -3336,7 +3321,7 @@
         <A>255</A>
         <PackedValue>4291948799</PackedValue>
       </Color>
-      <DistanceFromCamera>21.345123</DistanceFromCamera>
+      <DistanceFromCamera>19.470493</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -3344,12 +3329,12 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>18</Vao>
+        <Vao>142</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>8</Id>
+        <Id>6</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/solidColor.png</Path>
         <Size>
@@ -3390,26 +3375,21 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>-41.8</X>
         <Y>-0.2</Y>
         <Z>-41.6</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
@@ -3439,7 +3419,7 @@
         <A>255</A>
         <PackedValue>4292146426</PackedValue>
       </Color>
-      <DistanceFromCamera>21.345123</DistanceFromCamera>
+      <DistanceFromCamera>19.470493</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -3447,12 +3427,12 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>19</Vao>
+        <Vao>143</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>8</Id>
+        <Id>6</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/solidColor.png</Path>
         <Size>
@@ -3487,6 +3467,11 @@
       <GameObjectId>307</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs>
+        <int>308</int>
+        <int>308</int>
+        <int>308</int>
+        <int>308</int>
+        <int>308</int>
         <int>308</int>
         <int>308</int>
         <int>308</int>
@@ -3564,26 +3549,21 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>4.3767967</X>
         <Y>-3.9654691</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
@@ -3629,7 +3609,7 @@
         <A>255</A>
         <PackedValue>4285310414</PackedValue>
       </Color>
-      <DistanceFromCamera>9.449662</DistanceFromCamera>
+      <DistanceFromCamera>5.9060388</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/BoxMaterial.mat</Path>
@@ -3637,7 +3617,7 @@
           <BufferType>Box</BufferType>
           <Path>Assets/Shaders/BoxRenderer.glsl</Path>
         </Shader>
-        <Vao>20</Vao>
+        <Vao>144</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -3690,26 +3670,21 @@
         <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>0</Z>
-      </_localScale>
       <LocalPosition>
         <X>1.00065</X>
         <Y>0.42497417</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>0</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
@@ -3755,7 +3730,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.301322</DistanceFromCamera>
+      <DistanceFromCamera>6.438326</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/TextRenderer.mat</Path>
@@ -3763,12 +3738,12 @@
           <BufferType>Rendertexture</BufferType>
           <Path>Assets/Shaders/TextRenderer.glsl</Path>
         </Shader>
-        <Vao>22</Vao>
+        <Vao>146</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>5</Layer>
       <Texture>
-        <Id>6</Id>
+        <Id>9</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/sdf.png</Path>
         <Size>
@@ -3845,6 +3820,11 @@
         <int>459</int>
         <int>459</int>
         <int>459</int>
+        <int>459</int>
+        <int>459</int>
+        <int>459</int>
+        <int>459</int>
+        <int>459</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -3852,26 +3832,21 @@
         <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>0</Z>
-      </_localScale>
       <LocalPosition>
         <X>-4.7370815</X>
         <Y>-7.8072457</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>0</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="Text">
       <AllowMultiple>true</AllowMultiple>
@@ -3926,7 +3901,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.358434</DistanceFromCamera>
+      <DistanceFromCamera>9.321161</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/TextRenderer.mat</Path>
@@ -3934,12 +3909,12 @@
           <BufferType>Rendertexture</BufferType>
           <Path>Assets/Shaders/TextRenderer.glsl</Path>
         </Shader>
-        <Vao>24</Vao>
+        <Vao>148</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>5555</Layer>
       <Texture>
-        <Id>6</Id>
+        <Id>9</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/sdf.png</Path>
         <Size>
@@ -3997,26 +3972,21 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="DemoManager">
       <AllowMultiple>true</AllowMultiple>
@@ -4068,26 +4038,21 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>-4.04</X>
         <Y>-2.72</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
@@ -4133,7 +4098,7 @@
         <A>255</A>
         <PackedValue>4278190080</PackedValue>
       </Color>
-      <DistanceFromCamera>11.193158</DistanceFromCamera>
+      <DistanceFromCamera>13.876254</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/BoxMaterial.mat</Path>
@@ -4141,7 +4106,7 @@
           <BufferType>Box</BufferType>
           <Path>Assets/Shaders/BoxRenderer.glsl</Path>
         </Shader>
-        <Vao>25</Vao>
+        <Vao>149</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -4158,26 +4123,21 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
-      <_localScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </_localScale>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
-      <Forward>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Forward>
     </Component>
     <Component xsi:type="AudioSource">
       <AllowMultiple>true</AllowMultiple>
@@ -4190,5 +4150,5 @@
       <Volume>0.661</Volume>
     </Component>
   </Components>
-  <GameObjectNextId>521</GameObjectNextId>
+  <GameObjectNextId>531</GameObjectNextId>
 </SceneFile>

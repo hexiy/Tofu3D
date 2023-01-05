@@ -51,7 +51,7 @@ public class ModelRenderer : TextureRenderer
 			return;
 		}
 
-		bool drawOutline = GameObject.Selected && false;
+		bool drawOutline = GameObject.Selected;
 		if (drawOutline)
 		{
 			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
@@ -60,7 +60,7 @@ public class ModelRenderer : TextureRenderer
 			{
 				ShaderCache.UseShader(Material.Shader);
 				Material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
-				Material.Shader.SetColor("u_rendererColor", Color.White.ToVector4());
+				Material.Shader.SetColor("u_rendererColor", new Vector4(1,1,1,0.8f));
 
 				ShaderCache.BindVertexArray(Material.Vao);
 
@@ -108,6 +108,10 @@ public class ModelRenderer : TextureRenderer
 		}
 
 		Debug.CountStat("Draw Calls", 1);
+		if (drawOutline)
+		{
+			Debug.CountStat("Draw Calls", 1);
+		}
 	}
 	// public override void Render()
 	// {

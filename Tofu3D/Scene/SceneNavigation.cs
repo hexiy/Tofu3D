@@ -130,10 +130,16 @@ public class SceneNavigation
 				keyboardInputDirectionVector += Vector3.Right;
 			}
 
-			float moveSpeed = 0.4f;
+			float moveSpeed = 1f;
+
 			if (KeyboardInput.IsKeyDown(Keys.LeftShift))
 			{
-				moveSpeed = 0.04f;
+				moveSpeed = 2.5f;
+				Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 100, Time.EditorDeltaTime * 7);
+			}
+			else
+			{
+				Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 60, Time.EditorDeltaTime * 7);
 			}
 
 			if (keyboardInputDirectionVector != Vector3.Zero)
@@ -143,11 +149,12 @@ public class SceneNavigation
 		}
 	}
 
-	void MoveCameraInDirection(Vector3 dir, float moveSpeed = 0.02f)
+	void MoveCameraInDirection(Vector3 dir, float moveSpeed = 1f)
 	{
-		Vector3 delta = Camera.I.Transform.TransformDirectionToWorldSpace(dir);
-		
-		Debug.Log(delta);
+		Vector3 delta = Camera.I.Transform.TransformDirectionToWorldSpace(dir) * moveSpeed;
+
+		//Debug.Log(delta);
+		//Camera.I.Transform.LocalPosition += delta;
 		Camera.I.Transform.WorldPosition += delta;
 		// Camera.I.Transform.LocalPosition += dir * moveSpeed;
 

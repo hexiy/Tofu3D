@@ -103,7 +103,7 @@ public class Camera : Component
 		FieldOfView = Mathf.ClampMin(FieldOfView, 0.0001f);
 		NearPlaneDistance = Mathf.Clamp(NearPlaneDistance, 0.001f, FarPlaneDistance);
 		FarPlaneDistance = Mathf.Clamp(FarPlaneDistance, NearPlaneDistance + 0.001f, Mathf.Infinity);
-		Matrix4x4 perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(FieldOfView), Size.X / Size.Y, NearPlaneDistance, FarPlaneDistance);
+		Matrix4x4 perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(FieldOfView), Size.X / Size.Y, NearPlaneDistance * Units.OneWorldUnit, FarPlaneDistance * Units.OneWorldUnit);
 
 		return perspectiveMatrix;
 	}
