@@ -21,7 +21,7 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>4</Id>
+      <Id>70</Id>
       <IndexInHierarchy>1</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>GameObject</Name>
@@ -56,8 +56,8 @@
         <Z>1</Z>
       </LocalScale>
       <Rotation>
-        <X>-39.631226</X>
-        <Y>199.98128</Y>
+        <X>-25.4406</X>
+        <Y>115.746826</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -86,7 +86,7 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>4</GameObjectId>
+      <GameObjectId>70</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
@@ -96,8 +96,8 @@
         <Z>0</Z>
       </Pivot>
       <LocalPosition>
-        <X>-33.1875</X>
-        <Y>9.28125</Y>
+        <X>2.343596</X>
+        <Y>5.813</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
@@ -114,12 +114,12 @@
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>4</GameObjectId>
+      <GameObjectId>70</GameObjectId>
       <Started>true</Started>
       <BoxShape>
         <AllowMultiple>true</AllowMultiple>
         <Enabled>true</Enabled>
-        <GameObjectId>4</GameObjectId>
+        <GameObjectId>70</GameObjectId>
         <Started>true</Started>
         <Offset>
           <X>0</X>
@@ -127,19 +127,19 @@
           <Z>0</Z>
         </Offset>
         <Size>
-          <X>11</X>
-          <Y>11</Y>
-          <Z>11</Z>
+          <X>5</X>
+          <Y>5</Y>
+          <Z>5</Z>
         </Size>
       </BoxShape>
       <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
+        <B>45</B>
+        <G>45</G>
+        <R>178</R>
         <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <PackedValue>4281150898</PackedValue>
       </Color>
-      <DistanceFromCamera>17.982985</DistanceFromCamera>
+      <DistanceFromCamera>20.796108</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -147,7 +147,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>4</Vao>
+        <Vao>29</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -168,7 +168,7 @@
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>4</GameObjectId>
+      <GameObjectId>70</GameObjectId>
       <Started>true</Started>
       <Offset>
         <X>0</X>
@@ -176,11 +176,11 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>11</X>
-        <Y>11</Y>
-        <Z>11</Z>
+        <X>5</X>
+        <Y>5</Y>
+        <Z>5</Z>
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>24</GameObjectNextId>
+  <GameObjectNextId>75</GameObjectNextId>
 </SceneFile>

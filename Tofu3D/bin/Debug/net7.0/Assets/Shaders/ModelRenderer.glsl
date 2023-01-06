@@ -40,9 +40,8 @@ vec3 lightDir = normalize(lightPos - fragPos);
 float diff = max(dot(norm, lightDir), 0.0);
 vec3 diffuse = diff * vec3(1,1,0);
 
-vec3 ambientColor = vec3(0.3);
-vec3 result = ambientColor + diffuse;
-frag_color  = vec4(result, 1.0);
+vec4 result = u_rendererColor + vec4(diffuse,0);
+frag_color  = result;
 //frag_color = vec4(normal.x,normal.y,normal.z,1);
 //vec4 texColor = texture(textureObject, texCoord);
 //if (texColor.a < 0.1)

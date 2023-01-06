@@ -54,17 +54,17 @@ public class ModelRenderer : TextureRenderer
 		bool drawOutline = GameObject.Selected && false;
 		if (drawOutline)
 		{
-			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
-			GL.StencilMask(0xFF);
+
 
 			{
-				ShaderCache.UseShader(Material.Shader);
-				Material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
-				Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
-				Material.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 0.8f));
-				Material.Shader.SetVector3("lightPos", Vector3.Zero);
+				Material material = MaterialCache.GetMaterial("ModelUnlit");
+				ShaderCache.UseShader(material.Shader);
 
-				ShaderCache.BindVertexArray(Material.Vao);
+				material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
+				material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
+				material.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 0.8f));
+
+				ShaderCache.BindVertexArray(material.Vao);
 
 				//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 				// TextureCache.BindTexture(Texture.Id);
@@ -73,31 +73,26 @@ public class ModelRenderer : TextureRenderer
 				// GL.DrawElements(PrimitiveType.Triangles, 6 * 2 * 3, DrawElementsType.UnsignedInt, (IntPtr) null);
 			}
 
-			GL.StencilFunc(StencilFunction.Notequal, 1, 0xFF);
-			GL.StencilMask(0x00);
-			GL.Disable(EnableCap.DepthTest);
+			
+			//GL.BindVertexArray(0);
 		}
 
 
 		{
-			
+			//GL.Enable(EnableCap.DepthTest);
+
 			ShaderCache.UseShader(Material.Shader);
+
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 			Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
 			Material.Shader.SetColor("u_rendererColor", Color);
+
 			Material.Shader.SetVector3("lightPos", Vector3.Zero);
 			//material.shader.SetMatrix4x4("u_model", GetModelMatrix());
-			if (Material.Additive)
-			{
-				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusConstantColor);
-			}
-			else
-			{
-				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-			}
+		
 
 			ShaderCache.BindVertexArray(Material.Vao);
-
+			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			// TextureCache.BindTexture(Texture.Id);
 
@@ -107,10 +102,7 @@ public class ModelRenderer : TextureRenderer
 
 		if (drawOutline)
 		{
-			GL.StencilMask(0xFF);
-			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
-			GL.Enable(EnableCap.DepthTest);
-
+		
 			GL.BindVertexArray(0);
 		}
 

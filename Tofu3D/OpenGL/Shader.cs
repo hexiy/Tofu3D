@@ -148,7 +148,7 @@ public class Shader : IDisposable
 		GL.Uniform4(_uLocationUColor, vec.X, vec.Y, vec.Z, vec.W);
 		Uniforms[uniformName] = vec;
 	}
-
+	
 	// uniform sampler2D textureObject;
 	// just find "uniform" and 2 words after; then we know the variables and we can display it 
 	// todo

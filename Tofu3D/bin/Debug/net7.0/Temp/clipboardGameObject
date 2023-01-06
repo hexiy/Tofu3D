@@ -6,11 +6,11 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>4</Id>
+      <Id>67</Id>
       <IndexInHierarchy>1</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
+      <IsPrefab>true</IsPrefab>
       <Name>GameObject</Name>
-      <PrefabPath />
+      <PrefabPath>Assets/Prefabs/GameObject.prefab</PrefabPath>
       <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
@@ -21,7 +21,7 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>4</GameObjectId>
+      <GameObjectId>67</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
@@ -49,12 +49,12 @@
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>4</GameObjectId>
+      <GameObjectId>67</GameObjectId>
       <Started>true</Started>
       <BoxShape>
         <AllowMultiple>true</AllowMultiple>
         <Enabled>true</Enabled>
-        <GameObjectId>4</GameObjectId>
+        <GameObjectId>67</GameObjectId>
         <Started>true</Started>
         <Offset>
           <X>0</X>
@@ -68,13 +68,13 @@
         </Size>
       </BoxShape>
       <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
+        <B>237</B>
+        <G>216</G>
+        <R>175</R>
         <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <PackedValue>4293777583</PackedValue>
       </Color>
-      <DistanceFromCamera>17.982985</DistanceFromCamera>
+      <DistanceFromCamera>5.321707</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -82,7 +82,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>4</Vao>
+        <Vao>12</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -103,7 +103,7 @@
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>4</GameObjectId>
+      <GameObjectId>67</GameObjectId>
       <Started>true</Started>
       <Offset>
         <X>0</X>
