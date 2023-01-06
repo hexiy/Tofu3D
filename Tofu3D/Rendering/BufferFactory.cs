@@ -197,7 +197,7 @@ public static class BufferFactory
 		GL.EnableVertexAttribArray(verticesIndex);
 
 		int normalsIndex = 1;
-		GL.VertexAttribPointer(normalsIndex, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), IntPtr.Zero);
+		GL.VertexAttribPointer(normalsIndex, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), (IntPtr) (3 * sizeof(float)));
 		GL.EnableVertexAttribArray(normalsIndex);
 
 		GL.BindVertexArray(0);

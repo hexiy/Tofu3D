@@ -6,7 +6,7 @@ layout(location = 0) in vec3 a_pos;
 layout (location = 1) in vec3 a_normal;
 
 out vec3 fragPos;  
-out vec3 normal;
+ out vec3 normal;
 
 uniform mat4 u_mvp = mat4(1.0);
 uniform mat4 u_model = mat4(1.0);
@@ -28,7 +28,7 @@ uniform vec3 lightPos;
 
 out vec4 frag_color;
 uniform sampler2D textureObject;
-in vec3 normal;  
+ in vec3 normal;  
 in vec3 fragPos;  
 
 

@@ -153,6 +153,7 @@ public class Scene
 		GL.DepthFunc(DepthFunction.Less);
 		//GL.Enable(EnableCap.CullFace);
 		GL.Enable(EnableCap.StencilTest);
+		
 		// GL.DepthFunc(DepthFunction.Greater);
 
 		GL.ClearColor(Camera.Color.ToOtherColor());

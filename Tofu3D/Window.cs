@@ -83,7 +83,7 @@ public class Window : GameWindow
 		Debug.StartTimer("Scene Render");
 
 		GL.ClearColor(0, 0, 0, 0);
-		GL.Clear(ClearBufferMask.ColorBufferBit);
+		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 		SceneRenderTexture.Bind(); // start rendering to sceneRenderTexture
 		GL.Viewport(0, 0, (int) Camera.I.Size.X, (int) Camera.I.Size.Y);

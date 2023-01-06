@@ -80,7 +80,6 @@ public class ModelRenderer : TextureRenderer
 
 
 		{
-
 			
 			ShaderCache.UseShader(Material.Shader);
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);

@@ -5,6 +5,7 @@ namespace Tofu3D;
 public class RenderTexture
 {
 	public int ColorAttachment;
+	public int DepthAttachment;
 	public int Id;
 
 	public Material RenderTextureMaterial;
@@ -39,6 +40,16 @@ public class RenderTexture
 		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMinFilter.Linear);
 
 		GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, ColorAttachment, 0);
+
+
+		DepthAttachment = GL.GenTexture();
+		GL.BindTexture(TextureTarget.Texture2D, DepthAttachment);
+		GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Depth24Stencil8, (int) size.X, (int) size.Y, 0, PixelFormat.DepthComponent, PixelType.UnsignedByte, (IntPtr) null);
+		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Linear);
+		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMinFilter.Linear);
+		//
+		GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, TextureTarget.Texture2D, DepthAttachment, 0);
+		//
 
 		if (GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer) != FramebufferErrorCode.FramebufferComplete)
 		{

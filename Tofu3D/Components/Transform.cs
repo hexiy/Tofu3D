@@ -45,7 +45,7 @@ public class Transform : Component
 			if (LocalPosition != calculatedLocalPos)
 			{
 				//_localPosition = calculatedLocalPos;
-				LocalPosition = calculatedLocalPos;
+				//LocalPosition = calculatedLocalPos;
 			}
 
 			UpdateChildrenPositions();

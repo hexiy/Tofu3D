@@ -46,9 +46,9 @@
         <Z>0</Z>
       </Pivot>
       <LocalPosition>
-        <X>-13.523306</X>
-        <Y>-8.9380665</Y>
-        <Z>11.526982</Z>
+        <X>-5.201823</X>
+        <Y>1.123208</Y>
+        <Z>6.0749173</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -56,8 +56,8 @@
         <Z>1</Z>
       </LocalScale>
       <Rotation>
-        <X>-27.101562</X>
-        <Y>126.321846</Y>
+        <X>-39.631226</X>
+        <Y>199.98128</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -73,8 +73,8 @@
         <A>255</A>
         <PackedValue>4284177288</PackedValue>
       </Color>
-      <FarPlaneDistance>40000</FarPlaneDistance>
-      <FieldOfView>60</FieldOfView>
+      <FarPlaneDistance>2222</FarPlaneDistance>
+      <FieldOfView>60.000008</FieldOfView>
       <IsOrthographic>false</IsOrthographic>
       <NearPlaneDistance>1</NearPlaneDistance>
       <OrthographicSize>2</OrthographicSize>
@@ -96,8 +96,8 @@
         <Z>0</Z>
       </Pivot>
       <LocalPosition>
-        <X>1.1115613</X>
-        <Y>-0.0490631</Y>
+        <X>-33.1875</X>
+        <Y>9.28125</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
@@ -139,7 +139,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>17.1229</DistanceFromCamera>
+      <DistanceFromCamera>17.982985</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -152,7 +152,7 @@
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>6</Id>
+        <Id>8</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/solidColor.png</Path>
         <Size>
@@ -182,5 +182,5 @@
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>11</GameObjectNextId>
+  <GameObjectNextId>24</GameObjectNextId>
 </SceneFile>
