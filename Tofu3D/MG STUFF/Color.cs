@@ -1185,6 +1185,11 @@ public struct Color : IEquatable<Color>
 		return new Color((int) (value.R * scale), (int) (value.G * scale), (int) (value.B * scale), (int) (value.A * scale));
 	}
 
+	public static Color operator +(Color c, Color value)
+	{
+		return new Color((int) (c.R + value.R), (int) (c.G + value.G), (int) (c.B + value.B), (int) (c.A + value.A));
+	}
+
 	/// <summary>
 	///         Gets a <see cref="Vector3" /> representation for this object.
 	/// </summary>

@@ -14,11 +14,11 @@ public class TransformHandle : Component
 	public BoxShape BoxColliderX;
 	public BoxShape BoxColliderXy;
 	public BoxShape BoxColliderY;
-	//public BoxShape boxColliderZ;
+	public BoxShape boxColliderZ;
 	public ModelRenderer ModelRendererX;
 	public ModelRenderer ModelRendererXy;
 	public ModelRenderer ModelRendererY;
-	//public ModelRenderer boxRendererZ;
+	public ModelRenderer boxRendererZ;
 
 	public bool Clicked;
 	public Axis? CurrentAxisSelected;
@@ -38,8 +38,8 @@ public class TransformHandle : Component
 		BoxColliderY = GameObject.AddComponent<BoxShape>();
 		BoxColliderY.Size = new Vector3(5, 50, 5) / Units.OneWorldUnit;
 
-		// boxColliderZ = gameObject.AddComponent<BoxShape>();
-		// boxColliderZ.size = new Vector3(5, 5, 50)/Units.OneWorldUnit;
+		boxColliderZ = GameObject.AddComponent<BoxShape>();
+		boxColliderZ.Size = new Vector3(5, 5, 90) / Units.OneWorldUnit;
 		//boxColliderY.offset = new Vector2(2.5f, 25);
 
 		BoxColliderXy = GameObject.AddComponent<BoxShape>();
@@ -48,24 +48,24 @@ public class TransformHandle : Component
 
 		ModelRendererX = GameObject.AddComponent<ModelRenderer>();
 		ModelRendererY = GameObject.AddComponent<ModelRenderer>();
-		// boxRendererZ = gameObject.AddComponent<ModelRenderer>();
+		boxRendererZ = GameObject.AddComponent<ModelRenderer>();
 		ModelRendererXy = GameObject.AddComponent<ModelRenderer>();
 
 
 		PremadeComponentSetups.PrepareCube(ModelRendererX);
 		PremadeComponentSetups.PrepareCube(ModelRendererY);
 		PremadeComponentSetups.PrepareCube(ModelRendererXy);
-		// PremadeComponentSetups.PrepareCube(boxRendererZ);
+		PremadeComponentSetups.PrepareCube(boxRendererZ);
 
 		ModelRendererXy.Layer = 1000;
 		ModelRendererX.Layer = 1000;
 		ModelRendererY.Layer = 1000;
-		// boxRendererZ.Layer = 1000;
+		boxRendererZ.Layer = 1000;
 
 		ModelRendererX.BoxShape = BoxColliderX;
 		ModelRendererXy.BoxShape = BoxColliderXy;
 		ModelRendererY.BoxShape = BoxColliderY;
-		// boxRendererZ.boxShape = boxColliderZ;
+		boxRendererZ.BoxShape = boxColliderZ;
 
 		base.Awake();
 	}
@@ -134,6 +134,7 @@ public class TransformHandle : Component
 		}
 
 		Transform.WorldPosition = GetCenterOfSelection();
+		Transform.Rotation = GetRotationOfSelection();
 		if (MouseInput.WorldPosition.In(BoxColliderX) || CurrentAxisSelected == Axis.X)
 		{
 			ModelRendererX.Color = Color.WhiteSmoke;
@@ -166,6 +167,8 @@ public class TransformHandle : Component
 
 	public void Move(Vector3 deltaVector)
 	{
+		return;
+
 		Vector3 moveVector = Vector3.Zero;
 		switch (CurrentAxisSelected)
 		{
@@ -258,5 +261,16 @@ public class TransformHandle : Component
 
 		accumulatedPos = accumulatedPos / _selectedTransforms.Count;
 		return accumulatedPos;
+	}
+
+	Vector3 GetRotationOfSelection()
+	{
+		Vector3 rotation = Vector3.Zero;
+		if (_selectedTransforms.Count > 0)
+		{
+			rotation = _selectedTransforms[0].Rotation;
+		}
+
+		return rotation;
 	}
 }

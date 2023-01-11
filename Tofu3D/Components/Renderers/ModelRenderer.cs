@@ -54,8 +54,6 @@ public class ModelRenderer : TextureRenderer
 		bool drawOutline = GameObject.Selected && false;
 		if (drawOutline)
 		{
-
-
 			{
 				Material material = MaterialCache.GetMaterial("ModelUnlit");
 				ShaderCache.UseShader(material.Shader);
@@ -73,7 +71,7 @@ public class ModelRenderer : TextureRenderer
 				// GL.DrawElements(PrimitiveType.Triangles, 6 * 2 * 3, DrawElementsType.UnsignedInt, (IntPtr) null);
 			}
 
-			
+
 			//GL.BindVertexArray(0);
 		}
 
@@ -84,15 +82,28 @@ public class ModelRenderer : TextureRenderer
 			ShaderCache.UseShader(Material.Shader);
 
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
-			Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
+			Material.Shader.SetMatrix4X4("u_model", GetModelMatrixForLight());
 			Material.Shader.SetColor("u_rendererColor", Color);
 
-			Material.Shader.SetVector3("lightPos", Vector3.Zero);
+			Material.Shader.SetVector3("u_ambientLightsColor", LightManager.I.GetAmbientLightsColor().ToVector3());
+			Material.Shader.SetFloat("u_ambientLightsIntensity", LightManager.I.GetAmbientLightsIntensity());
+
+			Material.Shader.SetVector3("u_directionalLightColor", LightManager.I.GetDirectionalLightColor().ToVector3());
+			Material.Shader.SetFloat("u_directionalLightIntensity", LightManager.I.GetDirectionalLightIntensity());
+
+			Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(LightManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
+			// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
+			Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
+			
+			
+			// Material.Shader.SetVector3Array("u_pointLightLocations", LightManager.I.GetPointLightsPositions());
+			// Material.Shader.SetVector3Array("u_pointLightColors", LightManager.I.GetPointLightsColors());
+			// Material.Shader.SetFloatArray("u_pointLightIntensities", LightManager.I.GetPointLightsIntensities());
 			//material.shader.SetMatrix4x4("u_model", GetModelMatrix());
-		
+
 
 			ShaderCache.BindVertexArray(Material.Vao);
-			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+			//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			// TextureCache.BindTexture(Texture.Id);
 
@@ -102,7 +113,6 @@ public class ModelRenderer : TextureRenderer
 
 		if (drawOutline)
 		{
-		
 			GL.BindVertexArray(0);
 		}
 

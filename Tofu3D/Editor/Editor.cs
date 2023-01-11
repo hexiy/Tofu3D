@@ -298,7 +298,7 @@ public class Editor
 			_editorPanels[i].Update();
 		}
 
-		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.IsKeyDown(Keys.S))
+		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.WasKeyJustPressed(Keys.S))
 		{
 			if (Global.GameRunning == false)
 			{
@@ -306,7 +306,7 @@ public class Editor
 			}
 		}
 
-		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.IsKeyDown(Keys.R))
+		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.WasKeyJustPressed(Keys.R))
 		{
 			if (Global.GameRunning == false)
 			{

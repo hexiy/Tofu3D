@@ -44,6 +44,7 @@ public static class Extensions
 		return vec.Set(vec2.X, vec2.Y, vec2.Z);
 	}
 
+
 	public static Vector2 Set(ref this Vector2 vec, float? x = null, float? y = null)
 	{
 		if (x.HasValue)

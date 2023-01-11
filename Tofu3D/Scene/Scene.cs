@@ -32,7 +32,7 @@ public class Scene
 
 	void CreateCamera()
 	{
-		if (FindGameObject(typeof(Camera)) == null)
+		if (FindComponent(typeof(Camera)) == null)
 		{
 			GameObject camGo = GameObject.Create(name: "Camera");
 			camGo.AddComponent<Camera>();
@@ -85,7 +85,7 @@ public class Scene
 		TweenManager.I.Update();
 		SceneNavigation.I.Update();
 		ShaderCache.ReloadQueuedShaders();
-
+		LightManager.I.Update();
 		Camera.I.GameObject.Update();
 
 		TransformHandle.I.GameObject.Update();
@@ -153,7 +153,7 @@ public class Scene
 		GL.DepthFunc(DepthFunction.Less);
 		//GL.Enable(EnableCap.CullFace);
 		GL.Enable(EnableCap.StencilTest);
-		
+
 		// GL.DepthFunc(DepthFunction.Greater);
 
 		GL.ClearColor(Camera.Color.ToOtherColor());
@@ -164,16 +164,12 @@ public class Scene
 		{
 			if (_renderQueue[i].Enabled && _renderQueue[i].GameObject.Awoken && _renderQueue[i].GameObject.ActiveInHierarchy)
 			{
-				if (_renderQueue[i].GameObject == TransformHandle.I.GameObject)
-				{
-					continue;
-				}
-
 				_renderQueue[i].Render();
 			}
 		}
 
 		BatchingManager.RenderAllBatchers();
+
 		TransformHandle.I.GameObject.Render();
 	}
 
@@ -197,7 +193,7 @@ public class Scene
 		return sf;
 	}
 
-	public GameObject FindGameObject(Type type)
+	public GameObject FindComponent(Type type)
 	{
 		foreach (GameObject gameObject in GameObjects)
 		{
@@ -211,7 +207,21 @@ public class Scene
 		return null;
 	}
 
-	public List<T> FindComponentsInScene<T>() where T : Component
+	public T FindComponent<T>(bool ignoreInactive = false) where T : Component
+	{
+		foreach (GameObject gameObject in GameObjects)
+		{
+			Component bl = gameObject.GetComponent<T>();
+			if (bl != null)
+			{
+				return (T) bl;
+			}
+		}
+
+		return null;
+	}
+
+	public List<T> FindComponentsInScene<T>(bool ignoreInactive = false) where T : Component
 	{
 		List<T> components = new();
 		foreach (GameObject gameObject in GameObjects)
@@ -219,6 +229,11 @@ public class Scene
 			T bl = gameObject.GetComponent<T>();
 			if (bl != null)
 			{
+				if (ignoreInactive == true && (bl.Enabled == false || bl.GameObject.ActiveSelf == false))
+				{
+					continue;
+				}
+
 				components.Add(bl);
 			}
 		}

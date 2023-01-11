@@ -62,6 +62,7 @@
 
     <ItemGroup>
       <Compile Remove="bin\Debug\net6.0\**" />
+      <Compile Include="bin\Debug\net7.0\Assets\Shaders\DirectionalLight.cs" />
     </ItemGroup>
 
     <ItemGroup>

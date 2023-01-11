@@ -124,7 +124,20 @@ public class Shader : IDisposable
 		GL.Uniform3(location, vec.X, vec.Y, vec.Z);
 		Uniforms[uniformName] = vec;
 	}
+	
+	public void SetVector3Array(string uniformName, float[] floats)
+	{
+		int location = GL.GetUniformLocation(ProgramId, uniformName);
+		GL.Uniform3(location, floats.Length, floats);
+		Uniforms[uniformName] = floats;
+	}
 
+	public void SetFloatArray(string uniformName, float[] floats)
+	{
+		int location = GL.GetUniformLocation(ProgramId, uniformName);
+		GL.Uniform1(location, floats.Length, floats);
+		Uniforms[uniformName] = floats;
+	}
 	public void SetVector4(string uniformName, Vector4 vec)
 	{
 		int location = GL.GetUniformLocation(ProgramId, uniformName);
@@ -148,7 +161,7 @@ public class Shader : IDisposable
 		GL.Uniform4(_uLocationUColor, vec.X, vec.Y, vec.Z, vec.W);
 		Uniforms[uniformName] = vec;
 	}
-	
+
 	// uniform sampler2D textureObject;
 	// just find "uniform" and 2 words after; then we know the variables and we can display it 
 	// todo

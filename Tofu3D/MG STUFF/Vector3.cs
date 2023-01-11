@@ -175,6 +175,26 @@ public struct Vector3 : IEquatable<Vector3>
 		return value1;
 	}
 
+	public Vector3 Add(float? x = null, float? y = null, float? z = null)
+	{
+		if (x.HasValue)
+		{
+			X = X + x.Value;
+		}
+
+		if (y.HasValue)
+		{
+			Y = Y + y.Value;
+		}
+
+		if (z.HasValue)
+		{
+			Z = Z + z.Value;
+		}
+
+		return this;
+	}
+
 	/// <summary>
 	///         Performs vector addition on <paramref name="value1" /> and
 	///         <paramref name="value2" />, storing the result of the

@@ -24,23 +24,44 @@ normal=a_normal;
 [FRAGMENT]
 #version 410 core
 uniform vec4 u_rendererColor;
-uniform vec3 lightPos;  
+
+uniform vec3 u_ambientLightsColor;
+// direction too
+uniform float u_ambientLightsIntensity;
+
+uniform vec3 u_directionalLightColor= vec3(1,0,0);
+uniform float u_directionalLightIntensity = 1;
+uniform vec3 u_directionalLightDirection = vec3(1,0,0);
+
+//uniform vec3 u_pointLightLocations[100];
+//uniform vec3 u_pointLightColors[100];
+//uniform float u_pointLightIntensities[100];
 
 out vec4 frag_color;
 uniform sampler2D textureObject;
- in vec3 normal;  
+in vec3 normal;  
 in vec3 fragPos;  
 
 
 void main(void)
 {
+// we need to rotate normals....
 vec3 norm = normalize(normal);
-vec3 lightDir = normalize(lightPos - fragPos); 
+vec3 diff = vec3(0.0f);
 
-float diff = max(dot(norm, lightDir), 0.0);
-vec3 diffuse = diff * vec3(1,1,0);
+/**for(int i =0;i<u_pointLightLocations.length();i++){
+vec3 lightDir = normalize(u_pointLightLocations[i] - fragPos); 
 
-vec4 result = u_rendererColor + vec4(diffuse,0);
+float d = max(dot(norm, lightDir), 0.0) * u_pointLightIntensities[i];
+ diff += d * u_pointLightColors[i];
+
+}*/
+
+float d = max(dot(norm, -u_directionalLightDirection), 0.0) * u_directionalLightIntensity;
+ diff += d * u_directionalLightColor;
+vec4 result =vec4(diff,0);
+
+result += vec4(u_ambientLightsColor,1) * u_ambientLightsIntensity;
 frag_color  = result;
 //frag_color = vec4(normal.x,normal.y,normal.z,1);
 //vec4 texColor = texture(textureObject, texCoord);

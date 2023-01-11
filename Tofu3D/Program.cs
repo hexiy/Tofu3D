@@ -17,6 +17,7 @@ public static class Program
 		_ = new TweenManager();
 		_ = new SceneNavigation();
 		_ = new Editor();
+		_ = new LightManager();
 
 		AssetsWatcher.StartWatching();
 
