@@ -115,9 +115,9 @@ public class Camera : Component
 		float bottom = -Size.Y / 2;
 		float top = Size.Y / 2;
 
-		Matrix4x4 orthoMatrix = Matrix4x4.CreateOrthographicOffCenter(left, right, bottom, top, 0.00001f, 10000000f);
+		Matrix4x4 orthoMatrix = Matrix4x4.CreateOrthographicOffCenter(left, right, bottom, top, NearPlaneDistance, FarPlaneDistance);
 
-		return TranslationMatrix * orthoMatrix * GetScaleMatrix();
+		return orthoMatrix * GetScaleMatrix();
 	}
 
 	Matrix4x4 GetTranslationRotationMatrix()

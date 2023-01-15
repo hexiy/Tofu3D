@@ -6,9 +6,9 @@ namespace Tofu3D;
 
 public class Window : GameWindow
 {
-	public RenderTexture BloomDownscaledRenderTexture;
+	//public RenderTexture BloomDownscaledRenderTexture;
 	public ImGuiController ImGuiController;
-	public RenderTexture PostProcessRenderTexture;
+	//public RenderTexture PostProcessRenderTexture;
 	public RenderTexture SceneRenderTexture;
 
 	public Window() : base(new GameWindowSettings() {UpdateFrequency = 60, RenderFrequency = 60},
@@ -35,13 +35,13 @@ public class Window : GameWindow
 		ImGuiController = new ImGuiController(ClientSize.X, ClientSize.Y);
 
 		Vector2 size = new(100, 100); // temporarily 10x10 textures because we cant access Camera.I.size before Scene started-camera is a gameobject
-		SceneRenderTexture = new RenderTexture(size);
-		PostProcessRenderTexture = new RenderTexture(size);
+		SceneRenderTexture = new RenderTexture(size: size, colorAttachment: true, depthAttachment: true);
+		//PostProcessRenderTexture = new RenderTexture(size);
 
 		Editor.I.Init();
 		Scene.I.Start();
-		SceneRenderTexture = new RenderTexture(Camera.I.Size);
-		PostProcessRenderTexture = new RenderTexture(Camera.I.Size);
+		SceneRenderTexture = new RenderTexture(Camera.I.Size, colorAttachment: true, depthAttachment: true);
+		//PostProcessRenderTexture = new RenderTexture(Camera.I.Size);
 
 		//bloomDownscaledRenderTexture = new RenderTexture(Camera.I.size);
 	}
@@ -84,28 +84,35 @@ public class Window : GameWindow
 
 		GL.ClearColor(0, 0, 0, 0);
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+		
+		RenderPassManager.RenderPassPre();
 
+		RenderPassManager.RenderPassDepth();
+
+
+		// render scene normally with the shadows already generated
 		SceneRenderTexture.Bind(); // start rendering to sceneRenderTexture
 		GL.Viewport(0, 0, (int) Camera.I.Size.X, (int) Camera.I.Size.Y);
 
 		GL.Enable(EnableCap.Blend);
 		//GL.Enable(EnableCap.Multisample);
-		Scene.I.Render();
+		RenderPassManager.RenderPassOpaques();
 
 		SceneRenderTexture.Unbind(); // end rendering to sceneRenderTexture
 		GL.Disable(EnableCap.Blend);
 
-		PostProcessRenderTexture.Bind();
-		GL.ClearColor(0, 0, 0, 0);
-		GL.Clear(ClearBufferMask.ColorBufferBit);
+		RenderPassManager.RenderPassPost();
+
+		//PostProcessRenderTexture.Bind();
+
 
 		// draw sceneRenderTexture.colorAttachment with post process- into postProcessRenderTexture target
-		PostProcessRenderTexture.Render(SceneRenderTexture.ColorAttachment);
+		//PostProcessRenderTexture.Render(SceneRenderTexture.ColorAttachment);
 
 		//postProcessRenderTexture.RenderWithPostProcess(sceneRenderTexture.colorAttachment);
 		//postProcessRenderTexture.RenderSnow(sceneRenderTexture.colorAttachment);
 
-		PostProcessRenderTexture.Unbind();
+		//PostProcessRenderTexture.Unbind();
 
 
 		ImGuiController.Update(this, (float) e.Time);

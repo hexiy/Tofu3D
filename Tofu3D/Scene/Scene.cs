@@ -4,7 +4,7 @@ using Tofu3D.Tweening;
 
 namespace Tofu3D;
 
-public class Scene
+public class Scene : IRenderPassOpaques
 {
 	public List<GameObject> GameObjects = new();
 
@@ -67,6 +67,7 @@ public class Scene
 	public void Start()
 	{
 		PhysicsController.Init();
+		RenderPassManager.RegisterRenderPassEvent(this);
 
 		if (Serializer.LastScene != "" && File.Exists(Serializer.LastScene))
 		{
@@ -147,16 +148,16 @@ public class Scene
 		_renderQueue.Sort();
 	}
 
-	public void Render()
+	public void RenderPassOpaques()
 	{
 		GL.Enable(EnableCap.DepthTest);
 		GL.DepthFunc(DepthFunction.Less);
-		//GL.Enable(EnableCap.CullFace);
 		GL.Enable(EnableCap.StencilTest);
 
 		// GL.DepthFunc(DepthFunction.Greater);
-
 		GL.ClearColor(Camera.Color.ToOtherColor());
+		GL.ClearDepth(1);
+
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 		//BatchingManager.RenderAllBatchers();
 

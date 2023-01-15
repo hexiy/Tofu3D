@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Tofu3D.Components.Renderers;
 
 namespace Tofu3D;
 
@@ -8,10 +9,17 @@ public class RenderTexture
 	public int DepthAttachment;
 	public int Id;
 
-	public Material RenderTextureMaterial;
+	bool _hasColorAttachment;
+	bool _hasDepthAttachment;
 
-	public RenderTexture(Vector2 size)
+	public Material RenderTextureMaterial;
+	Vector2 _size;
+
+	public RenderTexture(Vector2 size, bool colorAttachment = false, bool depthAttachment = false)
 	{
+		_size = size;
+		_hasColorAttachment = colorAttachment;
+		_hasDepthAttachment = depthAttachment;
 		//GL.DeleteFramebuffers(1, ref id);
 		CreateMaterial();
 		Invalidate(size);
@@ -30,26 +38,36 @@ public class RenderTexture
 
 		GL.BindFramebuffer(FramebufferTarget.Framebuffer, Id);
 
-		ColorAttachment = GL.GenTexture();
-		//GL.CreateTextures(TextureTarget.Texture2D, 1, out colorAttachment);
-		GL.BindTexture(TextureTarget.Texture2D, ColorAttachment);
-		//TextureCache.BindTexture(colorAttachment);
+		if (_hasColorAttachment)
+		{
+			ColorAttachment = GL.GenTexture();
+			//GL.CreateTextures(TextureTarget.Texture2D, 1, out colorAttachment);
+			GL.BindTexture(TextureTarget.Texture2D, ColorAttachment);
+			//TextureCache.BindTexture(colorAttachment);
 
-		GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, (int) size.X, (int) size.Y, 0, PixelFormat.Rgba, PixelType.UnsignedByte, (IntPtr) null);
-		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Linear);
-		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMinFilter.Linear);
+			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb8, (int) size.X, (int) size.Y, 0, PixelFormat.Rgb, PixelType.UnsignedByte, (IntPtr) null);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Nearest);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMinFilter.Nearest);
 
-		GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, ColorAttachment, 0);
+			GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, ColorAttachment, 0);
+		}
 
+		if (_hasDepthAttachment)
+		{
+			DepthAttachment = GL.GenTexture();
+			GL.BindTexture(TextureTarget.Texture2D, DepthAttachment);
+			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.DepthComponent32, (int) size.X, (int) size.Y, 0, PixelFormat.DepthComponent, PixelType.UnsignedByte, (IntPtr) null);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Nearest);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMinFilter.Nearest);
 
-		DepthAttachment = GL.GenTexture();
-		GL.BindTexture(TextureTarget.Texture2D, DepthAttachment);
-		GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Depth24Stencil8, (int) size.X, (int) size.Y, 0, PixelFormat.DepthComponent, PixelType.UnsignedByte, (IntPtr) null);
-		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Linear);
-		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMinFilter.Linear);
-		//
-		GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, TextureTarget.Texture2D, DepthAttachment, 0);
-		//
+			GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, TextureTarget.Texture2D, DepthAttachment, 0);
+
+			if (_hasColorAttachment == false)
+			{
+				GL.DrawBuffer(DrawBufferMode.None);
+				GL.ReadBuffer(ReadBufferMode.None);
+			}
+		}
 
 		if (GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer) != FramebufferErrorCode.FramebufferComplete)
 		{
@@ -69,28 +87,22 @@ public class RenderTexture
 		GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
 	}
 
-	public void Render(int targetTexture, float sampleSize = 1)
+	public void RenderDepthAttachmentFullScreen(int targetTexture)
 	{
-		if (RenderTextureMaterial == null)
-		{
-			return;
-		}
+		Material material = MaterialCache.GetMaterial("DepthRenderTexture");
+		ShaderCache.UseShader(material.Shader);
+		material.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity * Matrix4x4.CreateScale(1.8f)); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
-		//return;
-		ShaderCache.UseShader(RenderTextureMaterial.Shader);
-		// renderTextureMaterial.shader.SetVector2("u_resolution", Camera.I.size);
-		//	renderTextureMaterial.shader.SetMatrix4x4("u_mvp", GetModelViewProjection(sampleSize));
+		ShaderCache.BindVertexArray(material.Vao);
 
-		ShaderCache.BindVertexArray(RenderTextureMaterial.Vao);
-		GL.Enable(EnableCap.Blend);
-
+		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 		TextureCache.BindTexture(targetTexture);
 
-		//GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
+		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
+		Debug.CountStat("Draw Calls", 1);
 		ShaderCache.BindVertexArray(0);
-		GL.Disable(EnableCap.Blend);
 	}
 
 	/*public void RenderSnow(int targetTexture)
@@ -137,7 +149,7 @@ public class RenderTexture
 
 		BufferCache.BindVAO(0);
 		GL.Disable(EnableCap.Blend);
-	}*/
+	}
 
 	/*public void RenderBloom(int targetTexture, float sampleSize = 1)
 	{

@@ -39,6 +39,8 @@
 
     <ItemGroup>
         <Content Include="bin\Debug\net7.0\Assets\Shaders\BoxRenderer.glsl" />
+        <Content Include="bin\Debug\net7.0\Assets\Shaders\DepthModelRenderer.glsl" />
+        <Content Include="bin\Debug\net7.0\Assets\Shaders\DepthRenderTexture.glsl" />
         <Content Include="bin\Debug\net7.0\Assets\Shaders\GradientRenderer.glsl" />
         <Content Include="bin\Debug\net7.0\Assets\Shaders\ModelRenderer.glsl" />
         <Content Include="bin\Debug\net7.0\Assets\Shaders\RenderTexture.glsl" />

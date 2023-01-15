@@ -74,7 +74,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>15.394543</DistanceFromCamera>
+      <DistanceFromCamera>19.478058</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -82,7 +82,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>6</Vao>
+        <Vao>23</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>

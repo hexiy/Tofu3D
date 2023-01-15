@@ -12,7 +12,7 @@ public static class BufferFactory
 
 		if (material.Shader.BufferType == BufferType.Rendertexture)
 		{
-			CreateRenderTextureBuffers(ref material.Vao);
+			CreateSpriteRendererBuffers(ref material.Vao);
 		}
 
 		if (material.Shader.BufferType == BufferType.Sprite)
@@ -31,43 +31,6 @@ public static class BufferFactory
 		{
 			CreateBoxRendererBuffers(ref material.vao, ref material.vbo);
 		}*/
-	}
-
-	static void CreateRenderTextureBuffers(ref int vao)
-	{
-		int vbo = GL.GenBuffer();
-
-		GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
-
-		float[] vertices =
-		{
-			-0.5f, -0.5f, 0, 0,
-			0.5f, -0.5f, 1, 0,
-			-0.5f, 0.5f, 0, 1,
-			-0.5f, 0.5f, 0, 1,
-			0.5f, -0.5f, 1, 0,
-			0.5f, 0.5f, 1, 1
-		};
-
-		GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.DynamicDraw);
-
-		// now we define layout in vao
-		vao = GL.GenVertexArray();
-
-		GL.BindVertexArray(vao);
-
-		GL.EnableVertexAttribArray(0);
-		GL.EnableVertexAttribArray(1);
-		GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false,
-		                       sizeof(float) * 4, // 1 row (2 floats for position, 2 uv floats)
-		                       (IntPtr) 0);
-
-		GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false,
-		                       sizeof(float) * 4, // 1 row (2 floats for position, 2 uv floats)
-		                       (IntPtr) 0);
-
-
-		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 	}
 
 	static void CreateBoxRendererBuffers(ref int vao)

@@ -6,6 +6,7 @@ namespace Tofu3D;
 public class EditorPanelSceneView : EditorPanel
 {
 	public static EditorPanelSceneView I { get; private set; }
+	static bool _renderDepth = true;
 
 	public override void Draw()
 	{
@@ -71,10 +72,28 @@ public class EditorPanelSceneView : EditorPanel
 				PersistentData.DeleteAll();
 			}
 
+			ImGui.SameLine();
+			bool renderDepthBufferClicked = ImGui.Button("depth");
+			if (renderDepthBufferClicked)
+			{
+				_renderDepth = !_renderDepth;
+			}
+
 			ImGui.SetCursorPosX(0);
 			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
+
+
 			ImGui.Image((IntPtr) Window.I.SceneRenderTexture.ColorAttachment, Camera.I.Size,
 			            new Vector2(0, 1), new Vector2(1, 0));
+
+			if (_renderDepth)
+			{
+				ImGui.SetCursorPos(new Vector2(Camera.I.Size.X - DirectionalLight.I.Size.X / 2 - 5,
+				                               Camera.I.Size.Y - DirectionalLight.I.Size.Y / 2 + 45));
+
+				ImGui.Image((IntPtr) DirectionalLight.DisplayDepthRenderTexture.ColorAttachment, DirectionalLight.I.Size / 2,
+				            new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
+			}
 
 			ImGui.End();
 

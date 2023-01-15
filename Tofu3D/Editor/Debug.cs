@@ -11,7 +11,7 @@ public static class Debug
 	public static Dictionary<string, Stopwatch> Timers = new();
 	public static Dictionary<string, float> Stats = new();
 
-	public static void Log(string message)
+	private static void Log(string message)
 	{
 		if (Global.EditorAttached == false)
 		{

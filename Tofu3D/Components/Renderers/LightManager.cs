@@ -102,6 +102,7 @@ public class LightManager
 		return intensity;
 	}
 
+
 	public Color GetDirectionalLightColor()
 	{
 		return _directionalLight?.Color ?? Color.Black;
@@ -110,6 +111,11 @@ public class LightManager
 	public Vector3 GetDirectionalLightDirection()
 	{
 		return _directionalLight?.Transform.Forward ?? Vector3.Zero;
+	}
+
+	public Vector3 GetDirectionalLightPosition()
+	{
+		return _directionalLight?.Transform.WorldPosition ?? Vector3.Zero;
 	}
 
 	public float GetDirectionalLightIntensity()
