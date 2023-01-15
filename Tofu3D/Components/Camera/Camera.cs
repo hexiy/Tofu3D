@@ -5,11 +5,11 @@ public class Camera : Component
 {
 	//public int antialiasingStrength = 0;
 	public Color Color = new(34, 34, 34);
+	public float NearPlaneDistance = 1;
 	public float FarPlaneDistance = 50;
 	[ShowIfNot(nameof(IsOrthographic))]
 	public float FieldOfView = 2;
 	public bool IsOrthographic = true;
-	public float NearPlaneDistance = 1;
 
 	[ShowIf(nameof(IsOrthographic))]
 	public float OrthographicSize = 2;
@@ -101,10 +101,11 @@ public class Camera : Component
 	Matrix4x4 GetPerspectiveProjectionMatrix()
 	{
 		FieldOfView = Mathf.ClampMin(FieldOfView, 0.0001f);
-		NearPlaneDistance = Mathf.Clamp(NearPlaneDistance, 0.001f, FarPlaneDistance);
+		NearPlaneDistance = Mathf.Clamp(NearPlaneDistance, 0.00001f, FarPlaneDistance);
 		FarPlaneDistance = Mathf.Clamp(FarPlaneDistance, NearPlaneDistance + 0.001f, Mathf.Infinity);
-		Matrix4x4 perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(FieldOfView), Size.X / Size.Y, NearPlaneDistance * Units.OneWorldUnit, FarPlaneDistance * Units.OneWorldUnit);
+		Matrix4x4 perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(FieldOfView), Size.X / Size.Y, NearPlaneDistance * Units.OneWorldUnit, FarPlaneDistance*Units.OneWorldUnit);
 
+	// .CreatePerspective gives us great depth, but fieldofview doesnt?....
 		return perspectiveMatrix;
 	}
 

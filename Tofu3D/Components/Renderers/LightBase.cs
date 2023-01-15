@@ -20,8 +20,8 @@ public class LightBase : Component, IRenderPassDepth
 
 	public override void Awake()
 	{
-		DepthRenderTexture = new RenderTexture(size: Size, colorAttachment: true, depthAttachment: true);
-		DisplayDepthRenderTexture = new RenderTexture(size: Size, colorAttachment: true, depthAttachment: true);
+		DepthRenderTexture = new RenderTexture(size: Size, colorAttachment: false, depthAttachment: true);
+		DisplayDepthRenderTexture = new RenderTexture(size: Size, colorAttachment: true, depthAttachment: false);
 
 		RenderPassManager.RegisterRenderPassEvent(this);
 		base.Awake();
@@ -29,34 +29,40 @@ public class LightBase : Component, IRenderPassDepth
 
 	public void RenderPassDepth()
 	{
-		// ConfigureForShadowMapping();
-		//
-		// DepthRenderTexture.Bind(); // start rendering to renderTexture
-		// GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
-		// GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
-		// GL.ClearColor(Color.Black.ToOtherColor());
-		// GL.ClearDepth(1);
-		//
-		//
-		// GL.Enable(EnableCap.Blend);
-		//
-		// Scene.I.RenderPassOpaques();
-		//
-		// DepthRenderTexture.Unbind(); // end rendering
-		// //GL.Disable(EnableCap.Blend);
-		//
-		// ConfigureForSceneRender();
+
+		GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
+
+		ConfigureForShadowMapping();
+		
+		DepthRenderTexture.Bind(); // start rendering to renderTexture
+		GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
+		GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
+		GL.ClearColor(Color.Black.ToOtherColor());
+		GL.ClearDepth(1);
+		
+		
+		GL.Enable(EnableCap.Blend);
+		
+		Scene.I.RenderPassOpaques();
+		
+		DepthRenderTexture.Unbind(); // end rendering
+		//GL.Disable(EnableCap.Blend);
+		
+		ConfigureForSceneRender();
+		
+		
+		
 		GL.ClearColor(0.9f,0.1f,1f, 1);
 		GL.ClearDepth(1);
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 		DisplayDepthRenderTexture.Bind();
 		GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
-		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-		 GL.ClearColor(1,0,1,1);
-		GL.ClearDepth(1);
-		// DisplayDepthRenderTexture.RenderDepthAttachmentFullScreen(DepthRenderTexture.DepthAttachment);
-		DisplayDepthRenderTexture.RenderDepthAttachmentFullScreen(Window.I.SceneRenderTexture.DepthAttachment);
+		// GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+		//  GL.ClearColor(1,0,1,1);
+		// GL.ClearDepth(1);
+		DisplayDepthRenderTexture.RenderDepthAttachmentFullScreen(DepthRenderTexture.DepthAttachment);
+		// DisplayDepthRenderTexture.RenderDepthAttachmentFullScreen(Window.I.SceneRenderTexture.DepthAttachment);
 
 		DisplayDepthRenderTexture.Unbind();
 

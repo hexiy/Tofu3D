@@ -156,11 +156,12 @@ public class Scene : IRenderPassOpaques
 
 		// GL.DepthFunc(DepthFunction.Greater);
 		GL.ClearColor(Camera.Color.ToOtherColor());
-		GL.ClearDepth(1);
-
+		GL.ClearDepth(1000);
+		
+	
+		
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 		//BatchingManager.RenderAllBatchers();
-
 		for (int i = 0; i < _renderQueue.Count; i++)
 		{
 			if (_renderQueue[i].Enabled && _renderQueue[i].GameObject.Awoken && _renderQueue[i].GameObject.ActiveInHierarchy)
