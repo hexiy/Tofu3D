@@ -60,7 +60,7 @@ public static class Extensions
 		return vec;
 	}
 
-	public static Vector3 Set(ref this Vector3 vec, float? x = null, float? y = null, float? z = null)
+	public static Vector3 Set( this Vector3 vec, float? x = null, float? y = null, float? z = null)
 	{
 		if (x.HasValue)
 		{

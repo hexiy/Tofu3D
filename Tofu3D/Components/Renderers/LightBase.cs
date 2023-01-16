@@ -1,3 +1,4 @@
+
 public class LightBase : Component, IRenderPassDepth
 {
 	public float Intensity = 1;
@@ -5,10 +6,12 @@ public class LightBase : Component, IRenderPassDepth
 
 	public float NearPlaneDistance = 0.0001f;
 	public float FarPlaneDistance = 1000;
+	public float OrthographicSize = 15;
 	public Vector2 Size = new Vector2(1000, 1000);
 
 	[XmlIgnore] public static RenderTexture DepthRenderTexture { get; private set; }
 	[XmlIgnore] public static RenderTexture DisplayDepthRenderTexture { get; private set; }
+	
 	Vector3 _cameraBeforeTransformationWorldPosition;
 	Vector3 _cameraBeforeTransformationRotation;
 	Vector2 _cameraBeforeTransformationSize;
@@ -33,27 +36,26 @@ public class LightBase : Component, IRenderPassDepth
 		GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
 
 		ConfigureForShadowMapping();
-		
-		DepthRenderTexture.Bind(); // start rendering to renderTexture
-		GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
-		GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 		GL.ClearColor(Color.Black.ToOtherColor());
 		GL.ClearDepth(1);
+		GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
+		DepthRenderTexture.Bind(); // start rendering to renderTexture
+		GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
+
 		
 		
-		GL.Enable(EnableCap.Blend);
+		//GL.Enable(EnableCap.Blend);
 		
 		Scene.I.RenderPassOpaques();
 		
 		DepthRenderTexture.Unbind(); // end rendering
 		//GL.Disable(EnableCap.Blend);
-		
-		ConfigureForSceneRender();
-		
-		
-		
-		GL.ClearColor(0.9f,0.1f,1f, 1);
-		GL.ClearDepth(1);
+
+// AAAH i need to update the latest view model for models, Scene.I.Update or just update the matrices
+
+
+		GL.ClearColor(Color.Black.ToOtherColor());
+		GL.ClearDepth(100);
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 		DisplayDepthRenderTexture.Bind();
@@ -66,6 +68,16 @@ public class LightBase : Component, IRenderPassDepth
 
 		DisplayDepthRenderTexture.Unbind();
 
+
+		ConfigureForSceneRender();
+
+	}
+
+	public override void Dispose()
+	{
+		ConfigureForSceneRender();
+
+		base.Dispose();
 	}
 
 	private void ConfigureForShadowMapping()
@@ -78,6 +90,7 @@ public class LightBase : Component, IRenderPassDepth
 		_cameraBeforeTransformationFarPlaneDistance = Camera.I.FarPlaneDistance;
 
 		Camera.I.IsOrthographic = true;
+		Camera.I.OrthographicSize = OrthographicSize;
 		Camera.I.Transform.WorldPosition = Transform.WorldPosition;
 		Camera.I.Transform.Rotation = Transform.Rotation;
 		Camera.I.Size = Size;
@@ -85,7 +98,33 @@ public class LightBase : Component, IRenderPassDepth
 		Camera.I.FarPlaneDistance = FarPlaneDistance;
 		Camera.I.UpdateMatrices();
 
-		LightSpaceMatrix = Camera.I.ProjectionMatrix * Camera.I.ViewMatrix;
+
+
+		
+
+		// Matrix4x4 lightProjection = Matrix4x4.CreateOrthographicOffCenter(-1,0,-1,1, NearPlaneDistance, FarPlaneDistance);
+		// Matrix4x4 lightView = Matrix4x4.CreateLookAt(Transform.WorldPosition,
+		//                                              Transform.WorldPosition+ Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1)),
+		//                                              Transform.TransformDirectionToWorldSpace(new Vector3(0, 1, 0)));
+		
+		
+		//
+		// float left = -10;
+		// float right = 10;
+		// float bottom = -10;
+		// float top = 10;
+		//
+		// Matrix4x4 lightProjection = Matrix4x4.CreateOrthographicOffCenter(left, right, bottom, top, NearPlaneDistance, FarPlaneDistance);
+		//
+		//
+		// Vector3 forwardWorld = Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
+		// Vector3 upLocal = Transform.TransformDirectionToWorldSpace(new Vector3(0, 1, 0));
+		//
+		// Matrix4x4 lightView =  Matrix4x4.CreateLookAt(cameraPosition: Transform.WorldPosition, cameraTarget: forwardWorld, cameraUpVector: upLocal)
+		// 	; // * Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, 1));
+
+		
+		LightSpaceMatrix = Camera.I.GetLightViewMatrix() * Camera.I.GetLightProjectionMatrix(); //lightProjection * lightView;
 	}
 
 	private void ConfigureForSceneRender()

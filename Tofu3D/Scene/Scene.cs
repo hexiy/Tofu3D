@@ -166,6 +166,7 @@ public class Scene : IRenderPassOpaques
 		{
 			if (_renderQueue[i].Enabled && _renderQueue[i].GameObject.Awoken && _renderQueue[i].GameObject.ActiveInHierarchy)
 			{
+				_renderQueue[i].UpdateMvp();
 				_renderQueue[i].Render();
 			}
 		}

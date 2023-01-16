@@ -75,7 +75,7 @@ public class ModelRenderer : TextureRenderer
 			//GL.BindVertexArray(0);
 		}
 
-		if (RenderPassManager.CurrentRenderPassType == RenderPassType.Depth)
+		if (RenderPassManager.CurrentRenderPassType == RenderPassType.Depth && GameObject.Silent == false)
 		{
 			// depth pass
 
@@ -120,6 +120,8 @@ public class ModelRenderer : TextureRenderer
 				//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 				//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 				TextureCache.BindTexture(Texture.Id);
+				TextureCache.BindTexture(DirectionalLight.DisplayDepthRenderTexture.ColorAttachment);
+
 				//TextureCache.BindTexture(DirectionalLight.DepthRenderTexture.DepthAttachment);
 
 				GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);

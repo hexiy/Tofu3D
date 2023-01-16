@@ -91,7 +91,7 @@ public class RenderTexture
 	{
 		Material material = MaterialCache.GetMaterial("DepthRenderTexture");
 		ShaderCache.UseShader(material.Shader);
-		material.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity * Matrix4x4.CreateScale(1.8f)); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
+		material.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity * Matrix4x4.CreateScale(2f)); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
 		ShaderCache.BindVertexArray(material.Vao);
 

@@ -12,6 +12,7 @@ out vec2 texCoord;
 void main(void)
 {
 texCoord = aTexCoord;
+
 //gl_Position =u_mvp *  vec4(vec3(position.xy,1),1);
 
 vec4 newPosition = vec4(position.x,position.y,0,1);
