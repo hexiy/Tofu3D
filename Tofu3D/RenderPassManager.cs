@@ -2,20 +2,20 @@ namespace Tofu3D;
 
 public static class RenderPassManager
 {
-	static List<IRenderPassPre> _renderPassPre = new List<IRenderPassPre>();
 	static List<IRenderPassDepth> _renderPassDepth = new List<IRenderPassDepth>();
 	static List<IRenderPassOpaques> _renderPassOpaques = new List<IRenderPassOpaques>();
-	static List<IRenderPassPost> _renderPassPost = new List<IRenderPassPost>();
-	public static RenderPassType CurrentRenderPassType = RenderPassType.Pre;
+	static List<IRenderPassUI> _renderPassUI = new List<IRenderPassUI>();
+	public static RenderPassType CurrentRenderPassType = RenderPassType.Depth;
+
+	public static void ResetRenderPassEvents()
+	{
+		_renderPassDepth.Clear();
+		_renderPassOpaques.Clear();
+		_renderPassUI.Clear();
+	}
 
 	public static void RegisterRenderPassEvent(IRenderPass renderPass)
 	{
-		{
-			if (renderPass is IRenderPassPre rp)
-			{
-				_renderPassPre.Add(rp);
-			}
-		}
 		{
 			if (renderPass is IRenderPassDepth rp)
 			{
@@ -30,19 +30,10 @@ public static class RenderPassManager
 		}
 
 		{
-			if (renderPass is IRenderPassPost rp)
+			if (renderPass is IRenderPassUI rp)
 			{
-				_renderPassPost.Add(rp);
+				_renderPassUI.Add(rp);
 			}
-		}
-	}
-
-	public static void RenderPassPre()
-	{
-		CurrentRenderPassType = RenderPassType.Pre;
-		for (int i = 0; i < _renderPassPre.Count; i++)
-		{
-			_renderPassPre[i].RenderPassPre();
 		}
 	}
 
@@ -64,12 +55,12 @@ public static class RenderPassManager
 		}
 	}
 
-	public static void RenderPassPost()
+	public static void RenderPassUI()
 	{
-		CurrentRenderPassType = RenderPassType.Post;
-		for (int i = 0; i < _renderPassPost.Count; i++)
+		CurrentRenderPassType = RenderPassType.UI;
+		for (int i = 0; i < _renderPassUI.Count; i++)
 		{
-			_renderPassPost[i].RenderPassPost();
+			_renderPassUI[i].RenderPassUI();
 		}
 	}
 }

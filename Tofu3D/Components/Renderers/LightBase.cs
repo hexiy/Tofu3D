@@ -37,7 +37,7 @@ public class LightBase : Component, IRenderPassDepth
 
 		ConfigureForShadowMapping();
 		GL.ClearColor(Color.Black.ToOtherColor());
-		GL.ClearDepth(1);
+		GL.ClearDepth(100);
 		GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 		DepthRenderTexture.Bind(); // start rendering to renderTexture
 		GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);

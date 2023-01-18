@@ -84,8 +84,7 @@ public class Window : GameWindow
 
 		GL.ClearColor(0, 0, 0, 0);
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-		
-		RenderPassManager.RenderPassPre();
+
 
 		RenderPassManager.RenderPassDepth();
 
@@ -101,7 +100,10 @@ public class Window : GameWindow
 		SceneRenderTexture.Unbind(); // end rendering to sceneRenderTexture
 		GL.Disable(EnableCap.Blend);
 
-		RenderPassManager.RenderPassPost();
+
+		RenderPassManager.RenderPassUI();
+
+		Debug.EndTimer("Scene Render");
 
 		//PostProcessRenderTexture.Bind();
 
@@ -114,6 +116,7 @@ public class Window : GameWindow
 
 		//PostProcessRenderTexture.Unbind();
 
+		Debug.StartTimer("ImGui");
 
 		ImGuiController.Update(this, (float) e.Time);
 		GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
@@ -125,6 +128,7 @@ public class Window : GameWindow
 		//GL.Enable(EnableCap.Multisample);
 
 		ImGuiController.Render();
+		Debug.EndTimer("ImGui");
 
 		// ------------- IMGUI -------------
 

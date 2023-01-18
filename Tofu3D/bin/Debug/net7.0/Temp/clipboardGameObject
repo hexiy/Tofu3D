@@ -33,7 +33,7 @@
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>-50.4</Z>
+        <Z>150</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -68,13 +68,13 @@
         </Size>
       </BoxShape>
       <Color>
-        <B>59</B>
-        <G>59</G>
-        <R>195</R>
+        <B>205</B>
+        <G>187</G>
+        <R>13</R>
         <A>255</A>
-        <PackedValue>4282072003</PackedValue>
+        <PackedValue>4291672845</PackedValue>
       </Color>
-      <DistanceFromCamera>436.6213</DistanceFromCamera>
+      <DistanceFromCamera>205.81412</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>

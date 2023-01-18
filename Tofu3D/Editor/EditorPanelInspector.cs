@@ -258,6 +258,7 @@ public class EditorPanelInspector : EditorPanel
 					                                     };
 					for (int fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
 					{
+						// TODO FIX THIS MEMORY HOG
 						infos[fieldIndex] = new FieldOrPropertyInfo(fields[fieldIndex], currentComponent);
 						if (fields[fieldIndex].GetValue(currentComponent) == null)
 						{

@@ -7,6 +7,7 @@ public class EditorPanelProfiler : EditorPanel
 {
 	List<float> _physicsThreadSamples = new();
 	List<float> _sceneRenderSamples = new();
+	List<float> _imGuiSamples = new();
 	List<float> _sceneUpdateSamples = new();
 	public static EditorPanelProfiler I { get; private set; }
 
@@ -59,6 +60,18 @@ public class EditorPanelProfiler : EditorPanel
 				}
 
 				ImGui.PlotLines("", ref _sceneRenderSamples.ToArray()[0], _sceneRenderSamples.Count, 0, $"Scene Render Time:{_sceneRenderSamples.Last()} ms            ", 0, _sceneRenderSamples.Max() + 1,
+				                new Vector2(ImGui.GetContentRegionAvail().X, 100));
+			}
+			else if (Debug.Timers.Keys.ElementAt(i) == "ImGui")
+			{
+				_imGuiSamples.Add(msDuration);
+
+				if (_imGuiSamples.Count > 200)
+				{
+					_imGuiSamples.RemoveAt(0);
+				}
+
+				ImGui.PlotLines("", ref _imGuiSamples.ToArray()[0], _imGuiSamples.Count, 0, $"ImGui:{_imGuiSamples.Last()} ms            ", 0, _imGuiSamples.Max() + 1,
 				                new Vector2(ImGui.GetContentRegionAvail().X, 100));
 			}
 			else if (Debug.Timers.Keys.ElementAt(i) == "Physics thread")

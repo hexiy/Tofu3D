@@ -31,8 +31,7 @@ public class Transform : Component
 
 	public Vector3 Pivot = new(0, 0, 0);
 
-	private Vector3 _worldPosition = Vector3.Zero;
-	[XmlIgnore]
+	private Vector3 _worldPosition;
 	[Hide]
 	public Vector3 WorldPosition
 	{
@@ -42,16 +41,15 @@ public class Transform : Component
 			_worldPosition = value;
 
 			Vector3 calculatedLocalPos = TranslateWorldToLocal(_worldPosition);
-			if (LocalPosition != calculatedLocalPos)
+			if (_localPosition != calculatedLocalPos)
 			{
-				//_localPosition = calculatedLocalPos;
+				_localPosition = calculatedLocalPos;
 				//LocalPosition = calculatedLocalPos;
 			}
 
 			UpdateChildrenPositions();
 		}
 	}
-
 	private Vector3 _localPosition;
 	public Vector3 LocalPosition
 	{
@@ -67,19 +65,20 @@ public class Transform : Component
 
 			Vector3 calculatedWorldPos = TranslateLocalToWorld(_localPosition);
 			// local to world is okay
-			Vector3 calculatedLocalPos = TranslateWorldToLocal(calculatedWorldPos);
+			//Vector3 calculatedLocalPos = TranslateWorldToLocal(calculatedWorldPos);
 
-			if (WorldPosition != calculatedWorldPos)
+			if (_worldPosition != calculatedWorldPos)
 			{
-				WorldPosition = calculatedWorldPos;
+				_worldPosition = calculatedWorldPos;
+				// WorldPosition = calculatedWorldPos;
 			}
 
 			UpdateChildrenPositions();
 		}
 	}
 
-	[Hide]
 	private Vector3 _localScale = Vector3.One;
+	[Hide]
 	public Vector3 LocalScale
 	{
 		get { return _localScale; }
@@ -90,7 +89,7 @@ public class Transform : Component
 		}
 	}
 
-	[XmlIgnore]
+	// [XmlIgnore]
 	[Hide]
 	public Vector3 WorldScale
 	{
@@ -227,7 +226,7 @@ public class Transform : Component
 
 	public override void Awake()
 	{
-		LocalPosition = LocalPosition;
+		//LocalPosition = LocalPosition;
 		base.Awake();
 	}
 
@@ -326,6 +325,7 @@ public class Transform : Component
 		Vector3 x = transformationMatrix.Translation;
 		return -x;
 	}
+
 	public Vector3 TransformDirectionToWorldSpace(Vector3 dir)
 	{
 		// dir = dir.Normalized();

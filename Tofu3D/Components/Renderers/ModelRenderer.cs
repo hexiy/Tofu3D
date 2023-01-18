@@ -3,6 +3,7 @@ using Tofu3D.Components.Renderers;
 public class ModelRenderer : TextureRenderer
 {
 	public Model Model;
+	public bool CastShadow = true;
 
 	public override void Awake()
 	{
@@ -75,7 +76,8 @@ public class ModelRenderer : TextureRenderer
 			//GL.BindVertexArray(0);
 		}
 
-		if (RenderPassManager.CurrentRenderPassType == RenderPassType.Depth && GameObject.Silent == false)
+		bool renderDepth = RenderPassManager.CurrentRenderPassType == RenderPassType.Depth && GameObject.Silent == false && CastShadow;
+		if (renderDepth)
 		{
 			// depth pass
 

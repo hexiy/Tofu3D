@@ -88,10 +88,15 @@ public class EditorPanelSceneView : EditorPanel
 
 			if (_renderDepth)
 			{
-				ImGui.SetCursorPos(new Vector2(Camera.I.Size.X - DirectionalLight.I.Size.X / 2 - 5,
-				                               Camera.I.Size.Y - DirectionalLight.I.Size.Y / 2 + 45));
+				float ratio = DirectionalLight.I.Size.Y / DirectionalLight.I.Size.X;
+				float sizeX = Mathf.ClampMax(DirectionalLight.I.Size.X, 800);
+				float sizeY = sizeX * ratio;
 
-				ImGui.Image((IntPtr) DirectionalLight.DisplayDepthRenderTexture.ColorAttachment, DirectionalLight.I.Size / 2,
+				ImGui.SetCursorPos(new Vector2(Camera.I.Size.X - sizeX / 2 - 5,
+				                               Camera.I.Size.Y - sizeY / 2 + 45));
+
+
+				ImGui.Image((IntPtr) DirectionalLight.DisplayDepthRenderTexture.ColorAttachment, new Vector2(sizeX, sizeY) / 2,
 				            new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
 			}
 

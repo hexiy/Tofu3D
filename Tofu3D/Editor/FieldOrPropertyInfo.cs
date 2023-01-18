@@ -12,11 +12,22 @@ public class FieldOrPropertyInfo
 
 	public FieldOrPropertyInfo(FieldInfo fi, object obj)
 	{
+		SetInfo(fi, obj);
+	}
+
+	public FieldOrPropertyInfo(PropertyInfo pi, object obj)
+	{
+		SetInfo(pi, obj);
+	}
+
+	// fix memory hog, dont create new infos, just update
+	public void SetInfo(FieldInfo fi, object obj)
+	{
 		_fieldInfo = fi;
 		UpdateCanShowInEditor(obj);
 	}
 
-	public FieldOrPropertyInfo(PropertyInfo pi, object obj)
+	public void SetInfo(PropertyInfo pi, object obj)
 	{
 		_propertyInfo = pi;
 		UpdateCanShowInEditor(obj);
@@ -86,16 +97,17 @@ public class FieldOrPropertyInfo
 			CanShowInEditor = false;
 		}
 
-		for (int i = 0; i < CustomAttributes.Count(); i++)
+		CustomAttributeData[] attribs = CustomAttributes.ToArray();
+		for (int i = 0; i < attribs.Length; i++)
 		{
-			if (CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(Show))
+			if (attribs[i].AttributeType == typeof(Show))
 			{
 				CanShowInEditor = true;
 			}
 
-			if (CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(ShowIf))
+			else if (attribs[i].AttributeType == typeof(ShowIf))
 			{
-				string name = CustomAttributes.ElementAtOrDefault(i).ConstructorArguments[0].Value.ToString();
+				string name = attribs[i].ConstructorArguments[0].Value.ToString();
 
 				FieldInfo field = obj.GetType().GetField(name);
 				PropertyInfo property = obj.GetType().GetProperty(name);
@@ -110,9 +122,9 @@ public class FieldOrPropertyInfo
 				}
 			}
 
-			if (CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(ShowIfNot))
+			else if (attribs[i].AttributeType == typeof(ShowIfNot))
 			{
-				string name = CustomAttributes.ElementAtOrDefault(i).ConstructorArguments[0].Value.ToString();
+				string name = attribs[i].ConstructorArguments[0].Value.ToString();
 
 				FieldInfo field = obj.GetType().GetField(name);
 				PropertyInfo property = obj.GetType().GetProperty(name);
@@ -127,7 +139,7 @@ public class FieldOrPropertyInfo
 				}
 			}
 
-			if (CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(Hide))
+			else if (attribs[i].AttributeType == typeof(Hide))
 			{
 				CanShowInEditor = false;
 			}

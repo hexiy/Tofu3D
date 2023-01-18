@@ -11,7 +11,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -56,7 +56,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -105,19 +105,29 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
+      <WorldPosition>
+        <X>-181.48738</X>
+        <Y>-45.32403</Y>
+        <Z>-329.93954</Z>
+      </WorldPosition>
       <LocalPosition>
-        <X>-53.044956</X>
-        <Y>2.2617404</Y>
-        <Z>-51.68403</Z>
+        <X>-181.48738</X>
+        <Y>-45.32403</Y>
+        <Z>-329.93954</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
         <Y>1</Y>
         <Z>1</Z>
       </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
       <Rotation>
-        <X>1.001718</X>
-        <Y>-50.067307</Y>
+        <X>-3.5576582</X>
+        <Y>44.43424</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -135,7 +145,7 @@
       </Color>
       <NearPlaneDistance>20</NearPlaneDistance>
       <FarPlaneDistance>32001.8</FarPlaneDistance>
-      <FieldOfView>99.999985</FieldOfView>
+      <FieldOfView>99.99999</FieldOfView>
       <IsOrthographic>false</IsOrthographic>
       <OrthographicSize>71.4</OrthographicSize>
       <Size>
@@ -155,6 +165,11 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
@@ -165,6 +180,11 @@
         <Y>1</Y>
         <Z>1</Z>
       </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
@@ -204,6 +224,11 @@
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
@@ -214,6 +239,11 @@
         <Y>1</Y>
         <Z>1</Z>
       </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
       <Rotation>
         <X>27.26</X>
         <Y>0</Y>
@@ -270,7 +300,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>236.5936</DistanceFromCamera>
+      <DistanceFromCamera>187.06133</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/SpriteRenderer.mat</Path>
@@ -278,7 +308,7 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets/Shaders/SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>6</Vao>
+        <Vao>21</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -325,8 +355,13 @@
         <Y>0.5</Y>
         <Z>0.5</Z>
       </Pivot>
+      <WorldPosition>
+        <X>-24.2</X>
+        <Y>0</Y>
+        <Z>-50.4</Z>
+      </WorldPosition>
       <LocalPosition>
-        <X>0</X>
+        <X>-24.2</X>
         <Y>0</Y>
         <Z>-50.4</Z>
       </LocalPosition>
@@ -335,6 +370,11 @@
         <Y>1</Y>
         <Z>1</Z>
       </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
@@ -369,7 +409,7 @@
         <A>255</A>
         <PackedValue>4291672845</PackedValue>
       </Color>
-      <DistanceFromCamera>236.5936</DistanceFromCamera>
+      <DistanceFromCamera>163.68747</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -377,7 +417,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>7</Vao>
+        <Vao>22</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -394,6 +434,7 @@
         <X>1</X>
         <Y>1</Y>
       </Repeats>
+      <CastShadow>true</CastShadow>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
@@ -423,6 +464,11 @@
         <Y>0.5</Y>
         <Z>0.5</Z>
       </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
@@ -433,6 +479,11 @@
         <Y>1</Y>
         <Z>1</Z>
       </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
@@ -467,7 +518,7 @@
         <A>255</A>
         <PackedValue>4281493400</PackedValue>
       </Color>
-      <DistanceFromCamera>236.5936</DistanceFromCamera>
+      <DistanceFromCamera>187.06133</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -475,7 +526,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>8</Vao>
+        <Vao>23</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -492,6 +543,7 @@
         <X>1</X>
         <Y>1</Y>
       </Repeats>
+      <CastShadow>true</CastShadow>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
@@ -521,6 +573,11 @@
         <Y>0.5</Y>
         <Z>0.5</Z>
       </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>-147</Y>
@@ -531,6 +588,11 @@
         <Y>1</Y>
         <Z>1</Z>
       </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
@@ -565,7 +627,7 @@
         <A>255</A>
         <PackedValue>4292863562</PackedValue>
       </Color>
-      <DistanceFromCamera>270.09976</DistanceFromCamera>
+      <DistanceFromCamera>187.06133</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -573,7 +635,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>9</Vao>
+        <Vao>24</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -590,6 +652,7 @@
         <X>1</X>
         <Y>1</Y>
       </Repeats>
+      <CastShadow>true</CastShadow>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
@@ -608,5 +671,5 @@
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>403</GameObjectNextId>
+  <GameObjectNextId>407</GameObjectNextId>
 </SceneFile>
