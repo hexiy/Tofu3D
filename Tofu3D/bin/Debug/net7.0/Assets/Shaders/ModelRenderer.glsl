@@ -112,10 +112,12 @@ vec3 dirColor = vec3(max(dot(norm, u_directionalLightDirection), 0.0) * u_direct
 //result += vec4((u_ambientLightsColor * u_rendererColor.rgb* u_ambientLightsIntensity) + (1 - shadow),0);
 vec3 ambColor = vec3(u_ambientLightsColor * u_ambientLightsIntensity);
 
+//float shadow = 1;
 float shadow = ShadowCalculation(FragPosLightSpace);       
 
-vec4 result = vec4(ambColor.rgb + (dirColor.rgb * (u_rendererColor.rgb) * ( shadow)), 1);
-
+vec4 result = vec4(ambColor.rgb + (dirColor.rgb * (u_rendererColor.rgb) * shadow), u_rendererColor.a);
+        
 frag_color  = result;
+gl_FragDepth = gl_FragCoord.z;
 
 }

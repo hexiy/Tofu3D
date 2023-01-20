@@ -52,7 +52,7 @@ public class ImGuiController : IDisposable
 		io.Fonts.AddFontFromFileTTF("inconsolata.ttf", 28);
 		//io.Fonts.AddFontDefault();
 
-		io.BackendFlags |= ImGuiBackendFlags.RendererHasVtxOffset;
+		io.BackendFlags = ImGuiBackendFlags.None;// ImGuiBackendFlags.RendererHasVtxOffset;
 
 		CreateDeviceResources();
 		SetKeyMappings();

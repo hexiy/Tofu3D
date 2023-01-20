@@ -183,6 +183,11 @@ public class Camera : Component
 		return isIn;
 	}
 
+	Matrix4x4 GetLightScaleMatrix()
+	{
+		Matrix4x4 scaleMatrix = Matrix4x4.CreateScale(1 / OrthographicSize);
+		return scaleMatrix;
+	}
 	public Matrix4x4 GetLightProjectionMatrix()
 	{
 		float left = -Size.X / 2;
@@ -192,7 +197,7 @@ public class Camera : Component
 
 		Matrix4x4 orthoMatrix = Matrix4x4.CreateOrthographicOffCenter(left, right, bottom, top, NearPlaneDistance, FarPlaneDistance);
 
-		return orthoMatrix * GetScaleMatrix();
+		return orthoMatrix * GetLightScaleMatrix();
 	}
 
 	public Matrix4x4 GetLightViewMatrix()

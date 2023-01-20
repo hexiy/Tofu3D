@@ -21,7 +21,7 @@ public class EditorPanelFloating : EditorPanel
 		//ImGui.SetNextWindowBgAlpha (0);
 		ImGui.Begin("Floating", ImGuiWindowFlags.NoCollapse);
 
-		ImGui.Image((IntPtr) Window.I.SceneRenderTexture.ColorAttachment, new Vector2(300, 300));
+		ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, new Vector2(300, 300));
 
 		ImGui.End();
 	}

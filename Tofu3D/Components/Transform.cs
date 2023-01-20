@@ -78,7 +78,7 @@ public class Transform : Component
 	}
 
 	private Vector3 _localScale = Vector3.One;
-	[Hide]
+	// [Hide]
 	public Vector3 LocalScale
 	{
 		get { return _localScale; }

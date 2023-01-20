@@ -76,8 +76,8 @@ public class ModelRenderer : TextureRenderer
 			//GL.BindVertexArray(0);
 		}
 
-		bool renderDepth = RenderPassManager.CurrentRenderPassType == RenderPassType.Depth && GameObject.Silent == false && CastShadow;
-		if (renderDepth)
+		bool renderDepth = RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth && GameObject.Silent == false && CastShadow;
+		/*if (renderDepth && false)
 		{
 			// depth pass
 
@@ -93,7 +93,8 @@ public class ModelRenderer : TextureRenderer
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
 		}
-		else if (RenderPassManager.CurrentRenderPassType == RenderPassType.Opaques)
+		else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques || true)*/
+		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques || (RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth && renderDepth))
 		{
 			{
 				//GL.Enable(EnableCap.DepthTest);
@@ -119,10 +120,14 @@ public class ModelRenderer : TextureRenderer
 				Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
 
 				ShaderCache.BindVertexArray(Material.Vao);
-				//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-				//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
+
 				TextureCache.BindTexture(Texture.Id);
-				TextureCache.BindTexture(DirectionalLight.DisplayDepthRenderTexture.ColorAttachment);
+				if (RenderPassDirectionalLightShadowDepth.I != null)
+				{
+					TextureCache.BindTexture(RenderPassDirectionalLightShadowDepth.I.DisplayDepthRenderTexture.ColorAttachment);
+				}
+				// TextureCache.BindTexture(DirectionalLight.DisplayDepthRenderTexture.ColorAttachment);
 
 				//TextureCache.BindTexture(DirectionalLight.DepthRenderTexture.DepthAttachment);
 

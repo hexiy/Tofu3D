@@ -6,7 +6,7 @@ namespace Tofu3D;
 public class EditorPanelSceneView : EditorPanel
 {
 	public static EditorPanelSceneView I { get; private set; }
-	static bool _renderDepth = true;
+	static bool _renderCameraViews = true;
 
 	public override void Draw()
 	{
@@ -73,30 +73,37 @@ public class EditorPanelSceneView : EditorPanel
 			}
 
 			ImGui.SameLine();
-			bool renderDepthBufferClicked = ImGui.Button("depth");
-			if (renderDepthBufferClicked)
-			{
-				_renderDepth = !_renderDepth;
-			}
+			_renderCameraViews = Editor.I.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
-			ImGui.SetCursorPosX(0);
+			// ImGui.SetCursorPosX(0);
+			ImGui.SetCursorPos(new Vector2(0,70));
 			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
 
+			// ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, RenderPassSystem.FinalRenderTexture.Size,
+			//             new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Aqua.ToVector4());
 
-			ImGui.Image((IntPtr) Window.I.SceneRenderTexture.ColorAttachment, Camera.I.Size,
-			            new Vector2(0, 1), new Vector2(1, 0));
-
-			if (_renderDepth)
+			// ImGui.Image((IntPtr) RenderPassManager.FinalRenderTexture.ColorAttachment, RenderPassManager.FinalRenderTexture.Size * 0.9f,
+			//             new Vector2(-0.5f, 0.5f), new Vector2(0.5f, -0.5f), Color.White.ToVector4(), Color.Aqua.ToVector4());
+			if (RenderPassOpaques.I != null)
 			{
-				float ratio = DirectionalLight.I.Size.Y / DirectionalLight.I.Size.X;
-				float sizeX = Mathf.ClampMax(DirectionalLight.I.Size.X, 800);
+				ImGui.Image((IntPtr) RenderPassOpaques.I.PassRenderTexture.ColorAttachment, RenderPassOpaques.I.PassRenderTexture.Size,
+				           new Vector2(0, 1), new Vector2(1, 0));
+			}
+
+			if (_renderCameraViews && RenderPassDirectionalLightShadowDepth.I != null)
+			{
+				float ratio = RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.Size.Y / RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.Size.X;
+				float sizeX = Mathf.ClampMax(RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.Size.X, 400);
 				float sizeY = sizeX * ratio;
 
-				ImGui.SetCursorPos(new Vector2(Camera.I.Size.X - sizeX / 2 - 5,
-				                               Camera.I.Size.Y - sizeY / 2 + 45));
+				ImGui.SetCursorPos(new Vector2(0, 75));
 
+				ImGui.Image((IntPtr) RenderPassDirectionalLightShadowDepth.I.DisplayDepthRenderTexture.ColorAttachment, new Vector2(sizeX, sizeY),
+				            new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
+				
+				ImGui.SetCursorPos(new Vector2(0, 75 + sizeY));
 
-				ImGui.Image((IntPtr) DirectionalLight.DisplayDepthRenderTexture.ColorAttachment, new Vector2(sizeX, sizeY) / 2,
+				ImGui.Image((IntPtr) RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.ColorAttachment, new Vector2(sizeX, sizeY),
 				            new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
 			}
 
@@ -114,7 +121,7 @@ public class EditorPanelSceneView : EditorPanel
 
 			ImGui.SetCursorPosX(0);
 			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
-			ImGui.Image((IntPtr) Window.I.SceneRenderTexture.ColorAttachment, Camera.I.Size,
+			ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, Camera.I.Size,
 			            new Vector2(0, 1), new Vector2(1, 0));
 
 			ImGui.End();

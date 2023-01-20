@@ -12,12 +12,12 @@ public static class BufferFactory
 
 		if (material.Shader.BufferType == BufferType.Rendertexture)
 		{
-			CreateSpriteRendererBuffers(ref material.Vao);
+			CreateRenderTextureBuffers(ref material.Vao);
 		}
 
 		if (material.Shader.BufferType == BufferType.Sprite)
 		{
-			CreateSpriteRendererBuffers(ref material.Vao);
+			CreateRenderTextureBuffers(ref material.Vao);
 			//CreateSpriteRendererBuffersz(ref material.vao, ref material.vbo);
 		}
 
@@ -64,7 +64,7 @@ public static class BufferFactory
 		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 	}
 
-	public static void CreateSpriteRendererBuffers(ref int vao)
+	public static void CreateRenderTextureBuffers(ref int vao)
 	{
 		int vbo = GL.GenBuffer();
 
@@ -72,15 +72,23 @@ public static class BufferFactory
 
 		float[] vertices =
 		{
-			-0.5f, -0.5f, 0, 0,
-			0.5f, -0.5f, 1, 0,
-			-0.5f, 0.5f, 0, 1,
-			-0.5f, 0.5f, 0, 1,
-			0.5f, -0.5f, 1, 0,
-			0.5f, 0.5f, 1, 1
+			/*-1, -1, 0, 0,
+			1, -1, 1, 0,
+			-1, 1, 0, 1,
+			-1, 1, 0, 1,
+			1, -1, 1, 0,
+			1, 1, 1, 1*/
+
+			-1.0f, 1.0f, 0.0f, 1.0f,
+			-1.0f, -1.0f, 0.0f, 0.0f,
+			1.0f, -1.0f, 1.0f, 0.0f,
+			-1.0f, 1.0f, 0.0f, 1.0f,
+			1.0f, -1.0f, 1.0f, 0.0f,
+			1.0f, 1.0f, 1.0f, 1.0f
 		};
 
-		GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.DynamicDraw);
+
+		GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
 
 		// now we define layout in vao
 		vao = GL.GenVertexArray();

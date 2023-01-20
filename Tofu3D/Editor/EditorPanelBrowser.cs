@@ -146,7 +146,7 @@ public class EditorPanelBrowser : EditorPanel
 			bool saveBtnPressed = ImGui.Button("Save Prefab");
 			if (saveBtnPressed)
 			{
-				Serializer.I.SaveGameObject(Editor.I.GetSelectedGameObject(), Path.Combine("Assets",CurrentDirectory.Name, Editor.I.GetSelectedGameObject().Name + ".prefab"));
+				Serializer.I.SaveGameObject(Editor.I.GetSelectedGameObject(), Path.Combine("Assets", CurrentDirectory.Name, Editor.I.GetSelectedGameObject().Name + ".prefab"));
 			}
 		}
 
@@ -354,8 +354,14 @@ public class EditorPanelBrowser : EditorPanel
 			//ImGui.SetCursorPosY(ImGui.GetCursorPosY() - 25);
 			//ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 5);
 
-			string a = assetName.Substring(0, Math.Clamp(assetName.Length, 0, 12));
+			int maxCharsLimit = 15;
+			string a = assetName.Substring(0, Math.Clamp(assetName.Length, 0, maxCharsLimit));
 			ImGui.Text(a);
+			if (assetName.Length > maxCharsLimit)
+			{
+				ImGui.Text(assetName.Substring(maxCharsLimit, assetName.Length - maxCharsLimit));
+			}
+
 			ImGui.EndGroup();
 		}
 

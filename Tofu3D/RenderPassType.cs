@@ -2,7 +2,9 @@ namespace Tofu3D;
 
 public enum RenderPassType
 {
-	Depth,
+	DirectionalLightShadowDepth,
+	//GeometryDepth,
 	Opaques,
+	PostProcess,
 	UI
 }
