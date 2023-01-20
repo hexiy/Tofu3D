@@ -30,16 +30,26 @@
         <Y>0.5</Y>
         <Z>0.5</Z>
       </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>-241.6</Z>
+      </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>150</Z>
+        <Z>-241.6</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
         <Y>1</Y>
         <Z>1</Z>
       </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
@@ -68,13 +78,13 @@
         </Size>
       </BoxShape>
       <Color>
-        <B>205</B>
-        <G>187</G>
-        <R>13</R>
+        <B>216</B>
+        <G>0</G>
+        <R>178</R>
         <A>255</A>
-        <PackedValue>4291672845</PackedValue>
+        <PackedValue>4292346034</PackedValue>
       </Color>
-      <DistanceFromCamera>205.81412</DistanceFromCamera>
+      <DistanceFromCamera>476.3235</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -82,12 +92,12 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>7</Vao>
+        <Vao>5</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>9</Id>
+        <Id>8</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/solidColor.png</Path>
         <Size>
@@ -99,6 +109,7 @@
         <X>1</X>
         <Y>1</Y>
       </Repeats>
+      <CastShadow>true</CastShadow>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>

@@ -71,7 +71,7 @@ public static class RenderPassSystem
 			renderPass.Render();
 		}
 
-		RenderFinalRenderTexture();
+		//RenderFinalRenderTexture();
 	}
 
 	private static void RenderFinalRenderTexture()
