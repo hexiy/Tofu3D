@@ -135,11 +135,11 @@ public class SceneNavigation
 			if (KeyboardInput.IsKeyDown(Keys.LeftShift))
 			{
 				moveSpeed = 2.5f;
-				Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 100, Time.EditorDeltaTime * 7);
+				//Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 100, Time.EditorDeltaTime * 7);
 			}
 			else
 			{
-				Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 60, Time.EditorDeltaTime * 7);
+				//Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 60, Time.EditorDeltaTime * 7);
 			}
 
 			if (keyboardInputDirectionVector != Vector3.Zero)
@@ -151,7 +151,7 @@ public class SceneNavigation
 
 	void MoveCameraInDirection(Vector3 dir, float moveSpeed = 1f)
 	{
-		Vector3 delta = Camera.I.Transform.TransformDirectionToWorldSpace(dir) * moveSpeed;
+		Vector3 delta = Camera.I.Transform.TransformDirectionToWorldSpace(dir) * moveSpeed * Time.EditorDeltaTime;
 
 		//Debug.Log(delta);
 		//Camera.I.Transform.LocalPosition += delta;

@@ -33,12 +33,12 @@
       <WorldPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>-241.6</Z>
+        <Z>10</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>-241.6</Z>
+        <Z>10</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -72,9 +72,9 @@
           <Z>0</Z>
         </Offset>
         <Size>
-          <X>100</X>
-          <Y>100</Y>
-          <Z>10</Z>
+          <X>4</X>
+          <Y>4</Y>
+          <Z>1</Z>
         </Size>
       </BoxShape>
       <Color>
@@ -84,7 +84,7 @@
         <A>255</A>
         <PackedValue>4292346034</PackedValue>
       </Color>
-      <DistanceFromCamera>476.3235</DistanceFromCamera>
+      <DistanceFromCamera>0.5515058</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -122,9 +122,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>100</X>
-        <Y>100</Y>
-        <Z>10</Z>
+        <X>4</X>
+        <Y>4</Y>
+        <Z>1</Z>
       </Size>
     </Component>
   </Components>
