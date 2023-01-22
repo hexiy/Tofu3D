@@ -79,16 +79,16 @@ public class EditorPanelSceneView : EditorPanel
 			ImGui.SetCursorPos(new Vector2(0,70));
 			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
 
-			// ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, RenderPassSystem.FinalRenderTexture.Size,
-			//             new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Aqua.ToVector4());
+			ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, RenderPassSystem.FinalRenderTexture.Size,
+			new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Aqua.ToVector4());
 
 			// ImGui.Image((IntPtr) RenderPassManager.FinalRenderTexture.ColorAttachment, RenderPassManager.FinalRenderTexture.Size * 0.9f,
 			//             new Vector2(-0.5f, 0.5f), new Vector2(0.5f, -0.5f), Color.White.ToVector4(), Color.Aqua.ToVector4());
-			if (RenderPassOpaques.I != null)
-			{
-				ImGui.Image((IntPtr) RenderPassOpaques.I.PassRenderTexture.ColorAttachment, RenderPassOpaques.I.PassRenderTexture.Size,
-				           new Vector2(0, 1), new Vector2(1, 0));
-			}
+			// if (RenderPassOpaques.I != null)
+			// {
+			// 	ImGui.Image((IntPtr) RenderPassOpaques.I.PassRenderTexture.ColorAttachment, RenderPassOpaques.I.PassRenderTexture.Size,
+			// 	           new Vector2(0, 1), new Vector2(1, 0));
+			// }
 
 			if (_renderCameraViews && RenderPassDirectionalLightShadowDepth.I != null)
 			{
@@ -98,7 +98,7 @@ public class EditorPanelSceneView : EditorPanel
 
 				ImGui.SetCursorPos(new Vector2(0, 75));
 
-				ImGui.Image((IntPtr) RenderPassDirectionalLightShadowDepth.I.DisplayDepthRenderTexture.ColorAttachment, new Vector2(sizeX, sizeY),
+				ImGui.Image((IntPtr) RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment, new Vector2(sizeX, sizeY),
 				            new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
 				
 				ImGui.SetCursorPos(new Vector2(0, 75 + sizeY));

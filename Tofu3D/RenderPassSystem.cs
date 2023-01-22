@@ -71,16 +71,16 @@ public static class RenderPassSystem
 			renderPass.Render();
 		}
 
-		//RenderFinalRenderTexture();
+		RenderFinalRenderTexture();
 	}
 
 	private static void RenderFinalRenderTexture()
 	{
-		FinalRenderTexture.Clear();
 		if (Initialized == false)
 		{
 			return;
 		}
+		FinalRenderTexture.Clear();
 
 		// RenderPassDirectionalLightShadowDepth.I.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Depth);
 		RenderPassOpaques.I.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);

@@ -31,7 +31,8 @@ void main(void)
 {
   //  color = vec4(0,1,1, 1);
 
-   float depthValue = texture(textureObject, texCoord).r;// why tf does it not render anything when i try to sample texture
-    color =vec3(1-depthValue);
+float depthValue = texture(textureObject, texCoord).r; // why tf does it not render anything when i try to sample texture
+
+color =vec3(1-depthValue);
 //color += vec3(0,texCoord.x,texCoord.y);
 }

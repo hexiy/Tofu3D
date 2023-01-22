@@ -102,9 +102,8 @@ public class RenderTexture
 
 	public void RenderDepthAttachment(int targetTexture)
 	{
-		//return;
-
 		Material material = MaterialCache.GetMaterial("DepthRenderTexture");
+
 		ShaderCache.UseShader(material.Shader);
 		material.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
@@ -126,6 +125,7 @@ public class RenderTexture
 		// GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
 
 		Material material = MaterialCache.GetMaterial("RenderTexture");
+
 		ShaderCache.UseShader(material.Shader);
 
 		material.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);

@@ -125,7 +125,7 @@ public class ModelRenderer : TextureRenderer
 				TextureCache.BindTexture(Texture.Id);
 				if (RenderPassDirectionalLightShadowDepth.I != null)
 				{
-					TextureCache.BindTexture(RenderPassDirectionalLightShadowDepth.I.DisplayDepthRenderTexture.ColorAttachment);
+					TextureCache.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 				}
 				// TextureCache.BindTexture(DirectionalLight.DisplayDepthRenderTexture.ColorAttachment);
 

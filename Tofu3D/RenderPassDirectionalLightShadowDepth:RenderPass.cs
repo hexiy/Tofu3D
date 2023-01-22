@@ -5,8 +5,12 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 	public static RenderPassDirectionalLightShadowDepth I { get; private set; }
 
 	DirectionalLight _directionalLight;
-	public RenderTexture DisplayDepthRenderTexture { get; private set; }
-	public RenderTexture DisplayViewRenderTexture { get; private set; }
+
+	// shadows depth map
+	public RenderTexture DepthMapRenderTexture { get; private set; }
+
+	// renders camera's color view, for debug
+	public RenderTexture LightDebugViewColorRenderTexture { get; private set; }
 
 	public RenderPassDirectionalLightShadowDepth() : base(RenderPassType.DirectionalLightShadowDepth)
 	{
@@ -27,9 +31,10 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 
 	protected override void SetupRenderTexture()
 	{
+		// PassRenderTexture contains the depth, we render that depth with DeptRenderTexture.glsl shader to DepthMapRenderTexture and use that as a shadowmap
 		PassRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: true);
-		DisplayDepthRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: false);
-		DisplayViewRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: false);
+		DepthMapRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: false);
+		LightDebugViewColorRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: false);
 		// cannot write from depth to color on one framebuffer right?
 
 		base.SetupRenderTexture();
@@ -43,7 +48,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 	protected override void PostRender()
 	{
 		base.PostRender();
-		RenderToDisplayDepthRenderTexture();
+		RenderToDepthMapRenderTexture();
 		//RenderToDisplayViewRenderTexture();
 	}
 
@@ -57,17 +62,17 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 		GL.ClearColor(Color.Yellow.ToOtherColor());
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-		DisplayViewRenderTexture.Bind();
-		GL.Viewport(0, 0, (int) DisplayViewRenderTexture.Size.X, (int) DisplayViewRenderTexture.Size.Y);
+		LightDebugViewColorRenderTexture.Bind();
+		GL.Viewport(0, 0, (int) LightDebugViewColorRenderTexture.Size.X, (int) LightDebugViewColorRenderTexture.Size.Y);
 		// GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 		// GL.ClearColor(1,0,1,1);
 
-		DisplayViewRenderTexture.RenderColorAttachment(PassRenderTexture.ColorAttachment);
+		LightDebugViewColorRenderTexture.RenderColorAttachment(PassRenderTexture.ColorAttachment);
 
-		DisplayViewRenderTexture.Unbind();
+		LightDebugViewColorRenderTexture.Unbind();
 	}
 
-	private void RenderToDisplayDepthRenderTexture()
+	private void RenderToDepthMapRenderTexture()
 	{
 		if (_directionalLight == null)
 		{
@@ -77,13 +82,13 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 		GL.ClearColor(Color.Yellow.ToOtherColor());
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-		DisplayDepthRenderTexture.Bind();
-		GL.Viewport(0, 0, (int) DisplayDepthRenderTexture.Size.X, (int) DisplayDepthRenderTexture.Size.Y);
+		DepthMapRenderTexture.Bind();
+		GL.Viewport(0, 0, (int) DepthMapRenderTexture.Size.X, (int) DepthMapRenderTexture.Size.Y);
 		// GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 		// GL.ClearColor(1,0,1,1);
 
-		DisplayDepthRenderTexture.RenderDepthAttachment(PassRenderTexture.DepthAttachment);
+		DepthMapRenderTexture.RenderDepthAttachment(PassRenderTexture.DepthAttachment);
 
-		DisplayDepthRenderTexture.Unbind();
+		DepthMapRenderTexture.Unbind();
 	}
 }

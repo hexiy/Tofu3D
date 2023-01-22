@@ -15,7 +15,8 @@ public class MaterialCache
 
 		for (int i = 0; i < _loadedMaterials.Count; i++)
 		{
-			if (_loadedMaterials[i].Path.Contains(name))
+			string fileName = Path.GetFileName(_loadedMaterials[i].Path);
+			if (fileName == name)
 			{
 				return _loadedMaterials[i];
 			}
@@ -25,7 +26,8 @@ public class MaterialCache
 
 		for (int i = 0; i < _loadedMaterials.Count; i++)
 		{
-			if (_loadedMaterials[i].Path.Contains(name))
+			string fileName = Path.GetFileName(_loadedMaterials[i].Path);
+			if (fileName == name)
 			{
 				return _loadedMaterials[i];
 			}
