@@ -14,7 +14,8 @@ public class LightManager
 	public void Update()
 	{
 		_lights = GetAllLightsInScene();
-		_directionalLight = Scene.I.FindComponent<DirectionalLight>();
+		_directionalLight = Scene.I.FindComponent<DirectionalLight>(ignoreInactive:true);
+
 
 		// Debug.Log($"Light direction:{GetDirectionalLightDirection()}");
 	}
@@ -101,7 +102,6 @@ public class LightManager
 
 		return intensity;
 	}
-
 
 	public Color GetDirectionalLightColor()
 	{

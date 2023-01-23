@@ -1,10 +1,15 @@
-namespace Tofu3D;
+namespace Tofu3D.Rendering;
 
 public abstract class RenderPass : IComparable<RenderPass>
 {
 	public RenderPassType RenderPassType { get; private set; }
 	List<Action> _renderQueue = new List<Action>();
 	public RenderTexture PassRenderTexture { get; protected set; }
+
+	protected virtual bool CanRender()
+	{
+		return true;
+	}
 
 	protected RenderPass(RenderPassType type)
 	{
@@ -33,6 +38,11 @@ public abstract class RenderPass : IComparable<RenderPass>
 
 	public void Render()
 	{
+		if (CanRender() == false)
+		{
+			return;
+		}
+
 		PreRender();
 		foreach (Action renderCall in _renderQueue)
 		{
@@ -54,7 +64,7 @@ public abstract class RenderPass : IComparable<RenderPass>
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 		target.Bind();
-		 // GL.Viewport(0, 0, (int) target.Size.X, (int) target.Size.Y);
+		// GL.Viewport(0, 0, (int) target.Size.X, (int) target.Size.Y);
 		// GL.Viewport(0, 0, (int) target.Size.X*2, (int) target.Size.Y*2);
 		// wtf, why does the viewport need to be target.Size.X * 2 ??????
 		// its 1380,
@@ -74,7 +84,7 @@ public abstract class RenderPass : IComparable<RenderPass>
 	protected virtual void PreRender()
 	{
 		PassRenderTexture?.Bind();
-		
+
 		if (PassRenderTexture != null)
 		{
 			GL.Viewport(0, 0, (int) PassRenderTexture.Size.X, (int) PassRenderTexture.Size.Y);

@@ -45,6 +45,7 @@ public class Shader : IDisposable
 			Path = System.IO.Path.Combine("Assets", "Shaders", "SpriteRenderer.glsl");
 		}
 
+	
 		GetAllUniforms();
 		string shaderFile = File.ReadAllText(Path);
 

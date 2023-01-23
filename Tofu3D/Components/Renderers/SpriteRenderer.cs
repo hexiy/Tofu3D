@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using Tofu3D.Components.Renderers;
 
 namespace Tofu3D;
 
@@ -76,10 +75,10 @@ public class SpriteRenderer : TextureRenderer
 
 		if (false)
 		{
-			BatchingManager.UpdateAttribs(Texture.Id, GameObjectId, Transform.WorldPosition,
-			                              new Vector2(GetComponent<BoxShape>().Size.X * Transform.WorldScale.X,
-			                                          GetComponent<BoxShape>().Size.Y * Transform.WorldScale.Y),
-			                              Transform.Rotation.Z, Color);
+			// BatchingManager.UpdateAttribs(Texture.Id, GameObjectId, Transform.WorldPosition,
+			//                               new Vector2(GetComponent<BoxShape>().Size.X * Transform.WorldScale.X,
+			//                                           GetComponent<BoxShape>().Size.Y * Transform.WorldScale.Y),
+			//                               Transform.Rotation.Z, Color);
 			return;
 		}
 

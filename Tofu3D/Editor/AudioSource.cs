@@ -1,8 +1,5 @@
-﻿using System.Diagnostics;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
 using SharpAudio;
 using SharpAudio.Codec;
 

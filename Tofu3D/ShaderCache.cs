@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public static class ShaderCache
 {

@@ -81,7 +81,17 @@ public static class MouseInput
 
 	public static Vector2 WorldDelta
 	{
-		get { return ScreenDelta * Camera.I.OrthographicSize / Units.OneWorldUnit; }
+		get
+		{
+			if (Camera.I.IsOrthographic)
+			{
+				return ScreenDelta * Camera.I.OrthographicSize / Units.OneWorldUnit;
+			}
+			else
+			{
+				return ScreenDelta / Units.OneWorldUnit;
+			}
+		}
 	}
 
 	public static Vector2 WorldPosition
@@ -147,7 +157,10 @@ public static class MouseInput
 		MouseState state = Window.I.MouseState;
 
 		ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale;
-
+		// if (Camera.I.IsOrthographic == false)
+		// {
+		// 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
+		// }
 
 		ScreenPosition = new Vector2(Window.I.MouseState.X * Global.EditorScale - Editor.SceneViewPosition.X,
 		                             -Window.I.MouseState.Y * Global.EditorScale + Camera.I.Size.Y + Editor.SceneViewPosition.Y);

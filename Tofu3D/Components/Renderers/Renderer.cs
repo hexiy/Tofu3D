@@ -21,7 +21,7 @@ public class Renderer : Component, IComparable<Renderer>
 		{
 			return 1;
 		}
-
+		
 		return (GameObject.IndexInHierarchy * 1e-15f + Layer).CompareTo(comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer);
 		//return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
 	}

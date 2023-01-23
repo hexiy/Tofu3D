@@ -1,3 +1,5 @@
+using Tofu3D.Rendering;
+
 namespace Tofu3D;
 
 public class RenderPassDirectionalLightShadowDepth : RenderPass
@@ -15,6 +17,11 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 	public RenderPassDirectionalLightShadowDepth() : base(RenderPassType.DirectionalLightShadowDepth)
 	{
 		I = this;
+	}
+
+	protected override bool CanRender()
+	{
+		return _directionalLight?.IsActive == true;
 	}
 
 	public override void Initialize()

@@ -11,6 +11,10 @@ public class Component : IDestroyable, IDisposable
 	public bool Awoken;
 
 	public bool Enabled = true;
+	public bool IsActive
+	{
+		get { return GameObject.ActiveInHierarchy && Enabled; }
+	}
 	[XmlIgnore]
 	public GameObject GameObject;
 

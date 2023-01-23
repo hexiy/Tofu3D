@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Scripts;
+﻿namespace Scripts;
 
 public class ParticleSystemRenderer : SpriteRenderer
 {

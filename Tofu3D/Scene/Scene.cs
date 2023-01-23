@@ -1,5 +1,7 @@
 ﻿using System.IO;
+using Engine;
 using Tofu3D.Physics;
+using Tofu3D.Rendering;
 using Tofu3D.Tweening;
 
 namespace Tofu3D;
@@ -67,7 +69,7 @@ public class Scene
 	public void Start()
 	{
 		PhysicsController.Init();
-		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderOpaques);
+		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderScene);
 
 		if (Serializer.LastScene != "" && File.Exists(Serializer.LastScene))
 		{
@@ -148,7 +150,7 @@ public class Scene
 		_renderQueue.Sort();
 	}
 
-	public void RenderOpaques()
+	public void RenderScene()
 	{
 		GL.Enable(EnableCap.DepthTest);
 		GL.DepthFunc(DepthFunction.Less);
@@ -157,9 +159,9 @@ public class Scene
 		// GL.DepthFunc(DepthFunction.Greater);
 		GL.ClearColor(Camera.Color.ToOtherColor());
 		GL.ClearDepth(1000);
-		
-	
-		GL.Viewport(0,0,(int) Camera.I.Size.X,(int)Camera.I.Size.Y);
+
+
+		GL.Viewport(0, 0, (int) Camera.I.Size.X, (int) Camera.I.Size.Y);
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 		//BatchingManager.RenderAllBatchers();
 		for (int i = 0; i < _renderQueue.Count; i++)
@@ -215,7 +217,7 @@ public class Scene
 		foreach (GameObject gameObject in GameObjects)
 		{
 			Component bl = gameObject.GetComponent<T>();
-			if (bl != null)
+			if (bl != null && ((ignoreInactive && bl.IsActive) || (ignoreInactive == false)))
 			{
 				return (T) bl;
 			}
@@ -243,7 +245,7 @@ public class Scene
 
 		return components;
 	}
-
+	
 	public GameObject GetGameObject(int id)
 	{
 		for (int i = 0; i < GameObjects.Count; i++)

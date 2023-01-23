@@ -103,7 +103,8 @@ public static class Debug
 		EndTimer(timerName);
 		float msDuration = (float) Math.Round(Timers[timerName].Elapsed.TotalMilliseconds, 2);
 
-		Debug.Log($"[{timerName}] {msDuration}");
+		Stat(timerName, msDuration);
+		// Debug.Log($"[{timerName}] {msDuration}");
 	}
 
 	public static void ClearTimers()

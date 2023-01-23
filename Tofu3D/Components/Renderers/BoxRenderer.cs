@@ -1,6 +1,4 @@
-﻿using Tofu3D.Components.Renderers;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public class BoxRenderer : Renderer
 {

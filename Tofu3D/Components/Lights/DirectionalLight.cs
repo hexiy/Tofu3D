@@ -1,3 +1,5 @@
+using Tofu3D.Rendering;
+
 [ExecuteInEditMode]
 public class DirectionalLight : LightBase
 {
@@ -48,7 +50,7 @@ public class DirectionalLight : LightBase
 
 		ConfigureForShadowMapping();
 		
-		Scene.I.RenderOpaques();
+		Scene.I.RenderScene();
 
 		ConfigureForSceneRender();
 	}

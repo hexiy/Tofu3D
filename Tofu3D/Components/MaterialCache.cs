@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Tofu3D.Components.Renderers;
+namespace Tofu3D;
 
 public class MaterialCache
 {

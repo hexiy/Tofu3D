@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Threading;
-using OpenTK.Windowing.Common;
+using Engine;
+using Tofu3D.Rendering;
 using Tofu3D.Tweening;
 
 namespace Tofu3D;
@@ -20,8 +21,7 @@ public static class Program
 		_ = new LightManager();
 
 		AssetsWatcher.StartWatching();
-
-
+		
 		using Window window = new();
 
 		window.Run();

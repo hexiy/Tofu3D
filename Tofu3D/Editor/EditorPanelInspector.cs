@@ -3,7 +3,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using ImGuiNET;
-using Tofu3D.Components.Renderers;
 
 namespace Tofu3D;
 

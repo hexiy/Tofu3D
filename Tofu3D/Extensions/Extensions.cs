@@ -147,6 +147,10 @@ public static class Extensions
 	{
 		return new Vector3(0, vector.Y, 0);
 	}
+	public static Vector3 VectorZ(this Vector3 vector)
+	{
+		return new Vector3(0, 0, vector.Z);
+	}
 
 	public static Color ToColor(this System.Numerics.Vector4 vector)
 	{

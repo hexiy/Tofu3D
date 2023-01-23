@@ -1,4 +1,6 @@
-namespace Tofu3D;
+using Engine;
+
+namespace Tofu3D.Rendering;
 
 public static class RenderPassSystem
 {
@@ -17,6 +19,7 @@ public static class RenderPassSystem
 
 	public static void Initialize()
 	{
+		//_renderPasses = new List<RenderPass>();
 		if (Camera.I == null)
 		{
 			throw new NullReferenceException("No camera in scene");
@@ -36,6 +39,7 @@ public static class RenderPassSystem
 	{
 		RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();
 		RenderPassOpaques renderPassOpaques = new RenderPassOpaques();
+		RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
 	}
 
 	public static void RegisterRenderPass(RenderPass renderPass)
@@ -66,8 +70,8 @@ public static class RenderPassSystem
 		foreach (RenderPass renderPass in _renderPasses)
 		{
 			CurrentRenderPassType = renderPass.RenderPassType;
-			
-			
+
+
 			renderPass.Render();
 		}
 
@@ -80,10 +84,11 @@ public static class RenderPassSystem
 		{
 			return;
 		}
+
 		FinalRenderTexture.Clear();
 
-		// RenderPassDirectionalLightShadowDepth.I.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Depth);
 		RenderPassOpaques.I.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
+		// RenderPassMousePicking.I.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
 		// foreach (RenderPass renderPass in _renderPasses)
 		// {
 		// 	if (renderPass.RenderPassType == RenderPassType.DirectionalLightShadowDepth)

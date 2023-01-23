@@ -1,4 +1,6 @@
-﻿namespace Tofu3D;
+﻿using Engine;
+
+namespace Tofu3D;
 
 [ExecuteInEditMode]
 public class TransformHandle : Component
@@ -7,18 +9,19 @@ public class TransformHandle : Component
 	{
 		X,
 		Y,
-		Xy
+		Z,
+		Xy,
 	}
 
 	public static bool ObjectSelected;
 	public BoxShape BoxColliderX;
 	public BoxShape BoxColliderXy;
 	public BoxShape BoxColliderY;
-	public BoxShape boxColliderZ;
+	public BoxShape BoxColliderZ;
 	public ModelRenderer ModelRendererX;
 	public ModelRenderer ModelRendererXy;
 	public ModelRenderer ModelRendererY;
-	public ModelRenderer boxRendererZ;
+	public ModelRenderer ModelRendererZ;
 
 	public bool Clicked;
 	public Axis? CurrentAxisSelected;
@@ -38,8 +41,8 @@ public class TransformHandle : Component
 		BoxColliderY = GameObject.AddComponent<BoxShape>();
 		BoxColliderY.Size = new Vector3(5, 50, 5) / Units.OneWorldUnit;
 
-		boxColliderZ = GameObject.AddComponent<BoxShape>();
-		boxColliderZ.Size = new Vector3(5, 5, 90) / Units.OneWorldUnit;
+		BoxColliderZ = GameObject.AddComponent<BoxShape>();
+		BoxColliderZ.Size = new Vector3(5, 5, 50) / Units.OneWorldUnit;
 		//boxColliderY.offset = new Vector2(2.5f, 25);
 
 		BoxColliderXy = GameObject.AddComponent<BoxShape>();
@@ -48,24 +51,36 @@ public class TransformHandle : Component
 
 		ModelRendererX = GameObject.AddComponent<ModelRenderer>();
 		ModelRendererY = GameObject.AddComponent<ModelRenderer>();
-		boxRendererZ = GameObject.AddComponent<ModelRenderer>();
+		ModelRendererZ = GameObject.AddComponent<ModelRenderer>();
 		ModelRendererXy = GameObject.AddComponent<ModelRenderer>();
 
+		Material unlitMaterial = MaterialCache.GetMaterial("ModelRendererUnlit");
+		ModelRendererX.Material = unlitMaterial;
+		ModelRendererY.Material = unlitMaterial;
+		ModelRendererXy.Material = unlitMaterial;
+		ModelRendererZ.Material = unlitMaterial;
 
 		PremadeComponentSetups.PrepareCube(ModelRendererX);
 		PremadeComponentSetups.PrepareCube(ModelRendererY);
 		PremadeComponentSetups.PrepareCube(ModelRendererXy);
-		PremadeComponentSetups.PrepareCube(boxRendererZ);
+		PremadeComponentSetups.PrepareCube(ModelRendererZ);
 
 		ModelRendererXy.Layer = 1000;
 		ModelRendererX.Layer = 1000;
 		ModelRendererY.Layer = 1000;
-		boxRendererZ.Layer = 1000;
+		ModelRendererZ.Layer = 1000;
 
 		ModelRendererX.BoxShape = BoxColliderX;
 		ModelRendererXy.BoxShape = BoxColliderXy;
 		ModelRendererY.BoxShape = BoxColliderY;
-		boxRendererZ.BoxShape = boxColliderZ;
+		ModelRendererZ.BoxShape = BoxColliderZ;
+
+
+		ModelRendererX.Color = Color.Red;
+		ModelRendererY.Color = Color.YellowGreen;
+		ModelRendererXy.Color = Color.Gold;
+		ModelRendererZ.Color = Color.Cyan;
+
 
 		base.Awake();
 	}
@@ -98,19 +113,25 @@ public class TransformHandle : Component
 		if (MouseInput.ButtonPressed())
 		{
 			Clicked = false;
-			if (MouseInput.WorldPosition.In(BoxColliderX))
+			if (MousePickingSystem.HoveredRenderer == ModelRendererX)
 			{
 				CurrentAxisSelected = Axis.X;
 				Clicked = true;
 			}
 
-			if (MouseInput.WorldPosition.In(BoxColliderY))
+			if (MousePickingSystem.HoveredRenderer == ModelRendererY)
 			{
 				CurrentAxisSelected = Axis.Y;
 				Clicked = true;
 			}
 
-			if (MouseInput.WorldPosition.In(BoxColliderXy))
+			if (MousePickingSystem.HoveredRenderer == ModelRendererZ)
+			{
+				CurrentAxisSelected = Axis.Z;
+				Clicked = true;
+			}
+
+			if (MousePickingSystem.HoveredRenderer == ModelRendererXy)
 			{
 				CurrentAxisSelected = Axis.Xy;
 				Clicked = true;
@@ -120,7 +141,8 @@ public class TransformHandle : Component
 		if (MouseInput.IsButtonDown() && GameObject.ActiveInHierarchy && Clicked)
 		{
 			SetSelectedObjectRigidbodyAwake(false);
-			Move(MouseInput.WorldDelta);
+			// Move(MouseInput.WorldDelta);
+			Move(MouseInput.ScreenDelta / Units.OneWorldUnit);
 		}
 		else
 		{
@@ -135,7 +157,7 @@ public class TransformHandle : Component
 
 		Transform.WorldPosition = GetCenterOfSelection();
 		Transform.Rotation = GetRotationOfSelection();
-		if (MouseInput.WorldPosition.In(BoxColliderX) || CurrentAxisSelected == Axis.X)
+		if (MousePickingSystem.HoveredRenderer == ModelRendererX || CurrentAxisSelected == Axis.X)
 		{
 			ModelRendererX.Color = Color.WhiteSmoke;
 		}
@@ -144,16 +166,16 @@ public class TransformHandle : Component
 			ModelRendererX.Color = Color.Red;
 		}
 
-		if (MouseInput.WorldPosition.In(BoxColliderY) || CurrentAxisSelected == Axis.Y)
+		if (MousePickingSystem.HoveredRenderer == ModelRendererY || CurrentAxisSelected == Axis.Y)
 		{
 			ModelRendererY.Color = Color.WhiteSmoke;
 		}
 		else
 		{
-			ModelRendererY.Color = Color.Cyan;
+			ModelRendererY.Color = Color.YellowGreen;
 		}
 
-		if (MouseInput.WorldPosition.In(BoxColliderXy) || CurrentAxisSelected == Axis.Xy)
+		if (MousePickingSystem.HoveredRenderer == ModelRendererXy || CurrentAxisSelected == Axis.Xy)
 		{
 			ModelRendererXy.Color = Color.WhiteSmoke;
 		}
@@ -162,12 +184,21 @@ public class TransformHandle : Component
 			ModelRendererXy.Color = Color.Gold;
 		}
 
+		if (MousePickingSystem.HoveredRenderer == ModelRendererZ || CurrentAxisSelected == Axis.Z)
+		{
+			ModelRendererZ.Color = Color.WhiteSmoke;
+		}
+		else
+		{
+			ModelRendererZ.Color = Color.Cyan;
+		}
+
 		base.Update();
 	}
 
 	public void Move(Vector3 deltaVector)
 	{
-		return;
+		// return;
 
 		Vector3 moveVector = Vector3.Zero;
 		switch (CurrentAxisSelected)
@@ -178,13 +209,18 @@ public class TransformHandle : Component
 			case Axis.Y:
 				moveVector += deltaVector.VectorY();
 				break;
+			case Axis.Z:
+				moveVector += deltaVector.VectorZ();
+				break;
 			case Axis.Xy:
 				moveVector += deltaVector;
 				break;
 		}
 
 
-		Transform.LocalPosition += moveVector; // we will grab it with offset, soe we want to move it only by change of mouse position
+		Transform.LocalPosition += moveVector; 
+		// Transform.LocalPosition += moveVector; 
+		
 		// _selectedTransform.LocalPosition = _selectedTransform.TranslateWorldToLocal(_selectedTransform.WorldPosition);
 
 		for (int i = 0; i < _selectedTransforms.Count; i++)

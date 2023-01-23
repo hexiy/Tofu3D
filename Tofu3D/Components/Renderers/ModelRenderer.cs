@@ -1,12 +1,17 @@
-using Tofu3D.Components.Renderers;
+using Engine;
+using Tofu3D.Rendering;
 
 public class ModelRenderer : TextureRenderer
 {
 	public Model Model;
 	public bool CastShadow = true;
 
+	Color _mousePickingColor;
+
 	public override void Awake()
 	{
+		_mousePickingColor = MousePickingSystem.RegisterObject(this);
+
 		if (Texture == null)
 		{
 			Texture = new Texture();
@@ -77,25 +82,33 @@ public class ModelRenderer : TextureRenderer
 		}
 
 		bool renderDepth = RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth && GameObject.Silent == false && CastShadow;
-		/*if (renderDepth && false)
-		{
-			// depth pass
-
-
-			Material depthMaterial = MaterialCache.GetMaterial("DepthModel");
-			ShaderCache.UseShader(depthMaterial.Shader);
-
-			depthMaterial.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
-			depthMaterial.Shader.SetMatrix4X4("u_model", GetModelMatrixForLight());
-			depthMaterial.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
-
-			ShaderCache.BindVertexArray(depthMaterial.Vao);
-
-			GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
-		}
-		else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques || true)*/
+		// if (renderDepth)
+		// {
+		// 	// depth pass
+		//
+		//
+		// 	Material depthMaterial = MaterialCache.GetMaterial("DepthModel");
+		// 	ShaderCache.UseShader(depthMaterial.Shader);
+		//
+		// 	depthMaterial.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+		// 	depthMaterial.Shader.SetMatrix4X4("u_model", GetModelMatrixForLight());
+		// 	depthMaterial.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
+		//
+		// 	ShaderCache.BindVertexArray(depthMaterial.Vao);
+		//
+		// 	GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
+		// }
 		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques || (RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth && renderDepth))
 		{
+			if (GameObject == TransformHandle.I?.GameObject)
+			{
+				GL.Disable(EnableCap.DepthTest);
+			}
+			else
+			{
+				GL.Enable(EnableCap.DepthTest);
+			}
+
 			{
 				//GL.Enable(EnableCap.DepthTest);
 
@@ -123,7 +136,7 @@ public class ModelRenderer : TextureRenderer
 
 
 				TextureCache.BindTexture(Texture.Id);
-				if (RenderPassDirectionalLightShadowDepth.I != null)
+				if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
 				{
 					TextureCache.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 				}
@@ -133,6 +146,20 @@ public class ModelRenderer : TextureRenderer
 
 				GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
 			}
+		}
+		else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
+		{
+			Material mousePickingMaterial = MaterialCache.GetMaterial("ModelMousePicking");
+			ShaderCache.UseShader(mousePickingMaterial.Shader);
+
+			mousePickingMaterial.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+			mousePickingMaterial.Shader.SetMatrix4X4("u_model", GetModelMatrixForLight());
+
+			mousePickingMaterial.Shader.SetColor("u_rendererColor", _mousePickingColor);
+
+			ShaderCache.BindVertexArray(Material.Vao);
+
+			GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
 		}
 
 		if (drawOutline)

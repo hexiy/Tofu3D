@@ -1,5 +1,5 @@
-namespace Tofu3D.Components.Renderers;
-
+namespace Tofu3D;
+[ExecuteInEditMode]
 public class StressTestGameObjectSpawner : Component
 {
 	[XmlIgnore]

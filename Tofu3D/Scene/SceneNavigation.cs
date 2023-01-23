@@ -1,3 +1,4 @@
+using Engine;
 using Tofu3D.Tweening;
 
 namespace Tofu3D;
@@ -13,6 +14,7 @@ public class SceneNavigation
 	}
 
 	public static SceneNavigation I { get; private set; }
+	public bool IsPanningCamera { get; private set; }
 
 	public void MoveToGameObject(GameObject targetGo)
 	{
@@ -35,6 +37,7 @@ public class SceneNavigation
 
 	public void Update()
 	{
+		IsPanningCamera = false;
 		if (_targetOrthoSize == -1 && Camera.I != null)
 		{
 			_targetOrthoSize = Camera.I.OrthographicSize;
@@ -105,6 +108,15 @@ public class SceneNavigation
 
 		if (MouseInput.IsButtonDown() && Camera.I.IsOrthographic == false)
 		{
+			if (TransformHandle.I.CurrentAxisSelected != null)
+			{
+				return;
+			}
+
+			if (MouseInput.ScreenDelta != Vector2.Zero)
+			{
+				IsPanningCamera = true;
+			}
 			Camera.I.Transform.Rotation += new Vector3(MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * 0.2f;
 			//Debug.Log("Rotate Cam");
 			//Camera.I.transform.Rotation = new Vector3(Camera.I.transform.Rotation.X, Camera.I.transform.Rotation.Y, 0);

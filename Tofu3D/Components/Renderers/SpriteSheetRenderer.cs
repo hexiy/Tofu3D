@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using Tofu3D.Components.Renderers;
 
 namespace Scripts;
 

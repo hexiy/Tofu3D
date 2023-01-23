@@ -1,10 +1,12 @@
+using Engine;
+
 namespace Tofu3D.Rendering;
 
-public class RenderPassOpaques : RenderPass
+public class RenderPassMousePicking : RenderPass
 {
-	public static RenderPassOpaques I { get; private set; }
+	public static RenderPassMousePicking I { get; private set; }
 
-	public RenderPassOpaques() : base(RenderPassType.Opaques)
+	public RenderPassMousePicking() : base(RenderPassType.MousePicking)
 	{
 		I = this;
 	}
@@ -21,5 +23,12 @@ public class RenderPassOpaques : RenderPass
 		PassRenderTexture = new RenderTexture(size: Camera.I.Size, colorAttachment: true, depthAttachment: true);
 
 		base.SetupRenderTexture();
+	}
+
+	protected override void PostRender()
+	{
+		MousePickingSystem.Update();
+
+		base.PostRender();
 	}
 }

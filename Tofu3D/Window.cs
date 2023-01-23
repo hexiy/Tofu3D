@@ -1,6 +1,8 @@
-﻿using OpenTK.Mathematics;
+﻿using Engine;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using Tofu3D.Rendering;
 
 namespace Tofu3D;
 
@@ -34,6 +36,7 @@ public class Window : GameWindow
 		Scene.I.Start();
 
 		RenderPassSystem.Initialize();
+		MousePickingSystem.Initialize();
 	}
 
 	protected override void OnUnload()
