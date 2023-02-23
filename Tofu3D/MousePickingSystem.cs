@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Tofu3D.Rendering;
 
@@ -5,15 +6,17 @@ namespace Engine;
 
 public static class MousePickingSystem
 {
-	static HashSet<MousePickingObject> _renderers = new HashSet<MousePickingObject>();
+	static Dictionary<uint, Renderer> _renderers = new Dictionary<uint, Renderer>();
 	static uint _pixels;
 	public static Renderer HoveredRenderer { get; private set; }
 
-	public static Color RegisterObject(Renderer renderer)
+	public static Color RegisterObject(ModelRenderer renderer)
 	{
-		MousePickingObject mousePickingObject = new MousePickingObject() {Renderer = renderer, Color = GetFreeColor()};
-		_renderers.Add(mousePickingObject);
-		return new Color(mousePickingObject.Color);
+		// MousePickingObject mousePickingObject = new MousePickingObject() {Renderer = renderer, Color = GetFreeColor()};
+		uint col = GetFreeColor();
+		_renderers[col] = renderer;
+		// _renderers.Add(mousePickingObject);
+		return new Color(col);
 	}
 
 	// public static uint GetColor(Renderer renderer)
@@ -35,15 +38,21 @@ public static class MousePickingSystem
 
 	private static Renderer GetRenderer(uint color)
 	{
-		foreach (MousePickingObject mousePickingObject in _renderers)
-		{
-			if (mousePickingObject.Color == color)
-			{
-				return mousePickingObject.Renderer;
-			}
-		}
+		return _renderers.GetValueOrDefault(color, null);
+		// ref Renderer valOrNew = ref CollectionsMarshal.GetValueRefOrNullRef(_renderers, color);
+		//
+		// return valOrNew;
 
-		return null;
+		// return _renderers[color];
+		// foreach (MousePickingObject mousePickingObject in _renderers)
+		// {
+		// 	if (mousePickingObject.Color == color)
+		// 	{
+		// 		return mousePickingObject.Renderer;
+		// 	}
+		// }
+
+		// return null;
 	}
 
 	private static uint GetFreeColor()
@@ -71,6 +80,8 @@ public static class MousePickingSystem
 		// MousePickingSystem.Update();
 
 		// GL.ReadPixels(0,0,1,1,PixelFormat.Rgb, PixelType.UnsignedByte, ref pixels);
+		
+		// need to update even when not moving mouse because objects can move in the scene
 		if (MouseInput.ScreenDelta == Vector2.Zero || SceneNavigation.I.IsPanningCamera)
 		{
 			return;
@@ -81,6 +92,6 @@ public static class MousePickingSystem
 
 
 		HoveredRenderer = GetRenderer(_pixels);
-		Debug.Log($"HoveredRenderer:{HoveredRenderer?.GameObject.Name}");
+		// Debug.Log($"HoveredRenderer:{HoveredRenderer?.GameObject.Name}");
 	}
 }

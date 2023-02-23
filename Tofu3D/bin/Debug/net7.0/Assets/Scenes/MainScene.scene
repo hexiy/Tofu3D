@@ -41,7 +41,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>AmbientLight</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -71,7 +71,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -106,14 +106,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>108.59137</X>
-        <Y>-18.775845</Y>
-        <Z>21.353224</Z>
+        <X>-14.309117</X>
+        <Y>-29.771648</Y>
+        <Z>-43.554127</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>108.59137</X>
-        <Y>-18.775845</Y>
-        <Z>21.353224</Z>
+        <X>-14.309117</X>
+        <Y>-29.771648</Y>
+        <Z>-43.554127</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -126,8 +126,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-19.435854</X>
-        <Y>-78.294464</Y>
+        <X>-18.35615</X>
+        <Y>32.983646</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -235,7 +235,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>110.20262</DistanceFromCamera>
+      <DistanceFromCamera>33.031834</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -243,7 +243,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>137</Vao>
+        <Vao>2</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -387,13 +387,13 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>25</X>
-        <Y>0</Y>
+        <X>26.52246</X>
+        <Y>3.5125568</Y>
         <Z>25</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>25</X>
-        <Y>0</Y>
+        <X>26.52246</X>
+        <Y>3.5125568</Y>
         <Z>25</Z>
       </LocalPosition>
       <LocalScale>
@@ -456,7 +456,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>85.67409</DistanceFromCamera>
+      <DistanceFromCamera>52.678802</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -464,7 +464,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>141</Vao>
+        <Vao>6</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -565,7 +565,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>78.89715</DistanceFromCamera>
+      <DistanceFromCamera>62.110035</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Path>Assets/Materials/ModelRenderer.mat</Path>
@@ -573,7 +573,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>142</Vao>
+        <Vao>7</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -593,5 +593,5 @@
       <CastShadow>true</CastShadow>
     </Component>
   </Components>
-  <GameObjectNextId>17</GameObjectNextId>
+  <GameObjectNextId>21</GameObjectNextId>
 </SceneFile>

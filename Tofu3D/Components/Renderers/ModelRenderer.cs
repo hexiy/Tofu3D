@@ -149,6 +149,14 @@ public class ModelRenderer : TextureRenderer
 		}
 		else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
 		{
+			if (GameObject == TransformHandle.I?.GameObject)
+			{
+				GL.Disable(EnableCap.DepthTest);
+			}
+			else
+			{
+				GL.Enable(EnableCap.DepthTest);
+			}
 			Material mousePickingMaterial = MaterialCache.GetMaterial("ModelMousePicking");
 			ShaderCache.UseShader(mousePickingMaterial.Shader);
 

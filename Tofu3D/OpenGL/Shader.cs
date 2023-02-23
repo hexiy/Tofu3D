@@ -45,7 +45,10 @@ public class Shader : IDisposable
 			Path = System.IO.Path.Combine("Assets", "Shaders", "SpriteRenderer.glsl");
 		}
 
-	
+		if (File.Exists(Path) == false)
+		{
+			return;
+		}
 		GetAllUniforms();
 		string shaderFile = File.ReadAllText(Path);
 
@@ -174,6 +177,11 @@ public class Shader : IDisposable
 		string filename = System.IO.Path.GetFileName(Path);
 
 		Path = System.IO.Path.Combine("Assets", "Shaders", filename);
+
+		if (File.Exists(Path) == false)
+		{
+			return new ShaderUniform[] { };
+		}
 
 		using (StreamReader sr = new(Path))
 		{

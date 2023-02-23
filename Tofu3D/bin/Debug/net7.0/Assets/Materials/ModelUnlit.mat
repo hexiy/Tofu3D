@@ -4,8 +4,8 @@
   <Path>Assets/Materials/ModelUnlit.mat</Path>
   <Shader>
     <BufferType>Rendertexture</BufferType>
-    <Path>/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/Shaders/ModelUnlit.glsl</Path>
+    <Path>/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/Shaders/ModelRendererUnlit.glsl</Path>
   </Shader>
-  <Vao>0</Vao>
+  <Vao>20</Vao>
   <Vbo>0</Vbo>
 </Material>
