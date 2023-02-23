@@ -9,17 +9,17 @@
       "Tofu3D/1.0.0": {
         "dependencies": {
           "ImGui.NET": "1.87.3",
-          "Microsoft.CodeAnalysis.Workspaces.Common": "4.4.0-1.final",
+          "Microsoft.CodeAnalysis.Workspaces.Common": "4.5.0-2.final",
           "Microsoft.CodeDom.Providers.DotNetCompilerPlatform": "4.1.0-preview1",
           "OpenTK": "4.7.4",
           "OpenTK.redist.glfw": "3.3.7.27",
           "SharpAudio": "1.0.65-beta",
           "SharpAudio.ALBinding": "1.0.65-beta",
           "SharpAudio.Codec": "1.0.65-beta",
-          "SixLabors.ImageSharp": "1.0.4",
-          "System.CodeDom": "7.0.0-preview.7.22375.6",
-          "System.Drawing.Common": "7.0.0-preview.7.22375.6",
-          "System.Security.Permissions": "7.0.0-preview.7.22375.6"
+          "SixLabors.ImageSharp": "2.1.3",
+          "System.CodeDom": "8.0.0-preview.1.23110.8",
+          "System.Drawing.Common": "8.0.0-preview.1.23110.8",
+          "System.Security.Permissions": "8.0.0-preview.1.23110.8"
         },
         "runtime": {
           "Tofu3D.dll": {}
@@ -85,11 +85,11 @@
         }
       },
       "Microsoft.CodeAnalysis.Analyzers/3.3.3": {},
-      "Microsoft.CodeAnalysis.Common/4.4.0-1.final": {
+      "Microsoft.CodeAnalysis.Common/4.5.0-2.final": {
         "dependencies": {
           "Microsoft.CodeAnalysis.Analyzers": "3.3.3",
-          "System.Collections.Immutable": "5.0.0",
-          "System.Memory": "4.5.4",
+          "System.Collections.Immutable": "6.0.0",
+          "System.Memory": "4.5.5",
           "System.Reflection.Metadata": "5.0.0",
           "System.Runtime.CompilerServices.Unsafe": "6.0.0",
           "System.Text.Encoding.CodePages": "6.0.0",
@@ -97,8 +97,8 @@
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.CodeAnalysis.dll": {
-            "assemblyVersion": "4.4.0.0",
-            "fileVersion": "4.400.22.40313"
+            "assemblyVersion": "4.5.0.0",
+            "fileVersion": "4.500.22.58013"
           }
         },
         "resources": {
@@ -143,18 +143,19 @@
           }
         }
       },
-      "Microsoft.CodeAnalysis.Workspaces.Common/4.4.0-1.final": {
+      "Microsoft.CodeAnalysis.Workspaces.Common/4.5.0-2.final": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
           "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
-          "Microsoft.CodeAnalysis.Common": "4.4.0-1.final",
+          "Microsoft.CodeAnalysis.Common": "4.5.0-2.final",
           "System.Composition": "6.0.0",
-          "System.IO.Pipelines": "6.0.1"
+          "System.IO.Pipelines": "6.0.3",
+          "System.Threading.Channels": "6.0.0"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "assemblyVersion": "4.4.0.0",
-            "fileVersion": "4.400.22.40313"
+            "assemblyVersion": "4.5.0.0",
+            "fileVersion": "4.500.22.58013"
           }
         },
         "resources": {
@@ -262,19 +263,19 @@
       },
       "Microsoft.NETCore.Platforms/1.0.1": {},
       "Microsoft.NETCore.Targets/1.0.1": {},
-      "Microsoft.Win32.SystemEvents/7.0.0-preview.7.22375.6": {
+      "Microsoft.Win32.SystemEvents/8.0.0-preview.1.23110.8": {
         "runtime": {
-          "lib/net7.0/Microsoft.Win32.SystemEvents.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.37506"
+          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.11008"
           }
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.dll": {
+          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
             "rid": "win",
             "assetType": "runtime",
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.37506"
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.11008"
           }
         }
       },
@@ -331,7 +332,7 @@
       },
       "NVorbis/0.10.4": {
         "dependencies": {
-          "System.Memory": "4.5.4",
+          "System.Memory": "4.5.5",
           "System.ValueTuple": "4.5.0"
         },
         "runtime": {
@@ -516,7 +517,7 @@
           "NLayer.Core": "1.15.0",
           "NVorbis": "0.10.4",
           "SharpAudio": "1.0.65-beta",
-          "System.Memory": "4.5.4"
+          "System.Memory": "4.5.5"
         },
         "runtime": {
           "lib/netstandard2.1/SharpAudio.Codec.dll": {
@@ -544,11 +545,15 @@
           }
         }
       },
-      "SixLabors.ImageSharp/1.0.4": {
+      "SixLabors.ImageSharp/2.1.3": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0",
+          "System.Text.Encoding.CodePages": "6.0.0"
+        },
         "runtime": {
           "lib/netcoreapp3.1/SixLabors.ImageSharp.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.4.0"
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.1.3.0"
           }
         }
       },
@@ -558,11 +563,11 @@
         }
       },
       "System.Buffers/4.4.0": {},
-      "System.CodeDom/7.0.0-preview.7.22375.6": {
+      "System.CodeDom/8.0.0-preview.1.23110.8": {
         "runtime": {
-          "lib/net7.0/System.CodeDom.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.37506"
+          "lib/net8.0/System.CodeDom.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.11008"
           }
         }
       },
@@ -573,7 +578,11 @@
           "System.Runtime": "4.1.0"
         }
       },
-      "System.Collections.Immutable/5.0.0": {},
+      "System.Collections.Immutable/6.0.0": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        }
+      },
       "System.Composition/6.0.0": {
         "dependencies": {
           "System.Composition.AttributedModel": "6.0.0",
@@ -648,22 +657,14 @@
           "System.Runtime": "4.1.0"
         }
       },
-      "System.Drawing.Common/7.0.0-preview.7.22375.6": {
+      "System.Drawing.Common/8.0.0-preview.1.23110.8": {
         "dependencies": {
-          "Microsoft.Win32.SystemEvents": "7.0.0-preview.7.22375.6"
+          "Microsoft.Win32.SystemEvents": "8.0.0-preview.1.23110.8"
         },
         "runtime": {
-          "lib/net7.0/System.Drawing.Common.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.37506"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/net7.0/System.Drawing.Common.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.37506"
+          "lib/net8.0/System.Drawing.Common.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.11008"
           }
         }
       },
@@ -719,11 +720,11 @@
           "System.Runtime": "4.1.0"
         }
       },
-      "System.IO.Pipelines/6.0.1": {
+      "System.IO.Pipelines/6.0.3": {
         "runtime": {
           "lib/net6.0/System.IO.Pipelines.dll": {
             "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.121.56705"
+            "fileVersion": "6.0.522.21309"
           }
         }
       },
@@ -757,7 +758,7 @@
           "System.Threading": "4.0.11"
         }
       },
-      "System.Memory/4.5.4": {},
+      "System.Memory/4.5.5": {},
       "System.Numerics.Vectors/4.4.0": {},
       "System.ObjectModel/4.0.12": {
         "dependencies": {
@@ -880,14 +881,14 @@
           "System.Runtime": "4.1.0"
         }
       },
-      "System.Security.Permissions/7.0.0-preview.7.22375.6": {
+      "System.Security.Permissions/8.0.0-preview.1.23110.8": {
         "dependencies": {
-          "System.Windows.Extensions": "7.0.0-preview.7.22375.6"
+          "System.Windows.Extensions": "8.0.0-preview.1.23110.8"
         },
         "runtime": {
-          "lib/net7.0/System.Security.Permissions.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.37506"
+          "lib/net8.0/System.Security.Permissions.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.11008"
           }
         }
       },
@@ -927,6 +928,7 @@
           "System.Threading.Tasks": "4.0.11"
         }
       },
+      "System.Threading.Channels/6.0.0": {},
       "System.Threading.Tasks/4.0.11": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.0.1",
@@ -936,22 +938,22 @@
       },
       "System.Threading.Tasks.Extensions/4.5.4": {},
       "System.ValueTuple/4.5.0": {},
-      "System.Windows.Extensions/7.0.0-preview.7.22375.6": {
+      "System.Windows.Extensions/8.0.0-preview.1.23110.8": {
         "dependencies": {
-          "System.Drawing.Common": "7.0.0-preview.7.22375.6"
+          "System.Drawing.Common": "8.0.0-preview.1.23110.8"
         },
         "runtime": {
-          "lib/net7.0/System.Windows.Extensions.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.37506"
+          "lib/net8.0/System.Windows.Extensions.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.11008"
           }
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net7.0/System.Windows.Extensions.dll": {
+          "runtimes/win/lib/net8.0/System.Windows.Extensions.dll": {
             "rid": "win",
             "assetType": "runtime",
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.37506"
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.11008"
           }
         }
       },
@@ -1093,19 +1095,19 @@
       "path": "microsoft.codeanalysis.analyzers/3.3.3",
       "hashPath": "microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512"
     },
-    "Microsoft.CodeAnalysis.Common/4.4.0-1.final": {
+    "Microsoft.CodeAnalysis.Common/4.5.0-2.final": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-M7qDl6dUQunB46UYyDzVhL//gGlsKamM57Gf6hjeuj4/I+XqVKLDV7+jIAy++5UZvS6KKIF4SQViSIRigxnkaw==",
-      "path": "microsoft.codeanalysis.common/4.4.0-1.final",
-      "hashPath": "microsoft.codeanalysis.common.4.4.0-1.final.nupkg.sha512"
+      "sha512": "sha512-1w7QG5B1MI4WtX6I6oCI+MAg5tt2gNNgYOu1fY06SCyFEvG0VBQOjaiW/0XocVmR9dmKPkvUkWxdl+gcK4h9Gg==",
+      "path": "microsoft.codeanalysis.common/4.5.0-2.final",
+      "hashPath": "microsoft.codeanalysis.common.4.5.0-2.final.nupkg.sha512"
     },
-    "Microsoft.CodeAnalysis.Workspaces.Common/4.4.0-1.final": {
+    "Microsoft.CodeAnalysis.Workspaces.Common/4.5.0-2.final": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-g050YAozqZhJ7oLYxCwBy9ygO9vj4wr1eztds140bFff5AfXrUknGoGDFabsQFWT/faA0DcZeeNHGu/w6uQVTw==",
-      "path": "microsoft.codeanalysis.workspaces.common/4.4.0-1.final",
-      "hashPath": "microsoft.codeanalysis.workspaces.common.4.4.0-1.final.nupkg.sha512"
+      "sha512": "sha512-hhB3UCP2SwYBpcVhCgNLP0s0Ai8vkaZDkKo2PkFOxkY8cqrJBnwTPcEVIJxWwC5AkcstRYEhfBahr7EU6pJSWQ==",
+      "path": "microsoft.codeanalysis.workspaces.common/4.5.0-2.final",
+      "hashPath": "microsoft.codeanalysis.workspaces.common.4.5.0-2.final.nupkg.sha512"
     },
     "Microsoft.CodeDom.Providers.DotNetCompilerPlatform/4.1.0-preview1": {
       "type": "package",
@@ -1149,12 +1151,12 @@
       "path": "microsoft.netcore.targets/1.0.1",
       "hashPath": "microsoft.netcore.targets.1.0.1.nupkg.sha512"
     },
-    "Microsoft.Win32.SystemEvents/7.0.0-preview.7.22375.6": {
+    "Microsoft.Win32.SystemEvents/8.0.0-preview.1.23110.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-fU4W1hVc98LjTCHkZltriZq1gB7Ko5G6kYma2P3WRNz1M4oCHbrD9uBtLEonR+iy7747+ry5VK04PfpII3tAPg==",
-      "path": "microsoft.win32.systemevents/7.0.0-preview.7.22375.6",
-      "hashPath": "microsoft.win32.systemevents.7.0.0-preview.7.22375.6.nupkg.sha512"
+      "sha512": "sha512-3dQsCx524fIV69j2N12segpXAM3AZ/HmRv1R8be5cPomxpHwK/qm6HIHuxfR5Z/Hmw78iPcb1j865rkU/PEo2Q==",
+      "path": "microsoft.win32.systemevents/8.0.0-preview.1.23110.8",
+      "hashPath": "microsoft.win32.systemevents.8.0.0-preview.1.23110.8.nupkg.sha512"
     },
     "NativeLibraryLoader/1.0.12": {
       "type": "package",
@@ -1303,12 +1305,12 @@
       "path": "sharpgen.runtime.com/2.0.0-beta.9",
       "hashPath": "sharpgen.runtime.com.2.0.0-beta.9.nupkg.sha512"
     },
-    "SixLabors.ImageSharp/1.0.4": {
+    "SixLabors.ImageSharp/2.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-H2rPiEr2ddBOltOuqRYhpLBAsQXDAhbzMMhhuksnBG2oefup1MXMchALe7yYkKJksNbtxbZHKeM6dn/68I75qw==",
-      "path": "sixlabors.imagesharp/1.0.4",
-      "hashPath": "sixlabors.imagesharp.1.0.4.nupkg.sha512"
+      "sha512": "sha512-8yonNRWX3vUE9k29ta0Hbfa0AEc0hbDjSH/nZ3vOTJEXmY6hLnGsjDKoz96Z+AgOsrdkAu6PdL/Ebaf70aitzw==",
+      "path": "sixlabors.imagesharp/2.1.3",
+      "hashPath": "sixlabors.imagesharp.2.1.3.nupkg.sha512"
     },
     "System.AppContext/4.1.0": {
       "type": "package",
@@ -1324,12 +1326,12 @@
       "path": "system.buffers/4.4.0",
       "hashPath": "system.buffers.4.4.0.nupkg.sha512"
     },
-    "System.CodeDom/7.0.0-preview.7.22375.6": {
+    "System.CodeDom/8.0.0-preview.1.23110.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-a2CtgNdJjEl2NPun5E5z7tLO+QwoynDG13B86qbReOU/jICwiyouPP/8agQsJCBt6GcHKUgqFOlThSs6y88+dw==",
-      "path": "system.codedom/7.0.0-preview.7.22375.6",
-      "hashPath": "system.codedom.7.0.0-preview.7.22375.6.nupkg.sha512"
+      "sha512": "sha512-DB3BLewVWz4hGao3mO5kRUqhrrlCn4IE55kHNbv0w5OMaZrLJ4+0dRbnfARAP+DAc8DrSoUxh6L+g+J2rn4s8A==",
+      "path": "system.codedom/8.0.0-preview.1.23110.8",
+      "hashPath": "system.codedom.8.0.0-preview.1.23110.8.nupkg.sha512"
     },
     "System.Collections/4.0.11": {
       "type": "package",
@@ -1338,12 +1340,12 @@
       "path": "system.collections/4.0.11",
       "hashPath": "system.collections.4.0.11.nupkg.sha512"
     },
-    "System.Collections.Immutable/5.0.0": {
+    "System.Collections.Immutable/6.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-FXkLXiK0sVVewcso0imKQoOxjoPAj42R8HtjjbSjVPAzwDfzoyoznWxgA3c38LDbN9SJux1xXoXYAhz98j7r2g==",
-      "path": "system.collections.immutable/5.0.0",
-      "hashPath": "system.collections.immutable.5.0.0.nupkg.sha512"
+      "sha512": "sha512-l4zZJ1WU2hqpQQHXz1rvC3etVZN+2DLmQMO79FhOTZHMn8tDRr+WU287sbomD0BETlmKDn0ygUgVy9k5xkkJdA==",
+      "path": "system.collections.immutable/6.0.0",
+      "hashPath": "system.collections.immutable.6.0.0.nupkg.sha512"
     },
     "System.Composition/6.0.0": {
       "type": "package",
@@ -1401,12 +1403,12 @@
       "path": "system.diagnostics.tools/4.0.1",
       "hashPath": "system.diagnostics.tools.4.0.1.nupkg.sha512"
     },
-    "System.Drawing.Common/7.0.0-preview.7.22375.6": {
+    "System.Drawing.Common/8.0.0-preview.1.23110.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-qxDhUMQLSPSAQBkEfmEgZ2/xClxRMNqcYIlXT3toiVViRW7ombtCygbx8ka2+9Z/JADqfIbdO6uAx7E83+XPjQ==",
-      "path": "system.drawing.common/7.0.0-preview.7.22375.6",
-      "hashPath": "system.drawing.common.7.0.0-preview.7.22375.6.nupkg.sha512"
+      "sha512": "sha512-kA337mAa3AFWkkQyYmNxtBdVvK5O6O+9V2TrXGIP2oZ4rInxqHs36MzKh7MaRD9TJ9VP4w7RYy9AQFg1Q4UbUA==",
+      "path": "system.drawing.common/8.0.0-preview.1.23110.8",
+      "hashPath": "system.drawing.common.8.0.0-preview.1.23110.8.nupkg.sha512"
     },
     "System.Dynamic.Runtime/4.0.11": {
       "type": "package",
@@ -1443,12 +1445,12 @@
       "path": "system.io.filesystem.primitives/4.0.1",
       "hashPath": "system.io.filesystem.primitives.4.0.1.nupkg.sha512"
     },
-    "System.IO.Pipelines/6.0.1": {
+    "System.IO.Pipelines/6.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1j1pZX1ICzEyjafyssU3BzWVxUsaN3zq0wEmGKj3bxINC6NkmS30eEVuZ7k/QX2UKYNCaUch6g46taYKxcpFtw==",
-      "path": "system.io.pipelines/6.0.1",
-      "hashPath": "system.io.pipelines.6.0.1.nupkg.sha512"
+      "sha512": "sha512-ryTgF+iFkpGZY1vRQhfCzX0xTdlV3pyaTTqRu2ETbEv+HlV7O6y7hyQURnghNIXvctl5DuZ//Dpks6HdL/Txgw==",
+      "path": "system.io.pipelines/6.0.3",
+      "hashPath": "system.io.pipelines.6.0.3.nupkg.sha512"
     },
     "System.Linq/4.1.0": {
       "type": "package",
@@ -1464,12 +1466,12 @@
       "path": "system.linq.expressions/4.1.0",
       "hashPath": "system.linq.expressions.4.1.0.nupkg.sha512"
     },
-    "System.Memory/4.5.4": {
+    "System.Memory/4.5.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
-      "path": "system.memory/4.5.4",
-      "hashPath": "system.memory.4.5.4.nupkg.sha512"
+      "sha512": "sha512-XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
+      "path": "system.memory/4.5.5",
+      "hashPath": "system.memory.4.5.5.nupkg.sha512"
     },
     "System.Numerics.Vectors/4.4.0": {
       "type": "package",
@@ -1597,12 +1599,12 @@
       "path": "system.runtime.serialization.primitives/4.1.1",
       "hashPath": "system.runtime.serialization.primitives.4.1.1.nupkg.sha512"
     },
-    "System.Security.Permissions/7.0.0-preview.7.22375.6": {
+    "System.Security.Permissions/8.0.0-preview.1.23110.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Z3kSPkINia109DpB6dYCQ3FhSE4G3DLHnrGsWEsQmvl82Sa/03nKG1jfgZxdCKsR0DX+2ZwRxB+D73AmTt/6RQ==",
-      "path": "system.security.permissions/7.0.0-preview.7.22375.6",
-      "hashPath": "system.security.permissions.7.0.0-preview.7.22375.6.nupkg.sha512"
+      "sha512": "sha512-TAMl7iZJvoH93/QtlVXVhwjfTxZDwQ8KJ5jGLOW+LbRSQYazvsX6DDZEg+qgycuMuwnuwj0kz+5PjSXxdE4kiQ==",
+      "path": "system.security.permissions/8.0.0-preview.1.23110.8",
+      "hashPath": "system.security.permissions.8.0.0-preview.1.23110.8.nupkg.sha512"
     },
     "System.Text.Encoding/4.0.11": {
       "type": "package",
@@ -1639,6 +1641,13 @@
       "path": "system.threading/4.0.11",
       "hashPath": "system.threading.4.0.11.nupkg.sha512"
     },
+    "System.Threading.Channels/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TY8/9+tI0mNaUMgntOxxaq2ndTkdXqLSxvPmas7XEqOlv9lQtB7wLjYGd756lOaO7Dvb5r/WXhluM+0Xe87v5Q==",
+      "path": "system.threading.channels/6.0.0",
+      "hashPath": "system.threading.channels.6.0.0.nupkg.sha512"
+    },
     "System.Threading.Tasks/4.0.11": {
       "type": "package",
       "serviceable": true,
@@ -1660,12 +1669,12 @@
       "path": "system.valuetuple/4.5.0",
       "hashPath": "system.valuetuple.4.5.0.nupkg.sha512"
     },
-    "System.Windows.Extensions/7.0.0-preview.7.22375.6": {
+    "System.Windows.Extensions/8.0.0-preview.1.23110.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-4ZFyty6SVlrWjsOse2vQpgHdngndMpwx4B5agTvpFduQISx3V5Py0zbLv1wL8aJGX4CdlgBtXNTC87v/s3jfDQ==",
-      "path": "system.windows.extensions/7.0.0-preview.7.22375.6",
-      "hashPath": "system.windows.extensions.7.0.0-preview.7.22375.6.nupkg.sha512"
+      "sha512": "sha512-U1RwJwvoT4hda0uEIYDqei+fKTl84O1jOzSZtab1CijX1V/vxGQavXkVnyRe5CA4cCjN9RBbtESJWHL5t2HtSA==",
+      "path": "system.windows.extensions/8.0.0-preview.1.23110.8",
+      "hashPath": "system.windows.extensions.8.0.0-preview.1.23110.8.nupkg.sha512"
     },
     "System.Xml.ReaderWriter/4.0.11": {
       "type": "package",

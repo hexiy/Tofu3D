@@ -24,14 +24,18 @@ public static class TextureCache
 
 		for (int y = 0; y < image.Height; y++)
 		{
-			Span<Rgba32> row = image.GetPixelRowSpan(y);
-			for (int x = 0; x < image.Width; x++)
+			image.ProcessPixelRows(processPixels: accessor =>
 			{
-				pixels.Add(row[x].R);
-				pixels.Add(row[x].G);
-				pixels.Add(row[x].B);
-				pixels.Add(row[x].A);
-			}
+				Span<Rgba32> row = accessor.GetRowSpan(y);
+				for (int x = 0; x < image.Width; x++)
+				{
+					pixels.Add(row[x].R);
+					pixels.Add(row[x].G);
+					pixels.Add(row[x].B);
+					pixels.Add(row[x].A);
+				}
+			});
+		
 		}
 
 		GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels.ToArray());
