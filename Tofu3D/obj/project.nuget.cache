@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Y3s/5UzSkgCw+B10SGfaDVOV/gVeKXqyb985W0V6735yN7zYNnVISpYjw2EJ6uXUJohMA9rj2pWwr3erxvmF1A==",
+  "dgSpecHash": "KVPuBwnJDP0Iyx9wWwGynnWxtYFjsC/ese8Ywar5sbqqUAnSEPbgwMC5UIUNCJRX3jkDZxEk9YYurKPiko/bXA==",
   "success": true,
   "projectFilePath": "/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/Tofu3D.csproj",
   "expectedPackageFiles": [
@@ -104,10 +104,10 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Microsoft.CodeDom.Providers.DotNetCompilerPlatform 4.1.0-preview1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "message": "Package 'Microsoft.CodeDom.Providers.DotNetCompilerPlatform 4.1.0-preview1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
       "libraryId": "Microsoft.CodeDom.Providers.DotNetCompilerPlatform",
       "targetGraphs": [
-        "net7.0"
+        "net8.0"
       ]
     }
   ]

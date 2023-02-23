@@ -16,7 +16,8 @@ public class Window : GameWindow
 	{
 		I = this;
 		WindowState = WindowState.Maximized;
-		//WindowState = WindowState.Fullscreen;
+		// WindowState = WindowState.Fullscreen;
+		Title = WindowTitleText;
 	}
 
 	public static Window I { get; private set; }
@@ -28,8 +29,6 @@ public class Window : GameWindow
 
 	protected override void OnLoad()
 	{
-		Title = WindowTitleText;
-
 		ImGuiController = new ImGuiController(ClientSize.X, ClientSize.Y);
 
 		Editor.I.Init();
