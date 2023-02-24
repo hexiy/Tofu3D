@@ -82,6 +82,7 @@ public struct Vector2 : IEquatable<Vector2>
 			                    );
 		}
 	}
+	public static object TranslateToGrid { get; set; }
 
 	#endregion
 

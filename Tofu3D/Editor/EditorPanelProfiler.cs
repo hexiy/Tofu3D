@@ -1,14 +1,11 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using ImGuiNET;
 
 namespace Tofu3D;
 
 public class EditorPanelProfiler : EditorPanel
 {
-	List<float> _physicsThreadSamples = new();
-	List<float> _sceneRenderSamples = new();
-	List<float> _imGuiSamples = new();
-	List<float> _sceneUpdateSamples = new();
 	public static EditorPanelProfiler I { get; private set; }
 
 	public override void Init()
@@ -30,71 +27,102 @@ public class EditorPanelProfiler : EditorPanel
 
 		ImGui.Text($"GameObjects in scene: {Scene.I.GameObjects.Count}");
 
-		for (int i = 0; i < Debug.Stats.Count; i++)
+		foreach (KeyValuePair<string, float> stat in Debug.Stats)
 		{
-			ImGui.Text($"{Debug.Stats.Keys.ElementAt(i)} : {Debug.Stats.Values.ElementAt(i)}");
+			ImGui.Text($"{stat.Key} : {stat.Value}");
 		}
 
-		for (int i = 0; i < Debug.Timers.Count; i++)
+		DebugTimer.SourceGroup currentSourceGroup = DebugTimer.SourceGroup.None;
+		
+		foreach (KeyValuePair<string, DebugTimer> timerPair in Debug.Timers)
 		{
-			float msDuration = (float) Math.Round(Debug.Timers[Debug.Timers.Keys.ElementAt(i)].Elapsed.TotalMilliseconds, 2);
-			if (Debug.Timers.Keys.ElementAt(i) == "Scene Update")
+			float msDuration = (float) Math.Round(timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds, 2);
+			timerPair.Value.AddSample(msDuration);
+
+			if (timerPair.Value.Group != currentSourceGroup)
 			{
-				_sceneUpdateSamples.Add(msDuration);
-
-				if (_sceneUpdateSamples.Count > 200)
-				{
-					_sceneUpdateSamples.RemoveAt(0);
-				}
-
-				ImGui.PlotLines("", ref _sceneUpdateSamples.ToArray()[0], _sceneUpdateSamples.Count, 0, $"Scene Update Time:{_sceneUpdateSamples.Last()} ms            ", 0, _sceneUpdateSamples.Max() + 1,
-				                new Vector2(ImGui.GetContentRegionAvail().X, 100));
+				ImGui.SetWindowFontScale(1.5f);
+				ImGui.TextColored(Color.Green.ToVector4(), timerPair.Value.Group.ToString().ToUpper());
+				currentSourceGroup = timerPair.Value.Group;
+				ImGui.SetWindowFontScale(1);
 			}
-			else if (Debug.Timers.Keys.ElementAt(i) == "Scene Render")
+
+			bool redlineHasValue = timerPair.Value.Redline.HasValue;
+			if (redlineHasValue)
 			{
-				_sceneRenderSamples.Add(msDuration);
-
-				if (_sceneRenderSamples.Count > 200)
-				{
-					_sceneRenderSamples.RemoveAt(0);
-				}
-
-				ImGui.PlotLines("", ref _sceneRenderSamples.ToArray()[0], _sceneRenderSamples.Count, 0, $"Scene Render Time:{_sceneRenderSamples.Last()} ms            ", 0, _sceneRenderSamples.Max() + 1,
-				                new Vector2(ImGui.GetContentRegionAvail().X, 100));
+				ImGui.PushStyleColor(ImGuiCol.Text, Color.Lerp(Color.Black, Color.Red, Mathf.Clamp(msDuration / timerPair.Value.Redline.Value, 0, 1)).ToVector4());
 			}
-			else if (Debug.Timers.Keys.ElementAt(i) == "ImGui")
+
+
+			if (redlineHasValue)
 			{
-				_imGuiSamples.Add(msDuration);
-
-				if (_imGuiSamples.Count > 200)
-				{
-					_imGuiSamples.RemoveAt(0);
-				}
-
-				ImGui.PlotLines("", ref _imGuiSamples.ToArray()[0], _imGuiSamples.Count, 0, $"ImGui:{_imGuiSamples.Last()} ms            ", 0, _imGuiSamples.Max() + 1,
-				                new Vector2(ImGui.GetContentRegionAvail().X, 100));
+				ImGui.PushStyleVar(ImGuiStyleVar.DisabledAlpha, 1);
+				// dont change alpha, we only BeginDisable so we dont see any hover toolips
 			}
-			else if (Debug.Timers.Keys.ElementAt(i) == "Physics thread")
+
+			bool disableHover = ImGui.IsMouseClicked(ImGuiMouseButton.Left) == false;
+			if (disableHover)
 			{
-				_physicsThreadSamples.Add(msDuration);
+				ImGui.BeginDisabled();
+			}
 
-				if (_physicsThreadSamples.Count > 200)
-				{
-					_physicsThreadSamples.RemoveAt(0);
-				}
+			bool clickedOnAnyControl = false;
+			if (timerPair.Value.Collapsed)
+			{
+				//ImGui.Indent();
 
-				ImGui.PlotLines("", ref _physicsThreadSamples.ToArray()[0], _physicsThreadSamples.Count, 0, $"Physics Update Time:{_physicsThreadSamples.Last()} ms            ", 0, _physicsThreadSamples.Max() + 1,
-				                new Vector2(ImGui.GetContentRegionAvail().X, 100));
+				// ImGui.SetCursorPosX(timerPair.Value.LabelWidth);
+				ImGui.PlotLines(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset, $"",
+				                0, timerPair.Value.Max,
+				                new Vector2(ImGui.GetContentRegionAvail().X, 30));
+				ImGui.SameLine();
+
+				clickedOnAnyControl |= ImGui.IsItemClicked();
+				ImGui.SetCursorPosX(0);
+				ImGui.Indent();
+
+				ImGui.Text($"{timerPair.Value.Label}:{msDuration.ToString("F2")} ms");
+
+				ImGui.Unindent();
 			}
 			else
 			{
-				float timerDuration = (float) Debug.Timers.Values.ElementAt(i).Elapsed.TotalMilliseconds;
-				ImGui.PushStyleColor(ImGuiCol.Text, Color.Lerp(Color.White, Color.Red, Mathf.Clamp(timerDuration / 40 - 1, 0, 1)).ToVector4());
-				ImGui.Text($"{Debug.Timers.Keys.ElementAt(i)} : {timerDuration} ms");
+				ImGui.PlotLines(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset,
+				                $"{timerPair.Value.Label}:{msDuration} ms",
+				                0, timerPair.Value.Max,
+				                new Vector2(ImGui.GetContentRegionAvail().X, 100));
+			}
+
+			clickedOnAnyControl |= ImGui.IsItemClicked();
+
+			if (disableHover)
+			{
+				ImGui.EndDisabled();
+			}
+
+			if (redlineHasValue)
+			{
+				ImGui.PopStyleVar();
+			}
+
+			if (clickedOnAnyControl)
+			{
+				timerPair.Value.Collapsed = !timerPair.Value.Collapsed;
+			}
+
+			ImGui.Separator();
+
+			if (redlineHasValue)
+			{
 				ImGui.PopStyleColor();
 			}
+
+			// float timerDuration = (float) timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds;
+			// ImGui.PushStyleColor(ImGuiCol.Text, Color.Lerp(Color.White, Color.Red, Mathf.Clamp(timerDuration / 40 - 1, 0, 1)).ToVector4());
+			// ImGui.Text($"{timerPair.Key} : {timerDuration} ms");
+			// ImGui.PopStyleColor();
+			//ResetID();
 		}
-		//ResetID();
 
 		ImGui.End();
 	}

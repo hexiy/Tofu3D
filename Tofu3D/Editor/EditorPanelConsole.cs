@@ -28,12 +28,12 @@ public class EditorPanelConsole : EditorPanel
 			Debug.ClearLogs();
 		}
 
-		int logsCount = Debug.GetLogs().Count;
+		int logsCount = Debug.GetLogsRef().Count;
 		for (int i = 0; i < Mathf.Min(logsCount, Debug.LogLimit - 1); i++)
 		{
 			ImGui.Separator();
 
-			string log = Debug.GetLogs()[logsCount - i - 1];
+			string log = Debug.GetLogsRef()[logsCount - i - 1];
 			ImGui.TextColored(new Vector4(0.74f, 0.33f, 0.16f, 1), log.Substring(0, log.IndexOf("]") + 1));
 			ImGui.SameLine();
 

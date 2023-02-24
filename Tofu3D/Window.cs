@@ -57,7 +57,7 @@ public class Window : GameWindow
 
 	protected override void OnUpdateFrame(FrameEventArgs args)
 	{
-		Debug.StartTimer("Scene Update");
+		Debug.StartTimer("Scene Update", DebugTimer.SourceGroup.Cpu, TimeSpan.FromSeconds(1f / (float) this.UpdateFrequency));
 		Scene.I.Update();
 		Debug.EndTimer("Scene Update");
 
@@ -71,22 +71,23 @@ public class Window : GameWindow
 
 	protected override void OnRenderFrame(FrameEventArgs e)
 	{
+		Debug.StartTimer("App Render", DebugTimer.SourceGroup.Gpu, TimeSpan.FromSeconds(1f / (float) this.RenderFrequency), -1);
+
 		Debug.CountStat("Draw Calls", 0);
 
-		Debug.StartTimer("Scene Render");
+		Debug.StartTimer("Scene Render", DebugTimer.SourceGroup.Gpu, TimeSpan.FromSeconds(1f / (float) this.RenderFrequency));
 
 		RenderPassSystem.RenderAllPasses();
 
 		Debug.EndTimer("Scene Render");
 
 
-		Debug.StartTimer("ImGui");
+		Debug.StartTimer("ImGui", DebugTimer.SourceGroup.Gpu, TimeSpan.FromMilliseconds(2));
 
 		ImGuiController.Update(this, (float) e.Time);
 		GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
 
 		ImGuiController.WindowResized(ClientSize.X, ClientSize.Y);
-
 
 		Editor.I.Draw();
 		//GL.Enable(EnableCap.Multisample);
@@ -96,11 +97,13 @@ public class Window : GameWindow
 
 		// ------------- IMGUI -------------
 
+		Debug.EndTimer("App Render");
 
 		SwapBuffers();
 		base.OnRenderFrame(e);
 
-		Debug.ClearTimers();
+
+		Debug.ResetTimers();
 		Debug.ClearStats();
 	}
 

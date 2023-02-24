@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System.Linq;
+using System.Threading;
 
 namespace Tofu3D;
 
@@ -8,7 +10,7 @@ public static class Debug
 
 	public static readonly int LogLimit = 1000;
 
-	public static Dictionary<string, Stopwatch> Timers = new();
+	public static Dictionary<string, DebugTimer> Timers = new();
 	public static Dictionary<string, float> Stats = new();
 
 	private static void Log(string message)
@@ -19,7 +21,7 @@ public static class Debug
 		}
 
 
-		_logs.Add($"[{DateTime.Now.ToString("HH:mm:ss")}]" + message);
+		_logs.Add($"[{DateTime.Now:HH:mm:ss}]" + message);
 
 		//Window.I.Title = logs.Last();
 
@@ -34,7 +36,7 @@ public static class Debug
 		Log(message.ToString());
 	}
 
-	public static void StartTimer(string timerName)
+	public static void StartTimer(string timerName, DebugTimer.SourceGroup group = DebugTimer.SourceGroup.None, TimeSpan? redline = null, int drawOrder = 0)
 	{
 		if (Global.EditorAttached == false)
 		{
@@ -43,13 +45,17 @@ public static class Debug
 
 		if (Timers.ContainsKey(timerName))
 		{
-			Timers[timerName].Restart();
+			Timers[timerName].Stopwatch.Restart();
 		}
 		else
 		{
-			Stopwatch sw = new();
-			sw.Start();
-			Timers.Add(timerName, sw);
+			DebugTimer debugTimer = new DebugTimer(timerName, group, redline, drawOrder);
+
+			Timers.Add(timerName, debugTimer);
+			Timers = new Dictionary<string, DebugTimer>(Timers.OrderBy(x => x.Value));
+
+
+			debugTimer.Stopwatch.Start();
 		}
 	}
 
@@ -90,7 +96,7 @@ public static class Debug
 			return;
 		}
 
-		Timers[timerName].Stop();
+		Timers[timerName].Stopwatch.Stop();
 	}
 
 	public static void EndAndLogTimer(string timerName)
@@ -101,15 +107,18 @@ public static class Debug
 		}
 
 		EndTimer(timerName);
-		float msDuration = (float) Math.Round(Timers[timerName].Elapsed.TotalMilliseconds, 2);
+		float msDuration = (float) Math.Round(Timers[timerName].Stopwatch.Elapsed.TotalMilliseconds, 2);
 
 		Stat(timerName, msDuration);
-		// Debug.Log($"[{timerName}] {msDuration}");
 	}
 
-	public static void ClearTimers()
+	public static void ResetTimers()
 	{
-		Timers.Clear();
+		//Timers.Clear();
+		foreach (KeyValuePair<string, DebugTimer> timerPair in Timers)
+		{
+			timerPair.Value.Stopwatch.Reset();
+		}
 	}
 
 	public static void ClearStats()
@@ -122,7 +131,7 @@ public static class Debug
 		_logs.Clear();
 	}
 
-	public static ref List<string> GetLogs()
+	public static ref List<string> GetLogsRef()
 	{
 		return ref _logs;
 	}
