@@ -49,6 +49,7 @@ public class Shader : IDisposable
 		{
 			return;
 		}
+
 		GetAllUniforms();
 		string shaderFile = File.ReadAllText(Path);
 
@@ -105,6 +106,7 @@ public class Shader : IDisposable
 		int location = GL.GetUniformLocation(ProgramId, uniformName);
 
 		GL.UniformMatrix4(location, 1, false, GetMatrix4X4Values(mat));
+		// GL.UniformMatrix4(location, 1, false, GetMatrix4X4Values(mat));
 		Uniforms[uniformName] = mat;
 	}
 
@@ -128,7 +130,7 @@ public class Shader : IDisposable
 		GL.Uniform3(location, vec.X, vec.Y, vec.Z);
 		Uniforms[uniformName] = vec;
 	}
-	
+
 	public void SetVector3Array(string uniformName, float[] floats)
 	{
 		int location = GL.GetUniformLocation(ProgramId, uniformName);
@@ -142,6 +144,7 @@ public class Shader : IDisposable
 		GL.Uniform1(location, floats.Length, floats);
 		Uniforms[uniformName] = floats;
 	}
+
 	public void SetVector4(string uniformName, Vector4 vec)
 	{
 		int location = GL.GetUniformLocation(ProgramId, uniformName);
@@ -247,15 +250,41 @@ public class Shader : IDisposable
 		return typeof(string);
 	}
 
+	float[] _getMatrix4X4ValuesArray = new float[]
+	                                   {
+		                                   0, 0, 0, 0,
+		                                   0, 0, 0, 0,
+		                                   0, 0, 0, 0,
+		                                   0, 0, 0, 0,
+	                                   };
+
 	float[] GetMatrix4X4Values(Matrix4x4 m)
 	{
+		_getMatrix4X4ValuesArray[0] = m.M11;
+		_getMatrix4X4ValuesArray[1] = m.M12;
+		_getMatrix4X4ValuesArray[2] = m.M13;
+		_getMatrix4X4ValuesArray[3] = m.M14;
+		_getMatrix4X4ValuesArray[4] = m.M21;
+		_getMatrix4X4ValuesArray[5] = m.M22;
+		_getMatrix4X4ValuesArray[6] = m.M23;
+		_getMatrix4X4ValuesArray[7] = m.M24;
+		_getMatrix4X4ValuesArray[8] = m.M31;
+		_getMatrix4X4ValuesArray[9] = m.M32;
+		_getMatrix4X4ValuesArray[10] = m.M33;
+		_getMatrix4X4ValuesArray[11] = m.M34;
+		_getMatrix4X4ValuesArray[12] = m.M41;
+		_getMatrix4X4ValuesArray[13] = m.M42;
+		_getMatrix4X4ValuesArray[14] = m.M43;
+		_getMatrix4X4ValuesArray[15] = m.M44;
+		return _getMatrix4X4ValuesArray;
+		/*
 		return new[]
 		       {
 			       m.M11, m.M12, m.M13, m.M14,
 			       m.M21, m.M22, m.M23, m.M24,
 			       m.M31, m.M32, m.M33, m.M34,
 			       m.M41, m.M42, m.M43, m.M44
-		       };
+		       };*/
 	}
 
 	public int GetAttribLocation(string attribName)

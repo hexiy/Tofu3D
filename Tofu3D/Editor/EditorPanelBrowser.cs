@@ -194,7 +194,6 @@ public class EditorPanelBrowser : EditorPanel
 			ImGui.BeginGroup();
 			string assetName = Path.GetFileNameWithoutExtension(_assets[assetIndex]);
 			string assetExtension = Path.GetExtension(_assets[assetIndex]).ToLower();
-			string assetsRelativePath = Path.Combine("Assets", Path.GetRelativePath("Assets", _assets[assetIndex]));
 
 			PushNextId();
 
@@ -297,6 +296,8 @@ public class EditorPanelBrowser : EditorPanel
 				{
 					if (ImGui.IsItemHovered() && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left))
 					{
+						string assetsRelativePath = Path.Combine("Assets", Path.GetRelativePath("Assets", _assets[assetIndex]));
+
 						ShaderCache.QueueShaderReload(assetsRelativePath);
 						Debug.Log($"Reloaded shader:{assetName}");
 					}

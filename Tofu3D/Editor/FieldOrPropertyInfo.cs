@@ -97,20 +97,21 @@ public class FieldOrPropertyInfo
 			CanShowInEditor = false;
 		}
 
-		CustomAttributeData[] attribs = CustomAttributes.ToArray();
-		for (int i = 0; i < attribs.Length; i++)
+		foreach (CustomAttributeData attribute in CustomAttributes)
 		{
-			if (attribs[i].AttributeType == typeof(Show))
+			if (attribute.AttributeType == typeof(Show))
 			{
 				CanShowInEditor = true;
 			}
 
-			else if (attribs[i].AttributeType == typeof(ShowIf))
+			else if (attribute.AttributeType == typeof(ShowIf))
 			{
-				string name = attribs[i].ConstructorArguments[0].Value.ToString();
+				Type objType = obj.GetType();
 
-				FieldInfo field = obj.GetType().GetField(name);
-				PropertyInfo property = obj.GetType().GetProperty(name);
+				string name = attribute.ConstructorArguments[0].Value.ToString();
+
+				FieldInfo field = objType.GetField(name);
+				PropertyInfo property = objType.GetProperty(name);
 				if (field != null)
 				{
 					CanShowInEditor = (bool) field.GetValue(obj);
@@ -122,12 +123,13 @@ public class FieldOrPropertyInfo
 				}
 			}
 
-			else if (attribs[i].AttributeType == typeof(ShowIfNot))
+			else if (attribute.AttributeType == typeof(ShowIfNot))
 			{
-				string name = attribs[i].ConstructorArguments[0].Value.ToString();
+				string name = attribute.ConstructorArguments[0].Value.ToString();
+				Type objType = obj.GetType();
 
-				FieldInfo field = obj.GetType().GetField(name);
-				PropertyInfo property = obj.GetType().GetProperty(name);
+				FieldInfo field = objType.GetField(name);
+				PropertyInfo property = objType.GetProperty(name);
 				if (field != null)
 				{
 					CanShowInEditor = (bool) field.GetValue(obj) == false;
@@ -139,7 +141,7 @@ public class FieldOrPropertyInfo
 				}
 			}
 
-			else if (attribs[i].AttributeType == typeof(Hide))
+			else if (attribute.AttributeType == typeof(Hide))
 			{
 				CanShowInEditor = false;
 			}

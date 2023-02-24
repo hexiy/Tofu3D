@@ -186,6 +186,23 @@ public class EditorPanelInspector : EditorPanel
 		}
 	}
 
+	List<Type> _inspectorSupportedTypes = new()
+	                                      {
+		                                      typeof(GameObject),
+		                                      typeof(Material),
+		                                      typeof(Vector3),
+		                                      typeof(Vector2),
+		                                      typeof(Texture),
+		                                      typeof(Color),
+		                                      typeof(bool),
+		                                      typeof(float),
+		                                      typeof(int),
+		                                      typeof(string),
+		                                      typeof(List<GameObject>),
+		                                      typeof(Action),
+		                                      typeof(AudioClip)
+	                                      };
+
 	void DrawGameObjectInspector()
 	{
 		if (_selectedGameObject.IsPrefab)
@@ -232,59 +249,46 @@ public class EditorPanelInspector : EditorPanel
 			ImGui.SameLine();
 			PushNextId();
 
-			if (ImGui.CollapsingHeader(currentComponent.GetType().Name, ImGuiTreeNodeFlags.DefaultOpen))
+			Type currentComponentType = currentComponent.GetType();
+			if (ImGui.CollapsingHeader(currentComponentType.Name, ImGuiTreeNodeFlags.DefaultOpen))
 			{
 				FieldOrPropertyInfo[] infos;
+				FieldInfo[] fields = currentComponentType.GetFields();
+				PropertyInfo[] properties = currentComponentType.GetProperties();
+				infos = new FieldOrPropertyInfo[fields.Length + properties.Length];
+
+				for (int fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
 				{
-					FieldInfo[] fields = currentComponent.GetType().GetFields();
-					PropertyInfo[] properties = currentComponent.GetType().GetProperties();
-					infos = new FieldOrPropertyInfo[fields.Length + properties.Length];
-					List<Type> inspectorSupportedTypes = new()
-					                                     {
-						                                     typeof(GameObject),
-						                                     typeof(Material),
-						                                     typeof(Vector3),
-						                                     typeof(Vector2),
-						                                     typeof(Texture),
-						                                     typeof(Color),
-						                                     typeof(bool),
-						                                     typeof(float),
-						                                     typeof(int),
-						                                     typeof(string),
-						                                     typeof(List<GameObject>),
-						                                     typeof(Action),
-						                                     typeof(AudioClip)
-					                                     };
-					for (int fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
-					{
-						// TODO FIX THIS MEMORY HOG
-						infos[fieldIndex] = new FieldOrPropertyInfo(fields[fieldIndex], currentComponent);
-						if (fields[fieldIndex].GetValue(currentComponent) == null)
-						{
-							//infos[fieldIndex].canShowInEditor = false;
-						}
-					}
+					// TODO FIX THIS MEMORY HOG
+					// if (infos[fieldIndex] == null)
+					// {
+					infos[fieldIndex] = new FieldOrPropertyInfo(fields[fieldIndex], currentComponent);
+					// }
+					// else
+					// {
+					// 	infos[fieldIndex].SetInfo(fields[fieldIndex], currentComponent);
+					// }
+				}
 
-					for (int propertyIndex = 0; propertyIndex < properties.Length; propertyIndex++)
+				for (int propertyIndex = 0; propertyIndex < properties.Length; propertyIndex++)
+				{
+					infos[fields.Length + propertyIndex] = new FieldOrPropertyInfo(properties[propertyIndex], currentComponent);
+					if (properties[propertyIndex].GetValue(currentComponent) == null)
 					{
-						infos[fields.Length + propertyIndex] = new FieldOrPropertyInfo(properties[propertyIndex], currentComponent);
-						if (properties[propertyIndex].GetValue(currentComponent) == null)
-						{
-							infos[fields.Length + propertyIndex].CanShowInEditor = false;
-						}
-					}
-
-					for (int infoIndex = 0; infoIndex < infos.Length; infoIndex++)
-					{
-						if (inspectorSupportedTypes.Contains(infos[infoIndex].FieldOrPropertyType) == false)
-						{
-							infos[infoIndex].CanShowInEditor = false;
-						}
+						infos[fields.Length + propertyIndex].CanShowInEditor = false;
 					}
 				}
+
 				for (int infoIndex = 0; infoIndex < infos.Length; infoIndex++)
 				{
-					FieldOrPropertyInfo info = infos[infoIndex];
+					if (_inspectorSupportedTypes.Contains(infos[infoIndex].FieldOrPropertyType) == false)
+					{
+						infos[infoIndex].CanShowInEditor = false;
+					}
+				}
+
+				foreach (FieldOrPropertyInfo info in infos)
+				{
 					Type fieldOrPropertyType = info.FieldOrPropertyType;
 					if (info.CanShowInEditor == false)
 					{
