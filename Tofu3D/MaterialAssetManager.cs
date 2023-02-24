@@ -50,7 +50,7 @@ public static class MaterialAssetManager
 		{
 			XmlSerializer xmlSerializer = new(typeof(Material));
 			Material mat = (Material) xmlSerializer.Deserialize(sr);
-			mat.Path = materialPath;
+			mat.SetPath(materialPath);
 			if (mat.Shader != null)
 			{
 				mat.SetShader(mat.Shader);
@@ -62,7 +62,7 @@ public static class MaterialAssetManager
 
 	public static void SaveMaterial(Material material)
 	{
-		using (StreamWriter sw = new(material.Path))
+		using (StreamWriter sw = new(material.FilePath))
 		{
 			XmlSerializer xmlSerializer = new(typeof(Material));
 

@@ -12,7 +12,7 @@ public class Window : GameWindow
 
 	public Window() : base(new GameWindowSettings() {UpdateFrequency = 60, RenderFrequency = 60},
 	                       new NativeWindowSettings
-	                       {Size = new Vector2i(2560, 1600), APIVersion = new Version(4, 1), Flags = ContextFlags.ForwardCompatible, Profile = ContextProfile.Core, NumberOfSamples = 8})
+	                       {/*Size = new Vector2i(2560, 1600),*/ APIVersion = new Version(4, 1), Flags = ContextFlags.ForwardCompatible, Profile = ContextProfile.Core, NumberOfSamples = 8})
 	{
 		I = this;
 		WindowState = WindowState.Maximized;

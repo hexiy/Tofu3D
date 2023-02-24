@@ -49,7 +49,7 @@ public class EditorPanelBrowser : EditorPanel
 		BrowserContextItem createMaterialContextItem = new("Create Material", "mat", ".mat", filePath =>
 		{
 			Material createdMaterial = new();
-			createdMaterial.Path = filePath;
+			createdMaterial.SetPath(filePath);
 			MaterialAssetManager.SaveMaterial(createdMaterial);
 			RefreshAssets();
 		});

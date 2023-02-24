@@ -1,7 +1,7 @@
 public class CubeSpawner : Component
 {
 	[Show]
-	public GameObject _prefab;
+	public GameObject Prefab;
 
 	public override void Start()
 	{
@@ -11,12 +11,12 @@ public class CubeSpawner : Component
 
 	void SpawnCubes()
 	{
-		if (_prefab == null)
+		if (Prefab == null)
 		{
 			return;
 		}
 
-		GameObject go = Serializer.I.LoadPrefab(_prefab.PrefabPath);
+		GameObject go = Serializer.I.LoadPrefab(Prefab.PrefabPath);
 		go.Awake();
 Serializer.I.SaveClipboardGameObject(go);
 		for (int x = 0; x < 10; x++)

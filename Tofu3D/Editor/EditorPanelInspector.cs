@@ -93,7 +93,7 @@ public class EditorPanelInspector : EditorPanel
 	void DrawMaterialInspector()
 	{
 		PushNextId();
-		string materialName = Path.GetFileNameWithoutExtension(_selectedMaterial.Path);
+		string materialName = Path.GetFileNameWithoutExtension(_selectedMaterial.FilePath);
 		ImGui.Text(materialName);
 
 		ImGui.Text("Shader");
@@ -461,7 +461,7 @@ public class EditorPanelInspector : EditorPanel
 					}
 					else if (fieldOrPropertyType == typeof(Material))
 					{
-						string materialPath = Path.GetFileName((currentComponent as Renderer).Material.Path);
+						string materialPath = Path.GetFileName((currentComponent as Renderer).Material.FilePath);
 
 						materialPath = materialPath ?? "";
 						bool clicked = ImGui.Button(materialPath, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
