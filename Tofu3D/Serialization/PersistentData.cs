@@ -62,13 +62,13 @@ public static class PersistentData
 			LoadAllData();
 		}
 
-		if (_data.ContainsKey(key) == false && defaultValue != null)
-		{
-			return defaultValue;
-		}
-
 		if (_data.ContainsKey(key) == false)
 		{
+			if (defaultValue != null)
+			{
+				return defaultValue;
+			}
+
 			return null;
 		}
 

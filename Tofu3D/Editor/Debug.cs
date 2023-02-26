@@ -13,8 +13,14 @@ public static class Debug
 	public static Dictionary<string, DebugTimer> Timers = new();
 	public static Dictionary<string, float> Stats = new();
 
+	public static bool Paused = false;
+
 	private static void Log(string message)
 	{
+		if (Paused)
+		{
+			return;
+		}
 		if (Global.EditorAttached == false)
 		{
 			return;

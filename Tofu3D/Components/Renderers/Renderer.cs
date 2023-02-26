@@ -1,5 +1,4 @@
-﻿
-namespace Scripts;
+﻿namespace Scripts;
 
 [ExecuteInEditMode]
 public class Renderer : Component, IComparable<Renderer>
@@ -22,7 +21,7 @@ public class Renderer : Component, IComparable<Renderer>
 		{
 			return 1;
 		}
-		
+
 		return (GameObject.IndexInHierarchy * 1e-15f + Layer).CompareTo(comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer);
 		//return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
 	}
@@ -123,9 +122,8 @@ public class Renderer : Component, IComparable<Renderer>
 
 		float outlineThickness = 0.03f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime)), 0.5f) * DistanceFromCamera * 0.3f;
 
-		Matrix4x4 scale = Matrix4x4.CreateScale(Vector3.One * BoxShape.Size * Transform.WorldScale + Vector3.One*outlineThickness);
+		Matrix4x4 scale = Matrix4x4.CreateScale(Vector3.One * BoxShape.Size * Transform.WorldScale + Vector3.One * outlineThickness);
 		return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit) * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix;
-
 	}
 
 	public Vector4 GetSize()
@@ -160,6 +158,11 @@ public class Renderer : Component, IComparable<Renderer>
 
 	internal void UpdateMvp()
 	{
+		if (BoxShape == null)
+		{
+			return;
+		}
+
 		LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
 	}
 

@@ -4,9 +4,8 @@ namespace Tofu3D;
 
 public static class Time
 {
-	private static float _deltaTimeUpdate = 0.01666666f;
-	private static float _deltaTimeRender = 0.01666666f;
-	private static float _deltaTimeTotal = 0.01666666f;
+	public static float DeltaTimeUpdate;
+	public static float DeltaTimeRender;
 
 	public static float DeltaTime = 0.01666666f;
 	public static float EditorDeltaTime = 0.01666666f;
@@ -18,21 +17,26 @@ public static class Time
 	public static ulong ElapsedTicks;
 	public static ulong TimeScale = 0;
 
-	static Stopwatch _stopwatchUpdate = new Stopwatch();
-	static Stopwatch _stopwatchRender = new Stopwatch();
+	// static Stopwatch _stopwatchUpdate = new Stopwatch();
+	// static Stopwatch _stopwatchUpdate = new Stopwatch();
+	// static Stopwatch _stopwatch = new Stopwatch();
 
 	public static void Update()
 	{
+		// _deltaTimeTotal = (float) Window.I.RenderTime + (float) Window.I.UpdateTime; //_stopwatch.ElapsedMilliseconds / 1000f;
+		// _stopwatch.Restart();
 		// _deltaTimeTotal = (float) (Window.I.RenderTime + Window.I.UpdateTime);
-		_deltaTimeTotal = (float) (_deltaTimeRender + _deltaTimeUpdate);
-		Debug.Stat("FPS", (int)(1f/_deltaTimeTotal));
-		EditorDeltaTime = _deltaTimeTotal;
+		Debug.Stat("FPS", (int) (1f / DeltaTimeUpdate));
+		Debug.Stat("DeltaTIme", DeltaTimeUpdate);
+		
+
+		EditorDeltaTime = DeltaTimeUpdate;
 		EditorElapsedTime += EditorDeltaTime;
 		EditorElapsedTicks++;
 
 		if (Global.GameRunning)
 		{
-			DeltaTime = _deltaTimeTotal;
+			DeltaTime = DeltaTimeUpdate;
 
 			ElapsedTime += DeltaTime;
 			ElapsedSeconds = ElapsedTime;
@@ -44,25 +48,25 @@ public static class Time
 		}
 	}
 
-	public static void StartDeltaTimeUpdateStopWatch()
-	{
-		_stopwatchUpdate.Restart();
-	}
-
-	public static void EndDeltaTimeUpdateStopWatch()
-	{
-		_stopwatchUpdate.Stop();
-		_deltaTimeUpdate = _stopwatchUpdate.ElapsedMilliseconds / 1000f;
-	}
-
-	public static void StartDeltaTimeRenderStopWatch()
-	{
-		_stopwatchRender.Restart();
-	}
-
-	public static void EndDeltaTimeRenderStopWatch()
-	{
-		_stopwatchRender.Stop();
-		_deltaTimeRender = _stopwatchRender.ElapsedMilliseconds / 1000f;
-	}
+	// public static void StartDeltaTimeUpdateStopWatch()
+	// {
+	// 	// _stopwatchUpdate.Restart();
+	// }
+	//
+	// public static void EndDeltaTimeUpdateStopWatch()
+	// {
+	// 	// _stopwatchUpdate.Stop();
+	// 	// _deltaTimeUpdate = _stopwatchUpdate.ElapsedMilliseconds / 1000f;
+	// }
+	//
+	// public static void StartDeltaTimeRenderStopWatch()
+	// {
+	// 	// _stopwatchRender.Restart();
+	// }
+	//
+	// public static void EndDeltaTimeRenderStopWatch()
+	// {
+	// 	// _stopwatchRender.Stop();
+	// 	// _deltaTimeRender = _stopwatchRender.ElapsedMilliseconds / 1000f;
+	// }
 }

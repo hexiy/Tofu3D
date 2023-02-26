@@ -40,23 +40,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\BoxRenderer.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\DepthModelRenderer.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\DepthRenderTexture.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\GradientRenderer.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\ModelMousePicking.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\ModelRenderer.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\ModelRendererUnlit.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\RenderTexture.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\RenderTextureBloom.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\RenderTexturePostProcess.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\Snow.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\SpriteRenderer.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\SpriteSheetRenderer.glsl" />
-        <Content Include="bin\Debug\net7.0\Assets\Shaders\TextRenderer.glsl" />
-    </ItemGroup>
-
-    <ItemGroup>
         <None Remove="tofu3d.png" />
         <Resource Include="tofu3d.png" />
         <None Remove="bin\Debug\net6.0\**" />
@@ -72,6 +55,25 @@
 
     <ItemGroup>
       <EmbeddedResource Remove="bin\Debug\net6.0\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\.DS_Store" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\BoxRenderer.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\DepthModelRenderer.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\DepthRenderTexture.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\GradientRenderer.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\ModelMousePicking.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\ModelRenderer.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\ModelRendererUnlit.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\RenderTexture.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\RenderTextureBloom.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\RenderTexturePostProcess.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\Snow.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\SpriteRenderer.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\SpriteRendererOldBatched.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\SpriteSheetRenderer.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\TextRenderer.glsl" />
     </ItemGroup>
 
 </Project>

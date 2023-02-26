@@ -14,7 +14,7 @@ public class DebugTimer : IComparable<DebugTimer>
 	public float MaxSample;
 	public float MinSample;
 	int _findMaxTriggerFrameCounter = 0;
-	public float Sample10FramesAgo=0;
+	public float Sample10FramesAgo = 0;
 	public Stopwatch Stopwatch;
 
 	public int Offset = 0;
@@ -26,7 +26,11 @@ public class DebugTimer : IComparable<DebugTimer>
 	{
 		get { return _desiredDrawOrder + (int) Group; }
 	}
-	public bool Collapsed = false;
+	public bool Collapsed
+	{
+		get { return PersistentData.GetBool($"DebugTimerCollapsed_{Label}", false); }
+		set { PersistentData.Set($"DebugTimerCollapsed_{Label}", value); }
+	}
 	public float LabelWidth { get; private set; }
 
 	public enum SourceGroup
@@ -62,9 +66,9 @@ public class DebugTimer : IComparable<DebugTimer>
 			Sample10FramesAgo = (float) Math.Round(sample, 2);
 		}
 
-		MaxSample = Mathf.Lerp(MaxSample,_foundMaxSample, Time.EditorDeltaTime * 7);
-		MinSample = Mathf.Lerp(MinSample,_foundMinSample, Time.EditorDeltaTime * 7);
-		
+		MaxSample = Mathf.Lerp(MaxSample, _foundMaxSample, Time.EditorDeltaTime * 7);
+		MinSample = Mathf.Lerp(MinSample, _foundMinSample, Time.EditorDeltaTime * 7);
+
 		Offset += 1;
 		CheckForLimit();
 	}

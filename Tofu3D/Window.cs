@@ -17,8 +17,7 @@ public class Window : GameWindow
 	                       })
 	{
 		I = this;
-		VSync = VSyncMode.Off;
-
+		VSync = VSyncMode.On;
 		WindowState = WindowState.Maximized;
 		// WindowState = WindowState.Fullscreen;
 		Title = WindowTitleText;
@@ -61,7 +60,9 @@ public class Window : GameWindow
 
 	protected override void OnUpdateFrame(FrameEventArgs args)
 	{
-		Time.StartDeltaTimeUpdateStopWatch();
+		Time.DeltaTimeUpdate = (float)args.Time;
+
+		// Time.StartDeltaTimeUpdateStopWatch();
 		Debug.StartTimer("Scene Update", DebugTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
 		Scene.I.Update();
 		Debug.EndTimer("Scene Update");
@@ -75,12 +76,14 @@ public class Window : GameWindow
 
 
 		base.OnUpdateFrame(args);
-		Time.EndDeltaTimeUpdateStopWatch();
+		// Time.EndDeltaTimeUpdateStopWatch();
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs e)
 	{
-		Time.StartDeltaTimeRenderStopWatch();
+		Time.DeltaTimeRender = (float) e.Time;
+
+		// Time.StartDeltaTimeRenderStopWatch();
 
 		Debug.StartTimer("App Render", DebugTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
 
@@ -115,10 +118,11 @@ public class Window : GameWindow
 		SwapBuffers();
 		base.OnRenderFrame(e);
 
-		Time.EndDeltaTimeRenderStopWatch();
+		// Time.EndDeltaTimeRenderStopWatch();
 
 		Debug.ResetTimers();
 		Debug.ClearStats();
+		Time.DeltaTimeUpdate = 0;
 	}
 
 	protected override void OnTextInput(TextInputEventArgs e)

@@ -29,7 +29,7 @@ public class EditorPanelSceneView : EditorPanel
 
 			ImGui.SetCursorPosX(Camera.I.Size.X / 2 - 150);
 
-			Vector4 activeColor = ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
+			Vector4 activeColor = Color.ForestGreen.ToVector4();//ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
 			Vector4 inactiveColor = ImGui.GetStyle().Colors[(int) ImGuiCol.TextDisabled];
 			ImGui.PushStyleColor(ImGuiCol.Text, PhysicsController.Running ? activeColor : inactiveColor);
 			bool physicsButtonClicked = ImGui.Button("physics");

@@ -28,6 +28,18 @@ public class EditorPanelConsole : EditorPanel
 			Debug.ClearLogs();
 		}
 
+		ImGui.SameLine();
+		Vector4 activeColor = Color.ForestGreen.ToVector4();
+		Vector4 inactiveColor = ImGui.GetStyle().Colors[(int) ImGuiCol.TextDisabled];
+		ImGui.PushStyleColor(ImGuiCol.Text,Debug.Paused ? activeColor : inactiveColor);
+		bool pauseBtnClicked = ImGui.Button("Pause");
+		if (pauseBtnClicked)
+		{
+			Debug.Paused = !Debug.Paused;
+		}
+
+		ImGui.PopStyleColor();
+
 		int logsCount = Debug.GetLogsRef().Count;
 		for (int i = 0; i < Mathf.Min(logsCount, Debug.LogLimit - 1); i++)
 		{
