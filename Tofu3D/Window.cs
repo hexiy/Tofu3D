@@ -69,9 +69,9 @@ public class Window : GameWindow
 
 		if (Global.EditorAttached)
 		{
-			Debug.StartTimer("Editor Update", DebugTimer.SourceGroup.Update, TimeSpan.FromMilliseconds(1f / 60f));
+			// Debug.StartTimer("Editor Update", DebugTimer.SourceGroup.Update, TimeSpan.FromMilliseconds(1f / 60f));
 			Editor.I.Update();
-			Debug.EndTimer("Editor Update");
+			// Debug.EndTimer("Editor Update");
 		}
 
 

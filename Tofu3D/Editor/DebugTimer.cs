@@ -53,6 +53,11 @@ public class DebugTimer : IComparable<DebugTimer>
 		Stopwatch = new Stopwatch();
 	}
 
+	public void SetSamplesBufferSize(int bufferSize)
+	{
+		Samples = new float[bufferSize];
+	}
+
 	public void AddSample(float sample)
 	{
 		Samples[CurrentIndex] = sample;

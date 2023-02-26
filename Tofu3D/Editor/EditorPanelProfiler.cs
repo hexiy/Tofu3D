@@ -69,14 +69,21 @@ public class EditorPanelProfiler : EditorPanel
 			}
 
 			bool clickedOnAnyControl = false;
+			ImGui.PushStyleColor(ImGuiCol.PlotHistogram, Color.DarkRed.ToVector4());
+			int plotWidth = (int) ImGui.GetContentRegionAvail().X;
+			if (timerPair.Value.Samples.Length != plotWidth)
+			{
+				timerPair.Value.SetSamplesBufferSize(plotWidth);
+			}
+
 			if (timerPair.Value.Collapsed)
 			{
 				//ImGui.Indent();
 
 				// ImGui.SetCursorPosX(timerPair.Value.LabelWidth);
-				ImGui.PlotLines(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset, $"",
-				                timerPair.Value.MinSample, timerPair.Value.MaxSample,
-				                new Vector2(ImGui.GetContentRegionAvail().X, 30));
+				ImGui.PlotHistogram(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset, $"",
+				                    timerPair.Value.MinSample, timerPair.Value.MaxSample,
+				                    new Vector2(ImGui.GetContentRegionAvail().X, 30));
 				ImGui.SameLine();
 
 				clickedOnAnyControl |= ImGui.IsItemClicked();
@@ -89,11 +96,19 @@ public class EditorPanelProfiler : EditorPanel
 			}
 			else
 			{
-				ImGui.PlotLines(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset,
-				                $"{timerPair.Value.Label}:{msDurationSlower.ToString("F2")} ms",
-				                timerPair.Value.MinSample, timerPair.Value.MaxSample,
-				                new Vector2(ImGui.GetContentRegionAvail().X, 100));
+				
+				// ImGui.PlotHistogram(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset,
+				//                     $"{timerPair.Value.Label}:{msDurationSlower.ToString("F2")} ms",
+				//                     timerPair.Value.MinSample, timerPair.Value.MaxSample,
+				//                     new Vector2(plotWidth, 100));
+
+				ImGui.PlotHistogram(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset,
+				                    $"{timerPair.Value.Label}:{msDurationSlower.ToString("F2")} ms",
+				                    timerPair.Value.MinSample, timerPair.Value.MaxSample,
+				                    new Vector2(plotWidth, 100));
 			}
+
+			ImGui.PopStyleColor();
 
 			clickedOnAnyControl |= ImGui.IsItemClicked();
 
