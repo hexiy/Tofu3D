@@ -12,9 +12,13 @@ public class Window : GameWindow
 
 	public Window() : base(new GameWindowSettings() {UpdateFrequency = 60, RenderFrequency = 60},
 	                       new NativeWindowSettings
-	                       {/*Size = new Vector2i(2560, 1600),*/ APIVersion = new Version(4, 1), Flags = ContextFlags.ForwardCompatible, Profile = ContextProfile.Core, NumberOfSamples = 8})
+	                       {
+		                       /*Size = new Vector2i(2560, 1600),*/ APIVersion = new Version(4, 1), Flags = ContextFlags.ForwardCompatible, Profile = ContextProfile.Core, NumberOfSamples = 8
+	                       })
 	{
 		I = this;
+		VSync = VSyncMode.Off;
+
 		WindowState = WindowState.Maximized;
 		// WindowState = WindowState.Fullscreen;
 		Title = WindowTitleText;
@@ -57,32 +61,41 @@ public class Window : GameWindow
 
 	protected override void OnUpdateFrame(FrameEventArgs args)
 	{
-		Debug.StartTimer("Scene Update", DebugTimer.SourceGroup.Cpu, TimeSpan.FromSeconds(1f / (float) this.UpdateFrequency));
+		Time.StartDeltaTimeUpdateStopWatch();
+		Debug.StartTimer("Scene Update", DebugTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
 		Scene.I.Update();
 		Debug.EndTimer("Scene Update");
 
 		if (Global.EditorAttached)
 		{
+			Debug.StartTimer("Editor Update", DebugTimer.SourceGroup.Update, TimeSpan.FromMilliseconds(1f / 60f));
 			Editor.I.Update();
+			Debug.EndTimer("Editor Update");
 		}
 
+
 		base.OnUpdateFrame(args);
+		Time.EndDeltaTimeUpdateStopWatch();
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs e)
 	{
-		Debug.StartTimer("App Render", DebugTimer.SourceGroup.Gpu, TimeSpan.FromSeconds(1f / (float) this.RenderFrequency), -1);
+		Time.StartDeltaTimeRenderStopWatch();
+
+		Debug.StartTimer("App Render", DebugTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
 
 		Debug.CountStat("Draw Calls", 0);
+		// Debug.StartTimer("Test", DebugTimer.SourceGroup.Gpu, TimeSpan.FromSeconds(1f / 60f));
+		// Debug.EndTimer("Test");
 
-		Debug.StartTimer("Scene Render", DebugTimer.SourceGroup.Gpu, TimeSpan.FromSeconds(1f / (float) this.RenderFrequency));
+		Debug.StartTimer("Scene Render", DebugTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 60f));
 
 		RenderPassSystem.RenderAllPasses();
 
 		Debug.EndTimer("Scene Render");
 
 
-		Debug.StartTimer("ImGui", DebugTimer.SourceGroup.Gpu, TimeSpan.FromMilliseconds(2));
+		Debug.StartTimer("ImGui", DebugTimer.SourceGroup.Render, TimeSpan.FromMilliseconds(2));
 
 		ImGuiController.Update(this, (float) e.Time);
 		GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
@@ -102,6 +115,7 @@ public class Window : GameWindow
 		SwapBuffers();
 		base.OnRenderFrame(e);
 
+		Time.EndDeltaTimeRenderStopWatch();
 
 		Debug.ResetTimers();
 		Debug.ClearStats();

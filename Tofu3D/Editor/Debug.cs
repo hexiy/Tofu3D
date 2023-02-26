@@ -117,7 +117,10 @@ public static class Debug
 		//Timers.Clear();
 		foreach (KeyValuePair<string, DebugTimer> timerPair in Timers)
 		{
-			timerPair.Value.Stopwatch.Reset();
+			if (timerPair.Value.Stopwatch.IsRunning == false)
+			{
+				timerPair.Value.Stopwatch.Reset();
+			}
 		}
 	}
 

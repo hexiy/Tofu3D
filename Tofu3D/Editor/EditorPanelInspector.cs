@@ -15,9 +15,23 @@ public class EditorPanelInspector : EditorPanel
 	Material _selectedMaterial;
 	public static EditorPanelInspector I { get; private set; }
 
+	List<ComponentInspectorData> _currentComponents = new List<ComponentInspectorData>(); // whenever we select new gameobject, cache component data
+
 	public override void Init()
 	{
 		I = this;
+
+		_componentTypes = typeof(Component).Assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
+		Scene.AnyComponentAddedToScene += OnComponentAddedToScene;
+	}
+
+	void OnComponentAddedToScene(Component comp)
+	{
+		if (_selectedGameObject == comp.GameObject)
+		{
+			UpdateCurrentComponentsCache();
+			return;
+		}
 	}
 
 	public override void Update()
@@ -33,8 +47,23 @@ public class EditorPanelInspector : EditorPanel
 		else
 		{
 			_selectedGameObject = Scene.I.GetGameObject(ids[0]);
-
+			UpdateCurrentComponentsCache();
 			_selectedMaterial = null;
+		}
+	}
+
+	private void UpdateCurrentComponentsCache()
+	{
+		if (_selectedGameObject == null)
+		{
+			return;
+		}
+
+		_currentComponents.Clear();
+		for (int componentIndex = 0; componentIndex < _selectedGameObject.Components.Count; componentIndex++)
+		{
+			ComponentInspectorData data = new ComponentInspectorData(_selectedGameObject.Components[componentIndex]);
+			_currentComponents.Add(data);
 		}
 	}
 
@@ -42,7 +71,7 @@ public class EditorPanelInspector : EditorPanel
 	{
 		_selectedMaterial = MaterialCache.GetMaterial(Path.GetFileName(materialPath)); //MaterialAssetManager.LoadMaterial(materialPath);
 
-		_selectedGameObject = null;
+		OnGameObjectsSelected(new List<int>());
 	}
 
 	public override void Draw()
@@ -186,22 +215,23 @@ public class EditorPanelInspector : EditorPanel
 		}
 	}
 
-	List<Type> _inspectorSupportedTypes = new()
-	                                      {
-		                                      typeof(GameObject),
-		                                      typeof(Material),
-		                                      typeof(Vector3),
-		                                      typeof(Vector2),
-		                                      typeof(Texture),
-		                                      typeof(Color),
-		                                      typeof(bool),
-		                                      typeof(float),
-		                                      typeof(int),
-		                                      typeof(string),
-		                                      typeof(List<GameObject>),
-		                                      typeof(Action),
-		                                      typeof(AudioClip)
-	                                      };
+	public static List<Type> InspectorSupportedTypes = new()
+	                                                   {
+		                                                   typeof(GameObject),
+		                                                   typeof(Material),
+		                                                   typeof(Vector3),
+		                                                   typeof(Vector2),
+		                                                   typeof(Texture),
+		                                                   typeof(Color),
+		                                                   typeof(bool),
+		                                                   typeof(float),
+		                                                   typeof(int),
+		                                                   typeof(string),
+		                                                   typeof(List<GameObject>),
+		                                                   typeof(Action),
+		                                                   typeof(AudioClip)
+	                                                   };
+	List<Type> _componentTypes;
 
 	void DrawGameObjectInspector()
 	{
@@ -231,65 +261,46 @@ public class EditorPanelInspector : EditorPanel
 			_selectedGameObject.Name = gameObjectName;
 		}
 
-		for (int componentIndex = 0; componentIndex < _selectedGameObject.Components.Count; componentIndex++)
+		foreach (ComponentInspectorData componentInspectorData in _currentComponents)
 		{
-			Component currentComponent = _selectedGameObject.Components[componentIndex];
 			PushNextId();
 
 			//ImGui.SetNextItemWidth (300);
-			ImGui.Checkbox("", ref currentComponent.Enabled);
+			ImGui.Checkbox("", ref componentInspectorData.Component.Enabled);
 			ImGui.SameLine();
 
 			if (ImGui.Button("-"))
 			{
-				_selectedGameObject.RemoveComponent(currentComponent);
+				_selectedGameObject.RemoveComponent(componentInspectorData.Component);
 				continue;
 			}
 
 			ImGui.SameLine();
 			PushNextId();
 
-			Type currentComponentType = currentComponent.GetType();
-			if (ImGui.CollapsingHeader(currentComponentType.Name, ImGuiTreeNodeFlags.DefaultOpen))
+			if (ImGui.CollapsingHeader(componentInspectorData.ComponentType.Name, ImGuiTreeNodeFlags.DefaultOpen))
 			{
-				FieldOrPropertyInfo[] infos;
-				FieldInfo[] fields = currentComponentType.GetFields();
-				PropertyInfo[] properties = currentComponentType.GetProperties();
-				infos = new FieldOrPropertyInfo[fields.Length + properties.Length];
+				// if (componentInspectorData.Infos == null)
+				// {
+				// 	componentInspectorData.Infos = new FieldOrPropertyInfo[componentInspectorData.Fields.Length + componentInspectorData.Properties.Length];
+				// }
+				//
+				// for (int fieldIndex = 0; fieldIndex < componentInspectorData.Fields.Length; fieldIndex++)
+				// {
+				// 	// // TODO FIX THIS MEMORY HOG
+				// 	// if (componentInspectorData.Infos[fieldIndex] == null)
+				// 	// {
+				// 	// 	componentInspectorData.Infos[fieldIndex] = new FieldOrPropertyInfo(componentInspectorData.Fields[fieldIndex], componentInspectorData.Component);
+				// 	// }
+				// 	// else
+				// 	// {
+				// 		componentInspectorData.Infos[fieldIndex].SetInfo(componentInspectorData.Fields[fieldIndex], componentInspectorData.Component);
+				// 	// }
+				// }
 
-				for (int fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
-				{
-					// TODO FIX THIS MEMORY HOG
-					// if (infos[fieldIndex] == null)
-					// {
-					infos[fieldIndex] = new FieldOrPropertyInfo(fields[fieldIndex], currentComponent);
-					// }
-					// else
-					// {
-					// 	infos[fieldIndex].SetInfo(fields[fieldIndex], currentComponent);
-					// }
-				}
 
-				for (int propertyIndex = 0; propertyIndex < properties.Length; propertyIndex++)
+				foreach (FieldOrPropertyInfo info in componentInspectorData.Infos)
 				{
-					infos[fields.Length + propertyIndex] = new FieldOrPropertyInfo(properties[propertyIndex], currentComponent);
-					if (properties[propertyIndex].GetValue(currentComponent) == null)
-					{
-						infos[fields.Length + propertyIndex].CanShowInEditor = false;
-					}
-				}
-
-				for (int infoIndex = 0; infoIndex < infos.Length; infoIndex++)
-				{
-					if (_inspectorSupportedTypes.Contains(infos[infoIndex].FieldOrPropertyType) == false)
-					{
-						infos[infoIndex].CanShowInEditor = false;
-					}
-				}
-
-				foreach (FieldOrPropertyInfo info in infos)
-				{
-					Type fieldOrPropertyType = info.FieldOrPropertyType;
 					if (info.CanShowInEditor == false)
 					{
 						continue;
@@ -323,29 +334,29 @@ public class EditorPanelInspector : EditorPanel
 					ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth1);
 					ImGui.SetNextItemWidth(itemWidth1);
 
-					if (fieldOrPropertyType == typeof(Vector3))
+					if (info.FieldOrPropertyType == typeof(Vector3))
 					{
-						System.Numerics.Vector3 systemv3 = (Vector3) info.GetValue(currentComponent);
+						System.Numerics.Vector3 systemv3 = (Vector3) info.GetValue(componentInspectorData.Component);
 						if (ImGui.DragFloat3("", ref systemv3, 0.01f))
 						{
-							info.SetValue(currentComponent, (Vector3) systemv3);
+							info.SetValue(componentInspectorData.Component, (Vector3) systemv3);
 						}
 					}
-					else if (fieldOrPropertyType == typeof(Vector2))
+					else if (info.FieldOrPropertyType == typeof(Vector2))
 					{
-						System.Numerics.Vector2 systemv2 = (Vector2) info.GetValue(currentComponent);
+						System.Numerics.Vector2 systemv2 = (Vector2) info.GetValue(componentInspectorData.Component);
 						if (ImGui.DragFloat2("", ref systemv2, 0.01f))
 						{
-							info.SetValue(currentComponent, (Vector2) systemv2);
+							info.SetValue(componentInspectorData.Component, (Vector2) systemv2);
 						}
 					}
-					else if (fieldOrPropertyType == typeof(AudioClip))
+					else if (info.FieldOrPropertyType == typeof(AudioClip))
 					{
-						AudioClip audioClip = (AudioClip) info.GetValue(currentComponent);
+						AudioClip audioClip = (AudioClip) info.GetValue(componentInspectorData.Component);
 						if (audioClip == null)
 						{
 							audioClip = new AudioClip();
-							info.SetValue(currentComponent, audioClip);
+							info.SetValue(componentInspectorData.Component, audioClip);
 						}
 
 						string clipName = Path.GetFileName(audioClip?.Path);
@@ -362,19 +373,19 @@ public class EditorPanelInspector : EditorPanel
 								// fileName = Path.GetRelativePath("Assets", fileName);
 
 								audioClip.Path = fileName;
-								info.SetValue(currentComponent, audioClip);
+								info.SetValue(componentInspectorData.Component, audioClip);
 							}
 
 							ImGui.EndDragDropTarget();
 						}
 					}
-					else if (fieldOrPropertyType == typeof(List<GameObject>))
+					else if (info.FieldOrPropertyType == typeof(List<GameObject>))
 					{
-						List<GameObject> listOfGameObjects = (List<GameObject>) info.GetValue(currentComponent);
+						List<GameObject> listOfGameObjects = (List<GameObject>) info.GetValue(componentInspectorData.Component);
 						if (ImGui.Button("+"))
 						{
 							listOfGameObjects.Add(null);
-							info.SetValue(currentComponent, listOfGameObjects);
+							info.SetValue(componentInspectorData.Component, listOfGameObjects);
 						}
 
 						ImGui.SameLine();
@@ -389,7 +400,7 @@ public class EditorPanelInspector : EditorPanel
 								if (xClicked)
 								{
 									listOfGameObjects.RemoveAt(j);
-									info.SetValue(currentComponent, listOfGameObjects);
+									info.SetValue(componentInspectorData.Component, listOfGameObjects);
 									continue;
 								}
 
@@ -415,7 +426,7 @@ public class EditorPanelInspector : EditorPanel
 									{
 										GameObject foundGo = Scene.I.GetGameObject(int.Parse(payload));
 										listOfGameObjects[j] = foundGo;
-										info.SetValue(currentComponent, listOfGameObjects);
+										info.SetValue(componentInspectorData.Component, listOfGameObjects);
 									}
 
 									ImGui.EndDragDropTarget();
@@ -425,9 +436,9 @@ public class EditorPanelInspector : EditorPanel
 							}
 						}
 					}
-					else if (fieldOrPropertyType == typeof(Action))
+					else if (info.FieldOrPropertyType == typeof(Action))
 					{
-						Action action = (Action) info.GetValue(currentComponent);
+						Action action = (Action) info.GetValue(componentInspectorData.Component);
 						ImGui.PushStyleColor(ImGuiCol.Text, ImGui.GetStyle().Colors[(int) ImGuiCol.Text]);
 						if (ImGui.Button($"> {info.Name} <", new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight())))
 						{
@@ -436,15 +447,15 @@ public class EditorPanelInspector : EditorPanel
 
 						ImGui.PopStyleColor(1);
 					}
-					else if (fieldOrPropertyType == typeof(Texture) && currentComponent is TextureRenderer)
+					else if (info.FieldOrPropertyType == typeof(Texture) && componentInspectorData.Component is TextureRenderer)
 					{
-						string textureName = Path.GetFileName((currentComponent as TextureRenderer).Texture?.Path);
+						string textureName = Path.GetFileName((componentInspectorData.Component as TextureRenderer).Texture?.Path);
 
 						bool clicked = ImGui.Button(textureName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 						//ImiGui.Text(textureName);
 						if (clicked)
 						{
-							EditorPanelBrowser.I.GoToFile((currentComponent as TextureRenderer).Texture.Path);
+							EditorPanelBrowser.I.GoToFile((componentInspectorData.Component as TextureRenderer).Texture.Path);
 						}
 
 						if (ImGui.BeginDragDropTarget())
@@ -457,15 +468,15 @@ public class EditorPanelInspector : EditorPanel
 
 								textureName = payload;
 
-								(currentComponent as TextureRenderer).LoadTexture(textureName);
+								(componentInspectorData.Component as TextureRenderer).LoadTexture(textureName);
 							}
 
 							ImGui.EndDragDropTarget();
 						}
 					}
-					else if (fieldOrPropertyType == typeof(Material))
+					else if (info.FieldOrPropertyType == typeof(Material))
 					{
-						string materialPath = Path.GetFileName((currentComponent as Renderer).Material.FilePath);
+						string materialPath = Path.GetFileName((componentInspectorData.Component as Renderer).Material.FilePath);
 
 						materialPath = materialPath ?? "";
 						bool clicked = ImGui.Button(materialPath, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
@@ -489,7 +500,7 @@ public class EditorPanelInspector : EditorPanel
 								}
 								else
 								{
-									(currentComponent as Renderer).Material = draggedMaterial;
+									(componentInspectorData.Component as Renderer).Material = draggedMaterial;
 								}
 								// load new material
 							}
@@ -497,9 +508,9 @@ public class EditorPanelInspector : EditorPanel
 							ImGui.EndDragDropTarget();
 						}
 					}
-					else if (fieldOrPropertyType == typeof(GameObject))
+					else if (info.FieldOrPropertyType == typeof(GameObject))
 					{
-						GameObject goObject = info.GetValue(currentComponent) as GameObject;
+						GameObject goObject = info.GetValue(componentInspectorData.Component) as GameObject;
 						string fieldGoName = goObject?.Name ?? "";
 						bool clicked = ImGui.Button(fieldGoName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 						if (clicked && goObject != null)
@@ -518,7 +529,7 @@ public class EditorPanelInspector : EditorPanel
 								if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 								{
 									GameObject loadedGo = Serializer.I.LoadPrefab(payload, true);
-									info.SetValue(currentComponent, loadedGo);
+									info.SetValue(componentInspectorData.Component, loadedGo);
 								}
 							}
 
@@ -537,51 +548,51 @@ public class EditorPanelInspector : EditorPanel
 								if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 								{
 									GameObject foundGo = Scene.I.GetGameObject(int.Parse(payload));
-									info.SetValue(currentComponent, foundGo);
+									info.SetValue(componentInspectorData.Component, foundGo);
 								}
 							}
 
 							ImGui.EndDragDropTarget();
 						}
 					}
-					else if (fieldOrPropertyType == typeof(Color))
+					else if (info.FieldOrPropertyType == typeof(Color))
 					{
-						System.Numerics.Vector4 fieldValue = ((Color) info.GetValue(currentComponent)).ToVector4();
+						System.Numerics.Vector4 fieldValue = ((Color) info.GetValue(componentInspectorData.Component)).ToVector4();
 
 						if (ImGui.ColorEdit4("", ref fieldValue))
 						{
-							info.SetValue(currentComponent, fieldValue.ToColor());
+							info.SetValue(componentInspectorData.Component, fieldValue.ToColor());
 						}
 					}
-					else if (fieldOrPropertyType == typeof(bool))
+					else if (info.FieldOrPropertyType == typeof(bool))
 					{
 						ImGui.SameLine(ImGui.GetWindowWidth() - ImGui.GetContentRegionAvail().X / 2);
 
-						bool fieldValue = (bool) info.GetValue(currentComponent);
+						bool fieldValue = (bool) info.GetValue(componentInspectorData.Component);
 
 						if (ImGui.Checkbox("", ref fieldValue))
 						{
-							info.SetValue(currentComponent, fieldValue);
+							info.SetValue(componentInspectorData.Component, fieldValue);
 						}
 					}
-					else if (fieldOrPropertyType == typeof(float))
+					else if (info.FieldOrPropertyType == typeof(float))
 					{
-						float fieldValue = (float) info.GetValue(currentComponent);
+						float fieldValue = (float) info.GetValue(componentInspectorData.Component);
 
 						SliderF sliderAttrib = null;
-						List<CustomAttributeData> a = fieldOrPropertyType.CustomAttributes.ToList();
+						List<CustomAttributeData> a = info.FieldOrPropertyType.CustomAttributes.ToList();
 						for (int i = 0; i < info.CustomAttributes.Count(); i++)
 						{
 							if (info.CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(SliderF))
 							{
-								FieldInfo fieldType = currentComponent.GetType().GetField(info.Name);
+								FieldInfo fieldType = componentInspectorData.Component.GetType().GetField(info.Name);
 								if (fieldType != null)
 								{
 									sliderAttrib = fieldType.GetCustomAttribute<SliderF>();
 								}
 								else
 								{
-									PropertyInfo propertyType = currentComponent.GetType().GetProperty(info.Name);
+									PropertyInfo propertyType = componentInspectorData.Component.GetType().GetProperty(info.Name);
 									sliderAttrib = propertyType.GetCustomAttribute<SliderF>();
 								}
 							}
@@ -591,34 +602,34 @@ public class EditorPanelInspector : EditorPanel
 						{
 							if (ImGui.SliderFloat("", ref fieldValue, sliderAttrib.MinValue, sliderAttrib.MaxValue))
 							{
-								info.SetValue(currentComponent, fieldValue);
+								info.SetValue(componentInspectorData.Component, fieldValue);
 							}
 						}
 						else
 						{
 							if (ImGui.DragFloat("", ref fieldValue, 0.01f, float.NegativeInfinity, float.PositiveInfinity, "%.05f"))
 							{
-								info.SetValue(currentComponent, fieldValue);
+								info.SetValue(componentInspectorData.Component, fieldValue);
 							}
 						}
 					}
-					else if (fieldOrPropertyType == typeof(int))
+					else if (info.FieldOrPropertyType == typeof(int))
 					{
-						int fieldValue = (int) info.GetValue(currentComponent);
+						int fieldValue = (int) info.GetValue(componentInspectorData.Component);
 
 
 						if (ImGui.DragInt("", ref fieldValue))
 						{
-							info.SetValue(currentComponent, fieldValue);
+							info.SetValue(componentInspectorData.Component, fieldValue);
 						}
 					}
-					else if (fieldOrPropertyType == typeof(string))
+					else if (info.FieldOrPropertyType == typeof(string))
 					{
-						string fieldValue = info.GetValue(currentComponent).ToString();
+						string fieldValue = info.GetValue(componentInspectorData.Component).ToString();
 
 						if (ImGui.InputTextMultiline("", ref fieldValue, 100, new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, 200)))
 						{
-							info.SetValue(currentComponent, fieldValue);
+							info.SetValue(componentInspectorData.Component, fieldValue);
 						}
 					}
 
@@ -684,15 +695,13 @@ public class EditorPanelInspector : EditorPanel
 
 			if (_addComponentPopupText.Length > 0)
 			{
-				List<Type> componentTypes = typeof(Component).Assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
-
-				for (int i = 0; i < componentTypes.Count; i++)
+				for (int i = 0; i < _componentTypes.Count; i++)
 				{
-					if (componentTypes[i].Name.ToLower().Contains(_addComponentPopupText.ToLower()))
+					if (_componentTypes[i].Name.ToLower().Contains(_addComponentPopupText.ToLower()))
 					{
-						if (ImGui.Button(componentTypes[i].Name) || enterPressed)
+						if (ImGui.Button(_componentTypes[i].Name) || enterPressed)
 						{
-							_selectedGameObject.AddComponent(componentTypes[i]);
+							_selectedGameObject.AddComponent(_componentTypes[i]);
 							ImGui.CloseCurrentPopup();
 							break;
 						}
@@ -701,13 +710,11 @@ public class EditorPanelInspector : EditorPanel
 			}
 			else
 			{
-				List<Type> componentTypes = typeof(Component).Assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
-
-				for (int i = 0; i < componentTypes.Count; i++)
+				for (int i = 0; i < _componentTypes.Count; i++)
 				{
-					if (ImGui.Button(componentTypes[i].Name))
+					if (ImGui.Button(_componentTypes[i].Name))
 					{
-						_selectedGameObject.AddComponent(componentTypes[i]);
+						_selectedGameObject.AddComponent(_componentTypes[i]);
 						ImGui.CloseCurrentPopup();
 					}
 				}

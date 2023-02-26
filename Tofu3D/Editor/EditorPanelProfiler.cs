@@ -33,15 +33,17 @@ public class EditorPanelProfiler : EditorPanel
 		}
 
 		DebugTimer.SourceGroup currentSourceGroup = DebugTimer.SourceGroup.None;
-		
+
 		foreach (KeyValuePair<string, DebugTimer> timerPair in Debug.Timers)
 		{
 			float msDuration = (float) Math.Round(timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds, 2);
+			// float msDuration = (float) timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds;
+			float msDurationSlower = timerPair.Value.Sample10FramesAgo;
 			timerPair.Value.AddSample(msDuration);
 
 			if (timerPair.Value.Group != currentSourceGroup)
 			{
-				ImGui.SetWindowFontScale(1.5f);
+				ImGui.SetWindowFontScale(1.3f);
 				ImGui.TextColored(Color.Green.ToVector4(), timerPair.Value.Group.ToString().ToUpper());
 				currentSourceGroup = timerPair.Value.Group;
 				ImGui.SetWindowFontScale(1);
@@ -73,7 +75,7 @@ public class EditorPanelProfiler : EditorPanel
 
 				// ImGui.SetCursorPosX(timerPair.Value.LabelWidth);
 				ImGui.PlotLines(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset, $"",
-				                0, timerPair.Value.Max,
+				                timerPair.Value.MinSample, timerPair.Value.MaxSample,
 				                new Vector2(ImGui.GetContentRegionAvail().X, 30));
 				ImGui.SameLine();
 
@@ -81,15 +83,15 @@ public class EditorPanelProfiler : EditorPanel
 				ImGui.SetCursorPosX(0);
 				ImGui.Indent();
 
-				ImGui.Text($"{timerPair.Value.Label}:{msDuration.ToString("F2")} ms");
+				ImGui.Text($"{timerPair.Value.Label}:{msDurationSlower.ToString("F2")} ms");
 
 				ImGui.Unindent();
 			}
 			else
 			{
 				ImGui.PlotLines(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset,
-				                $"{timerPair.Value.Label}:{msDuration} ms",
-				                0, timerPair.Value.Max,
+				                $"{timerPair.Value.Label}:{msDurationSlower.ToString("F2")} ms",
+				                timerPair.Value.MinSample, timerPair.Value.MaxSample,
 				                new Vector2(ImGui.GetContentRegionAvail().X, 100));
 			}
 

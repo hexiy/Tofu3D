@@ -126,9 +126,11 @@ public class Scene
 		}
 	}
 
+	public static Action<Component> AnyComponentAddedToScene;
 	public void OnComponentAdded(GameObject gameObject, Component component)
 	{
 		RenderQueueChanged();
+		AnyComponentAddedToScene?.Invoke(component);
 	}
 
 	public void RenderQueueChanged()
@@ -245,7 +247,7 @@ public class Scene
 
 		return components;
 	}
-	
+
 	public GameObject GetGameObject(int id)
 	{
 		for (int i = 0; i < GameObjects.Count; i++)

@@ -107,7 +107,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>6</Vao>
+        <Vao>395</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>

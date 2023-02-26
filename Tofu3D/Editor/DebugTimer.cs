@@ -8,8 +8,13 @@ public class DebugTimer : IComparable<DebugTimer>
 {
 	public float[] Samples { get; private set; } = new float[200];
 	public int CurrentIndex { get; private set; } = 0;
-	public float Max;
-	int _findMaxTriggerCounter = 10;
+
+	float _foundMaxSample;
+	float _foundMinSample;
+	public float MaxSample;
+	public float MinSample;
+	int _findMaxTriggerFrameCounter = 0;
+	public float Sample10FramesAgo=0;
 	public Stopwatch Stopwatch;
 
 	public int Offset = 0;
@@ -27,8 +32,8 @@ public class DebugTimer : IComparable<DebugTimer>
 	public enum SourceGroup
 	{
 		None = -100,
-		Cpu = 0,
-		Gpu = 100
+		Update = 0,
+		Render = 100
 	}
 
 	public SourceGroup Group = SourceGroup.None;
@@ -46,16 +51,20 @@ public class DebugTimer : IComparable<DebugTimer>
 
 	public void AddSample(float sample)
 	{
-		sample = (float) MathHelper.Sin((double) Time.EditorDeltaTime) * 10;
 		Samples[CurrentIndex] = sample;
 		CurrentIndex++;
-		_findMaxTriggerCounter--;
-		if (_findMaxTriggerCounter == 0)
+		_findMaxTriggerFrameCounter--;
+		if (_findMaxTriggerFrameCounter < 0)
 		{
-			Max = Samples.Max();
-			_findMaxTriggerCounter = 10;
+			_foundMaxSample = Samples.Max();
+			_foundMinSample = Samples.Min();
+			_findMaxTriggerFrameCounter = 10;
+			Sample10FramesAgo = (float) Math.Round(sample, 2);
 		}
 
+		MaxSample = Mathf.Lerp(MaxSample,_foundMaxSample, Time.EditorDeltaTime * 7);
+		MinSample = Mathf.Lerp(MinSample,_foundMinSample, Time.EditorDeltaTime * 7);
+		
 		Offset += 1;
 		CheckForLimit();
 	}

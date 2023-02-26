@@ -5,7 +5,7 @@ using Component = Scripts.Component;
 
 namespace Tofu3D;
 
-public class GameObject
+public class GameObject : IEqualityComparer<GameObject>
 {
 	public delegate void ComponentAdded(GameObject gameObject, Component component);
 
@@ -783,5 +783,15 @@ public class GameObject
 	public Vector3 TransformToLocal(Vector3 worldPoint)
 	{
 		return worldPoint - Transform.WorldPosition;
+	}
+
+	public bool Equals(GameObject x, GameObject y)
+	{
+		return x?.Id == y?.Id;
+	}
+
+	public int GetHashCode(GameObject obj)
+	{
+		return obj.Id;
 	}
 }
