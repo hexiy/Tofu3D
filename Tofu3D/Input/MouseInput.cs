@@ -171,8 +171,9 @@ public static class MouseInput
 		//System.Diagnostics.Debug.WriteLine("mousePos:" + Position.X + ":" + Position.Y);
 	}
 
+	static float _sceneViewPadding = 20;
 	static bool IsMouseInSceneView()
 	{
-		return ScreenPosition.X < Camera.I.Size.X && ScreenPosition.Y < Camera.I.Size.Y && ScreenPosition.X > 0 && ScreenPosition.Y > 0;
+		return ScreenPosition.X < Camera.I.Size.X-_sceneViewPadding && ScreenPosition.Y < Camera.I.Size.Y-_sceneViewPadding && ScreenPosition.X > 0+_sceneViewPadding && ScreenPosition.Y > 0+_sceneViewPadding;
 	}
 }

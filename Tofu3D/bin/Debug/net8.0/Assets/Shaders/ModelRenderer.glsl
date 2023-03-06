@@ -108,7 +108,8 @@ float d = max(dot(norm, lightDir), 0.0) * u_pointLightIntensities[i];
 
 }*/
 
-vec3 dirColor = u_directionalLightIntensity * u_directionalLightColor;//vec3(max(dot(norm, u_directionalLightDirection), 0.0) * u_directionalLightIntensity * u_directionalLightColor);
+//vec3 dirColor = u_directionalLightIntensity * u_directionalLightColor;
+vec3 dirColor = vec3(max(dot(norm, u_directionalLightDirection), 0.0) * u_directionalLightIntensity * u_directionalLightColor);
 
 
 //result += vec4((u_ambientLightsColor * u_rendererColor.rgb* u_ambientLightsIntensity) + (1 - shadow),0);

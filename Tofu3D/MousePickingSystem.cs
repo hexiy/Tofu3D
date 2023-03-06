@@ -1,4 +1,4 @@
-using System.Runtime.InteropServices;
+/*using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Tofu3D.Rendering;
 
@@ -8,6 +8,7 @@ public static class MousePickingSystem
 {
 	static Dictionary<uint, Renderer> _renderers = new Dictionary<uint, Renderer>();
 	static uint _pixels;
+	static uint _tempPixels;
 	public static Renderer HoveredRenderer { get; private set; }
 
 	public static Color RegisterObject(ModelRenderer renderer)
@@ -75,23 +76,37 @@ public static class MousePickingSystem
 		Scene.I.RenderScene();
 	}
 
-	public static void Update()
+	public static void ReadPixelAtMousePos()
 	{
 		// MousePickingSystem.Update();
 
 		// GL.ReadPixels(0,0,1,1,PixelFormat.Rgb, PixelType.UnsignedByte, ref pixels);
-		
+
 		// need to update even when not moving mouse because objects can move in the scene
-		if (MouseInput.ScreenDelta == Vector2.Zero || SceneNavigation.I.IsPanningCamera)
+		// if (MouseInput.ScreenDelta == Vector2.Zero || SceneNavigation.I.IsPanningCamera)
+		// {
+		// 	return;
+		// }
+		if (_renderers.Count == 0)
 		{
 			return;
 		}
 
-		GL.ReadPixels((int) MouseInput.ScreenPosition.X, (int) MouseInput.ScreenPosition.Y, 1, 1, PixelFormat.Rgb, PixelType.UnsignedByte, ref _pixels);
+		GL.ReadPixels((int) MouseInput.ScreenPosition.X, (int) MouseInput.ScreenPosition.Y, 1, 1, PixelFormat.Rgb, PixelType.UnsignedByte, ref _tempPixels);
+		
 		//Color color = new Color(_pixels);
 
 
-		HoveredRenderer = GetRenderer(_pixels);
 		// Debug.Log($"HoveredRenderer:{HoveredRenderer?.GameObject.Name}");
 	}
-}
+	
+	// find renderer in Update, so we're not slowing down rendering/inflating the numbers
+	public static void Update()
+	{
+		if (_tempPixels != _pixels)
+		{
+			_pixels = _tempPixels;
+			HoveredRenderer = GetRenderer(_pixels); // only find renderer if we're hovering a different color
+		}
+	}
+}*/

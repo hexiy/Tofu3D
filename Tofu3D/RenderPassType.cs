@@ -3,7 +3,7 @@ namespace Tofu3D;
 public enum RenderPassType
 {
 	DirectionalLightShadowDepth,
-	MousePicking,
+	// MousePicking,
 	//GeometryDepth,
 	Opaques,
 	PostProcess,

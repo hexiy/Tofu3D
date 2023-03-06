@@ -18,10 +18,10 @@ public class EditorPanelConsole : EditorPanel
 			return;
 		}
 
-		ImGui.SetNextWindowSize(new Vector2(800, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1), ImGuiCond.Always);
-		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X - 800, Window.I.ClientSize.Y), ImGuiCond.Always, new Vector2(1, 1));
+		ImGui.SetNextWindowSize(new Vector2(800, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1), ImGuiCond.FirstUseEver);
+		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X - 800, Window.I.ClientSize.Y), ImGuiCond.FirstUseEver, new Vector2(1, 1));
 		//ImGui.SetNextWindowBgAlpha (0);
-		ImGui.Begin("Console", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
+		ImGui.Begin("Console", Editor.ImGuiDefaultWindowFlags);
 
 		if (ImGui.Button("Clear"))
 		{
@@ -31,7 +31,7 @@ public class EditorPanelConsole : EditorPanel
 		ImGui.SameLine();
 		Vector4 activeColor = Color.ForestGreen.ToVector4();
 		Vector4 inactiveColor = ImGui.GetStyle().Colors[(int) ImGuiCol.TextDisabled];
-		ImGui.PushStyleColor(ImGuiCol.Text,Debug.Paused ? activeColor : inactiveColor);
+		ImGui.PushStyleColor(ImGuiCol.Text, Debug.Paused ? activeColor : inactiveColor);
 		bool pauseBtnClicked = ImGui.Button("Pause");
 		if (pauseBtnClicked)
 		{

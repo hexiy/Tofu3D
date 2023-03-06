@@ -17,6 +17,7 @@ public class Editor
 	//{
 	//	return (screenPosition - gameViewPosition) * Camera.I.cameraSize + Camera.I.transform.position;
 	//}
+	public static readonly ImGuiWindowFlags ImGuiDefaultWindowFlags = ImGuiWindowFlags.NoCollapse /* | ImGuiWindowFlags.AlwaysAutoResize*/ /* | ImGuiWindowFlags.NoDocking*/;
 
 	public Editor()
 	{
@@ -25,8 +26,13 @@ public class Editor
 
 	public static Editor I { get; private set; }
 
-	public void Init()
+	ImGuiWindowClassPtr _panelWindowClassPtr;
+
+	public unsafe void Init()
 	{
+		ImGuiWindowClass panelWindowClas = new ImGuiWindowClass() {DockNodeFlagsOverrideSet = ImGuiDockNodeFlags.None /*ImGuiDockNodeFlags.AutoHideTabBar*/};
+		_panelWindowClassPtr = new ImGuiWindowClassPtr(&panelWindowClas);
+
 		ImGui.GetStyle().WindowRounding = 0;
 		ImGui.GetStyle().WindowBorderSize = 0.2f;
 		//ImGui.GetStyle().WindowPadding = new Vector2(0,0;
@@ -232,6 +238,11 @@ public class Editor
 			colors[(int) ImGuiCol.ResizeGrip] = new Vector4(0.80f, 0.80f, 0.80f, 0.56f);
 			colors[(int) ImGuiCol.ResizeGripHovered] = new Vector4(0.39f, 0.39f, 0.40f, 0.67f);
 			colors[(int) ImGuiCol.ResizeGripActive] = new Vector4(0.39f, 0.39f, 0.40f, 0.67f);
+			colors[(int) ImGuiCol.Tab] = cBeige;
+			colors[(int) ImGuiCol.TabActive] = cBeige;
+			colors[(int) ImGuiCol.TabUnfocused] = cBeige;
+			colors[(int) ImGuiCol.TabUnfocusedActive] = cBeige;
+			colors[(int) ImGuiCol.TabHovered] = cBeige;
 			// colors[(int)ImGuiCol.CloseButton]            = new Vector4(0.59f, 0.59f, 0.59f, 0.50f);
 			// colors[(int)ImGuiCol.ButtonHovered]     = new Vector4(0.98f, 0.39f, 0.36f, 1.00f);
 			// colors[(int)ImGuiCol.ButtonActive]      = new Vector4(0.98f, 0.39f, 0.36f, 1.00f);
@@ -317,10 +328,21 @@ public class Editor
 
 	public void Draw()
 	{
+		// ImGui.DockSpace(0, new System.Numerics.Vector2(2300, 2300), ImGuiDockNodeFlags.NoDockingInCentralNode);
+		ImGuiViewportPtr viewportPtr = ImGui.GetWindowViewport();
+
+		ImGui.DockSpaceOverViewport(viewportPtr /*, ImGuiDockNodeFlags.NoDockingInCentralNode*/);
+		// ImGui.DockSpace(1, new System.Numerics.Vector2(500, 500));
+
+		// ImGui.PopStyleVar(3);
+		// ImGui.DockSpace(0, ImGui.GetWindowSize());
+		// ImGui.SetCursorPos(new Vector2(0, 0));
+
 		if (Global.EditorAttached)
 		{
 			for (int i = 0; i < _editorPanels.Length; i++)
 			{
+				ImGui.SetNextWindowClass(_panelWindowClassPtr);
 				_editorPanels[i].Draw();
 			}
 
@@ -330,6 +352,13 @@ public class Editor
 		{
 			EditorPanelSceneView.I.Draw();
 		}
+
+		// ImGui.SetNextWindowSize(new Vector2(Window.I.ClientSize.X, Window.I.ClientSize.Y), ImGuiCond.Always);
+		// ImGui.SetNextWindowPos(System.Numerics.Vector2.Zero, ImGuiCond.Always, new Vector2(0, 0));
+
+		// ImGui.Begin("Docking space", ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
+		//
+		// ImGui.End();
 	}
 
 	public void SelectGameObjects(List<int> goIds)

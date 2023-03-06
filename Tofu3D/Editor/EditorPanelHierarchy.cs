@@ -145,10 +145,10 @@ public class EditorPanelHierarchy : EditorPanel
 
 		ResetId();
 		WindowWidth = 700;
-		ImGui.SetNextWindowSize(new Vector2(WindowWidth, Editor.SceneViewSize.Y), ImGuiCond.Always);
-		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0), ImGuiCond.Always, new Vector2(1, 0)); // +1 for double border uglyness
+		ImGui.SetNextWindowSize(new Vector2(WindowWidth, Editor.SceneViewSize.Y), ImGuiCond.FirstUseEver);
+		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0), ImGuiCond.FirstUseEver, new Vector2(1, 0)); // +1 for double border uglyness
 		//ImGui.SetNextWindowBgAlpha (0);
-		ImGui.Begin("Hierarchy", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
+		ImGui.Begin("Hierarchy", Editor.ImGuiDefaultWindowFlags);
 		if (ImGui.Button("+"))
 		{
 			GameObject go = GameObject.Create(name: "GameObject");

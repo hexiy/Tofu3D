@@ -1,5 +1,8 @@
 lastOpenedScene:/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/Scenes/MainScene.scene
-lastSelectedGameObjectId:41
+lastSelectedGameObjectId:5
 Global.Debug:False
 DebugTimerCollapsed_Scene Update:False
 DebugTimerCollapsed_Editor Update:True
+DebugTimerCollapsed_Scene Render:False
+DebugTimerCollapsed_App Render:False
+DebugTimerCollapsed_ImGui:False

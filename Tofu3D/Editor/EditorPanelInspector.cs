@@ -84,9 +84,9 @@ public class EditorPanelInspector : EditorPanel
 		WindowWidth = 800;
 		_contentMaxWidth = WindowWidth - (int) ImGui.GetStyle().WindowPadding.X * 1;
 		ImGui.SetNextItemWidth(WindowWidth);
-		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X, 0), ImGuiCond.Always, new Vector2(1, 0));
+		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X, 0), ImGuiCond.FirstUseEver, new Vector2(1, 0));
 		//ImGui.SetNextWindowBgAlpha (0);
-		ImGui.Begin("Inspector", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoTitleBar);
+		ImGui.Begin("Inspector", Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoTitleBar);
 
 		ImGui.Text("Inspector");
 

@@ -17,6 +17,11 @@ public static class RenderPassSystem
 	public static RenderTexture FinalRenderTexture { get; private set; } //= new RenderTexture(new Vector2(100, 100), true, false);
 	public static bool Initialized;
 
+	static RenderPassSystem()
+	{
+		Camera.CameraSizeChanged += (newSize) => Initialize();
+	}
+
 	public static void Initialize()
 	{
 		//_renderPasses = new List<RenderPass>();
@@ -39,7 +44,7 @@ public static class RenderPassSystem
 	{
 		RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();
 		RenderPassOpaques renderPassOpaques = new RenderPassOpaques();
-		RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
+		// RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
 	}
 
 	public static void RegisterRenderPass(RenderPass renderPass)
@@ -85,6 +90,7 @@ public static class RenderPassSystem
 			return;
 		}
 
+		// todo do we need this?
 		FinalRenderTexture.Clear();
 
 		RenderPassOpaques.I.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);

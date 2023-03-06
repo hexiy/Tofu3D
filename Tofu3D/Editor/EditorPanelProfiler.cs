@@ -20,10 +20,10 @@ public class EditorPanelProfiler : EditorPanel
 			return;
 		}
 
-		ImGui.SetNextWindowSize(new Vector2(800, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1), ImGuiCond.Always);
-		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X, Window.I.ClientSize.Y), ImGuiCond.Always, new Vector2(1, 1));
+		ImGui.SetNextWindowSize(new Vector2(800, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1), ImGuiCond.FirstUseEver);
+		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X, Window.I.ClientSize.Y), ImGuiCond.FirstUseEver, new Vector2(1, 1));
 		//ImGui.SetNextWindowBgAlpha (0);
-		ImGui.Begin("Profiler", ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize);
+		ImGui.Begin("Profiler", Editor.ImGuiDefaultWindowFlags);
 
 		ImGui.Text($"GameObjects in scene: {Scene.I.GameObjects.Count}");
 
@@ -32,9 +32,14 @@ public class EditorPanelProfiler : EditorPanel
 			ImGui.Text($"{stat.Key} : {stat.Value}");
 		}
 
-		DebugTimer.SourceGroup currentSourceGroup = DebugTimer.SourceGroup.None;
+		foreach (KeyValuePair<string, float> stat in Debug.AdditiveStats)
+		{
+			ImGui.Text($"{stat.Key} : {stat.Value}");
+		}
 
-		foreach (KeyValuePair<string, DebugTimer> timerPair in Debug.Timers)
+		DebugGraphTimer.SourceGroup currentSourceGroup = DebugGraphTimer.SourceGroup.None;
+
+		foreach (KeyValuePair<string, DebugGraphTimer> timerPair in Debug.GraphTimers)
 		{
 			float msDuration = (float) Math.Round(timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds, 2);
 			// float msDuration = (float) timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds;
@@ -96,7 +101,6 @@ public class EditorPanelProfiler : EditorPanel
 			}
 			else
 			{
-				
 				// ImGui.PlotHistogram(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset,
 				//                     $"{timerPair.Value.Label}:{msDurationSlower.ToString("F2")} ms",
 				//                     timerPair.Value.MinSample, timerPair.Value.MaxSample,

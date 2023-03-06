@@ -133,7 +133,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 			//BufferCache.BindVAO(0);
 			//GL.Disable(EnableCap.Blend);
 
-			Debug.CountStat("Draw Calls", 1);
+			Debug.StatAddValue("Draw Calls", 1);
 		}
 	}
 }

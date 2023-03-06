@@ -20,6 +20,7 @@ public class Scene
 	}
 
 	public static Scene I { get; private set; }
+
 	Camera Camera
 	{
 		get { return Camera.I; }
@@ -89,6 +90,7 @@ public class Scene
 		SceneNavigation.I.Update();
 		ShaderCache.ReloadQueuedShaders();
 		LightManager.I.Update();
+		// MousePickingSystem.Update();
 		Camera.I.GameObject.Update();
 
 		TransformHandle.I.GameObject.Update();
@@ -127,6 +129,7 @@ public class Scene
 	}
 
 	public static Action<Component> AnyComponentAddedToScene;
+
 	public void OnComponentAdded(GameObject gameObject, Component component)
 	{
 		RenderQueueChanged();

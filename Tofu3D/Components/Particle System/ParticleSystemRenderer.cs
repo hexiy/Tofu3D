@@ -56,12 +56,12 @@ public class ParticleSystemRenderer : SpriteRenderer
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
-			Debug.CountStat("Draw Calls", 1);
+			Debug.StatAddValue("Draw Calls", 1);
 		}
 		//BatchingManager.UpdateAttribs(texture.id, gameObjectID, particleSystem.particles[i].worldPosition, new Vector2(particleSystem.particles[i].radius),
 		//                              particleSystem.particles[i].color, i);
 
-		Debug.Stat("Particles", ParticleSystem.Particles.Count);
+		Debug.StatSetValue("Particles", ParticleSystem.Particles.Count);
 	}
 
 	public Matrix4x4 GetParticleMvpMatrix(Particle particle)

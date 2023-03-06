@@ -22,14 +22,17 @@ public class EditorPanelSceneView : EditorPanel
 		{
 			Editor.SceneViewSize = Camera.I.Size + new Vector2(0, 50);
 
-			ImGui.SetNextWindowSize(Camera.I.Size + new Vector2(0, 50), ImGuiCond.Always);
-			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.Always, new Vector2(0, 0));
-			ImGui.Begin("Scene View",
-			            ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
+			ImGui.SetNextWindowSize(Camera.I.Size + new Vector2(0, 50), ImGuiCond.FirstUseEver);
+			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
+			ImGui.Begin("Scene View", Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
+			if ((Vector2) ImGui.GetWindowSize() != Camera.I.Size)
+			{
+				Camera.I.SetSize(ImGui.GetWindowSize());
+			}
 
 			ImGui.SetCursorPosX(Camera.I.Size.X / 2 - 150);
 
-			Vector4 activeColor = Color.ForestGreen.ToVector4();//ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
+			Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
 			Vector4 inactiveColor = ImGui.GetStyle().Colors[(int) ImGuiCol.TextDisabled];
 			ImGui.PushStyleColor(ImGuiCol.Text, PhysicsController.Running ? activeColor : inactiveColor);
 			bool physicsButtonClicked = ImGui.Button("physics");
@@ -77,11 +80,11 @@ public class EditorPanelSceneView : EditorPanel
 			_renderCameraViews = Editor.I.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
 			// ImGui.SetCursorPosX(0);
-			ImGui.SetCursorPos(new Vector2(0,70));
+			ImGui.SetCursorPos(new Vector2(0, 70));
 			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
 
 			ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, RenderPassSystem.FinalRenderTexture.Size,
-			new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Aqua.ToVector4());
+			            new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Aqua.ToVector4());
 
 			// ImGui.Image((IntPtr) RenderPassManager.FinalRenderTexture.ColorAttachment, RenderPassManager.FinalRenderTexture.Size * 0.9f,
 			//             new Vector2(-0.5f, 0.5f), new Vector2(0.5f, -0.5f), Color.White.ToVector4(), Color.Aqua.ToVector4());
@@ -101,7 +104,7 @@ public class EditorPanelSceneView : EditorPanel
 
 				ImGui.Image((IntPtr) RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment, new Vector2(sizeX, sizeY),
 				            new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
-				
+
 				ImGui.SetCursorPos(new Vector2(0, 75 + sizeY));
 
 				ImGui.Image((IntPtr) RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.ColorAttachment, new Vector2(sizeX, sizeY),

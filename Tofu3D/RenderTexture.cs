@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Drawing;
+using System.IO;
 
 namespace Tofu3D;
 
@@ -114,7 +115,7 @@ public class RenderTexture
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
-		Debug.CountStat("Draw Calls", 1);
+		Debug.StatAddValue("Draw Calls", 1);
 		ShaderCache.BindVertexArray(0);
 	}
 
@@ -137,7 +138,7 @@ public class RenderTexture
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
-		Debug.CountStat("Draw Calls", 1);
+		Debug.StatAddValue("Draw Calls", 1);
 		ShaderCache.BindVertexArray(0);
 	}
 }

@@ -3,6 +3,7 @@
 [ExecuteInEditMode]
 public class Camera : Component
 {
+	public static Action<Vector2> CameraSizeChanged = (newSize) => { };
 	//public int antialiasingStrength = 0;
 	public Color Color = new(34, 34, 34);
 	public float NearPlaneDistance = 1;
@@ -58,6 +59,13 @@ public class Camera : Component
 
 		UpdateMatrices();
 		base.Update();
+	}
+
+	public void SetSize(Vector2 newSize)
+	{
+		Size = newSize;
+
+		CameraSizeChanged.Invoke(newSize);
 	}
 
 	public void UpdateMatrices()
@@ -188,6 +196,7 @@ public class Camera : Component
 		Matrix4x4 scaleMatrix = Matrix4x4.CreateScale(1 / OrthographicSize);
 		return scaleMatrix;
 	}
+
 	public Matrix4x4 GetLightProjectionMatrix()
 	{
 		float left = -Size.X / 2;

@@ -4,7 +4,7 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class DebugTimer : IComparable<DebugTimer>
+public class DebugGraphTimer : IComparable<DebugGraphTimer>
 {
 	public float[] Samples { get; private set; } = new float[200];
 	public int CurrentIndex { get; private set; } = 0;
@@ -42,7 +42,7 @@ public class DebugTimer : IComparable<DebugTimer>
 
 	public SourceGroup Group = SourceGroup.None;
 
-	public DebugTimer(string label, SourceGroup group = SourceGroup.None, TimeSpan? redline = null, int drawOrder = 0)
+	public DebugGraphTimer(string label, SourceGroup group = SourceGroup.None, TimeSpan? redline = null, int drawOrder = 0)
 	{
 		LabelWidth = ImGui.CalcTextSize($"{label}:0.00 ms").X + 30;
 
@@ -60,6 +60,8 @@ public class DebugTimer : IComparable<DebugTimer>
 
 	public void AddSample(float sample)
 	{
+		CheckForLimit();
+
 		Samples[CurrentIndex] = sample;
 		CurrentIndex++;
 		_findMaxTriggerFrameCounter--;
@@ -75,7 +77,6 @@ public class DebugTimer : IComparable<DebugTimer>
 		MinSample = Mathf.Lerp(MinSample, _foundMinSample, Time.EditorDeltaTime * 7);
 
 		Offset += 1;
-		CheckForLimit();
 	}
 
 	private void CheckForLimit()
@@ -86,7 +87,7 @@ public class DebugTimer : IComparable<DebugTimer>
 		}
 	}
 
-	public int CompareTo(DebugTimer other)
+	public int CompareTo(DebugGraphTimer other)
 	{
 		return GroupModifiedDrawOrder.CompareTo(other.GroupModifiedDrawOrder);
 	}

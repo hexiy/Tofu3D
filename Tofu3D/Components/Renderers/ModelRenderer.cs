@@ -6,11 +6,11 @@ public class ModelRenderer : TextureRenderer
 	public Model Model;
 	public bool CastShadow = true;
 
-	Color _mousePickingColor;
+	// Color _mousePickingColor;
 
 	public override void Awake()
 	{
-		_mousePickingColor = MousePickingSystem.RegisterObject(this);
+		// _mousePickingColor = MousePickingSystem.RegisterObject(this);
 
 		if (Texture == null)
 		{
@@ -147,7 +147,7 @@ public class ModelRenderer : TextureRenderer
 				GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
 			}
 		}
-		else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
+		/*else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
 		{
 			if (GameObject == TransformHandle.I?.GameObject)
 			{
@@ -157,6 +157,7 @@ public class ModelRenderer : TextureRenderer
 			{
 				GL.Enable(EnableCap.DepthTest);
 			}
+
 			Material mousePickingMaterial = MaterialCache.GetMaterial("ModelMousePicking");
 			ShaderCache.UseShader(mousePickingMaterial.Shader);
 
@@ -168,17 +169,17 @@ public class ModelRenderer : TextureRenderer
 			ShaderCache.BindVertexArray(Material.Vao);
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
-		}
+		}*/
 
 		if (drawOutline)
 		{
 			GL.BindVertexArray(0);
 		}
 
-		Debug.CountStat("Draw Calls", 1);
+		Debug.StatAddValue("Draw Calls", 1);
 		if (drawOutline)
 		{
-			Debug.CountStat("Draw Calls", 1);
+			Debug.StatAddValue("Draw Calls", 1);
 		}
 	}
 }

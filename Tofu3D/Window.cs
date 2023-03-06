@@ -10,14 +10,14 @@ public class Window : GameWindow
 {
 	public ImGuiController ImGuiController;
 
-	public Window() : base(new GameWindowSettings() {UpdateFrequency = 60, RenderFrequency = 60},
+	public Window() : base(new GameWindowSettings() { }, // dont specify fps.... otherwise deltatime fucks up and update and render is called not 1:1
 	                       new NativeWindowSettings
 	                       {
-		                       /*Size = new Vector2i(2560, 1600),*/ APIVersion = new Version(4, 1), Flags = ContextFlags.ForwardCompatible, Profile = ContextProfile.Core, NumberOfSamples = 8
+		                       /*Size = new Vector2i(2560, 1600),*/ APIVersion = new Version(4, 1), Flags = ContextFlags.ForwardCompatible, Profile = ContextProfile.Core, /*NumberOfSamples = 8,*/ StartFocused = true,
 	                       })
 	{
 		I = this;
-		VSync = VSyncMode.On;
+		// VSync = VSyncMode.On;
 		WindowState = WindowState.Maximized;
 		// WindowState = WindowState.Fullscreen;
 		Title = WindowTitleText;
@@ -37,8 +37,8 @@ public class Window : GameWindow
 		Editor.I.Init();
 		Scene.I.Start();
 
-		RenderPassSystem.Initialize();
-		MousePickingSystem.Initialize();
+		// RenderPassSystem.Initialize();
+		// MousePickingSystem.Initialize();
 	}
 
 	protected override void OnUnload()
@@ -60,12 +60,12 @@ public class Window : GameWindow
 
 	protected override void OnUpdateFrame(FrameEventArgs args)
 	{
-		Time.DeltaTimeUpdate = (float)args.Time;
+		Time.DeltaTimeUpdate = (float) args.Time;
 
 		// Time.StartDeltaTimeUpdateStopWatch();
-		Debug.StartTimer("Scene Update", DebugTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
+		Debug.StartGraphTimer("Scene Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
 		Scene.I.Update();
-		Debug.EndTimer("Scene Update");
+		Debug.EndGraphTimer("Scene Update");
 
 		if (Global.EditorAttached)
 		{
@@ -74,31 +74,32 @@ public class Window : GameWindow
 			// Debug.EndTimer("Editor Update");
 		}
 
-
 		base.OnUpdateFrame(args);
+
+
 		// Time.EndDeltaTimeUpdateStopWatch();
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs e)
 	{
-		Time.DeltaTimeRender = (float) e.Time;
+		// Time.DeltaTimeRender = (float) e.Time;
 
 		// Time.StartDeltaTimeRenderStopWatch();
 
-		Debug.StartTimer("App Render", DebugTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
+		Debug.StartGraphTimer("App Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
 
-		Debug.CountStat("Draw Calls", 0);
+		Debug.StatAddValue("Draw Calls", 0);
 		// Debug.StartTimer("Test", DebugTimer.SourceGroup.Gpu, TimeSpan.FromSeconds(1f / 60f));
 		// Debug.EndTimer("Test");
 
-		Debug.StartTimer("Scene Render", DebugTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 60f));
+		Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 60f));
 
 		RenderPassSystem.RenderAllPasses();
 
-		Debug.EndTimer("Scene Render");
+		Debug.EndGraphTimer("Scene Render");
 
 
-		Debug.StartTimer("ImGui", DebugTimer.SourceGroup.Render, TimeSpan.FromMilliseconds(2));
+		Debug.StartGraphTimer("ImGui", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromMilliseconds(2));
 
 		ImGuiController.Update(this, (float) e.Time);
 		GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
@@ -109,20 +110,20 @@ public class Window : GameWindow
 		//GL.Enable(EnableCap.Multisample);
 
 		ImGuiController.Render();
-		Debug.EndTimer("ImGui");
+		Debug.EndGraphTimer("ImGui");
 
 		// ------------- IMGUI -------------
 
-		Debug.EndTimer("App Render");
+		Debug.EndGraphTimer("App Render");
 
 		SwapBuffers();
+
 		base.OnRenderFrame(e);
 
 		// Time.EndDeltaTimeRenderStopWatch();
 
 		Debug.ResetTimers();
-		Debug.ClearStats();
-		Time.DeltaTimeUpdate = 0;
+		Debug.ClearAdditiveStats();
 	}
 
 	protected override void OnTextInput(TextInputEventArgs e)

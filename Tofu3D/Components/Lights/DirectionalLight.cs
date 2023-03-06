@@ -6,6 +6,7 @@ public class DirectionalLight : LightBase
 	public static DirectionalLight I { get; private set; }
 	[Show]
 	public float Speed = 100;
+	public int RefreshRate = 60;
 
 	public float NearPlaneDistance = 0.0001f;
 	public float FarPlaneDistance = 1000;
@@ -46,6 +47,12 @@ public class DirectionalLight : LightBase
 
 	public void RenderDirectionalLightShadowDepth()
 	{
+		RefreshRate = Math.Clamp(RefreshRate, 1, 60);
+		
+		if (Time.EditorElapsedTicks % (60/RefreshRate) != 0)
+		{
+			return;
+		}
 		//GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
 
 		ConfigureForShadowMapping();

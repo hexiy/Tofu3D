@@ -1,4 +1,4 @@
-using Engine;
+/*using Engine;
 
 namespace Tofu3D.Rendering;
 
@@ -27,8 +27,10 @@ public class RenderPassMousePicking : RenderPass
 
 	protected override void PostRender()
 	{
-		MousePickingSystem.Update();
+		Debug.StartTimer("Mouse picking");
+		MousePickingSystem.ReadPixelAtMousePos();
 
+		Debug.EndAndStatTimer("Mouse picking");
 		base.PostRender();
 	}
-}
+}*/

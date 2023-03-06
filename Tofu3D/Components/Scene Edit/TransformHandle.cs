@@ -113,29 +113,29 @@ public class TransformHandle : Component
 		if (MouseInput.ButtonPressed())
 		{
 			Clicked = false;
-			if (MousePickingSystem.HoveredRenderer == ModelRendererX)
-			{
-				CurrentAxisSelected = Axis.X;
-				Clicked = true;
-			}
-
-			if (MousePickingSystem.HoveredRenderer == ModelRendererY)
-			{
-				CurrentAxisSelected = Axis.Y;
-				Clicked = true;
-			}
-
-			if (MousePickingSystem.HoveredRenderer == ModelRendererZ)
-			{
-				CurrentAxisSelected = Axis.Z;
-				Clicked = true;
-			}
-
-			if (MousePickingSystem.HoveredRenderer == ModelRendererXy)
-			{
-				CurrentAxisSelected = Axis.Xy;
-				Clicked = true;
-			}
+			// if (MousePickingSystem.HoveredRenderer == ModelRendererX)
+			// {
+			// 	CurrentAxisSelected = Axis.X;
+			// 	Clicked = true;
+			// }
+			//
+			// if (MousePickingSystem.HoveredRenderer == ModelRendererY)
+			// {
+			// 	CurrentAxisSelected = Axis.Y;
+			// 	Clicked = true;
+			// }
+			//
+			// if (MousePickingSystem.HoveredRenderer == ModelRendererZ)
+			// {
+			// 	CurrentAxisSelected = Axis.Z;
+			// 	Clicked = true;
+			// }
+			//
+			// if (MousePickingSystem.HoveredRenderer == ModelRendererXy)
+			// {
+			// 	CurrentAxisSelected = Axis.Xy;
+			// 	Clicked = true;
+			// }
 		}
 
 		if (MouseInput.IsButtonDown() && GameObject.ActiveInHierarchy && Clicked)
@@ -157,41 +157,41 @@ public class TransformHandle : Component
 
 		Transform.WorldPosition = GetCenterOfSelection();
 		Transform.Rotation = GetRotationOfSelection();
-		if (MousePickingSystem.HoveredRenderer == ModelRendererX || CurrentAxisSelected == Axis.X)
-		{
-			ModelRendererX.Color = Color.WhiteSmoke;
-		}
-		else
-		{
-			ModelRendererX.Color = Color.Red;
-		}
-
-		if (MousePickingSystem.HoveredRenderer == ModelRendererY || CurrentAxisSelected == Axis.Y)
-		{
-			ModelRendererY.Color = Color.WhiteSmoke;
-		}
-		else
-		{
-			ModelRendererY.Color = Color.YellowGreen;
-		}
-
-		if (MousePickingSystem.HoveredRenderer == ModelRendererXy || CurrentAxisSelected == Axis.Xy)
-		{
-			ModelRendererXy.Color = Color.WhiteSmoke;
-		}
-		else
-		{
-			ModelRendererXy.Color = Color.Gold;
-		}
-
-		if (MousePickingSystem.HoveredRenderer == ModelRendererZ || CurrentAxisSelected == Axis.Z)
-		{
-			ModelRendererZ.Color = Color.WhiteSmoke;
-		}
-		else
-		{
-			ModelRendererZ.Color = Color.Cyan;
-		}
+		// if (MousePickingSystem.HoveredRenderer == ModelRendererX || CurrentAxisSelected == Axis.X)
+		// {
+		// 	ModelRendererX.Color = Color.WhiteSmoke;
+		// }
+		// else
+		// {
+		// 	ModelRendererX.Color = Color.Red;
+		// }
+		//
+		// if (MousePickingSystem.HoveredRenderer == ModelRendererY || CurrentAxisSelected == Axis.Y)
+		// {
+		// 	ModelRendererY.Color = Color.WhiteSmoke;
+		// }
+		// else
+		// {
+		// 	ModelRendererY.Color = Color.YellowGreen;
+		// }
+		//
+		// if (MousePickingSystem.HoveredRenderer == ModelRendererXy || CurrentAxisSelected == Axis.Xy)
+		// {
+		// 	ModelRendererXy.Color = Color.WhiteSmoke;
+		// }
+		// else
+		// {
+		// 	ModelRendererXy.Color = Color.Gold;
+		// }
+		//
+		// if (MousePickingSystem.HoveredRenderer == ModelRendererZ || CurrentAxisSelected == Axis.Z)
+		// {
+		// 	ModelRendererZ.Color = Color.WhiteSmoke;
+		// }
+		// else
+		// {
+		// 	ModelRendererZ.Color = Color.Cyan;
+		// }
 
 		base.Update();
 	}

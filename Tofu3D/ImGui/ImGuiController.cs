@@ -48,11 +48,17 @@ public class ImGuiController : IDisposable
 		IntPtr context = ImGui.CreateContext();
 		ImGui.SetCurrentContext(context);
 		ImGuiIOPtr io = ImGui.GetIO();
+		io.ConfigFlags |= ImGuiConfigFlags.DockingEnable;
+		
+		io.ConfigDockingAlwaysTabBar = false;
+		io.ConfigWindowsResizeFromEdges = true;
+		io.WantSaveIniSettings = true;
+		io.IniSavingRate = 5;
 
 		io.Fonts.AddFontFromFileTTF("inconsolata.ttf", 28);
 		//io.Fonts.AddFontDefault();
 
-		io.BackendFlags = ImGuiBackendFlags.None;// ImGuiBackendFlags.RendererHasVtxOffset;
+		io.BackendFlags = ImGuiBackendFlags.None; // ImGuiBackendFlags.RendererHasVtxOffset;
 
 		CreateDeviceResources();
 		SetKeyMappings();
