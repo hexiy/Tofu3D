@@ -56,7 +56,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>DirectionalLight</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -101,7 +101,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>StressTester</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -121,14 +121,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>121.370705</X>
-        <Y>-57.60871</Y>
-        <Z>34.70276</Z>
+        <X>43.128563</X>
+        <Y>-98.57791</Y>
+        <Z>140.39998</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>121.370705</X>
-        <Y>-57.60871</Y>
-        <Z>34.70276</Z>
+        <X>43.128563</X>
+        <Y>-98.57791</Y>
+        <Z>140.39998</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -141,8 +141,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-35.64356</X>
-        <Y>-91.52739</Y>
+        <X>315.30185</X>
+        <Y>-206.65866</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -165,7 +165,7 @@
       <OrthographicSize>15</OrthographicSize>
       <Size>
         <X>3340</X>
-        <Y>1751</Y>
+        <Y>1553</Y>
       </Size>
     </Component>
     <Component xsi:type="Transform">
@@ -250,14 +250,14 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>134.34885</DistanceFromCamera>
+      <DistanceFromCamera>107.59962</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>2</Vao>
+        <Vao>61</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -362,7 +362,7 @@
       </WorldScale>
       <Rotation>
         <X>-38.04</X>
-        <Y>66.67171</Y>
+        <Y>109.71506</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -471,14 +471,14 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>112.83616</DistanceFromCamera>
+      <DistanceFromCamera>103.43223</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>8</Vao>
+        <Vao>62</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -579,14 +579,14 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>80.77949</DistanceFromCamera>
+      <DistanceFromCamera>39.8582</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>9</Vao>
+        <Vao>63</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -648,7 +648,7 @@
       <Enabled>true</Enabled>
       <GameObjectId>41</GameObjectId>
       <Started>false</Started>
-      <Milliseconds>10</Milliseconds>
+      <Milliseconds>5</Milliseconds>
     </Component>
     <Component xsi:type="StressTestGameObjectSpawner">
       <AllowMultiple>true</AllowMultiple>
@@ -660,7 +660,7 @@
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
         <DynamicallyCreated>false</DynamicallyCreated>
-        <Id>1963</Id>
+        <Id>1999</Id>
         <IndexInHierarchy>4</IndexInHierarchy>
         <IsPrefab>true</IsPrefab>
         <Name>Cube</Name>
@@ -673,5 +673,5 @@
       <SpawnCount>1000</SpawnCount>
     </Component>
   </Components>
-  <GameObjectNextId>1965</GameObjectNextId>
+  <GameObjectNextId>2001</GameObjectNextId>
 </SceneFile>

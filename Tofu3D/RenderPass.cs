@@ -60,7 +60,7 @@ public abstract class RenderPass : IComparable<RenderPass>
 			return;
 		}
 
-		GL.ClearColor(Color.Blue.ToOtherColor());
+		GL.ClearColor(Color.Orchid.ToOtherColor());
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 		target.Bind();

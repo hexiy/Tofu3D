@@ -331,7 +331,7 @@ public class Editor
 		// ImGui.DockSpace(0, new System.Numerics.Vector2(2300, 2300), ImGuiDockNodeFlags.NoDockingInCentralNode);
 		ImGuiViewportPtr viewportPtr = ImGui.GetWindowViewport();
 
-		ImGui.DockSpaceOverViewport(viewportPtr /*, ImGuiDockNodeFlags.NoDockingInCentralNode*/);
+		ImGui.DockSpaceOverViewport(viewportPtr, ImGuiDockNodeFlags.PassthruCentralNode /*, ImGuiDockNodeFlags.NoDockingInCentralNode*/);
 		// ImGui.DockSpace(1, new System.Numerics.Vector2(500, 500));
 
 		// ImGui.PopStyleVar(3);

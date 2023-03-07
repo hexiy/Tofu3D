@@ -17,9 +17,9 @@ public class Window : GameWindow
 	                       })
 	{
 		I = this;
-		// VSync = VSyncMode.On;
-		// this.UpdateFrequency = 150;
-		// this.RenderFrequency = 150;
+		VSync = VSyncMode.Off;
+		this.UpdateFrequency = 500;
+		this.RenderFrequency = 0;
 		WindowState = WindowState.Maximized;
 		// WindowState = WindowState.Fullscreen;
 		Title = WindowTitleText;
@@ -60,9 +60,19 @@ public class Window : GameWindow
 		ImGuiController?.WindowResized(ClientSize.X, ClientSize.Y);
 	}
 
-	protected override void OnUpdateFrame(FrameEventArgs args)
+	protected override void OnUpdateFrame(FrameEventArgs e)
 	{
-		Time.DeltaTimeUpdate = (float) args.Time;
+		/*_updatesCalled++;
+		_elapsedTime += (float)e.Time;
+		if (_elapsedTime >= 1 )
+		{
+			Debug.Log($"Updates in 1 second:{_updatesCalled}");
+			_updatesCalled = 0;
+			_elapsedTime = 0;
+			Time.EditorElapsedTime = 0;
+		}*/
+
+		// Time.DeltaTimeUpdate = (float) e.Time;
 		// Title = (1f / Time.DeltaTimeUpdate).ToString("F2");
 
 		// Time.StartDeltaTimeUpdateStopWatch();
@@ -77,18 +87,18 @@ public class Window : GameWindow
 			// Debug.EndTimer("Editor Update");
 		}
 
-		base.OnUpdateFrame(args);
+		base.OnUpdateFrame(e);
 
 		// Time.EndDeltaTimeUpdateStopWatch();
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs e)
 	{
-		// Time.DeltaTimeRender = (float) e.Time;
+		Time.EditorDeltaTime = (float) (e.Time);
 
 		// Time.StartDeltaTimeRenderStopWatch();
 
-		Debug.StartGraphTimer("App Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
+		Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
 
 		Debug.StatSetAdditiveValue("Draw Calls", 0);
 		// Debug.StartTimer("Test", DebugTimer.SourceGroup.Gpu, TimeSpan.FromSeconds(1f / 60f));
@@ -103,24 +113,30 @@ public class Window : GameWindow
 
 		Debug.StartGraphTimer("ImGui", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromMilliseconds(2));
 
-		ImGuiController.Update(this, (float) e.Time);
-		GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
+		bool renderImGui = true;
+		if (renderImGui)
+		{
+			ImGuiController.Update(this, (float) e.Time);
+			GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
 
-		ImGuiController.WindowResized(ClientSize.X, ClientSize.Y);
+			ImGuiController.WindowResized(ClientSize.X, ClientSize.Y);
 
-		Editor.I.Draw();
-		//GL.Enable(EnableCap.Multisample);
+			Editor.I.Draw();
+			//GL.Enable(EnableCap.Multisample);
 
-		ImGuiController.Render();
+			ImGuiController.Render();
+		}
+
 		Debug.EndGraphTimer("ImGui");
 
 		// ------------- IMGUI -------------
 
-		Debug.EndGraphTimer("App Render");
 
 		SwapBuffers();
 
 		base.OnRenderFrame(e);
+
+		Debug.EndGraphTimer("Window Render");
 
 		// Time.EndDeltaTimeRenderStopWatch();
 

@@ -86,8 +86,8 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 			return;
 		}
 
-		GL.ClearColor(Color.Yellow.ToOtherColor());
-		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+		// GL.ClearColor(Color.Yellow.ToOtherColor());
+		GL.Clear(ClearBufferMask.DepthBufferBit);
 
 		DepthMapRenderTexture.Bind();
 		GL.Viewport(0, 0, (int) DepthMapRenderTexture.Size.X, (int) DepthMapRenderTexture.Size.Y);

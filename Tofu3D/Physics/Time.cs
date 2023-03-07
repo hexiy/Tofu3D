@@ -4,10 +4,9 @@ namespace Tofu3D;
 
 public static class Time
 {
-	public static float DeltaTimeUpdate;
+	public static float DeltaTime;
 	// public static float DeltaTimeRender;
 
-	public static float DeltaTime = 0.01666666f;
 	public static float EditorDeltaTime = 0.01666666f;
 	public static float FixedDeltaTime = 0.01f;
 	public static float ElapsedTime;
@@ -32,19 +31,18 @@ public static class Time
 		if (_slowDeltaTimeUpdateCounter == 0)
 		{
 			_slowDeltaTimeUpdateCounter = 5;
-			_slowDeltaTimeUpdateForDebug = DeltaTimeUpdate;
+			_slowDeltaTimeUpdateForDebug = EditorDeltaTime;
 		}
 		Debug.StatSetValue("FPS", (int) (1f / _slowDeltaTimeUpdateForDebug));
 		Debug.StatSetValue("DeltaTime(ms)", _slowDeltaTimeUpdateForDebug * 1000);
 		
 
-		EditorDeltaTime = DeltaTimeUpdate;
 		EditorElapsedTime += EditorDeltaTime;
 		EditorElapsedTicks++;
 
 		if (Global.GameRunning)
 		{
-			DeltaTime = DeltaTimeUpdate;
+			DeltaTime = EditorDeltaTime;
 
 			ElapsedTime += DeltaTime;
 			ElapsedSeconds = ElapsedTime;

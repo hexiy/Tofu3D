@@ -14,7 +14,10 @@ public static class RenderPassSystem
 	// in editor we will be able to visualise all the passes
 	static List<RenderPass> _renderPasses = new List<RenderPass>();
 	public static RenderPassType CurrentRenderPassType { get; private set; } = RenderPassType.DirectionalLightShadowDepth;
-	public static RenderTexture FinalRenderTexture { get; private set; } //= new RenderTexture(new Vector2(100, 100), true, false);
+	public static RenderTexture FinalRenderTexture
+	{
+		get { return _renderPasses[^1].PassRenderTexture; }
+	} //{ get; private set; } //= new RenderTexture(new Vector2(100, 100), true, false);
 	public static bool Initialized;
 
 	static RenderPassSystem()
@@ -30,7 +33,7 @@ public static class RenderPassSystem
 			throw new NullReferenceException("No camera in scene");
 		}
 
-		FinalRenderTexture = new RenderTexture(Camera.I.Size, true, false);
+		// FinalRenderTexture = new RenderTexture(Camera.I.Size, true, false);
 
 		foreach (RenderPass renderPass in _renderPasses)
 		{
@@ -44,7 +47,7 @@ public static class RenderPassSystem
 	{
 		RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();
 		RenderPassOpaques renderPassOpaques = new RenderPassOpaques();
-		
+
 		// RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
 	}
 
@@ -81,10 +84,10 @@ public static class RenderPassSystem
 			renderPass.Render();
 		}
 
-		RenderFinalRenderTexture();
+		//RenderFinalRenderTexture();
 	}
 
-	private static void RenderFinalRenderTexture()
+	/*private static void RenderFinalRenderTexture()
 	{
 		if (Initialized == false)
 		{
@@ -96,7 +99,7 @@ public static class RenderPassSystem
 
 		// RenderPassOpaques.I.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
 		_renderPasses[^1].RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
-		
+
 		// RenderPassMousePicking.I.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
 		// foreach (RenderPass renderPass in _renderPasses)
 		// {
@@ -107,5 +110,5 @@ public static class RenderPassSystem
 		// 	
 		// 	renderPass.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
 		// }
-	}
+	}*/
 }

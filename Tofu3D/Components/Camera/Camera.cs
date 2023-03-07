@@ -45,6 +45,12 @@ public class Camera : Component
 		base.Awake();
 	}
 
+	public override void Start()
+	{
+		CameraSizeChanged.Invoke(Size);
+		base.Start();
+	}
+
 	public override void Update()
 	{
 		if (IsOrthographic)
