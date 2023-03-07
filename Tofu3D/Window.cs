@@ -18,6 +18,8 @@ public class Window : GameWindow
 	{
 		I = this;
 		// VSync = VSyncMode.On;
+		// this.UpdateFrequency = 150;
+		// this.RenderFrequency = 150;
 		WindowState = WindowState.Maximized;
 		// WindowState = WindowState.Fullscreen;
 		Title = WindowTitleText;
@@ -61,6 +63,7 @@ public class Window : GameWindow
 	protected override void OnUpdateFrame(FrameEventArgs args)
 	{
 		Time.DeltaTimeUpdate = (float) args.Time;
+		// Title = (1f / Time.DeltaTimeUpdate).ToString("F2");
 
 		// Time.StartDeltaTimeUpdateStopWatch();
 		Debug.StartGraphTimer("Scene Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
@@ -76,7 +79,6 @@ public class Window : GameWindow
 
 		base.OnUpdateFrame(args);
 
-
 		// Time.EndDeltaTimeUpdateStopWatch();
 	}
 
@@ -88,7 +90,7 @@ public class Window : GameWindow
 
 		Debug.StartGraphTimer("App Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
 
-		Debug.StatAddValue("Draw Calls", 0);
+		Debug.StatSetAdditiveValue("Draw Calls", 0);
 		// Debug.StartTimer("Test", DebugTimer.SourceGroup.Gpu, TimeSpan.FromSeconds(1f / 60f));
 		// Debug.EndTimer("Test");
 

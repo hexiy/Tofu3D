@@ -15,8 +15,13 @@ public class RenderTexture
 	public Material RenderTextureMaterial;
 	public Vector2 Size;
 
+	Material _depthRenderTextureMaterial;
+	Material _renderTextureMaterial;
+	
 	public RenderTexture(Vector2 size, bool colorAttachment = false, bool depthAttachment = false)
 	{
+		_depthRenderTextureMaterial = MaterialCache.GetMaterial("DepthRenderTexture");
+		_renderTextureMaterial = MaterialCache.GetMaterial("RenderTexture");
 		Size = size;
 		_hasColorAttachment = colorAttachment;
 		_hasDepthAttachment = depthAttachment;
@@ -45,10 +50,9 @@ public class RenderTexture
 			GL.BindTexture(TextureTarget.Texture2D, ColorAttachment);
 			//TextureCache.BindTexture(colorAttachment);
 
-			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb32f, (int) size.X, (int) size.Y, 0, PixelFormat.Rgb, PixelType.UnsignedByte, (IntPtr) null);
+			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb16, (int) size.X, (int) size.Y, 0, PixelFormat.Rgb, PixelType.UnsignedByte, (IntPtr) null);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Linear);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMagFilter.Linear);
-
 
 			GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, ColorAttachment, 0);
 		}
@@ -102,12 +106,11 @@ public class RenderTexture
 
 	public void RenderDepthAttachment(int targetTexture)
 	{
-		Material material = MaterialCache.GetMaterial("DepthRenderTexture");
 
-		ShaderCache.UseShader(material.Shader);
-		material.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
+		ShaderCache.UseShader(_depthRenderTextureMaterial.Shader);
+		_depthRenderTextureMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
-		ShaderCache.BindVertexArray(material.Vao);
+		ShaderCache.BindVertexArray(_depthRenderTextureMaterial.Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
@@ -124,13 +127,12 @@ public class RenderTexture
 		// return;
 		// GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
 
-		Material material = MaterialCache.GetMaterial("RenderTexture");
 
-		ShaderCache.UseShader(material.Shader);
+		ShaderCache.UseShader(_renderTextureMaterial.Shader);
 
-		material.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
+		_depthRenderTextureMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
-		ShaderCache.BindVertexArray(material.Vao);
+		ShaderCache.BindVertexArray(_depthRenderTextureMaterial.Vao);
 
 		//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 

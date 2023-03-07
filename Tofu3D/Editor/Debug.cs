@@ -103,6 +103,21 @@ public static class Debug
 		AdditiveStats[statName] += value;
 	}
 
+	public static void StatSetAdditiveValue(string statName, float value)
+	{
+		if (Global.EditorAttached == false)
+		{
+			return;
+		}
+
+
+		if (AdditiveStats.ContainsKey(statName) == false)
+		{
+			AdditiveStats[statName] = 0;
+		}
+
+		AdditiveStats[statName] = value;
+	}
 	public static void StatSetValue(string statName, float value)
 	{
 		if (Global.EditorAttached == false)

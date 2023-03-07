@@ -56,7 +56,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>DirectionalLight</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -71,7 +71,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath>Assets/Prefabs/Cube.prefab</PrefabPath>
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -121,14 +121,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>7.4313173</X>
-        <Y>-72.62714</Y>
-        <Z>-34.594604</Z>
+        <X>121.370705</X>
+        <Y>-57.60871</Y>
+        <Z>34.70276</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>7.4313173</X>
-        <Y>-72.62714</Y>
-        <Z>-34.594604</Z>
+        <X>121.370705</X>
+        <Y>-57.60871</Y>
+        <Z>34.70276</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -141,8 +141,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-21.218555</X>
-        <Y>24.83504</Y>
+        <X>-35.64356</X>
+        <Y>-91.52739</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -164,8 +164,8 @@
       <IsOrthographic>false</IsOrthographic>
       <OrthographicSize>15</OrthographicSize>
       <Size>
-        <X>3522</X>
-        <Y>1657</Y>
+        <X>3340</X>
+        <Y>1751</Y>
       </Size>
     </Component>
     <Component xsi:type="Transform">
@@ -250,7 +250,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>73.00634</DistanceFromCamera>
+      <DistanceFromCamera>134.34885</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
@@ -362,7 +362,7 @@
       </WorldScale>
       <Rotation>
         <X>-38.04</X>
-        <Y>201.62845</Y>
+        <Y>66.67171</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -380,7 +380,7 @@
         <PackedValue>4289643337</PackedValue>
       </Color>
       <Speed>111</Speed>
-      <RefreshRate>30</RefreshRate>
+      <RefreshRate>60</RefreshRate>
       <NearPlaneDistance>0.0001</NearPlaneDistance>
       <FarPlaneDistance>1000</FarPlaneDistance>
       <OrthographicSize>15</OrthographicSize>
@@ -471,14 +471,14 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>78.49665</DistanceFromCamera>
+      <DistanceFromCamera>112.83616</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>6</Vao>
+        <Vao>8</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -497,12 +497,6 @@
       </Repeats>
       <CastShadow>true</CastShadow>
     </Component>
-    <!--<Component xsi:type="MousePickingSensor">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>5</GameObjectId>
-      <Started>false</Started>
-    </Component>-->
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
@@ -585,14 +579,14 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>35.935375</DistanceFromCamera>
+      <DistanceFromCamera>80.77949</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>7</Vao>
+        <Vao>9</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -666,7 +660,7 @@
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
         <DynamicallyCreated>false</DynamicallyCreated>
-        <Id>1951</Id>
+        <Id>1963</Id>
         <IndexInHierarchy>4</IndexInHierarchy>
         <IsPrefab>true</IsPrefab>
         <Name>Cube</Name>
@@ -679,5 +673,5 @@
       <SpawnCount>1000</SpawnCount>
     </Component>
   </Components>
-  <GameObjectNextId>1953</GameObjectNextId>
+  <GameObjectNextId>1965</GameObjectNextId>
 </SceneFile>
