@@ -8,7 +8,12 @@ namespace Tofu3D;
 
 public class EditorPanelBrowser : EditorPanel
 {
-	string[] _assets = new string[0];
+	public override Vector2 Size => new Vector2(Window.I.ClientSize.X - 1600, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1);
+	public override Vector2 Position => new Vector2(0, Window.I.ClientSize.Y);
+	public override Vector2 Pivot => new Vector2(0, 1);
+
+	public override string Name => "Browser";
+	string[] _assets = Array.Empty<string>();
 
 	List<BrowserContextItem> _contextItems;
 
@@ -19,7 +24,7 @@ public class EditorPanelBrowser : EditorPanel
 
 	Vector2 _iconSize = new Vector2(98, 90) * Global.EditorScale;
 
-	Texture[] _textures = new Texture[0];
+	Texture[] _textures = Array.Empty<Texture>();
 	public static EditorPanelBrowser I { get; private set; }
 
 	public override void Init()
@@ -110,9 +115,7 @@ public class EditorPanelBrowser : EditorPanel
 			return;
 		}
 
-		ImGui.SetNextWindowSize(new Vector2(Window.I.ClientSize.X - 1600, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1), ImGuiCond.FirstUseEver);
-		ImGui.SetNextWindowPos(new Vector2(0, Window.I.ClientSize.Y), ImGuiCond.FirstUseEver, new Vector2(0, 1));
-		ImGui.Begin("Browser", Editor.ImGuiDefaultWindowFlags);
+		SetWindow();
 
 		ResetId();
 

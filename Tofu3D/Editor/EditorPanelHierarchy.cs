@@ -5,6 +5,12 @@ namespace Tofu3D;
 
 public class EditorPanelHierarchy : EditorPanel
 {
+	public override Vector2 Size => new Vector2(700, Editor.SceneViewSize.Y);
+	public override Vector2 Position => new Vector2(Window.I.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
+	public override Vector2 Pivot => new Vector2(1, 0);
+
+	public override string Name => "Hierarchy";
+
 	bool _canDelete = true;
 
 	GameObject _clipboardGameObject;
@@ -144,11 +150,9 @@ public class EditorPanelHierarchy : EditorPanel
 		}
 
 		ResetId();
-		WindowWidth = 700;
-		ImGui.SetNextWindowSize(new Vector2(WindowWidth, Editor.SceneViewSize.Y), ImGuiCond.FirstUseEver);
-		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0), ImGuiCond.FirstUseEver, new Vector2(1, 0)); // +1 for double border uglyness
-		//ImGui.SetNextWindowBgAlpha (0);
-		ImGui.Begin("Hierarchy", Editor.ImGuiDefaultWindowFlags);
+
+		SetWindow();
+
 		if (ImGui.Button("+"))
 		{
 			GameObject go = GameObject.Create(name: "GameObject");

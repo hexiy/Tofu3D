@@ -17,7 +17,6 @@ public class Window : GameWindow
 	                       })
 	{
 		I = this;
-		VSync = VSyncMode.Off;
 		this.UpdateFrequency = 500;
 		this.RenderFrequency = 0;
 		WindowState = WindowState.Maximized;
@@ -76,6 +75,16 @@ public class Window : GameWindow
 		// Title = (1f / Time.DeltaTimeUpdate).ToString("F2");
 
 		// Time.StartDeltaTimeUpdateStopWatch();
+		
+		base.OnUpdateFrame(e);
+
+		// Time.EndDeltaTimeUpdateStopWatch();
+	}
+
+	protected override void OnRenderFrame(FrameEventArgs e)
+	{
+		Time.EditorDeltaTime = (float) (e.Time);
+
 		Debug.StartGraphTimer("Scene Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
 		Scene.I.Update();
 		Debug.EndGraphTimer("Scene Update");
@@ -87,14 +96,8 @@ public class Window : GameWindow
 			// Debug.EndTimer("Editor Update");
 		}
 
-		base.OnUpdateFrame(e);
-
-		// Time.EndDeltaTimeUpdateStopWatch();
-	}
-
-	protected override void OnRenderFrame(FrameEventArgs e)
-	{
-		Time.EditorDeltaTime = (float) (e.Time);
+		
+		////////////////
 
 		// Time.StartDeltaTimeRenderStopWatch();
 
@@ -105,7 +108,7 @@ public class Window : GameWindow
 		// Debug.EndTimer("Test");
 
 		Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 60f));
-
+		
 		RenderPassSystem.RenderAllPasses();
 
 		Debug.EndGraphTimer("Scene Render");

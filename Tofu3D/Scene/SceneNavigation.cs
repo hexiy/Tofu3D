@@ -117,7 +117,7 @@ public class SceneNavigation
 			{
 				IsPanningCamera = true;
 			}
-			Camera.I.Transform.Rotation += new Vector3(MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * 0.2f;
+			Camera.I.Transform.Rotation += new Vector3(MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * Time.EditorDeltaTime * 7;
 			//Debug.Log("Rotate Cam");
 			//Camera.I.transform.Rotation = new Vector3(Camera.I.transform.Rotation.X, Camera.I.transform.Rotation.Y, 0);
 

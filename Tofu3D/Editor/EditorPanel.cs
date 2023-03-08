@@ -4,6 +4,11 @@ namespace Tofu3D;
 
 public class EditorPanel
 {
+	public virtual string Name => "";
+
+	public virtual Vector2 Size => new Vector2(Window.I.ClientSize.X - 1600, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1);
+	public virtual Vector2 Position => new Vector2(0, Window.I.ClientSize.Y);
+	public virtual Vector2 Pivot => new Vector2(0, 1);
 	internal bool Active = true;
 
 	int _currentId;
@@ -39,5 +44,11 @@ public class EditorPanel
 
 	public virtual void Draw()
 	{
+	}
+	public void SetWindow()
+	{
+		ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);
+		ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
+		ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags);
 	}
 }

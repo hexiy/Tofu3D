@@ -6,6 +6,10 @@ namespace Tofu3D;
 
 public class EditorPanelProfiler : EditorPanel
 {
+	public override string Name => "Profiler";
+	public override Vector2 Size => new Vector2(800, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1);
+	public override Vector2 Position => new Vector2(Window.I.ClientSize.X, Window.I.ClientSize.Y);
+	public override Vector2 Pivot => new Vector2(1, 1);
 	public static EditorPanelProfiler I { get; private set; }
 
 	public override void Init()
@@ -20,10 +24,7 @@ public class EditorPanelProfiler : EditorPanel
 			return;
 		}
 
-		ImGui.SetNextWindowSize(new Vector2(800, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1), ImGuiCond.FirstUseEver);
-		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X, Window.I.ClientSize.Y), ImGuiCond.FirstUseEver, new Vector2(1, 1));
-		//ImGui.SetNextWindowBgAlpha (0);
-		ImGui.Begin("Profiler", Editor.ImGuiDefaultWindowFlags);
+		SetWindow();
 
 		ImGui.Text($"GameObjects in scene: {Scene.I.GameObjects.Count}");
 
@@ -76,20 +77,17 @@ public class EditorPanelProfiler : EditorPanel
 			bool clickedOnAnyControl = false;
 			ImGui.PushStyleColor(ImGuiCol.PlotHistogram, Color.DarkRed.ToVector4());
 			int plotWidth = (int) ImGui.GetContentRegionAvail().X;
-			if (timerPair.Value.Samples.Length != plotWidth)
+			if (timerPair.Value.Samples.Length != plotWidth / 2)
 			{
-				timerPair.Value.SetSamplesBufferSize(plotWidth);
+				timerPair.Value.SetSamplesBufferSize(plotWidth / 2);
 			}
 
 			if (timerPair.Value.Collapsed)
 			{
-				//ImGui.Indent();
-
-				// ImGui.SetCursorPosX(timerPair.Value.LabelWidth);
-				ImGui.PlotHistogram(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset, $"",
-				                    timerPair.Value.MinSample, timerPair.Value.MaxSample,
-				                    new Vector2(ImGui.GetContentRegionAvail().X, 30));
-				ImGui.SameLine();
+				// ImGui.PlotHistogram(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset, $"",
+				//                     timerPair.Value.MinSample, timerPair.Value.MaxSample,
+				//                     new Vector2(ImGui.GetContentRegionAvail().X, 30));
+				// ImGui.SameLine();
 
 				clickedOnAnyControl |= ImGui.IsItemClicked();
 				ImGui.SetCursorPosX(0);
@@ -101,11 +99,6 @@ public class EditorPanelProfiler : EditorPanel
 			}
 			else
 			{
-				// ImGui.PlotHistogram(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset,
-				//                     $"{timerPair.Value.Label}:{msDurationSlower.ToString("F2")} ms",
-				//                     timerPair.Value.MinSample, timerPair.Value.MaxSample,
-				//                     new Vector2(plotWidth, 100));
-
 				ImGui.PlotHistogram(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset,
 				                    $"{timerPair.Value.Label}:{msDurationSlower.ToString("F2")} ms",
 				                    timerPair.Value.MinSample, timerPair.Value.MaxSample,

@@ -8,6 +8,12 @@ namespace Tofu3D;
 
 public class EditorPanelInspector : EditorPanel
 {
+	public override Vector2 Size => new Vector2(700, Editor.SceneViewSize.Y);
+	public override Vector2 Position => new Vector2(Window.I.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
+	public override Vector2 Pivot => new Vector2(1, 0);
+	
+	public override string Name => "Inspector";
+
 	string _addComponentPopupText = "";
 	int _contentMaxWidth;
 
@@ -86,7 +92,7 @@ public class EditorPanelInspector : EditorPanel
 		ImGui.SetNextItemWidth(WindowWidth);
 		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X, 0), ImGuiCond.FirstUseEver, new Vector2(1, 0));
 		//ImGui.SetNextWindowBgAlpha (0);
-		ImGui.Begin("Inspector", Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoTitleBar);
+		ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoTitleBar);
 
 		ImGui.Text("Inspector");
 

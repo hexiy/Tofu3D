@@ -16,26 +16,47 @@ public static class Time
 	public static ulong ElapsedTicks;
 	public static ulong TimeScale = 0;
 
+	public static int MaxFps = 0;
+	public static float MaxFpsTimer = 0;
+
 	// static Stopwatch _stopwatchUpdate = new Stopwatch();
 	// static Stopwatch _stopwatchUpdate = new Stopwatch();
 	// static Stopwatch _stopwatch = new Stopwatch();
 
 	static int _slowDeltaTimeUpdateCounter = 5;
-	static float _slowDeltaTimeUpdateForDebug=0.0166f;
+	static float _slowDeltaTimeUpdateForDebug = 0.0166f;
+
 	public static void Update()
 	{
 		// _deltaTimeTotal = (float) Window.I.RenderTime + (float) Window.I.UpdateTime; //_stopwatch.ElapsedMilliseconds / 1000f;
 		// _stopwatch.Restart();
 		// _deltaTimeTotal = (float) (Window.I.RenderTime + Window.I.UpdateTime);
-		_slowDeltaTimeUpdateCounter--;
-		if (_slowDeltaTimeUpdateCounter == 0)
+
+
+		// _slowDeltaTimeUpdateCounter--;
+		// if (_slowDeltaTimeUpdateCounter == 0)
+		// {
+		// 	_slowDeltaTimeUpdateCounter = 30;
+		// 	_slowDeltaTimeUpdateForDebug = EditorDeltaTime;
+		// }
+		int fps = (int) (1f / EditorDeltaTime);
+		if (fps > MaxFps && Time.EditorElapsedTime > 2)
 		{
-			_slowDeltaTimeUpdateCounter = 5;
-			_slowDeltaTimeUpdateForDebug = EditorDeltaTime;
+			MaxFps = fps;
 		}
-		Debug.StatSetValue("FPS", (int) (1f / _slowDeltaTimeUpdateForDebug));
-		Debug.StatSetValue("DeltaTime(ms)", _slowDeltaTimeUpdateForDebug * 1000);
-		
+
+		MaxFpsTimer += EditorDeltaTime;
+		if (MaxFpsTimer > 10)
+		{
+			MaxFps = (MaxFps + fps) / 2;
+			MaxFpsTimer = 0;
+		}
+
+		Debug.StatSetValue("FPS", fps);
+		Debug.StatSetValue("Max FPS(last 10s)", MaxFps);
+		Debug.StatSetValue("DeltaTime(ms)", EditorDeltaTime * 1000);
+		Window.I.Title = $"DeltaTime(ms){EditorDeltaTime * 1000}";
+
 
 		EditorElapsedTime += EditorDeltaTime;
 		EditorElapsedTicks++;

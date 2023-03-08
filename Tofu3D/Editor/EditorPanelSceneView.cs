@@ -6,6 +6,7 @@ namespace Tofu3D;
 
 public class EditorPanelSceneView : EditorPanel
 {
+	public override string Name => "Scene View";
 	public static EditorPanelSceneView I { get; private set; }
 	static bool _renderCameraViews = true;
 
@@ -24,7 +25,7 @@ public class EditorPanelSceneView : EditorPanel
 
 			ImGui.SetNextWindowSize(Camera.I.Size + new Vector2(0, 50), ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
-			ImGui.Begin("Scene View", Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
+			ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
 			if ((Vector2) ImGui.GetWindowSize() != Camera.I.Size)
 			{
 				Camera.I.SetSize(ImGui.GetWindowSize());
