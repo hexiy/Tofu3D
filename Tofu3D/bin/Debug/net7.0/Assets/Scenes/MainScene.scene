@@ -71,7 +71,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath>Assets/Prefabs/Cube.prefab</PrefabPath>
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -101,7 +101,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>StressTester</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -121,14 +121,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>43.128563</X>
-        <Y>-98.57791</Y>
-        <Z>140.39998</Z>
+        <X>34.701405</X>
+        <Y>-87.2618</Y>
+        <Z>154.27466</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>43.128563</X>
-        <Y>-98.57791</Y>
-        <Z>140.39998</Z>
+        <X>34.701405</X>
+        <Y>-87.2618</Y>
+        <Z>154.27466</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -141,8 +141,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>315.30185</X>
-        <Y>-206.65866</Y>
+        <X>326.71582</X>
+        <Y>-191.04707</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -165,7 +165,7 @@
       <OrthographicSize>15</OrthographicSize>
       <Size>
         <X>3340</X>
-        <Y>1553</Y>
+        <Y>1999</Y>
       </Size>
     </Component>
     <Component xsi:type="Transform">
@@ -250,14 +250,14 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>107.59962</DistanceFromCamera>
+      <DistanceFromCamera>93.908516</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>61</Vao>
+        <Vao>2</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -362,7 +362,7 @@
       </WorldScale>
       <Rotation>
         <X>-38.04</X>
-        <Y>109.71506</Y>
+        <Y>355.0282</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -471,14 +471,14 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>103.43223</DistanceFromCamera>
+      <DistanceFromCamera>91.14209</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>62</Vao>
+        <Vao>5</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -579,14 +579,14 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>39.8582</DistanceFromCamera>
+      <DistanceFromCamera>29.066608</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>63</Vao>
+        <Vao>6</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
@@ -660,7 +660,7 @@
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
         <DynamicallyCreated>false</DynamicallyCreated>
-        <Id>1999</Id>
+        <Id>2002</Id>
         <IndexInHierarchy>4</IndexInHierarchy>
         <IsPrefab>true</IsPrefab>
         <Name>Cube</Name>
@@ -673,5 +673,5 @@
       <SpawnCount>1000</SpawnCount>
     </Component>
   </Components>
-  <GameObjectNextId>2001</GameObjectNextId>
+  <GameObjectNextId>2004</GameObjectNextId>
 </SceneFile>

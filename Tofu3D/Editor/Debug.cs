@@ -12,7 +12,7 @@ public static class Debug
 
 	public static Dictionary<string, DebugGraphTimer> GraphTimers = new();
 	public static Dictionary<string, Stopwatch> SimpleTimers = new();
-	public static Dictionary<string, float> Stats = new();
+	public static Dictionary<string, string> Stats = new();
 	public static Dictionary<string, float> AdditiveStats = new();
 
 	public static bool Paused = false;
@@ -118,7 +118,8 @@ public static class Debug
 
 		AdditiveStats[statName] = value;
 	}
-	public static void StatSetValue(string statName, float value)
+
+	public static void StatSetValue(string statName, object value)
 	{
 		if (Global.EditorAttached == false)
 		{
@@ -128,10 +129,10 @@ public static class Debug
 
 		if (Stats.ContainsKey(statName) == false)
 		{
-			Stats[statName] = 0;
+			Stats[statName] = "";
 		}
 
-		Stats[statName] = value;
+		Stats[statName] = value.ToString();
 	}
 
 	public static void EndGraphTimer(string timerName)

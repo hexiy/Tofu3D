@@ -28,9 +28,9 @@ public class EditorPanelProfiler : EditorPanel
 
 		ImGui.Text($"GameObjects in scene: {Scene.I.GameObjects.Count}");
 
-		foreach (KeyValuePair<string, float> stat in Debug.Stats)
+		foreach (KeyValuePair<string, string> stat in Debug.Stats)
 		{
-			ImGui.Text($"{stat.Key} : {stat.Value}");
+			ImGui.Text($"{stat.Value}");
 		}
 
 		foreach (KeyValuePair<string, float> stat in Debug.AdditiveStats)

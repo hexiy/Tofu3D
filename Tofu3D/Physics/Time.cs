@@ -17,7 +17,8 @@ public static class Time
 	public static ulong TimeScale = 0;
 
 	public static int MaxFps = 0;
-	public static float MaxFpsTimer = 0;
+	public static int MinFps = 0;
+	public static float MinMaxFpsTimer = 0;
 
 	// static Stopwatch _stopwatchUpdate = new Stopwatch();
 	// static Stopwatch _stopwatchUpdate = new Stopwatch();
@@ -45,17 +46,31 @@ public static class Time
 			MaxFps = fps;
 		}
 
-		MaxFpsTimer += EditorDeltaTime;
-		if (MaxFpsTimer > 10)
+		if (fps < MinFps && Time.EditorElapsedTime > 2)
 		{
-			MaxFps = (MaxFps + fps) / 2;
-			MaxFpsTimer = 0;
+			MinFps = fps;
 		}
 
-		Debug.StatSetValue("FPS", fps);
-		Debug.StatSetValue("Max FPS(last 10s)", MaxFps);
-		Debug.StatSetValue("DeltaTime(ms)", EditorDeltaTime * 1000);
-		Window.I.Title = $"DeltaTime(ms){EditorDeltaTime * 1000}";
+		if (Time.EditorElapsedTime < 2)
+		{
+			MinFps = fps;
+			MaxFps = fps;
+		}
+
+		MinMaxFpsTimer += EditorDeltaTime;
+		if (MinMaxFpsTimer >= 5)
+		{
+			MaxFps = (MaxFps + fps) / 2;
+			MinFps = (MinFps + fps) / 2;
+			MinMaxFpsTimer = 0;
+		}
+
+		Debug.StatSetValue("FPS ", $"FPS:{fps}");
+		Debug.StatSetValue("FPS Range", $"FPS Range(5s)     < {MinFps} -- {MaxFps} >");
+		// Debug.StatSetValue("Max FPS ", $"Max FPS(5s) {MaxFps}");
+		Debug.StatSetValue("DeltaTime(ms)", $"DeltaTime(ms) {(EditorDeltaTime * 1000).ToString("F2")}");
+
+		Window.I.Title = $"DeltaTime(ms){(EditorDeltaTime * 1000).ToString("F2")}";
 
 
 		EditorElapsedTime += EditorDeltaTime;

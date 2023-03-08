@@ -17,6 +17,7 @@ public class Window : GameWindow
 	                       })
 	{
 		I = this;
+		VSync = VSyncMode.Off;
 		this.UpdateFrequency = 500;
 		this.RenderFrequency = 0;
 		WindowState = WindowState.Maximized;
@@ -59,16 +60,8 @@ public class Window : GameWindow
 		ImGuiController?.WindowResized(ClientSize.X, ClientSize.Y);
 	}
 
-	bool _rendering = false;
-
 	protected override void OnUpdateFrame(FrameEventArgs e)
 	{
-		if (_rendering)
-		{
-			return;
-		}
-
-
 		/*_updatesCalled++;
 		_elapsedTime += (float)e.Time;
 		if (_elapsedTime >= 1 )
@@ -83,7 +76,6 @@ public class Window : GameWindow
 		// Title = (1f / Time.DeltaTimeUpdate).ToString("F2");
 
 		// Time.StartDeltaTimeUpdateStopWatch();
-
 		Debug.StartGraphTimer("Scene Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
 		Scene.I.Update();
 		Debug.EndGraphTimer("Scene Update");
@@ -95,19 +87,13 @@ public class Window : GameWindow
 			// Debug.EndTimer("Editor Update");
 		}
 
-
 		base.OnUpdateFrame(e);
-		_rendering = true;
 
 		// Time.EndDeltaTimeUpdateStopWatch();
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs e)
 	{
-		if (_rendering == false)
-		{
-			return;
-		}
 		Time.EditorDeltaTime = (float) (e.Time);
 
 		// Time.StartDeltaTimeRenderStopWatch();
@@ -156,7 +142,6 @@ public class Window : GameWindow
 
 		Debug.ResetTimers();
 		Debug.ClearAdditiveStats();
-		_rendering = false;
 	}
 
 	protected override void OnTextInput(TextInputEventArgs e)
