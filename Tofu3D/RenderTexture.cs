@@ -27,7 +27,7 @@ public class RenderTexture
 		_hasDepthAttachment = depthAttachment;
 		//GL.DeleteFramebuffers(1, ref id);
 		// CreateMaterial();
-		Invalidate(size);
+		Invalidate(generateBrandNewTextures: true);
 	}
 
 	/*void CreateMaterial()
@@ -37,20 +37,27 @@ public class RenderTexture
 		RenderTextureMaterial.SetShader(shader);
 	}*/
 
-	public void Invalidate(Vector2 size)
+	public void Invalidate(bool generateBrandNewTextures = true)
 	{
-		Id = GL.GenFramebuffer();
+		if (generateBrandNewTextures)
+		{
+			Id = GL.GenFramebuffer();
+		}
 
 		GL.BindFramebuffer(FramebufferTarget.Framebuffer, Id);
 
 		if (_hasColorAttachment)
 		{
-			ColorAttachment = GL.GenTexture();
+			if (generateBrandNewTextures)
+			{
+				ColorAttachment = GL.GenTexture();
+			}
+
 			//GL.CreateTextures(TextureTarget.Texture2D, 1, out colorAttachment);
 			GL.BindTexture(TextureTarget.Texture2D, ColorAttachment);
 			//TextureCache.BindTexture(colorAttachment);
 
-			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb16, (int) size.X, (int) size.Y, 0, PixelFormat.Rgb, PixelType.UnsignedByte, (IntPtr) null);
+			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb16, (int) Size.X, (int) Size.Y, 0, PixelFormat.Rgb, PixelType.UnsignedByte, (IntPtr) null);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Linear);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMagFilter.Linear);
 
@@ -59,9 +66,13 @@ public class RenderTexture
 
 		if (_hasDepthAttachment)
 		{
-			DepthAttachment = GL.GenTexture();
+			if (generateBrandNewTextures)
+			{
+				DepthAttachment = GL.GenTexture();
+			}
+
 			GL.BindTexture(TextureTarget.Texture2D, DepthAttachment);
-			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.DepthComponent24, (int) size.X, (int) size.Y, 0, PixelFormat.DepthComponent, PixelType.UnsignedByte, (IntPtr) null);
+			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.DepthComponent24, (int) Size.X, (int) Size.Y, 0, PixelFormat.DepthComponent, PixelType.UnsignedByte, (IntPtr) null);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Nearest);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMagFilter.Nearest);
 

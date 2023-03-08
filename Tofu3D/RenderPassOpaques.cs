@@ -18,6 +18,13 @@ public class RenderPassOpaques : RenderPass
 
 	protected override void SetupRenderTexture()
 	{
+		if (PassRenderTexture != null)
+		{
+			PassRenderTexture.Size = Camera.I.Size;
+			PassRenderTexture.Invalidate(generateBrandNewTextures: false);
+			return;
+		}
+
 		PassRenderTexture = new RenderTexture(size: Camera.I.Size, colorAttachment: true, depthAttachment: true);
 
 		base.SetupRenderTexture();
