@@ -4,6 +4,6 @@ Simple .NET C# OpenTK game engine with editor.
 
 Heavily in progress so things will break :)
 
-<a href="url"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editorScreen1.png" align="center" width="100%" ></a>
+<a href="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editorScreen1.png"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editorScreen1.png" align="center" width="100%" ></a>
 
-<a href="url"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editorScreen.png" align="center" width="100%" ></a>
+<a href="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editorScreen.png"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editorScreen.png" align="center" width="100%" ></a>
