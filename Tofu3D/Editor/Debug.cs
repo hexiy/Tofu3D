@@ -30,7 +30,7 @@ public static class Debug
 		}
 
 
-		_logs.Add($"[{DateTime.Now:HH:mm:ss}]" + message);
+		_logs.Add($"[{DateTime.Now:HH:mm:ss}:{DateTime.Now.Millisecond:000}]" + message);
 
 		//Window.I.Title = logs.Last();
 
@@ -205,7 +205,7 @@ public static class Debug
 		EndTimer(timerName);
 		float msDuration = (float) Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
 
-		Log($"{timerName} {msDuration}");
+		Log($"[TIMER] {timerName} : {msDuration} ms");
 	}
 
 	public static void ResetTimers()

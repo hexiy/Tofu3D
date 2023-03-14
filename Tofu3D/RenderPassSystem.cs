@@ -42,7 +42,7 @@ public static class RenderPassSystem
 
 		Initialized = true;
 	}
-
+	
 	private static void CreatePasses()
 	{
 		RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();

@@ -30,9 +30,49 @@ public class Editor
 
 	public unsafe void Init()
 	{
+		EditorLayoutManager.LoadLastLayout();
+
 		ImGuiWindowClass panelWindowClas = new ImGuiWindowClass() {DockNodeFlagsOverrideSet = ImGuiDockNodeFlags.None /*ImGuiDockNodeFlags.AutoHideTabBar*/};
 		_panelWindowClassPtr = new ImGuiWindowClassPtr(&panelWindowClas);
 
+
+		SetTheme();
+		if (Global.EditorAttached)
+		{
+			_editorPanels = new EditorPanel[]
+			                {
+				                new EditorPanelMenuBar(),
+				                new EditorPanelHierarchy(),
+				                new EditorPanelInspector(),
+				                new EditorPanelBrowser(),
+				                new EditorPanelConsole(),
+				                new EditorPanelProfiler(),
+				                new EditorPanelSceneView()
+			                };
+		}
+
+		else
+		{
+			_editorPanels = new EditorPanel[]
+			                {
+				                new EditorPanelSceneView()
+			                };
+		}
+
+		for (int i = 0; i < _editorPanels.Length; i++)
+		{
+			_editorPanels[i].Init();
+		}
+
+		if (Global.EditorAttached)
+		{
+			EditorPanelHierarchy.I.GameObjectsSelected += OnGameObjectSelected;
+			EditorPanelHierarchy.I.GameObjectsSelected += EditorPanelInspector.I.OnGameObjectsSelected;
+		}
+	}
+
+	private void SetTheme()
+	{
 		ImGui.GetStyle().WindowRounding = 0;
 		ImGui.GetStyle().WindowBorderSize = 0.2f;
 		//ImGui.GetStyle().WindowPadding = new Vector2(0,0;
@@ -267,43 +307,11 @@ public class Editor
 		// style.ScrollbarRounding = 9.0f;
 		// style.GrabMinSize = 5.0f;
 		// style.GrabRounding = 3.0f;
-
-
-		if (Global.EditorAttached)
-		{
-			_editorPanels = new EditorPanel[]
-			                {
-				                new EditorPanelHierarchy(),
-				                new EditorPanelInspector(),
-				                new EditorPanelBrowser(),
-				                new EditorPanelConsole(),
-				                new EditorPanelProfiler(),
-				                new EditorPanelSceneView()
-			                };
-		}
-
-		else
-		{
-			_editorPanels = new EditorPanel[]
-			                {
-				                new EditorPanelSceneView()
-			                };
-		}
-
-		for (int i = 0; i < _editorPanels.Length; i++)
-		{
-			_editorPanels[i].Init();
-		}
-
-		if (Global.EditorAttached)
-		{
-			EditorPanelHierarchy.I.GameObjectsSelected += OnGameObjectSelected;
-			EditorPanelHierarchy.I.GameObjectsSelected += EditorPanelInspector.I.OnGameObjectsSelected;
-		}
 	}
 
 	public void Update()
 	{
+		EditorLayoutManager.Update();
 		for (int i = 0; i < _editorPanels.Length; i++)
 		{
 			_editorPanels[i].Update();
@@ -342,7 +350,7 @@ public class Editor
 		{
 			for (int i = 0; i < _editorPanels.Length; i++)
 			{
-				ImGui.SetNextWindowClass(_panelWindowClassPtr);
+				// ImGui.SetNextWindowClass(_panelWindowClassPtr);
 				_editorPanels[i].Draw();
 			}
 

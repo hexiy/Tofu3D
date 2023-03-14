@@ -45,6 +45,7 @@ public class EditorPanel
 	public virtual void Draw()
 	{
 	}
+
 	public void SetWindow()
 	{
 		ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);

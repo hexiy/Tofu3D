@@ -50,10 +50,11 @@ public class ImGuiController : IDisposable
 		ImGuiIOPtr io = ImGui.GetIO();
 		io.ConfigFlags |= ImGuiConfigFlags.DockingEnable;
 		
-		io.ConfigDockingAlwaysTabBar = false;
+		io.ConfigDockingAlwaysTabBar = true;
 		io.ConfigWindowsResizeFromEdges = true;
-		io.WantSaveIniSettings = true;
-		io.IniSavingRate = 5;
+		io.WantSaveIniSettings = false;
+		
+		// io.IniSavingRate = 5;
 
 		io.Fonts.AddFontFromFileTTF("inconsolata.ttf", 28);
 		//io.Fonts.AddFontDefault();
@@ -95,8 +96,8 @@ public class ImGuiController : IDisposable
 
 	public void CreateDeviceResources()
 	{
-		_vertexBufferSize = 10000;
-		_indexBufferSize = 2000;
+		_vertexBufferSize = 180000;
+		_indexBufferSize = 10000;
 
 		int prevVao = GL.GetInteger(GetPName.VertexArrayBinding);
 		int prevArrayBuffer = GL.GetInteger(GetPName.ArrayBufferBinding);
@@ -362,7 +363,7 @@ void main()
 			int vertexSize = cmdList.VtxBuffer.Size * Unsafe.SizeOf<ImDrawVert>();
 			if (vertexSize > _vertexBufferSize)
 			{
-				int newSize = (int) Math.Max(_vertexBufferSize * 1.5f, vertexSize);
+				int newSize = (int) Math.Max(_vertexBufferSize * 1.2f, vertexSize);
 
 				GL.BufferData(BufferTarget.ArrayBuffer, newSize, IntPtr.Zero, BufferUsageHint.DynamicDraw);
 				_vertexBufferSize = newSize;

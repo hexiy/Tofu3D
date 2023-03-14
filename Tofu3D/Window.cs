@@ -2,6 +2,7 @@
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using Tofu3D.Rendering;
 
 namespace Tofu3D;
@@ -13,14 +14,14 @@ public class Window : GameWindow
 	public Window() : base(new GameWindowSettings() { }, // dont specify fps.... otherwise deltatime fucks up and update and render is called not 1:1
 	                       new NativeWindowSettings
 	                       {
-		                       /*Size = new Vector2i(2560, 1600),*/ APIVersion = new Version(4, 1), Flags = ContextFlags.ForwardCompatible, Profile = ContextProfile.Core, /*NumberOfSamples = 8,*/ StartFocused = true,
+		                       /*Size = new Vector2i(1, 1),*/ APIVersion = new Version(4, 1), Flags = ContextFlags.ForwardCompatible, Profile = ContextProfile.Core, /*NumberOfSamples = 8,*/
 	                       })
 	{
 		I = this;
 		VSync = VSyncMode.Off;
 		this.UpdateFrequency = 500;
 		this.RenderFrequency = 0;
-		WindowState = WindowState.Maximized;
+		// WindowState = WindowState.Maximized;
 		// WindowState = WindowState.Fullscreen;
 		Title = WindowTitleText;
 	}
@@ -31,16 +32,27 @@ public class Window : GameWindow
 	{
 		get { return $"Tofu3D | {GL.GetString(StringName.Version)}"; }
 	}
+	bool _loaded = false;
 
 	protected override void OnLoad()
 	{
-		ImGuiController = new ImGuiController(ClientSize.X, ClientSize.Y);
+		unsafe
+		{
+			GLFW.GetMonitorWorkarea((Monitor*) this.CurrentMonitor.Pointer, out int x, out int y, out int width, out int height);
 
-		Editor.I.Init();
-		Scene.I.Start();
+			ImGuiController = new ImGuiController(width, height);
 
-		// RenderPassSystem.Initialize();
-		// MousePickingSystem.Initialize();
+			Editor.I.Init();
+			Scene.I.Start();
+			// RenderPassSystem.Initialize();
+			// MousePickingSystem.Initialize();
+			WindowState = WindowState.Fullscreen;
+			this.Focus();
+
+			_loaded = true;
+			base.OnLoad();
+			Debug.EndAndLogTimer("Editor startup");
+		}
 	}
 
 	protected override void OnUnload()
@@ -51,6 +63,7 @@ public class Window : GameWindow
 
 	protected override void OnResize(ResizeEventArgs e)
 	{
+		if (_loaded == false) return;
 		base.OnResize(e);
 
 		// Update the opengl viewport
@@ -62,6 +75,8 @@ public class Window : GameWindow
 
 	protected override void OnUpdateFrame(FrameEventArgs e)
 	{
+		if (_loaded == false) return;
+
 		/*_updatesCalled++;
 		_elapsedTime += (float)e.Time;
 		if (_elapsedTime >= 1 )
@@ -94,6 +109,8 @@ public class Window : GameWindow
 
 	protected override void OnRenderFrame(FrameEventArgs e)
 	{
+		if (_loaded == false) return;
+
 		Time.EditorDeltaTime = (float) (e.Time);
 
 		// Time.StartDeltaTimeRenderStopWatch();

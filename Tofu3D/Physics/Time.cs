@@ -24,22 +24,12 @@ public static class Time
 	// static Stopwatch _stopwatchUpdate = new Stopwatch();
 	// static Stopwatch _stopwatch = new Stopwatch();
 
-	static int _slowDeltaTimeUpdateCounter = 5;
-	static float _slowDeltaTimeUpdateForDebug = 0.0166f;
-
 	public static void Update()
 	{
 		// _deltaTimeTotal = (float) Window.I.RenderTime + (float) Window.I.UpdateTime; //_stopwatch.ElapsedMilliseconds / 1000f;
 		// _stopwatch.Restart();
 		// _deltaTimeTotal = (float) (Window.I.RenderTime + Window.I.UpdateTime);
 
-
-		// _slowDeltaTimeUpdateCounter--;
-		// if (_slowDeltaTimeUpdateCounter == 0)
-		// {
-		// 	_slowDeltaTimeUpdateCounter = 30;
-		// 	_slowDeltaTimeUpdateForDebug = EditorDeltaTime;
-		// }
 		int fps = (int) (1f / EditorDeltaTime);
 		if (fps > MaxFps && Time.EditorElapsedTime > 2)
 		{
@@ -65,12 +55,20 @@ public static class Time
 			MinMaxFpsTimer = 0;
 		}
 
-		Debug.StatSetValue("FPS ", $"FPS:{fps}");
+		bool updateSlowerDebugStats = Time.EditorElapsedTicks % 30 == 0;
+		if (updateSlowerDebugStats)
+		{
+			Debug.StatSetValue("FPS ", $"FPS:{fps}");
+		}
+
 		Debug.StatSetValue("FPS Range", $"FPS Range(5s)     < {MinFps} -- {MaxFps} >");
 		// Debug.StatSetValue("Max FPS ", $"Max FPS(5s) {MaxFps}");
-		Debug.StatSetValue("DeltaTime(ms)", $"DeltaTime(ms) {(EditorDeltaTime * 1000).ToString("F2")}");
+		if (updateSlowerDebugStats)
+		{
+			Debug.StatSetValue("DeltaTime(ms)", $"DeltaTime(ms) {(EditorDeltaTime * 1000).ToString("F2")}");
+		}
 
-		Window.I.Title = $"DeltaTime(ms){(EditorDeltaTime * 1000).ToString("F2")}";
+		// Window.I.Title = $"DeltaTime(ms){(EditorDeltaTime * 1000).ToString("F2")}";
 
 
 		EditorElapsedTime += EditorDeltaTime;

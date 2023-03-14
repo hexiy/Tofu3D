@@ -17,15 +17,19 @@ public class EditorPanelSceneView : EditorPanel
 			return;
 		}
 
-		ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
-		ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
+
 		if (Global.EditorAttached)
 		{
+			ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+			ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
+
 			Editor.SceneViewSize = Camera.I.Size + new Vector2(0, 50);
 
 			ImGui.SetNextWindowSize(Camera.I.Size + new Vector2(0, 50), ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
 			ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
+
+
 			if ((Vector2) ImGui.GetWindowSize() != Camera.I.Size)
 			{
 				Camera.I.SetSize(ImGui.GetWindowSize());

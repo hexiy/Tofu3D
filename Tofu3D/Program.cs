@@ -22,6 +22,7 @@ public static class Program
 
 		AssetsWatcher.StartWatching();
 		
+		Debug.StartTimer("Editor startup");
 		using Window window = new();
 
 		window.Run();

@@ -7,16 +7,17 @@ public static class PersistentData
 {
 	static bool _inited = false;
 	static Dictionary<string, object> _data = new();
+	static readonly string PersistentDataFileName = "persistentData";
 
 	static void LoadAllData()
 	{
-		if (File.Exists("persistentData") == false)
+		if (File.Exists(PersistentDataFileName) == false)
 		{
 			return;
 		}
 
 		_data = new Dictionary<string, object>();
-		using (StreamReader sr = new("persistentData"))
+		using (StreamReader sr = new(PersistentDataFileName))
 		{
 			while (sr.Peek() != -1)
 			{
@@ -33,18 +34,18 @@ public static class PersistentData
 
 	static void Save()
 	{
-		if (File.Exists("persistentData") == false)
+		if (File.Exists(PersistentDataFileName) == false)
 		{
-			File.Delete("persitentData");
+			FileStream fs = File.Create(PersistentDataFileName);
+			fs.Close();
 		}
 
-		FileStream fs = File.Create("persistentData");
-		fs.Close();
-		using (StreamWriter sw = new("persistentData"))
+
+		using (StreamWriter sw = new(PersistentDataFileName))
 		{
-			for (int i = 0; i < _data.Count; i++)
+			foreach (KeyValuePair<string, object> keyValuePair in _data)
 			{
-				sw.WriteLine(_data.Keys.ElementAt(i) + ":" + _data.Values.ElementAt(i));
+				sw.WriteLine(keyValuePair.Key + ":" + keyValuePair.Value);
 			}
 		}
 	}

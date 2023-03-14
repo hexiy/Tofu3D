@@ -24,15 +24,15 @@ public class Serializer
 		_serializableTypes = new List<Type>();
 
 		_serializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
-		                                             .Where(type => type.IsSubclassOf(typeof(Component))));
+		                                              .Where(type => type.IsSubclassOf(typeof(Component))));
 
 		// delegates
 		//SerializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
 		//                                             .Where(type => { return type.GetCustomAttribute<SerializableType>() != null; }));
 
 		_serializableTypes.AddRange(typeof(Component).Assembly.GetTypes()
-		                                            .Where(type => type.IsSubclassOf(typeof(Component)) || type.IsSubclassOf(typeof(GameObject)))
-		                                            .ToList());
+		                                             .Where(type => type.IsSubclassOf(typeof(Component)) || type.IsSubclassOf(typeof(GameObject)))
+		                                             .ToList());
 	}
 
 	public void SaveGameObject(GameObject go, string prefabPath)
@@ -183,8 +183,9 @@ public class Serializer
 		{
 			XmlSerializer xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
 
+			XmlSerializerFactory a = new XmlSerializerFactory();
 			SceneFile a = (SceneFile) xmlSerializer.Deserialize(sr);
-
+			
 			return a;
 		}
 	}

@@ -24,7 +24,7 @@ public class EditorPanelProfiler : EditorPanel
 			return;
 		}
 
-		SetWindow();
+		SetWindow(); 
 
 		ImGui.Text($"GameObjects in scene: {Scene.I.GameObjects.Count}");
 

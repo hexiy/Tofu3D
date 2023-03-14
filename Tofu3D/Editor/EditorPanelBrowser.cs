@@ -399,6 +399,8 @@ public class EditorPanelBrowser : EditorPanel
 
 
 		ImGui.End();
+		
+		base.Draw();
 	}
 
 	public void GoToFile(string directory)
