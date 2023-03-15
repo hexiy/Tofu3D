@@ -165,7 +165,7 @@
       <OrthographicSize>15</OrthographicSize>
       <Size>
         <X>3556</X>
-        <Y>2024</Y>
+        <Y>2071</Y>
       </Size>
     </Component>
     <Component xsi:type="Transform">
@@ -660,7 +660,7 @@
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
         <DynamicallyCreated>false</DynamicallyCreated>
-        <Id>2032</Id>
+        <Id>2035</Id>
         <IndexInHierarchy>4</IndexInHierarchy>
         <IsPrefab>true</IsPrefab>
         <Name>Cube</Name>
@@ -673,5 +673,5 @@
       <SpawnCount>1000</SpawnCount>
     </Component>
   </Components>
-  <GameObjectNextId>2034</GameObjectNextId>
+  <GameObjectNextId>2037</GameObjectNextId>
 </SceneFile>

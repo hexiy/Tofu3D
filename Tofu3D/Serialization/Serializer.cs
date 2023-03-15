@@ -183,7 +183,6 @@ public class Serializer
 		{
 			XmlSerializer xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
 
-			XmlSerializerFactory a = new XmlSerializerFactory();
 			SceneFile a = (SceneFile) xmlSerializer.Deserialize(sr);
 			
 			return a;

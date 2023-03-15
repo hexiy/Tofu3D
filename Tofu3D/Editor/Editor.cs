@@ -350,7 +350,7 @@ public class Editor
 		{
 			for (int i = 0; i < _editorPanels.Length; i++)
 			{
-				// ImGui.SetNextWindowClass(_panelWindowClassPtr);
+				ImGui.SetNextWindowClass(_panelWindowClassPtr);
 				_editorPanels[i].Draw();
 			}
 

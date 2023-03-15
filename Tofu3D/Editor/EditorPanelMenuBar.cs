@@ -24,9 +24,10 @@ public class EditorPanelMenuBar : EditorPanel
 		{
 			ImGui.SetNextWindowSize(new Vector2(Window.I.Size.X*Global.EditorScale, 50), ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
-			ImGui.PushStyleColor(ImGuiCol.WindowBg, Color.Red.ToVector4());
-			ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoTitleBar);
-
+			// ImGui.PushStyleColor(ImGuiCol.WindowBg, Color.Red.ToVector4());
+			// ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoTitleBar);
+			ImGui.BeginMainMenuBar();
+			
 			bool layoutButtonClicked = ImGui.SmallButton("Layout");
 			if (layoutButtonClicked)
 			{
@@ -56,9 +57,9 @@ public class EditorPanelMenuBar : EditorPanel
 				ImGui.EndPopup();
 			}
 
-			ImGui.End();
+			ImGui.EndMainMenuBar();
 
-			ImGui.PopStyleColor();
+			// ImGui.PopStyleColor();
 		}
 	}
 
