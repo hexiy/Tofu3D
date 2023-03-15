@@ -42,7 +42,7 @@ public static class RenderPassSystem
 
 		Initialized = true;
 	}
-	
+
 	private static void CreatePasses()
 	{
 		RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();
@@ -55,6 +55,23 @@ public static class RenderPassSystem
 	{
 		_renderPasses.Add(renderPass);
 		_renderPasses.Sort();
+	}
+
+	public static void RemoveRender(RenderPassType type, Action render)
+	{
+		if (_renderPasses.Count == 0)
+		{
+			CreatePasses();
+		}
+
+		foreach (RenderPass renderPass in _renderPasses)
+		{
+			if (renderPass.RenderPassType == type)
+			{
+				renderPass.RemoveRender(render);
+				return;
+			}
+		}
 	}
 
 	public static void RegisterRender(RenderPassType type, Action render)

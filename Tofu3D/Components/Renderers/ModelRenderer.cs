@@ -31,7 +31,9 @@ public class ModelRenderer : TextureRenderer
 			Material = MaterialCache.GetMaterial("ModelRenderer");
 		}
 
-		base.CreateMaterial();
+		Material = MaterialCache.GetMaterial("ModelRenderer");
+
+		// base.CreateMaterial();
 	}
 
 	public override void OnDestroyed()

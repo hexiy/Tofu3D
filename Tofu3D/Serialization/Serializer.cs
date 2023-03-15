@@ -133,13 +133,11 @@ public class Serializer
 	public SceneFile LoadGameObjects(string scenePath)
 	{
 		string xml = "";
+		UpdateSerializableTypes();
 		using (StreamReader sr = new(scenePath))
 		{
-			UpdateSerializableTypes();
-
-
 			xml = sr.ReadToEnd();
-			List<int> componentNodesIndexes = xml.AllIndexesOf("<Component xsi:type=");
+			/*List<int> componentNodesIndexes = xml.AllIndexesOf("<Component xsi:type=");
 			for (int nodeIndex = 0; nodeIndex < componentNodesIndexes.Count; nodeIndex++)
 			{
 				int startIndex = componentNodesIndexes[nodeIndex];
@@ -169,22 +167,21 @@ public class Serializer
 					int componentEndIndex = xml.Substring(startIndex).IndexOf("</Component>");
 					xml = xml.Insert(startIndex + componentEndIndex + "</Component>".Length, "-->");
 				}
-
-				componentNodesIndexes = xml.AllIndexesOf("<Component xsi:type=");
-			}
+			componentNodesIndexes = xml.AllIndexesOf("<Component xsi:type=");
+			}*/
 		}
 
-		using (StreamWriter sw = new(scenePath))
+		/*using (StreamWriter sw = new(scenePath))
 		{
 			sw.Write(xml);
-		}
+		}*/
 
 		using (StreamReader sr = new(scenePath))
 		{
 			XmlSerializer xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
 
 			SceneFile a = (SceneFile) xmlSerializer.Deserialize(sr);
-			
+
 			return a;
 		}
 	}

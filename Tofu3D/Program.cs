@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.IO;
 using System.Threading;
 using Engine;
 using Tofu3D.Rendering;
@@ -12,6 +13,8 @@ public static class Program
 	{
 		Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
 
+		Environment.CurrentDirectory = Directory.GetParent(Folders.Assets).FullName;
+		
 		Global.LoadSavedData();
 		_ = new Serializer();
 		_ = new Scene();
@@ -21,7 +24,7 @@ public static class Program
 		_ = new LightManager();
 
 		AssetsWatcher.StartWatching();
-		
+
 		Debug.StartTimer("Editor startup");
 		using Window window = new();
 

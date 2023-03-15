@@ -51,10 +51,12 @@ public static class MaterialAssetManager
 			XmlSerializer xmlSerializer = new(typeof(Material));
 			Material mat = (Material) xmlSerializer.Deserialize(sr);
 			mat.SetPath(materialPath);
-			if (mat.Shader != null)
-			{
-				mat.SetShader(mat.Shader);
-			}
+			mat.SetShader(mat.Shader);
+
+			// if (mat.Shader != null)
+			// {
+			// 	mat.SetShader(mat.Shader);
+			// }
 
 			return mat;
 		}

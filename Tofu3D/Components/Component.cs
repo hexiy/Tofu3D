@@ -4,8 +4,52 @@ using System.Reflection;
 
 namespace Scripts;
 
-public class Component : IDestroyable, IDisposable
+public class Component : IDestroyable
 {
+	static Dictionary<string, MethodInfo> _executeInEditModeMethods = new Dictionary<string, MethodInfo>();
+
+	public bool CallComponentExecuteInEditModeMethod(string methodName)
+	{
+		Type type = this.GetType();
+		string typeString = type.ToString();
+		bool methodHasExecuteInEditModeAttrib = false;
+		if (_executeInEditModeMethods.ContainsKey(typeString + methodName) == false)
+		{
+			methodHasExecuteInEditModeAttrib = type.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
+
+			MethodInfo info = type.GetMethod(methodName);
+			if (methodHasExecuteInEditModeAttrib == false)
+			{
+				methodHasExecuteInEditModeAttrib = info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
+			}
+
+			_executeInEditModeMethods[typeString + methodName] = methodHasExecuteInEditModeAttrib ? info : null;
+		}
+		else
+		{
+			methodHasExecuteInEditModeAttrib = _executeInEditModeMethods[typeString + methodName] != null;
+		}
+
+
+		if (methodHasExecuteInEditModeAttrib)
+		{
+			// try
+			// {
+			_executeInEditModeMethods[typeString + methodName]?.Invoke(this, null);
+			// type.GetMethod(methodName)?.Invoke(this, null);
+			// }
+			// catch (Exception ex)
+			// {
+			// 	//Debug.Log(ex.Message);
+			// 	// throw ex;
+			// }
+
+			return true;
+		}
+
+		return false;
+	}
+
 	public bool AllowMultiple = true;
 
 	[XmlIgnore]

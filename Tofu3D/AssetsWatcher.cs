@@ -8,7 +8,7 @@ public class AssetsWatcher
 
 	public static void StartWatching()
 	{
-		_watcher = new FileSystemWatcher(Path.Combine(Directory.GetCurrentDirectory(), "Assets"));
+		_watcher = new FileSystemWatcher(Folders.Assets);
 		_watcher.IncludeSubdirectories = true;
 		_watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.LastAccess | NotifyFilters.Attributes;
 		_watcher.EnableRaisingEvents = true;

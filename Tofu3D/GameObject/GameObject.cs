@@ -350,31 +350,9 @@ public class GameObject : IEqualityComparer<GameObject>
 		Awoken = true;
 	}
 
-	bool CallComponentExecuteInEditModeMethod(Component comp, string methodName)
+	public bool CallComponentExecuteInEditModeMethod(Component component, string methodName)
 	{
-		bool compHasExecuteInEditModeAttrib = comp.GetType().GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
-
-
-		bool methodHasExecuteInEditModeAttrib = compHasExecuteInEditModeAttrib ?
-			compHasExecuteInEditModeAttrib :
-			comp.GetType().GetMethod(methodName).GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
-
-		if (methodHasExecuteInEditModeAttrib)
-		{
-			try
-			{
-				comp.GetType().GetMethod(methodName)?.Invoke(comp, null);
-			}
-			catch (Exception ex)
-			{
-				//Debug.Log(ex.Message);
-				// throw ex;
-			}
-
-			return true;
-		}
-
-		return false;
+		return component.CallComponentExecuteInEditModeMethod(methodName);
 	}
 
 	public virtual void PreSceneSave()

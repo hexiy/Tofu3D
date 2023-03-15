@@ -4,7 +4,7 @@
   <Path>Assets/Materials/DepthModel.mat</Path>
   <Shader>
     <BufferType>Rendertexture</BufferType>
-    <Path>/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/Shaders/DepthModelRenderer.glsl</Path>
+    <Path>Assets/Shaders/DepthModelRenderer.glsl</Path>
   </Shader>
   <Vao>17</Vao>
   <Vbo>0</Vbo>

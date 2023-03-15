@@ -35,7 +35,7 @@ public class Shader : IDisposable
 
 	public void Load()
 	{
-		if (File.Exists(Path) == false)
+		if (AssetsManager.Exists(Path) == false)
 		{
 			Path = System.IO.Path.Combine("Assets", Path);
 		}
@@ -45,8 +45,10 @@ public class Shader : IDisposable
 			Path = System.IO.Path.Combine("Assets", "Shaders", "SpriteRenderer.glsl");
 		}
 
-		if (File.Exists(Path) == false)
+		if (AssetsManager.Exists(Path) == false)
 		{
+			Debug.Log("Couldn't find shader");
+			throw new FileNotFoundException("Couldn't find shader");
 			return;
 		}
 

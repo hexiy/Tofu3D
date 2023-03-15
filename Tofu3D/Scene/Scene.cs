@@ -146,7 +146,6 @@ public class Scene
 				_renderQueue.AddRange(GameObjects[i].GetComponents<Renderer>());
 			}
 		}
-
 		SortRenderQueue();
 	}
 
@@ -301,7 +300,10 @@ public class Scene
 		//Physics.rigidbodies.Clear();
 
 		GameObjects = new List<GameObject>();
+		Debug.StartTimer("Load scene file from disk");
 		SceneFile sceneFile = Serializer.I.LoadGameObjects(path);
+		Debug.EndAndLogTimer("Load scene file from disk");
+		Debug.StartTimer("Load rest");
 
 		Serializer.I.ConnectGameObjectsWithComponents(sceneFile);
 		IDsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
@@ -330,6 +332,9 @@ public class Scene
 		}
 
 
+		Debug.EndAndLogTimer("Load rest");
+		
+		Debug.StartTimer("x");
 		CreateDefaultObjects();
 
 		ScenePath = path;
@@ -339,6 +344,8 @@ public class Scene
 		{
 			EditorPanelHierarchy.I.SelectGameObject(lastSelectedGameObjectId);
 		}
+
+		Debug.EndAndLogTimer("x");
 
 		return true;
 	}

@@ -48,25 +48,26 @@ public class DirectionalLight : LightBase
 	public void RenderDirectionalLightShadowDepth()
 	{
 		RefreshRate = Math.Clamp(RefreshRate, 1, 60);
-		
-		if (Time.EditorElapsedTicks % (60/RefreshRate) != 0)
+
+		if (Time.EditorElapsedTicks % (60 / RefreshRate) != 0)
 		{
 			return;
 		}
 		//GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
 
 		ConfigureForShadowMapping();
-		
+
 		Scene.I.RenderScene();
 
 		ConfigureForSceneRender();
 	}
 
-	public override void Dispose()
+	public override void OnDestroyed()
 	{
 		ConfigureForSceneRender();
+		RenderPassSystem.RemoveRender(RenderPassType.DirectionalLightShadowDepth, RenderDirectionalLightShadowDepth);
 
-		base.Dispose();
+		base.OnDestroyed();
 	}
 
 	private void ConfigureForShadowMapping()
