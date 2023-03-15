@@ -141,7 +141,7 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-28.21048</X>
+        <X>-28.312191</X>
         <Y>178.62863</Y>
         <Z>0</Z>
       </Rotation>
@@ -660,7 +660,7 @@
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
         <DynamicallyCreated>false</DynamicallyCreated>
-        <Id>2035</Id>
+        <Id>2038</Id>
         <IndexInHierarchy>4</IndexInHierarchy>
         <IsPrefab>true</IsPrefab>
         <Name>Cube</Name>
@@ -673,5 +673,5 @@
       <SpawnCount>1000</SpawnCount>
     </Component>
   </Components>
-  <GameObjectNextId>2037</GameObjectNextId>
+  <GameObjectNextId>2040</GameObjectNextId>
 </SceneFile>

@@ -13,6 +13,9 @@ public class Editor
 
 	public TransformHandle TransformHandle;
 
+	// Is cleared after invocation
+	public static Action BeforeDraw = () => { };
+
 	//public static Vector2 ScreenToWorld(Vector2 screenPosition)
 	//{
 	//	return (screenPosition - gameViewPosition) * Camera.I.cameraSize + Camera.I.transform.position;
@@ -336,6 +339,8 @@ public class Editor
 
 	public void Draw()
 	{
+		BeforeDraw.Invoke();
+		BeforeDraw = () => { };
 		// ImGui.DockSpace(0, new System.Numerics.Vector2(2300, 2300), ImGuiDockNodeFlags.NoDockingInCentralNode);
 		ImGuiViewportPtr viewportPtr = ImGui.GetWindowViewport();
 
@@ -350,7 +355,7 @@ public class Editor
 		{
 			for (int i = 0; i < _editorPanels.Length; i++)
 			{
-				ImGui.SetNextWindowClass(_panelWindowClassPtr);
+				// ImGui.SetNextWindowClass(_panelWindowClassPtr);
 				_editorPanels[i].Draw();
 			}
 

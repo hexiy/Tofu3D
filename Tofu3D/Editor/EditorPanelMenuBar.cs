@@ -28,33 +28,31 @@ public class EditorPanelMenuBar : EditorPanel
 			// ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoTitleBar);
 			ImGui.BeginMainMenuBar();
 			
-			bool layoutButtonClicked = ImGui.SmallButton("Layout");
-			if (layoutButtonClicked)
-			{
-				ImGui.OpenPopup("Layout");
-			}
+			bool layoutButtonClicked = ImGui.BeginMenu("Layout");
+			// if (layoutButtonClicked)
+			// {
+			// 	ImGui.OpenPopup("Layout");
+			// }
 
-			if (ImGui.BeginPopupContextWindow("Layout"))
+			if (layoutButtonClicked)
 			{
 				bool loadDefaultLayoutButtonClicked = ImGui.Button("Load Default Layout");
 				if (loadDefaultLayoutButtonClicked)
 				{
 					ImGui.CloseCurrentPopup();
-					ImGui.EndPopup();
 
-					EditorLayoutManager.LoadDefaultLayout();
+					Editor.BeforeDraw += EditorLayoutManager.LoadDefaultLayout; // load layout before drawing anything, otherwise we break the layout by calling imgui after this editor panel
 				}
 
 				bool saveDefaultLayoutButtonClicked = ImGui.Button("Save Default Layout");
 				if (saveDefaultLayoutButtonClicked)
 				{
 					ImGui.CloseCurrentPopup();
-					ImGui.EndPopup();
 
 					EditorLayoutManager.SaveDefaultLayout();
 				}
 
-				ImGui.EndPopup();
+				ImGui.EndMenu();
 			}
 
 			ImGui.EndMainMenuBar();
