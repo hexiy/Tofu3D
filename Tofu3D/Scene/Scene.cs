@@ -319,8 +319,10 @@ public class Scene
 		GameObjects = new List<GameObject>();
 		SceneFile sceneFile = Serializer.I.LoadGameObjects(path);
 
+		Debug.StartTimer("ConnectGameObjectsWIthComponents");
 		Serializer.I.ConnectGameObjectsWithComponents(sceneFile);
 		IDsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
+		Debug.EndAndLogTimer("ConnectGameObjectsWIthComponents");
 
 		Serializer.I.ConnectParentsAndChildren(sceneFile);
 		for (int i = 0; i < sceneFile.GameObjects.Count; i++)

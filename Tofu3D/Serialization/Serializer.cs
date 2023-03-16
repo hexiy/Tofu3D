@@ -278,21 +278,29 @@ public class Serializer
 		{
 			for (int j = 0; j < comps.Length; j++)
 			{
-				if (comps[j].GameObjectId == gos[i].Id && comps[j].GetType() == typeof(Transform)) // add transforms first
+				if (comps[j].GameObjectId == gos[i].Id)
 				{
 					gos[i].AddExistingComponent(comps[j]);
 					// gos[i].LinkComponents(gos[i], comps[j]);
 				}
 			}
-
-			for (int j = 0; j < comps.Length; j++)
-			{
-				if (comps[j].GameObjectId == gos[i].Id && comps[j].GetType() != typeof(Transform))
-				{
-					gos[i].AddExistingComponent(comps[j]);
-					// gos[i].LinkComponents(gos[i], comps[j]);
-				}
-			}
+			// for (int j = 0; j < comps.Length; j++)
+			// {
+			// 	if (comps[j].GameObjectId == gos[i].Id && comps[j].GetType() == typeof(Transform)) // add transforms first
+			// 	{
+			// 		gos[i].AddExistingComponent(comps[j]);
+			// 		// gos[i].LinkComponents(gos[i], comps[j]);
+			// 	}
+			// }
+			//
+			// for (int j = 0; j < comps.Length; j++)
+			// {
+			// 	if (comps[j].GameObjectId == gos[i].Id && comps[j].GetType() != typeof(Transform))
+			// 	{
+			// 		gos[i].AddExistingComponent(comps[j]);
+			// 		// gos[i].LinkComponents(gos[i], comps[j]);
+			// 	}
+			// }
 		}
 
 		sf.GameObjects = gos.ToList();
