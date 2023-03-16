@@ -15021,8 +15021,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-28.048813</X>
-        <Y>180.11609</Y>
+        <X>-28.317364</X>
+        <Y>180.17836</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -15260,7 +15260,7 @@
         <PackedValue>4289643337</PackedValue>
       </Color>
       <Speed>0</Speed>
-      <RefreshRate>20</RefreshRate>
+      <RefreshRate>60</RefreshRate>
       <NearPlaneDistance>0.0001</NearPlaneDistance>
       <FarPlaneDistance>1000</FarPlaneDistance>
       <OrthographicSize>15</OrthographicSize>
@@ -122711,5 +122711,5 @@
       <CastShadow>true</CastShadow>
     </Component>
   </Components>
-  <GameObjectNextId>3051</GameObjectNextId>
+  <GameObjectNextId>3055</GameObjectNextId>
 </SceneFile>

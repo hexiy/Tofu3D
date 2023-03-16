@@ -669,7 +669,7 @@ public class GameObject : IEqualityComparer<GameObject>
 		return componentsToReturn;
 	}
 
-	void EditorUpdateComponents()
+	/*void EditorUpdateComponents()
 	{
 		lock (_componentsLock)
 		{
@@ -681,7 +681,7 @@ public class GameObject : IEqualityComparer<GameObject>
 				}
 			}
 		}
-	}
+	}*/
 
 	void UpdateComponents()
 	{
@@ -693,7 +693,11 @@ public class GameObject : IEqualityComparer<GameObject>
 				{
 					if (Global.GameRunning == false)
 					{
-						bool foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Update));
+						if (Components[i].ExecuteUpdateInEditMode)
+						{
+							Components[i].Update();
+						}
+						// bool foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Update));
 					}
 					else
 					{

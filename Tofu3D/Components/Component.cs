@@ -1,19 +1,23 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace Scripts;
 
 public class Component : IDestroyable
 {
 	static Dictionary<string, MethodInfo> _executeInEditModeMethods = new Dictionary<string, MethodInfo>();
+	[XmlIgnore] public bool ExecuteUpdateInEditMode { get; private set; } = false;
 
 	public bool CallComponentExecuteInEditModeMethod(string methodName)
 	{
 		Type type = this.GetType();
 		string typeString = type.ToString();
+		string typeAndMethodString = string.Concat(typeString, methodName);
+
 		bool methodHasExecuteInEditModeAttrib = false;
-		if (_executeInEditModeMethods.ContainsKey(typeString + methodName) == false)
+		if (_executeInEditModeMethods.ContainsKey(typeAndMethodString) == false)
 		{
 			methodHasExecuteInEditModeAttrib = type.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
 
@@ -23,11 +27,11 @@ public class Component : IDestroyable
 				methodHasExecuteInEditModeAttrib = info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
 			}
 
-			_executeInEditModeMethods[typeString + methodName] = methodHasExecuteInEditModeAttrib ? info : null;
+			_executeInEditModeMethods[typeAndMethodString] = methodHasExecuteInEditModeAttrib ? info : null;
 		}
 		else
 		{
-			methodHasExecuteInEditModeAttrib = _executeInEditModeMethods[typeString + methodName] != null;
+			methodHasExecuteInEditModeAttrib = _executeInEditModeMethods[typeAndMethodString] != null;
 		}
 
 
@@ -35,7 +39,7 @@ public class Component : IDestroyable
 		{
 			// try
 			// {
-			_executeInEditModeMethods[typeString + methodName]?.Invoke(this, null);
+			_executeInEditModeMethods[typeAndMethodString]?.Invoke(this, null);
 			// type.GetMethod(methodName)?.Invoke(this, null);
 			// }
 			// catch (Exception ex)
@@ -50,25 +54,31 @@ public class Component : IDestroyable
 		return false;
 	}
 
+	public Component()
+	{
+		MethodInfo info = this.GetType().GetMethod("Update");
+		ExecuteUpdateInEditMode = info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
+	}
+
 	public bool AllowMultiple = true;
 
 	[XmlIgnore]
 	[DefaultValue(false)]
 	public bool Awoken;
-
 	public bool Enabled = true;
 	public bool IsActive
 	{
 		get { return GameObject.ActiveInHierarchy && Enabled; }
 	}
+
 	[XmlIgnore]
 	public GameObject GameObject;
-
 	public int GameObjectId;
 	public bool Started;
 
 	[XmlIgnore]
 	public Transform Transform
+
 	{
 		get { return GameObject.Transform; }
 		set { GameObject.Transform = value; }
@@ -100,7 +110,7 @@ public class Component : IDestroyable
 		return GameObject.GetComponents<T>();
 	}
 
-	// Doesnt respect rotation
+// Doesnt respect rotation
 	public Vector3 TransformToWorld(Vector3 localPoint)
 	{
 		return localPoint + Transform.WorldPosition;

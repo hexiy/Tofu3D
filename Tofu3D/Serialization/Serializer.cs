@@ -185,10 +185,8 @@ public class Serializer
 		}*/
 
 		using StreamReader sr = new(scenePath);
-		Debug.StartTimer("deserialize");
 
 		SceneFile a = (SceneFile) _xmlSerializer.Deserialize(sr);
-		Debug.EndAndLogTimer("deserialize");
 
 		return a;
 	}
