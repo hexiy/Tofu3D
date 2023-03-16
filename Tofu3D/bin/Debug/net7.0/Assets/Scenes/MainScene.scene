@@ -26,7 +26,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Ground</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -56,7 +56,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>DirectionalLight</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -15021,8 +15021,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-28.317364</X>
-        <Y>180.17836</Y>
+        <X>-34.36808</X>
+        <Y>169.32347</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -122711,5 +122711,5 @@
       <CastShadow>true</CastShadow>
     </Component>
   </Components>
-  <GameObjectNextId>3055</GameObjectNextId>
+  <GameObjectNextId>3057</GameObjectNextId>
 </SceneFile>
