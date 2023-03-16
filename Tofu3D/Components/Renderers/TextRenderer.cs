@@ -57,7 +57,7 @@ public class TextRenderer : SpriteRenderer
 	Vector2 _spritesCount = new(8, 8);
 	[Hide]
 	public Vector2 SpriteSize;
-	[LinkableComponent]
+	// //[LinkableComponent]
 	public Text Text;
 	public Vector2 SpritesCount
 	{
@@ -79,7 +79,7 @@ public class TextRenderer : SpriteRenderer
 		base.Awake();
 	}
 
-	public override void CreateMaterial()
+	public override void SetDefaultMaterial()
 	{
 		if (Material == null)
 		{
@@ -87,7 +87,7 @@ public class TextRenderer : SpriteRenderer
 		}
 
 		Material.Additive = false;
-		base.CreateMaterial();
+		base.SetDefaultMaterial();
 	}
 
 	public override void OnNewComponentAdded(Component comp)

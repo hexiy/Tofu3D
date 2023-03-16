@@ -7,14 +7,14 @@ public class BoxRenderer : Renderer
 		base.Awake();
 	}
 
-	public override void CreateMaterial()
+	public override void SetDefaultMaterial()
 	{
 		if (Material == null)
 		{
 			Material = MaterialCache.GetMaterial("BoxMaterial");
 		}
 
-		base.CreateMaterial();
+		base.SetDefaultMaterial();
 	}
 
 	public override void Render()

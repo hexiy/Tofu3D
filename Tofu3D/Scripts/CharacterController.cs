@@ -6,7 +6,7 @@ public class CharacterController : Component
 	bool _jumpKeyDown;
 	public float MoveSpeed = 10;
 
-	// LINKABLECOMPONENT PURGE [LinkableComponent]
+	// LINKABLECOMPONENT PURGE //[LinkableComponent]
 	Rigidbody _rb;
 
 	public override void Awake()

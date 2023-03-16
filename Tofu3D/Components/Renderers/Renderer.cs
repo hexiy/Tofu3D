@@ -3,7 +3,7 @@
 [ExecuteInEditMode]
 public class Renderer : Component, IComparable<Renderer>
 {
-	[LinkableComponent]
+	//[LinkableComponent]
 	public BoxShape BoxShape;
 	public Color Color = Color.White;
 	public float DistanceFromCamera;
@@ -44,12 +44,12 @@ public class Renderer : Component, IComparable<Renderer>
 
 	public override void Awake()
 	{
-		CreateMaterial();
+		SetDefaultMaterial();
 
 		base.Awake();
 	}
 
-	public virtual void CreateMaterial()
+	public virtual void SetDefaultMaterial()
 	{
 		Material.SetShader(Material.Shader);
 	}

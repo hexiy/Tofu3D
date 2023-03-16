@@ -11,7 +11,7 @@ public class SpriteRenderer : TextureRenderer
 		SetDefaultTexture(Path.Combine(Folders.Textures, "solidColor.png"));
 
 		SetNativeSize += () => { UpdateBoxShapeSize(); };
-		CreateMaterial();
+		SetDefaultMaterial();
 		if (Texture == null)
 		{
 			Texture = new Texture();
@@ -40,14 +40,14 @@ public class SpriteRenderer : TextureRenderer
 		}
 	}
 
-	public override void CreateMaterial()
+	public override void SetDefaultMaterial()
 	{
 		if (Material == null)
 		{
 			Material = MaterialCache.GetMaterial("SpriteRenderer");
 		}
 
-		base.CreateMaterial();
+		base.SetDefaultMaterial();
 	}
 
 	public override void OnDestroyed()

@@ -13,7 +13,7 @@ public class Rigidbody : Component
 	public List<Rigidbody> TouchingRigidbodies = new();
 
 	[XmlIgnore]
-	[LinkableComponent]
+	// //[LinkableComponent]
 	public Shape Shape
 	{
 		get { return GetComponent<Shape>(); }

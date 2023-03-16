@@ -24,14 +24,14 @@ public class SpriteSheetRenderer : SpriteRenderer
 		}
 	}
 
-	public override void CreateMaterial()
+	public override void SetDefaultMaterial()
 	{
 		if (Material == null)
 		{
 			Material = MaterialCache.GetMaterial("SpriteSheetRenderer");
 		}
 
-		base.CreateMaterial();
+		base.SetDefaultMaterial();
 	}
 
 	internal override void UpdateBoxShapeSize()

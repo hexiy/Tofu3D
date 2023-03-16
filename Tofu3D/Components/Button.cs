@@ -6,7 +6,7 @@ public class Button : Component
 {
 	public delegate void MouseAction();
 
-	[LinkableComponent]
+	//[LinkableComponent]
 	public BoxShape BoxShape;
 	bool _clicked;
 	bool _mouseIsOver;
@@ -15,7 +15,7 @@ public class Button : Component
 	[XmlIgnore]
 	public MouseAction OnReleasedAction;
 
-	[LinkableComponent]
+	//[LinkableComponent]
 	public Renderer Renderer;
 
 	public override void Awake()

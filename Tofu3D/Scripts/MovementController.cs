@@ -14,14 +14,14 @@ namespace Scripts
 	{
 		[ShowInEditor] public float MoveSpeed { get; set; } = 10;
 		[ShowInEditor] public float jumpForce = 10000;
-		[LinkableComponent]
+		//[LinkableComponent]
 		private Rigidbody rb;
 		bool jumpKeyDown = false;
 		float targetSpeedX = 0;
 
 		[ShowInEditor] public float CameraOffsetY = 10;
 
-		[LinkableComponent] private AnimationController animationController;
+		//[LinkableComponent] private AnimationController animationController;
 		public override void Awake()
 		{
 			rb = GetComponent<Rigidbody>();

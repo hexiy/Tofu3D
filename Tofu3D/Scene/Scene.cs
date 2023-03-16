@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using Engine;
 using Tofu3D.Physics;
 using Tofu3D.Rendering;
@@ -95,8 +96,12 @@ public class Scene
 
 		TransformHandle.I.GameObject.Update();
 
-
-		if (Time.ElapsedTicks % 20 == 0)
+		if (_renderQueueChanged)
+		{
+			RebuildRenderQueue();
+			_renderQueueChanged = false;
+		}
+		else if (Time.ElapsedTicks % 20 == 0)
 		{
 			SortRenderQueue();
 		}
@@ -129,6 +134,7 @@ public class Scene
 	}
 
 	public static Action<Component> AnyComponentAddedToScene;
+	bool _renderQueueChanged = false;
 
 	public void OnComponentAdded(GameObject gameObject, Component component)
 	{
@@ -138,6 +144,11 @@ public class Scene
 
 	public void RenderQueueChanged()
 	{
+		_renderQueueChanged = true;
+	}
+
+	private void RebuildRenderQueue()
+	{
 		_renderQueue = new List<Renderer>();
 		for (int i = 0; i < GameObjects.Count; i++)
 		{
@@ -146,6 +157,7 @@ public class Scene
 				_renderQueue.AddRange(GameObjects[i].GetComponents<Renderer>());
 			}
 		}
+
 		SortRenderQueue();
 	}
 
@@ -286,6 +298,11 @@ public class Scene
 
 	public bool LoadScene(string path = null)
 	{
+		Debug.ClearLogs();
+
+		Debug.StartTimer("LoadScene");
+
+
 		Serializer.LastScene = path;
 		Window.I.Title = Window.I.WindowTitleText + " | " + Path.GetFileNameWithoutExtension(path);
 
@@ -300,16 +317,12 @@ public class Scene
 		//Physics.rigidbodies.Clear();
 
 		GameObjects = new List<GameObject>();
-		Debug.StartTimer("Load scene file from disk");
 		SceneFile sceneFile = Serializer.I.LoadGameObjects(path);
-		Debug.EndAndLogTimer("Load scene file from disk");
-		Debug.StartTimer("Load rest");
 
 		Serializer.I.ConnectGameObjectsWithComponents(sceneFile);
 		IDsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
 
 		Serializer.I.ConnectParentsAndChildren(sceneFile);
-
 		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 		{
 			for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
@@ -320,11 +333,15 @@ public class Scene
 			I.AddGameObjectToScene(sceneFile.GameObjects[i]);
 		}
 
+		Debug.StartTimer("Awake");
 		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 		{
-			sceneFile.GameObjects[i].LinkGameObjectFieldsInComponents();
+			//sceneFile.GameObjects[i].LinkGameObjectFieldsInComponents();
 			sceneFile.GameObjects[i].Awake();
 		}
+
+		Debug.EndAndLogTimer("Awake");
+
 
 		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 		{
@@ -332,9 +349,6 @@ public class Scene
 		}
 
 
-		Debug.EndAndLogTimer("Load rest");
-		
-		Debug.StartTimer("x");
 		CreateDefaultObjects();
 
 		ScenePath = path;
@@ -345,7 +359,8 @@ public class Scene
 			EditorPanelHierarchy.I.SelectGameObject(lastSelectedGameObjectId);
 		}
 
-		Debug.EndAndLogTimer("x");
+
+		Debug.EndAndLogTimer("LoadScene");
 
 		return true;
 	}

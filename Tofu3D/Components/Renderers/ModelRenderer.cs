@@ -24,14 +24,14 @@ public class ModelRenderer : TextureRenderer
 		base.Awake();
 	}
 
-	public override void CreateMaterial()
+	public override void SetDefaultMaterial()
 	{
-		if (Material == null)
+		if (Material?.FileName == null)
 		{
 			Material = MaterialCache.GetMaterial("ModelRenderer");
 		}
 
-		Material = MaterialCache.GetMaterial("ModelRenderer");
+		// Material = MaterialCache.GetMaterial("ModelRenderer");
 
 		// base.CreateMaterial();
 	}

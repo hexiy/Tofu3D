@@ -18,21 +18,29 @@ public class Serializer
 		set { PersistentData.Set("lastOpenedScene", value); }
 	}
 	public static Serializer I { get; set; }
+	XmlSerializer _xmlSerializer;
 
 	void UpdateSerializableTypes()
 	{
-		_serializableTypes = new List<Type>();
+		if (_serializableTypes.Count == 0)
+		{
+			_serializableTypes = new List<Type>();
 
-		_serializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
-		                                              .Where(type => type.IsSubclassOf(typeof(Component))));
+			_serializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
+			                                              .Where(type => type.IsSubclassOf(typeof(Component))));
 
-		// delegates
-		//SerializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
-		//                                             .Where(type => { return type.GetCustomAttribute<SerializableType>() != null; }));
+			// delegates
+			//SerializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
+			//                                             .Where(type => { return type.GetCustomAttribute<SerializableType>() != null; }));
 
-		_serializableTypes.AddRange(typeof(Component).Assembly.GetTypes()
-		                                             .Where(type => type.IsSubclassOf(typeof(Component)) || type.IsSubclassOf(typeof(GameObject)))
-		                                             .ToList());
+			_serializableTypes.AddRange(typeof(Component).Assembly.GetTypes()
+			                                             .Where(type => type.IsSubclassOf(typeof(Component)) || type.IsSubclassOf(typeof(GameObject))));
+		}
+
+		if (_xmlSerializer == null)
+		{
+			_xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
+		}
 	}
 
 	public void SaveGameObject(GameObject go, string prefabPath)
@@ -132,8 +140,8 @@ public class Serializer
 
 	public SceneFile LoadGameObjects(string scenePath)
 	{
-		string xml = "";
 		UpdateSerializableTypes();
+		/*string xml = "";
 		using (StreamReader sr = new(scenePath))
 		{
 			xml = sr.ReadToEnd();
@@ -168,22 +176,21 @@ public class Serializer
 					xml = xml.Insert(startIndex + componentEndIndex + "</Component>".Length, "-->");
 				}
 			componentNodesIndexes = xml.AllIndexesOf("<Component xsi:type=");
-			}*/
-		}
+			}#1#
+		}*/
 
 		/*using (StreamWriter sw = new(scenePath))
 		{
 			sw.Write(xml);
 		}*/
 
-		using (StreamReader sr = new(scenePath))
-		{
-			XmlSerializer xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
+		using StreamReader sr = new(scenePath);
+		Debug.StartTimer("deserialize");
 
-			SceneFile a = (SceneFile) xmlSerializer.Deserialize(sr);
+		SceneFile a = (SceneFile) _xmlSerializer.Deserialize(sr);
+		Debug.EndAndLogTimer("deserialize");
 
-			return a;
-		}
+		return a;
 	}
 
 	public void ConnectParentsAndChildren(SceneFile sf, bool newIDs = false)
@@ -276,7 +283,7 @@ public class Serializer
 				if (comps[j].GameObjectId == gos[i].Id && comps[j].GetType() == typeof(Transform)) // add transforms first
 				{
 					gos[i].AddExistingComponent(comps[j]);
-					gos[i].LinkComponents(gos[i], comps[j]);
+					// gos[i].LinkComponents(gos[i], comps[j]);
 				}
 			}
 
@@ -285,7 +292,7 @@ public class Serializer
 				if (comps[j].GameObjectId == gos[i].Id && comps[j].GetType() != typeof(Transform))
 				{
 					gos[i].AddExistingComponent(comps[j]);
-					gos[i].LinkComponents(gos[i], comps[j]);
+					// gos[i].LinkComponents(gos[i], comps[j]);
 				}
 			}
 		}

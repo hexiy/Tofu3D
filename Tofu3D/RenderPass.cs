@@ -39,7 +39,6 @@ public abstract class RenderPass : IComparable<RenderPass>
 	public void RemoveRender(Action render)
 	{
 		_renderQueue.Remove(render);
-		Debug.Log("Removed render");
 	}
 
 	public void Render()

@@ -6,8 +6,8 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>2047</Id>
-      <IndexInHierarchy>11</IndexInHierarchy>
+      <Id>2057</Id>
+      <IndexInHierarchy>21</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath />
@@ -21,7 +21,7 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>2047</GameObjectId>
+      <GameObjectId>2057</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
@@ -59,7 +59,7 @@
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>2047</GameObjectId>
+      <GameObjectId>2057</GameObjectId>
       <Started>true</Started>
       <Offset>
         <X>0</X>
@@ -75,12 +75,12 @@
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>2047</GameObjectId>
+      <GameObjectId>2057</GameObjectId>
       <Started>true</Started>
       <BoxShape>
         <AllowMultiple>true</AllowMultiple>
         <Enabled>true</Enabled>
-        <GameObjectId>2047</GameObjectId>
+        <GameObjectId>2057</GameObjectId>
         <Started>true</Started>
         <Offset>
           <X>0</X>

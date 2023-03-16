@@ -68,7 +68,7 @@ public class GameObject : IEqualityComparer<GameObject>
 		OnDestroyed += RemoveFromLists;
 		OnDestroyed += DestroyChildren;
 
-		OnComponentAdded += LinkComponents;
+		// OnComponentAdded += LinkComponents;
 		OnComponentAdded += InvokeOnComponentAddedOnComponents;
 		OnComponentAdded += CheckForTransformComponent;
 		OnComponentAdded += Scene.I.OnComponentAdded;
@@ -213,7 +213,7 @@ public class GameObject : IEqualityComparer<GameObject>
 		}
 	}
 
-	public void LinkComponents(GameObject gameObject, Component component)
+	/*public void LinkComponents(GameObject gameObject, Component component)
 	{
 		for (int compIndex1 = 0; compIndex1 < Components.Count; compIndex1++)
 		{
@@ -298,7 +298,7 @@ public class GameObject : IEqualityComparer<GameObject>
 				}
 			}
 		}
-	}
+	}*/
 
 	/// <summary>
 	///         give every found component in class its gameobject and transform reference
