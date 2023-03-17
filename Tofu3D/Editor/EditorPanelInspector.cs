@@ -248,7 +248,7 @@ public class EditorPanelInspector : EditorPanel
 		{
 			if (ImGui.Button("Update prefab"))
 			{
-				Serializer.I.SaveGameObject(_selectedGameObject, _selectedGameObject.PrefabPath);
+				SceneSerializer.I.SaveGameObject(_selectedGameObject, _selectedGameObject.PrefabPath);
 			}
 
 			if (ImGui.Button("Delete prefab"))
@@ -537,7 +537,7 @@ public class EditorPanelInspector : EditorPanel
 							{
 								if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 								{
-									GameObject loadedGo = Serializer.I.LoadPrefab(payload, true);
+									GameObject loadedGo = SceneSerializer.I.LoadPrefab(payload, true);
 									info.SetValue(componentInspectorData.Component, loadedGo);
 								}
 							}

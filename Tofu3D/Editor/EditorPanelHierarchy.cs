@@ -44,7 +44,7 @@ public class EditorPanelHierarchy : EditorPanel
 			if (Editor.I.GetSelectedGameObject() != null)
 			{
 				_clipboardGameObject = Editor.I.GetSelectedGameObject();
-				Serializer.I.SaveClipboardGameObject(_clipboardGameObject);
+				SceneSerializer.I.SaveClipboardGameObject(_clipboardGameObject);
 			}
 		}
 
@@ -52,7 +52,7 @@ public class EditorPanelHierarchy : EditorPanel
 		{
 			if (_clipboardGameObject != null)
 			{
-				GameObject loadedGo = Serializer.I.LoadClipboardGameObject();
+				GameObject loadedGo = SceneSerializer.I.LoadClipboardGameObject();
 				SelectGameObject(loadedGo.Id);
 			}
 		}
@@ -246,7 +246,7 @@ public class EditorPanelHierarchy : EditorPanel
 
 		if (ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left) && false) // todo remove false
 		{
-			SceneNavigation.I.MoveToGameObject(Editor.I.GetSelectedGameObject());
+			SceneViewNavigation.I.MoveToGameObject(Editor.I.GetSelectedGameObject());
 		}
 
 

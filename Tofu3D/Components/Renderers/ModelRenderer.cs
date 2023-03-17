@@ -122,15 +122,15 @@ public class ModelRenderer : TextureRenderer
 				Material.Shader.SetColor("u_rendererColor", Color);
 
 
-				Material.Shader.SetVector3("u_lightPos", LightManager.I.GetDirectionalLightPosition());
+				Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
 
-				Material.Shader.SetVector3("u_ambientLightsColor", LightManager.I.GetAmbientLightsColor().ToVector3());
-				Material.Shader.SetFloat("u_ambientLightsIntensity", LightManager.I.GetAmbientLightsIntensity());
+				Material.Shader.SetVector3("u_ambientLightsColor", SceneLightingManager.I.GetAmbientLightsColor().ToVector3());
+				Material.Shader.SetFloat("u_ambientLightsIntensity", SceneLightingManager.I.GetAmbientLightsIntensity());
 
-				Material.Shader.SetVector3("u_directionalLightColor", LightManager.I.GetDirectionalLightColor().ToVector3());
-				Material.Shader.SetFloat("u_directionalLightIntensity", LightManager.I.GetDirectionalLightIntensity());
+				Material.Shader.SetVector3("u_directionalLightColor", SceneLightingManager.I.GetDirectionalLightColor().ToVector3());
+				Material.Shader.SetFloat("u_directionalLightIntensity", SceneLightingManager.I.GetDirectionalLightIntensity());
 
-				Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(LightManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
+				Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
 				// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
 				Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
 

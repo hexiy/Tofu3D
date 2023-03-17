@@ -142,7 +142,7 @@ public class TransformHandle : Component
 		{
 			SetSelectedObjectRigidbodyAwake(false);
 			// Move(MouseInput.WorldDelta);
-			Move(MouseInput.ScreenDelta / Units.OneWorldUnit);// /_selectedTransforms[0].GetComponent<Renderer>().DistanceFromCamera * 1000f);
+			Move(MouseInput.ScreenDelta / Units.OneWorldUnit); // /_selectedTransforms[0].GetComponent<Renderer>().DistanceFromCamera * 1000f);
 		}
 		else
 		{
@@ -199,7 +199,7 @@ public class TransformHandle : Component
 	public void Move(Vector3 deltaVector)
 	{
 		// return;
-		deltaVector = Camera.I.ScreenToWorld(deltaVector)*100*5000;
+		deltaVector = Camera.I.ScreenToWorld(deltaVector) * 100 * 5000;
 
 		Vector3 moveVector = Vector3.Zero;
 		switch (CurrentAxisSelected)
@@ -211,16 +211,16 @@ public class TransformHandle : Component
 				moveVector += deltaVector.VectorY();
 				break;
 			case Axis.Z:
-				moveVector += new Vector3(deltaVector.Z,0,deltaVector.X);
+				moveVector += new Vector3(deltaVector.Z, 0, deltaVector.X);
 				break;
 			case Axis.Xy:
 				moveVector += deltaVector;
 				break;
 		}
 
-		Transform.LocalPosition += moveVector; 
+		Transform.LocalPosition += moveVector;
 		// Transform.LocalPosition += moveVector; 
-		
+
 		// _selectedTransform.LocalPosition = _selectedTransform.TranslateWorldToLocal(_selectedTransform.WorldPosition);
 
 		for (int i = 0; i < _selectedTransforms.Count; i++)

@@ -3,21 +3,15 @@ using System.Linq;
 
 namespace Tofu3D;
 
-public class Serializer
+public class SceneSerializer
 {
 	List<Type> _serializableTypes = new();
 
-	public Serializer()
-	{
-		I = this;
-	}
-
-	public static string LastScene
+	public string LastScene
 	{
 		get { return PersistentData.GetString("lastOpenedScene", "Assets/Scenes/scene1.scene"); }
 		set { PersistentData.Set("lastOpenedScene", value); }
 	}
-	public static Serializer I { get; set; }
 	XmlSerializer _xmlSerializer;
 
 	void UpdateSerializableTypes()

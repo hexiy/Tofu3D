@@ -3,7 +3,6 @@
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
-        <RootNamespace>Engine</RootNamespace>
         <Authors>hexiy</Authors>
         <AssemblyName>Tofu3D</AssemblyName>
         <LangVersion>11</LangVersion>

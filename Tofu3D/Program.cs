@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using System.IO;
 using System.Threading;
-using Engine;
 using Tofu3D.Rendering;
 using Tofu3D.Tweening;
 
@@ -11,23 +10,20 @@ public static class Program
 {
 	static void Main()
 	{
-		Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
-
-		Environment.CurrentDirectory = Directory.GetParent(Folders.Assets).FullName;
 		
-		Global.LoadSavedData();
-		_ = new Serializer();
-		_ = new Scene();
-		_ = new TweenManager();
-		_ = new SceneNavigation();
-		_ = new Editor();
-		_ = new LightManager();
+		// _ = new SceneSerializer();
+		// _ = new Scene();
+		// _ = new TweenManager();
+		// _ = new SceneViewNavigation();
+		// _ = new Editor();
+		// _ = new LightManager();
+		//
+		// AssetsWatcher.StartWatching();
 
-		AssetsWatcher.StartWatching();
-
-		Debug.StartTimer("Editor startup");
+		Tofu tofu = new Tofu();
+		tofu.Launch();
+		/*Debug.StartTimer("Editor startup");
 		using Window window = new();
-
-		window.Run();
+		window.Run();*/
 	}
 }

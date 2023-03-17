@@ -1,20 +1,22 @@
-public class LightManager
+// Per scene
+
+public class SceneLightingManager
 {
-	public static LightManager I { get; private set; }
-
-	public LightManager()
-	{
-		I = this;
-	}
-
 	List<LightBase> _lights = new List<LightBase>();
 
 	DirectionalLight _directionalLight;
+	readonly Scene _scene;
+
+	public SceneLightingManager(Scene scene)
+	{
+		_scene = scene;
+		
+	}
 
 	public void Update()
 	{
 		_lights = GetAllLightsInScene();
-		_directionalLight = Scene.I.FindComponent<DirectionalLight>(ignoreInactive:true);
+		_directionalLight = Scene.I.FindComponent<DirectionalLight>(ignoreInactive: true);
 
 
 		// Debug.Log($"Light direction:{GetDirectionalLightDirection()}");

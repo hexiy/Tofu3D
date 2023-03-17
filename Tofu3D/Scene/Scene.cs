@@ -9,18 +9,12 @@ namespace Tofu3D;
 
 public class Scene
 {
+	SceneLightingManager _sceneLightingManager;
+	SceneRenderQueue _sceneRenderQueue;
+
 	public List<GameObject> GameObjects = new();
 
-	List<Renderer> _renderQueue = new();
-
 	public string ScenePath = "";
-
-	public Scene()
-	{
-		I = this;
-	}
-
-	public static Scene I { get; private set; }
 
 	Camera Camera
 	{
@@ -68,14 +62,17 @@ public class Scene
 		transformHandleGameObject.Start();
 	}
 
-	public void Start()
+	public void Initialize()
 	{
-		PhysicsController.Init();
+		// PhysicsController.Init();
+		_sceneLightingManager = new SceneLightingManager(this);
+		_sceneRenderQueue = new SceneRenderQueue(this);
+
 		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderScene);
 
-		if (Serializer.LastScene != "" && File.Exists(Serializer.LastScene))
+		if (SceneSerializer.LastScene != "" && File.Exists(SceneSerializer.LastScene))
 		{
-			LoadScene(Serializer.LastScene);
+			LoadScene(SceneSerializer.LastScene);
 		}
 		else
 		{
@@ -85,26 +82,13 @@ public class Scene
 
 	public void Update()
 	{
-		Time.Update();
-		MouseInput.Update();
-		TweenManager.I.Update();
-		SceneNavigation.I.Update();
-		ShaderCache.ReloadQueuedShaders();
-		LightManager.I.Update();
-		// MousePickingSystem.Update();
+		Debug.StartGraphTimer("Scene Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
+
+		_sceneLightingManager.Update();
+		_sceneRenderQueue.Update();
+		
 		Camera.I.GameObject.Update();
-
 		TransformHandle.I.GameObject.Update();
-
-		if (_renderQueueChanged)
-		{
-			RebuildRenderQueue();
-			_renderQueueChanged = false;
-		}
-		else if (Time.ElapsedTicks % 20 == 0)
-		{
-			SortRenderQueue();
-		}
 
 
 		for (int i = 0; i < GameObjects.Count; i++)
@@ -131,39 +115,16 @@ public class Scene
 				GameObjects[i].Update();
 			}
 		}
+
+		Debug.EndGraphTimer("Scene Update");
 	}
 
 	public static Action<Component> AnyComponentAddedToScene;
-	bool _renderQueueChanged = false;
 
 	public void OnComponentAdded(GameObject gameObject, Component component)
 	{
-		RenderQueueChanged();
+		
 		AnyComponentAddedToScene?.Invoke(component);
-	}
-
-	public void RenderQueueChanged()
-	{
-		_renderQueueChanged = true;
-	}
-
-	private void RebuildRenderQueue()
-	{
-		_renderQueue = new List<Renderer>();
-		for (int i = 0; i < GameObjects.Count; i++)
-		{
-			if (GameObjects[i].GetComponent<Renderer>())
-			{
-				_renderQueue.AddRange(GameObjects[i].GetComponents<Renderer>());
-			}
-		}
-
-		SortRenderQueue();
-	}
-
-	public void SortRenderQueue()
-	{
-		_renderQueue.Sort();
 	}
 
 	public void RenderScene()
@@ -303,7 +264,7 @@ public class Scene
 		Debug.StartTimer("LoadScene");
 
 
-		Serializer.LastScene = path;
+		SceneSerializer.LastScene = path;
 		Window.I.Title = Window.I.WindowTitleText + " | " + Path.GetFileNameWithoutExtension(path);
 
 		//Add method to clean scene
@@ -317,14 +278,14 @@ public class Scene
 		//Physics.rigidbodies.Clear();
 
 		GameObjects = new List<GameObject>();
-		SceneFile sceneFile = Serializer.I.LoadGameObjects(path);
+		SceneFile sceneFile = SceneSerializer.I.LoadGameObjects(path);
 
 		Debug.StartTimer("ConnectGameObjectsWIthComponents");
-		Serializer.I.ConnectGameObjectsWithComponents(sceneFile);
+		SceneSerializer.I.ConnectGameObjectsWithComponents(sceneFile);
 		IDsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
 		Debug.EndAndLogTimer("ConnectGameObjectsWIthComponents");
 
-		Serializer.I.ConnectParentsAndChildren(sceneFile);
+		SceneSerializer.I.ConnectParentsAndChildren(sceneFile);
 		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 		{
 			for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
@@ -369,23 +330,23 @@ public class Scene
 
 	public void SaveScene(string path = null)
 	{
-		path = path ?? Serializer.LastScene;
+		path = path ?? SceneSerializer.LastScene;
 		if (path.Length < 1)
 		{
 			path = Path.Combine("Assets", "scene1.scene");
 		}
 
-		Serializer.LastScene = path;
-		Serializer.I.SaveGameObjects(GetSceneFile(), path);
+		SceneSerializer.LastScene = path;
+		SceneSerializer.I.SaveGameObjects(GetSceneFile(), path);
 	}
 
 	public void CreateEmptySceneAndOpenIt(string path)
 	{
 		IDsManager.GameObjectNextId = 0;
-		Serializer.LastScene = path;
+		SceneSerializer.LastScene = path;
 		GameObjects = new List<GameObject>();
 		CreateDefaultObjects();
-		Serializer.I.SaveGameObjects(GetSceneFile(), path);
+		SceneSerializer.I.SaveGameObjects(GetSceneFile(), path);
 	}
 
 	public void OnGameObjectDestroyed(GameObject gameObject)

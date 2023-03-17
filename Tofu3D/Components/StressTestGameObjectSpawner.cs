@@ -14,11 +14,11 @@ public class StressTestGameObjectSpawner : Component
 	{
 		Spawn += () =>
 		{
-			Serializer.I.SaveClipboardGameObject(Go);
+			SceneSerializer.I.SaveClipboardGameObject(Go);
 
 			for (int i = 0; i < SpawnCount; i++)
 			{
-				Serializer.I.LoadClipboardGameObject();
+				SceneSerializer.I.LoadClipboardGameObject();
 			}
 		};
 		Despawn += () =>

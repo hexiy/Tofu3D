@@ -17,16 +17,11 @@ public class Window : GameWindow
 		                       /*Size = new Vector2i(1, 1),*/ APIVersion = new Version(4, 1), Flags = ContextFlags.ForwardCompatible, Profile = ContextProfile.Core, /*NumberOfSamples = 8,*/
 	                       })
 	{
-		I = this;
 		VSync = VSyncMode.Off;
 		this.UpdateFrequency = 500;
 		this.RenderFrequency = 0;
-		// WindowState = WindowState.Maximized;
-		// WindowState = WindowState.Fullscreen;
 		Title = WindowTitleText;
 	}
-
-	public static Window I { get; private set; }
 
 	public string WindowTitleText
 	{
@@ -34,30 +29,23 @@ public class Window : GameWindow
 	}
 	bool _loaded = false;
 
-	protected override void OnLoad()
+	protected override unsafe void OnLoad()
 	{
-		unsafe
-		{
-			GLFW.GetMonitorWorkarea((Monitor*) this.CurrentMonitor.Pointer, out int x, out int y, out int width, out int height);
+		GLFW.GetMonitorWorkarea((Monitor*) this.CurrentMonitor.Pointer, out int x, out int y, out int width, out int height);
 
-			ImGuiController = new ImGuiController(width, height);
+		ImGuiController = new ImGuiController(width, height);
 
-			Editor.I.Init();
-			Scene.I.Start();
-			// RenderPassSystem.Initialize();
-			// MousePickingSystem.Initialize();
-			WindowState = WindowState.Fullscreen;
-			this.Focus();
+		// Editor.I.Init();
+		// Scene.I.Start();
+		WindowState = WindowState.Fullscreen;
+		this.Focus();
 
-			_loaded = true;
-			base.OnLoad();
-			Debug.EndAndLogTimer("Editor startup");
-		}
+		_loaded = true;
+		base.OnLoad();
 	}
 
 	protected override void OnUnload()
 	{
-		Scene.I.DisposeScene();
 		base.OnUnload();
 	}
 
@@ -77,34 +65,11 @@ public class Window : GameWindow
 	{
 		if (_loaded == false) return;
 
-		/*_updatesCalled++;
-		_elapsedTime += (float)e.Time;
-		if (_elapsedTime >= 1 )
-		{
-			Debug.Log($"Updates in 1 second:{_updatesCalled}");
-			_updatesCalled = 0;
-			_elapsedTime = 0;
-			Time.EditorElapsedTime = 0;
-		}*/
-
-		// Time.DeltaTimeUpdate = (float) e.Time;
-		// Title = (1f / Time.DeltaTimeUpdate).ToString("F2");
-
-		// Time.StartDeltaTimeUpdateStopWatch();
-		Debug.StartGraphTimer("Scene Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
 		Scene.I.Update();
-		Debug.EndGraphTimer("Scene Update");
 
-		if (Global.EditorAttached)
-		{
-			// Debug.StartTimer("Editor Update", DebugTimer.SourceGroup.Update, TimeSpan.FromMilliseconds(1f / 60f));
-			Editor.I.Update();
-			// Debug.EndTimer("Editor Update");
-		}
+		Editor.I.Update();
 
 		base.OnUpdateFrame(e);
-
-		// Time.EndDeltaTimeUpdateStopWatch();
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs e)
@@ -113,13 +78,10 @@ public class Window : GameWindow
 
 		Time.EditorDeltaTime = (float) (e.Time);
 
-		// Time.StartDeltaTimeRenderStopWatch();
 
 		Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
 
 		Debug.StatSetAdditiveValue("Draw Calls", 0);
-		// Debug.StartTimer("Test", DebugTimer.SourceGroup.Gpu, TimeSpan.FromSeconds(1f / 60f));
-		// Debug.EndTimer("Test");
 
 		Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 60f));
 
@@ -139,23 +101,17 @@ public class Window : GameWindow
 			ImGuiController.WindowResized(ClientSize.X, ClientSize.Y);
 
 			Editor.I.Draw();
-			//GL.Enable(EnableCap.Multisample);
 
 			ImGuiController.Render();
 		}
 
 		Debug.EndGraphTimer("ImGui");
 
-		// ------------- IMGUI -------------
-
-
 		SwapBuffers();
 
 		base.OnRenderFrame(e);
 
 		Debug.EndGraphTimer("Window Render");
-
-		// Time.EndDeltaTimeRenderStopWatch();
 
 		Debug.ResetTimers();
 		Debug.ClearAdditiveStats();

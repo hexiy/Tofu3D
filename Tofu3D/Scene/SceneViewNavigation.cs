@@ -3,17 +3,17 @@ using Tofu3D.Tweening;
 
 namespace Tofu3D;
 
-public class SceneNavigation
+public class SceneViewNavigation
 {
 	bool _clickedInsideScene;
 	float _targetOrthoSize = -1;
 
-	public SceneNavigation()
+	public SceneViewNavigation()
 	{
 		I = this;
 	}
 
-	public static SceneNavigation I { get; private set; }
+	public static SceneViewNavigation I { get; private set; }
 	public bool IsPanningCamera { get; private set; }
 
 	public void MoveToGameObject(GameObject targetGo)
