@@ -1,4 +1,5 @@
 using OpenTK.Windowing.Common;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using Tofu3D.Tweening;
 
 namespace Tofu3D;

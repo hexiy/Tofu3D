@@ -20,6 +20,7 @@ public class Window : GameWindow
 		this.UpdateFrequency = 500;
 		this.RenderFrequency = 0;
 		Title = WindowTitleText;
+		GLFW.WindowHint(WindowHintBool.Decorated, false);
 	}
 
 	public string WindowTitleText
@@ -31,16 +32,19 @@ public class Window : GameWindow
 	protected override unsafe void OnLoad()
 	{
 		GLFW.GetMonitorWorkarea((Monitor*) this.CurrentMonitor.Pointer, out int x, out int y, out int width, out int height);
-
+		
+		Size = new Vector2i(width, height);
+		Location = Vector2i.Zero;
 		ImGuiController = new ImGuiController(width, height);
 
-		// Tofu.I.Editor.Init();
-		// SceneManager.CurrentScene.Start();
-		WindowState = WindowState.Fullscreen;
+
+		// WindowState = WindowState.Fullscreen;
+		// WindowState = WindowState.Maximized;
+
 		this.Focus();
 
-		_loaded = true;
 		base.OnLoad();
+		_loaded = true;
 	}
 
 	protected override void OnUnload()

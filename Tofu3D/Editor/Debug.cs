@@ -29,7 +29,7 @@ public static class Debug
 			return;
 		}
 
-		string stackTrace =DebugStackTracer.GetStackTrace();
+		StackTrace stackTrace =StackTraceFactory.GetStackTrace();
 		LogEntry logEntry = new LogEntry() {Message = message, StackTrace = stackTrace, Time = $"[{DateTime.Now:HH:mm:ss}:{DateTime.Now.Millisecond:000}]"};
 		_logs.Add(logEntry);
 

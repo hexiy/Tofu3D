@@ -11,7 +11,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -26,7 +26,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>GameObject</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -90,7 +90,7 @@
       <OrthographicSize>10</OrthographicSize>
       <Size>
         <X>3556</X>
-        <Y>2071</Y>
+        <Y>1965</Y>
       </Size>
     </Component>
     <Component xsi:type="Transform">
@@ -185,6 +185,12 @@
         <Z>100</Z>
       </Size>
     </Component>
+    <Component xsi:type="TestMoveSin">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>9</GameObjectId>
+      <Started>true</Started>
+    </Component>
   </Components>
-  <GameObjectNextId>26</GameObjectNextId>
+  <GameObjectNextId>36</GameObjectNextId>
 </SceneFile>

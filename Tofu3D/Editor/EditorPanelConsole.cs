@@ -1,4 +1,8 @@
-﻿using ImGuiNET;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Threading;
+using ImGuiNET;
+using OpenTK.Windowing.Common;
 
 namespace Tofu3D;
 
@@ -88,11 +92,20 @@ public class EditorPanelConsole : EditorPanel
 
 		ImGui.EndChildFrame();
 
+		if (_selectedMessageIndex >= Debug.GetLogsRef().Count)
+		{
+			_selectedMessageIndex = -1;
+		}
+
 		if (_selectedMessageIndex != -1)
 		{
 			ImGui.SetCursorPosY(ImGui.GetContentRegionMax().Y * 0.72f);
 			ImGui.Separator();
-			ImGui.PushStyleColor(ImGuiCol.FrameBg, Color.Beige.ToVector4());
+			Vector4 cBeige = new(1f, 0.96f, 0.90f, 1.00f);
+
+			Vector4 cBeigeMid = new(0.97f, 0.94f, 0.88f, 1f); // greenish
+			ImGui.PushStyleColor(ImGuiCol.FrameBg, cBeigeMid);
+			ImGui.PushStyleColor(ImGuiCol.HeaderHovered, cBeige);
 			// ImGui.BeginChildFrame(1, ImGui.GetContentRegionMax());
 			ImGui.BeginChildFrame(1, ImGui.GetContentRegionAvail());
 			LogEntry log = Debug.GetLogsRef()[_selectedMessageIndex];
@@ -100,10 +113,24 @@ public class EditorPanelConsole : EditorPanel
 			ImGui.SameLine();
 			ImGui.TextWrapped(log.Message);
 			// ImGui.Separator();
-			ImGui.TextWrapped(log.StackTrace);
+			for (int i = 0; i < log.StackTrace.Frames.Length; i++)
+			{
+				ImGui.Selectable(log.StackTrace.Frames[i].Text);
+				// ImGui.TextWrapped(log.StackTrace.Frames[i].Text);
+				bool clicked = ImGui.IsItemClicked();
+				ImGui.SameLine();
+				ImGui.TextColored(Color.ForestGreen.ToVector4(), $"   /{log.StackTrace.Frames[i].FileShort}({log.StackTrace.Frames[i].Line}.{log.StackTrace.Frames[i].Column})");
+				clicked = clicked || ImGui.IsItemClicked();
+				if (clicked)
+				{
+					RiderIDE.OpenStackTrace(log.StackTrace.Frames[i]);
+				}
+			}
+			// ImGui.TextWrapped(log.StackTrace);
 
 			ImGui.EndChildFrame();
 
+			ImGui.PopStyleColor();
 			ImGui.PopStyleColor();
 		}
 
