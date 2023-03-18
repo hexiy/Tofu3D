@@ -274,7 +274,7 @@ public class TransformHandle : Component
 		_selectedTransforms = new List<Transform>();
 		for (int i = 0; i < selection.Count; i++)
 		{
-			GameObject go = Tofu.I.Scene.GetGameObject(selection[i]);
+			GameObject go = SceneManager.CurrentScene.GetGameObject(selection[i]);
 			if (go != null)
 			{
 				_selectedTransforms.Add(go.Transform);

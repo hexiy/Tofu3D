@@ -53,7 +53,7 @@ public class EditorPanelInspector : EditorPanel
 		}
 		else
 		{
-			_selectedGameObject = Tofu.I.Scene.GetGameObject(ids[0]);
+			_selectedGameObject = SceneManager.CurrentScene.GetGameObject(ids[0]);
 			UpdateCurrentComponentsCache();
 			_selectedMaterial = null;
 		}
@@ -434,7 +434,7 @@ public class EditorPanelInspector : EditorPanel
 									ImGuiPayloadPtr x = ImGui.GetDragDropPayload();
 									if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 									{
-										GameObject foundGo = Tofu.I.Scene.GetGameObject(int.Parse(payload));
+										GameObject foundGo = SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
 										listOfGameObjects[j] = foundGo;
 										info.SetValue(componentInspectorData.Component, listOfGameObjects);
 									}
@@ -557,7 +557,7 @@ public class EditorPanelInspector : EditorPanel
 								//	string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 								if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 								{
-									GameObject foundGo = Tofu.I.Scene.GetGameObject(int.Parse(payload));
+									GameObject foundGo = SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
 									info.SetValue(componentInspectorData.Component, foundGo);
 								}
 							}

@@ -23,11 +23,11 @@ public class StressTestGameObjectSpawner : Component
 		};
 		Despawn += () =>
 		{
-			for (int j = 0; j < Tofu.I.Scene.GameObjects.Count; j++)
+			for (int j = 0; j < SceneManager.CurrentScene.GameObjects.Count; j++)
 			{
 				if (j > 10)
 				{
-					Tofu.I.Scene.GameObjects[j].Destroy();
+					SceneManager.CurrentScene.GameObjects[j].Destroy();
 				}
 			}
 		};

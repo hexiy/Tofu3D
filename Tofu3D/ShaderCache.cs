@@ -41,7 +41,7 @@ public static class ShaderCache
 	private static void ReloadShader(string shaderPath)
 	{
 		// find all Renderer components, and check if the material has the changed shader and reload it
-		List<Renderer> renderersInScene = Tofu.I.Scene.FindComponentsInScene<Renderer>();
+		List<Renderer> renderersInScene = SceneManager.CurrentScene.FindComponentsInScene<Renderer>();
 		foreach (Renderer renderer in renderersInScene)
 		{
 			if (renderer.Material?.Shader?.Path == shaderPath)

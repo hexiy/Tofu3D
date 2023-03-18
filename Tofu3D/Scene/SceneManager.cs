@@ -4,7 +4,7 @@ namespace Tofu3D;
 
 public static class SceneManager
 {
-	static Scene _currentScene;
+	public static Scene CurrentScene { get; private set; }
 	public static string LastOpenedScene
 	{
 		get { return PersistentData.GetString("lastOpenedScene", "Assets/Scenes/scene1.scene"); }
@@ -27,24 +27,24 @@ public static class SceneManager
 		// Tofu.I.Window.Title = Tofu.I.Window.WindowTitleText + " | " + Path.GetFileNameWithoutExtension(path);
 
 		//Add method to clean scene
-		if (_currentScene != null)
+		if (CurrentScene != null)
 		{
-			for (int i = 0; i < _currentScene.GameObjects.Count; i++)
+			for (int i = 0; i < CurrentScene.GameObjects.Count; i++)
 			{
-				_currentScene.GameObjects[0].Destroy();
-
+				CurrentScene.GameObjects[0].Destroy();
 			}
 
-			_currentScene.GameObjects.Clear();
+			CurrentScene.GameObjects.Clear();
 
-			_currentScene.GameObjects = new List<GameObject>();
+			CurrentScene.GameObjects = new List<GameObject>();
 		}
 
-		_currentScene?.DisposeScene();
+		CurrentScene?.DisposeScene();
 
-		_currentScene = new Scene();
-		Tofu.I.Scene = _currentScene;
-		_currentScene.Initialize();
+		CurrentScene = new Scene();
+		CurrentScene.ScenePath = path;
+
+		CurrentScene.Initialize();
 
 		SceneFile sceneFile = AssetSerializer.LoadGameObjects(path);
 
@@ -59,7 +59,7 @@ public static class SceneManager
 				sceneFile.GameObjects[i].Components[j].GameObjectId = sceneFile.GameObjects[i].Id;
 			}
 
-			_currentScene.AddGameObjectToScene(sceneFile.GameObjects[i]);
+			CurrentScene.AddGameObjectToScene(sceneFile.GameObjects[i]);
 		}
 
 		Debug.StartTimer("Awake");
@@ -78,10 +78,8 @@ public static class SceneManager
 		}
 
 
-		_currentScene.CreateDefaultObjects();
+		CurrentScene.CreateDefaultObjects();
 
-		_currentScene.ScenePath = path;
-		Tofu.I.Scene = _currentScene;
 
 		//
 		// int lastSelectedGameObjectId = PersistentData.GetInt("lastSelectedGameObjectId", 0);
@@ -105,6 +103,6 @@ public static class SceneManager
 		}
 
 		LastOpenedScene = path;
-		AssetSerializer.SaveGameObjects(_currentScene.GetSceneFile(), path);
+		AssetSerializer.SaveGameObjects(CurrentScene.GetSceneFile(), path);
 	}
 }

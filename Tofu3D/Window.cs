@@ -35,7 +35,7 @@ public class Window : GameWindow
 		ImGuiController = new ImGuiController(width, height);
 
 		// Tofu.I.Editor.Init();
-		// Tofu.I.Scene.Start();
+		// SceneManager.CurrentScene.Start();
 		WindowState = WindowState.Fullscreen;
 		this.Focus();
 

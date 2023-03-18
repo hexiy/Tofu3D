@@ -48,7 +48,7 @@ public class EditorPanelBrowser : EditorPanel
 	{
 		BrowserContextItem createSceneContextItem = new("Create Scene", "scene", ".scene", filePath =>
 		{
-			Tofu.I.Scene.CreateEmptySceneAndOpenIt(filePath);
+			SceneManager.CurrentScene.CreateEmptySceneAndOpenIt(filePath);
 			RefreshAssets();
 		});
 		BrowserContextItem createMaterialContextItem = new("Create Material", "mat", ".mat", filePath =>

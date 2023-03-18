@@ -6,7 +6,7 @@ namespace Tofu3D;
 
 public static class Debug
 {
-	static List<string> _logs = new();
+	static List<LogEntry> _logs = new();
 
 	public static readonly int LogLimit = 1000;
 
@@ -29,8 +29,9 @@ public static class Debug
 			return;
 		}
 
-
-		_logs.Add($"[{DateTime.Now:HH:mm:ss}:{DateTime.Now.Millisecond:000}]" + message);
+		string stackTrace =DebugStackTracer.GetStackTrace();
+		LogEntry logEntry = new LogEntry() {Message = message, StackTrace = stackTrace, Time = $"[{DateTime.Now:HH:mm:ss}:{DateTime.Now.Millisecond:000}]"};
+		_logs.Add(logEntry);
 
 		//Tofu.I.Window.Title = logs.Last();
 
@@ -239,7 +240,7 @@ public static class Debug
 		_logs.Clear();
 	}
 
-	public static ref List<string> GetLogsRef()
+	public static ref List<LogEntry> GetLogsRef()
 	{
 		return ref _logs;
 	}

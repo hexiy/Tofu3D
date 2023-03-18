@@ -89,7 +89,7 @@ public static class AssetSerializer
 
 				if (inBackground == false)
 				{
-					Tofu.I.Scene.AddGameObjectToScene(go);
+					SceneManager.CurrentScene.AddGameObjectToScene(go);
 					go.Awake();
 				}
 			}

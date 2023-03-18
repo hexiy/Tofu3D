@@ -26,7 +26,7 @@ public class EditorPanelProfiler : EditorPanel
 
 		SetWindow(); 
 
-		ImGui.Text($"GameObjects in scene: {Tofu.I.Scene.GameObjects.Count}");
+		ImGui.Text($"GameObjects in scene: {SceneManager.CurrentScene.GameObjects.Count}");
 
 		foreach (KeyValuePair<string, string> stat in Debug.Stats)
 		{

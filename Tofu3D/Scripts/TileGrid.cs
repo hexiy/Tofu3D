@@ -73,10 +73,10 @@ public class TileGrid : Component
 	{
 		if (KeyboardInput.IsKeyDown(Keys.Space))
 		{
-			for (var i = Tofu.I.Scene.gameObjects.Count - 1; i > 0; i--)
-				if (Tofu.I.Scene.gameObjects[i].name.ToLower().Contains("tile") && Tofu.I.Scene.gameObjects[i].GetComponent<TileGrid>() == null)
+			for (var i = SceneManager.CurrentScene.gameObjects.Count - 1; i > 0; i--)
+				if (SceneManager.CurrentScene.gameObjects[i].name.ToLower().Contains("tile") && SceneManager.CurrentScene.gameObjects[i].GetComponent<TileGrid>() == null)
 				{
-					Tofu.I.Scene.gameObjects[i].Destroy();
+					SceneManager.CurrentScene.gameObjects[i].Destroy();
 				}
 
 			tiles.Clear();
@@ -95,7 +95,7 @@ public class TileGrid : Component
 		}
 
 		playerSmoothPosition = Vector2.Lerp(playerSmoothPosition, Player.I.transform.position, Time.deltaTime * 7);
-		var lights = Tofu.I.Scene.FindComponentsInScene<LightSource>();
+		var lights = SceneManager.CurrentScene.FindComponentsInScene<LightSource>();
 		for (var i = 0; i < tiles.Count; i++)
 		{
 			//float distanceFromPlayer = Vector2.Distance(playerSmoothPosition.TranslateToGrid(2.4f), tiles[i].transform.position) + MathF.Sin(Time.elapsedTime * 1f) * 1;

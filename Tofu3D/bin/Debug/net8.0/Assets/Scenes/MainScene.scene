@@ -11,7 +11,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -26,7 +26,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>GameObject</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -77,11 +77,11 @@
       <GameObjectId>0</GameObjectId>
       <Started>true</Started>
       <Color>
-        <B>84</B>
+        <B>0</B>
         <G>84</G>
         <R>155</R>
         <A>255</A>
-        <PackedValue>4283716763</PackedValue>
+        <PackedValue>4278211739</PackedValue>
       </Color>
       <NearPlaneDistance>1</NearPlaneDistance>
       <FarPlaneDistance>9000000</FarPlaneDistance>
@@ -186,5 +186,5 @@
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>24</GameObjectNextId>
+  <GameObjectNextId>26</GameObjectNextId>
 </SceneFile>
