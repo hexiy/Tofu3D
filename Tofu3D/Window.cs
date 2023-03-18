@@ -1,5 +1,4 @@
-﻿using Engine;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -35,8 +34,8 @@ public class Window : GameWindow
 
 		ImGuiController = new ImGuiController(width, height);
 
-		// Editor.I.Init();
-		// Scene.I.Start();
+		// Tofu.I.Editor.Init();
+		// Tofu.I.Scene.Start();
 		WindowState = WindowState.Fullscreen;
 		this.Focus();
 
@@ -64,10 +63,6 @@ public class Window : GameWindow
 	protected override void OnUpdateFrame(FrameEventArgs e)
 	{
 		if (_loaded == false) return;
-
-		Scene.I.Update();
-
-		Editor.I.Update();
 
 		base.OnUpdateFrame(e);
 	}
@@ -100,7 +95,7 @@ public class Window : GameWindow
 
 			ImGuiController.WindowResized(ClientSize.X, ClientSize.Y);
 
-			Editor.I.Draw();
+			Tofu.I.Editor.Draw();
 
 			ImGuiController.Render();
 		}

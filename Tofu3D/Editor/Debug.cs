@@ -32,7 +32,7 @@ public static class Debug
 
 		_logs.Add($"[{DateTime.Now:HH:mm:ss}:{DateTime.Now.Millisecond:000}]" + message);
 
-		//Window.I.Title = logs.Last();
+		//Tofu.I.Window.Title = logs.Last();
 
 		if (_logs.Count > LogLimit + 1)
 		{

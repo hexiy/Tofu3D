@@ -36,11 +36,6 @@ public class Renderer : Component, IComparable<Renderer>
 	//
 	// 	return comparePart.distanceFromCamera.CompareTo(distanceFromCamera);
 	// }
-	public override void OnDestroyed()
-	{
-		Scene.I.RenderQueueChanged();
-		base.OnDestroyed();
-	}
 
 	public override void Awake()
 	{

@@ -7,16 +7,18 @@ public class SceneLightingManager
 	DirectionalLight _directionalLight;
 	readonly Scene _scene;
 
+	public static SceneLightingManager I { get; private set; }
+
 	public SceneLightingManager(Scene scene)
 	{
+		I = this;
 		_scene = scene;
-		
 	}
 
 	public void Update()
 	{
 		_lights = GetAllLightsInScene();
-		_directionalLight = Scene.I.FindComponent<DirectionalLight>(ignoreInactive: true);
+		_directionalLight = _scene.FindComponent<DirectionalLight>(ignoreInactive: true);
 
 
 		// Debug.Log($"Light direction:{GetDirectionalLightDirection()}");
@@ -24,7 +26,7 @@ public class SceneLightingManager
 
 	private List<LightBase> GetAllLightsInScene()
 	{
-		return Scene.I.FindComponentsInScene<LightBase>(ignoreInactive: true);
+		return _scene.FindComponentsInScene<LightBase>(ignoreInactive: true);
 	}
 
 	public float[] GetPointLightsPositions()

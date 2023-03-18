@@ -9,7 +9,7 @@ namespace Tofu3D;
 public class EditorPanelInspector : EditorPanel
 {
 	public override Vector2 Size => new Vector2(700, Editor.SceneViewSize.Y);
-	public override Vector2 Position => new Vector2(Window.I.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
+	public override Vector2 Position => new Vector2(Tofu.I.Window.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
 	public override Vector2 Pivot => new Vector2(1, 0);
 
 	public override string Name => "Inspector";
@@ -28,7 +28,8 @@ public class EditorPanelInspector : EditorPanel
 		I = this;
 
 		_componentTypes = typeof(Component).Assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
-		Scene.AnyComponentAddedToScene += OnComponentAddedToScene;
+		Scene.ComponentAdded += OnComponentAddedToScene;
+		GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
 	}
 
 	void OnComponentAddedToScene(Component comp)
@@ -44,7 +45,7 @@ public class EditorPanelInspector : EditorPanel
 	{
 	}
 
-	public void OnGameObjectsSelected(List<int> ids)
+	private void OnGameObjectsSelected(List<int> ids)
 	{
 		if (ids.Count != 1)
 		{
@@ -52,7 +53,7 @@ public class EditorPanelInspector : EditorPanel
 		}
 		else
 		{
-			_selectedGameObject = Scene.I.GetGameObject(ids[0]);
+			_selectedGameObject = Tofu.I.Scene.GetGameObject(ids[0]);
 			UpdateCurrentComponentsCache();
 			_selectedMaterial = null;
 		}
@@ -90,7 +91,7 @@ public class EditorPanelInspector : EditorPanel
 		WindowWidth = 800;
 		_contentMaxWidth = WindowWidth - (int) ImGui.GetStyle().WindowPadding.X * 1;
 		ImGui.SetNextItemWidth(WindowWidth);
-		ImGui.SetNextWindowPos(new Vector2(Window.I.ClientSize.X, 0), ImGuiCond.FirstUseEver, new Vector2(1, 0));
+		ImGui.SetNextWindowPos(new Vector2(Tofu.I.Window.ClientSize.X, 0), ImGuiCond.FirstUseEver, new Vector2(1, 0));
 		//ImGui.SetNextWindowBgAlpha (0);
 		ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar);
 
@@ -248,7 +249,7 @@ public class EditorPanelInspector : EditorPanel
 		{
 			if (ImGui.Button("Update prefab"))
 			{
-				SceneSerializer.I.SaveGameObject(_selectedGameObject, _selectedGameObject.PrefabPath);
+				AssetSerializer.SaveGameObject(_selectedGameObject, _selectedGameObject.PrefabPath);
 			}
 
 			if (ImGui.Button("Delete prefab"))
@@ -433,7 +434,7 @@ public class EditorPanelInspector : EditorPanel
 									ImGuiPayloadPtr x = ImGui.GetDragDropPayload();
 									if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 									{
-										GameObject foundGo = Scene.I.GetGameObject(int.Parse(payload));
+										GameObject foundGo = Tofu.I.Scene.GetGameObject(int.Parse(payload));
 										listOfGameObjects[j] = foundGo;
 										info.SetValue(componentInspectorData.Component, listOfGameObjects);
 									}
@@ -537,7 +538,7 @@ public class EditorPanelInspector : EditorPanel
 							{
 								if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 								{
-									GameObject loadedGo = SceneSerializer.I.LoadPrefab(payload, true);
+									GameObject loadedGo = AssetSerializer.LoadPrefab(payload, true);
 									info.SetValue(componentInspectorData.Component, loadedGo);
 								}
 							}
@@ -556,7 +557,7 @@ public class EditorPanelInspector : EditorPanel
 								//	string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 								if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 								{
-									GameObject foundGo = Scene.I.GetGameObject(int.Parse(payload));
+									GameObject foundGo = Tofu.I.Scene.GetGameObject(int.Parse(payload));
 									info.SetValue(componentInspectorData.Component, foundGo);
 								}
 							}

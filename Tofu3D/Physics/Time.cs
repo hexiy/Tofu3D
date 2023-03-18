@@ -26,9 +26,9 @@ public static class Time
 
 	public static void Update()
 	{
-		// _deltaTimeTotal = (float) Window.I.RenderTime + (float) Window.I.UpdateTime; //_stopwatch.ElapsedMilliseconds / 1000f;
+		// _deltaTimeTotal = (float) Tofu.I.Window.RenderTime + (float) Tofu.I.Window.UpdateTime; //_stopwatch.ElapsedMilliseconds / 1000f;
 		// _stopwatch.Restart();
-		// _deltaTimeTotal = (float) (Window.I.RenderTime + Window.I.UpdateTime);
+		// _deltaTimeTotal = (float) (Tofu.I.Window.RenderTime + Tofu.I.Window.UpdateTime);
 
 		int fps = (int) (1f / EditorDeltaTime);
 		if (fps > MaxFps && Time.EditorElapsedTime > 2)
@@ -68,7 +68,7 @@ public static class Time
 			Debug.StatSetValue("DeltaTime(ms)", $"DeltaTime(ms) {(EditorDeltaTime * 1000).ToString("F2")}");
 		}
 
-		// Window.I.Title = $"DeltaTime(ms){(EditorDeltaTime * 1000).ToString("F2")}";
+		// Tofu.I.Window.Title = $"DeltaTime(ms){(EditorDeltaTime * 1000).ToString("F2")}";
 
 
 		EditorElapsedTime += EditorDeltaTime;

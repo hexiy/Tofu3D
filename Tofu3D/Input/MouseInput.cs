@@ -108,7 +108,7 @@ public static class MouseInput
 				return 0;
 			}
 
-			return Window.I.MouseState.ScrollDelta.Y;
+			return Tofu.I.Window.MouseState.ScrollDelta.Y;
 		}
 	}
 
@@ -119,7 +119,7 @@ public static class MouseInput
 		// 	return false;
 		// }
 
-		return Window.I.MouseState.IsButtonDown((MouseButton) button);
+		return Tofu.I.Window.MouseState.IsButtonDown((MouseButton) button);
 	}
 
 	public static bool IsButtonUp(Buttons button = Buttons.Left)
@@ -129,7 +129,7 @@ public static class MouseInput
 			return false;
 		}
 
-		return Window.I.MouseState.IsButtonDown((MouseButton) button) == false;
+		return Tofu.I.Window.MouseState.IsButtonDown((MouseButton) button) == false;
 	}
 
 	public static bool ButtonPressed(Buttons button = Buttons.Left)
@@ -139,7 +139,7 @@ public static class MouseInput
 		// 	return false;
 		// }
 
-		return Window.I.MouseState.WasButtonDown((MouseButton) button) == false && Window.I.MouseState.IsButtonDown((MouseButton) button);
+		return Tofu.I.Window.MouseState.WasButtonDown((MouseButton) button) == false && Tofu.I.Window.MouseState.IsButtonDown((MouseButton) button);
 	}
 
 	public static bool ButtonReleased(Buttons button = Buttons.Left)
@@ -149,12 +149,12 @@ public static class MouseInput
 			return false;
 		}
 
-		return Window.I.MouseState.WasButtonDown((MouseButton) button) && Window.I.MouseState.IsButtonDown((MouseButton) button) == false;
+		return Tofu.I.Window.MouseState.WasButtonDown((MouseButton) button) && Tofu.I.Window.MouseState.IsButtonDown((MouseButton) button) == false;
 	}
 
 	public static void Update()
 	{
-		MouseState state = Window.I.MouseState;
+		MouseState state = Tofu.I.Window.MouseState;
 
 		ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale;
 		// if (Camera.I.IsOrthographic == false)
@@ -162,8 +162,8 @@ public static class MouseInput
 		// 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
 		// }
 
-		ScreenPosition = new Vector2(Window.I.MouseState.X * Global.EditorScale - Editor.SceneViewPosition.X,
-		                             -Window.I.MouseState.Y * Global.EditorScale + Camera.I.Size.Y + Editor.SceneViewPosition.Y);
+		ScreenPosition = new Vector2(Tofu.I.Window.MouseState.X * Global.EditorScale - Editor.SceneViewPosition.X,
+		                             -Tofu.I.Window.MouseState.Y * Global.EditorScale + Camera.I.Size.Y + Editor.SceneViewPosition.Y);
 
 		//Debug.Log($"ScreenPos: [{(int)ScreenPosition.X}:{(int)ScreenPosition.Y}]");
 		//Debug.Log($"WorldPos: [{(int)WorldPosition.X}:{(int)WorldPosition.Y}]");

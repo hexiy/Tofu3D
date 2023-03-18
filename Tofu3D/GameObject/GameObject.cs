@@ -40,9 +40,9 @@ public class GameObject : IEqualityComparer<GameObject>
 			{
 				get
 				{
-					int index = Scene.I.GetGameObjectIndexInHierarchy(parentID);
+					int index = Tofu.I.Scene.GetGameObjectIndexInHierarchy(parentID);
 					if (index != -1)
-					{ return Scene.I.gameObjects[index]; }
+					{ return Tofu.I.Scene.gameObjects[index]; }
 					else
 					{
 						return null;
@@ -50,12 +50,12 @@ public class GameObject : IEqualityComparer<GameObject>
 				}
 				set
 				{
-					int index = Scene.I.GetGameObjectIndexInHierarchy(parentID);
+					int index = Tofu.I.Scene.GetGameObjectIndexInHierarchy(parentID);
 
 					parentID = (int)value.id;
 					if (index != -1)
 					{
-						Scene.I.gameObjects[Scene.I.GetGameObjectIndexInHierarchy(parentID)] = value;
+						Tofu.I.Scene.gameObjects[Tofu.I.Scene.GetGameObjectIndexInHierarchy(parentID)] = value;
 					}
 				}
 			}
@@ -71,7 +71,7 @@ public class GameObject : IEqualityComparer<GameObject>
 		// OnComponentAdded += LinkComponents;
 		OnComponentAdded += InvokeOnComponentAddedOnComponents;
 		OnComponentAdded += CheckForTransformComponent;
-		OnComponentAdded += Scene.I.OnComponentAdded;
+		OnComponentAdded += Tofu.I.Scene.OnComponentAdded;
 	}
 
 	public bool ActiveInHierarchy
@@ -106,7 +106,7 @@ public class GameObject : IEqualityComparer<GameObject>
 			Transform = AddComponent<Transform>();
 		}
 
-		Scene.I.AddGameObjectToScene(this);
+		Tofu.I.Scene.AddGameObjectToScene(this);
 	}
 
 	public static GameObject Create(Vector3? position = null, Vector3? scale = null, string name = "", bool linkComponents = true, bool silent = false)
@@ -175,12 +175,12 @@ public class GameObject : IEqualityComparer<GameObject>
 
 					if (goFieldValue.IsPrefab)
 					{
-						GameObject loadedGo = SceneSerializer.I.LoadPrefab(goFieldValue.PrefabPath, true);
+						GameObject loadedGo = AssetSerializer.LoadPrefab(goFieldValue.PrefabPath, true);
 						infos[i].SetValue(component, loadedGo);
 					}
 					else
 					{
-						GameObject foundGameObject = Scene.I.GetGameObject(goFieldValue.Id);
+						GameObject foundGameObject = Tofu.I.Scene.GetGameObject(goFieldValue.Id);
 						infos[i].SetValue(component, foundGameObject);
 					}
 				}
@@ -203,7 +203,7 @@ public class GameObject : IEqualityComparer<GameObject>
 							continue;
 						}
 
-						gosFieldValue[goIndex] = Scene.I.GetGameObject(gosFieldValue[goIndex].Id);
+						gosFieldValue[goIndex] = Tofu.I.Scene.GetGameObject(gosFieldValue[goIndex].Id);
 						//	gosFieldValue[i].Components();
 					}
 
@@ -409,7 +409,7 @@ public class GameObject : IEqualityComparer<GameObject>
 			Transform.Parent.RemoveChild(Id);
 		}
 
-		Scene.I.OnGameObjectDestroyed(this);
+		Tofu.I.Scene.OnGameObjectDestroyed(this);
 	}
 
 	public void Destroy(float? delay = null)

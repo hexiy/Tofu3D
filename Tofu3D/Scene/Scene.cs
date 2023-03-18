@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Engine;
 using Tofu3D.Physics;
 using Tofu3D.Rendering;
 using Tofu3D.Tweening;
@@ -11,9 +10,9 @@ public class Scene
 {
 	SceneLightingManager _sceneLightingManager;
 	SceneRenderQueue _sceneRenderQueue;
+	public TransformHandle TransformHandle;
 
 	public List<GameObject> GameObjects = new();
-
 	public string ScenePath = "";
 
 	Camera Camera
@@ -21,7 +20,15 @@ public class Scene
 		get { return Camera.I; }
 	}
 
-	void CreateDefaultObjects()
+	public void Initialize()
+	{
+		_sceneLightingManager = new SceneLightingManager(this);
+		_sceneRenderQueue = new SceneRenderQueue(this);
+
+		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderScene);
+	}
+
+	public void CreateDefaultObjects()
 	{
 		CreateCamera();
 		CreateTransformHandle();
@@ -53,7 +60,7 @@ public class Scene
 	void CreateTransformHandle()
 	{
 		GameObject transformHandleGameObject = GameObject.Create(silent: true);
-		Editor.I.TransformHandle = transformHandleGameObject.AddComponent<TransformHandle>();
+		TransformHandle = transformHandleGameObject.AddComponent<TransformHandle>();
 		transformHandleGameObject.DynamicallyCreated = true;
 		transformHandleGameObject.AlwaysUpdate = true;
 		transformHandleGameObject.Name = "Transform Handle";
@@ -62,31 +69,13 @@ public class Scene
 		transformHandleGameObject.Start();
 	}
 
-	public void Initialize()
-	{
-		// PhysicsController.Init();
-		_sceneLightingManager = new SceneLightingManager(this);
-		_sceneRenderQueue = new SceneRenderQueue(this);
-
-		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderScene);
-
-		if (SceneSerializer.LastScene != "" && File.Exists(SceneSerializer.LastScene))
-		{
-			LoadScene(SceneSerializer.LastScene);
-		}
-		else
-		{
-			CreateDefaultObjects();
-		}
-	}
-
 	public void Update()
 	{
 		Debug.StartGraphTimer("Scene Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
 
 		_sceneLightingManager.Update();
 		_sceneRenderQueue.Update();
-		
+
 		Camera.I.GameObject.Update();
 		TransformHandle.I.GameObject.Update();
 
@@ -119,12 +108,13 @@ public class Scene
 		Debug.EndGraphTimer("Scene Update");
 	}
 
-	public static Action<Component> AnyComponentAddedToScene;
+	public static Action<Component> ComponentAdded = component => { };
+	public static Action SceneModified = () => { };
 
 	public void OnComponentAdded(GameObject gameObject, Component component)
 	{
-		
-		AnyComponentAddedToScene?.Invoke(component);
+		ComponentAdded.Invoke(component);
+		SceneModified.Invoke();
 	}
 
 	public void RenderScene()
@@ -141,12 +131,13 @@ public class Scene
 		GL.Viewport(0, 0, (int) Camera.I.Size.X, (int) Camera.I.Size.Y);
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 		//BatchingManager.RenderAllBatchers();
-		for (int i = 0; i < _renderQueue.Count; i++)
+
+		for (int i = 0; i < _sceneRenderQueue.RenderQueue.Count; i++)
 		{
-			if (_renderQueue[i].Enabled && _renderQueue[i].GameObject.Awoken && _renderQueue[i].GameObject.ActiveInHierarchy)
+			if (_sceneRenderQueue.RenderQueue[i].Enabled && _sceneRenderQueue.RenderQueue[i].GameObject.Awoken && _sceneRenderQueue.RenderQueue[i].GameObject.ActiveInHierarchy)
 			{
-				_renderQueue[i].UpdateMvp();
-				_renderQueue[i].Render();
+				_sceneRenderQueue.RenderQueue[i].UpdateMvp();
+				_sceneRenderQueue.RenderQueue[i].Render();
 			}
 		}
 
@@ -254,99 +245,16 @@ public class Scene
 	{
 		GameObjects.Add(gameObject);
 
-		RenderQueueChanged();
-	}
-
-	public bool LoadScene(string path = null)
-	{
-		Debug.ClearLogs();
-
-		Debug.StartTimer("LoadScene");
-
-
-		SceneSerializer.LastScene = path;
-		Window.I.Title = Window.I.WindowTitleText + " | " + Path.GetFileNameWithoutExtension(path);
-
-		//Add method to clean scene
-		while (GameObjects.Count > 0)
-		{
-			GameObjects[0].Destroy();
-		}
-
-		GameObjects.Clear();
-
-		//Physics.rigidbodies.Clear();
-
-		GameObjects = new List<GameObject>();
-		SceneFile sceneFile = SceneSerializer.I.LoadGameObjects(path);
-
-		Debug.StartTimer("ConnectGameObjectsWIthComponents");
-		SceneSerializer.I.ConnectGameObjectsWithComponents(sceneFile);
-		IDsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
-		Debug.EndAndLogTimer("ConnectGameObjectsWIthComponents");
-
-		SceneSerializer.I.ConnectParentsAndChildren(sceneFile);
-		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
-		{
-			for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
-			{
-				sceneFile.GameObjects[i].Components[j].GameObjectId = sceneFile.GameObjects[i].Id;
-			}
-
-			I.AddGameObjectToScene(sceneFile.GameObjects[i]);
-		}
-
-		Debug.StartTimer("Awake");
-		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
-		{
-			//sceneFile.GameObjects[i].LinkGameObjectFieldsInComponents();
-			sceneFile.GameObjects[i].Awake();
-		}
-
-		Debug.EndAndLogTimer("Awake");
-
-
-		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
-		{
-			sceneFile.GameObjects[i].Start();
-		}
-
-
-		CreateDefaultObjects();
-
-		ScenePath = path;
-
-		int lastSelectedGameObjectId = PersistentData.GetInt("lastSelectedGameObjectId", 0);
-		if (Global.EditorAttached)
-		{
-			EditorPanelHierarchy.I.SelectGameObject(lastSelectedGameObjectId);
-		}
-
-
-		Debug.EndAndLogTimer("LoadScene");
-
-		return true;
-	}
-
-	public void SaveScene(string path = null)
-	{
-		path = path ?? SceneSerializer.LastScene;
-		if (path.Length < 1)
-		{
-			path = Path.Combine("Assets", "scene1.scene");
-		}
-
-		SceneSerializer.LastScene = path;
-		SceneSerializer.I.SaveGameObjects(GetSceneFile(), path);
+		_sceneRenderQueue.RenderQueueChanged();
 	}
 
 	public void CreateEmptySceneAndOpenIt(string path)
 	{
 		IDsManager.GameObjectNextId = 0;
-		SceneSerializer.LastScene = path;
+		SceneManager.LastOpenedScene = path;
 		GameObjects = new List<GameObject>();
 		CreateDefaultObjects();
-		SceneSerializer.I.SaveGameObjects(GetSceneFile(), path);
+		AssetSerializer.SaveGameObjects(GetSceneFile(), path);
 	}
 
 	public void OnGameObjectDestroyed(GameObject gameObject)
@@ -356,7 +264,7 @@ public class Scene
 			GameObjects.Remove(gameObject);
 		}
 
-		RenderQueueChanged();
+		SceneModified.Invoke();
 	}
 
 	void OnMouse3Clicked()

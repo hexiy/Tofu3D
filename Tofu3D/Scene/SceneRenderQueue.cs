@@ -9,7 +9,8 @@ public class SceneRenderQueue
 	public SceneRenderQueue(Scene scene)
 	{
 		_scene = scene;
-		Scene.AnyComponentAddedToScene += component => RenderQueueChanged();
+		Scene.ComponentAdded += component => RenderQueueChanged();
+		Scene.SceneModified += RenderQueueChanged;
 	}
 
 	public void Update()

@@ -1,5 +1,3 @@
-using Engine;
-
 namespace Tofu3D.Rendering;
 
 public static class RenderPassSystem

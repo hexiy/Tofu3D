@@ -8,8 +8,8 @@ namespace Tofu3D;
 
 public class EditorPanelBrowser : EditorPanel
 {
-	public override Vector2 Size => new Vector2(Window.I.ClientSize.X - 1600, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1);
-	public override Vector2 Position => new Vector2(0, Window.I.ClientSize.Y);
+	public override Vector2 Size => new Vector2(Tofu.I.Window.ClientSize.X - 1600, Tofu.I.Window.ClientSize.Y - Editor.SceneViewSize.Y + 1);
+	public override Vector2 Position => new Vector2(0, Tofu.I.Window.ClientSize.Y);
 	public override Vector2 Pivot => new Vector2(0, 1);
 
 	public override string Name => "Browser";
@@ -48,7 +48,7 @@ public class EditorPanelBrowser : EditorPanel
 	{
 		BrowserContextItem createSceneContextItem = new("Create Scene", "scene", ".scene", filePath =>
 		{
-			Scene.I.CreateEmptySceneAndOpenIt(filePath);
+			Tofu.I.Scene.CreateEmptySceneAndOpenIt(filePath);
 			RefreshAssets();
 		});
 		BrowserContextItem createMaterialContextItem = new("Create Material", "mat", ".mat", filePath =>
@@ -140,16 +140,18 @@ public class EditorPanelBrowser : EditorPanel
 			              });
 		}
 
-		ImGui.SameLine();
 
-		ResetId();
-		if (Editor.I.GetSelectedGameObject() != null)
+		if (GameObjectSelectionManager.GetSelectedGameObject() != null)
 		{
+			ImGui.SameLine();
+
+			// ResetId();
+			
 			PushNextId();
 			bool saveBtnPressed = ImGui.Button("Save Prefab");
 			if (saveBtnPressed)
 			{
-				SceneSerializer.I.SaveGameObject(Editor.I.GetSelectedGameObject(), Path.Combine("Assets", CurrentDirectory.Name, Editor.I.GetSelectedGameObject().Name + ".prefab"));
+				AssetSerializer.SaveGameObject(GameObjectSelectionManager.GetSelectedGameObject(), Path.Combine("Assets", CurrentDirectory.Name, GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
 			}
 		}
 
@@ -345,13 +347,13 @@ public class EditorPanelBrowser : EditorPanel
 
 				if (assetExtension == ".prefab")
 				{
-					GameObject go = SceneSerializer.I.LoadPrefab(_assets[assetIndex]);
+					GameObject go = AssetSerializer.LoadPrefab(_assets[assetIndex]);
 					EditorPanelHierarchy.I.SelectGameObject(go.Id);
 				}
 
 				if (assetExtension == ".scene")
 				{
-					Scene.I.LoadScene(_assets[assetIndex]);
+					SceneManager.LoadScene(_assets[assetIndex]);
 				}
 			}
 

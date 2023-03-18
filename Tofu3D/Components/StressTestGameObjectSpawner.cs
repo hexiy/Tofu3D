@@ -14,20 +14,20 @@ public class StressTestGameObjectSpawner : Component
 	{
 		Spawn += () =>
 		{
-			SceneSerializer.I.SaveClipboardGameObject(Go);
+			AssetSerializer.SaveClipboardGameObject(Go);
 
 			for (int i = 0; i < SpawnCount; i++)
 			{
-				SceneSerializer.I.LoadClipboardGameObject();
+				AssetSerializer.LoadClipboardGameObject();
 			}
 		};
 		Despawn += () =>
 		{
-			for (int j = 0; j < Scene.I.GameObjects.Count; j++)
+			for (int j = 0; j < Tofu.I.Scene.GameObjects.Count; j++)
 			{
 				if (j > 10)
 				{
-					Scene.I.GameObjects[j].Destroy();
+					Tofu.I.Scene.GameObjects[j].Destroy();
 				}
 			}
 		};

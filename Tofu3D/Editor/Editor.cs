@@ -11,8 +11,6 @@ public class Editor
 
 	List<RangeAccessor<System.Numerics.Vector4>> _themes = new();
 
-	public TransformHandle TransformHandle;
-
 	// Is cleared after invocation
 	public static Action BeforeDraw = () => { };
 
@@ -61,8 +59,8 @@ public class Editor
 
 		if (Global.EditorAttached)
 		{
-			EditorPanelHierarchy.I.GameObjectsSelected += OnGameObjectSelected;
-			EditorPanelHierarchy.I.GameObjectsSelected += EditorPanelInspector.I.OnGameObjectsSelected;
+			// EditorPanelHierarchy.I.GameObjectsSelected += OnGameObjectSelected;
+			// EditorPanelHierarchy.I.GameObjectsSelected += EditorPanelInspector.I.OnGameObjectsSelected;
 		}
 	}
 
@@ -74,11 +72,11 @@ public class Editor
 			_editorPanels[i].Update();
 		}
 
-		/*if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.WasKeyJustPressed(Keys.S))
+		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.WasKeyJustPressed(Keys.S))
 		{
 			if (Global.GameRunning == false)
 			{
-				Scene.I.SaveScene();
+				SceneManager.SaveScene();
 			}
 		}
 
@@ -86,9 +84,9 @@ public class Editor
 		{
 			if (Global.GameRunning == false)
 			{
-				Scene.I.LoadScene(SceneSerializer.LastScene);
+				SceneManager.LoadLastOpenedScene();
 			}
-		}*/
+		}
 	}
 
 	public void Draw()
@@ -113,104 +111,5 @@ public class Editor
 		}
 	}
 
-	public void SelectGameObjects(List<int> goIds)
-	{
-		if (goIds != null)
-		{
-			for (int i = 0; i < Scene.I.GameObjects.Count; i++)
-			{
-				if (goIds.Contains(Scene.I.GameObjects[i].Id) == false)
-				{
-					Scene.I.GameObjects[i].Selected = false;
-				}
-			}
-
-			for (int i = 0; i < goIds.Count; i++)
-			{
-				GameObject go = Scene.I.GetGameObject(goIds[i]);
-				if (go != null)
-				{
-					go.Selected = true;
-				}
-			}
-		}
-
-		bool isCameraOrTransformHandle = false;
-		if (Camera.I != null)
-		{
-			isCameraOrTransformHandle = goIds.Contains(Camera.I.GameObjectId) || goIds.Contains(TransformHandle.GameObjectId);
-		}
-
-		if (isCameraOrTransformHandle == false && goIds.Count != 0)
-		{
-			TransformHandle.SelectObjects(goIds);
-			PersistentData.Set("lastSelectedGameObjectId", goIds[0]);
-		}
-		else
-		{
-			TransformHandle.SelectObjects(null);
-		}
-	}
-
-	void OnGameObjectSelected(List<int> ids)
-	{
-		if (Global.EditorAttached == false)
-		{
-			ids = null;
-		}
-
-		if (ids == null)
-		{
-			SelectGameObjects(null);
-		}
-		else
-		{
-			// if (GetGameObjectIndexInHierarchy(ids) == -1)
-			// {
-			// 	return;
-			// }
-
-			SelectGameObjects(ids);
-		}
-	}
-
-	public int GetGameObjectIndexInHierarchy(int id)
-	{
-		for (int i = 0; i < Scene.I.GameObjects.Count; i++)
-		{
-			if (Scene.I.GameObjects[i].Id == id)
-			{
-				return i;
-			}
-		}
-
-		return -1;
-	}
-
-	public List<GameObject> GetSelectedGameObjects()
-	{
-		List<GameObject> selectedGameObjects = new();
-		for (int i = 0; i < Scene.I.GameObjects.Count; i++)
-		{
-			if (Scene.I.GameObjects[i].Selected)
-			{
-				selectedGameObjects.Add(Scene.I.GameObjects[i]);
-			}
-		}
-
-		return selectedGameObjects;
-	}
-
-	public GameObject GetSelectedGameObject()
-	{
-		for (int i = 0; i < Scene.I.GameObjects.Count; i++)
-		{
-			if (Scene.I.GameObjects[i].Selected)
-			{
-				return Scene.I.GameObjects[i];
-			}
-		}
-
-		return null;
-	}
+	
 }

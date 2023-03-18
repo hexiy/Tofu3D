@@ -57,7 +57,7 @@ public class DirectionalLight : LightBase
 
 		ConfigureForShadowMapping();
 
-		Scene.I.RenderScene();
+		Tofu.I.Scene.RenderScene();
 
 		ConfigureForSceneRender();
 	}

@@ -82,7 +82,7 @@ public class EditorPanelSceneView : EditorPanel
 			}
 
 			ImGui.SameLine();
-			_renderCameraViews = Editor.I.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
+			_renderCameraViews = GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
 			// ImGui.SetCursorPosX(0);
 			ImGui.SetCursorPos(new Vector2(0, 70));

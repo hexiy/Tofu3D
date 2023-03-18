@@ -1,6 +1,4 @@
-﻿using Engine;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 [ExecuteInEditMode]
 public class TransformHandle : Component
@@ -276,7 +274,7 @@ public class TransformHandle : Component
 		_selectedTransforms = new List<Transform>();
 		for (int i = 0; i < selection.Count; i++)
 		{
-			GameObject go = Scene.I.GetGameObject(selection[i]);
+			GameObject go = Tofu.I.Scene.GetGameObject(selection[i]);
 			if (go != null)
 			{
 				_selectedTransforms.Add(go.Transform);

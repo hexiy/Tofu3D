@@ -6,20 +6,29 @@ namespace Tofu3D;
 // Main Application Context
 public class Tofu
 {
-	SceneSerializer _sceneSerializer;
-	TweenManager _tweenManager;
-	SceneViewNavigation _sceneViewNavigation;
-	Scene _scene;
+	// AssetSerializer _assetSerializer;
+	public TweenManager TweenManager;
+	public SceneViewNavigation SceneViewNavigation;
+	public Scene Scene;
+	public Editor Editor;
+	public Window Window;
+
+	public static Tofu I { get; private set; }
+
+	public Tofu()
+	{
+		I = this;
+	}
 
 	public void Launch()
 	{
 		SystemConfig.Configure();
 		Global.LoadSavedData();
 
-		Window window = new Window();
-		window.Load += () => { OnWindowLoad(window); };
-		window.UpdateFrame += OnWindowUpdate;
-		window.Run();
+		Window = new Window();
+		Window.Load += () => { OnWindowLoad(Window); };
+		Window.UpdateFrame += OnWindowUpdate;
+		Window.Run();
 	}
 
 	void OnWindowUpdate(FrameEventArgs obj)
@@ -27,24 +36,25 @@ public class Tofu
 		Time.Update();
 		MouseInput.Update();
 		TweenManager.I.Update();
-		_sceneViewNavigation.Update();
+		SceneViewNavigation.Update();
 		ShaderCache.ReloadQueuedShaders();
 
-		_scene.Update();
+		Scene.Update();
+		Editor.Update();
 	}
 
 	void OnWindowLoad(Window window)
 	{
-		Editor editor = new Editor();
-		editor.Init();
+		Editor = new Editor();
+		Editor.Init();
 
-		_sceneSerializer = new SceneSerializer();
-		_tweenManager = new TweenManager();
-		_sceneViewNavigation = new SceneViewNavigation();
+		// _assetSerializer = new AssetSerializer();
+		TweenManager = new TweenManager();
+		SceneViewNavigation = new SceneViewNavigation();
 
-		_scene = new Scene();
-		_scene.Initialize();
 
-		window.UpdateFrame += _ => _scene.Update();
+		SceneManager.LoadLastOpenedScene();
+		Scene = new Scene();
+		Scene.Initialize();
 	}
 }

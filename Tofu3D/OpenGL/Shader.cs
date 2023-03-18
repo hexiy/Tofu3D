@@ -48,7 +48,7 @@ public class Shader : IDisposable
 		if (AssetsManager.Exists(Path) == false)
 		{
 			Debug.Log("Couldn't find shader");
-			throw new FileNotFoundException("Couldn't find shader");
+			// throw new FileNotFoundException("Couldn't find shader");
 			return;
 		}
 

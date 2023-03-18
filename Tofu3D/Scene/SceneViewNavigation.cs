@@ -1,4 +1,3 @@
-using Engine;
 using Tofu3D.Tweening;
 
 namespace Tofu3D;
@@ -55,7 +54,8 @@ public class SceneViewNavigation
 
 		if (KeyboardInput.WasKeyJustPressed(Keys.F))
 		{
-			MoveToGameObject(Editor.I.GetSelectedGameObject());
+			Debug.Log("TODO");
+			// todo MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
 		}
 
 

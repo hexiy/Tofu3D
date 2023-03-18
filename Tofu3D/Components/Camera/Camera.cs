@@ -33,10 +33,10 @@ public class Camera : Component
 		I = this;
 
 		GameObject.AlwaysUpdate = true;
-		if (Global.EditorAttached == false)
-		{
-			Size = new Vector2(Window.I.ClientSize.X, Window.I.ClientSize.Y);
-		}
+		// if (Global.EditorAttached == false)
+		// {
+		// 	Size = new Vector2(Tofu.I.Window.ClientSize.X, Tofu.I.Window.ClientSize.Y);
+		// }
 
 		ProjectionMatrix = GetProjectionMatrix();
 		ViewMatrix = GetViewMatrix();

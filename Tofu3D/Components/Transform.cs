@@ -284,9 +284,9 @@ public class Transform : Component
 
 	public void SetParent(Transform par, bool updateTransform = false)
 	{
-		if (ParentId != -1 && Scene.I.GetGameObject(ParentId) != null)
+		if (ParentId != -1 && Tofu.I.Scene.GetGameObject(ParentId) != null)
 		{
-			Scene.I.GetGameObject(ParentId).Transform.RemoveChild(GameObjectId);
+			Tofu.I.Scene.GetGameObject(ParentId).Transform.RemoveChild(GameObjectId);
 		}
 
 		if (updateTransform)

@@ -4,9 +4,9 @@ public static class Playmode
 {
 	public static void PlayMode_Start()
 	{
-		Scene.I.SaveScene();
+		SceneManager.SaveScene();
 		Global.GameRunning = true;
-		Scene.I.LoadScene(Scene.I.ScenePath);
+		SceneManager.LoadScene(Tofu.I.Scene.ScenePath);
 
 		EditorPanelHierarchy.I?.SelectGameObject(-1);
 	}
@@ -14,7 +14,7 @@ public static class Playmode
 	public static void PlayMode_Stop()
 	{
 		Global.GameRunning = false;
-		Scene.I.LoadScene(Scene.I.ScenePath);
+		SceneManager.LoadScene(Tofu.I.Scene.ScenePath);
 	}
 
 	static void SaveCurrentSceneBeforePlay()

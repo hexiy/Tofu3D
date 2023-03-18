@@ -22,7 +22,7 @@ public class EditorPanelMenuBar : EditorPanel
 
 		if (Global.EditorAttached)
 		{
-			ImGui.SetNextWindowSize(new Vector2(Window.I.Size.X*Global.EditorScale, 50), ImGuiCond.FirstUseEver);
+			ImGui.SetNextWindowSize(new Vector2(Tofu.I.Window.Size.X*Global.EditorScale, 50), ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
 			// ImGui.PushStyleColor(ImGuiCol.WindowBg, Color.Red.ToVector4());
 			// ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoTitleBar);

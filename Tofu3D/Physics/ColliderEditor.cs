@@ -155,7 +155,7 @@
 //				return;
 //				shape = null;//Editor.GetInstance().GetSelectedGameObject()?.GetComponent<Collider>();
 
-//				Scene.I.transformHandle.GameObject.Active = false;
+//				Tofu.I.Scene.transformHandle.GameObject.Active = false;
 
 //				polygonCollider = (PolygonShape)shape;
 //				if (polygonCollider != null)

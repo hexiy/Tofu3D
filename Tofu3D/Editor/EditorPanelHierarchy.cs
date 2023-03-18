@@ -6,7 +6,7 @@ namespace Tofu3D;
 public class EditorPanelHierarchy : EditorPanel
 {
 	public override Vector2 Size => new Vector2(700, Editor.SceneViewSize.Y);
-	public override Vector2 Position => new Vector2(Window.I.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
+	public override Vector2 Position => new Vector2(Tofu.I.Window.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
 	public override Vector2 Pivot => new Vector2(1, 0);
 
 	public override string Name => "Hierarchy";
@@ -15,8 +15,6 @@ public class EditorPanelHierarchy : EditorPanel
 
 	GameObject _clipboardGameObject;
 	List<int> _gameObjectsIndexesSelectedBefore = new List<int>();
-	public Action<List<int>> GameObjectsSelected;
-
 	List<int> _selectedGameObjectsIDs = new List<int>();
 	bool _showUpdatePrefabPopup;
 	public static EditorPanelHierarchy I { get; private set; }
@@ -41,10 +39,10 @@ public class EditorPanelHierarchy : EditorPanel
 
 		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.IsKeyUp(Keys.C))
 		{
-			if (Editor.I.GetSelectedGameObject() != null)
+			if (GameObjectSelectionManager.GetSelectedGameObject() != null)
 			{
-				_clipboardGameObject = Editor.I.GetSelectedGameObject();
-				SceneSerializer.I.SaveClipboardGameObject(_clipboardGameObject);
+				_clipboardGameObject = GameObjectSelectionManager.GetSelectedGameObject();
+				AssetSerializer.SaveClipboardGameObject(_clipboardGameObject);
 			}
 		}
 
@@ -52,7 +50,7 @@ public class EditorPanelHierarchy : EditorPanel
 		{
 			if (_clipboardGameObject != null)
 			{
-				GameObject loadedGo = SceneSerializer.I.LoadClipboardGameObject();
+				GameObject loadedGo = AssetSerializer.LoadClipboardGameObject();
 				SelectGameObject(loadedGo.Id);
 			}
 		}
@@ -60,18 +58,18 @@ public class EditorPanelHierarchy : EditorPanel
 
 	void DestroySelectedGameObjects()
 	{
-		int firstSelectedGameObjectIndex = Scene.I.GetGameObject(_selectedGameObjectsIDs[0]).IndexInHierarchy;
-		foreach (GameObject selectedGameObject in Editor.I.GetSelectedGameObjects())
+		int firstSelectedGameObjectIndex = Tofu.I.Scene.GetGameObject(_selectedGameObjectsIDs[0]).IndexInHierarchy;
+		foreach (GameObject selectedGameObject in GameObjectSelectionManager.GetSelectedGameObjects())
 		{
 			_selectedGameObjectsIDs.Remove(selectedGameObject.Id);
 			selectedGameObject.Destroy();
 
-			GameObjectsSelected.Invoke(_selectedGameObjectsIDs);
+			GameObjectSelectionManager.SelectGameObjects(_selectedGameObjectsIDs);
 		}
 
 		int distance = int.MaxValue;
 		int closestGameObjectId = -1;
-		foreach (GameObject gameObject in Scene.I.GameObjects)
+		foreach (GameObject gameObject in Tofu.I.Scene.GameObjects)
 		{
 			if (gameObject.Silent)
 			{
@@ -93,36 +91,36 @@ public class EditorPanelHierarchy : EditorPanel
 	void MoveSelectedGameObject(int addToIndex = 1)
 	{
 		int direction = addToIndex;
-		if (Editor.I.GetSelectedGameObjects().Count == 0)
+		if (GameObjectSelectionManager.GetSelectedGameObjects().Count == 0)
 		{
 			return;
 		}
 
-		GameObject go = Editor.I.GetSelectedGameObjects()[0];
+		GameObject go = GameObjectSelectionManager.GetSelectedGameObjects()[0];
 		int oldIndex = go.IndexInHierarchy;
 
-		if (oldIndex + direction >= Scene.I.GameObjects.Count || oldIndex + direction < 0)
+		if (oldIndex + direction >= Tofu.I.Scene.GameObjects.Count || oldIndex + direction < 0)
 		{
 			return;
 		}
 
-		while (Scene.I.GameObjects[oldIndex + direction].Transform.Parent != null)
+		while (Tofu.I.Scene.GameObjects[oldIndex + direction].Transform.Parent != null)
 		{
 			direction += addToIndex;
 		}
 
-		Scene.I.GameObjects.RemoveAt(oldIndex);
-		Scene.I.GameObjects.Insert(oldIndex + direction, go);
+		Tofu.I.Scene.GameObjects.RemoveAt(oldIndex);
+		Tofu.I.Scene.GameObjects.Insert(oldIndex + direction, go);
 
 
 		//_selectedGameObjectsIndexes = oldIndex + direction;
-		//GameObjectsSelected.Invoke(Scene.I.GameObjects[oldIndex + direction].Id);
+		//GameObjectsSelected.Invoke(Tofu.I.Scene.GameObjects[oldIndex + direction].Id);
 	}
 
 	public void ResetGameObjectSelection()
 	{
 		_selectedGameObjectsIDs.Clear();
-		GameObjectsSelected.Invoke(_selectedGameObjectsIDs);
+		GameObjectSelectionManager.SelectGameObjects(null);
 	}
 
 	public void SelectGameObject(int id)
@@ -139,7 +137,7 @@ public class EditorPanelHierarchy : EditorPanel
 		}
 
 		_selectedGameObjectsIDs.Add(id);
-		GameObjectsSelected.Invoke(_selectedGameObjectsIDs);
+		GameObjectSelectionManager.SelectGameObjects(_selectedGameObjectsIDs);
 	}
 
 	public override void Draw()
@@ -188,11 +186,11 @@ public class EditorPanelHierarchy : EditorPanel
 			{
 				GameObject go = GameObject.Create(name: "Child");
 				go.Awake();
-				go.Transform.SetParent(Scene.I.GetGameObject(gameObjectId).Transform);
+				go.Transform.SetParent(Tofu.I.Scene.GetGameObject(gameObjectId).Transform);
 			}
 		}
 
-		for (int goIndex = 0; goIndex < Scene.I.GameObjects.Count; goIndex++)
+		for (int goIndex = 0; goIndex < Tofu.I.Scene.GameObjects.Count; goIndex++)
 		{
 			//PushNextId();
 			DrawGameObjectRow(goIndex);
@@ -205,11 +203,11 @@ public class EditorPanelHierarchy : EditorPanel
 	{
 		if (isChild == false)
 		{
-			PushNextId(Scene.I.GameObjects[goIndex].Id.ToString());
+			PushNextId(Tofu.I.Scene.GameObjects[goIndex].Id.ToString());
 		}
 
 
-		GameObject currentGameObject = Scene.I.GameObjects[goIndex];
+		GameObject currentGameObject = Tofu.I.Scene.GameObjects[goIndex];
 		if (currentGameObject.Transform.Parent != null && isChild == false) // only draw children from recursive DrawGameObjectRow calls
 		{
 			return;
@@ -246,7 +244,7 @@ public class EditorPanelHierarchy : EditorPanel
 
 		if (ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left) && false) // todo remove false
 		{
-			SceneViewNavigation.I.MoveToGameObject(Editor.I.GetSelectedGameObject());
+			SceneViewNavigation.I.MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
 		}
 
 
@@ -255,7 +253,7 @@ public class EditorPanelHierarchy : EditorPanel
 			if (_selectedGameObjectsIDs != _gameObjectsIndexesSelectedBefore)
 			{
 				_selectedGameObjectsIDs = _gameObjectsIndexesSelectedBefore;
-				GameObjectsSelected.Invoke(_selectedGameObjectsIDs);
+				GameObjectSelectionManager.SelectGameObjects(_selectedGameObjectsIDs);
 			}
 
 			// select gameobject selected before
@@ -279,7 +277,7 @@ public class EditorPanelHierarchy : EditorPanel
 			string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 			if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 			{
-				GameObject foundGo = Scene.I.GetGameObject(int.Parse(payload));
+				GameObject foundGo = Tofu.I.Scene.GetGameObject(int.Parse(payload));
 				SetParent(child: foundGo.Transform, currentGameObject.Transform);
 			}
 
@@ -297,15 +295,15 @@ public class EditorPanelHierarchy : EditorPanel
 				// select them all
 
 
-				int alreadySelectedGameObjectIndex = Scene.I.GetGameObject(_selectedGameObjectsIDs[0]).IndexInHierarchy;
+				int alreadySelectedGameObjectIndex = Tofu.I.Scene.GetGameObject(_selectedGameObjectsIDs[0]).IndexInHierarchy;
 				int newlySelectedGameObjectIndex = currentGameObject.IndexInHierarchy;
 
 				int selectionStartGameObjectIndex = Math.Min(alreadySelectedGameObjectIndex, newlySelectedGameObjectIndex);
 				int selectionEndGameObjectIndex = Math.Max(alreadySelectedGameObjectIndex, newlySelectedGameObjectIndex);
 
-				foreach (GameObject gameObject in Scene.I.GameObjects)
+				foreach (GameObject gameObject in Tofu.I.Scene.GameObjects)
 				{
-					for (int i = 0; i < Scene.I.GameObjects.Count; i++)
+					for (int i = 0; i < Tofu.I.Scene.GameObjects.Count; i++)
 					{
 						if (gameObject.IndexInHierarchy >= selectionStartGameObjectIndex && gameObject.IndexInHierarchy <= selectionEndGameObjectIndex)
 						{

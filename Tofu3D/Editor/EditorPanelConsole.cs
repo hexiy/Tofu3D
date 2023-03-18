@@ -4,8 +4,8 @@ namespace Tofu3D;
 
 public class EditorPanelConsole : EditorPanel
 {
-	public override Vector2 Size => new Vector2(800, Window.I.ClientSize.Y - Editor.SceneViewSize.Y + 1);
-	public override Vector2 Position => new Vector2(Window.I.ClientSize.X - 800, Window.I.ClientSize.Y);
+	public override Vector2 Size => new Vector2(800, Tofu.I.Window.ClientSize.Y - Editor.SceneViewSize.Y + 1);
+	public override Vector2 Position => new Vector2(Tofu.I.Window.ClientSize.X - 800, Tofu.I.Window.ClientSize.Y);
 	public override Vector2 Pivot => new Vector2(1, 1);
 
 	public static EditorPanelConsole I { get; private set; }
