@@ -8,7 +8,7 @@ public static class Debug
 {
 	static List<LogEntry> _logs = new();
 
-	public static readonly int LogLimit = 1000;
+	public static readonly int LogLimit = 3000;
 
 	public static Dictionary<string, DebugGraphTimer> GraphTimers = new();
 	public static Dictionary<string, Stopwatch> SimpleTimers = new();
@@ -17,7 +17,7 @@ public static class Debug
 
 	public static bool Paused = false;
 
-	private static void Log(string message)
+	private static void Log(string message, LogCategory logCategory = LogCategory.Message)
 	{
 		if (Paused)
 		{
@@ -29,8 +29,8 @@ public static class Debug
 			return;
 		}
 
-		StackTrace stackTrace =StackTraceFactory.GetStackTrace();
-		LogEntry logEntry = new LogEntry() {Message = message, StackTrace = stackTrace, Time = $"[{DateTime.Now:HH:mm:ss}:{DateTime.Now.Millisecond:000}]"};
+		StackTrace stackTrace = StackTraceFactory.GetStackTrace();
+		LogEntry logEntry = new LogEntry() {Message = message, StackTrace = stackTrace, Time = $"[{DateTime.Now:HH:mm:ss}:{DateTime.Now.Millisecond:000}]", LogCategory = logCategory};
 		_logs.Add(logEntry);
 
 		//Tofu.I.Window.Title = logs.Last();
@@ -41,9 +41,9 @@ public static class Debug
 		}
 	}
 
-	public static void Log(object message)
+	public static void Log(object message, LogCategory logCategory = LogCategory.Message)
 	{
-		Log(message.ToString());
+		Log(message.ToString(), logCategory);
 	}
 
 	public static void StartGraphTimer(string timerName, DebugGraphTimer.SourceGroup group = DebugGraphTimer.SourceGroup.None, TimeSpan? redline = null, int drawOrder = 0)
@@ -206,7 +206,7 @@ public static class Debug
 		EndTimer(timerName);
 		float msDuration = (float) Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
 
-		Log($"[TIMER] {timerName} : {msDuration} ms");
+		Log($"[TIMER] {timerName} : {msDuration} ms", LogCategory.Timer);
 	}
 
 	public static void ResetTimers()

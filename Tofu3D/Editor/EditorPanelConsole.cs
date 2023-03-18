@@ -19,6 +19,14 @@ public class EditorPanelConsole : EditorPanel
 	int _lastFrameMessagesCount = -1;
 	bool _wasMaxScrollLastFrame = false;
 
+	private static LogCategoryFilter _currentLogCategoryFilter = LogCategoryFilter.All;
+	string _searchFilter = "";
+
+	public static void SetLogCategoryFilter(LogCategoryFilter logCategoryFilter)
+	{
+		_currentLogCategoryFilter = logCategoryFilter;
+	}
+
 	public override void Init()
 	{
 		I = this;
@@ -58,10 +66,53 @@ public class EditorPanelConsole : EditorPanel
 			Debug.Log("yo!");
 		}
 
+		// category filters
+		LogCategoryFilter[] toggleableFilters = new[]
+		                                        {
+			                                        LogCategoryFilter.Message, LogCategoryFilter.Warning, LogCategoryFilter.Error, LogCategoryFilter.Timer
+		                                        };
+		foreach (LogCategoryFilter filter in toggleableFilters)
+		{
+			ImGui.SameLine();
+
+			bool hasFlag = (_currentLogCategoryFilter & filter) == filter;
+			ImGui.RadioButton(filter.ToString(), hasFlag); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
+			bool filterButtonClicked = ImGui.IsItemClicked();
+			if (filterButtonClicked)
+			{
+				_currentLogCategoryFilter = _currentLogCategoryFilter;
+				if (hasFlag)
+				{
+					_currentLogCategoryFilter &= ~ filter;
+				}
+				else
+				{
+					_currentLogCategoryFilter |= filter;
+				}
+			}
+		}
+
+		ImGui.SameLine();
+		ImGui.InputTextWithHint("Search", "Search", ref _searchFilter, 100);
+		_searchFilter = _searchFilter.ToLower();
+
 		ImGui.BeginChildFrame(2, ImGui.GetContentRegionAvail() * new System.Numerics.Vector2(1, _selectedMessageIndex == -1 ? 1 : 0.7f));
 		int logsCount = Debug.GetLogsRef().Count;
+		int drawnLogsCounter = 0;
 		for (int i = 0; i < Mathf.Min(logsCount, Debug.LogLimit - 1); i++)
 		{
+			LogEntry log = Debug.GetLogsRef()[i];
+
+			if (_searchFilter.Length > 0 && log.Message.ToLower().Contains(_searchFilter) == false)
+			{
+				continue;
+			}
+
+			if (((LogCategory) _currentLogCategoryFilter & log.LogCategory) != log.LogCategory)
+			{
+				continue;
+			}
+
 			ImGui.Separator();
 
 			// ImGui.Button("", size: new Vector2(ImGui.GetContentRegionAvail().X, 50));
@@ -72,14 +123,15 @@ public class EditorPanelConsole : EditorPanel
 				_selectedMessageIndex = _selectedMessageIndex == i ? -1 : i;
 			}
 
-			ImGui.SetCursorPos(new Vector2(0, 25 + i * 50));
+			ImGui.SetCursorPos(new Vector2(0, 25 + drawnLogsCounter * 50));
 
-			LogEntry log = Debug.GetLogsRef()[i];
 			ImGui.TextColored(new Vector4(0.74f, 0.33f, 0.16f, 1), log.Time);
 			ImGui.SameLine();
 			ImGui.TextWrapped(log.Message);
 			// ImGui.Button(log.Substring(log.IndexOf("]") + 1));
+			drawnLogsCounter++;
 		}
+
 
 		if (logsCount > _lastFrameMessagesCount && _wasMaxScrollLastFrame)
 		{
