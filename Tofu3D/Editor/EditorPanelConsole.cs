@@ -99,7 +99,7 @@ public class EditorPanelConsole : EditorPanel
 			ImGui.TextColored(new Vector4(0.74f, 0.33f, 0.16f, 1), log.Time);
 			ImGui.SameLine();
 			ImGui.TextWrapped(log.Message);
-			ImGui.Separator();
+			// ImGui.Separator();
 			ImGui.TextWrapped(log.StackTrace);
 
 			ImGui.EndChildFrame();
