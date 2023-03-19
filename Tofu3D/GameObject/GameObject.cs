@@ -693,7 +693,7 @@ public class GameObject : IEqualityComparer<GameObject>
 				{
 					if (Global.GameRunning == false)
 					{
-						if (Components[i].ExecuteUpdateInEditMode)
+						if (Components[i].CanExecuteUpdateInEditMode)
 						{
 							Components[i].Update();
 						}

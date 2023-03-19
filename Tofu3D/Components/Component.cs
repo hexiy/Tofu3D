@@ -8,10 +8,14 @@ namespace Scripts;
 public class Component : IDestroyable
 {
 	static Dictionary<string, MethodInfo> _executeInEditModeMethods = new Dictionary<string, MethodInfo>();
-	[XmlIgnore] public bool ExecuteUpdateInEditMode { get; private set; } = false;
+	[XmlIgnore] public bool CanExecuteUpdateInEditMode { get; private set; } = false;
 
 	public bool CallComponentExecuteInEditModeMethod(string methodName)
 	{
+		if (methodName == "Update")
+		{
+			return CanExecuteUpdateInEditMode;
+		}
 		Type type = this.GetType();
 		string typeString = type.ToString();
 		string typeAndMethodString = string.Concat(typeString, methodName);
@@ -57,7 +61,8 @@ public class Component : IDestroyable
 	public Component()
 	{
 		MethodInfo info = this.GetType().GetMethod("Update");
-		ExecuteUpdateInEditMode = info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
+		CanExecuteUpdateInEditMode = this.GetType().GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
+		CanExecuteUpdateInEditMode = CanExecuteUpdateInEditMode || info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
 	}
 
 	public bool AllowMultiple = true;

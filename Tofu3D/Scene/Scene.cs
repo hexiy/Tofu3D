@@ -132,14 +132,8 @@ public class Scene
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 		//BatchingManager.RenderAllBatchers();
 
-		for (int i = 0; i < _sceneRenderQueue.RenderQueue.Count; i++)
-		{
-			if (_sceneRenderQueue.RenderQueue[i].Enabled && _sceneRenderQueue.RenderQueue[i].GameObject.Awoken && _sceneRenderQueue.RenderQueue[i].GameObject.ActiveInHierarchy)
-			{
-				_sceneRenderQueue.RenderQueue[i].UpdateMvp();
-				_sceneRenderQueue.RenderQueue[i].Render();
-			}
-		}
+		_sceneRenderQueue.RenderAll();
+
 
 		//BatchingManager.RenderAllBatchers();
 

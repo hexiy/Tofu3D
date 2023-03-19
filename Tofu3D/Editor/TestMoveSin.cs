@@ -1,4 +1,4 @@
-[ExecuteInEditMode]
+// [ExecuteInEditMode]
 public class TestMoveSin : Component
 {
 	public override void Awake()

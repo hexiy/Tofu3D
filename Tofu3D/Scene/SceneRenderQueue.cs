@@ -50,4 +50,19 @@ public class SceneRenderQueue
 	{
 		RenderQueue.Sort();
 	}
+
+	public void RenderAll()
+	{
+		// Debug.ClearLogs();
+
+		for (int i = 0; i < RenderQueue.Count; i++)
+		{
+			if (RenderQueue[i].Enabled && RenderQueue[i].GameObject.Awoken && RenderQueue[i].GameObject.ActiveInHierarchy)
+			{
+				// Debug.Log($"Rendering {RenderQueue[i].GameObject.Name}");
+				RenderQueue[i].UpdateMvp();
+				RenderQueue[i].Render();
+			}
+		}
+	}
 }

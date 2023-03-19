@@ -224,7 +224,7 @@ public class EditorPanelConsole : EditorPanel
 				// ImGui.TextWrapped(log.StackTrace.Frames[i].Text);
 				bool clicked = ImGui.IsItemClicked();
 				ImGui.SameLine();
-				ImGui.TextColored(Color.ForestGreen.ToVector4(), $"   /{log.StackTrace.Frames[i].FileShort}({log.StackTrace.Frames[i].Line}.{log.StackTrace.Frames[i].Column})");
+				ImGui.TextColored(Color.ForestGreen.ToVector4(), $"   /{log.StackTrace.Frames[i].FileShort}({log.StackTrace.Frames[i].Line},{log.StackTrace.Frames[i].Column})");
 				clicked = clicked || ImGui.IsItemClicked();
 				if (clicked)
 				{

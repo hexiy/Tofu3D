@@ -206,7 +206,7 @@ public static class Debug
 		EndTimer(timerName);
 		float msDuration = (float) Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
 
-		Log($"[TIMER] {timerName} : {msDuration} ms", LogCategory.Timer);
+		Log($"{timerName} : {msDuration} ms", LogCategory.Timer);
 	}
 
 	public static void ResetTimers()

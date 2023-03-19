@@ -39,6 +39,11 @@ public class Renderer : Component, IComparable<Renderer>
 
 	public override void Awake()
 	{
+		if (BoxShape == null)
+		{
+			BoxShape = GetComponent<BoxShape>();
+		}
+
 		SetDefaultMaterial();
 
 		base.Awake();

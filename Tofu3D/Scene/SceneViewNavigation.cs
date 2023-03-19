@@ -69,7 +69,7 @@ public class SceneViewNavigation
 
 		if (isMouseOverSceneView || _clickedInsideScene)
 		{
-			if ((_clickedInsideScene) || (justClicked == false && isMouseOverSceneView && _clickedInsideScene))
+			if ((_clickedInsideScene) || (justClicked == false && isMouseOverSceneView ))//&& _clickedInsideScene))
 			{
 				HandleMouseControls();
 			}
@@ -91,7 +91,7 @@ public class SceneViewNavigation
 			}
 			else
 			{
-				MoveCameraInDirection(new Vector3(0, 0, Mathf.ClampMax(MouseInput.ScrollDelta, 5)));
+				MoveCameraInDirection(new Vector3(0, 0, Mathf.Clamp(MouseInput.ScrollDelta * 10, -10, 10)));
 
 				//Camera.I.transform.position += Camera.I.transform.TransformDirection(Vector3.Forward) * MouseInput.ScrollDelta * 0.05f;
 			}
@@ -105,6 +105,12 @@ public class SceneViewNavigation
 			MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
 		}
 
+		if (MouseInput.IsButtonDown(MouseInput.Buttons.Right) && Camera.I.IsOrthographic == false) // right click panning
+		{
+			//MoveCameraInDirection(new Vector2(-MouseInput.ScreenDelta.X, -MouseInput.ScreenDelta.Y));
+			Camera.I.Transform.LocalPosition -= Camera.I.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.I.OrthographicSize;
+			MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
+		}
 
 		if (MouseInput.IsButtonDown() && Camera.I.IsOrthographic == false)
 		{
@@ -117,6 +123,7 @@ public class SceneViewNavigation
 			{
 				IsPanningCamera = true;
 			}
+
 			Camera.I.Transform.Rotation += new Vector3(MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * Time.EditorDeltaTime * 7;
 			//Debug.Log("Rotate Cam");
 			//Camera.I.transform.Rotation = new Vector3(Camera.I.transform.Rotation.X, Camera.I.transform.Rotation.Y, 0);
