@@ -63,7 +63,13 @@ public class EditorPanelConsole : EditorPanel
 		bool testMessageBtnClicked = ImGui.Button("Test message");
 		if (testMessageBtnClicked)
 		{
-			Debug.Log("yo!");
+			LogCategory randomCategory = LogCategory.Info;
+			int rnd = Rendom.Range(0, 4);
+			if (rnd == 0) randomCategory = LogCategory.Error;
+			if (rnd == 1) randomCategory = LogCategory.Warning;
+			if (rnd == 2) randomCategory = LogCategory.Info;
+			if (rnd == 3) randomCategory = LogCategory.Timer;
+			Debug.Log("yo!", logCategory: randomCategory);
 		}
 
 		// category filters
@@ -131,7 +137,7 @@ public class EditorPanelConsole : EditorPanel
 				continue;
 			}
 
-			ImGui.SetCursorPos(new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY()-3));
+			ImGui.SetCursorPos(new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY() - 3));
 
 			ImGui.Separator();
 
@@ -142,7 +148,6 @@ public class EditorPanelConsole : EditorPanel
 			{
 				_selectedMessageIndex = _selectedMessageIndex == i ? -1 : i;
 			}
-
 
 
 			int textureId = EditorTextures.I.LogCategoryInfoIcon.Id;
@@ -164,12 +169,15 @@ public class EditorPanelConsole : EditorPanel
 			ImGui.SameLine();
 
 			// ImGui.SetCursorPos(new Vector2(10, 25 + drawnLogsCounter * 50));
-			ImGui.SetCursorPos(new Vector2(10,ImGui.GetCursorPosY()));
+			ImGui.SetCursorPos(new Vector2(10, ImGui.GetCursorPosY()));
 			ImGui.Image(textureId, new System.Numerics.Vector2(25, 25)); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
 			ImGui.SameLine();
 			// ImGui.SetCursorPos(new Vector2(100, 25 + drawnLogsCounter * 50));
 			// ImGui.SetCursorPos(new Vector2(0, 25 + drawnLogsCounter * 50));
-			ImGui.TextColored(new Vector4(0.74f, 0.33f, 0.16f, 1), log.Time);
+
+			Color color = GetLogCategoryTextColor(log.LogCategory);
+			ImGui.TextColored(color.ToVector4(), log.Time);
+			// ImGui.TextColored(new Vector4(0.74f, 0.33f, 0.16f, 1), log.Time);
 			ImGui.SameLine();
 			ImGui.TextWrapped(log.Message);
 			// ImGui.Button(log.Substring(log.IndexOf("]") + 1));
@@ -205,7 +213,8 @@ public class EditorPanelConsole : EditorPanel
 			// ImGui.BeginChildFrame(1, ImGui.GetContentRegionMax());
 			ImGui.BeginChildFrame(1, ImGui.GetContentRegionAvail());
 			LogEntry log = Debug.GetLogsRef()[_selectedMessageIndex];
-			ImGui.TextColored(new Vector4(0.74f, 0.33f, 0.16f, 1), log.Time);
+			Color color = GetLogCategoryTextColor(log.LogCategory);
+			ImGui.TextColored(color.ToVector4(), log.Time);
 			ImGui.SameLine();
 			ImGui.TextWrapped(log.Message);
 			// ImGui.Separator();
@@ -238,6 +247,31 @@ public class EditorPanelConsole : EditorPanel
 
 
 		ImGui.End();
+	}
+
+	private Color GetLogCategoryTextColor(LogCategory logCategory)
+	{
+		if (logCategory == LogCategory.Info)
+		{
+			return EditorColors.LogCategoryInfo;
+		}
+
+		if (logCategory == LogCategory.Error)
+		{
+			return EditorColors.LogCategoryError;
+		}
+
+		if (logCategory == LogCategory.Warning)
+		{
+			return EditorColors.LogCategoryWarning;
+		}
+
+		if (logCategory == LogCategory.Timer)
+		{
+			return EditorColors.LogCategoryTimer;
+		}
+
+		return EditorColors.LogCategoryInfo;
 	}
 
 	public void Update()
