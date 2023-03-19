@@ -26,7 +26,8 @@ public class Editor
 	{
 		EditorLayoutManager.LoadLastLayout();
 		EditorThemeing.SetTheme();
-
+		EditorTextures editorTextures = new EditorTextures();
+		
 		ImGuiWindowClass panelWindowClas = new ImGuiWindowClass() {DockNodeFlagsOverrideSet = ImGuiDockNodeFlags.None /*ImGuiDockNodeFlags.AutoHideTabBar*/};
 		_panelWindowClassPtr = new ImGuiWindowClassPtr(&panelWindowClas);
 
@@ -110,6 +111,4 @@ public class Editor
 			EditorPanelSceneView.I.Draw();
 		}
 	}
-
-	
 }

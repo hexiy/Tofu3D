@@ -17,7 +17,7 @@ public static class Debug
 
 	public static bool Paused = false;
 
-	private static void Log(string message, LogCategory logCategory = LogCategory.Message)
+	private static void Log(string message, LogCategory logCategory = LogCategory.Info)
 	{
 		if (Paused)
 		{
@@ -41,7 +41,7 @@ public static class Debug
 		}
 	}
 
-	public static void Log(object message, LogCategory logCategory = LogCategory.Message)
+	public static void Log(object message, LogCategory logCategory = LogCategory.Info)
 	{
 		Log(message.ToString(), logCategory);
 	}

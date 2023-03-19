@@ -155,7 +155,7 @@
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>4</Id>
+        <Id>8</Id>
         <Loaded>true</Loaded>
         <Path>Assets/2D/solidColor.png</Path>
         <Size>
@@ -192,5 +192,5 @@
       <Started>true</Started>
     </Component>
   </Components>
-  <GameObjectNextId>36</GameObjectNextId>
+  <GameObjectNextId>38</GameObjectNextId>
 </SceneFile>

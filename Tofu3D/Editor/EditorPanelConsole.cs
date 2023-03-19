@@ -69,14 +69,32 @@ public class EditorPanelConsole : EditorPanel
 		// category filters
 		LogCategoryFilter[] toggleableFilters = new[]
 		                                        {
-			                                        LogCategoryFilter.Message, LogCategoryFilter.Warning, LogCategoryFilter.Error, LogCategoryFilter.Timer
+			                                        LogCategoryFilter.Info, LogCategoryFilter.Warning, LogCategoryFilter.Error, LogCategoryFilter.Timer
 		                                        };
 		foreach (LogCategoryFilter filter in toggleableFilters)
 		{
 			ImGui.SameLine();
 
 			bool hasFlag = (_currentLogCategoryFilter & filter) == filter;
-			ImGui.RadioButton(filter.ToString(), hasFlag); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
+			// ImGui.RadioButton(filter.ToString(), hasFlag); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
+			int textureId = EditorTextures.I.LogCategoryInfoIcon.Id;
+			if (filter == LogCategoryFilter.Error)
+			{
+				textureId = EditorTextures.I.LogCategoryErrorIcon.Id;
+			}
+
+			if (filter == LogCategoryFilter.Warning)
+			{
+				textureId = EditorTextures.I.LogCategoryWarningIcon.Id;
+			}
+
+			if (filter == LogCategoryFilter.Timer)
+			{
+				textureId = EditorTextures.I.LogCategoryTimerIcon.Id;
+			}
+
+			ImGui.Image(textureId, new System.Numerics.Vector2(30, 30), new Vector2(0, 0), new Vector2(1, 1), hasFlag ? new Vector4(1, 1, 1, 1) : new Vector4(1, 1, 1, 0.3f)); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
+			// ImGui.ImageButton(textureId, new System.Numerics.Vector2(30, 30)); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
 			bool filterButtonClicked = ImGui.IsItemClicked();
 			if (filterButtonClicked)
 			{
@@ -113,18 +131,44 @@ public class EditorPanelConsole : EditorPanel
 				continue;
 			}
 
+			ImGui.SetCursorPos(new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY()-3));
+
 			ImGui.Separator();
 
 			// ImGui.Button("", size: new Vector2(ImGui.GetContentRegionAvail().X, 50));
-			ImGui.Selectable("", _selectedMessageIndex == i, ImGuiSelectableFlags.None, new Vector2(ImGui.GetContentRegionAvail().X, 50));
+			ImGui.Selectable("", _selectedMessageIndex == i, ImGuiSelectableFlags.None, new Vector2(ImGui.GetContentRegionAvail().X, 30));
 			bool clicked = ImGui.IsItemClicked();
 			if (clicked)
 			{
 				_selectedMessageIndex = _selectedMessageIndex == i ? -1 : i;
 			}
 
-			ImGui.SetCursorPos(new Vector2(0, 25 + drawnLogsCounter * 50));
 
+
+			int textureId = EditorTextures.I.LogCategoryInfoIcon.Id;
+			if (log.LogCategory == LogCategory.Error)
+			{
+				textureId = EditorTextures.I.LogCategoryErrorIcon.Id;
+			}
+
+			if (log.LogCategory == LogCategory.Warning)
+			{
+				textureId = EditorTextures.I.LogCategoryWarningIcon.Id;
+			}
+
+			if (log.LogCategory == LogCategory.Timer)
+			{
+				textureId = EditorTextures.I.LogCategoryTimerIcon.Id;
+			}
+
+			ImGui.SameLine();
+
+			// ImGui.SetCursorPos(new Vector2(10, 25 + drawnLogsCounter * 50));
+			ImGui.SetCursorPos(new Vector2(10,ImGui.GetCursorPosY()));
+			ImGui.Image(textureId, new System.Numerics.Vector2(25, 25)); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
+			ImGui.SameLine();
+			// ImGui.SetCursorPos(new Vector2(100, 25 + drawnLogsCounter * 50));
+			// ImGui.SetCursorPos(new Vector2(0, 25 + drawnLogsCounter * 50));
 			ImGui.TextColored(new Vector4(0.74f, 0.33f, 0.16f, 1), log.Time);
 			ImGui.SameLine();
 			ImGui.TextWrapped(log.Message);

@@ -8,7 +8,7 @@ public class Texture
 	public string Path = "";
 	public Vector2 Size;
 
-	public void Load(string path, bool flipX = true, bool smooth = false)
+	public Texture Load(string path, bool flipX = true, bool smooth = false)
 	{
 		Path = path;
 		Texture loadedTexture = TextureCache.GetTexture(path, flipX, smooth);
@@ -17,6 +17,7 @@ public class Texture
 		Size = loadedTexture.Size;
 
 		Loaded = true;
+		return this;
 	}
 
 	public void Delete()
