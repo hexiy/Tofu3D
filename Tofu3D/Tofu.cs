@@ -31,18 +31,6 @@ public class Tofu
 		Window.Run();
 	}
 
-	void OnWindowUpdate(FrameEventArgs obj)
-	{
-		Time.Update();
-		MouseInput.Update();
-		TweenManager.I.Update();
-		SceneViewNavigation.Update();
-		ShaderCache.ReloadQueuedShaders();
-
-		SceneManager.CurrentScene.Update();
-		Editor.Update();
-	}
-
 	void OnWindowLoad(Window window)
 	{
 		Editor = new Editor();
@@ -56,5 +44,17 @@ public class Tofu
 		SceneManager.LoadLastOpenedScene();
 		// Scene = new Scene();
 		// Scene.Initialize();
+	}
+
+	void OnWindowUpdate(FrameEventArgs obj)
+	{
+		Time.Update();
+		MouseInput.Update();
+		TweenManager.I.Update();
+		SceneViewNavigation.Update();
+		ShaderCache.ReloadQueuedShaders();
+
+		SceneManager.CurrentScene.Update();
+		Editor.Update();
 	}
 }
