@@ -88,7 +88,7 @@ public static class SceneManager
 		// 	EditorPanelHierarchy.I.SelectGameObject(lastSelectedGameObjectId);
 		// }
 
-
+		Scene.SceneLoaded.Invoke();
 		Debug.EndAndLogTimer("LoadScene");
 
 		return true;

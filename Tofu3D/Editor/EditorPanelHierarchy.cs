@@ -22,6 +22,7 @@ public class EditorPanelHierarchy : EditorPanel
 	public override void Init()
 	{
 		I = this;
+		Scene.SceneLoaded += ResetGameObjectSelection;
 	}
 
 	public override void Update()

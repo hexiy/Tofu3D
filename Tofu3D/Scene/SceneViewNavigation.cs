@@ -61,7 +61,7 @@ public class SceneViewNavigation
 
 		bool isMouseOverSceneView = MouseInput.ScreenPosition.X < Camera.I.Size.X && MouseInput.ScreenPosition.Y < Camera.I.Size.Y && MouseInput.ScreenPosition.Y > 0;
 // Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
-		bool justClicked = MouseInput.ButtonPressed();
+		bool justClicked = MouseInput.ButtonPressed(MouseInput.Buttons.Left) | MouseInput.ButtonPressed(MouseInput.Buttons.Right) ;
 		if (justClicked)
 		{
 			_clickedInsideScene = isMouseOverSceneView;
@@ -69,7 +69,7 @@ public class SceneViewNavigation
 
 		if (isMouseOverSceneView || _clickedInsideScene)
 		{
-			if ((_clickedInsideScene) || (justClicked == false && isMouseOverSceneView ))//&& _clickedInsideScene))
+			if ((_clickedInsideScene) || (justClicked == false && isMouseOverSceneView && _clickedInsideScene))
 			{
 				HandleMouseControls();
 			}

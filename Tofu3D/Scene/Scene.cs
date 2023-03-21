@@ -110,6 +110,7 @@ public class Scene
 
 	public static Action<Component> ComponentAdded = component => { };
 	public static Action SceneModified = () => { };
+	public static Action SceneLoaded = () => { };
 
 	public void OnComponentAdded(GameObject gameObject, Component component)
 	{

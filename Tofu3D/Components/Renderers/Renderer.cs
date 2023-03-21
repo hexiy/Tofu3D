@@ -4,6 +4,7 @@
 public class Renderer : Component, IComparable<Renderer>
 {
 	//[LinkableComponent]
+	[XmlIgnore]
 	public BoxShape BoxShape;
 	public Color Color = Color.White;
 	public float DistanceFromCamera;
