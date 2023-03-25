@@ -95,7 +95,7 @@ public class TransformHandle : Component
 	{
 		if (Camera.I.IsOrthographic)
 		{
-			Transform.LocalScale = Vector3.One * Global.EditorScale * Camera.I.OrthographicSize * 1.5f;
+			Transform.LocalScale = Vector3.One * Camera.I.OrthographicSize * 1.5f;
 		}
 		else
 		{

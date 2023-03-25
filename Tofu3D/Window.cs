@@ -39,7 +39,7 @@ public class Window : GameWindow
 
 
 		// WindowState = WindowState.Fullscreen;
-		// WindowState = WindowState.Maximized;
+		WindowState = WindowState.Maximized;
 
 		this.Focus();
 

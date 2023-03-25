@@ -5453,19 +5453,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/hexiy/.nuget/packages/": {}
+    "C:\\Users\\hexiy\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/Tofu3D.csproj",
+      "projectUniqueName": "C:\\Dev\\Tofu3D\\Tofu3D\\Tofu3D.csproj",
       "projectName": "Tofu3D",
-      "projectPath": "/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/Tofu3D.csproj",
-      "packagesPath": "/Users/hexiy/.nuget/packages/",
-      "outputPath": "/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/obj/",
+      "projectPath": "C:\\Dev\\Tofu3D\\Tofu3D\\Tofu3D.csproj",
+      "packagesPath": "C:\\Users\\hexiy\\.nuget\\packages\\",
+      "outputPath": "C:\\Dev\\Tofu3D\\Tofu3D\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/hexiy/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\hexiy\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -5554,7 +5554,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.1.23115.2/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-preview.2.23157.25\\RuntimeIdentifierGraph.json"
       }
     }
   },

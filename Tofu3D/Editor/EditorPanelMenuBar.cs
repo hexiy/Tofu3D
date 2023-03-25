@@ -22,18 +22,13 @@ public class EditorPanelMenuBar : EditorPanel
 
 		if (Global.EditorAttached)
 		{
-			ImGui.SetNextWindowSize(new Vector2(Tofu.I.Window.Size.X*Global.EditorScale, 50), ImGuiCond.FirstUseEver);
+			ImGui.SetNextWindowSize(new Vector2(Tofu.I.Window.Size.X*2, 50), ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
 			// ImGui.PushStyleColor(ImGuiCol.WindowBg, Color.Red.ToVector4());
 			// ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoTitleBar);
 			ImGui.BeginMainMenuBar();
 			
 			bool layoutButtonClicked = ImGui.BeginMenu("Layout");
-			// if (layoutButtonClicked)
-			// {
-			// 	ImGui.OpenPopup("Layout");
-			// }
-
 			if (layoutButtonClicked)
 			{
 				bool loadDefaultLayoutButtonClicked = ImGui.Button("Load Default Layout");
@@ -50,6 +45,20 @@ public class EditorPanelMenuBar : EditorPanel
 					ImGui.CloseCurrentPopup();
 
 					EditorLayoutManager.SaveDefaultLayout();
+				}
+
+				ImGui.EndMenu();
+			}
+
+			bool persistentDataButtonClicked = ImGui.BeginMenu("Persistent Data");
+			if (persistentDataButtonClicked)
+			{
+				bool resetPersistentDataButtonClicked = ImGui.Button("Reset");
+				if (resetPersistentDataButtonClicked)
+				{
+					ImGui.CloseCurrentPopup();
+
+					PersistentData.DeleteAll();
 				}
 
 				ImGui.EndMenu();

@@ -156,16 +156,17 @@ public static class MouseInput
 	{
 		MouseState state = Tofu.I.Window.MouseState;
 
-		ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale;
+		ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y);
 		// if (Camera.I.IsOrthographic == false)
 		// {
 		// 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
 		// }
 
-		ScreenPosition = new Vector2(Tofu.I.Window.MouseState.X * Global.EditorScale - Editor.SceneViewPosition.X,
-		                             -Tofu.I.Window.MouseState.Y * Global.EditorScale + Camera.I.Size.Y + Editor.SceneViewPosition.Y);
+		ScreenPosition = new Vector2(Tofu.I.Window.MouseState.X - Editor.SceneViewPosition.X,
+		                             -Tofu.I.Window.MouseState.Y + Camera.I.Size.Y + Editor.SceneViewPosition.Y);
 
-		//Debug.Log($"ScreenPos: [{(int)ScreenPosition.X}:{(int)ScreenPosition.Y}]");
+		// Debug.ClearLogs();
+		// Debug.Log($"ScreenPos: [{(int)ScreenPosition.X}:{(int)ScreenPosition.Y}]");
 		//Debug.Log($"WorldPos: [{(int)WorldPosition.X}:{(int)WorldPosition.Y}]");
 
 		//System.Diagnostics.Debug.WriteLine("mousePos:" + Position.X + ":" + Position.Y);

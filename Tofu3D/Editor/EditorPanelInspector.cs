@@ -119,12 +119,20 @@ public class EditorPanelInspector : EditorPanel
 			ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 2);
 			DrawGameObjectInspector();
 			ImGui.PopStyleVar(1);
+
+			
+			// properties with ShowIf and ShowIfNot attributes need to be reevaluated to show or not
+			if (ImGui.IsMouseReleased(ImGuiMouseButton.Left))
+			{
+				UpdateCurrentComponentsCache();
+			}
 		}
 
 		if (_selectedMaterial != null)
 		{
 			DrawMaterialInspector();
 		}
+		
 
 		ImGui.End();
 	}

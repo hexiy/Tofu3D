@@ -2,7 +2,6 @@
 {
 	public static bool GameRunning = false;
 	public static bool EditorAttached = true;
-	public static int EditorScale = 2;
 	static bool _debug;
 	public static bool Debug
 	{

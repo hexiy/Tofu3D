@@ -279,5 +279,8 @@ public class Scene
 				component.Dispose();
 			}
 		}
+
+		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderScene);
+
 	}
 }

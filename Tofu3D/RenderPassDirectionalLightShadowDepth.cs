@@ -57,6 +57,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 		base.PostRender();
 		RenderToDepthMapRenderTexture();
 		//RenderToDisplayViewRenderTexture();
+		
 	}
 
 	void RenderToDisplayViewRenderTexture()

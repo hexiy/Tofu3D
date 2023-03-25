@@ -73,7 +73,7 @@ public class Editor
 			_editorPanels[i].Update();
 		}
 
-		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.WasKeyJustPressed(Keys.S))
+		if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.WasKeyJustPressed(Keys.S))
 		{
 			if (Global.GameRunning == false)
 			{
@@ -81,12 +81,17 @@ public class Editor
 			}
 		}
 
-		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.WasKeyJustPressed(Keys.R))
+		if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.WasKeyJustPressed(Keys.R))
 		{
 			if (Global.GameRunning == false)
 			{
 				SceneManager.LoadLastOpenedScene();
 			}
+		}
+
+		if (KeyboardInput.IsKeyDown(Keys.Escape))
+		{
+			Tofu.I.Window.Close();
 		}
 	}
 

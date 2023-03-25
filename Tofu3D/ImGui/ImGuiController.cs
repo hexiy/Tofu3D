@@ -19,7 +19,7 @@ public class ImGuiController : IDisposable
 	int _indexBuffer;
 	int _indexBufferSize;
 
-	System.Numerics.Vector2 _scaleFactor = System.Numerics.Vector2.One;
+	readonly System.Numerics.Vector2 _scaleFactor = System.Numerics.Vector2.One;
 
 	int _shader;
 	int _shaderFontTextureLocation;
@@ -56,7 +56,7 @@ public class ImGuiController : IDisposable
 		
 		// io.IniSavingRate = 5;
 
-		io.Fonts.AddFontFromFileTTF("inconsolata.ttf", 28);
+		io.Fonts.AddFontFromFileTTF("inconsolata.ttf", 24);
 		//io.Fonts.AddFontDefault();
 
 		io.BackendFlags = ImGuiBackendFlags.None; // ImGuiBackendFlags.RendererHasVtxOffset;
@@ -255,7 +255,7 @@ void main()
 		io.MouseDown[1] = mouseState[MouseButton.Right];
 		io.MouseDown[2] = mouseState[MouseButton.Middle];
 
-		Vector2i screenPoint = new Vector2i((int) mouseState.X, (int) mouseState.Y) * 2;
+		Vector2i screenPoint = new Vector2i((int) mouseState.X, (int) mouseState.Y);
 		io.MousePos = new System.Numerics.Vector2(screenPoint.X, screenPoint.Y);
 
 		foreach (Keys key in Enum.GetValues(typeof(Keys)))

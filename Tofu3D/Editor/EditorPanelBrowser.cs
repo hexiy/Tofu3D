@@ -22,7 +22,7 @@ public class EditorPanelBrowser : EditorPanel
 
 	Texture _fileIcon;
 
-	Vector2 _iconSize = new Vector2(98, 90) * Global.EditorScale;
+	Vector2 _iconSize = new Vector2(200, 180);
 
 	Texture[] _textures = Array.Empty<Texture>();
 	public static EditorPanelBrowser I { get; private set; }
