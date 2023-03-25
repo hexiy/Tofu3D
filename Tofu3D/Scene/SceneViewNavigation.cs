@@ -10,6 +10,9 @@ public class SceneViewNavigation
 	public SceneViewNavigation()
 	{
 		I = this;
+		MouseInput.RegisterPassThroughEdgesCondition(() => false);
+		MouseInput.RegisterPassThroughEdgesCondition(() => AllowPassThroughEdges);
+		MouseInput.RegisterPassThroughEdgesCondition(() => false);
 	}
 
 	public static SceneViewNavigation I { get; private set; }
@@ -67,7 +70,7 @@ public class SceneViewNavigation
 			_clickedInsideScene = isMouseOverSceneView;
 		}
 
-		MouseInput.AllowPassThroughEdges = false;
+		AllowPassThroughEdges = false;
 
 		if (MouseInput.IsButtonDown(MouseInput.Buttons.Left) || MouseInput.IsButtonDown(MouseInput.Buttons.Right))
 		{
@@ -75,13 +78,15 @@ public class SceneViewNavigation
 			{
 				if ((_clickedInsideScene) || (justClicked == false && isMouseOverSceneView && _clickedInsideScene))
 				{
-					MouseInput.AllowPassThroughEdges = true;
+					AllowPassThroughEdges = true;
 
 					HandleMouseControls();
 				}
 			}
 		}
 	}
+
+	public bool AllowPassThroughEdges { get; set; }
 
 	void HandleMouseControls()
 	{

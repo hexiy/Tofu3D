@@ -80,7 +80,31 @@ public static class MouseInput
 	/// </summary>
 	public static Vector2 ScreenPosition = Vector2.Zero;
 
-	public static bool AllowPassThroughEdges = false;
+	private static List<Func<bool>> _passThroughEdgesConditions = new List<Func<bool>>();
+
+	public static void RegisterPassThroughEdgesCondition(Func<bool> func)
+	{
+		_passThroughEdgesConditions.Add(func);
+	}
+
+	/// <summary>
+	/// Returns true if any condition returns true
+	/// </summary>
+	/// <returns></returns>
+	private static bool EvaluateAllPassThroughEdgesConditions()
+	{
+		foreach (Func<bool> condition in _passThroughEdgesConditions)
+		{
+			if (condition.Invoke() == true)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	// public static EventHandler<Func<bool>> PassThroughEdgesConditions;
 
 	public static Vector2 WorldDelta
 	{
@@ -157,10 +181,13 @@ public static class MouseInput
 
 	public static void Update()
 	{
+		bool allowPassThroughEdges = EvaluateAllPassThroughEdgesConditions(); // uh so how does this work, do i get true when all of them are true or what
+
+		Debug.StatSetValue("MouseInput AllowPassthroughEdges", $"AllowPassthroughEdges {allowPassThroughEdges}");
 		MouseState state = Tofu.I.Window.MouseState;
 
 		bool passedThroughEdge = false;
-		if (AllowPassThroughEdges)
+		if (allowPassThroughEdges)
 		{
 			if (state.Position.X == 0 && state.PreviousPosition.X > 0)
 			{
@@ -183,12 +210,12 @@ public static class MouseInput
 
 		ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y);
 
-		if (passedThroughEdge || Math.Abs(ScreenDelta.X) > Tofu.I.Window.Size.X-10 || Math.Abs(ScreenDelta.Y) > Tofu.I.Window.Size.Y-10)
+		if (passedThroughEdge || Math.Abs(ScreenDelta.X) > Tofu.I.Window.Size.X - 10 || Math.Abs(ScreenDelta.Y) > Tofu.I.Window.Size.Y - 10)
 		{
 			ScreenDelta = Vector2.Zero;
 		}
 
-		
+
 		// if (Camera.I.IsOrthographic == false)
 		// {
 		// 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
