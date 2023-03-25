@@ -1,4 +1,5 @@
-﻿using OpenTK.Windowing.GraphicsLibraryFramework;
+﻿using OpenTK.Windowing.Common.Input;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Tofu3D;
 
@@ -79,6 +80,8 @@ public static class MouseInput
 	/// </summary>
 	public static Vector2 ScreenPosition = Vector2.Zero;
 
+	public static bool AllowPassThroughEdges = false;
+
 	public static Vector2 WorldDelta
 	{
 		get
@@ -156,7 +159,36 @@ public static class MouseInput
 	{
 		MouseState state = Tofu.I.Window.MouseState;
 
+		bool passedThroughEdge = false;
+		if (AllowPassThroughEdges)
+		{
+			if (state.Position.X == 0 && state.PreviousPosition.X > 0)
+			{
+				Tofu.I.Window.MousePosition = new OpenTK.Mathematics.Vector2(Tofu.I.Window.Size.X - 2, Tofu.I.Window.MousePosition.Y);
+				passedThroughEdge = true;
+			}
+			// do what the if statement above does but for the right side of the screen
+			else if (state.Position.X == Tofu.I.Window.Size.X - 1 && state.PreviousPosition.X < Tofu.I.Window.Size.X)
+			{
+				Tofu.I.Window.MousePosition = new OpenTK.Mathematics.Vector2(0 + 2, Tofu.I.Window.MousePosition.Y);
+				passedThroughEdge = true;
+			}
+
+			if (passedThroughEdge)
+			{
+				state = Tofu.I.Window.MouseState;
+			}
+		}
+
+
 		ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y);
+
+		if (passedThroughEdge || Math.Abs(ScreenDelta.X) > Tofu.I.Window.Size.X-10 || Math.Abs(ScreenDelta.Y) > Tofu.I.Window.Size.Y-10)
+		{
+			ScreenDelta = Vector2.Zero;
+		}
+
+		
 		// if (Camera.I.IsOrthographic == false)
 		// {
 		// 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
@@ -173,8 +205,9 @@ public static class MouseInput
 	}
 
 	static float _sceneViewPadding = 20;
+
 	static bool IsMouseInSceneView()
 	{
-		return ScreenPosition.X < Camera.I.Size.X-_sceneViewPadding && ScreenPosition.Y < Camera.I.Size.Y-_sceneViewPadding && ScreenPosition.X > 0+_sceneViewPadding && ScreenPosition.Y > 0+_sceneViewPadding;
+		return ScreenPosition.X > -_sceneViewPadding && ScreenPosition.X < Camera.I.Size.X + _sceneViewPadding && ScreenPosition.Y > -_sceneViewPadding && ScreenPosition.Y < Camera.I.Size.Y + _sceneViewPadding;
 	}
 }

@@ -61,17 +61,24 @@ public class SceneViewNavigation
 
 		bool isMouseOverSceneView = MouseInput.ScreenPosition.X < Camera.I.Size.X && MouseInput.ScreenPosition.Y < Camera.I.Size.Y && MouseInput.ScreenPosition.Y > 0;
 // Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
-		bool justClicked = MouseInput.ButtonPressed(MouseInput.Buttons.Left) | MouseInput.ButtonPressed(MouseInput.Buttons.Right) ;
+		bool justClicked = MouseInput.ButtonPressed(MouseInput.Buttons.Left) | MouseInput.ButtonPressed(MouseInput.Buttons.Right);
 		if (justClicked)
 		{
 			_clickedInsideScene = isMouseOverSceneView;
 		}
 
-		if (isMouseOverSceneView || _clickedInsideScene)
+		MouseInput.AllowPassThroughEdges = false;
+
+		if (MouseInput.IsButtonDown(MouseInput.Buttons.Left) || MouseInput.IsButtonDown(MouseInput.Buttons.Right))
 		{
-			if ((_clickedInsideScene) || (justClicked == false && isMouseOverSceneView && _clickedInsideScene))
+			if (isMouseOverSceneView || _clickedInsideScene)
 			{
-				HandleMouseControls();
+				if ((_clickedInsideScene) || (justClicked == false && isMouseOverSceneView && _clickedInsideScene))
+				{
+					MouseInput.AllowPassThroughEdges = true;
+
+					HandleMouseControls();
+				}
 			}
 		}
 	}

@@ -17,7 +17,7 @@ public class EditorPanelConsole : EditorPanel
 	public override string Name => "Console";
 	int _selectedMessageIndex = -1;
 	int _lastFrameMessagesCount = -1;
-	bool _wasMaxScrollLastFrame = false;
+	bool _wasMaxScrollLastFrame = true;
 
 	private static LogCategoryFilter _currentLogCategoryFilter = LogCategoryFilter.All;
 	string _searchFilter = "";
@@ -184,11 +184,11 @@ public class EditorPanelConsole : EditorPanel
 			drawnLogsCounter++;
 		}
 
-
 		if (logsCount > _lastFrameMessagesCount && _wasMaxScrollLastFrame)
 		{
 			// ImGui.SetScrollY(ImGui.GetScrollMaxY());
-			ImGui.SetScrollY(int.MaxValue);
+			ImGui.SetScrollY(logsCount * 35);
+
 		}
 
 		_lastFrameMessagesCount = logsCount;

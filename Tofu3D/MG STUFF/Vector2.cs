@@ -77,8 +77,8 @@ public struct Vector2 : IEquatable<Vector2>
 		get
 		{
 			return string.Concat(
-			                     X.ToString(), "  ",
-			                     Y.ToString()
+			                     X.ToString("F4"), "  ",
+			                     Y.ToString("F4")
 			                    );
 		}
 	}
@@ -1427,10 +1427,17 @@ public struct Vector2 : IEquatable<Vector2>
 	/// <summary>
 	///         Returns a <see cref="System.Numerics.Vector2" />.
 	/// </summary>
-	public System.Numerics.Vector2 ToNumerics()
+	public System.Numerics.Vector2 ToNumericsVector2()
 	{
 		return new System.Numerics.Vector2(X, Y);
 	}
 
+	/// <summary>
+	///         Returns a <see cref="System.Numerics.Vector2" />.
+	/// </summary>
+	public OpenTK.Mathematics.Vector2 ToOpenTKVector2()
+	{
+		return new OpenTK.Mathematics.Vector2(X, Y);
+	}
 	#endregion
 }
