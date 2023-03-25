@@ -10,9 +10,7 @@ public class SceneViewNavigation
 	public SceneViewNavigation()
 	{
 		I = this;
-		MouseInput.RegisterPassThroughEdgesCondition(() => false);
 		MouseInput.RegisterPassThroughEdgesCondition(() => AllowPassThroughEdges);
-		MouseInput.RegisterPassThroughEdgesCondition(() => false);
 	}
 
 	public static SceneViewNavigation I { get; private set; }
@@ -112,16 +110,14 @@ public class SceneViewNavigation
 		// PANNING
 		if (MouseInput.IsButtonDown() && Camera.I.IsOrthographic)
 		{
-			//MoveCameraInDirection(new Vector2(-MouseInput.ScreenDelta.X, -MouseInput.ScreenDelta.Y));
 			Camera.I.Transform.LocalPosition -= Camera.I.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.I.OrthographicSize;
-			MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
+			// MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
 		}
 
 		if (MouseInput.IsButtonDown(MouseInput.Buttons.Right) && Camera.I.IsOrthographic == false) // right click panning
 		{
-			//MoveCameraInDirection(new Vector2(-MouseInput.ScreenDelta.X, -MouseInput.ScreenDelta.Y));
 			Camera.I.Transform.LocalPosition -= Camera.I.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.I.OrthographicSize;
-			MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
+			// MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
 		}
 
 		if (MouseInput.IsButtonDown() && Camera.I.IsOrthographic == false)

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using OpenTK.Windowing.Common;
 
 namespace Tofu3D;
 
@@ -58,7 +59,7 @@ public static class Time
 		bool updateSlowerDebugStats = Time.EditorElapsedTicks % 30 == 0;
 		if (updateSlowerDebugStats)
 		{
-			Debug.StatSetValue("FPS ", $"FPS:{fps}");
+			Debug.StatSetValue("FPS ", $"FPS[VSYNC {Tofu.I.Window.VSync.ToString()}]:{fps}");
 		}
 
 		Debug.StatSetValue("FPS Range", $"FPS Range(5s)     < {MinFps} -- {MaxFps} >");
