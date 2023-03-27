@@ -22,6 +22,7 @@ public class EditorPanelInspector : EditorPanel
 	public static EditorPanelInspector I { get; private set; }
 
 	List<ComponentInspectorData> _currentComponents = new List<ComponentInspectorData>(); // whenever we select new gameobject, cache component data
+	bool _editing;
 
 	public override void Init()
 	{
@@ -30,6 +31,7 @@ public class EditorPanelInspector : EditorPanel
 		_componentTypes = typeof(Component).Assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
 		Scene.ComponentAdded += OnComponentAddedToScene;
 		GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
+		MouseInput.RegisterPassThroughEdgesCondition(() => _editing && MouseInput.IsButtonDown(MouseInput.Buttons.Left));
 	}
 
 	void OnComponentAddedToScene(Component comp)
@@ -107,9 +109,9 @@ public class EditorPanelInspector : EditorPanel
 			{
 				Global.Debug = !Global.Debug;
 			}
-
 		}
-			ImGui.Spacing();
+
+		ImGui.Spacing();
 
 		ResetId();
 
@@ -120,7 +122,7 @@ public class EditorPanelInspector : EditorPanel
 			DrawGameObjectInspector();
 			ImGui.PopStyleVar(1);
 
-			
+
 			// properties with ShowIf and ShowIfNot attributes need to be reevaluated to show or not
 			if (ImGui.IsMouseReleased(ImGuiMouseButton.Left))
 			{
@@ -132,7 +134,6 @@ public class EditorPanelInspector : EditorPanel
 		{
 			DrawMaterialInspector();
 		}
-		
 
 		ImGui.End();
 	}
@@ -265,6 +266,8 @@ public class EditorPanelInspector : EditorPanel
 				_selectedGameObject.IsPrefab = false;
 			}
 		}
+
+		_editing = false;
 
 		PushNextId();
 		ImGui.SetScrollX(0);
@@ -654,6 +657,11 @@ public class EditorPanelInspector : EditorPanel
 					if (info.IsReadonly)
 					{
 						ImGui.EndDisabled();
+					}
+
+					if (ImGui.IsItemEdited())
+					{
+						_editing = true;
 					}
 					//ImGui.PopID();
 				}

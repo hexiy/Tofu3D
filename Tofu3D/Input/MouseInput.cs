@@ -76,7 +76,7 @@ public static class MouseInput
 	public static Vector2 ScreenDelta { get; private set; }
 
 	/// <summary>
-	///         Screen position of mouse
+	/// Screen position of mouse
 	/// </summary>
 	public static Vector2 ScreenPosition { get; private set; } = Vector2.Zero;
 
@@ -226,7 +226,6 @@ public static class MouseInput
 				mouseState = Tofu.I.Window.MouseState;
 			}
 		}
-
 
 		ScreenDelta = new Vector2(mouseState.Delta.X, -mouseState.Delta.Y);
 

@@ -157,11 +157,11 @@ public class SceneViewNavigation
 				keyboardInputDirectionVector += Vector3.Right;
 			}
 
-			float moveSpeed = 10f;
+			float moveSpeed = 30f;
 
 			if (KeyboardInput.IsKeyDown(Keys.LeftShift))
 			{
-				moveSpeed = 20f;
+				moveSpeed = moveSpeed * 2;
 				//Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 100, Time.EditorDeltaTime * 7);
 			}
 			else
