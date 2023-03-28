@@ -32,7 +32,7 @@ if (col.a < 0.1){
 discard;
 }
 else{
-FragColor = col*0.3;
+FragColor = col;
 }
 
 //FragColor = vec4(0,1,1,0);

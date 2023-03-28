@@ -119,12 +119,12 @@ public class RenderTexture
 	{
 		Bind();
 		GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
-		GL.ClearColor(new Color(0, 0, 0, 255).ToOtherColor());
-		GL.ClearDepth(1);
+		GL.ClearColor(new Color(0, 0, 0, 0).ToOtherColor());
+		// GL.ClearDepth(1);
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
 		Unbind();
 	}
+	
 
 	public void RenderDepthAttachment(int targetTexture)
 	{

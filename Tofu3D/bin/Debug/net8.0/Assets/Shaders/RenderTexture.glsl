@@ -29,11 +29,14 @@ void main(void)
 {
 
 vec4 c = texture(textureObject, texCoord);
-//		if(c.a <0.3){
+//		if(c.r ==0 && c.g == 0 && c.b==0){
 //		discard;
 //}
+		if(c.a <0.3){
+		discard;
+}
 //		else{
-color = vec4(c.r, c.g, c.b, c.a*0.7);
+color = vec4(c.r, c.g, c.b, c.a);
 //}
 		
 //   FragColor = texture(textureObject, texCoord).rgb;

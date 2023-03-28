@@ -43,9 +43,9 @@ public static class RenderPassSystem
 
 	private static void CreatePasses()
 	{
-		// RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();
-		RenderPassOpaques renderPassOpaques = new RenderPassOpaques();
+		RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();
 		RenderPassSkybox renderPassSkybox = new RenderPassSkybox();
+		RenderPassOpaques renderPassOpaques = new RenderPassOpaques();
 
 		// RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
 	}
@@ -119,7 +119,7 @@ public static class RenderPassSystem
 		}
 
 		// todo do we need this?
-		// FinalRenderTexture.Clear();
+		FinalRenderTexture.Clear();
 
 		// RenderPassOpaques.I.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
 		// _renderPasses[^1].RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
