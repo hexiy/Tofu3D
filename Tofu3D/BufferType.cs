@@ -5,6 +5,7 @@ public enum BufferType
 	Rendertexture,
 	Sprite,
 	Box,
-	Model
+	Model,
+	Cubemap
 	//GRADIENT
 }

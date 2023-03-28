@@ -581,7 +581,7 @@ void main()
 		int i = 1;
 		while ((error = GL.GetError()) != ErrorCode.NoError)
 		{
-			Debug.Log($"{title} ({i++}): {error}");
+			Debug.LogError($"{title} ({i++}): {error}");
 			hadError = true;
 		}
 

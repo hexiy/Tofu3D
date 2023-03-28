@@ -12,10 +12,10 @@ public static class RenderPassSystem
 	// in editor we will be able to visualise all the passes
 	static List<RenderPass> _renderPasses = new List<RenderPass>();
 	public static RenderPassType CurrentRenderPassType { get; private set; } = RenderPassType.DirectionalLightShadowDepth;
-	public static RenderTexture FinalRenderTexture
+	public static RenderTexture FinalRenderTexture /*
 	{
 		get { return _renderPasses[^1].PassRenderTexture; }
-	} //{ get; private set; } //= new RenderTexture(new Vector2(100, 100), true, false);
+	} //*/ { get; private set; } //= new RenderTexture(new Vector2(100, 100), true, false);
 	public static bool Initialized;
 
 	static RenderPassSystem()
@@ -31,7 +31,7 @@ public static class RenderPassSystem
 			throw new NullReferenceException("No camera in scene");
 		}
 
-		// FinalRenderTexture = new RenderTexture(Camera.I.Size, true, false);
+		FinalRenderTexture = new RenderTexture(Camera.I.Size, true, false);
 
 		foreach (RenderPass renderPass in _renderPasses)
 		{
@@ -43,8 +43,9 @@ public static class RenderPassSystem
 
 	private static void CreatePasses()
 	{
-		RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();
+		// RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();
 		RenderPassOpaques renderPassOpaques = new RenderPassOpaques();
+		RenderPassSkybox renderPassSkybox = new RenderPassSkybox();
 
 		// RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
 	}
@@ -52,7 +53,7 @@ public static class RenderPassSystem
 	public static void RegisterRenderPass(RenderPass renderPass)
 	{
 		_renderPasses.Add(renderPass);
-		_renderPasses.Sort();
+		// _renderPasses.Sort();
 	}
 
 	public static void RemoveRender(RenderPassType type, Action render)
@@ -91,6 +92,13 @@ public static class RenderPassSystem
 
 	public static void RenderAllPasses()
 	{
+		GL.Enable(EnableCap.Blend);
+
+		foreach (RenderPass renderPass in _renderPasses)
+		{
+			renderPass.PassRenderTexture.Clear();
+		}
+
 		foreach (RenderPass renderPass in _renderPasses)
 		{
 			CurrentRenderPassType = renderPass.RenderPassType;
@@ -99,10 +107,11 @@ public static class RenderPassSystem
 			renderPass.Render();
 		}
 
-		//RenderFinalRenderTexture();
+		RenderFinalRenderTexture();
+		
 	}
 
-	/*private static void RenderFinalRenderTexture()
+	private static void RenderFinalRenderTexture()
 	{
 		if (Initialized == false)
 		{
@@ -113,17 +122,17 @@ public static class RenderPassSystem
 		// FinalRenderTexture.Clear();
 
 		// RenderPassOpaques.I.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
-		_renderPasses[^1].RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
+		// _renderPasses[^1].RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
 
 		// RenderPassMousePicking.I.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
-		// foreach (RenderPass renderPass in _renderPasses)
-		// {
-		// 	if (renderPass.RenderPassType == RenderPassType.DirectionalLightShadowDepth)
-		// 	{
-		// 		continue;
-		// 	}
-		// 	
-		// 	renderPass.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
-		// }
-	}*/
+		foreach (RenderPass renderPass in _renderPasses)
+		{
+			if (renderPass.RenderPassType == RenderPassType.DirectionalLightShadowDepth)
+			{
+				continue;
+			}
+
+			renderPass.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
+		}
+	}
 }

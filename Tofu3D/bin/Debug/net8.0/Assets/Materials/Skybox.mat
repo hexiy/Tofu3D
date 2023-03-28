@@ -5,6 +5,6 @@
     <BufferType>Rendertexture</BufferType>
     <Path>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Shaders\Skybox.glsl</Path>
   </Shader>
-  <Vao>6</Vao>
+  <Vao>0</Vao>
   <Vbo>0</Vbo>
 </Material>

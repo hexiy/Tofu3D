@@ -65,8 +65,8 @@ public abstract class RenderPass : IComparable<RenderPass>
 			return;
 		}
 
-		GL.ClearColor(Color.Orchid.ToOtherColor());
-		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+		// GL.ClearColor(Color.Orchid.ToOtherColor());
+		// GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 		target.Bind();
 		// GL.Viewport(0, 0, (int) target.Size.X, (int) target.Size.Y);

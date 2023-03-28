@@ -20,6 +20,17 @@ public class Texture
 		return this;
 	}
 
+	public Texture LoadCubemap(string path)
+	{
+		Path = path;
+		Texture loadedTexture = TextureCache.GetCubemapTexture(path);
+
+		Id = loadedTexture.Id;
+		Size = loadedTexture.Size;
+
+		Loaded = true;
+		return this;
+	}
 	public void Delete()
 	{
 		TextureCache.DeleteTexture(Path);

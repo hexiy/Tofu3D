@@ -69,6 +69,7 @@
       <Content Include="bin\Debug\net8.0\Assets\Shaders\RenderTexture.glsl" />
       <Content Include="bin\Debug\net8.0\Assets\Shaders\RenderTextureBloom.glsl" />
       <Content Include="bin\Debug\net8.0\Assets\Shaders\RenderTexturePostProcess.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\Skybox.glsl" />
       <Content Include="bin\Debug\net8.0\Assets\Shaders\Snow.glsl" />
       <Content Include="bin\Debug\net8.0\Assets\Shaders\SpriteRenderer.glsl" />
       <Content Include="bin\Debug\net8.0\Assets\Shaders\SpriteRendererOldBatched.glsl" />

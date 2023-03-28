@@ -9,12 +9,17 @@ namespace Tofu3D;
 public class Scene
 {
 	SceneLightingManager _sceneLightingManager;
+	SceneSkyboxManager _sceneSkyboxManager;
 	SceneRenderQueue _sceneRenderQueue;
 	public TransformHandle TransformHandle;
 
 	public List<GameObject> GameObjects = new();
 	public string ScenePath = "";
 
+	public static Action SceneDisposed = () => { };
+	public static Action<Component> ComponentAdded = component => { };
+	public static Action SceneModified = () => { };
+	public static Action SceneLoaded = () => { };
 	Camera Camera
 	{
 		get { return Camera.I; }
@@ -24,6 +29,7 @@ public class Scene
 	{
 		_sceneLightingManager = new SceneLightingManager(this);
 		_sceneRenderQueue = new SceneRenderQueue(this);
+		_sceneSkyboxManager= new SceneSkyboxManager(this);
 
 		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderScene);
 	}
@@ -108,9 +114,7 @@ public class Scene
 		Debug.EndGraphTimer("Scene Update");
 	}
 
-	public static Action<Component> ComponentAdded = component => { };
-	public static Action SceneModified = () => { };
-	public static Action SceneLoaded = () => { };
+
 
 	public void OnComponentAdded(GameObject gameObject, Component component)
 	{
@@ -125,12 +129,12 @@ public class Scene
 		GL.Enable(EnableCap.StencilTest);
 
 		// GL.DepthFunc(DepthFunction.Greater);
-		GL.ClearColor(Camera.Color.ToOtherColor());
+		// GL.ClearColor(Camera.Color.ToOtherColor());
 		GL.ClearDepth(1000);
 
 
 		GL.Viewport(0, 0, (int) Camera.I.Size.X, (int) Camera.I.Size.Y);
-		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+		GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 		//BatchingManager.RenderAllBatchers();
 
 		_sceneRenderQueue.RenderAll();
@@ -281,6 +285,6 @@ public class Scene
 		}
 
 		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderScene);
-
+		SceneDisposed.Invoke();
 	}
 }

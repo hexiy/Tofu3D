@@ -20,7 +20,7 @@ public class RenderTexture
 	Material _depthRenderTextureMaterial;
 	Material _renderTextureMaterial;
 
-	public RenderTexture(Vector2 size, bool colorAttachment = false, bool depthAttachment = false, bool isGrayscale=false)
+	public RenderTexture(Vector2 size, bool colorAttachment = false, bool depthAttachment = false, bool isGrayscale = false)
 	{
 		_depthRenderTextureMaterial = MaterialCache.GetMaterial("DepthRenderTexture");
 		_renderTextureMaterial = MaterialCache.GetMaterial("RenderTexture");
@@ -66,7 +66,7 @@ public class RenderTexture
 			}
 			else
 			{
-				GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb16, (int) Size.X, (int) Size.Y, 0, PixelFormat.Rgb, PixelType.UnsignedByte, (IntPtr) null);
+				GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16, (int) Size.X, (int) Size.Y, 0, PixelFormat.Rgba, PixelType.UnsignedByte, (IntPtr) null);
 			}
 
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Linear);
@@ -119,7 +119,7 @@ public class RenderTexture
 	{
 		Bind();
 		GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
-		GL.ClearColor(Color.Black.ToOtherColor());
+		GL.ClearColor(new Color(0, 0, 0, 255).ToOtherColor());
 		GL.ClearDepth(1);
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
@@ -148,17 +148,15 @@ public class RenderTexture
 		// return;
 		// GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
 
-
 		ShaderCache.UseShader(_renderTextureMaterial.Shader);
 		_renderTextureMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
 		ShaderCache.BindVertexArray(_renderTextureMaterial.Vao);
 
-		//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-
+		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 		TextureCache.BindTexture(targetTexture);
 
-		GL.DrawArrays(PrimitiveType.Triangles, 0, 1);
+		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
 		Debug.StatAddValue("Draw Calls", 1);
 		ShaderCache.BindVertexArray(0);

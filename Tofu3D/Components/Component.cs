@@ -41,16 +41,16 @@ public class Component : IDestroyable
 
 		if (methodHasExecuteInEditModeAttrib)
 		{
-			// try
-			// {
+			try
+			{
 			_executeInEditModeMethods[typeAndMethodString]?.Invoke(this, null);
 			// type.GetMethod(methodName)?.Invoke(this, null);
-			// }
-			// catch (Exception ex)
-			// {
-			// 	//Debug.Log(ex.Message);
-			// 	// throw ex;
-			// }
+			}
+			catch (Exception ex)
+			{
+				Debug.Log(ex.Message);
+				// throw ex;
+			}
 
 			return true;
 		}

@@ -41,6 +41,11 @@ public static class Debug
 		}
 	}
 
+	public static void LogError(object message)
+	{
+		Log(message, LogCategory.Error);
+	}
+
 	public static void Log(object message, LogCategory logCategory = LogCategory.Info)
 	{
 		Log(message.ToString(), logCategory);

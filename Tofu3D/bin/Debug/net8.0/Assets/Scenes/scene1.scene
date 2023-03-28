@@ -37,13 +37,13 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>18</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
+      <IndexInHierarchy>2</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Ambient Light</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
-      <Started>false</Started>
+      <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
@@ -52,13 +52,13 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>19</Id>
-      <IndexInHierarchy>4</IndexInHierarchy>
+      <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Directional Light</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
-      <Started>false</Started>
+      <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
@@ -67,13 +67,13 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>20</Id>
-      <IndexInHierarchy>5</IndexInHierarchy>
+      <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>GameObject</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
-      <Started>false</Started>
+      <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
   </GameObjects>
@@ -111,8 +111,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-30.305964</X>
-        <Y>34.329514</Y>
+        <X>-29.857437</X>
+        <Y>34.11672</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -134,7 +134,7 @@
       <IsOrthographic>false</IsOrthographic>
       <OrthographicSize>15</OrthographicSize>
       <Size>
-        <X>2306</X>
+        <X>2340</X>
         <Y>1368</Y>
       </Size>
     </Component>
@@ -211,12 +211,12 @@
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>2</Vao>
+        <Vao>3</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>8</Id>
+        <Id>9</Id>
         <Loaded>true</Loaded>
         <Path>Assets\2D\solidColor.png</Path>
         <Size>
@@ -234,7 +234,7 @@
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
       <GameObjectId>18</GameObjectId>
-      <Started>false</Started>
+      <Started>true</Started>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
@@ -286,7 +286,7 @@
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
       <GameObjectId>19</GameObjectId>
-      <Started>false</Started>
+      <Started>true</Started>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
@@ -324,7 +324,7 @@
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
       <GameObjectId>19</GameObjectId>
-      <Started>false</Started>
+      <Started>true</Started>
       <Intensity>1</Intensity>
       <Color>
         <B>255</B>
@@ -336,7 +336,7 @@
       <Speed>0</Speed>
       <RefreshRate>60</RefreshRate>
       <NearPlaneDistance>0.0001</NearPlaneDistance>
-      <FarPlaneDistance>1500</FarPlaneDistance>
+      <FarPlaneDistance>2500</FarPlaneDistance>
       <OrthographicSize>15</OrthographicSize>
       <Size>
         <X>1000</X>
@@ -347,7 +347,7 @@
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
       <GameObjectId>20</GameObjectId>
-      <Started>false</Started>
+      <Started>true</Started>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
@@ -385,7 +385,7 @@
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
       <GameObjectId>20</GameObjectId>
-      <Started>false</Started>
+      <Started>true</Started>
       <Offset>
         <X>0</X>
         <Y>0</Y>
@@ -401,7 +401,7 @@
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
       <GameObjectId>20</GameObjectId>
-      <Started>false</Started>
+      <Started>true</Started>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -416,12 +416,12 @@
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>2</Vao>
+        <Vao>3</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>29</Id>
+        <Id>14</Id>
         <Loaded>true</Loaded>
         <Path>Assets\2D\tiles.png</Path>
         <Size>
@@ -436,5 +436,5 @@
       <CastShadow>true</CastShadow>
     </Component>
   </Components>
-  <GameObjectNextId>21</GameObjectNextId>
+  <GameObjectNextId>29</GameObjectNextId>
 </SceneFile>
