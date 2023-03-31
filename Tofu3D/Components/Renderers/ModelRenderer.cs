@@ -83,22 +83,22 @@ public class ModelRenderer : TextureRenderer
 		}
 
 		bool renderDepth = RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth && GameObject.Silent == false && CastShadow;
-		// if (renderDepth)
-		// {
-		// 	// depth pass
-		//
-		//
-		// 	Material depthMaterial = MaterialCache.GetMaterial("DepthModel");
-		// 	ShaderCache.UseShader(depthMaterial.Shader);
-		//
-		// 	depthMaterial.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
-		// 	depthMaterial.Shader.SetMatrix4X4("u_model", GetModelMatrixForLight());
-		// 	depthMaterial.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
-		//
-		// 	ShaderCache.BindVertexArray(depthMaterial.Vao);
-		//
-		// 	GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
-		// }
+		if (renderDepth)
+		{
+			// depth pass
+		
+		
+			Material depthMaterial = MaterialCache.GetMaterial("DepthModel");
+			ShaderCache.UseShader(depthMaterial.Shader);
+		
+			depthMaterial.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+			depthMaterial.Shader.SetMatrix4X4("u_model", GetModelMatrixForLight());
+			depthMaterial.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
+		
+			ShaderCache.BindVertexArray(depthMaterial.Vao);
+		
+			GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
+		}
 		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques || (RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth && renderDepth))
 		{
 			if (GameObject == TransformHandle.I?.GameObject)

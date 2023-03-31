@@ -22,12 +22,12 @@ public class EditorPanelMenuBar : EditorPanel
 
 		if (Global.EditorAttached)
 		{
-			ImGui.SetNextWindowSize(new Vector2(Tofu.I.Window.Size.X*2, 50), ImGuiCond.FirstUseEver);
+			ImGui.SetNextWindowSize(new Vector2(Tofu.I.Window.Size.X * 2, 50), ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
 			// ImGui.PushStyleColor(ImGuiCol.WindowBg, Color.Red.ToVector4());
 			// ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoTitleBar);
 			ImGui.BeginMainMenuBar();
-			
+
 			bool layoutButtonClicked = ImGui.BeginMenu("Layout");
 			if (layoutButtonClicked)
 			{
@@ -60,6 +60,18 @@ public class EditorPanelMenuBar : EditorPanel
 
 					PersistentData.DeleteAll();
 				}
+
+				ImGui.EndMenu();
+			}
+
+
+			bool skyboxButtonClicked = ImGui.BeginMenu("Skybox");
+			if (skyboxButtonClicked)
+			{
+				EditorPanelInspector.I.SelectInspectable(SceneSkyboxRenderer.Inspectable);
+
+				ImGui.CloseCurrentPopup();
+
 
 				ImGui.EndMenu();
 			}

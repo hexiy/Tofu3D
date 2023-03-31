@@ -77,7 +77,7 @@ public class EditorPanelProfiler : EditorPanel
 			bool clickedOnAnyControl = false;
 			ImGui.PushStyleColor(ImGuiCol.PlotHistogram, Color.DarkRed.ToVector4());
 			int plotWidth = (int) ImGui.GetContentRegionAvail().X;
-			if (timerPair.Value.Samples.Length != plotWidth / 2)
+			if (timerPair.Value.Samples.Length != plotWidth / 2 && plotWidth > 0)
 			{
 				timerPair.Value.SetSamplesBufferSize((uint) plotWidth / 2);
 			}

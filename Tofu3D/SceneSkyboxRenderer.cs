@@ -11,8 +11,11 @@ public class SceneSkyboxRenderer
 
 	Scene _scene;
 
+	public static SceneSkyboxInspectable Inspectable { get; private set; }
+
 	public SceneSkyboxRenderer(Scene scene)
 	{
+		Inspectable = new SceneSkyboxInspectable();
 		_scene = _scene;
 
 		_material = MaterialCache.GetMaterial("Skybox");
@@ -42,7 +45,6 @@ public class SceneSkyboxRenderer
 		RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
 	}
 
-	float rotation = 0;
 
 	private void RenderSkybox()
 	{
@@ -61,10 +63,10 @@ public class SceneSkyboxRenderer
 
 		Matrix4x4 viewMatrix = Matrix4x4.CreateLookAt(cameraPosition: Vector3.Zero, cameraTarget: forwardLocal, cameraUpVector: upLocal);
 
-		Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Camera.I.FieldOfView * 0.7f), Camera.I.Size.X / Camera.I.Size.Y, 0.01f, 1);
+		Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Inspectable.Fov), Camera.I.Size.X / Camera.I.Size.Y, 0.01f, 1);
 
 		_material.Shader.SetMatrix4X4("u_view", viewMatrix);
-		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix);
+		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix );
 
 		ShaderCache.BindVertexArray(_material.Vao);
 		// GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
@@ -74,12 +76,12 @@ public class SceneSkyboxRenderer
 
 		if (KeyboardInput.WasKeyJustPressed(Keys.D1))
 		{
-			rotation -= Time.EditorDeltaTime;
+			Inspectable.Fov -= Time.EditorDeltaTime;
 		}
 
 		if (KeyboardInput.WasKeyJustPressed(Keys.D2))
 		{
-			rotation += Time.EditorDeltaTime;
+			Inspectable.Fov += Time.EditorDeltaTime;
 		}
 
 		GL.DrawElements(PrimitiveType.Triangles, 36, DrawElementsType.UnsignedInt, 0);

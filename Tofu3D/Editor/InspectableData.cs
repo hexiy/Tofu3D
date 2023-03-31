@@ -2,18 +2,18 @@ using System.Reflection;
 
 namespace Tofu3D;
 
-public class ComponentInspectorData
+public class InspectableData
 {
-	public Component Component;
-	public Type ComponentType;
+	public IInspectable Inspectable { get; private set; }
+	public Type InspectableType;
 	public FieldOrPropertyInfo[] Infos;
 	// public FieldInfo[] Fields;
 	// public PropertyInfo[] Properties;
 
-	public ComponentInspectorData(Component component)
+	public InspectableData(IInspectable inspectable)
 	{
-		Component = component;
-		ComponentType = component.GetType();
+		Inspectable = inspectable;
+		InspectableType = inspectable.GetType();
 		// Fields = ComponentType.GetFields();
 		// Properties = ComponentType.GetProperties();
 		InitInfos();
@@ -21,14 +21,14 @@ public class ComponentInspectorData
 
 	private void InitInfos()
 	{
-		FieldInfo[] fields = ComponentType.GetFields();
-		PropertyInfo[] properties = ComponentType.GetProperties();
+		FieldInfo[] fields = InspectableType.GetFields();
+		PropertyInfo[] properties = InspectableType.GetProperties();
 
 		Infos = new FieldOrPropertyInfo[fields.Length + properties.Length];
 
 		for (int fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
 		{
-			Infos[fieldIndex] = new FieldOrPropertyInfo(fields[fieldIndex], Component);
+			Infos[fieldIndex] = new FieldOrPropertyInfo(fields[fieldIndex], Inspectable);
 			// Infos[fieldIndex].SetInfo(fields[fieldIndex], Component);
 		}
 
@@ -36,10 +36,10 @@ public class ComponentInspectorData
 
 		for (int propertyIndex = 0; propertyIndex < properties.Length; propertyIndex++)
 		{
-			Infos[offset + propertyIndex] = new FieldOrPropertyInfo(properties[propertyIndex], Component);
+			Infos[offset + propertyIndex] = new FieldOrPropertyInfo(properties[propertyIndex], Inspectable);
 
 			// Infos[offset + propertyIndex].SetInfo(properties[propertyIndex], Component);
-			if (properties[propertyIndex].GetValue(Component) == null)
+			if (properties[propertyIndex].GetValue(Inspectable) == null)
 			{
 				Infos[offset + propertyIndex].CanShowInEditor = false;
 			}

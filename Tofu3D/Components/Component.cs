@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Scripts;
 
-public class Component : IDestroyable
+public class Component : IDestroyable, IInspectable
 {
 	static Dictionary<string, MethodInfo> _executeInEditModeMethods = new Dictionary<string, MethodInfo>();
 	[XmlIgnore] public bool CanExecuteUpdateInEditMode { get; private set; } = false;
@@ -16,6 +16,7 @@ public class Component : IDestroyable
 		{
 			return CanExecuteUpdateInEditMode;
 		}
+
 		Type type = this.GetType();
 		string typeString = type.ToString();
 		string typeAndMethodString = string.Concat(typeString, methodName);
@@ -43,8 +44,8 @@ public class Component : IDestroyable
 		{
 			try
 			{
-			_executeInEditModeMethods[typeAndMethodString]?.Invoke(this, null);
-			// type.GetMethod(methodName)?.Invoke(this, null);
+				_executeInEditModeMethods[typeAndMethodString]?.Invoke(this, null);
+				// type.GetMethod(methodName)?.Invoke(this, null);
 			}
 			catch (Exception ex)
 			{
