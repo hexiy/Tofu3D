@@ -111,8 +111,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-29.857437</X>
-        <Y>34.11672</Y>
+        <X>-35.627323</X>
+        <Y>16.8673</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -436,5 +436,5 @@
       <CastShadow>true</CastShadow>
     </Component>
   </Components>
-  <GameObjectNextId>29</GameObjectNextId>
+  <GameObjectNextId>31</GameObjectNextId>
 </SceneFile>

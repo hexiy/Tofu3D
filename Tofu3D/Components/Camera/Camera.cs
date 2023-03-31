@@ -101,7 +101,7 @@ public class Camera : Component
 			; // * Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, 1));
 		return view;
 	}
-
+	
 	Matrix4x4 GetProjectionMatrix()
 	{
 		if (IsOrthographic)

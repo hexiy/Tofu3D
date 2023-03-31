@@ -168,7 +168,7 @@ public static class BufferFactory
 		int verticesVbo = GL.GenBuffer();
 		GL.BindBuffer(BufferTarget.ArrayBuffer, verticesVbo);
 		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.StaticDraw);
-		
+
 		int verticesAttribIndex = 0;
 		GL.VertexAttribPointer(verticesAttribIndex, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), IntPtr.Zero);
 		GL.EnableVertexAttribArray(verticesAttribIndex);
@@ -187,14 +187,14 @@ public static class BufferFactory
 		GL.Enable(EnableCap.DepthTest);
 		float[] vertices = new float[]
 		                   {
-			                   -1.0f, -1.0f, 1.0f,  //        7-----------6
-			                   1.0f, -1.0f, 1.0f,   //       /|          /|
-			                   1.0f, -1.0f, -1.0f,  //      4-----------5 |
-			                   -1.0f, -1.0f, -1.0f, //      | |         | |
-			                   -1.0f, 1.0f, 1.0f,   //      | 3---------|-2
-			                   1.0f, 1.0f, 1.0f,    //      |/          |/
-			                   1.0f, 1.0f, -1.0f,   //      0-----------1
-			                   -1.0f, 1.0f, -1.0f
+			                   -1.0f, -1.0f, 1.0f, // 0        7-----------6
+			                   1.0f, -1.0f, 1.0f, // 1       /|          /|
+			                   1.0f, -1.0f, -1.0f, // 2      4-----------5 |
+			                   -1.0f, -1.0f, -1.0f, // 3      | |         | |
+			                   -1.0f, 1.0f, 1.0f, // 4      | 3---------|-2
+			                   1.0f, 1.0f, 1.0f, // 5      |/          |/
+			                   1.0f, 1.0f, -1.0f, // 6      0-----------1
+			                   -1.0f, 1.0f, -1.0f // 7
 		                   };
 
 		uint[] indices = new uint[]
@@ -232,12 +232,12 @@ public static class BufferFactory
 		GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
 		GL.BufferData(BufferTarget.ElementArrayBuffer, sizeof(uint) * indices.Length, indices, BufferUsageHint.StaticDraw);
 
-		GL.VertexAttribPointer(0, 3, VertexAttribPointerType.UnsignedInt, false, 3 * sizeof(uint), IntPtr.Zero);
+		GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), IntPtr.Zero);
 		GL.EnableVertexAttribArray(0);
-		
-		GL.BindBuffer(BufferTarget.ArrayBuffer,0);
+
+		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 		GL.BindVertexArray(0);
-		GL.BindBuffer(BufferTarget.ElementArrayBuffer,0);
+		GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
 	}
 	/*private static void CreateSpriteRendererBuffers(ref int vao, ref int vbo)
 	{

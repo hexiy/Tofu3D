@@ -57,6 +57,7 @@ public static class TextureCache
 	static Texture LoadAndCreateCubemapTexture(string texturePath)
 	{
 		int id = GL.GenTexture();
+		GL.ActiveTexture(TextureUnit.Texture0);
 		BindTexture(id, TextureTarget.TextureCubeMap);
 
 		Image<Rgba32> image = Image.Load<Rgba32>(texturePath);
@@ -78,10 +79,12 @@ public static class TextureCache
 			});
 		}
 
+		byte[] pixelsArray = pixels.ToArray();
+
 		for (int i = 0; i < 6; i++)
 		{
 			//load the face image here, not one shared texture ofc
-			GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX + i, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels.ToArray());
+			GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX + i, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixelsArray);
 		}
 
 

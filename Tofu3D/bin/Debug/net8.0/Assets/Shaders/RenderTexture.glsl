@@ -32,7 +32,7 @@ vec4 c = texture(textureObject, texCoord);
 //		if(c.r ==0 && c.g == 0 && c.b==0){
 //		discard;
 //}
-		if(c.a <0.3){
+		if(c.a <0.1){
 		discard;
 }
 //		else{
