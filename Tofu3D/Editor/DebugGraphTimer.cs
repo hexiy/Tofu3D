@@ -53,7 +53,7 @@ public class DebugGraphTimer : IComparable<DebugGraphTimer>
 		Stopwatch = new Stopwatch();
 	}
 
-	public void SetSamplesBufferSize(int bufferSize)
+	public void SetSamplesBufferSize(uint bufferSize)
 	{
 		Samples = new float[bufferSize];
 	}

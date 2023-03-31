@@ -106,7 +106,8 @@ public class TextRenderer : SpriteRenderer
 			return;
 		}
 
-		Texture.Load(texturePath, smooth: true);
+		
+		Texture.Load(texturePath);
 	}
 
 	public override void Render()

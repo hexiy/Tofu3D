@@ -27,6 +27,8 @@ public class EditorPanelBrowser : EditorPanel
 	Texture[] _textures = Array.Empty<Texture>();
 	public static EditorPanelBrowser I { get; private set; }
 
+	TextureLoadSettings _iconTextureLoadSettings = new TextureLoadSettings(filterMode: TextureFilterMode.Point);
+
 	public override void Init()
 	{
 		I = this;
@@ -34,10 +36,11 @@ public class EditorPanelBrowser : EditorPanel
 		CreateContextItems();
 
 		_fileIcon = new Texture();
-		_fileIcon.Load("Resources/FileIcon.png", false);
+
+		_fileIcon.Load(path: "Resources/FileIcon.png", loadSettings: _iconTextureLoadSettings);
 
 		_directoryIcon = new Texture();
-		_directoryIcon.Load("Resources/DirectoryIcon.png", false);
+		_directoryIcon.Load(path: "Resources/DirectoryIcon.png", loadSettings: _iconTextureLoadSettings);
 
 		CurrentDirectory = new DirectoryInfo("Assets");
 
@@ -103,7 +106,7 @@ public class EditorPanelBrowser : EditorPanel
 			if (assetExtension.ToLower().Contains(".jpg") || assetExtension.ToLower().Contains(".png") || assetExtension.ToLower().Contains(".jpeg"))
 			{
 				_textures[i] = new Texture();
-				_textures[i].Load(_assets[i], false);
+				_textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
 			}
 		}
 	}
@@ -146,7 +149,7 @@ public class EditorPanelBrowser : EditorPanel
 			ImGui.SameLine();
 
 			// ResetId();
-			
+
 			PushNextId();
 			bool saveBtnPressed = ImGui.Button("Save Prefab");
 			if (saveBtnPressed)
@@ -401,7 +404,7 @@ public class EditorPanelBrowser : EditorPanel
 
 
 		ImGui.End();
-		
+
 		base.Draw();
 	}
 

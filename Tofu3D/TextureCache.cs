@@ -9,123 +9,18 @@ public static class TextureCache
 	static Dictionary<int, Texture> _cachedTextures = new();
 	static int _textureInUse = -1;
 
-	static Texture LoadAndCreateTexture(string texturePath, bool flipX = true, bool smooth = false)
+	
+	public static Texture GetTexture(TextureLoadSettings textureLoadSettings)
 	{
-		int id = GL.GenTexture();
-		BindTexture(id);
-
-		Image<Rgba32> image = Image.Load<Rgba32>(texturePath);
-		if (flipX)
+		int hash = GetHash(textureLoadSettings.Paths[0]);
+		if (_cachedTextures.ContainsKey(hash) == false)
 		{
-			image.Mutate(x => x.Flip(FlipMode.Vertical));
+			Texture texture = TextureLoader.LoadTexture(textureLoadSettings);
+			_cachedTextures.Add(hash, texture);
+			return texture;
 		}
 
-		List<byte> pixels = new(4 * image.Width * image.Height);
-
-		for (int y = 0; y < image.Height; y++)
-		{
-			image.ProcessPixelRows(processPixels: accessor =>
-			{
-				Span<Rgba32> row = accessor.GetRowSpan(y);
-				for (int x = 0; x < image.Width; x++)
-				{
-					pixels.Add(row[x].R);
-					pixels.Add(row[x].G);
-					pixels.Add(row[x].B);
-					pixels.Add(row[x].A);
-				}
-			});
-		}
-
-		GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels.ToArray());
-
-		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int) TextureWrapMode.Repeat);
-		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int) TextureWrapMode.Repeat);
-		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, smooth ? (int) TextureMinFilter.Linear : (int) TextureMinFilter.Nearest);
-		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, smooth ? (int) TextureMagFilter.Linear : (int) TextureMagFilter.Nearest);
-
-		Texture texture = new();
-		texture.Id = id;
-		texture.Size = new Vector2(image.Width, image.Height);
-		texture.Loaded = true;
-		texture.Path = texturePath;
-
-		_cachedTextures.Add(GetHash(texturePath), texture);
-		return texture;
-	}
-
-	static Texture LoadAndCreateCubemapTexture(string texturePath)
-	{
-		int id = GL.GenTexture();
-		GL.ActiveTexture(TextureUnit.Texture0);
-		BindTexture(id, TextureTarget.TextureCubeMap);
-
-		Image<Rgba32> image = Image.Load<Rgba32>(texturePath);
-
-		List<byte> pixels = new(4 * image.Width * image.Height);
-
-		for (int y = 0; y < image.Height; y++)
-		{
-			image.ProcessPixelRows(processPixels: accessor =>
-			{
-				Span<Rgba32> row = accessor.GetRowSpan(y);
-				for (int x = 0; x < image.Width; x++)
-				{
-					pixels.Add(row[x].R);
-					pixels.Add(row[x].G);
-					pixels.Add(row[x].B);
-					pixels.Add(row[x].A);
-				}
-			});
-		}
-
-		byte[] pixelsArray = pixels.ToArray();
-
-		for (int i = 0; i < 6; i++)
-		{
-			//load the face image here, not one shared texture ofc
-			GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX + i, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixelsArray);
-		}
-
-
-		GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapS, (int) TextureWrapMode.ClampToEdge);
-		GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapT, (int) TextureWrapMode.ClampToEdge);
-		GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapR, (int) TextureWrapMode.ClampToEdge);
-		GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Linear);
-		GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMagFilter, (int) TextureMagFilter.Linear);
-
-		ImGuiController.CheckGlError("cubemap");
-		Texture texture = new()
-		                  {
-			                  Id = id,
-			                  Size = new Vector2(image.Width, image.Height),
-			                  Loaded = true,
-			                  Path = texturePath
-		                  };
-
-		_cachedTextures.Add(GetHash(texturePath), texture);
-
-		return texture;
-	}
-
-	public static Texture GetCubemapTexture(string texturePath)
-	{
-		if (_cachedTextures.ContainsKey(GetHash(texturePath)) == false)
-		{
-			return LoadAndCreateCubemapTexture(texturePath);
-		}
-
-		return _cachedTextures[GetHash(texturePath)];
-	}
-
-	public static Texture GetTexture(string texturePath, bool flipX = true, bool smooth = false)
-	{
-		if (_cachedTextures.ContainsKey(GetHash(texturePath)) == false)
-		{
-			return LoadAndCreateTexture(texturePath, flipX, smooth);
-		}
-
-		return _cachedTextures[GetHash(texturePath)];
+		return _cachedTextures[hash];
 	}
 
 	public static void DeleteTexture(string texturePath)
@@ -143,7 +38,7 @@ public static class TextureCache
 		return texturePath.GetHashCode();
 	}
 
-	public static void BindTexture(int id, TextureTarget textureTarget = TextureTarget.Texture2D)
+	public static void BindTexture(int id, TextureType textureType = TextureType.Texture2D)
 	{
 		if (id == _textureInUse)
 		{
@@ -151,6 +46,8 @@ public static class TextureCache
 		}
 
 		_textureInUse = id;
+
+		TextureTarget textureTarget = textureType == TextureType.Texture2D ? TextureTarget.Texture2D : TextureTarget.TextureCubeMap;
 		GL.BindTexture(textureTarget, id);
 	}
 }

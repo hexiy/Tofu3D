@@ -18,7 +18,20 @@ public class SceneSkyboxRenderer
 		_material = MaterialCache.GetMaterial("Skybox");
 
 		_texture = new Texture();
-		_texture.LoadCubemap(Path.Combine(Folders.Textures, "sdf.png"));
+		string[] texturePaths = new[]
+		                        {
+			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_left.png"),
+			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_right.png"),
+			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_down.png"),
+			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_up.png"),
+			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_front.png"),
+			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_back.png"),
+		                        };
+
+		TextureLoadSettings textureLoadSettings = new TextureLoadSettings(paths: texturePaths,
+		                                                                  textureType: TextureType.Cubemap);
+
+		_texture.Load(textureLoadSettings);
 
 		RenderPassSystem.RegisterRender(RenderPassType.Skybox, RenderSkybox);
 		Scene.SceneDisposed += OnSceneDisposed;
@@ -48,7 +61,7 @@ public class SceneSkyboxRenderer
 
 		Matrix4x4 viewMatrix = Matrix4x4.CreateLookAt(cameraPosition: Vector3.Zero, cameraTarget: forwardLocal, cameraUpVector: upLocal);
 
-		Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Camera.I.FieldOfView), Camera.I.Size.X / Camera.I.Size.Y, 0.01f, 1);
+		Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Camera.I.FieldOfView * 0.7f), Camera.I.Size.X / Camera.I.Size.Y, 0.01f, 1);
 
 		_material.Shader.SetMatrix4X4("u_view", viewMatrix);
 		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix);
@@ -57,7 +70,7 @@ public class SceneSkyboxRenderer
 		// GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 		GL.ActiveTexture(TextureUnit.Texture0);
-		TextureCache.BindTexture(_texture.Id, TextureTarget.TextureCubeMap);
+		TextureCache.BindTexture(_texture.Id, TextureType.Cubemap);
 
 		if (KeyboardInput.WasKeyJustPressed(Keys.D1))
 		{

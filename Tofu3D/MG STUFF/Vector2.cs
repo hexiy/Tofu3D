@@ -1435,6 +1435,7 @@ public struct Vector2 : IEquatable<Vector2>
 	/// <summary>
 	///         Returns a <see cref="System.Numerics.Vector2" />.
 	/// </summary>
+	// ReSharper disable once InconsistentNaming
 	public OpenTK.Mathematics.Vector2 ToOpenTKVector2()
 	{
 		return new OpenTK.Mathematics.Vector2(X, Y);

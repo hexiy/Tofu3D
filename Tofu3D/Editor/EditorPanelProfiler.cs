@@ -24,7 +24,7 @@ public class EditorPanelProfiler : EditorPanel
 			return;
 		}
 
-		SetWindow(); 
+		SetWindow();
 
 		ImGui.Text($"GameObjects in scene: {SceneManager.CurrentScene.GameObjects.Count}");
 
@@ -79,7 +79,7 @@ public class EditorPanelProfiler : EditorPanel
 			int plotWidth = (int) ImGui.GetContentRegionAvail().X;
 			if (timerPair.Value.Samples.Length != plotWidth / 2)
 			{
-				timerPair.Value.SetSamplesBufferSize(plotWidth / 2);
+				timerPair.Value.SetSamplesBufferSize((uint) plotWidth / 2);
 			}
 
 			if (timerPair.Value.Collapsed)
