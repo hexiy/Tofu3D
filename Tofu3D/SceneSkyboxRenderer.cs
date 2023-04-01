@@ -63,6 +63,7 @@ public class SceneSkyboxRenderer
 
 		Matrix4x4 viewMatrix = Matrix4x4.CreateLookAt(cameraPosition: Vector3.Zero, cameraTarget: forwardLocal, cameraUpVector: upLocal);
 
+		Inspectable.Fov = Mathf.Clamp(Inspectable.Fov, 0.000001f, 179);
 		Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Inspectable.Fov), Camera.I.Size.X / Camera.I.Size.Y, 0.01f, 1);
 
 		_material.Shader.SetMatrix4X4("u_view", viewMatrix);

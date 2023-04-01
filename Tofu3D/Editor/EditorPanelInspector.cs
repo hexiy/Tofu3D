@@ -189,48 +189,59 @@ public class EditorPanelInspector : EditorPanel
 
 	void DrawInspectables()
 	{
-		// if (_selectedInspectable.IsPrefab)
-		// {
-		// 	if (ImGui.Button("Update prefab"))
-		// 	{
-		// 		AssetSerializer.SaveGameObject(_selectedInspectable, _selectedInspectable.PrefabPath);
-		// 	}
-		//
-		// 	if (ImGui.Button("Delete prefab"))
-		// 	{
-		// 		_selectedInspectable.IsPrefab = false;
-		// 	}
-		// }
+		GameObject gameObject = (_currentInspectableDatas[0].Inspectable as Component)?.GameObject;
+		if (gameObject?.IsPrefab == true)
+		{
+			if (ImGui.Button("Update prefab"))
+			{
+				AssetSerializer.SaveGameObject(gameObject, gameObject.PrefabPath);
+			}
+
+			ImGui.SameLine();
+			if (ImGui.Button("Delete prefab"))
+			{
+				gameObject.IsPrefab = false;
+			}
+		}
 
 		_editing = false;
 
-		// PushNextId();
-		// ImGui.SetScrollX(0);
+		if (gameObject)
+		{
+			PushNextId();
+			ImGui.SetScrollX(0);
 
-		// string gameObjectName = _selectedInspectable.Name;
-		// ImGui.Checkbox("", ref _selectedInspectable.ActiveSelf);
-		// ImGui.SameLine();
-		// PushNextId();
-		// ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
-		// if (ImGui.InputText("", ref gameObjectName, 100))
-		// {
-		// 	_selectedInspectable.Name = gameObjectName;
-		// }
+			string gameObjectName = gameObject.Name;
+			ImGui.Checkbox("", ref gameObject.ActiveSelf);
+			ImGui.SameLine();
+			PushNextId();
+			ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
+			if (ImGui.InputText("", ref gameObjectName, 100))
+			{
+				gameObject.Name = gameObjectName;
+			}
+		}
 
 		foreach (InspectableData componentInspectorData in _currentInspectableDatas)
 		{
-			// PushNextId();
+			Component component = componentInspectorData.Inspectable as Component;
 
-			// ImGui.Checkbox("", ref componentInspectorData.Component.Enabled);
-			// ImGui.SameLine();
+			if (component)
+			{
+				PushNextId();
 
-			// if (ImGui.Button("-"))
-			// {
-			// 	_selectedInspectable.RemoveComponent(componentInspectorData.Component);
-			// 	continue;
-			// }
+				ImGui.Checkbox("", ref component.Enabled);
+				ImGui.SameLine();
 
-			// ImGui.SameLine();
+				if (ImGui.Button("-"))
+				{
+					component.GameObject.RemoveComponent(component);
+					continue;
+				}
+
+				ImGui.SameLine();
+			}
+
 			PushNextId();
 
 			if (ImGui.CollapsingHeader(componentInspectorData.InspectableType.Name, ImGuiTreeNodeFlags.DefaultOpen))
@@ -257,6 +268,7 @@ public class EditorPanelInspector : EditorPanel
 
 					PushNextId();
 
+					// ReSharper disable once ReplaceWithSingleAssignment.False
 					bool hovering = false;
 					if (ImGui.IsMouseHoveringRect(ImGui.GetCursorScreenPos(), ImGui.GetCursorScreenPos() + new System.Numerics.Vector2(1500, ImGui.GetFrameHeightWithSpacing())))
 					{
@@ -593,89 +605,58 @@ public class EditorPanelInspector : EditorPanel
 					}
 					//ImGui.PopID();
 				}
-
-				//PropertyInfo[] properties = selectedGameObject.Components[i].GetType ().GetProperties ();
-				//for (int j = 0; j < properties.Length; j++)
-				//{
-				//	PushNextID ();
-				//	for (int k = 0; k < properties[j].CustomAttributes.Count (); k++)
-				//	{
-				//		if (properties[j].CustomAttributes.ElementAtOrDefault (k).AttributeType != typeof (ShowInEditor))
-				//		{
-				//			continue;
-				//		}
-				//		ImGui.Text (properties[j].Name);
-				//		ImGui.SameLine ();
-				//		//ImGui.Text (fieldInfo[j].GetValue (selectedGameObject.Components[i]).ToString ());
-
-				//		//if (properties[j].PropertyType == typeof (float))
-				//		//{
-				//		//	float fl = (float) properties[j].GetValue (selectedGameObject.Components[i]);
-				//		//	if (ImGui.DragFloat ("", ref fl, 0.01f, 0, 1))
-				//		//	{
-				//		//		properties[j].SetValue (selectedGameObject.Components[i], fl);
-				//		//	}
-				//		//}
-				//		if (properties[j].PropertyType == typeof (Vector3))
-				//		{
-				//			Vector3 fl = (Vector3) properties[j].GetValue (selectedGameObject.Components[i]);
-				//			if (ImGui.DragFloat3 ("", ref fl, 0.01f))
-				//			{
-				//				//properties[j].SetValue (selectedGameObject.Components[i], fl);
-				//			}
-				//		}
-				//	}
-				//	ImGui.PopID ();
-				//}
 			}
 		}
 
-		/*bool justOpened = false;
-		if (ImGui.Button("+"))
+		if (gameObject)
 		{
-			ImGui.OpenPopup("AddComponentPopup");
-			justOpened = true;
-		}
-
-		if (ImGui.BeginPopupContextWindow("AddComponentPopup"))
-		{
-			if (justOpened)
+			bool justOpened = false;
+			if (ImGui.Button("+"))
 			{
-				ImGui.SetKeyboardFocusHere(0);
+				ImGui.OpenPopup("AddComponentPopup");
+				justOpened = true;
 			}
 
-			bool enterPressed = ImGui.InputText("", ref _addComponentPopupText, 100, ImGuiInputTextFlags.EnterReturnsTrue);
-
-
-			if (_addComponentPopupText.Length > 0)
+			if (ImGui.BeginPopupContextWindow("AddComponentPopup"))
 			{
-				for (int i = 0; i < _componentTypes.Count; i++)
+				if (justOpened)
 				{
-					if (_componentTypes[i].Name.ToLower().Contains(_addComponentPopupText.ToLower()))
+					ImGui.SetKeyboardFocusHere(0);
+				}
+
+				bool enterPressed = ImGui.InputText("", ref _addComponentPopupText, 100, ImGuiInputTextFlags.EnterReturnsTrue);
+
+
+				if (_addComponentPopupText.Length > 0)
+				{
+					for (int i = 0; i < _componentTypes.Count; i++)
 					{
-						if (ImGui.Button(_componentTypes[i].Name) || enterPressed)
+						if (_componentTypes[i].Name.ToLower().Contains(_addComponentPopupText.ToLower()))
 						{
-							_selectedInspectable.AddComponent(_componentTypes[i]);
-							ImGui.CloseCurrentPopup();
-							break;
+							if (ImGui.Button(_componentTypes[i].Name) || enterPressed)
+							{
+								gameObject.AddComponent(_componentTypes[i]);
+								ImGui.CloseCurrentPopup();
+								break;
+							}
 						}
 					}
 				}
-			}
-			else
-			{
-				for (int i = 0; i < _componentTypes.Count; i++)
+				else
 				{
-					if (ImGui.Button(_componentTypes[i].Name))
+					for (int i = 0; i < _componentTypes.Count; i++)
 					{
-						_selectedInspectable.AddComponent(_componentTypes[i]);
-						ImGui.CloseCurrentPopup();
+						if (ImGui.Button(_componentTypes[i].Name))
+						{
+							gameObject.AddComponent(_componentTypes[i]);
+							ImGui.CloseCurrentPopup();
+						}
 					}
 				}
-			}
 
-			ImGui.EndPopup();
-		}*/
+				ImGui.EndPopup();
+			}
+		}
 	}
 	/*
 	void DrawMaterialInspector()

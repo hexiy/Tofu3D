@@ -5,7 +5,7 @@ using Component = Scripts.Component;
 
 namespace Tofu3D;
 
-public class GameObject : IEqualityComparer<GameObject>
+public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 {
 	public delegate void ComponentAdded(GameObject gameObject, Component component);
 
@@ -775,5 +775,25 @@ public class GameObject : IEqualityComparer<GameObject>
 	public int GetHashCode(GameObject obj)
 	{
 		return obj.Id;
+	}
+
+	public int CompareTo(bool other)
+	{
+		if (this == null)
+		{
+			return 0;
+		}
+
+		return 1;
+	}
+
+	public static implicit operator bool(GameObject instance)
+	{
+		if (instance == null)
+		{
+			return false;
+		}
+
+		return true;
 	}
 }
