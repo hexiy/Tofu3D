@@ -23,6 +23,8 @@ public class DirectionalLight : LightBase
 	float _cameraBeforeTransformationFarPlaneDistance;
 	bool _cameraBeforeTransformationIsOrthographic;
 
+	float _initialRotationY;
+
 	public static Matrix4x4 LightSpaceMatrix = Matrix4x4.Identity;
 
 	[ExecuteInEditMode]
@@ -30,6 +32,7 @@ public class DirectionalLight : LightBase
 	{
 		I = this;
 
+		_initialRotationY = Transform.Rotation.Y;
 		// DepthRenderTexture = new RenderTexture(size: Size, colorAttachment: false, depthAttachment: true);
 		// DisplayDepthRenderTexture = new RenderTexture(size: Size, colorAttachment: true, depthAttachment: false);
 
@@ -41,7 +44,7 @@ public class DirectionalLight : LightBase
 
 	public override void Update()
 	{
-		Transform.Rotation = Transform.Rotation.Add(y: Time.EditorDeltaTime * Speed);
+		Transform.Rotation = Transform.Rotation.Set(y: _initialRotationY + (float) Math.Cos(Time.EditorElapsedTime*Speed)*5);
 		base.Update();
 	}
 
@@ -81,7 +84,7 @@ public class DirectionalLight : LightBase
 
 		Camera.I.IsOrthographic = true;
 		Camera.I.OrthographicSize = OrthographicSize;
-		Camera.I.Transform.WorldPosition = Transform.WorldPosition * new Vector3(1,-1,1); // TODO: well this is weird
+		Camera.I.Transform.WorldPosition = Transform.WorldPosition * new Vector3(1, -1, 1); // TODO: well this is weird
 		Camera.I.Transform.Rotation = Transform.Rotation;
 		Camera.I.Size = Size;
 		Camera.I.NearPlaneDistance = NearPlaneDistance;

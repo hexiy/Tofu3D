@@ -64,6 +64,11 @@ public class ModelRenderer : TextureRenderer
 			return;
 		}
 
+		if (CastShadow == false && RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth)
+		{
+			return;
+		}
+
 		bool drawOutline = GameObject.Selected && false;
 		if (drawOutline)
 		{

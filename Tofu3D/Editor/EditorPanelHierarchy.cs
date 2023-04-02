@@ -33,12 +33,12 @@ public class EditorPanelHierarchy : EditorPanel
 			DestroySelectedGameObjects();
 		}
 
-		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.IsKeyUp(Keys.Backspace))
+		if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.IsKeyUp(Keys.Backspace))
 		{
 			_canDelete = true;
 		}
 
-		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.IsKeyUp(Keys.C))
+		if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.IsKeyUp(Keys.C))
 		{
 			if (GameObjectSelectionManager.GetSelectedGameObject() != null)
 			{
@@ -47,7 +47,7 @@ public class EditorPanelHierarchy : EditorPanel
 			}
 		}
 
-		if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.IsKeyUp(Keys.V))
+		if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.IsKeyUp(Keys.V))
 		{
 			if (_clipboardGameObject != null)
 			{
