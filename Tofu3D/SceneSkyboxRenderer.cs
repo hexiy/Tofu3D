@@ -23,12 +23,18 @@ public class SceneSkyboxRenderer
 		_texture = new Texture();
 		string[] texturePaths = new[]
 		                        {
-			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_left.png"),
+			                        /*Path.Combine(Folders.Textures, "skyCubemap", "sky_left.png"),
 			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_right.png"),
 			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_down.png"),
 			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_up.png"),
 			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_front.png"),
-			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_back.png"),
+			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_back.png"),*/         
+			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Right.bmp"),
+			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Left.bmp"),
+			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Bottom.bmp"),
+			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Top.bmp"),
+			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Front.bmp"),
+			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Back.bmp"),
 		                        };
 
 		TextureLoadSettings textureLoadSettings = new TextureLoadSettings(paths: texturePaths,
