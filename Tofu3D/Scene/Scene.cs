@@ -29,7 +29,7 @@ public class Scene
 	{
 		_sceneLightingManager = new SceneLightingManager(this);
 		_sceneRenderQueue = new SceneRenderQueue(this);
-		_sceneSkyboxManager= new SceneSkyboxManager(this);
+		_sceneSkyboxManager = new SceneSkyboxManager(this);
 
 		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderScene);
 	}
@@ -114,8 +114,6 @@ public class Scene
 		Debug.EndGraphTimer("Scene Update");
 	}
 
-
-
 	public void OnComponentAdded(GameObject gameObject, Component component)
 	{
 		ComponentAdded.Invoke(component);
@@ -141,7 +139,7 @@ public class Scene
 
 
 		//BatchingManager.RenderAllBatchers();
-
+		
 		TransformHandle.I.GameObject.Render();
 	}
 

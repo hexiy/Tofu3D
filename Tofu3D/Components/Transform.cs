@@ -342,10 +342,10 @@ public class Transform : Component
 		Matrix4x4 transformationMatrix = (Matrix4x4.CreateTranslation(dir)
 		                                * Matrix4x4.CreateRotationX(Transform.Rotation.X / 180 * Mathf.Pi)
 		                                * Matrix4x4.CreateRotationY(Transform.Rotation.Y / 180 * Mathf.Pi)
-		                                * Matrix4x4.CreateRotationZ(Transform.Rotation.Z / 180 * Mathf.Pi));
+		                                /** Matrix4x4.CreateRotationZ(Transform.Rotation.Z / 180 * Mathf.Pi)*/);
 
 		Vector3 x = transformationMatrix.Translation;
-// this fucking works, but moving the camera doesnt lmfao
+
 		return -x;
 	}
 

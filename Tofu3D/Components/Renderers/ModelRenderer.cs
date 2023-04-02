@@ -58,6 +58,12 @@ public class ModelRenderer : TextureRenderer
 			return;
 		}
 
+		bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
+		if (isTransformHandle && RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques)
+		{
+			return;
+		}
+
 		bool drawOutline = GameObject.Selected && false;
 		if (drawOutline)
 		{
@@ -82,72 +88,52 @@ public class ModelRenderer : TextureRenderer
 			//GL.BindVertexArray(0);
 		}
 
-		bool renderDepth = RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth && GameObject.Silent == false && CastShadow;
-		if (renderDepth)
+
+		if (GameObject == TransformHandle.I?.GameObject)
 		{
-			// depth pass
-		
-		
-			Material depthMaterial = MaterialCache.GetMaterial("DepthModel");
-			ShaderCache.UseShader(depthMaterial.Shader);
-		
-			depthMaterial.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
-			depthMaterial.Shader.SetMatrix4X4("u_model", GetModelMatrixForLight());
-			depthMaterial.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
-		
-			ShaderCache.BindVertexArray(depthMaterial.Vao);
-		
-			GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
+			GL.Disable(EnableCap.DepthTest);
 		}
-		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques || (RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth && renderDepth))
+		else
 		{
-			if (GameObject == TransformHandle.I?.GameObject)
+			GL.Enable(EnableCap.DepthTest);
+		}
+
+
+		//GL.Enable(EnableCap.DepthTest);
+
+		ShaderCache.UseShader(Material.Shader);
+		Material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
+		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+		Material.Shader.SetMatrix4X4("u_model", GetModelMatrixForLight());
+		Material.Shader.SetColor("u_rendererColor", Color);
+
+		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques)
+		{
+			Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
+
+			Material.Shader.SetVector3("u_ambientLightsColor", SceneLightingManager.I.GetAmbientLightsColor().ToVector3());
+			Material.Shader.SetFloat("u_ambientLightsIntensity", SceneLightingManager.I.GetAmbientLightsIntensity());
+
+			Material.Shader.SetVector3("u_directionalLightColor", SceneLightingManager.I.GetDirectionalLightColor().ToVector3());
+			Material.Shader.SetFloat("u_directionalLightIntensity", SceneLightingManager.I.GetDirectionalLightIntensity());
+
+			Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
+			// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
+			Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
+
+			TextureCache.BindTexture(Texture.Id);
+			if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
 			{
-				GL.Disable(EnableCap.DepthTest);
-			}
-			else
-			{
-				GL.Enable(EnableCap.DepthTest);
-			}
-
-			{
-				//GL.Enable(EnableCap.DepthTest);
-
-				ShaderCache.UseShader(Material.Shader);
-				Material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
-
-				Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
-				Material.Shader.SetMatrix4X4("u_model", GetModelMatrixForLight());
-				Material.Shader.SetColor("u_rendererColor", Color);
-
-
-				Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
-
-				Material.Shader.SetVector3("u_ambientLightsColor", SceneLightingManager.I.GetAmbientLightsColor().ToVector3());
-				Material.Shader.SetFloat("u_ambientLightsIntensity", SceneLightingManager.I.GetAmbientLightsIntensity());
-
-				Material.Shader.SetVector3("u_directionalLightColor", SceneLightingManager.I.GetDirectionalLightColor().ToVector3());
-				Material.Shader.SetFloat("u_directionalLightIntensity", SceneLightingManager.I.GetDirectionalLightIntensity());
-
-				Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
-				// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
-				Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
-
-				ShaderCache.BindVertexArray(Material.Vao);
-
-
-				TextureCache.BindTexture(Texture.Id);
-				if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
-				{
-					TextureCache.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
-				}
-				// TextureCache.BindTexture(DirectionalLight.DisplayDepthRenderTexture.ColorAttachment);
-
-				//TextureCache.BindTexture(DirectionalLight.DepthRenderTexture.DepthAttachment);
-
-				GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
+				TextureCache.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 			}
 		}
+
+
+		ShaderCache.BindVertexArray(Material.Vao);
+
+		GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+
+
 		/*else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
 		{
 			if (GameObject == TransformHandle.I?.GameObject)

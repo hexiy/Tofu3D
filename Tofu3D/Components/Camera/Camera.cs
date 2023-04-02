@@ -199,7 +199,7 @@ public class Camera : Component
 
 	Matrix4x4 GetLightScaleMatrix()
 	{
-		Matrix4x4 scaleMatrix = Matrix4x4.CreateScale(1 / OrthographicSize);
+		Matrix4x4 scaleMatrix = Matrix4x4.CreateScale(1 / DirectionalLight.I.OrthographicSize);
 		return scaleMatrix;
 	}
 
@@ -218,8 +218,9 @@ public class Camera : Component
 	public Matrix4x4 GetLightViewMatrix()
 	{
 		Vector3 oldRotation = Transform.Rotation;
+		oldRotation = oldRotation * new Vector3(1, 1, 0);
 		Transform.Rotation = -oldRotation;
-
+		
 		Vector3 forwardWorld = Transform.WorldPosition + Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
 		Vector3 upLocal = Transform.TransformDirectionToWorldSpace(new Vector3(0, 1, 0));
 

@@ -16,6 +16,7 @@ public class RenderTexture
 
 	// public Material RenderTextureMaterial;
 	public Vector2 Size;
+	public Color ClearColor = new Color(0, 0, 0, 0);
 
 	Material _depthRenderTextureMaterial;
 	Material _renderTextureMaterial;
@@ -58,16 +59,15 @@ public class RenderTexture
 
 			//GL.CreateTextures(TextureTarget.Texture2D, 1, out colorAttachment);
 			GL.BindTexture(TextureTarget.Texture2D, ColorAttachment);
-			//TextureCache.BindTexture(colorAttachment);
 
-			if (_isGrayscale)
-			{
-				GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.R16, (int) Size.X, (int) Size.Y, 0, PixelFormat.Red, PixelType.UnsignedByte, (IntPtr) null);
-			}
-			else
-			{
-				GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16, (int) Size.X, (int) Size.Y, 0, PixelFormat.Rgba, PixelType.UnsignedByte, (IntPtr) null);
-			}
+			// if (_isGrayscale)
+			// {
+			// 	GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.R16, (int) Size.X, (int) Size.Y, 0, PixelFormat.Red, PixelType.UnsignedByte, (IntPtr) null);
+			// }
+			// else
+			// {
+			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16, (int) Size.X, (int) Size.Y, 0, PixelFormat.Rgba, PixelType.UnsignedByte, (IntPtr) null);
+			// }
 
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Linear);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMagFilter.Linear);
@@ -119,12 +119,11 @@ public class RenderTexture
 	{
 		Bind();
 		GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
-		GL.ClearColor(new Color(0, 0, 0, 0).ToOtherColor());
+		GL.ClearColor(ClearColor.ToOtherColor());
 		// GL.ClearDepth(1);
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 		Unbind();
 	}
-	
 
 	public void RenderDepthAttachment(int targetTexture)
 	{

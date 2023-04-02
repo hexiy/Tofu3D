@@ -11,9 +11,6 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 	// shadows depth map
 	public RenderTexture DepthMapRenderTexture { get; private set; }
 
-	// renders camera's color view, for debug
-	public RenderTexture LightDebugViewColorRenderTexture { get; private set; }
-
 	public RenderPassDirectionalLightShadowDepth() : base(RenderPassType.DirectionalLightShadowDepth)
 	{
 		I = this;
@@ -40,47 +37,28 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 	{
 		// PassRenderTexture contains the depth, we render that depth with DeptRenderTexture.glsl shader to DepthMapRenderTexture and use that as a shadowmap
 		PassRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: true);
+		PassRenderTexture.ClearColor = new Color(0, 0, 0, 255);
 		DepthMapRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: false);
-		LightDebugViewColorRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: false);
-		// cannot write from depth to color on one framebuffer right?
 
 		base.SetupRenderTexture();
 	}
 
 	protected override void PreRender()
 	{
+		// it would be nice to render the skybox to the light view preview textures
+		// RenderPassSkybox.I.Render();
+		// RenderPassSkybox.I.RenderToFramebuffer(PassRenderTexture, FramebufferAttachment.Color);
 		base.PreRender();
 	}
 
 	protected override void PostRender()
 	{
 		base.PostRender();
-		RenderToDepthMapRenderTexture();
-		//RenderToDisplayViewRenderTexture();
-		
+		RenderToDebugDepthTexture();
+		// RenderToDebugColorTexture();
 	}
 
-	void RenderToDisplayViewRenderTexture()
-	{
-		if (_directionalLight == null)
-		{
-			return;
-		}
-
-		GL.ClearColor(Color.Yellow.ToOtherColor());
-		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-		LightDebugViewColorRenderTexture.Bind();
-		GL.Viewport(0, 0, (int) LightDebugViewColorRenderTexture.Size.X, (int) LightDebugViewColorRenderTexture.Size.Y);
-		// GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-		// GL.ClearColor(1,0,1,1);
-
-		LightDebugViewColorRenderTexture.RenderColorAttachment(PassRenderTexture.ColorAttachment);
-
-		LightDebugViewColorRenderTexture.Unbind();
-	}
-
-	private void RenderToDepthMapRenderTexture()
+	private void RenderToDebugDepthTexture()
 	{
 		if (_directionalLight == null)
 		{

@@ -41,7 +41,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Ambient Light</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -56,7 +56,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Directional Light</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -91,14 +91,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-17.781534</X>
-        <Y>-22.658976</Y>
-        <Z>-17.292654</Z>
+        <X>2.327523</X>
+        <Y>-44.90394</Y>
+        <Z>-47.539818</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-17.781534</X>
-        <Y>-22.658976</Y>
-        <Z>-17.292654</Z>
+        <X>2.327523</X>
+        <Y>-44.90394</Y>
+        <Z>-47.539818</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -111,8 +111,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-37.360786</X>
-        <Y>78.04497</Y>
+        <X>-35.470425</X>
+        <Y>73.82109</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -151,14 +151,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>25.8</X>
+        <Y>-0.4</Y>
+        <Z>25</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>25.8</X>
+        <Y>-0.4</Y>
+        <Z>25</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -204,7 +204,7 @@
         <A>255</A>
         <PackedValue>4287532686</PackedValue>
       </Color>
-      <DistanceFromCamera>28.80299</DistanceFromCamera>
+      <DistanceFromCamera>50.314587</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
@@ -298,13 +298,13 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>5.006</X>
-        <Y>-36.09</Y>
+        <X>0</X>
+        <Y>30</Y>
         <Z>-26.98</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>5.006</X>
-        <Y>-36.09</Y>
+        <X>0</X>
+        <Y>30</Y>
         <Z>-26.98</Z>
       </LocalPosition>
       <LocalScale>
@@ -318,8 +318,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-22.56</X>
-        <Y>42.729</Y>
+        <X>-25.42</X>
+        <Y>43.9</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -412,7 +412,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>25.978218</DistanceFromCamera>
+      <DistanceFromCamera>41.249657</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
@@ -442,5 +442,5 @@
       <CastShadow>true</CastShadow>
     </Component>
   </Components>
-  <GameObjectNextId>33</GameObjectNextId>
+  <GameObjectNextId>41</GameObjectNextId>
 </SceneFile>
