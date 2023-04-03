@@ -36,7 +36,7 @@
 		uint hash = (uint) assetPath.GetHashCode();
 		asset.InitAssetHandle(hash);
 
-		(_loaders[typeof(T)] as AssetLoader<T>).LoadAsset(loadSettings: loadSettings);
+		asset = (_loaders[typeof(T)] as AssetLoader<T>).LoadAsset(loadSettings: loadSettings) as T;
 		// asset type specifics
 
 

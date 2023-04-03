@@ -4,7 +4,7 @@ namespace Tofu3D;
 
 public class Asset<T> where T : Asset<T> //, new()
 {
-	public AssetHandle<T> AssetHandle { get; internal set; }
+	public AssetHandle<T> AssetHandle { get; set; }
 	public string AssetPath = "";
 
 	// private Asset()

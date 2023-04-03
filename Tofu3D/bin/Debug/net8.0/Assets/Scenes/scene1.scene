@@ -26,7 +26,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -56,7 +56,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Directional Light</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -181,14 +181,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>52.142117</X>
-        <Y>-25.319456</Y>
-        <Z>-1.6213362</Z>
+        <X>-47.748817</X>
+        <Y>-50.977222</Y>
+        <Z>-46.92175</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>52.142117</X>
-        <Y>-25.319456</Y>
-        <Z>-1.6213362</Z>
+        <X>-47.748817</X>
+        <Y>-50.977222</Y>
+        <Z>-46.92175</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -201,8 +201,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-41.600807</X>
-        <Y>-49.37268</Y>
+        <X>-44.618652</X>
+        <Y>26.703651</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -241,14 +241,14 @@
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>18.4</X>
+        <Y>5</Y>
+        <Z>25</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>18.4</X>
+        <Y>5</Y>
+        <Z>25</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -294,8 +294,12 @@
         <A>255</A>
         <PackedValue>4284571647</PackedValue>
       </Color>
-      <DistanceFromCamera>57.964428</DistanceFromCamera>
+      <DistanceFromCamera>86.65515</DistanceFromCamera>
       <Material>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
@@ -306,12 +310,12 @@
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>9</Id>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
+        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
-        <Path>Assets\2D\solidColor.png</Path>
-        <Paths>
-          <string>Assets\2D\solidColor.png</string>
-        </Paths>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -414,8 +418,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
-        <Y>0</Y>
+        <X>-25.2</X>
+        <Y>52.3</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -508,8 +512,12 @@
         <A>255</A>
         <PackedValue>4283957148</PackedValue>
       </Color>
-      <DistanceFromCamera>56.43879</DistanceFromCamera>
+      <DistanceFromCamera>67.18031</DistanceFromCamera>
       <Material>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
@@ -520,12 +528,12 @@
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>13</Id>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
+        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
-        <Path>Assets\2D\tiles.png</Path>
-        <Paths>
-          <string>Assets\2D\tiles.png</string>
-        </Paths>
         <Size>
           <X>512</X>
           <Y>512</Y>
@@ -603,8 +611,12 @@
         <A>255</A>
         <PackedValue>4281696163</PackedValue>
       </Color>
-      <DistanceFromCamera>56.671124</DistanceFromCamera>
+      <DistanceFromCamera>67.60372</DistanceFromCamera>
       <Material>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
@@ -615,12 +627,12 @@
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>13</Id>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
+        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
-        <Path>Assets\2D\tiles.png</Path>
-        <Paths>
-          <string>Assets\2D\tiles.png</string>
-        </Paths>
         <Size>
           <X>512</X>
           <Y>512</Y>
@@ -700,6 +712,10 @@
       </Color>
       <DistanceFromCamera>64.47268</DistanceFromCamera>
       <Material>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
@@ -710,12 +726,12 @@
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>9</Id>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
+        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
-        <Path>Assets\2D\solidColor.png</Path>
-        <Paths>
-          <string>Assets\2D\solidColor.png</string>
-        </Paths>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -795,6 +811,10 @@
       </Color>
       <DistanceFromCamera>88.44218</DistanceFromCamera>
       <Material>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
@@ -805,12 +825,12 @@
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>9</Id>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
+        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
-        <Path>Assets\2D\solidColor.png</Path>
-        <Paths>
-          <string>Assets\2D\solidColor.png</string>
-        </Paths>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -890,6 +910,10 @@
       </Color>
       <DistanceFromCamera>106.47509</DistanceFromCamera>
       <Material>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
@@ -900,12 +924,12 @@
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>9</Id>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
+        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
-        <Path>Assets\2D\solidColor.png</Path>
-        <Paths>
-          <string>Assets\2D\solidColor.png</string>
-        </Paths>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -981,22 +1005,26 @@ asd</Value>
       </Color>
       <DistanceFromCamera>63.68383</DistanceFromCamera>
       <Material>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Cubemap</BufferType>
           <Path>Assets\Shaders\Skybox.glsl</Path>
         </Shader>
-        <Vao>12</Vao>
+        <Vao>7</Vao>
         <Vbo>0</Vbo>
       </Material>
       <Layer>15.62</Layer>
       <Texture>
-        <Id>14</Id>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
+        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
-        <Path>Assets\2D\sdf.png</Path>
-        <Paths>
-          <string>Assets\2D\sdf.png</string>
-        </Paths>
         <Size>
           <X>1024</X>
           <Y>1024</Y>
@@ -1111,6 +1139,10 @@ asd</Value>
       </Color>
       <DistanceFromCamera>42.729137</DistanceFromCamera>
       <Material>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Rendertexture</BufferType>
@@ -1121,12 +1153,12 @@ asd</Value>
       </Material>
       <Layer>0</Layer>
       <Texture>
-        <Id>9</Id>
+        <AssetPath />
+        <AssetHandle>
+          <Id>0</Id>
+        </AssetHandle>
+        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
-        <Path>Assets\2D\solidColor.png</Path>
-        <Paths>
-          <string>Assets\2D\solidColor.png</string>
-        </Paths>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -1155,5 +1187,5 @@ asd</Value>
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>95</GameObjectNextId>
+  <GameObjectNextId>103</GameObjectNextId>
 </SceneFile>
