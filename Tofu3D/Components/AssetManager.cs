@@ -13,7 +13,19 @@
 		ModelLoader modelLoader = new();
 		AddAssetLoader(modelLoader);
 
-		_loadSettingsTypes.Add(typeof(Texture), typeof(TextureLoadSettings));
+
+		foreach (Type loadSettingsType in new[]
+		                                  {
+			                                  typeof(TextureLoadSettings),
+		                                  })
+		{
+			_loadSettingsTypes.Add(loadSettingsType.BaseType.GenericTypeArguments[0], loadSettingsType);
+		}
+	}
+
+	public static void AddLoadSettingsType(Type type)
+	{
+		_loadSettingsTypes.Add(type.BaseType.GenericTypeArguments[0], type);
 	}
 
 	private static void AddAssetLoader(IAssetLoader assetLoader)

@@ -2,6 +2,7 @@
 
 public class TextureLoadSettings : AssetLoadSettings<Texture>
 {
+
 	public static TextureLoadSettings DefaultSettingsTexture2D = new TextureLoadSettings(path: string.Empty,
 	                                                                                     // paths: null,
 	                                                                                     flipX: false,
