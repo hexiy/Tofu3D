@@ -4,7 +4,8 @@ Simple .NET C# OpenTK game engine with editor.
 
 Heavily in progress so things will break :)
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/fC4k5OtizUE/0.jpg)](hhttps://www.youtube.com/watch?v=fC4k5OtizUE)
+
+<a href="https://www.youtube.com/watch?v=fC4k5OtizUE">Video - Shadows and Skybox // Tofu3D C# OpenGL Game Engine preview</a>
 <a href="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editorScreen2.png"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editorScreen2.png" align="center" width="100%" ></a>
 <a href="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editorScreen1.png"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editorScreen1.png" align="center" width="100%" ></a>
 <a href="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editorScreen.png"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/editorScreen.png" align="center" width="100%" ></a>
