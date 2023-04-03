@@ -43,7 +43,7 @@ public static class RenderPassSystem
 
 	private static void CreatePasses()
 	{
-		// RenderPassSkybox renderPassSkybox = new RenderPassSkybox();
+		RenderPassSkybox renderPassSkybox = new RenderPassSkybox();
 		RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();
 		RenderPassOpaques renderPassOpaques = new RenderPassOpaques();
 		// RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();

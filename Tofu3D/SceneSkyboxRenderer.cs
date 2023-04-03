@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Numerics;
 using Tofu3D.Rendering;
 
@@ -28,7 +29,7 @@ public class SceneSkyboxRenderer
 			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_down.png"),
 			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_up.png"),
 			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_front.png"),
-			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_back.png"),*/         
+			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_back.png"),*/
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Right.bmp"),
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Left.bmp"),
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Bottom.bmp"),
@@ -37,8 +38,10 @@ public class SceneSkyboxRenderer
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Back.bmp"),
 		                        };
 
-		// TextureLoadSettings textureLoadSettings = new TextureLoadSettings(path: texturePaths,
-		//                                                                   textureType: TextureType.Cubemap);
+		string oneStringForAllSixTextures = String.Concat(texturePaths);
+		TextureLoadSettings textureLoadSettings = new TextureLoadSettings(path: oneStringForAllSixTextures,
+		                                                                  textureType: TextureType.Cubemap);
+		_texture = AssetManager.Load<Texture>(textureLoadSettings);
 
 		// _texture.Load(textureLoadSettings);
 
@@ -51,11 +54,10 @@ public class SceneSkyboxRenderer
 		// RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
 	}
 
-
 	private void RenderSkybox()
 	{
 		GL.DepthMask(false);
-		
+
 		ShaderCache.UseShader(_material.Shader);
 
 
@@ -68,7 +70,7 @@ public class SceneSkyboxRenderer
 		Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Inspectable.Fov), Camera.I.Size.X / Camera.I.Size.Y, 0.01f, 1);
 
 		_material.Shader.SetMatrix4X4("u_view", viewMatrix);
-		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix );
+		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix);
 
 		ShaderCache.BindVertexArray(_material.Vao);
 

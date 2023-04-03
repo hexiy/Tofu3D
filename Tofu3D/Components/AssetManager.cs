@@ -54,7 +54,6 @@
 		if (_assets.ContainsKey(hash) == false)
 		{
 			asset = (_loaders[typeof(T)] as AssetLoader<T>).LoadAsset(loadSettings: loadSettings) as T;
-
 			_assets.Add(hash, asset);
 		}
 		else

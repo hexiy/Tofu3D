@@ -1,4 +1,5 @@
-﻿using SixLabors.ImageSharp;
+﻿using System.Linq;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
@@ -15,20 +16,35 @@ public class TextureLoader : AssetLoader<Texture>
 	{
 		TextureLoadSettings loadSettings = assetLoadSettings as TextureLoadSettings;
 		int id = GL.GenTexture();
+		string[] paths = new string[] {loadSettings.Path};
+		byte[][] pixelsCollection;
 		if (loadSettings.Type == TextureType.Cubemap)
 		{
 			GL.ActiveTexture(TextureUnit.Texture0);
+
+			paths = loadSettings.Path.Split(".bmp");
+			for (var i = 0; i < paths.Length; i++)
+			{
+				paths[i] = paths[i] + ".bmp";
+			}
+
+			pixelsCollection = new byte[paths.Length - 1][];
 		}
+		else
+		{
+			pixelsCollection = new byte[paths.Length][];
+		}
+
 
 		TextureCache.BindTexture(id, loadSettings.Type);
 
 		// byte[][] pixelsCollection = new byte[loadSettings.Paths?.Length > 1 ? loadSettings.Paths.Length : 1][];
-		byte[][] pixelsCollection = new byte[1][];
+
 
 		Vector2 imageSize = Vector2.Zero;
 		for (int textureIndex = 0; textureIndex < pixelsCollection.Length; textureIndex++)
 		{
-			string path = loadSettings.Path;
+			string path = paths[textureIndex];
 			// path = loadSettings.Paths[textureIndex];
 			Image<Rgba32> image = Image.Load<Rgba32>(path);
 			imageSize = new Vector2(image.Width, image.Height);
@@ -39,31 +55,6 @@ public class TextureLoader : AssetLoader<Texture>
 
 			pixelsCollection[textureIndex] = new byte[4 * image.Width * image.Height];
 			image.Frames[0].CopyPixelDataTo(pixelsCollection[textureIndex]);
-
-			/*pixelsCollection[textureIndex] = new byte[4 * image.Width * image.Height];
-
-			int pixelIndex = 0;
-			for (int y = 0; y < image.Height; y++)
-			{
-				image.ProcessPixelRows(processPixels: accessor =>
-				{
-					Span<Rgba32> row = accessor.GetRowSpan(y);
-					for (int x = 0; x < image.Width; x++)
-					{
-						pixelsCollection[textureIndex][pixelIndex] = row[x].R;
-						pixelIndex++;
-						pixelsCollection[textureIndex][pixelIndex] = row[x].G;
-
-						pixelIndex++;
-						pixelsCollection[textureIndex][pixelIndex] = row[x].B;
-
-						pixelIndex++;
-						pixelsCollection[textureIndex][pixelIndex] = row[x].A;
-						pixelIndex++;
-					}
-				});
-			}*/
-
 
 			TextureTarget textureTarget = loadSettings.Type == TextureType.Texture2D ? TextureTarget.Texture2D : TextureTarget.TextureCubeMap;
 			if (loadSettings.Type == TextureType.Texture2D)
