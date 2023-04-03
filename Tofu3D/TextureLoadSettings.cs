@@ -1,6 +1,6 @@
 ﻿namespace Tofu3D;
 
-public struct TextureLoadSettings
+public class TextureLoadSettings : AssetLoadSettings<Texture>
 {
 	public TextureType Type { get; private set; }
 	public string[] Paths { get; private set; }
@@ -16,7 +16,7 @@ public struct TextureLoadSettings
 	                           TextureFilterMode? filterMode = null,
 	                           TextureWrapMode? wrapMode = null)
 	{
-		this = GetDefaultSettingsForTextureType(textureType);
+		// this = GetDefaultSettingsForTextureType(textureType); // not possible if this isnt a struct
 		if (path != null)
 		{
 			SetPath(path);

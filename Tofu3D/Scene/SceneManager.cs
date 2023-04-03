@@ -46,12 +46,12 @@ public static class SceneManager
 
 		CurrentScene.Initialize();
 
-		SceneFile sceneFile = AssetSerializer.LoadGameObjects(path);
+		SceneFile sceneFile = SceneSerializer.LoadGameObjects(path);
 
-		AssetSerializer.ConnectGameObjectsWithComponents(sceneFile);
+		SceneSerializer.ConnectGameObjectsWithComponents(sceneFile);
 		IDsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
 
-		AssetSerializer.ConnectParentsAndChildren(sceneFile);
+		SceneSerializer.ConnectParentsAndChildren(sceneFile);
 		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 		{
 			for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
@@ -103,6 +103,6 @@ public static class SceneManager
 		}
 
 		LastOpenedScene = path;
-		AssetSerializer.SaveGameObjects(CurrentScene.GetSceneFile(), path);
+		SceneSerializer.SaveGameObjects(CurrentScene.GetSceneFile(), path);
 	}
 }

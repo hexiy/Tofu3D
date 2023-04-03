@@ -2,7 +2,7 @@ using System.IO;
 
 namespace Tofu3D;
 
-public class AssetsManager
+public class AssetUtils
 {
 	public static bool IsShader(string path)
 	{

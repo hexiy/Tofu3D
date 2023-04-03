@@ -1,0 +1,6 @@
+﻿public abstract class AssetLoader<T> : IAssetLoader where T : Asset<T>
+{
+	public abstract Asset<T> LoadAsset(AssetLoadSettings<T> loadSettings);
+
+	public abstract void DisposeAsset(Asset<T> asset);
+}

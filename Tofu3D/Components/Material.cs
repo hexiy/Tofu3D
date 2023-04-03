@@ -3,7 +3,7 @@ using System.IO;
 namespace Scripts;
 
 [Serializable]
-public class Material
+public class Material : Asset<Material>
 {
 	public bool Additive = false;
 

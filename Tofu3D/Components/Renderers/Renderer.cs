@@ -104,7 +104,7 @@ public class Renderer : Component, IComparable<Renderer>
 		                                                      -Transform.Rotation.X / 180 * Mathf.Pi,
 		                                                      -Transform.Rotation.Z / 180 * Mathf.Pi);
 		Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size.X * Transform.WorldScale.X, BoxShape.Size.Y * Transform.WorldScale.Y, Transform.WorldScale.Z * BoxShape.Size.Z);
-		return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit);
+		return  Matrix4x4.Identity * rotation;
 	}
 
 	public Matrix4x4 GetMvpForOutline()

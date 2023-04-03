@@ -76,6 +76,8 @@ public class TextRenderer : SpriteRenderer
 	{
 		SpritesCount = SpritesCount;
 		SetDefaultTexture(Path.Combine(Folders.Textures, "sdf.png"));
+		Text = GetComponent<Text>();
+		BoxShape = GetComponent<BoxShape>();
 		base.Awake();
 	}
 
@@ -92,6 +94,9 @@ public class TextRenderer : SpriteRenderer
 
 	public override void OnNewComponentAdded(Component comp)
 	{
+		Text = GetComponent<Text>();
+		BoxShape = GetComponent<BoxShape>();
+
 	}
 
 	public override void LoadTexture(string texturePath)

@@ -1,8 +1,6 @@
 [Serializable]
-public class Model
+public class Model : Asset<Model>
 {
-	public string Path;
-
 	public float[] Vertices =
 	{
 		-0.5f, -0.5f, 0, 0,

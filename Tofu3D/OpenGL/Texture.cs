@@ -1,12 +1,9 @@
 ﻿namespace Tofu3D;
 
 [Serializable]
-public class Texture
+public class Texture : Asset<Texture>
 {
-	public int Id;
 	public bool Loaded;
-	public string Path = "";
-	public string[] Paths;
 	public Vector2 Size;
 
 	[XmlIgnore] // ignore for now

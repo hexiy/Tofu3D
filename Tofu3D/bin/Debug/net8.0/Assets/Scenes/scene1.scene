@@ -26,7 +26,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -56,7 +56,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Directional Light</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -69,7 +69,7 @@
       <Id>20</Id>
       <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>GameObject</Name>
+      <Name>Ground_Green</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -84,7 +84,7 @@
       <Id>45</Id>
       <IndexInHierarchy>5</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>GameObject</Name>
+      <Name>Ground_Brown</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -92,7 +92,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -107,7 +107,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -122,7 +122,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -130,6 +130,36 @@
       <IndexInHierarchy>8</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <ActiveSelf>false</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>73</Id>
+      <IndexInHierarchy>9</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Text</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <ActiveSelf>false</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>80</Id>
+      <IndexInHierarchy>10</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sprite</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -151,14 +181,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>32.16878</X>
-        <Y>-61.818394</Y>
-        <Z>-53.273277</Z>
+        <X>52.142117</X>
+        <Y>-25.319456</Y>
+        <Z>-1.6213362</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>32.16878</X>
-        <Y>-61.818394</Y>
-        <Z>-53.273277</Z>
+        <X>52.142117</X>
+        <Y>-25.319456</Y>
+        <Z>-1.6213362</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -171,8 +201,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-41.576405</X>
-        <Y>-22.777122</Y>
+        <X>-41.600807</X>
+        <Y>-49.37268</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -211,14 +241,14 @@
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>25.8</X>
-        <Y>1.44</Y>
-        <Z>25</Z>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>25.8</X>
-        <Y>1.44</Y>
-        <Z>25</Z>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -264,7 +294,7 @@
         <A>255</A>
         <PackedValue>4284571647</PackedValue>
       </Color>
-      <DistanceFromCamera>63.578186</DistanceFromCamera>
+      <DistanceFromCamera>57.964428</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
@@ -364,12 +394,12 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-14.4</X>
+        <X>19.4</X>
         <Y>30</Y>
         <Z>-26.98</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-14.4</X>
+        <X>19.4</X>
         <Y>30</Y>
         <Z>-26.98</Z>
       </LocalPosition>
@@ -384,8 +414,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-25.42</X>
-        <Y>42.279697</Y>
+        <X>0</X>
+        <Y>0</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -402,7 +432,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <Speed>4</Speed>
+      <Speed>0</Speed>
       <RefreshRate>60</RefreshRate>
       <NearPlaneDistance>0.0001</NearPlaneDistance>
       <FarPlaneDistance>2500</FarPlaneDistance>
@@ -478,7 +508,7 @@
         <A>255</A>
         <PackedValue>4283957148</PackedValue>
       </Color>
-      <DistanceFromCamera>66.40974</DistanceFromCamera>
+      <DistanceFromCamera>56.43879</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
@@ -573,7 +603,7 @@
         <A>255</A>
         <PackedValue>4281696163</PackedValue>
       </Color>
-      <DistanceFromCamera>66.93528</DistanceFromCamera>
+      <DistanceFromCamera>56.671124</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
@@ -668,7 +698,7 @@
         <A>41</A>
         <PackedValue>704612767</PackedValue>
       </Color>
-      <DistanceFromCamera>63.87186</DistanceFromCamera>
+      <DistanceFromCamera>64.47268</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
@@ -763,7 +793,7 @@
         <A>255</A>
         <PackedValue>4294936991</PackedValue>
       </Color>
-      <DistanceFromCamera>83.8795</DistanceFromCamera>
+      <DistanceFromCamera>88.44218</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
@@ -858,7 +888,7 @@
         <A>41</A>
         <PackedValue>704643071</PackedValue>
       </Color>
-      <DistanceFromCamera>92.72503</DistanceFromCamera>
+      <DistanceFromCamera>106.47509</DistanceFromCamera>
       <Material>
         <Additive>false</Additive>
         <Shader>
@@ -887,6 +917,243 @@
       </Repeats>
       <CastShadow>false</CastShadow>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>73</GameObjectId>
+      <Started>true</Started>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>-23.283</X>
+        <Y>0.009741588</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>-23.283</X>
+        <Y>0.009741588</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>11</X>
+        <Y>11</Y>
+        <Z>0</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>11</X>
+        <Y>11</Y>
+        <Z>0</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="Text">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>73</GameObjectId>
+      <Started>false</Started>
+      <Size>1</Size>
+      <Value>asdadasdas
+dasd
+asdas
+dasdad
+asd</Value>
+    </Component>
+    <Component xsi:type="TextRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>73</GameObjectId>
+      <Started>true</Started>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>63.68383</DistanceFromCamera>
+      <Material>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Cubemap</BufferType>
+          <Path>Assets\Shaders\Skybox.glsl</Path>
+        </Shader>
+        <Vao>12</Vao>
+        <Vbo>0</Vbo>
+      </Material>
+      <Layer>15.62</Layer>
+      <Texture>
+        <Id>14</Id>
+        <Loaded>true</Loaded>
+        <Path>Assets\2D\sdf.png</Path>
+        <Paths>
+          <string>Assets\2D\sdf.png</string>
+        </Paths>
+        <Size>
+          <X>1024</X>
+          <Y>1024</Y>
+        </Size>
+      </Texture>
+      <Repeats>
+        <X>1</X>
+        <Y>1</Y>
+      </Repeats>
+      <Batched>false</Batched>
+      <GradientColor1>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </GradientColor1>
+      <GradientColor2>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </GradientColor2>
+      <IsGradient>false</IsGradient>
+      <SpriteSize>
+        <X>128</X>
+        <Y>128</Y>
+      </SpriteSize>
+      <Text>
+        <AllowMultiple>true</AllowMultiple>
+        <Enabled>true</Enabled>
+        <GameObjectId>73</GameObjectId>
+        <Started>false</Started>
+        <Size>1</Size>
+        <Value>asdadasdas
+dasd
+asdas
+dasdad
+asd</Value>
+      </Text>
+      <SpritesCount>
+        <X>8</X>
+        <Y>8</Y>
+      </SpritesCount>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>73</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>1.2</X>
+        <Y>1.2</Y>
+        <Z>1.2</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>80</GameObjectId>
+      <Started>true</Started>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0.01666324</X>
+        <Y>0.009741588</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0.01666324</X>
+        <Y>0.009741588</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="SpriteRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>80</GameObjectId>
+      <Started>true</Started>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>42.729137</DistanceFromCamera>
+      <Material>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Rendertexture</BufferType>
+          <Path>/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/bin/Debug/net6.0/Assets/Shaders/SpriteRenderer.glsl</Path>
+        </Shader>
+        <Vao>9</Vao>
+        <Vbo>0</Vbo>
+      </Material>
+      <Layer>0</Layer>
+      <Texture>
+        <Id>9</Id>
+        <Loaded>true</Loaded>
+        <Path>Assets\2D\solidColor.png</Path>
+        <Paths>
+          <string>Assets\2D\solidColor.png</string>
+        </Paths>
+        <Size>
+          <X>256</X>
+          <Y>256</Y>
+        </Size>
+      </Texture>
+      <Repeats>
+        <X>1</X>
+        <Y>1</Y>
+      </Repeats>
+      <Batched>false</Batched>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>80</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Size>
+    </Component>
   </Components>
-  <GameObjectNextId>71</GameObjectNextId>
+  <GameObjectNextId>95</GameObjectNextId>
 </SceneFile>

@@ -43,7 +43,7 @@ public class EditorPanelHierarchy : EditorPanel
 			if (GameObjectSelectionManager.GetSelectedGameObject() != null)
 			{
 				_clipboardGameObject = GameObjectSelectionManager.GetSelectedGameObject();
-				AssetSerializer.SaveClipboardGameObject(_clipboardGameObject);
+				SceneSerializer.SaveClipboardGameObject(_clipboardGameObject);
 			}
 		}
 
@@ -51,7 +51,7 @@ public class EditorPanelHierarchy : EditorPanel
 		{
 			if (_clipboardGameObject != null)
 			{
-				GameObject loadedGo = AssetSerializer.LoadClipboardGameObject();
+				GameObject loadedGo = SceneSerializer.LoadClipboardGameObject();
 				SelectGameObject(loadedGo.Id);
 			}
 		}

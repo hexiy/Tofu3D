@@ -154,7 +154,7 @@ public class EditorPanelBrowser : EditorPanel
 			bool saveBtnPressed = ImGui.Button("Save Prefab");
 			if (saveBtnPressed)
 			{
-				AssetSerializer.SaveGameObject(GameObjectSelectionManager.GetSelectedGameObject(), Path.Combine("Assets", CurrentDirectory.Name, GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
+				SceneSerializer.SaveGameObject(GameObjectSelectionManager.GetSelectedGameObject(), Path.Combine("Assets", CurrentDirectory.Name, GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
 			}
 		}
 
@@ -350,7 +350,7 @@ public class EditorPanelBrowser : EditorPanel
 
 				if (assetExtension == ".prefab")
 				{
-					GameObject go = AssetSerializer.LoadPrefab(_assets[assetIndex]);
+					GameObject go = SceneSerializer.LoadPrefab(_assets[assetIndex]);
 					EditorPanelHierarchy.I.SelectGameObject(go.Id);
 				}
 

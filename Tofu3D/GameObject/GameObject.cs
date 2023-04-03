@@ -175,7 +175,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
 					if (goFieldValue.IsPrefab)
 					{
-						GameObject loadedGo = AssetSerializer.LoadPrefab(goFieldValue.PrefabPath, true);
+						GameObject loadedGo = SceneSerializer.LoadPrefab(goFieldValue.PrefabPath, true);
 						infos[i].SetValue(component, loadedGo);
 					}
 					else
