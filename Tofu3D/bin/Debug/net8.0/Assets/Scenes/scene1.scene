@@ -56,7 +56,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Directional Light</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -131,37 +131,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-    </GameObject>
-    <GameObject>
-      <ActiveSelf>false</ActiveSelf>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>73</Id>
-      <IndexInHierarchy>9</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <Name>Text</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-    </GameObject>
-    <GameObject>
-      <ActiveSelf>false</ActiveSelf>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>80</Id>
-      <IndexInHierarchy>10</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <Name>Sprite</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -201,8 +171,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-44.618652</X>
-        <Y>26.703651</Y>
+        <X>-39.926006</X>
+        <Y>34.160343</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -314,7 +284,6 @@
         <AssetHandle>
           <Id>0</Id>
         </AssetHandle>
-        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
         <Size>
           <X>256</X>
@@ -532,7 +501,6 @@
         <AssetHandle>
           <Id>0</Id>
         </AssetHandle>
-        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
         <Size>
           <X>512</X>
@@ -631,7 +599,6 @@
         <AssetHandle>
           <Id>0</Id>
         </AssetHandle>
-        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
         <Size>
           <X>512</X>
@@ -730,7 +697,6 @@
         <AssetHandle>
           <Id>0</Id>
         </AssetHandle>
-        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
         <Size>
           <X>256</X>
@@ -829,7 +795,6 @@
         <AssetHandle>
           <Id>0</Id>
         </AssetHandle>
-        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
         <Size>
           <X>256</X>
@@ -928,7 +893,6 @@
         <AssetHandle>
           <Id>0</Id>
         </AssetHandle>
-        <TextureId>0</TextureId>
         <Loaded>true</Loaded>
         <Size>
           <X>256</X>
@@ -941,251 +905,6 @@
       </Repeats>
       <CastShadow>false</CastShadow>
     </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>73</GameObjectId>
-      <Started>true</Started>
-      <ChildrenIDs />
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>-23.283</X>
-        <Y>0.009741588</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>-23.283</X>
-        <Y>0.009741588</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>11</X>
-        <Y>11</Y>
-        <Z>0</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>11</X>
-        <Y>11</Y>
-        <Z>0</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="Text">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>73</GameObjectId>
-      <Started>false</Started>
-      <Size>1</Size>
-      <Value>asdadasdas
-dasd
-asdas
-dasdad
-asd</Value>
-    </Component>
-    <Component xsi:type="TextRenderer">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>73</GameObjectId>
-      <Started>true</Started>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <DistanceFromCamera>63.68383</DistanceFromCamera>
-      <Material>
-        <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
-        <Additive>false</Additive>
-        <Shader>
-          <BufferType>Cubemap</BufferType>
-          <Path>Assets\Shaders\Skybox.glsl</Path>
-        </Shader>
-        <Vao>7</Vao>
-        <Vbo>0</Vbo>
-      </Material>
-      <Layer>15.62</Layer>
-      <Texture>
-        <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
-        <TextureId>0</TextureId>
-        <Loaded>true</Loaded>
-        <Size>
-          <X>1024</X>
-          <Y>1024</Y>
-        </Size>
-      </Texture>
-      <Repeats>
-        <X>1</X>
-        <Y>1</Y>
-      </Repeats>
-      <Batched>false</Batched>
-      <GradientColor1>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </GradientColor1>
-      <GradientColor2>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </GradientColor2>
-      <IsGradient>false</IsGradient>
-      <SpriteSize>
-        <X>128</X>
-        <Y>128</Y>
-      </SpriteSize>
-      <Text>
-        <AllowMultiple>true</AllowMultiple>
-        <Enabled>true</Enabled>
-        <GameObjectId>73</GameObjectId>
-        <Started>false</Started>
-        <Size>1</Size>
-        <Value>asdadasdas
-dasd
-asdas
-dasdad
-asd</Value>
-      </Text>
-      <SpritesCount>
-        <X>8</X>
-        <Y>8</Y>
-      </SpritesCount>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>73</GameObjectId>
-      <Started>true</Started>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>1.2</X>
-        <Y>1.2</Y>
-        <Z>1.2</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>80</GameObjectId>
-      <Started>true</Started>
-      <ChildrenIDs />
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>0.01666324</X>
-        <Y>0.009741588</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0.01666324</X>
-        <Y>0.009741588</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="SpriteRenderer">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>80</GameObjectId>
-      <Started>true</Started>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <DistanceFromCamera>42.729137</DistanceFromCamera>
-      <Material>
-        <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
-        <Additive>false</Additive>
-        <Shader>
-          <BufferType>Rendertexture</BufferType>
-          <Path>/Users/hexiy/Desktop/dev/Tofu3D/Tofu3D/bin/Debug/net6.0/Assets/Shaders/SpriteRenderer.glsl</Path>
-        </Shader>
-        <Vao>9</Vao>
-        <Vbo>0</Vbo>
-      </Material>
-      <Layer>0</Layer>
-      <Texture>
-        <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
-        <TextureId>0</TextureId>
-        <Loaded>true</Loaded>
-        <Size>
-          <X>256</X>
-          <Y>256</Y>
-        </Size>
-      </Texture>
-      <Repeats>
-        <X>1</X>
-        <Y>1</Y>
-      </Repeats>
-      <Batched>false</Batched>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>80</GameObjectId>
-      <Started>true</Started>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Size>
-    </Component>
   </Components>
-  <GameObjectNextId>103</GameObjectNextId>
+  <GameObjectNextId>107</GameObjectNextId>
 </SceneFile>

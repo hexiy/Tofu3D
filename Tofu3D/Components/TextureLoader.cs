@@ -90,6 +90,7 @@ public class TextureLoader : AssetLoader<Texture>
 			                  Size = imageSize,
 			                  Loaded = true,
 			                  AssetPath = loadSettings.Path,
+			                  LoadSettings = loadSettings
 			                  // Paths = loadSettings.Paths
 		                  };
 		texture.InitAssetHandle(id);

@@ -2,7 +2,7 @@
 
 namespace Tofu3D;
 
-public class Asset<T> where T : Asset<T> //, new()
+public class Asset<T> :IAsset where T : Asset<T> //, new()
 {
 	public AssetHandle AssetHandle { get; set; }
 	public string AssetPath = "";

@@ -60,7 +60,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 			return;
 		}
 
-		Texture.Load(texturePath);
+		Texture = AssetManager.Load<Texture>(texturePath);
 
 		UpdateBoxShapeSize();
 		if (Batched && false)

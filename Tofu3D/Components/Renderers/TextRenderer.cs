@@ -96,7 +96,6 @@ public class TextRenderer : SpriteRenderer
 	{
 		Text = GetComponent<Text>();
 		BoxShape = GetComponent<BoxShape>();
-
 	}
 
 	public override void LoadTexture(string texturePath)
@@ -111,8 +110,8 @@ public class TextRenderer : SpriteRenderer
 			return;
 		}
 
-		
-		Texture.Load(texturePath);
+
+		Texture = AssetManager.Load<Texture>(texturePath);
 	}
 
 	public override void Render()
@@ -206,6 +205,7 @@ public class TextRenderer : SpriteRenderer
 			{
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
+
 			TextureCache.BindTexture(Texture.TextureId);
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);

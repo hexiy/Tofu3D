@@ -35,12 +35,9 @@ public class EditorPanelBrowser : EditorPanel
 
 		CreateContextItems();
 
-		_fileIcon = new Texture();
+		_fileIcon = AssetManager.Load<Texture>(path: "Resources/FileIcon.png", loadSettings: _iconTextureLoadSettings);
 
-		_fileIcon.Load(path: "Resources/FileIcon.png", loadSettings: _iconTextureLoadSettings);
-
-		_directoryIcon = new Texture();
-		_directoryIcon.Load(path: "Resources/DirectoryIcon.png", loadSettings: _iconTextureLoadSettings);
+		_directoryIcon = AssetManager.Load<Texture>(path: "Resources/DirectoryIcon.png", loadSettings: _iconTextureLoadSettings);
 
 		CurrentDirectory = new DirectoryInfo("Assets");
 
