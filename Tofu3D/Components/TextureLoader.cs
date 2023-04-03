@@ -87,12 +87,12 @@ public class TextureLoader : AssetLoader<Texture>
 
 		Texture texture = new()
 		                  {
-			                  TextureId = id,
 			                  Size = imageSize,
 			                  Loaded = true,
 			                  AssetPath = loadSettings.Path,
 			                  // Paths = loadSettings.Paths
 		                  };
+		texture.InitAssetHandle(id);
 
 		return texture;
 	}

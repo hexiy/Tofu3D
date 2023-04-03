@@ -105,8 +105,9 @@ public class EditorPanelBrowser : EditorPanel
 
 			if (assetExtension.ToLower().Contains(".jpg") || assetExtension.ToLower().Contains(".png") || assetExtension.ToLower().Contains(".jpeg"))
 			{
-				_textures[i] = new Texture();
-				_textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
+				// _textures[i] = new Texture();
+				// _textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
+				_textures[i] = AssetManager.Load<Texture>(path: _assets[i], loadSettings: _iconTextureLoadSettings);
 			}
 		}
 	}

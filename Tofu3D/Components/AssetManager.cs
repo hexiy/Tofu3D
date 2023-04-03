@@ -19,13 +19,13 @@
 		_loaders.Add(assetLoader.GetType().BaseType.GenericTypeArguments[0], assetLoader);
 	}
 
-	public static T Load<T>(string path) where T : Asset<T>, new()
+	public static T Load<T>(string path, IAssetLoadSettings? loadSettings = null) where T : Asset<T>, new()
 	{
 		// AssetLoadSettings<T> loadSettings = new();
 
-		AssetLoadSettings<T> loadSettings = Activator.CreateInstance(_loadSettingsTypes[typeof(T)]) as AssetLoadSettings<T>;
-		loadSettings.Path = path;
-		return Load<T>(loadSettings: loadSettings);
+		AssetLoadSettings<T> settings = (loadSettings as AssetLoadSettings<T>) ?? Activator.CreateInstance(_loadSettingsTypes[typeof(T)]) as AssetLoadSettings<T>;
+		settings.Path = path;
+		return Load<T>(loadSettings: settings);
 	}
 
 	public static T Load<T>(IAssetLoadSettings loadSettings) where T : Asset<T>, new()
@@ -33,8 +33,8 @@
 		T asset = new();
 
 		string assetPath = (loadSettings as AssetLoadSettings<T>).Path;
-		uint hash = (uint) assetPath.GetHashCode();
-		asset.InitAssetHandle(hash);
+		int hash = assetPath.GetHashCode();
+		// asset.InitAssetHandle(hash);
 
 		asset = (_loaders[typeof(T)] as AssetLoader<T>).LoadAsset(loadSettings: loadSettings) as T;
 		// asset type specifics

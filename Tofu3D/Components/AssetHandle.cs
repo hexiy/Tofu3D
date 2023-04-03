@@ -1,8 +1,5 @@
-﻿public struct AssetHandle<T>
+﻿public struct AssetHandle
 {
-	required public uint Id { get; set; }
-	public Type AssetType
-	{
-		get { return typeof(T); }
-	}
+	required public int Id { get; set; }
+	required public Type AssetType { get; set; }
 }
