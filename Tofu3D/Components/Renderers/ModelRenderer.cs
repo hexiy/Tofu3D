@@ -136,13 +136,13 @@ public class ModelRenderer : TextureRenderer
 		if (Model != null)
 		{
 			ShaderCache.BindVertexArray(Model.Vao);
+			GL.DrawElements(PrimitiveType.Triangles, Model.Indices.Length, DrawElementsType.UnsignedInt, 0);
 		}
 		else
 		{
 			ShaderCache.BindVertexArray(Material.Vao);
+			GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 		}
-
-		GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 
 
 		/*else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)

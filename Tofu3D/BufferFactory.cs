@@ -185,39 +185,27 @@ public static class BufferFactory
 	public static void CreateModelBuffers(Model model)
 	{
 		GL.Enable(EnableCap.DepthTest);
-		List<float> vertices = new List<float>();
-		for (int i = 0; i < model.Vertices.Length; i += 3)
-		{
-			vertices.Add(model.Vertices[i]);
-			vertices.Add(model.Vertices[i + 1]);
-			vertices.Add(model.Vertices[i + 2]);
 
-			// vertices.Add(model.Normals[i]);
-			// vertices.Add(model.Normals[i + 1]);
-			// vertices.Add(model.Normals[i + 2]);
-			vertices.Add(0);
-			vertices.Add(0);
-			vertices.Add(0);
-		}
+		int vbo, ebo;
 
 		model.Vao = GL.GenVertexArray();
+
+		vbo = GL.GenBuffer();
+		ebo = GL.GenBuffer();
+
 		GL.BindVertexArray(model.Vao);
+		GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * model.Vertices.Length, model.Vertices, BufferUsageHint.StaticDraw);
 
-		int verticesVbo = GL.GenBuffer();
-		GL.BindBuffer(BufferTarget.ArrayBuffer, verticesVbo);
-		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Count, vertices.ToArray(), BufferUsageHint.StaticDraw);
+		GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
+		GL.BufferData(BufferTarget.ElementArrayBuffer, sizeof(uint) * model.Indices.Length, model.Indices, BufferUsageHint.StaticDraw);
 
-		int verticesAttribIndex = 0;
-		GL.VertexAttribPointer(verticesAttribIndex, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), IntPtr.Zero);
-		GL.EnableVertexAttribArray(verticesAttribIndex);
+		GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), IntPtr.Zero);
+		GL.EnableVertexAttribArray(0);
 
-		int normalsAttribIndex = 1;
-		GL.VertexAttribPointer(normalsAttribIndex, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), (IntPtr) (3 * sizeof(float)));
-		GL.EnableVertexAttribArray(normalsAttribIndex);
-
+		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 		GL.BindVertexArray(0);
 		GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
-		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 	}
 
 	public static void CreateCubemapBuffers(ref int vao)
