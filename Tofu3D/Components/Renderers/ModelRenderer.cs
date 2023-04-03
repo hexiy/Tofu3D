@@ -17,7 +17,7 @@ public class ModelRenderer : TextureRenderer
 		}
 		else
 		{
-			LoadTexture(Texture.Path);
+			LoadTexture(Texture.AssetPath);
 		}
 
 		base.Awake();
@@ -126,7 +126,7 @@ public class ModelRenderer : TextureRenderer
 			// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
 			Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
 
-			TextureCache.BindTexture(Texture.Id);
+			TextureCache.BindTexture(Texture.TextureId);
 			if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
 			{
 				TextureCache.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);

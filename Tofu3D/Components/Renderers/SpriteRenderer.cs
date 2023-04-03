@@ -18,7 +18,7 @@ public class SpriteRenderer : TextureRenderer
 		}
 		else
 		{
-			LoadTexture(Texture.Path);
+			LoadTexture(Texture.AssetPath);
 		}
 
 		//BatchingManager.AddObjectToBatcher(Texture.Id, this);
@@ -99,7 +99,7 @@ public class SpriteRenderer : TextureRenderer
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 		}
 
-		TextureCache.BindTexture(Texture.Id);
+		TextureCache.BindTexture(Texture.TextureId);
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

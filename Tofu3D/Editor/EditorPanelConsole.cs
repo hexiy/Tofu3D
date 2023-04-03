@@ -83,20 +83,20 @@ public class EditorPanelConsole : EditorPanel
 
 			bool hasFlag = (_currentLogCategoryFilter & filter) == filter;
 			// ImGui.RadioButton(filter.ToString(), hasFlag); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
-			int textureId = EditorTextures.I.LogCategoryInfoIcon.Id;
+			int textureId = EditorTextures.I.LogCategoryInfoIcon.TextureId;
 			if (filter == LogCategoryFilter.Error)
 			{
-				textureId = EditorTextures.I.LogCategoryErrorIcon.Id;
+				textureId = EditorTextures.I.LogCategoryErrorIcon.TextureId;
 			}
 
 			if (filter == LogCategoryFilter.Warning)
 			{
-				textureId = EditorTextures.I.LogCategoryWarningIcon.Id;
+				textureId = EditorTextures.I.LogCategoryWarningIcon.TextureId;
 			}
 
 			if (filter == LogCategoryFilter.Timer)
 			{
-				textureId = EditorTextures.I.LogCategoryTimerIcon.Id;
+				textureId = EditorTextures.I.LogCategoryTimerIcon.TextureId;
 			}
 
 			ImGui.Image(textureId, new System.Numerics.Vector2(30, 30), new Vector2(0, 0), new Vector2(1, 1), hasFlag ? new Vector4(1, 1, 1, 1) : new Vector4(1, 1, 1, 0.3f)); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
@@ -150,20 +150,20 @@ public class EditorPanelConsole : EditorPanel
 			}
 
 
-			int textureId = EditorTextures.I.LogCategoryInfoIcon.Id;
+			int textureId = EditorTextures.I.LogCategoryInfoIcon.TextureId;
 			if (log.LogCategory == LogCategory.Error)
 			{
-				textureId = EditorTextures.I.LogCategoryErrorIcon.Id;
+				textureId = EditorTextures.I.LogCategoryErrorIcon.TextureId;
 			}
 
 			if (log.LogCategory == LogCategory.Warning)
 			{
-				textureId = EditorTextures.I.LogCategoryWarningIcon.Id;
+				textureId = EditorTextures.I.LogCategoryWarningIcon.TextureId;
 			}
 
 			if (log.LogCategory == LogCategory.Timer)
 			{
-				textureId = EditorTextures.I.LogCategoryTimerIcon.Id;
+				textureId = EditorTextures.I.LogCategoryTimerIcon.TextureId;
 			}
 
 			ImGui.SameLine();

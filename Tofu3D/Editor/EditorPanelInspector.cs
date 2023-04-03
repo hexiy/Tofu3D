@@ -320,7 +320,7 @@ public class EditorPanelInspector : EditorPanel
 							info.SetValue(componentInspectorData.Inspectable, audioClip);
 						}
 
-						string clipName = Path.GetFileName(audioClip?.Path);
+						string clipName = Path.GetFileName(audioClip?.AssetPath);
 
 						bool clicked = ImGui.Button(clipName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 
@@ -333,7 +333,7 @@ public class EditorPanelInspector : EditorPanel
 							{
 								// fileName = Path.GetRelativePath("Assets", fileName);
 
-								audioClip.Path = fileName;
+								audioClip.AssetPath = fileName;
 								info.SetValue(componentInspectorData.Inspectable, audioClip);
 							}
 
@@ -410,13 +410,13 @@ public class EditorPanelInspector : EditorPanel
 					}
 					else if (info.FieldOrPropertyType == typeof(Texture) && componentInspectorData.Inspectable is TextureRenderer)
 					{
-						string textureName = Path.GetFileName((componentInspectorData.Inspectable as TextureRenderer).Texture?.Path);
+						string textureName = Path.GetFileName((componentInspectorData.Inspectable as TextureRenderer).Texture?.AssetPath);
 
 						bool clicked = ImGui.Button(textureName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 						//ImiGui.Text(textureName);
 						if (clicked)
 						{
-							EditorPanelBrowser.I.GoToFile((componentInspectorData.Inspectable as TextureRenderer).Texture.Path);
+							EditorPanelBrowser.I.GoToFile((componentInspectorData.Inspectable as TextureRenderer).Texture.AssetPath);
 						}
 
 						if (ImGui.BeginDragDropTarget())

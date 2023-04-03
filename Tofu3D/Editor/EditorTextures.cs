@@ -9,8 +9,8 @@ public class EditorTextures
 		I = this;
 	}
 
-	public Texture LogCategoryInfoIcon = new Texture().Load("Resources/Console/info.png");
-	public Texture LogCategoryWarningIcon = new Texture().Load("Resources/Console/warning.png");
-	public Texture LogCategoryErrorIcon = new Texture().Load("Resources/Console/error.png");
-	public Texture LogCategoryTimerIcon = new Texture().Load("Resources/Console/timer.png");
+	public Texture LogCategoryInfoIcon = AssetManager.Load<Texture>("Resources/Console/info.png");
+	public Texture LogCategoryWarningIcon = AssetManager.Load<Texture>("Resources/Console/warning.png");
+	public Texture LogCategoryErrorIcon = AssetManager.Load<Texture>("Resources/Console/error.png");
+	public Texture LogCategoryTimerIcon = AssetManager.Load<Texture>("Resources/Console/timer.png");
 }

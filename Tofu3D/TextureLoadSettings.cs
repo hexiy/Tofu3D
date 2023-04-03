@@ -2,9 +2,24 @@
 
 public class TextureLoadSettings : AssetLoadSettings<Texture>
 {
+	public static TextureLoadSettings DefaultSettingsTexture2D = new TextureLoadSettings(path: string.Empty,
+	                                                                                     // paths: null,
+	                                                                                     flipX: false,
+	                                                                                     filterMode: TextureFilterMode.Bilinear,
+	                                                                                     wrapMode: TextureWrapMode.Repeat,
+	                                                                                     textureType: TextureType.Texture2D,
+	                                                                                     canSetDefaultSettings: false);
+
+	public static TextureLoadSettings DefaultSettingsCubemap = new TextureLoadSettings(path: null,
+	                                                                                   // paths: new[] {string.Empty},
+	                                                                                   flipX: true,
+	                                                                                   filterMode: TextureFilterMode.Bilinear,
+	                                                                                   wrapMode: TextureWrapMode.ClampToEdge,
+	                                                                                   textureType: TextureType.Cubemap,
+	                                                                                   canSetDefaultSettings: false);
+
 	public TextureType Type { get; private set; }
-	public string[] Paths { get; private set; }
-	public string Path { get; private set; }
+	// public string[] Paths { get; private set; }
 	public TextureFilterMode FilterMode { get; private set; }
 	public TextureWrapMode WrapMode { get; private set; }
 	public bool FlipX { get; private set; }
@@ -14,10 +29,11 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 	                           TextureType? textureType = null,
 	                           bool? flipX = null,
 	                           TextureFilterMode? filterMode = null,
-	                           TextureWrapMode? wrapMode = null)
+	                           TextureWrapMode? wrapMode = null,
+	                           bool? canSetDefaultSettings = true)
 	{
-		// this = GetDefaultSettingsForTextureType(textureType); // not possible if this isnt a struct
-		if (path != null)
+		TextureLoadSettings defaultSettings = canSetDefaultSettings == true ? GetDefaultSettingsForTextureType(textureType) : null; // not possible if this isnt a struct
+		/*if (path != null)
 		{
 			SetPath(path);
 		}
@@ -25,17 +41,30 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 		if (paths != null)
 		{
 			SetPaths(paths);
-		}
+		}*/
 
-		this.Type = textureType ?? this.Type;
-		this.Path = path ?? this.Path;
-		this.Paths = paths ?? this.Paths;
-		this.FilterMode = filterMode ?? this.FilterMode;
-		this.WrapMode = wrapMode ?? this.WrapMode;
-		this.FlipX = flipX ?? this.FlipX;
+		this.Type = textureType ?? defaultSettings.Type;
+		this.Path = path ?? defaultSettings?.Path;
+		// this.Paths = paths ?? defaultSettings?.Paths;
+		this.FilterMode = filterMode ?? defaultSettings.FilterMode;
+		this.WrapMode = wrapMode ?? defaultSettings.WrapMode;
+		this.FlipX = flipX ?? defaultSettings.FlipX;
 	}
 
-	public TextureLoadSettings(string path,
+	public TextureLoadSettings()
+	{
+		TextureLoadSettings defaultSettings = GetDefaultSettingsForTextureType(null); // not possible if this isnt a struct
+
+
+		this.Type = defaultSettings.Type;
+		this.Path = defaultSettings.Path;
+		// this.Paths = defaultSettings.Paths;
+		this.FilterMode = defaultSettings.FilterMode;
+		this.WrapMode = defaultSettings.WrapMode;
+		this.FlipX = defaultSettings.FlipX;
+	}
+
+	/*public TextureLoadSettings(string path,
 	                           TextureLoadSettings loadSettings)
 	{
 		this = loadSettings;
@@ -52,8 +81,9 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 	public TextureLoadSettings(TextureLoadSettings loadSettings)
 	{
 		this = loadSettings;
-	}
+	}*/
 
+	/*
 	private void SetPath(string path)
 	{
 		this.Path = path;
@@ -65,20 +95,7 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 		this.Paths = paths;
 		this.Path = paths[0];
 	}
-
-	public static TextureLoadSettings DefaultSettingsTexture2D { get; } = new TextureLoadSettings(path: string.Empty,
-	                                                                                              paths: null,
-	                                                                                              flipX: false,
-	                                                                                              filterMode: TextureFilterMode.Bilinear,
-	                                                                                              wrapMode: TextureWrapMode.Repeat,
-	                                                                                              textureType: TextureType.Texture2D);
-
-	public static TextureLoadSettings DefaultSettingsCubemap { get; } = new TextureLoadSettings(path: null,
-	                                                                                            paths: new[] {string.Empty},
-	                                                                                            flipX: true,
-	                                                                                            filterMode: TextureFilterMode.Bilinear,
-	                                                                                            wrapMode: TextureWrapMode.ClampToEdge,
-	                                                                                            textureType: TextureType.Cubemap);
+	*/
 
 	private static TextureLoadSettings GetDefaultSettingsForTextureType(TextureType? textureType)
 	{

@@ -1,20 +1,18 @@
-﻿namespace Tofu3D;
+﻿using System.Runtime.Serialization;
+
+namespace Tofu3D;
 
 public class Asset<T> where T : Asset<T> //, new()
 {
-	public AssetHandle<T> AssetHandle { get; private set; }
-	public string Path = "";
+	public AssetHandle<T> AssetHandle { get; internal set; }
+	public string AssetPath = "";
 
 	// private Asset()
 	// {
 	// }
 
-	public void InitAssetHandle()
+	public void InitAssetHandle(uint id)
 	{
-		AssetHandle = new AssetHandle<T>();
+		AssetHandle = new AssetHandle<T>() {Id = id};
 	}
-	// public int Hash
-	// {
-	// 	get { return Id.GetHashCode(); }
-	// }
 }

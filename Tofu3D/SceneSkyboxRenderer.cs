@@ -37,10 +37,10 @@ public class SceneSkyboxRenderer
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Back.bmp"),
 		                        };
 
-		TextureLoadSettings textureLoadSettings = new TextureLoadSettings(paths: texturePaths,
-		                                                                  textureType: TextureType.Cubemap);
+		// TextureLoadSettings textureLoadSettings = new TextureLoadSettings(path: texturePaths,
+		//                                                                   textureType: TextureType.Cubemap);
 
-		_texture.Load(textureLoadSettings);
+		// _texture.Load(textureLoadSettings);
 
 		RenderPassSystem.RegisterRender(RenderPassType.Skybox, RenderSkybox);
 		Scene.SceneDisposed += OnSceneDisposed;
@@ -48,22 +48,17 @@ public class SceneSkyboxRenderer
 
 	private void OnSceneDisposed()
 	{
-		RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
+		// RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
 	}
 
 
 	private void RenderSkybox()
 	{
 		GL.DepthMask(false);
-		// GL.ClearColor(System.Drawing.Color.RosyBrown);
-
-		// GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-
+		
 		ShaderCache.UseShader(_material.Shader);
 
 
-		// Matrix4x4 viewMatrix = Camera.I.ViewMatrix;
 		Vector3 forwardLocal = Camera.I.Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
 		Vector3 upLocal = Camera.I.Transform.TransformDirectionToWorldSpace(new Vector3(0, 1, 0));
 
@@ -76,10 +71,9 @@ public class SceneSkyboxRenderer
 		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix );
 
 		ShaderCache.BindVertexArray(_material.Vao);
-		// GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 		GL.ActiveTexture(TextureUnit.Texture0);
-		TextureCache.BindTexture(_texture.Id, TextureType.Cubemap);
+		TextureCache.BindTexture(_texture.TextureId, TextureType.Cubemap);
 
 		if (KeyboardInput.WasKeyJustPressed(Keys.D1))
 		{

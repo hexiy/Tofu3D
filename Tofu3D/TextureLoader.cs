@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿/*using System.Linq;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -54,7 +54,7 @@ public static class TextureLoader
 						pixelIndex++;
 					}
 				});
-			}*/
+			}#1#
 
 
 			TextureTarget textureTarget = loadSettings.Type == TextureType.Texture2D ? TextureTarget.Texture2D : TextureTarget.TextureCubeMap;
@@ -79,13 +79,13 @@ public static class TextureLoader
 
 		Texture texture = new()
 		                  {
-			                  Id = id,
+			                  TextureId = id,
 			                  Size = imageSize,
 			                  Loaded = true,
 			                  Path = loadSettings.Path,
-			                  Paths = loadSettings.Paths
+			                  // Paths = loadSettings.Paths
 		                  };
 
 		return texture;
 	}
-}
+}*/

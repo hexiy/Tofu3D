@@ -32,7 +32,7 @@ public class TextureRenderer : Renderer
 		if (Texture == null)
 		{
 			Texture = new Texture();
-			Texture.Path = texturePath;
+			Texture.AssetPath = texturePath;
 		}
 	}
 }

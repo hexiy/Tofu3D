@@ -3,6 +3,7 @@
 [Serializable]
 public class Texture : Asset<Texture>
 {
+	public int TextureId;
 	public bool Loaded;
 	public Vector2 Size;
 
@@ -11,8 +12,8 @@ public class Texture : Asset<Texture>
 
 	public Texture Load(string path, TextureLoadSettings loadSettings) // when we want to use default load settings but set different path
 	{
-		TextureLoadSettings textureLoadSettings = new TextureLoadSettings(path: path, loadSettings: loadSettings);
-		return Load(textureLoadSettings);
+		loadSettings.Path = path;
+		return Load(loadSettings);
 	}
 
 	public Texture Load(string path)
@@ -23,11 +24,11 @@ public class Texture : Asset<Texture>
 
 	public Texture Load(TextureLoadSettings loadSettings)
 	{
-		Path = loadSettings.Path;
-		Paths = loadSettings.Paths;
+		AssetPath = loadSettings.Path;
+		// Paths = loadSettings.Paths;
 		Texture loadedTexture = TextureCache.GetTexture(loadSettings);
 
-		Id = loadedTexture.Id;
+		TextureId = loadedTexture.TextureId;
 		Size = loadedTexture.Size;
 
 		Loaded = true;
@@ -36,6 +37,6 @@ public class Texture : Asset<Texture>
 
 	public void Delete()
 	{
-		TextureCache.DeleteTexture(Path);
+		TextureCache.DeleteTexture(AssetPath);
 	}
 }

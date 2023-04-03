@@ -9,13 +9,12 @@ public static class TextureCache
 	static Dictionary<int, Texture> _cachedTextures = new();
 	static int _textureInUse = -1;
 
-	
 	public static Texture GetTexture(TextureLoadSettings textureLoadSettings)
 	{
-		int hash = GetHash(textureLoadSettings.Paths[0]);
+		int hash = GetHash(textureLoadSettings.Path);
 		if (_cachedTextures.ContainsKey(hash) == false)
 		{
-			Texture texture = TextureLoader.LoadTexture(textureLoadSettings);
+			Texture texture = AssetManager.Load<Texture>(textureLoadSettings);
 			_cachedTextures.Add(hash, texture);
 			return texture;
 		}
@@ -27,7 +26,7 @@ public static class TextureCache
 	{
 		if (_cachedTextures.ContainsKey(GetHash(texturePath)))
 		{
-			GL.DeleteTexture(_cachedTextures[GetHash(texturePath)].Id);
+			GL.DeleteTexture(_cachedTextures[GetHash(texturePath)].TextureId);
 
 			_cachedTextures.Remove(GetHash(texturePath));
 		}

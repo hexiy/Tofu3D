@@ -209,19 +209,19 @@ public class EditorPanelBrowser : EditorPanel
 
 			if (isDirectory)
 			{
-				ImGui.ImageButton((IntPtr) _directoryIcon.Id, _iconSize);
+				ImGui.ImageButton((IntPtr) _directoryIcon.TextureId, _iconSize);
 				//ImGui.ImageButton((IntPtr) 0, new Vector2(100, 90));
 			}
 			else
 			{
 				if (_textures[assetIndex] != null && _textures[assetIndex].Loaded)
 				{
-					ImGui.ImageButton((IntPtr) _textures[assetIndex].Id, _iconSize);
+					ImGui.ImageButton((IntPtr) _textures[assetIndex].TextureId, _iconSize);
 				}
 				else
 				{
 					//ImGui.ImageButton((IntPtr) fileIcon.id, new Vector2(100, 90));
-					ImGui.ImageButton((IntPtr) _fileIcon.Id, _iconSize);
+					ImGui.ImageButton((IntPtr) _fileIcon.TextureId, _iconSize);
 				}
 			}
 			//ImGui.PopStyleColor();
@@ -238,7 +238,7 @@ public class EditorPanelBrowser : EditorPanel
 
 					string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-					ImGui.Image((IntPtr) _textures[assetIndex].Id, _iconSize);
+					ImGui.Image((IntPtr) _textures[assetIndex].TextureId, _iconSize);
 
 					//ImGui.Text(Path.GetFileNameWithoutExtension(itemPath));
 
@@ -259,7 +259,7 @@ public class EditorPanelBrowser : EditorPanel
 
 					string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-					ImGui.Image((IntPtr) _fileIcon.Id, _iconSize);
+					ImGui.Image((IntPtr) _fileIcon.TextureId, _iconSize);
 
 
 					Marshal.FreeHGlobal(stringPointer);
@@ -291,7 +291,7 @@ public class EditorPanelBrowser : EditorPanel
 
 					string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-					ImGui.Image((IntPtr) _fileIcon.Id, new Vector2(100, 90));
+					ImGui.Image((IntPtr) _fileIcon.TextureId, new Vector2(100, 90));
 
 					//ImGui.Text(Path.GetFileNameWithoutExtension(itemPath));
 
@@ -323,7 +323,7 @@ public class EditorPanelBrowser : EditorPanel
 
 					//string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-					ImGui.Image((IntPtr) _fileIcon.Id, _iconSize);
+					ImGui.Image((IntPtr) _fileIcon.TextureId, _iconSize);
 
 					Marshal.FreeHGlobal(stringPointer);
 
