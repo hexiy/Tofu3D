@@ -17,6 +17,7 @@
 		foreach (Type loadSettingsType in new[]
 		                                  {
 			                                  typeof(TextureLoadSettings),
+			                                  typeof(ModelLoadSettings),
 		                                  })
 		{
 			_loadSettingsTypes.Add(loadSettingsType.BaseType.GenericTypeArguments[0], loadSettingsType);
@@ -51,16 +52,36 @@
 		string assetPath = (loadSettings as AssetLoadSettings<T>).Path;
 		int hash = assetPath.GetHashCode();
 
-		if (_assets.ContainsKey(hash) == false)
-		{
-			asset = (_loaders[typeof(T)] as AssetLoader<T>).LoadAsset(loadSettings: loadSettings) as T;
-			_assets.Add(hash, asset);
-		}
-		else
+		if (_assets.ContainsKey(hash))
 		{
 			asset = _assets[hash] as T;
 		}
+		else
+		{
+			asset = (_loaders[typeof(T)] as AssetLoader<T>).LoadAsset(loadSettings: loadSettings) as T;
+			_assets.Add(hash, asset);
+			// Debug.Log($"Loaded asset:{assetPath}");
+		}
 
+		Debug.StatSetValue("LoadedAssets", $"LoadedAssets:{_assets.Count}");
 		return asset;
+	}
+
+	public static void Unload<T>(Asset<T> asset) where T : Asset<T>
+	{
+		int hash = asset.AssetPath.GetHashCode();
+
+		if (_assets.ContainsKey(hash))
+		{
+			(_loaders[typeof(T)] as AssetLoader<T>).UnloadAsset(asset);
+			_assets.Remove(hash);
+		}
+		else
+		{
+			Debug.Log("Cannot unload asset that's not loaded.");
+			return;
+		}
+
+		Debug.StatSetValue("LoadedAssets", $"LoadedAssets:{_assets.Count}");
 	}
 }

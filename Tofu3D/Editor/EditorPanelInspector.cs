@@ -183,7 +183,8 @@ public class EditorPanelInspector : EditorPanel
 		                                                   typeof(string),
 		                                                   typeof(List<GameObject>),
 		                                                   typeof(Action),
-		                                                   typeof(AudioClip)
+		                                                   typeof(AudioClip),
+		                                                   typeof(Model),
 	                                                   };
 	List<Type> _componentTypes;
 
@@ -309,6 +310,30 @@ public class EditorPanelInspector : EditorPanel
 						if (ImGui.DragFloat2("", ref systemv2, 0.01f))
 						{
 							info.SetValue(componentInspectorData.Inspectable, (Vector2) systemv2);
+						}
+					}
+					else if (info.FieldOrPropertyType == typeof(Model))
+					{
+						Model model = (Model) info.GetValue(componentInspectorData.Inspectable);
+
+						string assetName = Path.GetFileName(model?.AssetPath) ?? "";
+
+						bool clicked = ImGui.Button(assetName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+
+						if (ImGui.BeginDragDropTarget())
+						{
+							ImGui.AcceptDragDropPayload("CONTENT_BROWSER_MODEL", ImGuiDragDropFlags.None);
+							string filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+							if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0)
+							{
+								// fileName = Path.GetRelativePath("Assets", fileName);
+
+								model = AssetManager.Load<Model>(filePath);
+								// gameObject.GetComponent<Renderer>().Material.Vao = model.Vao; // materials are shared
+								info.SetValue(componentInspectorData.Inspectable, model);
+							}
+
+							ImGui.EndDragDropTarget();
 						}
 					}
 					else if (info.FieldOrPropertyType == typeof(AudioClip))

@@ -28,6 +28,7 @@ public class EditorPanelBrowser : EditorPanel
 	public static EditorPanelBrowser I { get; private set; }
 
 	TextureLoadSettings _iconTextureLoadSettings = new TextureLoadSettings(filterMode: TextureFilterMode.Point);
+	readonly int _itemsInRow = 8;
 
 	public override void Init()
 	{
@@ -92,6 +93,7 @@ public class EditorPanelBrowser : EditorPanel
 			if (_textures[i] != null && _textures[i].Loaded)
 			{
 				_textures[i].Delete();
+				_textures[i] = null;
 			}
 		}
 
@@ -189,7 +191,7 @@ public class EditorPanelBrowser : EditorPanel
 		//}
 		for (int assetIndex = 0; assetIndex < _assets.Length; assetIndex++)
 		{
-			if (assetIndex != 0 && assetIndex % 6 != 0)
+			if (assetIndex != 0 && assetIndex % _itemsInRow != 0)
 			{
 				ImGui.SameLine();
 			}
@@ -266,6 +268,24 @@ public class EditorPanelBrowser : EditorPanel
 				}
 			}
 
+			if (assetExtension.ToLower().Contains(".obj"))
+			{
+				if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
+				{
+					string itemPath = _assets[assetIndex];
+					IntPtr stringPointer = Marshal.StringToHGlobalAnsi(itemPath);
+
+					ImGui.SetDragDropPayload("CONTENT_BROWSER_MODEL", stringPointer, (uint) (sizeof(char) * itemPath.Length));
+
+					string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+
+					ImGui.Image((IntPtr) _fileIcon.TextureId, _iconSize);
+
+					Marshal.FreeHGlobal(stringPointer);
+
+					ImGui.EndDragDropSource();
+				}
+			}
 
 			bool isMaterial = assetExtension.ToLower().Contains(".mat");
 			bool isShader = assetExtension.ToLower().Contains(".glsl");

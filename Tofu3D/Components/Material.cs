@@ -26,7 +26,6 @@ public class Material : Asset<Material>
 	public Shader Shader;
 
 	public int Vao;
-	public int Vbo;
 
 	public void SetPath(string path)
 	{

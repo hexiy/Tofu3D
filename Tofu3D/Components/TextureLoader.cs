@@ -7,9 +7,9 @@ namespace Tofu3D;
 
 public class TextureLoader : AssetLoader<Texture>
 {
-	public override void DisposeAsset(Asset<Texture> asset)
+	public override void UnloadAsset(Asset<Texture> asset)
 	{
-		throw new NotImplementedException();
+		GL.DeleteTexture(asset.AssetHandle.Id);
 	}
 
 	public override Asset<Texture> LoadAsset(IAssetLoadSettings assetLoadSettings)

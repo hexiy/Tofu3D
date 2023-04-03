@@ -2,5 +2,5 @@
 {
 	public abstract Asset<T> LoadAsset(IAssetLoadSettings loadSettings);
 
-	public abstract void DisposeAsset(Asset<T> asset);
+	public abstract void UnloadAsset(Asset<T> asset);
 }

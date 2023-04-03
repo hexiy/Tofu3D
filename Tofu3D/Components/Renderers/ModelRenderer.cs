@@ -133,8 +133,14 @@ public class ModelRenderer : TextureRenderer
 			}
 		}
 
-
-		ShaderCache.BindVertexArray(Material.Vao);
+		if (Model != null)
+		{
+			ShaderCache.BindVertexArray(Model.Vao);
+		}
+		else
+		{
+			ShaderCache.BindVertexArray(Material.Vao);
+		}
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 

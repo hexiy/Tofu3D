@@ -15,8 +15,7 @@ public class Texture : Asset<Texture>
 
 	public void Delete()
 	{
-		Debug.LogError("TODO");
-		GL.DeleteTexture(TextureId);
-		// TextureCache.DeleteTexture(AssetPath);
+		AssetManager.Unload(this);
+
 	}
 }

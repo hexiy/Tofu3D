@@ -23,7 +23,7 @@ public static class BufferFactory
 
 		if (material.Shader.BufferType == BufferType.Model)
 		{
-			CreateModelBuffers(ref material.Vao);
+			CreateCubeBuffers(ref material.Vao);
 			//CreateSpriteRendererBuffersz(ref material.vao, ref material.vbo);
 		}
 
@@ -113,7 +113,7 @@ public static class BufferFactory
 		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 	}
 
-	public static void CreateModelBuffers(ref int vao)
+	public static void CreateCubeBuffers(ref int vao)
 	{
 		GL.Enable(EnableCap.DepthTest);
 		float[] vertices = new[]
@@ -168,6 +168,44 @@ public static class BufferFactory
 		int verticesVbo = GL.GenBuffer();
 		GL.BindBuffer(BufferTarget.ArrayBuffer, verticesVbo);
 		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.StaticDraw);
+
+		int verticesAttribIndex = 0;
+		GL.VertexAttribPointer(verticesAttribIndex, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), IntPtr.Zero);
+		GL.EnableVertexAttribArray(verticesAttribIndex);
+
+		int normalsAttribIndex = 1;
+		GL.VertexAttribPointer(normalsAttribIndex, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), (IntPtr) (3 * sizeof(float)));
+		GL.EnableVertexAttribArray(normalsAttribIndex);
+
+		GL.BindVertexArray(0);
+		GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
+		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+	}
+
+	public static void CreateModelBuffers(Model model)
+	{
+		GL.Enable(EnableCap.DepthTest);
+		List<float> vertices = new List<float>();
+		for (int i = 0; i < model.Vertices.Length; i += 3)
+		{
+			vertices.Add(model.Vertices[i]);
+			vertices.Add(model.Vertices[i + 1]);
+			vertices.Add(model.Vertices[i + 2]);
+
+			// vertices.Add(model.Normals[i]);
+			// vertices.Add(model.Normals[i + 1]);
+			// vertices.Add(model.Normals[i + 2]);
+			vertices.Add(0);
+			vertices.Add(0);
+			vertices.Add(0);
+		}
+
+		model.Vao = GL.GenVertexArray();
+		GL.BindVertexArray(model.Vao);
+
+		int verticesVbo = GL.GenBuffer();
+		GL.BindBuffer(BufferTarget.ArrayBuffer, verticesVbo);
+		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Count, vertices.ToArray(), BufferUsageHint.StaticDraw);
 
 		int verticesAttribIndex = 0;
 		GL.VertexAttribPointer(verticesAttribIndex, 3, VertexAttribPointerType.Float, false, 6 * sizeof(float), IntPtr.Zero);
