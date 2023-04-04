@@ -32,7 +32,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>false</ActiveSelf>
+      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -56,7 +56,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Directional Light</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -187,11 +187,11 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>160</Id>
-      <IndexInHierarchy>13</IndexInHierarchy>
+      <IndexInHierarchy>12</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Torus</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -211,14 +211,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>9.6691</X>
-        <Y>-62.947903</Y>
-        <Z>-23.4487</Z>
+        <X>33.668</X>
+        <Y>-51.481575</Y>
+        <Z>-50.05816</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>9.6691</X>
-        <Y>-62.947903</Y>
-        <Z>-23.4487</Z>
+        <X>33.668</X>
+        <Y>-51.481575</Y>
+        <Z>-50.05816</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -231,8 +231,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-24.550041</X>
-        <Y>21.273764</Y>
+        <X>-12.871113</X>
+        <Y>29.507336</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -292,7 +292,7 @@
       </WorldScale>
       <Rotation>
         <X>30.1</X>
-        <Y>60.147697</Y>
+        <Y>104.00705</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -324,7 +324,7 @@
         <A>202</A>
         <PackedValue>3402825472</PackedValue>
       </Color>
-      <DistanceFromCamera>106.39457</DistanceFromCamera>
+      <DistanceFromCamera>95.890274</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1893,13 +1893,13 @@
       <Enabled>true</Enabled>
       <GameObjectId>18</GameObjectId>
       <Started>false</Started>
-      <Intensity>1</Intensity>
+      <Intensity>0.24</Intensity>
       <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
+        <B>51</B>
+        <G>51</G>
+        <R>139</R>
         <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <PackedValue>4281545611</PackedValue>
       </Color>
     </Component>
     <Component xsi:type="Transform">
@@ -1962,6 +1962,13 @@
         <X>1000</X>
         <Y>1000</Y>
       </Size>
+      <ShadowColor>
+        <B>10</B>
+        <G>10</G>
+        <R>57</R>
+        <A>255</A>
+        <PackedValue>4278848057</PackedValue>
+      </ShadowColor>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -1971,19 +1978,19 @@
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
-        <X>0</X>
+        <X>0.5</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
+        <X>75</X>
         <Y>-3.72</Y>
-        <Z>0</Z>
+        <Z>75</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
+        <X>75</X>
         <Y>-3.72</Y>
-        <Z>0</Z>
+        <Z>75</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -2012,9 +2019,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>200</X>
+        <X>100</X>
         <Y>1</Y>
-        <Z>200</Z>
+        <Z>100</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRenderer">
@@ -2029,7 +2036,7 @@
         <A>255</A>
         <PackedValue>4283957148</PackedValue>
       </Color>
-      <DistanceFromCamera>60.011963</DistanceFromCamera>
+      <DistanceFromCamera>63.162506</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2052,6 +2059,300 @@
         <X>1</X>
         <Y>1</Y>
       </Repeats>
+      <Model>
+        <AssetPath>Assets\3D\cube2.obj</AssetPath>
+        <Vertices>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.875</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.25</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.125</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.125</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.5</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0.75</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.25</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.25</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.875</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.875</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.25</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.25</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.125</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.5</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0.75</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.25</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+        </Vertices>
+        <Vao>7</Vao>
+      </Model>
       <CastShadow>true</CastShadow>
       <TestDrawCount>1</TestDrawCount>
     </Component>
@@ -2063,19 +2364,19 @@
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
-        <X>0</X>
+        <X>0.5</X>
         <Y>1</Y>
-        <Z>0</Z>
+        <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
-        <Y>-3.12</Y>
-        <Z>0</Z>
+        <X>75</X>
+        <Y>-6.48</Y>
+        <Z>75</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>-3.12</Y>
-        <Z>0</Z>
+        <X>75</X>
+        <Y>-6.48</Y>
+        <Z>75</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -2104,9 +2405,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>200</X>
+        <X>100</X>
         <Y>7.94</Y>
-        <Z>200</Z>
+        <Z>100</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRenderer">
@@ -2121,7 +2422,7 @@
         <A>255</A>
         <PackedValue>4281696163</PackedValue>
       </Color>
-      <DistanceFromCamera>60.604206</DistanceFromCamera>
+      <DistanceFromCamera>61.102177</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2144,6 +2445,300 @@
         <X>1</X>
         <Y>1</Y>
       </Repeats>
+      <Model>
+        <AssetPath>Assets\3D\cube2.obj</AssetPath>
+        <Vertices>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.875</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.25</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.125</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.125</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.5</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0.75</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.25</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.25</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.875</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.875</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.25</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.25</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.125</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.5</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0.75</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.25</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+        </Vertices>
+        <Vao>7</Vao>
+      </Model>
       <CastShadow>true</CastShadow>
       <TestDrawCount>1</TestDrawCount>
     </Component>
@@ -2213,7 +2808,7 @@
         <A>41</A>
         <PackedValue>704612767</PackedValue>
       </Color>
-      <DistanceFromCamera>71.60606</DistanceFromCamera>
+      <DistanceFromCamera>53.427063</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2305,7 +2900,7 @@
         <A>255</A>
         <PackedValue>4294936991</PackedValue>
       </Color>
-      <DistanceFromCamera>95.036095</DistanceFromCamera>
+      <DistanceFromCamera>73.6978</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2397,7 +2992,7 @@
         <A>41</A>
         <PackedValue>704643071</PackedValue>
       </Color>
-      <DistanceFromCamera>110.792885</DistanceFromCamera>
+      <DistanceFromCamera>84.765884</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2489,7 +3084,7 @@
         <A>255</A>
         <PackedValue>4278242047</PackedValue>
       </Color>
-      <DistanceFromCamera>88.91989</DistanceFromCamera>
+      <DistanceFromCamera>65.95646</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -4075,7 +4670,7 @@
         <A>255</A>
         <PackedValue>4278190335</PackedValue>
       </Color>
-      <DistanceFromCamera>122.744644</DistanceFromCamera>
+      <DistanceFromCamera>97.60916</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -4390,7 +4985,7 @@
           <float>0</float>
           <float>1</float>
         </Vertices>
-        <Vao>7</Vao>
+        <Vao>8</Vao>
       </Model>
       <CastShadow>true</CastShadow>
       <TestDrawCount>1</TestDrawCount>
@@ -4461,7 +5056,7 @@
         <A>255</A>
         <PackedValue>4292857492</PackedValue>
       </Color>
-      <DistanceFromCamera>69.28782</DistanceFromCamera>
+      <DistanceFromCamera>58.357956</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -32136,7 +32731,7 @@
           <float>-0.2583</float>
           <float>-0.0632</float>
         </Vertices>
-        <Vao>8</Vao>
+        <Vao>9</Vao>
       </Model>
       <CastShadow>true</CastShadow>
       <TestDrawCount>15</TestDrawCount>
@@ -32207,7 +32802,7 @@
         <A>255</A>
         <PackedValue>4282218239</PackedValue>
       </Color>
-      <DistanceFromCamera>113.49505</DistanceFromCamera>
+      <DistanceFromCamera>102.29416</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -55280,5 +55875,5 @@
       <TestDrawCount>15</TestDrawCount>
     </Component>
   </Components>
-  <GameObjectNextId>161</GameObjectNextId>
+  <GameObjectNextId>205</GameObjectNextId>
 </SceneFile>

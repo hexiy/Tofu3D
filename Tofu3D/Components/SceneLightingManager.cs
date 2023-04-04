@@ -104,7 +104,7 @@ public class SceneLightingManager
 			}
 		}
 
-		return intensity;
+		return Mathf.ClampMin(intensity, 0);
 	}
 
 	public Color GetDirectionalLightColor()
