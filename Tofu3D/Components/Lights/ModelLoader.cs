@@ -55,11 +55,9 @@ public class ModelLoader : AssetLoader<Model>
 				int indice1 = int.Parse(lineSplit[1][0].ToString());
 				int indice2 = int.Parse(lineSplit[2][0].ToString());
 				int indice3 = int.Parse(lineSplit[3][0].ToString());
-				int indice4 = int.Parse(lineSplit[4][0].ToString());
 				indices.Add((uint) indice1-1);
 				indices.Add((uint) indice2-1);
 				indices.Add((uint) indice3-1);
-				indices.Add((uint) indice4-1);
 			}
 		}
 
