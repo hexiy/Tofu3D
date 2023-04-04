@@ -104,12 +104,16 @@ public class SceneLightingManager
 			}
 		}
 
-		return intensity;
+		return Mathf.ClampMin(intensity, 0);
 	}
 
 	public Color GetDirectionalLightColor()
 	{
 		return _directionalLight?.Color ?? Color.Black;
+	}
+	public Color GetDirectionalLightShadowColor()
+	{
+		return _directionalLight?.ShadowColor ?? Color.Black;
 	}
 
 	public Vector3 GetDirectionalLightDirection()

@@ -3,7 +3,8 @@
 #version 410 core
 
 layout (location = 0) in vec3 a_pos;
-layout (location = 1) in vec3 a_normal;
+layout (location = 1) in vec2 a_uv;
+layout (location = 2) in vec3 a_normal;
 
 out vec3 fragPos;
 out vec3 normal;
@@ -34,13 +35,14 @@ FragPosLightSpace = u_lightSpaceMatrix * vec4(fragPos, 1.0);
 
 [FRAGMENT]
 #version 410 core
-uniform vec4 u_rendererColor;
+ uniform vec4 u_rendererColor;
 
 uniform vec3 u_ambientLightsColor;
 // direction too
 uniform float u_ambientLightsIntensity;
 
 uniform vec3 u_directionalLightColor = vec3(1, 0, 0);
+//uniform vec3 u_directionalLightShadowColor = vec3(1, 0, 0);
 uniform float u_directionalLightIntensity = 1;
 uniform vec3 u_directionalLightDirection = vec3(1, 0, 0);
 
@@ -52,7 +54,7 @@ out vec4 frag_color;
 uniform sampler2D textureObject;
 uniform sampler2D shadowMap;
 
-in vec3 normal;
+smooth in vec3 normal;
 in vec3 fragPos;
 in vec4 FragPosLightSpace;
 
@@ -109,7 +111,8 @@ float d = max(dot(norm, lightDir), 0.0) * u_pointLightIntensities[i];
 }*/
 
 //vec3 dirColor = u_directionalLightIntensity * u_directionalLightColor;
-vec3 dirColor = vec3(max(dot(norm, u_directionalLightDirection), 0.0) * u_directionalLightIntensity * u_directionalLightColor);
+float directionalLightStrength = max(dot(norm, u_directionalLightDirection), 0.0);
+vec3 dirColor = vec3(directionalLightStrength * u_directionalLightIntensity * u_directionalLightColor);
 
 
 //result += vec4((u_ambientLightsColor * u_rendererColor.rgb* u_ambientLightsIntensity) + (1 - shadow),0);
@@ -117,7 +120,28 @@ vec3 ambColor = vec3(u_ambientLightsColor * u_ambientLightsIntensity);
 
 //float shadow = 1;
 float shadow = ShadowCalculation(FragPosLightSpace);
-vec4 result = vec4((ambColor.rgb + (dirColor.rgb * shadow)) * u_rendererColor.rgb, u_rendererColor.a);
+if (shadow < 0.8 || (dirColor.r + dirColor.g + dirColor.b) / 3 < 0.3)
+{
+//ambColor = ambColor.rgb * vec3(1+shadow);
+
+//dirColor = u_directionalLightIntensity * u_directionalLightColor - vec3(0);
+
+shadow += (ambColor.r + ambColor.g+ ambColor.b) / 3;
+}
+
+if (shadow == 0.0)
+{
+shadow = 1;
+dirColor = dirColor * ambColor;
+}
+
+if (directionalLightStrength < 1)
+{
+        float x = 1- directionalLightStrength;
+dirColor += ambColor * x;
+}
+
+vec4 result = vec4(((dirColor.rgb * shadow)) * u_rendererColor.rgb + ambColor.rgb, u_rendererColor.a);
 //vec4 result = vec4(dirColor, u_rendererColor.a);
 
 frag_color = result;

@@ -12,6 +12,7 @@ public class DirectionalLight : LightBase
 	public float FarPlaneDistance = 1000;
 	public float OrthographicSize = 15;
 	public Vector2 Size = new Vector2(1000, 1000);
+	public Color ShadowColor = Tofu3D.Color.Black;
 
 	// [XmlIgnore] public static RenderTexture DepthRenderTexture { get; private set; }
 	// [XmlIgnore] public static RenderTexture DisplayDepthRenderTexture { get; private set; }
