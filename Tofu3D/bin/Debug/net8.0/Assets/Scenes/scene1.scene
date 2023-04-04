@@ -56,7 +56,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Directional Light</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -101,7 +101,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -211,14 +211,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>33.668</X>
-        <Y>-51.481575</Y>
-        <Z>-50.05816</Z>
+        <X>27.528408</X>
+        <Y>-55.46992</Y>
+        <Z>-31.161987</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>33.668</X>
-        <Y>-51.481575</Y>
-        <Z>-50.05816</Z>
+        <X>27.528408</X>
+        <Y>-55.46992</Y>
+        <Z>-31.161987</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -231,8 +231,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-12.871113</X>
-        <Y>29.507336</Y>
+        <X>-31.742544</X>
+        <Y>18.503117</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -252,7 +252,7 @@
       <FarPlaneDistance>15000</FarPlaneDistance>
       <FieldOfView>88.50011</FieldOfView>
       <IsOrthographic>false</IsOrthographic>
-      <OrthographicSize>15</OrthographicSize>
+      <OrthographicSize>8.33</OrthographicSize>
       <Size>
         <X>2340</X>
         <Y>1368</Y>
@@ -272,12 +272,12 @@
       </Pivot>
       <WorldPosition>
         <X>18</X>
-        <Y>43.12</Y>
+        <Y>59.22</Y>
         <Z>150</Z>
       </WorldPosition>
       <LocalPosition>
         <X>18</X>
-        <Y>43.12</Y>
+        <Y>59.22</Y>
         <Z>150</Z>
       </LocalPosition>
       <LocalScale>
@@ -292,7 +292,7 @@
       </WorldScale>
       <Rotation>
         <X>30.1</X>
-        <Y>104.00705</Y>
+        <Y>131.7601</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -324,7 +324,7 @@
         <A>202</A>
         <PackedValue>3402825472</PackedValue>
       </Color>
-      <DistanceFromCamera>95.890274</DistanceFromCamera>
+      <DistanceFromCamera>115.08506</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -332,7 +332,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>171</Vao>
       </Material>
       <Layer>0</Layer>
       <Texture>
@@ -1915,14 +1915,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>19.4</X>
-        <Y>30</Y>
-        <Z>-26.98</Z>
+        <X>-6.5</X>
+        <Y>53.8</Y>
+        <Z>-24.89</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>19.4</X>
-        <Y>30</Y>
-        <Z>-26.98</Z>
+        <X>-6.5</X>
+        <Y>53.8</Y>
+        <Z>-24.89</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -1936,7 +1936,7 @@
       </WorldScale>
       <Rotation>
         <X>-25.2</X>
-        <Y>52.3</Y>
+        <Y>51.34031</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -1953,22 +1953,15 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <Speed>0</Speed>
+      <Speed>7</Speed>
       <RefreshRate>60</RefreshRate>
-      <NearPlaneDistance>0.0001</NearPlaneDistance>
-      <FarPlaneDistance>2500</FarPlaneDistance>
-      <OrthographicSize>15</OrthographicSize>
+      <NearPlaneDistance>17.60009</NearPlaneDistance>
+      <FarPlaneDistance>5000</FarPlaneDistance>
+      <OrthographicSize>8.33</OrthographicSize>
       <Size>
-        <X>1000</X>
-        <Y>1000</Y>
+        <X>1500</X>
+        <Y>1500</Y>
       </Size>
-      <ShadowColor>
-        <B>10</B>
-        <G>10</G>
-        <R>57</R>
-        <A>255</A>
-        <PackedValue>4278848057</PackedValue>
-      </ShadowColor>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -2036,7 +2029,7 @@
         <A>255</A>
         <PackedValue>4283957148</PackedValue>
       </Color>
-      <DistanceFromCamera>63.162506</DistanceFromCamera>
+      <DistanceFromCamera>70.225395</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2044,7 +2037,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>171</Vao>
       </Material>
       <Layer>0</Layer>
       <Texture>
@@ -2422,7 +2415,7 @@
         <A>255</A>
         <PackedValue>4281696163</PackedValue>
       </Color>
-      <DistanceFromCamera>61.102177</DistanceFromCamera>
+      <DistanceFromCamera>68.21704</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2430,7 +2423,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>171</Vao>
       </Material>
       <Layer>0</Layer>
       <Texture>
@@ -2808,7 +2801,7 @@
         <A>41</A>
         <PackedValue>704612767</PackedValue>
       </Color>
-      <DistanceFromCamera>53.427063</DistanceFromCamera>
+      <DistanceFromCamera>58.482674</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2816,7 +2809,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>171</Vao>
       </Material>
       <Layer>0</Layer>
       <Texture>
@@ -2831,7 +2824,7 @@
         <X>1</X>
         <Y>1</Y>
       </Repeats>
-      <CastShadow>true</CastShadow>
+      <CastShadow>false</CastShadow>
       <TestDrawCount>1</TestDrawCount>
     </Component>
     <Component xsi:type="Transform">
@@ -2900,7 +2893,7 @@
         <A>255</A>
         <PackedValue>4294936991</PackedValue>
       </Color>
-      <DistanceFromCamera>73.6978</DistanceFromCamera>
+      <DistanceFromCamera>79.80755</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2908,7 +2901,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>171</Vao>
       </Material>
       <Layer>0</Layer>
       <Texture>
@@ -2992,7 +2985,7 @@
         <A>41</A>
         <PackedValue>704643071</PackedValue>
       </Color>
-      <DistanceFromCamera>84.765884</DistanceFromCamera>
+      <DistanceFromCamera>92.048454</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -3000,7 +2993,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>171</Vao>
       </Material>
       <Layer>0</Layer>
       <Texture>
@@ -3084,7 +3077,7 @@
         <A>255</A>
         <PackedValue>4278242047</PackedValue>
       </Color>
-      <DistanceFromCamera>65.95646</DistanceFromCamera>
+      <DistanceFromCamera>72.48947</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -3092,7 +3085,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>171</Vao>
       </Material>
       <Layer>0</Layer>
       <Texture>
@@ -4670,7 +4663,7 @@
         <A>255</A>
         <PackedValue>4278190335</PackedValue>
       </Color>
-      <DistanceFromCamera>97.60916</DistanceFromCamera>
+      <DistanceFromCamera>104.72733</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -4678,7 +4671,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>171</Vao>
       </Material>
       <Layer>0</Layer>
       <Texture>
@@ -5056,7 +5049,7 @@
         <A>255</A>
         <PackedValue>4292857492</PackedValue>
       </Color>
-      <DistanceFromCamera>58.357956</DistanceFromCamera>
+      <DistanceFromCamera>61.28042</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -5064,7 +5057,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>171</Vao>
       </Material>
       <Layer>0</Layer>
       <Texture>
@@ -32802,7 +32795,7 @@
         <A>255</A>
         <PackedValue>4282218239</PackedValue>
       </Color>
-      <DistanceFromCamera>102.29416</DistanceFromCamera>
+      <DistanceFromCamera>105.684326</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -32810,7 +32803,7 @@
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>171</Vao>
       </Material>
       <Layer>0</Layer>
       <Texture>
@@ -55875,5 +55868,5 @@
       <TestDrawCount>15</TestDrawCount>
     </Component>
   </Components>
-  <GameObjectNextId>205</GameObjectNextId>
+  <GameObjectNextId>213</GameObjectNextId>
 </SceneFile>
