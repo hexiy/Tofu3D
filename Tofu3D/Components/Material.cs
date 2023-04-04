@@ -3,7 +3,7 @@ using System.IO;
 namespace Scripts;
 
 [Serializable]
-public class Material
+public class Material : Asset<Material>
 {
 	public bool Additive = false;
 
@@ -26,7 +26,6 @@ public class Material
 	public Shader Shader;
 
 	public int Vao;
-	public int Vbo;
 
 	public void SetPath(string path)
 	{

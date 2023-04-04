@@ -28,6 +28,7 @@ public class EditorPanelBrowser : EditorPanel
 	public static EditorPanelBrowser I { get; private set; }
 
 	TextureLoadSettings _iconTextureLoadSettings = new TextureLoadSettings(filterMode: TextureFilterMode.Point);
+	readonly int _itemsInRow = 8;
 
 	public override void Init()
 	{
@@ -35,12 +36,9 @@ public class EditorPanelBrowser : EditorPanel
 
 		CreateContextItems();
 
-		_fileIcon = new Texture();
+		_fileIcon = AssetManager.Load<Texture>(path: "Resources/FileIcon.png", loadSettings: _iconTextureLoadSettings);
 
-		_fileIcon.Load(path: "Resources/FileIcon.png", loadSettings: _iconTextureLoadSettings);
-
-		_directoryIcon = new Texture();
-		_directoryIcon.Load(path: "Resources/DirectoryIcon.png", loadSettings: _iconTextureLoadSettings);
+		_directoryIcon = AssetManager.Load<Texture>(path: "Resources/DirectoryIcon.png", loadSettings: _iconTextureLoadSettings);
 
 		CurrentDirectory = new DirectoryInfo("Assets");
 
@@ -95,6 +93,7 @@ public class EditorPanelBrowser : EditorPanel
 			if (_textures[i] != null && _textures[i].Loaded)
 			{
 				_textures[i].Delete();
+				_textures[i] = null;
 			}
 		}
 
@@ -105,8 +104,9 @@ public class EditorPanelBrowser : EditorPanel
 
 			if (assetExtension.ToLower().Contains(".jpg") || assetExtension.ToLower().Contains(".png") || assetExtension.ToLower().Contains(".jpeg"))
 			{
-				_textures[i] = new Texture();
-				_textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
+				// _textures[i] = new Texture();
+				// _textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
+				_textures[i] = AssetManager.Load<Texture>(path: _assets[i], loadSettings: _iconTextureLoadSettings);
 			}
 		}
 	}
@@ -154,7 +154,7 @@ public class EditorPanelBrowser : EditorPanel
 			bool saveBtnPressed = ImGui.Button("Save Prefab");
 			if (saveBtnPressed)
 			{
-				AssetSerializer.SaveGameObject(GameObjectSelectionManager.GetSelectedGameObject(), Path.Combine("Assets", CurrentDirectory.Name, GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
+				SceneSerializer.SaveGameObject(GameObjectSelectionManager.GetSelectedGameObject(), Path.Combine("Assets", CurrentDirectory.Name, GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
 			}
 		}
 
@@ -191,7 +191,7 @@ public class EditorPanelBrowser : EditorPanel
 		//}
 		for (int assetIndex = 0; assetIndex < _assets.Length; assetIndex++)
 		{
-			if (assetIndex != 0 && assetIndex % 6 != 0)
+			if (assetIndex != 0 && assetIndex % _itemsInRow != 0)
 			{
 				ImGui.SameLine();
 			}
@@ -209,19 +209,19 @@ public class EditorPanelBrowser : EditorPanel
 
 			if (isDirectory)
 			{
-				ImGui.ImageButton((IntPtr) _directoryIcon.Id, _iconSize);
+				ImGui.ImageButton((IntPtr) _directoryIcon.TextureId, _iconSize);
 				//ImGui.ImageButton((IntPtr) 0, new Vector2(100, 90));
 			}
 			else
 			{
 				if (_textures[assetIndex] != null && _textures[assetIndex].Loaded)
 				{
-					ImGui.ImageButton((IntPtr) _textures[assetIndex].Id, _iconSize);
+					ImGui.ImageButton((IntPtr) _textures[assetIndex].TextureId, _iconSize);
 				}
 				else
 				{
 					//ImGui.ImageButton((IntPtr) fileIcon.id, new Vector2(100, 90));
-					ImGui.ImageButton((IntPtr) _fileIcon.Id, _iconSize);
+					ImGui.ImageButton((IntPtr) _fileIcon.TextureId, _iconSize);
 				}
 			}
 			//ImGui.PopStyleColor();
@@ -238,7 +238,7 @@ public class EditorPanelBrowser : EditorPanel
 
 					string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-					ImGui.Image((IntPtr) _textures[assetIndex].Id, _iconSize);
+					ImGui.Image((IntPtr) _textures[assetIndex].TextureId, _iconSize);
 
 					//ImGui.Text(Path.GetFileNameWithoutExtension(itemPath));
 
@@ -259,7 +259,7 @@ public class EditorPanelBrowser : EditorPanel
 
 					string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-					ImGui.Image((IntPtr) _fileIcon.Id, _iconSize);
+					ImGui.Image((IntPtr) _fileIcon.TextureId, _iconSize);
 
 
 					Marshal.FreeHGlobal(stringPointer);
@@ -268,6 +268,24 @@ public class EditorPanelBrowser : EditorPanel
 				}
 			}
 
+			if (assetExtension.ToLower().Contains(".obj"))
+			{
+				if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
+				{
+					string itemPath = _assets[assetIndex];
+					IntPtr stringPointer = Marshal.StringToHGlobalAnsi(itemPath);
+
+					ImGui.SetDragDropPayload("CONTENT_BROWSER_MODEL", stringPointer, (uint) (sizeof(char) * itemPath.Length));
+
+					string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+
+					ImGui.Image((IntPtr) _fileIcon.TextureId, _iconSize);
+
+					Marshal.FreeHGlobal(stringPointer);
+
+					ImGui.EndDragDropSource();
+				}
+			}
 
 			bool isMaterial = assetExtension.ToLower().Contains(".mat");
 			bool isShader = assetExtension.ToLower().Contains(".glsl");
@@ -291,7 +309,7 @@ public class EditorPanelBrowser : EditorPanel
 
 					string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-					ImGui.Image((IntPtr) _fileIcon.Id, new Vector2(100, 90));
+					ImGui.Image((IntPtr) _fileIcon.TextureId, new Vector2(100, 90));
 
 					//ImGui.Text(Path.GetFileNameWithoutExtension(itemPath));
 
@@ -323,7 +341,7 @@ public class EditorPanelBrowser : EditorPanel
 
 					//string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-					ImGui.Image((IntPtr) _fileIcon.Id, _iconSize);
+					ImGui.Image((IntPtr) _fileIcon.TextureId, _iconSize);
 
 					Marshal.FreeHGlobal(stringPointer);
 
@@ -350,7 +368,7 @@ public class EditorPanelBrowser : EditorPanel
 
 				if (assetExtension == ".prefab")
 				{
-					GameObject go = AssetSerializer.LoadPrefab(_assets[assetIndex]);
+					GameObject go = SceneSerializer.LoadPrefab(_assets[assetIndex]);
 					EditorPanelHierarchy.I.SelectGameObject(go.Id);
 				}
 

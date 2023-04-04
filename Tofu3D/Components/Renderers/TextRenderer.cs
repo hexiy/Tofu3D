@@ -76,6 +76,8 @@ public class TextRenderer : SpriteRenderer
 	{
 		SpritesCount = SpritesCount;
 		SetDefaultTexture(Path.Combine(Folders.Textures, "sdf.png"));
+		Text = GetComponent<Text>();
+		BoxShape = GetComponent<BoxShape>();
 		base.Awake();
 	}
 
@@ -92,6 +94,8 @@ public class TextRenderer : SpriteRenderer
 
 	public override void OnNewComponentAdded(Component comp)
 	{
+		Text = GetComponent<Text>();
+		BoxShape = GetComponent<BoxShape>();
 	}
 
 	public override void LoadTexture(string texturePath)
@@ -106,8 +110,8 @@ public class TextRenderer : SpriteRenderer
 			return;
 		}
 
-		
-		Texture.Load(texturePath);
+
+		Texture = AssetManager.Load<Texture>(texturePath);
 	}
 
 	public override void Render()
@@ -201,7 +205,8 @@ public class TextRenderer : SpriteRenderer
 			{
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
-			TextureCache.BindTexture(Texture.Id);
+
+			TextureCache.BindTexture(Texture.TextureId);
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

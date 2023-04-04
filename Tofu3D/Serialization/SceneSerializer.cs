@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Tofu3D;
 
-public static class AssetSerializer
+public static class SceneSerializer
 {
 	static List<Type> _serializableTypes = new();
 

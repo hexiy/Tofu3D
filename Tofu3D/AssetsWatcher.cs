@@ -29,7 +29,7 @@ public class AssetsWatcher
 
 		Debug.Log($"File changed:{assetsRelativePath}");
 
-		if (AssetsManager.IsShader(assetsRelativePath))
+		if (AssetUtils.IsShader(assetsRelativePath))
 		{
 			ShaderCache.QueueShaderReload(assetsRelativePath);
 		}

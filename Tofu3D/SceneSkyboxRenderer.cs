@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Numerics;
 using Tofu3D.Rendering;
 
@@ -28,7 +29,7 @@ public class SceneSkyboxRenderer
 			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_down.png"),
 			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_up.png"),
 			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_front.png"),
-			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_back.png"),*/         
+			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_back.png"),*/
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Right.bmp"),
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Left.bmp"),
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Bottom.bmp"),
@@ -37,10 +38,12 @@ public class SceneSkyboxRenderer
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Back.bmp"),
 		                        };
 
-		TextureLoadSettings textureLoadSettings = new TextureLoadSettings(paths: texturePaths,
+		string oneStringForAllSixTextures = String.Concat(texturePaths);
+		TextureLoadSettings textureLoadSettings = new TextureLoadSettings(path: oneStringForAllSixTextures,
 		                                                                  textureType: TextureType.Cubemap);
+		_texture = AssetManager.Load<Texture>(textureLoadSettings);
 
-		_texture.Load(textureLoadSettings);
+		// _texture.Load(textureLoadSettings);
 
 		RenderPassSystem.RegisterRender(RenderPassType.Skybox, RenderSkybox);
 		Scene.SceneDisposed += OnSceneDisposed;
@@ -48,22 +51,16 @@ public class SceneSkyboxRenderer
 
 	private void OnSceneDisposed()
 	{
-		RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
+		// RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
 	}
-
 
 	private void RenderSkybox()
 	{
 		GL.DepthMask(false);
-		// GL.ClearColor(System.Drawing.Color.RosyBrown);
-
-		// GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
 
 		ShaderCache.UseShader(_material.Shader);
 
 
-		// Matrix4x4 viewMatrix = Camera.I.ViewMatrix;
 		Vector3 forwardLocal = Camera.I.Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
 		Vector3 upLocal = Camera.I.Transform.TransformDirectionToWorldSpace(new Vector3(0, 1, 0));
 
@@ -73,13 +70,12 @@ public class SceneSkyboxRenderer
 		Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Inspectable.Fov), Camera.I.Size.X / Camera.I.Size.Y, 0.01f, 1);
 
 		_material.Shader.SetMatrix4X4("u_view", viewMatrix);
-		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix );
+		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix);
 
 		ShaderCache.BindVertexArray(_material.Vao);
-		// GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 		GL.ActiveTexture(TextureUnit.Texture0);
-		TextureCache.BindTexture(_texture.Id, TextureType.Cubemap);
+		TextureCache.BindTexture(_texture.TextureId, TextureType.Cubemap);
 
 		if (KeyboardInput.WasKeyJustPressed(Keys.D1))
 		{

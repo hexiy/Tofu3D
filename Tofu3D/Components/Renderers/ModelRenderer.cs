@@ -17,7 +17,7 @@ public class ModelRenderer : TextureRenderer
 		}
 		else
 		{
-			LoadTexture(Texture.Path);
+			LoadTexture(Texture.AssetPath);
 		}
 
 		base.Awake();
@@ -30,6 +30,10 @@ public class ModelRenderer : TextureRenderer
 			Material = MaterialCache.GetMaterial("ModelRenderer");
 		}
 
+		if (Model)
+		{
+			Model = AssetManager.Load<Model>(Model.AssetPath);
+		}
 		// Material = MaterialCache.GetMaterial("ModelRenderer");
 
 		// base.CreateMaterial();
@@ -126,17 +130,23 @@ public class ModelRenderer : TextureRenderer
 			// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
 			Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
 
-			TextureCache.BindTexture(Texture.Id);
+			TextureCache.BindTexture(Texture.TextureId);
 			if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
 			{
 				TextureCache.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 			}
 		}
 
-
-		ShaderCache.BindVertexArray(Material.Vao);
-
-		GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+		if (Model != null)
+		{
+			ShaderCache.BindVertexArray(Model.Vao);
+			GL.DrawElements(PrimitiveType.Triangles, Model.Indices.Length, DrawElementsType.UnsignedInt, 0);
+		}
+		else
+		{
+			ShaderCache.BindVertexArray(Material.Vao);
+			GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+		}
 
 
 		/*else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)

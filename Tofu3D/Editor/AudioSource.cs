@@ -41,8 +41,8 @@ public class AudioSource : Component
 	{
 		_threadStart = () =>
 		{
-			byte[] bytes = File.ReadAllBytes(Clip.Path);
-			_loadedAudioFileName = Clip.Path;
+			byte[] bytes = File.ReadAllBytes(Clip.AssetPath);
+			_loadedAudioFileName = Clip.AssetPath;
 			if (_audioMemoryStream != null)
 			{
 				_audioMemoryStream.Close();
@@ -74,7 +74,7 @@ public class AudioSource : Component
 			return;
 		}
 
-		if (Clip.Path != _loadedAudioFileName)
+		if (Clip.AssetPath != _loadedAudioFileName)
 		{
 			LoadAudioToMemory(onLoaded: PlaySound);
 			return;

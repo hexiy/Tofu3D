@@ -1,4 +1,4 @@
-using System.IO;
+/*using System.IO;
 
 namespace Tofu3D;
 
@@ -15,7 +15,7 @@ public class ModelCache
 
 		for (int i = 0; i < _loadedModels.Count; i++)
 		{
-			if (_loadedModels[i].Path.Contains(name))
+			if (_loadedModels[i].AssetPath.Contains(name))
 			{
 				return _loadedModels[i];
 			}
@@ -25,7 +25,7 @@ public class ModelCache
 
 		for (int i = 0; i < _loadedModels.Count; i++)
 		{
-			if (_loadedModels[i].Path.Contains(name))
+			if (_loadedModels[i].AssetPath.Contains(name))
 			{
 				return _loadedModels[i];
 			}
@@ -33,4 +33,4 @@ public class ModelCache
 
 		return null;
 	}
-}
+}*/

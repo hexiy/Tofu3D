@@ -60,7 +60,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 			return;
 		}
 
-		Texture.Load(texturePath);
+		Texture = AssetManager.Load<Texture>(texturePath);
 
 		UpdateBoxShapeSize();
 		if (Batched && false)
@@ -126,7 +126,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
 
-			TextureCache.BindTexture(Texture.Id);
+			TextureCache.BindTexture(Texture.TextureId);
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

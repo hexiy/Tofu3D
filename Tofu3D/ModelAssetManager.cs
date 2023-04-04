@@ -10,7 +10,7 @@ public static class ModelAssetManager
 		{
 			XmlSerializer xmlSerializer = new(typeof(Model));
 			Model model = (Model) xmlSerializer.Deserialize(sr);
-			model.Path = modelPath;
+			model.AssetPath = modelPath;
 			/*if (mat.shader != null)
 			{
 				mat.SetShader(mat.shader);
@@ -22,7 +22,7 @@ public static class ModelAssetManager
 
 	public static void SaveModel(Model model)
 	{
-		using (StreamWriter sw = new(model.Path))
+		using (StreamWriter sw = new(model.AssetPath))
 		{
 			XmlSerializer xmlSerializer = new(typeof(Model));
 

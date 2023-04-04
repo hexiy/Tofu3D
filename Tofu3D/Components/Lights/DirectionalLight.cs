@@ -44,7 +44,7 @@ public class DirectionalLight : LightBase
 
 	public override void Update()
 	{
-		Transform.Rotation = Transform.Rotation.Set(y: _initialRotationY + (float) Math.Cos(Time.EditorElapsedTime*Speed)*5);
+		// Transform.Rotation = Transform.Rotation.Set(y: _initialRotationY + (float) Math.Cos(Time.EditorElapsedTime*Speed)*5);
 		base.Update();
 	}
 

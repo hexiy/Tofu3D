@@ -23,7 +23,7 @@ public static class BufferFactory
 
 		if (material.Shader.BufferType == BufferType.Model)
 		{
-			CreateModelBuffers(ref material.Vao);
+			CreateCubeBuffers(ref material.Vao);
 			//CreateSpriteRendererBuffersz(ref material.vao, ref material.vbo);
 		}
 
@@ -113,7 +113,7 @@ public static class BufferFactory
 		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 	}
 
-	public static void CreateModelBuffers(ref int vao)
+	public static void CreateCubeBuffers(ref int vao)
 	{
 		GL.Enable(EnableCap.DepthTest);
 		float[] vertices = new[]
@@ -180,6 +180,32 @@ public static class BufferFactory
 		GL.BindVertexArray(0);
 		GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
 		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+	}
+
+	public static void CreateModelBuffers(Model model)
+	{
+		GL.Enable(EnableCap.DepthTest);
+
+		int vbo, ebo;
+
+		model.Vao = GL.GenVertexArray();
+
+		vbo = GL.GenBuffer();
+		ebo = GL.GenBuffer();
+
+		GL.BindVertexArray(model.Vao);
+		GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * model.Vertices.Length, model.Vertices, BufferUsageHint.StaticDraw);
+
+		GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
+		GL.BufferData(BufferTarget.ElementArrayBuffer, sizeof(uint) * model.Indices.Length, model.Indices, BufferUsageHint.StaticDraw);
+
+		GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), IntPtr.Zero);
+		GL.EnableVertexAttribArray(0);
+
+		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+		GL.BindVertexArray(0);
+		GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
 	}
 
 	public static void CreateCubemapBuffers(ref int vao)

@@ -251,7 +251,7 @@ public class Scene
 		SceneManager.LastOpenedScene = path;
 		GameObjects = new List<GameObject>();
 		CreateDefaultObjects();
-		AssetSerializer.SaveGameObjects(GetSceneFile(), path);
+		SceneSerializer.SaveGameObjects(GetSceneFile(), path);
 	}
 
 	public void OnGameObjectDestroyed(GameObject gameObject)

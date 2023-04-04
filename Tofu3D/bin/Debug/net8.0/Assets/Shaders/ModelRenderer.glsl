@@ -117,8 +117,8 @@ vec3 ambColor = vec3(u_ambientLightsColor * u_ambientLightsIntensity);
 
 //float shadow = 1;
 float shadow = ShadowCalculation(FragPosLightSpace);
-
-vec4 result = vec4((ambColor.rgb + (dirColor.rgb * shadow))* u_rendererColor.rgb, u_rendererColor.a);
+vec4 result = vec4((ambColor.rgb + (dirColor.rgb * shadow)) * u_rendererColor.rgb, u_rendererColor.a);
+//vec4 result = vec4(dirColor, u_rendererColor.a);
 
 frag_color = result;
 gl_FragDepth = gl_FragCoord.z;

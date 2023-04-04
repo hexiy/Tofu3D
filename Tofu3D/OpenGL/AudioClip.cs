@@ -1,7 +1,6 @@
 ﻿namespace Tofu3D;
 
 [Serializable]
-public class AudioClip
+public class AudioClip : Asset<AudioClip>
 {
-	public string Path = "";
 }

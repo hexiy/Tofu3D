@@ -1,15 +1,9 @@
-[Serializable]
-public class Model
+public class Model : Asset<Model>
 {
-	public string Path;
+	public float[] Vertices;
+	public float[] UVs;
+	public float[] Normals;
+	public uint[] Indices;
 
-	public float[] Vertices =
-	{
-		-0.5f, -0.5f, 0, 0,
-		0.5f, -0.5f, 1, 0,
-		-0.5f, 0.5f, 0, 1,
-		-0.5f, 0.5f, 0, 1,
-		0.5f, -0.5f, 1, 0,
-		0.5f, 0.5f, 1, 1
-	};
+	public int Vao;
 }

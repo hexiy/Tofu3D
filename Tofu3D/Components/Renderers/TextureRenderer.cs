@@ -24,7 +24,7 @@ public class TextureRenderer : Renderer
 			Texture = new Texture();
 		}
 
-		Texture.Load(texturePath);
+		Texture = AssetManager.Load<Texture>(texturePath);
 	}
 
 	public virtual void SetDefaultTexture(string texturePath)
@@ -32,7 +32,7 @@ public class TextureRenderer : Renderer
 		if (Texture == null)
 		{
 			Texture = new Texture();
-			Texture.Path = texturePath;
+			Texture.AssetPath = texturePath;
 		}
 	}
 }
