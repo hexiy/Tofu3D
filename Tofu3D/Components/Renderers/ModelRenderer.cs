@@ -4,7 +4,7 @@ public class ModelRenderer : TextureRenderer
 {
 	public Model Model;
 	public bool CastShadow = true;
-
+	public int TestDrawCount = 1;
 	// Color _mousePickingColor;
 
 	public override void Awake()
@@ -140,7 +140,7 @@ public class ModelRenderer : TextureRenderer
 		if (Model != null)
 		{
 			ShaderCache.BindVertexArray(Model.Vao);
-			GL.DrawElements(PrimitiveType.Triangles, Model.Indices.Length, DrawElementsType.UnsignedInt, 0);
+			GL.DrawArrays(PrimitiveType.Triangles, 0, Model.Vertices.Length);
 		}
 		else
 		{

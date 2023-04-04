@@ -1,4 +1,6 @@
-﻿namespace Tofu3D;
+﻿using System.Linq;
+
+namespace Tofu3D;
 
 public static class BufferFactory
 {
@@ -178,7 +180,6 @@ public static class BufferFactory
 		GL.EnableVertexAttribArray(normalsAttribIndex);
 
 		GL.BindVertexArray(0);
-		GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
 		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 	}
 
@@ -186,26 +187,28 @@ public static class BufferFactory
 	{
 		GL.Enable(EnableCap.DepthTest);
 
-		int vbo, ebo;
 
 		model.Vao = GL.GenVertexArray();
-
-		vbo = GL.GenBuffer();
-		ebo = GL.GenBuffer();
-
 		GL.BindVertexArray(model.Vao);
-		GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+
+		int verticesVbo = GL.GenBuffer();
+		GL.BindBuffer(BufferTarget.ArrayBuffer, verticesVbo);
 		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * model.Vertices.Length, model.Vertices, BufferUsageHint.StaticDraw);
 
-		GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
-		GL.BufferData(BufferTarget.ElementArrayBuffer, sizeof(uint) * model.Indices.Length, model.Indices, BufferUsageHint.StaticDraw);
+		int verticesAttribIndex = 0;
+		GL.VertexAttribPointer(verticesAttribIndex, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), IntPtr.Zero);
+		GL.EnableVertexAttribArray(verticesAttribIndex);
 
-		GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), IntPtr.Zero);
-		GL.EnableVertexAttribArray(0);
+		int uvsAttribIndex = 1;
+		GL.VertexAttribPointer(uvsAttribIndex, 2, VertexAttribPointerType.Float, false, 8 * sizeof(float), (IntPtr) (3 * sizeof(float)));
+		GL.EnableVertexAttribArray(uvsAttribIndex);
 
-		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+		int normalsAttribIndex = 2;
+		GL.VertexAttribPointer(normalsAttribIndex, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), (IntPtr) (5 * sizeof(float)));
+		GL.EnableVertexAttribArray(normalsAttribIndex);
+
 		GL.BindVertexArray(0);
-		GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
+		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 	}
 
 	public static void CreateCubemapBuffers(ref int vao)
