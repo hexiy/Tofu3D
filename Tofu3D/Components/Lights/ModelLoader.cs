@@ -19,8 +19,8 @@ public class ModelLoader : AssetLoader<Model>
 		List<float> vertices = new List<float>();
 		List<float> uvs = new List<float>();
 		List<float> normals = new List<float>();
-		List<uint> indices = new List<uint>();
 
+		List<float> everything = new List<float>();
 		foreach (string line in data)
 		{
 			string[] lineSplit = line.Split(' ');
@@ -52,16 +52,28 @@ public class ModelLoader : AssetLoader<Model>
 			}
 			else if (line.StartsWith("f ")) // indices
 			{
-				int indice1 = int.Parse(lineSplit[1][0].ToString());
-				int indice2 = int.Parse(lineSplit[2][0].ToString());
-				int indice3 = int.Parse(lineSplit[3][0].ToString());
-				indices.Add((uint) indice1-1);
-				indices.Add((uint) indice2-1);
-				indices.Add((uint) indice3-1);
+				for (int indiceIndex = 1; indiceIndex < 4; indiceIndex++)
+				{
+					string[] nums = lineSplit[indiceIndex].Split('/');
+					int positionIndex = int.Parse(nums[0].ToString()) - 1;
+					int uvIndex = int.Parse(nums[1].ToString()) - 1;
+					int normalIndex = int.Parse(nums[2].ToString()) - 1;
+
+					everything.Add(vertices[positionIndex * 3]);
+					everything.Add(vertices[positionIndex * 3 + 1]);
+					everything.Add(vertices[positionIndex * 3 + 2]);
+
+					everything.Add(uvs[uvIndex * 2]);
+					everything.Add(uvs[uvIndex * 2 + 1]);
+
+					everything.Add(normals[normalIndex * 3]);
+					everything.Add(normals[normalIndex * 3 + 1]);
+					everything.Add(normals[normalIndex * 3 + 2]);
+				}
 			}
 		}
 
-		Model model = new Model() {Vertices = vertices.ToArray(), Normals = normals.ToArray(), UVs = uvs.ToArray(), Indices = indices.ToArray()};
+		Model model = new Model() {Vertices = everything.ToArray()};
 		BufferFactory.CreateModelBuffers(model);
 		model.InitAssetHandle(model.Vao);
 		model.AssetPath = loadSettings.Path;
