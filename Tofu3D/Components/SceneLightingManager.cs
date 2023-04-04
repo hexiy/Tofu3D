@@ -111,10 +111,6 @@ public class SceneLightingManager
 	{
 		return _directionalLight?.Color ?? Color.Black;
 	}
-	public Color GetDirectionalLightShadowColor()
-	{
-		return _directionalLight?.ShadowColor ?? Color.Black;
-	}
 
 	public Vector3 GetDirectionalLightDirection()
 	{
