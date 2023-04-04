@@ -1,4 +1,3 @@
-[Serializable]
 public class Model : Asset<Model>
 {
 	public float[] Vertices;

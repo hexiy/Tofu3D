@@ -30,6 +30,10 @@ public class ModelRenderer : TextureRenderer
 			Material = MaterialCache.GetMaterial("ModelRenderer");
 		}
 
+		if (Model)
+		{
+			Model = AssetManager.Load<Model>(Model.AssetPath);
+		}
 		// Material = MaterialCache.GetMaterial("ModelRenderer");
 
 		// base.CreateMaterial();

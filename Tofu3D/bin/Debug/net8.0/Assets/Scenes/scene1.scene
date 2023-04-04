@@ -171,8 +171,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-32.525043</X>
-        <Y>-32.547302</Y>
+        <X>-36.980137</X>
+        <Y>-43.60191</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -267,9 +267,6 @@
       <DistanceFromCamera>55.51444</DistanceFromCamera>
       <Material>
         <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
@@ -280,9 +277,6 @@
       <Layer>0</Layer>
       <Texture>
         <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
         <Loaded>true</Loaded>
         <Size>
           <X>256</X>
@@ -294,21 +288,12 @@
         <Y>1</Y>
       </Repeats>
       <Model>
-        <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
+        <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\3D\cube2.obj</AssetPath>
         <Vertices>
-          <float>1</float>
-          <float>1</float>
-          <float>-1</float>
-          <float>1</float>
-          <float>-1</float>
           <float>-1</float>
           <float>1</float>
           <float>1</float>
-          <float>1</float>
-          <float>1</float>
+          <float>-1</float>
           <float>-1</float>
           <float>1</float>
           <float>-1</float>
@@ -317,42 +302,48 @@
           <float>-1</float>
           <float>-1</float>
           <float>-1</float>
-          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
           <float>1</float>
           <float>1</float>
           <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
           <float>-1</float>
           <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
         </Vertices>
         <UVs>
-          <float>0.625</float>
-          <float>0.5</float>
           <float>0.875</float>
           <float>0.5</float>
-          <float>0.875</float>
-          <float>0.75</float>
           <float>0.625</float>
           <float>0.75</float>
-          <float>0.375</float>
-          <float>0.75</float>
           <float>0.625</float>
-          <float>1</float>
+          <float>0.5</float>
           <float>0.375</float>
           <float>1</float>
           <float>0.375</float>
-          <float>0</float>
+          <float>0.75</float>
           <float>0.625</float>
           <float>0</float>
-          <float>0.625</float>
-          <float>0.25</float>
           <float>0.375</float>
           <float>0.25</float>
-          <float>0.125</float>
-          <float>0.5</float>
+          <float>0.375</float>
+          <float>0</float>
           <float>0.375</float>
           <float>0.5</float>
           <float>0.125</float>
           <float>0.75</float>
+          <float>0.125</float>
+          <float>0.5</float>
+          <float>0.625</float>
+          <float>0.25</float>
+          <float>0.875</float>
+          <float>0.75</float>
+          <float>0.625</float>
+          <float>1</float>
         </UVs>
         <Normals>
           <float>0</float>
@@ -360,47 +351,59 @@
           <float>0</float>
           <float>0</float>
           <float>0</float>
-          <float>1</float>
           <float>-1</float>
-          <float>0</float>
-          <float>0</float>
-          <float>0</float>
-          <float>-1</float>
-          <float>0</float>
           <float>1</float>
           <float>0</float>
           <float>0</float>
           <float>0</float>
+          <float>-1</float>
           <float>0</float>
           <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
         </Normals>
         <Indices>
+          <unsignedInt>4</unsignedInt>
+          <unsignedInt>2</unsignedInt>
           <unsignedInt>0</unsignedInt>
-          <unsignedInt>4</unsignedInt>
-          <unsignedInt>6</unsignedInt>
           <unsignedInt>2</unsignedInt>
+          <unsignedInt>7</unsignedInt>
           <unsignedInt>3</unsignedInt>
+          <unsignedInt>6</unsignedInt>
+          <unsignedInt>5</unsignedInt>
+          <unsignedInt>7</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+          <unsignedInt>7</unsignedInt>
+          <unsignedInt>5</unsignedInt>
+          <unsignedInt>0</unsignedInt>
+          <unsignedInt>3</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+          <unsignedInt>4</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+          <unsignedInt>5</unsignedInt>
+          <unsignedInt>4</unsignedInt>
+          <unsignedInt>6</unsignedInt>
+          <unsignedInt>2</unsignedInt>
           <unsignedInt>2</unsignedInt>
           <unsignedInt>6</unsignedInt>
           <unsignedInt>7</unsignedInt>
-          <unsignedInt>7</unsignedInt>
           <unsignedInt>6</unsignedInt>
           <unsignedInt>4</unsignedInt>
-          <unsignedInt>5</unsignedInt>
           <unsignedInt>5</unsignedInt>
           <unsignedInt>1</unsignedInt>
           <unsignedInt>3</unsignedInt>
           <unsignedInt>7</unsignedInt>
-          <unsignedInt>1</unsignedInt>
           <unsignedInt>0</unsignedInt>
           <unsignedInt>2</unsignedInt>
           <unsignedInt>3</unsignedInt>
-          <unsignedInt>5</unsignedInt>
           <unsignedInt>4</unsignedInt>
           <unsignedInt>0</unsignedInt>
           <unsignedInt>1</unsignedInt>
         </Indices>
-        <Vao>7</Vao>
+        <Vao>8</Vao>
       </Model>
       <CastShadow>true</CastShadow>
     </Component>
@@ -592,9 +595,6 @@
       <DistanceFromCamera>62.224167</DistanceFromCamera>
       <Material>
         <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
@@ -605,9 +605,6 @@
       <Layer>0</Layer>
       <Texture>
         <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
         <Loaded>true</Loaded>
         <Size>
           <X>512</X>
@@ -689,9 +686,6 @@
       <DistanceFromCamera>62.580906</DistanceFromCamera>
       <Material>
         <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
@@ -702,9 +696,6 @@
       <Layer>0</Layer>
       <Texture>
         <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
         <Loaded>true</Loaded>
         <Size>
           <X>512</X>
@@ -786,9 +777,6 @@
       <DistanceFromCamera>42.9531</DistanceFromCamera>
       <Material>
         <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
@@ -799,9 +787,6 @@
       <Layer>0</Layer>
       <Texture>
         <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
         <Loaded>true</Loaded>
         <Size>
           <X>256</X>
@@ -883,9 +868,6 @@
       <DistanceFromCamera>58.43085</DistanceFromCamera>
       <Material>
         <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
@@ -896,9 +878,6 @@
       <Layer>0</Layer>
       <Texture>
         <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
         <Loaded>true</Loaded>
         <Size>
           <X>256</X>
@@ -980,9 +959,6 @@
       <DistanceFromCamera>65.07438</DistanceFromCamera>
       <Material>
         <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
@@ -993,9 +969,6 @@
       <Layer>0</Layer>
       <Texture>
         <AssetPath />
-        <AssetHandle>
-          <Id>0</Id>
-        </AssetHandle>
         <Loaded>true</Loaded>
         <Size>
           <X>256</X>
@@ -1009,5 +982,5 @@
       <CastShadow>false</CastShadow>
     </Component>
   </Components>
-  <GameObjectNextId>119</GameObjectNextId>
+  <GameObjectNextId>125</GameObjectNextId>
 </SceneFile>

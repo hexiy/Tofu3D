@@ -2,8 +2,10 @@
 
 namespace Tofu3D;
 
+[Serializable]
 public class Asset<T> :IAsset where T : Asset<T> //, new()
 {
+	[XmlIgnore]
 	public AssetHandle AssetHandle { get; set; }
 	public string AssetPath = "";
 
@@ -14,5 +16,15 @@ public class Asset<T> :IAsset where T : Asset<T> //, new()
 	public void InitAssetHandle(int id)
 	{
 		AssetHandle = new AssetHandle() {Id = id, AssetType = typeof(T)};
+	}
+
+	public static implicit operator bool(Asset<T> instance)
+	{
+		if (instance == null)
+		{
+			return false;
+		}
+
+		return true;
 	}
 }

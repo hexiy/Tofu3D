@@ -62,9 +62,9 @@ public class ModelLoader : AssetLoader<Model>
 		}
 
 		Model model = new Model() {Vertices = vertices.ToArray(), Normals = normals.ToArray(), UVs = uvs.ToArray(), Indices = indices.ToArray()};
-
 		BufferFactory.CreateModelBuffers(model);
-		// model.InitAssetHandle(id);
+		model.InitAssetHandle(model.Vao);
+		model.AssetPath = loadSettings.Path;
 
 		return model;
 	}
