@@ -1,6 +1,14 @@
 ﻿namespace Tofu3D;
 
-public class AssetLoadSettings<T>:IAssetLoadSettings where T : Asset<T>
+public class AssetLoadSettings<T> : IAssetLoadSettings where T : Asset<T>
 {
-	public string Path { get; internal set; }
+	string _path;
+	public string Path
+	{
+		get { return _path; }
+		internal set
+		{
+			_path = Folders.GetPathRelativeToEngineFolder(value);
+		}
+	}
 }

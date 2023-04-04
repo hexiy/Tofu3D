@@ -11,7 +11,7 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 	                                                                                     textureType: TextureType.Texture2D,
 	                                                                                     canSetDefaultSettings: false);
 
-	public static TextureLoadSettings DefaultSettingsCubemap = new TextureLoadSettings(path: null,
+	public static TextureLoadSettings DefaultSettingsCubemap = new TextureLoadSettings(path: string.Empty,
 	                                                                                   // paths: new[] {string.Empty},
 	                                                                                   flipX: true,
 	                                                                                   filterMode: TextureFilterMode.Bilinear,
