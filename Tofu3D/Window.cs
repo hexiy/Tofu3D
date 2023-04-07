@@ -1,7 +1,12 @@
-﻿using OpenTK.Mathematics;
+﻿using System.Runtime.InteropServices;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Common.Input;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.ColorSpaces;
+using SixLabors.ImageSharp.PixelFormats;
 using Tofu3D.Rendering;
 
 namespace Tofu3D;
@@ -19,8 +24,20 @@ public class Window : GameWindow
 		VSync = VSyncMode.On;
 		this.UpdateFrequency = 60;
 		this.RenderFrequency = 0;
+		LoadIcon();
 		Title = WindowTitleText;
 		GLFW.WindowHint(WindowHintBool.Decorated, false);
+	}
+
+	private void LoadIcon()
+	{
+		Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(@"Resources\icon.png");
+		image.DangerousTryGetSinglePixelMemory(out var imageSpan);
+
+		byte[] imageBytes = MemoryMarshal.AsBytes(imageSpan.Span).ToArray();
+		WindowIcon windowIcon = new WindowIcon(new OpenTK.Windowing.Common.Input.Image(image.Width, image.Height, imageBytes));
+
+		this.Icon = windowIcon;
 	}
 
 	public string WindowTitleText
@@ -32,7 +49,7 @@ public class Window : GameWindow
 	protected override unsafe void OnLoad()
 	{
 		GLFW.GetMonitorWorkarea((Monitor*) this.CurrentMonitor.Pointer, out int x, out int y, out int width, out int height);
-		
+
 		Size = new Vector2i(width, height);
 		Location = Vector2i.Zero;
 		ImGuiController = new ImGuiController(width, height);

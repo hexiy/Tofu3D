@@ -5,7 +5,8 @@ public class TextureRenderer : Renderer
 	[XmlIgnore]
 	public Action SetNativeSize;
 	public Texture Texture;
-	public Vector2 Repeats = Vector2.One;
+	public Vector2 Tiling = Vector2.One;
+	public Vector2 Offset = Vector2.Zero;
 
 	public virtual void LoadTexture(string texturePath)
 	{

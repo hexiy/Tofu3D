@@ -193,7 +193,7 @@ public static class BufferFactory
 
 		int verticesVbo = GL.GenBuffer();
 		GL.BindBuffer(BufferTarget.ArrayBuffer, verticesVbo);
-		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * model.Vertices.Length, model.Vertices, BufferUsageHint.StaticDraw);
+		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * model.VertexBufferData.Length, model.VertexBufferData, BufferUsageHint.StaticDraw);
 
 		int verticesAttribIndex = 0;
 		GL.VertexAttribPointer(verticesAttribIndex, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), IntPtr.Zero);

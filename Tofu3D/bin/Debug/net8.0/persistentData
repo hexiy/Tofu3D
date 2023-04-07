@@ -1,8 +1,8 @@
 LastUsedLayoutName:editor.ini
 lastOpenedScene:Assets/Scenes/scene1.scene
-lastSelectedGameObjectId:18
+lastSelectedGameObjectId:155
 Global.Debug:False
 DebugTimerCollapsed_ImGui:True
 DebugTimerCollapsed_Window Render:True
 DebugTimerCollapsed_Scene Update:False
-DebugTimerCollapsed_Scene Render:True
+DebugTimerCollapsed_Scene Render:False

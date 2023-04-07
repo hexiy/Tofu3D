@@ -1,6 +1,6 @@
 public class Model : Asset<Model>
 {
-	public float[] Vertices;
+	public float[] VertexBufferData;
 	// public float[] UVs;
 	// public float[] Normals;
 	// public uint[] Indices;

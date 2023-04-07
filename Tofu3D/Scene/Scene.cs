@@ -141,6 +141,8 @@ public class Scene
 		//BatchingManager.RenderAllBatchers();
 		
 		TransformHandle.I.GameObject.Render();
+
+		GL.ActiveTexture(TextureUnit.Texture0);
 	}
 
 	public SceneFile GetSceneFile()

@@ -86,7 +86,7 @@ public class SpriteRenderer : TextureRenderer
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
 		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 		Material.Shader.SetColor("u_color", Color.ToVector4());
-		Material.Shader.SetVector2("u_repeats", Repeats);
+		Material.Shader.SetVector2("u_repeats", Tiling);
 
 		ShaderCache.BindVertexArray(Material.Vao);
 

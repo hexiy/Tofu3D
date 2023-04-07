@@ -28,7 +28,7 @@ public class Grid : Component
 	{
 		float clampedOrthoSize = Mathf.ClampMin(Camera.I.OrthographicSize, 1);
 		_boxShape.Size = Vector3.One * 17 * (clampedOrthoSize);
-		_spriteRenderer.Repeats = _boxShape.Size;
+		_spriteRenderer.Tiling = _boxShape.Size;
 		Transform.LocalScale = Vector3.One * (float) Math.Ceiling(clampedOrthoSize / 2);
 		Transform.LocalPosition = Extensions.TranslateToGrid(Camera.I.Transform.LocalPosition, Transform.LocalScale.X) + Vector2.One * 1.5f * Transform.LocalScale.X;
 		base.Update();

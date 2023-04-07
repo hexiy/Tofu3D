@@ -32,7 +32,7 @@ public class ParticleSystemRenderer : SpriteRenderer
 		}
 
 		ShaderCache.UseShader(Material.Shader);
-		Material.Shader.SetVector2("u_repeats", Repeats);
+		Material.Shader.SetVector2("u_repeats", Tiling);
 		TextureCache.BindTexture(Texture.TextureId);
 
 		foreach (Particle particle in ParticleSystem.Particles)

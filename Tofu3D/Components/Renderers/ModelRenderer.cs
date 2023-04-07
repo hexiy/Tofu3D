@@ -4,7 +4,7 @@ public class ModelRenderer : TextureRenderer
 {
 	public Model Model;
 	public bool CastShadow = true;
-	public int TestDrawCount = 1;
+	public float SmoothShading = 0.5f;
 	// Color _mousePickingColor;
 
 	public override void Awake()
@@ -113,8 +113,12 @@ public class ModelRenderer : TextureRenderer
 		ShaderCache.UseShader(Material.Shader);
 		Material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
 		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
-		Material.Shader.SetMatrix4X4("u_model", GetModelMatrixForLight());
+		Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
 		Material.Shader.SetColor("u_rendererColor", Color);
+		Material.Shader.SetVector2("u_tiling", Tiling);
+		Material.Shader.SetVector2("u_offset", Offset);
+		SmoothShading = Mathf.Clamp(SmoothShading, 0, 1);
+		Material.Shader.SetFloat("u_smoothShading", SmoothShading);
 
 		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques)
 		{
@@ -126,13 +130,17 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetVector3("u_directionalLightColor", SceneLightingManager.I.GetDirectionalLightColor().ToVector3());
 			Material.Shader.SetFloat("u_directionalLightIntensity", SceneLightingManager.I.GetDirectionalLightIntensity());
 
-			Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
+			// Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
+			Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
 			// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
 			Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
 
+
+			GL.ActiveTexture(TextureUnit.Texture0);
 			TextureCache.BindTexture(Texture.TextureId);
 			if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
 			{
+				GL.ActiveTexture(TextureUnit.Texture1);
 				TextureCache.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 			}
 		}
@@ -140,7 +148,7 @@ public class ModelRenderer : TextureRenderer
 		if (Model != null)
 		{
 			ShaderCache.BindVertexArray(Model.Vao);
-			GL.DrawArrays(PrimitiveType.Triangles, 0, Model.Vertices.Length);
+			GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferData.Length);
 		}
 		else
 		{
