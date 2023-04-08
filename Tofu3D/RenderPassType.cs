@@ -7,6 +7,7 @@ public enum RenderPassType
 	// MousePicking,
 	//GeometryDepth,
 	Opaques,
+	// Transparency,
 	PostProcess,
 	UI
 }

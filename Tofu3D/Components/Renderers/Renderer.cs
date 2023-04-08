@@ -14,6 +14,7 @@ public class Renderer : Component, IComparable<Renderer>
 	internal bool OnScreen = true;
 	public float Layer { get; set; }
 	[XmlIgnore] public Matrix4x4 LatestModelViewProjection { get; private set; }
+	public RenderMode RenderMode = RenderMode.Opaque;
 
 	public int CompareTo(Renderer comparePart)
 	{
@@ -137,6 +138,22 @@ public class Renderer : Component, IComparable<Renderer>
 		UpdateMvp();
 
 		DistanceFromCamera = CalculateDistanceFromCamera();
+		if (Color.A != 255)
+		{
+			if (RenderMode != RenderMode.Transparent)
+			{
+				RenderMode = RenderMode.Transparent;
+				SceneManager.CurrentScene.ForceRenderQueueChanged();
+			}
+		}
+		else
+		{
+			if (RenderMode != RenderMode.Opaque)
+			{
+				RenderMode = RenderMode.Opaque;
+				SceneManager.CurrentScene.ForceRenderQueueChanged();
+			}
+		}
 
 		if (BoxShape == null)
 		{

@@ -55,7 +55,6 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 	{
 		base.PostRender();
 		RenderToDebugDepthTexture();
-		// RenderToDebugColorTexture();
 	}
 
 	private void RenderToDebugDepthTexture()

@@ -68,4 +68,5 @@ vec3 ambColor = u_rendererColor.rgb * 0.85;
 vec4 result = vec4(ambColor.rgb + (dirColor.rgb * (u_rendererColor.rgb)), u_rendererColor.a);
 
 frag_color = result;
+gl_FragDepth = gl_FragCoord.z;
 }

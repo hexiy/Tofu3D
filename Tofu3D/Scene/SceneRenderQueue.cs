@@ -53,8 +53,6 @@ public class SceneRenderQueue
 
 	public void RenderAll()
 	{
-		// Debug.ClearLogs();
-
 		for (int i = 0; i < RenderQueue.Count; i++)
 		{
 			if (RenderQueue[i].Enabled && RenderQueue[i].GameObject.Awoken && RenderQueue[i].GameObject.ActiveInHierarchy)
@@ -65,4 +63,31 @@ public class SceneRenderQueue
 			}
 		}
 	}
+	// public void RenderOpaques()
+	// {
+	// 	// Debug.ClearLogs();
+	//
+	// 	for (int i = 0; i < RenderQueue.Count; i++)
+	// 	{
+	// 		if (RenderQueue[i].Enabled && RenderQueue[i].GameObject.Awoken && RenderQueue[i].GameObject.ActiveInHierarchy && RenderQueue[i].RenderMode== RenderMode.Opaque)
+	// 		{
+	// 			// Debug.Log($"Rendering {RenderQueue[i].GameObject.Name}");
+	// 			RenderQueue[i].UpdateMvp();
+	// 			RenderQueue[i].Render();
+	// 		}
+	// 	}
+	// }
+	//
+	// public void RenderTransparent()
+	// {
+	// 	for (int i = 0; i < RenderQueue.Count; i++)
+	// 	{
+	// 		if (RenderQueue[i].Enabled && RenderQueue[i].GameObject.Awoken && RenderQueue[i].GameObject.ActiveInHierarchy && RenderQueue[i].RenderMode == RenderMode.Transparent)
+	// 		{
+	// 			// Debug.Log($"Rendering {RenderQueue[i].GameObject.Name}");
+	// 			RenderQueue[i].UpdateMvp();
+	// 			RenderQueue[i].Render();
+	// 		}
+	// 	}
+	// }
 }

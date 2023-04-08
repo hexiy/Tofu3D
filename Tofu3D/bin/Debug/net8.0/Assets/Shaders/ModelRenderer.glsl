@@ -71,7 +71,7 @@ return shadow;
 
 void main(void)
 {
-vec3 norm = normalize(-normal);
+vec3 norm = normalize(- normal);
 
 float directionalLightStrength = max(dot(norm, u_directionalLightDirection), 0.0) * (1 - u_smoothShading);
 vec3 dirColor = vec3(directionalLightStrength * u_directionalLightIntensity * u_directionalLightColor);
@@ -79,7 +79,7 @@ vec3 dirColor = vec3(directionalLightStrength * u_directionalLightIntensity * u_
 
 vec3 ambColor = vec3(u_ambientLightsColor * u_ambientLightsIntensity);
 
-float shadow = 1-ShadowCalculation(FragPosLightSpace);
+float shadow = 1 - ShadowCalculation(FragPosLightSpace);
 //if (shadow < 0.8 || (dirColor.r + dirColor.g + dirColor.b) / 3 < 0.3)
 //{
 //shadow += (ambColor.r + ambColor.g+ ambColor.b) / 3;
@@ -98,9 +98,20 @@ float shadow = 1-ShadowCalculation(FragPosLightSpace);
 //}
 
 
-vec4 ccc = texture(textureObject, (uv +u_offset) * u_tiling) * u_rendererColor.rgba;
+vec4 texturePixelColor = texture(textureObject, (uv + u_offset) * u_tiling);
+vec4 result = vec4(1,1,1,1);
+        if(u_directionalLightIntensity>0){
+result *= vec4(dirColor.rgb, 1);
+}
+result *= texturePixelColor.rgba;
+result *=  u_rendererColor.rgba;
+result *=  vec4(ambColor.rgb, 1);
+
+result.a = (texturePixelColor.rgba * u_rendererColor.rgba).a;
+if(result.a==0){
+        discard;
+}
 //vec4 result = vec4(((dirColor.rgb * shadow)) * ccc.rgb * ambColor.rgb, ccc.a);
-vec4 result = vec4((dirColor.rgb) * ccc.rgb * ambColor.rgb, ccc.a);
 
 frag_color = result;
 gl_FragDepth = gl_FragCoord.z;

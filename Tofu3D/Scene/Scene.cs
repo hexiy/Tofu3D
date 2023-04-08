@@ -32,6 +32,25 @@ public class Scene
 		_sceneSkyboxManager = new SceneSkyboxManager(this);
 
 		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderScene);
+		// RenderPassSystem.RegisterRender(RenderPassType.Transparency, RenderTransparent);
+	}
+
+	public void DisposeScene()
+	{
+		foreach (GameObject gameObject in GameObjects)
+		{
+			foreach (Component component in gameObject.Components)
+			{
+				component.Dispose();
+			}
+		}
+
+		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderScene);
+		SceneDisposed.Invoke();
+	}
+	public void ForceRenderQueueChanged()
+	{
+		_sceneRenderQueue.RenderQueueChanged();
 	}
 
 	public void CreateDefaultObjects()
@@ -122,28 +141,26 @@ public class Scene
 
 	public void RenderScene()
 	{
-		GL.Enable(EnableCap.DepthTest);
-		GL.DepthFunc(DepthFunction.Less);
-		GL.Enable(EnableCap.StencilTest);
-
-		// GL.DepthFunc(DepthFunction.Greater);
-		// GL.ClearColor(Camera.Color.ToOtherColor());
-		GL.ClearDepth(1000);
-
-
-		GL.Viewport(0, 0, (int) Camera.I.Size.X, (int) Camera.I.Size.Y);
-		GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
-		//BatchingManager.RenderAllBatchers();
+		// GL.Enable(EnableCap.DepthTest);
+		// GL.DepthFunc(DepthFunction.Less);
+		// GL.Enable(EnableCap.StencilTest);
+		//
+		// GL.ClearDepth(1000);
+		//
+		//
+		// GL.Viewport(0, 0, (int) Camera.I.Size.X, (int) Camera.I.Size.Y);
+		// GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 
 		_sceneRenderQueue.RenderAll();
 
 
-		//BatchingManager.RenderAllBatchers();
-		
 		TransformHandle.I.GameObject.Render();
-
-		GL.ActiveTexture(TextureUnit.Texture0);
 	}
+
+	// public void RenderTransparent()
+	// {
+	// 	_sceneRenderQueue.RenderTransparent();
+	// }
 
 	public SceneFile GetSceneFile()
 	{
@@ -274,17 +291,5 @@ public class Scene
 	{
 	}
 
-	public void DisposeScene()
-	{
-		foreach (GameObject gameObject in GameObjects)
-		{
-			foreach (Component component in gameObject.Components)
-			{
-				component.Dispose();
-			}
-		}
 
-		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderScene);
-		SceneDisposed.Invoke();
-	}
 }

@@ -6,6 +6,7 @@ public class DirectionalLight : LightBase
 	public static DirectionalLight I { get; private set; }
 	[Show]
 	public float Speed = 100;
+	public bool Rotate = false;
 	public int RefreshRate = 60;
 
 	public float NearPlaneDistance = 0.0001f;
@@ -44,7 +45,11 @@ public class DirectionalLight : LightBase
 
 	public override void Update()
 	{
-		// Transform.Rotation = Transform.Rotation.Set(y: _initialRotationY + (float) Math.Cos(Time.EditorElapsedTime*Speed)*5);
+		if (Rotate)
+		{
+			Transform.Rotation = Transform.Rotation.Set(y: _initialRotationY + (float) Math.Cos(Time.EditorElapsedTime * Speed) * 5);
+		}
+
 		base.Update();
 	}
 

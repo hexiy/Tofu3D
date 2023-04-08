@@ -6,10 +6,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>18</Id>
-      <IndexInHierarchy>2</IndexInHierarchy>
+      <Id>309</Id>
+      <IndexInHierarchy>13</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Ambient Light</Name>
+      <Name>GameObject</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -21,23 +21,23 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>18</GameObjectId>
+      <GameObjectId>309</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0.016421126</X>
-        <Y>0.009741587</Y>
+        <X>0.01666324</X>
+        <Y>25</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.016421126</X>
-        <Y>0.009741587</Y>
+        <X>0.01666324</X>
+        <Y>25</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
@@ -51,24 +51,123 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
-        <Y>0</Y>
+        <X>50</X>
+        <Y>50</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="AmbientLight">
+    <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>18</GameObjectId>
-      <Started>false</Started>
-      <Intensity>0.24</Intensity>
+      <GameObjectId>309</GameObjectId>
+      <Started>true</Started>
       <Color>
-        <B>51</B>
-        <G>51</G>
-        <R>139</R>
-        <A>255</A>
-        <PackedValue>4281545611</PackedValue>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>194</A>
+        <PackedValue>3271557119</PackedValue>
       </Color>
+      <DistanceFromCamera>80.99801</DistanceFromCamera>
+      <Material>
+        <AssetPath />
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>3</Vao>
+      </Material>
+      <RenderMode>Transparent</RenderMode>
+      <Layer>0</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\bg.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>288</X>
+          <Y>180</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>1</X>
+        <Y>1</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\plane.obj</AssetPath>
+        <VertexBufferData>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+        </VertexBufferData>
+        <Vao>11</Vao>
+      </Model>
+      <CastShadow>true</CastShadow>
+      <SmoothShading>0.5</SmoothShading>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>309</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>20</X>
+        <Y>20</Y>
+        <Z>20</Z>
+      </Size>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

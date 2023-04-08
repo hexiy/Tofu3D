@@ -62,7 +62,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -122,7 +122,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -176,7 +176,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Ball</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -190,6 +190,96 @@
       <IndexInHierarchy>12</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Textured Cube</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <ActiveSelf>false</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>309</Id>
+      <IndexInHierarchy>13</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>GameObject</Name>
+      <PrefabPath />
+      <Selected>true</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <ActiveSelf>true</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>312</Id>
+      <IndexInHierarchy>14</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>GameObject</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <ActiveSelf>true</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>313</Id>
+      <IndexInHierarchy>15</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>GameObject</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <ActiveSelf>true</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>319</Id>
+      <IndexInHierarchy>16</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Cube</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <ActiveSelf>true</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>324</Id>
+      <IndexInHierarchy>17</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Cube</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <ActiveSelf>true</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>331</Id>
+      <IndexInHierarchy>18</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>GameObject</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -211,14 +301,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>41.592773</X>
-        <Y>-73.65113</Y>
-        <Z>-26.050074</Z>
+        <X>-6.2969723</X>
+        <Y>-57.894882</Y>
+        <Z>-75.62899</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>41.592773</X>
-        <Y>-73.65113</Y>
-        <Z>-26.050074</Z>
+        <X>-6.2969723</X>
+        <Y>-57.894882</Y>
+        <Z>-75.62899</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -231,8 +321,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-41.694347</X>
-        <Y>4.128117</Y>
+        <X>-29.374207</X>
+        <Y>33.692528</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -292,7 +382,7 @@
       </WorldScale>
       <Rotation>
         <X>30.1</X>
-        <Y>84.13011</Y>
+        <Y>359.0133</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -324,7 +414,7 @@
         <A>202</A>
         <PackedValue>3402825472</PackedValue>
       </Color>
-      <DistanceFromCamera>134.94945</DistanceFromCamera>
+      <DistanceFromCamera>119.60869</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -334,6 +424,7 @@
         </Shader>
         <Vao>3</Vao>
       </Material>
+      <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
@@ -1899,11 +1990,11 @@
       <Started>false</Started>
       <Intensity>1</Intensity>
       <Color>
-        <B>150</B>
-        <G>186</G>
-        <R>229</R>
+        <B>197</B>
+        <G>214</G>
+        <R>255</R>
         <A>255</A>
-        <PackedValue>4288068325</PackedValue>
+        <PackedValue>4291155711</PackedValue>
       </Color>
     </Component>
     <Component xsi:type="Transform">
@@ -1939,9 +2030,9 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-11.4</X>
-        <Y>21.84</Y>
-        <Z>35.9</Z>
+        <X>-42.1</X>
+        <Y>-318.1</Y>
+        <Z>0</Z>
       </Rotation>
     </Component>
     <Component xsi:type="DirectionalLight">
@@ -1958,6 +2049,7 @@
         <PackedValue>4294967295</PackedValue>
       </Color>
       <Speed>7</Speed>
+      <Rotate>false</Rotate>
       <RefreshRate>60</RefreshRate>
       <NearPlaneDistance>17.60009</NearPlaneDistance>
       <FarPlaneDistance>5000</FarPlaneDistance>
@@ -2027,13 +2119,13 @@
       <GameObjectId>20</GameObjectId>
       <Started>true</Started>
       <Color>
-        <B>87</B>
+        <B>255</B>
         <G>255</G>
-        <R>156</R>
+        <R>255</R>
         <A>255</A>
-        <PackedValue>4283957148</PackedValue>
+        <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>77.50101</DistanceFromCamera>
+      <DistanceFromCamera>69.16932</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2043,6 +2135,7 @@
         </Shader>
         <Vao>3</Vao>
       </Material>
+      <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
@@ -2423,7 +2516,7 @@
         <A>255</A>
         <PackedValue>4281696163</PackedValue>
       </Color>
-      <DistanceFromCamera>80.14585</DistanceFromCamera>
+      <DistanceFromCamera>67.975365</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2433,6 +2526,7 @@
         </Shader>
         <Vao>3</Vao>
       </Material>
+      <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
@@ -2808,12 +2902,12 @@
       <Started>true</Started>
       <Color>
         <B>255</B>
-        <G>137</G>
-        <R>159</R>
-        <A>41</A>
-        <PackedValue>704612767</PackedValue>
+        <G>255</G>
+        <R>255</R>
+        <A>195</A>
+        <PackedValue>3288334335</PackedValue>
       </Color>
-      <DistanceFromCamera>75.093475</DistanceFromCamera>
+      <DistanceFromCamera>75.87906</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2823,6 +2917,7 @@
         </Shader>
         <Vao>3</Vao>
       </Material>
+      <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
@@ -2892,8 +2987,8 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>36.3</X>
-        <Y>34</Y>
+        <X>15</X>
+        <Y>15</Y>
         <Z>10</Z>
       </Size>
     </Component>
@@ -2909,7 +3004,7 @@
         <A>255</A>
         <PackedValue>4294936991</PackedValue>
       </Color>
-      <DistanceFromCamera>92.612206</DistanceFromCamera>
+      <DistanceFromCamera>100.770294</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2919,6 +3014,7 @@
         </Shader>
         <Vao>3</Vao>
       </Material>
+      <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
@@ -2936,6 +3032,300 @@
         <X>0</X>
         <Y>0</Y>
       </Offset>
+      <Model>
+        <AssetPath>Assets\3D\thinmatrixcube.obj</AssetPath>
+        <VertexBufferData>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.875</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.25</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.125</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.125</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.5</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0.75</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.25</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.25</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.875</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.875</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.25</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.25</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.125</float>
+          <float>0.75</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.5</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>0.625</float>
+          <float>0.75</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>0.375</float>
+          <float>0.75</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.25</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0.625</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>-1</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0.375</float>
+          <float>0.5</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+        </VertexBufferData>
+        <Vao>8</Vao>
+      </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
     </Component>
@@ -2999,13 +3389,13 @@
       <GameObjectId>48</GameObjectId>
       <Started>true</Started>
       <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>41</A>
-        <PackedValue>704643071</PackedValue>
+        <B>13</B>
+        <G>13</G>
+        <R>244</R>
+        <A>131</A>
+        <PackedValue>2198670836</PackedValue>
       </Color>
-      <DistanceFromCamera>95.24087</DistanceFromCamera>
+      <DistanceFromCamera>43.816338</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -3015,6 +3405,7 @@
         </Shader>
         <Vao>3</Vao>
       </Material>
+      <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
@@ -3101,7 +3492,7 @@
         <A>255</A>
         <PackedValue>4278242047</PackedValue>
       </Color>
-      <DistanceFromCamera>83.45876</DistanceFromCamera>
+      <DistanceFromCamera>96.263054</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -3111,6 +3502,7 @@
         </Shader>
         <Vao>3</Vao>
       </Material>
+      <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
@@ -4691,7 +5083,7 @@
         <A>255</A>
         <PackedValue>4292857492</PackedValue>
       </Color>
-      <DistanceFromCamera>81.77864</DistanceFromCamera>
+      <DistanceFromCamera>68.88797</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -4701,6 +5093,7 @@
         </Shader>
         <Vao>3</Vao>
       </Material>
+      <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
@@ -32370,7 +32763,7 @@
           <float>-0.2583</float>
           <float>-0.0632</float>
         </VertexBufferData>
-        <Vao>8</Vao>
+        <Vao>9</Vao>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -32441,7 +32834,7 @@
         <A>255</A>
         <PackedValue>4282218239</PackedValue>
       </Color>
-      <DistanceFromCamera>125.38717</DistanceFromCamera>
+      <DistanceFromCamera>111.24546</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -32451,6 +32844,7 @@
         </Shader>
         <Vao>3</Vao>
       </Material>
+      <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
@@ -55512,7 +55906,7 @@
           <float>0.7715</float>
           <float>0.6332</float>
         </VertexBufferData>
-        <Vao>9</Vao>
+        <Vao>10</Vao>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -55530,14 +55924,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>100.2</X>
-        <Y>19.94</Y>
-        <Z>15.4</Z>
+        <X>25.1</X>
+        <Y>-51.86</Y>
+        <Z>24.9</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>100.2</X>
-        <Y>19.94</Y>
-        <Z>15.4</Z>
+        <X>25.1</X>
+        <Y>-51.86</Y>
+        <Z>24.9</Z>
       </LocalPosition>
       <LocalScale>
         <X>10</X>
@@ -55550,7 +55944,7 @@
         <Z>10</Z>
       </WorldScale>
       <Rotation>
-        <X>-267.3</X>
+        <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
@@ -55566,9 +55960,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>10</X>
+        <Y>10</Y>
+        <Z>10</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRenderer">
@@ -55583,7 +55977,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>110.426926</DistanceFromCamera>
+      <DistanceFromCamera>31.9717</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -55593,320 +55987,879 @@
         </Shader>
         <Vao>3</Vao>
       </Material>
+      <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
       <Texture>
-        <AssetPath>Assets\2D\grassBlock\Grass_Block_TEX.png</AssetPath>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>1440</X>
-          <Y>1920</Y>
+          <X>397</X>
+          <Y>397</Y>
         </Size>
       </Texture>
       <Tiling>
-        <X>0.5</X>
-        <Y>0.5</Y>
+        <X>20</X>
+        <Y>20</Y>
       </Tiling>
       <Offset>
         <X>0</X>
         <Y>0</Y>
       </Offset>
       <Model>
-        <AssetPath>Assets\3D\coobe.obj</AssetPath>
+        <AssetPath>Assets\3D\plane.obj</AssetPath>
         <VertexBufferData>
           <float>-1</float>
-          <float>3E-06</float>
-          <float>-1</float>
-          <float>0.333587</float>
-          <float>0.250594</float>
           <float>0</float>
           <float>-1</float>
-          <float>-0</float>
           <float>1</float>
-          <float>3E-06</float>
-          <float>1</float>
-          <float>0.666413</float>
-          <float>0.000975</float>
           <float>0</float>
-          <float>-1</float>
-          <float>-0</float>
-          <float>-1</float>
-          <float>3E-06</float>
-          <float>1</float>
-          <float>0.666413</float>
-          <float>0.250594</float>
-          <float>0</float>
-          <float>-1</float>
-          <float>-0</float>
-          <float>-1</float>
-          <float>2.000003</float>
-          <float>0.999999</float>
-          <float>0.666413</float>
-          <float>0.500213</float>
           <float>0</float>
           <float>1</float>
           <float>0</float>
           <float>1</float>
-          <float>2.000003</float>
-          <float>-1</float>
-          <float>0.333587</float>
-          <float>0.749833</float>
-          <float>0</float>
-          <float>1</float>
-          <float>0</float>
-          <float>-0.999999</float>
-          <float>2.000003</float>
-          <float>-1.000001</float>
-          <float>0.333587</float>
-          <float>0.500214</float>
-          <float>0</float>
-          <float>1</float>
-          <float>0</float>
-          <float>-1</float>
-          <float>2.000003</float>
-          <float>0.999999</float>
-          <float>0.666413</float>
-          <float>0.500213</float>
-          <float>-1</float>
-          <float>0</float>
-          <float>-0</float>
-          <float>-1</float>
-          <float>3E-06</float>
-          <float>-1</float>
-          <float>0.333587</float>
-          <float>0.250594</float>
-          <float>-1</float>
-          <float>0</float>
-          <float>-0</float>
-          <float>-1</float>
-          <float>3E-06</float>
-          <float>1</float>
-          <float>0.666413</float>
-          <float>0.250594</float>
-          <float>-1</float>
-          <float>0</float>
-          <float>-0</float>
-          <float>-0.999999</float>
-          <float>2.000003</float>
-          <float>-1.000001</float>
-          <float>0.333587</float>
-          <float>0.500214</float>
-          <float>0</float>
-          <float>-0</float>
-          <float>-1</float>
-          <float>1</float>
-          <float>3E-06</float>
-          <float>-1</float>
-          <float>0.000761</float>
-          <float>0.749833</float>
-          <float>0</float>
-          <float>-0</float>
-          <float>-1</float>
-          <float>-1</float>
-          <float>3E-06</float>
-          <float>-1</float>
-          <float>0.000761</float>
-          <float>0.500214</float>
-          <float>0</float>
-          <float>-0</float>
-          <float>-1</float>
-          <float>1</float>
-          <float>2.000003</float>
-          <float>-1</float>
-          <float>0.333587</float>
-          <float>0.749833</float>
-          <float>1</float>
-          <float>-0</float>
-          <float>0</float>
-          <float>1</float>
-          <float>3E-06</float>
-          <float>1</float>
-          <float>0.666413</float>
-          <float>0.999452</float>
-          <float>1</float>
-          <float>-0</float>
-          <float>0</float>
-          <float>1</float>
-          <float>3E-06</float>
-          <float>-1</float>
-          <float>0.333587</float>
-          <float>0.999452</float>
-          <float>1</float>
-          <float>-0</float>
-          <float>0</float>
-          <float>-1</float>
-          <float>3E-06</float>
-          <float>1</float>
-          <float>0.999239</float>
-          <float>0.500213</float>
-          <float>-0</float>
-          <float>0</float>
-          <float>1</float>
-          <float>1</float>
-          <float>2.000003</float>
-          <float>1</float>
-          <float>0.666413</float>
-          <float>0.749833</float>
-          <float>-0</float>
-          <float>0</float>
-          <float>1</float>
-          <float>-1</float>
-          <float>2.000003</float>
-          <float>0.999999</float>
-          <float>0.666413</float>
-          <float>0.500213</float>
-          <float>-0</float>
-          <float>0</float>
-          <float>1</float>
-          <float>-1</float>
-          <float>3E-06</float>
-          <float>-1</float>
-          <float>0.333587</float>
-          <float>0.250594</float>
-          <float>0</float>
-          <float>-1</float>
-          <float>-0</float>
-          <float>1</float>
-          <float>3E-06</float>
-          <float>-1</float>
-          <float>0.333587</float>
-          <float>0.000975</float>
-          <float>0</float>
-          <float>-1</float>
-          <float>-0</float>
-          <float>1</float>
-          <float>3E-06</float>
-          <float>1</float>
-          <float>0.666413</float>
-          <float>0.000975</float>
-          <float>0</float>
-          <float>-1</float>
-          <float>-0</float>
-          <float>-1</float>
-          <float>2.000003</float>
-          <float>0.999999</float>
-          <float>0.666413</float>
-          <float>0.500213</float>
           <float>0</float>
           <float>1</float>
           <float>0</float>
           <float>1</float>
-          <float>2.000003</float>
-          <float>1</float>
-          <float>0.666413</float>
-          <float>0.749833</float>
           <float>0</float>
           <float>1</float>
-          <float>0</float>
-          <float>1</float>
-          <float>2.000003</float>
-          <float>-1</float>
-          <float>0.333587</float>
-          <float>0.749833</float>
           <float>0</float>
           <float>1</float>
           <float>0</float>
           <float>-1</float>
-          <float>2.000003</float>
-          <float>0.999999</float>
-          <float>0.666413</float>
-          <float>0.500213</float>
-          <float>-1</float>
           <float>0</float>
-          <float>-0</float>
-          <float>-0.999999</float>
-          <float>2.000003</float>
-          <float>-1.000001</float>
-          <float>0.333587</float>
-          <float>0.500214</float>
-          <float>-1</float>
           <float>0</float>
-          <float>-0</float>
-          <float>-1</float>
-          <float>3E-06</float>
-          <float>-1</float>
-          <float>0.333587</float>
-          <float>0.250594</float>
-          <float>-1</float>
-          <float>0</float>
-          <float>-0</float>
-          <float>-0.999999</float>
-          <float>2.000003</float>
-          <float>-1.000001</float>
-          <float>0.333587</float>
-          <float>0.500214</float>
-          <float>0</float>
-          <float>-0</float>
-          <float>-1</float>
-          <float>1</float>
-          <float>2.000003</float>
-          <float>-1</float>
-          <float>0.333587</float>
-          <float>0.749833</float>
-          <float>0</float>
-          <float>-0</float>
-          <float>-1</float>
-          <float>1</float>
-          <float>3E-06</float>
-          <float>-1</float>
-          <float>0.000761</float>
-          <float>0.749833</float>
-          <float>0</float>
-          <float>-0</float>
-          <float>-1</float>
-          <float>1</float>
-          <float>2.000003</float>
-          <float>-1</float>
-          <float>0.333587</float>
-          <float>0.749833</float>
-          <float>1</float>
-          <float>-0</float>
           <float>0</float>
           <float>1</float>
-          <float>2.000003</float>
-          <float>1</float>
-          <float>0.666413</float>
-          <float>0.749833</float>
-          <float>1</float>
-          <float>-0</float>
-          <float>0</float>
-          <float>1</float>
-          <float>3E-06</float>
-          <float>1</float>
-          <float>0.666413</float>
-          <float>0.999452</float>
-          <float>1</float>
-          <float>-0</float>
           <float>0</float>
           <float>-1</float>
-          <float>3E-06</float>
+          <float>0</float>
+          <float>-1</float>
           <float>1</float>
-          <float>0.999239</float>
-          <float>0.500213</float>
-          <float>-0</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
           <float>0</float>
           <float>1</float>
           <float>1</float>
-          <float>3E-06</float>
           <float>1</float>
-          <float>0.999239</float>
-          <float>0.749833</float>
-          <float>-0</float>
           <float>0</float>
           <float>1</float>
-          <float>1</float>
-          <float>2.000003</float>
-          <float>1</float>
-          <float>0.666413</float>
-          <float>0.749833</float>
-          <float>-0</float>
           <float>0</float>
           <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
         </VertexBufferData>
-        <Vao>10</Vao>
+        <Vao>11</Vao>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>309</GameObjectId>
+      <Started>true</Started>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0.01666324</X>
+        <Y>25</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0.01666324</X>
+        <Y>25</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>50</X>
+        <Y>50</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>309</GameObjectId>
+      <Started>true</Started>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>194</A>
+        <PackedValue>3271557119</PackedValue>
+      </Color>
+      <DistanceFromCamera>66.21868</DistanceFromCamera>
+      <Material>
+        <AssetPath />
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>3</Vao>
+      </Material>
+      <RenderMode>Transparent</RenderMode>
+      <Layer>0</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\bg.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>288</X>
+          <Y>180</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>1</X>
+        <Y>1</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\plane.obj</AssetPath>
+        <VertexBufferData>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+        </VertexBufferData>
+        <Vao>11</Vao>
+      </Model>
+      <CastShadow>true</CastShadow>
+      <SmoothShading>0.5</SmoothShading>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>309</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>20</X>
+        <Y>20</Y>
+        <Z>20</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>312</GameObjectId>
+      <Started>true</Started>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>24.317</X>
+        <Y>25</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>24.317</X>
+        <Y>25</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>50</X>
+        <Y>50</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>312</GameObjectId>
+      <Started>true</Started>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>88.36729</DistanceFromCamera>
+      <Material>
+        <AssetPath />
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>3</Vao>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>0</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\grid.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>100</X>
+          <Y>100</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>1</X>
+        <Y>1</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\plane.obj</AssetPath>
+        <VertexBufferData>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+        </VertexBufferData>
+        <Vao>11</Vao>
+      </Model>
+      <CastShadow>true</CastShadow>
+      <SmoothShading>0.5</SmoothShading>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>312</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>20</X>
+        <Y>20</Y>
+        <Z>20</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>313</GameObjectId>
+      <Started>true</Started>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>-3.783</X>
+        <Y>25</Y>
+        <Z>-27</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>-3.783</X>
+        <Y>25</Y>
+        <Z>-27</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>50</X>
+        <Y>50</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>313</GameObjectId>
+      <Started>true</Started>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>82.93299</DistanceFromCamera>
+      <Material>
+        <AssetPath />
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>3</Vao>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>0</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\grid.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>100</X>
+          <Y>100</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>1</X>
+        <Y>1</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\plane.obj</AssetPath>
+        <VertexBufferData>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+        </VertexBufferData>
+        <Vao>11</Vao>
+      </Model>
+      <CastShadow>true</CastShadow>
+      <SmoothShading>0.5</SmoothShading>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>313</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>20</X>
+        <Y>20</Y>
+        <Z>20</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>319</GameObjectId>
+      <Started>true</Started>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>64.6</X>
+        <Y>2.04</Y>
+        <Z>160</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>64.6</X>
+        <Y>2.04</Y>
+        <Z>160</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>38.8</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>319</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>30</X>
+        <Y>30.5</Y>
+        <Z>1</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>319</GameObjectId>
+      <Started>true</Started>
+      <Color>
+        <B>13</B>
+        <G>13</G>
+        <R>244</R>
+        <A>131</A>
+        <PackedValue>2198670836</PackedValue>
+      </Color>
+      <DistanceFromCamera>92.83626</DistanceFromCamera>
+      <Material>
+        <AssetPath />
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>3</Vao>
+      </Material>
+      <RenderMode>Transparent</RenderMode>
+      <Layer>0</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\solidColor.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>256</X>
+          <Y>256</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>1</X>
+        <Y>1</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>324</GameObjectId>
+      <Started>true</Started>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>109</X>
+        <Y>2.04</Y>
+        <Z>100</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>109</X>
+        <Y>2.04</Y>
+        <Z>100</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>53.3</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>324</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>30</X>
+        <Y>30.5</Y>
+        <Z>1</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>324</GameObjectId>
+      <Started>true</Started>
+      <Color>
+        <B>13</B>
+        <G>13</G>
+        <R>244</R>
+        <A>131</A>
+        <PackedValue>2198670836</PackedValue>
+      </Color>
+      <DistanceFromCamera>129.94453</DistanceFromCamera>
+      <Material>
+        <AssetPath />
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>3</Vao>
+      </Material>
+      <RenderMode>Transparent</RenderMode>
+      <Layer>0</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\solidColor.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>256</X>
+          <Y>256</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>1</X>
+        <Y>1</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>331</GameObjectId>
+      <Started>true</Started>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0.01666324</X>
+        <Y>25</Y>
+        <Z>-10</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0.01666324</X>
+        <Y>25</Y>
+        <Z>-10</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>50</X>
+        <Y>50</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>331</GameObjectId>
+      <Started>true</Started>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>194</A>
+        <PackedValue>3271557119</PackedValue>
+      </Color>
+      <DistanceFromCamera>83.13497</DistanceFromCamera>
+      <Material>
+        <AssetPath />
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>3</Vao>
+      </Material>
+      <RenderMode>Transparent</RenderMode>
+      <Layer>0</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\bg.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>288</X>
+          <Y>180</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>1</X>
+        <Y>1</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\plane.obj</AssetPath>
+        <VertexBufferData>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>-1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>1</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+          <float>1</float>
+          <float>0</float>
+        </VertexBufferData>
+        <Vao>11</Vao>
+      </Model>
+      <CastShadow>true</CastShadow>
+      <SmoothShading>0.5</SmoothShading>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>331</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>20</X>
+        <Y>20</Y>
+        <Z>20</Z>
+      </Size>
+    </Component>
   </Components>
-  <GameObjectNextId>272</GameObjectNextId>
+  <GameObjectNextId>334</GameObjectNextId>
 </SceneFile>
