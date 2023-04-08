@@ -109,7 +109,7 @@ result *=  vec4(ambColor.rgb, 1);
 
 result.a = (texturePixelColor.rgba * u_rendererColor.rgba).a;
 if(result.a==0){
-        discard;
+        discard; // having this fixes transparency sorting but breaks debug depthmap
 }
 //vec4 result = vec4(((dirColor.rgb * shadow)) * ccc.rgb * ambColor.rgb, ccc.a);
 

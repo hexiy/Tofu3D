@@ -101,18 +101,13 @@ public class EditorPanelSceneView : EditorPanel
 
 			if (_renderCameraViews && RenderPassDirectionalLightShadowDepth.I != null)
 			{
-				float ratio = RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.Size.Y / RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.Size.X;
-				float sizeX = Mathf.ClampMax(RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.Size.X, 400);
+				float ratio = RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.Size.Y / RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.Size.X;
+				float sizeX = Mathf.ClampMax(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.Size.X, 400);
 				float sizeY = sizeX * ratio;
 
 				ImGui.SetCursorPos(new Vector2(0, 75));
 
 				ImGui.Image((IntPtr) RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment, new Vector2(sizeX, sizeY),
-				            new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
-
-				ImGui.SetCursorPos(new Vector2(0, 75 + sizeY));
-
-				ImGui.Image((IntPtr) RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.ColorAttachment, new Vector2(sizeX, sizeY),
 				            new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
 			}
 

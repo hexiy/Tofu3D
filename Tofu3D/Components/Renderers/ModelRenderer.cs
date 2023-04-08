@@ -73,6 +73,8 @@ public class ModelRenderer : TextureRenderer
 			return;
 		}
 
+	
+
 
 		bool drawOutline = GameObject.Selected && false;
 		if (drawOutline)
@@ -110,39 +112,49 @@ public class ModelRenderer : TextureRenderer
 
 
 		//GL.Enable(EnableCap.DepthTest);
+		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth)
+		{
+			Material depthMaterial = MaterialCache.GetMaterial("DepthModel");
+			ShaderCache.UseShader(depthMaterial.Shader);
+			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 
-		ShaderCache.UseShader(Material.Shader);
-		Material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
-		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
-		Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
-		Material.Shader.SetColor("u_rendererColor", Color);
-		Material.Shader.SetVector2("u_tiling", Tiling);
-		Material.Shader.SetVector2("u_offset", Offset);
-		SmoothShading = Mathf.Clamp(SmoothShading, 0, 1);
-		Material.Shader.SetFloat("u_smoothShading", SmoothShading);
+		}
 
 		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques)
 		{
-			Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
+			ShaderCache.UseShader(Material.Shader);
+			Material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
+			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+			Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
+			Material.Shader.SetColor("u_rendererColor", Color);
+			Material.Shader.SetVector2("u_tiling", Tiling);
+			Material.Shader.SetVector2("u_offset", Offset);
+			SmoothShading = Mathf.Clamp(SmoothShading, 0, 1);
+			Material.Shader.SetFloat("u_smoothShading", SmoothShading);
 
-			Material.Shader.SetVector3("u_ambientLightsColor", SceneLightingManager.I.GetAmbientLightsColor().ToVector3());
-			Material.Shader.SetFloat("u_ambientLightsIntensity", SceneLightingManager.I.GetAmbientLightsIntensity());
-
-			Material.Shader.SetVector3("u_directionalLightColor", SceneLightingManager.I.GetDirectionalLightColor().ToVector3());
-			Material.Shader.SetFloat("u_directionalLightIntensity", SceneLightingManager.I.GetDirectionalLightIntensity());
-
-			// Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
-			Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
-			// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
-			Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
-
-
-			GL.ActiveTexture(TextureUnit.Texture0);
-			TextureCache.BindTexture(Texture.TextureId);
-			if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
+			if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques)
 			{
-				GL.ActiveTexture(TextureUnit.Texture1);
-				TextureCache.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
+				Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
+
+				Material.Shader.SetVector3("u_ambientLightsColor", SceneLightingManager.I.GetAmbientLightsColor().ToVector3());
+				Material.Shader.SetFloat("u_ambientLightsIntensity", SceneLightingManager.I.GetAmbientLightsIntensity());
+
+				Material.Shader.SetVector3("u_directionalLightColor", SceneLightingManager.I.GetDirectionalLightColor().ToVector3());
+				Material.Shader.SetFloat("u_directionalLightIntensity", SceneLightingManager.I.GetDirectionalLightIntensity());
+
+				// Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
+				Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
+				// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
+				Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
+
+
+				GL.ActiveTexture(TextureUnit.Texture0);
+				TextureCache.BindTexture(Texture.TextureId);
+				if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
+				{
+					GL.ActiveTexture(TextureUnit.Texture1);
+					TextureCache.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
+				}
 			}
 		}
 

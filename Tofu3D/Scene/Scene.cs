@@ -141,10 +141,10 @@ public class Scene
 
 	public void RenderScene()
 	{
-		// GL.Enable(EnableCap.DepthTest);
-		// GL.DepthFunc(DepthFunction.Less);
-		// GL.Enable(EnableCap.StencilTest);
-		//
+		GL.Enable(EnableCap.DepthTest);
+		GL.DepthFunc(DepthFunction.Less);
+		GL.Enable(EnableCap.StencilTest);
+		
 		// GL.ClearDepth(1000);
 		//
 		//
