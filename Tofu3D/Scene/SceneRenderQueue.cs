@@ -20,7 +20,7 @@ public class SceneRenderQueue
 			RebuildRenderQueue();
 			_renderQueueChanged = false;
 		}
-		else if (Time.ElapsedTicks % 20 == 0)
+		else if (Time.EditorElapsedTicks % 20 == 0)
 		{
 			SortRenderQueue();
 		}
