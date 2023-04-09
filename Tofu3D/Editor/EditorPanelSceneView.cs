@@ -20,26 +20,28 @@ public class EditorPanelSceneView : EditorPanel
 
 		if (Global.EditorAttached)
 		{
+			int tooltipsPanelHeight = 70;
 			ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
 			ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 
-			Editor.SceneViewSize = Camera.I.Size + new Vector2(0, 50);
+			Editor.SceneViewSize = RenderPassSystem.FinalRenderTexture.Size + new Vector2(0, tooltipsPanelHeight);
 
-			ImGui.SetNextWindowSize(Camera.I.Size + new Vector2(0, 50), ImGuiCond.FirstUseEver);
+			ImGui.SetNextWindowSize(RenderPassSystem.FinalRenderTexture.Size, ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
+			
 			ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
 
-
-			if ((Vector2) ImGui.GetWindowSize() != Camera.I.Size)
+			if ((Vector2) ImGui.GetWindowSize() - new Vector2(0, tooltipsPanelHeight) != Camera.I.Size)
 			{
-				Camera.I.SetSize(ImGui.GetWindowSize());
+				Camera.I.SetSize(ImGui.GetWindowSize() - new System.Numerics.Vector2(0, tooltipsPanelHeight));
+				Debug.Log("SetSize");
 			}
 
 			ImGui.SetCursorPosX(Camera.I.Size.X / 2 - 150);
 
 			Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
 			Vector4 inactiveColor = ImGui.GetStyle().Colors[(int) ImGuiCol.TextDisabled];
-			ImGui.PushStyleColor(ImGuiCol.Text, PhysicsController.Running ? activeColor : inactiveColor);
+			/*ImGui.PushStyleColor(ImGuiCol.Text, PhysicsController.Running ? activeColor : inactiveColor);
 			bool physicsButtonClicked = ImGui.Button("physics");
 			if (physicsButtonClicked)
 			{
@@ -55,7 +57,7 @@ public class EditorPanelSceneView : EditorPanel
 
 			ImGui.PopStyleColor();
 
-			ImGui.SameLine();
+			ImGui.SameLine();*/
 
 			ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
 
@@ -74,22 +76,14 @@ public class EditorPanelSceneView : EditorPanel
 
 			ImGui.PopStyleColor();
 
-			ImGui.SameLine();
-			bool resetDataButtonClicked = ImGui.Button("delete data");
-			if (resetDataButtonClicked)
-			{
-				PersistentData.DeleteAll();
-			}
-
-			ImGui.SameLine();
 			_renderCameraViews = GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
 			// ImGui.SetCursorPosX(0);
-			ImGui.SetCursorPos(new Vector2(0, 70));
+			ImGui.SetCursorPos(new Vector2(0, tooltipsPanelHeight));
 			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
 
 			ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, RenderPassSystem.FinalRenderTexture.Size,
-			            new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Aqua.ToVector4());
+			            new Vector2(0, 1), new Vector2(1, 0));
 
 			// ImGui.Image((IntPtr) RenderPassManager.FinalRenderTexture.ColorAttachment, RenderPassManager.FinalRenderTexture.Size * 0.9f,
 			//             new Vector2(-0.5f, 0.5f), new Vector2(0.5f, -0.5f), Color.White.ToVector4(), Color.Aqua.ToVector4());
@@ -105,7 +99,7 @@ public class EditorPanelSceneView : EditorPanel
 				float sizeX = Mathf.ClampMax(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.Size.X, 400);
 				float sizeY = sizeX * ratio;
 
-				ImGui.SetCursorPos(new Vector2(0, 75));
+				ImGui.SetCursorPos(new Vector2(5, 75));
 
 				ImGui.Image((IntPtr) RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment, new Vector2(sizeX, sizeY),
 				            new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
