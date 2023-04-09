@@ -4,7 +4,6 @@ public class ModelRenderer : TextureRenderer
 {
 	public Model Model;
 	public bool CastShadow = true;
-	public float SmoothShading = 0.5f;
 	// Color _mousePickingColor;
 
 	public override void Awake()
@@ -45,6 +44,26 @@ public class ModelRenderer : TextureRenderer
 		base.OnDestroyed();
 	}
 
+	public override void Update()
+	{
+		if (GameObject == TransformHandle.I.GameObject)
+		{
+			return;
+		}
+
+		if (RenderMode == RenderMode.Opaque && Material != MaterialCache.ModelRendererMaterial)
+		{
+			Material = MaterialCache.GetMaterial("ModelRenderer");
+		}
+
+		if (RenderMode == RenderMode.Transparent && Material != MaterialCache.ModelRendererUnlitMaterial)
+		{
+			Material = MaterialCache.GetMaterial("ModelRendererUnlit");
+		}
+
+		base.Update();
+	}
+
 	public override void Render()
 	{
 		if (OnScreen == false)
@@ -72,8 +91,6 @@ public class ModelRenderer : TextureRenderer
 		{
 			return;
 		}
-
-	
 
 
 		bool drawOutline = GameObject.Selected && false;
@@ -117,7 +134,6 @@ public class ModelRenderer : TextureRenderer
 			Material depthMaterial = MaterialCache.GetMaterial("DepthModel");
 			ShaderCache.UseShader(depthMaterial.Shader);
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
-
 		}
 
 		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques)
@@ -129,8 +145,6 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetColor("u_rendererColor", Color);
 			Material.Shader.SetVector2("u_tiling", Tiling);
 			Material.Shader.SetVector2("u_offset", Offset);
-			SmoothShading = Mathf.Clamp(SmoothShading, 0, 1);
-			Material.Shader.SetFloat("u_smoothShading", SmoothShading);
 
 			if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques)
 			{
@@ -161,7 +175,7 @@ public class ModelRenderer : TextureRenderer
 		if (Model != null)
 		{
 			ShaderCache.BindVertexArray(Model.Vao);
-			GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferData.Length);
+			GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
 		}
 		else
 		{

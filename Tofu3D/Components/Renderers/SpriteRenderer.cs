@@ -18,7 +18,8 @@ public class SpriteRenderer : TextureRenderer
 		}
 		else
 		{
-			LoadTexture(Texture.AssetPath);
+			TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
+			Texture = AssetManager.Load<Texture>(Texture.AssetPath, textureLoadSettings);
 		}
 
 		//BatchingManager.AddObjectToBatcher(Texture.Id, this);
@@ -36,18 +37,30 @@ public class SpriteRenderer : TextureRenderer
 	{
 		if (BoxShape != null)
 		{
-			BoxShape.Size = Texture.Size / Units.OneWorldUnit;
+			if (IsInCanvas())
+			{
+				BoxShape.Size = Texture.Size;
+			}
+			else
+			{
+				BoxShape.Size = Texture.Size / Units.OneWorldUnit;
+			}
 		}
+	}
+
+	private bool IsInCanvas()
+	{
+		return Transform.Parent?.GetComponent<Canvas>() != null;
 	}
 
 	public override void SetDefaultMaterial()
 	{
-		if (Material == null)
+		if (Material?.FileName == null)
 		{
 			Material = MaterialCache.GetMaterial("SpriteRenderer");
 		}
 
-		base.SetDefaultMaterial();
+		// base.SetDefaultMaterial();
 	}
 
 	public override void OnDestroyed()
@@ -84,9 +97,19 @@ public class SpriteRenderer : TextureRenderer
 
 		ShaderCache.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
-		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
-		Material.Shader.SetColor("u_color", Color.ToVector4());
-		Material.Shader.SetVector2("u_repeats", Tiling);
+		if (IsInCanvas())
+		{
+			// Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrix() * Matrix4x4.CreateScale(1f/Units.OneWorldUnit));
+			Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrixForCanvasObject()); // * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
+		}
+		else
+		{
+			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+		}
+
+		Material.Shader.SetColor("u_rendererColor", Color);
+		Material.Shader.SetVector2("u_tiling", Tiling);
+		Material.Shader.SetVector2("u_offset", Offset);
 
 		ShaderCache.BindVertexArray(Material.Vao);
 
@@ -99,6 +122,7 @@ public class SpriteRenderer : TextureRenderer
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 		}
 
+		GL.ActiveTexture(TextureUnit.Texture0);
 		TextureCache.BindTexture(Texture.TextureId);
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);

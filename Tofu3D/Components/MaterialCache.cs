@@ -6,6 +6,9 @@ public class MaterialCache
 {
 	static List<Material> _loadedMaterials = new();
 
+	public static Material ModelRendererMaterial { get; private set; }
+	public static Material ModelRendererUnlitMaterial { get; private set; }
+
 	public static Material GetMaterial(string name)
 	{
 		if (name.Contains(".mat") == false)
@@ -21,8 +24,22 @@ public class MaterialCache
 			}
 		}
 
-		_loadedMaterials.Add(MaterialAssetManager.LoadMaterial(Path.Combine(Folders.Materials, name)));
 
-		return GetMaterial(name);
+		Material material = MaterialAssetManager.LoadMaterial(Path.Combine(Folders.Materials, name));
+
+
+		_loadedMaterials.Add(material);
+		if (ModelRendererMaterial == null)
+		{
+			CacheModelRendererMaterials();
+		}
+
+		return material;
+	}
+
+	private static void CacheModelRendererMaterials()
+	{
+		ModelRendererMaterial = GetMaterial("ModelRenderer");
+		ModelRendererUnlitMaterial = GetMaterial("ModelRendererUnlit");
 	}
 }

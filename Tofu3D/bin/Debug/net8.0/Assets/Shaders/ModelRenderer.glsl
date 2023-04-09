@@ -38,9 +38,10 @@ uniform vec3 u_directionalLightColor = vec3(1, 0, 0);
 uniform float u_directionalLightIntensity = 1;
 uniform vec3 u_directionalLightDirection = vec3(1, 0, 0);
 uniform float u_smoothShading = 0;
-
+        
 uniform sampler2D textureObject;
 uniform sampler2D shadowMap;
+        
 
 in vec3 normal;
 in vec2 uv;

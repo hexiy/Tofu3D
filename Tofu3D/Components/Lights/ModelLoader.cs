@@ -52,7 +52,6 @@ public class ModelLoader : AssetLoader<Model>
 			}
 			else if (line.StartsWith("f ")) // indices
 			{
-				
 				for (int indiceIndex = 1; indiceIndex < 4; indiceIndex++)
 				{
 					string[] nums = lineSplit[indiceIndex].Split('/');
@@ -74,8 +73,9 @@ public class ModelLoader : AssetLoader<Model>
 			}
 		}
 
-		Model model = new Model() {VertexBufferData = everything.ToArray()};
-		BufferFactory.CreateModelBuffers(model);
+		Model model = new Model();
+		model.VertexBufferDataLength = everything.Count;
+		BufferFactory.CreateModelBuffers(vao: ref model.Vao, vertexBufferData: everything.ToArray());
 		model.InitAssetHandle(model.Vao);
 		model.AssetPath = loadSettings.Path;
 

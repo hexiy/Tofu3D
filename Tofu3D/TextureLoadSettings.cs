@@ -10,6 +10,14 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 	                                                                                     wrapMode: TextureWrapMode.Repeat,
 	                                                                                     textureType: TextureType.Texture2D,
 	                                                                                     canSetDefaultSettings: false);
+	
+	public static TextureLoadSettings DefaultSettingsSpritePixelArt = new TextureLoadSettings(path: string.Empty,
+	                                                                                     // paths: null,
+	                                                                                     flipX: false,
+	                                                                                     filterMode: TextureFilterMode.Point,
+	                                                                                     wrapMode: TextureWrapMode.Repeat,
+	                                                                                     textureType: TextureType.Texture2D,
+	                                                                                     canSetDefaultSettings: false);
 
 	public static TextureLoadSettings DefaultSettingsCubemap = new TextureLoadSettings(path: string.Empty,
 	                                                                                   // paths: new[] {string.Empty},

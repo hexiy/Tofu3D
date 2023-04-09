@@ -112,9 +112,8 @@ public class EditorPanelInspector : EditorPanel
 
 	public void OnMaterialSelected(string materialPath)
 	{
-		// _selectedMaterial = MaterialCache.GetMaterial(Path.GetFileName(materialPath)); //MaterialAssetManager.LoadMaterial(materialPath);
-		//
-		// OnGameObjectsSelected(new List<int>());
+		IInspectable materialInspectable = MaterialCache.GetMaterial(Path.GetFileName(materialPath));
+		SelectInspectable(materialInspectable);
 	}
 
 	public override void Draw()
@@ -185,6 +184,7 @@ public class EditorPanelInspector : EditorPanel
 		                                                   typeof(Action),
 		                                                   typeof(AudioClip),
 		                                                   typeof(Model),
+		                                                   typeof(Shader),
 	                                                   };
 	List<Type> _componentTypes;
 
@@ -247,25 +247,110 @@ public class EditorPanelInspector : EditorPanel
 
 			if (ImGui.CollapsingHeader(componentInspectorData.InspectableType.Name, ImGuiTreeNodeFlags.DefaultOpen))
 			{
+				if (componentInspectorData.InspectableType == typeof(Material))
+				{
+					PushNextId();
+					Material selectedMaterial = componentInspectorData.Inspectable as Material;
+					string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.FilePath);
+					ImGui.Text(materialName);
+
+					ImGui.Text("Shader");
+					float itemWidth = 400;
+					ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth);
+					ImGui.SetNextItemWidth(itemWidth);
+
+					string shaderPath = selectedMaterial.Shader?.Path ?? "";
+					string shaderName = Path.GetFileName(shaderPath);
+					bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+					if (clicked)
+					{
+						EditorPanelBrowser.I.GoToFile(shaderPath);
+					}
+
+					if (ImGui.BeginDragDropTarget())
+					{
+						ImGui.AcceptDragDropPayload("SHADER", ImGuiDragDropFlags.None);
+
+						shaderPath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+						if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && shaderPath.Length > 0)
+						{
+							//shaderPath = Path.GetRelativePath("Assets", shaderPath);
+							Shader shader = new(shaderPath);
+
+							selectedMaterial.Shader = shader;
+							MaterialAssetManager.SaveMaterial(selectedMaterial);
+						}
+
+						ImGui.EndDragDropTarget();
+					}
+
+					if (selectedMaterial.Shader != null)
+					{
+						ShaderUniform[] shaderUniforms = selectedMaterial.Shader.GetAllUniforms();
+						for (int i = 0; i < shaderUniforms.Length; i++)
+						{
+							PushNextId();
+
+							ImGui.Text(shaderUniforms[i].Name);
+
+							if (shaderUniforms[i].Type == typeof(Vector4))
+							{
+								ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth - 5);
+								ImGui.SetNextItemWidth(itemWidth);
+
+								if (selectedMaterial.Shader.Uniforms.ContainsKey(shaderUniforms[i].Name) == false)
+								{
+									continue;
+								}
+
+								object uniformValue = selectedMaterial.Shader.Uniforms[shaderUniforms[i].Name];
+								System.Numerics.Vector4 col = ((Vector4) uniformValue).ToNumerics();
+
+								if (ImGui.ColorEdit4("", ref col))
+								{
+									//selectedMaterial
+									int lastShader = ShaderCache.ShaderInUse;
+									ShaderCache.UseShader(selectedMaterial.Shader);
+
+									selectedMaterial.Shader.SetColor(shaderUniforms[i].Name, col);
+									ShaderCache.UseShader(lastShader);
+								}
+							}
+
+							if (shaderUniforms[i].Type == typeof(float))
+							{
+								ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth - 5);
+								ImGui.SetNextItemWidth(itemWidth);
+
+								if (selectedMaterial.Shader.Uniforms.ContainsKey(shaderUniforms[i].Name) == false)
+								{
+									selectedMaterial.Shader.Uniforms[shaderUniforms[i].Name] = Activator.CreateInstance(shaderUniforms[i].Type);
+								}
+
+								object uniformValue = selectedMaterial.Shader.Uniforms[shaderUniforms[i].Name];
+								float fl = (float) uniformValue;
+
+								if (ImGui.InputFloat("xxx", ref fl))
+								{
+									//selectedMaterial
+									int lastShader = ShaderCache.ShaderInUse;
+									ShaderCache.UseShader(selectedMaterial.Shader);
+
+									selectedMaterial.Shader.SetFloat(shaderUniforms[i].Name, fl);
+									ShaderCache.UseShader(lastShader);
+								}
+							}
+						}
+					}
+				}
+
+
 				foreach (FieldOrPropertyInfo info in componentInspectorData.Infos)
 				{
 					if (info.CanShowInEditor == false)
 					{
 						continue;
 					}
-
-					// if (info.GetValue(componentInspectorData.Inspectable) == null)
-					// {
-					// 	if (info.FieldOrPropertyType.GetType().IsTypeDefinition)
-					// 	{
-					// 		info.SetValue(componentInspectorData.Inspectable, default(object));
-					// 	}
-					// 	else
-					// 	{
-					// 		var instance = Activator.CreateInstance(info.FieldOrPropertyType.GetType());
-					// 		info.SetValue(componentInspectorData.Inspectable, instance);
-					// 	}
-					// }
 
 					PushNextId();
 
@@ -683,101 +768,4 @@ public class EditorPanelInspector : EditorPanel
 			}
 		}
 	}
-	/*
-	void DrawMaterialInspector()
-	{
-		PushNextId();
-		string materialName = Path.GetFileNameWithoutExtension(_selectedMaterial.FilePath);
-		ImGui.Text(materialName);
-
-		ImGui.Text("Shader");
-		float itemWidth = 200;
-		ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth);
-		ImGui.SetNextItemWidth(itemWidth);
-
-		string shaderPath = _selectedMaterial.Shader?.Path ?? "";
-		string shaderName = Path.GetFileName(shaderPath);
-		bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-		if (clicked)
-		{
-			EditorPanelBrowser.I.GoToFile(shaderPath);
-		}
-
-		if (ImGui.BeginDragDropTarget())
-		{
-			ImGui.AcceptDragDropPayload("SHADER", ImGuiDragDropFlags.None);
-
-			shaderPath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-			if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && shaderPath.Length > 0)
-			{
-				//shaderPath = Path.GetRelativePath("Assets", shaderPath);
-				Shader shader = new(shaderPath);
-
-				_selectedMaterial.Shader = shader;
-				MaterialAssetManager.SaveMaterial(_selectedMaterial);
-			}
-
-			ImGui.EndDragDropTarget();
-		}
-
-		if (_selectedMaterial.Shader != null)
-		{
-			ShaderUniform[] shaderUniforms = _selectedMaterial.Shader.GetAllUniforms();
-			for (int i = 0; i < shaderUniforms.Length; i++)
-			{
-				PushNextId();
-
-				ImGui.Text(shaderUniforms[i].Name);
-
-				if (shaderUniforms[i].Type == typeof(Vector4))
-				{
-					ImGui.SameLine(ImGui.GetWindowWidth() - 200 - 5);
-					ImGui.SetNextItemWidth(itemWidth);
-
-					if (_selectedMaterial.Shader.Uniforms.ContainsKey(shaderUniforms[i].Name) == false)
-					{
-						continue;
-					}
-
-					object uniformValue = _selectedMaterial.Shader.Uniforms[shaderUniforms[i].Name];
-					System.Numerics.Vector4 col = ((Vector4) uniformValue).ToNumerics();
-
-					if (ImGui.ColorEdit4("", ref col))
-					{
-						//selectedMaterial
-						int lastShader = ShaderCache.ShaderInUse;
-						ShaderCache.UseShader(_selectedMaterial.Shader);
-
-						_selectedMaterial.Shader.SetColor(shaderUniforms[i].Name, col);
-						ShaderCache.UseShader(lastShader);
-					}
-				}
-
-				if (shaderUniforms[i].Type == typeof(float))
-				{
-					ImGui.SameLine(ImGui.GetWindowWidth() - 200 - 5);
-					ImGui.SetNextItemWidth(itemWidth);
-
-					if (_selectedMaterial.Shader.Uniforms.ContainsKey(shaderUniforms[i].Name) == false)
-					{
-						_selectedMaterial.Shader.Uniforms[shaderUniforms[i].Name] = Activator.CreateInstance(shaderUniforms[i].Type);
-					}
-
-					object uniformValue = _selectedMaterial.Shader.Uniforms[shaderUniforms[i].Name];
-					float fl = (float) uniformValue;
-
-					if (ImGui.InputFloat("xxx", ref fl))
-					{
-						//selectedMaterial
-						int lastShader = ShaderCache.ShaderInUse;
-						ShaderCache.UseShader(_selectedMaterial.Shader);
-
-						_selectedMaterial.Shader.SetFloat(shaderUniforms[i].Name, fl);
-						ShaderCache.UseShader(lastShader);
-					}
-				}
-			}
-		}
-	}
-	*/
 }

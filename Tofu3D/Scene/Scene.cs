@@ -31,7 +31,8 @@ public class Scene
 		_sceneRenderQueue = new SceneRenderQueue(this);
 		_sceneSkyboxManager = new SceneSkyboxManager(this);
 
-		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderScene);
+		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderWorld);
+		RenderPassSystem.RegisterRender(RenderPassType.UI, RenderUI);
 		// RenderPassSystem.RegisterRender(RenderPassType.Transparency, RenderTransparent);
 	}
 
@@ -45,7 +46,8 @@ public class Scene
 			}
 		}
 
-		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderScene);
+		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderWorld);
+		RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
 		SceneDisposed.Invoke();
 	}
 	public void ForceRenderQueueChanged()
@@ -139,7 +141,7 @@ public class Scene
 		SceneModified.Invoke();
 	}
 
-	public void RenderScene()
+	public void RenderWorld()
 	{
 		GL.Enable(EnableCap.DepthTest);
 		GL.DepthFunc(DepthFunction.Less);
@@ -151,10 +153,15 @@ public class Scene
 		// GL.Viewport(0, 0, (int) Camera.I.Size.X, (int) Camera.I.Size.Y);
 		// GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 
-		_sceneRenderQueue.RenderAll();
+		_sceneRenderQueue.RenderWorld();
 
 
 		TransformHandle.I.GameObject.Render();
+	}
+
+	public void RenderUI()
+	{
+		_sceneRenderQueue.RenderUI();
 	}
 
 	// public void RenderTransparent()

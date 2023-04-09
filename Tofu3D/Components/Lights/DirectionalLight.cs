@@ -65,7 +65,7 @@ public class DirectionalLight : LightBase
 
 		ConfigureForShadowMapping();
 
-		SceneManager.CurrentScene.RenderScene();
+		SceneManager.CurrentScene.RenderWorld();
 
 		ConfigureForSceneRender();
 	}

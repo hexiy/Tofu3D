@@ -3,7 +3,8 @@ namespace Tofu3D;
 public class SceneRenderQueue
 {
 	bool _renderQueueChanged;
-	public List<Renderer> RenderQueue { get; private set; } = new();
+	public List<Renderer> RenderQueueWorld { get; private set; } = new();
+	public List<Renderer> RenderQueueUI { get; private set; } = new();
 	readonly Scene _scene;
 
 	public SceneRenderQueue(Scene scene)
@@ -34,12 +35,19 @@ public class SceneRenderQueue
 	// in the future just add the added component to queue, no need to rebuild the whole thing
 	private void RebuildRenderQueue()
 	{
-		RenderQueue = new List<Renderer>();
+		RenderQueueWorld = new List<Renderer>();
 		for (int i = 0; i < _scene.GameObjects.Count; i++)
 		{
 			if (_scene.GameObjects[i].GetComponent<Renderer>())
 			{
-				RenderQueue.AddRange(_scene.GameObjects[i].GetComponents<Renderer>());
+				if (_scene.GameObjects[i].Transform.Parent?.GetComponent<Canvas>() != null)
+				{
+					RenderQueueUI.AddRange(_scene.GameObjects[i].GetComponents<Renderer>());
+				}
+				else
+				{
+					RenderQueueWorld.AddRange(_scene.GameObjects[i].GetComponents<Renderer>());
+				}
 			}
 		}
 
@@ -48,18 +56,32 @@ public class SceneRenderQueue
 
 	public void SortRenderQueue()
 	{
-		RenderQueue.Sort();
+		RenderQueueWorld.Sort();
+		RenderQueueUI.Sort();
 	}
 
-	public void RenderAll()
+	public void RenderWorld()
 	{
-		for (int i = 0; i < RenderQueue.Count; i++)
+		for (int i = 0; i < RenderQueueWorld.Count; i++)
 		{
-			if (RenderQueue[i].Enabled && RenderQueue[i].GameObject.Awoken && RenderQueue[i].GameObject.ActiveInHierarchy)
+			if (RenderQueueWorld[i].Enabled && RenderQueueWorld[i].GameObject.Awoken && RenderQueueWorld[i].GameObject.ActiveInHierarchy)
 			{
 				// Debug.Log($"Rendering {RenderQueue[i].GameObject.Name}");
-				RenderQueue[i].UpdateMvp();
-				RenderQueue[i].Render();
+				RenderQueueWorld[i].UpdateMvp();
+				RenderQueueWorld[i].Render();
+			}
+		}
+	}
+
+	public void RenderUI()
+	{
+		for (int i = 0; i < RenderQueueUI.Count; i++)
+		{
+			if (RenderQueueUI[i].Enabled && RenderQueueUI[i].GameObject.Awoken && RenderQueueUI[i].GameObject.ActiveInHierarchy)
+			{
+				// Debug.Log($"Rendering {RenderQueue[i].GameObject.Name}");
+				RenderQueueUI[i].UpdateMvp();
+				RenderQueueUI[i].Render();
 			}
 		}
 	}
