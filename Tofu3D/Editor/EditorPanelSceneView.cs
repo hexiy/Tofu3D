@@ -28,7 +28,7 @@ public class EditorPanelSceneView : EditorPanel
 
 			ImGui.SetNextWindowSize(RenderPassSystem.FinalRenderTexture.Size, ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
-			
+
 			ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
 
 			if ((Vector2) ImGui.GetWindowSize() - new Vector2(0, tooltipsPanelHeight) != Camera.I.Size)
@@ -62,6 +62,8 @@ public class EditorPanelSceneView : EditorPanel
 			ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
 
 			bool playButtonClicked = ImGui.Button("play");
+			ImGui.PopStyleColor();
+
 			if (playButtonClicked)
 			{
 				if (Global.GameRunning)
@@ -74,7 +76,22 @@ public class EditorPanelSceneView : EditorPanel
 				}
 			}
 
-			ImGui.PopStyleColor();
+			ImGui.SameLine();
+			ImGui.SetNextItemWidth(200);
+			string projectionModeButtonText = SceneViewController.I.CurrentProjectionMode == ProjectionMode.Orthographic ? "2D" : "3D";
+			bool projectionButtonClicked = ImGui.Button(projectionModeButtonText);
+
+			if (projectionButtonClicked)
+			{
+				if (SceneViewController.I.CurrentProjectionMode == ProjectionMode.Orthographic)
+				{
+					SceneViewController.I.SetProjectionMode(ProjectionMode.Perspective);
+				}
+				else
+				{
+					SceneViewController.I.SetProjectionMode(ProjectionMode.Orthographic);
+				}
+			}
 
 			_renderCameraViews = GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 

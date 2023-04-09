@@ -245,7 +245,7 @@ public class EditorPanelHierarchy : EditorPanel
 
 		if (ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left) && false) // todo remove false
 		{
-			SceneViewNavigation.I.MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
+			SceneViewController.I.MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
 		}
 
 

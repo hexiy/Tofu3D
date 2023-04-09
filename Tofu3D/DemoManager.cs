@@ -26,7 +26,7 @@ public class DemoManager : Component
 			return;
 		}
 
-		SceneViewNavigation.I.MoveToGameObject(DemoGameObjects[_currentIndex]);
+		SceneViewController.I.MoveToGameObject(DemoGameObjects[_currentIndex]);
 		//Camera.I.Transform.LocalPosition = DemoGameObjects[_currentIndex].Transform.LocalPosition;
 	}
 }

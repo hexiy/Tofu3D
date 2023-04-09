@@ -25,7 +25,7 @@ public static class PersistentData
 				if (line?.Length > 0)
 				{
 					string key = line.Substring(0, line.IndexOf(":"));
-					string value = line.Substring(line.IndexOf(":") + 1);
+					object value = line.Substring(line.IndexOf(":") + 1);
 					_data.Add(key, value);
 				}
 			}
@@ -56,7 +56,7 @@ public static class PersistentData
 		Save();
 	}
 
-	static object Get(string key, object? defaultValue = null)
+	public static object Get(string key, object? defaultValue = null)
 	{
 		if (_data.Count == 0)
 		{

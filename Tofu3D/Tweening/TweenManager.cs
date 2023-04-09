@@ -27,7 +27,7 @@ public class TweenManager
 				ActiveTweens[i].Delay = -ActiveTweens[i].Delay;
 			}
 
-			ActiveTweens[i].CurrentTime += Time.EditorDeltaTime / ActiveTweens[i].Duration;
+			ActiveTweens[i].CurrentTime += (Time.EditorDeltaTime / ActiveTweens[i].Duration)*2;
 			bool isCompleted = ActiveTweens[i].CurrentTime > ActiveTweens[i].Duration;
 
 			//activeTweens[i].currentTime = Mathf.Clamp(activeTweens[i].currentTime, -Math.Abs(activeTweens[i].delay), activeTweens[i].duration);

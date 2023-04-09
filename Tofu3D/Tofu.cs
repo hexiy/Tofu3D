@@ -9,7 +9,7 @@ public class Tofu
 {
 	// AssetSerializer _assetSerializer;
 	public TweenManager TweenManager;
-	public SceneViewNavigation SceneViewNavigation;
+	public SceneViewController SceneViewController;
 	public Editor Editor;
 	public Window Window;
 
@@ -38,7 +38,7 @@ public class Tofu
 
 		// _assetSerializer = new AssetSerializer();
 		TweenManager = new TweenManager();
-		SceneViewNavigation = new SceneViewNavigation();
+		SceneViewController = new SceneViewController();
 
 
 		SceneManager.LoadLastOpenedScene();
@@ -51,7 +51,7 @@ public class Tofu
 		Time.Update();
 		MouseInput.Update();
 		TweenManager.I.Update();
-		SceneViewNavigation.Update();
+		SceneViewController.Update();
 		ShaderCache.ReloadQueuedShaders();
 
 		SceneManager.CurrentScene.Update();

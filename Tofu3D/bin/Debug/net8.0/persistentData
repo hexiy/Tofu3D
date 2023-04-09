@@ -1,8 +1,6 @@
 LastUsedLayoutName:editor.ini
+PersistentObject__cameraRotationInPerspectiveMode:[-15.6  -36.8  0.0]
+PersistentObject__cameraPositionInPerspectiveMode:[91.6  -19.2  7.0]
+PersistentObject__cameraFieldOfViewInperspectiveMode:90
+PersistentObject_sceneViewProjectionMode:Perspective
 lastOpenedScene:Assets/Scenes/scene1.scene
-lastSelectedGameObjectId:19
-Global.Debug:False
-DebugTimerCollapsed_ImGui:False
-DebugTimerCollapsed_Window Render:True
-DebugTimerCollapsed_Scene Update:False
-DebugTimerCollapsed_Scene Render:False

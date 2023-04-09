@@ -2,19 +2,29 @@ using Tofu3D.Tweening;
 
 namespace Tofu3D;
 
-public class SceneViewNavigation
+public class SceneViewController
 {
 	bool _clickedInsideScene;
 	float _targetOrthoSize = -1;
 
-	public SceneViewNavigation()
+	public SceneViewController()
 	{
 		I = this;
 		MouseInput.RegisterPassThroughEdgesCondition(() => AllowPassThroughEdges);
+		SetProjectionMode(CurrentProjectionMode);
 	}
 
-	public static SceneViewNavigation I { get; private set; }
+	public static SceneViewController I { get; private set; }
 	public bool IsPanningCamera { get; private set; }
+	public bool AllowPassThroughEdges { get; set; }
+
+	public PersistentObject<ProjectionMode> CurrentProjectionMode = ("sceneViewProjectionMode", Tofu3D.ProjectionMode.Perspective);
+
+	// public ProjectionMode ProjectionMode
+	// {
+	// 	get { return (ProjectionMode) PersistentData.GetInt("SceneViewControllerPerspectiveMode", 0); }
+	// 	private set { PersistentData.Set("SceneViewControllerPerspectiveMode", (int) value); }
+	// }
 
 	public void MoveToGameObject(GameObject targetGo)
 	{
@@ -33,6 +43,50 @@ public class SceneViewNavigation
 			Camera.I.OrthographicSize = cameraOrthoSize + (float) MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
 			Camera.I.Transform.LocalPosition = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
 		});
+	}
+
+	// rotation before going into orthographic mode
+	PersistentObject<Vector3> _cameraRotationInPerspectiveMode = ("_cameraRotationInPerspectiveMode", Vector3.Zero);
+	PersistentObject<Vector3> _cameraPositionInPerspectiveMode = ("_cameraPositionInPerspectiveMode", Vector3.Zero);
+	PersistentObject<float> _cameraFieldOfViewInperspectiveMode = ("_cameraFieldOfViewInperspectiveMode", 90);
+	// PersistentObject<int> _savedInt = new PersistentObject<int>();
+
+	public void SetProjectionMode(ProjectionMode newProjectionMode)
+	{
+		if (newProjectionMode == CurrentProjectionMode)
+		{
+			return;
+		}
+
+		if (newProjectionMode == ProjectionMode.Orthographic && CurrentProjectionMode == ProjectionMode.Perspective)
+		{
+			_cameraRotationInPerspectiveMode.Value = Camera.I.Transform.Rotation;
+			_cameraPositionInPerspectiveMode.Value = Camera.I.Transform.WorldPosition;
+			_cameraFieldOfViewInperspectiveMode.Value = Camera.I.FieldOfView;
+		}
+
+		float tweenDuration = 1f;
+		Tweener.Tween(Camera.I.Transform.Rotation.X, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.X : 0, tweenDuration, (f) => { Camera.I.Transform.Rotation = Camera.I.Transform.Rotation.Set(x: f); });
+		Tweener.Tween(Camera.I.Transform.Rotation.Y, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Y : 0, tweenDuration, (f) => { Camera.I.Transform.Rotation = Camera.I.Transform.Rotation.Set(y: f); });
+		Tweener.Tween(Camera.I.Transform.WorldPosition.Z, newProjectionMode == ProjectionMode.Perspective ? _cameraPositionInPerspectiveMode.Value.Z : -350, tweenDuration,
+		              (f) => { Camera.I.Transform.WorldPosition = Camera.I.Transform.WorldPosition.Set(z: f); });
+
+		Tween tween = Tweener.Tween(Camera.I.Transform.Rotation.Z, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Z : 0, tweenDuration,
+		                            (f) => { Camera.I.Transform.Rotation = Camera.I.Transform.Rotation.Set(z: f); });
+
+		Tweener.Tween(Camera.I.FieldOfView, newProjectionMode == ProjectionMode.Perspective ? _cameraFieldOfViewInperspectiveMode : 14, tweenDuration, (f) => { Camera.I.FieldOfView = f; });
+
+
+		if (newProjectionMode == ProjectionMode.Orthographic)
+		{
+			tween.SetOnComplete(() => { Camera.I.IsOrthographic = newProjectionMode == ProjectionMode.Orthographic; });
+		}
+		else
+		{
+			Camera.I.IsOrthographic = newProjectionMode == ProjectionMode.Orthographic;
+		}
+
+		CurrentProjectionMode.Value = newProjectionMode;
 	}
 
 	public void Update()
@@ -83,8 +137,6 @@ public class SceneViewNavigation
 			}
 		}
 	}
-
-	public bool AllowPassThroughEdges { get; set; }
 
 	void HandleMouseControls()
 	{
