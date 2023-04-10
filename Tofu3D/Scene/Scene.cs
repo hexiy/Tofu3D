@@ -274,7 +274,7 @@ public class Scene
 	public void CreateEmptySceneAndOpenIt(string path)
 	{
 		IDsManager.GameObjectNextId = 0;
-		SceneManager.LastOpenedScene = path;
+		SceneManager.LastOpenedScene.Value = path;
 		GameObjects = new List<GameObject>();
 		CreateDefaultObjects();
 		SceneSerializer.SaveGameObjects(GetSceneFile(), path);

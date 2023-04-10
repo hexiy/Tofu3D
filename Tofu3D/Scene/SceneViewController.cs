@@ -68,7 +68,7 @@ public class SceneViewController
 		float tweenDuration = 1f;
 		Tweener.Tween(Camera.I.Transform.Rotation.X, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.X : 0, tweenDuration, (f) => { Camera.I.Transform.Rotation = Camera.I.Transform.Rotation.Set(x: f); });
 		Tweener.Tween(Camera.I.Transform.Rotation.Y, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Y : 0, tweenDuration, (f) => { Camera.I.Transform.Rotation = Camera.I.Transform.Rotation.Set(y: f); });
-		Tweener.Tween(Camera.I.Transform.WorldPosition.Z, newProjectionMode == ProjectionMode.Perspective ? _cameraPositionInPerspectiveMode.Value.Z : -350, tweenDuration,
+		Tweener.Tween(Camera.I.Transform.WorldPosition.Z, newProjectionMode == ProjectionMode.Perspective ? _cameraPositionInPerspectiveMode.Value.Z : Camera.I.Transform.WorldPosition.Z - 350, tweenDuration,
 		              (f) => { Camera.I.Transform.WorldPosition = Camera.I.Transform.WorldPosition.Set(z: f); });
 
 		Tween tween = Tweener.Tween(Camera.I.Transform.Rotation.Z, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Z : 0, tweenDuration,
