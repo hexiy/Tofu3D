@@ -27,7 +27,7 @@ public class EditorPanelHierarchy : EditorPanel
 
 	public override void Update()
 	{
-		if (ImGui.IsMouseDragging(ImGuiMouseButton.Left))
+		if (ImGui.IsMouseDragging(ImGuiMouseButton.Left) && IsPanelHovered)
 		{
 			_currentSpaceHeight = 5;
 		}
@@ -207,7 +207,7 @@ public class EditorPanelHierarchy : EditorPanel
 			DrawGameObjectRow(goIndex);
 		}
 
-		ImGui.End();
+		EndWindow();
 	}
 
 	float _currentSpaceHeight = 0;
@@ -383,7 +383,7 @@ public class EditorPanelHierarchy : EditorPanel
 				GameObject droppedGameObject = SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
 				SceneManager.CurrentScene.GameObjects.RemoveAt(droppedGameObject.IndexInHierarchy);
 				SceneManager.CurrentScene.GameObjects.Insert(currentGameObject.IndexInHierarchy + (after ? 1 : 0), droppedGameObject);
-				
+
 				droppedGameObject.Transform.SetParent(currentGameObject.Transform.Parent);
 			}
 

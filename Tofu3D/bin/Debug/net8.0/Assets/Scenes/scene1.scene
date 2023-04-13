@@ -3,11 +3,26 @@
   <GameObjects>
     <GameObject>
       <ActiveSelf>true</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>557</Id>
+      <IndexInHierarchy>0</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>WorldZero</Name>
+      <PrefabPath />
+      <Selected>true</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>true</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>1</Id>
-      <IndexInHierarchy>0</IndexInHierarchy>
+      <IndexInHierarchy>1</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Camera</Name>
       <PrefabPath />
@@ -22,7 +37,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>11</Id>
-      <IndexInHierarchy>1</IndexInHierarchy>
+      <IndexInHierarchy>2</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Cone</Name>
       <PrefabPath />
@@ -37,7 +52,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>18</Id>
-      <IndexInHierarchy>2</IndexInHierarchy>
+      <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Ambient Light</Name>
       <PrefabPath />
@@ -52,7 +67,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>19</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
+      <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Directional Light</Name>
       <PrefabPath />
@@ -67,7 +82,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>20</Id>
-      <IndexInHierarchy>4</IndexInHierarchy>
+      <IndexInHierarchy>5</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Ground_Green</Name>
       <PrefabPath />
@@ -82,7 +97,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>45</Id>
-      <IndexInHierarchy>5</IndexInHierarchy>
+      <IndexInHierarchy>6</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Ground_Brown</Name>
       <PrefabPath />
@@ -97,7 +112,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>46</Id>
-      <IndexInHierarchy>6</IndexInHierarchy>
+      <IndexInHierarchy>7</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath />
@@ -112,7 +127,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>47</Id>
-      <IndexInHierarchy>7</IndexInHierarchy>
+      <IndexInHierarchy>8</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath />
@@ -127,7 +142,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>48</Id>
-      <IndexInHierarchy>8</IndexInHierarchy>
+      <IndexInHierarchy>9</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath />
@@ -142,7 +157,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>133</Id>
-      <IndexInHierarchy>9</IndexInHierarchy>
+      <IndexInHierarchy>10</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Cone</Name>
       <PrefabPath />
@@ -157,7 +172,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>155</Id>
-      <IndexInHierarchy>10</IndexInHierarchy>
+      <IndexInHierarchy>11</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Torus</Name>
       <PrefabPath />
@@ -172,7 +187,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>160</Id>
-      <IndexInHierarchy>11</IndexInHierarchy>
+      <IndexInHierarchy>12</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Ball</Name>
       <PrefabPath />
@@ -187,7 +202,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>152</Id>
-      <IndexInHierarchy>12</IndexInHierarchy>
+      <IndexInHierarchy>13</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Textured Cube</Name>
       <PrefabPath />
@@ -202,7 +217,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>309</Id>
-      <IndexInHierarchy>13</IndexInHierarchy>
+      <IndexInHierarchy>14</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>GameObject</Name>
       <PrefabPath />
@@ -217,7 +232,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>312</Id>
-      <IndexInHierarchy>14</IndexInHierarchy>
+      <IndexInHierarchy>15</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>GameObject</Name>
       <PrefabPath />
@@ -232,7 +247,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>313</Id>
-      <IndexInHierarchy>15</IndexInHierarchy>
+      <IndexInHierarchy>16</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>GameObject</Name>
       <PrefabPath />
@@ -247,21 +262,6 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>319</Id>
-      <IndexInHierarchy>16</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <Name>Cube</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-    </GameObject>
-    <GameObject>
-      <ActiveSelf>true</ActiveSelf>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>324</Id>
       <IndexInHierarchy>17</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
@@ -276,10 +276,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>331</Id>
+      <Id>324</Id>
       <IndexInHierarchy>18</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>GameObject</Name>
+      <Name>Cube</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -287,11 +287,11 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>false</ActiveSelf>
+      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>340</Id>
+      <Id>331</Id>
       <IndexInHierarchy>19</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>GameObject</Name>
@@ -306,8 +306,23 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>373</Id>
+      <Id>340</Id>
       <IndexInHierarchy>20</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>GameObject</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <ActiveSelf>false</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>373</Id>
+      <IndexInHierarchy>21</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Sprite</Name>
       <PrefabPath />
@@ -322,7 +337,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>380</Id>
-      <IndexInHierarchy>21</IndexInHierarchy>
+      <IndexInHierarchy>22</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Canvas</Name>
       <PrefabPath />
@@ -337,11 +352,11 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>419</Id>
-      <IndexInHierarchy>22</IndexInHierarchy>
+      <IndexInHierarchy>23</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Text</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -352,7 +367,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>467</Id>
-      <IndexInHierarchy>23</IndexInHierarchy>
+      <IndexInHierarchy>24</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Sprite</Name>
       <PrefabPath />
@@ -361,23 +376,104 @@
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
-    <GameObject>
-      <ActiveSelf>true</ActiveSelf>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>557</Id>
-      <IndexInHierarchy>24</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <Name>WorldZero</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-    </GameObject>
   </GameObjects>
   <Components>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>557</GameObjectId>
+      <Started>true</Started>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="SpriteRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>557</GameObjectId>
+      <Started>true</Started>
+      <Color>
+        <B>0</B>
+        <G>0</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4278190335</PackedValue>
+      </Color>
+      <DistanceFromCamera>50.870567</DistanceFromCamera>
+      <Material>
+        <AssetPath />
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Sprite</BufferType>
+          <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
+        </Shader>
+        <Vao>13</Vao>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>5555555</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\gridX.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>101</X>
+          <Y>101</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>1</X>
+        <Y>1</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Batched>false</Batched>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>557</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>55</X>
+        <Y>55</Y>
+        <Z>55</Z>
+      </Size>
+    </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
@@ -391,24 +487,24 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>29.274872</X>
-        <Y>-21.82624</Y>
+        <X>40.567112</X>
+        <Y>-30.694038</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>29.274872</X>
-        <Y>-21.82624</Y>
+        <X>40.567112</X>
+        <Y>-30.694038</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
-        <X>8.661204</X>
-        <Y>8.661204</Y>
-        <Z>8.661204</Z>
+        <X>14.590931</X>
+        <Y>14.590931</Y>
+        <Z>14.590931</Z>
       </LocalScale>
       <WorldScale>
-        <X>8.661204</X>
-        <Y>8.661204</Y>
-        <Z>8.661204</Z>
+        <X>14.590931</X>
+        <Y>14.590931</Y>
+        <Z>14.590931</Z>
       </WorldScale>
       <Rotation>
         <X>0</X>
@@ -432,7 +528,7 @@
       <FarPlaneDistance>15000</FarPlaneDistance>
       <FieldOfView>14</FieldOfView>
       <IsOrthographic>true</IsOrthographic>
-      <OrthographicSize>8.661204</OrthographicSize>
+      <OrthographicSize>14.590931</OrthographicSize>
       <Size>
         <X>2276</X>
         <Y>1179</Y>
@@ -472,7 +568,7 @@
       </WorldScale>
       <Rotation>
         <X>30.1</X>
-        <Y>18.059412</Y>
+        <Y>307.7635</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -504,7 +600,7 @@
         <A>202</A>
         <PackedValue>3402825472</PackedValue>
       </Color>
-      <DistanceFromCamera>81.826744</DistanceFromCamera>
+      <DistanceFromCamera>92.702805</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -927,7 +1023,7 @@
         <A>195</A>
         <PackedValue>3288334335</PackedValue>
       </Color>
-      <DistanceFromCamera>26.053726</DistanceFromCamera>
+      <DistanceFromCamera>32.13695</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1023,7 +1119,7 @@
         <A>255</A>
         <PackedValue>4294936991</PackedValue>
       </Color>
-      <DistanceFromCamera>50.206444</DistanceFromCamera>
+      <DistanceFromCamera>51.85882</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1220,7 +1316,7 @@
         <A>255</A>
         <PackedValue>4278242047</PackedValue>
       </Color>
-      <DistanceFromCamera>45.80788</DistanceFromCamera>
+      <DistanceFromCamera>44.58915</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1321,7 +1417,7 @@
         <A>255</A>
         <PackedValue>4292857492</PackedValue>
       </Color>
-      <DistanceFromCamera>28.552958</DistanceFromCamera>
+      <DistanceFromCamera>41.187466</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1422,7 +1518,7 @@
         <A>255</A>
         <PackedValue>4282218239</PackedValue>
       </Color>
-      <DistanceFromCamera>72.32449</DistanceFromCamera>
+      <DistanceFromCamera>83.07988</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1523,7 +1619,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>30.322538</DistanceFromCamera>
+      <DistanceFromCamera>26.215063</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1709,7 +1805,7 @@
         <A>213</A>
         <PackedValue>3590324223</PackedValue>
       </Color>
-      <DistanceFromCamera>47.087975</DistanceFromCamera>
+      <DistanceFromCamera>58.016308</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1927,7 +2023,7 @@
         <A>131</A>
         <PackedValue>2198670836</PackedValue>
       </Color>
-      <DistanceFromCamera>42.631702</DistanceFromCamera>
+      <DistanceFromCamera>40.609074</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2023,7 +2119,7 @@
         <A>131</A>
         <PackedValue>2198670836</PackedValue>
       </Color>
-      <DistanceFromCamera>83.22076</DistanceFromCamera>
+      <DistanceFromCamera>75.85893</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2103,7 +2199,7 @@
         <A>137</A>
         <PackedValue>2315255807</PackedValue>
       </Color>
-      <DistanceFromCamera>55.215393</DistanceFromCamera>
+      <DistanceFromCamera>68.89242</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2608,6 +2704,9 @@
         <int>419</int>
         <int>467</int>
         <int>554</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -2878,102 +2977,6 @@
         <Z>0</Z>
       </Size>
     </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>557</GameObjectId>
-      <Started>true</Started>
-      <ChildrenIDs />
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="SpriteRenderer">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>557</GameObjectId>
-      <Started>true</Started>
-      <Color>
-        <B>0</B>
-        <G>0</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4278190335</PackedValue>
-      </Color>
-      <DistanceFromCamera>36.51579</DistanceFromCamera>
-      <Material>
-        <AssetPath />
-        <Additive>false</Additive>
-        <Shader>
-          <BufferType>Sprite</BufferType>
-          <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
-        </Shader>
-        <Vao>13</Vao>
-      </Material>
-      <RenderMode>Opaque</RenderMode>
-      <Layer>5555555</Layer>
-      <Texture>
-        <AssetPath>Assets\2D\gridX.png</AssetPath>
-        <Loaded>true</Loaded>
-        <Size>
-          <X>101</X>
-          <Y>101</Y>
-        </Size>
-      </Texture>
-      <Tiling>
-        <X>1</X>
-        <Y>1</Y>
-      </Tiling>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-      </Offset>
-      <Batched>false</Batched>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>557</GameObjectId>
-      <Started>true</Started>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>55</X>
-        <Y>55</Y>
-        <Z>55</Z>
-      </Size>
-    </Component>
   </Components>
-  <GameObjectNextId>577</GameObjectNextId>
+  <GameObjectNextId>579</GameObjectNextId>
 </SceneFile>
