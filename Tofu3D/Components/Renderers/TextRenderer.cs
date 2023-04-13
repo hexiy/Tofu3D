@@ -125,10 +125,7 @@ public class TextRenderer : SpriteRenderer
 		Texture = AssetManager.Load<Texture>(texturePath);
 	}
 
-	private bool IsInCanvas()
-	{
-		return Transform.Parent?.GetComponent<Canvas>() != null;
-	}
+
 
 	public override void Render()
 	{
@@ -142,9 +139,8 @@ public class TextRenderer : SpriteRenderer
 		ShaderCache.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
 
-		if (IsInCanvas())
+		if (IsInCanvas)
 		{
-			// Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrix() * Matrix4x4.CreateScale(1f/Units.OneWorldUnit));
 			Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrixForCanvasObject()); // * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 		}
 		else
@@ -171,8 +167,9 @@ public class TextRenderer : SpriteRenderer
 
 		int symbolInLineIndex = 0;
 		int line = 0;
-		float lineSpacing = Text.Size * 3 + Transform.WorldScale.Y * Text.Size;
+		float lineSpacing = Text.Size/4;
 
+		
 		Vector2 originalScale = Transform.LocalScale;
 		Vector2 fontSizeScale = Vector3.One * Mathf.Clamp(Text.Size / 40f, 0, 1000);
 		Transform.LocalScale = originalScale * fontSizeScale;
@@ -184,20 +181,21 @@ public class TextRenderer : SpriteRenderer
 		     symbolIndex++,
 		     symbolInLineIndex++)
 		{
-			Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex - textWidth * Transform.Pivot.X,
-			                                      originalPosition.Y - line * lineSpacing, Transform.WorldPosition.Z);
+			Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex - charSpacing * Transform.Pivot.X,
+			                                      originalPosition.Y + line * lineSpacing, Transform.WorldPosition.Z);
 
-			if (GetComponent<TextReactToMouse>() != null && Global.GameRunning)
+			if (GetComponent<TextReactToMouse>() != null)
 			{
-				Transform.WorldPosition = Transform.WorldPosition + new Vector2(0, (float) MathHelper.Sin(Time.ElapsedTime + symbolIndex * 0.1f) * 1);
+				Transform.WorldPosition = Transform.WorldPosition + new Vector2(0, (float) MathHelper.Sin(Time.EditorElapsedTime + symbolIndex * 0.1f) * 1);
 
 				float distanceToCursor = Vector2.Distance(Transform.WorldPosition, MouseInput.WorldPosition);
 				Transform.WorldScale = originalScale * fontSizeScale * Mathf.Clamp((0.2f / distanceToCursor + 1f), 1, 1.3f);
+				Debug.StatSetValue("MouseWOrldPos:", $"MouseWorldPos:{MouseInput.WorldPosition}");
 			}
 
 			UpdateMvp();
 			// Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
-			if (IsInCanvas())
+			if (IsInCanvas)
 			{
 				// Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrix() * Matrix4x4.CreateScale(1f/Units.OneWorldUnit));
 				Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrixForCanvasObject()); // * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
@@ -240,6 +238,8 @@ public class TextRenderer : SpriteRenderer
 			{
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
+
+			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 			GL.ActiveTexture(TextureUnit.Texture0);
 			TextureCache.BindTexture(Texture.TextureId);

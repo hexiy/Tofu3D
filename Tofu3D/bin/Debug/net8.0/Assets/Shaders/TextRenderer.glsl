@@ -32,41 +32,36 @@ uniform vec4 u_color_b = vec4(0.0, 1.0, 1.0, 1.0);
 out vec4 color;
 void main(void)
 {
-vec4 texColor = texture(textureObject, vec2(uv.x + offset.x / u_resolution.x, uv.y + 1 + offset.y/ u_resolution.y));
+vec4 texColor = texture(textureObject, vec2(uv.x + offset.x / u_resolution.x, - uv.y - offset.y / u_resolution.y));
 
 //texColor.rgb= texColor.rgb * u_color.a;
-texColor.a = (texColor.r + texColor.g +texColor.b) / 3;
+texColor.a = (texColor.r * texColor.g * texColor.b) + 0.3;
 
-texColor = texColor;
+texColor.a = pow(texColor.a, 50); // make the brights brighter and darks darker
 
-if (texColor.a > 0.80){
-texColor.a = 1;
-}
+//if (texColor.a > 1){
+//texColor.a = 1;
+//}
 
-
-texColor.a = pow(texColor.a,14); // make the brights brighter and darks darker
-
-texColor.a = texColor.a* 50;
-
-if (texColor.a > 1){
-texColor.a = 1;
-}
-
-if (texColor.a < 0.85)
-{
+if (texColor.a < 1){
 discard;
 }
-else
-{
+else{
+
+//texColor.a = pow(texColor.a,14); // make the brights brighter and darks darker
+
+//texColor.a = texColor.a* 50;
+
+
 if (isGradient == 1)
 {
 vec2 newUV = (uv.xy * 10)* vec2(u_resolution.x / u_resolution.y, 1.0);
-
-color = mix(u_color_a,u_color_b, newUV.y * 10) * texColor;
+//
+color = mix(u_color_b,u_color_a, newUV.y * 10) * texColor;
 }
-else{
-color = vec4(1, 1, 1,1) * u_color;
+else
+{
+color = vec4(1, 1, 1, texColor.a) * u_color;
 }
-color = vec4(1, 1, 1,1);
 }
 }

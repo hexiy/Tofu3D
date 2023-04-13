@@ -37,7 +37,7 @@ public class SpriteRenderer : TextureRenderer
 	{
 		if (BoxShape != null)
 		{
-			if (IsInCanvas())
+			if (IsInCanvas)
 			{
 				BoxShape.Size = Texture.Size;
 			}
@@ -46,11 +46,6 @@ public class SpriteRenderer : TextureRenderer
 				BoxShape.Size = Texture.Size / Units.OneWorldUnit;
 			}
 		}
-	}
-
-	private bool IsInCanvas()
-	{
-		return Transform.Parent?.GetComponent<Canvas>() != null;
 	}
 
 	public override void SetDefaultMaterial()
@@ -97,7 +92,7 @@ public class SpriteRenderer : TextureRenderer
 
 		ShaderCache.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
-		if (IsInCanvas())
+		if (IsInCanvas)
 		{
 			// Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrix() * Matrix4x4.CreateScale(1f/Units.OneWorldUnit));
 			Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrixForCanvasObject()); // * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);

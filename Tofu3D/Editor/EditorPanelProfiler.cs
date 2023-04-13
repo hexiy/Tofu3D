@@ -44,7 +44,7 @@ public class EditorPanelProfiler : EditorPanel
 		{
 			float msDuration = (float) Math.Round(timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds, 2);
 			// float msDuration = (float) timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds;
-			float msDurationSlower = timerPair.Value.AverageSample;
+			float msDurationSlower = timerPair.Value.Sample10FramesAgo;
 			timerPair.Value.AddSample(msDuration);
 
 			if (timerPair.Value.Group != currentSourceGroup)

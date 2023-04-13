@@ -6,10 +6,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>554</Id>
-      <IndexInHierarchy>24</IndexInHierarchy>
+      <Id>419</Id>
+      <IndexInHierarchy>23</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>GameObject</Name>
+      <Name>Text</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -21,14 +21,14 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>554</GameObjectId>
+      <GameObjectId>419</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
       <ParentId>380</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
-        <Z>0.5</Z>
+        <Z>0</Z>
       </Pivot>
       <WorldPosition>
         <X>0</X>
@@ -41,14 +41,14 @@
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>10</X>
+        <Y>10</Y>
+        <Z>0</Z>
       </LocalScale>
       <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>10</X>
+        <Y>10</Y>
+        <Z>0</Z>
       </WorldScale>
       <Rotation>
         <X>0</X>
@@ -56,10 +56,10 @@
         <Z>0</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="SpriteRenderer">
+    <Component xsi:type="TextRenderer">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>554</GameObjectId>
+      <GameObjectId>419</GameObjectId>
       <Started>true</Started>
       <Color>
         <B>255</B>
@@ -68,40 +68,83 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>43.739273</DistanceFromCamera>
+      <DistanceFromCamera>62.296944</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
         <Shader>
           <BufferType>Sprite</BufferType>
-          <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
+          <Path>Assets\Shaders\TextRenderer.glsl</Path>
         </Shader>
-        <Vao>13</Vao>
+        <Vao>14</Vao>
       </Material>
       <RenderMode>Opaque</RenderMode>
-      <Layer>-10</Layer>
+      <Layer>0</Layer>
       <Texture>
-        <AssetPath>Assets\2D\grid.png</AssetPath>
+        <AssetPath>Assets\2D\sdf.png</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>100</X>
-          <Y>100</Y>
+          <X>1024</X>
+          <Y>1024</Y>
         </Size>
       </Texture>
       <Tiling>
-        <X>10</X>
-        <Y>10</Y>
+        <X>1</X>
+        <Y>1</Y>
       </Tiling>
       <Offset>
-        <X>0.040799674</X>
-        <Y>0.00016264463</Y>
+        <X>0</X>
+        <Y>0</Y>
       </Offset>
       <Batched>false</Batched>
+      <GradientColor1>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </GradientColor1>
+      <GradientColor2>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </GradientColor2>
+      <IsGradient>false</IsGradient>
+      <SpriteSize>
+        <X>128</X>
+        <Y>128</Y>
+      </SpriteSize>
+      <Text>
+        <AllowMultiple>true</AllowMultiple>
+        <Enabled>true</Enabled>
+        <GameObjectId>419</GameObjectId>
+        <Started>false</Started>
+        <Size>150</Size>
+        <Value>123
+456
+789</Value>
+      </Text>
+      <SpritesCount>
+        <X>8</X>
+        <Y>8</Y>
+      </SpritesCount>
+    </Component>
+    <Component xsi:type="Text">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>419</GameObjectId>
+      <Started>false</Started>
+      <Size>150</Size>
+      <Value>123
+456
+789</Value>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>554</GameObjectId>
+      <GameObjectId>419</GameObjectId>
       <Started>true</Started>
       <Offset>
         <X>0</X>
@@ -109,20 +152,10 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>2500</X>
-        <Y>2500</Y>
-        <Z>0</Z>
+        <X>1.2</X>
+        <Y>1.2</Y>
+        <Z>1.2</Z>
       </Size>
-    </Component>
-    <Component xsi:type="Grid">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>554</GameObjectId>
-      <Started>true</Started>
-      <PanSpeed>
-        <X>0.009328</X>
-        <Y>-0.00939</Y>
-      </PanSpeed>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

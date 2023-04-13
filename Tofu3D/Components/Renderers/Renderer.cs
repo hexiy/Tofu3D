@@ -28,6 +28,10 @@ public class Renderer : Component, IComparable<Renderer>
 		//return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
 	}
 
+	internal bool IsInCanvas
+	{
+		get { return Transform.Parent?.GetComponent<Canvas>() != null; }
+	}
 	// public int CompareTo(Renderer comparePart)
 	// {
 	// 	// A null value means that this object is greater.
