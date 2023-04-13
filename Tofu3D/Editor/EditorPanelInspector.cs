@@ -22,6 +22,7 @@ public class EditorPanelInspector : EditorPanel
 	List<InspectableData> _currentInspectableDatas = new List<InspectableData>(); // cached inspectable data
 	bool _editing;
 
+	bool _refreshQueued = false;
 	private bool HasInspectableData
 	{
 		get { return _currentInspectableDatas.Count > 0; }
@@ -54,7 +55,10 @@ public class EditorPanelInspector : EditorPanel
 	{
 		_currentInspectableDatas.Clear();
 	}
-
+	private void RefreshInspector()
+	{
+		_currentInspectableDatas.ForEach((data => data.InitInfos()));
+	}
 	private void OnGameObjectsSelected(List<int> ids)
 	{
 		// if (ids.Count != 1)
@@ -152,6 +156,11 @@ public class EditorPanelInspector : EditorPanel
 			DrawInspectables();
 			ImGui.PopStyleVar(1);
 
+			if (_refreshQueued)
+			{
+				_refreshQueued = false;
+				RefreshInspector();
+			}
 
 			// properties with ShowIf and ShowIfNot attributes need to be reevaluated to show or not
 			// if (ImGui.IsMouseReleased(ImGuiMouseButton.Left))
@@ -644,6 +653,7 @@ public class EditorPanelInspector : EditorPanel
 						if (ImGui.Checkbox("", ref fieldValue))
 						{
 							info.SetValue(componentInspectorData.Inspectable, fieldValue);
+							_refreshQueued = true;
 						}
 					}
 					else if (info.FieldOrPropertyType == typeof(float))
@@ -767,5 +777,6 @@ public class EditorPanelInspector : EditorPanel
 				ImGui.EndPopup();
 			}
 		}
+		
 	}
 }

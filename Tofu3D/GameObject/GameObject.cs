@@ -334,7 +334,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 	{
 		for (int i = 0; i < Components.Count; i++)
 		{
-			if (Components[i].Awoken == false && Components[i].Enabled)
+			if (Components[i].Awoken == false) // && Components[i].Enabled)
 			{
 				if (Global.GameRunning == false)
 				{

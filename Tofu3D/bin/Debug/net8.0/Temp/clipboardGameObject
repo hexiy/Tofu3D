@@ -6,10 +6,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>373</Id>
-      <IndexInHierarchy>20</IndexInHierarchy>
+      <Id>554</Id>
+      <IndexInHierarchy>24</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Sprite</Name>
+      <Name>GameObject</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -21,33 +21,33 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>373</GameObjectId>
+      <GameObjectId>554</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
       <ParentId>380</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
-        <Z>0</Z>
+        <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
         <X>0</X>
-        <Y>-536.33</Y>
+        <Y>0</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
-        <Y>-536.33</Y>
+        <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
-        <Y>0.2</Y>
+        <Y>1</Y>
         <Z>1</Z>
       </LocalScale>
       <WorldScale>
         <X>1</X>
-        <Y>0.2</Y>
+        <Y>1</Y>
         <Z>1</Z>
       </WorldScale>
       <Rotation>
@@ -59,7 +59,7 @@
     <Component xsi:type="SpriteRenderer">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>373</GameObjectId>
+      <GameObjectId>554</GameObjectId>
       <Started>true</Started>
       <Color>
         <B>255</B>
@@ -68,7 +68,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>501.3094</DistanceFromCamera>
+      <DistanceFromCamera>43.739273</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -79,29 +79,29 @@
         <Vao>13</Vao>
       </Material>
       <RenderMode>Opaque</RenderMode>
-      <Layer>0</Layer>
+      <Layer>-10</Layer>
       <Texture>
-        <AssetPath>Assets\2D\gridFullscreenTest.png</AssetPath>
+        <AssetPath>Assets\2D\grid.png</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>2240</X>
-          <Y>1268</Y>
+          <X>100</X>
+          <Y>100</Y>
         </Size>
       </Texture>
       <Tiling>
-        <X>1</X>
-        <Y>1</Y>
+        <X>10</X>
+        <Y>10</Y>
       </Tiling>
       <Offset>
-        <X>0</X>
-        <Y>0</Y>
+        <X>0.040799674</X>
+        <Y>0.00016264463</Y>
       </Offset>
       <Batched>false</Batched>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>373</GameObjectId>
+      <GameObjectId>554</GameObjectId>
       <Started>true</Started>
       <Offset>
         <X>0</X>
@@ -109,10 +109,20 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>2240</X>
-        <Y>1268</Y>
+        <X>2500</X>
+        <Y>2500</Y>
         <Z>0</Z>
       </Size>
+    </Component>
+    <Component xsi:type="Grid">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>554</GameObjectId>
+      <Started>true</Started>
+      <PanSpeed>
+        <X>0.009328</X>
+        <Y>-0.00939</Y>
+      </PanSpeed>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

@@ -1,5 +1,5 @@
 ﻿namespace Tofu3D;
 
-public interface IAsset
+public class AssetBase
 {
 }

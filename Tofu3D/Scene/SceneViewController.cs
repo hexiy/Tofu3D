@@ -124,6 +124,7 @@ public class SceneViewController
 
 		AllowPassThroughEdges = false;
 
+		HandleMouseScroll();
 		if (MouseInput.IsButtonDown(MouseInput.Buttons.Left) || MouseInput.IsButtonDown(MouseInput.Buttons.Right))
 		{
 			if (isMouseOverSceneView || _clickedInsideScene)
@@ -132,13 +133,13 @@ public class SceneViewController
 				{
 					AllowPassThroughEdges = true;
 
-					HandleMouseControls();
+					HandleButtonInputs();
 				}
 			}
 		}
 	}
 
-	void HandleMouseControls()
+	void HandleMouseScroll()
 	{
 		// Z POSITION
 		if (MouseInput.ScrollDelta != 0)
@@ -158,6 +159,10 @@ public class SceneViewController
 				//Camera.I.transform.position += Camera.I.transform.TransformDirection(Vector3.Forward) * MouseInput.ScrollDelta * 0.05f;
 			}
 		}
+	}
+	void HandleButtonInputs()
+	{
+
 
 		// PANNING
 		if (MouseInput.IsButtonDown() && Camera.I.IsOrthographic)

@@ -383,6 +383,8 @@ public class EditorPanelHierarchy : EditorPanel
 				GameObject droppedGameObject = SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
 				SceneManager.CurrentScene.GameObjects.RemoveAt(droppedGameObject.IndexInHierarchy);
 				SceneManager.CurrentScene.GameObjects.Insert(currentGameObject.IndexInHierarchy + (after ? 1 : 0), droppedGameObject);
+				
+				droppedGameObject.Transform.SetParent(currentGameObject.Transform.Parent);
 			}
 
 			ImGui.EndDragDropTarget();

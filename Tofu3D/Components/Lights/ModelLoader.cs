@@ -9,7 +9,7 @@ public class ModelLoader : AssetLoader<Model>
 		GL.DeleteTexture(asset.AssetHandle.Id);
 	}
 
-	public override Asset<Model> LoadAsset(IAssetLoadSettings assetLoadSettings)
+	public override Asset<Model> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
 	{
 		ModelLoadSettings loadSettings = assetLoadSettings as ModelLoadSettings;
 

@@ -19,7 +19,7 @@ public class InspectableData
 		InitInfos();
 	}
 
-	private void InitInfos()
+	public void InitInfos()
 	{
 		FieldInfo[] fields = InspectableType.GetFields();
 		PropertyInfo[] properties = InspectableType.GetProperties();

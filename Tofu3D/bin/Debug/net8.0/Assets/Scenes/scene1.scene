@@ -11,7 +11,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -47,7 +47,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -302,7 +302,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -332,7 +332,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -340,6 +340,21 @@
       <IndexInHierarchy>22</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Text</Name>
+      <PrefabPath />
+      <Selected>true</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <ActiveSelf>false</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>467</Id>
+      <IndexInHierarchy>23</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sprite</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -351,10 +366,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>467</Id>
-      <IndexInHierarchy>23</IndexInHierarchy>
+      <Id>557</Id>
+      <IndexInHierarchy>24</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Sprite</Name>
+      <Name>WorldZero</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -376,28 +391,28 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>69.69807</X>
-        <Y>-23.488163</Y>
-        <Z>-33.8</Z>
+        <X>29.274872</X>
+        <Y>-21.82624</Y>
+        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>69.69807</X>
-        <Y>-23.488163</Y>
-        <Z>-33.8</Z>
+        <X>29.274872</X>
+        <Y>-21.82624</Y>
+        <Z>0</Z>
       </LocalPosition>
       <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>8.661204</X>
+        <Y>8.661204</Y>
+        <Z>8.661204</Z>
       </LocalScale>
       <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>8.661204</X>
+        <Y>8.661204</Y>
+        <Z>8.661204</Z>
       </WorldScale>
       <Rotation>
-        <X>-10.359044</X>
-        <Y>-6.801582</Y>
+        <X>0</X>
+        <Y>0</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -415,9 +430,9 @@
       </Color>
       <NearPlaneDistance>1</NearPlaneDistance>
       <FarPlaneDistance>15000</FarPlaneDistance>
-      <FieldOfView>90</FieldOfView>
-      <IsOrthographic>false</IsOrthographic>
-      <OrthographicSize>8.33</OrthographicSize>
+      <FieldOfView>14</FieldOfView>
+      <IsOrthographic>true</IsOrthographic>
+      <OrthographicSize>8.661204</OrthographicSize>
       <Size>
         <X>2276</X>
         <Y>1179</Y>
@@ -457,7 +472,7 @@
       </WorldScale>
       <Rotation>
         <X>30.1</X>
-        <Y>201.42</Y>
+        <Y>18.059412</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -489,7 +504,7 @@
         <A>202</A>
         <PackedValue>3402825472</PackedValue>
       </Color>
-      <DistanceFromCamera>97.5363</DistanceFromCamera>
+      <DistanceFromCamera>81.826744</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -912,7 +927,7 @@
         <A>195</A>
         <PackedValue>3288334335</PackedValue>
       </Color>
-      <DistanceFromCamera>38.013058</DistanceFromCamera>
+      <DistanceFromCamera>26.053726</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1008,7 +1023,7 @@
         <A>255</A>
         <PackedValue>4294936991</PackedValue>
       </Color>
-      <DistanceFromCamera>41.193306</DistanceFromCamera>
+      <DistanceFromCamera>50.206444</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1205,7 +1220,7 @@
         <A>255</A>
         <PackedValue>4278242047</PackedValue>
       </Color>
-      <DistanceFromCamera>30.136236</DistanceFromCamera>
+      <DistanceFromCamera>45.80788</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1306,7 +1321,7 @@
         <A>255</A>
         <PackedValue>4292857492</PackedValue>
       </Color>
-      <DistanceFromCamera>56.814255</DistanceFromCamera>
+      <DistanceFromCamera>28.552958</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1407,7 +1422,7 @@
         <A>255</A>
         <PackedValue>4282218239</PackedValue>
       </Color>
-      <DistanceFromCamera>88.269646</DistanceFromCamera>
+      <DistanceFromCamera>72.32449</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1508,7 +1523,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>52.857815</DistanceFromCamera>
+      <DistanceFromCamera>30.322538</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1694,7 +1709,7 @@
         <A>213</A>
         <PackedValue>3590324223</PackedValue>
       </Color>
-      <DistanceFromCamera>66.41192</DistanceFromCamera>
+      <DistanceFromCamera>47.087975</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -1912,7 +1927,7 @@
         <A>131</A>
         <PackedValue>2198670836</PackedValue>
       </Color>
-      <DistanceFromCamera>26.032238</DistanceFromCamera>
+      <DistanceFromCamera>42.631702</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2008,7 +2023,7 @@
         <A>131</A>
         <PackedValue>2198670836</PackedValue>
       </Color>
-      <DistanceFromCamera>46.86501</DistanceFromCamera>
+      <DistanceFromCamera>83.22076</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2088,7 +2103,7 @@
         <A>137</A>
         <PackedValue>2315255807</PackedValue>
       </Color>
-      <DistanceFromCamera>84.89169</DistanceFromCamera>
+      <DistanceFromCamera>55.215393</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2290,7 +2305,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>517.5564</DistanceFromCamera>
+      <DistanceFromCamera>506.10315</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2447,6 +2462,152 @@
         <int>373</int>
         <int>419</int>
         <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>494</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>554</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>554</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>554</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>554</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>554</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>554</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>554</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>554</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>554</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -2536,7 +2697,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>73.5494</DistanceFromCamera>
+      <DistanceFromCamera>37.253536</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2671,7 +2832,7 @@
         <A>255</A>
         <PackedValue>4286829955</PackedValue>
       </Color>
-      <DistanceFromCamera>73.5494</DistanceFromCamera>
+      <DistanceFromCamera>87.54756</DistanceFromCamera>
       <Material>
         <AssetPath />
         <Additive>false</Additive>
@@ -2717,6 +2878,102 @@
         <Z>0</Z>
       </Size>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>557</GameObjectId>
+      <Started>true</Started>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="SpriteRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>557</GameObjectId>
+      <Started>true</Started>
+      <Color>
+        <B>0</B>
+        <G>0</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4278190335</PackedValue>
+      </Color>
+      <DistanceFromCamera>36.51579</DistanceFromCamera>
+      <Material>
+        <AssetPath />
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Sprite</BufferType>
+          <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
+        </Shader>
+        <Vao>13</Vao>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>5555555</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\gridX.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>101</X>
+          <Y>101</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>1</X>
+        <Y>1</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Batched>false</Batched>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>557</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>55</X>
+        <Y>55</Y>
+        <Z>55</Z>
+      </Size>
+    </Component>
   </Components>
-  <GameObjectNextId>492</GameObjectNextId>
+  <GameObjectNextId>577</GameObjectNextId>
 </SceneFile>
