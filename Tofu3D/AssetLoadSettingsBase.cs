@@ -2,7 +2,7 @@
 
 namespace Tofu3D;
 
-public class AssetLoadSettingsBase
+public abstract class AssetLoadSettingsBase
 {
 	string _path;
 	public string Path

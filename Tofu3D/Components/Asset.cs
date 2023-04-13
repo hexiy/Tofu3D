@@ -3,7 +3,7 @@
 namespace Tofu3D;
 
 [Serializable]
-public class Asset<T> : AssetBase, IInspectable where T : Asset<T> //, new()
+public abstract class Asset<T> : AssetBase, IInspectable where T : Asset<T> //, new()
 {
 	[XmlIgnore] public AssetHandle AssetHandle { get; set; }
 	public string AssetPath = "";
