@@ -14,7 +14,7 @@ public class DebugGraphTimer : IComparable<DebugGraphTimer>
 	public float MaxSample;
 	public float MinSample;
 	int _findMaxTriggerFrameCounter = 0;
-	public float Sample10FramesAgo = 0;
+	public float AverageSample = 0;
 	public Stopwatch Stopwatch;
 
 	public int Offset = 0;
@@ -69,8 +69,8 @@ public class DebugGraphTimer : IComparable<DebugGraphTimer>
 		{
 			_foundMaxSample = Samples.Max();
 			_foundMinSample = Samples.Min();
-			_findMaxTriggerFrameCounter = 10;
-			Sample10FramesAgo = (float) Math.Round(sample, 2);
+			_findMaxTriggerFrameCounter = 50;
+			AverageSample = (float) Math.Round(sample, 2);
 		}
 
 		MaxSample = Mathf.Lerp(MaxSample, _foundMaxSample, Time.EditorDeltaTime * 7);

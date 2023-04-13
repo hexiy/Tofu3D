@@ -40,11 +40,15 @@ public class EditorPanelInspector : EditorPanel
 
 	void OnComponentAddedToScene(Component comp)
 	{
-		// if (_selectedInspectable == comp.GameObject)
-		// {
-		// 	UpdateCurrentComponentsCache();
-		// 	return;
-		// }
+		foreach (InspectableData currentInspectableData in _currentInspectableDatas)
+		{
+			Component c = currentInspectableData.Inspectable as Component;
+			if (c?.GameObject == comp.GameObject)
+			{
+				SelectInspectables(comp.GameObject.Components.ToList<Tofu3D.IInspectable>()); // RefreshInspector();
+				return;
+			}
+		}
 	}
 
 	public override void Update()
@@ -55,10 +59,12 @@ public class EditorPanelInspector : EditorPanel
 	{
 		_currentInspectableDatas.Clear();
 	}
+
 	private void RefreshInspector()
 	{
 		_currentInspectableDatas.ForEach((data => data.InitInfos()));
 	}
+
 	private void OnGameObjectsSelected(List<int> ids)
 	{
 		// if (ids.Count != 1)
@@ -723,6 +729,7 @@ public class EditorPanelInspector : EditorPanel
 					{
 						_editing = true;
 					}
+
 					//ImGui.PopID();
 				}
 			}
@@ -777,6 +784,5 @@ public class EditorPanelInspector : EditorPanel
 				ImGui.EndPopup();
 			}
 		}
-		
 	}
 }

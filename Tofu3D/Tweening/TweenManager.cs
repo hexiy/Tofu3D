@@ -33,7 +33,7 @@ public class TweenManager
 			//activeTweens[i].currentTime = Mathf.Clamp(activeTweens[i].currentTime, -Math.Abs(activeTweens[i].delay), activeTweens[i].duration);
 			if (ActiveTweens[i].CurrentTime >= 0)
 			{
-				ActiveTweens[i].OnUpdate.Invoke(ActiveTweens[i].GetValue());
+				ActiveTweens[i].OnUpdate?.Invoke(ActiveTweens[i].GetValue());
 			}
 
 			if (isCompleted)

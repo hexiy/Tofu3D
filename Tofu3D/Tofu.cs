@@ -48,6 +48,8 @@ public class Tofu
 
 	void OnWindowUpdate(FrameEventArgs obj)
 	{
+		Debug.StartGraphTimer("Editor Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
+
 		Time.Update();
 		MouseInput.Update();
 		TweenManager.I.Update();
@@ -56,5 +58,7 @@ public class Tofu
 
 		SceneManager.CurrentScene.Update();
 		Editor.Update();
+		Debug.EndGraphTimer("Editor Update");
+
 	}
 }
