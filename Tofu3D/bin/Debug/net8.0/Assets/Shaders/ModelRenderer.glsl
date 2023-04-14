@@ -8,55 +8,47 @@ layout (location = 2) in vec3 a_normal;
 
 out vec3 fragPos;
 out vec3 normal;
+out vec2 uv;
 
 uniform mat4 u_mvp = mat4(1.0);
 uniform mat4 u_model = mat4(1.0);
-
-out vec4 FragPosLightSpace;
-
 uniform mat4 u_lightSpaceMatrix;
-
+out vec4 FragPosLightSpace;
 
 void main(void)
 {
-
-
-
 gl_Position = u_mvp * vec4(a_pos.xyz, 1.0);
 fragPos = vec3(u_model * vec4(a_pos.xyz, 1.0));
-
-//    fragPos = vec3(u_model * vec4(a_Pos, 1.0));
-//normal=a_normal;
 normal = transpose(inverse(mat3(u_model))) * a_normal;
-// NEW
-FragPosLightSpace = u_lightSpaceMatrix * vec4(fragPos, 1.0);
-// NEW
+FragPosLightSpace = u_lightSpaceMatrix * vec4(a_pos.xyz, 1.0);
+uv = a_uv;
 }
 
 [FRAGMENT]
-#version 410 core
+#version 410 core 
+
  uniform vec4 u_rendererColor;
+uniform vec2 u_tiling;
+uniform vec2 u_offset;
 
 uniform vec3 u_ambientLightsColor;
-// direction too
 uniform float u_ambientLightsIntensity;
 
 uniform vec3 u_directionalLightColor = vec3(1, 0, 0);
-//uniform vec3 u_directionalLightShadowColor = vec3(1, 0, 0);
 uniform float u_directionalLightIntensity = 1;
 uniform vec3 u_directionalLightDirection = vec3(1, 0, 0);
-
-//uniform vec3 u_pointLightLocations[100];
-//uniform vec3 u_pointLightColors[100];
-//uniform float u_pointLightIntensities[100];
-
-out vec4 frag_color;
+uniform float u_smoothShading = 0;
+        
 uniform sampler2D textureObject;
 uniform sampler2D shadowMap;
+        
 
-smooth in vec3 normal;
+in vec3 normal;
+in vec2 uv;
 in vec3 fragPos;
 in vec4 FragPosLightSpace;
+
+out vec4 frag_color;
 
 float ShadowCalculation(vec4 _fragPosLightSpace)
 {
@@ -78,73 +70,50 @@ float shadow = currentDepth - bias > closestDepth ? 1.0: 0.0;
 return shadow;
 }
 
-//void main()
-//{           
-//    vec3 color = u_rendererColor.rgb;
-//    vec3 norm = normalize(normal);
-//    vec3 lightColor = u_ambientLightsColor;
-//    // ambient
-//    vec3 ambient = 0.15 * lightColor;
-//    // calculate shadow
-//    float shadow = ShadowCalculation(FragPosLightSpace);       
-//    
-//    vec3 directionLight =  max(dot(norm, -u_directionalLightDirection), 0.0) * u_directionalLightIntensity * u_directionalLightColor;
-//    vec3 lighting = (ambient + (shadow) ) * color;    
-//   // lighting += directionLight;
-//    
-//    // diff += d * u_directionalLightColor;
-//    
-//    frag_color = vec4(lighting, 1.0);
-//}
-//
 void main(void)
 {
-// we need to rotate normals....
-vec3 norm = normalize(normal);
+vec3 norm = normalize(- normal);
 
-/**for(int i =0;i<u_pointLightLocations.length();i++){
-vec3 lightDir = normalize(u_pointLightLocations[i] - fragPos); 
-
-float d = max(dot(norm, lightDir), 0.0) * u_pointLightIntensities[i];
- diff += d * u_pointLightColors[i];
-
-}*/
-
-//vec3 dirColor = u_directionalLightIntensity * u_directionalLightColor;
-float directionalLightStrength = max(dot(norm, u_directionalLightDirection), 0.0);
+float directionalLightStrength = max(dot(norm, u_directionalLightDirection), 0.0) * (1 - u_smoothShading);
 vec3 dirColor = vec3(directionalLightStrength * u_directionalLightIntensity * u_directionalLightColor);
 
 
-//result += vec4((u_ambientLightsColor * u_rendererColor.rgb* u_ambientLightsIntensity) + (1 - shadow),0);
 vec3 ambColor = vec3(u_ambientLightsColor * u_ambientLightsIntensity);
 
-//float shadow = 1;
-float shadow = ShadowCalculation(FragPosLightSpace);
-if (shadow < 0.8 || (dirColor.r + dirColor.g + dirColor.b) / 3 < 0.3)
-{
-//ambColor = ambColor.rgb * vec3(1+shadow);
+float shadow = 1 - ShadowCalculation(FragPosLightSpace);
+//if (shadow < 0.8 || (dirColor.r + dirColor.g + dirColor.b) / 3 < 0.3)
+//{
+//shadow += (ambColor.r + ambColor.g+ ambColor.b) / 3;
+//}
+//
+//if (shadow == 0.0)
+//{
+//shadow = 1;
+//dirColor = dirColor * ambColor;
+//}
+//
+//if (directionalLightStrength < 1)
+//{
+//float x = 1 - directionalLightStrength;
+//dirColor += ambColor * x;
+//}
 
-//dirColor = u_directionalLightIntensity * u_directionalLightColor - vec3(0);
 
-shadow += (ambColor.r + ambColor.g+ ambColor.b) / 3;
+vec4 texturePixelColor = texture(textureObject, (uv + u_offset) * u_tiling);
+vec4 result = vec4(1,1,1,1);
+        if(u_directionalLightIntensity>0){
+result *= vec4(dirColor.rgb, 1);
 }
+result *= texturePixelColor.rgba;
+result *=  u_rendererColor.rgba;
+result *=  vec4(ambColor.rgb, 1);
 
-if (shadow == 0.0)
-{
-shadow = 1;
-dirColor = dirColor * ambColor;
+result.a = (texturePixelColor.rgba * u_rendererColor.rgba).a;
+if(result.a==0){
+        discard; // having this fixes transparency sorting but breaks debug depthmap
 }
-
-if (directionalLightStrength < 1)
-{
-        float x = 1- directionalLightStrength;
-dirColor += ambColor * x;
-}
-
-vec4 result = vec4(((dirColor.rgb * shadow)) * u_rendererColor.rgb + ambColor.rgb, u_rendererColor.a);
-//vec4 result = vec4(dirColor, u_rendererColor.a);
+//vec4 result = vec4(((dirColor.rgb * shadow)) * ccc.rgb * ambColor.rgb, ccc.a);
 
 frag_color = result;
 gl_FragDepth = gl_FragCoord.z;
-
 }

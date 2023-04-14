@@ -31,7 +31,28 @@ public class Scene
 		_sceneRenderQueue = new SceneRenderQueue(this);
 		_sceneSkyboxManager = new SceneSkyboxManager(this);
 
-		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderScene);
+		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderWorld);
+		RenderPassSystem.RegisterRender(RenderPassType.UI, RenderUI);
+		// RenderPassSystem.RegisterRender(RenderPassType.Transparency, RenderTransparent);
+	}
+
+	public void DisposeScene()
+	{
+		foreach (GameObject gameObject in GameObjects)
+		{
+			foreach (Component component in gameObject.Components)
+			{
+				component.Dispose();
+			}
+		}
+
+		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderWorld);
+		RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
+		SceneDisposed.Invoke();
+	}
+	public void ForceRenderQueueChanged()
+	{
+		_sceneRenderQueue.RenderQueueChanged();
 	}
 
 	public void CreateDefaultObjects()
@@ -120,28 +141,33 @@ public class Scene
 		SceneModified.Invoke();
 	}
 
-	public void RenderScene()
+	public void RenderWorld()
 	{
 		GL.Enable(EnableCap.DepthTest);
 		GL.DepthFunc(DepthFunction.Less);
 		GL.Enable(EnableCap.StencilTest);
-
-		// GL.DepthFunc(DepthFunction.Greater);
-		// GL.ClearColor(Camera.Color.ToOtherColor());
-		GL.ClearDepth(1000);
-
-
-		GL.Viewport(0, 0, (int) Camera.I.Size.X, (int) Camera.I.Size.Y);
-		GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
-		//BatchingManager.RenderAllBatchers();
-
-		_sceneRenderQueue.RenderAll();
-
-
-		//BatchingManager.RenderAllBatchers();
 		
+		// GL.ClearDepth(1000);
+		//
+		//
+		// GL.Viewport(0, 0, (int) Camera.I.Size.X, (int) Camera.I.Size.Y);
+		// GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+
+		_sceneRenderQueue.RenderWorld();
+
+
 		TransformHandle.I.GameObject.Render();
 	}
+
+	public void RenderUI()
+	{
+		_sceneRenderQueue.RenderUI();
+	}
+
+	// public void RenderTransparent()
+	// {
+	// 	_sceneRenderQueue.RenderTransparent();
+	// }
 
 	public SceneFile GetSceneFile()
 	{
@@ -248,7 +274,7 @@ public class Scene
 	public void CreateEmptySceneAndOpenIt(string path)
 	{
 		IDsManager.GameObjectNextId = 0;
-		SceneManager.LastOpenedScene = path;
+		SceneManager.LastOpenedScene.Value = path;
 		GameObjects = new List<GameObject>();
 		CreateDefaultObjects();
 		SceneSerializer.SaveGameObjects(GetSceneFile(), path);
@@ -272,17 +298,5 @@ public class Scene
 	{
 	}
 
-	public void DisposeScene()
-	{
-		foreach (GameObject gameObject in GameObjects)
-		{
-			foreach (Component component in gameObject.Components)
-			{
-				component.Dispose();
-			}
-		}
 
-		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderScene);
-		SceneDisposed.Invoke();
-	}
 }

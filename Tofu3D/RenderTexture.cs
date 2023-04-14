@@ -136,6 +136,7 @@ public class RenderTexture
 		ShaderCache.BindVertexArray(_depthRenderTextureMaterial.Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+		GL.ActiveTexture(TextureUnit.Texture0);
 
 		TextureCache.BindTexture(targetTexture);
 
@@ -156,6 +157,8 @@ public class RenderTexture
 		ShaderCache.BindVertexArray(_renderTextureMaterial.Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
+		GL.ActiveTexture(TextureUnit.Texture0);
 		TextureCache.BindTexture(targetTexture);
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);

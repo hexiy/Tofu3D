@@ -12,7 +12,7 @@ public class TextureLoader : AssetLoader<Texture>
 		GL.DeleteTexture(asset.AssetHandle.Id);
 	}
 
-	public override Asset<Texture> LoadAsset(IAssetLoadSettings assetLoadSettings)
+	public override Asset<Texture> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
 	{
 		TextureLoadSettings loadSettings = assetLoadSettings as TextureLoadSettings;
 		int id = GL.GenTexture();

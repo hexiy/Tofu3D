@@ -5,11 +5,12 @@ namespace Tofu3D;
 public static class SceneManager
 {
 	public static Scene CurrentScene { get; private set; }
-	public static string LastOpenedScene
-	{
-		get { return PersistentData.GetString("lastOpenedScene", "Assets/Scenes/scene1.scene"); }
-		set { PersistentData.Set("lastOpenedScene", value); }
-	}
+	public static PersistentObject<string> LastOpenedScene = ("lastOpenedScene", "Assets/Scenes/scene1.scene");
+	// public static string LastOpenedScene
+	// {
+	// 	get { return PersistentData.GetString("lastOpenedScene", "Assets/Scenes/scene1.scene"); }
+	// 	set { PersistentData.Set("lastOpenedScene", value); }
+	// }
 
 	public static void LoadLastOpenedScene()
 	{
@@ -23,7 +24,7 @@ public static class SceneManager
 		Debug.StartTimer("LoadScene");
 
 
-		LastOpenedScene = path;
+		LastOpenedScene.Value = path;
 		// Tofu.I.Window.Title = Tofu.I.Window.WindowTitleText + " | " + Path.GetFileNameWithoutExtension(path);
 
 		//Add method to clean scene
@@ -102,7 +103,7 @@ public static class SceneManager
 			path = Path.Combine("Assets", "scene1.scene");
 		}
 
-		LastOpenedScene = path;
+		LastOpenedScene.Value = path;
 		SceneSerializer.SaveGameObjects(CurrentScene.GetSceneFile(), path);
 	}
 }

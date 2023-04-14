@@ -183,17 +183,16 @@ public static class BufferFactory
 		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 	}
 
-	public static void CreateModelBuffers(Model model)
+	public static void CreateModelBuffers(ref int vao, float[] vertexBufferData)
 	{
 		GL.Enable(EnableCap.DepthTest);
-
-
-		model.Vao = GL.GenVertexArray();
-		GL.BindVertexArray(model.Vao);
+		
+		vao = GL.GenVertexArray();
+		GL.BindVertexArray(vao);
 
 		int verticesVbo = GL.GenBuffer();
 		GL.BindBuffer(BufferTarget.ArrayBuffer, verticesVbo);
-		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * model.Vertices.Length, model.Vertices, BufferUsageHint.StaticDraw);
+		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertexBufferData.Length, vertexBufferData, BufferUsageHint.StaticDraw);
 
 		int verticesAttribIndex = 0;
 		GL.VertexAttribPointer(verticesAttribIndex, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), IntPtr.Zero);

@@ -191,10 +191,10 @@ public static class MouseInput
 
 		bool allowPassThroughEdges = EvaluateAllPassThroughEdgesConditions(); // uh so how does this work, do i get true when all of them are true or what
 
-		Debug.StatSetValue("MouseInput AllowPassthroughEdges", $"AllowPassthroughEdges {allowPassThroughEdges}");
+		// Debug.StatSetValue("MouseInput AllowPassthroughEdges", $"AllowPassthroughEdges {allowPassThroughEdges}");
 		MouseState mouseState = Tofu.I.Window.MouseState;
 		Vector2 mousePosCorrected = new Vector2(mouseState.Position.X, Tofu.I.Window.Size.Y - mouseState.Position.Y);
-		Debug.StatSetValue("mousePos", $"MousePos:{mousePosCorrected}");
+		// Debug.StatSetValue("mousePos", $"MousePos:{mousePosCorrected}");
 		bool passedThroughEdge = false;
 		if (allowPassThroughEdges)
 		{

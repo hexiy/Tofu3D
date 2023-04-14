@@ -5,14 +5,16 @@ public class Grid : Component
 {
 	BoxShape _boxShape;
 	SpriteRenderer _spriteRenderer;
-	
+	public Vector2 PanSpeed = Vector2.Zero;
+
 	public override void Awake()
 	{
-		_boxShape = AddComponent<BoxShape>();
-		_spriteRenderer = AddComponent<SpriteRenderer>();
+		_boxShape = GetComponent<BoxShape>() ?? AddComponent<BoxShape>();
+		_spriteRenderer = GetComponent<SpriteRenderer>() ?? AddComponent<SpriteRenderer>();
 
-		_spriteRenderer.LoadTexture(Path.Combine(Folders.Textures, "grid.png"));
-		_spriteRenderer.Color = new Color(0, 0, 0, 29);
+
+		_spriteRenderer.Texture = AssetManager.Load<Texture>(Path.Combine(Folders.Textures, "gridX.png"), TextureLoadSettings.DefaultSettingsSpritePixelArt);
+		_spriteRenderer.Color = new Color(255, 255, 255, 255);
 		_spriteRenderer.Layer = -10;
 		_spriteRenderer.Batched = false;
 		Transform.Pivot = new Vector3(0.5f, 0.5f, 0.5f);
@@ -26,11 +28,12 @@ public class Grid : Component
 
 	public override void Update()
 	{
-		float clampedOrthoSize = Mathf.ClampMin(Camera.I.OrthographicSize, 1);
-		_boxShape.Size = Vector3.One * 17 * (clampedOrthoSize);
-		_spriteRenderer.Repeats = _boxShape.Size;
-		Transform.LocalScale = Vector3.One * (float) Math.Ceiling(clampedOrthoSize / 2);
-		Transform.LocalPosition = Extensions.TranslateToGrid(Camera.I.Transform.LocalPosition, Transform.LocalScale.X) + Vector2.One * 1.5f * Transform.LocalScale.X;
+		// float clampedOrthoSize = Mathf.ClampMin(Camera.I.OrthographicSize, 1);
+		// _boxShape.Size = Camera.I.Size;
+		// _spriteRenderer.Tiling = _boxShape.Size / 100f / (10 / Camera.I.OrthographicSize);
+		_spriteRenderer.Offset = Camera.I.Transform.WorldPosition * PanSpeed / _spriteRenderer.Tiling;
+		Transform.LocalScale = Vector3.One;
+		Transform.LocalPosition = Vector3.Zero;
 		base.Update();
 	}
 }

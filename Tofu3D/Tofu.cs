@@ -9,7 +9,7 @@ public class Tofu
 {
 	// AssetSerializer _assetSerializer;
 	public TweenManager TweenManager;
-	public SceneViewNavigation SceneViewNavigation;
+	public SceneViewController SceneViewController;
 	public Editor Editor;
 	public Window Window;
 
@@ -38,7 +38,7 @@ public class Tofu
 
 		// _assetSerializer = new AssetSerializer();
 		TweenManager = new TweenManager();
-		SceneViewNavigation = new SceneViewNavigation();
+		SceneViewController = new SceneViewController();
 
 
 		SceneManager.LoadLastOpenedScene();
@@ -48,13 +48,17 @@ public class Tofu
 
 	void OnWindowUpdate(FrameEventArgs obj)
 	{
+		Debug.StartGraphTimer("Editor Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
+
 		Time.Update();
 		MouseInput.Update();
 		TweenManager.I.Update();
-		SceneViewNavigation.Update();
+		SceneViewController.Update();
 		ShaderCache.ReloadQueuedShaders();
 
 		SceneManager.CurrentScene.Update();
 		Editor.Update();
+		Debug.EndGraphTimer("Editor Update");
+
 	}
 }

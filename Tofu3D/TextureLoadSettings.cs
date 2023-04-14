@@ -1,8 +1,9 @@
-﻿namespace Tofu3D;
+﻿using Microsoft.DotNet.PlatformAbstractions;
+
+namespace Tofu3D;
 
 public class TextureLoadSettings : AssetLoadSettings<Texture>
 {
-
 	public static TextureLoadSettings DefaultSettingsTexture2D = new TextureLoadSettings(path: string.Empty,
 	                                                                                     // paths: null,
 	                                                                                     flipX: false,
@@ -10,6 +11,14 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 	                                                                                     wrapMode: TextureWrapMode.Repeat,
 	                                                                                     textureType: TextureType.Texture2D,
 	                                                                                     canSetDefaultSettings: false);
+
+	public static TextureLoadSettings DefaultSettingsSpritePixelArt = new TextureLoadSettings(path: string.Empty,
+	                                                                                          // paths: null,
+	                                                                                          flipX: false,
+	                                                                                          filterMode: TextureFilterMode.Point,
+	                                                                                          wrapMode: TextureWrapMode.Repeat,
+	                                                                                          textureType: TextureType.Texture2D,
+	                                                                                          canSetDefaultSettings: false);
 
 	public static TextureLoadSettings DefaultSettingsCubemap = new TextureLoadSettings(path: string.Empty,
 	                                                                                   // paths: new[] {string.Empty},
@@ -111,5 +120,15 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 		}
 
 		return DefaultSettingsTexture2D;
+	}
+
+	public override int GetHashCode()
+	{
+		HashCodeCombiner hashCodeCombiner = HashCodeCombiner.Start();
+		hashCodeCombiner.Add(base.GetHashCode());
+		hashCodeCombiner.Add(FilterMode.GetHashCode());
+		hashCodeCombiner.Add(WrapMode.GetHashCode());
+		hashCodeCombiner.Add(FlipX.GetHashCode());
+		return hashCodeCombiner.CombinedHash;
 	}
 }

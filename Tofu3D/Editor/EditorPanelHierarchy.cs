@@ -27,6 +27,15 @@ public class EditorPanelHierarchy : EditorPanel
 
 	public override void Update()
 	{
+		if (ImGui.IsMouseDragging(ImGuiMouseButton.Left) && IsPanelHovered)
+		{
+			_currentSpaceHeight = 5;
+		}
+		else
+		{
+			_currentSpaceHeight = 0;
+		}
+
 		if (KeyboardInput.IsKeyDown(Keys.Delete) && _canDelete)
 		{
 			_canDelete = false;
@@ -191,14 +200,17 @@ public class EditorPanelHierarchy : EditorPanel
 			}
 		}
 
+
 		for (int goIndex = 0; goIndex < SceneManager.CurrentScene.GameObjects.Count; goIndex++)
 		{
 			//PushNextId();
 			DrawGameObjectRow(goIndex);
 		}
 
-		ImGui.End();
+		EndWindow();
 	}
+
+	float _currentSpaceHeight = 0;
 
 	void DrawGameObjectRow(int goIndex, bool isChild = false)
 	{
@@ -217,6 +229,11 @@ public class EditorPanelHierarchy : EditorPanel
 		if (currentGameObject.Silent && Global.Debug == false)
 		{
 			return;
+		}
+
+		if (goIndex == 0)
+		{
+			DrawSpaceBetween(currentGameObject, after: false);
 		}
 
 		//bool hasAnyChildren = false;
@@ -242,10 +259,14 @@ public class EditorPanelHierarchy : EditorPanel
 		flags |= ImGuiTreeNodeFlags.OpenOnDoubleClick;
 		bool opened = ImGui.TreeNodeEx(rowText, flags);
 
+		if (ImGui.IsItemClicked(ImGuiMouseButton.Right))
+		{
+			currentGameObject.ActiveSelf = !currentGameObject.ActiveSelf;
+		}
 
 		if (ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left) && false) // todo remove false
 		{
-			SceneViewNavigation.I.MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
+			SceneViewController.I.MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
 		}
 
 
@@ -337,16 +358,42 @@ public class EditorPanelHierarchy : EditorPanel
 
 			ImGui.TreePop();
 		}
+
+		DrawSpaceBetween(currentGameObject, after: true);
+	}
+
+	private void DrawSpaceBetween(GameObject currentGameObject, bool after = true)
+	{
+		float width = 0;
+		if (Mathf.Distance(ImGui.GetCursorPosY(), ImGui.GetMousePos().Y) < 50 && ImGui.GetCursorPosY() - ImGui.GetMousePos().Y < 50)
+		{
+			width = _currentSpaceHeight;
+		}
+
+		ImGui.Dummy(new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, width));
+		if (ImGui.BeginDragDropTarget())
+		{
+			ImGui.PushStyleColor(ImGuiCol.DragDropTarget, Color.MediumPurple.ToVector4());
+
+			ImGui.AcceptDragDropPayload("GAMEOBJECT", ImGuiDragDropFlags.None);
+
+			string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+			if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+			{
+				GameObject droppedGameObject = SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
+				SceneManager.CurrentScene.GameObjects.RemoveAt(droppedGameObject.IndexInHierarchy);
+				SceneManager.CurrentScene.GameObjects.Insert(currentGameObject.IndexInHierarchy + (after ? 1 : 0), droppedGameObject);
+
+				droppedGameObject.Transform.SetParent(currentGameObject.Transform.Parent);
+			}
+
+			ImGui.EndDragDropTarget();
+			ImGui.PopStyleColor();
+		}
 	}
 
 	private void SetParent(Transform child, Transform parent)
 	{
 		child.Transform.SetParent(parent);
 	}
-}
-
-enum MoveDirection
-{
-	Up,
-	Down
 }

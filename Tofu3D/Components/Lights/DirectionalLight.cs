@@ -6,6 +6,7 @@ public class DirectionalLight : LightBase
 	public static DirectionalLight I { get; private set; }
 	[Show]
 	public float Speed = 100;
+	public bool Rotate = false;
 	public int RefreshRate = 60;
 
 	public float NearPlaneDistance = 0.0001f;
@@ -22,6 +23,7 @@ public class DirectionalLight : LightBase
 	float _cameraBeforeTransformationNearPlaneDistance;
 	float _cameraBeforeTransformationFarPlaneDistance;
 	bool _cameraBeforeTransformationIsOrthographic;
+	float _cameraBeforeTransformationOrthographicSize;
 
 	float _initialRotationY;
 
@@ -44,7 +46,11 @@ public class DirectionalLight : LightBase
 
 	public override void Update()
 	{
-		// Transform.Rotation = Transform.Rotation.Set(y: _initialRotationY + (float) Math.Cos(Time.EditorElapsedTime*Speed)*5);
+		if (Rotate)
+		{
+			Transform.Rotation = Transform.Rotation.Set(y: _initialRotationY + (float) Math.Cos(Time.EditorElapsedTime * Speed) * 5);
+		}
+
 		base.Update();
 	}
 
@@ -60,7 +66,7 @@ public class DirectionalLight : LightBase
 
 		ConfigureForShadowMapping();
 
-		SceneManager.CurrentScene.RenderScene();
+		SceneManager.CurrentScene.RenderWorld();
 
 		ConfigureForSceneRender();
 	}
@@ -78,6 +84,7 @@ public class DirectionalLight : LightBase
 		_cameraBeforeTransformationWorldPosition = Camera.I.Transform.WorldPosition;
 		_cameraBeforeTransformationRotation = Camera.I.Transform.Rotation;
 		_cameraBeforeTransformationIsOrthographic = Camera.I.IsOrthographic;
+		_cameraBeforeTransformationOrthographicSize = Camera.I.OrthographicSize;
 		_cameraBeforeTransformationSize = Camera.I.Size;
 		_cameraBeforeTransformationNearPlaneDistance = Camera.I.NearPlaneDistance;
 		_cameraBeforeTransformationFarPlaneDistance = Camera.I.FarPlaneDistance;
@@ -97,6 +104,7 @@ public class DirectionalLight : LightBase
 	private void ConfigureForSceneRender()
 	{
 		Camera.I.IsOrthographic = _cameraBeforeTransformationIsOrthographic;
+		Camera.I.OrthographicSize = _cameraBeforeTransformationOrthographicSize;
 		Camera.I.Size = _cameraBeforeTransformationSize;
 		Camera.I.NearPlaneDistance = _cameraBeforeTransformationNearPlaneDistance;
 		Camera.I.FarPlaneDistance = _cameraBeforeTransformationFarPlaneDistance;

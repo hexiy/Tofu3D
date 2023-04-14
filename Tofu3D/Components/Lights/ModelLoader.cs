@@ -9,7 +9,7 @@ public class ModelLoader : AssetLoader<Model>
 		GL.DeleteTexture(asset.AssetHandle.Id);
 	}
 
-	public override Asset<Model> LoadAsset(IAssetLoadSettings assetLoadSettings)
+	public override Asset<Model> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
 	{
 		ModelLoadSettings loadSettings = assetLoadSettings as ModelLoadSettings;
 
@@ -73,8 +73,9 @@ public class ModelLoader : AssetLoader<Model>
 			}
 		}
 
-		Model model = new Model() {Vertices = everything.ToArray()};
-		BufferFactory.CreateModelBuffers(model);
+		Model model = new Model();
+		model.VertexBufferDataLength = everything.Count;
+		BufferFactory.CreateModelBuffers(vao: ref model.Vao, vertexBufferData: everything.ToArray());
 		model.InitAssetHandle(model.Vao);
 		model.AssetPath = loadSettings.Path;
 

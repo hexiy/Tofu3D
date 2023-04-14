@@ -13,6 +13,8 @@ public class EditorPanel
 
 	internal bool Active = true;
 
+	internal bool IsPanelHovered;
+
 	int _currentId;
 	public int WindowWidth;
 
@@ -53,5 +55,12 @@ public class EditorPanel
 		ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);
 		ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
 		ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | AdditionalWindowFlags);
+	}
+
+	public void EndWindow()
+	{
+		IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
+
+		ImGui.End();
 	}
 }

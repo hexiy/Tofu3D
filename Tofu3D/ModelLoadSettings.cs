@@ -1,4 +1,8 @@
-﻿namespace Tofu3D;
+﻿using System.Drawing.Drawing2D;
+using Microsoft.DotNet.PlatformAbstractions;
+using OpenTK.Compute.OpenCL;
+
+namespace Tofu3D;
 
 public class ModelLoadSettings : AssetLoadSettings<Model>
 {
@@ -16,5 +20,12 @@ public class ModelLoadSettings : AssetLoadSettings<Model>
 	{
 		ModelLoadSettings defaultSettings = DefaultSettingsModel; // not possible if this isnt a struct
 		this.Path = defaultSettings.Path;
+	}
+
+	public override int GetHashCode()
+	{
+		HashCodeCombiner hashCodeCombiner = HashCodeCombiner.Start();
+		hashCodeCombiner.Add(base.GetHashCode());
+		return hashCodeCombiner.CombinedHash;
 	}
 }

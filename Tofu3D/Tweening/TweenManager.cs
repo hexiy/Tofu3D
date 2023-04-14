@@ -27,13 +27,13 @@ public class TweenManager
 				ActiveTweens[i].Delay = -ActiveTweens[i].Delay;
 			}
 
-			ActiveTweens[i].CurrentTime += Time.EditorDeltaTime / ActiveTweens[i].Duration;
+			ActiveTweens[i].CurrentTime += (Time.EditorDeltaTime / ActiveTweens[i].Duration)*2;
 			bool isCompleted = ActiveTweens[i].CurrentTime > ActiveTweens[i].Duration;
 
 			//activeTweens[i].currentTime = Mathf.Clamp(activeTweens[i].currentTime, -Math.Abs(activeTweens[i].delay), activeTweens[i].duration);
 			if (ActiveTweens[i].CurrentTime >= 0)
 			{
-				ActiveTweens[i].OnUpdate.Invoke(ActiveTweens[i].GetValue());
+				ActiveTweens[i].OnUpdate?.Invoke(ActiveTweens[i].GetValue());
 			}
 
 			if (isCompleted)

@@ -78,18 +78,30 @@ public class TextRenderer : SpriteRenderer
 		SetDefaultTexture(Path.Combine(Folders.Textures, "sdf.png"));
 		Text = GetComponent<Text>();
 		BoxShape = GetComponent<BoxShape>();
+
+
+		if (Texture == null)
+		{
+			Texture = new Texture();
+		}
+		else
+		{
+			// TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
+			TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
+			Texture = AssetManager.Load<Texture>(Texture.AssetPath, textureLoadSettings);
+		}
+
 		base.Awake();
 	}
 
 	public override void SetDefaultMaterial()
 	{
-		if (Material == null)
+		if (Material?.FileName == null)
 		{
 			Material = MaterialCache.GetMaterial("TextRenderer");
 		}
 
 		Material.Additive = false;
-		base.SetDefaultMaterial();
 	}
 
 	public override void OnNewComponentAdded(Component comp)
@@ -114,6 +126,8 @@ public class TextRenderer : SpriteRenderer
 		Texture = AssetManager.Load<Texture>(texturePath);
 	}
 
+
+
 	public override void Render()
 	{
 		if (OnScreen == false || BoxShape == null || Texture.Loaded == false || Text == null)
@@ -125,7 +139,16 @@ public class TextRenderer : SpriteRenderer
 
 		ShaderCache.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
-		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+
+		if (IsInCanvas)
+		{
+			Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrixForCanvasObject()); // * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
+		}
+		else
+		{
+			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+		}
+
 		Material.Shader.SetColor("u_color", Color.ToVector4());
 		Material.Shader.SetVector2("u_scale", BoxShape.Size / Units.OneWorldUnit);
 		Material.Shader.SetVector2("zoomAmount", _spritesCount * 2);
@@ -145,8 +168,9 @@ public class TextRenderer : SpriteRenderer
 
 		int symbolInLineIndex = 0;
 		int line = 0;
-		float lineSpacing = Text.Size * 3 + Transform.WorldScale.Y * Text.Size;
+		float lineSpacing = Text.Size/4;
 
+		
 		Vector2 originalScale = Transform.LocalScale;
 		Vector2 fontSizeScale = Vector3.One * Mathf.Clamp(Text.Size / 40f, 0, 1000);
 		Transform.LocalScale = originalScale * fontSizeScale;
@@ -158,19 +182,29 @@ public class TextRenderer : SpriteRenderer
 		     symbolIndex++,
 		     symbolInLineIndex++)
 		{
-			Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex - textWidth * Transform.Pivot.X,
-			                                      originalPosition.Y - line * lineSpacing, Transform.WorldPosition.Z);
+			Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex - charSpacing * Transform.Pivot.X,
+			                                      originalPosition.Y + line * lineSpacing, Transform.WorldPosition.Z);
 
-			if (GetComponent<TextReactToMouse>() != null && Global.GameRunning)
-			{
-				Transform.WorldPosition = Transform.WorldPosition + new Vector2(0, (float) MathHelper.Sin(Time.ElapsedTime + symbolIndex * 0.1f) * 1);
-
-				float distanceToCursor = Vector2.Distance(Transform.WorldPosition, MouseInput.WorldPosition);
-				Transform.WorldScale = originalScale * fontSizeScale * Mathf.Clamp((0.2f / distanceToCursor + 1f), 1, 1.3f);
-			}
+			// if (GetComponent<TextReactToMouse>() != null)
+			// {
+			// 	Transform.WorldPosition = Transform.WorldPosition + new Vector2(0, (float) MathHelper.Sin(Time.EditorElapsedTime + symbolIndex * 0.1f) * 1);
+			//
+			// 	float distanceToCursor = Vector2.Distance(Transform.WorldPosition, MouseInput.WorldPosition);
+			// 	Transform.WorldScale = originalScale * fontSizeScale * Mathf.Clamp((0.2f / distanceToCursor + 1f), 1, 1.3f);
+			// 	Debug.StatSetValue("MouseWOrldPos:", $"MouseWorldPos:{MouseInput.WorldPosition}");
+			// }
 
 			UpdateMvp();
-			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+			// Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+			if (IsInCanvas)
+			{
+				// Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrix() * Matrix4x4.CreateScale(1f/Units.OneWorldUnit));
+				Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrixForCanvasObject()); // * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
+			}
+			else
+			{
+				Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+			}
 
 			char ch = Text.Value[symbolIndex].ToString().ToUpper()[0];
 			if (ch == '\n')
@@ -206,6 +240,10 @@ public class TextRenderer : SpriteRenderer
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
 
+			// GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusConstantColor);
+			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
+			GL.ActiveTexture(TextureUnit.Texture0);
 			TextureCache.BindTexture(Texture.TextureId);
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);

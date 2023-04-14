@@ -170,6 +170,7 @@ public class Camera : Component
 			         - Size * OrthographicSize / 2;
 
 			worldPos = worldPos / Units.OneWorldUnit;
+			worldPos = worldPos + Transform.WorldPosition;
 		}
 
 		else
