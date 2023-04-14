@@ -38,15 +38,20 @@ vec4 texColor = texture(textureObject, vec2(uv.x + offset.x / u_resolution.x, - 
 texColor.a = (texColor.r * texColor.g * texColor.b) + 0.3;
 
 texColor.a = pow(texColor.a, 50); // make the brights brighter and darks darker
-
+if (texColor.a < 1){
+discard;
+}
+texColor.r = 1;
+texColor.g =1;
+texColor.b = 1;
 //if (texColor.a > 1){
 //texColor.a = 1;
 //}
 
-if (texColor.a < 1){
-discard;
-}
-else{
+//if (texColor.a < 1){
+//discard;
+//}
+//else{
 
 //texColor.a = pow(texColor.a,14); // make the brights brighter and darks darker
 
@@ -64,4 +69,4 @@ else
 color = vec4(1, 1, 1, texColor.a) * u_color;
 }
 }
-}
+//}

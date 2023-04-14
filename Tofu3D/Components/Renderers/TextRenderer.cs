@@ -86,6 +86,7 @@ public class TextRenderer : SpriteRenderer
 		}
 		else
 		{
+			// TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
 			TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
 			Texture = AssetManager.Load<Texture>(Texture.AssetPath, textureLoadSettings);
 		}
@@ -184,14 +185,14 @@ public class TextRenderer : SpriteRenderer
 			Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex - charSpacing * Transform.Pivot.X,
 			                                      originalPosition.Y + line * lineSpacing, Transform.WorldPosition.Z);
 
-			if (GetComponent<TextReactToMouse>() != null)
-			{
-				Transform.WorldPosition = Transform.WorldPosition + new Vector2(0, (float) MathHelper.Sin(Time.EditorElapsedTime + symbolIndex * 0.1f) * 1);
-
-				float distanceToCursor = Vector2.Distance(Transform.WorldPosition, MouseInput.WorldPosition);
-				Transform.WorldScale = originalScale * fontSizeScale * Mathf.Clamp((0.2f / distanceToCursor + 1f), 1, 1.3f);
-				Debug.StatSetValue("MouseWOrldPos:", $"MouseWorldPos:{MouseInput.WorldPosition}");
-			}
+			// if (GetComponent<TextReactToMouse>() != null)
+			// {
+			// 	Transform.WorldPosition = Transform.WorldPosition + new Vector2(0, (float) MathHelper.Sin(Time.EditorElapsedTime + symbolIndex * 0.1f) * 1);
+			//
+			// 	float distanceToCursor = Vector2.Distance(Transform.WorldPosition, MouseInput.WorldPosition);
+			// 	Transform.WorldScale = originalScale * fontSizeScale * Mathf.Clamp((0.2f / distanceToCursor + 1f), 1, 1.3f);
+			// 	Debug.StatSetValue("MouseWOrldPos:", $"MouseWorldPos:{MouseInput.WorldPosition}");
+			// }
 
 			UpdateMvp();
 			// Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
@@ -239,6 +240,7 @@ public class TextRenderer : SpriteRenderer
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
 
+			// GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusConstantColor);
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 			GL.ActiveTexture(TextureUnit.Texture0);
