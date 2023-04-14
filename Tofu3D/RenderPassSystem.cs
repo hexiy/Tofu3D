@@ -46,6 +46,7 @@ public static class RenderPassSystem
 		RenderPassSkybox renderPassSkybox = new RenderPassSkybox();
 		RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();
 		RenderPassOpaques renderPassOpaques = new RenderPassOpaques();
+		RenderPassPostProcess renderPassPostProcess = new RenderPassPostProcess();
 		RenderPassUI renderPassUI = new RenderPassUI();
 		// RenderPassTransparency renderPassTransparency = new RenderPassTransparency();
 		// RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
@@ -97,7 +98,7 @@ public static class RenderPassSystem
 
 		foreach (RenderPass renderPass in _renderPasses)
 		{
-			renderPass.PassRenderTexture.Clear();
+			renderPass.Clear();
 		}
 
 		foreach (RenderPass renderPass in _renderPasses)

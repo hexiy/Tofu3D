@@ -21,6 +21,10 @@ public abstract class RenderPass : IComparable<RenderPass>
 	{
 	}
 
+	public virtual void Clear()
+	{
+		PassRenderTexture.Clear();
+	}
 	public int CompareTo(RenderPass comparePart)
 	{
 		if (comparePart == null)
@@ -57,7 +61,7 @@ public abstract class RenderPass : IComparable<RenderPass>
 		PostRender();
 	}
 
-	public void RenderToFramebuffer(RenderTexture target, FramebufferAttachment attachment)
+	public virtual void RenderToFramebuffer(RenderTexture target, FramebufferAttachment attachment)
 	{
 		if (PassRenderTexture == null)
 		{

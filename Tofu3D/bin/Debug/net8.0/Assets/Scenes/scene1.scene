@@ -583,7 +583,7 @@
       </WorldScale>
       <Rotation>
         <X>30.1</X>
-        <Y>148.43924</Y>
+        <Y>42.230984</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -2520,7 +2520,7 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\TextRenderer.glsl</Path>
         </Shader>
-        <Vao>107</Vao>
+        <Vao>14</Vao>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2915,6 +2915,9 @@
         <int>373</int>
         <int>419</int>
         <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -3012,7 +3015,7 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\TextRenderer.glsl</Path>
         </Shader>
-        <Vao>107</Vao>
+        <Vao>14</Vao>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -3192,5 +3195,5 @@ Xasd1230954</Value>
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>616</GameObjectNextId>
+  <GameObjectNextId>618</GameObjectNextId>
 </SceneFile>
