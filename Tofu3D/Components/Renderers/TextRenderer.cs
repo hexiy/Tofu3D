@@ -54,9 +54,10 @@ public class TextRenderer : SpriteRenderer
 
 	public bool IsGradient = false;
 
-	Vector2 _spritesCount = new(8, 8);
+	Vector2 _spritesCount = new(16, 8);
 	[Hide]
 	public Vector2 SpriteSize;
+	public float CharSpacing = 0;
 	// //[LinkableComponent]
 	public Text Text;
 	public Vector2 SpritesCount
@@ -75,7 +76,7 @@ public class TextRenderer : SpriteRenderer
 	public override void Awake()
 	{
 		SpritesCount = SpritesCount;
-		SetDefaultTexture(Path.Combine(Folders.Textures, "sdf.png"));
+		SetDefaultTexture(Path.Combine(Folders.Textures, "font.png"));
 		Text = GetComponent<Text>();
 		BoxShape = GetComponent<BoxShape>();
 
@@ -86,8 +87,8 @@ public class TextRenderer : SpriteRenderer
 		}
 		else
 		{
+			TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsTexture2D;
 			// TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
-			TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
 			Texture = AssetManager.Load<Texture>(Texture.AssetPath, textureLoadSettings);
 		}
 
@@ -126,8 +127,6 @@ public class TextRenderer : SpriteRenderer
 		Texture = AssetManager.Load<Texture>(texturePath);
 	}
 
-
-
 	public override void Render()
 	{
 		if (OnScreen == false || BoxShape == null || Texture.Loaded == false || Text == null)
@@ -162,15 +161,14 @@ public class TextRenderer : SpriteRenderer
 		BoxShape.Size = Vector3.One * 1.2f; // bigger individual characters
 
 
-		float charSpacing = Transform.WorldScale.X * Text.Size * BoxShape.Size.X + Text.Size * Transform.WorldScale.X;
-		charSpacing = charSpacing / Units.OneWorldUnit;
-		Vector2 originalPosition = Transform.WorldPosition;
+		float charSpacing = CharSpacing;
+		Vector3 originalPosition = Transform.WorldPosition;
 
 		int symbolInLineIndex = 0;
 		int line = 0;
-		float lineSpacing = Text.Size/4;
+		float lineSpacing = Text.Size / 4;
 
-		
+
 		Vector2 originalScale = Transform.LocalScale;
 		Vector2 fontSizeScale = Vector3.One * Mathf.Clamp(Text.Size / 40f, 0, 1000);
 		Transform.LocalScale = originalScale * fontSizeScale;
@@ -239,9 +237,9 @@ public class TextRenderer : SpriteRenderer
 			{
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
-
+// GL.Disable(EnableCap.Blend);
 			// GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusConstantColor);
-			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+			GL.BlendFunc(BlendingFactor.One, BlendingFactor.OneMinusSrcAlpha);
 
 			GL.ActiveTexture(TextureUnit.Texture0);
 			TextureCache.BindTexture(Texture.TextureId);

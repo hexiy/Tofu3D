@@ -41,8 +41,11 @@ texColor.a = pow(texColor.a, 50); // make the brights brighter and darks darker
 if (texColor.a < 1){
 discard;
 }
+        if(texColor.a>1){
+        texColor.a = 1;
+}
 texColor.r = 1;
-texColor.g =1;
+texColor.g = 1;
 texColor.b = 1;
 //if (texColor.a > 1){
 //texColor.a = 1;
