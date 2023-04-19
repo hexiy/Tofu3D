@@ -40,7 +40,7 @@ public class RenderPassPostProcess : RenderPass
 		// 	target.RenderColorAttachment(PassRenderTexture.ColorAttachment);
 		// }
 
-		Material postProcessMaterial = MaterialCache.GetMaterial("PostProcess");
+		Material postProcessMaterial = AssetManager.Load<Material>("PostProcess");
 		ShaderCache.UseShader(postProcessMaterial.Shader);
 		postProcessMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
 		postProcessMaterial.Shader.SetFloat("u_time", Time.EditorElapsedTime);
@@ -50,7 +50,7 @@ public class RenderPassPostProcess : RenderPass
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 		GL.ActiveTexture(TextureUnit.Texture0);
-		TextureCache.BindTexture(target.ColorAttachment);
+		TextureHelper.BindTexture(target.ColorAttachment);
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

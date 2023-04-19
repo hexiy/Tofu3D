@@ -24,16 +24,20 @@ public class ModelRenderer : TextureRenderer
 
 	public override void SetDefaultMaterial()
 	{
-		if (Material?.FileName == null)
+		if (Material?.AssetPath.Length == 0)
 		{
-			Material = MaterialCache.GetMaterial("ModelRenderer");
+			Material = AssetManager.Load<Material>("ModelRenderer");
+		}
+		else
+		{
+			Material = AssetManager.Load<Material>(Material.AssetPath);
 		}
 
 		if (Model)
 		{
 			Model = AssetManager.Load<Model>(Model.AssetPath);
 		}
-		// Material = MaterialCache.GetMaterial("ModelRenderer");
+		// Material = AssetManager.Load<Material>("ModelRenderer");
 
 		// base.CreateMaterial();
 	}
@@ -51,15 +55,15 @@ public class ModelRenderer : TextureRenderer
 			return;
 		}
 
-		if (RenderMode == RenderMode.Opaque && Material != MaterialCache.ModelRendererMaterial)
-		{
-			Material = MaterialCache.GetMaterial("ModelRenderer");
-		}
-
-		if (RenderMode == RenderMode.Transparent && Material != MaterialCache.ModelRendererUnlitMaterial)
-		{
-			Material = MaterialCache.GetMaterial("ModelRendererUnlit");
-		}
+		// if (RenderMode == RenderMode.Opaque && Material.RenderMode != RenderMode)
+		// {
+		// 	Material = AssetManager.Load<Material>("ModelRenderer");
+		// }
+		//
+		// if (RenderMode == RenderMode.Transparent && Material.RenderMode != RenderMode)
+		// {
+		// 	Material = AssetManager.Load<Material>("ModelRendererUnlit");
+		// }
 
 		base.Update();
 	}
@@ -97,7 +101,7 @@ public class ModelRenderer : TextureRenderer
 		if (drawOutline)
 		{
 			{
-				Material material = MaterialCache.GetMaterial("ModelUnlit");
+				Material material = AssetManager.Load<Material>("ModelUnlit");
 				ShaderCache.UseShader(material.Shader);
 
 				material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
@@ -131,7 +135,7 @@ public class ModelRenderer : TextureRenderer
 		//GL.Enable(EnableCap.DepthTest);
 		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth)
 		{
-			Material depthMaterial = MaterialCache.GetMaterial("DepthModel");
+			Material depthMaterial = AssetManager.Load<Material>("DepthModel");
 			ShaderCache.UseShader(depthMaterial.Shader);
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 		}
@@ -163,11 +167,11 @@ public class ModelRenderer : TextureRenderer
 
 
 				GL.ActiveTexture(TextureUnit.Texture0);
-				TextureCache.BindTexture(Texture.TextureId);
+				TextureHelper.BindTexture(Texture.TextureId);
 				if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
 				{
 					GL.ActiveTexture(TextureUnit.Texture1);
-					TextureCache.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
+					TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 				}
 			}
 		}
@@ -195,7 +199,7 @@ public class ModelRenderer : TextureRenderer
 				GL.Enable(EnableCap.DepthTest);
 			}
 
-			Material mousePickingMaterial = MaterialCache.GetMaterial("ModelMousePicking");
+			Material mousePickingMaterial = AssetManager.Load<Material>("ModelMousePicking");
 			ShaderCache.UseShader(mousePickingMaterial.Shader);
 
 			mousePickingMaterial.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);

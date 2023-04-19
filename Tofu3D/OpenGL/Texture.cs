@@ -5,7 +5,7 @@ public class Texture : Asset<Texture>
 {
 	public int TextureId
 	{
-		get { return AssetHandle.Id; }
+		get { return AssetRuntimeHandle.Id; }
 	}
 	public bool Loaded;
 	public Vector2 Size;
@@ -16,6 +16,11 @@ public class Texture : Asset<Texture>
 	public void Delete()
 	{
 		AssetManager.Unload(this);
+	}
 
+	public void BindTexture()
+	{
+		TextureTarget textureTarget = LoadSettings.Type == TextureType.Texture2D ? TextureTarget.Texture2D : TextureTarget.TextureCubeMap;
+		GL.BindTexture(textureTarget, TextureId);
 	}
 }

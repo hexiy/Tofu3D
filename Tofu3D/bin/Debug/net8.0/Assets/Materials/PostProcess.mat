@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <AssetPath />
+  <AssetPath>Assets/Materials/PostProcess.mat</AssetPath>
   <Additive>false</Additive>
   <Shader>
     <BufferType>Rendertexture</BufferType>
-    <Path>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Shaders\RenderTexturePostProcess.glsl</Path>
+    <Path>Assets\Shaders\RenderTexturePostProcess.glsl</Path>
   </Shader>
-  <Vao>0</Vao>
+  <Vao>20</Vao>
+  <RenderMode>Opaque</RenderMode>
 </Material>

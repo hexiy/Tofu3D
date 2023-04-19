@@ -4,7 +4,7 @@ namespace Tofu3D;
 
 public static class MaterialAssetManager
 {
-	public static void CreateDefaultMaterials()
+	/*public static void CreateDefaultMaterials()
 	{
 		{
 			Material boxMaterial = new();
@@ -42,9 +42,9 @@ public static class MaterialAssetManager
 				xmlSerializer.Serialize(sw, renderTextureMaterial);
 			}
 		}
-	}
+	}*/
 
-	public static Material LoadMaterial(string materialPath)
+	/*public static Material LoadMaterial(string materialPath)
 	{
 		using (StreamReader sr = new(materialPath))
 		{
@@ -70,5 +70,5 @@ public static class MaterialAssetManager
 
 			xmlSerializer.Serialize(sw, material);
 		}
-	}
+	}*/
 }

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <AssetPath />
+  <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
   <Additive>false</Additive>
   <Shader>
-    <BufferType>Rendertexture</BufferType>
-    <Path>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Shaders\SpriteRenderer.glsl</Path>
+    <BufferType>Sprite</BufferType>
+    <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
   </Shader>
-  <Vao>17</Vao>
+  <Vao>16</Vao>
+  <RenderMode>Opaque</RenderMode>
 </Material>

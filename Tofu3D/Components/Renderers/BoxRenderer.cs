@@ -11,7 +11,8 @@ public class BoxRenderer : Renderer
 	{
 		if (Material == null)
 		{
-			Material = MaterialCache.GetMaterial("BoxMaterial");
+			
+			Material = AssetManager.Load<Material>("BoxMaterial");
 		}
 
 		base.SetDefaultMaterial();

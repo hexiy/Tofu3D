@@ -7,9 +7,14 @@ namespace Tofu3D;
 
 public class TextureLoader : AssetLoader<Texture>
 {
+	public override void SaveAsset(Texture asset, AssetLoadSettingsBase loadSettings)
+	{
+		throw new NotImplementedException();
+	}
+
 	public override void UnloadAsset(Asset<Texture> asset)
 	{
-		GL.DeleteTexture(asset.AssetHandle.Id);
+		GL.DeleteTexture(asset.AssetRuntimeHandle.Id);
 	}
 
 	public override Asset<Texture> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
@@ -36,7 +41,7 @@ public class TextureLoader : AssetLoader<Texture>
 		}
 
 
-		TextureCache.BindTexture(id, loadSettings.Type);
+		TextureHelper.BindTexture(id, loadSettings.Type);
 
 		// byte[][] pixelsCollection = new byte[loadSettings.Paths?.Length > 1 ? loadSettings.Paths.Length : 1][];
 
@@ -84,7 +89,7 @@ public class TextureLoader : AssetLoader<Texture>
 			                  LoadSettings = loadSettings
 			                  // Paths = loadSettings.Paths
 		                  };
-		texture.InitAssetHandle(id);
+		texture.InitAssetRuntimeHandle(id);
 
 		return texture;
 	}

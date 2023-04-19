@@ -62,7 +62,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>false</ActiveSelf>
+      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -107,7 +107,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -212,7 +212,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>false</ActiveSelf>
+      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -231,7 +231,7 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>312</Id>
+      <Id>313</Id>
       <IndexInHierarchy>15</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>GameObject</Name>
@@ -242,14 +242,14 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>false</ActiveSelf>
+      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>313</Id>
+      <Id>312</Id>
       <IndexInHierarchy>16</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>GameObject</Name>
+      <Name>Clear border plane</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -257,7 +257,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -272,7 +272,7 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -326,7 +326,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Text</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -406,6 +406,21 @@
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
+    <GameObject>
+      <ActiveSelf>true</ActiveSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>676</Id>
+      <IndexInHierarchy>27</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Text</Name>
+      <PrefabPath />
+      <Selected>true</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
   </GameObjects>
   <Components>
     <Component xsi:type="Transform">
@@ -458,15 +473,16 @@
         <A>255</A>
         <PackedValue>4278190335</PackedValue>
       </Color>
-      <DistanceFromCamera>65.04185</DistanceFromCamera>
+      <DistanceFromCamera>74.53656</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>5</Vao>
+        <Vao>3</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>5555555</Layer>
@@ -517,14 +533,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>63.535267</X>
-        <Y>-13.918048</Y>
-        <Z>-3.8170862</Z>
+        <X>43.29477</X>
+        <Y>-60.6734</Y>
+        <Z>-29.171043</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>63.535267</X>
-        <Y>-13.918048</Y>
-        <Z>-3.8170862</Z>
+        <X>43.29477</X>
+        <Y>-60.6734</Y>
+        <Z>-29.171043</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -537,8 +553,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-10.323492</X>
-        <Y>29.302942</Y>
+        <X>-57.931587</X>
+        <Y>-26.18994</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -598,7 +614,7 @@
       </WorldScale>
       <Rotation>
         <X>30.1</X>
-        <Y>109.39816</Y>
+        <Y>133.51411</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -630,15 +646,16 @@
         <A>202</A>
         <PackedValue>3402825472</PackedValue>
       </Color>
-      <DistanceFromCamera>86.15471</DistanceFromCamera>
+      <DistanceFromCamera>122.53266</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRendererUnlit.glsl</Path>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
         <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
@@ -660,7 +677,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cone.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>5</Vao>
         <VertexBufferDataLength>1488</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -851,15 +868,16 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>69.16932</DistanceFromCamera>
+      <DistanceFromCamera>46.753056</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -881,7 +899,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube2.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -954,13 +972,14 @@
       </Color>
       <DistanceFromCamera>67.975365</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -982,7 +1001,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube2.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>false</CastShadow>
@@ -1053,15 +1072,16 @@
         <A>195</A>
         <PackedValue>3288334335</PackedValue>
       </Color>
-      <DistanceFromCamera>27.271008</DistanceFromCamera>
+      <DistanceFromCamera>60.962753</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRendererUnlit.glsl</Path>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
         <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
@@ -1149,15 +1169,16 @@
         <A>255</A>
         <PackedValue>4294936991</PackedValue>
       </Color>
-      <DistanceFromCamera>30.839163</DistanceFromCamera>
+      <DistanceFromCamera>79.5771</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -1179,7 +1200,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\thinmatrixcube.obj</AssetPath>
-        <Vao>10</Vao>
+        <Vao>9</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1250,15 +1271,16 @@
         <A>131</A>
         <PackedValue>2198670836</PackedValue>
       </Color>
-      <DistanceFromCamera>43.816338</DistanceFromCamera>
+      <DistanceFromCamera>109.93227</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
@@ -1346,15 +1368,16 @@
         <A>255</A>
         <PackedValue>4278242047</PackedValue>
       </Color>
-      <DistanceFromCamera>20.34369</DistanceFromCamera>
+      <DistanceFromCamera>70.565125</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -1376,7 +1399,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cone.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>5</Vao>
         <VertexBufferDataLength>1488</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1447,15 +1470,16 @@
         <A>255</A>
         <PackedValue>4292857492</PackedValue>
       </Color>
-      <DistanceFromCamera>46.91521</DistanceFromCamera>
+      <DistanceFromCamera>69.835495</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -1477,7 +1501,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\torus.obj</AssetPath>
-        <Vao>11</Vao>
+        <Vao>10</Vao>
         <VertexBufferDataLength>27648</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1548,15 +1572,16 @@
         <A>255</A>
         <PackedValue>4282218239</PackedValue>
       </Color>
-      <DistanceFromCamera>76.88836</DistanceFromCamera>
+      <DistanceFromCamera>112.93634</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -1578,7 +1603,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>12</Vao>
+        <Vao>11</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1649,15 +1674,16 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>54.007977</DistanceFromCamera>
+      <DistanceFromCamera>20.216965</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -1679,7 +1705,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>12</Vao>
         <VertexBufferDataLength>48</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1734,15 +1760,16 @@
         <A>194</A>
         <PackedValue>3271557119</PackedValue>
       </Color>
-      <DistanceFromCamera>66.21868</DistanceFromCamera>
+      <DistanceFromCamera>95.983986</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
@@ -1764,7 +1791,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>12</Vao>
         <VertexBufferDataLength>48</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1773,107 +1800,6 @@
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
       <GameObjectId>309</GameObjectId>
-      <Started>true</Started>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>20</X>
-        <Y>20</Y>
-        <Z>20</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>312</GameObjectId>
-      <Started>true</Started>
-      <ChildrenIDs />
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>24.317</X>
-        <Y>25</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>24.317</X>
-        <Y>25</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>50</X>
-        <Y>50</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="ModelRenderer">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>312</GameObjectId>
-      <Started>true</Started>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>213</A>
-        <PackedValue>3590324223</PackedValue>
-      </Color>
-      <DistanceFromCamera>55.251125</DistanceFromCamera>
-      <Material>
-        <AssetPath />
-        <Additive>false</Additive>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRendererUnlit.glsl</Path>
-        </Shader>
-        <Vao>4</Vao>
-      </Material>
-      <RenderMode>Transparent</RenderMode>
-      <Layer>0</Layer>
-      <Texture>
-        <AssetPath>Assets\2D\grid.png</AssetPath>
-        <Loaded>true</Loaded>
-        <Size>
-          <X>100</X>
-          <Y>100</Y>
-        </Size>
-      </Texture>
-      <Tiling>
-        <X>1</X>
-        <Y>1</Y>
-      </Tiling>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-      </Offset>
-      <Model>
-        <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>13</Vao>
-        <VertexBufferDataLength>48</VertexBufferDataLength>
-      </Model>
-      <CastShadow>true</CastShadow>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>312</GameObjectId>
       <Started>true</Started>
       <Offset>
         <X>0</X>
@@ -1899,14 +1825,14 @@
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>-3.783</X>
-        <Y>25</Y>
-        <Z>-27</Z>
+        <X>-20.1</X>
+        <Y>26</Y>
+        <Z>-11.9</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-3.783</X>
-        <Y>25</Y>
-        <Z>-27</Z>
+        <X>-20.1</X>
+        <Y>26</Y>
+        <Z>-11.9</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -1936,15 +1862,16 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>83.84686</DistanceFromCamera>
+      <DistanceFromCamera>107.38331</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -1966,7 +1893,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>12</Vao>
         <VertexBufferDataLength>48</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1975,6 +1902,168 @@
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
       <GameObjectId>313</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>20</X>
+        <Y>20</Y>
+        <Z>20</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>312</GameObjectId>
+      <Started>true</Started>
+      <ChildrenIDs>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+      </ChildrenIDs>
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>24.317</X>
+        <Y>25</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>24.317</X>
+        <Y>25</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>13.9</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>312</GameObjectId>
+      <Started>true</Started>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>213</A>
+        <PackedValue>3590324223</PackedValue>
+      </Color>
+      <DistanceFromCamera>87.750145</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
+      </Material>
+      <RenderMode>Transparent</RenderMode>
+      <Layer>0</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\grid.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>100</X>
+          <Y>100</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>1</X>
+        <Y>1</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\plane.obj</AssetPath>
+        <Vao>12</Vao>
+        <VertexBufferDataLength>48</VertexBufferDataLength>
+      </Model>
+      <CastShadow>true</CastShadow>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>312</GameObjectId>
       <Started>true</Started>
       <Offset>
         <X>0</X>
@@ -2053,15 +2142,16 @@
         <A>131</A>
         <PackedValue>2198670836</PackedValue>
       </Color>
-      <DistanceFromCamera>15.993528</DistanceFromCamera>
+      <DistanceFromCamera>79.42823</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRendererUnlit.glsl</Path>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
         <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
@@ -2149,15 +2239,16 @@
         <A>131</A>
         <PackedValue>2198670836</PackedValue>
       </Color>
-      <DistanceFromCamera>48.184036</DistanceFromCamera>
+      <DistanceFromCamera>118.7636</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRendererUnlit.glsl</Path>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
         <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
@@ -2229,15 +2320,16 @@
         <A>137</A>
         <PackedValue>2315255807</PackedValue>
       </Color>
-      <DistanceFromCamera>74.49314</DistanceFromCamera>
+      <DistanceFromCamera>95.983986</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRendererUnlit.glsl</Path>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
         <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
@@ -2259,7 +2351,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>12</Vao>
         <VertexBufferDataLength>48</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -2330,15 +2422,16 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>86.133156</DistanceFromCamera>
+      <DistanceFromCamera>73.18671</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>4</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2360,7 +2453,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>12</Vao>
         <VertexBufferDataLength>48</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -2431,15 +2524,16 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>271.45804</DistanceFromCamera>
+      <DistanceFromCamera>313.67563</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/TextRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\TextRenderer.glsl</Path>
         </Shader>
-        <Vao>15</Vao>
+        <Vao>13</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2479,7 +2573,7 @@
         <X>7</X>
         <Y>9</Y>
       </SpriteSize>
-      <CharSpacing>93.7</CharSpacing>
+      <CharSpacing>4</CharSpacing>
       <Text>
         <AllowMultiple>true</AllowMultiple>
         <Enabled>true</Enabled>
@@ -2569,13 +2663,14 @@
       </Color>
       <DistanceFromCamera>506.10315</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>5</Vao>
+        <Vao>3</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2990,6 +3085,279 @@
         <int>419</int>
         <int>645</int>
         <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>313</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -3079,15 +3447,16 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>61.89019</DistanceFromCamera>
+      <DistanceFromCamera>87.1699</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/TextRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\TextRenderer.glsl</Path>
         </Shader>
-        <Vao>15</Vao>
+        <Vao>13</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -3127,7 +3496,7 @@
         <X>7</X>
         <Y>9</Y>
       </SpriteSize>
-      <CharSpacing>30</CharSpacing>
+      <CharSpacing>4</CharSpacing>
       <Text>
         <AllowMultiple>true</AllowMultiple>
         <Enabled>true</Enabled>
@@ -3224,6 +3593,7 @@
           <Path>Assets\Shaders\TextRenderer.glsl</Path>
         </Shader>
         <Vao>14</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -3353,13 +3723,14 @@
       </Color>
       <DistanceFromCamera>87.54756</DistanceFromCamera>
       <Material>
-        <AssetPath />
+        <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>5</Vao>
+        <Vao>3</Vao>
+        <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
@@ -3397,6 +3768,149 @@
         <Z>0</Z>
       </Size>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>676</GameObjectId>
+      <Started>true</Started>
+      <ChildrenIDs />
+      <ParentId>312</ParentId>
+      <Pivot>
+        <X>-4.8</X>
+        <Y>0.5</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>24.317</X>
+        <Y>25</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>0</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>0</Z>
+      </WorldScale>
+      <Rotation>
+        <X>-90</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="TextRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>676</GameObjectId>
+      <Started>true</Started>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>87.750145</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/TextRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Sprite</BufferType>
+          <Path>Assets\Shaders\TextRenderer.glsl</Path>
+        </Shader>
+        <Vao>13</Vao>
+        <RenderMode>Opaque</RenderMode>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>0</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\font.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>112</X>
+          <Y>72</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>1</X>
+        <Y>1</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Batched>false</Batched>
+      <GradientColor1>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </GradientColor1>
+      <GradientColor2>
+        <B>255</B>
+        <G>247</G>
+        <R>223</R>
+        <A>255</A>
+        <PackedValue>4294965215</PackedValue>
+      </GradientColor2>
+      <IsGradient>true</IsGradient>
+      <SpriteSize>
+        <X>7</X>
+        <Y>9</Y>
+      </SpriteSize>
+      <CharSpacing>4</CharSpacing>
+      <Text>
+        <AllowMultiple>true</AllowMultiple>
+        <Enabled>true</Enabled>
+        <GameObjectId>676</GameObjectId>
+        <Started>false</Started>
+        <Size>70</Size>
+        <Value>abasd
+asdaasd
+asdasda
+asasd</Value>
+      </Text>
+      <SpritesCount>
+        <X>16</X>
+        <Y>8</Y>
+      </SpritesCount>
+    </Component>
+    <Component xsi:type="Text">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>676</GameObjectId>
+      <Started>false</Started>
+      <Size>70</Size>
+      <Value>abasd
+asdaasd
+asdasda
+asasd</Value>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>676</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>1.2</X>
+        <Y>1.2</Y>
+        <Z>1.2</Z>
+      </Size>
+    </Component>
   </Components>
-  <GameObjectNextId>656</GameObjectNextId>
+  <GameObjectNextId>793</GameObjectNextId>
 </SceneFile>

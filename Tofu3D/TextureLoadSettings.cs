@@ -74,39 +74,6 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 		this.FlipX = defaultSettings.FlipX;
 	}
 
-	/*public TextureLoadSettings(string path,
-	                           TextureLoadSettings loadSettings)
-	{
-		this = loadSettings;
-		SetPath(path);
-	}
-
-	public TextureLoadSettings(string[] paths,
-	                           TextureLoadSettings loadSettings)
-	{
-		this = loadSettings;
-		SetPaths(paths);
-	}
-
-	public TextureLoadSettings(TextureLoadSettings loadSettings)
-	{
-		this = loadSettings;
-	}*/
-
-	/*
-	private void SetPath(string path)
-	{
-		this.Path = path;
-		this.Paths = new[] {path};
-	}
-
-	private void SetPaths(string[] paths)
-	{
-		this.Paths = paths;
-		this.Path = paths[0];
-	}
-	*/
-
 	private static TextureLoadSettings GetDefaultSettingsForTextureType(TextureType? textureType)
 	{
 		if (textureType == TextureType.Texture2D)

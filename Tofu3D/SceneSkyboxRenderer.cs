@@ -19,7 +19,7 @@ public class SceneSkyboxRenderer
 		Inspectable = new SceneSkyboxInspectable();
 		_scene = _scene;
 
-		_material = MaterialCache.GetMaterial("Skybox");
+		_material = AssetManager.Load<Material>("Skybox");
 
 		_texture = new Texture();
 		string[] texturePaths = new[]
@@ -75,7 +75,7 @@ public class SceneSkyboxRenderer
 		ShaderCache.BindVertexArray(_material.Vao);
 
 		GL.ActiveTexture(TextureUnit.Texture0);
-		TextureCache.BindTexture(_texture.TextureId, TextureType.Cubemap);
+		TextureHelper.BindTexture(_texture.TextureId, TextureType.Cubemap);
 
 		if (KeyboardInput.WasKeyJustPressed(Keys.D1))
 		{

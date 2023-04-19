@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿/*using System.IO;
 
 namespace Tofu3D;
 
@@ -42,4 +42,4 @@ public class MaterialCache
 		ModelRendererMaterial = GetMaterial("ModelRenderer");
 		ModelRendererUnlitMaterial = GetMaterial("ModelRendererUnlit");
 	}
-}
+}*/

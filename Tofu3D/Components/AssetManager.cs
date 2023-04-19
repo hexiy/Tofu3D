@@ -7,17 +7,16 @@
 
 	static AssetManager()
 	{
-		TextureLoader textureLoader = new();
-		AddAssetLoader(textureLoader);
-
-		ModelLoader modelLoader = new();
-		AddAssetLoader(modelLoader);
+		AddAssetLoader(new TextureLoader());
+		AddAssetLoader(new ModelLoader());
+		AddAssetLoader(new MaterialLoader());
 
 
 		foreach (Type loadSettingsType in new[]
 		                                  {
 			                                  typeof(TextureLoadSettings),
 			                                  typeof(ModelLoadSettings),
+			                                  typeof(MaterialLoadSettings)
 		                                  })
 		{
 			_loadSettingsTypes.Add(loadSettingsType.BaseType.GenericTypeArguments[0], loadSettingsType);
@@ -49,7 +48,7 @@
 		// 
 		T asset;
 
-		string assetPath = (loadSettings as AssetLoadSettings<T>).Path;
+		string assetPath = loadSettings.Path;
 		int hash = loadSettings.GetHashCode();
 
 		if (_assets.ContainsKey(hash))
@@ -67,10 +66,23 @@
 		return asset;
 	}
 
+	public static T Save<T>(T asset, AssetLoadSettingsBase loadSettings = null) where T : Asset<T>, new()
+	{
+		// string assetPath = (loadSettings as AssetLoadSettings<T>).Path;
+		AssetLoadSettings<T> settings = (loadSettings as AssetLoadSettings<T>) ?? Activator.CreateInstance(_loadSettingsTypes[typeof(T)]) as AssetLoadSettings<T>;
+		settings.Path = asset.AssetPath;
+		int hash = settings.GetHashCode();
+
+		(_loaders[typeof(T)] as AssetLoader<T>).SaveAsset(asset, loadSettings);
+
+		Debug.StatSetValue("LoadedAssets", $"LoadedAssets:{_assets.Count}");
+		return asset;
+	}
+
 	public static void Unload<T>(Asset<T> asset) where T : Asset<T>
 	{
-		int hash = asset.AssetPath.GetHashCode(); 
-		
+		int hash = asset.AssetPath.GetHashCode();
+
 		if (_assets.ContainsKey(hash))
 		{
 			(_loaders[typeof(T)] as AssetLoader<T>).UnloadAsset(asset);

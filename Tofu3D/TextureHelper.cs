@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Processing;
 
 namespace Tofu3D;
 
-public static class TextureCache
+public static class TextureHelper
 {
 	/*static Dictionary<int, Texture> _cachedTextures = new();
 	static int _textureInUse = -1;

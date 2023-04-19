@@ -28,7 +28,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 	{
 		if (Material == null)
 		{
-			Material = MaterialCache.GetMaterial("SpriteSheetRenderer");
+			Material = AssetManager.Load<Material>("SpriteSheetRenderer");
 		}
 
 		base.SetDefaultMaterial();
@@ -126,7 +126,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
 
-			TextureCache.BindTexture(Texture.TextureId);
+			TextureHelper.BindTexture(Texture.TextureId);
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

@@ -18,7 +18,7 @@ public class GradientRenderer : Renderer
 	{
 		if (Material == null)
 		{
-			Material = MaterialCache.GetMaterial("GradientMaterial");
+			Material = AssetManager.Load<Material>("GradientMaterial");
 		}
 
 		base.SetDefaultMaterial();
