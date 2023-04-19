@@ -381,27 +381,12 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>645</Id>
-      <IndexInHierarchy>25</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <Name>Text</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-    </GameObject>
-    <GameObject>
-      <ActiveSelf>false</ActiveSelf>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
       <Id>467</Id>
-      <IndexInHierarchy>26</IndexInHierarchy>
+      <IndexInHierarchy>25</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Sprite</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -412,11 +397,11 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>676</Id>
-      <IndexInHierarchy>27</IndexInHierarchy>
+      <IndexInHierarchy>26</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Text</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -473,7 +458,7 @@
         <A>255</A>
         <PackedValue>4278190335</PackedValue>
       </Color>
-      <DistanceFromCamera>74.53656</DistanceFromCamera>
+      <DistanceFromCamera>124.39085</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -533,14 +518,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>43.29477</X>
-        <Y>-60.6734</Y>
-        <Z>-29.171043</Z>
+        <X>116.14824</X>
+        <Y>-44.52718</Y>
+        <Z>25.77002</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>43.29477</X>
-        <Y>-60.6734</Y>
-        <Z>-29.171043</Z>
+        <X>116.14824</X>
+        <Y>-44.52718</Y>
+        <Z>25.77002</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -553,8 +538,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-57.931587</X>
-        <Y>-26.18994</Y>
+        <X>-9.207995</X>
+        <Y>-71.011345</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -614,7 +599,7 @@
       </WorldScale>
       <Rotation>
         <X>30.1</X>
-        <Y>133.51411</Y>
+        <Y>48.842327</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -646,7 +631,7 @@
         <A>202</A>
         <PackedValue>3402825472</PackedValue>
       </Color>
-      <DistanceFromCamera>122.53266</DistanceFromCamera>
+      <DistanceFromCamera>142.81651</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1169,7 +1154,7 @@
         <A>255</A>
         <PackedValue>4294936991</PackedValue>
       </Color>
-      <DistanceFromCamera>79.5771</DistanceFromCamera>
+      <DistanceFromCamera>82.30589</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1368,7 +1353,7 @@
         <A>255</A>
         <PackedValue>4278242047</PackedValue>
       </Color>
-      <DistanceFromCamera>70.565125</DistanceFromCamera>
+      <DistanceFromCamera>71.853</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1470,7 +1455,7 @@
         <A>255</A>
         <PackedValue>4292857492</PackedValue>
       </Color>
-      <DistanceFromCamera>69.835495</DistanceFromCamera>
+      <DistanceFromCamera>107.6476</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1572,7 +1557,7 @@
         <A>255</A>
         <PackedValue>4282218239</PackedValue>
       </Color>
-      <DistanceFromCamera>112.93634</DistanceFromCamera>
+      <DistanceFromCamera>134.26344</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1674,7 +1659,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>20.216965</DistanceFromCamera>
+      <DistanceFromCamera>91.34305</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1760,7 +1745,7 @@
         <A>194</A>
         <PackedValue>3271557119</PackedValue>
       </Color>
-      <DistanceFromCamera>95.983986</DistanceFromCamera>
+      <DistanceFromCamera>135.3535</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1862,7 +1847,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>107.38331</DistanceFromCamera>
+      <DistanceFromCamera>153.4199</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1979,6 +1964,14 @@
         <int>676</int>
         <int>676</int>
         <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -2024,7 +2017,7 @@
         <A>213</A>
         <PackedValue>3590324223</PackedValue>
       </Color>
-      <DistanceFromCamera>87.750145</DistanceFromCamera>
+      <DistanceFromCamera>115.18249</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2320,7 +2313,7 @@
         <A>137</A>
         <PackedValue>2315255807</PackedValue>
       </Color>
-      <DistanceFromCamera>95.983986</DistanceFromCamera>
+      <DistanceFromCamera>135.3535</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2524,7 +2517,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>313.67563</DistanceFromCamera>
+      <DistanceFromCamera>316.60178</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/TextRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -3064,7 +3057,6 @@
         <int>373</int>
         <int>419</int>
         <int>467</int>
-        <int>645</int>
         <int>373</int>
         <int>419</int>
         <int>645</int>
@@ -3358,6 +3350,33 @@
         <int>419</int>
         <int>645</int>
         <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>645</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -3447,7 +3466,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>87.1699</DistanceFromCamera>
+      <DistanceFromCamera>122.68698</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/TextRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -3537,143 +3556,6 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>645</GameObjectId>
-      <Started>true</Started>
-      <ChildrenIDs />
-      <ParentId>380</ParentId>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>12.3</X>
-        <Y>-101.7</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>12.3</X>
-        <Y>-101.7</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>2</X>
-        <Y>2</Y>
-        <Z>0</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>2</X>
-        <Y>2</Y>
-        <Z>0</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="TextRenderer">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>645</GameObjectId>
-      <Started>true</Started>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <DistanceFromCamera>93.81885</DistanceFromCamera>
-      <Material>
-        <AssetPath />
-        <Additive>false</Additive>
-        <Shader>
-          <BufferType>Sprite</BufferType>
-          <Path>Assets\Shaders\TextRenderer.glsl</Path>
-        </Shader>
-        <Vao>14</Vao>
-        <RenderMode>Opaque</RenderMode>
-      </Material>
-      <RenderMode>Opaque</RenderMode>
-      <Layer>0</Layer>
-      <Texture>
-        <AssetPath>Assets\2D\charmap-futuristic_black_edited.png</AssetPath>
-        <Loaded>true</Loaded>
-        <Size>
-          <X>112</X>
-          <Y>72</Y>
-        </Size>
-      </Texture>
-      <Tiling>
-        <X>1</X>
-        <Y>1</Y>
-      </Tiling>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-      </Offset>
-      <Batched>false</Batched>
-      <GradientColor1>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </GradientColor1>
-      <GradientColor2>
-        <B>196</B>
-        <G>175</G>
-        <R>46</R>
-        <A>255</A>
-        <PackedValue>4291079982</PackedValue>
-      </GradientColor2>
-      <IsGradient>false</IsGradient>
-      <SpriteSize>
-        <X>7</X>
-        <Y>9</Y>
-      </SpriteSize>
-      <CharSpacing>60</CharSpacing>
-      <Text>
-        <AllowMultiple>true</AllowMultiple>
-        <Enabled>true</Enabled>
-        <GameObjectId>645</GameObjectId>
-        <Started>false</Started>
-        <Size>580</Size>
-        <Value>AABBCCDDEEFF</Value>
-      </Text>
-      <SpritesCount>
-        <X>16</X>
-        <Y>8</Y>
-      </SpritesCount>
-    </Component>
-    <Component xsi:type="Text">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>645</GameObjectId>
-      <Started>false</Started>
-      <Size>580</Size>
-      <Value>AABBCCDDEEFF</Value>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>645</GameObjectId>
-      <Started>true</Started>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>1.2</X>
-        <Y>1.2</Y>
-        <Z>1.2</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
       <GameObjectId>467</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
@@ -3721,7 +3603,7 @@
         <A>255</A>
         <PackedValue>4286829955</PackedValue>
       </Color>
-      <DistanceFromCamera>87.54756</DistanceFromCamera>
+      <DistanceFromCamera>125.53426</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -3812,13 +3694,13 @@
       <GameObjectId>676</GameObjectId>
       <Started>true</Started>
       <Color>
-        <B>255</B>
+        <B>206</B>
         <G>255</G>
-        <R>255</R>
+        <R>181</R>
         <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <PackedValue>4291755957</PackedValue>
       </Color>
-      <DistanceFromCamera>87.750145</DistanceFromCamera>
+      <DistanceFromCamera>115.18249</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/TextRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -3849,20 +3731,20 @@
       </Offset>
       <Batched>false</Batched>
       <GradientColor1>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
+        <B>24</B>
+        <G>24</G>
+        <R>226</R>
         <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <PackedValue>4279769314</PackedValue>
       </GradientColor1>
       <GradientColor2>
-        <B>255</B>
-        <G>247</G>
-        <R>223</R>
+        <B>233</B>
+        <G>233</G>
+        <R>233</R>
         <A>255</A>
-        <PackedValue>4294965215</PackedValue>
+        <PackedValue>4293519849</PackedValue>
       </GradientColor2>
-      <IsGradient>true</IsGradient>
+      <IsGradient>false</IsGradient>
       <SpriteSize>
         <X>7</X>
         <Y>9</Y>
@@ -3912,5 +3794,5 @@ asasd</Value>
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>793</GameObjectNextId>
+  <GameObjectNextId>809</GameObjectNextId>
 </SceneFile>

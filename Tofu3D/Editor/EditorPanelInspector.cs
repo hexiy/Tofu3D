@@ -78,7 +78,7 @@ public class EditorPanelInspector : EditorPanel
 		// 	_selectedMaterial = null;
 		// }
 
-		if (ids.Count == 0)
+		if (ids.Count == 0 || ids.FirstOrDefault(-1) == -1)
 		{
 			ClearInspectableDatas();
 
