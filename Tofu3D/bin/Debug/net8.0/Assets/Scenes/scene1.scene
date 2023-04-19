@@ -553,8 +553,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-29.635372</X>
-        <Y>3.063581</Y>
+        <X>-26.477325</X>
+        <Y>-1.4169757</Y>
         <Z>-2.46</Z>
       </Rotation>
     </Component>
@@ -621,7 +621,7 @@
       </WorldScale>
       <Rotation>
         <X>30.1</X>
-        <Y>67.84278</Y>
+        <Y>29.117916</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -1927,6 +1927,10 @@
       <GameObjectId>312</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
         <int>676</int>
         <int>676</int>
         <int>676</int>
@@ -3704,6 +3708,22 @@
         <int>419</int>
         <int>467</int>
         <int>811</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>811</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>811</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>811</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>811</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -4127,29 +4147,29 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>1014</X>
-        <Y>1203</Y>
+        <X>999</X>
+        <Y>1200</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1014</X>
-        <Y>1203</Y>
+        <X>999</X>
+        <Y>1200</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
-        <X>0.6127402</X>
-        <Y>0.6127402</Y>
-        <Z>0.6127402</Z>
+        <X>0.65243953</X>
+        <Y>0.65243953</Y>
+        <Z>0.65243953</Z>
       </LocalScale>
       <WorldScale>
-        <X>0.6127402</X>
-        <Y>0.6127402</Y>
-        <Z>0.6127402</Z>
+        <X>0.65243953</X>
+        <Y>0.65243953</Y>
+        <Z>0.65243953</Z>
       </WorldScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
-        <Z>191.54988</Z>
+        <Z>81.11298</Z>
       </Rotation>
     </Component>
     <Component xsi:type="BoxShape">
@@ -4180,7 +4200,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>1667.0944</DistanceFromCamera>
+      <DistanceFromCamera>1655.0529</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -4220,5 +4240,5 @@
       <ScaleTarget>0.6</ScaleTarget>
     </Component>
   </Components>
-  <GameObjectNextId>932</GameObjectNextId>
+  <GameObjectNextId>940</GameObjectNextId>
 </SceneFile>
