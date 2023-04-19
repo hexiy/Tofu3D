@@ -6,8 +6,8 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>676</Id>
-      <IndexInHierarchy>27</IndexInHierarchy>
+      <Id>634</Id>
+      <IndexInHierarchy>21</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Text</Name>
       <PrefabPath />
@@ -21,45 +21,45 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>676</GameObjectId>
+      <GameObjectId>634</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
-      <ParentId>312</ParentId>
+      <ParentId>-1</ParentId>
       <Pivot>
-        <X>-4.8</X>
+        <X>0.5</X>
         <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>24.317</X>
-        <Y>25</Y>
-        <Z>0</Z>
+        <X>0</X>
+        <Y>250</Y>
+        <Z>500</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <Y>250</Y>
+        <Z>500</Z>
       </LocalPosition>
       <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
+        <X>2</X>
+        <Y>2</Y>
         <Z>0</Z>
       </LocalScale>
       <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
+        <X>2</X>
+        <Y>2</Y>
         <Z>0</Z>
       </WorldScale>
       <Rotation>
-        <X>-90</X>
+        <X>37.9</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>-4.9</Z>
       </Rotation>
     </Component>
     <Component xsi:type="TextRenderer">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>676</GameObjectId>
+      <GameObjectId>634</GameObjectId>
       <Started>true</Started>
       <Color>
         <B>255</B>
@@ -68,7 +68,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>121.44259</DistanceFromCamera>
+      <DistanceFromCamera>320.62616</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/TextRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -121,13 +121,12 @@
       <Text>
         <AllowMultiple>true</AllowMultiple>
         <Enabled>true</Enabled>
-        <GameObjectId>676</GameObjectId>
+        <GameObjectId>634</GameObjectId>
         <Started>false</Started>
-        <Size>70</Size>
-        <Value>abasd
-asdaasd
-asdasda
-asasd</Value>
+        <Size>800</Size>
+        <Value>AAAAAAA
+BBBBBBB
+</Value>
       </Text>
       <SpritesCount>
         <X>16</X>
@@ -137,18 +136,17 @@ asasd</Value>
     <Component xsi:type="Text">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>676</GameObjectId>
+      <GameObjectId>634</GameObjectId>
       <Started>false</Started>
-      <Size>70</Size>
-      <Value>abasd
-asdaasd
-asdasda
-asasd</Value>
+      <Size>800</Size>
+      <Value>AAAAAAA
+BBBBBBB
+</Value>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>676</GameObjectId>
+      <GameObjectId>634</GameObjectId>
       <Started>true</Started>
       <Offset>
         <X>0</X>

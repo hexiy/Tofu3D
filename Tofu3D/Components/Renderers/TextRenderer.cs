@@ -180,7 +180,7 @@ public class TextRenderer : SpriteRenderer
 		{
 			// Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex - charSpacing * Transform.Pivot.X,
 			//                                       originalPosition.Y + line * lineSpacing, Transform.WorldPosition.Z);
-			Transform.Pivot = new Vector3(originalPivot.X + (symbolInLineIndex * 0.5f * charSpacing),
+			Transform.Pivot = new Vector3(originalPivot.X + (symbolInLineIndex * -0.5f * charSpacing),
 			                              originalPivot.Y + (line * 0.5f * lineSpacing),
 			                              0);
 

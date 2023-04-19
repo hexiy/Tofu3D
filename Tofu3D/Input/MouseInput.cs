@@ -243,7 +243,7 @@ public static class MouseInput
 		// }
 
 		ScreenPosition = new Vector2(Tofu.I.Window.MouseState.X - Editor.SceneViewPosition.X,
-		                             -Tofu.I.Window.MouseState.Y + Camera.I.Size.Y + Editor.SceneViewPosition.Y);
+		                             -Tofu.I.Window.MouseState.Y + Camera.I.Size.Y + Editor.SceneViewPosition.Y + 25); // 25 EditorPanelMenuBar height
 	}
 
 	static float _sceneViewPadding = 20;

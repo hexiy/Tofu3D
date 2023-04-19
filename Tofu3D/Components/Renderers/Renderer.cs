@@ -104,14 +104,15 @@ public class Renderer : Component, IComparable<Renderer>
 		                                  BoxShape.Size.Z * Transform.WorldScale.Z * Transform.Pivot.Z);
 
 		Matrix4x4 pivot = Matrix4x4.CreateTranslation(-pivotOffset.X, -pivotOffset.Y, -pivotOffset.Z);
-		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f)) * Matrix4x4.CreateScale(1, -1, 1);
+		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition - (Camera.I.Size / 2) + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f)) * Matrix4x4.CreateScale(1, 1, 1);
 
 		Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
 		                                                      -Transform.WorldRotation.X / 180 * Mathf.Pi,
 		                                                      -Transform.WorldRotation.Z / 180 * Mathf.Pi);
 		Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size.X * Transform.WorldScale.X, -BoxShape.Size.Y * Transform.WorldScale.Y, Transform.WorldScale.Z * BoxShape.Size.Z);
-		return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(xScale:2f/Camera.I.Size.X,yScale:2f/Camera.I.Size.Y,zScale:0);
+		return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(xScale: 2f / Camera.I.Size.X, yScale: 2f / Camera.I.Size.Y, zScale: 0);
 	}
+
 	public Matrix4x4 GetModelMatrixForLight()
 	{
 		Vector3 pivotOffset = -(BoxShape.Size * Transform.WorldScale) / 2

@@ -20,7 +20,6 @@ public class BoxRenderer : Renderer
 
 	public override void Render()
 	{
-		return;
 		if (BoxShape == null || Material == null)
 		{
 			return;
