@@ -50,10 +50,12 @@ public class SpriteRenderer : TextureRenderer
 
 	public override void SetDefaultMaterial()
 	{
-		if (Material?.FileName == null)
-		{
-			Material = MaterialCache.GetMaterial("SpriteRenderer");
-		}
+		// if (Material?.AssetPath.Length == 0)
+		// {
+		// 	Material = AssetManager.Load<Material>("SpriteRenderer");
+		// }
+
+		Material = AssetManager.Load<Material>("SpriteRenderer");
 
 		// base.SetDefaultMaterial();
 	}
@@ -118,7 +120,7 @@ public class SpriteRenderer : TextureRenderer
 		}
 
 		GL.ActiveTexture(TextureUnit.Texture0);
-		TextureCache.BindTexture(Texture.TextureId);
+		TextureHelper.BindTexture(Texture.TextureId);
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

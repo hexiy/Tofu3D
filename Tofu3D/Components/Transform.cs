@@ -137,6 +137,17 @@ public class Transform : Component
 		set { _rotation = new Vector3(value.X % 360, value.Y % 360, value.Z % 360); }
 	}
 	[Hide]
+	public Vector3 WorldRotation
+	{
+		get { return Rotation + GetParentsRotation(); }
+	}
+
+	private Vector3 GetParentsRotation()
+	{
+		return Parent?.Rotation ?? Vector3.Zero;
+	}
+
+	[Hide]
 	public Vector3 Forward
 	{
 		get { return Transform.TransformDirectionToWorldSpace(Vector3.Forward); }

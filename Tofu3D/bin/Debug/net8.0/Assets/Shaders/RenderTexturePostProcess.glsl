@@ -30,9 +30,9 @@ void main(void)
 {
 vec4 texColor = texture(textureObject, texCoord);
 
-vec2 relativePosition = texCoord.xy / vec2(1, 1) - 0.5;
+vec2 relativePosition = texCoord.xy - 0.5;
 float len = length(relativePosition);
-float vignette = smoothstep(.9, .2, len);
+float vignette = smoothstep(.9, .3, len);
 texColor.rgb = mix(texColor.rgb, texColor.rgb * vignette, .7);
 texColor.rgb = texColor.rgb * 1;
 

@@ -4,9 +4,14 @@ namespace Tofu3D;
 
 public class ModelLoader : AssetLoader<Model>
 {
+	public override void SaveAsset(Model asset, AssetLoadSettingsBase loadSettings)
+	{
+		throw new NotImplementedException();
+	}
+
 	public override void UnloadAsset(Asset<Model> asset)
 	{
-		GL.DeleteTexture(asset.AssetHandle.Id);
+		GL.DeleteTexture(asset.AssetRuntimeHandle.Id);
 	}
 
 	public override Asset<Model> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
@@ -76,7 +81,7 @@ public class ModelLoader : AssetLoader<Model>
 		Model model = new Model();
 		model.VertexBufferDataLength = everything.Count;
 		BufferFactory.CreateModelBuffers(vao: ref model.Vao, vertexBufferData: everything.ToArray());
-		model.InitAssetHandle(model.Vao);
+		model.InitAssetRuntimeHandle(model.Vao);
 		model.AssetPath = loadSettings.Path;
 
 		return model;

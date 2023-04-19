@@ -23,8 +23,8 @@ public class RenderTexture
 
 	public RenderTexture(Vector2 size, bool colorAttachment = false, bool depthAttachment = false, bool isGrayscale = false)
 	{
-		_depthRenderTextureMaterial = MaterialCache.GetMaterial("DepthRenderTexture");
-		_renderTextureMaterial = MaterialCache.GetMaterial("RenderTexture");
+		_depthRenderTextureMaterial = AssetManager.Load<Material>("DepthRenderTexture");
+		_renderTextureMaterial = AssetManager.Load<Material>("RenderTexture");
 		Size = size;
 		_hasColorAttachment = colorAttachment;
 		_hasDepthAttachment = depthAttachment;
@@ -138,7 +138,7 @@ public class RenderTexture
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 		GL.ActiveTexture(TextureUnit.Texture0);
 
-		TextureCache.BindTexture(targetTexture);
+		TextureHelper.BindTexture(targetTexture);
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
@@ -159,7 +159,7 @@ public class RenderTexture
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 		GL.ActiveTexture(TextureUnit.Texture0);
-		TextureCache.BindTexture(targetTexture);
+		TextureHelper.BindTexture(targetTexture);
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

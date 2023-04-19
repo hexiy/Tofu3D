@@ -11,7 +11,8 @@ public class BoxRenderer : Renderer
 	{
 		if (Material == null)
 		{
-			Material = MaterialCache.GetMaterial("BoxMaterial");
+			
+			Material = AssetManager.Load<Material>("BoxMaterial");
 		}
 
 		base.SetDefaultMaterial();
@@ -19,7 +20,6 @@ public class BoxRenderer : Renderer
 
 	public override void Render()
 	{
-		return;
 		if (BoxShape == null || Material == null)
 		{
 			return;

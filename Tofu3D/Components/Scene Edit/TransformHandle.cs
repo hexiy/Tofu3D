@@ -52,7 +52,7 @@ public class TransformHandle : Component
 		ModelRendererZ = GameObject.AddComponent<ModelRenderer>();
 		ModelRendererXy = GameObject.AddComponent<ModelRenderer>();
 
-		Material unlitMaterial = MaterialCache.GetMaterial("ModelRendererUnlit");
+		Material unlitMaterial = AssetManager.Load<Material>("ModelRendererUnlit");
 		ModelRendererX.Material = unlitMaterial;
 		ModelRendererY.Material = unlitMaterial;
 		ModelRendererXy.Material = unlitMaterial;

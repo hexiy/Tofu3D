@@ -97,10 +97,7 @@ public class TextRenderer : SpriteRenderer
 
 	public override void SetDefaultMaterial()
 	{
-		if (Material?.FileName == null)
-		{
-			Material = MaterialCache.GetMaterial("TextRenderer");
-		}
+		Material = AssetManager.Load<Material>("TextRenderer");
 
 		Material.Additive = false;
 	}
@@ -163,10 +160,11 @@ public class TextRenderer : SpriteRenderer
 
 		float charSpacing = CharSpacing;
 		Vector3 originalPosition = Transform.WorldPosition;
+		Vector3 originalPivot = Transform.Pivot;
 
 		int symbolInLineIndex = 0;
 		int line = 0;
-		float lineSpacing = Text.Size / 4;
+		float lineSpacing = Text.Size / 15;
 
 
 		Vector2 originalScale = Transform.LocalScale;
@@ -180,8 +178,11 @@ public class TextRenderer : SpriteRenderer
 		     symbolIndex++,
 		     symbolInLineIndex++)
 		{
-			Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex - charSpacing * Transform.Pivot.X,
-			                                      originalPosition.Y + line * lineSpacing, Transform.WorldPosition.Z);
+			// Transform.WorldPosition = new Vector3(originalPosition.X + charSpacing * symbolInLineIndex - charSpacing * Transform.Pivot.X,
+			//                                       originalPosition.Y + line * lineSpacing, Transform.WorldPosition.Z);
+			Transform.Pivot = new Vector3(originalPivot.X + (symbolInLineIndex * -0.5f * charSpacing),
+			                              originalPivot.Y + (line * 0.5f * lineSpacing),
+			                              0);
 
 			// if (GetComponent<TextReactToMouse>() != null)
 			// {
@@ -237,18 +238,20 @@ public class TextRenderer : SpriteRenderer
 			{
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
+
 // GL.Disable(EnableCap.Blend);
 			// GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusConstantColor);
 			GL.BlendFunc(BlendingFactor.One, BlendingFactor.OneMinusSrcAlpha);
 
 			GL.ActiveTexture(TextureUnit.Texture0);
-			TextureCache.BindTexture(Texture.TextureId);
+			TextureHelper.BindTexture(Texture.TextureId);
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
 			Debug.StatAddValue("Draw Calls", 1);
 		}
 
+		Transform.Pivot = originalPivot;
 		Transform.WorldPosition = originalPosition;
 		Transform.LocalScale = originalScale;
 	}

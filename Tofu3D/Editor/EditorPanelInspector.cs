@@ -78,7 +78,7 @@ public class EditorPanelInspector : EditorPanel
 		// 	_selectedMaterial = null;
 		// }
 
-		if (ids.Count == 0)
+		if (ids.Count == 0 || ids.FirstOrDefault(-1) == -1)
 		{
 			ClearInspectableDatas();
 
@@ -122,7 +122,7 @@ public class EditorPanelInspector : EditorPanel
 
 	public void OnMaterialSelected(string materialPath)
 	{
-		IInspectable materialInspectable = MaterialCache.GetMaterial(Path.GetFileName(materialPath));
+		IInspectable materialInspectable = AssetManager.Load<Material>(Path.GetFileName(materialPath));
 		SelectInspectable(materialInspectable);
 	}
 
@@ -266,7 +266,13 @@ public class EditorPanelInspector : EditorPanel
 				{
 					PushNextId();
 					Material selectedMaterial = componentInspectorData.Inspectable as Material;
-					string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.FilePath);
+					bool saveMaterialClicked = ImGui.Button("Save");
+					if (saveMaterialClicked)
+					{
+						AssetManager.Save<Material>(selectedMaterial);
+					}
+
+					string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.AssetPath);
 					ImGui.Text(materialName);
 
 					ImGui.Text("Shader");
@@ -293,7 +299,7 @@ public class EditorPanelInspector : EditorPanel
 							Shader shader = new(shaderPath);
 
 							selectedMaterial.Shader = shader;
-							MaterialAssetManager.SaveMaterial(selectedMaterial);
+							AssetManager.Save<Material>(selectedMaterial);
 						}
 
 						ImGui.EndDragDropTarget();
@@ -562,7 +568,7 @@ public class EditorPanelInspector : EditorPanel
 					}
 					else if (info.FieldOrPropertyType == typeof(Material))
 					{
-						string materialPath = Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.FilePath);
+						string materialPath = Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.AssetPath);
 
 						materialPath = materialPath ?? "";
 						bool clicked = ImGui.Button(materialPath, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
@@ -579,7 +585,8 @@ public class EditorPanelInspector : EditorPanel
 							{
 								payload = payload;
 								string materialName = Path.GetFileName(payload);
-								Material draggedMaterial = MaterialAssetManager.LoadMaterial(payload);
+
+								Material draggedMaterial = AssetManager.Load<Material>(payload);
 								if (draggedMaterial.Shader == null)
 								{
 									Debug.Log("No Shader attached to material.");

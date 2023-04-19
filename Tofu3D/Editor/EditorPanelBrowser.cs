@@ -55,8 +55,8 @@ public class EditorPanelBrowser : EditorPanel
 		BrowserContextItem createMaterialContextItem = new("Create Material", "mat", ".mat", filePath =>
 		{
 			Material createdMaterial = new();
-			createdMaterial.SetPath(filePath);
-			MaterialAssetManager.SaveMaterial(createdMaterial);
+			createdMaterial.AssetPath = filePath;
+			AssetManager.Save<Material>(createdMaterial);
 			RefreshAssets();
 		});
 		_contextItems = new List<BrowserContextItem>
