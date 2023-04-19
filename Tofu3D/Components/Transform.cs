@@ -141,12 +141,6 @@ public class Transform : Component
 	{
 		get { return Rotation + GetParentsRotation(); }
 	}
-	// parent rot x = 10
-	// local rot x = 0
-	// world rot x = parent.x+local.x;
-	// to set world rot x to 0,
-	// localRotation = 0 - 10
-	// -10 + 10 = 0 goood
 
 	private Vector3 GetParentsRotation()
 	{
