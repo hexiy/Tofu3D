@@ -38,9 +38,7 @@ public class Camera : Component
 		// 	Size = new Vector2(Tofu.I.Window.ClientSize.X, Tofu.I.Window.ClientSize.Y);
 		// }
 
-		ProjectionMatrix = GetProjectionMatrix();
-		ViewMatrix = GetViewMatrix();
-		TranslationMatrix = GetTranslationRotationMatrix();
+		UpdateMatrices();
 
 		base.Awake();
 	}
@@ -96,7 +94,7 @@ public class Camera : Component
 
 		//Debug.Log($"Forward{forwardWorld}");
 		//Debug.Log($"Up{upLocal}");
-		Matrix4x4 view = Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, -1))
+		Matrix4x4 view = Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, 1, -1))
 		               * Matrix4x4.CreateLookAt(cameraPosition: Transform.WorldPosition, cameraTarget: forwardWorld, cameraUpVector: upLocal)
 			; // * Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, 1));
 		return view;

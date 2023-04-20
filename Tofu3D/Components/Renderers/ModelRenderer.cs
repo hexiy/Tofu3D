@@ -24,7 +24,7 @@ public class ModelRenderer : TextureRenderer
 
 	public override void SetDefaultMaterial()
 	{
-		if (Material?.AssetPath.Length == 0)
+		if (Material?.AssetPath.Length == 0 || Material == null)
 		{
 			Material = AssetManager.Load<Material>("ModelRenderer");
 		}
