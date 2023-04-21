@@ -6,10 +6,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>634</Id>
-      <IndexInHierarchy>21</IndexInHierarchy>
+      <Id>984</Id>
+      <IndexInHierarchy>28</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Text</Name>
+      <Name>Child</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -21,72 +21,72 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>634</GameObjectId>
+      <GameObjectId>984</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
-      <ParentId>-1</ParentId>
+      <ParentId>1</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
-        <Z>0</Z>
+        <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
-        <Y>250</Y>
-        <Z>500</Z>
+        <X>-65.2138</X>
+        <Y>41.60839</Y>
+        <Z>120.20587</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
-        <Y>250</Y>
-        <Z>500</Z>
+        <Y>0</Y>
+        <Z>0</Z>
       </LocalPosition>
       <LocalScale>
-        <X>2</X>
-        <Y>2</Y>
-        <Z>0</Z>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
       </LocalScale>
       <WorldScale>
-        <X>2</X>
-        <Y>2</Y>
-        <Z>0</Z>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>37.9</X>
+        <X>0</X>
         <Y>0</Y>
-        <Z>-4.9</Z>
+        <Z>0</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="TextRenderer">
+    <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>634</GameObjectId>
+      <GameObjectId>984</GameObjectId>
       <Started>true</Started>
       <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <B>99</B>
+        <G>99</G>
+        <R>99</R>
+        <A>151</A>
+        <PackedValue>2539873123</PackedValue>
       </Color>
-      <DistanceFromCamera>320.62616</DistanceFromCamera>
+      <DistanceFromCamera>0</DistanceFromCamera>
       <Material>
-        <AssetPath>Assets/Materials/TextRenderer.mat</AssetPath>
+        <AssetPath>Assets/Materials/ModelRendererUnlit.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
-          <BufferType>Sprite</BufferType>
-          <Path>Assets\Shaders\TextRenderer.glsl</Path>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRendererUnlit.glsl</Path>
         </Shader>
-        <Vao>13</Vao>
+        <Vao>15</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
-      <RenderMode>Opaque</RenderMode>
+      <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
       <Texture>
-        <AssetPath>Assets\2D\font.png</AssetPath>
+        <AssetPath>Assets\2D\solidColor.png</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>112</X>
-          <Y>72</Y>
+          <X>256</X>
+          <Y>256</Y>
         </Size>
       </Texture>
       <Tiling>
@@ -97,56 +97,17 @@
         <X>0</X>
         <Y>0</Y>
       </Offset>
-      <Batched>false</Batched>
-      <GradientColor1>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </GradientColor1>
-      <GradientColor2>
-        <B>255</B>
-        <G>247</G>
-        <R>223</R>
-        <A>255</A>
-        <PackedValue>4294965215</PackedValue>
-      </GradientColor2>
-      <IsGradient>true</IsGradient>
-      <SpriteSize>
-        <X>7</X>
-        <Y>9</Y>
-      </SpriteSize>
-      <CharSpacing>4</CharSpacing>
-      <Text>
-        <AllowMultiple>true</AllowMultiple>
-        <Enabled>true</Enabled>
-        <GameObjectId>634</GameObjectId>
-        <Started>false</Started>
-        <Size>800</Size>
-        <Value>AAAAAAA
-BBBBBBB
-</Value>
-      </Text>
-      <SpritesCount>
-        <X>16</X>
-        <Y>8</Y>
-      </SpritesCount>
-    </Component>
-    <Component xsi:type="Text">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>634</GameObjectId>
-      <Started>false</Started>
-      <Size>800</Size>
-      <Value>AAAAAAA
-BBBBBBB
-</Value>
+      <Model>
+        <AssetPath>Assets\3D\thinmatrixcube.obj</AssetPath>
+        <Vao>9</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
+      </Model>
+      <CastShadow>false</CastShadow>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>634</GameObjectId>
+      <GameObjectId>984</GameObjectId>
       <Started>true</Started>
       <Offset>
         <X>0</X>
@@ -154,9 +115,9 @@ BBBBBBB
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>1.2</X>
-        <Y>1.2</Y>
-        <Z>1.2</Z>
+        <X>1</X>
+        <Y>0.1</Y>
+        <Z>100</Z>
       </Size>
     </Component>
   </Components>
