@@ -59,6 +59,18 @@ public class EditorPanelSceneView : EditorPanel
 
 			ImGui.SameLine();*/
 
+			ImGui.PushStyleColor(ImGuiCol.Text, RenderSettings.WireframeRenderSettings.WireframeVisible ? activeColor : inactiveColor);
+			bool wireframeButtonClicked = ImGui.Button("Wireframe");
+			if (wireframeButtonClicked)
+			{
+				RenderSettings.WireframeRenderSettings.WireframeVisible = !RenderSettings.WireframeRenderSettings.WireframeVisible;
+				RenderSettings.SaveData();
+			}
+
+			ImGui.PopStyleColor();
+
+			ImGui.SameLine();
+
 			ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
 
 			bool playButtonClicked = ImGui.Button("play");

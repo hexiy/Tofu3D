@@ -172,19 +172,42 @@ public class ModelRenderer : TextureRenderer
 				GL.ActiveTexture(TextureUnit.Texture1);
 				TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 			}
-		}
 
-		if (Model != null)
-		{
-			ShaderCache.BindVertexArray(Model.Vao);
-			GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
+			if (Model != null)
+			{
+				ShaderCache.BindVertexArray(Model.Vao);
+				if (RenderSettings.WireframeRenderSettings.WireframeVisible)
+				{
+					Material.Shader.SetColor("u_rendererColor", Color.Black);
+					GL.LineWidth(RenderSettings.WireframeRenderSettings.WireframeLineWidth / (DistanceFromCamera+0.1f)*20);
+
+					GL.DrawArrays(PrimitiveType.LineLoop, 0, Model.VertexBufferDataLength);
+					Material.Shader.SetColor("u_rendererColor", Color);
+					Debug.StatAddValue("Draw Calls", 1);
+				}
+
+				GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
+			}
+			else
+			{
+				ShaderCache.BindVertexArray(Material.Vao);
+				GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+			}
 		}
 		else
 		{
-			ShaderCache.BindVertexArray(Material.Vao);
-			GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
-		}
+			if (Model != null)
+			{
+				ShaderCache.BindVertexArray(Model.Vao);
 
+				GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
+			}
+			else
+			{
+				ShaderCache.BindVertexArray(Material.Vao);
+				GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+			}
+		}
 
 		/*else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
 		{

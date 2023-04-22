@@ -24,6 +24,7 @@ public class Tofu
 	{
 		SystemConfig.Configure();
 		Global.LoadSavedData();
+		RenderSettings.LoadSavedData();
 
 		Window = new Window();
 		Window.Load += () => { OnWindowLoad(Window); };
