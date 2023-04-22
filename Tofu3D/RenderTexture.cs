@@ -136,7 +136,7 @@ public class RenderTexture
 		ShaderCache.BindVertexArray(_depthRenderTextureMaterial.Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-		GL.ActiveTexture(TextureUnit.Texture0);
+		// GL.ActiveTexture(TextureUnit.Texture0);
 
 		TextureHelper.BindTexture(targetTexture);
 

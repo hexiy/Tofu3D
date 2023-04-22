@@ -17,10 +17,4 @@ public class Texture : Asset<Texture>
 	{
 		AssetManager.Unload(this);
 	}
-
-	public void BindTexture()
-	{
-		TextureTarget textureTarget = LoadSettings.Type == TextureType.Texture2D ? TextureTarget.Texture2D : TextureTarget.TextureCubeMap;
-		GL.BindTexture(textureTarget, TextureId);
-	}
 }
