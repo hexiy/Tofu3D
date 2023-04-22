@@ -170,7 +170,14 @@ public class Shader : IDisposable
 
 	public void SetColor(string uniformName, Color col)
 	{
-		SetColor(uniformName, col.ToVector4());
+		if (_uLocationUColor == -1)
+		{
+			int location = GL.GetUniformLocation(ProgramId, uniformName);
+			_uLocationUColor = location;
+		}
+
+		GL.Uniform4(_uLocationUColor, col.R/255f, col.G/255f, col.G/255f, col.A/255f);
+		Uniforms[uniformName] = col;
 	}
 
 	public void SetColor(string uniformName, Vector4 vec)

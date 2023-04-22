@@ -204,7 +204,14 @@ public class EditorPanelHierarchy : EditorPanel
 		for (int goIndex = 0; goIndex < SceneManager.CurrentScene.GameObjects.Count; goIndex++)
 		{
 			//PushNextId();
-			DrawGameObjectRow(goIndex);
+			if (ImGui.IsItemVisible() == false)
+			{
+				ImGui.Dummy(new System.Numerics.Vector2(100,50));
+			}
+			else
+			{
+				DrawGameObjectRow(goIndex);
+			}
 		}
 
 		EndWindow();
@@ -258,6 +265,8 @@ public class EditorPanelHierarchy : EditorPanel
 		flags |= ImGuiTreeNodeFlags.SpanFullWidth;
 		flags |= ImGuiTreeNodeFlags.OpenOnDoubleClick;
 		bool opened = ImGui.TreeNodeEx(rowText, flags);
+
+		
 
 		if (ImGui.IsItemClicked(ImGuiMouseButton.Right))
 		{
@@ -364,13 +373,13 @@ public class EditorPanelHierarchy : EditorPanel
 
 	private void DrawSpaceBetween(GameObject currentGameObject, bool after = true)
 	{
-		float width = 0;
+		float height = 0;
 		if (Mathf.Distance(ImGui.GetCursorPosY(), ImGui.GetMousePos().Y) < 50 && ImGui.GetCursorPosY() - ImGui.GetMousePos().Y < 50)
 		{
-			width = _currentSpaceHeight;
+			height = _currentSpaceHeight;
 		}
 
-		ImGui.Dummy(new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, width));
+		ImGui.Dummy(new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, height));
 		if (ImGui.BeginDragDropTarget())
 		{
 			ImGui.PushStyleColor(ImGuiCol.DragDropTarget, Color.MediumPurple.ToVector4());
