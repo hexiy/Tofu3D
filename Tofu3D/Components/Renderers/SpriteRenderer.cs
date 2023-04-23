@@ -119,10 +119,13 @@ public class SpriteRenderer : TextureRenderer
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 		}
 
+		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
 		GL.ActiveTexture(TextureUnit.Texture0);
 		TextureHelper.BindTexture(Texture.TextureId);
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
+		RenderWireframe(6);
 
 		Debug.StatAddValue("Draw Calls", 1);
 	}

@@ -78,6 +78,19 @@ public class Renderer : Component, IComparable<Renderer>
 		return GetModelMatrix() * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix;
 	}
 
+	internal void RenderWireframe(int verticesCount)
+	{
+		if (RenderSettings.WireframeRenderSettings.WireframeVisible)
+		{
+			Material.Shader.SetColor("u_rendererColor", Color.Black);
+			GL.LineWidth(RenderSettings.WireframeRenderSettings.WireframeLineWidth / (DistanceFromCamera + 0.1f) * 20);
+
+			GL.DrawArrays(PrimitiveType.LineLoop, 0, verticesCount);
+			Material.Shader.SetColor("u_rendererColor", Color);
+			Debug.StatAddValue("Draw Calls", 1);
+		}
+	}
+
 	public Matrix4x4 GetModelMatrix()
 	{
 		Vector3 pivotOffset = -(BoxShape.Size * Transform.WorldScale) / 2
@@ -193,7 +206,7 @@ public class Renderer : Component, IComparable<Renderer>
 
 	float CalculateDistanceFromCamera()
 	{
-		return Vector2.Distance(Transform.WorldPosition, Camera.I.Transform.WorldPosition);
+		return Vector3.Distance(Transform.WorldPosition, Camera.I.Transform.WorldPosition);
 	}
 
 	internal void UpdateMvp()

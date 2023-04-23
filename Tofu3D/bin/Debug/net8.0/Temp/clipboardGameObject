@@ -6,10 +6,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>984</Id>
+      <Id>1021</Id>
       <IndexInHierarchy>28</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Child</Name>
+      <Name>Torus</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -21,72 +21,88 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>984</GameObjectId>
+      <GameObjectId>1021</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
-      <ParentId>1</ParentId>
+      <ParentId>-1</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>-65.2138</X>
-        <Y>41.60839</Y>
-        <Z>120.20587</Z>
+        <X>7500</X>
+        <Y>-7500</Y>
+        <Z>15.4</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>7500</X>
+        <Y>-7500</Y>
+        <Z>15.4</Z>
       </LocalPosition>
       <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>15000</X>
+        <Y>15000</Y>
+        <Z>15000</Z>
       </LocalScale>
       <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>15000</X>
+        <Y>15000</Y>
+        <Z>15000</Z>
       </WorldScale>
       <Rotation>
+        <X>-343.5804</X>
+        <Y>-31</Y>
+        <Z>-70</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>1021</GameObjectId>
+      <Started>true</Started>
+      <Offset>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
-      </Rotation>
+      </Offset>
+      <Size>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </Size>
     </Component>
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>984</GameObjectId>
+      <GameObjectId>1021</GameObjectId>
       <Started>true</Started>
       <Color>
-        <B>99</B>
-        <G>99</G>
-        <R>99</R>
-        <A>151</A>
-        <PackedValue>2539873123</PackedValue>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>0</DistanceFromCamera>
+      <DistanceFromCamera>10593.3</DistanceFromCamera>
       <Material>
-        <AssetPath>Assets/Materials/ModelRendererUnlit.mat</AssetPath>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRendererUnlit.glsl</Path>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>15</Vao>
+        <Vao>4</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
-      <RenderMode>Transparent</RenderMode>
+      <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
       <Texture>
-        <AssetPath>Assets\2D\solidColor.png</AssetPath>
+        <AssetPath>Assets\2D\11_fire_spritesheet.png</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>256</X>
-          <Y>256</Y>
+          <X>800</X>
+          <Y>800</Y>
         </Size>
       </Texture>
       <Tiling>
@@ -98,27 +114,17 @@
         <Y>0</Y>
       </Offset>
       <Model>
-        <AssetPath>Assets\3D\thinmatrixcube.obj</AssetPath>
-        <Vao>9</Vao>
-        <VertexBufferDataLength>288</VertexBufferDataLength>
+        <AssetPath>Assets\3D\torus.obj</AssetPath>
+        <Vao>10</Vao>
+        <VertexBufferDataLength>27648</VertexBufferDataLength>
       </Model>
-      <CastShadow>false</CastShadow>
+      <CastShadow>true</CastShadow>
     </Component>
-    <Component xsi:type="BoxShape">
+    <Component xsi:type="TorusRotator">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>984</GameObjectId>
+      <GameObjectId>1021</GameObjectId>
       <Started>true</Started>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>1</X>
-        <Y>0.1</Y>
-        <Z>100</Z>
-      </Size>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>
