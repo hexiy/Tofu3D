@@ -56,6 +56,35 @@ public static class PersistentData
 		Save();
 	}
 
+	public static T Get<T>(string key, T? defaultValue) where T : class
+	{
+		if (_data.Count == 0)
+		{
+			LoadAllData();
+		}
+
+		if (_data.ContainsKey(key) == false)
+		{
+			if (defaultValue != null)
+			{
+				return defaultValue;
+			}
+
+			return null;
+		}
+
+		if (_data[key] is not T)
+		{
+			if (defaultValue != null)
+			{
+				return defaultValue;
+			}
+			return null;
+		}
+
+		return (T) _data[key];
+	}
+
 	public static object Get(string key, object? defaultValue = null)
 	{
 		if (_data.Count == 0)

@@ -24,7 +24,7 @@ public class ModelRenderer : TextureRenderer
 
 	public override void SetDefaultMaterial()
 	{
-		if (Material?.AssetPath.Length == 0)
+		if (Material?.AssetPath.Length == 0 || Material == null)
 		{
 			Material = AssetManager.Load<Material>("ModelRenderer");
 		}
@@ -150,43 +150,56 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetVector2("u_tiling", Tiling);
 			Material.Shader.SetVector2("u_offset", Offset);
 
-			if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques)
+
+			Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
+
+			Material.Shader.SetVector3("u_ambientLightsColor", SceneLightingManager.I.GetAmbientLightsColor().ToVector3());
+			Material.Shader.SetFloat("u_ambientLightsIntensity", SceneLightingManager.I.GetAmbientLightsIntensity());
+
+			Material.Shader.SetVector3("u_directionalLightColor", SceneLightingManager.I.GetDirectionalLightColor().ToVector3());
+			Material.Shader.SetFloat("u_directionalLightIntensity", SceneLightingManager.I.GetDirectionalLightIntensity());
+
+			// Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
+			Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
+			// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
+			Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
+
+
+			GL.ActiveTexture(TextureUnit.Texture0);
+			TextureHelper.BindTexture(Texture.TextureId);
+			if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
 			{
-				Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
-
-				Material.Shader.SetVector3("u_ambientLightsColor", SceneLightingManager.I.GetAmbientLightsColor().ToVector3());
-				Material.Shader.SetFloat("u_ambientLightsIntensity", SceneLightingManager.I.GetAmbientLightsIntensity());
-
-				Material.Shader.SetVector3("u_directionalLightColor", SceneLightingManager.I.GetDirectionalLightColor().ToVector3());
-				Material.Shader.SetFloat("u_directionalLightIntensity", SceneLightingManager.I.GetDirectionalLightIntensity());
-
-				// Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
-				Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
-				// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
-				Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
-
-
-				GL.ActiveTexture(TextureUnit.Texture0);
-				TextureHelper.BindTexture(Texture.TextureId);
-				if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
-				{
-					GL.ActiveTexture(TextureUnit.Texture1);
-					TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
-				}
+				GL.ActiveTexture(TextureUnit.Texture1);
+				TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 			}
-		}
 
-		if (Model != null)
-		{
-			ShaderCache.BindVertexArray(Model.Vao);
-			GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
+			if (Model != null)
+			{
+				ShaderCache.BindVertexArray(Model.Vao);
+				RenderWireframe(Model.VertexBufferDataLength);
+
+				GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
+			}
+			else
+			{
+				ShaderCache.BindVertexArray(Material.Vao);
+				GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+			}
 		}
 		else
 		{
-			ShaderCache.BindVertexArray(Material.Vao);
-			GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
-		}
+			if (Model != null)
+			{
+				ShaderCache.BindVertexArray(Model.Vao);
 
+				GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
+			}
+			else
+			{
+				ShaderCache.BindVertexArray(Material.Vao);
+				GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+			}
+		}
 
 		/*else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
 		{

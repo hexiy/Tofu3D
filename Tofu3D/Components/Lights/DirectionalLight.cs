@@ -91,7 +91,7 @@ public class DirectionalLight : LightBase
 
 		Camera.I.IsOrthographic = true;
 		Camera.I.OrthographicSize = OrthographicSize;
-		Camera.I.Transform.WorldPosition = Transform.WorldPosition * new Vector3(1, -1, 1); // TODO: well this is weird
+		Camera.I.Transform.WorldPosition = Transform.WorldPosition * new Vector3(1, 1, 1); // TODO: well this is weird
 		Camera.I.Transform.Rotation = Transform.Rotation;
 		Camera.I.Size = Size;
 		Camera.I.NearPlaneDistance = NearPlaneDistance;

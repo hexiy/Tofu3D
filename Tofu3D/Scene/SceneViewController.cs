@@ -160,10 +160,9 @@ public class SceneViewController
 			}
 		}
 	}
+
 	void HandleButtonInputs()
 	{
-
-
 		// PANNING
 		if (MouseInput.IsButtonDown() && Camera.I.IsOrthographic)
 		{
@@ -237,9 +236,10 @@ public class SceneViewController
 	{
 		Vector3 delta = Camera.I.Transform.TransformDirectionToWorldSpace(dir) * moveSpeed * Time.EditorDeltaTime;
 
+		Debug.StatSetValue("DASDSAD", $"CameraDir:{Camera.I.Transform.TransformDirectionToWorldSpace(dir)}");
 		//Debug.Log(delta);
 		//Camera.I.Transform.LocalPosition += delta;
-		Camera.I.Transform.WorldPosition += delta;
+		Camera.I.Transform.WorldPosition += delta * new Vector3(1, -1, 1);
 		// Camera.I.Transform.LocalPosition += dir * moveSpeed;
 
 		Camera.I.UpdateMatrices();

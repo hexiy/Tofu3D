@@ -22,8 +22,8 @@ public class Window : GameWindow
 	                       })
 	{
 		VSync = VSyncMode.On;
-		this.UpdateFrequency = 60;
-		this.RenderFrequency = 0;
+		// this.UpdateFrequency = 60;
+		// this.RenderFrequency = 0;
 		LoadIcon();
 		Title = WindowTitleText;
 		GLFW.WindowHint(WindowHintBool.Decorated, false);

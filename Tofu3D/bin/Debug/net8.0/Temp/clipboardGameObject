@@ -6,10 +6,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>634</Id>
-      <IndexInHierarchy>21</IndexInHierarchy>
+      <Id>1021</Id>
+      <IndexInHierarchy>28</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Text</Name>
+      <Name>Torus</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -21,45 +21,61 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>634</GameObjectId>
+      <GameObjectId>1021</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
-        <Z>0</Z>
+        <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
-        <Y>250</Y>
-        <Z>500</Z>
+        <X>7500</X>
+        <Y>-7500</Y>
+        <Z>15.4</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>250</Y>
-        <Z>500</Z>
+        <X>7500</X>
+        <Y>-7500</Y>
+        <Z>15.4</Z>
       </LocalPosition>
       <LocalScale>
-        <X>2</X>
-        <Y>2</Y>
-        <Z>0</Z>
+        <X>15000</X>
+        <Y>15000</Y>
+        <Z>15000</Z>
       </LocalScale>
       <WorldScale>
-        <X>2</X>
-        <Y>2</Y>
-        <Z>0</Z>
+        <X>15000</X>
+        <Y>15000</Y>
+        <Z>15000</Z>
       </WorldScale>
       <Rotation>
-        <X>37.9</X>
-        <Y>0</Y>
-        <Z>-4.9</Z>
+        <X>-343.5804</X>
+        <Y>-31</Y>
+        <Z>-70</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="TextRenderer">
+    <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>634</GameObjectId>
+      <GameObjectId>1021</GameObjectId>
+      <Started>true</Started>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>1021</GameObjectId>
       <Started>true</Started>
       <Color>
         <B>255</B>
@@ -68,25 +84,25 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>320.62616</DistanceFromCamera>
+      <DistanceFromCamera>10593.3</DistanceFromCamera>
       <Material>
-        <AssetPath>Assets/Materials/TextRenderer.mat</AssetPath>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
-          <BufferType>Sprite</BufferType>
-          <Path>Assets\Shaders\TextRenderer.glsl</Path>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>13</Vao>
+        <Vao>4</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
       <Texture>
-        <AssetPath>Assets\2D\font.png</AssetPath>
+        <AssetPath>Assets\2D\11_fire_spritesheet.png</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>112</X>
-          <Y>72</Y>
+          <X>800</X>
+          <Y>800</Y>
         </Size>
       </Texture>
       <Tiling>
@@ -97,67 +113,18 @@
         <X>0</X>
         <Y>0</Y>
       </Offset>
-      <Batched>false</Batched>
-      <GradientColor1>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </GradientColor1>
-      <GradientColor2>
-        <B>255</B>
-        <G>247</G>
-        <R>223</R>
-        <A>255</A>
-        <PackedValue>4294965215</PackedValue>
-      </GradientColor2>
-      <IsGradient>true</IsGradient>
-      <SpriteSize>
-        <X>7</X>
-        <Y>9</Y>
-      </SpriteSize>
-      <CharSpacing>4</CharSpacing>
-      <Text>
-        <AllowMultiple>true</AllowMultiple>
-        <Enabled>true</Enabled>
-        <GameObjectId>634</GameObjectId>
-        <Started>false</Started>
-        <Size>800</Size>
-        <Value>AAAAAAA
-BBBBBBB
-</Value>
-      </Text>
-      <SpritesCount>
-        <X>16</X>
-        <Y>8</Y>
-      </SpritesCount>
+      <Model>
+        <AssetPath>Assets\3D\torus.obj</AssetPath>
+        <Vao>10</Vao>
+        <VertexBufferDataLength>27648</VertexBufferDataLength>
+      </Model>
+      <CastShadow>true</CastShadow>
     </Component>
-    <Component xsi:type="Text">
+    <Component xsi:type="TorusRotator">
       <AllowMultiple>true</AllowMultiple>
       <Enabled>true</Enabled>
-      <GameObjectId>634</GameObjectId>
-      <Started>false</Started>
-      <Size>800</Size>
-      <Value>AAAAAAA
-BBBBBBB
-</Value>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <Enabled>true</Enabled>
-      <GameObjectId>634</GameObjectId>
+      <GameObjectId>1021</GameObjectId>
       <Started>true</Started>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>1.2</X>
-        <Y>1.2</Y>
-        <Z>1.2</Z>
-      </Size>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

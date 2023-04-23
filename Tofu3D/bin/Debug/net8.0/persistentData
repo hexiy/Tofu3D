@@ -5,6 +5,7 @@ PersistentObject__cameraFieldOfViewInperspectiveMode:76.6
 PersistentObject_sceneViewProjectionMode:Perspective
 lastOpenedScene:Assets/Scenes/scene1.scene
 PersistentObject_lastOpenedScene:Assets/Scenes/scene1.scene
-lastSelectedGameObjectId:-1
+lastSelectedGameObjectId:19
 DebugTimerCollapsed_Editor Update:False
 DebugTimerCollapsed_Scene Update:False
+RenderSettings.Wireframe:Tofu3D.WireframeRenderSettings

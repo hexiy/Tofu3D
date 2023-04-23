@@ -95,13 +95,20 @@ public class Shader : IDisposable
 		GL.DetachShader(ProgramId, fs);
 		GL.DeleteShader(vs);
 		GL.DeleteShader(fs);
-		
-		
+
+
 		ShaderCache.UseShader(this);
 		int mainTextureLocation = GL.GetUniformLocation(ShaderCache.ShaderInUse, "textureObject");
 		int shadowMapTextureLocation = GL.GetUniformLocation(ShaderCache.ShaderInUse, "shadowMap");
-		GL.Uniform1(mainTextureLocation, 0);
-		GL.Uniform1(shadowMapTextureLocation, 1);
+		if (mainTextureLocation != -1)
+		{
+			GL.Uniform1(mainTextureLocation, 0);
+		}
+
+		if (shadowMapTextureLocation != -1)
+		{
+			GL.Uniform1(shadowMapTextureLocation, 1);
+		}
 	}
 
 	public void SetMatrix4X4(string uniformName, Matrix4x4 mat)
@@ -163,7 +170,14 @@ public class Shader : IDisposable
 
 	public void SetColor(string uniformName, Color col)
 	{
-		SetColor(uniformName, col.ToVector4());
+		if (_uLocationUColor == -1)
+		{
+			int location = GL.GetUniformLocation(ProgramId, uniformName);
+			_uLocationUColor = location;
+		}
+
+		GL.Uniform4(_uLocationUColor, col.R/255f, col.G/255f, col.G/255f, col.A/255f);
+		Uniforms[uniformName] = col;
 	}
 
 	public void SetColor(string uniformName, Vector4 vec)

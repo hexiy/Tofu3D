@@ -24,7 +24,7 @@
 			_positionDelta += Vector3.Distance(Transform.WorldPosition, _lastFramePosition);
 		}
 
-		if (KeyboardInput.WasKeyJustPressed(Keys.Space))
+		if (KeyboardInput.IsKeyDown(Keys.Space) && _jumping == false)
 		{
 			_jumping = true;
 		}
@@ -43,7 +43,7 @@
 
 		float wobble = (float) Math.Sin(_positionDelta / 4) + (float) Math.Cos(_positionDelta / 4);
 		float rotationWobble = (float) Math.Sin(_positionDelta / 8) + (float) Math.Cos(_positionDelta / 8);
-		Transform.WorldPosition = Transform.WorldPosition.Set(y: PosY + wobble - _jumpY);
+		Transform.WorldPosition = Transform.WorldPosition.Set(y: PosY + wobble + _jumpY);
 
 
 		Transform.Rotation = Transform.Rotation.Set(z: rotationWobble * 2);
