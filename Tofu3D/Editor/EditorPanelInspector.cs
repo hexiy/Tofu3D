@@ -36,6 +36,7 @@ public class EditorPanelInspector : EditorPanel
 		Scene.ComponentAdded += OnComponentAddedToScene;
 		GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
 		MouseInput.RegisterPassThroughEdgesCondition(() => _editing && MouseInput.IsButtonDown(MouseInput.Buttons.Left));
+		Global.DebugStateChanged += (b) => QueueInspectorRefresh();
 	}
 
 	void OnComponentAddedToScene(Component comp)
@@ -58,6 +59,11 @@ public class EditorPanelInspector : EditorPanel
 	public void ClearInspectableDatas()
 	{
 		_currentInspectableDatas.Clear();
+	}
+
+	public void QueueInspectorRefresh()
+	{
+		_refreshQueued = true;
 	}
 
 	private void RefreshInspector()
@@ -139,19 +145,6 @@ public class EditorPanelInspector : EditorPanel
 		ImGui.SetNextWindowPos(new Vector2(Tofu.I.Window.ClientSize.X, 0), ImGuiCond.FirstUseEver, new Vector2(1, 0));
 		ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar);
 
-		ImGui.SameLine();
-
-		bool showDebugButton = KeyboardInput.IsKeyDown(Keys.LeftSuper);
-		if (showDebugButton)
-		{
-			bool debugButtonClicked = ImGui.SmallButton($"Debug [{(Global.Debug ? "ON" : "OFF")}]");
-			if (debugButtonClicked)
-			{
-				Global.Debug = !Global.Debug;
-			}
-		}
-
-		ImGui.Spacing();
 
 		ResetId();
 

@@ -230,10 +230,10 @@ public class ModelRenderer : TextureRenderer
 			GL.BindVertexArray(0);
 		}
 
-		Debug.StatAddValue("Draw Calls", 1);
+		DebugHelper.LogDrawCall();
 		if (drawOutline)
 		{
-			Debug.StatAddValue("Draw Calls", 1);
+			DebugHelper.LogDrawCall();
 		}
 	}
 }

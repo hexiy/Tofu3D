@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Linq;
 
 namespace Tofu3D;
 
@@ -14,13 +15,17 @@ public static class RiderIDE
 
 		try
 		{
+			var x = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User);
+			string[] paths = x.Split(";");
+			string riderPath = paths.First((s => s.ToLower().Contains("rider")));
 			Process.Start(startInfo: new ProcessStartInfo()
 			                         {
-				                         WorkingDirectory = "/",
+				                         WorkingDirectory = riderPath,
 				                         FileName = "rider",
 				                         Arguments = $"--line {stackFrame.Line} --column {stackFrame.Column + 4} {stackFrame.FileFullPath}",
 				                         CreateNoWindow = true,
 				                         UseShellExecute = true,
+				                         WindowStyle = ProcessWindowStyle.Hidden,
 			                         });
 		}
 		catch (Exception ex)

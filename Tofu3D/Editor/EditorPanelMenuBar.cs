@@ -76,6 +76,16 @@ public class EditorPanelMenuBar : EditorPanel
 				ImGui.EndMenu();
 			}
 
+			bool showDebugButton = KeyboardInput.IsKeyDown(Keys.LeftAlt);
+			if (showDebugButton)
+			{
+				bool debugButtonClicked = ImGui.SmallButton($"Debug [{(Global.Debug ? "ON" : "OFF")}]");
+				if (debugButtonClicked)
+				{
+					Global.Debug = !Global.Debug;
+				}
+			}
+			
 			ImGui.EndMainMenuBar();
 
 			// ImGui.PopStyleColor();

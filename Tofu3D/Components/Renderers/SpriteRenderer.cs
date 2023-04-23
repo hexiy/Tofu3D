@@ -127,7 +127,7 @@ public class SpriteRenderer : TextureRenderer
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 		RenderWireframe(6);
 
-		Debug.StatAddValue("Draw Calls", 1);
+		DebugHelper.LogDrawCall();
 	}
 }
 

@@ -51,7 +51,7 @@ public class SceneSkyboxRenderer
 
 	private void OnSceneDisposed()
 	{
-		// RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
+		RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
 	}
 
 	private void RenderSkybox()
@@ -89,7 +89,7 @@ public class SceneSkyboxRenderer
 
 		GL.DrawElements(PrimitiveType.Triangles, 36, DrawElementsType.UnsignedInt, 0);
 
-		Debug.StatAddValue("Draw Calls", 1);
+		DebugHelper.LogDrawCall();
 		GL.DepthMask(true);
 	}
 }

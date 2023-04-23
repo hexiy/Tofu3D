@@ -10,8 +10,10 @@
 		{
 			_debug = value;
 			SaveData();
+			DebugStateChanged.Invoke(_debug);
 		}
 	}
+	public static Action<bool> DebugStateChanged = (b) => { };
 	public const string DebugFlag = nameof(Debug);
 
 	static void SaveData()
