@@ -71,7 +71,36 @@ public class Component : IDestroyable, IInspectable
 	[XmlIgnore]
 	[DefaultValue(false)]
 	public bool Awoken;
-	public bool Enabled = true;
+	bool _enabled = true;
+	public bool Enabled
+	{
+		get { return _enabled; }
+		set { SetEnabled(value); }
+	}
+	public virtual bool CanBeDisabled => true;
+
+	private void SetEnabled(bool tgl)
+	{
+		if (CanBeDisabled == false && tgl == false)
+		{
+			return;
+		}
+
+		bool changedState = Enabled != tgl;
+		_enabled = tgl;
+		if (changedState)
+		{
+			if (Enabled)
+			{
+				OnEnable();
+			}
+			else
+			{
+				OnDisable();
+			}
+		}
+	}
+
 	public bool IsActive
 	{
 		get { return GameObject.ActiveInHierarchy && Enabled; }
@@ -130,6 +159,14 @@ public class Component : IDestroyable, IInspectable
 	public virtual void Start()
 	{
 		Started = true;
+	}
+
+	public virtual void OnEnable()
+	{
+	}
+
+	public virtual void OnDisable()
+	{
 	}
 
 	public virtual void EditorUpdate()

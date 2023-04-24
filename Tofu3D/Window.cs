@@ -97,8 +97,6 @@ public class Window : GameWindow
 
 		Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
 
-		Debug.StatSetAdditiveValue("Draw Calls", 0);
-
 		Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 60f));
 
 		RenderPassSystem.RenderAllPasses();

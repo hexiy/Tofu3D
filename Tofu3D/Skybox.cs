@@ -5,20 +5,15 @@ using Tofu3D.Rendering;
 
 namespace Tofu3D;
 
-public class SceneSkyboxRenderer
+[ExecuteInEditMode]
+public class Skybox : Component
 {
 	Material _material;
 	Texture _texture;
+	public float Fov = 60;
 
-	Scene _scene;
-
-	public static SceneSkyboxInspectable Inspectable { get; private set; }
-
-	public SceneSkyboxRenderer(Scene scene)
+	public override void Awake()
 	{
-		Inspectable = new SceneSkyboxInspectable();
-		_scene = _scene;
-
 		_material = AssetManager.Load<Material>("Skybox");
 
 		_texture = new Texture();
@@ -43,19 +38,38 @@ public class SceneSkyboxRenderer
 		                                                                  textureType: TextureType.Cubemap);
 		_texture = AssetManager.Load<Texture>(textureLoadSettings);
 
-		// _texture.Load(textureLoadSettings);
 
-		RenderPassSystem.RegisterRender(RenderPassType.Skybox, RenderSkybox);
-		Scene.SceneDisposed += OnSceneDisposed;
+		base.Awake();
 	}
 
-	private void OnSceneDisposed()
+	public override void OnEnable()
 	{
-		// RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
+		RenderPassSystem.RegisterRender(RenderPassType.Skybox, RenderSkybox);
+
+		base.OnEnable();
+	}
+
+	public override void OnDisable()
+	{
+		RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
+
+		base.OnDisable();
+	}
+
+	public override void Dispose()
+	{
+		RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
+
+		base.Dispose();
 	}
 
 	private void RenderSkybox()
 	{
+		if (Enabled == false || GameObject.ActiveInHierarchy == false)
+		{
+			return;
+		}
+
 		GL.DepthMask(false);
 
 		ShaderCache.UseShader(_material.Shader);
@@ -66,8 +80,8 @@ public class SceneSkyboxRenderer
 
 		Matrix4x4 viewMatrix = Matrix4x4.CreateLookAt(cameraPosition: Vector3.Zero, cameraTarget: forwardLocal, cameraUpVector: upLocal);
 
-		Inspectable.Fov = Mathf.Clamp(Inspectable.Fov, 0.000001f, 179);
-		Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Inspectable.Fov), Camera.I.Size.X / Camera.I.Size.Y, 0.01f, 1);
+		Fov = Mathf.Clamp(Fov, 0.000001f, 179);
+		Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Fov), Camera.I.Size.X / Camera.I.Size.Y, 0.01f, 1);
 
 		_material.Shader.SetMatrix4X4("u_view", viewMatrix);
 		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix);
@@ -77,19 +91,9 @@ public class SceneSkyboxRenderer
 		GL.ActiveTexture(TextureUnit.Texture0);
 		TextureHelper.BindTexture(_texture.TextureId, TextureType.Cubemap);
 
-		if (KeyboardInput.WasKeyJustPressed(Keys.D1))
-		{
-			Inspectable.Fov -= Time.EditorDeltaTime;
-		}
-
-		if (KeyboardInput.WasKeyJustPressed(Keys.D2))
-		{
-			Inspectable.Fov += Time.EditorDeltaTime;
-		}
-
 		GL.DrawElements(PrimitiveType.Triangles, 36, DrawElementsType.UnsignedInt, 0);
 
-		Debug.StatAddValue("Draw Calls", 1);
+		DebugHelper.LogDrawCall();
 		GL.DepthMask(true);
 	}
 }

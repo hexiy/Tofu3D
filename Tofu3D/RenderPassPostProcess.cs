@@ -54,7 +54,7 @@ public class RenderPassPostProcess : RenderPass
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
-		Debug.StatAddValue("Draw Calls", 1);
+		DebugHelper.LogDrawCall();
 		ShaderCache.BindVertexArray(0);
 
 		target.Unbind();

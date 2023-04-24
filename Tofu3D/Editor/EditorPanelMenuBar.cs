@@ -68,7 +68,7 @@ public class EditorPanelMenuBar : EditorPanel
 			bool skyboxButtonClicked = ImGui.BeginMenu("Skybox");
 			if (skyboxButtonClicked)
 			{
-				EditorPanelInspector.I.SelectInspectable(SceneSkyboxRenderer.Inspectable);
+				EditorPanelInspector.I.SelectInspectable(SceneManager.CurrentScene.FindComponent<Skybox>());
 
 				ImGui.CloseCurrentPopup();
 
@@ -76,6 +76,16 @@ public class EditorPanelMenuBar : EditorPanel
 				ImGui.EndMenu();
 			}
 
+			bool showDebugButton = KeyboardInput.IsKeyDown(Keys.LeftAlt);
+			if (showDebugButton)
+			{
+				bool debugButtonClicked = ImGui.SmallButton($"Debug [{(Global.Debug ? "ON" : "OFF")}]");
+				if (debugButtonClicked)
+				{
+					Global.Debug = !Global.Debug;
+				}
+			}
+			
 			ImGui.EndMainMenuBar();
 
 			// ImGui.PopStyleColor();

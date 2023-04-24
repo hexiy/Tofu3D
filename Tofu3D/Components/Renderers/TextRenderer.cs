@@ -248,7 +248,7 @@ public class TextRenderer : SpriteRenderer
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
-			Debug.StatAddValue("Draw Calls", 1);
+			DebugHelper.LogDrawCall();
 		}
 
 		Transform.Pivot = originalPivot;

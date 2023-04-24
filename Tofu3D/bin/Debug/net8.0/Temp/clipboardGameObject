@@ -51,7 +51,7 @@
         <Z>15000</Z>
       </WorldScale>
       <Rotation>
-        <X>-343.5804</X>
+        <X>-359.6211</X>
         <Y>-31</Y>
         <Z>-70</Z>
       </Rotation>
@@ -84,7 +84,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10593.3</DistanceFromCamera>
+      <DistanceFromCamera>10613.454</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -106,7 +106,7 @@
         </Size>
       </Texture>
       <Tiling>
-        <X>1</X>
+        <X>2</X>
         <Y>1</Y>
       </Tiling>
       <Offset>

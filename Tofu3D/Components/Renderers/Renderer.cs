@@ -87,7 +87,7 @@ public class Renderer : Component, IComparable<Renderer>
 
 			GL.DrawArrays(PrimitiveType.LineLoop, 0, verticesCount);
 			Material.Shader.SetColor("u_rendererColor", Color);
-			Debug.StatAddValue("Draw Calls", 1);
+			DebugHelper.LogDrawCall();
 		}
 	}
 

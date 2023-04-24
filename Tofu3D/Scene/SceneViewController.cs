@@ -166,7 +166,7 @@ public class SceneViewController
 		// PANNING
 		if (MouseInput.IsButtonDown() && Camera.I.IsOrthographic)
 		{
-			Camera.I.Transform.LocalPosition -= Camera.I.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.I.OrthographicSize;
+			Camera.I.Transform.LocalPosition -= Camera.I.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, -MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.I.OrthographicSize;
 			// MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
 		}
 

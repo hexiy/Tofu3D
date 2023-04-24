@@ -9,6 +9,8 @@ public class Transform : Component
 	public List<Transform> Children = new();
 	public List<int> ChildrenIDs = new();
 
+	public override bool CanBeDisabled => false;
+
 	Vector3? _lastFramePosition;
 	//[Hide] public Vector3 localPosition { get { return position - GetParentPosition(); } set { position = GetParentPosition() + value; } }
 	//[Hide] public Vector3 initialAngleDifferenceFromParent = Vector3.Zero;

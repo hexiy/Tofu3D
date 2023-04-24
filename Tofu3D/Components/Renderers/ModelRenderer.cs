@@ -173,6 +173,8 @@ public class ModelRenderer : TextureRenderer
 				TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 			}
 
+			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
 			if (Model != null)
 			{
 				ShaderCache.BindVertexArray(Model.Vao);
@@ -230,10 +232,10 @@ public class ModelRenderer : TextureRenderer
 			GL.BindVertexArray(0);
 		}
 
-		Debug.StatAddValue("Draw Calls", 1);
+		DebugHelper.LogDrawCall();
 		if (drawOutline)
 		{
-			Debug.StatAddValue("Draw Calls", 1);
+			DebugHelper.LogDrawCall();
 		}
 	}
 }

@@ -12,7 +12,12 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 	//Destroying 
 	public delegate void Destroyed(GameObject gameObject);
 
-	public bool ActiveSelf = true;
+	[XmlElement]
+	bool _activeSelf = true;
+	public bool ActiveSelf
+	{
+		get { return _activeSelf; }
+	}
 	public bool AlwaysUpdate = false;
 
 	[DefaultValue(false)]
@@ -72,6 +77,35 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 		OnComponentAdded += InvokeOnComponentAddedOnComponents;
 		OnComponentAdded += CheckForTransformComponent;
 		OnComponentAdded += SceneManager.CurrentScene.OnComponentAdded;
+	}
+
+	public void Dispose()
+	{
+		SetActive(false);
+		for (int i = 0; i < Components.Count; i++)
+		{
+			Components[i].Dispose();
+		}
+	}
+
+	public void SetActive(bool tgl)
+	{
+		bool stateChanged = ActiveSelf != tgl;
+		_activeSelf = tgl;
+		if (stateChanged)
+		{
+			for (int i = 0; i < Components.Count; i++)
+			{
+				if (ActiveSelf)
+				{
+					Components[i].OnEnable();
+				}
+				else
+				{
+					Components[i].OnDisable();
+				}
+			}
+		}
 	}
 
 	public bool ActiveInHierarchy
@@ -380,6 +414,14 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 			}
 		}
 
+		for (int i = 0; i < Components.Count; i++)
+		{
+			if (Components[i].Enabled)
+			{
+				Components[i].OnEnable();
+			}
+		}
+
 		Started = true;
 	}
 
@@ -573,10 +615,10 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
 	public void RemoveComponent(Component component)
 	{
-		ActiveSelf = false;
+		// SetActive(false);
 		Components.Remove(component);
 		component.OnDestroyed();
-		ActiveSelf = true;
+		// SetActive(true);
 	}
 
 	public void RemoveComponent<T>() where T : Component

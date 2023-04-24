@@ -105,7 +105,7 @@ public class EditorPanelSceneView : EditorPanel
 				}
 			}
 
-			_renderCameraViews = GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
+			_renderCameraViews = Global.Debug && GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
 			// ImGui.SetCursorPosX(0);
 			ImGui.SetCursorPos(new Vector2(0, tooltipsPanelHeight));

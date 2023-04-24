@@ -263,7 +263,7 @@ public class TransformHandle : Component
 
 	public void SelectObjects(List<int> selection)
 	{
-		GameObject.ActiveSelf = selection != null;
+		GameObject.SetActive(selection != null);
 
 		if (selection == null)
 		{

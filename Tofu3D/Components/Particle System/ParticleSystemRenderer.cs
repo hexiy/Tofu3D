@@ -56,7 +56,7 @@ public class ParticleSystemRenderer : SpriteRenderer
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
-			Debug.StatAddValue("Draw Calls", 1);
+			DebugHelper.LogDrawCall();
 		}
 		//BatchingManager.UpdateAttribs(texture.id, gameObjectID, particleSystem.particles[i].worldPosition, new Vector2(particleSystem.particles[i].radius),
 		//                              particleSystem.particles[i].color, i);
