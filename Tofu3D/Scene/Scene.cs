@@ -9,7 +9,6 @@ namespace Tofu3D;
 public class Scene
 {
 	SceneLightingManager _sceneLightingManager;
-	SceneSkyboxManager _sceneSkyboxManager;
 	SceneRenderQueue _sceneRenderQueue;
 	public TransformHandle TransformHandle;
 
@@ -29,7 +28,6 @@ public class Scene
 	{
 		_sceneLightingManager = new SceneLightingManager(this);
 		_sceneRenderQueue = new SceneRenderQueue(this);
-		_sceneSkyboxManager = new SceneSkyboxManager(this);
 
 		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderWorld);
 		RenderPassSystem.RegisterRender(RenderPassType.UI, RenderUI);
@@ -40,16 +38,14 @@ public class Scene
 	{
 		foreach (GameObject gameObject in GameObjects)
 		{
-			foreach (Component component in gameObject.Components)
-			{
-				component.Dispose();
-			}
+			gameObject.Dispose();
 		}
 
 		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderWorld);
 		RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
 		SceneDisposed.Invoke();
 	}
+
 	public void ForceRenderQueueChanged()
 	{
 		_sceneRenderQueue.RenderQueueChanged();
@@ -91,7 +87,7 @@ public class Scene
 		transformHandleGameObject.DynamicallyCreated = true;
 		transformHandleGameObject.AlwaysUpdate = true;
 		transformHandleGameObject.Name = "Transform Handle";
-		transformHandleGameObject.ActiveSelf = false;
+		transformHandleGameObject.SetActive(false);
 		transformHandleGameObject.Awake();
 		transformHandleGameObject.Start();
 	}
@@ -146,7 +142,7 @@ public class Scene
 		GL.Enable(EnableCap.DepthTest);
 		GL.DepthFunc(DepthFunction.Less);
 		GL.Enable(EnableCap.StencilTest);
-		
+
 		// GL.ClearDepth(1000);
 		//
 		//
@@ -297,6 +293,4 @@ public class Scene
 	void OnMouse3Released()
 	{
 	}
-
-
 }

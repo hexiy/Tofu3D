@@ -38,10 +38,10 @@ uniform vec3 u_directionalLightColor = vec3(1, 0, 0);
 uniform float u_directionalLightIntensity = 1;
 uniform vec3 u_directionalLightDirection = vec3(1, 0, 0);
 uniform float u_smoothShading = 0;
-        
+
 uniform sampler2D textureObject;
 uniform sampler2D shadowMap;
-        
+
 
 in vec3 normal;
 in vec2 uv;
@@ -100,8 +100,8 @@ float shadow = 1 - ShadowCalculation(FragPosLightSpace);
 
 
 vec4 texturePixelColor = texture(textureObject, (uv + u_offset) * u_tiling);
-vec4 result = vec4(1,1,1,1);
-        if(u_directionalLightIntensity>0){
+vec4 result = vec4(1, 1, 1, 1);
+if (u_directionalLightIntensity > 0){
 result *= vec4(dirColor.rgb, 1);
 }
 result *= texturePixelColor.rgba;
@@ -109,8 +109,8 @@ result *=  u_rendererColor.rgba;
 result *=  vec4(ambColor.rgb, 1);
 
 result.a = (texturePixelColor.rgba * u_rendererColor.rgba).a;
-if(result.a==0){
-        discard; // having this fixes transparency sorting but breaks debug depthmap
+if(result.a < 0.05){
+discard; // having this fixes transparency sorting but breaks debug depthmap
 }
 //vec4 result = vec4(((dirColor.rgb * shadow)) * ccc.rgb * ambColor.rgb, ccc.a);
 

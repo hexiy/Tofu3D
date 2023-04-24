@@ -1,11 +1,11 @@
 LastUsedLayoutName:editor.ini
-PersistentObject__cameraRotationInPerspectiveMode:[-13.2  10.8  0.0]
-PersistentObject__cameraPositionInPerspectiveMode:[117.5  -14.8  -43.1]
+PersistentObject__cameraRotationInPerspectiveMode:[-11.6  -16.6  0.0]
+PersistentObject__cameraPositionInPerspectiveMode:[76.6  52.9  -56.4]
 PersistentObject__cameraFieldOfViewInperspectiveMode:76.6
 PersistentObject_sceneViewProjectionMode:Perspective
 lastOpenedScene:Assets/Scenes/scene1.scene
 PersistentObject_lastOpenedScene:Assets/Scenes/scene1.scene
-lastSelectedGameObjectId:-1
+lastSelectedGameObjectId:19
 DebugTimerCollapsed_Editor Update:False
 DebugTimerCollapsed_Scene Update:False
 RenderSettings.Wireframe:Tofu3D.WireframeRenderSettings

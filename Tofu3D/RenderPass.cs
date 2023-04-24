@@ -8,7 +8,7 @@ public abstract class RenderPass : IComparable<RenderPass>
 
 	protected virtual bool CanRender()
 	{
-		return true;
+		return _renderQueue.Count > 0;
 	}
 
 	protected RenderPass(RenderPassType type)
@@ -25,6 +25,7 @@ public abstract class RenderPass : IComparable<RenderPass>
 	{
 		PassRenderTexture.Clear();
 	}
+
 	public int CompareTo(RenderPass comparePart)
 	{
 		if (comparePart == null)

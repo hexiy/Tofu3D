@@ -173,6 +173,8 @@ public class ModelRenderer : TextureRenderer
 				TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 			}
 
+			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
 			if (Model != null)
 			{
 				ShaderCache.BindVertexArray(Model.Vao);

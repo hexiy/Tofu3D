@@ -68,7 +68,7 @@ public class EditorPanelMenuBar : EditorPanel
 			bool skyboxButtonClicked = ImGui.BeginMenu("Skybox");
 			if (skyboxButtonClicked)
 			{
-				EditorPanelInspector.I.SelectInspectable(SceneSkyboxRenderer.Inspectable);
+				EditorPanelInspector.I.SelectInspectable(SceneManager.CurrentScene.FindComponent<Skybox>());
 
 				ImGui.CloseCurrentPopup();
 

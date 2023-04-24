@@ -206,7 +206,7 @@ public class EditorPanelHierarchy : EditorPanel
 			//PushNextId();
 			if (ImGui.IsItemVisible() == false)
 			{
-				ImGui.Dummy(new System.Numerics.Vector2(100,50));
+				ImGui.Dummy(new System.Numerics.Vector2(100, 50));
 			}
 			else
 			{
@@ -266,11 +266,10 @@ public class EditorPanelHierarchy : EditorPanel
 		flags |= ImGuiTreeNodeFlags.OpenOnDoubleClick;
 		bool opened = ImGui.TreeNodeEx(rowText, flags);
 
-		
 
 		if (ImGui.IsItemClicked(ImGuiMouseButton.Right))
 		{
-			currentGameObject.ActiveSelf = !currentGameObject.ActiveSelf;
+			currentGameObject.SetActive(!currentGameObject.ActiveSelf);
 		}
 
 		if (ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left) && false) // todo remove false

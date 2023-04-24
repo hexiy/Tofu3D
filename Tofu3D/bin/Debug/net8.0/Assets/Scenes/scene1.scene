@@ -2,7 +2,6 @@
 <SceneFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameObjects>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -17,7 +16,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>true</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -32,7 +30,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -47,7 +44,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -62,7 +58,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -77,7 +72,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -92,7 +86,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -107,7 +100,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -122,7 +114,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -137,7 +128,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -152,7 +142,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -167,7 +156,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -182,7 +170,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -197,7 +184,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -212,7 +198,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -227,7 +212,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -236,13 +220,12 @@
       <IsPrefab>false</IsPrefab>
       <Name>GameObject</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -257,7 +240,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -272,7 +254,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -287,7 +268,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -302,7 +282,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -317,7 +296,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -326,13 +304,12 @@
       <IsPrefab>false</IsPrefab>
       <Name>Text</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -347,7 +324,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -362,7 +338,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>false</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -377,7 +352,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -392,7 +366,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -407,7 +380,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -422,7 +394,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -437,7 +408,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -452,7 +422,6 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
     <GameObject>
-      <ActiveSelf>true</ActiveSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -518,7 +487,7 @@
         <A>255</A>
         <PackedValue>4278190335</PackedValue>
       </Color>
-      <DistanceFromCamera>73.10996</DistanceFromCamera>
+      <DistanceFromCamera>113.41772</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -526,7 +495,7 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>2</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
@@ -581,14 +550,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-48.280582</X>
-        <Y>38.074715</Y>
-        <Z>-39.552094</Z>
+        <X>2.6446643</X>
+        <Y>58.458126</Y>
+        <Z>-97.15571</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-48.280582</X>
-        <Y>38.074715</Y>
-        <Z>-39.552094</Z>
+        <X>2.6446643</X>
+        <Y>58.458126</Y>
+        <Z>-97.15571</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -601,8 +570,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>8.666074</X>
-        <Y>2.8351076</Y>
+        <X>-14.713787</X>
+        <Y>14.178078</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -634,6 +603,13 @@
       <GameObjectId>1</GameObjectId>
       <Started>false</Started>
       <PosY>15</PosY>
+    </Component>
+    <Component xsi:type="Skybox">
+      <AllowMultiple>true</AllowMultiple>
+      <Enabled>true</Enabled>
+      <GameObjectId>1</GameObjectId>
+      <Started>true</Started>
+      <Fov>60</Fov>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -669,7 +645,7 @@
       </WorldScale>
       <Rotation>
         <X>30.1</X>
-        <Y>299.50122</Y>
+        <Y>316.6559</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -701,7 +677,7 @@
         <A>202</A>
         <PackedValue>3402825472</PackedValue>
       </Color>
-      <DistanceFromCamera>201.9164</DistanceFromCamera>
+      <DistanceFromCamera>247.63342</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -923,7 +899,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>189.93456</DistanceFromCamera>
+      <DistanceFromCamera>212.71759</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1025,7 +1001,7 @@
         <A>255</A>
         <PackedValue>4281696163</PackedValue>
       </Color>
-      <DistanceFromCamera>76.32109</DistanceFromCamera>
+      <DistanceFromCamera>197.7115</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1127,7 +1103,7 @@
         <A>195</A>
         <PackedValue>3288334335</PackedValue>
       </Color>
-      <DistanceFromCamera>169.67</DistanceFromCamera>
+      <DistanceFromCamera>208.78835</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1224,7 +1200,7 @@
         <A>255</A>
         <PackedValue>4294936991</PackedValue>
       </Color>
-      <DistanceFromCamera>139.42657</DistanceFromCamera>
+      <DistanceFromCamera>158.42174</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1326,7 +1302,7 @@
         <A>131</A>
         <PackedValue>2198670836</PackedValue>
       </Color>
-      <DistanceFromCamera>206.35611</DistanceFromCamera>
+      <DistanceFromCamera>226.7487</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1423,7 +1399,7 @@
         <A>255</A>
         <PackedValue>4278242047</PackedValue>
       </Color>
-      <DistanceFromCamera>130.19255</DistanceFromCamera>
+      <DistanceFromCamera>139.00835</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1525,7 +1501,7 @@
         <A>255</A>
         <PackedValue>4292857492</PackedValue>
       </Color>
-      <DistanceFromCamera>86.928</DistanceFromCamera>
+      <DistanceFromCamera>116.087746</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1627,7 +1603,7 @@
         <A>255</A>
         <PackedValue>4282218239</PackedValue>
       </Color>
-      <DistanceFromCamera>89.07341</DistanceFromCamera>
+      <DistanceFromCamera>114.32386</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1729,7 +1705,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>131.75539</DistanceFromCamera>
+      <DistanceFromCamera>165.05522</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1815,7 +1791,7 @@
         <A>194</A>
         <PackedValue>3271557119</PackedValue>
       </Color>
-      <DistanceFromCamera>63.780403</DistanceFromCamera>
+      <DistanceFromCamera>102.789024</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1917,7 +1893,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>41.286587</DistanceFromCamera>
+      <DistanceFromCamera>94.018005</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1931,11 +1907,11 @@
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
       <Texture>
-        <AssetPath>Assets\2D\particle.png</AssetPath>
+        <AssetPath>Assets\2D\space.PNG</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>256</X>
-          <Y>256</Y>
+          <X>1024</X>
+          <Y>1024</Y>
         </Size>
       </Texture>
       <Tiling>
@@ -1975,6 +1951,11 @@
       <GameObjectId>312</GameObjectId>
       <Started>true</Started>
       <ChildrenIDs>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
+        <int>676</int>
         <int>676</int>
         <int>676</int>
         <int>676</int>
@@ -2215,7 +2196,7 @@
         <A>213</A>
         <PackedValue>3590324223</PackedValue>
       </Color>
-      <DistanceFromCamera>83.70021</DistanceFromCamera>
+      <DistanceFromCamera>105.01603</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2333,7 +2314,7 @@
         <A>131</A>
         <PackedValue>2198670836</PackedValue>
       </Color>
-      <DistanceFromCamera>232.08095</DistanceFromCamera>
+      <DistanceFromCamera>270.46353</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2430,7 +2411,7 @@
         <A>131</A>
         <PackedValue>2198670836</PackedValue>
       </Color>
-      <DistanceFromCamera>213.33183</DistanceFromCamera>
+      <DistanceFromCamera>231.0083</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2511,7 +2492,7 @@
         <A>137</A>
         <PackedValue>2315255807</PackedValue>
       </Color>
-      <DistanceFromCamera>58.111084</DistanceFromCamera>
+      <DistanceFromCamera>93.394165</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2613,7 +2594,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>129.95029</DistanceFromCamera>
+      <DistanceFromCamera>77.83833</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2715,7 +2696,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>590.2938</DistanceFromCamera>
+      <DistanceFromCamera>627.12854</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/TextRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2852,7 +2833,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>506.10315</DistanceFromCamera>
+      <DistanceFromCamera>602.67664</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2860,7 +2841,7 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>2</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
@@ -4087,6 +4068,26 @@
         <int>419</int>
         <int>467</int>
         <int>811</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>811</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>811</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>811</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>811</int>
+        <int>373</int>
+        <int>419</int>
+        <int>467</int>
+        <int>811</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -4176,7 +4177,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>1385.6226</DistanceFromCamera>
+      <DistanceFromCamera>1409.1975</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/TextRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -4313,7 +4314,7 @@
         <A>255</A>
         <PackedValue>4286829955</PackedValue>
       </Color>
-      <DistanceFromCamera>483.79837</DistanceFromCamera>
+      <DistanceFromCamera>460.46652</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -4321,7 +4322,7 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>2</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
@@ -4410,7 +4411,7 @@
         <A>255</A>
         <PackedValue>4291755957</PackedValue>
       </Color>
-      <DistanceFromCamera>83.70021</DistanceFromCamera>
+      <DistanceFromCamera>105.01603</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/TextRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -4510,29 +4511,29 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>1137</X>
-        <Y>1197</Y>
+        <X>1402</X>
+        <Y>522</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1137</X>
-        <Y>1197</Y>
+        <X>1402</X>
+        <Y>522</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
-        <X>0.78643</X>
-        <Y>0.78643</Y>
-        <Z>0.78643</Z>
+        <X>1.0000234</X>
+        <Y>1.0000234</Y>
+        <Z>1.0000234</Z>
       </LocalScale>
       <WorldScale>
-        <X>0.78643</X>
-        <Y>0.78643</Y>
-        <Z>0.78643</Z>
+        <X>1.0000234</X>
+        <Y>1.0000234</Y>
+        <Z>1.0000234</Z>
       </WorldScale>
       <Rotation>
         <X>0</X>
         <Y>0</Y>
-        <Z>129.00491</Z>
+        <Z>257.66476</Z>
       </Rotation>
     </Component>
     <Component xsi:type="BoxShape">
@@ -4563,7 +4564,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>1658.1804</DistanceFromCamera>
+      <DistanceFromCamera>1477.3306</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -4571,7 +4572,7 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>3</Vao>
+        <Vao>2</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
@@ -4635,7 +4636,7 @@
         <Z>15000</Z>
       </WorldScale>
       <Rotation>
-        <X>-199.2277</X>
+        <X>-207.80617</X>
         <Y>-31</Y>
         <Z>-70</Z>
       </Rotation>
@@ -4668,7 +4669,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10667.809</DistanceFromCamera>
+      <DistanceFromCamera>10646.751</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -4793,5 +4794,5 @@
       </Rotation>
     </Component>
   </Components>
-  <GameObjectNextId>1071</GameObjectNextId>
+  <GameObjectNextId>1081</GameObjectNextId>
 </SceneFile>

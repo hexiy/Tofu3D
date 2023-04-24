@@ -221,7 +221,9 @@ public class EditorPanelInspector : EditorPanel
 			ImGui.SetScrollX(0);
 
 			string gameObjectName = gameObject.Name;
-			ImGui.Checkbox("", ref gameObject.ActiveSelf);
+			bool gameObjectActiveSelf = gameObject.ActiveSelf;
+			ImGui.Checkbox("", ref gameObjectActiveSelf);
+			gameObject.SetActive(gameObjectActiveSelf);
 			ImGui.SameLine();
 			PushNextId();
 			ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
@@ -239,7 +241,20 @@ public class EditorPanelInspector : EditorPanel
 			{
 				PushNextId();
 
-				ImGui.Checkbox("", ref component.Enabled);
+				bool toggledComponent = ImGui.Checkbox("", ref component.Enabled);
+				if (toggledComponent)
+				{
+					if (component.Enabled)
+					{
+						component.OnEnable();
+					}
+
+					if (component.Enabled == false)
+					{
+						component.OnDisable();
+					}
+				}
+
 				ImGui.SameLine();
 
 				if (ImGui.Button("-"))

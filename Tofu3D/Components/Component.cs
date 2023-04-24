@@ -132,6 +132,14 @@ public class Component : IDestroyable, IInspectable
 		Started = true;
 	}
 
+	public virtual void OnEnable()
+	{
+	}
+
+	public virtual void OnDisable()
+	{
+	}
+
 	public virtual void EditorUpdate()
 	{
 	}
