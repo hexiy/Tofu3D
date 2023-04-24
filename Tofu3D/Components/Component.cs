@@ -77,9 +77,15 @@ public class Component : IDestroyable, IInspectable
 		get { return _enabled; }
 		set { SetEnabled(value); }
 	}
+	public virtual bool CanBeDisabled => true;
 
 	private void SetEnabled(bool tgl)
 	{
+		if (CanBeDisabled == false && tgl == false)
+		{
+			return;
+		}
+
 		bool changedState = Enabled != tgl;
 		_enabled = tgl;
 		if (changedState)

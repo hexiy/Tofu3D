@@ -240,23 +240,25 @@ public class EditorPanelInspector : EditorPanel
 			if (component)
 			{
 				PushNextId();
-
-				bool componentEnabled = component.Enabled;
-				bool toggledComponent = ImGui.Checkbox("", ref componentEnabled);
-				if (toggledComponent)
+				if (component.CanBeDisabled)
 				{
-					component.Enabled = componentEnabled;
+					bool componentEnabled = component.Enabled;
+					bool toggledComponent = ImGui.Checkbox("", ref componentEnabled);
+					if (toggledComponent)
+					{
+						component.Enabled = componentEnabled;
+					}
+
+					ImGui.SameLine();
+
+					if (ImGui.Button("-"))
+					{
+						component.GameObject.RemoveComponent(component);
+						continue;
+					}
+
+					ImGui.SameLine();
 				}
-
-				ImGui.SameLine();
-
-				if (ImGui.Button("-"))
-				{
-					component.GameObject.RemoveComponent(component);
-					continue;
-				}
-
-				ImGui.SameLine();
 			}
 
 			PushNextId();
