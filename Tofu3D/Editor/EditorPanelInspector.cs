@@ -241,18 +241,11 @@ public class EditorPanelInspector : EditorPanel
 			{
 				PushNextId();
 
-				bool toggledComponent = ImGui.Checkbox("", ref component.Enabled);
+				bool componentEnabled = component.Enabled;
+				bool toggledComponent = ImGui.Checkbox("", ref componentEnabled);
 				if (toggledComponent)
 				{
-					if (component.Enabled)
-					{
-						component.OnEnable();
-					}
-
-					if (component.Enabled == false)
-					{
-						component.OnDisable();
-					}
+					component.Enabled = componentEnabled;
 				}
 
 				ImGui.SameLine();
