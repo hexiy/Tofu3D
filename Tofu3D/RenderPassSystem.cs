@@ -26,12 +26,12 @@ public static class RenderPassSystem
 	public static void Initialize()
 	{
 		//_renderPasses = new List<RenderPass>();
-		if (Camera.I == null)
+		if (Camera.MainCamera == null)
 		{
 			throw new NullReferenceException("No camera in scene");
 		}
 
-		FinalRenderTexture = new RenderTexture(Camera.I.Size, true, false);
+		FinalRenderTexture = new RenderTexture(Camera.MainCamera.Size, true, false);
 
 		foreach (RenderPass renderPass in _renderPasses)
 		{

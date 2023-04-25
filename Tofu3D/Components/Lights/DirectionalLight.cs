@@ -3,7 +3,6 @@ using Tofu3D.Rendering;
 [ExecuteInEditMode]
 public class DirectionalLight : LightBase
 {
-	public static DirectionalLight I { get; private set; }
 	[Show]
 	public float Speed = 100;
 	public bool Rotate = false;
@@ -32,8 +31,6 @@ public class DirectionalLight : LightBase
 	[ExecuteInEditMode]
 	public override void Awake()
 	{
-		I = this;
-
 		_initialRotationY = Transform.Rotation.Y;
 		// DepthRenderTexture = new RenderTexture(size: Size, colorAttachment: false, depthAttachment: true);
 		// DisplayDepthRenderTexture = new RenderTexture(size: Size, colorAttachment: true, depthAttachment: false);
@@ -81,35 +78,35 @@ public class DirectionalLight : LightBase
 
 	private void ConfigureForShadowMapping()
 	{
-		_cameraBeforeTransformationWorldPosition = Camera.I.Transform.WorldPosition;
-		_cameraBeforeTransformationRotation = Camera.I.Transform.Rotation;
-		_cameraBeforeTransformationIsOrthographic = Camera.I.IsOrthographic;
-		_cameraBeforeTransformationOrthographicSize = Camera.I.OrthographicSize;
-		_cameraBeforeTransformationSize = Camera.I.Size;
-		_cameraBeforeTransformationNearPlaneDistance = Camera.I.NearPlaneDistance;
-		_cameraBeforeTransformationFarPlaneDistance = Camera.I.FarPlaneDistance;
+		_cameraBeforeTransformationWorldPosition = Camera.MainCamera.Transform.WorldPosition;
+		_cameraBeforeTransformationRotation = Camera.MainCamera.Transform.Rotation;
+		_cameraBeforeTransformationIsOrthographic = Camera.MainCamera.IsOrthographic;
+		_cameraBeforeTransformationOrthographicSize = Camera.MainCamera.OrthographicSize;
+		_cameraBeforeTransformationSize = Camera.MainCamera.Size;
+		_cameraBeforeTransformationNearPlaneDistance = Camera.MainCamera.NearPlaneDistance;
+		_cameraBeforeTransformationFarPlaneDistance = Camera.MainCamera.FarPlaneDistance;
 
-		Camera.I.IsOrthographic = true;
-		Camera.I.OrthographicSize = OrthographicSize;
-		Camera.I.Transform.WorldPosition = Transform.WorldPosition * new Vector3(1, 1, 1); // TODO: well this is weird
-		Camera.I.Transform.Rotation = Transform.Rotation;
-		Camera.I.Size = Size;
-		Camera.I.NearPlaneDistance = NearPlaneDistance;
-		Camera.I.FarPlaneDistance = FarPlaneDistance;
-		Camera.I.UpdateMatrices();
+		Camera.MainCamera.IsOrthographic = true;
+		Camera.MainCamera.OrthographicSize = OrthographicSize;
+		Camera.MainCamera.Transform.WorldPosition = Transform.WorldPosition; // * new Vector3(1, 1, 1); // TODO: well this is weird
+		Camera.MainCamera.Transform.Rotation = Transform.Rotation;
+		Camera.MainCamera.Size = Size;
+		Camera.MainCamera.NearPlaneDistance = NearPlaneDistance;
+		Camera.MainCamera.FarPlaneDistance = FarPlaneDistance;
+		Camera.MainCamera.UpdateMatrices();
 
-		LightSpaceMatrix = Camera.I.GetLightViewMatrix() * Camera.I.GetLightProjectionMatrix();
+		LightSpaceMatrix = Camera.MainCamera.GetLightViewMatrix() * Camera.MainCamera.GetLightProjectionMatrix();
 	}
 
 	private void ConfigureForSceneRender()
 	{
-		Camera.I.IsOrthographic = _cameraBeforeTransformationIsOrthographic;
-		Camera.I.OrthographicSize = _cameraBeforeTransformationOrthographicSize;
-		Camera.I.Size = _cameraBeforeTransformationSize;
-		Camera.I.NearPlaneDistance = _cameraBeforeTransformationNearPlaneDistance;
-		Camera.I.FarPlaneDistance = _cameraBeforeTransformationFarPlaneDistance;
-		Camera.I.Transform.WorldPosition = _cameraBeforeTransformationWorldPosition;
-		Camera.I.Transform.Rotation = _cameraBeforeTransformationRotation;
-		Camera.I.UpdateMatrices();
+		Camera.MainCamera.IsOrthographic = _cameraBeforeTransformationIsOrthographic;
+		Camera.MainCamera.OrthographicSize = _cameraBeforeTransformationOrthographicSize;
+		Camera.MainCamera.Size = _cameraBeforeTransformationSize;
+		Camera.MainCamera.NearPlaneDistance = _cameraBeforeTransformationNearPlaneDistance;
+		Camera.MainCamera.FarPlaneDistance = _cameraBeforeTransformationFarPlaneDistance;
+		Camera.MainCamera.Transform.WorldPosition = _cameraBeforeTransformationWorldPosition;
+		Camera.MainCamera.Transform.Rotation = _cameraBeforeTransformationRotation;
+		Camera.MainCamera.UpdateMatrices();
 	}
 }

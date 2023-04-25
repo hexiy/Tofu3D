@@ -93,13 +93,13 @@ public class TransformHandle : Component
 
 	public override void Update()
 	{
-		if (Camera.I.IsOrthographic)
+		if (Camera.MainCamera.IsOrthographic)
 		{
-			Transform.LocalScale = Vector3.One * Camera.I.OrthographicSize * 1.5f;
+			Transform.LocalScale = Vector3.One * Camera.MainCamera.OrthographicSize * 1.5f;
 		}
 		else
 		{
-			Transform.LocalScale = Vector3.One * Vector3.Distance(Transform.WorldPosition, Camera.I.Transform.WorldPosition) * 0.3f;
+			Transform.LocalScale = Vector3.One * Vector3.Distance(Transform.WorldPosition, Camera.MainCamera.Transform.WorldPosition) * 0.3f;
 		}
 
 		if (MouseInput.ButtonReleased())
@@ -197,7 +197,7 @@ public class TransformHandle : Component
 	public void Move(Vector3 deltaVector)
 	{
 		// return;
-		deltaVector = Camera.I.ScreenToWorld(deltaVector) * 100 * 5000;
+		deltaVector = Camera.MainCamera.ScreenToWorld(deltaVector) * 100 * 5000;
 
 		Vector3 moveVector = Vector3.Zero;
 		switch (CurrentAxisSelected)

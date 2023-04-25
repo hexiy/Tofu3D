@@ -110,9 +110,9 @@ public static class MouseInput
 	{
 		get
 		{
-			if (Camera.I.IsOrthographic)
+			if (Camera.MainCamera.IsOrthographic)
 			{
-				return ScreenDelta * Camera.I.OrthographicSize / Units.OneWorldUnit;
+				return ScreenDelta * Camera.MainCamera.OrthographicSize / Units.OneWorldUnit;
 			}
 			else
 			{
@@ -123,7 +123,7 @@ public static class MouseInput
 
 	public static Vector2 WorldPosition
 	{
-		get { return Camera.I.ScreenToWorld(ScreenPosition); }
+		get { return Camera.MainCamera.ScreenToWorld(ScreenPosition); }
 	}
 
 	public static float ScrollDelta
@@ -243,13 +243,13 @@ public static class MouseInput
 		// }
 
 		ScreenPosition = new Vector2(Tofu.I.Window.MouseState.X - Editor.SceneViewPosition.X,
-		                             -Tofu.I.Window.MouseState.Y + Camera.I.Size.Y + Editor.SceneViewPosition.Y + 25); // 25 EditorPanelMenuBar height
+		                             -Tofu.I.Window.MouseState.Y + Camera.MainCamera.Size.Y + Editor.SceneViewPosition.Y + 25); // 25 EditorPanelMenuBar height
 	}
 
 	static float _sceneViewPadding = 20;
 
 	static bool IsMouseInSceneView()
 	{
-		return ScreenPosition.X > -_sceneViewPadding && ScreenPosition.X < Camera.I.Size.X + _sceneViewPadding && ScreenPosition.Y > -_sceneViewPadding && ScreenPosition.Y < Camera.I.Size.Y + _sceneViewPadding;
+		return ScreenPosition.X > -_sceneViewPadding && ScreenPosition.X < Camera.MainCamera.Size.X + _sceneViewPadding && ScreenPosition.Y > -_sceneViewPadding && ScreenPosition.Y < Camera.MainCamera.Size.Y + _sceneViewPadding;
 	}
 }

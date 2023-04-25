@@ -31,9 +31,9 @@ public static class GameObjectSelectionManager
 		}
 
 		bool isCameraOrTransformHandle = false;
-		if (Camera.I != null)
+		if (Camera.MainCamera != null)
 		{
-			isCameraOrTransformHandle = goIds.Contains(Camera.I.GameObjectId) || goIds.Contains(TransformHandle.I.GameObjectId);
+			isCameraOrTransformHandle = goIds.Contains(Camera.MainCamera.GameObjectId) || goIds.Contains(TransformHandle.I.GameObjectId);
 		}
 
 		if (isCameraOrTransformHandle == false && goIds.Count != 0)

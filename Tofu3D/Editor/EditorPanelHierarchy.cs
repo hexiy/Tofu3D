@@ -165,7 +165,7 @@ public class EditorPanelHierarchy : EditorPanel
 		{
 			GameObject go = GameObject.Create(name: "GameObject");
 			go.Awake();
-			go.Transform.WorldPosition = Camera.I.CenterOfScreenToWorld();
+			go.Transform.WorldPosition = Camera.MainCamera.CenterOfScreenToWorld();
 		}
 
 		ImGui.SameLine();

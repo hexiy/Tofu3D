@@ -8,7 +8,7 @@ public class ShowcaseVideoSettings : Component
 
 	public override void Start()
 	{
-		Camera.I.OrthographicSize = 1.6f;
+		Camera.MainCamera.OrthographicSize = 1.6f;
 		base.Start();
 	}
 
