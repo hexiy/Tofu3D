@@ -136,7 +136,7 @@ public class TextRenderer : SpriteRenderer
 		ShaderCache.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
 
-		if (IsInCanvas)
+		if (Transform.IsInCanvas)
 		{
 			Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrixForCanvasObject()); // * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 		}
@@ -195,7 +195,7 @@ public class TextRenderer : SpriteRenderer
 
 			UpdateMvp();
 			// Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
-			if (IsInCanvas)
+			if (Transform.IsInCanvas)
 			{
 				// Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrix() * Matrix4x4.CreateScale(1f/Units.OneWorldUnit));
 				Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrixForCanvasObject()); // * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);

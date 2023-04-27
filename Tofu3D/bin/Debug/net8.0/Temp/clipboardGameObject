@@ -5,38 +5,39 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>4</Id>
-      <IndexInHierarchy>2</IndexInHierarchy>
+      <Id>37</Id>
+      <IndexInHierarchy>6</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Cube</Name>
+      <Name>Child</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
-      <Started>false</Started>
+      <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
     </GameObject>
   </GameObjects>
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>4</GameObjectId>
-      <Started>false</Started>
+      <GameObjectId>37</GameObjectId>
+      <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
-      <ParentId>-1</ParentId>
+      <ParentId>36</ParentId>
       <Pivot>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>0.011145455</X>
-        <Y>0.005773502</Y>
+        <X>500.01114</X>
+        <Y>500.00577</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.011145455</X>
-        <Y>0.005773502</Y>
+        <X>500</X>
+        <Y>500</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
@@ -52,56 +53,40 @@
       <Rotation>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>-5.3</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="BoxShape">
+    <Component xsi:type="SpriteRenderer">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>4</GameObjectId>
-      <Started>false</Started>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRenderer">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>4</GameObjectId>
-      <Started>false</Started>
+      <GameObjectId>37</GameObjectId>
+      <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
         <B>255</B>
         <G>255</G>
         <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <A>128</A>
+        <PackedValue>2164260863</PackedValue>
       </Color>
-      <DistanceFromCamera>108.55834</DistanceFromCamera>
+      <DistanceFromCamera>605.6718</DistanceFromCamera>
       <Material>
-        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <BufferType>Sprite</BufferType>
+          <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>8</Vao>
+        <Vao>6</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
-      <RenderMode>Opaque</RenderMode>
+      <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
       <Texture>
-        <AssetPath />
-        <Loaded>false</Loaded>
+        <AssetPath>Assets\2D\solidColor.png</AssetPath>
+        <Loaded>true</Loaded>
         <Size>
-          <X>0</X>
-          <Y>0</Y>
+          <X>256</X>
+          <Y>256</Y>
         </Size>
       </Texture>
       <Tiling>
@@ -112,12 +97,23 @@
         <X>0</X>
         <Y>0</Y>
       </Offset>
-      <Model>
-        <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>13</Vao>
-        <VertexBufferDataLength>288</VertexBufferDataLength>
-      </Model>
-      <CastShadow>true</CastShadow>
+      <Batched>false</Batched>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>37</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>100</X>
+        <Y>100</Y>
+        <Z>100</Z>
+      </Size>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

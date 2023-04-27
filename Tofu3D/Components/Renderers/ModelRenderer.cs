@@ -50,11 +50,6 @@ public class ModelRenderer : TextureRenderer
 
 	public override void Update()
 	{
-		if (GameObject == TransformHandle.I.GameObject)
-		{
-			return;
-		}
-
 		// if (RenderMode == RenderMode.Opaque && Material.RenderMode != RenderMode)
 		// {
 		// 	Material = AssetManager.Load<Material>("ModelRenderer");
@@ -70,28 +65,18 @@ public class ModelRenderer : TextureRenderer
 
 	public override void Render()
 	{
-		if (OnScreen == false)
-		{
-			return;
-		}
-
-		if (BoxShape == null)
-		{
-			return;
-		}
-
-		if (Texture.Loaded == false)
-		{
-			return;
-		}
-
 		bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
-		if (isTransformHandle && RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques)
+		if (isTransformHandle && (RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques && RenderPassSystem.CurrentRenderPassType != RenderPassType.UI))
 		{
 			return;
 		}
 
 		if (CastShadow == false && RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth)
+		{
+			return;
+		}
+
+		if (Transform.IsInCanvas && RenderPassSystem.CurrentRenderPassType != RenderPassType.UI || Transform.IsInCanvas == false && RenderPassSystem.CurrentRenderPassType == RenderPassType.UI)
 		{
 			return;
 		}
@@ -140,11 +125,20 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 		}
 
-		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques)
+		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
 		{
 			ShaderCache.UseShader(Material.Shader);
 			Material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
-			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+
+			if (Transform.IsInCanvas)
+			{
+				Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrixForCanvasObject());
+			}
+			else
+			{
+				Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+			}
+
 			Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
 			Material.Shader.SetColor("u_rendererColor", Color);
 			Material.Shader.SetVector2("u_tiling", Tiling);
@@ -235,6 +229,7 @@ public class ModelRenderer : TextureRenderer
 		{
 			GL.BindVertexArray(0);
 		}
+
 
 		DebugHelper.LogDrawCall();
 		if (drawOutline)

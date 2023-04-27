@@ -151,13 +151,20 @@ public class Scene
 
 		_sceneRenderQueue.RenderWorld();
 
-
-		TransformHandle.I.GameObject.Render();
+		if (TransformHandle.Transform.IsInCanvas == false)
+		{
+			TransformHandle.I.GameObject.Render();
+		}
 	}
 
 	public void RenderUI()
 	{
 		_sceneRenderQueue.RenderUI();
+
+		if (TransformHandle.Transform.IsInCanvas)
+		{
+			TransformHandle.I.GameObject.Render();
+		}
 	}
 
 	// public void RenderTransparent()

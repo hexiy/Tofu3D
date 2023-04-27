@@ -1,4 +1,6 @@
-﻿namespace Tofu3D;
+﻿using System.Linq;
+
+namespace Tofu3D;
 
 [ExecuteInEditMode]
 public class TransformHandle : Component
@@ -102,7 +104,7 @@ public class TransformHandle : Component
 		}
 		else
 		{
-			Transform.LocalScale = Vector3.One * Vector3.Distance(Transform.WorldPosition, Camera.MainCamera.Transform.WorldPosition) * 0.3f;
+			Transform.LocalScale = Vector3.One * Vector3.Distance(Transform.WorldPosition, Camera.MainCamera.Transform.WorldPosition) * 0.2f;
 		}
 
 		if (MouseInput.ButtonReleased())
@@ -267,6 +269,7 @@ public class TransformHandle : Component
 	public void SelectObjects(List<int> selection)
 	{
 		GameObject.SetActive(selection != null);
+		Transform.MockIsInCanvas = false;
 
 		if (selection == null)
 		{
@@ -278,6 +281,11 @@ public class TransformHandle : Component
 		for (int i = 0; i < selection.Count; i++)
 		{
 			GameObject go = SceneManager.CurrentScene.GetGameObject(selection[i]);
+			if (go.Transform.IsInCanvas == true)
+			{
+				Transform.MockIsInCanvas = true;
+			}
+
 			if (go != null)
 			{
 				_selectedTransforms.Add(go.Transform);

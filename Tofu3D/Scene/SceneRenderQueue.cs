@@ -64,10 +64,9 @@ public class SceneRenderQueue
 	{
 		for (int i = 0; i < RenderQueueWorld.Count; i++)
 		{
-			if (RenderQueueWorld[i].Enabled && RenderQueueWorld[i].GameObject.Awoken && RenderQueueWorld[i].GameObject.ActiveInHierarchy)
+			if (RenderQueueWorld[i].CanRender)
 			{
-				// Debug.Log($"Rendering {RenderQueue[i].GameObject.Name}");
-				RenderQueueWorld[i].UpdateMvp();
+				// RenderQueueWorld[i].UpdateMvp();
 				RenderQueueWorld[i].Render();
 			}
 		}
@@ -77,10 +76,9 @@ public class SceneRenderQueue
 	{
 		for (int i = 0; i < RenderQueueUI.Count; i++)
 		{
-			if (RenderQueueUI[i].Enabled && RenderQueueUI[i].GameObject.Awoken && RenderQueueUI[i].GameObject.ActiveInHierarchy)
+			if (RenderQueueWorld[i].CanRender)
 			{
-				// Debug.Log($"Rendering {RenderQueue[i].GameObject.Name}");
-				RenderQueueUI[i].UpdateMvp();
+				// RenderQueueUI[i].UpdateMvp();
 				RenderQueueUI[i].Render();
 			}
 		}

@@ -43,7 +43,7 @@ public static class GameObjectSelectionManager
 		}
 		else
 		{
-			TransformHandle.I.SelectObjects(null);
+			// TransformHandle.I.SelectObjects(null);
 		}
 
 		GameObjectsSelected?.Invoke(goIds);
