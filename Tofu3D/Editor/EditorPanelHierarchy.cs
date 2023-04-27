@@ -259,6 +259,11 @@ public class EditorPanelHierarchy : EditorPanel
 			nameColor = currentGameObject.ActiveInHierarchy ? Color.SkyBlue.ToVector4() : new Color(135, 206, 235, 130).ToVector4();
 		}
 
+		if (currentGameObject.Silent)
+		{
+			nameColor = currentGameObject.ActiveInHierarchy ? Color.Purple.ToVector4() : new Color(70, 0, 70, 130).ToVector4();
+		}
+
 		ImGui.PushStyleColor(ImGuiCol.Text, nameColor);
 
 		string rowText = (Global.Debug ? $"[{currentGameObject.Id}] " : "") + currentGameObject.Name;

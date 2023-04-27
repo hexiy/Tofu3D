@@ -32,6 +32,8 @@ public class TransformHandle : Component
 		ObjectSelected = false;
 		GameObject.UpdateWhenDisabled = true;
 
+		Transform.Pivot = new Vector3(0, 0, 0);
+
 		BoxColliderX = GameObject.AddComponent<BoxShape>();
 		BoxColliderX.Size = new Vector3(50, 5, 5) / Units.OneWorldUnit;
 		//boxColliderX.offset = new Vector2(25, 2.5f);
@@ -52,6 +54,7 @@ public class TransformHandle : Component
 		ModelRendererZ = GameObject.AddComponent<ModelRenderer>();
 		ModelRendererXy = GameObject.AddComponent<ModelRenderer>();
 
+		// Material unlitMaterial = AssetManager.Load<Material>("ModelRendererUnlit");
 		Material unlitMaterial = AssetManager.Load<Material>("ModelRendererUnlit");
 		ModelRendererX.Material = unlitMaterial;
 		ModelRendererY.Material = unlitMaterial;

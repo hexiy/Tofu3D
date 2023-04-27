@@ -178,7 +178,11 @@ public class ModelRenderer : TextureRenderer
 			if (Model != null)
 			{
 				ShaderCache.BindVertexArray(Model.Vao);
-				RenderWireframe(Model.VertexBufferDataLength);
+
+				if (isTransformHandle == false)
+				{
+					RenderWireframe(Model.VertexBufferDataLength);
+				}
 
 				GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
 			}

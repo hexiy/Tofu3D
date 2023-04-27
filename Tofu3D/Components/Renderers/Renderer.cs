@@ -80,6 +80,7 @@ public class Renderer : Component, IComparable<Renderer>
 
 	internal void RenderWireframe(int verticesCount)
 	{
+		
 		if (RenderSettings.WireframeRenderSettings.WireframeVisible)
 		{
 			Material.Shader.SetColor("u_rendererColor", Color.Black);
@@ -93,12 +94,9 @@ public class Renderer : Component, IComparable<Renderer>
 
 	public Matrix4x4 GetModelMatrix()
 	{
-		Vector3 pivotOffset = -(BoxShape.Size * Transform.WorldScale) / 2
-		                    + new Vector3(BoxShape.Size.X * Transform.WorldScale.X * Transform.Pivot.X,
-		                                  BoxShape.Size.Y * Transform.WorldScale.Y * Transform.Pivot.Y,
-		                                  BoxShape.Size.Z * Transform.WorldScale.Z * Transform.Pivot.Z);
+		Vector3 worldPositionPivotOffset = BoxShape.Size * Transform.WorldScale * (Vector3.One - Transform.Pivot*2);
 
-		Matrix4x4 pivot = Matrix4x4.CreateTranslation(-pivotOffset.X, -pivotOffset.Y, -pivotOffset.Z);
+		Matrix4x4 pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
 		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f)) * Matrix4x4.CreateScale(1, -1, 1);
 
 		Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
@@ -106,7 +104,7 @@ public class Renderer : Component, IComparable<Renderer>
 		                                                      -Transform.WorldRotation.Z / 180 * Mathf.Pi);
 
 		Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size.X * Transform.WorldScale.X, BoxShape.Size.Y * Transform.WorldScale.Y, Transform.WorldScale.Z * BoxShape.Size.Z);
-		return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit);
+		return scale * Matrix4x4.Identity*pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit);
 	}
 
 	public Matrix4x4 GetModelMatrixForCanvasObject()

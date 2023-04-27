@@ -4,9 +4,9 @@ PersistentObject__cameraPositionInPerspectiveMode:[2.6  58.5  -447.2]
 PersistentObject__cameraFieldOfViewInperspectiveMode:14
 PersistentObject_sceneViewProjectionMode:Perspective
 lastOpenedScene:Assets/Scenes/scene1.scene
-PersistentObject_lastOpenedScene:Assets/Scenes/scene1.scene
-lastSelectedGameObjectId:557
+PersistentObject_lastOpenedScene:C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Scenes\scene2.scene
+lastSelectedGameObjectId:5
 DebugTimerCollapsed_Editor Update:False
 DebugTimerCollapsed_Scene Update:False
 RenderSettings.Wireframe:Tofu3D.WireframeRenderSettings
-Global.Debug:False
+Global.Debug:True

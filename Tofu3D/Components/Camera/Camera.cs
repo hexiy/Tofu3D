@@ -30,10 +30,10 @@ public class Camera : Component
 
 	public override void Awake()
 	{
-		if (MainCamera == null)
-		{
+		// if (MainCamera == null)
+		// {
 			MainCamera = this;
-		}
+		// }
 
 		GameObject.AlwaysUpdate = true;
 		// if (Global.EditorAttached == false)

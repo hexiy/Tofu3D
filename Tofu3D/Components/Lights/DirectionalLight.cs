@@ -95,7 +95,7 @@ public class DirectionalLight : LightBase
 		Camera.MainCamera.FarPlaneDistance = FarPlaneDistance;
 		Camera.MainCamera.UpdateMatrices();
 
-		LightSpaceMatrix = Camera.MainCamera.GetLightViewMatrix() * Camera.MainCamera.GetLightProjectionMatrix();
+		LightSpaceMatrix = Camera.MainCamera.GetLightViewMatrix() * Camera.MainCamera.GetLightProjectionMatrix(this.OrthographicSize);
 	}
 
 	private void ConfigureForSceneRender()
