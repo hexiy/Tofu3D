@@ -25,7 +25,7 @@ public class RenderPassOpaques : RenderPass
 			return;
 		}
 
-		PassRenderTexture = new RenderTexture(size: Camera.MainCamera.Size, colorAttachment: true, depthAttachment: true);
+		PassRenderTexture = new RenderTexture(size: Camera.MainCamera.Size, colorAttachment: true, depthAttachment: true, stencilAttachment: true);
 
 		base.SetupRenderTexture();
 	}

@@ -143,6 +143,7 @@ public class Scene
 		GL.DepthFunc(DepthFunction.Less);
 		GL.Enable(EnableCap.StencilTest);
 
+
 		// GL.ClearDepth(1000);
 		//
 		//

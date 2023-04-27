@@ -31,7 +31,7 @@ public static class RenderPassSystem
 			throw new NullReferenceException("No camera in scene");
 		}
 
-		FinalRenderTexture = new RenderTexture(Camera.MainCamera.Size, true, false);
+		FinalRenderTexture = new RenderTexture(Camera.MainCamera.Size, colorAttachment: true, depthAttachment: false);
 
 		foreach (RenderPass renderPass in _renderPasses)
 		{

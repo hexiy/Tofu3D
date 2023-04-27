@@ -82,31 +82,6 @@ public class ModelRenderer : TextureRenderer
 		}
 
 
-		bool drawOutline = GameObject.Selected && false;
-		if (drawOutline)
-		{
-			{
-				Material material = AssetManager.Load<Material>("ModelUnlit");
-				ShaderCache.UseShader(material.Shader);
-
-				material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
-				material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
-				material.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 0.8f));
-
-				ShaderCache.BindVertexArray(material.Vao);
-
-				//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-				// TextureCache.BindTexture(Texture.Id);
-
-				GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
-				// GL.DrawElements(PrimitiveType.Triangles, 6 * 2 * 3, DrawElementsType.UnsignedInt, (IntPtr) null);
-			}
-
-
-			//GL.BindVertexArray(0);
-		}
-
-
 		if (GameObject == TransformHandle.I?.GameObject)
 		{
 			GL.Disable(EnableCap.DepthTest);
@@ -116,6 +91,7 @@ public class ModelRenderer : TextureRenderer
 			GL.Enable(EnableCap.DepthTest);
 		}
 
+		bool drawOutline = GameObject.Selected;
 
 		//GL.Enable(EnableCap.DepthTest);
 		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth)
@@ -127,6 +103,15 @@ public class ModelRenderer : TextureRenderer
 
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
 		{
+			// GL.Enable(EnableCap.DepthTest);
+
+			if (drawOutline)
+			{
+				GL.StencilOp(StencilOp.Keep, StencilOp.Keep, StencilOp.Replace);
+				GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
+				GL.StencilMask(0xFF);
+			}
+
 			ShaderCache.UseShader(Material.Shader);
 			Material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
 
@@ -167,11 +152,12 @@ public class ModelRenderer : TextureRenderer
 				TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 			}
 
-			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 			if (Model != null)
 			{
 				ShaderCache.BindVertexArray(Model.Vao);
+				GL.Enable(EnableCap.Blend);
+				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 				if (isTransformHandle == false)
 				{
@@ -183,6 +169,8 @@ public class ModelRenderer : TextureRenderer
 			else
 			{
 				ShaderCache.BindVertexArray(Material.Vao);
+				GL.Enable(EnableCap.Blend);
+				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 				GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 			}
 		}
@@ -199,6 +187,33 @@ public class ModelRenderer : TextureRenderer
 				ShaderCache.BindVertexArray(Material.Vao);
 				GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 			}
+		}
+
+
+		if (drawOutline)
+		{
+			GL.StencilFunc(StencilFunction.Notequal, 1, 0xFF);
+			GL.StencilMask(0x00);
+			GL.Disable(EnableCap.DepthTest);
+
+			Material material = AssetManager.Load<Material>("ModelRendererUnlit");
+			ShaderCache.UseShader(material.Shader);
+
+			material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
+			material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
+			material.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
+
+			ShaderCache.BindVertexArray(Model.Vao);
+
+			GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
+
+
+			GL.StencilMask(0xFF);
+			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
+			GL.Enable(EnableCap.DepthTest);
+
+			// GL.BindVertexArray(0);
+			// GL.Disable(EnableCap.Blend);
 		}
 
 		/*else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
@@ -227,7 +242,7 @@ public class ModelRenderer : TextureRenderer
 
 		if (drawOutline)
 		{
-			GL.BindVertexArray(0);
+			// GL.BindVertexArray(0);
 		}
 
 
