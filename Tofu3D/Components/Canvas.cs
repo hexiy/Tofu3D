@@ -18,8 +18,8 @@ public class Canvas : Component
 	{
 		return;
 		//Debug.Log(Transform.LocalPosition - Camera.I.Transform.LocalPosition);
-		Transform.LocalPosition = Camera.I.Transform.LocalPosition;
-		Transform.LocalScale = Camera.I.Transform.LocalScale;
+		Transform.LocalPosition = Camera.MainCamera.Transform.LocalPosition;
+		Transform.LocalScale = Camera.MainCamera.Transform.LocalScale;
 
 		base.Update();
 	}

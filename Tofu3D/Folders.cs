@@ -36,6 +36,6 @@ public class Folders
 	}
 	public static string Models
 	{
-		get { return Path.Combine(Assets, "Models"); }
+		get { return Path.Combine(Assets, "3D"); }
 	}
 }

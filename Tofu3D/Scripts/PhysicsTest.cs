@@ -25,7 +25,7 @@ public class PhysicsTest : Component
 		}
 
 		// Ray ray = new Ray(Camera.I.ScreenToWorld(MouseInput.ScreenPosition)*1000, Camera.I.TransformToWorld(Vector3.Forward).Normalized());
-		Ray ray = new(Camera.I.TransformToWorld(MouseInput.ScreenPosition), Camera.I.TransformToWorld(MouseInput.ScreenPosition) + Camera.I.TransformToWorld(Vector3.Forward).Normalized());
+		Ray ray = new(Camera.MainCamera.TransformToWorld(MouseInput.ScreenPosition), Camera.MainCamera.TransformToWorld(MouseInput.ScreenPosition) + Camera.MainCamera.TransformToWorld(Vector3.Forward).Normalized());
 
 		RaycastResult result = Physics.Raycast(ray);
 

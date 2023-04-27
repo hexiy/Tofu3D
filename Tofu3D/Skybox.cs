@@ -75,13 +75,13 @@ public class Skybox : Component
 		ShaderCache.UseShader(_material.Shader);
 
 
-		Vector3 forwardLocal = Camera.I.Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
-		Vector3 upLocal = Camera.I.Transform.TransformDirectionToWorldSpace(new Vector3(0, 1, 0));
+		Vector3 forwardLocal = Camera.MainCamera.Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
+		Vector3 upLocal = Camera.MainCamera.Transform.TransformDirectionToWorldSpace(new Vector3(0, 1, 0));
 
 		Matrix4x4 viewMatrix = Matrix4x4.CreateLookAt(cameraPosition: Vector3.Zero, cameraTarget: forwardLocal, cameraUpVector: upLocal);
 
 		Fov = Mathf.Clamp(Fov, 0.000001f, 179);
-		Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Fov), Camera.I.Size.X / Camera.I.Size.Y, 0.01f, 1);
+		Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Fov), Camera.MainCamera.Size.X / Camera.MainCamera.Size.Y, 0.01f, 1);
 
 		_material.Shader.SetMatrix4X4("u_view", viewMatrix);
 		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix);

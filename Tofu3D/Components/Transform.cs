@@ -131,7 +131,13 @@ public class Transform : Component
 			// targetScale / (2*3)
 		}
 	}
-
+	public bool MockIsInCanvas = false;
+	[Show]
+	internal bool IsInCanvas
+	{
+		get { return Transform.Parent?.GetComponent<Canvas>() != null || MockIsInCanvas; }
+	}
+	
 	Vector3 _rotation = Vector3.Zero;
 	public Vector3 Rotation
 	{

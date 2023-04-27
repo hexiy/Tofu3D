@@ -165,7 +165,7 @@ public class EditorPanelHierarchy : EditorPanel
 		{
 			GameObject go = GameObject.Create(name: "GameObject");
 			go.Awake();
-			go.Transform.WorldPosition = Camera.I.CenterOfScreenToWorld();
+			go.Transform.WorldPosition = Camera.MainCamera.CenterOfScreenToWorld();
 		}
 
 		ImGui.SameLine();
@@ -257,6 +257,11 @@ public class EditorPanelHierarchy : EditorPanel
 		if (currentGameObject.IsPrefab)
 		{
 			nameColor = currentGameObject.ActiveInHierarchy ? Color.SkyBlue.ToVector4() : new Color(135, 206, 235, 130).ToVector4();
+		}
+
+		if (currentGameObject.Silent)
+		{
+			nameColor = currentGameObject.ActiveInHierarchy ? Color.Purple.ToVector4() : new Color(70, 0, 70, 130).ToVector4();
 		}
 
 		ImGui.PushStyleColor(ImGuiCol.Text, nameColor);

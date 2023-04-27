@@ -31,7 +31,7 @@ public class Grid : Component
 		// float clampedOrthoSize = Mathf.ClampMin(Camera.I.OrthographicSize, 1);
 		// _boxShape.Size = Camera.I.Size;
 		// _spriteRenderer.Tiling = _boxShape.Size / 100f / (10 / Camera.I.OrthographicSize);
-		_spriteRenderer.Offset = Camera.I.Transform.WorldPosition * PanSpeed / _spriteRenderer.Tiling;
+		_spriteRenderer.Offset = Camera.MainCamera.Transform.WorldPosition * PanSpeed / _spriteRenderer.Tiling;
 		Transform.LocalScale = Vector3.One;
 		Transform.LocalPosition = Vector3.Zero;
 		base.Update();

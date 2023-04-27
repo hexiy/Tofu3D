@@ -31,13 +31,13 @@ public class EditorPanelSceneView : EditorPanel
 
 			ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
 
-			if ((Vector2) ImGui.GetWindowSize() - new Vector2(0, tooltipsPanelHeight) != Camera.I.Size)
+			if ((Vector2) ImGui.GetWindowSize() - new Vector2(0, tooltipsPanelHeight) != Camera.MainCamera.Size)
 			{
-				Camera.I.SetSize(ImGui.GetWindowSize() - new System.Numerics.Vector2(0, tooltipsPanelHeight));
+				Camera.MainCamera.SetSize(ImGui.GetWindowSize() - new System.Numerics.Vector2(0, tooltipsPanelHeight));
 				Debug.Log("SetSize");
 			}
 
-			ImGui.SetCursorPosX(Camera.I.Size.X / 2 - 150);
+			ImGui.SetCursorPosX(Camera.MainCamera.Size.X / 2 - 150);
 
 			Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
 			Vector4 inactiveColor = ImGui.GetStyle().Colors[(int) ImGuiCol.TextDisabled];
@@ -141,14 +141,14 @@ public class EditorPanelSceneView : EditorPanel
 		}
 		else
 		{
-			ImGui.SetNextWindowSize(Camera.I.Size + new Vector2(0, 50), ImGuiCond.Always);
+			ImGui.SetNextWindowSize(Camera.MainCamera.Size + new Vector2(0, 50), ImGuiCond.Always);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.Always, new Vector2(0, 0));
 			ImGui.Begin("Scene View",
 			            ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration);
 
 			ImGui.SetCursorPosX(0);
 			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
-			ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, Camera.I.Size,
+			ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, Camera.MainCamera.Size,
 			            new Vector2(0, 1), new Vector2(1, 0));
 
 			ImGui.End();

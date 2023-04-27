@@ -21,7 +21,7 @@ public class Scene
 	public static Action SceneLoaded = () => { };
 	Camera Camera
 	{
-		get { return Camera.I; }
+		get { return Camera.MainCamera; }
 	}
 
 	public void Initialize()
@@ -99,14 +99,14 @@ public class Scene
 		_sceneLightingManager.Update();
 		_sceneRenderQueue.Update();
 
-		Camera.I.GameObject.Update();
+		Camera.MainCamera.GameObject.Update();
 		TransformHandle.I.GameObject.Update();
 
 
 		for (int i = 0; i < GameObjects.Count; i++)
 		{
 			GameObjects[i].IndexInHierarchy = i;
-			if (GameObjects[i] == Camera.I.GameObject)
+			if (GameObjects[i] == Camera.MainCamera.GameObject)
 			{
 				continue;
 			}
@@ -143,6 +143,7 @@ public class Scene
 		GL.DepthFunc(DepthFunction.Less);
 		GL.Enable(EnableCap.StencilTest);
 
+
 		// GL.ClearDepth(1000);
 		//
 		//
@@ -151,13 +152,20 @@ public class Scene
 
 		_sceneRenderQueue.RenderWorld();
 
-
-		TransformHandle.I.GameObject.Render();
+		if (TransformHandle.Transform.IsInCanvas == false)
+		{
+			TransformHandle.I.GameObject.Render();
+		}
 	}
 
 	public void RenderUI()
 	{
 		_sceneRenderQueue.RenderUI();
+
+		if (TransformHandle.Transform.IsInCanvas)
+		{
+			TransformHandle.I.GameObject.Render();
+		}
 	}
 
 	// public void RenderTransparent()

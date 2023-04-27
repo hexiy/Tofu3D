@@ -26,11 +26,14 @@ public class Camera : Component
 	public Matrix4x4 ViewMatrix;
 	//[XmlIgnore] public RenderTarget2D renderTarget;
 
-	public static Camera I { get; private set; }
+	public static Camera MainCamera { get; private set; }
 
 	public override void Awake()
 	{
-		I = this;
+		// if (MainCamera == null)
+		// {
+			MainCamera = this;
+		// }
 
 		GameObject.AlwaysUpdate = true;
 		// if (Global.EditorAttached == false)
@@ -99,7 +102,7 @@ public class Camera : Component
 			; // * Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, 1));
 		return view;
 	}
-	
+
 	Matrix4x4 GetProjectionMatrix()
 	{
 		if (IsOrthographic)
@@ -161,7 +164,7 @@ public class Camera : Component
 	public Vector2 ScreenToWorld(Vector2 screenPosition)
 	{
 		Vector3 worldPos;
-		if (I.IsOrthographic)
+		if (IsOrthographic)
 		{
 			worldPos = Vector3.Transform(screenPosition / Size * 2,
 			                             Matrix.Invert(ProjectionMatrix))
@@ -196,13 +199,7 @@ public class Camera : Component
 		return isIn;
 	}
 
-	Matrix4x4 GetLightScaleMatrix()
-	{
-		Matrix4x4 scaleMatrix = Matrix4x4.CreateScale(1 / DirectionalLight.I.OrthographicSize);
-		return scaleMatrix;
-	}
-
-	public Matrix4x4 GetLightProjectionMatrix()
+	public Matrix4x4 GetLightProjectionMatrix(float lightOrthographicSize)
 	{
 		float left = -Size.X / 2;
 		float right = Size.X / 2;
@@ -211,7 +208,8 @@ public class Camera : Component
 
 		Matrix4x4 orthoMatrix = Matrix4x4.CreateOrthographicOffCenter(left, right, bottom, top, NearPlaneDistance, FarPlaneDistance);
 
-		return orthoMatrix * GetLightScaleMatrix();
+		Matrix4x4 scaleMatrix = Matrix4x4.CreateScale(1 / lightOrthographicSize);
+		return orthoMatrix * scaleMatrix;
 	}
 
 	public Matrix4x4 GetLightViewMatrix()
@@ -219,7 +217,7 @@ public class Camera : Component
 		Vector3 oldRotation = Transform.Rotation;
 		oldRotation = oldRotation * new Vector3(1, 1, 0);
 		Transform.Rotation = -oldRotation;
-		
+
 		Vector3 forwardWorld = Transform.WorldPosition + Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
 		Vector3 upLocal = Transform.TransformDirectionToWorldSpace(new Vector3(0, 1, 0));
 

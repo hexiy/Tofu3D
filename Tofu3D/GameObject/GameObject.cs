@@ -785,14 +785,9 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
 	public void Render()
 	{
-		if (ActiveInHierarchy == false)
-		{
-			return;
-		}
-
 		for (int i = 0; i < Components.Count; i++)
 		{
-			if (Components[i] is Renderer && Components[i].Enabled && Components[i].Awoken && ActiveInHierarchy)
+			if (Components[i] is Renderer && (Components[i] as Renderer).CanRender)
 			{
 				(Components[i] as Renderer).Render();
 			}

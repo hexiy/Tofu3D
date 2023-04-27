@@ -1,4 +1,6 @@
-﻿namespace Tofu3D;
+﻿using System.Linq;
+
+namespace Tofu3D;
 
 [ExecuteInEditMode]
 public class TransformHandle : Component
@@ -32,6 +34,8 @@ public class TransformHandle : Component
 		ObjectSelected = false;
 		GameObject.UpdateWhenDisabled = true;
 
+		Transform.Pivot = new Vector3(0, 0, 0);
+
 		BoxColliderX = GameObject.AddComponent<BoxShape>();
 		BoxColliderX.Size = new Vector3(50, 5, 5) / Units.OneWorldUnit;
 		//boxColliderX.offset = new Vector2(25, 2.5f);
@@ -52,6 +56,7 @@ public class TransformHandle : Component
 		ModelRendererZ = GameObject.AddComponent<ModelRenderer>();
 		ModelRendererXy = GameObject.AddComponent<ModelRenderer>();
 
+		// Material unlitMaterial = AssetManager.Load<Material>("ModelRendererUnlit");
 		Material unlitMaterial = AssetManager.Load<Material>("ModelRendererUnlit");
 		ModelRendererX.Material = unlitMaterial;
 		ModelRendererY.Material = unlitMaterial;
@@ -93,13 +98,13 @@ public class TransformHandle : Component
 
 	public override void Update()
 	{
-		if (Camera.I.IsOrthographic)
+		if (Camera.MainCamera.IsOrthographic)
 		{
-			Transform.LocalScale = Vector3.One * Camera.I.OrthographicSize * 1.5f;
+			Transform.LocalScale = Vector3.One * Camera.MainCamera.OrthographicSize * 1.5f;
 		}
 		else
 		{
-			Transform.LocalScale = Vector3.One * Vector3.Distance(Transform.WorldPosition, Camera.I.Transform.WorldPosition) * 0.3f;
+			Transform.LocalScale = Vector3.One * Vector3.Distance(Transform.WorldPosition, Camera.MainCamera.Transform.WorldPosition) * 0.2f;
 		}
 
 		if (MouseInput.ButtonReleased())
@@ -197,7 +202,7 @@ public class TransformHandle : Component
 	public void Move(Vector3 deltaVector)
 	{
 		// return;
-		deltaVector = Camera.I.ScreenToWorld(deltaVector) * 100 * 5000;
+		deltaVector = Camera.MainCamera.ScreenToWorld(deltaVector) * 100 * 5000;
 
 		Vector3 moveVector = Vector3.Zero;
 		switch (CurrentAxisSelected)
@@ -264,6 +269,7 @@ public class TransformHandle : Component
 	public void SelectObjects(List<int> selection)
 	{
 		GameObject.SetActive(selection != null);
+		Transform.MockIsInCanvas = false;
 
 		if (selection == null)
 		{
@@ -275,6 +281,11 @@ public class TransformHandle : Component
 		for (int i = 0; i < selection.Count; i++)
 		{
 			GameObject go = SceneManager.CurrentScene.GetGameObject(selection[i]);
+			if (go.Transform.IsInCanvas == true)
+			{
+				Transform.MockIsInCanvas = true;
+			}
+
 			if (go != null)
 			{
 				_selectedTransforms.Add(go.Transform);

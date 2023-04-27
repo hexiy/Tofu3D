@@ -50,11 +50,6 @@ public class ModelRenderer : TextureRenderer
 
 	public override void Update()
 	{
-		if (GameObject == TransformHandle.I.GameObject)
-		{
-			return;
-		}
-
 		// if (RenderMode == RenderMode.Opaque && Material.RenderMode != RenderMode)
 		// {
 		// 	Material = AssetManager.Load<Material>("ModelRenderer");
@@ -70,23 +65,8 @@ public class ModelRenderer : TextureRenderer
 
 	public override void Render()
 	{
-		if (OnScreen == false)
-		{
-			return;
-		}
-
-		if (BoxShape == null)
-		{
-			return;
-		}
-
-		if (Texture.Loaded == false)
-		{
-			return;
-		}
-
 		bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
-		if (isTransformHandle && RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques)
+		if (isTransformHandle && (RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques && RenderPassSystem.CurrentRenderPassType != RenderPassType.UI))
 		{
 			return;
 		}
@@ -96,29 +76,9 @@ public class ModelRenderer : TextureRenderer
 			return;
 		}
 
-
-		bool drawOutline = GameObject.Selected && false;
-		if (drawOutline)
+		if (Transform.IsInCanvas && RenderPassSystem.CurrentRenderPassType != RenderPassType.UI || Transform.IsInCanvas == false && RenderPassSystem.CurrentRenderPassType == RenderPassType.UI)
 		{
-			{
-				Material material = AssetManager.Load<Material>("ModelUnlit");
-				ShaderCache.UseShader(material.Shader);
-
-				material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
-				material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
-				material.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 0.8f));
-
-				ShaderCache.BindVertexArray(material.Vao);
-
-				//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-				// TextureCache.BindTexture(Texture.Id);
-
-				GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
-				// GL.DrawElements(PrimitiveType.Triangles, 6 * 2 * 3, DrawElementsType.UnsignedInt, (IntPtr) null);
-			}
-
-
-			//GL.BindVertexArray(0);
+			return;
 		}
 
 
@@ -131,6 +91,7 @@ public class ModelRenderer : TextureRenderer
 			GL.Enable(EnableCap.DepthTest);
 		}
 
+		bool drawOutline = GameObject.Selected;
 
 		//GL.Enable(EnableCap.DepthTest);
 		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth)
@@ -140,11 +101,29 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 		}
 
-		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques)
+		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
 		{
+			// GL.Enable(EnableCap.DepthTest);
+
+			if (drawOutline)
+			{
+				GL.StencilOp(StencilOp.Keep, StencilOp.Keep, StencilOp.Replace);
+				GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
+				GL.StencilMask(0xFF);
+			}
+
 			ShaderCache.UseShader(Material.Shader);
 			Material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
-			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+
+			if (Transform.IsInCanvas)
+			{
+				Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrixForCanvasObject());
+			}
+			else
+			{
+				Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+			}
+
 			Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
 			Material.Shader.SetColor("u_rendererColor", Color);
 			Material.Shader.SetVector2("u_tiling", Tiling);
@@ -173,18 +152,25 @@ public class ModelRenderer : TextureRenderer
 				TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 			}
 
-			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 			if (Model != null)
 			{
 				ShaderCache.BindVertexArray(Model.Vao);
-				RenderWireframe(Model.VertexBufferDataLength);
+				GL.Enable(EnableCap.Blend);
+				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
+				if (isTransformHandle == false)
+				{
+					RenderWireframe(Model.VertexBufferDataLength);
+				}
 
 				GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
 			}
 			else
 			{
 				ShaderCache.BindVertexArray(Material.Vao);
+				GL.Enable(EnableCap.Blend);
+				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 				GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 			}
 		}
@@ -201,6 +187,33 @@ public class ModelRenderer : TextureRenderer
 				ShaderCache.BindVertexArray(Material.Vao);
 				GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 			}
+		}
+
+
+		if (drawOutline)
+		{
+			GL.StencilFunc(StencilFunction.Notequal, 1, 0xFF);
+			GL.StencilMask(0x00);
+			GL.Disable(EnableCap.DepthTest);
+
+			Material material = AssetManager.Load<Material>("ModelRendererUnlit");
+			ShaderCache.UseShader(material.Shader);
+
+			material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
+			material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
+			material.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
+
+			ShaderCache.BindVertexArray(Model.Vao);
+
+			GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
+
+
+			GL.StencilMask(0xFF);
+			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
+			GL.Enable(EnableCap.DepthTest);
+
+			// GL.BindVertexArray(0);
+			// GL.Disable(EnableCap.Blend);
 		}
 
 		/*else if (RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
@@ -229,8 +242,9 @@ public class ModelRenderer : TextureRenderer
 
 		if (drawOutline)
 		{
-			GL.BindVertexArray(0);
+			// GL.BindVertexArray(0);
 		}
+
 
 		DebugHelper.LogDrawCall();
 		if (drawOutline)

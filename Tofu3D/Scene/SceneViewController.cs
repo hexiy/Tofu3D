@@ -28,7 +28,7 @@ public class SceneViewController
 
 	public void MoveToGameObject(GameObject targetGo)
 	{
-		Vector3 cameraStartPos = Camera.I.Transform.LocalPosition;
+		Vector3 cameraStartPos = Camera.MainCamera.Transform.LocalPosition;
 		Vector3 cameraEndPos = targetGo.Transform.LocalPosition + new Vector3(0, 0, -4);
 
 		if (cameraStartPos == cameraEndPos)
@@ -36,12 +36,12 @@ public class SceneViewController
 			cameraEndPos = targetGo.Transform.LocalPosition + new Vector3(0, 0, -2);
 		}
 
-		float cameraOrthoSize = Camera.I.OrthographicSize;
+		float cameraOrthoSize = Camera.MainCamera.OrthographicSize;
 		Tweener.Tween(0, 1, 1.3f, progress =>
 		{
 			// Debug.Log("TWEENING:" + progress);
-			Camera.I.OrthographicSize = cameraOrthoSize + (float) MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
-			Camera.I.Transform.LocalPosition = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
+			Camera.MainCamera.OrthographicSize = cameraOrthoSize + (float) MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
+			Camera.MainCamera.Transform.LocalPosition = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
 		});
 	}
 
@@ -60,30 +60,30 @@ public class SceneViewController
 
 		if (newProjectionMode == ProjectionMode.Orthographic && CurrentProjectionMode == ProjectionMode.Perspective)
 		{
-			_cameraRotationInPerspectiveMode.Value = Camera.I.Transform.Rotation;
-			_cameraPositionInPerspectiveMode.Value = Camera.I.Transform.WorldPosition;
-			_cameraFieldOfViewInperspectiveMode.Value = Camera.I.FieldOfView;
+			_cameraRotationInPerspectiveMode.Value = Camera.MainCamera.Transform.Rotation;
+			_cameraPositionInPerspectiveMode.Value = Camera.MainCamera.Transform.WorldPosition;
+			_cameraFieldOfViewInperspectiveMode.Value = Camera.MainCamera.FieldOfView;
 		}
 
 		float tweenDuration = 1f;
-		Tweener.Tween(Camera.I.Transform.Rotation.X, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.X : 0, tweenDuration, (f) => { Camera.I.Transform.Rotation = Camera.I.Transform.Rotation.Set(x: f); });
-		Tweener.Tween(Camera.I.Transform.Rotation.Y, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Y : 0, tweenDuration, (f) => { Camera.I.Transform.Rotation = Camera.I.Transform.Rotation.Set(y: f); });
-		Tweener.Tween(Camera.I.Transform.WorldPosition.Z, newProjectionMode == ProjectionMode.Perspective ? _cameraPositionInPerspectiveMode.Value.Z : Camera.I.Transform.WorldPosition.Z - 350, tweenDuration,
-		              (f) => { Camera.I.Transform.WorldPosition = Camera.I.Transform.WorldPosition.Set(z: f); });
+		Tweener.Tween(Camera.MainCamera.Transform.Rotation.X, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.X : 0, tweenDuration, (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(x: f); });
+		Tweener.Tween(Camera.MainCamera.Transform.Rotation.Y, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Y : 0, tweenDuration, (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(y: f); });
+		Tweener.Tween(Camera.MainCamera.Transform.WorldPosition.Z, newProjectionMode == ProjectionMode.Perspective ? _cameraPositionInPerspectiveMode.Value.Z : Camera.MainCamera.Transform.WorldPosition.Z - 350, tweenDuration,
+		              (f) => { Camera.MainCamera.Transform.WorldPosition = Camera.MainCamera.Transform.WorldPosition.Set(z: f); });
 
-		Tween tween = Tweener.Tween(Camera.I.Transform.Rotation.Z, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Z : 0, tweenDuration,
-		                            (f) => { Camera.I.Transform.Rotation = Camera.I.Transform.Rotation.Set(z: f); });
+		Tween tween = Tweener.Tween(Camera.MainCamera.Transform.Rotation.Z, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Z : 0, tweenDuration,
+		                            (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(z: f); });
 
-		Tweener.Tween(Camera.I.FieldOfView, newProjectionMode == ProjectionMode.Perspective ? _cameraFieldOfViewInperspectiveMode : 14, tweenDuration, (f) => { Camera.I.FieldOfView = f; });
+		Tweener.Tween(Camera.MainCamera.FieldOfView, newProjectionMode == ProjectionMode.Perspective ? _cameraFieldOfViewInperspectiveMode : 14, tweenDuration, (f) => { Camera.MainCamera.FieldOfView = f; });
 
 
 		if (newProjectionMode == ProjectionMode.Orthographic)
 		{
-			tween.SetOnComplete(() => { Camera.I.IsOrthographic = newProjectionMode == ProjectionMode.Orthographic; });
+			tween.SetOnComplete(() => { Camera.MainCamera.IsOrthographic = newProjectionMode == ProjectionMode.Orthographic; });
 		}
 		else
 		{
-			Camera.I.IsOrthographic = newProjectionMode == ProjectionMode.Orthographic;
+			Camera.MainCamera.IsOrthographic = newProjectionMode == ProjectionMode.Orthographic;
 		}
 
 		CurrentProjectionMode.Value = newProjectionMode;
@@ -92,9 +92,9 @@ public class SceneViewController
 	public void Update()
 	{
 		IsPanningCamera = false;
-		if (_targetOrthoSize == -1 && Camera.I != null)
+		if (_targetOrthoSize == -1 && Camera.MainCamera != null)
 		{
-			_targetOrthoSize = Camera.I.OrthographicSize;
+			_targetOrthoSize = Camera.MainCamera.OrthographicSize;
 		}
 
 		if (TransformHandle.I.Clicked)
@@ -114,7 +114,7 @@ public class SceneViewController
 		}
 
 
-		bool isMouseOverSceneView = MouseInput.ScreenPosition.X < Camera.I.Size.X && MouseInput.ScreenPosition.Y < Camera.I.Size.Y && MouseInput.ScreenPosition.Y > 0;
+		bool isMouseOverSceneView = MouseInput.ScreenPosition.X < Camera.MainCamera.Size.X && MouseInput.ScreenPosition.Y < Camera.MainCamera.Size.Y && MouseInput.ScreenPosition.Y > 0;
 // Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
 		bool justClicked = MouseInput.ButtonPressed(MouseInput.Buttons.Left) | MouseInput.ButtonPressed(MouseInput.Buttons.Right);
 		if (justClicked)
@@ -144,13 +144,13 @@ public class SceneViewController
 		// Z POSITION
 		if (MouseInput.ScrollDelta != 0)
 		{
-			if (Camera.I.IsOrthographic)
+			if (Camera.MainCamera.IsOrthographic)
 			{
 				_targetOrthoSize += -MouseInput.ScrollDelta * (_targetOrthoSize * 0.04f);
 				_targetOrthoSize = Mathf.Clamp(_targetOrthoSize, 0.1f, Mathf.Infinity);
 				// Camera.I.ortographicSize = Mathf.Eerp(Camera.I.ortographicSize, targetOrthoSize, Time.editorDeltaTime * 10f);
 				// macbook trackpad has smooth scrolling so no eerping
-				Camera.I.OrthographicSize = _targetOrthoSize;
+				Camera.MainCamera.OrthographicSize = _targetOrthoSize;
 			}
 			else
 			{
@@ -164,19 +164,19 @@ public class SceneViewController
 	void HandleButtonInputs()
 	{
 		// PANNING
-		if (MouseInput.IsButtonDown() && Camera.I.IsOrthographic)
+		if (MouseInput.IsButtonDown() && Camera.MainCamera.IsOrthographic)
 		{
-			Camera.I.Transform.LocalPosition -= Camera.I.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, -MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.I.OrthographicSize;
+			Camera.MainCamera.Transform.LocalPosition -= Camera.MainCamera.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, -MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.MainCamera.OrthographicSize;
 			// MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
 		}
 
-		if (MouseInput.IsButtonDown(MouseInput.Buttons.Right) && Camera.I.IsOrthographic == false) // right click panning
+		if (MouseInput.IsButtonDown(MouseInput.Buttons.Right) && Camera.MainCamera.IsOrthographic == false) // right click panning
 		{
-			Camera.I.Transform.LocalPosition -= Camera.I.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.I.OrthographicSize;
+			Camera.MainCamera.Transform.LocalPosition -= Camera.MainCamera.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.MainCamera.OrthographicSize;
 			// MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
 		}
 
-		if (MouseInput.IsButtonDown() && Camera.I.IsOrthographic == false)
+		if (MouseInput.IsButtonDown() && Camera.MainCamera.IsOrthographic == false)
 		{
 			if (TransformHandle.I.CurrentAxisSelected != null)
 			{
@@ -188,7 +188,7 @@ public class SceneViewController
 				IsPanningCamera = true;
 			}
 
-			Camera.I.Transform.Rotation += new Vector3(MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * Time.EditorDeltaTime * 7;
+			Camera.MainCamera.Transform.Rotation += new Vector3(MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * Time.EditorDeltaTime * 7;
 			//Debug.Log("Rotate Cam");
 			//Camera.I.transform.Rotation = new Vector3(Camera.I.transform.Rotation.X, Camera.I.transform.Rotation.Y, 0);
 
@@ -234,14 +234,14 @@ public class SceneViewController
 
 	void MoveCameraInDirection(Vector3 dir, float moveSpeed = 1f)
 	{
-		Vector3 delta = Camera.I.Transform.TransformDirectionToWorldSpace(dir) * moveSpeed * Time.EditorDeltaTime;
+		Vector3 delta = Camera.MainCamera.Transform.TransformDirectionToWorldSpace(dir) * moveSpeed * Time.EditorDeltaTime;
 
-		Debug.StatSetValue("DASDSAD", $"CameraDir:{Camera.I.Transform.TransformDirectionToWorldSpace(dir)}");
+		Debug.StatSetValue("DASDSAD", $"CameraDir:{Camera.MainCamera.Transform.TransformDirectionToWorldSpace(dir)}");
 		//Debug.Log(delta);
 		//Camera.I.Transform.LocalPosition += delta;
-		Camera.I.Transform.WorldPosition += delta * new Vector3(1, -1, 1);
+		Camera.MainCamera.Transform.WorldPosition += delta * new Vector3(1, -1, 1);
 		// Camera.I.Transform.LocalPosition += dir * moveSpeed;
 
-		Camera.I.UpdateMatrices();
+		Camera.MainCamera.UpdateMatrices();
 	}
 }
