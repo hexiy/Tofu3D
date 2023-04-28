@@ -147,11 +147,30 @@ public class Renderer : Component, IComparable<Renderer>
 		                                                      -Transform.WorldRotation.X / 180 * Mathf.Pi,
 		                                                      -Transform.WorldRotation.Z / 180 * Mathf.Pi);
 
-		float outlineThickness = 0.005f * ((float) MathHelper.Sin(Time.EditorElapsedTime * 3) + 1.3f) * DistanceFromCamera;
+		float outlineThickness = 0.002f * ((float) MathHelper.Sin(Time.EditorElapsedTime * 7) + 1.3f) * DistanceFromCamera;
 		// float outlineThickness = 0.04f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime*5)),0) * DistanceFromCamera * 0.3f;
 		Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale + Vector3.One * outlineThickness);
 
 		return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit) * Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
+	}
+
+	public Matrix4x4 GetCanvasMvpForOutline()
+	{
+		///////////////////////////
+		Vector3 worldPositionPivotOffset = BoxShape.Size * Transform.WorldScale * (Vector3.One - Transform.Pivot * 2);
+
+		Matrix4x4 pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
+		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition - (Camera.MainCamera.Size / 2) + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f)) * Matrix4x4.CreateScale(1, 1, 1);
+
+		Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
+		                                                      -Transform.WorldRotation.X / 180 * Mathf.Pi,
+		                                                      -Transform.WorldRotation.Z / 180 * Mathf.Pi);
+
+		float outlineThickness = 1 * ((float) MathHelper.Sin(Time.EditorElapsedTime * 7) + 1.3f);
+		// float outlineThickness = 0.04f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime*5)),0) * DistanceFromCamera * 0.3f;
+		Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale + Vector3.One * outlineThickness);
+
+		return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(xScale: 2f / Camera.MainCamera.Size.X, yScale: 2f / Camera.MainCamera.Size.Y, zScale: 0) * Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
 	}
 
 	public Vector4 GetSize()

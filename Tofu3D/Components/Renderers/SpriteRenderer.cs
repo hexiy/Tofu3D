@@ -77,6 +77,13 @@ public class SpriteRenderer : TextureRenderer
 			return;
 		}
 
+		bool drawOutline = GameObject.Selected;
+		if (drawOutline)
+		{
+			GL.StencilOp(StencilOp.Keep, StencilOp.Keep, StencilOp.Replace);
+			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
+			GL.StencilMask(0xFF);
+		}
 		ShaderCache.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
 		if (Transform.IsInCanvas)
@@ -111,6 +118,40 @@ public class SpriteRenderer : TextureRenderer
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 		RenderWireframe(6);
+
+
+		if (drawOutline)
+		{
+			GL.StencilFunc(StencilFunction.Notequal, 1, 0xFF);
+			GL.StencilMask(0x00);
+			GL.Disable(EnableCap.DepthTest);
+
+			ShaderCache.UseShader(Material.Shader);
+
+			if (Transform.IsInCanvas)
+			{
+				Material.Shader.SetMatrix4X4("u_mvp", GetCanvasMvpForOutline());
+			}
+			else
+			{
+				Material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
+			}
+
+			Material.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
+
+			ShaderCache.BindVertexArray(Material.Vao);
+
+			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
+
+
+			GL.StencilMask(0xFF);
+			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
+			GL.Enable(EnableCap.DepthTest);
+
+			// GL.BindVertexArray(0);
+			// GL.Disable(EnableCap.Blend);
+		}
+
 
 		DebugHelper.LogDrawCall();
 	}

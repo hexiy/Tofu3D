@@ -196,12 +196,20 @@ public class ModelRenderer : TextureRenderer
 			GL.StencilMask(0x00);
 			GL.Disable(EnableCap.DepthTest);
 
-			Material material = AssetManager.Load<Material>("ModelRendererUnlit");
-			ShaderCache.UseShader(material.Shader);
+			Material outlineMaterial = AssetManager.Load<Material>("ModelRendererUnlit");
+			ShaderCache.UseShader(outlineMaterial.Shader);
 
-			material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
-			material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
-			material.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
+			if (Transform.IsInCanvas)
+			{
+				outlineMaterial.Shader.SetMatrix4X4("u_mvp", GetCanvasMvpForOutline());
+			}
+			else
+			{
+				outlineMaterial.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
+			}
+
+			outlineMaterial.Shader.SetMatrix4X4("u_model", GetModelMatrix());
+			outlineMaterial.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
 
 			ShaderCache.BindVertexArray(Model.Vao);
 

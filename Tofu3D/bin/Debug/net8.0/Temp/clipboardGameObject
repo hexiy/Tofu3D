@@ -5,10 +5,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>37</Id>
-      <IndexInHierarchy>6</IndexInHierarchy>
+      <Id>4</Id>
+      <IndexInHierarchy>1</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Child</Name>
+      <Name>SmolCube</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -19,25 +19,25 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>37</GameObjectId>
+      <GameObjectId>4</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
-      <ParentId>36</ParentId>
+      <ParentId>-1</ParentId>
       <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>500.01114</X>
-        <Y>500.00577</Y>
+        <X>0</X>
+        <Y>0</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>500</X>
-        <Y>500</Y>
+        <X>0</X>
+        <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
@@ -53,30 +53,46 @@
       <Rotation>
         <X>0</X>
         <Y>0</Y>
-        <Z>-5.3</Z>
+        <Z>0</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="SpriteRenderer">
+    <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>37</GameObjectId>
+      <GameObjectId>4</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>10</X>
+        <Y>10</Y>
+        <Z>10</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>4</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
         <B>255</B>
         <G>255</G>
         <R>255</R>
-        <A>128</A>
-        <PackedValue>2164260863</PackedValue>
+        <A>170</A>
+        <PackedValue>2868903935</PackedValue>
       </Color>
-      <DistanceFromCamera>605.6718</DistanceFromCamera>
+      <DistanceFromCamera>195.12296</DistanceFromCamera>
       <Material>
-        <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
-          <BufferType>Sprite</BufferType>
-          <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
         </Shader>
-        <Vao>6</Vao>
+        <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Transparent</RenderMode>
@@ -97,23 +113,12 @@
         <X>0</X>
         <Y>0</Y>
       </Offset>
-      <Batched>false</Batched>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>37</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>100</X>
-        <Y>100</Y>
-        <Z>100</Z>
-      </Size>
+      <Model>
+        <AssetPath>Assets\3D\cube.obj</AssetPath>
+        <Vao>3</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
+      </Model>
+      <CastShadow>true</CastShadow>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>
