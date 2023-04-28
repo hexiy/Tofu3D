@@ -25,7 +25,7 @@ public class RenderPassUI : RenderPass
 			return;
 		}
 
-		PassRenderTexture = new RenderTexture(size: Camera.MainCamera.Size, colorAttachment: true, depthAttachment: false, stencilAttachment: true);
+		PassRenderTexture = new RenderTexture(size: Camera.MainCamera.Size, colorAttachment: true, depthAttachment: true, hasStencil: true);
 
 		base.SetupRenderTexture();
 	}

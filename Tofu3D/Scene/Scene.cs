@@ -160,6 +160,10 @@ public class Scene
 
 	public void RenderUI()
 	{
+		GL.Enable(EnableCap.DepthTest);
+		GL.DepthFunc(DepthFunction.Less);
+		GL.Enable(EnableCap.StencilTest);
+		
 		_sceneRenderQueue.RenderUI();
 
 		if (TransformHandle.Transform.IsInCanvas)
