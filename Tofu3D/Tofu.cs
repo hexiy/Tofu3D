@@ -25,6 +25,7 @@ public class Tofu
 		SystemConfig.Configure();
 		Global.LoadSavedData();
 		RenderSettings.LoadSavedData();
+		AssetsWatcher.StartWatching();
 
 		Window = new Window();
 		Window.Load += () => { OnWindowLoad(Window); };

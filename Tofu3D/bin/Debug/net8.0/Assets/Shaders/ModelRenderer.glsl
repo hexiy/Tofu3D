@@ -31,6 +31,7 @@ uv = a_uv;
 uniform vec2 u_tiling;
 uniform vec2 u_offset;
 
+uniform vec3 u_viewPos;
 uniform vec3 u_ambientLightsColor;
 uniform float u_ambientLightsIntensity;
 
@@ -100,15 +101,39 @@ float shadow = 1 - ShadowCalculation(FragPosLightSpace);
 
 
 vec4 texturePixelColor = texture(textureObject, (uv + u_offset) * u_tiling);
-vec4 result = vec4(1, 1, 1, 1);
-if (u_directionalLightIntensity > 0){
-result *= vec4(dirColor.rgb, 1);
-}
-result *= texturePixelColor.rgba;
-result *=  u_rendererColor.rgba;
-result *=  vec4(ambColor.rgb, 1);
+vec4 result = texturePixelColor * u_rendererColor;
 
-result.a = (texturePixelColor.rgba * u_rendererColor.rgba).a;
+result.a = texturePixelColor.a * u_rendererColor.a;
+
+
+float specularStrength = 1;
+vec3 viewDir = normalize(u_viewPos + fragPos);
+vec3 reflectDir = reflect( u_directionalLightDirection, norm);
+float spec = pow(max(dot(viewDir, reflectDir), 0.0), 8);
+vec3 specular = specularStrength * spec * u_directionalLightColor;
+        
+        
+vec3 lighting = dirColor.rgb + ambColor.rgb + specular.rgb;
+
+result *= vec4(lighting.rgb, 1);
+
+
+
+        
+//if (result.b > 1){
+//result = result * (1 / result.b);
+//}
+//if (result.g > 1){
+//result = result * (1 / result.g);
+//}
+//if (result.r > 1){
+//result = result * (1 / result.r);
+//}
+//        result = clamp(result,0,1);
+
+
+
+//result.a = (texturePixelColor.rgba * u_rendererColor.rgba).a;
 if(result.a < 0.05){
 discard; // having this fixes transparency sorting but breaks debug depthmap
 }
