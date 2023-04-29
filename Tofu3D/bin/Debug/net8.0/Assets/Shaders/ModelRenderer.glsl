@@ -6,7 +6,7 @@ layout (location = 0) in vec3 a_pos;
 layout (location = 1) in vec2 a_uv;
 layout (location = 2) in vec3 a_normal;
 
-out vec3 fragPos;
+out vec3 vertexPositionWorld;
 out vec3 normal;
 out vec2 uv;
 
@@ -18,7 +18,7 @@ out vec4 FragPosLightSpace;
 void main(void)
 {
 gl_Position = u_mvp * vec4(a_pos.xyz, 1.0);
-fragPos = vec3(u_model * vec4(a_pos.xyz, 1.0));
+vertexPositionWorld = vec3(u_model * vec4(a_pos.xyz, 1.0));
 normal = transpose(inverse(mat3(u_model))) * a_normal;
 FragPosLightSpace = u_lightSpaceMatrix * vec4(a_pos.xyz, 1.0);
 uv = a_uv;
@@ -31,6 +31,7 @@ uv = a_uv;
 uniform vec2 u_tiling;
 uniform vec2 u_offset;
 
+uniform vec3 u_camPos;
 uniform vec3 u_ambientLightsColor;
 uniform float u_ambientLightsIntensity;
 
@@ -45,7 +46,7 @@ uniform sampler2D shadowMap;
 
 in vec3 normal;
 in vec2 uv;
-in vec3 fragPos;
+in vec3 vertexPositionWorld;
 in vec4 FragPosLightSpace;
 
 out vec4 frag_color;
@@ -100,15 +101,44 @@ float shadow = 1 - ShadowCalculation(FragPosLightSpace);
 
 
 vec4 texturePixelColor = texture(textureObject, (uv + u_offset) * u_tiling);
-vec4 result = vec4(1, 1, 1, 1);
-if (u_directionalLightIntensity > 0){
-result *= vec4(dirColor.rgb, 1);
-}
-result *= texturePixelColor.rgba;
-result *=  u_rendererColor.rgba;
-result *=  vec4(ambColor.rgb, 1);
+vec4 result = texturePixelColor * u_rendererColor;
 
-result.a = (texturePixelColor.rgba * u_rendererColor.rgba).a;
+result.a = texturePixelColor.a * u_rendererColor.a;
+
+//
+//float specularStrength = 0.5f;
+//vec3 viewDir = normalize(vertexPositionWorld- u_camPos);
+//vec3 reflectDir = reflect(u_directionalLightDirection, normalize(normal));
+//float spec = pow(max(dot(viewDir, reflectDir), 0.0), 50);
+//vec3 specular = specularStrength * spec * u_directionalLightColor;
+        
+        vec3 reflectedLightVectorWorld = reflect(-u_directionalLightDirection, normal);
+        vec3 eyeVectorWorld = normalize(u_camPos -vertexPositionWorld)* vec3(-1,1,1);
+        float s = clamp(dot(reflectedLightVectorWorld, eyeVectorWorld),0,1);
+        s = pow(s,100);
+        vec4 specular = vec4(u_directionalLightColor.rgb*s,1);
+vec3 lighting = dirColor.rgb + ambColor.rgb + specular.rgb;
+//vec3 lighting = specular.rgb;
+
+result *= vec4(lighting.rgb, 1);
+
+
+
+        
+//if (result.b > 1){
+//result = result *e (1 / result.b);
+//}
+//if (result.g > 1){
+//result = result * (1 / result.g);
+//}
+//if (result.r > 1){
+//result = result * (1 / result.r);
+//}
+//        result = clamp(result,0,1);
+
+
+
+//result.a = (texturePixelColor.rgba * u_rendererColor.rgba).a;
 if(result.a < 0.05){
 discard; // having this fixes transparency sorting but breaks debug depthmap
 }

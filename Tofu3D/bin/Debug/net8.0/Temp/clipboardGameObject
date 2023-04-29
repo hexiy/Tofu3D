@@ -5,10 +5,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>4</Id>
-      <IndexInHierarchy>1</IndexInHierarchy>
+      <Id>173</Id>
+      <IndexInHierarchy>10</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>SmolCube</Name>
+      <Name>Ball</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -19,7 +19,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>4</GameObjectId>
+      <GameObjectId>173</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
@@ -33,12 +33,12 @@
       <WorldPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>-41</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>-41</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -58,7 +58,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>4</GameObjectId>
+      <GameObjectId>173</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -67,24 +67,24 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>10</X>
-        <Y>10</Y>
-        <Z>10</Z>
+        <X>50</X>
+        <Y>50</Y>
+        <Z>50</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>4</GameObjectId>
+      <GameObjectId>173</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
         <B>255</B>
         <G>255</G>
         <R>255</R>
-        <A>170</A>
-        <PackedValue>2868903935</PackedValue>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>195.12296</DistanceFromCamera>
+      <DistanceFromCamera>407.11514</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -95,8 +95,8 @@
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
-      <RenderMode>Transparent</RenderMode>
-      <Layer>0</Layer>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
         <Loaded>true</Loaded>
@@ -114,9 +114,9 @@
         <Y>0</Y>
       </Offset>
       <Model>
-        <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>3</Vao>
-        <VertexBufferDataLength>288</VertexBufferDataLength>
+        <AssetPath>Assets\3D\sphere.obj</AssetPath>
+        <Vao>8</Vao>
+        <VertexBufferDataLength>23040</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
     </Component>

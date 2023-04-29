@@ -176,7 +176,7 @@ public class Shader : IDisposable
 			_uLocationUColor = location;
 		}
 
-		GL.Uniform4(_uLocationUColor, col.R/255f, col.G/255f, col.G/255f, col.A/255f);
+		GL.Uniform4(_uLocationUColor, col.R/255f, col.G/255f, col.B/255f, col.A/255f);
 		Uniforms[uniformName] = col;
 	}
 

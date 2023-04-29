@@ -107,9 +107,18 @@ public class ModelRenderer : TextureRenderer
 
 			if (drawOutline)
 			{
+				GL.Enable(EnableCap.StencilTest);
+
+				GL.Clear(ClearBufferMask.StencilBufferBit);
 				GL.StencilOp(StencilOp.Keep, StencilOp.Keep, StencilOp.Replace);
 				GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
 				GL.StencilMask(0xFF);
+			}
+			else
+			{
+				GL.Clear(ClearBufferMask.StencilBufferBit);
+
+				GL.Disable(EnableCap.StencilTest);
 			}
 
 			ShaderCache.UseShader(Material.Shader);
@@ -130,7 +139,10 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetVector2("u_offset", Offset);
 
 
-			Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
+			Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition() * Units.OneWorldUnit); // moves with camera but rotated wrong
+			Material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition * Units.OneWorldUnit);
+			// Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
+			// Material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition);
 
 			Material.Shader.SetVector3("u_ambientLightsColor", SceneLightingManager.I.GetAmbientLightsColor().ToVector3());
 			Material.Shader.SetFloat("u_ambientLightsIntensity", SceneLightingManager.I.GetAmbientLightsIntensity());
@@ -139,7 +151,9 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetFloat("u_directionalLightIntensity", SceneLightingManager.I.GetDirectionalLightIntensity());
 
 			// Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
+			// Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
 			Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
+			
 			// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
 			Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
 
@@ -195,6 +209,7 @@ public class ModelRenderer : TextureRenderer
 			GL.StencilFunc(StencilFunction.Notequal, 1, 0xFF);
 			GL.StencilMask(0x00);
 			GL.Disable(EnableCap.DepthTest);
+			GL.Disable(EnableCap.Blend);
 
 			Material outlineMaterial = AssetManager.Load<Material>("ModelRendererUnlit");
 			ShaderCache.UseShader(outlineMaterial.Shader);
