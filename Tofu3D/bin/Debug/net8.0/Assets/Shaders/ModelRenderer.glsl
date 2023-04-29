@@ -113,10 +113,10 @@ result.a = texturePixelColor.a * u_rendererColor.a;
 //vec3 specular = specularStrength * spec * u_directionalLightColor;
         
         vec3 reflectedLightVectorWorld = reflect(-u_directionalLightDirection, normal);
-        vec3 eyeVectorWorld = normalize(u_camPos - vertexPositionWorld);
+        vec3 eyeVectorWorld = normalize(u_camPos -vertexPositionWorld)* vec3(-1,1,1);
         float s = clamp(dot(reflectedLightVectorWorld, eyeVectorWorld),0,1);
-        s = pow(s,50);
-        vec4 specular = vec4(s,s,s,1);
+        s = pow(s,100);
+        vec4 specular = vec4(u_directionalLightColor.rgb*s,1);
 vec3 lighting = dirColor.rgb + ambColor.rgb + specular.rgb;
 //vec3 lighting = specular.rgb;
 

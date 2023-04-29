@@ -171,14 +171,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-73.67977</X>
-        <Y>146.6621</Y>
-        <Z>-168.06282</Z>
+        <X>-103.40135</X>
+        <Y>43.453205</Y>
+        <Z>-252.24353</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-73.67977</X>
-        <Y>146.6621</Y>
-        <Z>-168.06282</Z>
+        <X>-103.40135</X>
+        <Y>43.453205</Y>
+        <Z>-252.24353</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -191,8 +191,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-40.03945</X>
-        <Y>-16.004414</Y>
+        <X>-15.3439665</X>
+        <Y>15.180023</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -292,7 +292,7 @@
         <A>170</A>
         <PackedValue>2868903935</PackedValue>
       </Color>
-      <DistanceFromCamera>234.91188</DistanceFromCamera>
+      <DistanceFromCamera>276.05582</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -389,13 +389,13 @@
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
-        <B>0</B>
-        <G>0</G>
+        <B>255</B>
+        <G>255</G>
         <R>255</R>
         <A>220</A>
-        <PackedValue>3690987775</PackedValue>
+        <PackedValue>3707764735</PackedValue>
       </Color>
-      <DistanceFromCamera>331.53983</DistanceFromCamera>
+      <DistanceFromCamera>388.77405</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -465,7 +465,7 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
+        <X>-332.2</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
@@ -475,13 +475,13 @@
       <GameObjectId>6</GameObjectId>
       <Started>false</Started>
       <Enabled>true</Enabled>
-      <Intensity>-1.55</Intensity>
+      <Intensity>0.45</Intensity>
       <Color>
-        <B>255</B>
+        <B>141</B>
         <G>255</G>
-        <R>255</R>
+        <R>0</R>
         <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <PackedValue>4287495936</PackedValue>
       </Color>
     </Component>
     <Component xsi:type="Transform">
@@ -498,14 +498,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-48.4</X>
-        <Y>56.8</Y>
-        <Z>50</Z>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>-196.51</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-48.4</X>
-        <Y>56.8</Y>
-        <Z>50</Z>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>-196.51</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -518,8 +518,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
-        <Y>0</Y>
+        <X>12.7</X>
+        <Y>-5</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -530,11 +530,11 @@
       <Enabled>true</Enabled>
       <Intensity>0.7</Intensity>
       <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
+        <B>26</B>
+        <G>26</G>
+        <R>242</R>
         <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <PackedValue>4279900914</PackedValue>
       </Color>
       <Speed>100</Speed>
       <Rotate>false</Rotate>
@@ -566,6 +566,28 @@
         <int>37</int>
         <int>37</int>
         <int>37</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
         <int>37</int>
         <int>66</int>
         <int>37</int>
@@ -782,7 +804,7 @@
         <A>128</A>
         <PackedValue>2164260863</PackedValue>
       </Color>
-      <DistanceFromCamera>694.4193</DistanceFromCamera>
+      <DistanceFromCamera>797.605</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/SpriteRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -935,7 +957,7 @@
         <A>170</A>
         <PackedValue>2868903935</PackedValue>
       </Color>
-      <DistanceFromCamera>562.85986</DistanceFromCamera>
+      <DistanceFromCamera>666.46875</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -985,13 +1007,13 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>0</X>
-        <Y>-50</Y>
+        <X>150</X>
+        <Y>-70</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>-50</Y>
+        <X>150</X>
+        <Y>-70</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
@@ -1021,9 +1043,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>600</X>
-        <Y>10</Y>
-        <Z>600</Z>
+        <X>100</X>
+        <Y>100</Y>
+        <Z>100</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRenderer">
@@ -1032,13 +1054,13 @@
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
-        <B>0</B>
-        <G>0</G>
+        <B>255</B>
+        <G>255</G>
         <R>255</R>
         <A>255</A>
-        <PackedValue>4278190335</PackedValue>
+        <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>268.9792</DistanceFromCamera>
+      <DistanceFromCamera>375.1142</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1068,9 +1090,9 @@
         <Y>0</Y>
       </Offset>
       <Model>
-        <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>3</Vao>
-        <VertexBufferDataLength>288</VertexBufferDataLength>
+        <AssetPath>Assets\3D\monke.obj</AssetPath>
+        <Vao>7</Vao>
+        <VertexBufferDataLength>371712</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
     </Component>
@@ -1135,13 +1157,13 @@
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
-        <B>0</B>
-        <G>0</G>
+        <B>255</B>
+        <G>255</G>
         <R>255</R>
         <A>255</A>
-        <PackedValue>4278190335</PackedValue>
+        <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>207.5655</DistanceFromCamera>
+      <DistanceFromCamera>239.17326</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1172,11 +1194,11 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>7</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
     </Component>
   </Components>
-  <GameObjectNextId>188</GameObjectNextId>
+  <GameObjectNextId>210</GameObjectNextId>
 </SceneFile>
