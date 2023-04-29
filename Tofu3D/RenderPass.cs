@@ -6,7 +6,7 @@ public abstract class RenderPass : IComparable<RenderPass>
 	List<Action> _renderQueue = new List<Action>();
 	public RenderTexture PassRenderTexture { get; protected set; }
 
-	protected virtual bool CanRender()
+	public virtual bool CanRender()
 	{
 		return _renderQueue.Count > 0;
 	}

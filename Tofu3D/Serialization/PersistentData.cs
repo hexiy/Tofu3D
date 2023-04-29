@@ -1,13 +1,15 @@
 ﻿using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Tofu3D;
 
 public static class PersistentData
 {
 	static bool _inited = false;
-	static Dictionary<string, object> _data = new();
-	static readonly string PersistentDataFileName = "persistentData";
+	static Dictionary<string, string> _data = new();
+	static readonly string PersistentDataFileName = "persistentData.json";
 
 	static void LoadAllData()
 	{
@@ -16,24 +18,29 @@ public static class PersistentData
 			return;
 		}
 
-		_data = new Dictionary<string, object>();
-		using (StreamReader sr = new(PersistentDataFileName))
-		{
-			while (sr.Peek() != -1)
-			{
-				string line = sr.ReadLine();
-				if (line?.Length > 0)
-				{
-					string key = line.Substring(0, line.IndexOf(":"));
-					object value = line.Substring(line.IndexOf(":") + 1);
-					_data.Add(key, value);
-				}
-			}
-		}
+		string jsonFileContent = File.ReadAllText(PersistentDataFileName);
+		var x = JsonConvert.DeserializeObject(jsonFileContent);
+		_data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonFileContent);
+		// _data = new Dictionary<string, object>();
+		// using (StreamReader sr = new(PersistentDataFileName))
+		// {
+		// 	while (sr.Peek() != -1)
+		// 	{
+		// 		string line = sr.ReadLine();
+		// 		if (line?.Length > 0)
+		// 		{
+		// 			string key = line.Substring(0, line.IndexOf(":"));
+		// 			object value = line.Substring(line.IndexOf(":") + 1);
+		// 			_data.Add(key, value);
+		// 		}
+		// 	}
+		// }
 	}
 
 	static void Save()
 	{
+		string json = JsonConvert.SerializeObject(_data);
+
 		if (File.Exists(PersistentDataFileName) == false)
 		{
 			FileStream fs = File.Create(PersistentDataFileName);
@@ -43,16 +50,13 @@ public static class PersistentData
 
 		using (StreamWriter sw = new(PersistentDataFileName))
 		{
-			foreach (KeyValuePair<string, object> keyValuePair in _data)
-			{
-				sw.WriteLine(keyValuePair.Key + ":" + keyValuePair.Value);
-			}
+			sw.Write(json);
 		}
 	}
 
 	public static void DeleteAll()
 	{
-		_data = new Dictionary<string, object>();
+		_data = new Dictionary<string, string>();
 		Save();
 	}
 
@@ -73,16 +77,18 @@ public static class PersistentData
 			return null;
 		}
 
-		if (_data[key] is not T)
+		T deserializedObject = JsonConvert.DeserializeObject<T>(_data[key].ToString()); // needs this for serialized classes
+		if (deserializedObject == null) //_data[key] is not T)
 		{
 			if (defaultValue != null)
 			{
 				return defaultValue;
 			}
+
 			return null;
 		}
 
-		return (T) _data[key];
+		return deserializedObject; //(T) _data[key];
 	}
 
 	public static object Get(string key, object? defaultValue = null)
@@ -127,7 +133,9 @@ public static class PersistentData
 			LoadAllData();
 		}
 
-		_data[key] = value;
+		string json= JsonConvert.SerializeObject(value); // needs this for serialized classes
+
+		_data[key] = json;
 
 		Save();
 	}

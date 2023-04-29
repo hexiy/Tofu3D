@@ -144,6 +144,7 @@ discard; // having this fixes transparency sorting but breaks debug depthmap
 }
 //vec4 result = vec4(((dirColor.rgb * shadow)) * ccc.rgb * ambColor.rgb, ccc.a);
 
-frag_color = result;
+//frag_color = result;
+frag_color = vec4(normalize(normal),1);
 gl_FragDepth = gl_FragCoord.z;
 }

@@ -20,12 +20,12 @@ public class RenderPassUI : RenderPass
 	{
 		if (PassRenderTexture != null)
 		{
-			PassRenderTexture.Size = Camera.MainCamera.Size;
+			PassRenderTexture.Size = RenderPassSystem.ViewSize;
 			PassRenderTexture.Invalidate(generateBrandNewTextures: false);
 			return;
 		}
 
-		PassRenderTexture = new RenderTexture(size: Camera.MainCamera.Size, colorAttachment: true, depthAttachment: true, hasStencil: true);
+		PassRenderTexture = new RenderTexture(size: RenderPassSystem.ViewSize, colorAttachment: true, depthAttachment: true, hasStencil: true);
 
 		base.SetupRenderTexture();
 	}

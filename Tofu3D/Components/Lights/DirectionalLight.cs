@@ -6,6 +6,9 @@ public class DirectionalLight : LightBase
 	[Show]
 	public float Speed = 100;
 	public bool Rotate = false;
+
+	public float RotateOffset = 0;
+
 	public int RefreshRate = 60;
 
 	public float NearPlaneDistance = 0.0001f;
@@ -24,14 +27,11 @@ public class DirectionalLight : LightBase
 	bool _cameraBeforeTransformationIsOrthographic;
 	float _cameraBeforeTransformationOrthographicSize;
 
-	float _initialRotationY;
-
 	public static Matrix4x4 LightSpaceMatrix = Matrix4x4.Identity;
 
 	[ExecuteInEditMode]
 	public override void Awake()
 	{
-		_initialRotationY = Transform.Rotation.Y;
 		// DepthRenderTexture = new RenderTexture(size: Size, colorAttachment: false, depthAttachment: true);
 		// DisplayDepthRenderTexture = new RenderTexture(size: Size, colorAttachment: true, depthAttachment: false);
 
@@ -45,7 +45,7 @@ public class DirectionalLight : LightBase
 	{
 		if (Rotate)
 		{
-			Transform.Rotation = Transform.Rotation.Set(y: _initialRotationY + (float) Math.Sin(Time.EditorElapsedTime * Speed) * 50);
+			Transform.Rotation = Transform.Rotation.Set(y: RotateOffset + (float) Math.Sin(Time.EditorElapsedTime * Speed) * 50);
 		}
 
 		base.Update();

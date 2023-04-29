@@ -16,7 +16,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 		I = this;
 	}
 
-	protected override bool CanRender()
+	public override bool CanRender()
 	{
 		return _directionalLight?.IsActive == true;
 	}

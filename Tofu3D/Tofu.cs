@@ -1,5 +1,6 @@
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using Tofu3D.Rendering;
 using Tofu3D.Tweening;
 
 namespace Tofu3D;
@@ -35,6 +36,16 @@ public class Tofu
 
 	void OnWindowLoad(Window window)
 	{
+		try
+		{
+			RenderPassSystem.Initialize();
+
+		}
+		catch (Exception ex)
+		{
+			throw ex;
+		}
+
 		Editor = new Editor();
 		Editor.Init();
 
@@ -61,6 +72,5 @@ public class Tofu
 		SceneManager.CurrentScene.Update();
 		Editor.Update();
 		Debug.EndGraphTimer("Editor Update");
-
 	}
 }

@@ -33,22 +33,8 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>75</Id>
-      <IndexInHierarchy>2</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <Name>BigCube2</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
       <Id>6</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
+      <IndexInHierarchy>2</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>AmbientLight</Name>
       <PrefabPath />
@@ -62,7 +48,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>13</Id>
-      <IndexInHierarchy>4</IndexInHierarchy>
+      <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>DirectionalLight</Name>
       <PrefabPath />
@@ -76,7 +62,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>36</Id>
-      <IndexInHierarchy>5</IndexInHierarchy>
+      <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Canvas</Name>
       <PrefabPath />
@@ -90,7 +76,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>37</Id>
-      <IndexInHierarchy>6</IndexInHierarchy>
+      <IndexInHierarchy>5</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Child</Name>
       <PrefabPath />
@@ -104,7 +90,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>59</Id>
-      <IndexInHierarchy>7</IndexInHierarchy>
+      <IndexInHierarchy>6</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>WorldCenter</Name>
       <PrefabPath />
@@ -118,7 +104,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>66</Id>
-      <IndexInHierarchy>8</IndexInHierarchy>
+      <IndexInHierarchy>7</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>SmolCube</Name>
       <PrefabPath />
@@ -132,7 +118,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>130</Id>
-      <IndexInHierarchy>9</IndexInHierarchy>
+      <IndexInHierarchy>8</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Chimp</Name>
       <PrefabPath />
@@ -146,11 +132,11 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>173</Id>
-      <IndexInHierarchy>10</IndexInHierarchy>
+      <IndexInHierarchy>9</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Ball</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -160,7 +146,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>220</Id>
-      <IndexInHierarchy>11</IndexInHierarchy>
+      <IndexInHierarchy>10</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Ball</Name>
       <PrefabPath />
@@ -174,7 +160,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>221</Id>
-      <IndexInHierarchy>12</IndexInHierarchy>
+      <IndexInHierarchy>11</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Sponza</Name>
       <PrefabPath />
@@ -188,11 +174,25 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>244</Id>
-      <IndexInHierarchy>14</IndexInHierarchy>
+      <IndexInHierarchy>12</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Ball</Name>
+      <Name>Torus</Name>
       <PrefabPath />
       <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+    </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>75</Id>
+      <IndexInHierarchy>13</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>StoneBlock</Name>
+      <PrefabPath />
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -213,14 +213,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-30.850376</X>
-        <Y>130.36876</Y>
-        <Z>-425.44113</Z>
+        <X>-82.37592</X>
+        <Y>111.477844</Y>
+        <Z>-420.5465</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-30.850376</X>
-        <Y>130.36876</Y>
-        <Z>-425.44113</Z>
+        <X>-82.37592</X>
+        <Y>111.477844</Y>
+        <Z>-420.5465</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -233,8 +233,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-15.901218</X>
-        <Y>10.461431</Y>
+        <X>-6.5799932</X>
+        <Y>13.530925</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -334,7 +334,7 @@
         <A>170</A>
         <PackedValue>2868903935</PackedValue>
       </Color>
-      <DistanceFromCamera>446.0358</DistanceFromCamera>
+      <DistanceFromCamera>442.80072</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -365,110 +365,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>3</Vao>
-        <VertexBufferDataLength>288</VertexBufferDataLength>
-      </Model>
-      <CastShadow>true</CastShadow>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>75</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>120</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>120</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>75</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>50</X>
-        <Y>50</Y>
-        <Z>50</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRenderer">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>75</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>250</A>
-        <PackedValue>4211081215</PackedValue>
-      </Color>
-      <DistanceFromCamera>561.6528</DistanceFromCamera>
-      <Material>
-        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
-        <Additive>false</Additive>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
-        </Shader>
-        <Vao>8</Vao>
-        <RenderMode>Opaque</RenderMode>
-      </Material>
-      <RenderMode>Transparent</RenderMode>
-      <Layer>1</Layer>
-      <Texture>
-        <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
-        <Size>
-          <X>256</X>
-          <Y>256</Y>
-        </Size>
-      </Texture>
-      <Tiling>
-        <X>1</X>
-        <Y>1</Y>
-      </Tiling>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-      </Offset>
-      <Model>
-        <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>3</Vao>
+        <Vao>13</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -517,13 +414,13 @@
       <GameObjectId>6</GameObjectId>
       <Started>false</Started>
       <Enabled>true</Enabled>
-      <Intensity>0.46</Intensity>
+      <Intensity>1</Intensity>
       <Color>
-        <B>93</B>
-        <G>93</G>
-        <R>155</R>
+        <B>131</B>
+        <G>131</G>
+        <R>131</R>
         <A>255</A>
-        <PackedValue>4284308891</PackedValue>
+        <PackedValue>4286808963</PackedValue>
       </Color>
     </Component>
     <Component xsi:type="Transform">
@@ -561,7 +458,7 @@
       </WorldScale>
       <Rotation>
         <X>12.7</X>
-        <Y>-68.07262</Y>
+        <Y>33.463005</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -578,8 +475,9 @@
         <A>255</A>
         <PackedValue>4294090778</PackedValue>
       </Color>
-      <Speed>1</Speed>
+      <Speed>2</Speed>
       <Rotate>true</Rotate>
+      <RotateOffset>-14</RotateOffset>
       <RefreshRate>60</RefreshRate>
       <NearPlaneDistance>0.0001</NearPlaneDistance>
       <FarPlaneDistance>1000</FarPlaneDistance>
@@ -608,6 +506,30 @@
         <int>37</int>
         <int>37</int>
         <int>37</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
         <int>37</int>
         <int>66</int>
         <int>37</int>
@@ -886,7 +808,7 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>6</Vao>
+        <Vao>4</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Transparent</RenderMode>
@@ -1062,7 +984,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>3</Vao>
+        <Vao>13</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1134,7 +1056,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>503.8399</DistanceFromCamera>
+      <DistanceFromCamera>513.607</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1165,7 +1087,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>7</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>371712</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1237,7 +1159,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>407.11514</DistanceFromCamera>
+      <DistanceFromCamera>404.06516</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1268,7 +1190,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>10</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1340,7 +1262,7 @@
         <A>255</A>
         <PackedValue>4294901954</PackedValue>
       </Color>
-      <DistanceFromCamera>1933.9501</DistanceFromCamera>
+      <DistanceFromCamera>1932.1226</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1371,7 +1293,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>10</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
       </Model>
       <CastShadow>false</CastShadow>
@@ -1443,7 +1365,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>555.86884</DistanceFromCamera>
+      <DistanceFromCamera>555.6665</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1457,16 +1379,16 @@
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
-        <AssetPath>Assets\2D\solidColor.png</AssetPath>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>256</X>
-          <Y>256</Y>
+          <X>397</X>
+          <Y>397</Y>
         </Size>
       </Texture>
       <Tiling>
-        <X>1</X>
-        <Y>1</Y>
+        <X>5</X>
+        <Y>5</Y>
       </Tiling>
       <Offset>
         <X>0</X>
@@ -1474,7 +1396,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>15</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
       </Model>
       <CastShadow>false</CastShadow>
@@ -1546,7 +1468,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>439.31964</DistanceFromCamera>
+      <DistanceFromCamera>433.01862</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1577,11 +1499,114 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\torus.obj</AssetPath>
-        <Vao>11</Vao>
+        <Vao>9</Vao>
         <VertexBufferDataLength>27648</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>75</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>0</X>
+        <Y>90</Y>
+        <Z>120</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>90</Y>
+        <Z>120</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>5.8</X>
+        <Y>-61.1</Y>
+        <Z>-64.6</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>75</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>50</X>
+        <Y>50</Y>
+        <Z>50</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>75</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>547.2089</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>397</X>
+          <Y>397</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>5</X>
+        <Y>5</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
+        <Vao>16</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
+      </Model>
+      <CastShadow>true</CastShadow>
+    </Component>
   </Components>
-  <GameObjectNextId>245</GameObjectNextId>
+  <GameObjectNextId>270</GameObjectNextId>
 </SceneFile>

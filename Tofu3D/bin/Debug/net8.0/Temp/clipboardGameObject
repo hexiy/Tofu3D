@@ -5,10 +5,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>173</Id>
-      <IndexInHierarchy>10</IndexInHierarchy>
+      <Id>75</Id>
+      <IndexInHierarchy>14</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Ball</Name>
+      <Name>StoneBlock</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -19,7 +19,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>173</GameObjectId>
+      <GameObjectId>75</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
@@ -32,13 +32,13 @@
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
         <X>0</X>
-        <Y>0</Y>
-        <Z>-41</Z>
+        <Y>90</Y>
+        <Z>120</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
-        <Y>0</Y>
-        <Z>-41</Z>
+        <Y>90</Y>
+        <Z>120</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -51,14 +51,14 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>5.8</X>
+        <Y>-61.1</Y>
+        <Z>-64.6</Z>
       </Rotation>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>173</GameObjectId>
+      <GameObjectId>75</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -74,7 +74,7 @@
     </Component>
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>173</GameObjectId>
+      <GameObjectId>75</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
@@ -84,7 +84,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>407.11514</DistanceFromCamera>
+      <DistanceFromCamera>547.2089</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -98,25 +98,25 @@
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
-        <AssetPath>Assets\2D\solidColor.png</AssetPath>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>256</X>
-          <Y>256</Y>
+          <X>397</X>
+          <Y>397</Y>
         </Size>
       </Texture>
       <Tiling>
-        <X>1</X>
-        <Y>1</Y>
+        <X>5</X>
+        <Y>5</Y>
       </Tiling>
       <Offset>
         <X>0</X>
         <Y>0</Y>
       </Offset>
       <Model>
-        <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>8</Vao>
-        <VertexBufferDataLength>23040</VertexBufferDataLength>
+        <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
+        <Vao>17</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
     </Component>

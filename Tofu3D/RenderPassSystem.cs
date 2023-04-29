@@ -17,21 +17,19 @@ public static class RenderPassSystem
 		get { return _renderPasses[^1].PassRenderTexture; }
 	} //*/ { get; private set; } //= new RenderTexture(new Vector2(100, 100), true, false);
 	public static bool Initialized;
-
-	static RenderPassSystem()
-	{
-		Camera.CameraSizeChanged += (newSize) => Initialize();
-	}
+	public static Vector2 ViewSize { get; private set; } = new Vector2(100, 100);
 
 	public static void Initialize()
 	{
-		//_renderPasses = new List<RenderPass>();
-		if (Camera.MainCamera == null)
-		{
-			throw new NullReferenceException("No camera in scene");
-		}
+		CreatePasses();
+		RebuildRenderTextures(ViewSize);
+		Camera.CameraSizeChanged += RebuildRenderTextures;
+	}
 
-		FinalRenderTexture = new RenderTexture(Camera.MainCamera.Size, colorAttachment: true, depthAttachment: false);
+	public static void RebuildRenderTextures(Vector2 viewSize)
+	{
+		ViewSize = viewSize;
+		FinalRenderTexture = new RenderTexture(ViewSize, colorAttachment: true, depthAttachment: false);
 
 		foreach (RenderPass renderPass in _renderPasses)
 		{
@@ -60,11 +58,6 @@ public static class RenderPassSystem
 
 	public static void RemoveRender(RenderPassType type, Action render)
 	{
-		if (_renderPasses.Count == 0)
-		{
-			CreatePasses();
-		}
-
 		foreach (RenderPass renderPass in _renderPasses)
 		{
 			if (renderPass.RenderPassType == type)
@@ -77,11 +70,6 @@ public static class RenderPassSystem
 
 	public static void RegisterRender(RenderPassType type, Action render)
 	{
-		if (_renderPasses.Count == 0)
-		{
-			CreatePasses();
-		}
-
 		foreach (RenderPass renderPass in _renderPasses)
 		{
 			if (renderPass.RenderPassType == type)
@@ -98,11 +86,21 @@ public static class RenderPassSystem
 
 		foreach (RenderPass renderPass in _renderPasses)
 		{
+			if (renderPass.CanRender() == false)
+			{
+				continue;
+			}
+
 			renderPass.Clear();
 		}
 
 		foreach (RenderPass renderPass in _renderPasses)
 		{
+			if (renderPass.CanRender() == false)
+			{
+				continue;
+			}
+
 			CurrentRenderPassType = renderPass.RenderPassType;
 
 
@@ -114,11 +112,6 @@ public static class RenderPassSystem
 
 	private static void RenderFinalRenderTexture()
 	{
-		if (Initialized == false)
-		{
-			return;
-		}
-
 		// todo do we need this?
 		FinalRenderTexture.Clear();
 
@@ -129,6 +122,10 @@ public static class RenderPassSystem
 				continue;
 			}
 
+			if (renderPass.CanRender() == false)
+			{
+				continue;
+			}
 			renderPass.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
 		}
 	}
