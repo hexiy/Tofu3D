@@ -126,7 +126,7 @@ result *= vec4(lighting.rgb, 1);
 
         
 //if (result.b > 1){
-//result = result * (1 / result.b);
+//result = result *e (1 / result.b);
 //}
 //if (result.g > 1){
 //result = result * (1 / result.g);
