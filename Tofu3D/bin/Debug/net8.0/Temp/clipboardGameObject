@@ -5,10 +5,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>5</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
+      <Id>75</Id>
+      <IndexInHierarchy>2</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>BigCube</Name>
+      <Name>BigCube2</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -19,7 +19,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>5</GameObjectId>
+      <GameObjectId>75</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
@@ -33,12 +33,12 @@
       <WorldPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>120</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>120</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -58,7 +58,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>5</GameObjectId>
+      <GameObjectId>75</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -74,17 +74,17 @@
     </Component>
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>5</GameObjectId>
+      <GameObjectId>75</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
         <B>0</B>
-        <G>255</G>
-        <R>0</R>
-        <A>255</A>
-        <PackedValue>4278255360</PackedValue>
+        <G>0</G>
+        <R>255</R>
+        <A>220</A>
+        <PackedValue>3690987775</PackedValue>
       </Color>
-      <DistanceFromCamera>335.61844</DistanceFromCamera>
+      <DistanceFromCamera>342.36963</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -95,7 +95,7 @@
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
-      <RenderMode>Opaque</RenderMode>
+      <RenderMode>Transparent</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>

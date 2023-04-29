@@ -139,10 +139,10 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetVector2("u_offset", Offset);
 
 
-			// Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition() * Units.OneWorldUnit); // moves with camera but rotated wrong
-			// Material.Shader.SetVector3("u_viewPos", Camera.MainCamera.Transform.WorldPosition * Units.OneWorldUnit);5
-			Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
-			Material.Shader.SetVector3("u_viewPos", Camera.MainCamera.Transform.WorldPosition);
+			Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition() * Units.OneWorldUnit); // moves with camera but rotated wrong
+			Material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition * Units.OneWorldUnit);
+			// Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
+			// Material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition);
 
 			Material.Shader.SetVector3("u_ambientLightsColor", SceneLightingManager.I.GetAmbientLightsColor().ToVector3());
 			Material.Shader.SetFloat("u_ambientLightsIntensity", SceneLightingManager.I.GetAmbientLightsIntensity());
@@ -151,6 +151,7 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetFloat("u_directionalLightIntensity", SceneLightingManager.I.GetDirectionalLightIntensity());
 
 			// Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
+			// Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
 			Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
 			
 			// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
