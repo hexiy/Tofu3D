@@ -227,14 +227,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-147.78966</X>
-        <Y>133.81854</Y>
-        <Z>-498.84628</Z>
+        <X>-60.886425</X>
+        <Y>138.24113</Y>
+        <Z>-388.5403</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-147.78966</X>
-        <Y>133.81854</Y>
-        <Z>-498.84628</Z>
+        <X>-60.886425</X>
+        <Y>138.24113</Y>
+        <Z>-388.5403</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -247,8 +247,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-11.874463</X>
-        <Y>17.287716</Y>
+        <X>-14.262996</X>
+        <Y>12.410409</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -472,7 +472,7 @@
       </WorldScale>
       <Rotation>
         <X>12.7</X>
-        <Y>-55.795235</Y>
+        <Y>-15.230587</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -520,6 +520,10 @@
         <int>37</int>
         <int>37</int>
         <int>37</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
         <int>37</int>
         <int>66</int>
         <int>37</int>
@@ -1126,7 +1130,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>615.68524</DistanceFromCamera>
+      <DistanceFromCamera>488.67273</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1229,7 +1233,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>499.372</DistanceFromCamera>
+      <DistanceFromCamera>378.9486</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1332,7 +1336,7 @@
         <A>255</A>
         <PackedValue>4294901954</PackedValue>
       </Color>
-      <DistanceFromCamera>2018.2617</DistanceFromCamera>
+      <DistanceFromCamera>1900.0585</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1435,7 +1439,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>650.71094</DistanceFromCamera>
+      <DistanceFromCamera>541.31384</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1538,7 +1542,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>526.48206</DistanceFromCamera>
+      <DistanceFromCamera>414.87424</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1641,7 +1645,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>637.7559</DistanceFromCamera>
+      <DistanceFromCamera>514.43915</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1678,5 +1682,5 @@
       <CastShadow>true</CastShadow>
     </Component>
   </Components>
-  <GameObjectNextId>327</GameObjectNextId>
+  <GameObjectNextId>331</GameObjectNextId>
 </SceneFile>
