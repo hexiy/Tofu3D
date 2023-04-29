@@ -91,7 +91,7 @@ public class ModelRenderer : TextureRenderer
 			GL.Enable(EnableCap.DepthTest);
 		}
 
-		bool drawOutline = GameObject.Selected && false;
+		bool drawOutline = GameObject.Selected;
 
 		//GL.Enable(EnableCap.DepthTest);
 		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth)
