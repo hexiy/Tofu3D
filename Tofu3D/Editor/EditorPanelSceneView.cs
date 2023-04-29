@@ -10,6 +10,8 @@ public class EditorPanelSceneView : EditorPanel
 	public static EditorPanelSceneView I { get; private set; }
 	static bool _renderCameraViews = true;
 
+	bool _renderModeWindowOpened = false;
+
 	public override void Draw()
 	{
 		if (Active == false)
@@ -59,11 +61,79 @@ public class EditorPanelSceneView : EditorPanel
 
 			ImGui.SameLine();*/
 
-			ImGui.PushStyleColor(ImGuiCol.Text, RenderSettings.WireframeRenderSettings.WireframeVisible ? activeColor : inactiveColor);
+			//////////
+			bool renderModeButtonClicked = ImGui.Button("Render mode");
+
+			if (renderModeButtonClicked)
+			{
+				_renderModeWindowOpened = !_renderModeWindowOpened;
+				if (_renderModeWindowOpened)
+				{
+					ImGui.OpenPopup("BrowserPopup");
+				}
+			}
+
+			if (_renderModeWindowOpened)
+			{
+				if (ImGui.BeginPopupContextWindow("BrowserPopup"))
+				{
+					foreach (ViewRenderMode mode in Enum.GetValues(typeof(ViewRenderMode)))
+					{
+						bool isEnabled = RenderSettings.CurrentRenderModeSettings.CurrentRenderMode == mode;
+						bool wasEnabled = isEnabled;
+						bool clicked = ImGui.Checkbox(mode.ToString(), ref isEnabled);
+						bool hovered = ImGui.IsItemHovered();
+						if (hovered)
+						{
+							RenderSettings.CurrentRenderModeSettings.CurrentRenderMode = mode;
+						}
+
+						if (clicked)
+						{
+							_renderModeWindowOpened = false;
+						}
+					}
+
+					ImGui.EndPopup();
+				}
+
+				if (ImGui.IsPopupOpen("BrowserPopup") == false && _renderModeWindowOpened)
+				{
+					// clicked away
+					_renderModeWindowOpened = false;
+				}
+
+				/*ImGui.BeginPopup("Render mode", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoResize);
+				foreach (ViewRenderMode mode in Enum.GetValues(typeof(ViewRenderMode)))
+				{
+					bool isEnabled = RenderSettings.CurrentRenderModeSettings.CurrentRenderMode == mode;
+					bool wasEnabled = isEnabled;
+					bool clicked = ImGui.Checkbox(mode.ToString(), ref isEnabled);
+					bool hovered = ImGui.IsItemHovered();
+					if (hovered)
+					{
+						RenderSettings.CurrentRenderModeSettings.CurrentRenderMode = mode;
+					}
+
+					if (clicked)
+					{
+						_renderModeWindowOpened = false;
+					}
+				}
+
+
+				ImGui.EndPopup();*/
+			}
+
+			ImGui.SameLine();
+
+			//////////
+			/// 
+			ImGui.PushStyleColor(ImGuiCol.Text, RenderSettings.CurrentWireframeRenderSettings.WireframeVisible ? activeColor : inactiveColor);
 			bool wireframeButtonClicked = ImGui.Button("Wireframe");
 			if (wireframeButtonClicked)
 			{
-				RenderSettings.WireframeRenderSettings.WireframeVisible = !RenderSettings.WireframeRenderSettings.WireframeVisible;
+				RenderSettings.CurrentWireframeRenderSettings.WireframeVisible = !RenderSettings.CurrentWireframeRenderSettings.WireframeVisible;
 				RenderSettings.SaveData();
 			}
 
@@ -74,6 +144,7 @@ public class EditorPanelSceneView : EditorPanel
 			ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
 
 			bool playButtonClicked = ImGui.Button("play");
+
 			ImGui.PopStyleColor();
 
 			if (playButtonClicked)
@@ -89,10 +160,11 @@ public class EditorPanelSceneView : EditorPanel
 			}
 
 			ImGui.SameLine();
+
 			ImGui.SetNextItemWidth(200);
+
 			string projectionModeButtonText = SceneViewController.I.CurrentProjectionMode == ProjectionMode.Orthographic ? "2D" : "3D";
 			bool projectionButtonClicked = ImGui.Button(projectionModeButtonText);
-
 			if (projectionButtonClicked)
 			{
 				if (SceneViewController.I.CurrentProjectionMode == ProjectionMode.Orthographic)
@@ -109,6 +181,7 @@ public class EditorPanelSceneView : EditorPanel
 
 			// ImGui.SetCursorPosX(0);
 			ImGui.SetCursorPos(new Vector2(0, tooltipsPanelHeight));
+
 			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
 
 			ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, RenderPassSystem.FinalRenderTexture.Size,
@@ -121,7 +194,6 @@ public class EditorPanelSceneView : EditorPanel
 			// 	ImGui.Image((IntPtr) RenderPassOpaques.I.PassRenderTexture.ColorAttachment, RenderPassOpaques.I.PassRenderTexture.Size,
 			// 	           new Vector2(0, 1), new Vector2(1, 0));
 			// }
-
 			if (_renderCameraViews && RenderPassDirectionalLightShadowDepth.I != null)
 			{
 				float ratio = RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.Size.Y / RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.Size.X;
@@ -137,9 +209,12 @@ public class EditorPanelSceneView : EditorPanel
 			ImGui.End();
 
 			ImGui.PopStyleVar();
+
 			ImGui.PopStyleVar();
 		}
+
 		else
+
 		{
 			ImGui.SetNextWindowSize(Camera.MainCamera.Size + new Vector2(0, 50), ImGuiCond.Always);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.Always, new Vector2(0, 0));

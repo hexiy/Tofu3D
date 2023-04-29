@@ -6,7 +6,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>75</Id>
-      <IndexInHierarchy>14</IndexInHierarchy>
+      <IndexInHierarchy>13</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>StoneBlock</Name>
       <PrefabPath />
@@ -84,7 +84,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>547.2089</DistanceFromCamera>
+      <DistanceFromCamera>506.4829</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -115,7 +115,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>11</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>

@@ -12,11 +12,11 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 	//Destroying 
 	public delegate void Destroyed(GameObject gameObject);
 
-	[XmlElement]
-	bool _activeSelf = true;
+	bool _activeSelf;
 	public bool ActiveSelf
 	{
 		get { return _activeSelf; }
+		set { SetActive(value); }
 	}
 	public bool AlwaysUpdate = false;
 

@@ -14,6 +14,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -24,10 +25,11 @@
       <IsPrefab>false</IsPrefab>
       <Name>SmolCube</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -42,6 +44,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -56,6 +59,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -70,6 +74,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -84,6 +89,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -98,6 +104,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -112,6 +119,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -126,6 +134,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -140,6 +149,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -154,6 +164,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -168,6 +179,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -182,6 +194,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -192,10 +205,11 @@
       <IsPrefab>false</IsPrefab>
       <Name>StoneBlock</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
   </GameObjects>
   <Components>
@@ -213,14 +227,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-82.37592</X>
-        <Y>111.477844</Y>
-        <Z>-420.5465</Z>
+        <X>-50.07945</X>
+        <Y>126.05299</Y>
+        <Z>-460.29688</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-82.37592</X>
-        <Y>111.477844</Y>
-        <Z>-420.5465</Z>
+        <X>-50.07945</X>
+        <Y>126.05299</Y>
+        <Z>-460.29688</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -233,8 +247,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-6.5799932</X>
-        <Y>13.530925</Y>
+        <X>-8.906911</X>
+        <Y>19.251556</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -256,7 +270,7 @@
       <IsOrthographic>false</IsOrthographic>
       <OrthographicSize>2</OrthographicSize>
       <Size>
-        <X>2276</X>
+        <X>2300</X>
         <Y>1179</Y>
       </Size>
     </Component>
@@ -301,8 +315,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
-        <Y>0</Y>
+        <X>-58</X>
+        <Y>-13.1</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -317,9 +331,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>10</X>
-        <Y>10</Y>
-        <Z>10</Z>
+        <X>100</X>
+        <Y>100</Y>
+        <Z>100</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRenderer">
@@ -331,10 +345,10 @@
         <B>255</B>
         <G>255</G>
         <R>255</R>
-        <A>170</A>
-        <PackedValue>2868903935</PackedValue>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>442.80072</DistanceFromCamera>
+      <DistanceFromCamera>408.84155</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -365,7 +379,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>5</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -458,7 +472,7 @@
       </WorldScale>
       <Rotation>
         <X>12.7</X>
-        <Y>33.463005</Y>
+        <Y>-21.070795</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -506,6 +520,60 @@
         <int>37</int>
         <int>37</int>
         <int>37</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
         <int>37</int>
         <int>66</int>
         <int>37</int>
@@ -808,7 +876,7 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>4</Vao>
+        <Vao>6</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Transparent</RenderMode>
@@ -984,7 +1052,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>5</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1056,7 +1124,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>513.607</DistanceFromCamera>
+      <DistanceFromCamera>538.83374</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1087,7 +1155,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>14</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>371712</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1159,7 +1227,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>404.06516</DistanceFromCamera>
+      <DistanceFromCamera>440.68945</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1190,7 +1258,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>10</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1262,7 +1330,7 @@
         <A>255</A>
         <PackedValue>4294901954</PackedValue>
       </Color>
-      <DistanceFromCamera>1932.1226</DistanceFromCamera>
+      <DistanceFromCamera>1969.7567</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1293,7 +1361,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>10</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
       </Model>
       <CastShadow>false</CastShadow>
@@ -1333,7 +1401,7 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>90</Y>
+        <Y>-269.3</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -1365,7 +1433,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>555.6665</DistanceFromCamera>
+      <DistanceFromCamera>585.158</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1396,7 +1464,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>15</Vao>
+        <Vao>9</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
       </Model>
       <CastShadow>false</CastShadow>
@@ -1435,9 +1503,9 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-12.2</X>
-        <Y>-22.7</Y>
-        <Z>14.3</Z>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
       </Rotation>
     </Component>
     <Component xsi:type="BoxShape">
@@ -1468,7 +1536,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>433.01862</DistanceFromCamera>
+      <DistanceFromCamera>469.8677</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1499,7 +1567,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\torus.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>10</Vao>
         <VertexBufferDataLength>27648</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1571,7 +1639,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>547.2089</DistanceFromCamera>
+      <DistanceFromCamera>583.56854</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1602,11 +1670,11 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
-        <Vao>16</Vao>
+        <Vao>11</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
     </Component>
   </Components>
-  <GameObjectNextId>270</GameObjectNextId>
+  <GameObjectNextId>325</GameObjectNextId>
 </SceneFile>

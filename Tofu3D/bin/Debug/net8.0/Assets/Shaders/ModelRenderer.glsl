@@ -27,9 +27,11 @@ uv = a_uv;
 [FRAGMENT]
 #version 410 core 
 
- uniform vec4 u_rendererColor;
+uniform vec4 u_rendererColor;
 uniform vec2 u_tiling;
 uniform vec2 u_offset;
+
+uniform float u_renderMode;
 
 uniform vec3 u_camPos;
 uniform vec3 u_ambientLightsColor;
@@ -111,20 +113,18 @@ result.a = texturePixelColor.a * u_rendererColor.a;
 //vec3 reflectDir = reflect(u_directionalLightDirection, normalize(normal));
 //float spec = pow(max(dot(viewDir, reflectDir), 0.0), 50);
 //vec3 specular = specularStrength * spec * u_directionalLightColor;
-        
-        vec3 reflectedLightVectorWorld = reflect(-u_directionalLightDirection, normal);
-        vec3 eyeVectorWorld = normalize(u_camPos -vertexPositionWorld)* vec3(-1,1,1);
-        float s = clamp(dot(reflectedLightVectorWorld, eyeVectorWorld),0,1);
-        s = pow(s,100);
-        vec4 specular = vec4(u_directionalLightColor.rgb*s,1);
+
+vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, normal);
+vec3 eyeVectorWorld = normalize(u_camPos - vertexPositionWorld) * vec3(- 1, 1, 1);
+float s = clamp(dot(reflectedLightVectorWorld, eyeVectorWorld),0, 1);
+s = pow(s, 100);
+vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
 vec3 lighting = dirColor.rgb + ambColor.rgb + specular.rgb;
 //vec3 lighting = specular.rgb;
 
 result *= vec4(lighting.rgb, 1);
 
 
-
-        
 //if (result.b > 1){
 //result = result *e (1 / result.b);
 //}
@@ -139,12 +139,33 @@ result *= vec4(lighting.rgb, 1);
 
 
 //result.a = (texturePixelColor.rgba * u_rendererColor.rgba).a;
-if(result.a < 0.05){
+if (result.a < 0.05){
 discard; // having this fixes transparency sorting but breaks debug depthmap
 }
 //vec4 result = vec4(((dirColor.rgb * shadow)) * ccc.rgb * ambColor.rgb, ccc.a);
 
 //frag_color = result;
-frag_color = vec4(normalize(normal),1);
+//frag_color = vec4(normalize(normal),1);
+//frag_color = vec4(normalize(-normal) * result.rgb, result.a);
+//frag_color = vec4(normalize(- vertexPositionWorld) * result.rgb, result.a);
+        
+        vec3 fogColor = vec3(1,0,0);
+//        result.rgb = vec3(u_camPos - vertexPositionWorld);//(u_model.xyz / u_model.w);
+        float fog = distance(u_camPos, vertexPositionWorld) / 200000;
+        fog = clamp(fog, 0, 1);
+        fog = fog;
+        result.rgb += fog * (fogColor);//(u_model.xyz / u_model.w);
+if (u_renderMode == 0) // regular
+{
+frag_color = result;
+}
+if (u_renderMode == 1) // positions
+{
+frag_color = vec4(normalize(- vertexPositionWorld) * result.rgb, result.a);
+}
+if (u_renderMode == 2) // normals
+{
+frag_color = vec4(normalize(- normal) * result.rgb, result.a);
+}
 gl_FragDepth = gl_FragCoord.z;
 }

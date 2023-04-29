@@ -27,7 +27,7 @@ public class Renderer : Component, IComparable<Renderer>
 		}
 
 		// return (GameObject.IndexInHierarchy * 1e-15f + Layer).CompareTo(comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer);
-			return (comparePart.DistanceFromCamera + (comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer)).CompareTo(DistanceFromCamera+ (GameObject.IndexInHierarchy * 1e-15f + Layer));
+		return (comparePart.DistanceFromCamera + (comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer)).CompareTo(DistanceFromCamera + (GameObject.IndexInHierarchy * 1e-15f + Layer));
 
 		//return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
 	}
@@ -80,10 +80,10 @@ public class Renderer : Component, IComparable<Renderer>
 
 	internal void RenderWireframe(int verticesCount)
 	{
-		if (RenderSettings.WireframeRenderSettings.WireframeVisible)
+		if (RenderSettings.CurrentWireframeRenderSettings.WireframeVisible)
 		{
 			Material.Shader.SetColor("u_rendererColor", Color.Black);
-			GL.LineWidth(RenderSettings.WireframeRenderSettings.WireframeLineWidth / (DistanceFromCamera + 0.1f) * 20);
+			GL.LineWidth(RenderSettings.CurrentWireframeRenderSettings.WireframeLineWidth / (DistanceFromCamera + 0.1f) * 20);
 
 			GL.DrawArrays(PrimitiveType.LineLoop, 0, verticesCount);
 			Material.Shader.SetColor("u_rendererColor", Color);
@@ -98,14 +98,28 @@ public class Renderer : Component, IComparable<Renderer>
 			Vector3 worldPositionPivotOffset = BoxShape.Size * Transform.WorldScale * (Vector3.One - Transform.Pivot * 2);
 
 			Matrix4x4 pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
-			Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f)) * Matrix4x4.CreateScale(1, -1, 1);
 
 			Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
 			                                                      Transform.WorldRotation.X / 180 * Mathf.Pi,
 			                                                      Transform.WorldRotation.Z / 180 * Mathf.Pi);
 
 			Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale);
-			return scale * Matrix4x4.Identity * pivot * rotation;
+			return scale * IdentityPivotRotationMatrix;
+		}
+	}
+	private Matrix4x4 IdentityPivotRotationMatrix
+	{
+		get
+		{
+			Vector3 worldPositionPivotOffset = BoxShape.Size * Transform.WorldScale * (Vector3.One - Transform.Pivot * 2);
+
+			Matrix4x4 pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
+
+			Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
+			                                                      Transform.WorldRotation.X / 180 * Mathf.Pi,
+			                                                      Transform.WorldRotation.Z / 180 * Mathf.Pi);
+
+			return Matrix4x4.Identity * pivot * rotation;
 		}
 	}
 
@@ -140,20 +154,13 @@ public class Renderer : Component, IComparable<Renderer>
 
 	public Matrix4x4 GetMvpForOutline()
 	{
-		Vector3 worldPositionPivotOffset = BoxShape.Size * Transform.WorldScale * (Vector3.One - Transform.Pivot * 2);
-
-		Matrix4x4 pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
+		float outlineThickness = 0.002f * ((float) MathHelper.Sin(Time.EditorElapsedTime * 2) + 1.3f) * DistanceFromCamera;
+		// float outlineThickness = 0.04f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime*5)),0) * DistanceFromCamera * 0.3f;
 		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f)) * Matrix4x4.CreateScale(1, -1, 1);
 
-		Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
-		                                                      -Transform.WorldRotation.X / 180 * Mathf.Pi,
-		                                                      -Transform.WorldRotation.Z / 180 * Mathf.Pi);
+		Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale + new Vector3(outlineThickness));
 
-		float outlineThickness = 0.002f * ((float) MathHelper.Sin(Time.EditorElapsedTime * 7) + 1.3f) * DistanceFromCamera;
-		// float outlineThickness = 0.04f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime*5)),0) * DistanceFromCamera * 0.3f;
-		Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale + Vector3.One * outlineThickness);
-
-		return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit) * Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
+		return scale * IdentityPivotRotationMatrix * translation * Matrix4x4.CreateScale(Units.OneWorldUnit) * Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
 	}
 
 	public Matrix4x4 GetCanvasMvpForOutline()
@@ -185,7 +192,7 @@ public class Renderer : Component, IComparable<Renderer>
 		UpdateMvp();
 
 		DistanceFromCamera = CalculateDistanceFromCamera();
-		if (Color.A != 255)
+		/*if (Color.A != 255)
 		{
 			if (RenderMode != RenderMode.Transparent)
 			{
@@ -200,7 +207,7 @@ public class Renderer : Component, IComparable<Renderer>
 				RenderMode = RenderMode.Opaque;
 				SceneManager.CurrentScene.ForceRenderQueueChanged();
 			}
-		}
+		}*/
 
 		if (BoxShape == null)
 		{

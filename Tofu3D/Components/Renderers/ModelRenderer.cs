@@ -133,6 +133,8 @@ public class ModelRenderer : TextureRenderer
 				Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 			}
 
+			Material.Shader.SetFloat("u_renderMode", (int) RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
+
 			Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
 			Material.Shader.SetColor("u_rendererColor", Color);
 			Material.Shader.SetVector2("u_tiling", Tiling);
@@ -153,7 +155,7 @@ public class ModelRenderer : TextureRenderer
 			// Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
 			// Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
 			Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
-			
+
 			// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
 			Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
 
