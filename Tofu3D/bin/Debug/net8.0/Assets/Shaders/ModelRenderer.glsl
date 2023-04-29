@@ -150,14 +150,14 @@ discard; // having this fixes transparency sorting but breaks debug depthmap
 //frag_color = vec4(normalize(- vertexPositionWorld) * result.rgb, result.a);
 
 float fogStrength = 0.9;
-vec3 fogColor = vec3(0.8,0,0.1);
+vec3 fogColor = vec3(0.0,0,0.1);
 //        result.rgb = vec3(u_camPos - vertexPositionWorld);//(u_model.xyz / u_model.w);
 float fog = distance(u_camPos, vertexPositionWorld) / 100000;
 fog = clamp(fog, 0, 1);
-fog = fog;
-        fogStrength *= fog;
+fogStrength *= fog;
         
-result.rgb =(result.rgb * (1 - fogStrength) + (fogColor * fogStrength));// * (fog * (fogColor));//(u_model.xyz / u_model.w);
+//result.rgb =(result.rgb * (1 - fogStrength) + (fogColor * fogStrength));// * (fog * (fogColor));//(u_model.xyz / u_model.w);
+result.rgb = mix(result.rgb, fogColor, fogStrength);
 if (u_renderMode == 0) // regular
 {
 frag_color = result;
