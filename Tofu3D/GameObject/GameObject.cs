@@ -7,11 +7,6 @@ namespace Tofu3D;
 
 public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 {
-	public delegate void ComponentAdded(GameObject gameObject, Component component);
-
-	//Destroying 
-	public delegate void Destroyed(GameObject gameObject);
-
 	bool _activeSelf;
 	public bool ActiveSelf
 	{
@@ -27,7 +22,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 	[XmlIgnore]
 	public List<Component> Components = new();
 	object _componentsLock = new();
-	bool _destroy;
+	bool _destroyTimerRunning;
 	public float DestroyTimer = 2;
 	public bool DynamicallyCreated = false;
 	public int Id = -1;
@@ -70,13 +65,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
 	public GameObject()
 	{
-		OnDestroyed += RemoveFromLists;
-		OnDestroyed += DestroyChildren;
-
 		// OnComponentAdded += LinkComponents;
-		OnComponentAdded += InvokeOnComponentAddedOnComponents;
-		OnComponentAdded += CheckForTransformComponent;
-		OnComponentAdded += SceneManager.CurrentScene.OnComponentAdded;
 	}
 
 	public void Dispose()
@@ -122,9 +111,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 	}
 
 	[XmlIgnore] public Transform Transform { get; set; }
-	public event ComponentAdded OnComponentAdded;
-	public event Destroyed OnDestroyed;
-
 	//private List<Component> ComponentsWaitingToBePaired = new List<Component>();
 
 	public void Setup()
@@ -163,7 +149,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 		return go;
 	}
 
-	void DestroyChildren(GameObject go)
+	void DestroyChildren()
 	{
 		for (int i = 0; i < Transform.Children.Count; i++)
 		{
@@ -171,7 +157,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 		}
 	}
 
-	void CheckForTransformComponent(GameObject gameObject, Component component)
+	void CheckForTransformComponent(Component component)
 	{
 		if (component is Transform)
 		{
@@ -179,7 +165,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 		}
 	}
 
-	void InvokeOnComponentAddedOnComponents(GameObject go, Component comp)
+	void InvokeOnComponentAddedOnComponents(Component comp)
 	{
 		for (int i = 0; i < Components.Count; i++)
 		{
@@ -425,7 +411,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 		Started = true;
 	}
 
-	void RemoveFromLists(GameObject gameObject)
+	void RemoveFromLists()
 	{
 		Rigidbody rb = GetComponent<Rigidbody>();
 		if (rb != null)
@@ -440,6 +426,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 		{
 			for (int i = 0; i < Components.Count; i++)
 			{
+				// Components[i].GameObjectId = -1;
+				// Components[i].GameObject = null;
 				Components[i].OnDestroyed();
 			}
 
@@ -454,17 +442,17 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 		SceneManager.CurrentScene.OnGameObjectDestroyed(this);
 	}
 
-	public void Destroy(float? delay = null)
+	public void Destroy()
 	{
-		if (delay == null)
-		{
-			OnDestroyed?.Invoke(this);
-		}
-		else
-		{
-			_destroy = true;
-			DestroyTimer = (float) delay;
-		}
+		RemoveFromLists();
+		DestroyChildren();
+		Id = -1;
+	}
+
+	public void DestroyDelayed(float delay)
+	{
+		_destroyTimerRunning = true;
+		DestroyTimer = (float) delay;
 	}
 
 	/*
@@ -497,13 +485,13 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 			return;
 		}
 
-		if (_destroy)
+		if (_destroyTimerRunning)
 		{
 			DestroyTimer -= Time.DeltaTime;
 			if (DestroyTimer < 0)
 			{
-				_destroy = false;
-				OnDestroyed?.Invoke(this);
+				_destroyTimerRunning = false;
+				Destroy();
 				return;
 			}
 		}
@@ -521,6 +509,13 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 		FixedUpdateComponents();
 	}
 
+	private void OnComponentAdded(Component comp)
+	{
+		InvokeOnComponentAddedOnComponents(comp);
+		CheckForTransformComponent(comp);
+		SceneManager.CurrentScene.OnComponentAdded(comp);
+	}
+
 	public Component AddExistingComponent(Component comp)
 	{
 		comp.GameObject = this;
@@ -528,7 +523,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
 		Components.Add(comp);
 
-		OnComponentAdded?.Invoke(this, comp);
+		OnComponentAdded(comp);
 		if (Awoken)
 		{
 			comp.Awake();
@@ -571,7 +566,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
 		Components.Add(component);
 
-		OnComponentAdded?.Invoke(this, component);
+		OnComponentAdded(component);
 		if (Awoken && component.Awoken == false)
 		{
 			if (Global.GameRunning == false)

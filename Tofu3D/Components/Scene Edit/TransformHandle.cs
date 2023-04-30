@@ -277,6 +277,12 @@ public class TransformHandle : Component
 			return;
 		}
 
+		if (selection.Exists(i => i == -1))
+		{
+			ObjectSelected = false;
+			return;
+		}
+
 		_selectedTransforms = new List<Transform>();
 		for (int i = 0; i < selection.Count; i++)
 		{

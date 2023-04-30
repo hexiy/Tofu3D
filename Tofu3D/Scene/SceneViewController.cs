@@ -172,7 +172,7 @@ public class SceneViewController
 
 		if (MouseInput.IsButtonDown(MouseInput.Buttons.Right) && Camera.MainCamera.IsOrthographic == false) // right click panning
 		{
-			Camera.MainCamera.Transform.LocalPosition -= Camera.MainCamera.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.MainCamera.OrthographicSize;
+			Camera.MainCamera.Transform.LocalPosition -= Camera.MainCamera.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, -MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * 50;
 			// MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
 		}
 
@@ -213,7 +213,7 @@ public class SceneViewController
 				keyboardInputDirectionVector += Vector3.Right;
 			}
 
-			float moveSpeed = 30f;
+			float moveSpeed = 100f;
 
 			if (KeyboardInput.IsKeyDown(Keys.LeftShift))
 			{

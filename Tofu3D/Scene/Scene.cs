@@ -9,6 +9,7 @@ namespace Tofu3D;
 public class Scene
 {
 	SceneLightingManager _sceneLightingManager;
+	public SceneFogManager SceneFogManager { get; private set; }
 	SceneRenderQueue _sceneRenderQueue;
 	public TransformHandle TransformHandle;
 
@@ -27,6 +28,7 @@ public class Scene
 	public void Initialize()
 	{
 		_sceneLightingManager = new SceneLightingManager(this);
+		SceneFogManager = new SceneFogManager(this);
 		_sceneRenderQueue = new SceneRenderQueue(this);
 
 		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderWorld);
@@ -98,6 +100,7 @@ public class Scene
 
 		_sceneLightingManager.Update();
 		_sceneRenderQueue.Update();
+		SceneFogManager.Update();
 
 		Camera.MainCamera.GameObject.Update();
 		TransformHandle.I.GameObject.Update();
@@ -131,7 +134,7 @@ public class Scene
 		Debug.EndGraphTimer("Scene Update");
 	}
 
-	public void OnComponentAdded(GameObject gameObject, Component component)
+	public void OnComponentAdded(Component component)
 	{
 		ComponentAdded.Invoke(component);
 		SceneModified.Invoke();
