@@ -38,11 +38,13 @@ public class Scene
 
 	public void DisposeScene()
 	{
-		foreach (GameObject gameObject in GameObjects)
+		while (GameObjects.Count > 0)
 		{
-			gameObject.Dispose();
+			GameObjects[0].Destroy();
 		}
 
+		GameObjects.Clear();
+		GameObjects = new List<GameObject>();
 		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderWorld);
 		RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
 		SceneDisposed.Invoke();
@@ -166,7 +168,7 @@ public class Scene
 		GL.Enable(EnableCap.DepthTest);
 		GL.DepthFunc(DepthFunction.Less);
 		GL.Enable(EnableCap.StencilTest);
-		
+
 		_sceneRenderQueue.RenderUI();
 
 		if (TransformHandle.Transform.IsInCanvas)

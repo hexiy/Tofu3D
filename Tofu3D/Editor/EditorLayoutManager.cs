@@ -67,12 +67,12 @@ public static class EditorLayoutManager
 
 	public static void Update()
 	{
-		_autoSaveTimer -= Time.EditorDeltaTime;
-		if (_autoSaveTimer <= 0)
-		{
-			SaveCurrentLayout();
-			_autoSaveTimer = 3;
-		}
+		// _autoSaveTimer -= Time.EditorDeltaTime;
+		// if (_autoSaveTimer <= 0)
+		// {
+		// 	SaveCurrentLayout();
+		// 	_autoSaveTimer = 3;
+		// }
 	}
 
 	public static void SaveDefaultLayout()

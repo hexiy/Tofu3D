@@ -141,11 +141,20 @@ public class ModelRenderer : TextureRenderer
 			if (fogEnabled)
 			{
 				Material.Shader.SetColor("u_fogColor", SceneManager.CurrentScene.SceneFogManager.FogColor1);
-				Material.Shader.SetColor("u_fogColor2", SceneManager.CurrentScene.SceneFogManager.FogColor2);
+				Material.Shader.SetFloat("u_fogIntensity", SceneManager.CurrentScene.SceneFogManager.Intensity);
+				if (SceneManager.CurrentScene.SceneFogManager.IsGradient)
+				{
+					Material.Shader.SetColor("u_fogColor2", SceneManager.CurrentScene.SceneFogManager.FogColor2);
+					Material.Shader.SetFloat("u_fogGradientSmoothness", SceneManager.CurrentScene.SceneFogManager.GradientSmoothness * 100);
+				}
+				else
+				{
+					Material.Shader.SetColor("u_fogColor2", SceneManager.CurrentScene.SceneFogManager.FogColor1);
+
+				}
 				Material.Shader.SetFloat("u_fogStartDistance", SceneManager.CurrentScene.SceneFogManager.FogStartDistance);
 				Material.Shader.SetFloat("u_fogEndDistance", SceneManager.CurrentScene.SceneFogManager.FogEndDistance);
 				Material.Shader.SetFloat("u_fogPositionY", SceneManager.CurrentScene.SceneFogManager.FogPositionY * 100);
-				Material.Shader.SetFloat("u_fogGradientSmoothness", SceneManager.CurrentScene.SceneFogManager.GradientSmoothness * 100);
 			}
 
 			Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());

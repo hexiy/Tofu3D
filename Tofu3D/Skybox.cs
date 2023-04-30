@@ -56,13 +56,6 @@ public class Skybox : Component
 		base.OnDisable();
 	}
 
-	public override void Dispose()
-	{
-		RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
-
-		base.Dispose();
-	}
-
 	private void RenderSkybox()
 	{
 		if (Enabled == false || GameObject.ActiveInHierarchy == false)

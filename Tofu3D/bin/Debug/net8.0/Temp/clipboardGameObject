@@ -5,10 +5,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>173</Id>
-      <IndexInHierarchy>9</IndexInHierarchy>
+      <Id>130</Id>
+      <IndexInHierarchy>8</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Ball</Name>
+      <Name>Chimp</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -20,7 +20,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>173</GameObjectId>
+      <GameObjectId>130</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
@@ -32,14 +32,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>0</X>
-        <Y>-50</Y>
-        <Z>500</Z>
+        <X>150</X>
+        <Y>-70</Y>
+        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>-50</Y>
-        <Z>500</Z>
+        <X>150</X>
+        <Y>-70</Y>
+        <Z>0</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -59,7 +59,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>173</GameObjectId>
+      <GameObjectId>130</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -68,14 +68,14 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>50</X>
-        <Y>50</Y>
-        <Z>50</Z>
+        <X>100</X>
+        <Y>100</Y>
+        <Z>100</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>173</GameObjectId>
+      <GameObjectId>130</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
@@ -85,7 +85,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>500</DistanceFromCamera>
+      <DistanceFromCamera>181.91048</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -115,9 +115,9 @@
         <Y>0</Y>
       </Offset>
       <Model>
-        <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>8</Vao>
-        <VertexBufferDataLength>23040</VertexBufferDataLength>
+        <AssetPath>Assets\3D\monke.obj</AssetPath>
+        <Vao>7</Vao>
+        <VertexBufferDataLength>371712</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
     </Component>

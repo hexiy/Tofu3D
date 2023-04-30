@@ -31,6 +31,14 @@ public class EditorPanelMenuBar : EditorPanel
 			bool layoutButtonClicked = ImGui.BeginMenu("Layout");
 			if (layoutButtonClicked)
 			{
+				bool saveCurrentLayoutButtonClicked = ImGui.Button("Save Current Layout");
+				if (saveCurrentLayoutButtonClicked)
+				{
+					ImGui.CloseCurrentPopup();
+
+					EditorLayoutManager.SaveCurrentLayout();
+				}
+
 				bool loadDefaultLayoutButtonClicked = ImGui.Button("Load Default Layout");
 				if (loadDefaultLayoutButtonClicked)
 				{
@@ -46,6 +54,7 @@ public class EditorPanelMenuBar : EditorPanel
 
 					EditorLayoutManager.SaveDefaultLayout();
 				}
+
 
 				ImGui.EndMenu();
 			}
@@ -85,7 +94,7 @@ public class EditorPanelMenuBar : EditorPanel
 					Global.Debug = !Global.Debug;
 				}
 			}
-			
+
 			ImGui.EndMainMenuBar();
 
 			// ImGui.PopStyleColor();

@@ -68,33 +68,31 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 		// OnComponentAdded += LinkComponents;
 	}
 
-	public void Dispose()
-	{
-		SetActive(false);
-		for (int i = 0; i < Components.Count; i++)
-		{
-			Components[i].Dispose();
-		}
-	}
-
 	public void SetActive(bool tgl)
 	{
 		bool stateChanged = ActiveSelf != tgl;
 		_activeSelf = tgl;
 		if (stateChanged)
 		{
-			for (int i = 0; i < Components.Count; i++)
+			if (_activeSelf)
 			{
-				if (ActiveSelf)
-				{
-					Components[i].OnEnable();
-				}
-				else
-				{
-					Components[i].OnDisable();
-				}
+				OnEnable();
+			}
+			else
+			{
+				OnDisable();
 			}
 		}
+	}
+
+	private void OnEnable()
+	{
+		Components.ForEach(c => c.OnEnable());
+	}
+
+	private void OnDisable()
+	{
+		Components.ForEach(c => c.OnDisable());
 	}
 
 	public bool ActiveInHierarchy
@@ -400,13 +398,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 			}
 		}
 
-		for (int i = 0; i < Components.Count; i++)
-		{
-			if (Components[i].Enabled)
-			{
-				Components[i].OnEnable();
-			}
-		}
+		OnEnable();
 
 		Started = true;
 	}
@@ -444,6 +436,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
 	public void Destroy()
 	{
+		SetActive(false);
 		RemoveFromLists();
 		DestroyChildren();
 		Id = -1;

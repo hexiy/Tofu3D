@@ -28,7 +28,6 @@ public class AudioSource : Component
 
 	public override void Awake()
 	{
-
 		LoadAudioToMemory();
 
 		PlaySoundBtn += PlaySound;
@@ -59,12 +58,9 @@ public class AudioSource : Component
 		_threadStart.Invoke();
 	}
 
-	public override void Dispose()
+	public override void OnDestroyed()
 	{
-		//_audioMemoryStream.Close();
-		_audioMemoryStream.Dispose();
-		_soundStream.Dispose();
-		base.Dispose();
+		base.OnDestroyed();
 	}
 
 	public void PlaySound()

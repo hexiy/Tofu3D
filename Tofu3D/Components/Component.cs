@@ -119,10 +119,6 @@ public class Component : IDestroyable, IInspectable
 		set { GameObject.Transform = value; }
 	}
 
-	public virtual void OnDestroyed()
-	{
-	}
-
 	public T GetComponent<T>(int? index = null) where T : Component
 	{
 		return GameObject.GetComponent<T>(index);
@@ -161,11 +157,21 @@ public class Component : IDestroyable, IInspectable
 		Started = true;
 	}
 
+	/// <summary>
+	/// Called when component/gameobject is enabled(including creation after Awake() and Start()
+	/// </summary>
 	public virtual void OnEnable()
 	{
 	}
 
+	/// <summary>
+	/// Called when component/gameobject is disabled
+	/// </summary>
 	public virtual void OnDisable()
+	{
+	}
+
+	public virtual void OnDestroyed()
 	{
 	}
 
@@ -223,9 +229,5 @@ public class Component : IDestroyable, IInspectable
 		}
 
 		return true;
-	}
-
-	public virtual void Dispose()
-	{
 	}
 }

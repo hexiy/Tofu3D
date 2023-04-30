@@ -184,8 +184,15 @@ public class EditorPanelSceneView : EditorPanel
 
 			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
 
-			ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, RenderPassSystem.FinalRenderTexture.Size,
-			            new Vector2(0, 1), new Vector2(1, 0));
+			if (RenderPassSystem.CanRender)
+			{
+				ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, RenderPassSystem.FinalRenderTexture.Size,
+				            new Vector2(0, 1), new Vector2(1, 0));
+			}
+			else
+			{
+				ImGui.Dummy(RenderPassSystem.FinalRenderTexture.Size);
+			}
 
 			// ImGui.Image((IntPtr) RenderPassManager.FinalRenderTexture.ColorAttachment, RenderPassManager.FinalRenderTexture.Size * 0.9f,
 			//             new Vector2(-0.5f, 0.5f), new Vector2(0.5f, -0.5f), Color.White.ToVector4(), Color.Aqua.ToVector4());

@@ -16,8 +16,12 @@ public static class RenderPassSystem
 	{
 		get { return _renderPasses[^1].PassRenderTexture; }
 	} //*/ { get; private set; } //= new RenderTexture(new Vector2(100, 100), true, false);
-	public static bool Initialized;
+	private static bool _initialized;
 	public static Vector2 ViewSize { get; private set; } = new Vector2(100, 100);
+	public static bool CanRender
+	{
+		get { return Camera.MainCamera?.IsActive == true && _initialized; }
+	}
 
 	public static void Initialize()
 	{
@@ -36,7 +40,7 @@ public static class RenderPassSystem
 			renderPass.Initialize();
 		}
 
-		Initialized = true;
+		_initialized = true;
 	}
 
 	private static void CreatePasses()
@@ -82,6 +86,11 @@ public static class RenderPassSystem
 
 	public static void RenderAllPasses()
 	{
+		if (CanRender == false)
+		{
+			return;
+		}
+
 		GL.Enable(EnableCap.Blend);
 
 		foreach (RenderPass renderPass in _renderPasses)
@@ -114,6 +123,11 @@ public static class RenderPassSystem
 	{
 		// todo do we need this?
 		FinalRenderTexture.Clear();
+		
+		if (CanRender == false)
+		{
+			return;
+		}
 
 		foreach (RenderPass renderPass in _renderPasses)
 		{
@@ -126,6 +140,7 @@ public static class RenderPassSystem
 			{
 				continue;
 			}
+
 			renderPass.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
 		}
 	}

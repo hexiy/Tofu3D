@@ -42,6 +42,7 @@ uniform float u_fogStartDistance = 0;
 uniform float u_fogEndDistance = 1;
 uniform float u_fogPositionY = 0;
 uniform float u_fogGradientSmoothness = 1;
+uniform float u_fogIntensity = 1;
 
 uniform vec3 u_camPos;
 uniform vec3 u_ambientLightsColor;
@@ -64,50 +65,6 @@ in vec3 vertexPositionView;
 in vec4 FragPosLightSpace;
 
 out vec4 frag_color;
-
-
-// A single iteration of Bob Jenkins' One-At-A-Time hashing algorithm.
-uint hash(uint x) {
-x += (x << 10u);
-x ^= (x >> 6u);
-x += (x << 3u);
-x ^= (x >> 11u );
-x += (x << 15u);
-return x;
-}
-
-
-
-// Compound versions of the hashing algorithm I whipped together.
-uint hash(uvec2 v) { return hash(v.x ^ hash(v.y)); }
-uint hash(uvec3 v) { return hash(v.x ^ hash(v.y) ^ hash(v.z)             ); }
-uint hash(uvec4 v) { return hash(v.x ^ hash(v.y) ^ hash(v.z) ^ hash(v.w)); }
-
-
-
-// Construct a float with half-open range [0:1] using low 23 bits.
-// All zeroes yields 0.0, all ones yields the next smallest representable value below 1.0.
-float floatConstruct(uint m) {
-const uint ieeeMantissa = 0x007FFFFFu; // binary32 mantissa bitmask
-const uint ieeeOne = 0x3F800000u; // 1.0 in IEEE binary32
-
-m &= ieeeMantissa; // Keep only mantissa bits (fractional part)
-m |= ieeeOne;                          // Add fractional part to 1.0
-
-float  f = uintBitsToFloat(m); // Range [1:2]
-return f - 1.0;                        // Range [0:1]
-}
-
-
-
-// Pseudo-random value in half-open range [0:1].
-float random(float x) { return floatConstruct(hash(floatBitsToUint(x))); }
-float random(vec2  v) { return floatConstruct(hash(floatBitsToUint(v))); }
-float random(vec3  v) { return floatConstruct(hash(floatBitsToUint(v))); }
-float random(vec4  v) { return floatConstruct(hash(floatBitsToUint(v))); }
-
-
-
 
 float ShadowCalculation(vec4 _fragPosLightSpace)
 {
@@ -160,33 +117,29 @@ discard; // having this fixes transparency sorting but breaks debug depthmap
 
 if (u_fogEnabled == 1 && u_renderMode == 0)
 {
-float fogIntensity = u_fogColor.a;
-float distanceToVertex = distance(u_camPos, vertexPositionWorld);
-float fog = 0;
+float distanceToVertex = distance(u_camPos.xz, vertexPositionWorld.xz);
+        distanceToVertex += (u_time)*300;
+float fogFactor = 0;
 if (distanceToVertex / 100 > u_fogStartDistance){
-fog = (distanceToVertex / 100) - u_fogStartDistance;
+fogFactor = (distanceToVertex / 100) - u_fogStartDistance;
 }
 
+fogFactor = fogFactor / (u_fogEndDistance - u_fogStartDistance);
+fogFactor = clamp(fogFactor, 0, 1);
+        
+float gradientStep = (vertexPositionWorld.y + u_fogPositionY) / u_fogGradientSmoothness;
 
-fog = fog / (u_fogEndDistance - u_fogStartDistance);
+        gradientStep = clamp(gradientStep,0,1);
+        
+vec4 finalFogColor = mix(vec4(u_fogColor.rgb*u_fogColor.a, u_fogColor.a), vec4(u_fogColor2.rgb* u_fogColor2.a, u_fogColor2.a), gradientStep);
 
-fog = clamp(fog, 0, 1);
-
-float x = (vertexPositionWorld.y + u_fogPositionY) / u_fogGradientSmoothness;
-
-
-if (distanceToVertex / 100 > u_fogEndDistance){
-        float vertexFromFogCenter = vertexPositionWorld.y - u_fogPositionY;
-        float cameraFromFogCenter = u_camPos.y- u_fogPositionY;
-fog = 1;
-    //        x = 0.1;
-//        x=0;
-}
-fog = clamp(fog, 0, 1);
-
-vec3 finalFogColor = mix(u_fogColor.rgb, u_fogColor2.rgb, x);
-
-result.rgb = mix(result.rgb, finalFogColor.rgb, fog * fogIntensity);
+//        float density = 0.000009;
+//fogFactor = 1- exp(-density*density*distanceToVertex*distanceToVertex);
+//fogFactor = clamp(fogFactor, 0,1);
+fogFactor = fogFactor * u_fogIntensity;
+fogFactor = fogFactor * finalFogColor.a;
+        
+result.rgb = mix(result.rgb, finalFogColor.rgb, fogFactor);
 }
 
 if (u_renderMode == 0) // regular

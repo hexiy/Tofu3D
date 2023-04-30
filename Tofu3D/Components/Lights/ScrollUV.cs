@@ -1,4 +1,5 @@
 ﻿[ExecuteInEditMode]
+// ReSharper disable once InconsistentNaming
 public class ScrollUV : Component
 {
 	TextureRenderer _textureRenderer;

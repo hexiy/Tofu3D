@@ -27,20 +27,15 @@ public static class SceneManager
 		LastOpenedScene = path;
 		// Tofu.I.Window.Title = Tofu.I.Window.WindowTitleText + " | " + Path.GetFileNameWithoutExtension(path);
 
+
 		//Add method to clean scene
 		if (CurrentScene != null)
 		{
-			for (int i = 0; i < CurrentScene.GameObjects.Count; i++)
-			{
-				CurrentScene.GameObjects[0].Destroy();
-			}
+			CurrentScene?.DisposeScene();
 
-			CurrentScene.GameObjects.Clear();
-
-			CurrentScene.GameObjects = new List<GameObject>();
+			
 		}
 
-		CurrentScene?.DisposeScene();
 
 		CurrentScene = new Scene();
 		CurrentScene.ScenePath = path;

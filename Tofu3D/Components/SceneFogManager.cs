@@ -46,4 +46,12 @@ public class SceneFogManager
 	{
 		get { return _fog.GradientSmoothness; }
 	}
+	public bool IsGradient
+	{
+		get { return _fog.IsGradient; }
+	}
+	public float Intensity
+	{
+		get { return _fog.Intensity; }
+	}
 }
