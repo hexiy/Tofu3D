@@ -11,6 +11,7 @@ public class EditorPanelSceneView : EditorPanel
 	static bool _renderCameraViews = true;
 
 	bool _renderModeWindowOpened = false;
+	bool _renderPassesWindowOpened = false;
 
 	public override void Draw()
 	{
@@ -39,7 +40,7 @@ public class EditorPanelSceneView : EditorPanel
 				Debug.Log("SetSize");
 			}
 
-			ImGui.SetCursorPosX(Camera.MainCamera.Size.X / 2 - 150);
+			ImGui.SetCursorPosX(Camera.MainCamera.Size.X / 2 - 400);
 
 			Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
 			Vector4 inactiveColor = ImGui.GetStyle().Colors[(int) ImGuiCol.TextDisabled];
@@ -60,7 +61,45 @@ public class EditorPanelSceneView : EditorPanel
 			ImGui.PopStyleColor();
 
 			ImGui.SameLine();*/
+//////////
+			bool renderPassesButtonClicked = ImGui.Button("Render passes");
 
+			if (renderPassesButtonClicked)
+			{
+				_renderPassesWindowOpened = !_renderPassesWindowOpened;
+				if (_renderPassesWindowOpened)
+				{
+					ImGui.OpenPopup("Render passes");
+				}
+			}
+
+			if (_renderPassesWindowOpened)
+			{
+				if (ImGui.BeginPopupContextWindow("Render passes"))
+				{
+					foreach (RenderPass renderPass in RenderPassSystem.RenderPasses)
+					{
+						bool isEnabled = renderPass.Enabled;
+						bool wasEnabled = isEnabled;
+						bool clicked = ImGui.Checkbox(renderPass.RenderPassType.ToString(), ref isEnabled);
+
+						if (clicked)
+						{
+							renderPass.Enabled = !renderPass.Enabled;
+						}
+					}
+
+					ImGui.EndPopup();
+				}
+
+				if (ImGui.IsPopupOpen("Render passes") == false && _renderPassesWindowOpened)
+				{
+					// clicked away
+					_renderPassesWindowOpened = false;
+				}
+			}
+
+			ImGui.SameLine();
 			//////////
 			bool renderModeButtonClicked = ImGui.Button("Render mode");
 
@@ -69,13 +108,13 @@ public class EditorPanelSceneView : EditorPanel
 				_renderModeWindowOpened = !_renderModeWindowOpened;
 				if (_renderModeWindowOpened)
 				{
-					ImGui.OpenPopup("BrowserPopup");
+					ImGui.OpenPopup("RenderMode");
 				}
 			}
 
 			if (_renderModeWindowOpened)
 			{
-				if (ImGui.BeginPopupContextWindow("BrowserPopup"))
+				if (ImGui.BeginPopupContextWindow("RenderMode"))
 				{
 					foreach (ViewRenderMode mode in Enum.GetValues(typeof(ViewRenderMode)))
 					{
@@ -85,7 +124,12 @@ public class EditorPanelSceneView : EditorPanel
 						bool hovered = ImGui.IsItemHovered();
 						if (hovered)
 						{
+							bool isNew = RenderSettings.CurrentRenderModeSettings.CurrentRenderMode != mode;
 							RenderSettings.CurrentRenderModeSettings.CurrentRenderMode = mode;
+							if (isNew)
+							{
+								RenderSettings.SaveData();
+							}
 						}
 
 						if (clicked)
@@ -97,32 +141,11 @@ public class EditorPanelSceneView : EditorPanel
 					ImGui.EndPopup();
 				}
 
-				if (ImGui.IsPopupOpen("BrowserPopup") == false && _renderModeWindowOpened)
+				if (ImGui.IsPopupOpen("RenderMode") == false && _renderModeWindowOpened)
 				{
 					// clicked away
 					_renderModeWindowOpened = false;
 				}
-
-				/*ImGui.BeginPopup("Render mode", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoResize);
-				foreach (ViewRenderMode mode in Enum.GetValues(typeof(ViewRenderMode)))
-				{
-					bool isEnabled = RenderSettings.CurrentRenderModeSettings.CurrentRenderMode == mode;
-					bool wasEnabled = isEnabled;
-					bool clicked = ImGui.Checkbox(mode.ToString(), ref isEnabled);
-					bool hovered = ImGui.IsItemHovered();
-					if (hovered)
-					{
-						RenderSettings.CurrentRenderModeSettings.CurrentRenderMode = mode;
-					}
-
-					if (clicked)
-					{
-						_renderModeWindowOpened = false;
-					}
-				}
-
-
-				ImGui.EndPopup();*/
 			}
 
 			ImGui.SameLine();

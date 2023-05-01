@@ -10,7 +10,8 @@ public static class RenderPassSystem
 	// should be reorderable and being able to add new pass easily...
 	// every pass will have its own texture
 	// in editor we will be able to visualise all the passes
-	static List<RenderPass> _renderPasses = new List<RenderPass>();
+	public static List<RenderPass> RenderPasses { get; private set; } = new List<RenderPass>();
+
 	public static RenderPassType CurrentRenderPassType { get; private set; } = RenderPassType.DirectionalLightShadowDepth;
 	public static RenderTexture FinalRenderTexture /*
 	{
@@ -35,7 +36,7 @@ public static class RenderPassSystem
 		ViewSize = viewSize;
 		FinalRenderTexture = new RenderTexture(ViewSize, colorAttachment: true, depthAttachment: false);
 
-		foreach (RenderPass renderPass in _renderPasses)
+		foreach (RenderPass renderPass in RenderPasses)
 		{
 			renderPass.Initialize();
 		}
@@ -56,13 +57,13 @@ public static class RenderPassSystem
 
 	public static void RegisterRenderPass(RenderPass renderPass)
 	{
-		_renderPasses.Add(renderPass);
+		RenderPasses.Add(renderPass);
 		// _renderPasses.Sort();
 	}
 
 	public static void RemoveRender(RenderPassType type, Action render)
 	{
-		foreach (RenderPass renderPass in _renderPasses)
+		foreach (RenderPass renderPass in RenderPasses)
 		{
 			if (renderPass.RenderPassType == type)
 			{
@@ -74,7 +75,7 @@ public static class RenderPassSystem
 
 	public static void RegisterRender(RenderPassType type, Action render)
 	{
-		foreach (RenderPass renderPass in _renderPasses)
+		foreach (RenderPass renderPass in RenderPasses)
 		{
 			if (renderPass.RenderPassType == type)
 			{
@@ -93,7 +94,7 @@ public static class RenderPassSystem
 
 		GL.Enable(EnableCap.Blend);
 
-		foreach (RenderPass renderPass in _renderPasses)
+		foreach (RenderPass renderPass in RenderPasses)
 		{
 			if (renderPass.CanRender() == false)
 			{
@@ -103,7 +104,7 @@ public static class RenderPassSystem
 			renderPass.Clear();
 		}
 
-		foreach (RenderPass renderPass in _renderPasses)
+		foreach (RenderPass renderPass in RenderPasses)
 		{
 			if (renderPass.CanRender() == false)
 			{
@@ -129,7 +130,7 @@ public static class RenderPassSystem
 			return;
 		}
 
-		foreach (RenderPass renderPass in _renderPasses)
+		foreach (RenderPass renderPass in RenderPasses)
 		{
 			if (renderPass.RenderPassType == RenderPassType.DirectionalLightShadowDepth)
 			{

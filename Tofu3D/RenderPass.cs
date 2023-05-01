@@ -6,9 +6,10 @@ public abstract class RenderPass : IComparable<RenderPass>
 	List<Action> _renderQueue = new List<Action>();
 	public RenderTexture PassRenderTexture { get; protected set; }
 
+	public bool Enabled = true;
 	public virtual bool CanRender()
 	{
-		return _renderQueue.Count > 0;
+		return _renderQueue.Count > 0 && Enabled;
 	}
 
 	protected RenderPass(RenderPassType type)
