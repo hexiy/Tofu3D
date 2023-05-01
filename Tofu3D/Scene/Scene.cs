@@ -142,12 +142,26 @@ public class Scene
 		SceneModified.Invoke();
 	}
 
-	public void RenderWorld()
+	private void SetOpenGLState()
 	{
 		GL.Enable(EnableCap.DepthTest);
 		GL.DepthFunc(DepthFunction.Less);
 		GL.Enable(EnableCap.StencilTest);
 
+
+		GL.Enable(EnableCap.CullFace);
+		GL.CullFace(CullFaceMode.Back);
+		GL.FrontFace(FrontFaceDirection.Cw);
+	}
+
+	private void RestoreOpenGLState()
+	{
+		GL.Disable(EnableCap.CullFace);
+	}
+
+	public void RenderWorld()
+	{
+		SetOpenGLState();
 
 		// GL.ClearDepth(1000);
 		//
@@ -161,6 +175,8 @@ public class Scene
 		{
 			TransformHandle.I.GameObject.Render();
 		}
+
+		RestoreOpenGLState();
 	}
 
 	public void RenderUI()
