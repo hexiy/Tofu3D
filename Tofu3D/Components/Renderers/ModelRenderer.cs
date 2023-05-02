@@ -5,6 +5,8 @@ public class ModelRenderer : TextureRenderer
 	public Model Model;
 	public bool CastShadow = true;
 	// Color _mousePickingColor;
+	[SliderF(0, 1)]
+	public float Smoothness;
 
 	public override void Awake()
 	{
@@ -150,8 +152,8 @@ public class ModelRenderer : TextureRenderer
 				else
 				{
 					Material.Shader.SetColor("u_fogColor2", SceneManager.CurrentScene.SceneFogManager.FogColor1);
-
 				}
+
 				Material.Shader.SetFloat("u_fogStartDistance", SceneManager.CurrentScene.SceneFogManager.FogStartDistance);
 				Material.Shader.SetFloat("u_fogEndDistance", SceneManager.CurrentScene.SceneFogManager.FogEndDistance);
 				Material.Shader.SetFloat("u_fogPositionY", SceneManager.CurrentScene.SceneFogManager.FogPositionY * 100);
@@ -162,7 +164,8 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetVector2("u_tiling", Tiling);
 			Material.Shader.SetVector2("u_offset", Offset);
 
-
+			Material.Shader.SetFloat("u_smoothShading", Smoothness);
+			
 			Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition() * Units.OneWorldUnit); // moves with camera but rotated wrong
 			Material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition * Units.OneWorldUnit);
 			// Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());

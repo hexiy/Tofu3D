@@ -559,7 +559,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
 		Components.Add(component);
 
-		OnComponentAdded(component);
 		if (Awoken && component.Awoken == false)
 		{
 			if (Global.GameRunning == false)
@@ -583,6 +582,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 				component.Start();
 			}
 		}
+
+		OnComponentAdded(component);
 
 		/* for (int i = 0; i < ComponentsWaitingToBePaired.Count; i++)
 		 {

@@ -89,8 +89,8 @@ return shadow;
 void main(void){
 vec3 norm = normalize(- normal);
 
-float directionalLightStrength = max(dot(norm, u_directionalLightDirection), 0.0) * (1 - u_smoothShading);
-vec3 dirColor = vec3(directionalLightStrength * u_directionalLightIntensity * u_directionalLightColor);
+float directionalLightFactor = max(dot(norm, u_directionalLightDirection), 0.0) * (1 - u_smoothShading);
+vec3 dirColor = vec3(directionalLightFactor * u_directionalLightIntensity * u_directionalLightColor);
 
 
 vec3 ambColor = vec3(u_ambientLightsColor * u_ambientLightsIntensity);
@@ -102,11 +102,18 @@ vec4 result = texturePixelColor * u_rendererColor;
 
 result.a = texturePixelColor.a * u_rendererColor.a;
 
-vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, normal);
-vec3 eyeVectorWorld = normalize(u_camPos - vertexPositionWorld) * vec3(- 1, 1, 1);
-float s = clamp(dot(reflectedLightVectorWorld, eyeVectorWorld),0, 1);
-s = pow(s, 100);
-vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
+vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, norm);
+vec3 viewDir = -normalize(u_camPos*vec3(1,-1,1) - vertexPositionWorld);
+//vec3 viewDir = -normalize(u_camPos - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
+//vec3 viewDir = normalize(u_camPos - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
+//vec3 viewDir = normalize(u_camPos - vertexPositionWorld)* vec3(- 1, 1, -1);
+
+float specularStrength = 0.5;
+float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32);
+vec3 specular = specularStrength * spec * u_directionalLightColor.rgb;
+//vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
+
+
 vec3 lighting = dirColor.rgb + ambColor.rgb + specular.rgb;
 
 result *= vec4(lighting.rgb, 1);

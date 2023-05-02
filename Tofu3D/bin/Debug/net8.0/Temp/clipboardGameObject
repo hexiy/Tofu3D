@@ -6,7 +6,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>130</Id>
-      <IndexInHierarchy>8</IndexInHierarchy>
+      <IndexInHierarchy>7</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Chimp</Name>
       <PrefabPath />
@@ -85,7 +85,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>181.91048</DistanceFromCamera>
+      <DistanceFromCamera>403.80286</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -116,10 +116,11 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>7</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>371712</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
+      <Smoothness>0</Smoothness>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>
