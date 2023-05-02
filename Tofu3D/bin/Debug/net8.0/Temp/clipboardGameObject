@@ -5,10 +5,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>130</Id>
-      <IndexInHierarchy>7</IndexInHierarchy>
+      <Id>513</Id>
+      <IndexInHierarchy>9</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Chimp</Name>
+      <Name>grassWallFront</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -20,7 +20,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>130</GameObjectId>
+      <GameObjectId>513</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
@@ -32,14 +32,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>150</X>
-        <Y>-70</Y>
-        <Z>0</Z>
+        <X>0</X>
+        <Y>1000</Y>
+        <Z>1000</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>150</X>
-        <Y>-70</Y>
-        <Z>0</Z>
+        <X>0</X>
+        <Y>1000</Y>
+        <Z>1000</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -52,14 +52,14 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
+        <X>-90</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>130</GameObjectId>
+      <GameObjectId>513</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -68,14 +68,14 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>100</X>
-        <Y>100</Y>
-        <Z>100</Z>
+        <X>1000</X>
+        <Y>1000</Y>
+        <Z>1000</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>130</GameObjectId>
+      <GameObjectId>513</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
@@ -85,7 +85,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>403.80286</DistanceFromCamera>
+      <DistanceFromCamera>1744.2722</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -99,25 +99,25 @@
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
-        <AssetPath>Assets\2D\solidColor.png</AssetPath>
+        <AssetPath>Assets\2D\grass.jpg</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>256</X>
-          <Y>256</Y>
+          <X>1500</X>
+          <Y>1500</Y>
         </Size>
       </Texture>
       <Tiling>
-        <X>1</X>
-        <Y>1</Y>
+        <X>10</X>
+        <Y>10</Y>
       </Tiling>
       <Offset>
         <X>0</X>
         <Y>0</Y>
       </Offset>
       <Model>
-        <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>8</Vao>
-        <VertexBufferDataLength>371712</VertexBufferDataLength>
+        <AssetPath>Assets\3D\plane.obj</AssetPath>
+        <Vao>5</Vao>
+        <VertexBufferDataLength>48</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
       <Smoothness>0</Smoothness>

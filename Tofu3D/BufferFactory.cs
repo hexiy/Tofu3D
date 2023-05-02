@@ -48,7 +48,7 @@ public static class BufferFactory
 		vertexBuffer.EnableAttribs(sequential: false, 2, 2);
 	}
 
-	public static void CreateModelBuffers(ref int vao, float[] vertexBufferData)
+	public static void CreateModelBuffers(ref int vao, float[] vertexBufferData, int[] countsOfElements)
 	{
 		GL.Enable(EnableCap.DepthTest);
 
@@ -56,7 +56,7 @@ public static class BufferFactory
 		GL.BindVertexArray(vao);
 
 		VertexBuffer vertexBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexData: vertexBufferData, elementsPerVertex: 8);
-		vertexBuffer.EnableAttribs(sequential: true, 3, 2, 3);
+		vertexBuffer.EnableAttribs(sequential: true, countsOfElements);
 
 		GL.BindVertexArray(0);
 		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);

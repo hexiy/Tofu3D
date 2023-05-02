@@ -26,6 +26,7 @@ public class ModelLoader : AssetLoader<Model>
 		List<float> normals = new List<float>();
 
 		List<float> everything = new List<float>();
+		int numberOfIndices = 0;
 		foreach (string line in data)
 		{
 			string[] lineSplit = line.Split(' ');
@@ -57,9 +58,18 @@ public class ModelLoader : AssetLoader<Model>
 			}
 			else if (line.StartsWith("f ")) // indices
 			{
-				for (int indiceIndex = 1; indiceIndex < 4; indiceIndex++)
+				numberOfIndices = lineSplit.Length - 1;
+				for (int indiceIndex = 0; indiceIndex < numberOfIndices; indiceIndex++)
 				{
-					string[] nums = lineSplit[indiceIndex].Split('/');
+					string[] nums = lineSplit[indiceIndex + 1].Split('/');
+					for (int i = 0; i < nums.Length; i++)
+					{
+						if (nums[i].Length == 0)
+						{
+							nums[i] = "0";
+						}
+					}
+
 					int positionIndex = int.Parse(nums[0].ToString()) - 1;
 					int uvIndex = int.Parse(nums[1].ToString()) - 1;
 					int normalIndex = int.Parse(nums[2].ToString()) - 1;
@@ -68,8 +78,16 @@ public class ModelLoader : AssetLoader<Model>
 					everything.Add(vertices[positionIndex * 3 + 1]);
 					everything.Add(vertices[positionIndex * 3 + 2]);
 
-					everything.Add(uvs[uvIndex * 2]);
-					everything.Add(uvs[uvIndex * 2 + 1]);
+					if (uvIndex == -1)
+					{
+						everything.Add(0);
+						everything.Add(0);
+					}
+					else
+					{
+						everything.Add(uvs[uvIndex * 2]);
+						everything.Add(uvs[uvIndex * 2 + 1]);
+					}
 
 					everything.Add(normals[normalIndex * 3]);
 					everything.Add(normals[normalIndex * 3 + 1]);
@@ -80,7 +98,8 @@ public class ModelLoader : AssetLoader<Model>
 
 		Model model = new Model();
 		model.VertexBufferDataLength = everything.Count;
-		BufferFactory.CreateModelBuffers(vao: ref model.Vao, vertexBufferData: everything.ToArray());
+		int[] countsOfElements = new[] {3, 2, numberOfIndices};
+		BufferFactory.CreateModelBuffers(vao: ref model.Vao, vertexBufferData: everything.ToArray(), countsOfElements);
 		model.InitAssetRuntimeHandle(model.Vao);
 		model.AssetPath = loadSettings.Path;
 
