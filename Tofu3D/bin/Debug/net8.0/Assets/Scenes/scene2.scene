@@ -25,7 +25,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>AmbientLight</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -224,7 +224,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -235,7 +235,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Teapot</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -257,14 +257,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-72.63692</X>
-        <Y>25.127066</Y>
-        <Z>-171.69713</Z>
+        <X>18.249815</X>
+        <Y>-30.683537</Y>
+        <Z>-244.38957</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-72.63692</X>
-        <Y>25.127066</Y>
-        <Z>-171.69713</Z>
+        <X>18.249815</X>
+        <Y>-30.683537</Y>
+        <Z>-244.38957</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -277,8 +277,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-12.345539</X>
-        <Y>3.4611669</Y>
+        <X>16.103024</X>
+        <Y>14.507229</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -381,13 +381,13 @@
       <GameObjectId>6</GameObjectId>
       <Started>false</Started>
       <Enabled>true</Enabled>
-      <Intensity>1</Intensity>
+      <Intensity>0.87</Intensity>
       <Color>
-        <B>106</B>
-        <G>106</G>
-        <R>106</R>
+        <B>20</B>
+        <G>20</G>
+        <R>58</R>
         <A>255</A>
-        <PackedValue>4285164138</PackedValue>
+        <PackedValue>4279505978</PackedValue>
       </Color>
     </Component>
     <Component xsi:type="Transform">
@@ -473,6 +473,8 @@
         <int>37</int>
         <int>37</int>
         <int>37</int>
+        <int>37</int>
+        <int>66</int>
         <int>37</int>
         <int>66</int>
         <int>37</int>
@@ -995,7 +997,7 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>5</Vao>
+        <Vao>10</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Transparent</RenderMode>
@@ -1171,11 +1173,13 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>9</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
-      <Smoothness>0</Smoothness>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.01</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -1244,7 +1248,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>296.81015</DistanceFromCamera>
+      <DistanceFromCamera>280.4107</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1275,11 +1279,13 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>7</Vao>
+        <Vao>6</Vao>
         <VertexBufferDataLength>371712</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
-      <Smoothness>0</Smoothness>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.057</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -1348,7 +1354,7 @@
         <A>255</A>
         <PackedValue>4278190335</PackedValue>
       </Color>
-      <DistanceFromCamera>679.77734</DistanceFromCamera>
+      <DistanceFromCamera>744.8638</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1379,11 +1385,13 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>11</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
-      <Smoothness>0</Smoothness>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.979</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -1483,11 +1491,13 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>11</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
       </Model>
       <CastShadow>false</CastShadow>
-      <Smoothness>0</Smoothness>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.01</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -1556,7 +1566,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>333.3812</DistanceFromCamera>
+      <DistanceFromCamera>309.7816</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1587,11 +1597,13 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>12</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
       </Model>
       <CastShadow>false</CastShadow>
-      <Smoothness>0</Smoothness>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.041</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -1660,7 +1672,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>487.0285</DistanceFromCamera>
+      <DistanceFromCamera>534.9684</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1691,11 +1703,13 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\torus.obj</AssetPath>
-        <Vao>10</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>27648</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
-      <Smoothness>0</Smoothness>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.083</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -1764,7 +1778,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>307.52536</DistanceFromCamera>
+      <DistanceFromCamera>384.2881</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1799,7 +1813,9 @@
         <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
-      <Smoothness>0</Smoothness>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.135</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -1868,7 +1884,7 @@
         <A>255</A>
         <PackedValue>4278255379</PackedValue>
       </Color>
-      <DistanceFromCamera>1176.3479</DistanceFromCamera>
+      <DistanceFromCamera>1244.6732</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1899,11 +1915,13 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>11</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
-      <Smoothness>0</Smoothness>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.083</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -1972,7 +1990,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>486.30737</DistanceFromCamera>
+      <DistanceFromCamera>928.0484</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2003,11 +2021,13 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>9</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
-      <Smoothness>0</Smoothness>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.01</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -2076,7 +2096,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>197.81589</DistanceFromCamera>
+      <DistanceFromCamera>256.27005</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2107,12 +2127,14 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\Teapot.obj</AssetPath>
-        <Vao>12</Vao>
+        <Vao>13</Vao>
         <VertexBufferDataLength>506112</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
-      <Smoothness>0</Smoothness>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.096</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
   </Components>
-  <GameObjectNextId>495</GameObjectNextId>
+  <GameObjectNextId>497</GameObjectNextId>
 </SceneFile>
