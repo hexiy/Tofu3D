@@ -52,6 +52,8 @@ uniform vec3 u_directionalLightColor = vec3(1, 0, 0);
 uniform float u_directionalLightIntensity = 1;
 uniform vec3 u_directionalLightDirection = vec3(1, 0, 0);
 uniform float u_smoothShading = 0;
+uniform float u_specularSmoothness = 1;
+uniform float u_specularHighlightsEnabled = 1;
 
 uniform sampler2D textureObject;
 uniform sampler2D shadowMap;
@@ -99,21 +101,25 @@ vec4 result = texturePixelColor * u_rendererColor;
 
 result.a = texturePixelColor.a * u_rendererColor.a;
 
+
+vec3 directionalAndAmbientLighting = dirColor.rgb + ambColor.rgb;
+result *= vec4(directionalAndAmbientLighting.rgb, 1);
+
+
+if(u_specularHighlightsEnabled == 1){
 vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, norm);
-vec3 viewDir = - normalize(u_camPos * vec3(1,- 1, 1) - vertexPositionWorld);
+vec3 viewDir = - normalize(u_camPos * vec3(1, - 1, 1) - vertexPositionWorld);
 //vec3 viewDir = -normalize(u_camPos - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
 //vec3 viewDir = normalize(u_camPos - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
 //vec3 viewDir = normalize(u_camPos - vertexPositionWorld)* vec3(- 1, 1, -1);
 
-float specularStrength = 1;
-float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 5);
-vec3 specular = specularStrength * spec * u_directionalLightColor.rgb;
+float specularStrength = 0.2;
+float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), u_specularSmoothness * 100);
+vec3 specular = specularStrength * spec * u_directionalLightColor.rgb * u_directionalLightIntensity * (u_specularSmoothness * 100);
 //vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
 
-
-vec3 lighting = dirColor.rgb + ambColor.rgb + specular.rgb;
-
-result *= vec4(lighting.rgb, 1);
+result.rgb+= specular;
+}
 
 if (result.a < 0.05){
 discard; // having this fixes transparency sorting but breaks debug depthmap

@@ -6,7 +6,10 @@ public class ModelRenderer : TextureRenderer
 	public bool CastShadow = true;
 	// Color _mousePickingColor;
 	[SliderF(0, 1)]
-	public float Smoothness;
+	public float SmoothShading = 0;
+	[SliderF(0, 1)]
+	public float SpecularSmoothness = 0.01f;
+	public bool SpecularHighlightsEnabled = true;
 
 	public override void Awake()
 	{
@@ -164,8 +167,10 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetVector2("u_tiling", Tiling);
 			Material.Shader.SetVector2("u_offset", Offset);
 
-			Material.Shader.SetFloat("u_smoothShading", Smoothness);
-			
+			Material.Shader.SetFloat("u_smoothShading", SmoothShading);
+			Material.Shader.SetFloat("u_specularSmoothness", SpecularSmoothness);
+			Material.Shader.SetFloat("u_specularHighlightsEnabled", SpecularHighlightsEnabled ? 1 : 0);
+
 			Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition() * Units.OneWorldUnit); // moves with camera but rotated wrong
 			Material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition * Units.OneWorldUnit);
 			// Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
