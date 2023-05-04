@@ -1,11 +1,8 @@
 ﻿[ExecuteInEditMode]
 public class Fog : Component
 {
-	[SliderF(0, 2000)]
 	public float StartDistance = 10;
-	[SliderF(0, 2000)]
 	public float EndDistance = 20;
-	[SliderF(-500, 500)]
 	public float PositionY = 0;
 	public bool IsGradient = false;
 

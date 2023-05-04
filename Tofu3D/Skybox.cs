@@ -39,21 +39,14 @@ public class Skybox : Component
 		CubemapTextureLoadSettings cubemapTextureLoadSettings = new CubemapTextureLoadSettings(paths: texturePaths, flipX: false);
 		_texture = AssetManager.Load<CubemapTexture>(cubemapTextureLoadSettings);
 
-
-		Textures.Add(_texture);
-		Textures.Add(_texture);
-		Textures.Add(_texture);
-		Textures.Add(_texture);
-		Textures.Add(_texture);
-
 		base.Awake();
 	}
 
 	public override void Update()
 	{
-		Debug.StatSetValue("SkyboxList Textures", $"{Textures.Count}");
-		Debug.StatSetValue("SkyboxList Ints", $"{Ints.Count}");
-		Debug.StatSetValue("SkyboxList Colors", $"{Colors.Count}");
+		// Debug.StatSetValue("SkyboxList Textures", $"{Textures.Count}");
+		Debug.StatSetValue("SkyboxList Ints", $"SkyboxList Ints count {Ints.Count}");
+		// Debug.StatSetValue("SkyboxList Colors", $"{Colors.Count}");
 		base.Update();
 	}
 

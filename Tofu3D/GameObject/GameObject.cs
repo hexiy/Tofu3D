@@ -7,7 +7,7 @@ namespace Tofu3D;
 
 public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 {
-	bool _activeSelf;
+	bool _activeSelf = true;
 	public bool ActiveSelf
 	{
 		get { return _activeSelf; }

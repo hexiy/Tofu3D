@@ -534,6 +534,7 @@ public class EditorPanelInspector : EditorPanel
 					}*/
 				}
 
+				info.SetValue(componentInspectorData.Inspectable, list);
 				// FieldInfo info;
 				// info.get
 				// info.SetValue(componentInspectorData.InspectableType, obj);

@@ -86,10 +86,11 @@ return shadow;
 }
 
 void main(void){
+        float directionalLightClampedIntensity = u_directionalLightIntensity /8;
 vec3 norm = normalize(- normal);
 
-float directionalLightFactor = max(dot(norm, u_directionalLightDirection), 0.0) * (1 - u_smoothShading);
-vec3 dirColor = vec3(directionalLightFactor * u_directionalLightIntensity * u_directionalLightColor);
+float directionalLightFactor = max(dot(norm, u_directionalLightDirection), 0.0);
+vec3 dirColor = vec3(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor);
 
 
 vec3 ambColor = vec3(u_ambientLightsColor * u_ambientLightsIntensity);
@@ -108,14 +109,13 @@ result *= vec4(directionalAndAmbientLighting.rgb, 1);
 
 if(u_specularHighlightsEnabled == 1){
 vec3 reflectedLightVectorWorld = reflect(-u_directionalLightDirection, norm);
-vec3 viewDir = - normalize(u_camPos - vertexPositionWorld);
+vec3 viewDir = -normalize(u_camPos - vertexPositionWorld);
 //vec3 viewDir = -normalize(u_camPos - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
 //vec3 viewDir = normalize(u_camPos - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
 //vec3 viewDir = normalize(u_camPos - vertexPositionWorld)* vec3(- 1, 1, -1);
 
-float specularStrength = 0.2;
-float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), u_specularSmoothness * 100);
-vec3 specular = specularStrength * spec * u_directionalLightColor.rgb * u_directionalLightIntensity * (u_specularSmoothness * 100);
+float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32);
+vec3 specular = u_specularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity *10;
 //vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
 
 result.rgb+= specular;
@@ -130,18 +130,19 @@ if (u_fogEnabled == 1 && u_renderMode == 0)
 float distanceToVertex = distance(u_camPos.xz, vertexPositionWorld.xz);
 distanceToVertex += (u_time) *300;
 float fogFactor = 0;
-if (distanceToVertex / 100 > u_fogStartDistance){
-fogFactor = (distanceToVertex / 100) - u_fogStartDistance;
+if (distanceToVertex > u_fogStartDistance){
+fogFactor = (distanceToVertex) - u_fogStartDistance;
 }
 
 fogFactor = fogFactor / (u_fogEndDistance - u_fogStartDistance);
 fogFactor = clamp(fogFactor, 0, 1);
 
-float gradientStep = (vertexPositionWorld.y + u_fogPositionY) / u_fogGradientSmoothness;
+float gradientStep = (vertexPositionWorld.y - u_fogPositionY) / u_fogGradientSmoothness;
 
 gradientStep = clamp(gradientStep,0, 1);
+//        gradientStep = 1/gradientStep;
 
-vec4 finalFogColor = mix(vec4(u_fogColor.rgb * u_fogColor.a, u_fogColor.a), vec4(u_fogColor2.rgb* u_fogColor2.a, u_fogColor2.a), gradientStep);
+vec4 finalFogColor = mix(vec4(u_fogColor2.rgb * u_fogColor2.a, u_fogColor2.a), vec4(u_fogColor.rgb* u_fogColor.a, u_fogColor.a), gradientStep);
 
 //        float density = 0.000009;
 //fogFactor = 1- exp(-density*density*distanceToVertex*distanceToVertex);

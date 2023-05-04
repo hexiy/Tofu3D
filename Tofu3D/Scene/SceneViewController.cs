@@ -25,7 +25,8 @@ public class SceneViewController
 	PersistentObject<Vector3> _cameraPositionInPerspectiveMode = ("_cameraPositionInPerspectiveMode", Vector3.Zero);
 	PersistentObject<float> _cameraFieldOfViewInperspectiveMode = ("_cameraFieldOfViewInperspectiveMode", 90);
 	// PersistentObject<int> _savedInt = new PersistentObject<int>();
-	Vector2 _smoothScreenDeltaVector = Vector3.Zero;
+	Vector2 _smoothScreenDeltaVectorForMovement = Vector3.Zero;
+	Vector2 _smoothScreenDeltaVectorForRotation = Vector3.Zero;
 
 	Vector3 _smoothKeyboardInputMoveVector = Vector3.Zero;
 
@@ -144,34 +145,29 @@ public class SceneViewController
 
 		if (Camera.MainCamera.IsOrthographic == false)
 		{
-			if (validInput && MouseInput.IsButtonDown(MouseInput.Buttons.Right)) // right click panning
+			if (validInput && MouseInput.IsButtonDown(MouseInput.Buttons.Right))
 			{
-				_smoothScreenDeltaVector = Vector2.Lerp(_smoothScreenDeltaVector, MouseInput.ScreenDelta, Time.EditorDeltaTime * 15);
+				_smoothScreenDeltaVectorForMovement = Vector2.Lerp(_smoothScreenDeltaVectorForMovement, MouseInput.ScreenDelta, Time.EditorDeltaTime * 15);
 			}
 			else
 			{
-				_smoothScreenDeltaVector = Vector2.Lerp(_smoothScreenDeltaVector, Vector2.Zero, Time.EditorDeltaTime * 7);
+				_smoothScreenDeltaVectorForMovement = Vector2.Lerp(_smoothScreenDeltaVectorForMovement, Vector2.Zero, Time.EditorDeltaTime * 7);
 			}
 
-			MoveCameraByLocalVector(_smoothScreenDeltaVector * 30 / Tofu.I.Window.WindowSize);
+			if (validInput && MouseInput.IsButtonDown(MouseInput.Buttons.Left))
+			{
+				_smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation, MouseInput.ScreenDelta, Time.EditorDeltaTime * 19);
+			}
+			else
+			{
+				_smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation, Vector2.Zero, Time.EditorDeltaTime * 10);
+			}
+
+			MoveCameraByLocalVector(_smoothScreenDeltaVectorForMovement * 30 / Tofu.I.Window.WindowSize);
+			Camera.MainCamera.Transform.Rotation += new Vector3(-_smoothScreenDeltaVectorForRotation.Y, _smoothScreenDeltaVectorForRotation.X, 0) * 0.2f;
 
 
 			float keyboardMoveSpeed = _moveSpeed;
-			_keyboardInputDirectionVector = Vector3.Zero;
-			if (MouseInput.IsButtonDown(MouseInput.Buttons.Left) && validInput)
-			{
-				if (TransformHandle.I.CurrentAxisSelected != null)
-				{
-					return;
-				}
-
-				if (MouseInput.ScreenDelta != Vector2.Zero)
-				{
-					IsPanningCamera = true;
-				}
-
-				Camera.MainCamera.Transform.Rotation += new Vector3(-MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * 0.2f;
-			}
 
 			_keyboardInputDirectionVector = Vector3.Zero;
 			if (KeyboardInput.IsKeyDown(Keys.W))
@@ -248,7 +244,7 @@ public class SceneViewController
 	{
 		Vector3 delta = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(moveVector);
 
-		Debug.StatSetValue("DASDSAD", $"CameraDir:{Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(moveVector)}");
+		// Debug.StatSetValue("DASDSAD", $"CameraDir:{Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(moveVector)}");
 		//Debug.Log(delta);
 		//Camera.I.Transform.LocalPosition += delta;
 		Camera.MainCamera.Transform.WorldPosition += delta;
