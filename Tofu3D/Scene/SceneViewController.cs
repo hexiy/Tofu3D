@@ -158,7 +158,7 @@ public class SceneViewController
 
 			float keyboardMoveSpeed = _moveSpeed;
 			_keyboardInputDirectionVector = Vector3.Zero;
-			if (MouseInput.IsButtonDown(MouseInput.Buttons.Left))
+			if (MouseInput.IsButtonDown(MouseInput.Buttons.Left) && validInput)
 			{
 				if (TransformHandle.I.CurrentAxisSelected != null)
 				{

@@ -107,8 +107,8 @@ result *= vec4(directionalAndAmbientLighting.rgb, 1);
 
 
 if(u_specularHighlightsEnabled == 1){
-vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, norm);
-vec3 viewDir = - normalize(u_camPos * vec3(1, - 1, 1) - vertexPositionWorld);
+vec3 reflectedLightVectorWorld = reflect(-u_directionalLightDirection, norm);
+vec3 viewDir = - normalize(u_camPos - vertexPositionWorld);
 //vec3 viewDir = -normalize(u_camPos - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
 //vec3 viewDir = normalize(u_camPos - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
 //vec3 viewDir = normalize(u_camPos - vertexPositionWorld)* vec3(- 1, 1, -1);

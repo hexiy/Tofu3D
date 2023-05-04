@@ -187,7 +187,7 @@ public class ModelRenderer : TextureRenderer
 			Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
 
 			// we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
-			Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection * new Vector3(1,-1,1));
+			Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
 
 
 			GL.ActiveTexture(TextureUnit.Texture0);
