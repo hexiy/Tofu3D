@@ -50,23 +50,8 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>481</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <Name>grass</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
       <Id>130</Id>
-      <IndexInHierarchy>4</IndexInHierarchy>
+      <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Chimp</Name>
       <PrefabPath />
@@ -81,7 +66,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>244</Id>
-      <IndexInHierarchy>5</IndexInHierarchy>
+      <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Torus</Name>
       <PrefabPath />
@@ -96,7 +81,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>75</Id>
-      <IndexInHierarchy>6</IndexInHierarchy>
+      <IndexInHierarchy>5</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>StoneBlock</Name>
       <PrefabPath />
@@ -111,7 +96,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>488</Id>
-      <IndexInHierarchy>7</IndexInHierarchy>
+      <IndexInHierarchy>6</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Alien</Name>
       <PrefabPath />
@@ -126,7 +111,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>513</Id>
-      <IndexInHierarchy>8</IndexInHierarchy>
+      <IndexInHierarchy>7</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>grassWallFront</Name>
       <PrefabPath />
@@ -141,7 +126,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>514</Id>
-      <IndexInHierarchy>9</IndexInHierarchy>
+      <IndexInHierarchy>8</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>grassWallBack</Name>
       <PrefabPath />
@@ -156,7 +141,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>551</Id>
-      <IndexInHierarchy>10</IndexInHierarchy>
+      <IndexInHierarchy>9</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>StoneFloor</Name>
       <PrefabPath />
@@ -171,7 +156,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>554</Id>
-      <IndexInHierarchy>11</IndexInHierarchy>
+      <IndexInHierarchy>10</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Chimp</Name>
       <PrefabPath />
@@ -186,7 +171,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>559</Id>
-      <IndexInHierarchy>12</IndexInHierarchy>
+      <IndexInHierarchy>11</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Chimp</Name>
       <PrefabPath />
@@ -201,7 +186,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>565</Id>
-      <IndexInHierarchy>13</IndexInHierarchy>
+      <IndexInHierarchy>12</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Metin building</Name>
       <PrefabPath />
@@ -216,7 +201,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>578</Id>
-      <IndexInHierarchy>14</IndexInHierarchy>
+      <IndexInHierarchy>13</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Tree</Name>
       <PrefabPath />
@@ -231,7 +216,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>596</Id>
-      <IndexInHierarchy>15</IndexInHierarchy>
+      <IndexInHierarchy>14</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Fam</Name>
       <PrefabPath />
@@ -246,7 +231,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>617</Id>
-      <IndexInHierarchy>16</IndexInHierarchy>
+      <IndexInHierarchy>15</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>BlackFloor</Name>
       <PrefabPath />
@@ -261,11 +246,56 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>622</Id>
-      <IndexInHierarchy>17</IndexInHierarchy>
+      <IndexInHierarchy>16</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath />
       <Selected>true</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>639</Id>
+      <IndexInHierarchy>17</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>CubeForward</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>642</Id>
+      <IndexInHierarchy>18</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>CubeUp</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>649</Id>
+      <IndexInHierarchy>19</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>CubeTarget</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -287,14 +317,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>10.84997</X>
-        <Y>1.5586213</Y>
-        <Z>-2.3963668</Z>
+        <X>16.441622</X>
+        <Y>3.4225366</Y>
+        <Z>-0.49263018</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>10.84997</X>
-        <Y>1.5586213</Y>
-        <Z>-2.3963668</Z>
+        <X>16.441622</X>
+        <Y>3.4225366</Y>
+        <Z>-0.49263018</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -307,8 +337,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>18.60014</X>
-        <Y>-27.000095</Y>
+        <X>19.400173</X>
+        <Y>-60.999912</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -341,6 +371,446 @@
       <Enabled>true</Enabled>
       <Fov>60</Fov>
       <Textures>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
+        <CubemapTexture>
+          <AssetPath />
+          <Loaded>true</Loaded>
+          <Size>
+            <X>512</X>
+            <Y>512</Y>
+          </Size>
+        </CubemapTexture>
         <CubemapTexture>
           <AssetPath />
           <Loaded>true</Loaded>
@@ -764,112 +1234,6 @@
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>481</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>481</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>10</X>
-        <Y>10</Y>
-        <Z>10</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRenderer">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>481</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <DistanceFromCamera>11.220237</DistanceFromCamera>
-      <Material>
-        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
-        <Additive>false</Additive>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
-        </Shader>
-        <Vao>8</Vao>
-        <RenderMode>Opaque</RenderMode>
-      </Material>
-      <RenderMode>Opaque</RenderMode>
-      <Layer>1</Layer>
-      <Texture>
-        <AssetPath>Assets\2D\grass.jpg</AssetPath>
-        <Loaded>true</Loaded>
-        <Size>
-          <X>1500</X>
-          <Y>1500</Y>
-        </Size>
-      </Texture>
-      <Tiling>
-        <X>10</X>
-        <Y>10</Y>
-      </Tiling>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-      </Offset>
-      <Model>
-        <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>5</Vao>
-        <VertexBufferDataLength>48</VertexBufferDataLength>
-      </Model>
-      <CastShadow>true</CastShadow>
-      <SmoothShading>0</SmoothShading>
-      <SpecularSmoothness>0.899</SpecularSmoothness>
-      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
       <GameObjectId>130</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
@@ -935,7 +1299,7 @@
         <A>255</A>
         <PackedValue>4284478975</PackedValue>
       </Color>
-      <DistanceFromCamera>9.655641</DistanceFromCamera>
+      <DistanceFromCamera>15.099666</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -966,7 +1330,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>5</Vao>
         <VertexBufferDataLength>371712</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1041,7 +1405,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>11.7487335</DistanceFromCamera>
+      <DistanceFromCamera>16.65237</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1072,7 +1436,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\torus.obj</AssetPath>
-        <Vao>7</Vao>
+        <Vao>6</Vao>
         <VertexBufferDataLength>27648</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1147,7 +1511,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>4.123</DistanceFromCamera>
+      <DistanceFromCamera>16.719902</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1253,7 +1617,7 @@
         <A>255</A>
         <PackedValue>4294965847</PackedValue>
       </Color>
-      <DistanceFromCamera>14.246461</DistanceFromCamera>
+      <DistanceFromCamera>19.78308</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1284,7 +1648,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\Alien Animal.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>1107872</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1359,7 +1723,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>18.51077</DistanceFromCamera>
+      <DistanceFromCamera>20.583616</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1390,7 +1754,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>5</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>48</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1465,7 +1829,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>15.709678</DistanceFromCamera>
+      <DistanceFromCamera>20.099255</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1496,7 +1860,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>5</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>48</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1571,7 +1935,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>11.220237</DistanceFromCamera>
+      <DistanceFromCamera>16.80129</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1677,7 +2041,7 @@
         <A>255</A>
         <PackedValue>4284478975</PackedValue>
       </Color>
-      <DistanceFromCamera>11.798781</DistanceFromCamera>
+      <DistanceFromCamera>17.279556</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1708,7 +2072,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>5</Vao>
         <VertexBufferDataLength>371712</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1783,7 +2147,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>11.883684</DistanceFromCamera>
+      <DistanceFromCamera>17.153904</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1814,7 +2178,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>5</Vao>
         <VertexBufferDataLength>371712</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
@@ -1889,7 +2253,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>21.864676</DistanceFromCamera>
+      <DistanceFromCamera>27.038063</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1995,7 +2359,7 @@
         <A>255</A>
         <PackedValue>4278255540</PackedValue>
       </Color>
-      <DistanceFromCamera>11.61533</DistanceFromCamera>
+      <DistanceFromCamera>17.330776</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2101,7 +2465,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>17.520815</DistanceFromCamera>
+      <DistanceFromCamera>23.08358</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2207,7 +2571,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>11.220237</DistanceFromCamera>
+      <DistanceFromCamera>16.80129</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2260,14 +2624,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>20</X>
+        <X>22.749722</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>2.6013103</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>20</X>
+        <X>22.749722</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>2.6013103</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -2310,10 +2674,10 @@
         <B>255</B>
         <G>255</G>
         <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <A>110</A>
+        <PackedValue>1862270975</PackedValue>
       </Color>
-      <DistanceFromCamera>9.5861845</DistanceFromCamera>
+      <DistanceFromCamera>7.848479</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2352,6 +2716,381 @@
       <SpecularSmoothness>0.124</SpecularSmoothness>
       <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
+    <Component xsi:type="CoordinateSystemCubeTest">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>622</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <CubeForward>
+        <AlwaysUpdate>false</AlwaysUpdate>
+        <DestroyTimer>2</DestroyTimer>
+        <DynamicallyCreated>false</DynamicallyCreated>
+        <Id>639</Id>
+        <IndexInHierarchy>17</IndexInHierarchy>
+        <IsPrefab>false</IsPrefab>
+        <Name>CubeForward</Name>
+        <PrefabPath />
+        <Selected>false</Selected>
+        <Silent>false</Silent>
+        <Started>true</Started>
+        <UpdateWhenDisabled>false</UpdateWhenDisabled>
+        <ActiveSelf>true</ActiveSelf>
+      </CubeForward>
+      <CubeUp>
+        <AlwaysUpdate>false</AlwaysUpdate>
+        <DestroyTimer>2</DestroyTimer>
+        <DynamicallyCreated>false</DynamicallyCreated>
+        <Id>642</Id>
+        <IndexInHierarchy>18</IndexInHierarchy>
+        <IsPrefab>false</IsPrefab>
+        <Name>CubeUp</Name>
+        <PrefabPath />
+        <Selected>false</Selected>
+        <Silent>false</Silent>
+        <Started>true</Started>
+        <UpdateWhenDisabled>false</UpdateWhenDisabled>
+        <ActiveSelf>true</ActiveSelf>
+      </CubeUp>
+      <CubeLoopTarget>
+        <AlwaysUpdate>false</AlwaysUpdate>
+        <DestroyTimer>2</DestroyTimer>
+        <DynamicallyCreated>false</DynamicallyCreated>
+        <Id>649</Id>
+        <IndexInHierarchy>19</IndexInHierarchy>
+        <IsPrefab>false</IsPrefab>
+        <Name>CubeTarget</Name>
+        <PrefabPath />
+        <Selected>false</Selected>
+        <Silent>false</Silent>
+        <Started>true</Started>
+        <UpdateWhenDisabled>false</UpdateWhenDisabled>
+        <ActiveSelf>true</ActiveSelf>
+      </CubeLoopTarget>
+      <MoveLoopTarget>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>1</Z>
+      </MoveLoopTarget>
+      <MoveSpeed>1</MoveSpeed>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>639</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>22.749722</X>
+        <Y>0</Y>
+        <Z>4.6013103</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>22.749722</X>
+        <Y>0</Y>
+        <Z>4.6013103</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>639</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>639</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Color>
+        <B>255</B>
+        <G>240</G>
+        <R>0</R>
+        <A>255</A>
+        <PackedValue>4294963200</PackedValue>
+      </Color>
+      <DistanceFromCamera>8.800801</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\solidColor.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>256</X>
+          <Y>256</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>50</X>
+        <Y>100</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\cube.obj</AssetPath>
+        <Vao>9</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
+      </Model>
+      <CastShadow>true</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.124</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>642</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>22.749722</X>
+        <Y>2</Y>
+        <Z>2.6013103</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>22.749722</X>
+        <Y>2</Y>
+        <Z>2.6013103</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>642</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>642</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Color>
+        <B>0</B>
+        <G>255</G>
+        <R>79</R>
+        <A>255</A>
+        <PackedValue>4278255439</PackedValue>
+      </Color>
+      <DistanceFromCamera>7.168556</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\solidColor.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>256</X>
+          <Y>256</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>50</X>
+        <Y>100</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\cube.obj</AssetPath>
+        <Vao>9</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
+      </Model>
+      <CastShadow>true</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.124</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>649</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>22.749722</X>
+        <Y>0</Y>
+        <Z>7.118738</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>22.749722</X>
+        <Y>0</Y>
+        <Z>7.118738</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>649</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>649</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Color>
+        <B>0</B>
+        <G>0</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4278190335</PackedValue>
+      </Color>
+      <DistanceFromCamera>10.4613</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\solidColor.png</AssetPath>
+        <Loaded>true</Loaded>
+        <Size>
+          <X>256</X>
+          <Y>256</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>50</X>
+        <Y>100</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\cube.obj</AssetPath>
+        <Vao>9</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
+      </Model>
+      <CastShadow>true</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.124</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
   </Components>
-  <GameObjectNextId>628</GameObjectNextId>
+  <GameObjectNextId>654</GameObjectNextId>
 </SceneFile>

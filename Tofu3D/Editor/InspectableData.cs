@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Reflection;
 
 namespace Tofu3D;
@@ -48,6 +49,21 @@ public class InspectableData
 
 		for (int infoIndex = 0; infoIndex < Infos.Length; infoIndex++)
 		{
+			//== "List`1")
+			if (Infos[infoIndex].FieldOrPropertyType.IsGenericType && Infos[infoIndex].FieldOrPropertyType.Name.Contains("List`1")) // && Infos[infoIndex].FieldOrPropertyType.GetGenericTypeDefinition() == typeof(IList<>))
+			{
+				Type genericType = Infos[infoIndex].FieldOrPropertyType.GenericTypeArguments.First();
+				Infos[infoIndex].IsGenericList = true;
+				Infos[infoIndex].GenericParameterType = genericType;
+
+				if (EditorPanelInspector.InspectorSupportedTypes.Contains(genericType) == false)
+				{
+					Infos[infoIndex].CanShowInEditor = false;
+				}
+
+				continue;
+			}
+
 			if (EditorPanelInspector.InspectorSupportedTypes.Contains(Infos[infoIndex].FieldOrPropertyType) == false)
 			{
 				Infos[infoIndex].CanShowInEditor = false;

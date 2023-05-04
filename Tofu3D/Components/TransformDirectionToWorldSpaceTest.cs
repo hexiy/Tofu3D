@@ -29,7 +29,7 @@ public class TransformDirectionToWorldSpaceTest : Component
 		// Debug.Log($"[{result3 == wantedResult3}] Wanted {wantedResult3} got {result3}");
 		{
 			Transform.Rotation = new Vector3(90, 0, 0);
-			Vector3 result = Transform.TransformDirectionToWorldSpace(v1);
+			Vector3 result = Transform.TransformVectorToWorldSpaceVector(v1);
 			Vector3 wantedResult = new Vector3(0, -1, 0);
 			Debug.Log($"[{result == wantedResult}] Wanted {wantedResult} got {result}");
 		}

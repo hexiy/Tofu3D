@@ -37,18 +37,18 @@ public class TransformHandle : Component
 		Transform.Pivot = new Vector3(0, 0, 0);
 
 		BoxColliderX = GameObject.AddComponent<BoxShape>();
-		BoxColliderX.Size = new Vector3(50, 5, 5) / Units.OneWorldUnit;
+		BoxColliderX.Size = new Vector3(0.5f, 0.05f, 0.05f);
 		//boxColliderX.offset = new Vector2(25, 2.5f);
 
 		BoxColliderY = GameObject.AddComponent<BoxShape>();
-		BoxColliderY.Size = new Vector3(5, 50, 5) / Units.OneWorldUnit;
+		BoxColliderY.Size = new Vector3(0.05f, 0.5f, 0.05f);
 
 		BoxColliderZ = GameObject.AddComponent<BoxShape>();
-		BoxColliderZ.Size = new Vector3(5, 5, 50) / Units.OneWorldUnit;
+		BoxColliderZ.Size = new Vector3(0.05f, 0.05f, 0.5f);
 		//boxColliderY.offset = new Vector2(2.5f, 25);
 
 		BoxColliderXy = GameObject.AddComponent<BoxShape>();
-		BoxColliderXy.Size = new Vector3(10, 10, 10) / Units.OneWorldUnit;
+		BoxColliderXy.Size = new Vector3(0.1f, 0.1f, 0.1f);
 		//boxColliderXY.offset = new Vector3(5, 5,-5)/Units.OneWorldUnit;
 
 		ModelRendererX = GameObject.AddComponent<ModelRenderer>();
@@ -145,7 +145,7 @@ public class TransformHandle : Component
 		{
 			SetSelectedObjectRigidbodyAwake(false);
 			// Move(MouseInput.WorldDelta);
-			Move(MouseInput.ScreenDelta / Units.OneWorldUnit); // /_selectedTransforms[0].GetComponent<Renderer>().DistanceFromCamera * 1000f);
+			Move(MouseInput.ScreenDelta); // /_selectedTransforms[0].GetComponent<Renderer>().DistanceFromCamera * 1000f);
 		}
 		else
 		{

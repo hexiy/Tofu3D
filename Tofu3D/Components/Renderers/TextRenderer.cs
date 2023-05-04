@@ -146,7 +146,7 @@ public class TextRenderer : SpriteRenderer
 		}
 
 		Material.Shader.SetColor("u_color", Color.ToVector4());
-		Material.Shader.SetVector2("u_scale", BoxShape.Size / Units.OneWorldUnit);
+		Material.Shader.SetVector2("u_scale", BoxShape.Size);
 		Material.Shader.SetVector2("zoomAmount", _spritesCount * 2);
 		Material.Shader.SetFloat("isGradient", IsGradient ? 1 : 0);
 		if (IsGradient)

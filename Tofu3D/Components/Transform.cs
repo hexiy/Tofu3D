@@ -6,7 +6,9 @@ namespace Scripts;
 public class Transform : Component
 {
 	[XmlIgnore]
+	[Hide]
 	public List<Transform> Children = new();
+	[Hide]
 	public List<int> ChildrenIDs = new();
 
 	public override bool CanBeDisabled => false;
@@ -137,7 +139,7 @@ public class Transform : Component
 	{
 		get { return Transform.Parent?.GetComponent<Canvas>() != null || MockIsInCanvas; }
 	}
-	
+
 	Vector3 _rotation = Vector3.Zero;
 	public Vector3 Rotation
 	{
@@ -158,7 +160,7 @@ public class Transform : Component
 	[Hide]
 	public Vector3 Forward
 	{
-		get { return Transform.TransformDirectionToWorldSpace(Vector3.Forward); }
+		get { return Transform.TransformVectorToWorldSpaceVector(Vector3.Forward); }
 	}
 
 	private void UpdateChildrenPositions()
@@ -337,18 +339,18 @@ public class Transform : Component
 
 	public static Vector3 RotateVectorByRotation(Vector3 v1, Vector3 v2)
 	{
-		v1 = new Vector3(-v1.X, v1.Y, -v1.Z);
+		// v1 = new Vector3(-v1.X, -v1.Y, -v1.Z);
 
-		Matrix4x4 transformationMatrix = (Matrix4x4.CreateTranslation(v1)
+		Matrix4x4 transformationMatrix = (-Matrix4x4.CreateTranslation(v1)
 		                                * Matrix4x4.CreateRotationX(v2.X / 180 * Mathf.Pi)
 		                                * Matrix4x4.CreateRotationY(v2.Y / 180 * Mathf.Pi)
 		                                * Matrix4x4.CreateRotationZ(v2.Z / 180 * Mathf.Pi));
 
 		Vector3 x = transformationMatrix.Translation;
-		return -x;
+		return x;
 	}
 
-	public Vector3 TransformDirectionToWorldSpace(Vector3 dir)
+	public Vector3 TransformVectorToWorldSpaceVector(Vector3 dir)
 	{
 		// dir = dir.Normalized();
 		// Matrix4x4 transformationMatrix = (Matrix4x4.CreateTranslation(new Vector3(0, 0, 1))
@@ -359,7 +361,7 @@ public class Transform : Component
 		// Vector3 x = transformationMatrix.Translation;
 		//
 		// return x;
-		dir = new Vector3(-dir.X, dir.Y, -dir.Z);
+		// dir = new Vector3(-dir.X, -dir.Y, -dir.Z);
 		//dir = dir.Normalized();
 		Matrix4x4 transformationMatrix = (Matrix4x4.CreateTranslation(dir)
 		                                * Matrix4x4.CreateRotationX(Transform.Rotation.X / 180 * Mathf.Pi)
@@ -368,9 +370,9 @@ public class Transform : Component
 
 		Vector3 x = transformationMatrix.Translation;
 
-		return -x;
+		return x;
 	}
-
+	
 	// public Vector3 TransformVector(Vector3 dir)
 	// {
 	// 	Vector3 direction = new Vector3(

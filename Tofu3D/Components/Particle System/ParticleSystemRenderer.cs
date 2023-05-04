@@ -76,6 +76,6 @@ public class ParticleSystemRenderer : SpriteRenderer
 		                                                      -Transform.Rotation.X / 180 * Mathf.Pi,
 		                                                      -Transform.Rotation.Z / 180 * Mathf.Pi);
 		Matrix4x4 scale = Matrix4x4.CreateScale(particle.Radius * Transform.WorldScale);
-		return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit) * Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
+		return scale * Matrix4x4.Identity * pivot * rotation * translation * Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
 	}
 }

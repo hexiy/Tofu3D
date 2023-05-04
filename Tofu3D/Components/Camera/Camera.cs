@@ -9,7 +9,7 @@ public class Camera : Component
 	public float NearPlaneDistance = 1;
 	public float FarPlaneDistance = 50;
 	[ShowIfNot(nameof(IsOrthographic))]
-	public float FieldOfView = 2;
+	public float FieldOfView = 60;
 	public bool IsOrthographic = true;
 
 	[ShowIf(nameof(IsOrthographic))]
@@ -92,13 +92,14 @@ public class Camera : Component
 		// return view;
 
 
-		Vector3 forwardWorld = Transform.WorldPosition + Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
-		Vector3 upLocal = Transform.TransformDirectionToWorldSpace(new Vector3(0, 1, 0));
+		Vector3 forwardWorld = Transform.WorldPosition + Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
+		Vector3 upLocal = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
 
 		//Debug.Log($"Forward{forwardWorld}");
 		//Debug.Log($"Up{upLocal}");
-		Matrix4x4 view = Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, 1, -1))
+		Matrix4x4 view = Matrix4x4.CreateTranslation(-Transform.WorldPosition)
 		               * Matrix4x4.CreateLookAt(cameraPosition: Transform.WorldPosition, cameraTarget: forwardWorld, cameraUpVector: upLocal)
+		               * Matrix4x4.CreateScale(-1, 1, 1);
 			; // * Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, 1));
 		return view;
 	}
@@ -118,7 +119,7 @@ public class Camera : Component
 		FieldOfView = Mathf.ClampMin(FieldOfView, 0.0001f);
 		NearPlaneDistance = Mathf.Clamp(NearPlaneDistance, 0.00001f, FarPlaneDistance);
 		FarPlaneDistance = Mathf.Clamp(FarPlaneDistance, NearPlaneDistance + 0.001f, Mathf.Infinity);
-		Matrix4x4 perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(FieldOfView), Size.X / Size.Y, NearPlaneDistance * Units.OneWorldUnit, FarPlaneDistance * Units.OneWorldUnit);
+		Matrix4x4 perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(FieldOfView), Size.X / Size.Y, NearPlaneDistance, FarPlaneDistance);
 
 		// .CreatePerspective gives us great depth, but fieldofview doesnt?....
 		return perspectiveMatrix;
@@ -138,7 +139,7 @@ public class Camera : Component
 
 	Matrix4x4 GetTranslationRotationMatrix()
 	{
-		Matrix4x4 tr = Matrix4x4.CreateTranslation(-Transform.LocalPosition.X * Units.OneWorldUnit, -Transform.LocalPosition.Y * Units.OneWorldUnit, Transform.LocalPosition.Z * Units.OneWorldUnit);
+		Matrix4x4 tr = Matrix4x4.CreateTranslation(-Transform.LocalPosition.X, -Transform.LocalPosition.Y, Transform.LocalPosition.Z);
 		Matrix4x4 rotationMatrix = Matrix4x4.CreateFromYawPitchRoll(Transform.Rotation.Y / 180 * Mathf.Pi,
 		                                                            -Transform.Rotation.X / 180 * Mathf.Pi,
 		                                                            -Transform.Rotation.Z / 180 * Mathf.Pi);
@@ -170,14 +171,14 @@ public class Camera : Component
 			                             Matrix.Invert(ProjectionMatrix))
 			         - Size * OrthographicSize / 2;
 
-			worldPos = worldPos / Units.OneWorldUnit;
+			worldPos = worldPos;
 			worldPos = worldPos + Transform.WorldPosition;
 		}
 
 		else
 		{
 			worldPos = Vector3.Transform(screenPosition / Size * 2, Matrix.Invert(ProjectionMatrix));
-			worldPos = worldPos / Units.OneWorldUnit;
+			worldPos = worldPos;
 		}
 
 		// worldPos = Vector2.Transform(screenPosition / size * 2,Matrix.Invert(projectionMatrix)) - size;
@@ -218,13 +219,13 @@ public class Camera : Component
 		oldRotation = oldRotation * new Vector3(1, 1, 0);
 		Transform.Rotation = -oldRotation;
 
-		Vector3 forwardWorld = Transform.WorldPosition + Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
-		Vector3 upLocal = Transform.TransformDirectionToWorldSpace(new Vector3(0, 1, 0));
+		Vector3 forwardWorld = Transform.WorldPosition + Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
+		Vector3 upLocal = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
 
 
 		//Debug.Log($"Forward{forwardWorld}");
 		//Debug.Log($"Up{upLocal}");
-		Matrix4x4 view = Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, 1))
+		Matrix4x4 view = Matrix4x4.CreateTranslation(Transform.WorldPosition * new Vector3(-1, -1, 1))
 		               * Matrix4x4.CreateLookAt(cameraPosition: Transform.WorldPosition, cameraTarget: forwardWorld, cameraUpVector: upLocal)
 			; // * Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, 1));
 		Transform.Rotation = oldRotation;

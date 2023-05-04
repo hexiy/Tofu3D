@@ -6,6 +6,7 @@ public class SceneViewController
 {
 	bool _clickedInsideScene;
 	float _targetOrthoSize = -1;
+	float _moveSpeed = 2f; // WASD units moved per seconds
 
 	public SceneViewController()
 	{
@@ -19,7 +20,16 @@ public class SceneViewController
 	public bool AllowPassThroughEdges { get; set; }
 
 	public PersistentObject<ProjectionMode> CurrentProjectionMode = ("sceneViewProjectionMode", Tofu3D.ProjectionMode.Perspective);
+	// rotation before going into orthographic mode
+	PersistentObject<Vector3> _cameraRotationInPerspectiveMode = ("_cameraRotationInPerspectiveMode", Vector3.Zero);
+	PersistentObject<Vector3> _cameraPositionInPerspectiveMode = ("_cameraPositionInPerspectiveMode", Vector3.Zero);
+	PersistentObject<float> _cameraFieldOfViewInperspectiveMode = ("_cameraFieldOfViewInperspectiveMode", 90);
+	// PersistentObject<int> _savedInt = new PersistentObject<int>();
+	Vector2 _smoothScreenDeltaVector = Vector3.Zero;
 
+	Vector3 _smoothKeyboardInputMoveVector = Vector3.Zero;
+
+	Vector3 _keyboardInputDirectionVector = Vector3.Zero;
 	// public ProjectionMode ProjectionMode
 	// {
 	// 	get { return (ProjectionMode) PersistentData.GetInt("SceneViewControllerPerspectiveMode", 0); }
@@ -45,12 +55,6 @@ public class SceneViewController
 		});
 	}
 
-	// rotation before going into orthographic mode
-	PersistentObject<Vector3> _cameraRotationInPerspectiveMode = ("_cameraRotationInPerspectiveMode", Vector3.Zero);
-	PersistentObject<Vector3> _cameraPositionInPerspectiveMode = ("_cameraPositionInPerspectiveMode", Vector3.Zero);
-	PersistentObject<float> _cameraFieldOfViewInperspectiveMode = ("_cameraFieldOfViewInperspectiveMode", 90);
-	// PersistentObject<int> _savedInt = new PersistentObject<int>();
-
 	public void SetProjectionMode(ProjectionMode newProjectionMode)
 	{
 		if (newProjectionMode == CurrentProjectionMode)
@@ -66,8 +70,10 @@ public class SceneViewController
 		}
 
 		float tweenDuration = 1f;
-		Tweener.Tween(Camera.MainCamera.Transform.Rotation.X, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.X : 0, tweenDuration, (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(x: f); });
-		Tweener.Tween(Camera.MainCamera.Transform.Rotation.Y, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Y : 0, tweenDuration, (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(y: f); });
+		Tweener.Tween(Camera.MainCamera.Transform.Rotation.X, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.X : 0, tweenDuration,
+		              (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(x: f); });
+		Tweener.Tween(Camera.MainCamera.Transform.Rotation.Y, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Y : 0, tweenDuration,
+		              (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(y: f); });
 		Tweener.Tween(Camera.MainCamera.Transform.WorldPosition.Z, newProjectionMode == ProjectionMode.Perspective ? _cameraPositionInPerspectiveMode.Value.Z : Camera.MainCamera.Transform.WorldPosition.Z - 350, tweenDuration,
 		              (f) => { Camera.MainCamera.Transform.WorldPosition = Camera.MainCamera.Transform.WorldPosition.Set(z: f); });
 
@@ -125,17 +131,84 @@ public class SceneViewController
 		AllowPassThroughEdges = false;
 
 		HandleMouseScroll();
+		bool validInput = (isMouseOverSceneView || _clickedInsideScene) && (_clickedInsideScene) || (justClicked == false && isMouseOverSceneView && _clickedInsideScene);
 		if (MouseInput.IsButtonDown(MouseInput.Buttons.Left) || MouseInput.IsButtonDown(MouseInput.Buttons.Right))
 		{
-			if (isMouseOverSceneView || _clickedInsideScene)
+			if (validInput)
 			{
-				if ((_clickedInsideScene) || (justClicked == false && isMouseOverSceneView && _clickedInsideScene))
-				{
-					AllowPassThroughEdges = true;
+				AllowPassThroughEdges = true;
 
-					HandleButtonInputs();
-				}
+				HandleButtonInputs();
 			}
+		}
+
+		if (Camera.MainCamera.IsOrthographic == false)
+		{
+			if (validInput && MouseInput.IsButtonDown(MouseInput.Buttons.Right)) // right click panning
+			{
+				_smoothScreenDeltaVector = Vector2.Lerp(_smoothScreenDeltaVector, MouseInput.ScreenDelta, Time.EditorDeltaTime * 15);
+			}
+			else
+			{
+				_smoothScreenDeltaVector = Vector2.Lerp(_smoothScreenDeltaVector, Vector2.Zero, Time.EditorDeltaTime * 7);
+			}
+
+			MoveCameraByLocalVector(_smoothScreenDeltaVector * 30 / Tofu.I.Window.WindowSize);
+
+
+			float keyboardMoveSpeed = _moveSpeed;
+			_keyboardInputDirectionVector = Vector3.Zero;
+			if (MouseInput.IsButtonDown(MouseInput.Buttons.Left))
+			{
+				if (TransformHandle.I.CurrentAxisSelected != null)
+				{
+					return;
+				}
+
+				if (MouseInput.ScreenDelta != Vector2.Zero)
+				{
+					IsPanningCamera = true;
+				}
+
+				Camera.MainCamera.Transform.Rotation += new Vector3(-MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * 0.2f;
+			}
+
+			_keyboardInputDirectionVector = Vector3.Zero;
+			if (KeyboardInput.IsKeyDown(Keys.W))
+			{
+				_keyboardInputDirectionVector += Vector3.Forward;
+			}
+
+			if (KeyboardInput.IsKeyDown(Keys.S))
+			{
+				_keyboardInputDirectionVector += Vector3.Backward;
+			}
+
+			if (KeyboardInput.IsKeyDown(Keys.A))
+			{
+				_keyboardInputDirectionVector += Vector3.Left;
+			}
+
+			if (KeyboardInput.IsKeyDown(Keys.D))
+			{
+				_keyboardInputDirectionVector += Vector3.Right;
+			}
+
+
+			if (KeyboardInput.IsKeyDown(Keys.LeftShift))
+			{
+				keyboardMoveSpeed = keyboardMoveSpeed * 2;
+				//Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 100, Time.EditorDeltaTime * 7);
+			}
+			else
+			{
+				//Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 60, Time.EditorDeltaTime * 7);
+			}
+
+
+			_smoothKeyboardInputMoveVector = Vector3.Lerp(_smoothKeyboardInputMoveVector, _keyboardInputDirectionVector, Time.EditorDeltaTime * 4);
+
+			MoveCameraByLocalVector(_smoothKeyboardInputMoveVector * keyboardMoveSpeed * Time.EditorDeltaTime);
 		}
 	}
 
@@ -154,7 +227,7 @@ public class SceneViewController
 			}
 			else
 			{
-				MoveCameraInDirection(new Vector3(0, 0, Mathf.Clamp(MouseInput.ScrollDelta * 10, -10, 10)));
+				MoveCameraByLocalVector(new Vector3(0, 0, Mathf.Clamp(MouseInput.ScrollDelta * 10, -10, 10)) * _moveSpeed);
 
 				//Camera.I.transform.position += Camera.I.transform.TransformDirection(Vector3.Forward) * MouseInput.ScrollDelta * 0.05f;
 			}
@@ -166,80 +239,19 @@ public class SceneViewController
 		// PANNING
 		if (MouseInput.IsButtonDown() && Camera.MainCamera.IsOrthographic)
 		{
-			Camera.MainCamera.Transform.LocalPosition -= Camera.MainCamera.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, -MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * Camera.MainCamera.OrthographicSize;
+			Camera.MainCamera.Transform.LocalPosition += Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector2(-MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) * Camera.MainCamera.OrthographicSize;
 			// MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
-		}
-
-		if (MouseInput.IsButtonDown(MouseInput.Buttons.Right) && Camera.MainCamera.IsOrthographic == false) // right click panning
-		{
-			Camera.MainCamera.Transform.LocalPosition -= Camera.MainCamera.Transform.TransformDirectionToWorldSpace(new Vector2(MouseInput.ScreenDelta.X, -MouseInput.ScreenDelta.Y)) / Units.OneWorldUnit * 50;
-			// MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
-		}
-
-		if (MouseInput.IsButtonDown() && Camera.MainCamera.IsOrthographic == false)
-		{
-			if (TransformHandle.I.CurrentAxisSelected != null)
-			{
-				return;
-			}
-
-			if (MouseInput.ScreenDelta != Vector2.Zero)
-			{
-				IsPanningCamera = true;
-			}
-
-			Camera.MainCamera.Transform.Rotation += new Vector3(MouseInput.ScreenDelta.Y, MouseInput.ScreenDelta.X, 0) * Time.EditorDeltaTime * 7;
-			//Debug.Log("Rotate Cam");
-			//Camera.I.transform.Rotation = new Vector3(Camera.I.transform.Rotation.X, Camera.I.transform.Rotation.Y, 0);
-
-			Vector3 keyboardInputDirectionVector = Vector3.Zero;
-			if (KeyboardInput.IsKeyDown(Keys.W))
-			{
-				keyboardInputDirectionVector += Vector3.Forward;
-			}
-
-			if (KeyboardInput.IsKeyDown(Keys.S))
-			{
-				keyboardInputDirectionVector += Vector3.Backward;
-			}
-
-			if (KeyboardInput.IsKeyDown(Keys.A))
-			{
-				keyboardInputDirectionVector += Vector3.Left;
-			}
-
-			if (KeyboardInput.IsKeyDown(Keys.D))
-			{
-				keyboardInputDirectionVector += Vector3.Right;
-			}
-
-			float moveSpeed = 100f;
-
-			if (KeyboardInput.IsKeyDown(Keys.LeftShift))
-			{
-				moveSpeed = moveSpeed * 2;
-				//Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 100, Time.EditorDeltaTime * 7);
-			}
-			else
-			{
-				//Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 60, Time.EditorDeltaTime * 7);
-			}
-
-			if (keyboardInputDirectionVector != Vector3.Zero)
-			{
-				MoveCameraInDirection(keyboardInputDirectionVector, moveSpeed);
-			}
 		}
 	}
 
-	void MoveCameraInDirection(Vector3 dir, float moveSpeed = 1f)
+	void MoveCameraByLocalVector(Vector3 moveVector)
 	{
-		Vector3 delta = Camera.MainCamera.Transform.TransformDirectionToWorldSpace(dir) * moveSpeed * Time.EditorDeltaTime;
+		Vector3 delta = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(moveVector);
 
-		Debug.StatSetValue("DASDSAD", $"CameraDir:{Camera.MainCamera.Transform.TransformDirectionToWorldSpace(dir)}");
+		Debug.StatSetValue("DASDSAD", $"CameraDir:{Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(moveVector)}");
 		//Debug.Log(delta);
 		//Camera.I.Transform.LocalPosition += delta;
-		Camera.MainCamera.Transform.WorldPosition += delta * new Vector3(1, -1, 1);
+		Camera.MainCamera.Transform.WorldPosition += delta;
 		// Camera.I.Transform.LocalPosition += dir * moveSpeed;
 
 		Camera.MainCamera.UpdateMatrices();

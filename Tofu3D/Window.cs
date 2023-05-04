@@ -40,6 +40,10 @@ public class Window : GameWindow
 		this.Icon = windowIcon;
 	}
 
+	public Vector2 WindowSize
+	{
+		get { return new Vector2(Size.X, Size.Y); }
+	}
 	public string WindowTitleText
 	{
 		get { return $"Tofu3D | {GL.GetString(StringName.Version)}"; }

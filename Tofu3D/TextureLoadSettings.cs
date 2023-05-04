@@ -9,7 +9,7 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 	                                                                                     flipX: false,
 	                                                                                     filterMode: TextureFilterMode.Bilinear,
 	                                                                                     wrapMode: TextureWrapMode.Repeat,
-	                                                                                     textureType: TextureType.Texture2D,
+	                                                                                     // textureType: TextureType.Texture2D,
 	                                                                                     canSetDefaultSettings: false);
 
 	public static TextureLoadSettings DefaultSettingsSpritePixelArt = new TextureLoadSettings(path: string.Empty,
@@ -17,18 +17,10 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 	                                                                                          flipX: false,
 	                                                                                          filterMode: TextureFilterMode.Point,
 	                                                                                          wrapMode: TextureWrapMode.Repeat,
-	                                                                                          textureType: TextureType.Texture2D,
+	                                                                                          // textureType: TextureType.Texture2D,
 	                                                                                          canSetDefaultSettings: false);
 
-	public static TextureLoadSettings DefaultSettingsCubemap = new TextureLoadSettings(path: string.Empty,
-	                                                                                   // paths: new[] {string.Empty},
-	                                                                                   flipX: true,
-	                                                                                   filterMode: TextureFilterMode.Bilinear,
-	                                                                                   wrapMode: TextureWrapMode.ClampToEdge,
-	                                                                                   textureType: TextureType.Cubemap,
-	                                                                                   canSetDefaultSettings: false);
-
-	public TextureType Type { get; private set; }
+	// public TextureType Type { get; private set; }
 	// public string[] Paths { get; private set; }
 	public TextureFilterMode FilterMode { get; private set; }
 	public TextureWrapMode WrapMode { get; private set; }
@@ -53,7 +45,7 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 			SetPaths(paths);
 		}*/
 
-		this.Type = textureType ?? defaultSettings.Type;
+		// this.Type = textureType ?? defaultSettings.Type;
 		this.Path = path ?? defaultSettings?.Path;
 		// this.Paths = paths ?? defaultSettings?.Paths;
 		this.FilterMode = filterMode ?? defaultSettings.FilterMode;
@@ -66,7 +58,7 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 		TextureLoadSettings defaultSettings = GetDefaultSettingsForTextureType(null); // not possible if this isnt a struct
 
 
-		this.Type = defaultSettings.Type;
+		// this.Type = defaultSettings.Type;
 		this.Path = defaultSettings.Path;
 		// this.Paths = defaultSettings.Paths;
 		this.FilterMode = defaultSettings.FilterMode;
@@ -81,10 +73,10 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 			return DefaultSettingsTexture2D;
 		}
 
-		if (textureType == TextureType.Cubemap)
-		{
-			return DefaultSettingsCubemap;
-		}
+		// if (textureType == TextureType.Cubemap)
+		// {
+		// 	return DefaultSettingsCubemap;
+		// }
 
 		return DefaultSettingsTexture2D;
 	}

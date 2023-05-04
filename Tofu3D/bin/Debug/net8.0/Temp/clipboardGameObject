@@ -5,10 +5,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>513</Id>
-      <IndexInHierarchy>9</IndexInHierarchy>
+      <Id>642</Id>
+      <IndexInHierarchy>18</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>grassWallFront</Name>
+      <Name>CubeUp</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -20,7 +20,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>513</GameObjectId>
+      <GameObjectId>642</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
@@ -32,14 +32,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>0</X>
-        <Y>1000</Y>
-        <Z>1000</Z>
+        <X>20</X>
+        <Y>2</Y>
+        <Z>-0.60906315</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>1000</Y>
-        <Z>1000</Z>
+        <X>20</X>
+        <Y>2</Y>
+        <Z>-0.60906315</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -52,14 +52,14 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-90</X>
+        <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>513</GameObjectId>
+      <GameObjectId>642</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -68,24 +68,24 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>1000</X>
-        <Y>1000</Y>
-        <Z>1000</Z>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>513</GameObjectId>
+      <GameObjectId>642</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
-        <B>255</B>
+        <B>0</B>
         <G>255</G>
-        <R>255</R>
+        <R>79</R>
         <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <PackedValue>4278255439</PackedValue>
       </Color>
-      <DistanceFromCamera>1744.2722</DistanceFromCamera>
+      <DistanceFromCamera>3.8339565</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -99,28 +99,30 @@
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
-        <AssetPath>Assets\2D\grass.jpg</AssetPath>
+        <AssetPath>Assets\2D\solidColor.png</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>1500</X>
-          <Y>1500</Y>
+          <X>256</X>
+          <Y>256</Y>
         </Size>
       </Texture>
       <Tiling>
-        <X>10</X>
-        <Y>10</Y>
+        <X>50</X>
+        <Y>100</Y>
       </Tiling>
       <Offset>
         <X>0</X>
         <Y>0</Y>
       </Offset>
       <Model>
-        <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>5</Vao>
-        <VertexBufferDataLength>48</VertexBufferDataLength>
+        <AssetPath>Assets\3D\cube.obj</AssetPath>
+        <Vao>9</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
       </Model>
       <CastShadow>true</CastShadow>
-      <Smoothness>0</Smoothness>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.124</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

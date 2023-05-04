@@ -10,13 +10,15 @@
 		AddAssetLoader(new TextureLoader());
 		AddAssetLoader(new ModelLoader());
 		AddAssetLoader(new MaterialLoader());
+		AddAssetLoader(new CubemapTextureLoader());
 
 
 		foreach (Type loadSettingsType in new[]
 		                                  {
 			                                  typeof(TextureLoadSettings),
 			                                  typeof(ModelLoadSettings),
-			                                  typeof(MaterialLoadSettings)
+			                                  typeof(MaterialLoadSettings),
+			                                  typeof(CubemapTextureLoadSettings)
 		                                  })
 		{
 			_loadSettingsTypes.Add(loadSettingsType.BaseType.GenericTypeArguments[0], loadSettingsType);
@@ -48,7 +50,6 @@
 		// 
 		T asset;
 
-		string assetPath = loadSettings.Path;
 		int hash = loadSettings.GetHashCode();
 
 		if (_assets.ContainsKey(hash))

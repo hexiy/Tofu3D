@@ -9,6 +9,16 @@ public class FieldOrPropertyInfo
 	FieldInfo _fieldInfo;
 	public bool IsReadonly;
 	PropertyInfo _propertyInfo;
+	public bool IsGenericList;
+	public Type GenericParameterType;
+	public bool IsListElement;
+
+	public object RefObject;
+
+	public FieldOrPropertyInfo(ref object refObject)
+	{
+		RefObject = refObject;
+	}
 
 	public FieldOrPropertyInfo(FieldInfo fi, object obj)
 	{
@@ -37,6 +47,11 @@ public class FieldOrPropertyInfo
 	{
 		get
 		{
+			if (RefObject != null)
+			{
+				return RefObject.GetType().CustomAttributes;
+			}
+
 			if (_fieldInfo != null)
 			{
 				return _fieldInfo.CustomAttributes;
@@ -54,6 +69,11 @@ public class FieldOrPropertyInfo
 	{
 		get
 		{
+			if (RefObject != null)
+			{
+				return "RefObject";
+			}
+
 			if (_fieldInfo != null)
 			{
 				return _fieldInfo.Name;
@@ -71,6 +91,11 @@ public class FieldOrPropertyInfo
 	{
 		get
 		{
+			if (RefObject != null)
+			{
+				return RefObject?.GetType();
+			}
+
 			if (_fieldInfo != null)
 			{
 				return _fieldInfo.FieldType;
@@ -160,6 +185,11 @@ public class FieldOrPropertyInfo
 
 	public object? GetValue(object? obj)
 	{
+		if (RefObject != null)
+		{
+			return RefObject;
+		}
+
 		if (_fieldInfo != null)
 		{
 			return _fieldInfo.GetValue(obj);
@@ -186,6 +216,11 @@ public class FieldOrPropertyInfo
 			{
 				_propertyInfo.SetValue(obj, value);
 			}
+		}
+
+		if (RefObject != null)
+		{
+			RefObject = value;
 		}
 	}
 }

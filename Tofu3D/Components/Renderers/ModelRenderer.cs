@@ -171,8 +171,8 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetFloat("u_specularSmoothness", SpecularSmoothness);
 			Material.Shader.SetFloat("u_specularHighlightsEnabled", SpecularHighlightsEnabled ? 1 : 0);
 
-			Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition() * Units.OneWorldUnit); // moves with camera but rotated wrong
-			Material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition * Units.OneWorldUnit);
+			Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition()); // moves with camera but rotated wrong
+			Material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition);
 			// Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
 			// Material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition);
 

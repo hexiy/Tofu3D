@@ -353,7 +353,7 @@ public class EditorPanelHierarchy : EditorPanel
 		{
 			AddGameObjectToSelection(currentGameObject.Id);
 		}
-		else if (ImGui.IsItemClicked(ImGuiMouseButton.Left))
+		else if (ImGui.IsItemHovered() && MouseInput.ButtonReleased())
 		{
 			_gameObjectsIndexesSelectedBefore = _selectedGameObjectsIDs;
 			SelectGameObject(currentGameObject.Id);

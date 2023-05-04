@@ -43,7 +43,7 @@ public class SpriteRenderer : TextureRenderer
 			}
 			else
 			{
-				BoxShape.Size = Texture.Size / Units.OneWorldUnit;
+				BoxShape.Size = Texture.Size;
 			}
 		}
 	}

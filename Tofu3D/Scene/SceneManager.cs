@@ -61,7 +61,7 @@ public static class SceneManager
 		Debug.StartTimer("Awake");
 		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 		{
-			//sceneFile.GameObjects[i].LinkGameObjectFieldsInComponents();
+			sceneFile.GameObjects[i].LinkGameObjectFieldsInComponents();
 			sceneFile.GameObjects[i].Awake();
 		}
 

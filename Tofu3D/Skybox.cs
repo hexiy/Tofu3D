@@ -9,14 +9,17 @@ namespace Tofu3D;
 public class Skybox : Component
 {
 	Material _material;
-	Texture _texture;
+	CubemapTexture _texture;
 	public float Fov = 60;
+	public List<CubemapTexture> Textures = new List<CubemapTexture>();
+	public List<int> Ints = new List<int>();
+	public List<Color> Colors = new List<Color>();
 
 	public override void Awake()
 	{
 		_material = AssetManager.Load<Material>("Skybox");
 
-		_texture = new Texture();
+		_texture = new CubemapTexture();
 		string[] texturePaths = new[]
 		                        {
 			                        /*Path.Combine(Folders.Textures, "skyCubemap", "sky_left.png"),
@@ -33,13 +36,25 @@ public class Skybox : Component
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Back.bmp"),
 		                        };
 
-		string oneStringForAllSixTextures = String.Concat(texturePaths);
-		TextureLoadSettings textureLoadSettings = new TextureLoadSettings(path: oneStringForAllSixTextures,
-		                                                                  textureType: TextureType.Cubemap);
-		_texture = AssetManager.Load<Texture>(textureLoadSettings);
+		CubemapTextureLoadSettings cubemapTextureLoadSettings = new CubemapTextureLoadSettings(paths: texturePaths, flipX: false);
+		_texture = AssetManager.Load<CubemapTexture>(cubemapTextureLoadSettings);
 
+
+		Textures.Add(_texture);
+		Textures.Add(_texture);
+		Textures.Add(_texture);
+		Textures.Add(_texture);
+		Textures.Add(_texture);
 
 		base.Awake();
+	}
+
+	public override void Update()
+	{
+		Debug.StatSetValue("SkyboxList Textures", $"{Textures.Count}");
+		Debug.StatSetValue("SkyboxList Ints", $"{Ints.Count}");
+		Debug.StatSetValue("SkyboxList Colors", $"{Colors.Count}");
+		base.Update();
 	}
 
 	public override void OnEnable()
@@ -67,11 +82,10 @@ public class Skybox : Component
 
 		ShaderCache.UseShader(_material.Shader);
 
+		Vector3 forwardLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
+		Vector3 upLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
 
-		Vector3 forwardLocal = Camera.MainCamera.Transform.TransformDirectionToWorldSpace(new Vector3(0, 0, 1));
-		Vector3 upLocal = Camera.MainCamera.Transform.TransformDirectionToWorldSpace(new Vector3(0, 1, 0));
-
-		Matrix4x4 viewMatrix = Matrix4x4.CreateLookAt(cameraPosition: Vector3.Zero, cameraTarget: forwardLocal, cameraUpVector: upLocal);
+		Matrix4x4 viewMatrix = Matrix4x4.CreateLookAt(cameraPosition: Vector3.Zero, cameraTarget: forwardLocal, cameraUpVector: upLocal) * Matrix4x4.CreateScale(-1, 1, 1);
 
 		Fov = Mathf.Clamp(Fov, 0.000001f, 179);
 		Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Fov), Camera.MainCamera.Size.X / Camera.MainCamera.Size.Y, 0.01f, 1);

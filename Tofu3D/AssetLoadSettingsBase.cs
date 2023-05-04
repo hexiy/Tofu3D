@@ -4,7 +4,7 @@ namespace Tofu3D;
 
 public abstract class AssetLoadSettingsBase
 {
-	string _path;
+	string _path = "";
 	public string Path
 	{
 		get { return _path; }
@@ -13,6 +13,6 @@ public abstract class AssetLoadSettingsBase
 
 	public override int GetHashCode()
 	{
-		return _path.GetHashCode();
+		return (_path ?? "").GetHashCode();
 	}
 }

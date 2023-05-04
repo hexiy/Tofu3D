@@ -125,13 +125,13 @@ public class Renderer : Component, IComparable<Renderer>
 
 	public Matrix4x4 GetModelMatrix()
 	{
-		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f)) * Matrix4x4.CreateScale(1, -1, 1);
-		return ScalePivotRotationMatrix * translation * Matrix4x4.CreateScale(Units.OneWorldUnit);
+		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
+		return ScalePivotRotationMatrix * translation;
 	}
 
 	public Matrix4x4 GetModelMatrixForCanvasObject()
 	{
-		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition - (Camera.MainCamera.Size / 2) + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f)) * Matrix4x4.CreateScale(1, 1, 1);
+		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition - (Camera.MainCamera.Size / 2) + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
 		return ScalePivotRotationMatrix * translation * Matrix4x4.CreateScale(xScale: 2f / Camera.MainCamera.Size.X, yScale: 2f / Camera.MainCamera.Size.Y, zScale: 0);
 	}
 
@@ -156,11 +156,11 @@ public class Renderer : Component, IComparable<Renderer>
 	{
 		float outlineThickness = 0.002f * ((float) MathHelper.Sin(Time.EditorElapsedTime * 2) + 1.3f) * DistanceFromCamera;
 		// float outlineThickness = 0.04f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime*5)),0) * DistanceFromCamera * 0.3f;
-		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f)) * Matrix4x4.CreateScale(1, -1, 1);
+		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
 
 		Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale + new Vector3(outlineThickness));
 
-		return scale * IdentityPivotRotationMatrix * translation * Matrix4x4.CreateScale(Units.OneWorldUnit) * Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
+		return scale * IdentityPivotRotationMatrix * translation * Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
 	}
 
 	public Matrix4x4 GetCanvasMvpForOutline()

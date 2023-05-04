@@ -112,11 +112,11 @@ public static class MouseInput
 		{
 			if (Camera.MainCamera.IsOrthographic)
 			{
-				return ScreenDelta * Camera.MainCamera.OrthographicSize / Units.OneWorldUnit;
+				return ScreenDelta * Camera.MainCamera.OrthographicSize;
 			}
 			else
 			{
-				return ScreenDelta / Units.OneWorldUnit;
+				return ScreenDelta;
 			}
 		}
 	}
@@ -171,10 +171,10 @@ public static class MouseInput
 
 	public static bool ButtonReleased(Buttons button = Buttons.Left)
 	{
-		if (IsMouseInSceneView() == false)
-		{
-			return false;
-		}
+		// if (IsMouseInSceneView() == false) commented 2023/05/04
+		// {
+		// 	return false;
+		// }
 
 		return Tofu.I.Window.MouseState.WasButtonDown((MouseButton) button) && Tofu.I.Window.MouseState.IsButtonDown((MouseButton) button) == false;
 	}
