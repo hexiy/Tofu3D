@@ -150,7 +150,7 @@ public class ModelRenderer : TextureRenderer
 				if (SceneManager.CurrentScene.SceneFogManager.IsGradient)
 				{
 					Material.Shader.SetColor("u_fogColor2", SceneManager.CurrentScene.SceneFogManager.FogColor2);
-					Material.Shader.SetFloat("u_fogGradientSmoothness", SceneManager.CurrentScene.SceneFogManager.GradientSmoothness * 100);
+					Material.Shader.SetFloat("u_fogGradientSmoothness", SceneManager.CurrentScene.SceneFogManager.GradientSmoothness);
 				}
 				else
 				{
@@ -159,7 +159,7 @@ public class ModelRenderer : TextureRenderer
 
 				Material.Shader.SetFloat("u_fogStartDistance", SceneManager.CurrentScene.SceneFogManager.FogStartDistance);
 				Material.Shader.SetFloat("u_fogEndDistance", SceneManager.CurrentScene.SceneFogManager.FogEndDistance);
-				Material.Shader.SetFloat("u_fogPositionY", SceneManager.CurrentScene.SceneFogManager.FogPositionY * 100);
+				Material.Shader.SetFloat("u_fogPositionY", SceneManager.CurrentScene.SceneFogManager.FogPositionY);
 			}
 
 			Material.Shader.SetMatrix4X4("u_model", GetModelMatrix());
@@ -171,7 +171,7 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetFloat("u_specularSmoothness", SpecularSmoothness);
 			Material.Shader.SetFloat("u_specularHighlightsEnabled", SpecularHighlightsEnabled ? 1 : 0);
 
-			Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition()); // moves with camera but rotated wrong
+			// Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition()); // moves with camera but rotated wrong
 			Material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition);
 			// Material.Shader.SetVector3("u_lightPos", SceneLightingManager.I.GetDirectionalLightPosition());
 			// Material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition);

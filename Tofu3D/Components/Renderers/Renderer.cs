@@ -95,14 +95,6 @@ public class Renderer : Component, IComparable<Renderer>
 	{
 		get
 		{
-			Vector3 worldPositionPivotOffset = BoxShape.Size * Transform.WorldScale * (Vector3.One - Transform.Pivot * 2);
-
-			Matrix4x4 pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
-
-			Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
-			                                                      Transform.WorldRotation.X / 180 * Mathf.Pi,
-			                                                      Transform.WorldRotation.Z / 180 * Mathf.Pi);
-
 			Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale);
 			return scale * IdentityPivotRotationMatrix;
 		}
