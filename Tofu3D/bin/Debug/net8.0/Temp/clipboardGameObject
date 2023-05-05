@@ -8,7 +8,7 @@
       <Id>488</Id>
       <IndexInHierarchy>6</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Monke</Name>
+      <Name>Cube</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -27,7 +27,7 @@
       <ParentId>-1</ParentId>
       <Pivot>
         <X>0.5</X>
-        <Y>0</Y>
+        <Y>0.5</Y>
         <Z>0.5</Z>
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
@@ -53,7 +53,7 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>-180</Y>
+        <Y>0</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -68,9 +68,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>1.002</X>
+        <Y>1.002</Y>
+        <Z>1.002</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRenderer">
@@ -80,12 +80,12 @@
       <Enabled>true</Enabled>
       <Color>
         <B>255</B>
-        <G>250</G>
-        <R>87</R>
+        <G>255</G>
+        <R>255</R>
         <A>255</A>
-        <PackedValue>4294965847</PackedValue>
+        <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>12.602048</DistanceFromCamera>
+      <DistanceFromCamera>5.6451416</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -99,30 +99,30 @@
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
-        <AssetPath>Assets\2D\solidColor.png</AssetPath>
+        <AssetPath>Assets\3D\Grass_Block_TEX.png</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>256</X>
-          <Y>256</Y>
+          <X>1440</X>
+          <Y>1920</Y>
         </Size>
       </Texture>
       <Tiling>
-        <X>10</X>
-        <Y>10</Y>
+        <X>-1</X>
+        <Y>-1</Y>
       </Tiling>
       <Offset>
         <X>0</X>
         <Y>0</Y>
       </Offset>
       <Model>
-        <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>6</Vao>
-        <VertexBufferDataLength>371688</VertexBufferDataLength>
-        <IndicesCount>46461</IndicesCount>
+        <AssetPath>Assets\3D\coobe.obj</AssetPath>
+        <Vao>9</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
+        <IndicesCount>36</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
-      <SpecularSmoothness>0.044</SpecularSmoothness>
+      <SpecularSmoothness>0.99</SpecularSmoothness>
       <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
   </Components>
