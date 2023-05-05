@@ -30,8 +30,8 @@ public class Skybox : Component
 			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_back.png"),*/
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Right.bmp"),
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Left.bmp"),
-			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Bottom.bmp"),
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Top.bmp"),
+			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Bottom.bmp"),
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Front.bmp"),
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Back.bmp"),
 		                        };
