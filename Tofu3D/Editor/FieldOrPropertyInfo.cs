@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using System.Reflection;
 
@@ -13,11 +14,17 @@ public class FieldOrPropertyInfo
 	public Type GenericParameterType;
 	public bool IsListElement;
 
-	public object RefObject;
-
-	public FieldOrPropertyInfo(ref object refObject)
+	public Object ListElement
 	{
-		RefObject = refObject;
+		get { return _list[_index]; }
+	}
+	IList _list;
+	int _index = -1;
+
+	public FieldOrPropertyInfo(IList list, int index)
+	{
+		_list = list;
+		_index = index;
 	}
 
 	public FieldOrPropertyInfo(FieldInfo fi, object obj)
@@ -47,9 +54,9 @@ public class FieldOrPropertyInfo
 	{
 		get
 		{
-			if (RefObject != null)
+			if (_index != -1)
 			{
-				return RefObject.GetType().CustomAttributes;
+				return ListElement.GetType().CustomAttributes;
 			}
 
 			if (_fieldInfo != null)
@@ -69,7 +76,7 @@ public class FieldOrPropertyInfo
 	{
 		get
 		{
-			if (RefObject != null)
+			if (_index!=-1)
 			{
 				return "RefObject";
 			}
@@ -91,9 +98,9 @@ public class FieldOrPropertyInfo
 	{
 		get
 		{
-			if (RefObject != null)
+			if (_index!=-1)
 			{
-				return RefObject?.GetType();
+				return ListElement.GetType();
 			}
 
 			if (_fieldInfo != null)
@@ -185,9 +192,9 @@ public class FieldOrPropertyInfo
 
 	public object? GetValue(object? obj)
 	{
-		if (RefObject != null)
+		if (_index!=-1)
 		{
-			return RefObject;
+			return ListElement;
 		}
 
 		if (_fieldInfo != null)
@@ -218,9 +225,9 @@ public class FieldOrPropertyInfo
 			}
 		}
 
-		if (RefObject != null)
+		if (_index!=-1)
 		{
-			RefObject = value;
+			_list[_index] = value;
 		}
 	}
 }

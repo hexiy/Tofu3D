@@ -493,7 +493,7 @@ public class EditorPanelInspector : EditorPanel
 			}
 
 			ImGui.SameLine();
-			if (ImGui.CollapsingHeader("List", ImGuiTreeNodeFlags.DefaultOpen))
+			if (ImGui.CollapsingHeader($"List<{info.GenericParameterType.Name}>", ImGuiTreeNodeFlags.DefaultOpen))
 			{
 				for (int j = 0; j < list.Count; j++)
 				{
@@ -513,8 +513,7 @@ public class EditorPanelInspector : EditorPanel
 					string name = isNull ? "<null>" : "name";
 
 
-					object listElementObject = list[j];
-					FieldOrPropertyInfo listElementFieldOrProperty = new FieldOrPropertyInfo(ref listElementObject);
+					FieldOrPropertyInfo listElementFieldOrProperty = new FieldOrPropertyInfo(list, j);
 					listElementFieldOrProperty.IsListElement = true;
 					DrawFieldOrProperty(listElementFieldOrProperty, componentInspectorData);
 					/*if (ImGui.BeginDragDropTarget())
@@ -650,7 +649,7 @@ public class EditorPanelInspector : EditorPanel
 		}
 		else if (info.FieldOrPropertyType == typeof(CubemapTexture))
 		{
-			CubemapTexture cubemapTexture = info.RefObject as CubemapTexture;
+			CubemapTexture cubemapTexture = info.ListElement as CubemapTexture;
 			string textureName = Path.GetFileName(cubemapTexture.AssetPath);
 
 			bool clicked = ImGui.Button(textureName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
