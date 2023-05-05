@@ -11,5 +11,6 @@ global using MathHelper = OpenTK.Mathematics.MathHelper;
 global using System;
 global using System.Collections.Generic;
 global using System.Xml.Serialization;
+global using Random = Tofu3D.Random;
 
 namespace Tofu3D;

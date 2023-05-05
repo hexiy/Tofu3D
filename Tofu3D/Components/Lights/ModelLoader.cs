@@ -26,7 +26,8 @@ public class ModelLoader : AssetLoader<Model>
 		List<float> normals = new List<float>();
 
 		List<float> everything = new List<float>();
-		int numberOfIndices = 0;
+		int numberOfIndicesPerLine = 0;
+		int totalIndicesCount = 0;
 		foreach (string line in data)
 		{
 			string[] lineSplit = line.Split(' ');
@@ -58,9 +59,11 @@ public class ModelLoader : AssetLoader<Model>
 			}
 			else if (line.StartsWith("f ")) // indices
 			{
-				numberOfIndices = lineSplit.Length - 1;
-				for (int indiceIndex = 0; indiceIndex < numberOfIndices; indiceIndex++)
+				numberOfIndicesPerLine = lineSplit.Length - 1;
+				for (int indiceIndex = 0; indiceIndex < numberOfIndicesPerLine; indiceIndex++)
 				{
+					totalIndicesCount++;
+
 					string[] nums = lineSplit[indiceIndex + 1].Split('/');
 					for (int i = 0; i < nums.Length; i++)
 					{
@@ -98,8 +101,11 @@ public class ModelLoader : AssetLoader<Model>
 
 		Model model = new Model();
 		model.VertexBufferDataLength = everything.Count;
-		int[] countsOfElements = new[] {3, 2, numberOfIndices};
+		model.IndicesCount = totalIndicesCount;
+		int[] countsOfElements = new[] {3, 2, 3};
+		
 		BufferFactory.CreateModelBuffers(vao: ref model.Vao, vertexBufferData: everything.ToArray(), countsOfElements);
+		
 		model.InitAssetRuntimeHandle(model.Vao);
 		model.AssetPath = loadSettings.Path;
 

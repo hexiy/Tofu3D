@@ -86,6 +86,11 @@ public class ModelRenderer : TextureRenderer
 			return;
 		}
 
+		if (Model == null)
+		{
+			return;
+		}
+
 
 		if (GameObject == TransformHandle.I?.GameObject)
 		{
@@ -199,26 +204,26 @@ public class ModelRenderer : TextureRenderer
 			}
 
 
-			if (Model != null)
-			{
-				ShaderCache.BindVertexArray(Model.Vao);
-				GL.Enable(EnableCap.Blend);
-				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+			// if (Model != null)
+			// {
+			ShaderCache.BindVertexArray(Model.Vao);
+			GL.Enable(EnableCap.Blend);
+			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
-				if (isTransformHandle == false)
-				{
-					RenderWireframe(Model.VertexBufferDataLength);
-				}
-
-				GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
-			}
-			else
+			if (isTransformHandle == false)
 			{
-				ShaderCache.BindVertexArray(Material.Vao);
-				GL.Enable(EnableCap.Blend);
-				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-				GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+				RenderWireframe(Model.IndicesCount);
 			}
+
+			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
+			// }
+			// else
+			// {
+			// 	ShaderCache.BindVertexArray(Material.Vao);
+			// 	GL.Enable(EnableCap.Blend);
+			// 	GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+			// 	GL_DrawArrays(PrimitiveType.Triangles, 0, 36);
+			// }
 		}
 		else
 		{
@@ -226,12 +231,12 @@ public class ModelRenderer : TextureRenderer
 			{
 				ShaderCache.BindVertexArray(Model.Vao);
 
-				GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
+				GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
 			}
 			else
 			{
 				ShaderCache.BindVertexArray(Material.Vao);
-				GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
+				GL_DrawArrays(PrimitiveType.Triangles, 0, 36);
 			}
 		}
 
@@ -240,7 +245,7 @@ public class ModelRenderer : TextureRenderer
 		{
 			GL.StencilFunc(StencilFunction.Notequal, 1, 0xFF);
 			GL.StencilMask(0x00);
-			GL.Disable(EnableCap.DepthTest);
+			// GL.Disable(EnableCap.DepthTest);
 			GL.Disable(EnableCap.Blend);
 
 			Material outlineMaterial = AssetManager.Load<Material>("ModelRendererUnlit");
@@ -259,8 +264,9 @@ public class ModelRenderer : TextureRenderer
 			outlineMaterial.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
 
 			ShaderCache.BindVertexArray(Model.Vao);
-
-			GL.DrawArrays(PrimitiveType.Triangles, 0, Model.VertexBufferDataLength);
+			GL.ActiveTexture(TextureUnit.Texture0);
+			TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
+			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
 
 
 			GL.StencilMask(0xFF);

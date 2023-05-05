@@ -6,7 +6,8 @@ public class SceneViewController
 {
 	bool _clickedInsideScene;
 	float _targetOrthoSize = -1;
-	float _moveSpeed = 2f; // WASD units moved per seconds
+	float _moveSpeed = 5f; // WASD units moved per seconds
+	float _moveSpeedMultiplier = 1; // WASD units moved per seconds
 
 	public SceneViewController()
 	{
@@ -193,14 +194,16 @@ public class SceneViewController
 
 			if (KeyboardInput.IsKeyDown(Keys.LeftShift))
 			{
-				keyboardMoveSpeed = keyboardMoveSpeed * 2;
+				_moveSpeedMultiplier = Mathf.Lerp(_moveSpeedMultiplier, 2, Time.EditorDeltaTime * 10);
 				//Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 100, Time.EditorDeltaTime * 7);
 			}
 			else
 			{
+				_moveSpeedMultiplier = Mathf.Lerp(_moveSpeedMultiplier, 1, Time.EditorDeltaTime * 10);
 				//Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 60, Time.EditorDeltaTime * 7);
 			}
 
+			keyboardMoveSpeed = keyboardMoveSpeed * _moveSpeedMultiplier;
 
 			_smoothKeyboardInputMoveVector = Vector3.Lerp(_smoothKeyboardInputMoveVector, _keyboardInputDirectionVector, Time.EditorDeltaTime * 4);
 

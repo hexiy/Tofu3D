@@ -42,7 +42,7 @@ public static class SceneManager
 
 		CurrentScene.Initialize();
 
-		SceneFile sceneFile = SceneSerializer.LoadGameObjects(path);
+		SceneFile sceneFile = SceneSerializer.LoadSceneFile(path);
 
 		SceneSerializer.ConnectGameObjectsWithComponents(sceneFile);
 		IDsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
@@ -75,14 +75,6 @@ public static class SceneManager
 
 
 		CurrentScene.CreateDefaultObjects();
-
-
-		//
-		// int lastSelectedGameObjectId = PersistentData.GetInt("lastSelectedGameObjectId", 0);
-		// if (Global.EditorAttached)
-		// {
-		// 	EditorPanelHierarchy.I.SelectGameObject(lastSelectedGameObjectId);
-		// }
 
 		Scene.SceneLoaded.Invoke();
 		Debug.EndAndLogTimer("LoadScene");

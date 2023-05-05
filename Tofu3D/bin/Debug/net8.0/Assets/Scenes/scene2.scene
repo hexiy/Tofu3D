@@ -10,7 +10,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -115,7 +115,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Chimp</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -257,14 +257,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-0.23893927</X>
-        <Y>1.2699527</Y>
-        <Z>-10.679116</Z>
+        <X>-0.23901965</X>
+        <Y>1.270199</Y>
+        <Z>-10.680175</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-0.23893927</X>
-        <Y>1.2699527</Y>
-        <Z>-10.679116</Z>
+        <X>-0.23901965</X>
+        <Y>1.270199</Y>
+        <Z>-10.680175</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -1149,6 +1149,8 @@
         <int>66</int>
         <int>37</int>
         <int>66</int>
+        <int>37</int>
+        <int>66</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -1253,7 +1255,7 @@
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
         </Shader>
-        <Vao>5</Vao>
+        <Vao>15</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Transparent</RenderMode>
@@ -1429,8 +1431,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>9</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
+        <IndicesCount>36</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -1472,7 +1475,7 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>0</Y>
+        <Y>-164.5</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -1504,7 +1507,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.9976425</DistanceFromCamera>
+      <DistanceFromCamera>10.998728</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1535,8 +1538,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>7</Vao>
-        <VertexBufferDataLength>371712</VertexBufferDataLength>
+        <Vao>6</Vao>
+        <VertexBufferDataLength>371688</VertexBufferDataLength>
+        <IndicesCount>46461</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -1610,7 +1614,7 @@
         <A>255</A>
         <PackedValue>4278190335</PackedValue>
       </Color>
-      <DistanceFromCamera>15.78051</DistanceFromCamera>
+      <DistanceFromCamera>15.781591</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1641,8 +1645,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
+        <IndicesCount>2880</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -1747,8 +1752,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
+        <IndicesCount>2880</IndicesCount>
       </Model>
       <CastShadow>false</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -1822,7 +1828,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>11.242877</DistanceFromCamera>
+      <DistanceFromCamera>11.243963</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1853,8 +1859,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>16</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
+        <IndicesCount>786801</IndicesCount>
       </Model>
       <CastShadow>false</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -1928,7 +1935,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>13.723687</DistanceFromCamera>
+      <DistanceFromCamera>13.724774</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -1959,8 +1966,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\torus.obj</AssetPath>
-        <Vao>10</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>27648</VertexBufferDataLength>
+        <IndicesCount>3456</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2067,6 +2075,7 @@
         <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
         <Vao>11</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
+        <IndicesCount>0</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2140,7 +2149,7 @@
         <A>255</A>
         <PackedValue>4278255379</PackedValue>
       </Color>
-      <DistanceFromCamera>20.7561</DistanceFromCamera>
+      <DistanceFromCamera>20.757177</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2171,8 +2180,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
+        <IndicesCount>2880</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2277,8 +2287,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>9</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
+        <IndicesCount>36</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2352,7 +2363,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.861968</DistanceFromCamera>
+      <DistanceFromCamera>10.863051</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -2383,8 +2394,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\Teapot.obj</AssetPath>
-        <Vao>11</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>506112</VertexBufferDataLength>
+        <IndicesCount>63264</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2392,5 +2404,5 @@
       <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
   </Components>
-  <GameObjectNextId>509</GameObjectNextId>
+  <GameObjectNextId>511</GameObjectNextId>
 </SceneFile>

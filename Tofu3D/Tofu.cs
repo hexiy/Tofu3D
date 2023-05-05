@@ -25,6 +25,8 @@ public class Tofu
 	{
 		SystemConfig.Configure();
 		Global.LoadSavedData();
+
+		SceneSerializer.Initialize();
 		RenderSettings.LoadSavedData();
 		AssetsWatcher.StartWatching();
 

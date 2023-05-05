@@ -85,7 +85,7 @@ public class EditorPanelMenuBar : EditorPanel
 				ImGui.EndMenu();
 			}
 
-			bool showDebugButton = KeyboardInput.IsKeyDown(Keys.LeftAlt);
+			bool showDebugButton = true;// KeyboardInput.IsKeyDown(Keys.LeftAlt);
 			if (showDebugButton)
 			{
 				bool debugButtonClicked = ImGui.SmallButton($"Debug [{(Global.Debug ? "ON" : "OFF")}]");

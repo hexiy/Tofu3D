@@ -78,16 +78,24 @@ public class Renderer : Component, IComparable<Renderer>
 		return GetModelMatrix() * Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
 	}
 
-	internal void RenderWireframe(int verticesCount)
+	internal void GL_DrawArrays(PrimitiveType primitiveType, int first, int count)
+	{
+		GL.DrawArrays(primitiveType, first, count);
+		Debug.StatAddValue("Indices drawn", count);
+		DebugHelper.LogDrawCall();
+	}
+
+	internal void RenderWireframe(int indicesCount)
 	{
 		if (RenderSettings.CurrentWireframeRenderSettings.WireframeVisible)
 		{
 			Material.Shader.SetColor("u_rendererColor", Color.Black);
-			GL.LineWidth(RenderSettings.CurrentWireframeRenderSettings.WireframeLineWidth / (DistanceFromCamera + 0.1f) * 20);
+			GL.LineWidth(RenderSettings.CurrentWireframeRenderSettings.WireframeLineWidth / (DistanceFromCamera * 10));
 
-			GL.DrawArrays(PrimitiveType.LineLoop, 0, verticesCount);
-			Material.Shader.SetColor("u_rendererColor", Color);
-			DebugHelper.LogDrawCall();
+			// float s = Mathf.SinAbs(Time.EditorElapsedTime * 0.5f);
+			GL_DrawArrays(PrimitiveType.LineLoop, 0, indicesCount);
+			// GL.DrawArrays(PrimitiveType.LineLoop, 0, (int) (verticesCount * s));
+			// Material.Shader.SetColor("u_rendererColor", Color);
 		}
 	}
 
@@ -146,7 +154,7 @@ public class Renderer : Component, IComparable<Renderer>
 
 	public Matrix4x4 GetMvpForOutline()
 	{
-		float outlineThickness = 0.002f * ((float) MathHelper.Sin(Time.EditorElapsedTime * 2) + 1.3f) * DistanceFromCamera;
+		float outlineThickness = 0.002f * ((float) MathHelper.Sin(Time.EditorElapsedTime * 2) + 1.3f) * DistanceFromCamera * BoxShape.Size.Length();
 		// float outlineThickness = 0.04f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime*5)),0) * DistanceFromCamera * 0.3f;
 		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
 
@@ -184,12 +192,11 @@ public class Renderer : Component, IComparable<Renderer>
 		UpdateMvp();
 
 		DistanceFromCamera = CalculateDistanceFromCamera();
-		/*if (Color.A != 255)
+		if (Color.A != 255)
 		{
 			if (RenderMode != RenderMode.Transparent)
 			{
 				RenderMode = RenderMode.Transparent;
-				SceneManager.CurrentScene.ForceRenderQueueChanged();
 			}
 		}
 		else
@@ -197,9 +204,8 @@ public class Renderer : Component, IComparable<Renderer>
 			if (RenderMode != RenderMode.Opaque)
 			{
 				RenderMode = RenderMode.Opaque;
-				SceneManager.CurrentScene.ForceRenderQueueChanged();
 			}
-		}*/
+		}
 
 		if (BoxShape == null)
 		{

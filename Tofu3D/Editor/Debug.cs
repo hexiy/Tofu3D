@@ -103,10 +103,12 @@ public static class Debug
 
 		if (AdditiveStats.ContainsKey(statName) == false)
 		{
-			AdditiveStats[statName] = 0;
+			AdditiveStats[statName] = value;
 		}
-
-		AdditiveStats[statName] += value;
+		else
+		{
+			AdditiveStats[statName] += value;
+		}
 	}
 
 	public static void StatSetAdditiveValue(string statName, float value)
@@ -157,14 +159,16 @@ public static class Debug
 		GraphTimers[timerName].Stopwatch.Stop();
 	}
 
-	public static void EndTimer(string timerName)
+	public static float EndTimer(string timerName)
 	{
 		if (Global.EditorAttached == false)
 		{
-			return;
+			return -1;
 		}
 
 		SimpleTimers[timerName].Stop();
+		float msDuration = (float) Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
+		return msDuration;
 	}
 
 	public static void EndAndLogGraphTimer(string timerName)
@@ -201,17 +205,18 @@ public static class Debug
 		}
 	}
 
-	public static void EndAndLogTimer(string timerName)
+	public static float EndAndLogTimer(string timerName)
 	{
 		if (Global.EditorAttached == false)
 		{
-			return;
+			return -1;
 		}
 
 		EndTimer(timerName);
 		float msDuration = (float) Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
 
 		Log($"{timerName} : {msDuration} ms", LogCategory.Timer);
+		return msDuration;
 	}
 
 	public static void ResetTimers()

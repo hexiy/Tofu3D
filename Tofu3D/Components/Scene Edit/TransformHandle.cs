@@ -287,19 +287,20 @@ public class TransformHandle : Component
 		for (int i = 0; i < selection.Count; i++)
 		{
 			GameObject go = SceneManager.CurrentScene.GetGameObject(selection[i]);
-			if (go.Transform.IsInCanvas == true)
-			{
-				Transform.MockIsInCanvas = true;
-			}
 
 			if (go != null)
 			{
+				if (go.Transform.IsInCanvas == true)
+				{
+					Transform.MockIsInCanvas = true;
+				}
+
 				_selectedTransforms.Add(go.Transform);
 			}
 		}
 
 		Transform.WorldPosition = GetCenterOfSelection();
-		ObjectSelected = true;
+		ObjectSelected = _selectedTransforms.Count > 0;
 	}
 
 	private Vector3 GetCenterOfSelection()

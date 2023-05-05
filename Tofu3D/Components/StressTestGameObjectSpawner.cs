@@ -1,4 +1,5 @@
 namespace Tofu3D;
+
 [ExecuteInEditMode]
 public class StressTestGameObjectSpawner : Component
 {
@@ -10,16 +11,33 @@ public class StressTestGameObjectSpawner : Component
 	public Action Spawn;
 	public int SpawnCount = 1000;
 
+	bool _savedToClipboard = false;
+
 	public override void Awake()
 	{
 		Spawn += () =>
 		{
-			SceneSerializer.SaveClipboardGameObject(Go);
+			if (_savedToClipboard == false)
+			{
+				SceneSerializer.SaveClipboardGameObject(Go);
+			}
+
+			string timerName = $"StressTest";
+			Debug.StartTimer(timerName);
+
 
 			for (int i = 0; i < SpawnCount; i++)
 			{
-				SceneSerializer.LoadClipboardGameObject();
+				// GameObject go = SceneSerializer.Experimental_LoadClipboardGameObject();
+				GameObject go = SceneSerializer.LoadClipboardGameObject();
+				go.Transform.LocalPosition += new Vector3(Random.Range(-10f, 10f), Random.Range(0, 10), Random.Range(0, 10));
+				go.Transform.Rotation += new Vector3(0, Random.Range(0, 360), 0);
+				go.GetComponent<Renderer>().Color = Random.RandomColor();
 			}
+
+			float duration = Debug.EndTimer(timerName);
+
+			Debug.Log($"Spawning {SpawnCount} objects took {duration} ms, {duration / SpawnCount} ms for 1 object");
 		};
 		Despawn += () =>
 		{

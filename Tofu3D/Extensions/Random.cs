@@ -1,8 +1,8 @@
 ﻿namespace Tofu3D;
 
-public static class Rendom
+public static class Random
 {
-	public static Random Rnd = new();
+	public static System.Random Rnd = new();
 
 	public static int Range(int min, int max)
 	{

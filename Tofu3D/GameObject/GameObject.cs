@@ -367,7 +367,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
 		Awoken = true;
 	}
-
+	
 	public bool CallComponentExecuteInEditModeMethod(Component component, string methodName)
 	{
 		return component.CallComponentExecuteInEditModeMethod(methodName);

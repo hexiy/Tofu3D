@@ -14,7 +14,6 @@ public class ParticleSystem : Component
 	private Pool<Particle> _pool = new(() => new Particle());
 	private ParticleSystemRenderer _renderer;
 
-	private Random _rnd = new();
 	private float _time;
 	[Show] public Vector2 StartVelocity { get; set; } = new(0, 0);
 	[Show] public float Speed { get; set; } = 2;
@@ -90,11 +89,11 @@ public class ParticleSystem : Component
 		p.Lifetime = 0;
 		p.Radius = StartSize;
 		p.WorldPosition = Transform.WorldPosition;
-		p.WorldPosition += new Vector2(Rendom.Range(-SpawnBoundsSize.X, SpawnBoundsSize.X), Rendom.Range(-SpawnBoundsSize.Y, SpawnBoundsSize.Y));
+		p.WorldPosition += new Vector2(Random.Range(-SpawnBoundsSize.X, SpawnBoundsSize.X), Random.Range(-SpawnBoundsSize.Y, SpawnBoundsSize.Y));
 
 		p.Velocity = StartVelocity;
 		//p.Color = StartColor;
-		p.Color = Rendom.ColorRange(StartColor, StartColor2);
+		p.Color = Random.ColorRange(StartColor, StartColor2);
 		p.SpawnColor = p.Color;
 		lock (ListLock)
 		{

@@ -159,11 +159,13 @@ frag_color = result;
 }
 if (u_renderMode == 1) // positions
 {
-frag_color = vec4(normalize(- vertexPositionWorld) * result.rgb, result.a);
+//frag_color = vec4(normalize(- vertexPositionWorld) * result.rgb, result.a);
+frag_color = vec4(normalize(- vertexPositionWorld), result.a);
 }
 if (u_renderMode == 2) // normals
 {
-frag_color = vec4(normalize(- normal) * result.rgb, result.a);
+//frag_color = vec4(normalize(- normal) * result.rgb, result.a);
+frag_color = vec4(normalize(- normal), result.a);
 }
 gl_FragDepth = gl_FragCoord.z;
 }

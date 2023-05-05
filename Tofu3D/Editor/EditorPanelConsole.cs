@@ -64,7 +64,7 @@ public class EditorPanelConsole : EditorPanel
 		if (testMessageBtnClicked)
 		{
 			LogCategory randomCategory = LogCategory.Info;
-			int rnd = Rendom.Range(0, 4);
+			int rnd = Random.Range(0, 4);
 			if (rnd == 0) randomCategory = LogCategory.Error;
 			if (rnd == 1) randomCategory = LogCategory.Warning;
 			if (rnd == 2) randomCategory = LogCategory.Info;
@@ -146,6 +146,7 @@ public class EditorPanelConsole : EditorPanel
 			bool clicked = ImGui.IsItemClicked();
 			if (clicked)
 			{
+				Tofu.I.Window.ClipboardString = log.Message;
 				_selectedMessageIndex = _selectedMessageIndex == i ? -1 : i;
 			}
 

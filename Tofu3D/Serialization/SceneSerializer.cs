@@ -9,6 +9,12 @@ public static class SceneSerializer
 
 	static XmlSerializer _xmlSerializer;
 
+	public static void Initialize()
+	{
+		UpdateSerializableTypes();
+	}
+
+	// update serializable types only on file watch script changed
 	static void UpdateSerializableTypes()
 	{
 		if (_serializableTypes.Count == 0)
@@ -60,42 +66,45 @@ public static class SceneSerializer
 
 	public static GameObject LoadPrefab(string prefabPath, bool inBackground = false)
 	{
-		using (StreamReader sr = new(prefabPath))
+		// string timerName = $"LoadPrefab()";
+		// Debug.StartTimer(timerName);
+
+
+		StreamReader sr = new(prefabPath);
+		// maybe cache streamreader in a dictionary and close it after few frames if not used?
+		SceneFile sceneFile = (SceneFile) _xmlSerializer.Deserialize(sr);
+		sr.Close();
+
+		// float duration = Debug.EndTimer(timerName);
+		// Debug.Log($"LoadPrefab() took {duration}");
+
+		ConnectGameObjectsWithComponents(sceneFile);
+
+		ConnectParentsAndChildren(sceneFile, true);
+
+		GameObject mainGo = null;
+		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 		{
-			UpdateSerializableTypes();
-
-			XmlSerializer xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
-
-			SceneFile sceneFile = (SceneFile) xmlSerializer.Deserialize(sr);
-
-			ConnectGameObjectsWithComponents(sceneFile);
-
-			ConnectParentsAndChildren(sceneFile, true);
-
-			GameObject mainGo = new();
-			for (int i = 0; i < sceneFile.GameObjects.Count; i++)
+			for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
 			{
-				for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
-				{
-					sceneFile.GameObjects[i].Components[j].GameObjectId = sceneFile.GameObjects[i].Id;
-				}
-
-				GameObject go = sceneFile.GameObjects[i];
-
-				if (i == 0)
-				{
-					mainGo = go;
-				}
-
-				if (inBackground == false)
-				{
-					SceneManager.CurrentScene.AddGameObjectToScene(go);
-					go.Awake();
-				}
+				sceneFile.GameObjects[i].Components[j].GameObjectId = sceneFile.GameObjects[i].Id;
 			}
 
-			return mainGo;
+			GameObject go = sceneFile.GameObjects[i];
+
+			if (i == 0)
+			{
+				mainGo = go;
+			}
+
+			if (inBackground == false)
+			{
+				SceneManager.CurrentScene.AddGameObjectToScene(go);
+				go.Awake();
+			}
 		}
+
+		return mainGo;
 	}
 
 	public static void SaveGameObjects(SceneFile sceneFile, string scenePath)
@@ -111,8 +120,6 @@ public static class SceneSerializer
 				}
 			}
 
-			UpdateSerializableTypes();
-
 			XmlSerializer xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
 			xmlSerializer.Serialize(sw, sceneFile);
 
@@ -127,9 +134,8 @@ public static class SceneSerializer
 		}
 	}
 
-	public static SceneFile LoadGameObjects(string scenePath)
+	public static SceneFile LoadSceneFile(string scenePath)
 	{
-		UpdateSerializableTypes();
 		/*string xml = "";
 		using (StreamReader sr = new(scenePath))
 		{

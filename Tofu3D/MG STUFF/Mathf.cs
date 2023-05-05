@@ -241,7 +241,20 @@ public static class Mathf
 	{
 		return (float) Math.Pow(value1, value2);
 	}
+	public static float Abs(float value1)
+	{
+		return Math.Abs(value1);
+	}
 
+	public static float Sin(float value1)
+	{
+		return (float) Math.Sin(value1);
+	}
+
+	public static float SinAbs(float value1)
+	{
+		return Abs(Sin(value1));
+	}
 	/// <summary>
 	///         Linearly interpolates between two values.
 	///         This method is a less efficient, more precise version of <see cref="Mathf.Lerp" />.

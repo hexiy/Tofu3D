@@ -53,7 +53,6 @@ public class ParticleSystemRenderer : SpriteRenderer
 				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 			}
 
-
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
 			DebugHelper.LogDrawCall();

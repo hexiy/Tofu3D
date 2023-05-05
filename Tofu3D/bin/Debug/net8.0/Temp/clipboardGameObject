@@ -5,12 +5,12 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>130</Id>
-      <IndexInHierarchy>7</IndexInHierarchy>
+      <Id>488</Id>
+      <IndexInHierarchy>6</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Chimp</Name>
+      <Name>Monke</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -20,26 +20,26 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>130</GameObjectId>
+      <GameObjectId>488</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
         <X>0.5</X>
-        <Y>0.5</Y>
+        <Y>0</Y>
         <Z>0.5</Z>
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>1.5</X>
-        <Y>-0.7</Y>
-        <Z>0</Z>
+        <X>0</X>
+        <Y>2</Y>
+        <Z>0.5</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1.5</X>
-        <Y>-0.7</Y>
-        <Z>0</Z>
+        <X>0</X>
+        <Y>2</Y>
+        <Z>0.5</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -53,13 +53,13 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>0</Y>
+        <Y>-180</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>130</GameObjectId>
+      <GameObjectId>488</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -68,24 +68,24 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>100</X>
-        <Y>100</Y>
-        <Z>100</Z>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRenderer">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>130</GameObjectId>
+      <GameObjectId>488</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
         <B>255</B>
-        <G>255</G>
-        <R>255</R>
+        <G>250</G>
+        <R>87</R>
         <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <PackedValue>4294965847</PackedValue>
       </Color>
-      <DistanceFromCamera>246.76709</DistanceFromCamera>
+      <DistanceFromCamera>12.602063</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -107,8 +107,8 @@
         </Size>
       </Texture>
       <Tiling>
-        <X>1</X>
-        <Y>1</Y>
+        <X>10</X>
+        <Y>10</Y>
       </Tiling>
       <Offset>
         <X>0</X>
@@ -116,14 +116,16 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>7</Vao>
-        <VertexBufferDataLength>371712</VertexBufferDataLength>
+        <Vao>6</Vao>
+        <VertexBufferDataLength>371688</VertexBufferDataLength>
+        <IndicesCount>46461</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
-      <SpecularSmoothness>0.057</SpecularSmoothness>
+      <SpecularSmoothness>0.044</SpecularSmoothness>
       <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>
+  <Path>Temp\clipboardGameObject</Path>
 </SceneFile>
