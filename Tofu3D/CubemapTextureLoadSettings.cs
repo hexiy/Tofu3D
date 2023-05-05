@@ -56,7 +56,11 @@ public class CubemapTextureLoadSettings : AssetLoadSettings<CubemapTexture>
 	{
 		HashCodeCombiner hashCodeCombiner = HashCodeCombiner.Start();
 		hashCodeCombiner.Add(base.GetHashCode());
-		hashCodeCombiner.Add(Paths.GetHashCode());
+		foreach (string path in Paths)
+		{
+			hashCodeCombiner.Add(path.GetHashCode());
+		}
+
 		hashCodeCombiner.Add(FilterMode.GetHashCode());
 		hashCodeCombiner.Add(WrapMode.GetHashCode());
 		hashCodeCombiner.Add(FlipX.GetHashCode());

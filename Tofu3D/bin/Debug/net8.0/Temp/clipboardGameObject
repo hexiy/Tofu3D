@@ -85,7 +85,7 @@
         <A>255</A>
         <PackedValue>4294965847</PackedValue>
       </Color>
-      <DistanceFromCamera>12.602063</DistanceFromCamera>
+      <DistanceFromCamera>12.602048</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -127,5 +127,4 @@
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>
-  <Path>Temp\clipboardGameObject</Path>
 </SceneFile>

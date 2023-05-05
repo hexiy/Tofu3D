@@ -14,7 +14,7 @@ public class CubemapTextureLoader : AssetLoader<CubemapTexture>
 
 	public override void UnloadAsset(Asset<CubemapTexture> asset)
 	{
-		throw new NotImplementedException();
+		GL.DeleteTexture(asset.AssetRuntimeHandle.Id);
 	}
 
 	public override Asset<CubemapTexture> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
