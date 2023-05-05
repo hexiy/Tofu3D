@@ -76,7 +76,7 @@ public static class SceneManager
 
 		CurrentScene.CreateDefaultObjects();
 
-		Scene.SceneLoaded.Invoke();
+		Scene.AnySceneLoaded.Invoke();
 		Debug.EndAndLogTimer("LoadScene");
 
 		return true;

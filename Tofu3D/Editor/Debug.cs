@@ -8,7 +8,7 @@ public static class Debug
 {
 	static List<LogEntry> _logs = new();
 
-	public static readonly int LogLimit = 3000;
+	public static readonly int Limit = 3000;
 
 	public static Dictionary<string, DebugGraphTimer> GraphTimers = new();
 	public static Dictionary<string, Stopwatch> SimpleTimers = new();
@@ -35,7 +35,7 @@ public static class Debug
 
 		//Tofu.I.Window.Title = logs.Last();
 
-		if (_logs.Count > LogLimit + 1)
+		if (_logs.Count > Limit + 1)
 		{
 			_logs.RemoveAt(0);
 		}

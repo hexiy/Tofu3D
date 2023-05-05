@@ -137,14 +137,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-0.29839677</X>
-        <Y>5.274719</Y>
-        <Z>-11.729723</Z>
+        <X>-0.29970652</X>
+        <Y>5.2716317</Y>
+        <Z>-11.666274</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-0.29839677</X>
-        <Y>5.274719</Y>
-        <Z>-11.729723</Z>
+        <X>-0.29970652</X>
+        <Y>5.2716317</Y>
+        <Z>-11.666274</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -157,8 +157,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>10.819355</X>
-        <Y>3.7869108</Y>
+        <X>2.030168</X>
+        <Y>-3.4474041</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -335,7 +335,7 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>-58.48615</Y>
+        <Y>-14.51318</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -431,7 +431,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>12.864606</DistanceFromCamera>
+      <DistanceFromCamera>12.805541</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -538,7 +538,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>22.239563</DistanceFromCamera>
+      <DistanceFromCamera>22.17825</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -747,12 +747,12 @@
       <Enabled>true</Enabled>
       <Color>
         <B>255</B>
-        <G>255</G>
-        <R>255</R>
+        <G>250</G>
+        <R>87</R>
         <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <PackedValue>4294965847</PackedValue>
       </Color>
-      <DistanceFromCamera>12.664082</DistanceFromCamera>
+      <DistanceFromCamera>12.602048</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -782,10 +782,10 @@
         <Y>0</Y>
       </Offset>
       <Model>
-        <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>7</Vao>
-        <VertexBufferDataLength>288</VertexBufferDataLength>
-        <IndicesCount>36</IndicesCount>
+        <AssetPath>Assets\3D\monke.obj</AssetPath>
+        <Vao>6</Vao>
+        <VertexBufferDataLength>371688</VertexBufferDataLength>
+        <IndicesCount>46461</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -831,12 +831,28 @@
         <Z>0</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="TerrainGenerator">
+    <Component xsi:type="StressTestGameObjectSpawner">
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>669</GameObjectId>
-      <Started>false</Started>
+      <Started>true</Started>
       <Enabled>true</Enabled>
+      <Go>
+        <AlwaysUpdate>false</AlwaysUpdate>
+        <DestroyTimer>2</DestroyTimer>
+        <DynamicallyCreated>false</DynamicallyCreated>
+        <Id>488</Id>
+        <IndexInHierarchy>6</IndexInHierarchy>
+        <IsPrefab>false</IsPrefab>
+        <Name>Monke</Name>
+        <PrefabPath />
+        <Selected>false</Selected>
+        <Silent>false</Silent>
+        <Started>true</Started>
+        <UpdateWhenDisabled>false</UpdateWhenDisabled>
+        <ActiveSelf>true</ActiveSelf>
+      </Go>
+      <SpawnCount>5</SpawnCount>
     </Component>
   </Components>
-  <GameObjectNextId>718</GameObjectNextId>
+  <GameObjectNextId>716</GameObjectNextId>
 </SceneFile>

@@ -34,6 +34,7 @@ public class EditorPanelBrowser : EditorPanel
 	{
 		I = this;
 
+		AssetsWatcher.RegisterFileChangedCallback(OnFileChanged, "*");
 		CreateContextItems();
 
 		_fileIcon = AssetManager.Load<Texture>(path: "Resources/FileIcon.png", loadSettings: _iconTextureLoadSettings);
@@ -65,6 +66,20 @@ public class EditorPanelBrowser : EditorPanel
 
 	public override void Update()
 	{
+	}
+
+	void OnFileChanged(FileChangedInfo fileChangedInfo)
+	{
+		string directoryName = Path.GetDirectoryName(fileChangedInfo.Path);
+		string currentDirectoryAssetsRelativePath = Folders.GetPathRelativeToAssetsFolder(CurrentDirectory.FullName);
+		bool fileGotDeletedInCurrentDirectory = fileChangedInfo.Path == currentDirectoryAssetsRelativePath; // when file is deleted, we only get the directory
+		if (directoryName != currentDirectoryAssetsRelativePath && fileGotDeletedInCurrentDirectory == false)
+		{
+			return;
+		}
+
+		// file in currently selected folder changed
+		RefreshAssets();
 	}
 
 	void RefreshAssets()

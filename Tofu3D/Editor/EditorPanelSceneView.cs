@@ -20,7 +20,6 @@ public class EditorPanelSceneView : EditorPanel
 			return;
 		}
 
-
 		if (Global.EditorAttached)
 		{
 			int tooltipsPanelHeight = 70;

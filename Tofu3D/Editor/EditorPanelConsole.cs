@@ -123,7 +123,7 @@ public class EditorPanelConsole : EditorPanel
 		ImGui.BeginChildFrame(2, ImGui.GetContentRegionAvail() * new System.Numerics.Vector2(1, _selectedMessageIndex == -1 ? 1 : 0.7f));
 		int logsCount = Debug.GetLogsRef().Count;
 		int drawnLogsCounter = 0;
-		for (int i = 0; i < Mathf.Min(logsCount, Debug.LogLimit - 1); i++)
+		for (int i = 0; i < Mathf.Min(logsCount, Debug.Limit - 1); i++)
 		{
 			LogEntry log = Debug.GetLogsRef()[i];
 

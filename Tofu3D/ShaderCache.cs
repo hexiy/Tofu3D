@@ -1,10 +1,25 @@
-﻿namespace Tofu3D;
+﻿using System.IO;
+
+namespace Tofu3D;
 
 public static class ShaderCache
 {
 	public static int ShaderInUse = -1;
 	public static int VaoInUse = -100;
 	static List<string> _shadersReloadQueue = new List<string>();
+
+	public static void Initialize()
+	{
+		AssetsWatcher.RegisterFileChangedCallback(OnFileChanged, ".glsl");
+	}
+
+	static void OnFileChanged(FileChangedInfo fileChangedInfo)
+	{
+		if (fileChangedInfo.ChangeType is WatcherChangeTypes.Changed)
+		{
+			QueueShaderReload(fileChangedInfo.Path);
+		}
+	}
 
 	public static void BindVertexArray(int vao)
 	{

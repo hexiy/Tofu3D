@@ -4,6 +4,21 @@ namespace Tofu3D;
 
 public class Folders
 {
+	/// <summary>
+	/// Including "Assets/"
+	/// </summary>
+	/// <param name="path"></param>
+	/// <returns></returns>
+	public static string GetPathRelativeToAssetsFolder(string path)
+	{
+		if (path.Length == 0)
+		{
+			return Assets;
+		}
+
+		return Path.Combine("Assets", Path.GetRelativePath(Assets, path));
+	}
+
 	public static string GetPathRelativeToEngineFolder(string path)
 	{
 		if (path.Length == 0)

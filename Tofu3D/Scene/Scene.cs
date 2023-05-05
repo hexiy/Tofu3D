@@ -15,11 +15,15 @@ public class Scene
 
 	public List<GameObject> GameObjects = new();
 	public string ScenePath = "";
+	public string SceneName
+	{
+		get { return Path.GetFileName(ScenePath); }
+	}
 
 	public static Action SceneDisposed = () => { };
 	public static Action<Component> ComponentAdded = component => { };
 	public static Action SceneModified = () => { };
-	public static Action SceneLoaded = () => { };
+	public static Action AnySceneLoaded = () => { };
 	Camera Camera
 	{
 		get { return Camera.MainCamera; }
