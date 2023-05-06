@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Scripts;
 
-public class Component : IDestroyable, IInspectable
+public class Component : IDestroyable, IInspectable, ICloneable
 {
 	static Dictionary<string, MethodInfo> _executeInEditModeMethods = new Dictionary<string, MethodInfo>();
 	[XmlIgnore] public bool CanExecuteUpdateInEditMode { get; private set; } = false;
@@ -229,5 +229,10 @@ public class Component : IDestroyable, IInspectable
 		}
 
 		return true;
+	}
+
+	public object Clone()
+	{
+		return this.MemberwiseClone();
 	}
 }

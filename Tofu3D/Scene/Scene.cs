@@ -13,7 +13,24 @@ public class Scene
 	SceneRenderQueue _sceneRenderQueue;
 	public TransformHandle TransformHandle;
 
+	// List<GameObject> _gameObjects = new();
 	public List<GameObject> GameObjects = new();
+	/*{
+		get
+		{
+			lock (_gameObjects)
+			{
+				return _gameObjects;
+			}
+		}
+		set
+		{
+			lock (_gameObjects)
+			{
+				_gameObjects = value;
+			}
+		}
+	}*/
 	public string ScenePath = "";
 	public string SceneName
 	{
@@ -300,6 +317,13 @@ public class Scene
 	public void AddGameObjectToScene(GameObject gameObject)
 	{
 		GameObjects.Add(gameObject);
+
+		_sceneRenderQueue.RenderQueueChanged();
+	}
+
+	public void AddGameObjectsToScene(IEnumerable<GameObject> gameObjects)
+	{
+		GameObjects.AddRange(gameObjects);
 
 		_sceneRenderQueue.RenderQueueChanged();
 	}

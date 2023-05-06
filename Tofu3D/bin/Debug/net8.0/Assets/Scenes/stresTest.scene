@@ -122,14 +122,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>0.16029635</X>
-        <Y>3.9433215</Y>
-        <Z>-3.6279128</Z>
+        <X>0.16062327</X>
+        <Y>3.9441688</Y>
+        <Z>-3.6327884</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.16029635</X>
-        <Y>3.9433215</Y>
-        <Z>-3.6279128</Z>
+        <X>0.16062327</X>
+        <Y>3.9441688</Y>
+        <Z>-3.6327884</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -320,7 +320,7 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>35.42542</Y>
+        <Y>-28.624464</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -416,7 +416,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>5.3607116</DistanceFromCamera>
+      <DistanceFromCamera>5.3646455</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -447,7 +447,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>5</Vao>
+        <Vao>6</Vao>
         <VertexBufferDataLength>48</VertexBufferDataLength>
         <IndicesCount>6</IndicesCount>
       </Model>
@@ -523,7 +523,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>14.914055</DistanceFromCamera>
+      <DistanceFromCamera>14.91817</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -554,7 +554,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>5</Vao>
+        <Vao>6</Vao>
         <VertexBufferDataLength>48</VertexBufferDataLength>
         <IndicesCount>6</IndicesCount>
       </Model>
@@ -661,7 +661,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>5</Vao>
+        <Vao>6</Vao>
         <VertexBufferDataLength>48</VertexBufferDataLength>
         <IndicesCount>6</IndicesCount>
       </Model>
@@ -716,9 +716,10 @@
       <Enabled>true</Enabled>
       <CubePrefab>
         <AlwaysUpdate>false</AlwaysUpdate>
+        <Awoken>true</Awoken>
         <DestroyTimer>2</DestroyTimer>
         <DynamicallyCreated>false</DynamicallyCreated>
-        <Id>736</Id>
+        <Id>742</Id>
         <IndexInHierarchy>6</IndexInHierarchy>
         <IsPrefab>true</IsPrefab>
         <Name>Cube</Name>
@@ -729,8 +730,8 @@
         <UpdateWhenDisabled>false</UpdateWhenDisabled>
         <ActiveSelf>true</ActiveSelf>
       </CubePrefab>
-      <TerrainSize>10</TerrainSize>
+      <TerrainSize>1000</TerrainSize>
     </Component>
   </Components>
-  <GameObjectNextId>741</GameObjectNextId>
+  <GameObjectNextId>744</GameObjectNextId>
 </SceneFile>

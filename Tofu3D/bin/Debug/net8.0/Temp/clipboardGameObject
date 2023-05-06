@@ -6,7 +6,7 @@
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>488</Id>
-      <IndexInHierarchy>6</IndexInHierarchy>
+      <IndexInHierarchy>7</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Cube</Name>
       <PrefabPath />
@@ -85,7 +85,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>5.6451416</DistanceFromCamera>
+      <DistanceFromCamera>39.796883</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
@@ -116,14 +116,14 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\coobe.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <IndicesCount>36</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
-      <SpecularSmoothness>0.99</SpecularSmoothness>
-      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+      <SpecularSmoothness>0</SpecularSmoothness>
+      <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

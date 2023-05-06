@@ -5,7 +5,7 @@ using Component = Scripts.Component;
 
 namespace Tofu3D;
 
-public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
+public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, ICloneable
 {
 	bool _activeSelf = true;
 	public bool ActiveSelf
@@ -111,29 +111,29 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 	[XmlIgnore] public Transform Transform { get; set; }
 	//private List<Component> ComponentsWaitingToBePaired = new List<Component>();
 
-	public void Setup()
-	{
-		if (Id == -1)
-		{
-			Id = IDsManager.GameObjectNextId;
-			IDsManager.GameObjectNextId++;
-		}
-
-		if (Transform == null && GetComponent<Transform>() == null)
-		{
-			Transform = AddComponent<Transform>();
-		}
-
-		SceneManager.CurrentScene.AddGameObjectToScene(this);
-	}
-
-	public static GameObject Create(Vector3? position = null, Vector3? scale = null, string name = "", bool linkComponents = true, bool silent = false)
+	public static GameObject Create(Vector3? position = null, Vector3? scale = null, string name = "", bool linkComponents = true, bool silent = false, bool addToScene = true)
 	{
 		GameObject go = new();
 
 		go.Name = name;
 		go.Silent = silent;
-		go.Setup();
+
+
+		if (go.Id == -1)
+		{
+			go.AssignNewId();
+		}
+
+		if (go.Transform == null && go.GetComponent<Transform>() == null)
+		{
+			go.Transform = go.AddComponent<Transform>();
+		}
+
+		if (addToScene)
+		{
+			SceneManager.CurrentScene.AddGameObjectToScene(go);
+		}
+
 		if (position != null)
 		{
 			go.Transform.WorldPosition = position.Value;
@@ -145,6 +145,19 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 		}
 
 		return go;
+	}
+
+	public void AssignNewId()
+	{
+		Id = IDsManager.GameObjectNextId;
+		IDsManager.GameObjectNextId++;
+
+
+		for (int i = 0; i < Components.Count; i++)
+		{
+			Components[i].GameObjectId = Id;
+			Components[i].GameObject = this;
+		}
 	}
 
 	void DestroyChildren()
@@ -362,12 +375,17 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 				{
 					Components[i].Awake();
 				}
+
+				if (Components[i].Awoken == false)
+				{
+					Debug.LogError($"Couldn't awaken component [{Components[i].GetType().ToString()}] with gameobjectID {Id}");
+				}
 			}
 		}
 
 		Awoken = true;
 	}
-	
+
 	public bool CallComponentExecuteInEditModeMethod(Component component, string methodName)
 	{
 		return component.CallComponentExecuteInEditModeMethod(methodName);
@@ -821,5 +839,23 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 		}
 
 		return true;
+	}
+
+	public object Clone()
+	{
+		object memberwiseClone = this.MemberwiseClone();
+		GameObject clone = (GameObject) memberwiseClone;
+
+		clone.Components = new List<Component>();
+		for (int i = 0; i < Components.Count; i++)
+		{
+			clone.Components.Add((Component) this.Components[i].Clone());
+		}
+
+		clone.AssignNewId();
+
+		clone.Transform = clone.GetComponent<Transform>();
+
+		return (object) clone;
 	}
 }

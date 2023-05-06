@@ -1,4 +1,9 @@
-﻿namespace Tofu3D;
+﻿using System.Collections.Concurrent;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Tofu3D;
 
 [ExecuteInEditMode]
 public class TerrainGenerator : Component
@@ -9,16 +14,17 @@ public class TerrainGenerator : Component
 	[XmlIgnore]
 	public Action Despawn;
 	public int TerrainSize = 10;
+	public int ThreadsToUse = 2;
 	float _cubeModelSize = 2;
 
 	bool _savedToClipboard = false;
-	PerlinNoise _perlinNoise;
 
 	public override void Awake()
 	{
-		_perlinNoise = new PerlinNoise((int) (Time.EditorDeltaTime * 100000));
-		Spawn += GenerateTerrain;
+		Spawn += StartTerrainGenerationOnNewThread;
 		Despawn += DestroyTerrain;
+		SceneSerializer.SaveClipboardGameObject(CubePrefab);
+		base.Awake();
 	}
 
 	void DestroyTerrain()
@@ -29,38 +35,106 @@ public class TerrainGenerator : Component
 		}
 	}
 
-	public override void Start()
+	public override void Update()
 	{
-		// Spawn();
+		if (_threadsWorkingCount == 0)
+		{
+			_threadsWorkingCount = -1;
+			
+		}
+
+		base.Update();
 	}
 
-	private void GenerateTerrain()
+	int _threadsWorkingCount = -1;
+
+	private void StartTerrainGenerationOnNewThread()
 	{
-		if (_savedToClipboard == false)
+		DestroyTerrain();
+		_concurrentBag.Clear();
+
+		Debug.StartTimer($"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");
+
+		int numberOfThreads = ThreadsToUse;
+		_threadsWorkingCount = numberOfThreads;
+		List<Thread> threads = new List<Thread>();
+		for (int threadIndex = 0; threadIndex < numberOfThreads; threadIndex++)
 		{
-			SceneSerializer.SaveClipboardGameObject(CubePrefab);
+			int capturedThreadIndex = threadIndex;
+			Thread thread = new Thread(() => GenerateTerrain(TerrainSize, CubePrefab, capturedThreadIndex, numberOfThreads));
+			threads.Add(thread);
+		}
+
+		threads.ForEach(t => t.Start());
+	}
+
+	ConcurrentQueue<GameObject> _concurrentBag = new ConcurrentQueue<GameObject>();
+
+	private void GenerateTerrain(int terrainSize, GameObject referenceGameObject, int threadIndex, int numberOfThreads)
+	{
+		Debug.StartTimer($"Thread #{threadIndex} finished");
+
+		int totalBlocks = terrainSize * terrainSize;
+		int blocksPerThread = totalBlocks / numberOfThreads;
+		int startIndex = blocksPerThread * threadIndex;
+		int endIndex = blocksPerThread + (threadIndex * blocksPerThread);
+
+
+		for (int i = startIndex; i < endIndex; i++)
+		{
+			// Debug.Log(i);
+			GameObject go = (GameObject) referenceGameObject.Clone();
+			go.Name = $"Thread:{threadIndex} go {i}";
+
+			// go.GetComponent<Renderer>().Color = Random.RandomColor();
+			_concurrentBag.Enqueue(go);
 		}
 
 
-		int x = 0;
-		int z = 0;
-		for (int i = 0; i < TerrainSize * TerrainSize; i++)
+		Debug.EndAndLogTimer($"Thread #{threadIndex} finished");
+
+		_threadsWorkingCount--;
+		if (_threadsWorkingCount == 0)
 		{
-			GameObject go = SceneSerializer.LoadClipboardGameObject();
-			go.Transform.SetParent(Transform);
+			int x = 0;
+			int z = 0;
 
-			float positionY = Mathf.Sin((float) x / TerrainSize * 5f) * Mathf.Cos((float) z / TerrainSize * 10f)*5;
-			positionY = positionY.TranslateToGrid(2);
-			go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
+			SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
 
-			// go.GetComponent<Renderer>().Color = Random.RandomColor();
-
-			x++;
-			if (x > TerrainSize)
+			foreach (GameObject go in _concurrentBag)
 			{
-				x = 0;
-				z++;
+				go.Transform.SetParent(Transform);
+
+				float positionY = Mathf.Sin((float) x / TerrainSize * 10f) * Mathf.Cos((float) z / TerrainSize * 10f) * 5;
+				positionY = positionY.TranslateToGrid(2);
+				go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
+
+
+				x++;
+				if (x > TerrainSize)
+				{
+					x = 0;
+					z++;
+				}
 			}
+
+			Debug.EndAndLogTimer($"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");
+		}
+	}
+
+	void LongTask()
+	{
+		List<GameObject> gameObjects = new List<GameObject>(20000);
+		for (int i = 0; i < 20000; i++)
+		{
+			GameObject go = GameObject.Create(name: i.ToString(), addToScene: false);
+			gameObjects.Add(go);
+			Debug.Log(i);
+		}
+
+		lock (SceneManager.CurrentScene.GameObjects)
+		{
+			SceneManager.CurrentScene.AddGameObjectsToScene(gameObjects);
 		}
 	}
 }

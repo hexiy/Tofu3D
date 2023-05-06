@@ -307,10 +307,10 @@ public class ModelRenderer : TextureRenderer
 		}
 
 
-		DebugHelper.LogDrawCall();
+		// DebugHelper.LogDrawCall();
 		if (drawOutline)
 		{
-			DebugHelper.LogDrawCall();
+			// DebugHelper.LogDrawCall();
 		}
 	}
 }

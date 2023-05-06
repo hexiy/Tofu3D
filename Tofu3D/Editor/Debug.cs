@@ -31,13 +31,16 @@ public static class Debug
 
 		StackTrace stackTrace = StackTraceFactory.GetStackTrace();
 		LogEntry logEntry = new LogEntry() {Message = message, StackTrace = stackTrace, Time = $"[{DateTime.Now:HH:mm:ss}:{DateTime.Now.Millisecond:000}]", LogCategory = logCategory};
-		_logs.Add(logEntry);
-
-		//Tofu.I.Window.Title = logs.Last();
-
-		if (_logs.Count > Limit + 1)
+		lock (_logs)
 		{
-			_logs.RemoveAt(0);
+			_logs.Add(logEntry);
+
+			//Tofu.I.Window.Title = logs.Last();
+
+			if (_logs.Count > Limit + 1)
+			{
+				_logs.RemoveAt(0);
+			}
 		}
 	}
 
@@ -81,16 +84,19 @@ public static class Debug
 			return;
 		}
 
-		if (SimpleTimers.ContainsKey(timerName))
+		lock (SimpleTimers)
 		{
-			SimpleTimers[timerName].Restart();
-		}
-		else
-		{
-			Stopwatch sw = new Stopwatch();
-			SimpleTimers.Add(timerName, sw);
+			if (SimpleTimers.ContainsKey(timerName))
+			{
+				SimpleTimers[timerName].Restart();
+			}
+			else
+			{
+				Stopwatch sw = new Stopwatch();
+				SimpleTimers.Add(timerName, sw);
 
-			sw.Start();
+				sw.Start();
+			}
 		}
 	}
 

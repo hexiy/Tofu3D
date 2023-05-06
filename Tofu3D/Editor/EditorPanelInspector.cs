@@ -265,7 +265,14 @@ public class EditorPanelInspector : EditorPanel
 
 			PushNextId();
 
-			if (ImGui.CollapsingHeader(componentInspectorData.InspectableType.Name, ImGuiTreeNodeFlags.DefaultOpen))
+			string inspectableName = componentInspectorData.InspectableType.Name;
+			if (componentInspectorData.InspectableType.IsSubclassOf(typeof(Component)))
+			{
+				Component c = componentInspectorData.Inspectable as Component;
+				inspectableName = (Global.Debug ? $"[{c.GameObjectId}] " : "") + componentInspectorData.InspectableType.Name;
+			}
+
+			if (ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen))
 			{
 				if (componentInspectorData.InspectableType == typeof(Material))
 				{
