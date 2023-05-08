@@ -23,7 +23,7 @@ public static class StackTraceFactory
 		for (int i = 0; i < stackFrames.Length; i++)
 		{
 			stackFrames[i] = new StackFrame();
-			string text = frames[i].GetMethod().DeclaringType.Name + "." + frames[i].ToString();
+			string text = frames[i].GetMethod()?.DeclaringType?.Name + "." + frames[i].ToString();
 			text = text.Substring(0, text.IndexOf(" at"));
 
 			stackFrames[i].Text = text;

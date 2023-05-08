@@ -5,6 +5,7 @@
 layout (location = 0) in vec3 a_pos;
 layout (location = 1) in vec2 a_uv;
 layout (location = 2) in vec3 a_normal;
+layout (location = 3) in vec3 a_translation;
 
 out vec3 vertexPositionWorld;
 out vec3 normal;
@@ -17,10 +18,11 @@ out vec4 FragPosLightSpace;
 
 void main(void)
 {
-gl_Position = u_mvp * vec4(a_pos.xyz, 1.0);
-vertexPositionWorld = vec3(u_model * vec4(a_pos.xyz, 1.0));
+        vec3 newPos = a_pos.xyz + a_translation.xyz;
+gl_Position = u_mvp * vec4(newPos.xyz, 1.0);
+vertexPositionWorld = vec3(u_model * vec4(newPos.xyz, 1.0));
 normal = transpose(inverse(mat3(u_model))) * a_normal;
-FragPosLightSpace = u_lightSpaceMatrix * vec4(a_pos.xyz, 1.0);
+FragPosLightSpace = u_lightSpaceMatrix * vec4(newPos.xyz, 1.0);
 uv = a_uv;
 }
 
@@ -160,12 +162,16 @@ frag_color = result;
 if (u_renderMode == 1) // positions
 {
 //frag_color = vec4(normalize(- vertexPositionWorld) * result.rgb, result.a);
-frag_color = vec4(normalize(- vertexPositionWorld), result.a);
+frag_color = vec4(vertexPositionWorld / 100, result.a);
+
+//vec3 roundedPos = round(vertexPositionWorld/5)*5;
+//frag_color = vec4(roundedPos/100, result.a);
 }
 if (u_renderMode == 2) // normals
 {
 //frag_color = vec4(normalize(- normal) * result.rgb, result.a);
-frag_color = vec4(normalize(- normal), result.a);
+//frag_color = vec4(normalize(- normal), result.a);
+frag_color = vec4(normalize(normal), result.a);
 }
 gl_FragDepth = gl_FragCoord.z;
 }

@@ -90,6 +90,7 @@ public class Window : GameWindow
 	protected override void OnUpdateFrame(FrameEventArgs e)
 	{
 		if (_loaded == false) return;
+		Time.EditorDeltaTime = (float) (e.Time);
 
 		base.OnUpdateFrame(e);
 	}
@@ -99,7 +100,6 @@ public class Window : GameWindow
 		if (_loaded == false) return;
 
 		Time.EditorDeltaTime = (float) (e.Time);
-
 
 		Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
 

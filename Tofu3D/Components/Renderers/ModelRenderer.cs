@@ -109,6 +109,10 @@ public class ModelRenderer : TextureRenderer
 			Material depthMaterial = AssetManager.Load<Material>("DepthModel");
 			ShaderCache.UseShader(depthMaterial.Shader);
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+
+
+			ShaderCache.BindVertexArray(Model.Vao);
+			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, Model.IndicesCount, 1);
 		}
 
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
@@ -215,7 +219,10 @@ public class ModelRenderer : TextureRenderer
 				RenderWireframe(Model.IndicesCount);
 			}
 
-			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
+			// GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
+			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, Model.IndicesCount, 1);
+
+
 			// }
 			// else
 			// {
@@ -241,7 +248,7 @@ public class ModelRenderer : TextureRenderer
 		}
 
 
-		if (drawOutline)
+		if (drawOutline && RenderPassSystem.CurrentRenderPassType is not RenderPassType.DirectionalLightShadowDepth)
 		{
 			GL.StencilFunc(StencilFunction.Notequal, 1, 0xFF);
 			GL.StencilMask(0x00);

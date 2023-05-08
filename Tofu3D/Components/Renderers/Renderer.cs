@@ -81,8 +81,16 @@ public class Renderer : Component, IComparable<Renderer>
 	internal void GL_DrawArrays(PrimitiveType primitiveType, int first, int count)
 	{
 		GL.DrawArrays(primitiveType, first, count);
-		Debug.StatAddValue("Indices drawn", count);
+		// Debug.StatAddValue("Indices drawn", count);
 		DebugHelper.LogDrawCall();
+	}
+
+	internal void GL_DrawArraysInstanced(PrimitiveType primitiveType, int first, int count, int instanceCount)
+	{
+		GL.DrawArraysInstanced(primitiveType, first, count, instanceCount);
+		DebugHelper.LogDrawCall();
+		Debug.StatAddValue("Instanced objects count", instanceCount);
+
 	}
 
 	internal void RenderWireframe(int indicesCount)

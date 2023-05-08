@@ -49,7 +49,7 @@ public class Component : IDestroyable, IInspectable, ICloneable
 			}
 			catch (Exception ex)
 			{
-				Debug.Log(ex.Message);
+				Debug.Log(ex.InnerException);
 				// throw ex;
 			}
 

@@ -646,6 +646,8 @@ public struct Vector3 : IEquatable<Vector3>
 	/// <returns>The result of linear interpolation of the specified vectors.</returns>
 	public static Vector3 Lerp(Vector3 value1, Vector3 value2, float amount)
 	{
+		amount = Mathf.Clamp(amount, 0, 1);
+
 		return new Vector3(
 		                   Mathf.Lerp(value1.X, value2.X, amount),
 		                   Mathf.Lerp(value1.Y, value2.Y, amount),
@@ -661,6 +663,8 @@ public struct Vector3 : IEquatable<Vector3>
 	/// <param name="result">The result of linear interpolation of the specified vectors as an output parameter.</param>
 	public static void Lerp(ref Vector3 value1, ref Vector3 value2, float amount, out Vector3 result)
 	{
+		amount = Mathf.Clamp(amount, 0, 1);
+
 		result.X = Mathf.Lerp(value1.X, value2.X, amount);
 		result.Y = Mathf.Lerp(value1.Y, value2.Y, amount);
 		result.Z = Mathf.Lerp(value1.Z, value2.Z, amount);
@@ -697,6 +701,8 @@ public struct Vector3 : IEquatable<Vector3>
 	/// <param name="result">The result of linear interpolation of the specified vectors as an output parameter.</param>
 	public static void LerpPrecise(ref Vector3 value1, ref Vector3 value2, float amount, out Vector3 result)
 	{
+		amount = Mathf.Clamp(amount, 0, 1);
+
 		result.X = Mathf.LerpPrecise(value1.X, value2.X, amount);
 		result.Y = Mathf.LerpPrecise(value1.Y, value2.Y, amount);
 		result.Z = Mathf.LerpPrecise(value1.Z, value2.Z, amount);
