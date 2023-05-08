@@ -3,6 +3,8 @@
 [ExecuteInEditMode]
 public class Renderer : Component, IComparable<Renderer>
 {
+	[XmlIgnore]
+	public int InstancedRenderingIndex = -1;
 	//[LinkableComponent]
 	[XmlIgnore]
 	public BoxShape BoxShape;
@@ -85,13 +87,7 @@ public class Renderer : Component, IComparable<Renderer>
 		DebugHelper.LogDrawCall();
 	}
 
-	internal void GL_DrawArraysInstanced(PrimitiveType primitiveType, int first, int count, int instanceCount)
-	{
-		GL.DrawArraysInstanced(primitiveType, first, count, instanceCount);
-		DebugHelper.LogDrawCall();
-		Debug.StatAddValue("Instanced objects count", instanceCount);
 
-	}
 
 	internal void RenderWireframe(int indicesCount)
 	{

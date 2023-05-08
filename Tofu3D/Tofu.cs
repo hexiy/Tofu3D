@@ -13,6 +13,7 @@ public class Tofu
 	public SceneViewController SceneViewController;
 	public Editor Editor;
 	public Window Window;
+	public InstancedRenderingSystem InstancedRenderingSystem;
 
 	public static Tofu I { get; private set; }
 
@@ -31,6 +32,7 @@ public class Tofu
 		AssetsWatcher.StartWatching();
 		ShaderCache.Initialize();
 
+		
 		Window = new Window();
 		Window.Load += () => { OnWindowLoad(Window); };
 		Window.UpdateFrame += OnWindowUpdate;
@@ -39,15 +41,8 @@ public class Tofu
 
 	void OnWindowLoad(Window window)
 	{
-		try
-		{
-			RenderPassSystem.Initialize();
-
-		}
-		catch (Exception ex)
-		{
-			throw ex;
-		}
+		InstancedRenderingSystem = new InstancedRenderingSystem();
+		RenderPassSystem.Initialize();
 
 		Editor = new Editor();
 		Editor.Init();

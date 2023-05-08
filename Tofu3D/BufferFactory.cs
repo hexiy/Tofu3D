@@ -58,52 +58,7 @@ public static class BufferFactory
 		VertexBuffer vertexBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexData: vertexBufferData, elementsPerVertex: 8);
 		vertexBuffer.EnableAttribs(sequential: true, countsOfElements);
 
-		int numberOfObjects = 1;
-		float[] translations = new float[numberOfObjects * 3];
-		int x = 0;
-		int y = 0;
-		int z = 0;
-		for (int i = 0; i < translations.Length - 2; i += 3)
-		{
-			translations[i] = x *30; // x
-			translations[i + 1] = -y * 4; // y
-			translations[i + 2] = z*30; // z
 
-			y++;
-			if (y > 10)
-			{
-				y = 0;
-				x++;
-			}
-
-			if (x > 10)
-			{
-				x = 0;
-				z++;
-			}
-		}
-
-		// translations = new float[]
-		//                {
-		// 	               0, 0, 0,
-		// 	               2, 2, 2,
-		// 	               2, 2, 2,
-		// 	               2, 2, 2,
-		// 	               2, 2, 2
-		//                };
-
-
-		int instanceVbo = GL.GenBuffer();
-		GL.BindBuffer(BufferTarget.ArrayBuffer, instanceVbo);
-		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * 3 * numberOfObjects, translations, BufferUsageHint.StaticDraw);
-
-
-		int translationsAttribIndex = 3;
-		GL.EnableVertexAttribArray(translationsAttribIndex);
-		GL.BindBuffer(BufferTarget.ArrayBuffer, instanceVbo);
-
-		GL.VertexAttribPointer(translationsAttribIndex, size: 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
-		GL.VertexAttribDivisor(translationsAttribIndex, divisor: 1);
 		/*VertexBuffer instanceBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexData: translations, elementsPerVertex: 8);
 		
 		GL.EnableVertexAttribArray(2);
@@ -111,8 +66,6 @@ public static class BufferFactory
 
 		GL.BindVertexArray(0);
 		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-		ImGuiController.CheckGlError("Instance buffer");
 	}
 
 	public static void CreateCubemapBuffers(ref int vao)

@@ -197,6 +197,8 @@ public class Scene
 			TransformHandle.I.GameObject.Render();
 		}
 
+		Tofu.I.InstancedRenderingSystem.RenderInstances();
+
 		RestoreOpenGLState();
 	}
 

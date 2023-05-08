@@ -112,7 +112,7 @@ public class ModelRenderer : TextureRenderer
 
 
 			ShaderCache.BindVertexArray(Model.Vao);
-			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, Model.IndicesCount, 1);
+			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
 		}
 
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
@@ -220,7 +220,7 @@ public class ModelRenderer : TextureRenderer
 			}
 
 			// GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
-			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, Model.IndicesCount, 1);
+			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
 
 
 			// }
