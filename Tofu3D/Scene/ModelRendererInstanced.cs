@@ -20,7 +20,7 @@ public class ModelRendererInstanced : TextureRenderer
 
 	public override void OnDisable()
 	{
-		Tofu.I.InstancedRenderingSystem.RemoveObject(Model, Material, this);
+		// Tofu.I.InstancedRenderingSystem.RemoveObject(Model, Material, this);
 
 		base.OnDisable();
 	}

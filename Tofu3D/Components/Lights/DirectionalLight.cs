@@ -45,7 +45,7 @@ public class DirectionalLight : LightBase
 	{
 		if (Rotate)
 		{
-			Transform.Rotation = Transform.Rotation.Set(y: RotateOffset + (float) Math.Sin(Time.EditorElapsedTime * Speed) * 50);
+			Transform.Rotation = Transform.Rotation.Set(x: (float) Mathf.SinAbs(Time.EditorElapsedTime*0.5f)+0.2f* 30,y: RotateOffset + (float) Math.Sin(Time.EditorElapsedTime * Speed) * 50);
 		}
 
 		base.Update();

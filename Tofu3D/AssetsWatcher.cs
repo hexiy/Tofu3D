@@ -69,12 +69,15 @@ public class AssetsWatcher
 		// 	return;
 		// }
 		FileChangedInfo fileChangedInfo = new FileChangedInfo()
-		                                          {
-			                                          Path = assetsRelativePath,
-			                                          ChangeType = e.ChangeType,
-		                                          };
-		_changedFilesQueue.Enqueue(fileChangedInfo);
+		                                  {
+			                                  Path = assetsRelativePath,
+			                                  ChangeType = e.ChangeType,
+		                                  };
 
+		lock (_changedFilesQueue)
+		{
+			_changedFilesQueue.Enqueue(fileChangedInfo);
+		}
 
 		// if (AssetUtils.IsShader(assetsRelativePath))
 		// {
@@ -87,25 +90,28 @@ public class AssetsWatcher
 	/// </summary>
 	public static void ProcessChangedFilesQueue()
 	{
-		foreach (FileChangedInfo fileManipulatedInfo in _changedFilesQueue)
+		lock (_changedFilesQueue)
 		{
-			if (Global.Debug)
+			foreach (FileChangedInfo fileManipulatedInfo in _changedFilesQueue)
 			{
-				Debug.Log($"File {fileManipulatedInfo.ChangeType.ToString()}:{fileManipulatedInfo.Path}");
-			}
-
-			string fileExtension = Path.GetExtension(fileManipulatedInfo.Path);
-
-			foreach (KeyValuePair<AssetSupportedFileNameExtensions, Action<FileChangedInfo>> fileWithExtensionChangedConsumer in _fileWithExtensionChangedConsumers)
-			{
-				if (fileWithExtensionChangedConsumer.Key.Extensions.Contains(fileExtension) || fileWithExtensionChangedConsumer.Key.Extensions.Contains("*"))
+				if (Global.Debug)
 				{
-					fileWithExtensionChangedConsumer.Value.Invoke(fileManipulatedInfo);
+					Debug.Log($"File {fileManipulatedInfo.ChangeType.ToString()}:{fileManipulatedInfo.Path}");
+				}
+
+				string fileExtension = Path.GetExtension(fileManipulatedInfo.Path);
+
+				foreach (KeyValuePair<AssetSupportedFileNameExtensions, Action<FileChangedInfo>> fileWithExtensionChangedConsumer in _fileWithExtensionChangedConsumers)
+				{
+					if (fileWithExtensionChangedConsumer.Key.Extensions.Contains(fileExtension) || fileWithExtensionChangedConsumer.Key.Extensions.Contains("*"))
+					{
+						fileWithExtensionChangedConsumer.Value.Invoke(fileManipulatedInfo);
+					}
 				}
 			}
-		}
 
-		ClearChangedFilesQueue();
+			ClearChangedFilesQueue();
+		}
 	}
 
 	private static void ClearChangedFilesQueue()

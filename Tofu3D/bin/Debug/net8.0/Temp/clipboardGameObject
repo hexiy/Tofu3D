@@ -5,12 +5,12 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>54231</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
+      <Id>65470</Id>
+      <IndexInHierarchy>6</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Block</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -20,7 +20,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>54231</GameObjectId>
+      <GameObjectId>65470</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
@@ -32,12 +32,12 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>0.39</X>
+        <X>5.59</X>
         <Y>-3.4357114</Y>
         <Z>-4.88</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.39</X>
+        <X>5.59</X>
         <Y>-3.4357114</Y>
         <Z>-4.88</Z>
       </LocalPosition>
@@ -59,7 +59,7 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>54231</GameObjectId>
+      <GameObjectId>65470</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
@@ -70,7 +70,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>21.351532</DistanceFromCamera>
+      <DistanceFromCamera>26.57496</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
@@ -108,7 +108,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>54231</GameObjectId>
+      <GameObjectId>65470</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -117,9 +117,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>1.005</X>
+        <Y>1.005</Y>
+        <Z>1.005</Z>
       </Size>
     </Component>
   </Components>

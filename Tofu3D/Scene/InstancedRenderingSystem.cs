@@ -38,19 +38,33 @@ public class InstancedRenderingSystem
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
 		{
 			ShaderCache.UseShader(material.Shader);
-			
-			
+
+
 			material.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
-			
+
 			material.Shader.SetColor("u_rendererColor", Color.White);
 			material.Shader.SetVector2("u_tiling", new Vector2(-1, -1));
 			material.Shader.SetVector2("u_offset", Vector2.Zero);
 
+			material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition);
+
+			// LIGHTING
+			material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
+
+
 			Vector4 ambientColor = SceneLightingManager.I.GetAmbientLightsColor().ToVector4();
 			ambientColor = new Vector4(ambientColor.X, ambientColor.Y, ambientColor.Z, SceneLightingManager.I.GetAmbientLightsIntensity());
-			// A holds intensity
 			material.Shader.SetVector4("u_ambientLightColor", ambientColor);
-			material.Shader.SetVector4("u_directionalLightColor", SceneLightingManager.I.GetDirectionalLightColor().ToVector4());
+
+			Vector4 directionalLightColor = SceneLightingManager.I.GetDirectionalLightColor().ToVector4();
+			directionalLightColor = new Vector4(directionalLightColor.X, directionalLightColor.Y, directionalLightColor.Z, SceneLightingManager.I.GetDirectionalLightIntensity());
+			material.Shader.SetVector4("u_directionalLightColor", directionalLightColor);
+			material.Shader.SetVector3("u_directionalLightDirection", SceneLightingManager.I.GetDirectionalLightDirection());
+
+
+			material.Shader.SetFloat("u_specularSmoothness", 0.03f);
+			material.Shader.SetFloat("u_specularHighlightsEnabled", 1);
+
 
 			GL.ActiveTexture(TextureUnit.Texture0);
 			// TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
@@ -74,74 +88,6 @@ public class InstancedRenderingSystem
 		DebugHelper.LogDrawCall();
 		Debug.StatAddValue("Instanced objects count", instanceCount);
 	}
-
-	readonly Matrix4x4 _zeroMatrix = new Matrix4x4(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
-
-	// temporary quick method to just hide the object
-	public void RemoveObject(Model model, Material material, Renderer renderer)
-	{
-		/*InstancedRenderingObjectBufferData bufferData;
-
-		if (material.InstancedRenderingDefinitionIndex == -1)
-		{
-			// no buffer exists for this combination-create one
-			InstancedRenderingObjectDefinition definition = new InstancedRenderingObjectDefinition(model, material);
-			int definitionIndex;
-
-			if (_definitions.Contains(definition))
-			{
-				definitionIndex = _definitions.IndexOf(definition);
-			}
-			else
-			{
-				definitionIndex = _definitions.Count;
-			}
-
-			// find bufferData if its already created
-			if (_objectBufferDatas.ContainsKey(definitionIndex))
-			{
-				bufferData = _objectBufferDatas[definitionIndex];
-			}
-			else
-			{
-				_definitions.Add(definition);
-
-				bufferData = CreateBufferData(definition);
-				_objectBufferDatas.Add(definitionIndex, bufferData);
-			}
-
-			material.InstancedRenderingDefinitionIndex = definitionIndex;
-			renderer.InstancedRenderingIndexInBuffer = _objectBufferDatas.Count - 1;
-		}
-		else
-		{
-			if (_objectBufferDatas.ContainsKey(material.InstancedRenderingDefinitionIndex) == false)
-			{
-				// on scene reload the definitionIndex is 0 but its not created in the system...
-				material.InstancedRenderingDefinitionIndex = -1;
-				return;
-			}
-
-			bufferData = _objectBufferDatas[material.InstancedRenderingDefinitionIndex];
-		}
-
-
-		if (renderer.InstancedRenderingIndexInBuffer == -1)
-		{
-			// assign new InstancedRenderingIndex
-			renderer.InstancedRenderingIndexInBuffer = bufferData.NumberOfObjects;
-			bufferData.NumberOfObjects++;
-		}
-
-
-		int startingIndexForRenderer = _vertexDataLength * renderer.InstancedRenderingIndexInBuffer;
-
-		CopyObjectDataToBuffer(_zeroMatrix, ref bufferData.Buffer, startingIndexForRenderer);
-
-		_objectBufferDatas[material.InstancedRenderingDefinitionIndex] = bufferData;*/
-	}
-
-	// InstancedRenderingObjectDefinition definition;
 
 	public void UpdateObjectData(ModelRendererInstanced renderer)
 	{
@@ -172,7 +118,7 @@ public class InstancedRenderingSystem
 			{
 				_definitions.Add(definition);
 
-				bufferData = CreateBufferData(definition);
+				bufferData = InitializeBufferData(definition);
 				_objectBufferDatas.Add(definitionIndex, bufferData);
 			}
 
@@ -241,9 +187,9 @@ public class InstancedRenderingSystem
 		buffer[startingIndex + 19] = color.A / 255f;
 	}
 
-	private InstancedRenderingObjectBufferData CreateBufferData(InstancedRenderingObjectDefinition objectDefinition)
+	private InstancedRenderingObjectBufferData InitializeBufferData(InstancedRenderingObjectDefinition objectDefinition)
 	{
-		Debug.Log("Creating Instanced Buffer Data");
+		Debug.Log("Initializing Instanced Buffer Data");
 		GL.BindVertexArray(objectDefinition.Model.Vao);
 
 		InstancedRenderingObjectBufferData bufferData = new InstancedRenderingObjectBufferData();
