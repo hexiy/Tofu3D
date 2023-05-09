@@ -60,8 +60,8 @@ public class ModelRendererInstanced : TextureRenderer
 			return;
 		}
 
-		// float speed = 2;
 
+		// float speed = 2;
 		// float posY = Mathf.Sin(Time.EditorElapsedTime*speed + Transform.LocalPosition.X / 10) * 3 + Mathf.Sin(Time.EditorElapsedTime*speed + Transform.LocalPosition.Z / 10) * 4;
 		// Transform.LocalPosition = Transform.LocalPosition.Set(y: posY);
 		Tofu.I.InstancedRenderingSystem.UpdateObjectData(this);

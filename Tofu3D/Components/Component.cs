@@ -234,5 +234,13 @@ public class Component : IDestroyable, IInspectable, ICloneable
 	public object Clone()
 	{
 		return this.MemberwiseClone();
+
+		/*object memberwiseClone = this.MemberwiseClone();
+		Component clone = (Component) memberwiseClone;
+		
+		clone.GameObjectId = -1;
+		clone.GameObject = null;
+		
+		return (object) clone;*/
 	}
 }

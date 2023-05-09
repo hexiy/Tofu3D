@@ -12,6 +12,8 @@ public class TerrainGenerator : Component
 	[XmlIgnore]
 	public Action Spawn;
 	[XmlIgnore]
+	public Action SpawnSingleThreaded;
+	[XmlIgnore]
 	public Action Despawn;
 	public int TerrainSize = 10;
 	public int ThreadsToUse = 2;
@@ -22,14 +24,14 @@ public class TerrainGenerator : Component
 	public override void Awake()
 	{
 		Spawn += StartTerrainGenerationOnNewThread;
+		SpawnSingleThreaded += StartTerrainGenerationOnNewThread;
 		Despawn += DestroyTerrain;
-		SceneSerializer.SaveClipboardGameObject(CubePrefab);
 		base.Awake();
 	}
 
 	public override void Start()
 	{
-		Spawn.Invoke();
+		// Spawn.Invoke();
 		base.Start();
 	}
 
@@ -68,6 +70,8 @@ public class TerrainGenerator : Component
 			return;
 		}
 
+		SceneSerializer.SaveClipboardGameObject(CubePrefab);
+
 		DestroyTerrain();
 		_concurrentBag.Clear();
 
@@ -86,6 +90,21 @@ public class TerrainGenerator : Component
 		threads.ForEach(t => t.Start());
 	}
 
+	private void StartTerrainGenerationOnMainThread()
+	{
+		if (CubePrefab == null)
+		{
+			return;
+		}
+
+		SceneSerializer.SaveClipboardGameObject(CubePrefab);
+
+		DestroyTerrain();
+		_concurrentBag.Clear();
+
+		GenerateTerrain(TerrainSize, CubePrefab, 0, 1);
+	}
+
 	ConcurrentQueue<GameObject> _concurrentBag = new ConcurrentQueue<GameObject>();
 
 	private void GenerateTerrain(int terrainSize, GameObject referenceGameObject, int threadIndex, int numberOfThreads)
@@ -102,7 +121,7 @@ public class TerrainGenerator : Component
 		{
 			// Debug.Log(i);
 			GameObject go = (GameObject) referenceGameObject.Clone();
-			// go.Name = $"Thread:{threadIndex} go {i}";
+			go.Name = $"Thread:{threadIndex} go {i}";
 			go.DynamicallyCreated = true;
 
 			_concurrentBag.Enqueue(go);

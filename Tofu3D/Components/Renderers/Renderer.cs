@@ -3,11 +3,17 @@
 [ExecuteInEditMode]
 public class Renderer : Component, IComparable<Renderer>
 {
-	[XmlIgnore]
-	public int InstancedRenderingIndexInBuffer = -1;
+	[XmlIgnore] public int InstancedRenderingIndexInBuffer { get; set; } = -1;
 	//[LinkableComponent]
 	[XmlIgnore]
 	public BoxShape BoxShape;
+	[Hide]
+	public bool AutomaticallyFindBoxShape = true;
+	[Show]
+	public int Debug_BoxShapeGameObjectId
+	{
+		get { return BoxShape.GameObjectId; }
+	}
 	public Color Color = Color.White;
 	public float DistanceFromCamera;
 
@@ -47,7 +53,7 @@ public class Renderer : Component, IComparable<Renderer>
 
 	public override void Awake()
 	{
-		if (BoxShape == null)
+		if (AutomaticallyFindBoxShape)
 		{
 			BoxShape = GetComponent<BoxShape>();
 		}
@@ -86,8 +92,6 @@ public class Renderer : Component, IComparable<Renderer>
 		// Debug.StatAddValue("Indices drawn", count);
 		DebugHelper.LogDrawCall();
 	}
-
-
 
 	internal void RenderWireframe(int indicesCount)
 	{

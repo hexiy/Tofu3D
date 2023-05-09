@@ -84,7 +84,11 @@ public class TransformHandle : Component
 		ModelRendererXy.Color = Color.Gold;
 		ModelRendererZ.Color = Color.Cyan;
 
-
+		ModelRendererX.AutomaticallyFindBoxShape = false;
+		ModelRendererY.AutomaticallyFindBoxShape = false;
+		ModelRendererZ.AutomaticallyFindBoxShape = false;
+		ModelRendererXy.AutomaticallyFindBoxShape = false;
+		
 		base.Awake();
 	}
 
