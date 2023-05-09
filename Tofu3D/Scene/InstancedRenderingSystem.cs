@@ -5,12 +5,16 @@ namespace Tofu3D;
 public class InstancedRenderingSystem
 {
 	Dictionary<InstancedRenderingObjectDefinition, InstancedRenderingObjectBufferData> _objectBufferDatas = new Dictionary<InstancedRenderingObjectDefinition, InstancedRenderingObjectBufferData>();
-	readonly int _vertexDataLength = 3; // for now only 3 translations
+	readonly int _vertexDataLength = 16; // 4x4 matrix
 
 	public InstancedRenderingSystem()
 	{
 	}
 
+	public void ClearBuffer()
+	{
+		_objectBufferDatas = new Dictionary<InstancedRenderingObjectDefinition, InstancedRenderingObjectBufferData>();
+	}
 	public void RenderInstances()
 	{
 		foreach (KeyValuePair<InstancedRenderingObjectDefinition, InstancedRenderingObjectBufferData> objectDefinitionBufferPair in _objectBufferDatas)
@@ -62,10 +66,10 @@ public class InstancedRenderingSystem
 			ShaderCache.UseShader(material.Shader);
 
 
-			material.Shader.SetMatrix4X4("u_mvp", ModelViewProjectionMatrix);
+			// material.Shader.SetMatrix4X4("u_mvp", ModelViewProjectionMatrix);
 
 
-			material.Shader.SetMatrix4X4("u_model", ModelMatrix);
+			// material.Shader.SetMatrix4X4("u_model", ModelMatrix);
 			material.Shader.SetColor("u_rendererColor", Color.White);
 			// material.Shader.SetVector2("u_tiling", Tiling);
 			// material.Shader.SetVector2("u_offset", Offset);
@@ -80,9 +84,9 @@ public class InstancedRenderingSystem
 
 
 			ShaderCache.BindVertexArray(model.Vao);
-			
-			UploadBufferData(objectBufferPair);
-			
+
+			UploadBufferData(objectBufferPair.Value);
+
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
@@ -123,13 +127,30 @@ public class InstancedRenderingSystem
 		}
 
 		int startingIndexForRenderer = _vertexDataLength * renderer.InstancedRenderingIndex;
-		bufferData.Buffer[startingIndexForRenderer] = renderer.Transform.WorldPosition.X;
-		bufferData.Buffer[startingIndexForRenderer + 1] = renderer.Transform.WorldPosition.Y;
-		bufferData.Buffer[startingIndexForRenderer + 2] = renderer.Transform.WorldPosition.Z;
 
+		CopyMatrixToBuffer(renderer.LatestModelViewProjection, ref bufferData.Buffer, startingIndexForRenderer);
 
-		// not good
 		_objectBufferDatas[definition] = bufferData;
+	}
+
+	void CopyMatrixToBuffer(Matrix4x4 m, ref float[] buffer, int startingIndex)
+	{
+		buffer[startingIndex + 0] = m.M11;
+		buffer[startingIndex + 1] = m.M12;
+		buffer[startingIndex + 2] = m.M13;
+		buffer[startingIndex + 3] = m.M14;
+		buffer[startingIndex + 4] = m.M21;
+		buffer[startingIndex + 5] = m.M22;
+		buffer[startingIndex + 6] = m.M23;
+		buffer[startingIndex + 7] = m.M24;
+		buffer[startingIndex + 8] = m.M31;
+		buffer[startingIndex + 9] = m.M32;
+		buffer[startingIndex + 10] = m.M33;
+		buffer[startingIndex + 11] = m.M34;
+		buffer[startingIndex + 12] = m.M41;
+		buffer[startingIndex + 13] = m.M42;
+		buffer[startingIndex + 14] = m.M43;
+		buffer[startingIndex + 15] = m.M44;
 	}
 
 	private InstancedRenderingObjectBufferData CreateBufferData(InstancedRenderingObjectDefinition objectDefinition)
@@ -138,43 +159,47 @@ public class InstancedRenderingSystem
 		GL.BindVertexArray(objectDefinition.Model.Vao);
 
 		InstancedRenderingObjectBufferData bufferData = new InstancedRenderingObjectBufferData();
-		bufferData.MaxNumberOfObjects = 500;
+		bufferData.MaxNumberOfObjects = 50000;
+		bufferData.Vbo = -1;
 
 		bufferData.Buffer = new float[bufferData.MaxNumberOfObjects * _vertexDataLength];
 
-		int instanceVbo = GL.GenBuffer();
-		GL.BindBuffer(BufferTarget.ArrayBuffer, instanceVbo);
-		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * _vertexDataLength * bufferData.MaxNumberOfObjects, bufferData.Buffer, BufferUsageHint.StaticDraw);
+		UploadBufferData(bufferData);
 
-
-		int translationsAttribIndex = 3;
-		GL.EnableVertexAttribArray(translationsAttribIndex);
-		GL.BindBuffer(BufferTarget.ArrayBuffer, instanceVbo);
-
-		GL.VertexAttribPointer(translationsAttribIndex, size: _vertexDataLength, VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 0);
-		GL.VertexAttribDivisor(translationsAttribIndex, divisor: 1);
-
-		GL.BindVertexArray(0);
-		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-		ImGuiController.CheckGlError("Instanced createBufferData");
 		return bufferData;
 	}
 
-	private void UploadBufferData(KeyValuePair<InstancedRenderingObjectDefinition, InstancedRenderingObjectBufferData> objectBufferPair)
+	private void UploadBufferData(InstancedRenderingObjectBufferData bufferData)
 	{
-		InstancedRenderingObjectBufferData bufferData = objectBufferPair.Value;
-
-		int instanceVbo = GL.GenBuffer();
-		GL.BindBuffer(BufferTarget.ArrayBuffer, instanceVbo);
+		if (bufferData.Vbo == -1)
+		{
+			bufferData.Vbo = GL.GenBuffer();
+		}
+		GL.BindBuffer(BufferTarget.ArrayBuffer, bufferData.Vbo);
 		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * _vertexDataLength * bufferData.MaxNumberOfObjects, bufferData.Buffer, BufferUsageHint.StaticDraw);
 
 
-		int translationsAttribIndex = 3;
-		GL.EnableVertexAttribArray(translationsAttribIndex);
-		GL.BindBuffer(BufferTarget.ArrayBuffer, instanceVbo);
+		GL.EnableVertexAttribArray(3);
+		GL.EnableVertexAttribArray(4);
+		GL.EnableVertexAttribArray(5);
+		GL.EnableVertexAttribArray(6);
+		// GL.BindBuffer(BufferTarget.ArrayBuffer, bufferData.Vbo);
 
-		GL.VertexAttribPointer(translationsAttribIndex, size: _vertexDataLength, VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 0);
-		GL.VertexAttribDivisor(translationsAttribIndex, divisor: 1);
+
+		// https://stackoverflow.com/a/28597384
+		//  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
+		GL.VertexAttribPointer(3, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 0);
+		GL.VertexAttribPointer(4, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 1 * 4 * sizeof(float));
+		GL.VertexAttribPointer(5, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 2 * 4 * sizeof(float));
+		GL.VertexAttribPointer(6, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 3 * 4 * sizeof(float));
+
+
+		GL.VertexAttribDivisor(3, divisor: 1);
+		GL.VertexAttribDivisor(4, divisor: 1);
+		GL.VertexAttribDivisor(5, divisor: 1);
+		GL.VertexAttribDivisor(6, divisor: 1);
+
+		// GL.BindVertexArray(0);
+		// GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 	}
 }

@@ -845,8 +845,15 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 	{
 		object memberwiseClone = this.MemberwiseClone();
 		GameObject clone = (GameObject) memberwiseClone;
-
+		
+		Renderer renderer = this.GetComponent<Renderer>();
+		if (renderer)
+		{
+			renderer.InstancedRenderingIndex = -1;
+		}
+		
 		clone.Components = new List<Component>();
+
 		for (int i = 0; i < Components.Count; i++)
 		{
 			clone.Components.Add((Component) this.Components[i].Clone());

@@ -62,7 +62,6 @@ public class ModelRendererInstanced : TextureRenderer
 		{
 			GL.Enable(EnableCap.DepthTest);
 		}
-
 		Tofu.I.InstancedRenderingSystem.UpdateObjectData(Model, Material, this);
 	}
 }

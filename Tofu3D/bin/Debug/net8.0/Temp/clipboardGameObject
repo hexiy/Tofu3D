@@ -5,41 +5,41 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>488</Id>
-      <IndexInHierarchy>7</IndexInHierarchy>
+      <Id>5</Id>
+      <IndexInHierarchy>1</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Cube</Name>
+      <Name>InstancedCubePrefab</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>false</ActiveSelf>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
   </GameObjects>
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>488</GameObjectId>
+      <GameObjectId>5</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
         <X>0</X>
-        <Y>2</Y>
-        <Z>0.5</Z>
+        <Y>0</Y>
+        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
-        <Y>2</Y>
-        <Z>0.5</Z>
+        <Y>0</Y>
+        <Z>0</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -59,7 +59,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>488</GameObjectId>
+      <GameObjectId>5</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -68,14 +68,14 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>1.002</X>
-        <Y>1.002</Y>
-        <Z>1.002</Z>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
       </Size>
     </Component>
-    <Component xsi:type="ModelRenderer">
+    <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>488</GameObjectId>
+      <GameObjectId>5</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Color>
@@ -85,45 +85,41 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>21.176445</DistanceFromCamera>
+      <DistanceFromCamera>18.8778</DistanceFromCamera>
       <Material>
-        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
         </Shader>
-        <Vao>8</Vao>
+        <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
       </Material>
       <RenderMode>Opaque</RenderMode>
-      <Layer>1</Layer>
+      <Layer>0</Layer>
       <Texture>
-        <AssetPath>Assets\3D\Grass_Block_TEX.png</AssetPath>
+        <AssetPath>Assets\2D\solidColor.png</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>1440</X>
-          <Y>1920</Y>
+          <X>256</X>
+          <Y>256</Y>
         </Size>
       </Texture>
       <Tiling>
-        <X>-1</X>
-        <Y>-1</Y>
+        <X>1</X>
+        <Y>1</Y>
       </Tiling>
       <Offset>
         <X>0</X>
         <Y>0</Y>
       </Offset>
       <Model>
-        <AssetPath>Assets\3D\coobe.obj</AssetPath>
-        <Vao>7</Vao>
+        <AssetPath>Assets\3D\cube.obj</AssetPath>
+        <Vao>5</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <IndicesCount>36</IndicesCount>
       </Model>
-      <CastShadow>true</CastShadow>
-      <SmoothShading>0</SmoothShading>
-      <SpecularSmoothness>0</SpecularSmoothness>
-      <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

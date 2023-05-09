@@ -5,22 +5,20 @@
 layout (location = 0) in vec3 a_pos;
 layout (location = 1) in vec2 a_uv;
 layout (location = 2) in vec3 a_normal;
-layout (location = 3) in vec3 a_translation;
+layout (location = 3) in mat4 a_mvp;
 
         out float instanceId;
 out vec3 vertexPositionWorld;
 out vec3 normal;
 out vec2 uv;
 
-uniform mat4 u_mvp = mat4(1.0);
-
 void main(void)
 {
-        vec3 newPos = a_pos.xyz + a_translation.xyz;
 //        newPos = a_pos.xyz + vec3(3,3,3)* gl_InstanceID;
-gl_Position = u_mvp * vec4(newPos.xyz, 1.0);
+//gl_Position = a_mvp * vec4(newPos.xyz, 1.0);
+gl_Position = a_mvp * vec4(a_pos.xyz, 1.0);
 uv = a_uv;
-        instanceId =  gl_InstanceID;
+//        instanceId =  gl_InstanceID;
 }
 
 [FRAGMENT]
@@ -47,8 +45,8 @@ result.a = texturePixelColor.a * u_rendererColor.a;
 if (result.a < 0.05){
 discard; // having this fixes transparency sorting but breaks debug depthmap
 }
-result.r = instanceId/50;
-result.g = -instanceId/50;
+//result.r = instanceId/50;
+//result.g = -instanceId/50;
 frag_color = result;
 
 gl_FragDepth = gl_FragCoord.z;

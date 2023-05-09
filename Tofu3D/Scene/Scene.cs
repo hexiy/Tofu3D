@@ -68,6 +68,8 @@ public class Scene
 		GameObjects = new List<GameObject>();
 		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderWorld);
 		RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
+		Tofu.I.InstancedRenderingSystem.ClearBuffer();
+
 		SceneDisposed.Invoke();
 	}
 
