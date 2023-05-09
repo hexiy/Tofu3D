@@ -5,8 +5,8 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>70286</Id>
-      <IndexInHierarchy>8</IndexInHierarchy>
+      <Id>54231</Id>
+      <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Block</Name>
       <PrefabPath />
@@ -20,7 +20,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>70286</GameObjectId>
+      <GameObjectId>54231</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
@@ -32,14 +32,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-0.31</X>
+        <X>0.39</X>
         <Y>-3.4357114</Y>
-        <Z>-13.58</Z>
+        <Z>-4.88</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-0.31</X>
+        <X>0.39</X>
         <Y>-3.4357114</Y>
-        <Z>-13.58</Z>
+        <Z>-4.88</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -59,9 +59,10 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>70286</GameObjectId>
+      <GameObjectId>54231</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <IsStatic>true</IsStatic>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -70,7 +71,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>8.384131</DistanceFromCamera>
+      <DistanceFromCamera>18.959223</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
@@ -84,11 +85,11 @@
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
       <Texture>
-        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <AssetPath>Assets\2D\solidColor.png</AssetPath>
         <Loaded>true</Loaded>
         <Size>
-          <X>397</X>
-          <Y>397</Y>
+          <X>256</X>
+          <Y>256</Y>
         </Size>
       </Texture>
       <Tiling>
@@ -100,15 +101,15 @@
         <Y>0</Y>
       </Offset>
       <Model>
-        <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>6</Vao>
-        <VertexBufferDataLength>371688</VertexBufferDataLength>
-        <IndicesCount>46461</IndicesCount>
+        <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
+        <Vao>5</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
+        <IndicesCount>36</IndicesCount>
       </Model>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>70286</GameObjectId>
+      <GameObjectId>54231</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>

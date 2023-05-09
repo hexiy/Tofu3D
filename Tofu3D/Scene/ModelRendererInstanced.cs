@@ -3,9 +3,11 @@
 public class ModelRendererInstanced : TextureRenderer
 {
 	public Model Model;
+	bool _hasUpdatedInstanceBufferData;
 
 	public override void Awake()
 	{
+		// _hasUpdatedInstanceBufferData = false;
 		if (Texture == null)
 		{
 			Texture = new Texture();
@@ -16,6 +18,12 @@ public class ModelRendererInstanced : TextureRenderer
 		}
 
 		base.Awake();
+	}
+
+	public override void OnEnable()
+	{
+		_hasUpdatedInstanceBufferData = false;
+		base.OnEnable();
 	}
 
 	public override void OnDisable()
@@ -60,10 +68,16 @@ public class ModelRendererInstanced : TextureRenderer
 			return;
 		}
 
+		if (IsStatic && _hasUpdatedInstanceBufferData)
+		{
+			return;
+		}
+
 
 		// float speed = 2;
 		// float posY = Mathf.Sin(Time.EditorElapsedTime*speed + Transform.LocalPosition.X / 10) * 3 + Mathf.Sin(Time.EditorElapsedTime*speed + Transform.LocalPosition.Z / 10) * 4;
 		// Transform.LocalPosition = Transform.LocalPosition.Set(y: posY);
 		Tofu.I.InstancedRenderingSystem.UpdateObjectData(this);
+		_hasUpdatedInstanceBufferData = true;
 	}
 }

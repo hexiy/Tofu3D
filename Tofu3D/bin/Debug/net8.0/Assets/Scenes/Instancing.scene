@@ -10,7 +10,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -70,7 +70,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Block</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -152,14 +152,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-1.5284694</X>
-        <Y>14.084395</Y>
-        <Z>0.6956983</Z>
+        <X>-1.6419092</X>
+        <Y>14.291873</Y>
+        <Z>0.6590161</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-1.5284694</X>
-        <Y>14.084395</Y>
-        <Z>0.6956983</Z>
+        <X>-1.6419092</X>
+        <Y>14.291873</Y>
+        <Z>0.6590161</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -172,8 +172,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>22.236162</X>
-        <Y>42.460407</Y>
+        <X>60.11706</X>
+        <Y>72.08075</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -322,8 +322,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>6.8028274</X>
-        <Y>40.141373</Y>
+        <X>6.0915446</X>
+        <Y>4.5772414</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -54818,7 +54818,7 @@
         <IsPrefab>false</IsPrefab>
         <Name>Block</Name>
         <PrefabPath />
-        <Selected>false</Selected>
+        <Selected>true</Selected>
         <Silent>false</Silent>
         <Started>true</Started>
         <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -54871,6 +54871,7 @@
       <GameObjectId>54231</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <IsStatic>true</IsStatic>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -54879,7 +54880,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>18.485754</DistanceFromCamera>
+      <DistanceFromCamera>18.683592</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
@@ -54975,6 +54976,7 @@
       <GameObjectId>65467</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <IsStatic>false</IsStatic>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -54983,7 +54985,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>22.9399</DistanceFromCamera>
+      <DistanceFromCamera>23.157497</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
@@ -55079,6 +55081,7 @@
       <GameObjectId>65470</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <IsStatic>false</IsStatic>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -55087,7 +55090,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>19.71586</DistanceFromCamera>
+      <DistanceFromCamera>19.931093</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
@@ -55183,6 +55186,7 @@
       <GameObjectId>70277</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <IsStatic>false</IsStatic>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -55191,7 +55195,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>23.694353</DistanceFromCamera>
+      <DistanceFromCamera>23.86037</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
@@ -55287,6 +55291,7 @@
       <GameObjectId>70286</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <IsStatic>false</IsStatic>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -55295,7 +55300,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>22.632597</DistanceFromCamera>
+      <DistanceFromCamera>22.77698</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
@@ -55348,5 +55353,5 @@
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>75095</GameObjectNextId>
+  <GameObjectNextId>75097</GameObjectNextId>
 </SceneFile>
