@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AssetPath>Assets/Materials/ModelRendererUnlit.mat</AssetPath>
   <Additive>false</Additive>
-  <Path>Assets/Materials/ModelRendererUnlit.mat</Path>
   <Shader>
-    <BufferType>Rendertexture</BufferType>
-    <Path>Assets/Shaders/ModelRendererUnlit.glsl</Path>
+    <BufferType>Model</BufferType>
+    <Path>Assets\Shaders\ModelRendererUnlit.glsl</Path>
   </Shader>
-  <Vao>12</Vao>
-  <Vbo>0</Vbo>
+  <Vao>9</Vao>
+  <RenderMode>Opaque</RenderMode>
 </Material>

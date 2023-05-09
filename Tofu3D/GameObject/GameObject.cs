@@ -859,8 +859,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 				(componentClone as Renderer).InstancedRenderingIndexInBuffer = -1;
 			}
 
-			clone.AddExistingComponent(componentClone);
-			// clone.Components.Add(componentClone);
+			// clone.AddExistingComponent(componentClone); slower
+			clone.Components.Add(componentClone);
 		}
 
 		clone.AssignNewId();

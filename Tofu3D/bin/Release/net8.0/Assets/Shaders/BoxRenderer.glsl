@@ -1,4 +1,5 @@
-[BUFFERTYPE:Box]
+/**
+[BUFFERTYPE: Box]
 [VERTEX]
 #version 410 core
 
@@ -16,10 +17,10 @@ frag_color = vec4( u_color.r * u_tint.r, u_color.g * u_tint.g, u_color.b *u_tint
 
 [FRAGMENT]
 #version 410 core
-in vec4 frag_color;
+ in vec4 frag_color;
 out vec4 color;
 
 void main(void)
 {
 color = frag_color;
-}
+}*/

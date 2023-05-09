@@ -25,7 +25,7 @@ gl_Position = u_mvp * position;// * vec4(2,2,1,1);
 in vec2 texCoord;
 uniform float time;
 uniform sampler2D textureObject;
-layout (location = 0) out vec3 color;
+layout (location = 0) out vec4 color;
 
 void main(void)
 {
@@ -33,6 +33,6 @@ void main(void)
 
 float depthValue = texture(textureObject, texCoord).r; // why tf does it not render anything when i try to sample texture
 
-color =vec3(1-depthValue);
+color =vec4(1 - depthValue,1 - depthValue, 1 - depthValue,1);
 //color += vec3(0,texCoord.x,texCoord.y);
 }

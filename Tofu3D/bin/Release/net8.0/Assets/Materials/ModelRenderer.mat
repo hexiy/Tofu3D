@@ -1,1 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Additive>false</Additive><Path>Assets/Materials/ModelRenderer.mat</Path><Shader><BufferType>Rendertexture</BufferType><Path>Assets/Shaders/ModelRenderer.glsl</Path></Shader><Vao>18</Vao><Vbo>0</Vbo></Material>
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+  <Additive>false</Additive>
+  <Shader>
+    <BufferType>Model</BufferType>
+    <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+  </Shader>
+  <Vao>8</Vao>
+  <RenderMode>Opaque</RenderMode>
+</Material>
