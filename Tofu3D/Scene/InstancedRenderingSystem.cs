@@ -1,11 +1,14 @@
-﻿using Tofu3D.Rendering;
+﻿using System.Linq;
+using Tofu3D.Rendering;
 
 namespace Tofu3D;
 
 public class InstancedRenderingSystem
 {
-	Dictionary<InstancedRenderingObjectDefinition, InstancedRenderingObjectBufferData> _objectBufferDatas = new Dictionary<InstancedRenderingObjectDefinition, InstancedRenderingObjectBufferData>();
-	readonly int _vertexDataLength = 16; // 4x4 matrix
+	// index in _definitions
+	Dictionary<int, InstancedRenderingObjectBufferData> _objectBufferDatas = new Dictionary<int, InstancedRenderingObjectBufferData>();
+	List<InstancedRenderingObjectDefinition> _definitions = new List<InstancedRenderingObjectDefinition>();
+	readonly int _vertexDataLength = sizeof(float) * 4 * 4 * 4; // 4x4 matrix+vec4 color
 
 	public InstancedRenderingSystem()
 	{
@@ -13,75 +16,45 @@ public class InstancedRenderingSystem
 
 	public void ClearBuffer()
 	{
-		_objectBufferDatas = new Dictionary<InstancedRenderingObjectDefinition, InstancedRenderingObjectBufferData>();
+		_objectBufferDatas = new Dictionary<int, InstancedRenderingObjectBufferData>();
 	}
+
 	public void RenderInstances()
 	{
-		foreach (KeyValuePair<InstancedRenderingObjectDefinition, InstancedRenderingObjectBufferData> objectDefinitionBufferPair in _objectBufferDatas)
+		GL.Enable(EnableCap.DepthTest);
+
+		foreach (KeyValuePair<int, InstancedRenderingObjectBufferData> objectDefinitionBufferPair in _objectBufferDatas)
 		{
 			RenderSpecific(objectDefinitionBufferPair);
 		}
 	}
 
-	public Matrix4x4 ModelViewProjectionMatrix
+	private void RenderSpecific(KeyValuePair<int, InstancedRenderingObjectBufferData> objectBufferPair)
 	{
-		get { return ModelMatrix * Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix; }
-	}
-
-	public Matrix4x4 ModelMatrix
-	{
-		get
-		{
-			Matrix4x4 translation = Matrix4x4.CreateTranslation(Vector3.Zero);
-			return ScalePivotRotationMatrix * translation;
-		}
-	}
-
-	private Matrix4x4 ScalePivotRotationMatrix
-	{
-		get
-		{
-			Matrix4x4 scale = Matrix4x4.CreateScale(Vector3.One);
-			return scale * IdentityPivotRotationMatrix;
-		}
-	}
-	private Matrix4x4 IdentityPivotRotationMatrix
-	{
-		get
-		{
-			Vector3 worldPositionPivotOffset = Vector3.One * (Vector3.One - new Vector3(0.5f, 0.5f, 0.5f) * 2);
-
-			Matrix4x4 pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
-
-			return Matrix4x4.Identity * pivot;
-		}
-	}
-
-	private void RenderSpecific(KeyValuePair<InstancedRenderingObjectDefinition, InstancedRenderingObjectBufferData> objectBufferPair)
-	{
-		Material material = objectBufferPair.Key.Material;
-		Model model = objectBufferPair.Key.Model;
+		int definitionIndex = objectBufferPair.Key;
+		InstancedRenderingObjectDefinition definition = _definitions[definitionIndex];
+		Material material = definition.Material;
+		Model model = definition.Model;
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
 		{
 			ShaderCache.UseShader(material.Shader);
-
-
-			// material.Shader.SetMatrix4X4("u_mvp", ModelViewProjectionMatrix);
-
-
-			// material.Shader.SetMatrix4X4("u_model", ModelMatrix);
+			
+			
+			material.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
+			
 			material.Shader.SetColor("u_rendererColor", Color.White);
-			// material.Shader.SetVector2("u_tiling", Tiling);
-			// material.Shader.SetVector2("u_offset", Offset);
+			material.Shader.SetVector2("u_tiling", new Vector2(-1, -1));
+			material.Shader.SetVector2("u_offset", Vector2.Zero);
 
-			// GL.ActiveTexture(TextureUnit.Texture0);
-			// TextureHelper.BindTexture(Texture.TextureId);
-			// if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
-			// {
-			// 	GL.ActiveTexture(TextureUnit.Texture1);
-			// 	TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
-			// }
+			Vector4 ambientColor = SceneLightingManager.I.GetAmbientLightsColor().ToVector4();
+			ambientColor = new Vector4(ambientColor.X, ambientColor.Y, ambientColor.Z, SceneLightingManager.I.GetAmbientLightsIntensity());
+			// A holds intensity
+			material.Shader.SetVector4("u_ambientLightColor", ambientColor);
+			material.Shader.SetVector4("u_directionalLightColor", SceneLightingManager.I.GetDirectionalLightColor().ToVector4());
 
+			GL.ActiveTexture(TextureUnit.Texture0);
+			// TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
+			TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/3D/Grass_Block_TEX.png").TextureId);
 
 			ShaderCache.BindVertexArray(model.Vao);
 
@@ -90,10 +63,8 @@ public class InstancedRenderingSystem
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
-			GL.ActiveTexture(TextureUnit.Texture0);
-			TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
 
-			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, model.IndicesCount, instanceCount: objectBufferPair.Value.Count);
+			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, model.IndicesCount, instanceCount: objectBufferPair.Value.NumberOfObjects);
 		}
 	}
 
@@ -104,37 +75,147 @@ public class InstancedRenderingSystem
 		Debug.StatAddValue("Instanced objects count", instanceCount);
 	}
 
-	public void UpdateObjectData(Model model, Material material, Renderer renderer)
+	readonly Matrix4x4 _zeroMatrix = new Matrix4x4(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
+
+	// temporary quick method to just hide the object
+	public void RemoveObject(Model model, Material material, Renderer renderer)
 	{
-		InstancedRenderingObjectDefinition definition = new InstancedRenderingObjectDefinition(model, material);
-		InstancedRenderingObjectBufferData bufferData;
-		if (_objectBufferDatas.ContainsKey(definition) == false)
+		/*InstancedRenderingObjectBufferData bufferData;
+
+		if (material.InstancedRenderingDefinitionIndex == -1)
 		{
 			// no buffer exists for this combination-create one
-			bufferData = CreateBufferData(definition);
-			_objectBufferDatas.Add(definition, bufferData);
+			InstancedRenderingObjectDefinition definition = new InstancedRenderingObjectDefinition(model, material);
+			int definitionIndex;
+
+			if (_definitions.Contains(definition))
+			{
+				definitionIndex = _definitions.IndexOf(definition);
+			}
+			else
+			{
+				definitionIndex = _definitions.Count;
+			}
+
+			// find bufferData if its already created
+			if (_objectBufferDatas.ContainsKey(definitionIndex))
+			{
+				bufferData = _objectBufferDatas[definitionIndex];
+			}
+			else
+			{
+				_definitions.Add(definition);
+
+				bufferData = CreateBufferData(definition);
+				_objectBufferDatas.Add(definitionIndex, bufferData);
+			}
+
+			material.InstancedRenderingDefinitionIndex = definitionIndex;
+			renderer.InstancedRenderingIndexInBuffer = _objectBufferDatas.Count - 1;
 		}
 		else
 		{
-			bufferData = _objectBufferDatas[definition];
+			if (_objectBufferDatas.ContainsKey(material.InstancedRenderingDefinitionIndex) == false)
+			{
+				// on scene reload the definitionIndex is 0 but its not created in the system...
+				material.InstancedRenderingDefinitionIndex = -1;
+				return;
+			}
+
+			bufferData = _objectBufferDatas[material.InstancedRenderingDefinitionIndex];
 		}
 
-		if (renderer.InstancedRenderingIndex == -1)
+
+		if (renderer.InstancedRenderingIndexInBuffer == -1)
 		{
 			// assign new InstancedRenderingIndex
-			renderer.InstancedRenderingIndex = bufferData.Count;
-			bufferData.Count++;
+			renderer.InstancedRenderingIndexInBuffer = bufferData.NumberOfObjects;
+			bufferData.NumberOfObjects++;
 		}
 
-		int startingIndexForRenderer = _vertexDataLength * renderer.InstancedRenderingIndex;
 
-		CopyMatrixToBuffer(renderer.LatestModelViewProjection, ref bufferData.Buffer, startingIndexForRenderer);
+		int startingIndexForRenderer = _vertexDataLength * renderer.InstancedRenderingIndexInBuffer;
 
-		_objectBufferDatas[definition] = bufferData;
+		CopyObjectDataToBuffer(_zeroMatrix, ref bufferData.Buffer, startingIndexForRenderer);
+
+		_objectBufferDatas[material.InstancedRenderingDefinitionIndex] = bufferData;*/
 	}
 
-	void CopyMatrixToBuffer(Matrix4x4 m, ref float[] buffer, int startingIndex)
+	// InstancedRenderingObjectDefinition definition;
+
+	public void UpdateObjectData(ModelRendererInstanced renderer)
 	{
+		InstancedRenderingObjectBufferData bufferData;
+		Material material = renderer.Material;
+		Model model = renderer.Model;
+		if (material.InstancedRenderingDefinitionIndex == -1)
+		{
+			// no buffer exists for this combination-create one
+			InstancedRenderingObjectDefinition definition = new InstancedRenderingObjectDefinition(model, material);
+			int definitionIndex;
+
+			if (_definitions.Contains(definition))
+			{
+				definitionIndex = _definitions.IndexOf(definition);
+			}
+			else
+			{
+				definitionIndex = _definitions.Count;
+			}
+
+			// find bufferData if its already created
+			if (_objectBufferDatas.ContainsKey(definitionIndex))
+			{
+				bufferData = _objectBufferDatas[definitionIndex];
+			}
+			else
+			{
+				_definitions.Add(definition);
+
+				bufferData = CreateBufferData(definition);
+				_objectBufferDatas.Add(definitionIndex, bufferData);
+			}
+
+			material.InstancedRenderingDefinitionIndex = definitionIndex;
+		}
+		else
+		{
+			if (_objectBufferDatas.ContainsKey(material.InstancedRenderingDefinitionIndex) == false)
+			{
+				// on scene reload the definitionIndex is 0 but its not created in the system...
+				material.InstancedRenderingDefinitionIndex = -1;
+				return;
+			}
+
+			bufferData = _objectBufferDatas[material.InstancedRenderingDefinitionIndex];
+		}
+
+
+		if (renderer.InstancedRenderingIndexInBuffer == -1)
+		{
+			// assign new InstancedRenderingIndex
+			renderer.InstancedRenderingIndexInBuffer = bufferData.NumberOfObjects;
+			bufferData.NumberOfObjects++;
+		}
+
+
+		int startingIndexForRenderer = _vertexDataLength * renderer.InstancedRenderingIndexInBuffer;
+
+		CopyObjectDataToBuffer(renderer, ref bufferData.Buffer, startingIndexForRenderer);
+
+		_objectBufferDatas[material.InstancedRenderingDefinitionIndex] = bufferData;
+	}
+
+	void CopyObjectDataToBuffer(Renderer renderer, ref float[] buffer, int startingIndex)
+	{
+		if (startingIndex >= buffer.Length)
+		{
+			// needs to resize buffer or smtn
+			return;
+		}
+
+		Matrix4x4 m = renderer.GetModelMatrix();
+
 		buffer[startingIndex + 0] = m.M11;
 		buffer[startingIndex + 1] = m.M12;
 		buffer[startingIndex + 2] = m.M13;
@@ -151,6 +232,13 @@ public class InstancedRenderingSystem
 		buffer[startingIndex + 13] = m.M42;
 		buffer[startingIndex + 14] = m.M43;
 		buffer[startingIndex + 15] = m.M44;
+
+		Color color = renderer.Color;
+
+		buffer[startingIndex + 16] = color.R / 255f;
+		buffer[startingIndex + 17] = color.G / 255f;
+		buffer[startingIndex + 18] = color.B / 255f;
+		buffer[startingIndex + 19] = color.A / 255f;
 	}
 
 	private InstancedRenderingObjectBufferData CreateBufferData(InstancedRenderingObjectDefinition objectDefinition)
@@ -159,7 +247,7 @@ public class InstancedRenderingSystem
 		GL.BindVertexArray(objectDefinition.Model.Vao);
 
 		InstancedRenderingObjectBufferData bufferData = new InstancedRenderingObjectBufferData();
-		bufferData.MaxNumberOfObjects = 50000;
+		bufferData.MaxNumberOfObjects = 100000;
 		bufferData.Vbo = -1;
 
 		bufferData.Buffer = new float[bufferData.MaxNumberOfObjects * _vertexDataLength];
@@ -171,35 +259,43 @@ public class InstancedRenderingSystem
 
 	private void UploadBufferData(InstancedRenderingObjectBufferData bufferData)
 	{
+		bool newBuffer = false;
 		if (bufferData.Vbo == -1)
 		{
+			newBuffer = true;
 			bufferData.Vbo = GL.GenBuffer();
 		}
+
 		GL.BindBuffer(BufferTarget.ArrayBuffer, bufferData.Vbo);
-		GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * _vertexDataLength * bufferData.MaxNumberOfObjects, bufferData.Buffer, BufferUsageHint.StaticDraw);
+
+		if (newBuffer)
+		{
+			GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * _vertexDataLength * bufferData.MaxNumberOfObjects, bufferData.Buffer, BufferUsageHint.StaticDraw);
+
+			GL.EnableVertexAttribArray(3);
+			GL.EnableVertexAttribArray(4);
+			GL.EnableVertexAttribArray(5);
+			GL.EnableVertexAttribArray(6);
+			GL.EnableVertexAttribArray(7);
+
+			// https://stackoverflow.com/a/28597384
+			//  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
+			GL.VertexAttribPointer(3, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 0);
+			GL.VertexAttribPointer(4, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 1 * 4 * sizeof(float));
+			GL.VertexAttribPointer(5, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 2 * 4 * sizeof(float));
+			GL.VertexAttribPointer(6, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 3 * 4 * sizeof(float));
+			GL.VertexAttribPointer(7, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 4 * 4 * sizeof(float));
 
 
-		GL.EnableVertexAttribArray(3);
-		GL.EnableVertexAttribArray(4);
-		GL.EnableVertexAttribArray(5);
-		GL.EnableVertexAttribArray(6);
-		// GL.BindBuffer(BufferTarget.ArrayBuffer, bufferData.Vbo);
-
-
-		// https://stackoverflow.com/a/28597384
-		//  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
-		GL.VertexAttribPointer(3, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 0);
-		GL.VertexAttribPointer(4, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 1 * 4 * sizeof(float));
-		GL.VertexAttribPointer(5, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 2 * 4 * sizeof(float));
-		GL.VertexAttribPointer(6, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 3 * 4 * sizeof(float));
-
-
-		GL.VertexAttribDivisor(3, divisor: 1);
-		GL.VertexAttribDivisor(4, divisor: 1);
-		GL.VertexAttribDivisor(5, divisor: 1);
-		GL.VertexAttribDivisor(6, divisor: 1);
-
-		// GL.BindVertexArray(0);
-		// GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+			GL.VertexAttribDivisor(3, divisor: 1);
+			GL.VertexAttribDivisor(4, divisor: 1);
+			GL.VertexAttribDivisor(5, divisor: 1);
+			GL.VertexAttribDivisor(6, divisor: 1);
+			GL.VertexAttribDivisor(7, divisor: 1);
+		}
+		else
+		{
+			GL.BufferSubData(BufferTarget.ArrayBuffer, 0, sizeof(float) * _vertexDataLength * bufferData.NumberOfObjects, bufferData.Buffer);
+		}
 	}
 }

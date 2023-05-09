@@ -372,7 +372,7 @@ public class Transform : Component
 
 		return x;
 	}
-	
+
 	// public Vector3 TransformVector(Vector3 dir)
 	// {
 	// 	Vector3 direction = new Vector3(

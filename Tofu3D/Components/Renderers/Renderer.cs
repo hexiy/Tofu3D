@@ -4,7 +4,7 @@
 public class Renderer : Component, IComparable<Renderer>
 {
 	[XmlIgnore]
-	public int InstancedRenderingIndex = -1;
+	public int InstancedRenderingIndexInBuffer = -1;
 	//[LinkableComponent]
 	[XmlIgnore]
 	public BoxShape BoxShape;

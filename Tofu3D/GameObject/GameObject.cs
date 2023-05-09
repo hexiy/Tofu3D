@@ -88,11 +88,13 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 	private void OnEnable()
 	{
 		Components.ForEach(c => c.OnEnable());
+		Transform?.Children.ForEach(child => child.GameObject.OnEnable());
 	}
 
 	private void OnDisable()
 	{
 		Components.ForEach(c => c.OnDisable());
+		Transform?.Children.ForEach(child => child.GameObject.OnDisable());
 	}
 
 	public bool ActiveInHierarchy
@@ -846,11 +848,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 		object memberwiseClone = this.MemberwiseClone();
 		GameObject clone = (GameObject) memberwiseClone;
 		
-		Renderer renderer = this.GetComponent<Renderer>();
-		if (renderer)
-		{
-			renderer.InstancedRenderingIndex = -1;
-		}
+
 		
 		clone.Components = new List<Component>();
 
@@ -859,6 +857,12 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 			clone.Components.Add((Component) this.Components[i].Clone());
 		}
 
+		Renderer renderer = clone.GetComponent<Renderer>();
+		if (renderer)
+		{
+			renderer.InstancedRenderingIndexInBuffer = -1;
+		}
+		
 		clone.AssignNewId();
 
 		clone.Transform = clone.GetComponent<Transform>();

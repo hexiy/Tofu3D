@@ -66,6 +66,7 @@
       <Content Include="bin\Debug\net8.0\Assets\Shaders\GradientRenderer.glsl" />
       <Content Include="bin\Debug\net8.0\Assets\Shaders\ModelMousePicking.glsl" />
       <Content Include="bin\Debug\net8.0\Assets\Shaders\ModelRenderer.glsl" />
+      <Content Include="bin\Debug\net8.0\Assets\Shaders\ModelRendererInstanced.glsl" />
       <Content Include="bin\Debug\net8.0\Assets\Shaders\ModelRendererUnlit.glsl" />
       <Content Include="bin\Debug\net8.0\Assets\Shaders\RenderTexture.glsl" />
       <Content Include="bin\Debug\net8.0\Assets\Shaders\RenderTextureBloom.glsl" />

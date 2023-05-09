@@ -27,12 +27,20 @@ public class TerrainGenerator : Component
 		base.Awake();
 	}
 
+	public override void Start()
+	{
+		Spawn.Invoke();
+		base.Start();
+	}
+
 	void DestroyTerrain()
 	{
-		while (Transform.Children.Count > 0)
+		for (int i = 0; i < Transform.Children.Count; i++)
 		{
 			Transform.Children[0].GameObject.Destroy();
 		}
+
+		Transform.Children = new List<Transform>();
 	}
 
 	public override void Update()
@@ -40,7 +48,12 @@ public class TerrainGenerator : Component
 		if (_threadsWorkingCount == 0)
 		{
 			_threadsWorkingCount = -1;
-			
+			AddBlocksToScene();
+		}
+
+		if (KeyboardInput.WasKeyJustPressed(Keys.Space))
+		{
+			Spawn?.Invoke();
 		}
 
 		base.Update();
@@ -50,6 +63,11 @@ public class TerrainGenerator : Component
 
 	private void StartTerrainGenerationOnNewThread()
 	{
+		if (CubePrefab == null)
+		{
+			return;
+		}
+
 		DestroyTerrain();
 		_concurrentBag.Clear();
 
@@ -84,9 +102,9 @@ public class TerrainGenerator : Component
 		{
 			// Debug.Log(i);
 			GameObject go = (GameObject) referenceGameObject.Clone();
-			go.Name = $"Thread:{threadIndex} go {i}";
+			// go.Name = $"Thread:{threadIndex} go {i}";
+			go.DynamicallyCreated = true;
 
-			// go.GetComponent<Renderer>().Color = Random.RandomColor();
 			_concurrentBag.Enqueue(go);
 		}
 
@@ -96,30 +114,35 @@ public class TerrainGenerator : Component
 		_threadsWorkingCount--;
 		if (_threadsWorkingCount == 0)
 		{
-			int x = 0;
-			int z = 0;
-
-			SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
-
-			foreach (GameObject go in _concurrentBag)
-			{
-				go.Transform.SetParent(Transform);
-
-				float positionY = Mathf.Sin((float) x / TerrainSize * 10f) * Mathf.Cos((float) z / TerrainSize * 10f) * 5;
-				positionY = positionY.TranslateToGrid(2);
-				go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
-
-
-				x++;
-				if (x > TerrainSize)
-				{
-					x = 0;
-					z++;
-				}
-			}
-
-			Debug.EndAndLogTimer($"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");
+			// AddBlocksToScene();
 		}
+	}
+
+	private void AddBlocksToScene()
+	{
+		int x = 0;
+		int z = 0;
+
+		SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
+
+		foreach (GameObject go in _concurrentBag)
+		{
+			go.Transform.SetParent(Transform);
+
+			float positionY = Mathf.Sin((float) x / TerrainSize * 10f) * Mathf.Cos((float) z / TerrainSize * 10f) * 5;
+			positionY = positionY.TranslateToGrid(2);
+			go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
+
+
+			x++;
+			if (x > TerrainSize)
+			{
+				x = 0;
+				z++;
+			}
+		}
+
+		Debug.EndAndLogTimer($"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");
 	}
 
 	void LongTask()

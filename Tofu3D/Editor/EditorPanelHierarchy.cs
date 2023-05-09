@@ -200,6 +200,23 @@ public class EditorPanelHierarchy : EditorPanel
 			}
 		}
 
+		ImGui.SameLine();
+		if (ImGui.Button("Clear scene"))
+		{
+			List<GameObject> toDestroy = new List<GameObject>();
+			foreach (GameObject go in SceneManager.CurrentScene.GameObjects)
+			{
+				if (go != Camera.MainCamera.GameObject && go.Silent == false)
+				{
+					toDestroy.Add(go);
+				}
+			}
+
+			foreach (GameObject go in toDestroy)
+			{
+				go.Destroy();
+			}
+		}
 
 		for (int goIndex = 0; goIndex < SceneManager.CurrentScene.GameObjects.Count; goIndex++)
 		{

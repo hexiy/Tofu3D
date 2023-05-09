@@ -1,9 +1,9 @@
 ﻿namespace Tofu3D;
 
-public struct InstancedRenderingObjectBufferData
+public class InstancedRenderingObjectBufferData
 {
 	public float[] Buffer;
-	public int Count;
+	public int NumberOfObjects;
 	public int MaxNumberOfObjects;
 	public int Vbo;
 }

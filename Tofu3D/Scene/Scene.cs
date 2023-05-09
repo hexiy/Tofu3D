@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Tofu3D.Physics;
 using Tofu3D.Rendering;
@@ -129,8 +130,7 @@ public class Scene
 
 		Camera.MainCamera.GameObject.Update();
 		TransformHandle.I.GameObject.Update();
-
-
+		
 		for (int i = 0; i < GameObjects.Count; i++)
 		{
 			GameObjects[i].IndexInHierarchy = i;
@@ -138,12 +138,12 @@ public class Scene
 			{
 				continue;
 			}
-
+		
 			if (GameObjects[i] == TransformHandle.I.GameObject)
 			{
 				continue;
 			}
-
+		
 			if (Global.GameRunning || GameObjects[i].AlwaysUpdate)
 			{
 				GameObjects[i].Update();
@@ -193,13 +193,13 @@ public class Scene
 		// GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 
 		_sceneRenderQueue.RenderWorld();
+		Tofu.I.InstancedRenderingSystem.RenderInstances();
 
 		if (TransformHandle.Transform.IsInCanvas == false)
 		{
 			TransformHandle.I.GameObject.Render();
 		}
 
-		Tofu.I.InstancedRenderingSystem.RenderInstances();
 
 		RestoreOpenGLState();
 	}

@@ -18,6 +18,13 @@ public class ModelRendererInstanced : TextureRenderer
 		base.Awake();
 	}
 
+	public override void OnDisable()
+	{
+		Tofu.I.InstancedRenderingSystem.RemoveObject(Model, Material, this);
+
+		base.OnDisable();
+	}
+
 	public override void SetDefaultMaterial()
 	{
 		if (Material?.AssetPath.Length == 0 || Material == null)
@@ -53,15 +60,10 @@ public class ModelRendererInstanced : TextureRenderer
 			return;
 		}
 
+		// float speed = 2;
 
-		if (GameObject == TransformHandle.I?.GameObject)
-		{
-			GL.Disable(EnableCap.DepthTest);
-		}
-		else
-		{
-			GL.Enable(EnableCap.DepthTest);
-		}
-		Tofu.I.InstancedRenderingSystem.UpdateObjectData(Model, Material, this);
+		// float posY = Mathf.Sin(Time.EditorElapsedTime*speed + Transform.LocalPosition.X / 10) * 3 + Mathf.Sin(Time.EditorElapsedTime*speed + Transform.LocalPosition.Z / 10) * 4;
+		// Transform.LocalPosition = Transform.LocalPosition.Set(y: posY);
+		Tofu.I.InstancedRenderingSystem.UpdateObjectData(this);
 	}
 }
