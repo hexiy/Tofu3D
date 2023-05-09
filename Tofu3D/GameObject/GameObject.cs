@@ -857,6 +857,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 			if (componentClone is Renderer)
 			{
 				(componentClone as Renderer).InstancedRenderingIndexInBuffer = -1;
+				(componentClone as Renderer).InstancedRenderingDefinitionIndex = -1;
 			}
 
 			// clone.AddExistingComponent(componentClone); slower

@@ -5,9 +5,6 @@ namespace Scripts;
 [Serializable]
 public class Material : Asset<Material>
 {
-	[XmlIgnore]
-	public int InstancedRenderingDefinitionIndex = -1;
-	
 	public bool Additive = false;
 
 	public Shader Shader;

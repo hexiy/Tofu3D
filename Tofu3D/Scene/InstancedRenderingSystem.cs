@@ -38,6 +38,8 @@ public class InstancedRenderingSystem
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
 		{
 			ShaderCache.UseShader(material.Shader);
+			
+			material.Shader.SetFloat("u_renderMode", (int) RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
 
 
 			material.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
@@ -65,6 +67,27 @@ public class InstancedRenderingSystem
 			material.Shader.SetFloat("u_specularSmoothness", 0.03f);
 			material.Shader.SetFloat("u_specularHighlightsEnabled", 1);
 
+			//FOG
+			bool fogEnabled = SceneManager.CurrentScene.SceneFogManager.FogEnabled;
+			material.Shader.SetFloat("u_fogEnabled", fogEnabled ? 1 : 0);
+			if (fogEnabled)
+			{
+				material.Shader.SetColor("u_fogColor", SceneManager.CurrentScene.SceneFogManager.FogColor1);
+				material.Shader.SetFloat("u_fogIntensity", SceneManager.CurrentScene.SceneFogManager.Intensity);
+				if (SceneManager.CurrentScene.SceneFogManager.IsGradient)
+				{
+					material.Shader.SetColor("u_fogColor2", SceneManager.CurrentScene.SceneFogManager.FogColor2);
+					material.Shader.SetFloat("u_fogGradientSmoothness", SceneManager.CurrentScene.SceneFogManager.GradientSmoothness);
+				}
+				else
+				{
+					material.Shader.SetColor("u_fogColor2", SceneManager.CurrentScene.SceneFogManager.FogColor1);
+				}
+
+				material.Shader.SetFloat("u_fogStartDistance", SceneManager.CurrentScene.SceneFogManager.FogStartDistance);
+				material.Shader.SetFloat("u_fogEndDistance", SceneManager.CurrentScene.SceneFogManager.FogEndDistance);
+				material.Shader.SetFloat("u_fogPositionY", SceneManager.CurrentScene.SceneFogManager.FogPositionY);
+			}
 
 			GL.ActiveTexture(TextureUnit.Texture0);
 			// TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
@@ -94,7 +117,7 @@ public class InstancedRenderingSystem
 		InstancedRenderingObjectBufferData bufferData;
 		Material material = renderer.Material;
 		Model model = renderer.Model;
-		if (material.InstancedRenderingDefinitionIndex == -1)
+		if (renderer.InstancedRenderingDefinitionIndex == -1)
 		{
 			// no buffer exists for this combination-create one
 			InstancedRenderingObjectDefinition definition = new InstancedRenderingObjectDefinition(model, material);
@@ -122,18 +145,18 @@ public class InstancedRenderingSystem
 				_objectBufferDatas.Add(definitionIndex, bufferData);
 			}
 
-			material.InstancedRenderingDefinitionIndex = definitionIndex;
+			renderer.InstancedRenderingDefinitionIndex = definitionIndex;
 		}
 		else
 		{
-			if (_objectBufferDatas.ContainsKey(material.InstancedRenderingDefinitionIndex) == false)
+			if (_objectBufferDatas.ContainsKey(renderer.InstancedRenderingDefinitionIndex) == false)
 			{
 				// on scene reload the definitionIndex is 0 but its not created in the system...
-				material.InstancedRenderingDefinitionIndex = -1;
+				renderer.InstancedRenderingDefinitionIndex = -1;
 				return;
 			}
 
-			bufferData = _objectBufferDatas[material.InstancedRenderingDefinitionIndex];
+			bufferData = _objectBufferDatas[renderer.InstancedRenderingDefinitionIndex];
 		}
 
 
@@ -149,7 +172,7 @@ public class InstancedRenderingSystem
 
 		CopyObjectDataToBuffer(renderer, ref bufferData.Buffer, startingIndexForRenderer);
 
-		_objectBufferDatas[material.InstancedRenderingDefinitionIndex] = bufferData;
+		_objectBufferDatas[renderer.InstancedRenderingDefinitionIndex] = bufferData;
 	}
 
 	void CopyObjectDataToBuffer(Renderer renderer, ref float[] buffer, int startingIndex)
