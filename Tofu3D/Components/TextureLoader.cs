@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -7,7 +8,7 @@ namespace Tofu3D;
 
 public class TextureLoader : AssetLoader<Texture>
 {
-	public override void SaveAsset(Texture asset, AssetLoadSettingsBase loadSettings)
+	public override Texture SaveAsset(ref Texture asset, AssetLoadSettingsBase loadSettings)
 	{
 		throw new NotImplementedException();
 	}
@@ -22,6 +23,10 @@ public class TextureLoader : AssetLoader<Texture>
 		TextureLoadSettings loadSettings = assetLoadSettings as TextureLoadSettings;
 		int id = GL.GenTexture();
 		string path = loadSettings.Path;
+		if (File.Exists(path) == false)
+		{
+			path = Folders.Get2DAssetPath("purple.png");
+		}
 
 
 		TextureHelper.BindTexture(id, TextureType.Texture2D);
@@ -43,6 +48,7 @@ public class TextureLoader : AssetLoader<Texture>
 
 		GL.TexImage2D(textureTarget, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixels);
 
+		GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 
 		GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int) loadSettings.WrapMode);
 		GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int) loadSettings.WrapMode);
@@ -50,7 +56,9 @@ public class TextureLoader : AssetLoader<Texture>
 		GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int) loadSettings.FilterMode);
 		GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int) loadSettings.FilterMode);
 
-
+		GL.TextureParameter(id, TextureParameterName.TextureMinFilter, (int) loadSettings.FilterMode + 257);
+		GL.TextureParameter(id, TextureParameterName.TextureLodBias, -0.4f);
+		
 		ImGuiController.CheckGlError("texture load");
 
 		Texture texture = new()

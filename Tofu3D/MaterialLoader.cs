@@ -8,19 +8,34 @@ namespace Tofu3D;
 
 public class MaterialLoader : AssetLoader<Material>
 {
-	public override void SaveAsset(Material asset, AssetLoadSettingsBase loadSettings)
+	XmlSerializer _xmlSerializer;
+
+	public MaterialLoader()
+	{
+		_xmlSerializer = new(typeof(Material), new Type[] {typeof(Texture), typeof(AssetBase), typeof(Shader)});
+	}
+
+	public override Material SaveAsset(ref Material asset, AssetLoadSettingsBase loadSettings)
 	{
 		StreamWriter sw = new(asset.AssetPath);
-		XmlSerializer xmlSerializer = new(typeof(Material));
 
-		xmlSerializer.Serialize(sw, asset);
+		// asset.IsValid = true;
+		_xmlSerializer.Serialize(sw, asset);
 
 		sw.Close();
+
+		// asset.IsValid = false;
+
+		AssetManager.Unload(asset, loadSettings);
+		asset = AssetManager.Load<Material>(loadSettings);
+		return asset;
+		// return (Material) LoadAsset(loadSettings);
 	}
 
 	public override void UnloadAsset(Asset<Material> asset)
 	{
-		GL.DeleteTexture(asset.AssetRuntimeHandle.Id);
+		// GL.DeleteTexture(asset.AssetRuntimeHandle.Id); what the hell lawl
+		(asset as Material).Shader.Dispose();
 	}
 
 	public override Asset<Material> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
@@ -40,16 +55,25 @@ public class MaterialLoader : AssetLoader<Material>
 
 		StreamReader sr = new(loadSettings.Path);
 
-		XmlSerializer xmlSerializer = new(typeof(Material));
-		Material material = (Material) xmlSerializer.Deserialize(sr);
+		Material material = null;
+		try
+		{
+			material = (Material) _xmlSerializer.Deserialize(sr);
+		}
+		catch (Exception ex)
+		{
+			Debug.Log(ex.Message);
+		}
 
+		sr.Close();
+		material.LoadTextures();
 		if (material.Shader != null)
 		{
 			material.SetShader(material.Shader);
 		}
 
 		material.InitAssetRuntimeHandle(material.Vao);
-
+		// material.IsValid = true;
 		return material;
 	}
 }

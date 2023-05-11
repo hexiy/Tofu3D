@@ -4,7 +4,7 @@ namespace Tofu3D;
 
 public class ModelLoader : AssetLoader<Model>
 {
-	public override void SaveAsset(Model asset, AssetLoadSettingsBase loadSettings)
+	public override Model SaveAsset(ref Model asset, AssetLoadSettingsBase loadSettings)
 	{
 		throw new NotImplementedException();
 	}

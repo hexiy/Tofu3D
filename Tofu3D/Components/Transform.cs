@@ -364,9 +364,9 @@ public class Transform : Component
 		// dir = new Vector3(-dir.X, -dir.Y, -dir.Z);
 		//dir = dir.Normalized();
 		Matrix4x4 transformationMatrix = (Matrix4x4.CreateTranslation(dir)
-		                                * Matrix4x4.CreateRotationX(Transform.Rotation.X / 180 * Mathf.Pi)
-		                                * Matrix4x4.CreateRotationY(Transform.Rotation.Y / 180 * Mathf.Pi)
-		                                * Matrix4x4.CreateRotationZ(Transform.Rotation.Z / 180 * Mathf.Pi));
+		                                * Matrix4x4.CreateRotationX(Transform.WorldRotation.X / 180 * Mathf.Pi)
+		                                * Matrix4x4.CreateRotationY(Transform.WorldRotation.Y / 180 * Mathf.Pi)
+		                                * Matrix4x4.CreateRotationZ(Transform.WorldRotation.Z / 180 * Mathf.Pi));
 
 		Vector3 x = transformationMatrix.Translation;
 

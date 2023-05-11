@@ -7,7 +7,7 @@ namespace Tofu3D;
 
 public class CubemapTextureLoader : AssetLoader<CubemapTexture>
 {
-	public override void SaveAsset(CubemapTexture asset, AssetLoadSettingsBase loadSettings)
+	public override CubemapTexture SaveAsset(ref CubemapTexture asset, AssetLoadSettingsBase loadSettings)
 	{
 		throw new NotImplementedException();
 	}

@@ -120,8 +120,8 @@ public static class SceneSerializer
 				}
 			}
 
-			XmlSerializer xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
-			xmlSerializer.Serialize(sw, sceneFile);
+			// XmlSerializer xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
+			_xmlSerializer.Serialize(sw, sceneFile);
 
 			for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 			{

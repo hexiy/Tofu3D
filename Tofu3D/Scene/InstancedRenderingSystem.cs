@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Tofu3D.Rendering;
+﻿using Tofu3D.Rendering;
 
 namespace Tofu3D;
 
@@ -34,19 +33,22 @@ public class InstancedRenderingSystem
 		int definitionIndex = objectBufferPair.Key;
 		InstancedRenderingObjectDefinition definition = _definitions[definitionIndex];
 		Material material = definition.Material;
+		material = AssetManager.Load<Material>(material.AssetPath);
 		Model model = definition.Model;
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
 		{
 			ShaderCache.UseShader(material.Shader);
-			
+
+
 			material.Shader.SetFloat("u_renderMode", (int) RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
 
 
 			material.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
-			material.Shader.SetColor("u_rendererColor", Color.White);
-			material.Shader.SetVector2("u_tiling", new Vector2(-1, -1));
-			material.Shader.SetVector2("u_offset", Vector2.Zero);
+			material.Shader.SetColor("u_rendererColor", Color.White * material.Opacity);
+			// material.Shader.SetVector2("u_tiling", new Vector2(-1, -1)); //grass block
+			material.Shader.SetVector2("u_tiling", material.Tiling); // normal 
+			material.Shader.SetVector2("u_offset", material.Offset);
 
 			material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition);
 
@@ -64,8 +66,8 @@ public class InstancedRenderingSystem
 			material.Shader.SetVector3("u_directionalLightDirection", SceneLightingManager.I.GetDirectionalLightDirection());
 
 
-			material.Shader.SetFloat("u_specularSmoothness", 0.03f);
-			material.Shader.SetFloat("u_specularHighlightsEnabled", 1);
+			material.Shader.SetFloat("u_specularSmoothness", 0f);
+			material.Shader.SetFloat("u_specularHighlightsEnabled", 0);
 
 			//FOG
 			bool fogEnabled = SceneManager.CurrentScene.SceneFogManager.FogEnabled;
@@ -89,9 +91,29 @@ public class InstancedRenderingSystem
 				material.Shader.SetFloat("u_fogPositionY", SceneManager.CurrentScene.SceneFogManager.FogPositionY);
 			}
 
-			GL.ActiveTexture(TextureUnit.Texture0);
+			// material.Shader.SetFloat("u_aoStrength", _normalDisabled ? 0 : 1);
+
+			// ALBEDO
 			// TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
-			TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/3D/Grass_Block_TEX.png").TextureId);
+			// TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/3D/Grass_Block_TEX.png").TextureId);
+			if (material.AlbedoTexture)
+			{
+				GL.ActiveTexture(TextureUnit.Texture0);
+				TextureHelper.BindTexture(material.AlbedoTexture.TextureId);
+			}
+
+			// NORMAL
+			// TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
+			// GL.ActiveTexture(TextureUnit.Texture1);
+			// TextureHelper.BindTexture(_idNormal);
+
+			// AO
+			// TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
+			if (material.AoTexture)
+			{
+				GL.ActiveTexture(TextureUnit.Texture1);
+				TextureHelper.BindTexture(material.AoTexture.TextureId);
+			}
 
 			ShaderCache.BindVertexArray(model.Vao);
 
@@ -102,6 +124,8 @@ public class InstancedRenderingSystem
 
 
 			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, model.IndicesCount, instanceCount: objectBufferPair.Value.NumberOfObjects);
+
+			GL.ActiveTexture(TextureUnit.Texture0); // DOESNT WORK
 		}
 	}
 
@@ -123,19 +147,12 @@ public class InstancedRenderingSystem
 			InstancedRenderingObjectDefinition definition = new InstancedRenderingObjectDefinition(model, material);
 			int definitionIndex;
 
-			if (_definitions.Contains(definition))
-			{
-				definitionIndex = _definitions.IndexOf(definition);
-			}
-			else
-			{
-				definitionIndex = _definitions.Count;
-			}
+			definitionIndex = _definitions.Contains(definition) ? _definitions.IndexOf(definition) : _definitions.Count;
 
 			// find bufferData if its already created
-			if (_objectBufferDatas.ContainsKey(definitionIndex))
+			if (_objectBufferDatas.TryGetValue(definitionIndex, out InstancedRenderingObjectBufferData? data))
 			{
-				bufferData = _objectBufferDatas[definitionIndex];
+				bufferData = data;
 			}
 			else
 			{
@@ -215,9 +232,11 @@ public class InstancedRenderingSystem
 		Debug.Log("Initializing Instanced Buffer Data");
 		GL.BindVertexArray(objectDefinition.Model.Vao);
 
-		InstancedRenderingObjectBufferData bufferData = new InstancedRenderingObjectBufferData();
-		bufferData.MaxNumberOfObjects = 100000;
-		bufferData.Vbo = -1;
+		InstancedRenderingObjectBufferData bufferData = new InstancedRenderingObjectBufferData
+		                                                {
+			                                                MaxNumberOfObjects = 100000,
+			                                                Vbo = -1
+		                                                };
 
 		bufferData.Buffer = new float[bufferData.MaxNumberOfObjects * _vertexDataLength];
 

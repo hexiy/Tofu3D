@@ -5,13 +5,13 @@ namespace Tofu3D;
 
 public class InspectableData
 {
-	public IInspectable Inspectable { get; private set; }
+	public object Inspectable { get; private set; }
 	public Type InspectableType;
 	public FieldOrPropertyInfo[] Infos;
 	// public FieldInfo[] Fields;
 	// public PropertyInfo[] Properties;
 
-	public InspectableData(IInspectable inspectable)
+	public InspectableData(object inspectable)
 	{
 		Inspectable = inspectable;
 		InspectableType = inspectable.GetType();

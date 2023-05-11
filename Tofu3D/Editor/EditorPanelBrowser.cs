@@ -57,7 +57,7 @@ public class EditorPanelBrowser : EditorPanel
 		{
 			Material createdMaterial = new();
 			createdMaterial.AssetPath = filePath;
-			AssetManager.Save<Material>(createdMaterial);
+			// AssetManager.Save<Material>(createdMaterial);
 			RefreshAssets();
 		});
 		_contextItems = new List<BrowserContextItem>

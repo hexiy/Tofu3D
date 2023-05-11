@@ -7,6 +7,11 @@ public static class KeyboardInput
 		return Tofu.I.Window.KeyboardState.IsKeyPressed((OpenTK.Windowing.GraphicsLibraryFramework.Keys) key);
 	}
 
+	public static bool WasKeyJustReleased(Keys key)
+	{
+		return Tofu.I.Window.KeyboardState.IsKeyReleased((OpenTK.Windowing.GraphicsLibraryFramework.Keys) key);
+	}
+
 	public static bool IsKeyDown(Keys key)
 	{
 		return Tofu.I.Window.KeyboardState.IsKeyDown((OpenTK.Windowing.GraphicsLibraryFramework.Keys) key);
@@ -14,6 +19,6 @@ public static class KeyboardInput
 
 	public static bool IsKeyUp(Keys key)
 	{
-		return Tofu.I.Window.KeyboardState.IsKeyReleased((OpenTK.Windowing.GraphicsLibraryFramework.Keys) key);
+		return IsKeyDown(key) == false;
 	}
 }

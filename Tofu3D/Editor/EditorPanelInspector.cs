@@ -20,6 +20,7 @@ public class EditorPanelInspector : EditorPanel
 
 	public static EditorPanelInspector I { get; private set; }
 
+	Action _actionQueue = () => { };
 	List<InspectableData> _currentInspectableDatas = new List<InspectableData>(); // cached inspectable data
 	bool _editing;
 
@@ -47,7 +48,7 @@ public class EditorPanelInspector : EditorPanel
 			Component c = currentInspectableData.Inspectable as Component;
 			if (c?.GameObject == comp.GameObject)
 			{
-				SelectInspectables(comp.GameObject.Components.ToList<Tofu3D.IInspectable>()); // RefreshInspector();
+				SelectInspectables(comp.GameObject.Components); // RefreshInspector();
 				return;
 			}
 		}
@@ -55,6 +56,8 @@ public class EditorPanelInspector : EditorPanel
 
 	public override void Update()
 	{
+		_actionQueue.Invoke();
+		_actionQueue = () => { };
 	}
 
 	public void ClearInspectableDatas()
@@ -94,7 +97,7 @@ public class EditorPanelInspector : EditorPanel
 
 
 		GameObject go = SceneManager.CurrentScene.GetGameObject(ids[0]);
-		SelectInspectables(go.Components.ToList<Tofu3D.IInspectable>());
+		SelectInspectables(go.Components);
 	}
 
 	/*private void UpdateCurrentComponentsCache()
@@ -111,16 +114,16 @@ public class EditorPanelInspector : EditorPanel
 		// 	_currentInspectableDatas.Add(data);
 		// }
 	}*/
-	public void SelectInspectable(IInspectable inspectable)
+	public void SelectInspectable(object inspectable)
 	{
-		SelectInspectables(new List<IInspectable>() {inspectable});
+		SelectInspectables(new List<object>() {inspectable});
 	}
 
-	public void SelectInspectables(List<IInspectable> inspectables)
+	public void SelectInspectables(IList inspectables)
 	{
 		ClearInspectableDatas();
 
-		foreach (IInspectable inspectable in inspectables)
+		foreach (object inspectable in inspectables)
 		{
 			InspectableData inspectableData = new InspectableData(inspectable);
 			_currentInspectableDatas.Add(inspectableData);
@@ -129,7 +132,7 @@ public class EditorPanelInspector : EditorPanel
 
 	public void OnMaterialSelected(string materialPath)
 	{
-		IInspectable materialInspectable = AssetManager.Load<Material>(Path.GetFileName(materialPath));
+		object materialInspectable = AssetManager.Load<Material>(Path.GetFileName(materialPath));
 		SelectInspectable(materialInspectable);
 	}
 
@@ -148,7 +151,6 @@ public class EditorPanelInspector : EditorPanel
 
 
 		ResetId();
-
 
 		if (HasInspectableData)
 		{
@@ -290,6 +292,12 @@ public class EditorPanelInspector : EditorPanel
 
 					//ImGui.PopID();
 				}
+
+				if (componentInspectorData.InspectableType == typeof(Material) && (_editing || ImGui.IsMouseReleased(ImGuiMouseButton.Left) || ImGui.IsMouseReleased(ImGuiMouseButton.Right)))
+				{
+					// detect drag and drop texture too....
+					_actionQueue += () => { AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
+				}
 			}
 		}
 
@@ -348,11 +356,11 @@ public class EditorPanelInspector : EditorPanel
 	{
 		PushNextId();
 		Material selectedMaterial = componentInspectorData.Inspectable as Material;
-		bool saveMaterialClicked = ImGui.Button("Save");
-		if (saveMaterialClicked)
-		{
-			AssetManager.Save<Material>(selectedMaterial);
-		}
+		// bool saveMaterialClicked = ImGui.Button("Save");
+		// if (saveMaterialClicked)
+		// {
+		// 	// AssetManager.Save<Material>(selectedMaterial);
+		// }
 
 		string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.AssetPath);
 		ImGui.Text(materialName);
@@ -381,69 +389,16 @@ public class EditorPanelInspector : EditorPanel
 				Shader shader = new(shaderPath);
 
 				selectedMaterial.Shader = shader;
-				AssetManager.Save<Material>(selectedMaterial);
+				_actionQueue += () => { AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
+				// AssetManager.Save<Material>(selectedMaterial);
 			}
 
 			ImGui.EndDragDropTarget();
 		}
 
-		if (selectedMaterial.Shader != null)
+		if (selectedMaterial.Shader == null)
 		{
-			ShaderUniform[] shaderUniforms = selectedMaterial.Shader.GetAllUniforms();
-			for (int i = 0; i < shaderUniforms.Length; i++)
-			{
-				PushNextId();
-
-				ImGui.Text(shaderUniforms[i].Name);
-
-				if (shaderUniforms[i].Type == typeof(Vector4))
-				{
-					ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth - 5);
-					ImGui.SetNextItemWidth(itemWidth);
-
-					if (selectedMaterial.Shader.Uniforms.ContainsKey(shaderUniforms[i].Name) == false)
-					{
-						continue;
-					}
-
-					object uniformValue = selectedMaterial.Shader.Uniforms[shaderUniforms[i].Name];
-					System.Numerics.Vector4 col = ((Vector4) uniformValue).ToNumerics();
-
-					if (ImGui.ColorEdit4("", ref col))
-					{
-						//selectedMaterial
-						int lastShader = ShaderCache.ShaderInUse;
-						ShaderCache.UseShader(selectedMaterial.Shader);
-
-						selectedMaterial.Shader.SetColor(shaderUniforms[i].Name, col);
-						ShaderCache.UseShader(lastShader);
-					}
-				}
-
-				if (shaderUniforms[i].Type == typeof(float))
-				{
-					ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth - 5);
-					ImGui.SetNextItemWidth(itemWidth);
-
-					if (selectedMaterial.Shader.Uniforms.ContainsKey(shaderUniforms[i].Name) == false)
-					{
-						selectedMaterial.Shader.Uniforms[shaderUniforms[i].Name] = Activator.CreateInstance(shaderUniforms[i].Type);
-					}
-
-					object uniformValue = selectedMaterial.Shader.Uniforms[shaderUniforms[i].Name];
-					float fl = (float) uniformValue;
-
-					if (ImGui.InputFloat("xxx", ref fl))
-					{
-						//selectedMaterial
-						int lastShader = ShaderCache.ShaderInUse;
-						ShaderCache.UseShader(selectedMaterial.Shader);
-
-						selectedMaterial.Shader.SetFloat(shaderUniforms[i].Name, fl);
-						ShaderCache.UseShader(lastShader);
-					}
-				}
-			}
+			return;
 		}
 	}
 
@@ -627,15 +582,23 @@ public class EditorPanelInspector : EditorPanel
 
 			ImGui.PopStyleColor(1);
 		}
-		else if (info.FieldOrPropertyType == typeof(Texture) && componentInspectorData.Inspectable is TextureRenderer)
+		else if (info.FieldOrPropertyType == typeof(Texture))
 		{
-			string textureName = Path.GetFileName((componentInspectorData.Inspectable as TextureRenderer).Texture?.AssetPath);
+			Texture texture = (Texture) info.GetValue(componentInspectorData.Inspectable);
+			string textureName = texture == null ? "" : Path.GetFileName(texture.AssetPath);
 
 			bool clicked = ImGui.Button(textureName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+			bool rightMouseClicked = ImGui.IsItemClicked(ImGuiMouseButton.Right);
 			//ImiGui.Text(textureName);
 			if (clicked)
 			{
-				EditorPanelBrowser.I.GoToFile((componentInspectorData.Inspectable as TextureRenderer).Texture.AssetPath);
+				Debug.Log("TODO");
+				// EditorPanelBrowser.I.GoToFile((componentInspectorData.Inspectable as TextureRenderer).Texture.AssetPath);
+			}
+
+			if (rightMouseClicked)
+			{
+				info.SetValue(componentInspectorData.Inspectable, null);
 			}
 
 			if (ImGui.BeginDragDropTarget())
@@ -644,11 +607,13 @@ public class EditorPanelInspector : EditorPanel
 				string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 				if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 				{
-					payload = Path.GetRelativePath("Assets", payload);
+					payload = Path.GetRelativePath(Folders.EngineFolderPath, payload);
 
 					textureName = payload;
 
-					(componentInspectorData.Inspectable as TextureRenderer).LoadTexture(textureName);
+					Texture loadedTexture = AssetManager.Load<Texture>(textureName);
+
+					info.SetValue(componentInspectorData.Inspectable, loadedTexture);
 				}
 
 				ImGui.EndDragDropTarget();
@@ -673,7 +638,10 @@ public class EditorPanelInspector : EditorPanel
 			bool clicked = ImGui.Button(materialPath, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 			if (clicked)
 			{
-				EditorPanelBrowser.I.GoToFile(materialPath);
+				_actionQueue += () => SelectInspectable((componentInspectorData.Inspectable as Renderer).Material);
+
+
+				// EditorPanelBrowser.I.GoToFile(materialPath);
 			}
 
 			if (ImGui.BeginDragDropTarget())

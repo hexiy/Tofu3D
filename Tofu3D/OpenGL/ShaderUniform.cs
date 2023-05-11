@@ -1,7 +1,8 @@
 ﻿namespace Tofu3D;
 
-public class ShaderUniform
+public struct ShaderUniform
 {
 	public string Name;
 	public Type Type;
+	public object Value;
 }

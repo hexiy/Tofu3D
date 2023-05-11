@@ -2,7 +2,7 @@
 {
 	public abstract Asset<T> LoadAsset(AssetLoadSettingsBase loadSettings);
 
-	public abstract void SaveAsset(T asset, AssetLoadSettingsBase loadSettings);
+	public abstract T SaveAsset(ref T asset, AssetLoadSettingsBase loadSettings);
 
 	public abstract void UnloadAsset(Asset<T> asset);
 }

@@ -54,8 +54,9 @@ uniform float u_fogPositionY = 0;
 uniform float u_fogGradientSmoothness = 1;
 uniform float u_fogIntensity = 1;
         
-uniform sampler2D textureObject;
-uniform sampler2D shadowMap;
+uniform sampler2D textureAlbedo;
+//uniform sampler2D textureNormal;
+uniform sampler2D textureAo;
 
 in vec3 normal;
 in vec2 uv;
@@ -68,14 +69,18 @@ out vec4 frag_color;
 void main(void)
 {
 
+vec2 uvCoords = (uv+u_offset)*u_tiling;
 float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
 vec3 norm = normalize(- normal);
+        
+//if(u_normalStrength!=0){
+//}
 
 float directionalLightFactor = max(dot(norm, u_directionalLightDirection), 0.0);
 vec4 dirColor = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
 
 
-vec4 texturePixelColor = texture(textureObject, (uv + u_offset) * u_tiling);
+vec4 texturePixelColor = texture(textureAlbedo, uvCoords);
 vec4 result = texturePixelColor * color;
 
 vec4 ambientLighting = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
@@ -124,7 +129,10 @@ fogFactor = fogFactor * finalFogColor.a;
 
 result.rgb = mix(result.rgb, finalFogColor.rgb, fogFactor);
 }
-        
+
+vec4 aoTexture = texture(textureAo, uvCoords);
+result.rgb *= aoTexture.rgb;
+
 if (u_renderMode == 0) // regular
 {
 frag_color = result;

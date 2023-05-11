@@ -74,15 +74,15 @@ public class AssetsWatcher
 			                                  ChangeType = e.ChangeType,
 		                                  };
 
-		lock (_changedFilesQueue)
-		{
-			_changedFilesQueue.Enqueue(fileChangedInfo);
-		}
-
-		// if (AssetUtils.IsShader(assetsRelativePath))
+		// lock (_changedFilesQueue)
 		// {
-		// 	ShaderCache.QueueShaderReload(assetsRelativePath);
+		// 	_changedFilesQueue.Enqueue(fileChangedInfo);
 		// }
+
+		if (AssetUtils.IsShader(assetsRelativePath))
+		{
+			ShaderCache.QueueShaderReload(assetsRelativePath);
+		}
 	}
 
 	/// <summary>

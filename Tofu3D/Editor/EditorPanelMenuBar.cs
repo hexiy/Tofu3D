@@ -85,6 +85,17 @@ public class EditorPanelMenuBar : EditorPanel
 				ImGui.EndMenu();
 			}
 
+			bool instancedRenderingClicked = ImGui.BeginMenu("Instanced Rendering");
+			if (instancedRenderingClicked)
+			{
+				EditorPanelInspector.I.SelectInspectable(Tofu.I.InstancedRenderingSystem);
+
+				ImGui.CloseCurrentPopup();
+
+
+				ImGui.EndMenu();
+			}
+
 			bool showDebugButton = true;// KeyboardInput.IsKeyDown(Keys.LeftAlt);
 			if (showDebugButton)
 			{

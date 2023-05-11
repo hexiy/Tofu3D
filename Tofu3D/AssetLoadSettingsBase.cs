@@ -8,7 +8,7 @@ public abstract class AssetLoadSettingsBase
 	public string Path
 	{
 		get { return _path; }
-		internal set { _path = Folders.GetPathRelativeToEngineFolder(value); }
+		internal set { _path = Folders.GetPathRelativeToAssetsFolder(value); }
 	}
 
 	public override int GetHashCode()

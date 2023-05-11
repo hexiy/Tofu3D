@@ -19,6 +19,11 @@ public class Folders
 		return Path.Combine("Assets", Path.GetRelativePath(Assets, path));
 	}
 
+	public static string Get2DAssetPath(string assetName)
+	{
+		return Path.Combine(Textures, assetName);
+	}
+
 	public static string GetPathRelativeToEngineFolder(string path)
 	{
 		if (path.Length == 0)
@@ -26,7 +31,7 @@ public class Folders
 			return Assets;
 		}
 
-		return Path.GetRelativePath(EngineFolderPath, path);
+		return Path.Combine(EngineFolderPath, Path.GetRelativePath(EngineFolderPath, path));
 	}
 
 	public static string EngineFolderPath

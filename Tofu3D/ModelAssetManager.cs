@@ -1,4 +1,4 @@
-using System.IO;
+/*using System.IO;
 
 namespace Tofu3D;
 
@@ -14,7 +14,7 @@ public static class ModelAssetManager
 			/*if (mat.shader != null)
 			{
 				mat.SetShader(mat.shader);
-			}*/
+			}#1#
 
 			return model;
 		}
@@ -29,4 +29,4 @@ public static class ModelAssetManager
 			xmlSerializer.Serialize(sw, model);
 		}
 	}
-}
+}*/

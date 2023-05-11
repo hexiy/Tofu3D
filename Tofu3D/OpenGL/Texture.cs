@@ -7,6 +7,7 @@ public class Texture : Asset<Texture>
 	{
 		get { return AssetRuntimeHandle.Id; }
 	}
+	[XmlIgnore]
 	public bool Loaded;
 	public Vector2 Size;
 
@@ -15,6 +16,6 @@ public class Texture : Asset<Texture>
 
 	public void Delete()
 	{
-		AssetManager.Unload(this);
+		AssetManager.Unload(this, LoadSettings);
 	}
 }

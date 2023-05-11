@@ -1,4 +1,6 @@
-﻿public static class AssetManager
+﻿using System.IO;
+
+public static class AssetManager
 {
 	static Dictionary<Type, IAssetLoader> _loaders = new Dictionary<Type, IAssetLoader>();
 	static Dictionary<Type, Type> _loadSettingsTypes = new Dictionary<Type, Type>();
@@ -35,7 +37,7 @@
 		_loaders.Add(assetLoader.GetType().BaseType.GenericTypeArguments[0], assetLoader);
 	}
 
-	public static T Load<T>(string path, AssetLoadSettingsBase? loadSettings = null) where T : Asset<T>, new()
+	public static T Load<T>(string path, AssetLoadSettingsBase? loadSettings = null) where T : Asset<T>
 	{
 		// AssetLoadSettings<T> loadSettings = new();
 
@@ -44,7 +46,7 @@
 		return Load<T>(loadSettings: settings);
 	}
 
-	public static T Load<T>(AssetLoadSettingsBase loadSettings) where T : Asset<T>, new()
+	public static T Load<T>(AssetLoadSettingsBase loadSettings) where T : Asset<T>
 	{
 		// now, we need to check if the asset has already been created, do we get the .meta file? or ust check in assetDatabase if the filepath corresponds 
 		// 
@@ -59,7 +61,7 @@
 		else
 		{
 			asset = (_loaders[typeof(T)] as AssetLoader<T>).LoadAsset(loadSettings: loadSettings) as T;
-			_assets.Add(hash, asset);
+			_assets[hash] = asset;
 			// Debug.Log($"Loaded asset:{assetPath}");
 		}
 
@@ -69,20 +71,26 @@
 
 	public static T Save<T>(T asset, AssetLoadSettingsBase loadSettings = null) where T : Asset<T>, new()
 	{
-		// string assetPath = (loadSettings as AssetLoadSettings<T>).Path;
 		AssetLoadSettings<T> settings = (loadSettings as AssetLoadSettings<T>) ?? Activator.CreateInstance(_loadSettingsTypes[typeof(T)]) as AssetLoadSettings<T>;
 		settings.Path = asset.AssetPath;
+		if (File.Exists(settings.Path) == false)
+		{
+			// Debug.LogError("Cannot save asset, no path present");
+			return null;
+		}
+
 		int hash = settings.GetHashCode();
 
-		(_loaders[typeof(T)] as AssetLoader<T>).SaveAsset(asset, loadSettings);
+		(_loaders[typeof(T)] as AssetLoader<T>).SaveAsset(ref asset, settings);
 
 		Debug.StatSetValue("LoadedAssets", $"LoadedAssets:{_assets.Count}");
+		// return _assets[hash] as T;
 		return asset;
 	}
 
-	public static void Unload<T>(Asset<T> asset) where T : Asset<T>
+	public static void Unload<T>(Asset<T> asset, AssetLoadSettingsBase loadSettings) where T : Asset<T>
 	{
-		int hash = asset.AssetPath.GetHashCode();
+		int hash = loadSettings.GetHashCode();
 
 		if (_assets.ContainsKey(hash))
 		{

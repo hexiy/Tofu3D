@@ -171,24 +171,27 @@ public class SceneViewController
 			float keyboardMoveSpeed = _moveSpeed;
 
 			_keyboardInputDirectionVector = Vector3.Zero;
-			if (KeyboardInput.IsKeyDown(Keys.W))
+			if (KeyboardInput.IsKeyDown(Keys.LeftControl) == false)
 			{
-				_keyboardInputDirectionVector += Vector3.Forward;
-			}
+				if (KeyboardInput.IsKeyDown(Keys.W))
+				{
+					_keyboardInputDirectionVector += Vector3.Forward;
+				}
 
-			if (KeyboardInput.IsKeyDown(Keys.S))
-			{
-				_keyboardInputDirectionVector += Vector3.Backward;
-			}
+				if (KeyboardInput.IsKeyDown(Keys.S))
+				{
+					_keyboardInputDirectionVector += Vector3.Backward;
+				}
 
-			if (KeyboardInput.IsKeyDown(Keys.A))
-			{
-				_keyboardInputDirectionVector += Vector3.Left;
-			}
+				if (KeyboardInput.IsKeyDown(Keys.A))
+				{
+					_keyboardInputDirectionVector += Vector3.Left;
+				}
 
-			if (KeyboardInput.IsKeyDown(Keys.D))
-			{
-				_keyboardInputDirectionVector += Vector3.Right;
+				if (KeyboardInput.IsKeyDown(Keys.D))
+				{
+					_keyboardInputDirectionVector += Vector3.Right;
+				}
 			}
 
 

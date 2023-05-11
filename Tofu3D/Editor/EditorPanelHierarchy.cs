@@ -47,7 +47,7 @@ public class EditorPanelHierarchy : EditorPanel
 			_canDelete = true;
 		}
 
-		if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.IsKeyUp(Keys.C))
+		if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.WasKeyJustReleased(Keys.C))
 		{
 			if (GameObjectSelectionManager.GetSelectedGameObject() != null)
 			{
@@ -56,7 +56,7 @@ public class EditorPanelHierarchy : EditorPanel
 			}
 		}
 
-		if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.IsKeyUp(Keys.V))
+		if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.WasKeyJustReleased(Keys.V))
 		{
 			if (_clipboardGameObject != null)
 			{

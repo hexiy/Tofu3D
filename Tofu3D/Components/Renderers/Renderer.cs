@@ -136,7 +136,8 @@ public class Renderer : Component, IComparable<Renderer>
 
 	public Matrix4x4 GetModelMatrix()
 	{
-		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
+		// Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
+		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale);
 		return ScalePivotRotationMatrix * translation;
 	}
 
@@ -200,6 +201,13 @@ public class Renderer : Component, IComparable<Renderer>
 
 	public override void Update()
 	{
+		/*if (Material != null && Material.IsValid == false)
+		{
+			Debug.LogError("Material invalid, reloading");
+			Material = AssetManager.Load<Material>(Material.AssetPath);
+			// Material.IsValid = true;
+		}*/
+
 		UpdateMvp();
 
 		DistanceFromCamera = CalculateDistanceFromCamera();

@@ -15,6 +15,6 @@ public class CubemapTexture : Asset<CubemapTexture>
 
 	public void Delete()
 	{
-		AssetManager.Unload(this);
+		AssetManager.Unload(this, LoadSettings);
 	}
 }
