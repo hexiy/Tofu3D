@@ -6,7 +6,7 @@ namespace Tofu3D;
 
 public class DebugGraphTimer : IComparable<DebugGraphTimer>
 {
-	public float[] Samples { get; private set; } = new float[200];
+	public float[] Samples { get; private set; } = new float[500];
 	public int CurrentIndex { get; private set; } = 0;
 
 	float _foundMaxSample;

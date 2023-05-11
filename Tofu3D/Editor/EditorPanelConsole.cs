@@ -206,6 +206,7 @@ public class EditorPanelConsole : EditorPanel
 		{
 			ImGui.SetCursorPosY(ImGui.GetContentRegionMax().Y * 0.72f);
 			ImGui.Separator();
+
 			Vector4 cBeige = new(1f, 0.96f, 0.90f, 1.00f);
 
 			Vector4 cBeigeMid = new(0.97f, 0.94f, 0.88f, 1f); // greenish

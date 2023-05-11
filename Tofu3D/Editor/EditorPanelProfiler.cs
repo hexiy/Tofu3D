@@ -75,12 +75,8 @@ public class EditorPanelProfiler : EditorPanel
 			}
 
 			bool clickedOnAnyControl = false;
-			ImGui.PushStyleColor(ImGuiCol.PlotHistogram, Color.DarkRed.ToVector4());
-			int plotWidth = (int) ImGui.GetContentRegionAvail().X;
-			if (timerPair.Value.Samples.Length != plotWidth / 2 && plotWidth > 0)
-			{
-				timerPair.Value.SetSamplesBufferSize((uint) plotWidth / 2);
-			}
+			// ImGui.PushStyleColor(ImGuiCol.PlotHistogram, Color.DarkRed.ToVector4());
+
 
 			if (timerPair.Value.Collapsed)
 			{
@@ -99,13 +95,19 @@ public class EditorPanelProfiler : EditorPanel
 			}
 			else
 			{
+				int plotWidth = (int) ImGui.GetContentRegionAvail().X;
+				if (timerPair.Value.Samples.Length != plotWidth && plotWidth > 0)
+				{
+					timerPair.Value.SetSamplesBufferSize((uint) plotWidth);
+				}
+				
 				ImGui.PlotHistogram(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset,
 				                    $"{timerPair.Value.Label}:{msDurationSlower.ToString("F2")} ms",
 				                    timerPair.Value.MinSample, timerPair.Value.MaxSample,
 				                    new Vector2(plotWidth, 100));
 			}
 
-			ImGui.PopStyleColor();
+			// ImGui.PopStyleColor();
 
 			clickedOnAnyControl |= ImGui.IsItemClicked();
 

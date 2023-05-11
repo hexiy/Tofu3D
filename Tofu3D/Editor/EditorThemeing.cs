@@ -180,7 +180,7 @@ public static class EditorThemeing
 
 			colors[(int) ImGuiCol.Text] = new Vector4(0.23f, 0.29f, 0.40f, 1f);
 			colors[(int) ImGuiCol.TextDisabled] = new Vector4(0.23f, 0.29f, 0.40f, 0.5f);
-			colors[(int) ImGuiCol.WindowBg] = new Vector4(0.99f, 0.96f, 0.90f, 1.00f);
+			colors[(int) ImGuiCol.WindowBg] = cBeige;
 			colors[(int) ImGuiCol.ChildBg] = cBeige;
 			colors[(int) ImGuiCol.PopupBg] = cBeige;
 			colors[(int) ImGuiCol.Border] = new Vector4(0.81f, 0.79f, 0.74f, 1);
@@ -221,7 +221,8 @@ public static class EditorThemeing
 			// colors[(int)ImGuiCol.ButtonActive]      = new Vector4(0.98f, 0.39f, 0.36f, 1.00f);
 			colors[(int) ImGuiCol.PlotLines] = new Vector4(0.39f, 0.39f, 0.39f, 1.00f);
 			colors[(int) ImGuiCol.PlotLinesHovered] = new Vector4(1.00f, 0.43f, 0.35f, 1.00f);
-			colors[(int) ImGuiCol.PlotHistogram] = new Vector4(0.78f, 0.78f, 0.78f, 1.00f);
+			colors[(int) ImGuiCol.PlotHistogram] = new Color(224, 203, 126, 255).ToVector4();
+
 			colors[(int) ImGuiCol.PlotHistogramHovered] = new Vector4(0.56f, 0.56f, 0.56f, 1.00f);
 			colors[(int) ImGuiCol.TextSelectedBg] = new Vector4(0.71f, 0.72f, 0.73f, 0.57f);
 			colors[(int) ImGuiCol.ModalWindowDimBg] = new Vector4(0.20f, 0.20f, 0.20f, 0.35f);
