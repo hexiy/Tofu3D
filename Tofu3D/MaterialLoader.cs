@@ -63,13 +63,15 @@ public class MaterialLoader : AssetLoader<Material>
 		catch (Exception ex)
 		{
 			Debug.Log(ex.Message);
+			sr.Close();
+			return null;
 		}
 
 		sr.Close();
 		material.LoadTextures();
 		if (material.Shader != null)
 		{
-			material.SetShader(material.Shader);
+			material.InitShader();
 		}
 
 		material.InitAssetRuntimeHandle(material.Vao);

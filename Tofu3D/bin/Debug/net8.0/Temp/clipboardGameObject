@@ -10,7 +10,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Block</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -71,7 +71,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>31.743608</DistanceFromCamera>
+      <DistanceFromCamera>12.366018</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Opacity>-1.06</Opacity>

@@ -5,6 +5,8 @@ namespace Tofu3D;
 [Serializable]
 public class Shader : IDisposable
 {
+	[XmlIgnore]
+	public bool IsLoaded { get; private set; } = false;
 	public BufferType BufferType;
 	[XmlIgnore] public int ProgramId { get; set; }
 
@@ -57,7 +59,6 @@ public class Shader : IDisposable
 			// throw new FileNotFoundException("Couldn't find shader");
 			return;
 		}
-
 		// GetAllUniforms();
 		string shaderFile = File.ReadAllText(Path);
 
@@ -133,6 +134,7 @@ public class Shader : IDisposable
 		// {
 		// 	GL.Uniform1(shadowMapTextureLocation, 1);
 		// }
+		IsLoaded = true;
 	}
 
 	public void SetMatrix4X4(string uniformName, Matrix4x4 mat)

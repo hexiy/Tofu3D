@@ -54,8 +54,11 @@ public class Material : Asset<Material>
 	{
 		Shader = shader;
 
-		Shader.Load();
-		BufferFactory.CreateBufferForShader(this);
+		if (Shader.IsLoaded == false)
+		{
+			Shader.Load();
+			BufferFactory.CreateBufferForShader(this);
+		}
 	}
 
 	public void InitShader()
