@@ -30,7 +30,7 @@ public class Tofu
 		SceneSerializer.Initialize();
 		RenderSettings.LoadSavedData();
 		AssetsWatcher.StartWatching();
-		ShaderCache.Initialize();
+		ShaderManager.Initialize();
 
 		
 		Window = new Window();
@@ -66,7 +66,7 @@ public class Tofu
 		TweenManager.I.Update();
 		SceneViewController.Update();
 		AssetsWatcher.ProcessChangedFilesQueue();
-		ShaderCache.ReloadQueuedShaders();
+		ShaderManager.ReloadQueuedShaders();
 
 		SceneManager.CurrentScene.Update();
 		Editor.Update();

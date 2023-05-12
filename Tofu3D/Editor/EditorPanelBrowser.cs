@@ -339,7 +339,7 @@ public class EditorPanelBrowser : EditorPanel
 					{
 						string assetsRelativePath = Path.Combine("Assets", Path.GetRelativePath("Assets", _assets[assetIndex]));
 
-						ShaderCache.QueueShaderReload(assetsRelativePath);
+						ShaderManager.QueueShaderReload(assetsRelativePath);
 						Debug.Log($"Reloaded shader:{assetName}");
 					}
 				}

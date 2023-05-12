@@ -31,7 +31,7 @@ public class ParticleSystemRenderer : SpriteRenderer
 			_particlesInBatcher++;
 		}
 
-		ShaderCache.UseShader(Material.Shader);
+		ShaderManager.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_repeats", Tiling);
 		TextureHelper.BindTexture(Texture.TextureId);
 
@@ -40,7 +40,7 @@ public class ParticleSystemRenderer : SpriteRenderer
 			Material.Shader.SetMatrix4X4("u_mvp", GetParticleMvpMatrix(particle));
 			Material.Shader.SetColor("u_color", particle.Color.ToVector4());
 
-			ShaderCache.BindVertexArray(Material.Vao);
+			ShaderManager.BindVertexArray(Material.Vao);
 
 
 			// GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.ConstantColor); cool

@@ -71,7 +71,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>20.143362</DistanceFromCamera>
+      <DistanceFromCamera>32.041992</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Opacity>-1.06</Opacity>
@@ -126,7 +126,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
-        <Vao>5</Vao>
+        <Vao>6</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <IndicesCount>36</IndicesCount>
       </Model>

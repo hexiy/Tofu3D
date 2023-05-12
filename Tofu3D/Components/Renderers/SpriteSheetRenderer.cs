@@ -98,7 +98,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 		}
 		else
 		{
-			ShaderCache.UseShader(Material.Shader);
+			ShaderManager.UseShader(Material.Shader);
 			Material.Shader.SetVector2("u_resolution", Texture.Size);
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 			Material.Shader.SetColor("u_color", Color.ToVector4());
@@ -115,7 +115,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 			//_zoomAmount = texture.size.X/spriteSize.X*2;
 			Material.Shader.SetVector2("zoomAmount", _spritesCount);
 
-			ShaderCache.BindVertexArray(Material.Vao);
+			ShaderManager.BindVertexArray(Material.Vao);
 
 			if (Material.Additive)
 			{

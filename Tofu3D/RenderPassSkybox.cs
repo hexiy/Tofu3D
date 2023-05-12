@@ -23,7 +23,7 @@ public class RenderPassSkybox : RenderPass
 
 	protected override void SetupRenderTexture()
 	{
-		PassRenderTexture = new RenderTexture(size: RenderPassSystem.ViewSize, colorAttachment: true, depthAttachment: false);
+		PassRenderTexture = new RenderTexture(size: RenderPassSystem.ViewSize, colorAttachment: true);
 
 		base.SetupRenderTexture();
 	}

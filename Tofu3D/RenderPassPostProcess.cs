@@ -3,6 +3,13 @@
 public class RenderPassPostProcess : RenderPass
 {
 	public static RenderPassPostProcess I { get; private set; }
+	Material _postProcessMaterial;
+
+
+	public override bool CanRender()
+	{
+		return Enabled;
+	}
 
 	public RenderPassPostProcess() : base(RenderPassType.PostProcess)
 	{
@@ -13,17 +20,10 @@ public class RenderPassPostProcess : RenderPass
 	{
 		SetupRenderTexture();
 
+		_postProcessMaterial = AssetManager.Load<Material>("PostProcess");
 		base.Initialize();
 	}
 
-	int _lastFrameCleared = 0;
-	public override void Clear()
-	{
-		if (Time.EditorElapsedTicks - _lastFrameCleared > 30)
-		{
-			//base.Clear();
-		}
-	}
 
 	public override void RenderToFramebuffer(RenderTexture target, FramebufferAttachment attachment)
 	{
@@ -35,17 +35,13 @@ public class RenderPassPostProcess : RenderPass
 
 
 		target.Bind();
-		// if (attachment == FramebufferAttachment.Color)
-		// {
-		// 	target.RenderColorAttachment(PassRenderTexture.ColorAttachment);
-		// }
 
-		Material postProcessMaterial = AssetManager.Load<Material>("PostProcess");
-		ShaderCache.UseShader(postProcessMaterial.Shader);
-		postProcessMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
-		postProcessMaterial.Shader.SetFloat("u_time", Time.EditorElapsedTime);
 
-		ShaderCache.BindVertexArray(postProcessMaterial.Vao);
+		ShaderManager.UseShader(_postProcessMaterial.Shader);
+		_postProcessMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
+		_postProcessMaterial.Shader.SetFloat("u_time", Time.EditorElapsedTime);
+
+		ShaderManager.BindVertexArray(_postProcessMaterial.Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
@@ -55,7 +51,7 @@ public class RenderPassPostProcess : RenderPass
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
 		DebugHelper.LogDrawCall();
-		ShaderCache.BindVertexArray(0);
+		ShaderManager.BindVertexArray(0);
 
 		target.Unbind();
 	}

@@ -73,7 +73,7 @@ public class Skybox : Component
 
 		GL.DepthMask(false);
 
-		ShaderCache.UseShader(_material.Shader);
+		ShaderManager.UseShader(_material.Shader);
 
 		Vector3 forwardLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
 		Vector3 upLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
@@ -86,7 +86,7 @@ public class Skybox : Component
 		_material.Shader.SetMatrix4X4("u_view", viewMatrix);
 		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix);
 
-		ShaderCache.BindVertexArray(_material.Vao);
+		ShaderManager.BindVertexArray(_material.Vao);
 
 		GL.ActiveTexture(TextureUnit.Texture0);
 		TextureHelper.BindTexture(_texture.TextureId, TextureType.Cubemap);

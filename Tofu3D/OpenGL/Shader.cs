@@ -104,7 +104,7 @@ public class Shader : IDisposable
 		GL.DeleteShader(fs);
 
 
-		ShaderCache.UseShader(this);
+		ShaderManager.UseShader(this);
 		AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
 		// NormalTextureLocation = GetUniformLocation("textureNormal");
 		AmbientOcclusionTextureLocation = GetUniformLocation("textureAo");

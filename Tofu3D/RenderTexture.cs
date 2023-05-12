@@ -134,11 +134,10 @@ public class RenderTexture
 	{
 		Bind();
 		GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
-		GL.ClearColor(ClearColor.ToOtherColor());
-		// GL.ClearDepth(1);
-		GL.StencilMask(0xFF);
-		// GL.ClearStencil(0);
-		GL.Enable(EnableCap.StencilTest);
+		
+		// GL.ClearColor(ClearColor.ToOtherColor());
+		// GL.StencilMask(0xFF);
+		// GL.Enable(EnableCap.StencilTest);
 
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 		Unbind();
@@ -146,10 +145,10 @@ public class RenderTexture
 
 	public void RenderDepthAttachment(int targetTexture)
 	{
-		ShaderCache.UseShader(_depthRenderTextureMaterial.Shader);
+		ShaderManager.UseShader(_depthRenderTextureMaterial.Shader);
 		_depthRenderTextureMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
-		ShaderCache.BindVertexArray(_depthRenderTextureMaterial.Vao);
+		ShaderManager.BindVertexArray(_depthRenderTextureMaterial.Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 		// GL.ActiveTexture(TextureUnit.Texture0);
@@ -159,7 +158,7 @@ public class RenderTexture
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
 		DebugHelper.LogDrawCall();
-		ShaderCache.BindVertexArray(0);
+		ShaderManager.BindVertexArray(0);
 	}
 
 	public void RenderColorAttachment(int targetTexture)
@@ -167,10 +166,10 @@ public class RenderTexture
 		// return;
 		// GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
 
-		ShaderCache.UseShader(_renderTextureMaterial.Shader);
+		ShaderManager.UseShader(_renderTextureMaterial.Shader);
 		_renderTextureMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
-		ShaderCache.BindVertexArray(_renderTextureMaterial.Vao);
+		ShaderManager.BindVertexArray(_renderTextureMaterial.Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
@@ -180,6 +179,6 @@ public class RenderTexture
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
 		DebugHelper.LogDrawCall();
-		ShaderCache.BindVertexArray(0);
+		ShaderManager.BindVertexArray(0);
 	}
 }

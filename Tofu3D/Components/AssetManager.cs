@@ -37,6 +37,22 @@ public static class AssetManager
 		_loaders.Add(assetLoader.GetType().BaseType.GenericTypeArguments[0], assetLoader);
 	}
 
+	public static List<T> GetAllLoadedAssetsOfType<T>() where T : Asset<T>
+	{
+		List<T> foundAssets = new List<T>();
+		Type t = typeof(T);
+
+		foreach (KeyValuePair<int, AssetBase> keyValuePair in _assets)
+		{
+			if (keyValuePair.Value.AssetRuntimeHandle.AssetType == t)
+			{
+				foundAssets.Add(keyValuePair.Value as T);
+			}
+		}
+
+		return foundAssets;
+	}
+
 	public static T Load<T>(string path, AssetLoadSettingsBase? loadSettings = null) where T : Asset<T>
 	{
 		// AssetLoadSettings<T> loadSettings = new();

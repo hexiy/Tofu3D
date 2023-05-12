@@ -107,11 +107,11 @@ public class ModelRenderer : TextureRenderer
 		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth)
 		{
 			Material depthMaterial = AssetManager.Load<Material>("DepthModel");
-			ShaderCache.UseShader(depthMaterial.Shader);
+			ShaderManager.UseShader(depthMaterial.Shader);
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 
 
-			ShaderCache.BindVertexArray(Model.Vao);
+			ShaderManager.BindVertexArray(Model.Vao);
 			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
 		}
 
@@ -135,7 +135,7 @@ public class ModelRenderer : TextureRenderer
 				GL.Disable(EnableCap.StencilTest);
 			}
 
-			ShaderCache.UseShader(Material.Shader);
+			ShaderManager.UseShader(Material.Shader);
 			Material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
 
 			if (Transform.IsInCanvas)
@@ -210,7 +210,7 @@ public class ModelRenderer : TextureRenderer
 
 			// if (Model != null)
 			// {
-			ShaderCache.BindVertexArray(Model.Vao);
+			ShaderManager.BindVertexArray(Model.Vao);
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
@@ -236,13 +236,13 @@ public class ModelRenderer : TextureRenderer
 		{
 			if (Model != null)
 			{
-				ShaderCache.BindVertexArray(Model.Vao);
+				ShaderManager.BindVertexArray(Model.Vao);
 
 				GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
 			}
 			else
 			{
-				ShaderCache.BindVertexArray(Material.Vao);
+				ShaderManager.BindVertexArray(Material.Vao);
 				GL_DrawArrays(PrimitiveType.Triangles, 0, 36);
 			}
 		}
@@ -256,7 +256,7 @@ public class ModelRenderer : TextureRenderer
 			GL.Disable(EnableCap.Blend);
 
 			Material outlineMaterial = AssetManager.Load<Material>("ModelRendererUnlit");
-			ShaderCache.UseShader(outlineMaterial.Shader);
+			ShaderManager.UseShader(outlineMaterial.Shader);
 
 			if (Transform.IsInCanvas)
 			{
@@ -270,7 +270,7 @@ public class ModelRenderer : TextureRenderer
 			outlineMaterial.Shader.SetMatrix4X4("u_model", GetModelMatrix());
 			outlineMaterial.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
 
-			ShaderCache.BindVertexArray(Model.Vao);
+			ShaderManager.BindVertexArray(Model.Vao);
 			GL.ActiveTexture(TextureUnit.Texture0);
 			TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
 			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);

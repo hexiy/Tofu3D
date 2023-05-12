@@ -37,7 +37,7 @@ public class InstancedRenderingSystem
 		Model model = definition.Model;
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
 		{
-			ShaderCache.UseShader(material.Shader);
+			ShaderManager.UseShader(material.Shader);
 
 
 			material.Shader.SetFloat("u_renderMode", (int) RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
@@ -115,7 +115,7 @@ public class InstancedRenderingSystem
 				TextureHelper.BindTexture(material.AoTexture.TextureId);
 			}
 
-			ShaderCache.BindVertexArray(model.Vao);
+			ShaderManager.BindVertexArray(model.Vao);
 
 			if (objectBufferPair.Value.Dirty)
 			{

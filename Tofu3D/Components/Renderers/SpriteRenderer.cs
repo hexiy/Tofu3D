@@ -84,7 +84,7 @@ public class SpriteRenderer : TextureRenderer
 			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
 			GL.StencilMask(0xFF);
 		}
-		ShaderCache.UseShader(Material.Shader);
+		ShaderManager.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
 		if (Transform.IsInCanvas)
 		{
@@ -100,7 +100,7 @@ public class SpriteRenderer : TextureRenderer
 		Material.Shader.SetVector2("u_tiling", Tiling);
 		Material.Shader.SetVector2("u_offset", Offset);
 
-		ShaderCache.BindVertexArray(Material.Vao);
+		ShaderManager.BindVertexArray(Material.Vao);
 
 		if (Material.Additive)
 		{
@@ -126,7 +126,7 @@ public class SpriteRenderer : TextureRenderer
 			GL.StencilMask(0x00);
 			GL.Disable(EnableCap.DepthTest);
 
-			ShaderCache.UseShader(Material.Shader);
+			ShaderManager.UseShader(Material.Shader);
 
 			if (Transform.IsInCanvas)
 			{
@@ -139,7 +139,7 @@ public class SpriteRenderer : TextureRenderer
 
 			Material.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
 
-			ShaderCache.BindVertexArray(Material.Vao);
+			ShaderManager.BindVertexArray(Material.Vao);
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

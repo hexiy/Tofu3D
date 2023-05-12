@@ -32,7 +32,7 @@ class ImGuiShader
 
 	public void UseShader()
 	{
-		ShaderCache.ShaderInUse = Program;
+		ShaderManager.ShaderInUse = Program;
 		GL.UseProgram(Program);
 	}
 

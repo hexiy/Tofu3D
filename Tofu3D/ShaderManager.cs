@@ -2,7 +2,7 @@
 
 namespace Tofu3D;
 
-public static class ShaderCache
+public static class ShaderManager
 {
 	public static int ShaderInUse = -1;
 	public static int VaoInUse = -100;
@@ -50,12 +50,29 @@ public static class ShaderCache
 
 	public static void QueueShaderReload(string shaderPath)
 	{
+		if (_shadersReloadQueue.Contains(shaderPath))
+		{
+			return;
+		}
+
 		_shadersReloadQueue.Add(shaderPath);
 	}
 
 	private static void ReloadShader(string shaderPath)
 	{
-		// find all Renderer components, and check if the material has the changed shader and reload it
+		List<Material> allLoadedMaterials = AssetManager.GetAllLoadedAssetsOfType<Material>();
+		foreach (Material loadedMaterial in allLoadedMaterials)
+		{
+			if (loadedMaterial.Shader?.Path == shaderPath)
+			{
+				Shader shader = new Shader(shaderPath);
+
+				shader.Load();
+
+				loadedMaterial.SetShader(shader);
+			}
+		}
+		/*// find all Renderer components, and check if the material has the changed shader and reload it, ehh this doesnt work with renderpass shaders for example
 		List<Renderer> renderersInScene = SceneManager.CurrentScene.FindComponentsInScene<Renderer>();
 		foreach (Renderer renderer in renderersInScene)
 		{
@@ -67,7 +84,7 @@ public static class ShaderCache
 				shader.Load();
 				renderer.Material?.SetShader(shader);
 			}
-		}
+		}*/
 	}
 
 	public static void ReloadQueuedShaders()

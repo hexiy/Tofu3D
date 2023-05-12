@@ -24,6 +24,10 @@ public abstract class RenderPass : IComparable<RenderPass>
 
 	public virtual void Clear()
 	{
+		if (CanRender() == false)
+		{
+			return;
+		}
 		PassRenderTexture.Clear();
 	}
 

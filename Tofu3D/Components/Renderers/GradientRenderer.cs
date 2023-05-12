@@ -31,7 +31,7 @@ public class GradientRenderer : Renderer
 			return;
 		}
 
-		ShaderCache.UseShader(Material.Shader);
+		ShaderManager.UseShader(Material.Shader);
 
 
 		Material.Shader.SetVector4("u_color_a", GradientColorA.ToVector4());
@@ -46,7 +46,7 @@ public class GradientRenderer : Renderer
 			Material.Shader.SetFloat("time", (float) Material.Shader.Uniforms["time"]);
 		}
 
-		ShaderCache.BindVertexArray(Material.Vao);
+		ShaderManager.BindVertexArray(Material.Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 

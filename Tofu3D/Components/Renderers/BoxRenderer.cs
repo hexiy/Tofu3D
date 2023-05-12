@@ -25,7 +25,7 @@ public class BoxRenderer : Renderer
 			return;
 		}
 		
-		ShaderCache.UseShader(Material.Shader);
+		ShaderManager.UseShader(Material.Shader);
 
 		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 		Material.Shader.SetColor("u_color", Color.ToVector4());
@@ -35,7 +35,7 @@ public class BoxRenderer : Renderer
 			Material.Shader.SetFloat("time", (float) Material.Shader.Uniforms["time"]);
 		}
 
-		ShaderCache.BindVertexArray(Material.Vao);
+		ShaderManager.BindVertexArray(Material.Vao);
 
 		//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 

@@ -81,7 +81,7 @@ public class AssetsWatcher
 
 		if (AssetUtils.IsShader(assetsRelativePath))
 		{
-			ShaderCache.QueueShaderReload(assetsRelativePath);
+			ShaderManager.QueueShaderReload(assetsRelativePath);
 		}
 	}
 

@@ -133,7 +133,7 @@ public class TextRenderer : SpriteRenderer
 
 		//Debug.Log("Draw text:" + text?.text);
 
-		ShaderCache.UseShader(Material.Shader);
+		ShaderManager.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
 
 		if (Transform.IsInCanvas)
@@ -228,7 +228,7 @@ public class TextRenderer : SpriteRenderer
 
 			Material.Shader.SetVector2("offset", drawOffset);
 
-			ShaderCache.BindVertexArray(Material.Vao);
+			ShaderManager.BindVertexArray(Material.Vao);
 
 			if (Material.Additive)
 			{
