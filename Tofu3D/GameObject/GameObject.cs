@@ -7,7 +7,11 @@ namespace Tofu3D;
 
 public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, ICloneable
 {
-	public bool IsStatic = false;
+	public bool IsStatic
+	{
+		get { return IsStaticSelf || Transform?.Parent?.GameObject.IsStatic == true; }
+	}
+	public bool IsStaticSelf = false;
 
 	bool _activeSelf = true;
 	public bool ActiveSelf
@@ -103,7 +107,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 	{
 		get
 		{
-	
 			if (Transform.Parent == null)
 			{
 				return ActiveSelf;
@@ -113,6 +116,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 			{
 				return false;
 			}
+
 			return Transform.Parent.GameObject.ActiveInHierarchy && ActiveSelf;
 		}
 	}
@@ -432,26 +436,24 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 
 	void RemoveFromLists()
 	{
-		Rigidbody rb = GetComponent<Rigidbody>();
-		if (rb != null)
-		{
-			for (int i = 0; i < rb.TouchingRigidbodies.Count; i++)
-			{
-				rb.TouchingRigidbodies[i].TouchingRigidbodies.Remove(rb);
-			}
-		}
+		// Rigidbody rb = GetComponent<Rigidbody>();
+		// if (rb != null)
+		// {
+		// 	for (int i = 0; i < rb.TouchingRigidbodies.Count; i++)
+		// 	{
+		// 		rb.TouchingRigidbodies[i].TouchingRigidbodies.Remove(rb);
+		// 	}
+		// }
 
-		lock (_componentsLock)
-		{
+		// lock (_componentsLock)
+		// {
 			for (int i = 0; i < Components.Count; i++)
 			{
-				// Components[i].GameObjectId = -1;
-				// Components[i].GameObject = null;
 				Components[i].OnDestroyed();
 			}
 
 			Components.Clear();
-		}
+		// }
 
 		if (Transform.Parent != null)
 		{
@@ -794,24 +796,24 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 
 	public void UpdateComponents_Test1()
 	{
-			for (int i = 0; i < Components.Count; i++)
-			{	
-				if (Components[i].Enabled && Components[i].Awoken)
+		for (int i = 0; i < Components.Count; i++)
+		{
+			if (Components[i].Enabled && Components[i].Awoken)
+			{
+				if (Global.GameRunning == false)
 				{
-					if (Global.GameRunning == false)
-					{
-						if (Components[i].CanExecuteUpdateInEditMode)
-						{
-							Components[i].Update();
-						}
-						// bool foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Update));
-					}
-					else
+					if (Components[i].CanExecuteUpdateInEditMode)
 					{
 						Components[i].Update();
 					}
+					// bool foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Update));
+				}
+				else
+				{
+					Components[i].Update();
 				}
 			}
+		}
 	}
 
 	void UpdateRenderers()

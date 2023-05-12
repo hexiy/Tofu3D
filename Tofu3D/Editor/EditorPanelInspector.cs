@@ -230,8 +230,8 @@ public class EditorPanelInspector : EditorPanel
 			gameObject.SetActive(gameObjectActiveSelf);
 			ImGui.SameLine();
 
-			bool wasStatic = gameObject.IsStatic;
-			if (gameObject.IsStatic)
+			bool wasStatic = gameObject.IsStaticSelf;
+			if (gameObject.IsStaticSelf)
 			{
 				ImGui.PushStyleColor(ImGuiCol.Text, Color.Purple.ToVector4());
 			}
@@ -240,7 +240,7 @@ public class EditorPanelInspector : EditorPanel
 
 			if (staticButtonClicked)
 			{
-				gameObject.IsStatic = !gameObject.IsStatic;
+				gameObject.IsStaticSelf = !gameObject.IsStaticSelf;
 			}
 
 			if (wasStatic)

@@ -6,7 +6,6 @@ namespace Scripts;
 [Serializable]
 public class Material : Asset<Material>
 {
-	public float Opacity = 1;
 	// public bool IsValid = true;
 	[Hide]
 	public bool Additive = false;
@@ -27,7 +26,6 @@ public class Material : Asset<Material>
 	{
 		HashCodeCombiner hashCodeCombiner = HashCodeCombiner.Start();
 		hashCodeCombiner.Add(base.GetHashCode());
-		hashCodeCombiner.Add(Opacity.GetHashCode());
 		hashCodeCombiner.Add(Additive.GetHashCode());
 		hashCodeCombiner.Add(Shader?.GetHashCode());
 		hashCodeCombiner.Add(AlbedoTexture?.GetHashCode());

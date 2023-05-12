@@ -60,16 +60,16 @@ public class Scene
 
 	public void DisposeScene()
 	{
-		while (GameObjects.Count > 0)
-		{
-			GameObjects[0].Destroy();
-		}
+		// while (GameObjects.Count > 0)
+		// {
+		// 	GameObjects[0].Destroy();
+		// }
 
 		GameObjects.Clear();
-		GameObjects = new List<GameObject>();
+		// GameObjects = new List<GameObject>();
 		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderWorld);
 		RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
-		Tofu.I.InstancedRenderingSystem.ClearBuffer();
+		Tofu.I.InstancedRenderingSystem.ClearBuffers();
 
 		SceneDisposed.Invoke();
 	}
