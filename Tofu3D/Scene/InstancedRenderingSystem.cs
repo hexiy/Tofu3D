@@ -15,10 +15,11 @@ public class InstancedRenderingSystem
 
 	public void ClearBuffers()
 	{
-		foreach (KeyValuePair<int,InstancedRenderingObjectBufferData> pair in _objectBufferDatas)
+		foreach (KeyValuePair<int, InstancedRenderingObjectBufferData> pair in _objectBufferDatas)
 		{
 			GL.DeleteBuffer(pair.Value.Vbo);
 		}
+
 		_objectBufferDatas = new Dictionary<int, InstancedRenderingObjectBufferData>();
 	}
 
@@ -29,6 +30,33 @@ public class InstancedRenderingSystem
 		foreach (KeyValuePair<int, InstancedRenderingObjectBufferData> objectDefinitionBufferPair in _objectBufferDatas)
 		{
 			RenderSpecific(objectDefinitionBufferPair);
+		}
+	}
+
+	private void RemoveObjectFromBuffer(InstancedRenderingObjectBufferData bufferData, ModelRendererInstanced renderer)
+	{
+		for (int i = 0; i < _vertexDataLength; i++)
+		{
+			bufferData.Buffer[renderer.InstancedRenderingDefinitionIndex + i] = -1;
+		}
+
+		bufferData.EmptyStartIndexes.Add(renderer.InstancedRenderingStartingIndexInBuffer);
+
+		renderer.InstancedRenderingStartingIndexInBuffer = -1;
+		bufferData.NumberOfObjects--;
+	}
+
+	private int GetEmptyIndexInBuffer(InstancedRenderingObjectBufferData bufferData)
+	{
+		if (bufferData.EmptyStartIndexes.Count > 0)
+		{
+			int index = bufferData.EmptyStartIndexes[0];
+			bufferData.EmptyStartIndexes.RemoveAt(0);
+			return index;
+		}
+		else
+		{
+			return bufferData.NumberOfObjects * _vertexDataLength;
 		}
 	}
 
@@ -144,7 +172,7 @@ public class InstancedRenderingSystem
 		Debug.StatAddValue("Instanced objects count", instanceCount);
 	}
 
-	public void UpdateObjectData(ModelRendererInstanced renderer)
+	public void UpdateObjectData(ModelRendererInstanced renderer, bool remove = false)
 	{
 		InstancedRenderingObjectBufferData bufferData;
 		Material material = renderer.Material;
@@ -153,9 +181,7 @@ public class InstancedRenderingSystem
 		{
 			// no buffer exists for this combination-create one
 			InstancedRenderingObjectDefinition definition = new InstancedRenderingObjectDefinition(model, material);
-			int definitionIndex;
-
-			definitionIndex = _definitions.Contains(definition) ? _definitions.IndexOf(definition) : _definitions.Count;
+			int definitionIndex = _definitions.Contains(definition) ? _definitions.IndexOf(definition) : _definitions.Count;
 
 			// find bufferData if its already created
 			if (_objectBufferDatas.TryGetValue(definitionIndex, out InstancedRenderingObjectBufferData? data))
@@ -185,23 +211,34 @@ public class InstancedRenderingSystem
 		}
 
 
-		if (renderer.InstancedRenderingIndexInBuffer == -1)
+		if (renderer.InstancedRenderingStartingIndexInBuffer == -1 && remove == false)
 		{
 			// assign new InstancedRenderingIndex
-			renderer.InstancedRenderingIndexInBuffer = bufferData.NumberOfObjects;
+			renderer.InstancedRenderingStartingIndexInBuffer = GetEmptyIndexInBuffer(bufferData);
 			bufferData.NumberOfObjects++;
 		}
 
-
-		int startingIndexForRenderer = _vertexDataLength * renderer.InstancedRenderingIndexInBuffer;
 		bufferData.Dirty = true;
-		CopyObjectDataToBuffer(renderer, ref bufferData.Buffer, startingIndexForRenderer);
+
+		if (renderer.InstancedRenderingStartingIndexInBuffer != -1 && remove == true)
+		{
+			RemoveObjectFromBuffer(bufferData, renderer);
+		}
+		else
+		{
+			CopyObjectDataToBuffer(renderer, ref bufferData.Buffer, renderer.InstancedRenderingStartingIndexInBuffer);
+		}
 
 		_objectBufferDatas[renderer.InstancedRenderingDefinitionIndex] = bufferData;
 	}
 
 	void CopyObjectDataToBuffer(Renderer renderer, ref float[] buffer, int startingIndex)
 	{
+		if (startingIndex == -1)
+		{
+			return;
+		}
+
 		if (startingIndex >= buffer.Length)
 		{
 			// needs to resize buffer or smtn
@@ -247,6 +284,7 @@ public class InstancedRenderingSystem
 		                                                };
 
 		bufferData.Buffer = new float[bufferData.MaxNumberOfObjects * _vertexDataLength];
+		bufferData.EmptyStartIndexes = new List<int>();
 
 		UploadBufferData(bufferData);
 

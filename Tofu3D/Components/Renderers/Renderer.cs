@@ -3,7 +3,7 @@
 [ExecuteInEditMode]
 public class Renderer : Component, IComparable<Renderer>
 {
-	[XmlIgnore] public int InstancedRenderingIndexInBuffer { get; set; } = -1;
+	[XmlIgnore] public int InstancedRenderingStartingIndexInBuffer { get; set; } = -1;
 	[XmlIgnore]
 	public int InstancedRenderingDefinitionIndex = -1;
 	//[LinkableComponent]

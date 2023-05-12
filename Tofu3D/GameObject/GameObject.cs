@@ -913,7 +913,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 			Component componentClone = (Component) this.Components[i].Clone();
 			if (componentClone is Renderer)
 			{
-				(componentClone as Renderer).InstancedRenderingIndexInBuffer = -1;
+				(componentClone as Renderer).InstancedRenderingStartingIndexInBuffer = -1;
 				(componentClone as Renderer).InstancedRenderingDefinitionIndex = -1;
 			}
 
