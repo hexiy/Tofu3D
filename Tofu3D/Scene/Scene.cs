@@ -130,20 +130,22 @@ public class Scene
 
 		Camera.MainCamera.GameObject.Update();
 		TransformHandle.I.GameObject.Update();
-		
+
+
+		Debug.StartTimer("GameObjects Update");
 		for (int i = 0; i < GameObjects.Count; i++)
 		{
 			GameObjects[i].IndexInHierarchy = i;
-			if (GameObjects[i] == Camera.MainCamera.GameObject)
+			/*if (GameObjects[i] == Camera.MainCamera.GameObject)
 			{
 				continue;
 			}
-		
+
 			if (GameObjects[i] == TransformHandle.I.GameObject)
 			{
 				continue;
 			}
-		
+
 			if (Global.GameRunning || GameObjects[i].AlwaysUpdate)
 			{
 				GameObjects[i].Update();
@@ -151,10 +153,13 @@ public class Scene
 			}
 			else if (Global.GameRunning == false)
 			{
-				//gameObjects[i].EditorUpdate();
-				GameObjects[i].Update();
-			}
+				//gameObjects[i].EditorUpdate();*/
+			GameObjects[i].Update();
+			// }
 		}
+
+		Debug.EndAndStatTimer("GameObjects Update");
+
 
 		Debug.EndGraphTimer("Scene Update");
 	}

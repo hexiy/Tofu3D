@@ -135,10 +135,10 @@ public class Transform : Component
 	}
 	public bool MockIsInCanvas = false;
 	[Show]
-	internal bool IsInCanvas
+	internal bool IsInCanvas { get; private set; } /*
 	{
 		get { return Transform.Parent?.GetComponent<Canvas>() != null || MockIsInCanvas; }
-	}
+	}*/
 
 	Vector3 _rotation = Vector3.Zero;
 	public Vector3 Rotation

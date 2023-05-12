@@ -36,7 +36,7 @@ public class DirectionalLight : LightBase
 		// DisplayDepthRenderTexture = new RenderTexture(size: Size, colorAttachment: true, depthAttachment: false);
 
 		RenderPassSystem.RegisterRender(RenderPassType.DirectionalLightShadowDepth, RenderDirectionalLightShadowDepth);
-		RenderPassDirectionalLightShadowDepth.I.SetDirectionalLight(this);
+		RenderPassDirectionalLightShadowDepth.I?.SetDirectionalLight(this);
 
 		base.Awake();
 	}

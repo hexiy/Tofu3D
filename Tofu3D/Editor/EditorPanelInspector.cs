@@ -229,6 +229,28 @@ public class EditorPanelInspector : EditorPanel
 			ImGui.Checkbox("", ref gameObjectActiveSelf);
 			gameObject.SetActive(gameObjectActiveSelf);
 			ImGui.SameLine();
+
+			bool wasStatic = gameObject.IsStatic;
+			if (gameObject.IsStatic)
+			{
+				ImGui.PushStyleColor(ImGuiCol.Text, Color.Purple.ToVector4());
+			}
+
+			bool staticButtonClicked = ImGui.Button("STATIC");
+
+			if (staticButtonClicked)
+			{
+				gameObject.IsStatic = !gameObject.IsStatic;
+			}
+
+			if (wasStatic)
+			{
+				ImGui.PopStyleColor();
+			}
+
+			ImGui.SameLine();
+
+
 			PushNextId();
 			ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
 			if (ImGui.InputText("", ref gameObjectName, 100))

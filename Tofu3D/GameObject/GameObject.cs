@@ -7,6 +7,8 @@ namespace Tofu3D;
 
 public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, ICloneable
 {
+	public bool IsStatic = false;
+
 	bool _activeSelf = true;
 	public bool ActiveSelf
 	{
@@ -101,11 +103,16 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 	{
 		get
 		{
+	
 			if (Transform.Parent == null)
 			{
 				return ActiveSelf;
 			}
 
+			if (Transform.Parent.GameObject.ActiveSelf == false)
+			{
+				return false;
+			}
 			return Transform.Parent.GameObject.ActiveInHierarchy && ActiveSelf;
 		}
 	}
@@ -759,6 +766,54 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 		}
 	}
 
+	public void Update_Test1()
+	{
+		if (ActiveInHierarchy == false && UpdateWhenDisabled == false)
+		{
+			return;
+		}
+
+		if (Awoken == false)
+		{
+			return;
+		}
+
+		if (_destroyTimerRunning)
+		{
+			DestroyTimer -= Time.DeltaTime;
+			if (DestroyTimer < 0)
+			{
+				_destroyTimerRunning = false;
+				Destroy();
+				return;
+			}
+		}
+
+		UpdateComponents_Test1();
+	}
+
+	public void UpdateComponents_Test1()
+	{
+			for (int i = 0; i < Components.Count; i++)
+			{	
+				if (Components[i].Enabled && Components[i].Awoken)
+				{
+					if (Global.GameRunning == false)
+					{
+						if (Components[i].CanExecuteUpdateInEditMode)
+						{
+							Components[i].Update();
+						}
+						// bool foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Update));
+					}
+					else
+					{
+						Components[i].Update();
+					}
+				}
+			}
+	}
+
 	void UpdateRenderers()
 	{
 		lock (_componentsLock)
@@ -860,8 +915,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 				(componentClone as Renderer).InstancedRenderingDefinitionIndex = -1;
 			}
 
-			// clone.AddExistingComponent(componentClone); slower
-			clone.Components.Add(componentClone);
+			clone.AddExistingComponent(componentClone);
+			// clone.Components.Add(componentClone);
 		}
 
 		clone.AssignNewId();

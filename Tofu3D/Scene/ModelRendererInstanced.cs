@@ -68,7 +68,7 @@ public class ModelRendererInstanced : TextureRenderer
 			return;
 		}
 
-		if (IsStatic && _hasUpdatedInstanceBufferData)
+		if (GameObject.IsStatic && _hasUpdatedInstanceBufferData)
 		{
 			return;
 		}

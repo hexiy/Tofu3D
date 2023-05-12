@@ -2,6 +2,7 @@
 <SceneFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameObjects>
     <GameObject>
+      <IsStatic>true</IsStatic>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -19,6 +20,7 @@
   </GameObjects>
   <Components>
     <Component xsi:type="Transform">
+      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>54231</GameObjectId>
       <Started>true</Started>
@@ -58,11 +60,11 @@
       </Rotation>
     </Component>
     <Component xsi:type="ModelRendererInstanced">
+      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>54231</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <IsStatic>false</IsStatic>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -71,7 +73,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>12.366018</DistanceFromCamera>
+      <DistanceFromCamera>16.269432</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Opacity>-1.06</Opacity>
@@ -132,6 +134,7 @@
       </Model>
     </Component>
     <Component xsi:type="BoxShape">
+      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>54231</GameObjectId>
       <Started>true</Started>

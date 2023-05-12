@@ -3,7 +3,6 @@
 [ExecuteInEditMode]
 public class Renderer : Component, IComparable<Renderer>
 {
-	public bool IsStatic = false;
 	[XmlIgnore] public int InstancedRenderingIndexInBuffer { get; set; } = -1;
 	[XmlIgnore]
 	public int InstancedRenderingDefinitionIndex = -1;
@@ -252,7 +251,10 @@ public class Renderer : Component, IComparable<Renderer>
 			return;
 		}
 
-		LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
+		if (GameObject.IsStatic == false || LatestModelViewProjection == null)
+		{
+			LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
+		}
 	}
 
 	public virtual void Render()
