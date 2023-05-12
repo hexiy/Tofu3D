@@ -12,7 +12,7 @@ public class ParticleSystem : Component
 	public List<Particle> Particles = new(1000000);
 
 	private Pool<Particle> _pool = new(() => new Particle());
-	private ParticleSystemRenderer _renderer;
+	private ModelRendererInstanced _renderer;
 
 	private float _time;
 	[Show] public Vector2 StartVelocity { get; set; } = new(0, 0);
@@ -29,13 +29,13 @@ public class ParticleSystem : Component
 
 	public override void Awake()
 	{
-		_renderer = GameObject.GetComponent<ParticleSystemRenderer>();
+		_renderer = GameObject.GetComponent<ModelRendererInstanced>();
 		if (_renderer == null)
 		{
-			_renderer = GameObject.AddComponent<ParticleSystemRenderer>();
+			_renderer = GameObject.AddComponent<ModelRendererInstanced>();
 		}
 
-		_renderer.ParticleSystem = this;
+		// _renderer.ParticleSystem = this;
 
 		base.Awake();
 	}

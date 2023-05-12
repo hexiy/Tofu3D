@@ -52,6 +52,10 @@ public class ModelRendererInstanced : TextureRenderer
 
 	public override void Render()
 	{
+		if (GameObject.IsStatic && _hasUpdatedInstanceBufferData)
+		{
+			return;
+		}
 		bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
 		if (isTransformHandle && (RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques && RenderPassSystem.CurrentRenderPassType != RenderPassType.UI))
 		{
@@ -68,10 +72,7 @@ public class ModelRendererInstanced : TextureRenderer
 			return;
 		}
 
-		if (GameObject.IsStatic && _hasUpdatedInstanceBufferData)
-		{
-			return;
-		}
+
 
 
 		// float speed = 2;
