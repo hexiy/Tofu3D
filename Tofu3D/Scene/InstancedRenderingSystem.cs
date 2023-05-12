@@ -117,7 +117,11 @@ public class InstancedRenderingSystem
 
 			ShaderCache.BindVertexArray(model.Vao);
 
-			UploadBufferData(objectBufferPair.Value);
+			if (objectBufferPair.Value.Dirty)
+			{
+				UploadBufferData(objectBufferPair.Value);
+				objectBufferPair.Value.Dirty = false;
+			}
 
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
@@ -186,7 +190,7 @@ public class InstancedRenderingSystem
 
 
 		int startingIndexForRenderer = _vertexDataLength * renderer.InstancedRenderingIndexInBuffer;
-
+		bufferData.Dirty = true;
 		CopyObjectDataToBuffer(renderer, ref bufferData.Buffer, startingIndexForRenderer);
 
 		_objectBufferDatas[renderer.InstancedRenderingDefinitionIndex] = bufferData;

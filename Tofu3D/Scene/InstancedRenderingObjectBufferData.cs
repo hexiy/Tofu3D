@@ -6,4 +6,5 @@ public class InstancedRenderingObjectBufferData
 	public int NumberOfObjects;
 	public int MaxNumberOfObjects;
 	public int Vbo;
+	public bool Dirty = true;
 }

@@ -50,7 +50,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
-      <IsStatic>false</IsStatic>
+      <IsStatic>true</IsStatic>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -59,7 +59,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>TerrainGeneratorCubes</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -75,14 +75,14 @@
       <IsPrefab>false</IsPrefab>
       <Name>Block</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
-      <IsStatic>false</IsStatic>
+      <IsStatic>true</IsStatic>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -100,7 +100,6 @@
   </GameObjects>
   <Components>
     <Component xsi:type="Transform">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>0</GameObjectId>
       <Started>true</Started>
@@ -126,14 +125,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>2.6511247</X>
-        <Y>15.226288</Y>
-        <Z>-1.0966017</Z>
+        <X>7.327269</X>
+        <Y>21.283772</Y>
+        <Z>-18.134537</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>2.6511247</X>
-        <Y>15.226288</Y>
-        <Z>-1.0966017</Z>
+        <X>7.327269</X>
+        <Y>21.283772</Y>
+        <Z>-18.134537</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -146,13 +145,12 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>44.617107</X>
-        <Y>199.84131</Y>
+        <X>43.56772</X>
+        <Y>352.02026</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
     <Component xsi:type="Camera">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>0</GameObjectId>
       <Started>true</Started>
@@ -175,7 +173,6 @@
       </Size>
     </Component>
     <Component xsi:type="Skybox">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>0</GameObjectId>
       <Started>true</Started>
@@ -186,7 +183,6 @@
       <Colors />
     </Component>
     <Component xsi:type="Fog">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>0</GameObjectId>
       <Started>true</Started>
@@ -213,7 +209,6 @@
       <Intensity>1</Intensity>
     </Component>
     <Component xsi:type="Transform">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>13474</GameObjectId>
       <Started>true</Started>
@@ -253,7 +248,6 @@
       </Rotation>
     </Component>
     <Component xsi:type="AmbientLight">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>13474</GameObjectId>
       <Started>true</Started>
@@ -268,7 +262,6 @@
       </Color>
     </Component>
     <Component xsi:type="Transform">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>57456</GameObjectId>
       <Started>true</Started>
@@ -308,7 +301,6 @@
       </Rotation>
     </Component>
     <Component xsi:type="DirectionalLight">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>57456</GameObjectId>
       <Started>true</Started>
@@ -334,7 +326,6 @@
       </Size>
     </Component>
     <Component xsi:type="Transform">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>13471</GameObjectId>
       <Started>true</Started>
@@ -130327,7 +130318,6 @@
       </Rotation>
     </Component>
     <Component xsi:type="TerrainGenerator">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>13471</GameObjectId>
       <Started>true</Started>
@@ -130342,7 +130332,7 @@
         <IsPrefab>false</IsPrefab>
         <Name>Block</Name>
         <PrefabPath />
-        <Selected>true</Selected>
+        <Selected>false</Selected>
         <Silent>false</Silent>
         <Started>true</Started>
         <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -130352,7 +130342,6 @@
       <ThreadsToUse>1</ThreadsToUse>
     </Component>
     <Component xsi:type="Transform">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>54231</GameObjectId>
       <Started>true</Started>
@@ -130392,7 +130381,6 @@
       </Rotation>
     </Component>
     <Component xsi:type="ModelRendererInstanced">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>54231</GameObjectId>
       <Started>true</Started>
@@ -130405,7 +130393,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>11.220207</DistanceFromCamera>
+      <DistanceFromCamera>22.236448</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Opacity>-1.06</Opacity>
@@ -130466,7 +130454,6 @@
       </Model>
     </Component>
     <Component xsi:type="BoxShape">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>54231</GameObjectId>
       <Started>true</Started>
@@ -130483,7 +130470,6 @@
       </Size>
     </Component>
     <Component xsi:type="Transform">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>78327</GameObjectId>
       <Started>true</Started>
@@ -130523,7 +130509,6 @@
       </Rotation>
     </Component>
     <Component xsi:type="ModelRendererInstanced">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>78327</GameObjectId>
       <Started>true</Started>
@@ -130536,7 +130521,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>15.494219</DistanceFromCamera>
+      <DistanceFromCamera>28.905869</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Opacity>-1.06</Opacity>
@@ -130597,7 +130582,6 @@
       </Model>
     </Component>
     <Component xsi:type="BoxShape">
-      <IndexInGameObjectComponentsList>-1</IndexInGameObjectComponentsList>
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>78327</GameObjectId>
       <Started>true</Started>
@@ -130614,5 +130598,5 @@
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>150762</GameObjectNextId>
+  <GameObjectNextId>150766</GameObjectNextId>
 </SceneFile>

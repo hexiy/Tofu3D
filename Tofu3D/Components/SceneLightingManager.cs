@@ -13,20 +13,21 @@ public class SceneLightingManager
 	{
 		I = this;
 		_scene = scene;
+		Scene.ComponentAdded += OnSceneComponentAdded;
+	}
+
+	void OnSceneComponentAdded(Component obj)
+	{
+		if (_directionalLight == null)
+		{
+			_lights = _scene.FindComponentsInScene<LightBase>(ignoreInactive: true);
+
+			_directionalLight = _scene.FindComponent<DirectionalLight>(ignoreInactive: true);
+		}
 	}
 
 	public void Update()
 	{
-		_lights = GetAllLightsInScene();
-		_directionalLight = _scene.FindComponent<DirectionalLight>(ignoreInactive: true);
-
-
-		// Debug.Log($"Light direction:{GetDirectionalLightDirection()}");
-	}
-
-	private List<LightBase> GetAllLightsInScene()
-	{
-		return _scene.FindComponentsInScene<LightBase>(ignoreInactive: true);
 	}
 
 	public float[] GetPointLightsPositions()
