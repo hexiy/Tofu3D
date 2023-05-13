@@ -229,7 +229,7 @@ public class SceneViewController
 			}
 			else
 			{
-				MoveCameraByLocalVector(new Vector3(0, 0, Mathf.Clamp(MouseInput.ScrollDelta * 10, -10, 10)) * _moveSpeed);
+				MoveCameraByLocalVector(new Vector3(0, 0, Mathf.Clamp(MouseInput.ScrollDelta, -10, 10)) * _moveSpeed*0.2f);
 
 				//Camera.I.transform.position += Camera.I.transform.TransformDirection(Vector3.Forward) * MouseInput.ScrollDelta * 0.05f;
 			}

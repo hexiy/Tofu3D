@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
+  <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
   <Additive>false</Additive>
   <Shader>
     <BufferType>Model</BufferType>
@@ -11,10 +11,10 @@
   <Vao>0</Vao>
   <RenderMode>Opaque</RenderMode>
   <AlbedoTexture>
-    <AssetPath>Assets\2D\Grass_Block_TEX.png</AssetPath>
+    <AssetPath>Assets\2D\stone.png</AssetPath>
     <Size>
-      <X>1440</X>
-      <Y>1920</Y>
+      <X>397</X>
+      <Y>397</Y>
     </Size>
   </AlbedoTexture>
   <AoTexture>
@@ -25,8 +25,8 @@
     </Size>
   </AoTexture>
   <Tiling>
-    <X>-1</X>
-    <Y>-1</Y>
+    <X>5</X>
+    <Y>5</Y>
   </Tiling>
   <Offset>
     <X>0</X>

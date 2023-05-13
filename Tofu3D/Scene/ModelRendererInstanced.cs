@@ -1,22 +1,12 @@
 ﻿using Tofu3D.Rendering;
 
-public class ModelRendererInstanced : TextureRenderer
+public class ModelRendererInstanced : Renderer
 {
 	public Model Model;
 	bool _hasUpdatedInstanceBufferData;
 
 	public override void Awake()
 	{
-		// _hasUpdatedInstanceBufferData = false;
-		if (Texture == null)
-		{
-			Texture = new Texture();
-		}
-		else
-		{
-			LoadTexture(Texture.AssetPath);
-		}
-
 		base.Awake();
 	}
 

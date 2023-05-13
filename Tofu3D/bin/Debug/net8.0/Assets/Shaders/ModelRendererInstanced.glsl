@@ -5,7 +5,10 @@
 layout (location = 0) in vec3 a_pos;
 layout (location = 1) in vec2 a_uv;
 layout (location = 2) in vec3 a_normal;
-layout (location = 3) in mat4 a_model;
+layout (location = 3) in vec3 a_model_1;
+layout (location = 4) in vec3 a_model_2;
+layout (location = 5) in vec3 a_model_3;
+layout (location = 6) in vec3 a_model_4;
 layout (location = 7) in vec4 a_color;
 
 uniform mat4 u_viewProjection;
@@ -19,6 +22,7 @@ out vec4 fragPosLightSpace;
 
 void main(void)
 {
+mat4 a_model = mat4(vec4(a_model_1, 0), vec4(a_model_2, 0), vec4(a_model_3, 0), vec4(a_model_4,1));
 mat4 mvp = u_viewProjection * a_model;
 gl_Position = mvp * vec4(a_pos.xyz, 1.0);
 uv = a_uv;
@@ -53,7 +57,7 @@ uniform float u_fogEndDistance = 1;
 uniform float u_fogPositionY = 0;
 uniform float u_fogGradientSmoothness = 1;
 uniform float u_fogIntensity = 1;
-        
+
 uniform sampler2D textureAlbedo;
 //uniform sampler2D textureNormal;
 uniform sampler2D textureAo;
@@ -69,10 +73,10 @@ out vec4 frag_color;
 void main(void)
 {
 
-vec2 uvCoords = (uv+u_offset)*u_tiling;
+vec2 uvCoords = (uv + u_offset) * u_tiling;
 float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
 vec3 norm = normalize(- normal);
-        
+
 //if(u_normalStrength!=0){
 //}
 

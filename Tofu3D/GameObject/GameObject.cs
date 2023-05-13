@@ -452,7 +452,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 				Components[i].OnDestroyed();
 			}
 
-			Components.Clear();
+			// Components.Clear();
 		// }
 
 		if (Transform.Parent != null)

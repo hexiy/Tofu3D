@@ -5,7 +5,17 @@
   <Shader>
     <BufferType>Model</BufferType>
     <Path>Assets\Shaders\ModelRendererUnlit.glsl</Path>
+    <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+    <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
   </Shader>
   <Vao>9</Vao>
   <RenderMode>Opaque</RenderMode>
+  <Tiling>
+    <X>0</X>
+    <Y>0</Y>
+  </Tiling>
+  <Offset>
+    <X>0</X>
+    <Y>0</Y>
+  </Offset>
 </Material>

@@ -65,7 +65,12 @@ public class Scene
 		// 	GameObjects[0].Destroy();
 		// }
 
-		GameObjects.Clear();
+		foreach (GameObject gameObject in GameObjects)
+		{
+			gameObject.SetActive(false);
+		}
+
+		// GameObjects.Clear();
 		// GameObjects = new List<GameObject>();
 		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderWorld);
 		RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
@@ -132,7 +137,6 @@ public class Scene
 		TransformHandle.I.GameObject.Update();
 
 
-		Debug.StartTimer("GameObjects Update");
 		for (int i = 0; i < GameObjects.Count; i++)
 		{
 			GameObjects[i].IndexInHierarchy = i;
@@ -157,9 +161,6 @@ public class Scene
 			GameObjects[i].Update();
 			// }
 		}
-
-		Debug.EndAndStatTimer("GameObjects Update");
-
 
 		Debug.EndGraphTimer("Scene Update");
 	}

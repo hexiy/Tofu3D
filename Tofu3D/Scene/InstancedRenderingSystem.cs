@@ -7,7 +7,7 @@ public class InstancedRenderingSystem
 	// index in _definitions
 	Dictionary<int, InstancedRenderingObjectBufferData> _objectBufferDatas = new Dictionary<int, InstancedRenderingObjectBufferData>();
 	List<InstancedRenderingObjectDefinition> _definitions = new List<InstancedRenderingObjectDefinition>();
-	readonly int _vertexDataLength = sizeof(float) * 4 * 4 * 4; // 4x4 matrix+vec4 color
+	readonly int _vertexDataLength = (sizeof(float) * 4 * 3) + (sizeof(float) * 4); // 4xvec 3's for matrix+vec4 color
 
 	public InstancedRenderingSystem()
 	{
@@ -21,6 +21,7 @@ public class InstancedRenderingSystem
 		}
 
 		_objectBufferDatas = new Dictionary<int, InstancedRenderingObjectBufferData>();
+		_definitions = new List<InstancedRenderingObjectDefinition>();
 	}
 
 	public void RenderInstances()
@@ -29,6 +30,11 @@ public class InstancedRenderingSystem
 
 		foreach (KeyValuePair<int, InstancedRenderingObjectBufferData> objectDefinitionBufferPair in _objectBufferDatas)
 		{
+			if (objectDefinitionBufferPair.Value.NumberOfObjects == 0)
+			{
+				continue;
+			}
+
 			RenderSpecific(objectDefinitionBufferPair);
 		}
 	}
@@ -180,7 +186,7 @@ public class InstancedRenderingSystem
 		if (renderer.InstancedRenderingDefinitionIndex == -1)
 		{
 			// no buffer exists for this combination-create one
-			InstancedRenderingObjectDefinition definition = new InstancedRenderingObjectDefinition(model, material);
+			InstancedRenderingObjectDefinition definition = new InstancedRenderingObjectDefinition(model, material, renderer.GameObject.IsStaticSelf);
 			int definitionIndex = _definitions.Contains(definition) ? _definitions.IndexOf(definition) : _definitions.Count;
 
 			// find bufferData if its already created
@@ -250,26 +256,26 @@ public class InstancedRenderingSystem
 		buffer[startingIndex + 0] = m.M11;
 		buffer[startingIndex + 1] = m.M12;
 		buffer[startingIndex + 2] = m.M13;
-		buffer[startingIndex + 3] = m.M14;
-		buffer[startingIndex + 4] = m.M21;
-		buffer[startingIndex + 5] = m.M22;
-		buffer[startingIndex + 6] = m.M23;
-		buffer[startingIndex + 7] = m.M24;
-		buffer[startingIndex + 8] = m.M31;
-		buffer[startingIndex + 9] = m.M32;
-		buffer[startingIndex + 10] = m.M33;
-		buffer[startingIndex + 11] = m.M34;
-		buffer[startingIndex + 12] = m.M41;
-		buffer[startingIndex + 13] = m.M42;
-		buffer[startingIndex + 14] = m.M43;
-		buffer[startingIndex + 15] = m.M44;
+		// buffer[startingIndex + 3] = 0;//
+		buffer[startingIndex + 3] = m.M21;
+		buffer[startingIndex + 4] = m.M22;
+		buffer[startingIndex + 5] = m.M23;
+		// buffer[startingIndex + 7] = 0;//
+		buffer[startingIndex + 6] = m.M31;
+		buffer[startingIndex + 7] = m.M32;
+		buffer[startingIndex + 8] = m.M33;
+		// buffer[startingIndex + 11] = 0;//
+		buffer[startingIndex + 9] = m.M41;
+		buffer[startingIndex + 10] = m.M42;
+		buffer[startingIndex + 11] = m.M43;
+		// buffer[startingIndex + 15] = 1;//
 
 		Color color = renderer.Color;
 
-		buffer[startingIndex + 16] = color.R / 255f;
-		buffer[startingIndex + 17] = color.G / 255f;
-		buffer[startingIndex + 18] = color.B / 255f;
-		buffer[startingIndex + 19] = color.A / 255f;
+		buffer[startingIndex + 12] = color.R / 255f;
+		buffer[startingIndex + 13] = color.G / 255f;
+		buffer[startingIndex + 14] = color.B / 255f;
+		buffer[startingIndex + 15] = color.A / 255f;
 	}
 
 	private InstancedRenderingObjectBufferData InitializeBufferData(InstancedRenderingObjectDefinition objectDefinition)
@@ -279,7 +285,7 @@ public class InstancedRenderingSystem
 
 		InstancedRenderingObjectBufferData bufferData = new InstancedRenderingObjectBufferData
 		                                                {
-			                                                MaxNumberOfObjects = 100000,
+			                                                MaxNumberOfObjects = 50000,
 			                                                Vbo = -1
 		                                                };
 
@@ -315,10 +321,10 @@ public class InstancedRenderingSystem
 			// https://stackoverflow.com/a/28597384
 			//  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
 			GL.VertexAttribPointer(3, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 0);
-			GL.VertexAttribPointer(4, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 1 * 4 * sizeof(float));
-			GL.VertexAttribPointer(5, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 2 * 4 * sizeof(float));
-			GL.VertexAttribPointer(6, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 3 * 4 * sizeof(float));
-			GL.VertexAttribPointer(7, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 4 * 4 * sizeof(float));
+			GL.VertexAttribPointer(4, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 1 * 3 * sizeof(float));
+			GL.VertexAttribPointer(5, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 2 * 3 * sizeof(float));
+			GL.VertexAttribPointer(6, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 3 * 3 * sizeof(float));
+			GL.VertexAttribPointer(7, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 4 * 3 * sizeof(float));
 
 
 			GL.VertexAttribDivisor(3, divisor: 1);

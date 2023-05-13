@@ -108,21 +108,6 @@
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
-      <Texture>
-        <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Size>
-          <X>256</X>
-          <Y>256</Y>
-        </Size>
-      </Texture>
-      <Tiling>
-        <X>1</X>
-        <Y>1</Y>
-      </Tiling>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-      </Offset>
       <Model>
         <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
         <Vao>6</Vao>
