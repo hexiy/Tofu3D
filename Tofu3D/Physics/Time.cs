@@ -19,6 +19,8 @@ public static class Time
 
 	public static int MaxFps = 0;
 	public static int MinFps = 0;
+	public static int MaxFpsDisplay = 0;
+	public static int MinFpsDisplay = 0;
 	public static float MinMaxFpsTimer = 0;
 
 	// static Stopwatch _stopwatchUpdate = new Stopwatch();
@@ -32,27 +34,33 @@ public static class Time
 		// _deltaTimeTotal = (float) (Tofu.I.Window.RenderTime + Tofu.I.Window.UpdateTime);
 
 		int fps = (int) (1f / EditorDeltaTime);
-		if (fps > MaxFps && Time.EditorElapsedTime > 2)
+		if (fps > MaxFps && Time.EditorElapsedTime > 1)
 		{
 			MaxFps = fps;
 		}
 
-		if (fps < MinFps && Time.EditorElapsedTime > 2)
+		if (fps < MinFps && Time.EditorElapsedTime > 1)
 		{
 			MinFps = fps;
 		}
 
-		if (Time.EditorElapsedTime < 2)
+		if (Time.EditorElapsedTime < 1)
 		{
 			MinFps = fps;
 			MaxFps = fps;
+
+			MinFpsDisplay = MinFps;
+			MaxFpsDisplay = MaxFps;
 		}
 
 		MinMaxFpsTimer += EditorDeltaTime;
-		if (MinMaxFpsTimer >= 5)
+		if (MinMaxFpsTimer >= 3)
 		{
-			MaxFps = (MaxFps + fps) / 2;
-			MinFps = (MinFps + fps) / 2;
+			MaxFpsDisplay = MaxFps;
+			MinFpsDisplay = MinFps;
+
+			MaxFps = 0;
+			MinFps = 99999;
 			MinMaxFpsTimer = 0;
 		}
 
@@ -62,7 +70,7 @@ public static class Time
 			Debug.StatSetValue("FPS ", $"FPS[VSYNC {Tofu.I.Window.VSync.ToString()}]:{fps}");
 		}
 
-		Debug.StatSetValue("FPS Range", $"FPS Range(5s)     < {MinFps} -- {MaxFps} >");
+		Debug.StatSetValue("FPS Range", $"FPS Range(3s)              < {MinFpsDisplay} -- {MaxFpsDisplay} >");
 		// Debug.StatSetValue("Max FPS ", $"Max FPS(5s) {MaxFps}");
 		if (updateSlowerDebugStats)
 		{

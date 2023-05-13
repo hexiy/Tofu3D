@@ -129,7 +129,6 @@ discard; // having this fixes transparency sorting but breaks debug depthmap
 if (u_fogEnabled == 1 && u_renderMode == 0)
 {
 float distanceToVertex = distance(u_camPos.xz, vertexPositionWorld.xz);
-distanceToVertex += (u_time) *300;
 float fogFactor = 0;
 if (distanceToVertex > u_fogStartDistance){
 fogFactor = (distanceToVertex) - u_fogStartDistance;
@@ -172,5 +171,5 @@ if (u_renderMode == 2) // normals
 //frag_color = vec4(normalize(- normal), result.a);
 frag_color = vec4(normalize(normal), result.a);
 }
-gl_FragDepth = gl_FragCoord.z;
+//gl_FragDepth = gl_FragCoord.z;
 }

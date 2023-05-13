@@ -46,6 +46,11 @@ public class SceneRenderQueue
 				}
 				else
 				{
+					if (_scene.GameObjects[i] == TransformHandle.I.GameObject)
+					{
+						continue;
+					}
+
 					RenderQueueWorld.AddRange(_scene.GameObjects[i].GetComponents<Renderer>());
 				}
 			}
@@ -76,7 +81,7 @@ public class SceneRenderQueue
 	{
 		for (int i = 0; i < RenderQueueUI.Count; i++)
 		{
-			if (RenderQueueWorld[i].CanRender)
+			if (RenderQueueUI[i].CanRender)
 			{
 				// RenderQueueUI[i].UpdateMvp();
 				RenderQueueUI[i].Render();

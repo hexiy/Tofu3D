@@ -7,7 +7,11 @@ public class InstancedRenderingSystem
 	// index in _definitions
 	Dictionary<int, InstancedRenderingObjectBufferData> _objectBufferDatas = new Dictionary<int, InstancedRenderingObjectBufferData>();
 	List<InstancedRenderingObjectDefinition> _definitions = new List<InstancedRenderingObjectDefinition>();
-	readonly int _vertexDataLength = (sizeof(float) * 4 * 3) + (sizeof(float) * 4); // 4xvec 3's for matrix+vec4 color
+	readonly int _vertexDataSizeInBytes = (sizeof(float) * 4 * 3) + (sizeof(float) * 4); // 4xvec 3's for matrix+vec4 color
+	int VertexCountOfFloats
+	{
+		get { return _vertexDataSizeInBytes / sizeof(float); }
+	}
 
 	public InstancedRenderingSystem()
 	{
@@ -41,14 +45,15 @@ public class InstancedRenderingSystem
 
 	private void RemoveObjectFromBuffer(InstancedRenderingObjectBufferData bufferData, ModelRendererInstanced renderer)
 	{
-		for (int i = 0; i < _vertexDataLength; i++)
+		for (int i = 0; i < VertexCountOfFloats; i++)
 		{
-			bufferData.Buffer[renderer.InstancedRenderingDefinitionIndex + i] = -1;
+			bufferData.Buffer[renderer.InstancedRenderingStartingIndexInBuffer + i] = 0;
 		}
 
 		bufferData.EmptyStartIndexes.Add(renderer.InstancedRenderingStartingIndexInBuffer);
 
 		renderer.InstancedRenderingStartingIndexInBuffer = -1;
+		// renderer.InstancedRenderingDefinitionIndex = -1;
 		bufferData.NumberOfObjects--;
 	}
 
@@ -62,8 +67,31 @@ public class InstancedRenderingSystem
 		}
 		else
 		{
-			return bufferData.NumberOfObjects * _vertexDataLength;
+			if (bufferData.NumberOfObjects == bufferData.MaxNumberOfObjects)
+			{
+				bufferData.FutureMaxNumberOfObjects += 1;
+				return -1;
+			}
+
+			if (bufferData.Buffer.Length < VertexCountOfFloats * bufferData.MaxNumberOfObjects)
+			{
+				return -1;
+			}
+
+			return bufferData.NumberOfObjects * VertexCountOfFloats;
 		}
+	}
+
+	private void ResizeBufferData(InstancedRenderingObjectBufferData bufferData)
+	{
+		bufferData.FutureMaxNumberOfObjects += 10; // 10 in the tank
+		bufferData.MaxNumberOfObjects = bufferData.FutureMaxNumberOfObjects;
+		Debug.Log($"Resizing buffer to new size:{bufferData.MaxNumberOfObjects}");
+
+		Array.Resize(ref bufferData.Buffer, bufferData.MaxNumberOfObjects * VertexCountOfFloats);
+		bufferData.Vbo = -1;
+		bufferData.Dirty = true;
+		UploadBufferData(bufferData);
 	}
 
 	private void RenderSpecific(KeyValuePair<int, InstancedRenderingObjectBufferData> objectBufferPair)
@@ -73,6 +101,12 @@ public class InstancedRenderingSystem
 		Material material = definition.Material;
 		material = AssetManager.Load<Material>(material.AssetPath);
 		Model model = definition.Model;
+		InstancedRenderingObjectBufferData bufferData = objectBufferPair.Value;
+		if (bufferData.Buffer.Length != VertexCountOfFloats * bufferData.FutureMaxNumberOfObjects)
+		{
+			ResizeBufferData(bufferData);
+		}
+
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
 		{
 			ShaderManager.UseShader(material.Shader);
@@ -165,20 +199,23 @@ public class InstancedRenderingSystem
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 
-			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, model.IndicesCount, instanceCount: objectBufferPair.Value.NumberOfObjects);
+			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, model.VerticesCount, instancesCount: objectBufferPair.Value.NumberOfObjects);
 
-			GL.ActiveTexture(TextureUnit.Texture0); // DOESNT WORK
+			// GL.ActiveTexture(TextureUnit.Texture0); // DOESNT WORK
 		}
 	}
 
-	void GL_DrawArraysInstanced(PrimitiveType primitiveType, int first, int count, int instanceCount)
+	void GL_DrawArraysInstanced(PrimitiveType primitiveType, int first, int verticesCount, int instancesCount)
 	{
-		GL.DrawArraysInstanced(primitiveType, first, count, instanceCount);
+		GL.DrawArraysInstanced(primitiveType, first, verticesCount, instancesCount);
 		DebugHelper.LogDrawCall();
-		Debug.StatAddValue("Instanced objects count", instanceCount);
+		Debug.StatAddValue("Instanced objects:", instancesCount);
+		// Debug.StatAddValue("Total vertices:", verticesCount * instancesCount);
+		DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount*instancesCount);
+
 	}
 
-	public void UpdateObjectData(ModelRendererInstanced renderer, bool remove = false)
+	public bool UpdateObjectData(ModelRendererInstanced renderer, bool remove = false)
 	{
 		InstancedRenderingObjectBufferData bufferData;
 		Material material = renderer.Material;
@@ -210,7 +247,7 @@ public class InstancedRenderingSystem
 			{
 				// on scene reload the definitionIndex is 0 but its not created in the system...
 				renderer.InstancedRenderingDefinitionIndex = -1;
-				return;
+				return false;
 			}
 
 			bufferData = _objectBufferDatas[renderer.InstancedRenderingDefinitionIndex];
@@ -221,6 +258,12 @@ public class InstancedRenderingSystem
 		{
 			// assign new InstancedRenderingIndex
 			renderer.InstancedRenderingStartingIndexInBuffer = GetEmptyIndexInBuffer(bufferData);
+
+			if (renderer.InstancedRenderingStartingIndexInBuffer == -1)
+			{
+				return false;
+			}
+
 			bufferData.NumberOfObjects++;
 		}
 
@@ -230,27 +273,18 @@ public class InstancedRenderingSystem
 		{
 			RemoveObjectFromBuffer(bufferData, renderer);
 		}
-		else
+		else if (renderer.InstancedRenderingStartingIndexInBuffer != -1)
 		{
 			CopyObjectDataToBuffer(renderer, ref bufferData.Buffer, renderer.InstancedRenderingStartingIndexInBuffer);
 		}
 
 		_objectBufferDatas[renderer.InstancedRenderingDefinitionIndex] = bufferData;
+
+		return true;
 	}
 
 	void CopyObjectDataToBuffer(Renderer renderer, ref float[] buffer, int startingIndex)
 	{
-		if (startingIndex == -1)
-		{
-			return;
-		}
-
-		if (startingIndex >= buffer.Length)
-		{
-			// needs to resize buffer or smtn
-			return;
-		}
-
 		Matrix4x4 m = renderer.GetModelMatrix();
 
 		buffer[startingIndex + 0] = m.M11;
@@ -285,11 +319,12 @@ public class InstancedRenderingSystem
 
 		InstancedRenderingObjectBufferData bufferData = new InstancedRenderingObjectBufferData
 		                                                {
-			                                                MaxNumberOfObjects = 50000,
+			                                                MaxNumberOfObjects = 1,
+			                                                FutureMaxNumberOfObjects = 1,
 			                                                Vbo = -1
 		                                                };
 
-		bufferData.Buffer = new float[bufferData.MaxNumberOfObjects * _vertexDataLength];
+		bufferData.Buffer = new float[bufferData.MaxNumberOfObjects * VertexCountOfFloats];
 		bufferData.EmptyStartIndexes = new List<int>();
 
 		UploadBufferData(bufferData);
@@ -310,7 +345,7 @@ public class InstancedRenderingSystem
 
 		if (newBuffer)
 		{
-			GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * _vertexDataLength * bufferData.MaxNumberOfObjects, bufferData.Buffer, BufferUsageHint.StaticDraw);
+			GL.BufferData(BufferTarget.ArrayBuffer, _vertexDataSizeInBytes * bufferData.MaxNumberOfObjects, bufferData.Buffer, BufferUsageHint.StaticDraw);
 
 			GL.EnableVertexAttribArray(3);
 			GL.EnableVertexAttribArray(4);
@@ -320,11 +355,11 @@ public class InstancedRenderingSystem
 
 			// https://stackoverflow.com/a/28597384
 			//  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
-			GL.VertexAttribPointer(3, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 0);
-			GL.VertexAttribPointer(4, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 1 * 3 * sizeof(float));
-			GL.VertexAttribPointer(5, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 2 * 3 * sizeof(float));
-			GL.VertexAttribPointer(6, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 3 * 3 * sizeof(float));
-			GL.VertexAttribPointer(7, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataLength * sizeof(float), 4 * 3 * sizeof(float));
+			GL.VertexAttribPointer(3, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataSizeInBytes, 0);
+			GL.VertexAttribPointer(4, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataSizeInBytes, 1 * 3 * sizeof(float));
+			GL.VertexAttribPointer(5, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataSizeInBytes, 2 * 3 * sizeof(float));
+			GL.VertexAttribPointer(6, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataSizeInBytes, 3 * 3 * sizeof(float));
+			GL.VertexAttribPointer(7, size: sizeof(float), VertexAttribPointerType.Float, false, _vertexDataSizeInBytes, 4 * 3 * sizeof(float));
 
 
 			GL.VertexAttribDivisor(3, divisor: 1);
@@ -335,7 +370,8 @@ public class InstancedRenderingSystem
 		}
 		else
 		{
-			GL.BufferSubData(BufferTarget.ArrayBuffer, 0, sizeof(float) * _vertexDataLength * bufferData.NumberOfObjects, bufferData.Buffer);
+			GL.BufferSubData(BufferTarget.ArrayBuffer, 0, _vertexDataSizeInBytes * bufferData.MaxNumberOfObjects, bufferData.Buffer);
+			// GL.BufferData(BufferTarget.ArrayBuffer, _vertexDataSizeInBytes * bufferData.MaxNumberOfObjects, bufferData.Buffer, BufferUsageHint.StaticDraw);
 		}
 	}
 }

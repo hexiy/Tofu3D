@@ -240,7 +240,8 @@ public class EditorPanelHierarchy : EditorPanel
 	{
 		if (isChild == false)
 		{
-			PushNextId(SceneManager.CurrentScene.GameObjects[goIndex].Id.ToString());
+			// PushNextId(SceneManager.CurrentScene.GameObjects[goIndex].Id.ToString());
+			PushNextId();
 		}
 
 

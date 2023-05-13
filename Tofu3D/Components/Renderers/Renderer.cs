@@ -91,8 +91,9 @@ public class Renderer : Component, IComparable<Renderer>
 	internal void GL_DrawArrays(PrimitiveType primitiveType, int first, int count)
 	{
 		GL.DrawArrays(primitiveType, first, count);
-		// Debug.StatAddValue("Indices drawn", count);
+		// Debug.StatAddValue("Total vertices:", count);
 		DebugHelper.LogDrawCall();
+		DebugHelper.LogVerticesDrawCall(verticesCount:count);
 	}
 
 	internal void RenderWireframe(int indicesCount)
@@ -251,10 +252,10 @@ public class Renderer : Component, IComparable<Renderer>
 			return;
 		}
 
-		if (GameObject.IsStatic == false || LatestModelViewProjection == null)
-		{
+		// if (GameObject.IsStatic == false || LatestModelViewProjection == null)
+		// {
 			LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
-		}
+		// }
 	}
 
 	public virtual void Render()

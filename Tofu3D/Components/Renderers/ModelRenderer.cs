@@ -112,7 +112,7 @@ public class ModelRenderer : TextureRenderer
 
 
 			ShaderManager.BindVertexArray(Model.Vao);
-			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
+			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.VerticesCount);
 		}
 
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
@@ -216,11 +216,11 @@ public class ModelRenderer : TextureRenderer
 
 			if (isTransformHandle == false)
 			{
-				RenderWireframe(Model.IndicesCount);
+				RenderWireframe(Model.VerticesCount);
 			}
 
 			// GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
-			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
+			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.VerticesCount);
 
 
 			// }
@@ -238,7 +238,7 @@ public class ModelRenderer : TextureRenderer
 			{
 				ShaderManager.BindVertexArray(Model.Vao);
 
-				GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
+				GL_DrawArrays(PrimitiveType.Triangles, 0, Model.VerticesCount);
 			}
 			else
 			{
@@ -273,7 +273,7 @@ public class ModelRenderer : TextureRenderer
 			ShaderManager.BindVertexArray(Model.Vao);
 			GL.ActiveTexture(TextureUnit.Texture0);
 			TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
-			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
+			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.VerticesCount);
 
 
 			GL.StencilMask(0xFF);

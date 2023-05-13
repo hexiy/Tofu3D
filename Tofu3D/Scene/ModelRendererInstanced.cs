@@ -46,6 +46,7 @@ public class ModelRendererInstanced : Renderer
 		{
 			return;
 		}
+
 		bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
 		if (isTransformHandle && (RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques && RenderPassSystem.CurrentRenderPassType != RenderPassType.UI))
 		{
@@ -63,12 +64,13 @@ public class ModelRendererInstanced : Renderer
 		}
 
 
-
-
 		// float speed = 2;
 		// float posY = Mathf.Sin(Time.EditorElapsedTime*speed + Transform.LocalPosition.X / 10) * 3 + Mathf.Sin(Time.EditorElapsedTime*speed + Transform.LocalPosition.Z / 10) * 4;
 		// Transform.LocalPosition = Transform.LocalPosition.Set(y: posY);
-		Tofu.I.InstancedRenderingSystem.UpdateObjectData(this);
-		_hasUpdatedInstanceBufferData = true;
+		bool updatedData = Tofu.I.InstancedRenderingSystem.UpdateObjectData(this);
+		if (updatedData)
+		{
+			_hasUpdatedInstanceBufferData = true;
+		}
 	}
 }

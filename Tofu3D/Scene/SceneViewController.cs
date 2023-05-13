@@ -157,7 +157,7 @@ public class SceneViewController
 
 			if (validInput && MouseInput.IsButtonDown(MouseInput.Buttons.Left))
 			{
-				_smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation, MouseInput.ScreenDelta, Time.EditorDeltaTime * 19);
+				_smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation, MouseInput.ScreenDelta, Time.EditorDeltaTime * 30);
 			}
 			else
 			{

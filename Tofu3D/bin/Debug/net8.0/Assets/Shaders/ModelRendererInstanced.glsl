@@ -156,5 +156,5 @@ if (u_renderMode == 2) // normals
 frag_color = vec4(normalize(normal), result.a);
 }
 
-gl_FragDepth = gl_FragCoord.z;
+//gl_FragDepth = gl_FragCoord.z;
 }
