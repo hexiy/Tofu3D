@@ -16,6 +16,10 @@ public class SceneLightingManager
 		Scene.ComponentAdded += OnSceneComponentAdded;
 	}
 
+	public void Update()
+	{
+	}
+
 	void OnSceneComponentAdded(Component obj)
 	{
 		if (_directionalLight == null)
@@ -24,10 +28,6 @@ public class SceneLightingManager
 
 			_directionalLight = _scene.FindComponent<DirectionalLight>(ignoreInactive: true);
 		}
-	}
-
-	public void Update()
-	{
 	}
 
 	public float[] GetPointLightsPositions()
@@ -101,7 +101,7 @@ public class SceneLightingManager
 		{
 			if (_lights[i].GetType() == typeof(AmbientLight))
 			{
-				intensity += _lights[i].Intensity;
+				intensity += _lights[i].Intensity * (_lights[i].IsActive ? 1 : 0);
 			}
 		}
 
@@ -125,6 +125,6 @@ public class SceneLightingManager
 
 	public float GetDirectionalLightIntensity()
 	{
-		return _directionalLight?.Intensity ?? 0;
+		return (_directionalLight?.Intensity ?? 0) * (_directionalLight?.IsActive == true ? 1 : 0);
 	}
 }
