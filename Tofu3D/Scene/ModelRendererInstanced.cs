@@ -3,16 +3,17 @@
 public class ModelRendererInstanced : Renderer
 {
 	public Model Model;
-	bool _hasUpdatedInstanceBufferData;
 
 	public override void Awake()
 	{
+		InstancingData = new RendererInstancingData();
 		base.Awake();
 	}
 
 	public override void OnEnable()
 	{
-		_hasUpdatedInstanceBufferData = false;
+		InstancingData.InstancingDataDirty = true;
+
 		base.OnEnable();
 	}
 
@@ -42,7 +43,7 @@ public class ModelRendererInstanced : Renderer
 
 	public override void Render()
 	{
-		if (GameObject.IsStatic && _hasUpdatedInstanceBufferData)
+		if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false)
 		{
 			return;
 		}
@@ -70,7 +71,8 @@ public class ModelRendererInstanced : Renderer
 		bool updatedData = Tofu.I.InstancedRenderingSystem.UpdateObjectData(this);
 		if (updatedData)
 		{
-			_hasUpdatedInstanceBufferData = true;
+			InstancingData.InstancingDataDirty = false;
+			var x = 123;
 		}
 	}
 }

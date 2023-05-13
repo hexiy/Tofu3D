@@ -2,13 +2,14 @@
 <SceneFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameObjects>
     <GameObject>
+      <IsStaticSelf>true</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>54231</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
+      <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Block</Name>
+      <Name>BlockInstanced</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -32,13 +33,13 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>0.39</X>
-        <Y>-3.4357114</Y>
+        <X>0.005</X>
+        <Y>5</Y>
         <Z>-4.88</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.39</X>
-        <Y>-3.4357114</Y>
+        <X>0.005</X>
+        <Y>5</Y>
         <Z>-4.88</Z>
       </LocalPosition>
       <LocalScale>
@@ -70,40 +71,48 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>17.095594</DistanceFromCamera>
+      <DistanceFromCamera>17.468071</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
+          <AlbedoTextureLocation>22</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
+        <AlbedoTexture>
+          <AssetPath>Assets\2D\Grass_Block_TEX.png</AssetPath>
+          <Size>
+            <X>1440</X>
+            <Y>1920</Y>
+          </Size>
+        </AlbedoTexture>
+        <AoTexture>
+          <AssetPath>Assets\2D\solidColor.png</AssetPath>
+          <Size>
+            <X>256</X>
+            <Y>256</Y>
+          </Size>
+        </AoTexture>
+        <Tiling>
+          <X>-1</X>
+          <Y>-1</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
-      <Texture>
-        <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
-        <Size>
-          <X>256</X>
-          <Y>256</Y>
-        </Size>
-      </Texture>
-      <Tiling>
-        <X>1</X>
-        <Y>1</Y>
-      </Tiling>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-      </Offset>
       <Model>
         <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
-        <Vao>14</Vao>
+        <Vao>6</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
-        <IndicesCount>36</IndicesCount>
+        <VerticesCount>36</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="BoxShape">

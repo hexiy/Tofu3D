@@ -3,19 +3,14 @@
 [ExecuteInEditMode]
 public class Renderer : Component, IComparable<Renderer>
 {
-	[XmlIgnore] public int InstancedRenderingStartingIndexInBuffer { get; set; } = -1;
 	[XmlIgnore]
-	public int InstancedRenderingDefinitionIndex = -1;
+	public RendererInstancingData InstancingData;
+
 	//[LinkableComponent]
 	[XmlIgnore]
 	public BoxShape BoxShape;
 	[Hide]
 	public bool AutomaticallyFindBoxShape = true;
-	[Show]
-	public int Debug_BoxShapeGameObjectId
-	{
-		get { return BoxShape.GameObjectId; }
-	}
 	public Color Color = Color.White;
 	public float DistanceFromCamera;
 
@@ -93,7 +88,7 @@ public class Renderer : Component, IComparable<Renderer>
 		GL.DrawArrays(primitiveType, first, count);
 		// Debug.StatAddValue("Total vertices:", count);
 		DebugHelper.LogDrawCall();
-		DebugHelper.LogVerticesDrawCall(verticesCount:count);
+		DebugHelper.LogVerticesDrawCall(verticesCount: count);
 	}
 
 	internal void RenderWireframe(int indicesCount)
@@ -254,7 +249,7 @@ public class Renderer : Component, IComparable<Renderer>
 
 		// if (GameObject.IsStatic == false || LatestModelViewProjection == null)
 		// {
-			LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
+		LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
 		// }
 	}
 

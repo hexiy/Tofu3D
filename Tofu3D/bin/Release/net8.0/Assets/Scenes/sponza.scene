@@ -2,6 +2,7 @@
 <SceneFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameObjects>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>true</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -10,13 +11,14 @@
       <IsPrefab>false</IsPrefab>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -32,6 +34,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -47,6 +50,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -59,9 +63,10 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -77,6 +82,7 @@
       <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -92,6 +98,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -107,6 +114,7 @@
       <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -115,13 +123,14 @@
       <IsPrefab>false</IsPrefab>
       <Name>Chimp</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -137,6 +146,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -152,26 +162,12 @@
       <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>221</Id>
-      <IndexInHierarchy>10</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <Name>Sponza</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>244</Id>
-      <IndexInHierarchy>11</IndexInHierarchy>
+      <IndexInHierarchy>10</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Torus</Name>
       <PrefabPath />
@@ -182,11 +178,12 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>75</Id>
-      <IndexInHierarchy>12</IndexInHierarchy>
+      <IndexInHierarchy>11</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>StoneBlock</Name>
       <PrefabPath />
@@ -197,28 +194,14 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>349</Id>
-      <IndexInHierarchy>13</IndexInHierarchy>
+      <IndexInHierarchy>12</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>BallFogEnd</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>481</Id>
-      <IndexInHierarchy>14</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <Name>blcok</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -227,13 +210,190 @@
       <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
       <Id>488</Id>
-      <IndexInHierarchy>15</IndexInHierarchy>
+      <IndexInHierarchy>13</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Teapot</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>221</Id>
+      <IndexInHierarchy>14</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sponza</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>534</Id>
+      <IndexInHierarchy>15</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sponza</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>535</Id>
+      <IndexInHierarchy>16</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sponza</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>536</Id>
+      <IndexInHierarchy>17</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sponza</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>537</Id>
+      <IndexInHierarchy>18</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sponza</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>538</Id>
+      <IndexInHierarchy>19</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sponza</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>539</Id>
+      <IndexInHierarchy>20</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sponza</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>540</Id>
+      <IndexInHierarchy>21</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sponza</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>541</Id>
+      <IndexInHierarchy>22</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sponza</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>542</Id>
+      <IndexInHierarchy>23</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sponza</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>543</Id>
+      <IndexInHierarchy>24</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Sponza</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -257,14 +417,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-0.23901965</X>
-        <Y>1.270199</Y>
-        <Z>-10.680175</Z>
+        <X>2.7758E-40</X>
+        <Y>0</Y>
+        <Z>-10</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-0.23901965</X>
-        <Y>1.270199</Y>
-        <Z>-10.680175</Z>
+        <X>2.7758E-40</X>
+        <Y>0</Y>
+        <Z>-10</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -277,8 +437,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>13.06615</X>
-        <Y>4.3430796</Y>
+        <X>0</X>
+        <Y>0</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -560,9 +720,9 @@
       <GameObjectId>0</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <StartDistance>-221.42</StartDistance>
-      <EndDistance>217.617</EndDistance>
-      <PositionY>-1.77</PositionY>
+      <StartDistance>-200</StartDistance>
+      <EndDistance>100</EndDistance>
+      <PositionY>-2</PositionY>
       <IsGradient>true</IsGradient>
       <GradientSmoothness>3.49</GradientSmoothness>
       <Color1>
@@ -623,7 +783,7 @@
     <Component xsi:type="AmbientLight">
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>6</GameObjectId>
-      <Started>false</Started>
+      <Started>true</Started>
       <Enabled>true</Enabled>
       <Intensity>0.435</Intensity>
       <Color>
@@ -1151,6 +1311,34 @@
         <int>66</int>
         <int>37</int>
         <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -1240,6 +1428,7 @@
       <GameObjectId>37</GameObjectId>
       <Started>true</Started>
       <Enabled>false</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -1254,15 +1443,24 @@
         <Shader>
           <BufferType>Sprite</BufferType>
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
-        <Vao>15</Vao>
+        <Vao>6</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -1393,6 +1591,7 @@
       <GameObjectId>66</GameObjectId>
       <Started>true</Started>
       <Enabled>false</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -1407,15 +1606,24 @@
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -1431,7 +1639,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <IndicesCount>36</IndicesCount>
       </Model>
@@ -1500,6 +1708,7 @@
       <GameObjectId>130</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -1507,22 +1716,31 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.998728</DistanceFromCamera>
+      <DistanceFromCamera>10.136074</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -1538,7 +1756,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>371688</VertexBufferDataLength>
         <IndicesCount>46461</IndicesCount>
       </Model>
@@ -1607,6 +1825,7 @@
       <GameObjectId>173</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>0</B>
         <G>0</G>
@@ -1614,22 +1833,31 @@
         <A>255</A>
         <PackedValue>4278190335</PackedValue>
       </Color>
-      <DistanceFromCamera>15.781591</DistanceFromCamera>
+      <DistanceFromCamera>15.008331</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -1645,7 +1873,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>14</Vao>
+        <Vao>9</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <IndicesCount>2880</IndicesCount>
       </Model>
@@ -1714,6 +1942,7 @@
       <GameObjectId>220</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>0</G>
@@ -1728,15 +1957,24 @@
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -1752,120 +1990,13 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>14</Vao>
+        <Vao>9</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <IndicesCount>2880</IndicesCount>
       </Model>
       <CastShadow>false</CastShadow>
       <SmoothShading>0</SmoothShading>
       <SpecularSmoothness>0.01</SpecularSmoothness>
-      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>221</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <WorldPosition>
-        <X>1</X>
-        <Y>-2.02</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>1</X>
-        <Y>-2.02</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>-269.3</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>221</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>0.01</X>
-        <Y>0.01</Y>
-        <Z>0.01</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRenderer">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>221</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <DistanceFromCamera>11.243963</DistanceFromCamera>
-      <Material>
-        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
-        <Additive>false</Additive>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
-        </Shader>
-        <Vao>8</Vao>
-        <RenderMode>Opaque</RenderMode>
-      </Material>
-      <RenderMode>Opaque</RenderMode>
-      <Layer>1</Layer>
-      <Texture>
-        <AssetPath>Assets\2D\stone.png</AssetPath>
-        <Loaded>true</Loaded>
-        <Size>
-          <X>397</X>
-          <Y>397</Y>
-        </Size>
-      </Texture>
-      <Tiling>
-        <X>5</X>
-        <Y>5</Y>
-      </Tiling>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-      </Offset>
-      <Model>
-        <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>16</Vao>
-        <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <IndicesCount>786801</IndicesCount>
-      </Model>
-      <CastShadow>false</CastShadow>
-      <SmoothShading>0</SmoothShading>
-      <SpecularSmoothness>0.041</SpecularSmoothness>
       <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
     <Component xsi:type="Transform">
@@ -1928,6 +2059,7 @@
       <GameObjectId>244</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -1935,22 +2067,31 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>13.724774</DistanceFromCamera>
+      <DistanceFromCamera>12.847864</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -1966,7 +2107,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\torus.obj</AssetPath>
-        <Vao>7</Vao>
+        <Vao>10</Vao>
         <VertexBufferDataLength>27648</VertexBufferDataLength>
         <IndicesCount>3456</IndicesCount>
       </Model>
@@ -2035,6 +2176,7 @@
       <GameObjectId>75</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -2042,22 +2184,31 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>11.887278</DistanceFromCamera>
+      <DistanceFromCamera>11.236102</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\stone.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>397</X>
           <Y>397</Y>
@@ -2075,7 +2226,7 @@
         <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
         <Vao>11</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
-        <IndicesCount>0</IndicesCount>
+        <IndicesCount>36</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2142,6 +2293,7 @@
       <GameObjectId>349</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>0</B>
         <G>255</G>
@@ -2149,22 +2301,31 @@
         <A>255</A>
         <PackedValue>4278255379</PackedValue>
       </Color>
-      <DistanceFromCamera>20.757177</DistanceFromCamera>
+      <DistanceFromCamera>20.006248</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -2180,7 +2341,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>14</Vao>
+        <Vao>9</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <IndicesCount>2880</IndicesCount>
       </Model>
@@ -2191,113 +2352,6 @@
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>481</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <WorldPosition>
-        <X>-58.3</X>
-        <Y>-70</Y>
-        <Z>305</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>-58.3</X>
-        <Y>-70</Y>
-        <Z>305</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>-175.9</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>481</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>500</X>
-        <Y>500</Y>
-        <Z>100</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRenderer">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>481</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <DistanceFromCamera>928.0484</DistanceFromCamera>
-      <Material>
-        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
-        <Additive>false</Additive>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
-        </Shader>
-        <Vao>8</Vao>
-        <RenderMode>Opaque</RenderMode>
-      </Material>
-      <RenderMode>Opaque</RenderMode>
-      <Layer>1</Layer>
-      <Texture>
-        <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
-        <Size>
-          <X>256</X>
-          <Y>256</Y>
-        </Size>
-      </Texture>
-      <Tiling>
-        <X>1</X>
-        <Y>1</Y>
-      </Tiling>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-      </Offset>
-      <Model>
-        <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>9</Vao>
-        <VertexBufferDataLength>288</VertexBufferDataLength>
-        <IndicesCount>36</IndicesCount>
-      </Model>
-      <CastShadow>true</CastShadow>
-      <SmoothShading>0</SmoothShading>
-      <SpecularSmoothness>0.01</SpecularSmoothness>
-      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
       <GameObjectId>488</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
@@ -2356,6 +2410,7 @@
       <GameObjectId>488</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -2363,22 +2418,31 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.863051</DistanceFromCamera>
+      <DistanceFromCamera>10.035955</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -2394,7 +2458,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\Teapot.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>12</Vao>
         <VertexBufferDataLength>506112</VertexBufferDataLength>
         <IndicesCount>63264</IndicesCount>
       </Model>
@@ -2403,6 +2467,1293 @@
       <SpecularSmoothness>0.096</SpecularSmoothness>
       <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>221</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-269.3</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>221</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.01</X>
+        <Y>0.01</Y>
+        <Z>0.01</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>221</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <Size>
+          <X>397</X>
+          <Y>397</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>5</X>
+        <Y>5</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\sponza.obj</AssetPath>
+        <Vao>13</Vao>
+        <VertexBufferDataLength>6294408</VertexBufferDataLength>
+        <IndicesCount>786801</IndicesCount>
+      </Model>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.041</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>534</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-269.3</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>534</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.01</X>
+        <Y>0.01</Y>
+        <Z>0.01</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>534</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <Size>
+          <X>397</X>
+          <Y>397</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>5</X>
+        <Y>5</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\sponza.obj</AssetPath>
+        <Vao>13</Vao>
+        <VertexBufferDataLength>6294408</VertexBufferDataLength>
+        <IndicesCount>786801</IndicesCount>
+      </Model>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.041</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>535</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-269.3</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>535</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.01</X>
+        <Y>0.01</Y>
+        <Z>0.01</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>535</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <Size>
+          <X>397</X>
+          <Y>397</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>5</X>
+        <Y>5</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\sponza.obj</AssetPath>
+        <Vao>13</Vao>
+        <VertexBufferDataLength>6294408</VertexBufferDataLength>
+        <IndicesCount>786801</IndicesCount>
+      </Model>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.041</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>536</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-269.3</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>536</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.01</X>
+        <Y>0.01</Y>
+        <Z>0.01</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>536</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <Size>
+          <X>397</X>
+          <Y>397</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>5</X>
+        <Y>5</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\sponza.obj</AssetPath>
+        <Vao>13</Vao>
+        <VertexBufferDataLength>6294408</VertexBufferDataLength>
+        <IndicesCount>786801</IndicesCount>
+      </Model>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.041</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>537</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-269.3</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>537</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.01</X>
+        <Y>0.01</Y>
+        <Z>0.01</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>537</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <Size>
+          <X>397</X>
+          <Y>397</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>5</X>
+        <Y>5</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\sponza.obj</AssetPath>
+        <Vao>13</Vao>
+        <VertexBufferDataLength>6294408</VertexBufferDataLength>
+        <IndicesCount>786801</IndicesCount>
+      </Model>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.041</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>538</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-269.3</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>538</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.01</X>
+        <Y>0.01</Y>
+        <Z>0.01</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>538</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <Size>
+          <X>397</X>
+          <Y>397</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>5</X>
+        <Y>5</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\sponza.obj</AssetPath>
+        <Vao>13</Vao>
+        <VertexBufferDataLength>6294408</VertexBufferDataLength>
+        <IndicesCount>786801</IndicesCount>
+      </Model>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.041</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>539</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-269.3</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>539</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.01</X>
+        <Y>0.01</Y>
+        <Z>0.01</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>539</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <Size>
+          <X>397</X>
+          <Y>397</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>5</X>
+        <Y>5</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\sponza.obj</AssetPath>
+        <Vao>13</Vao>
+        <VertexBufferDataLength>6294408</VertexBufferDataLength>
+        <IndicesCount>786801</IndicesCount>
+      </Model>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.041</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>540</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-269.3</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>540</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.01</X>
+        <Y>0.01</Y>
+        <Z>0.01</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>540</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <Size>
+          <X>397</X>
+          <Y>397</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>5</X>
+        <Y>5</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\sponza.obj</AssetPath>
+        <Vao>13</Vao>
+        <VertexBufferDataLength>6294408</VertexBufferDataLength>
+        <IndicesCount>786801</IndicesCount>
+      </Model>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.041</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>541</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-269.3</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>541</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.01</X>
+        <Y>0.01</Y>
+        <Z>0.01</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>541</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <Size>
+          <X>397</X>
+          <Y>397</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>5</X>
+        <Y>5</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\sponza.obj</AssetPath>
+        <Vao>13</Vao>
+        <VertexBufferDataLength>6294408</VertexBufferDataLength>
+        <IndicesCount>786801</IndicesCount>
+      </Model>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.041</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>542</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-269.3</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>542</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.01</X>
+        <Y>0.01</Y>
+        <Z>0.01</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>542</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <Size>
+          <X>397</X>
+          <Y>397</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>5</X>
+        <Y>5</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\sponza.obj</AssetPath>
+        <Vao>13</Vao>
+        <VertexBufferDataLength>6294408</VertexBufferDataLength>
+        <IndicesCount>786801</IndicesCount>
+      </Model>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.041</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>543</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>1</X>
+        <Y>-2.02</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-269.3</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>543</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.01</X>
+        <Y>0.01</Y>
+        <Z>0.01</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRenderer">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>543</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <Material>
+        <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+        </Shader>
+        <Vao>8</Vao>
+        <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>1</Layer>
+      <Texture>
+        <AssetPath>Assets\2D\stone.png</AssetPath>
+        <Size>
+          <X>397</X>
+          <Y>397</Y>
+        </Size>
+      </Texture>
+      <Tiling>
+        <X>5</X>
+        <Y>5</Y>
+      </Tiling>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+      <Model>
+        <AssetPath>Assets\3D\sponza.obj</AssetPath>
+        <Vao>13</Vao>
+        <VertexBufferDataLength>6294408</VertexBufferDataLength>
+        <IndicesCount>786801</IndicesCount>
+      </Model>
+      <CastShadow>false</CastShadow>
+      <SmoothShading>0</SmoothShading>
+      <SpecularSmoothness>0.041</SpecularSmoothness>
+      <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+    </Component>
   </Components>
-  <GameObjectNextId>511</GameObjectNextId>
+  <GameObjectNextId>550</GameObjectNextId>
 </SceneFile>

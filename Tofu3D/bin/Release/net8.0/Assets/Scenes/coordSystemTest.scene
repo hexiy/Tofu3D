@@ -2,6 +2,7 @@
 <SceneFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameObjects>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>true</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -17,6 +18,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -32,6 +34,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -47,6 +50,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -62,6 +66,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -77,6 +82,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -92,6 +98,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -107,6 +114,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -122,6 +130,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -137,6 +146,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -152,6 +162,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -167,6 +178,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -182,6 +194,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -197,6 +210,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -212,6 +226,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -227,6 +242,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -242,6 +258,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -257,6 +274,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -272,6 +290,7 @@
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
@@ -302,14 +321,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-0.42599833</X>
-        <Y>2.5487633</Y>
-        <Z>-3.9208913</Z>
+        <X>-0.4179331</X>
+        <Y>2.5482192</Y>
+        <Z>-3.9117088</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-0.42599833</X>
-        <Y>2.5487633</Y>
-        <Z>-3.9208913</Z>
+        <X>-0.4179331</X>
+        <Y>2.5482192</Y>
+        <Z>-3.9117088</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -1601,9 +1620,9 @@
       <Enabled>true</Enabled>
       <StartDistance>0</StartDistance>
       <EndDistance>0.001</EndDistance>
-      <PositionY>235.751</PositionY>
+      <PositionY>-2.44899</PositionY>
       <IsGradient>true</IsGradient>
-      <GradientSmoothness>488.342</GradientSmoothness>
+      <GradientSmoothness>7.8</GradientSmoothness>
       <Color1>
         <B>255</B>
         <G>255</G>
@@ -1662,7 +1681,7 @@
     <Component xsi:type="AmbientLight">
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>6</GameObjectId>
-      <Started>false</Started>
+      <Started>true</Started>
       <Enabled>true</Enabled>
       <Intensity>0.58</Intensity>
       <Color>
@@ -1797,6 +1816,7 @@
       <GameObjectId>130</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>95</B>
         <G>245</G>
@@ -1804,22 +1824,31 @@
         <A>255</A>
         <PackedValue>4284478975</PackedValue>
       </Color>
-      <DistanceFromCamera>4.543376</DistanceFromCamera>
+      <DistanceFromCamera>4.531885</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -1835,8 +1864,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>5</Vao>
-        <VertexBufferDataLength>371712</VertexBufferDataLength>
+        <Vao>8</Vao>
+        <VertexBufferDataLength>371688</VertexBufferDataLength>
+        <IndicesCount>46461</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -1903,6 +1933,7 @@
       <GameObjectId>244</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -1910,22 +1941,31 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>5.936197</DistanceFromCamera>
+      <DistanceFromCamera>5.9264636</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -1941,8 +1981,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\torus.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>11</Vao>
         <VertexBufferDataLength>27648</VertexBufferDataLength>
+        <IndicesCount>3456</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2009,6 +2050,7 @@
       <GameObjectId>488</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>250</G>
@@ -2016,22 +2058,31 @@
         <A>255</A>
         <PackedValue>4294965847</PackedValue>
       </Color>
-      <DistanceFromCamera>5.760704</DistanceFromCamera>
+      <DistanceFromCamera>5.757023</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -2047,8 +2098,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\Alien Animal.obj</AssetPath>
-        <Vao>7</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>1107872</VertexBufferDataLength>
+        <IndicesCount>138484</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2115,6 +2167,7 @@
       <GameObjectId>513</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -2122,22 +2175,31 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>15.795366</DistanceFromCamera>
+      <DistanceFromCamera>15.787316</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\grass.jpg</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>1500</X>
           <Y>1500</Y>
@@ -2153,8 +2215,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>15</Vao>
         <VertexBufferDataLength>48</VertexBufferDataLength>
+        <IndicesCount>6</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2221,6 +2284,7 @@
       <GameObjectId>514</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -2228,22 +2292,31 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>9.6259</DistanceFromCamera>
+      <DistanceFromCamera>9.63177</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\grass.jpg</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>1500</X>
           <Y>1500</Y>
@@ -2259,8 +2332,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\plane.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>15</Vao>
         <VertexBufferDataLength>48</VertexBufferDataLength>
+        <IndicesCount>6</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2327,6 +2401,7 @@
       <GameObjectId>551</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -2334,22 +2409,31 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>4.6958556</DistanceFromCamera>
+      <DistanceFromCamera>4.687169</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\grass.jpg</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>1500</X>
           <Y>1500</Y>
@@ -2365,8 +2449,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
+        <IndicesCount>36</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2433,6 +2518,7 @@
       <GameObjectId>554</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>95</B>
         <G>245</G>
@@ -2440,22 +2526,31 @@
         <A>255</A>
         <PackedValue>4284478975</PackedValue>
       </Color>
-      <DistanceFromCamera>4.1240606</DistanceFromCamera>
+      <DistanceFromCamera>4.115711</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\space.PNG</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>1024</X>
           <Y>1024</Y>
@@ -2471,8 +2566,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>5</Vao>
-        <VertexBufferDataLength>371712</VertexBufferDataLength>
+        <Vao>8</Vao>
+        <VertexBufferDataLength>371688</VertexBufferDataLength>
+        <IndicesCount>46461</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2539,6 +2635,7 @@
       <GameObjectId>559</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -2546,22 +2643,31 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>3.956271</DistanceFromCamera>
+      <DistanceFromCamera>3.947801</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\stone.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>397</X>
           <Y>397</Y>
@@ -2577,8 +2683,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>5</Vao>
-        <VertexBufferDataLength>371712</VertexBufferDataLength>
+        <Vao>8</Vao>
+        <VertexBufferDataLength>371688</VertexBufferDataLength>
+        <IndicesCount>46461</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2645,6 +2752,7 @@
       <GameObjectId>565</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -2659,15 +2767,24 @@
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -2685,6 +2802,7 @@
         <AssetPath>Assets\3D\catiharic2.obj</AssetPath>
         <Vao>10</Vao>
         <VertexBufferDataLength>27792</VertexBufferDataLength>
+        <IndicesCount>0</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2751,6 +2869,7 @@
       <GameObjectId>578</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>0</B>
         <G>255</G>
@@ -2758,22 +2877,31 @@
         <A>255</A>
         <PackedValue>4278255540</PackedValue>
       </Color>
-      <DistanceFromCamera>5.8720756</DistanceFromCamera>
+      <DistanceFromCamera>5.86075</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -2789,8 +2917,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\lowpolytree.obj</AssetPath>
-        <Vao>11</Vao>
+        <Vao>18</Vao>
         <VertexBufferDataLength>6720</VertexBufferDataLength>
+        <IndicesCount>840</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2857,6 +2986,7 @@
       <GameObjectId>596</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -2864,22 +2994,31 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>7.765088</DistanceFromCamera>
+      <DistanceFromCamera>7.765856</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\fam3.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>128</X>
           <Y>256</Y>
@@ -2895,8 +3034,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\fam.obj</AssetPath>
-        <Vao>12</Vao>
+        <Vao>19</Vao>
         <VertexBufferDataLength>29712</VertexBufferDataLength>
+        <IndicesCount>3714</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -2963,6 +3103,7 @@
       <GameObjectId>617</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -2970,22 +3111,31 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>13.037301</DistanceFromCamera>
+      <DistanceFromCamera>13.033247</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\stone.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>397</X>
           <Y>397</Y>
@@ -3001,8 +3151,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
+        <IndicesCount>36</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -3027,6 +3178,8 @@
         <int>642</int>
         <int>639</int>
         <int>642</int>
+        <int>639</int>
+        <int>642</int>
       </ChildrenIDs>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -3038,12 +3191,12 @@
       <WorldPosition>
         <X>22.749722</X>
         <Y>0</Y>
-        <Z>43.773033</Z>
+        <Z>48.256653</Z>
       </WorldPosition>
       <LocalPosition>
         <X>22.749722</X>
         <Y>0</Y>
-        <Z>43.773033</Z>
+        <Z>48.256653</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -3082,6 +3235,7 @@
       <GameObjectId>622</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -3089,22 +3243,31 @@
         <A>110</A>
         <PackedValue>1862270975</PackedValue>
       </Color>
-      <DistanceFromCamera>53.065735</DistanceFromCamera>
+      <DistanceFromCamera>57.15173</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
-      <RenderMode>Opaque</RenderMode>
+      <RenderMode>Transparent</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\stone.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>397</X>
           <Y>397</Y>
@@ -3120,8 +3283,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
+        <IndicesCount>36</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -3134,6 +3298,7 @@
       <Started>true</Started>
       <Enabled>true</Enabled>
       <CubeForward>
+        <IsStaticSelf>false</IsStaticSelf>
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
         <DynamicallyCreated>false</DynamicallyCreated>
@@ -3149,6 +3314,7 @@
         <ActiveSelf>true</ActiveSelf>
       </CubeForward>
       <CubeUp>
+        <IsStaticSelf>false</IsStaticSelf>
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
         <DynamicallyCreated>false</DynamicallyCreated>
@@ -3164,6 +3330,7 @@
         <ActiveSelf>true</ActiveSelf>
       </CubeUp>
       <CubeLoopTarget>
+        <IsStaticSelf>false</IsStaticSelf>
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
         <DynamicallyCreated>false</DynamicallyCreated>
@@ -3201,7 +3368,7 @@
       <WorldPosition>
         <X>22.749722</X>
         <Y>0</Y>
-        <Z>45.773033</Z>
+        <Z>50.256653</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
@@ -3245,6 +3412,7 @@
       <GameObjectId>639</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>240</G>
@@ -3252,22 +3420,31 @@
         <A>255</A>
         <PackedValue>4294963200</PackedValue>
       </Color>
-      <DistanceFromCamera>54.891678</DistanceFromCamera>
+      <DistanceFromCamera>58.969864</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -3283,8 +3460,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
+        <IndicesCount>36</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -3307,7 +3485,7 @@
       <WorldPosition>
         <X>22.749722</X>
         <Y>2</Y>
-        <Z>43.773033</Z>
+        <Z>48.256653</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
@@ -3351,6 +3529,7 @@
       <GameObjectId>642</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>0</B>
         <G>255</G>
@@ -3358,22 +3537,31 @@
         <A>255</A>
         <PackedValue>4278255439</PackedValue>
       </Color>
-      <DistanceFromCamera>53.029476</DistanceFromCamera>
+      <DistanceFromCamera>57.08396</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -3389,8 +3577,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
+        <IndicesCount>36</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -3413,12 +3602,12 @@
       <WorldPosition>
         <X>22.749722</X>
         <Y>0</Y>
-        <Z>43.98939</Z>
+        <Z>48.773033</Z>
       </WorldPosition>
       <LocalPosition>
         <X>22.749722</X>
         <Y>0</Y>
-        <Z>43.98939</Z>
+        <Z>48.773033</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -3457,6 +3646,7 @@
       <GameObjectId>649</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>0</B>
         <G>0</G>
@@ -3464,22 +3654,31 @@
         <A>255</A>
         <PackedValue>4278190335</PackedValue>
       </Color>
-      <DistanceFromCamera>53.28232</DistanceFromCamera>
+      <DistanceFromCamera>57.61003</DistanceFromCamera>
       <Material>
         <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+          <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
+        <Tiling>
+          <X>0</X>
+          <Y>0</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>1</Layer>
       <Texture>
         <AssetPath>Assets\2D\solidColor.png</AssetPath>
-        <Loaded>true</Loaded>
         <Size>
           <X>256</X>
           <Y>256</Y>
@@ -3495,8 +3694,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
+        <IndicesCount>36</IndicesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -3504,5 +3704,5 @@
       <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
     </Component>
   </Components>
-  <GameObjectNextId>680</GameObjectNextId>
+  <GameObjectNextId>682</GameObjectNextId>
 </SceneFile>

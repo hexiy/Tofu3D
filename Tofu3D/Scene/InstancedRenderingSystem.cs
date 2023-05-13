@@ -47,12 +47,12 @@ public class InstancedRenderingSystem
 	{
 		for (int i = 0; i < VertexCountOfFloats; i++)
 		{
-			bufferData.Buffer[renderer.InstancedRenderingStartingIndexInBuffer + i] = 0;
+			bufferData.Buffer[renderer.InstancingData.InstancedRenderingStartingIndexInBuffer + i] = 0;
 		}
 
-		bufferData.EmptyStartIndexes.Add(renderer.InstancedRenderingStartingIndexInBuffer);
+		bufferData.EmptyStartIndexes.Add(renderer.InstancingData.InstancedRenderingStartingIndexInBuffer);
 
-		renderer.InstancedRenderingStartingIndexInBuffer = -1;
+		renderer.InstancingData.InstancedRenderingStartingIndexInBuffer = -1;
 		// renderer.InstancedRenderingDefinitionIndex = -1;
 		bufferData.NumberOfObjects--;
 	}
@@ -220,7 +220,7 @@ public class InstancedRenderingSystem
 		InstancedRenderingObjectBufferData bufferData;
 		Material material = renderer.Material;
 		Model model = renderer.Model;
-		if (renderer.InstancedRenderingDefinitionIndex == -1)
+		if (renderer.InstancingData.InstancedRenderingDefinitionIndex == -1)
 		{
 			// no buffer exists for this combination-create one
 			InstancedRenderingObjectDefinition definition = new InstancedRenderingObjectDefinition(model, material, renderer.GameObject.IsStaticSelf);
@@ -239,27 +239,27 @@ public class InstancedRenderingSystem
 				_objectBufferDatas.Add(definitionIndex, bufferData);
 			}
 
-			renderer.InstancedRenderingDefinitionIndex = definitionIndex;
+			renderer.InstancingData.InstancedRenderingDefinitionIndex = definitionIndex;
 		}
 		else
 		{
-			if (_objectBufferDatas.ContainsKey(renderer.InstancedRenderingDefinitionIndex) == false)
+			if (_objectBufferDatas.ContainsKey(renderer.InstancingData.InstancedRenderingDefinitionIndex) == false)
 			{
 				// on scene reload the definitionIndex is 0 but its not created in the system...
-				renderer.InstancedRenderingDefinitionIndex = -1;
+				renderer.InstancingData.InstancedRenderingDefinitionIndex = -1;
 				return false;
 			}
 
-			bufferData = _objectBufferDatas[renderer.InstancedRenderingDefinitionIndex];
+			bufferData = _objectBufferDatas[renderer.InstancingData.InstancedRenderingDefinitionIndex];
 		}
 
 
-		if (renderer.InstancedRenderingStartingIndexInBuffer == -1 && remove == false)
+		if (renderer.InstancingData.InstancedRenderingStartingIndexInBuffer == -1 && remove == false)
 		{
 			// assign new InstancedRenderingIndex
-			renderer.InstancedRenderingStartingIndexInBuffer = GetEmptyIndexInBuffer(bufferData);
+			renderer.InstancingData.InstancedRenderingStartingIndexInBuffer = GetEmptyIndexInBuffer(bufferData);
 
-			if (renderer.InstancedRenderingStartingIndexInBuffer == -1)
+			if (renderer.InstancingData.InstancedRenderingStartingIndexInBuffer == -1)
 			{
 				return false;
 			}
@@ -269,16 +269,16 @@ public class InstancedRenderingSystem
 
 		bufferData.Dirty = true;
 
-		if (renderer.InstancedRenderingStartingIndexInBuffer != -1 && remove == true)
+		if (renderer.InstancingData.InstancedRenderingStartingIndexInBuffer != -1 && remove == true)
 		{
 			RemoveObjectFromBuffer(bufferData, renderer);
 		}
-		else if (renderer.InstancedRenderingStartingIndexInBuffer != -1)
+		else if (renderer.InstancingData.InstancedRenderingStartingIndexInBuffer != -1)
 		{
-			CopyObjectDataToBuffer(renderer, ref bufferData.Buffer, renderer.InstancedRenderingStartingIndexInBuffer);
+			CopyObjectDataToBuffer(renderer, ref bufferData.Buffer, renderer.InstancingData.InstancedRenderingStartingIndexInBuffer);
 		}
 
-		_objectBufferDatas[renderer.InstancedRenderingDefinitionIndex] = bufferData;
+		_objectBufferDatas[renderer.InstancingData.InstancedRenderingDefinitionIndex] = bufferData;
 
 		return true;
 	}

@@ -91,13 +91,13 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 		}
 	}
 
-	private void OnEnable()
+	public void OnEnable()
 	{
 		Components.ForEach(c => c.OnEnable());
 		Transform?.Children.ForEach(child => child.GameObject.OnEnable());
 	}
 
-	private void OnDisable()
+	public void OnDisable()
 	{
 		Components.ForEach(c => c.OnDisable());
 		Transform?.Children.ForEach(child => child.GameObject.OnDisable());
@@ -447,12 +447,12 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 
 		// lock (_componentsLock)
 		// {
-			for (int i = 0; i < Components.Count; i++)
-			{
-				Components[i].OnDestroyed();
-			}
+		for (int i = 0; i < Components.Count; i++)
+		{
+			Components[i].OnDestroyed();
+		}
 
-			// Components.Clear();
+		// Components.Clear();
 		// }
 
 		if (Transform.Parent != null)
@@ -913,8 +913,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 			Component componentClone = (Component) this.Components[i].Clone();
 			if (componentClone is Renderer)
 			{
-				(componentClone as Renderer).InstancedRenderingStartingIndexInBuffer = -1;
-				(componentClone as Renderer).InstancedRenderingDefinitionIndex = -1;
+				(componentClone as Renderer).InstancingData.InstancedRenderingStartingIndexInBuffer = -1;
+				(componentClone as Renderer).InstancingData.InstancedRenderingDefinitionIndex = -1;
 			}
 
 			clone.AddExistingComponent(componentClone);
@@ -936,6 +936,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 
 		clone.Awake();
 		clone.Start();
+		clone.OnEnable();
 
 		return (object) clone;
 	}

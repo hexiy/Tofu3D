@@ -101,6 +101,8 @@ public static class SceneSerializer
 			{
 				SceneManager.CurrentScene.AddGameObjectToScene(go);
 				go.Awake();
+				go.Start();
+				go.OnEnable();
 			}
 		}
 

@@ -61,5 +61,5 @@ if(result.a == 0){
 discard;
 }
 frag_color = result;
-gl_FragDepth = gl_FragCoord.z;
+//gl_FragDepth = gl_FragCoord.z;
 }
