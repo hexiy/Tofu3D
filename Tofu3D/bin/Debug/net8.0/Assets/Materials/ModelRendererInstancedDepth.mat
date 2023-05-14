@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AssetPath>Assets/Materials/ModelRendererInstancedDepth.mat</AssetPath>
+  <Additive>false</Additive>
+  <Shader>
+    <BufferType>Rendertexture</BufferType>
+    <Path>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Shaders\ModelRendererInstancedDepth.glsl</Path>
+    <AlbedoTextureLocation>0</AlbedoTextureLocation>
+    <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
+    <ShadowMapTextureLocation>0</ShadowMapTextureLocation>
+  </Shader>
+  <Vao>23</Vao>
+  <RenderMode>Opaque</RenderMode>
+  <Tiling>
+    <X>0</X>
+    <Y>0</Y>
+  </Tiling>
+  <Offset>
+    <X>0</X>
+    <Y>0</Y>
+  </Offset>
+</Material>

@@ -37,7 +37,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 	{
 		// PassRenderTexture contains the depth, we render that depth with DeptRenderTexture.glsl shader to DepthMapRenderTexture and use that as a shadowmap
 		PassRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: true);
-		PassRenderTexture.ClearColor = new Color(0, 0, 0, 255);
+		PassRenderTexture.ClearColor = new Color(0, 150, 0, 255);
 		DepthMapRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: false);
 
 		base.SetupRenderTexture();
@@ -69,10 +69,13 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 			return;
 		}
 
-		// GL.ClearColor(Color.Yellow.ToOtherColor());
-		GL.Clear(ClearBufferMask.DepthBufferBit);
+		GL.ActiveTexture(TextureUnit.Texture1);
 
 		DepthMapRenderTexture.Bind();
+
+		// GL.ClearColor(Color.Yellow.ToOtherColor());
+		// GL.Clear(ClearBufferMask.ColorBufferBit);
+
 		GL.Viewport(0, 0, (int) DepthMapRenderTexture.Size.X, (int) DepthMapRenderTexture.Size.Y);
 		// GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 		// GL.ClearColor(1,0,1,1);

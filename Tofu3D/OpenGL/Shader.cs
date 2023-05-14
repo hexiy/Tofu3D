@@ -3,10 +3,10 @@
 namespace Tofu3D;
 
 [Serializable]
-public class Shader : IDisposable
+public class
+	Shader : IDisposable
 {
-	[XmlIgnore]
-	public bool IsLoaded { get; private set; } = false;
+	[XmlIgnore] public bool IsLoaded { get; private set; } = false;
 	public BufferType BufferType;
 	[XmlIgnore] public int ProgramId { get; set; }
 
@@ -59,6 +59,7 @@ public class Shader : IDisposable
 			// throw new FileNotFoundException("Couldn't find shader");
 			return;
 		}
+
 		// GetAllUniforms();
 		string shaderFile = File.ReadAllText(Path);
 
@@ -108,6 +109,7 @@ public class Shader : IDisposable
 		AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
 		// NormalTextureLocation = GetUniformLocation("textureNormal");
 		AmbientOcclusionTextureLocation = GetUniformLocation("textureAo");
+		ShadowMapTextureLocation = GetUniformLocation("shadowMap");
 		if (AlbedoTextureLocation != -1)
 		{
 			GL.Uniform1(AlbedoTextureLocation, 0);
@@ -121,6 +123,20 @@ public class Shader : IDisposable
 		if (AmbientOcclusionTextureLocation != -1)
 		{
 			GL.Uniform1(AmbientOcclusionTextureLocation, 1);
+		}
+
+		if (ShadowMapTextureLocation != -1)
+		{
+			if (AlbedoTextureLocation == -1)
+			{
+				GL.Uniform1(ShadowMapTextureLocation, 0);
+			}
+			else
+			{
+			GL.Uniform1(ShadowMapTextureLocation, 2);
+
+			}
+
 		}
 
 		// int mainTextureLocation = GL.GetUniformLocation(ShaderCache.ShaderInUse, "textureObject");
@@ -309,6 +325,7 @@ public class Shader : IDisposable
 	public int AlbedoTextureLocation;
 	// public int NormalTextureLocation;
 	public int AmbientOcclusionTextureLocation;
+	public int ShadowMapTextureLocation;
 
 	float[] GetMatrix4X4Values(Matrix4x4 m)
 	{

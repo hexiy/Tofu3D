@@ -107,7 +107,32 @@ public class InstancedRenderingSystem
 			ResizeBufferData(bufferData);
 		}
 
-		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
+		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth)
+		{
+			Material depthMaterial = AssetManager.Load<Material>("ModelRendererInstancedDepth");
+			ShaderManager.UseShader(depthMaterial.Shader);
+			depthMaterial.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
+
+
+
+			ShaderManager.BindVertexArray(model.Vao);
+
+			if (objectBufferPair.Value.Dirty)
+			{
+				UploadBufferData(objectBufferPair.Value);
+				objectBufferPair.Value.Dirty = false;
+			}
+
+			GL.Enable(EnableCap.Blend);
+			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
+
+			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, model.VerticesCount, instancesCount: objectBufferPair.Value.NumberOfObjects);
+
+			
+		}
+
+		else if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
 		{
 			ShaderManager.UseShader(material.Shader);
 
@@ -166,8 +191,6 @@ public class InstancedRenderingSystem
 			// material.Shader.SetFloat("u_aoStrength", _normalDisabled ? 0 : 1);
 
 			// ALBEDO
-			// TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
-			// TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/3D/Grass_Block_TEX.png").TextureId);
 			if (material.AlbedoTexture)
 			{
 				GL.ActiveTexture(TextureUnit.Texture0);
@@ -180,11 +203,16 @@ public class InstancedRenderingSystem
 			// TextureHelper.BindTexture(_idNormal);
 
 			// AO
-			// TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
 			if (material.AoTexture)
 			{
 				GL.ActiveTexture(TextureUnit.Texture1);
 				TextureHelper.BindTexture(material.AoTexture.TextureId);
+			}
+
+			if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
+			{
+				GL.ActiveTexture(TextureUnit.Texture2);
+				TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
 			}
 
 			ShaderManager.BindVertexArray(model.Vao);
@@ -211,8 +239,7 @@ public class InstancedRenderingSystem
 		DebugHelper.LogDrawCall();
 		Debug.StatAddValue("Instanced objects:", instancesCount);
 		// Debug.StatAddValue("Total vertices:", verticesCount * instancesCount);
-		DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount*instancesCount);
-
+		DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount * instancesCount);
 	}
 
 	public bool UpdateObjectData(ModelRendererInstanced renderer, bool remove = false)

@@ -192,11 +192,11 @@ public class Scene
 	{
 		SetOpenGLState();
 
-		// GL.ClearDepth(1000);
+		GL.ClearDepth(1000);
 		//
 		//
-		// GL.Viewport(0, 0, (int) Camera.I.Size.X, (int) Camera.I.Size.Y);
-		// GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+		GL.Viewport(0, 0, (int) Camera.MainCamera.Size.X, (int) Camera.MainCamera.Size.Y);
+		GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 
 		_sceneRenderQueue.RenderWorld();
 		Tofu.I.InstancedRenderingSystem.RenderInstances();

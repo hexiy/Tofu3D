@@ -71,7 +71,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>17.465378</DistanceFromCamera>
+      <DistanceFromCamera>22.951569</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
@@ -80,6 +80,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
