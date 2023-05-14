@@ -43,7 +43,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>DirectionalLight</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -203,7 +203,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>BallFogEnd</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -417,14 +417,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>0.5688169</X>
-        <Y>0.84109974</Y>
-        <Z>-5.508494</Z>
+        <X>-0.5817421</X>
+        <Y>-0.22904527</Y>
+        <Z>-7.7972913</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.5688169</X>
-        <Y>0.84109974</Y>
-        <Z>-5.508494</Z>
+        <X>-0.5817421</X>
+        <Y>-0.22904527</Y>
+        <Z>-7.7972913</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -437,8 +437,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-9.033529</X>
-        <Y>-4.929721</Y>
+        <X>2.1664698</X>
+        <Y>1.2702787</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -468,7 +468,7 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>0</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <Enabled>false</Enabled>
       <Fov>60</Fov>
       <Textures>
         <CubemapTexture>
@@ -719,25 +719,25 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>0</GameObjectId>
       <Started>true</Started>
-      <Enabled>false</Enabled>
-      <StartDistance>-200</StartDistance>
-      <EndDistance>100</EndDistance>
-      <PositionY>-2</PositionY>
+      <Enabled>true</Enabled>
+      <StartDistance>0</StartDistance>
+      <EndDistance>7.6</EndDistance>
+      <PositionY>-2.53</PositionY>
       <IsGradient>true</IsGradient>
-      <GradientSmoothness>3.49</GradientSmoothness>
+      <GradientSmoothness>10</GradientSmoothness>
       <Color1>
-        <B>186</B>
-        <G>255</G>
+        <B>255</B>
+        <G>233</G>
         <R>0</R>
-        <A>5</A>
-        <PackedValue>96141056</PackedValue>
+        <A>130</A>
+        <PackedValue>2197809408</PackedValue>
       </Color1>
       <Color2>
-        <B>130</B>
-        <G>178</G>
-        <R>0</R>
+        <B>178</B>
+        <G>0</G>
+        <R>155</R>
         <A>255</A>
-        <PackedValue>4286755328</PackedValue>
+        <PackedValue>4289855643</PackedValue>
       </Color2>
       <Intensity>1</Intensity>
     </Component>
@@ -787,11 +787,11 @@
       <Enabled>true</Enabled>
       <Intensity>0.466</Intensity>
       <Color>
-        <B>255</B>
+        <B>133</B>
         <G>255</G>
-        <R>255</R>
+        <R>93</R>
         <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <PackedValue>4286971741</PackedValue>
       </Color>
     </Component>
     <Component xsi:type="Transform">
@@ -840,11 +840,11 @@
       <Enabled>true</Enabled>
       <Intensity>13.886</Intensity>
       <Color>
-        <B>238</B>
-        <G>224</G>
-        <R>157</R>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
         <A>255</A>
-        <PackedValue>4293845149</PackedValue>
+        <PackedValue>4294967295</PackedValue>
       </Color>
       <Speed>0</Speed>
       <Rotate>false</Rotate>
@@ -877,6 +877,8 @@
         <int>37</int>
         <int>37</int>
         <int>37</int>
+        <int>37</int>
+        <int>66</int>
         <int>37</int>
         <int>66</int>
         <int>37</int>
@@ -1485,6 +1487,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
@@ -1649,6 +1653,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Transparent</RenderMode>
       <Layer>0</Layer>
@@ -1746,7 +1752,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>5.795308</DistanceFromCamera>
+      <DistanceFromCamera>8.084133</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -1781,6 +1787,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -1859,7 +1867,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.608984</DistanceFromCamera>
+      <DistanceFromCamera>12.813371</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -1894,6 +1902,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2007,6 +2017,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2085,7 +2097,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>8.612333</DistanceFromCamera>
+      <DistanceFromCamera>10.64942</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2120,6 +2132,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2198,7 +2212,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.732824</DistanceFromCamera>
+      <DistanceFromCamera>9.086496</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2233,6 +2247,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2257,12 +2273,12 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>0</X>
+        <X>11111</X>
         <Y>-0.5</Y>
         <Z>10</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
+        <X>11111</X>
         <Y>-0.5</Y>
         <Z>10</Z>
       </LocalPosition>
@@ -2346,6 +2362,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2424,7 +2442,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>5.8153687</DistanceFromCamera>
+      <DistanceFromCamera>7.812164</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2459,6 +2477,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2537,7 +2557,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.222163</DistanceFromCamera>
+      <DistanceFromCamera>8.155193</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2572,6 +2592,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2650,7 +2672,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.222163</DistanceFromCamera>
+      <DistanceFromCamera>8.155193</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2685,6 +2707,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2763,7 +2787,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.222163</DistanceFromCamera>
+      <DistanceFromCamera>8.155193</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2798,6 +2822,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2876,7 +2902,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.222163</DistanceFromCamera>
+      <DistanceFromCamera>8.155193</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2911,6 +2937,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -2989,7 +3017,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.222163</DistanceFromCamera>
+      <DistanceFromCamera>8.155193</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3024,6 +3052,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -3102,7 +3132,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.222163</DistanceFromCamera>
+      <DistanceFromCamera>8.155193</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3137,6 +3167,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -3215,7 +3247,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.222163</DistanceFromCamera>
+      <DistanceFromCamera>8.155193</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3250,6 +3282,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -3328,7 +3362,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.222163</DistanceFromCamera>
+      <DistanceFromCamera>8.155193</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3363,6 +3397,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -3441,7 +3477,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.222163</DistanceFromCamera>
+      <DistanceFromCamera>8.155193</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3476,6 +3512,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -3554,7 +3592,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.222163</DistanceFromCamera>
+      <DistanceFromCamera>8.155193</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3589,6 +3627,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -3667,7 +3707,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>6.222163</DistanceFromCamera>
+      <DistanceFromCamera>8.155193</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3702,6 +3742,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -3713,5 +3755,5 @@
       </Model>
     </Component>
   </Components>
-  <GameObjectNextId>577</GameObjectNextId>
+  <GameObjectNextId>579</GameObjectNextId>
 </SceneFile>

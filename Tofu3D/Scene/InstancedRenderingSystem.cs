@@ -123,7 +123,7 @@ public class InstancedRenderingSystem
 
 			material.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
-			material.Shader.SetColor("u_rendererColor", Color.White);
+			material.Shader.SetColor("u_albedoTint", material.AlbedoTint);
 			// material.Shader.SetVector2("u_tiling", new Vector2(-1, -1)); //grass block
 			material.Shader.SetVector2("u_tiling", material.Tiling); // normal 
 			material.Shader.SetVector2("u_offset", material.Offset);

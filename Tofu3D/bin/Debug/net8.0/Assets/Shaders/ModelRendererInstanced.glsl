@@ -42,7 +42,7 @@ fragPosLightSpace = lightMvp * vec4(a_pos.xyz, 1.0);
  uniform vec2 u_tiling;
 uniform vec2 u_offset;
 uniform vec4 u_ambientLightColor;
-
+uniform vec4 u_albedoTint;
 uniform vec3 u_camPos;
 uniform vec4 u_directionalLightColor;
 uniform vec3 u_directionalLightDirection = vec3(1, 0, 0);
@@ -86,7 +86,7 @@ float currentDepth = projCoords.z;
 // check whether current frag pos is in shadow
 //    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
 
-float bias = 0.0004;
+float bias = 0.001;
 
 float shadow = currentDepth - bias > closestDepth ? 1.0: 0.0;
 
@@ -111,7 +111,7 @@ float directionalLightFactor = max(dot(norm, u_directionalLightDirection), 0.0);
 vec4 dirColor = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
 
 
-vec4 texturePixelColor = texture(textureAlbedo, uvCoords);
+vec4 texturePixelColor = texture(textureAlbedo, uvCoords) * u_albedoTint;
 vec4 result = texturePixelColor * color;
 
 vec4 ambientLighting = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);

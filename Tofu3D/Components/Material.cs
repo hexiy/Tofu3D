@@ -18,6 +18,7 @@ public class Material : Asset<Material>
 	public RenderMode RenderMode = RenderMode.Opaque;
 
 	public Texture AlbedoTexture;
+	public Color AlbedoTint = Color.White;
 	public Texture AoTexture;
 	public Vector2 Tiling;
 	public Vector2 Offset;
@@ -31,6 +32,7 @@ public class Material : Asset<Material>
 		hashCodeCombiner.Add(Additive.GetHashCode());
 		hashCodeCombiner.Add(Shader?.GetHashCode());
 		hashCodeCombiner.Add(AlbedoTexture?.GetHashCode());
+		hashCodeCombiner.Add(AlbedoTint.GetHashCode());
 		hashCodeCombiner.Add(AoTexture?.GetHashCode());
 		hashCodeCombiner.Add(Tiling.GetHashCode());
 		hashCodeCombiner.Add(Offset.GetHashCode());
