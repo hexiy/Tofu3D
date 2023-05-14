@@ -136,7 +136,7 @@ public class ModelRenderer : TextureRenderer
 			}
 
 			ShaderManager.UseShader(Material.Shader);
-			Material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
+			Material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceViewProjectionMatrix);
 
 			if (Transform.IsInCanvas)
 			{
@@ -201,10 +201,10 @@ public class ModelRenderer : TextureRenderer
 
 			GL.ActiveTexture(TextureUnit.Texture0);
 			TextureHelper.BindTexture(Texture.TextureId);
-			if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
+			if (RenderPassDirectionalLightShadowDepth.I?.DebugGrayscaleTexture != null)
 			{
 				GL.ActiveTexture(TextureUnit.Texture1);
-				TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
+				TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DebugGrayscaleTexture.ColorAttachment);
 			}
 
 

@@ -43,7 +43,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>DirectionalLight</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -267,7 +267,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Sponza</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -417,14 +417,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>1.3E-44</X>
-        <Y>0</Y>
-        <Z>-10</Z>
+        <X>0.4422823</X>
+        <Y>5.677062</Y>
+        <Z>-6.9654984</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1.3E-44</X>
-        <Y>0</Y>
-        <Z>-10</Z>
+        <X>0.4422823</X>
+        <Y>5.677062</Y>
+        <Z>-6.9654984</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -437,8 +437,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
-        <Y>0</Y>
+        <X>40.54175</X>
+        <Y>-9.949533</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -809,13 +809,13 @@
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
         <X>0</X>
-        <Y>150</Y>
-        <Z>-196.51</Z>
+        <Y>0</Y>
+        <Z>-1.8</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
-        <Y>150</Y>
-        <Z>-196.51</Z>
+        <Y>0</Y>
+        <Z>-1.8</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -828,8 +828,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
-        <Y>0</Y>
+        <X>-320.6</X>
+        <Y>-0.4</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -852,10 +852,10 @@
       <RefreshRate>60</RefreshRate>
       <NearPlaneDistance>0.0001</NearPlaneDistance>
       <FarPlaneDistance>1000</FarPlaneDistance>
-      <OrthographicSize>15</OrthographicSize>
+      <OrthographicSize>1.4</OrthographicSize>
       <Size>
-        <X>1000</X>
-        <Y>1000</Y>
+        <X>2000</X>
+        <Y>2000</Y>
       </Size>
     </Component>
     <Component xsi:type="Transform">
@@ -877,6 +877,12 @@
         <int>37</int>
         <int>37</int>
         <int>37</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
         <int>37</int>
         <int>66</int>
         <int>37</int>
@@ -1461,8 +1467,9 @@
           <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
           <AlbedoTextureLocation>-1</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>-1</ShadowMapTextureLocation>
         </Shader>
-        <Vao>6</Vao>
+        <Vao>13</Vao>
         <RenderMode>Opaque</RenderMode>
         <Tiling>
           <X>0</X>
@@ -1624,6 +1631,7 @@
           <Path>Assets\Shaders\ModelRenderer.glsl</Path>
           <AlbedoTextureLocation>-1</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>30</ShadowMapTextureLocation>
         </Shader>
         <Vao>8</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -1655,9 +1663,9 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>7</Vao>
+        <Vao>10</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
-        <IndicesCount>36</IndicesCount>
+        <VerticesCount>36</VerticesCount>
       </Model>
       <CastShadow>true</CastShadow>
       <SmoothShading>0</SmoothShading>
@@ -1732,7 +1740,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.136074</DistanceFromCamera>
+      <DistanceFromCamera>9.502833</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -1741,6 +1749,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -1771,9 +1780,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>6</Vao>
         <VertexBufferDataLength>371688</VertexBufferDataLength>
-        <IndicesCount>46461</IndicesCount>
+        <VerticesCount>46461</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -1844,7 +1853,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>15.008331</DistanceFromCamera>
+      <DistanceFromCamera>13.473116</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -1853,6 +1862,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -1883,9 +1893,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
-        <IndicesCount>2880</IndicesCount>
+        <VerticesCount>2880</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -1965,6 +1975,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -1995,9 +2006,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
-        <IndicesCount>2880</IndicesCount>
+        <VerticesCount>2880</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -2068,7 +2079,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>12.847864</DistanceFromCamera>
+      <DistanceFromCamera>12.095087</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2077,6 +2088,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -2107,9 +2119,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\torus.obj</AssetPath>
-        <Vao>10</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>27648</VertexBufferDataLength>
-        <IndicesCount>3456</IndicesCount>
+        <VerticesCount>3456</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -2180,7 +2192,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>11.236102</DistanceFromCamera>
+      <DistanceFromCamera>9.470549</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2189,6 +2201,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -2219,9 +2232,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
-        <Vao>11</Vao>
+        <Vao>15</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
-        <IndicesCount>36</IndicesCount>
+        <VerticesCount>36</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -2301,6 +2314,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -2331,9 +2345,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
-        <IndicesCount>2880</IndicesCount>
+        <VerticesCount>2880</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -2404,7 +2418,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.035955</DistanceFromCamera>
+      <DistanceFromCamera>9.488714</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2413,6 +2427,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -2443,9 +2458,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\Teapot.obj</AssetPath>
-        <Vao>12</Vao>
+        <Vao>16</Vao>
         <VertexBufferDataLength>506112</VertexBufferDataLength>
-        <IndicesCount>63264</IndicesCount>
+        <VerticesCount>63264</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -2516,7 +2531,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <DistanceFromCamera>10.395864</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2525,6 +2540,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -2555,9 +2571,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <IndicesCount>786801</IndicesCount>
+        <VerticesCount>786801</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -2628,7 +2644,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <DistanceFromCamera>10.395864</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2637,6 +2653,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -2667,9 +2684,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <IndicesCount>786801</IndicesCount>
+        <VerticesCount>786801</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -2740,7 +2757,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <DistanceFromCamera>10.395864</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2749,6 +2766,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -2779,9 +2797,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <IndicesCount>786801</IndicesCount>
+        <VerticesCount>786801</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -2852,7 +2870,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <DistanceFromCamera>10.395864</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2861,6 +2879,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -2891,9 +2910,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <IndicesCount>786801</IndicesCount>
+        <VerticesCount>786801</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -2964,7 +2983,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <DistanceFromCamera>10.395864</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2973,6 +2992,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -3003,9 +3023,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <IndicesCount>786801</IndicesCount>
+        <VerticesCount>786801</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -3076,7 +3096,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <DistanceFromCamera>10.395864</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3085,6 +3105,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -3115,9 +3136,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <IndicesCount>786801</IndicesCount>
+        <VerticesCount>786801</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -3188,7 +3209,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <DistanceFromCamera>10.395864</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3197,6 +3218,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -3227,9 +3249,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <IndicesCount>786801</IndicesCount>
+        <VerticesCount>786801</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -3300,7 +3322,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <DistanceFromCamera>10.395864</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3309,6 +3331,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -3339,9 +3362,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <IndicesCount>786801</IndicesCount>
+        <VerticesCount>786801</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -3412,7 +3435,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <DistanceFromCamera>10.395864</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3421,6 +3444,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -3451,9 +3475,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <IndicesCount>786801</IndicesCount>
+        <VerticesCount>786801</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -3524,7 +3548,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <DistanceFromCamera>10.395864</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3533,6 +3557,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -3563,9 +3588,9 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <IndicesCount>786801</IndicesCount>
+        <VerticesCount>786801</VerticesCount>
       </Model>
     </Component>
     <Component xsi:type="Transform">
@@ -3636,7 +3661,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.250873</DistanceFromCamera>
+      <DistanceFromCamera>10.395864</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3645,6 +3670,7 @@
           <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>22</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
         </Shader>
         <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
@@ -3675,11 +3701,11 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>17</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <IndicesCount>786801</IndicesCount>
+        <VerticesCount>786801</VerticesCount>
       </Model>
     </Component>
   </Components>
-  <GameObjectNextId>565</GameObjectNextId>
+  <GameObjectNextId>571</GameObjectNextId>
 </SceneFile>

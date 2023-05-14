@@ -200,7 +200,7 @@ public class EditorPanelSceneView : EditorPanel
 			}
 
 			_renderCameraViews = Global.Debug && GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
-
+			_renderCameraViews = true;
 			// ImGui.SetCursorPosX(0);
 			ImGui.SetCursorPos(new Vector2(0, tooltipsPanelHeight));
 
@@ -223,15 +223,15 @@ public class EditorPanelSceneView : EditorPanel
 			// 	ImGui.Image((IntPtr) RenderPassOpaques.I.PassRenderTexture.ColorAttachment, RenderPassOpaques.I.PassRenderTexture.Size,
 			// 	           new Vector2(0, 1), new Vector2(1, 0));
 			// }
-			if (_renderCameraViews && RenderPassDirectionalLightShadowDepth.I != null)
+			if (_renderCameraViews && RenderPassDirectionalLightShadowDepth.I?.DebugGrayscaleTexture != null)
 			{
-				float ratio = RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.Size.Y / RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.Size.X;
-				float sizeX = Mathf.ClampMax(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.Size.X, 400);
+				float ratio = RenderPassDirectionalLightShadowDepth.I.DebugGrayscaleTexture.Size.Y / RenderPassDirectionalLightShadowDepth.I.DebugGrayscaleTexture.Size.X;
+				float sizeX = Mathf.ClampMax(RenderPassDirectionalLightShadowDepth.I.DebugGrayscaleTexture.Size.X, 400);
 				float sizeY = sizeX * ratio;
 
 				ImGui.SetCursorPos(new Vector2(5, 75));
 
-				ImGui.Image((IntPtr) RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment, new Vector2(sizeX, sizeY),
+				ImGui.Image((IntPtr) RenderPassDirectionalLightShadowDepth.I.DebugGrayscaleTexture.ColorAttachment, new Vector2(sizeX, sizeY),
 				            new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
 			}
 

@@ -27,7 +27,7 @@ public class DirectionalLight : LightBase
 	bool _cameraBeforeTransformationIsOrthographic;
 	float _cameraBeforeTransformationOrthographicSize;
 
-	public static Matrix4x4 LightSpaceMatrix = Matrix4x4.Identity;
+	public static Matrix4x4 LightSpaceViewProjectionMatrix = Matrix4x4.Identity;
 
 	[ExecuteInEditMode]
 	public override void Awake()
@@ -95,7 +95,7 @@ public class DirectionalLight : LightBase
 		Camera.MainCamera.FarPlaneDistance = FarPlaneDistance;
 		Camera.MainCamera.UpdateMatrices();
 
-		LightSpaceMatrix = Camera.MainCamera.GetLightViewMatrix() * Camera.MainCamera.GetLightProjectionMatrix(this.OrthographicSize);
+		LightSpaceViewProjectionMatrix = Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
 	}
 
 	private void ConfigureForSceneRender()

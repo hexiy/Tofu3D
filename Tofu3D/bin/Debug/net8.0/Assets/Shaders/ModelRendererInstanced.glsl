@@ -12,7 +12,7 @@ layout (location = 6) in vec3 a_model_4;
 layout (location = 7) in vec4 a_color;
 
 uniform mat4 u_viewProjection;
-uniform mat4 u_lightSpaceMatrix;
+uniform mat4 u_lightSpaceViewProjection;
 
 out vec3 vertexPositionWorld;
 out vec3 normal;
@@ -31,7 +31,9 @@ color = a_color;
 
 vertexPositionWorld = vec3(a_model * vec4(a_pos.xyz, 1.0));
 normal = transpose(inverse(mat3(a_model))) * a_normal;
-fragPosLightSpace = u_lightSpaceMatrix * vec4(a_pos.xyz, 1.0);
+
+mat4 lightMvp = u_lightSpaceViewProjection * a_model;
+fragPosLightSpace = lightMvp * vec4(a_pos.xyz, 1.0);
 }
 
 [FRAGMENT]
@@ -70,11 +72,11 @@ in vec4 color;
 in vec4 fragPosLightSpace;
 
 out vec4 frag_color;
-        
-float ShadowCalculation(vec4 _fragPosLightSpace)
+
+float ShadowCalculation()
 {
 // perform perspective divide
-vec3 projCoords = _fragPosLightSpace.xyz / _fragPosLightSpace.w;
+vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
 // transform to [0,1] range
 projCoords = projCoords * 0.5 + 0.5;
 // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
@@ -87,10 +89,9 @@ float currentDepth = projCoords.z;
 float bias = - 0.003;
 
 float shadow = currentDepth - bias > closestDepth ? 1.0: 0.0;
-
 return shadow;
 }
-        
+
 void main(void)
 {
 
@@ -109,7 +110,7 @@ vec4 texturePixelColor = texture(textureAlbedo, uvCoords);
 vec4 result = texturePixelColor * color;
 
 vec4 ambientLighting = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
-result *= ambientLighting + dirColor;
+//result *= ambientLighting + dirColor;
 
 result.a = texturePixelColor.a * color.a;
 
@@ -122,8 +123,7 @@ vec3 specular = u_specularSmoothness * spec * u_directionalLightColor.rgb * dire
 //vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
 
 result.rgb+= specular;
-float shadow = 1 - ShadowCalculation(fragPosLightSpace);
-result.rgb *= shadow;
+
 }
 
 if (result.a < 0.05){
@@ -159,6 +159,9 @@ result.rgb = mix(result.rgb, finalFogColor.rgb, fogFactor);
 
 vec4 aoTexture = texture(textureAo, uvCoords);
 result.rgb *= aoTexture.rgb;
+
+float shadow = 1- ShadowCalculation();
+result.rgb *= shadow;
 
 if (u_renderMode == 0) // regular
 {

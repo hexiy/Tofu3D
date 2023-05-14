@@ -3,13 +3,16 @@ namespace Tofu3D.Rendering;
 public abstract class RenderPass : IComparable<RenderPass>
 {
 	public RenderPassType RenderPassType { get; private set; }
-	List<Action> _renderQueue = new List<Action>();
+	// List<Action> _renderQueue = new List<Action>();
+	Action _renderAction;
 	public RenderTexture PassRenderTexture { get; protected set; }
 
 	public bool Enabled = true;
+
 	public virtual bool CanRender()
 	{
-		return _renderQueue.Count > 0 && Enabled;
+		// return _renderQueue.Count > 0 && Enabled;
+		return _renderAction != null && Enabled;
 	}
 
 	protected RenderPass(RenderPassType type)
@@ -28,6 +31,7 @@ public abstract class RenderPass : IComparable<RenderPass>
 		{
 			return;
 		}
+
 		PassRenderTexture.Clear();
 	}
 
@@ -43,12 +47,15 @@ public abstract class RenderPass : IComparable<RenderPass>
 
 	public void RegisterRender(Action render)
 	{
-		_renderQueue.Add(render);
+		// _renderQueue.Clear();
+		// _renderQueue.Add(render);
+		_renderAction = render;
 	}
 
 	public void RemoveRender(Action render)
 	{
-		_renderQueue.Remove(render);
+		// _renderQueue.Remove(render);
+		_renderAction = null;
 	}
 
 	public void Render()
@@ -59,11 +66,12 @@ public abstract class RenderPass : IComparable<RenderPass>
 		}
 
 		PreRender();
-		foreach (Action renderCall in _renderQueue)
-		{
-			renderCall.Invoke();
-		}
-
+		// foreach (Action renderCall in _renderQueue)
+		// {
+		// renderCall.Invoke();
+		// }
+		_renderAction?.Invoke(); // post process doesnt have render action so ?. 
+		
 		PostRender();
 	}
 

@@ -9,7 +9,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 	DirectionalLight _directionalLight;
 
 	// shadows depth map
-	public RenderTexture DepthMapRenderTexture { get; private set; }
+	public RenderTexture DebugGrayscaleTexture { get; private set; }
 
 	public RenderPassDirectionalLightShadowDepth() : base(RenderPassType.DirectionalLightShadowDepth)
 	{
@@ -18,7 +18,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 
 	public override bool CanRender()
 	{
-		return _directionalLight?.IsActive == true;
+		return _directionalLight?.IsActive == true && Enabled;
 	}
 
 	public override void Initialize()
@@ -36,9 +36,9 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 	protected override void SetupRenderTexture()
 	{
 		// PassRenderTexture contains the depth, we render that depth with DeptRenderTexture.glsl shader to DepthMapRenderTexture and use that as a shadowmap
-		PassRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: true);
+		PassRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: false, depthAttachment: true);
 		PassRenderTexture.ClearColor = new Color(0, 150, 0, 255);
-		DepthMapRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: false);
+		DebugGrayscaleTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: false);
 
 		base.SetupRenderTexture();
 	}
@@ -54,12 +54,12 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 	protected override void PostRender()
 	{
 		base.PostRender();
-		bool renderToDebugTexture = GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
+		// bool renderToDebugTexture = GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
-		if (renderToDebugTexture)
-		{
+		// if (renderToDebugTexture)
+		// {
 			RenderToDebugDepthTexture();
-		}
+		// }
 	}
 
 	private void RenderToDebugDepthTexture()
@@ -71,17 +71,17 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 
 		GL.ActiveTexture(TextureUnit.Texture1);
 
-		DepthMapRenderTexture.Bind();
+		DebugGrayscaleTexture.Bind();
 
 		// GL.ClearColor(Color.Yellow.ToOtherColor());
 		// GL.Clear(ClearBufferMask.ColorBufferBit);
 
-		GL.Viewport(0, 0, (int) DepthMapRenderTexture.Size.X, (int) DepthMapRenderTexture.Size.Y);
+		GL.Viewport(0, 0, (int) DebugGrayscaleTexture.Size.X, (int) DebugGrayscaleTexture.Size.Y);
 		// GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 		// GL.ClearColor(1,0,1,1);
 
-		DepthMapRenderTexture.RenderDepthAttachment(PassRenderTexture.DepthAttachment);
+		DebugGrayscaleTexture.RenderDepthAttachment(PassRenderTexture.DepthAttachment);
 
-		DepthMapRenderTexture.Unbind();
+		DebugGrayscaleTexture.Unbind();
 	}
 }

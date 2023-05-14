@@ -133,9 +133,10 @@ public class
 			}
 			else
 			{
-			GL.Uniform1(ShadowMapTextureLocation, 2);
-
+				GL.Uniform1(ShadowMapTextureLocation, 1);
 			}
+
+			GL.Uniform1(ShadowMapTextureLocation, 2); //instancing
 
 		}
 

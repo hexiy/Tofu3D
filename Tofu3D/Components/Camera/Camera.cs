@@ -133,7 +133,13 @@ public class Camera : Component
 
 		Matrix4x4 orthoMatrix = Matrix4x4.CreateOrthographicOffCenter(left, right, bottom, top, NearPlaneDistance, FarPlaneDistance);
 
-		return orthoMatrix * GetScaleMatrix();
+		return orthoMatrix * GetOrthographicScaleMatrix();
+	}
+
+	Matrix4x4 GetOrthographicScaleMatrix()
+	{
+		Matrix4x4 scaleMatrix = Matrix4x4.CreateScale(1/OrthographicSize);
+		return scaleMatrix;
 	}
 
 	Matrix4x4 GetTranslationRotationMatrix()
@@ -144,13 +150,7 @@ public class Camera : Component
 		                                                            -Transform.Rotation.Z / 180 * Mathf.Pi);
 		return tr * rotationMatrix;
 	}
-
-	Matrix4x4 GetScaleMatrix()
-	{
-		Matrix4x4 scaleMatrix = Matrix4x4.CreateScale(1 / OrthographicSize);
-		return scaleMatrix;
-	}
-
+	
 	public void Move(Vector2 moveVector)
 	{
 		Transform.WorldPosition += moveVector;
@@ -222,13 +222,12 @@ public class Camera : Component
 		Vector3 upLocal = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
 
 
-		//Debug.Log($"Forward{forwardWorld}");
-		//Debug.Log($"Up{upLocal}");
-		Matrix4x4 view = Matrix4x4.CreateTranslation(Transform.WorldPosition * new Vector3(-1, -1, 1))
-		               * Matrix4x4.CreateLookAt(cameraPosition: Transform.WorldPosition, cameraTarget: forwardWorld, cameraUpVector: upLocal)
-			; // * Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, 1));
+		Matrix4x4 view = Matrix4x4.CreateLookAt(cameraPosition: Transform.WorldPosition, cameraTarget: forwardWorld, cameraUpVector: upLocal)
+		               * Matrix4x4.CreateScale(-1, 1, 1);
+		
 		Transform.Rotation = oldRotation;
 
 		return view;
+		
 	}
 }

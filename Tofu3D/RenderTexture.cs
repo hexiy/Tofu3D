@@ -143,7 +143,7 @@ public class RenderTexture
 		Unbind();
 	}
 
-	public void RenderDepthAttachment(int targetTexture)
+	public void RenderDepthAttachment(int texture)
 	{
 		ShaderManager.UseShader(_depthRenderTextureMaterial.Shader);
 		_depthRenderTextureMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
@@ -153,7 +153,7 @@ public class RenderTexture
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 		GL.ActiveTexture(TextureUnit.Texture0);
 
-		TextureHelper.BindTexture(targetTexture);
+		TextureHelper.BindTexture(texture);
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
@@ -161,7 +161,7 @@ public class RenderTexture
 		ShaderManager.BindVertexArray(0);
 	}
 
-	public void RenderColorAttachment(int targetTexture)
+	public void RenderColorAttachment(int texture)
 	{
 		// return;
 		// GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
@@ -174,7 +174,7 @@ public class RenderTexture
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 		GL.ActiveTexture(TextureUnit.Texture0);
-		TextureHelper.BindTexture(targetTexture);
+		TextureHelper.BindTexture(texture);
 
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

@@ -90,8 +90,7 @@ public class InstancedRenderingSystem
 
 		Array.Resize(ref bufferData.Buffer, bufferData.MaxNumberOfObjects * VertexCountOfFloats);
 		bufferData.Vbo = -1;
-		bufferData.Dirty = true;
-		UploadBufferData(bufferData);
+		bufferData.NeedsUpload = true;
 	}
 
 	private void RenderSpecific(KeyValuePair<int, InstancedRenderingObjectBufferData> objectBufferPair)
@@ -102,10 +101,6 @@ public class InstancedRenderingSystem
 		material = AssetManager.Load<Material>(material.AssetPath);
 		Model model = definition.Model;
 		InstancedRenderingObjectBufferData bufferData = objectBufferPair.Value;
-		if (bufferData.Buffer.Length != VertexCountOfFloats * bufferData.FutureMaxNumberOfObjects)
-		{
-			ResizeBufferData(bufferData);
-		}
 
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth)
 		{
@@ -114,22 +109,15 @@ public class InstancedRenderingSystem
 			depthMaterial.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
 
-
 			ShaderManager.BindVertexArray(model.Vao);
 
-			if (objectBufferPair.Value.Dirty)
-			{
-				UploadBufferData(objectBufferPair.Value);
-				objectBufferPair.Value.Dirty = false;
-			}
+
 
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 
 			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, model.VerticesCount, instancesCount: objectBufferPair.Value.NumberOfObjects);
-
-			
 		}
 
 		else if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
@@ -138,7 +126,6 @@ public class InstancedRenderingSystem
 
 
 			material.Shader.SetFloat("u_renderMode", (int) RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
-
 
 			material.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
@@ -150,7 +137,7 @@ public class InstancedRenderingSystem
 			material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition);
 
 			// LIGHTING
-			material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceMatrix);
+			material.Shader.SetMatrix4X4("u_lightSpaceViewProjection", DirectionalLight.LightSpaceViewProjectionMatrix);
 
 
 			Vector4 ambientColor = SceneLightingManager.I.GetAmbientLightsColor().ToVector4();
@@ -209,19 +196,15 @@ public class InstancedRenderingSystem
 				TextureHelper.BindTexture(material.AoTexture.TextureId);
 			}
 
-			if (RenderPassDirectionalLightShadowDepth.I?.DepthMapRenderTexture != null)
+			if (RenderPassDirectionalLightShadowDepth.I?.PassRenderTexture != null)
 			{
 				GL.ActiveTexture(TextureUnit.Texture2);
-				TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DepthMapRenderTexture.ColorAttachment);
+				TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.DepthAttachment);
 			}
+
+
 
 			ShaderManager.BindVertexArray(model.Vao);
-
-			if (objectBufferPair.Value.Dirty)
-			{
-				UploadBufferData(objectBufferPair.Value);
-				objectBufferPair.Value.Dirty = false;
-			}
 
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
@@ -231,13 +214,26 @@ public class InstancedRenderingSystem
 
 			// GL.ActiveTexture(TextureUnit.Texture0); // DOESNT WORK
 		}
+
+
+// resize the buffer if needed, after drawing the old one
+		if (bufferData.Buffer.Length != VertexCountOfFloats * bufferData.FutureMaxNumberOfObjects)
+		{
+			ResizeBufferData(bufferData);
+		}
+
+		if (objectBufferPair.Value.NeedsUpload)
+		{
+			UploadBufferData(objectBufferPair.Value);
+			objectBufferPair.Value.NeedsUpload = false;
+		}
 	}
 
 	void GL_DrawArraysInstanced(PrimitiveType primitiveType, int first, int verticesCount, int instancesCount)
 	{
 		GL.DrawArraysInstanced(primitiveType, first, verticesCount, instancesCount);
 		DebugHelper.LogDrawCall();
-		Debug.StatAddValue("Instanced objects:", instancesCount);
+		Debug.StatAddValue("Instanced objects drawn:", instancesCount);
 		// Debug.StatAddValue("Total vertices:", verticesCount * instancesCount);
 		DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount * instancesCount);
 	}
@@ -294,7 +290,7 @@ public class InstancedRenderingSystem
 			bufferData.NumberOfObjects++;
 		}
 
-		bufferData.Dirty = true;
+		bufferData.NeedsUpload = true;
 
 		if (renderer.InstancingData.InstancedRenderingStartingIndexInBuffer != -1 && remove == true)
 		{
