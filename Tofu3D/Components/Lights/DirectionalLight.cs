@@ -59,7 +59,6 @@ public class DirectionalLight : LightBase
 		{
 			return;
 		}
-		//GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
 
 		ConfigureForShadowMapping();
 
@@ -95,7 +94,7 @@ public class DirectionalLight : LightBase
 		Camera.MainCamera.FarPlaneDistance = FarPlaneDistance;
 		Camera.MainCamera.UpdateMatrices();
 
-		LightSpaceViewProjectionMatrix = Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
+		LightSpaceViewProjectionMatrix = Camera.MainCamera.GetLightViewMatrix() * Camera.MainCamera.GetLightProjectionMatrix(OrthographicSize);
 	}
 
 	private void ConfigureForSceneRender()

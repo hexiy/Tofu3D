@@ -101,21 +101,17 @@ public class InstancedRenderingSystem
 		material = AssetManager.Load<Material>(material.AssetPath);
 		Model model = definition.Model;
 		InstancedRenderingObjectBufferData bufferData = objectBufferPair.Value;
-
+		GL.Enable(EnableCap.DepthTest);
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth)
 		{
+
+
 			Material depthMaterial = AssetManager.Load<Material>("ModelRendererInstancedDepth");
 			ShaderManager.UseShader(depthMaterial.Shader);
 			depthMaterial.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
 
 			ShaderManager.BindVertexArray(model.Vao);
-
-
-
-			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-
 
 			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, model.VerticesCount, instancesCount: objectBufferPair.Value.NumberOfObjects);
 		}
@@ -201,7 +197,6 @@ public class InstancedRenderingSystem
 				GL.ActiveTexture(TextureUnit.Texture2);
 				TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.DepthAttachment);
 			}
-
 
 
 			ShaderManager.BindVertexArray(model.Vao);

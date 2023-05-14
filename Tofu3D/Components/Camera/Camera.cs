@@ -126,21 +126,16 @@ public class Camera : Component
 
 	Matrix4x4 GetOrthographicProjectionMatrix()
 	{
-		float left = -Size.X / 2;
-		float right = Size.X / 2;
-		float bottom = -Size.Y / 2;
-		float top = Size.Y / 2;
+		float left = -OrthographicSize;
+		float right = OrthographicSize;
+		float bottom = -OrthographicSize;
+		float top = OrthographicSize;
 
 		Matrix4x4 orthoMatrix = Matrix4x4.CreateOrthographicOffCenter(left, right, bottom, top, NearPlaneDistance, FarPlaneDistance);
 
-		return orthoMatrix * GetOrthographicScaleMatrix();
+		return orthoMatrix;
 	}
 
-	Matrix4x4 GetOrthographicScaleMatrix()
-	{
-		Matrix4x4 scaleMatrix = Matrix4x4.CreateScale(1/OrthographicSize);
-		return scaleMatrix;
-	}
 
 	Matrix4x4 GetTranslationRotationMatrix()
 	{
@@ -201,31 +196,30 @@ public class Camera : Component
 
 	public Matrix4x4 GetLightProjectionMatrix(float lightOrthographicSize)
 	{
-		float left = -Size.X / 2;
-		float right = Size.X / 2;
-		float bottom = -Size.Y / 2;
-		float top = Size.Y / 2;
+		float left = -lightOrthographicSize;
+		float right = lightOrthographicSize;
+		float bottom = -lightOrthographicSize;
+		float top = lightOrthographicSize;
 
 		Matrix4x4 orthoMatrix = Matrix4x4.CreateOrthographicOffCenter(left, right, bottom, top, NearPlaneDistance, FarPlaneDistance);
 
-		Matrix4x4 scaleMatrix = Matrix4x4.CreateScale(1 / lightOrthographicSize);
-		return orthoMatrix * scaleMatrix;
+		return orthoMatrix;
 	}
 
 	public Matrix4x4 GetLightViewMatrix()
 	{
-		Vector3 oldRotation = Transform.Rotation;
-		oldRotation = oldRotation * new Vector3(1, 1, 0);
-		Transform.Rotation = -oldRotation;
+		// Vector3 oldRotation = Transform.Rotation;
+		// oldRotation = oldRotation * new Vector3(1, 1, 0);
+		// Transform.Rotation = -oldRotation;
 
 		Vector3 forwardWorld = Transform.WorldPosition + Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
 		Vector3 upLocal = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
 
 
 		Matrix4x4 view = Matrix4x4.CreateLookAt(cameraPosition: Transform.WorldPosition, cameraTarget: forwardWorld, cameraUpVector: upLocal)
-		               * Matrix4x4.CreateScale(-1, 1, 1);
+		* Matrix4x4.CreateScale(-1, 1, 1);
 		
-		Transform.Rotation = oldRotation;
+		// Transform.Rotation = oldRotation;
 
 		return view;
 		

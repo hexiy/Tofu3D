@@ -86,9 +86,14 @@ float currentDepth = projCoords.z;
 // check whether current frag pos is in shadow
 //    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
 
-float bias = - 0.003;
+float bias = 0.0004;
 
 float shadow = currentDepth - bias > closestDepth ? 1.0: 0.0;
+
+if (projCoords.z > 1.0) // fixes dark border behind the light
+{
+shadow = 0.0;
+}
 return shadow;
 }
 
@@ -110,7 +115,7 @@ vec4 texturePixelColor = texture(textureAlbedo, uvCoords);
 vec4 result = texturePixelColor * color;
 
 vec4 ambientLighting = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
-//result *= ambientLighting + dirColor;
+result *= ambientLighting + dirColor;
 
 result.a = texturePixelColor.a * color.a;
 
@@ -161,7 +166,10 @@ vec4 aoTexture = texture(textureAo, uvCoords);
 result.rgb *= aoTexture.rgb;
 
 float shadow = 1- ShadowCalculation();
-result.rgb *= shadow;
+//        shadow
+        if(shadow ==0){
+result.rgb *=  ambientLighting.rgb;
+}
 
 if (u_renderMode == 0) // regular
 {

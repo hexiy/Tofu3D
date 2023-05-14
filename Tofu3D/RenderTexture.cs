@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 
 namespace Tofu3D;
@@ -92,12 +93,20 @@ public class RenderTexture
 			}
 			else
 			{
-				GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.DepthComponent24, (int) Size.X, (int) Size.Y, 0, PixelFormat.DepthComponent, PixelType.UnsignedByte, (IntPtr) null);
+				GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.DepthComponent, (int) Size.X, (int) Size.Y, 0, PixelFormat.DepthComponent, PixelType.Float, (IntPtr) null);
 			}
 
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Nearest);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMagFilter.Nearest);
 
+
+			float[] borderColor =
+			{
+				1.0f, 1.0f, 1.0f, 1.0f
+			};
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureBorderColor, borderColor);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int) TextureWrapMode.ClampToBorder);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int) TextureWrapMode.ClampToBorder);
 
 			GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, _hasStencil ? FramebufferAttachment.DepthStencilAttachment : FramebufferAttachment.DepthAttachment, TextureTarget.Texture2D, DepthAttachment, 0);
 
@@ -109,9 +118,9 @@ public class RenderTexture
 		}
 
 
-		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int) TextureWrapMode.ClampToBorder);
-		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int) TextureWrapMode.ClampToBorder);
-		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapR, (int) TextureWrapMode.ClampToBorder);
+		// GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int) TextureWrapMode.ClampToBorder);
+		// GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int) TextureWrapMode.ClampToBorder);
+		// GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapR, (int) TextureWrapMode.ClampToBorder);
 		if (GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer) != FramebufferErrorCode.FramebufferComplete)
 		{
 			Debug.Log("RENDER TEXTURE ERROR");
@@ -134,7 +143,7 @@ public class RenderTexture
 	{
 		Bind();
 		GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
-		
+
 		// GL.ClearColor(ClearColor.ToOtherColor());
 		// GL.StencilMask(0xFF);
 		// GL.Enable(EnableCap.StencilTest);
