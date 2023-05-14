@@ -104,8 +104,6 @@ public class InstancedRenderingSystem
 		GL.Enable(EnableCap.DepthTest);
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth)
 		{
-
-
 			Material depthMaterial = AssetManager.Load<Material>("ModelRendererInstancedDepth");
 			ShaderManager.UseShader(depthMaterial.Shader);
 			depthMaterial.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
@@ -146,8 +144,8 @@ public class InstancedRenderingSystem
 			material.Shader.SetVector3("u_directionalLightDirection", SceneLightingManager.I.GetDirectionalLightDirection());
 
 
-			material.Shader.SetFloat("u_specularSmoothness", 0f);
-			material.Shader.SetFloat("u_specularHighlightsEnabled", 0);
+			material.Shader.SetFloat("u_specularSmoothness", material.SpecularSmoothness);
+			material.Shader.SetFloat("u_specularHighlightsEnabled", material.SpecularHighlightsEnabled ? 1 : 0);
 
 			//FOG
 			bool fogEnabled = SceneManager.CurrentScene.SceneFogManager.FogEnabled;

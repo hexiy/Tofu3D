@@ -119,21 +119,37 @@ result *= ambientLighting + dirColor;
 
 result.a = texturePixelColor.a * color.a;
 
-if (u_specularHighlightsEnabled == 1){
-vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, norm);
-vec3 viewDir = - normalize(u_camPos - vertexPositionWorld);
 
-float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32);
-vec3 specular = u_specularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 10;
-//vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
-
-result.rgb+= specular;
-
-}
 
 if (result.a < 0.05){
 discard; // having this fixes transparency sorting but breaks debug depthmap
 }
+
+
+
+
+
+float shadow = 1- ShadowCalculation();
+//        shadow
+        if(shadow ==0){
+result.rgb *=  ambientLighting.rgb;
+}
+if (u_specularHighlightsEnabled == 1){
+vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, norm);
+vec3 viewDir = - normalize(u_camPos - vertexPositionWorld);
+
+float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32* u_specularSmoothness);
+vec3 specular = u_specularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 2;
+//vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
+if(shadow ==0){
+        specular /=3;
+}
+result.rgb+= specular;
+
+}
+vec4 aoTexture = texture(textureAo, uvCoords);
+result.rgb *= aoTexture.rgb;
+
 
 if (u_fogEnabled == 1 && u_renderMode == 0)
 {
@@ -161,16 +177,9 @@ fogFactor = fogFactor * finalFogColor.a;
 
 result.rgb = mix(result.rgb, finalFogColor.rgb, fogFactor);
 }
-
-vec4 aoTexture = texture(textureAo, uvCoords);
-result.rgb *= aoTexture.rgb;
-
-float shadow = 1- ShadowCalculation();
-//        shadow
-        if(shadow ==0){
-result.rgb *=  ambientLighting.rgb;
-}
-
+        
+        
+        
 if (u_renderMode == 0) // regular
 {
 frag_color = result;

@@ -71,7 +71,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>119.42866</DistanceFromCamera>
+      <DistanceFromCamera>77.1691</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
@@ -106,6 +106,8 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0.2</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>

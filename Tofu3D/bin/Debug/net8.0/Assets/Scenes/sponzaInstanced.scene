@@ -417,14 +417,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>0.4422823</X>
-        <Y>5.677062</Y>
-        <Z>-6.9654984</Z>
+        <X>0.5688169</X>
+        <Y>0.84109974</Y>
+        <Z>-5.508494</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.4422823</X>
-        <Y>5.677062</Y>
-        <Z>-6.9654984</Z>
+        <X>0.5688169</X>
+        <Y>0.84109974</Y>
+        <Z>-5.508494</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -437,8 +437,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>40.54175</X>
-        <Y>-9.949533</Y>
+        <X>-9.033529</X>
+        <Y>-4.929721</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -719,7 +719,7 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>0</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <Enabled>false</Enabled>
       <StartDistance>-200</StartDistance>
       <EndDistance>100</EndDistance>
       <PositionY>-2</PositionY>
@@ -785,7 +785,7 @@
       <GameObjectId>6</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <Intensity>0.435</Intensity>
+      <Intensity>0.466</Intensity>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -828,8 +828,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-320.6</X>
-        <Y>-0.4</Y>
+        <X>-285.21</X>
+        <Y>-21.3</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -838,13 +838,13 @@
       <GameObjectId>13</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <Intensity>3.337</Intensity>
+      <Intensity>13.886</Intensity>
       <Color>
-        <B>95</B>
-        <G>95</G>
-        <R>255</R>
+        <B>238</B>
+        <G>224</G>
+        <R>157</R>
         <A>255</A>
-        <PackedValue>4284440575</PackedValue>
+        <PackedValue>4293845149</PackedValue>
       </Color>
       <Speed>0</Speed>
       <Rotate>false</Rotate>
@@ -852,10 +852,10 @@
       <RefreshRate>60</RefreshRate>
       <NearPlaneDistance>0.0001</NearPlaneDistance>
       <FarPlaneDistance>1000</FarPlaneDistance>
-      <OrthographicSize>1.4</OrthographicSize>
+      <OrthographicSize>16.6</OrthographicSize>
       <Size>
-        <X>2000</X>
-        <Y>2000</Y>
+        <X>4000</X>
+        <Y>4000</Y>
       </Size>
     </Component>
     <Component xsi:type="Transform">
@@ -877,6 +877,12 @@
         <int>37</int>
         <int>37</int>
         <int>37</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
         <int>37</int>
         <int>66</int>
         <int>37</int>
@@ -1469,7 +1475,7 @@
           <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
           <ShadowMapTextureLocation>-1</ShadowMapTextureLocation>
         </Shader>
-        <Vao>13</Vao>
+        <Vao>9</Vao>
         <RenderMode>Opaque</RenderMode>
         <Tiling>
           <X>0</X>
@@ -1663,7 +1669,7 @@
       </Offset>
       <Model>
         <AssetPath>Assets\3D\cube.obj</AssetPath>
-        <Vao>10</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <VerticesCount>36</VerticesCount>
       </Model>
@@ -1740,7 +1746,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>9.502833</DistanceFromCamera>
+      <DistanceFromCamera>5.795308</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -1780,7 +1786,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\monke.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>10</Vao>
         <VertexBufferDataLength>371688</VertexBufferDataLength>
         <VerticesCount>46461</VerticesCount>
       </Model>
@@ -1853,7 +1859,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>13.473116</DistanceFromCamera>
+      <DistanceFromCamera>10.608984</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -1893,7 +1899,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>14</Vao>
+        <Vao>11</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <VerticesCount>2880</VerticesCount>
       </Model>
@@ -2006,7 +2012,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>14</Vao>
+        <Vao>11</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <VerticesCount>2880</VerticesCount>
       </Model>
@@ -2079,7 +2085,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>12.095087</DistanceFromCamera>
+      <DistanceFromCamera>8.612333</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2119,7 +2125,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\torus.obj</AssetPath>
-        <Vao>7</Vao>
+        <Vao>12</Vao>
         <VertexBufferDataLength>27648</VertexBufferDataLength>
         <VerticesCount>3456</VerticesCount>
       </Model>
@@ -2192,7 +2198,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>9.470549</DistanceFromCamera>
+      <DistanceFromCamera>6.732824</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2232,7 +2238,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
-        <Vao>15</Vao>
+        <Vao>6</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <VerticesCount>36</VerticesCount>
       </Model>
@@ -2345,7 +2351,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sphere.obj</AssetPath>
-        <Vao>14</Vao>
+        <Vao>11</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <VerticesCount>2880</VerticesCount>
       </Model>
@@ -2418,7 +2424,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>9.488714</DistanceFromCamera>
+      <DistanceFromCamera>5.8153687</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2458,7 +2464,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\Teapot.obj</AssetPath>
-        <Vao>16</Vao>
+        <Vao>13</Vao>
         <VertexBufferDataLength>506112</VertexBufferDataLength>
         <VerticesCount>63264</VerticesCount>
       </Model>
@@ -2531,7 +2537,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.395864</DistanceFromCamera>
+      <DistanceFromCamera>6.222163</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2571,7 +2577,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Model>
@@ -2644,7 +2650,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.395864</DistanceFromCamera>
+      <DistanceFromCamera>6.222163</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2684,7 +2690,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Model>
@@ -2757,7 +2763,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.395864</DistanceFromCamera>
+      <DistanceFromCamera>6.222163</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2797,7 +2803,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Model>
@@ -2870,7 +2876,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.395864</DistanceFromCamera>
+      <DistanceFromCamera>6.222163</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -2910,7 +2916,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Model>
@@ -2983,7 +2989,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.395864</DistanceFromCamera>
+      <DistanceFromCamera>6.222163</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3023,7 +3029,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Model>
@@ -3096,7 +3102,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.395864</DistanceFromCamera>
+      <DistanceFromCamera>6.222163</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3136,7 +3142,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Model>
@@ -3209,7 +3215,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.395864</DistanceFromCamera>
+      <DistanceFromCamera>6.222163</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3249,7 +3255,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Model>
@@ -3322,7 +3328,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.395864</DistanceFromCamera>
+      <DistanceFromCamera>6.222163</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3362,7 +3368,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Model>
@@ -3435,7 +3441,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.395864</DistanceFromCamera>
+      <DistanceFromCamera>6.222163</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3475,7 +3481,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Model>
@@ -3548,7 +3554,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.395864</DistanceFromCamera>
+      <DistanceFromCamera>6.222163</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3588,7 +3594,7 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Model>
@@ -3661,7 +3667,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <DistanceFromCamera>10.395864</DistanceFromCamera>
+      <DistanceFromCamera>6.222163</DistanceFromCamera>
       <Material>
         <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstancedSponza.mat</AssetPath>
         <Additive>false</Additive>
@@ -3701,11 +3707,11 @@
       <Layer>0</Layer>
       <Model>
         <AssetPath>Assets\3D\sponza.obj</AssetPath>
-        <Vao>17</Vao>
+        <Vao>14</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Model>
     </Component>
   </Components>
-  <GameObjectNextId>571</GameObjectNextId>
+  <GameObjectNextId>577</GameObjectNextId>
 </SceneFile>

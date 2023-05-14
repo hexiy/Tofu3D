@@ -21,6 +21,8 @@ public class Material : Asset<Material>
 	public Texture AoTexture;
 	public Vector2 Tiling;
 	public Vector2 Offset;
+	public bool SpecularHighlightsEnabled;
+	public float SpecularSmoothness;
 
 	public override int GetHashCode()
 	{

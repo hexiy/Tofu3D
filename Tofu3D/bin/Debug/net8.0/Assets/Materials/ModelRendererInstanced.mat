@@ -7,6 +7,7 @@
     <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
     <AlbedoTextureLocation>22</AlbedoTextureLocation>
     <AmbientOcclusionTextureLocation>23</AmbientOcclusionTextureLocation>
+    <ShadowMapTextureLocation>24</ShadowMapTextureLocation>
   </Shader>
   <Vao>0</Vao>
   <RenderMode>Opaque</RenderMode>
@@ -32,4 +33,6 @@
     <X>0</X>
     <Y>0</Y>
   </Offset>
+  <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+  <SpecularSmoothness>0.2</SpecularSmoothness>
 </Material>
