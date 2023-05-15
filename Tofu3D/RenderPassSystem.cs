@@ -48,9 +48,12 @@ public static class RenderPassSystem
 	{
 		RenderPassSkybox renderPassSkybox = new RenderPassSkybox();
 		RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();
+		RenderPassZPrePass renderPassZPrePass = new RenderPassZPrePass();
 		RenderPassOpaques renderPassOpaques = new RenderPassOpaques();
 		RenderPassPostProcess renderPassPostProcess = new RenderPassPostProcess();
 		RenderPassUI renderPassUI = new RenderPassUI();
+
+
 		// RenderPassTransparency renderPassTransparency = new RenderPassTransparency();
 		// RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
 	}
@@ -92,7 +95,7 @@ public static class RenderPassSystem
 			return;
 		}
 
-		GL.Enable(EnableCap.Blend);
+		// GL.Enable(EnableCap.Blend);
 
 		foreach (RenderPass renderPass in RenderPasses)
 		{
@@ -122,7 +125,6 @@ public static class RenderPassSystem
 
 	private static void RenderFinalRenderTexture()
 	{
-		// todo do we need this?
 		FinalRenderTexture.Clear();
 		
 		if (CanRender == false)
@@ -142,7 +144,7 @@ public static class RenderPassSystem
 				continue;
 			}
 
-			renderPass.RenderToFramebuffer(FinalRenderTexture, FramebufferAttachment.Color);
+			renderPass.RenderToRenderTexture(FinalRenderTexture, FramebufferAttachment.Color);
 		}
 	}
 }

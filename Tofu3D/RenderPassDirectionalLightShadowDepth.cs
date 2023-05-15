@@ -39,27 +39,29 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 		PassRenderTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: false, depthAttachment: true);
 		PassRenderTexture.ClearColor = new Color(0, 150, 0, 255);
 		DebugGrayscaleTexture = new RenderTexture(size: _directionalLight.Size, colorAttachment: true, depthAttachment: false);
-
-		base.SetupRenderTexture();
 	}
 
 	protected override void PreRender()
 	{
+		GL.Enable(EnableCap.DepthTest);
+
 		// it would be nice to render the skybox to the light view preview textures
 		// RenderPassSkybox.I.Render();
 		// RenderPassSkybox.I.RenderToFramebuffer(PassRenderTexture, FramebufferAttachment.Color);
-		base.PreRender();
 	}
 
 	protected override void PostRender()
 	{
+
 		base.PostRender();
 		// bool renderToDebugTexture = GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
 		// if (renderToDebugTexture)
 		// {
-			RenderToDebugDepthTexture();
+		// RenderToDebugDepthTexture();
 		// }
+		// GL.Disable(EnableCap.DepthTest);
+
 	}
 
 	private void RenderToDebugDepthTexture()

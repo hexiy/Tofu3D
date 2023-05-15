@@ -6,6 +6,7 @@ public enum RenderPassType
 	DirectionalLightShadowDepth,
 	// MousePicking,
 	//GeometryDepth,
+	ZPrePass,
 	Opaques,
 	// Transparency,
 	PostProcess,

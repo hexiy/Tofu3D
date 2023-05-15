@@ -30,7 +30,7 @@ public class InstancedRenderingSystem
 
 	public void RenderInstances()
 	{
-		GL.Enable(EnableCap.DepthTest);
+		// GL.Enable(EnableCap.DepthTest);
 
 		foreach (KeyValuePair<int, InstancedRenderingObjectBufferData> objectDefinitionBufferPair in _objectBufferDatas)
 		{
@@ -101,8 +101,8 @@ public class InstancedRenderingSystem
 		material = AssetManager.Load<Material>(material.AssetPath);
 		Model model = definition.Model;
 		InstancedRenderingObjectBufferData bufferData = objectBufferPair.Value;
-		GL.Enable(EnableCap.DepthTest);
-		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth)
+		// GL.Enable(EnableCap.DepthTest);
+		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth or RenderPassType.ZPrePass)
 		{
 			Material depthMaterial = AssetManager.Load<Material>("ModelRendererInstancedDepth");
 			ShaderManager.UseShader(depthMaterial.Shader);

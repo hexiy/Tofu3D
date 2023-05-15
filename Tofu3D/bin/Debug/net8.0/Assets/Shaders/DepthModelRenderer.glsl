@@ -21,5 +21,5 @@ gl_Position = u_mvp * vec4(a_pos.xyz, 1.0);
 
 void main(void)
 {
-    gl_FragDepth = gl_FragCoord.z;
+//    gl_FragDepth = gl_FragCoord.z;
 }

@@ -18,10 +18,10 @@ public class TransformHandle : Component
 	public BoxShape BoxColliderXy;
 	public BoxShape BoxColliderY;
 	public BoxShape BoxColliderZ;
-	public ModelRenderer ModelRendererX;
-	public ModelRenderer ModelRendererXy;
-	public ModelRenderer ModelRendererY;
-	public ModelRenderer ModelRendererZ;
+	public ModelRendererInstanced ModelRendererX;
+	public ModelRendererInstanced ModelRendererXy;
+	public ModelRendererInstanced ModelRendererY;
+	public ModelRendererInstanced ModelRendererZ;
 
 	public bool Clicked;
 	public Axis? CurrentAxisSelected;
@@ -38,23 +38,27 @@ public class TransformHandle : Component
 
 		BoxColliderX = GameObject.AddComponent<BoxShape>();
 		BoxColliderX.Size = new Vector3(0.5f, 0.05f, 0.05f);
+		BoxColliderX.Offset = new Vector3(-0.01f,0.01f,-0.01f);
 		//boxColliderX.offset = new Vector2(25, 2.5f);
 
 		BoxColliderY = GameObject.AddComponent<BoxShape>();
 		BoxColliderY.Size = new Vector3(0.05f, 0.5f, 0.05f);
+		BoxColliderY.Offset = new Vector3(-0.01f, 0.01f, -0.01f);
 
 		BoxColliderZ = GameObject.AddComponent<BoxShape>();
 		BoxColliderZ.Size = new Vector3(0.05f, 0.05f, 0.5f);
+		BoxColliderZ.Offset = new Vector3(-0.01f, 0.01f, -0.01f);
+
 		//boxColliderY.offset = new Vector2(2.5f, 25);
 
 		BoxColliderXy = GameObject.AddComponent<BoxShape>();
 		BoxColliderXy.Size = new Vector3(0.1f, 0.1f, 0.1f);
 		//boxColliderXY.offset = new Vector3(5, 5,-5)/Units.OneWorldUnit;
 
-		ModelRendererX = GameObject.AddComponent<ModelRenderer>();
-		ModelRendererY = GameObject.AddComponent<ModelRenderer>();
-		ModelRendererZ = GameObject.AddComponent<ModelRenderer>();
-		ModelRendererXy = GameObject.AddComponent<ModelRenderer>();
+		ModelRendererX = GameObject.AddComponent<ModelRendererInstanced>();
+		ModelRendererY = GameObject.AddComponent<ModelRendererInstanced>();
+		ModelRendererZ = GameObject.AddComponent<ModelRendererInstanced>();
+		ModelRendererXy = GameObject.AddComponent<ModelRendererInstanced>();
 
 		// Material unlitMaterial = AssetManager.Load<Material>("ModelRendererUnlit");
 		Material unlitMaterial = AssetManager.Load<Material>("ModelRendererUnlit");

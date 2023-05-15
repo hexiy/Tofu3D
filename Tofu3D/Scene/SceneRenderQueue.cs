@@ -23,7 +23,7 @@ public class SceneRenderQueue
 		}
 		else if (Time.EditorElapsedTicks % 20 == 0)
 		{
-			SortRenderQueue();
+			// SortRenderQueue();
 		}
 	}
 
@@ -61,6 +61,7 @@ public class SceneRenderQueue
 
 	public void SortRenderQueue()
 	{
+		return;
 		RenderQueueWorld.Sort();
 		RenderQueueUI.Sort();
 	}

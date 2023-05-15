@@ -6,8 +6,8 @@ namespace Tofu3D;
 
 public class RenderTexture
 {
-	public int ColorAttachment;
-	public int DepthAttachment;
+	public int ColorAttachment = -1;
+	public int DepthAttachment = -1;
 	public int Id;
 
 	bool _hasColorAttachment;
@@ -93,7 +93,7 @@ public class RenderTexture
 			}
 			else
 			{
-				GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.DepthComponent32f, (int) Size.X, (int) Size.Y, 0, PixelFormat.DepthComponent, PixelType.Float, (IntPtr) null);
+				GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.DepthComponent, (int) Size.X, (int) Size.Y, 0, PixelFormat.DepthComponent, PixelType.Float, (IntPtr) null);
 			}
 
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Nearest);

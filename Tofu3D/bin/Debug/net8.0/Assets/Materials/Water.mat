@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\Water.mat</AssetPath>
+  <Additive>false</Additive>
+  <Shader>
+    <BufferType>Model</BufferType>
+    <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
+    <AlbedoTextureLocation>23</AlbedoTextureLocation>
+    <AmbientOcclusionTextureLocation>24</AmbientOcclusionTextureLocation>
+    <ShadowMapTextureLocation>25</ShadowMapTextureLocation>
+  </Shader>
+  <Vao>0</Vao>
+  <RenderMode>Opaque</RenderMode>
+  <AlbedoTexture>
+    <AssetPath>Assets\2D\solidColor.png</AssetPath>
+    <Size>
+      <X>256</X>
+      <Y>256</Y>
+    </Size>
+  </AlbedoTexture>
+  <AlbedoTint>
+    <B>255</B>
+    <G>255</G>
+    <R>255</R>
+    <A>120</A>
+    <PackedValue>2030043135</PackedValue>
+  </AlbedoTint>
+  <AoTexture>
+    <AssetPath>Assets\2D\solidColor.png</AssetPath>
+    <Size>
+      <X>256</X>
+      <Y>256</Y>
+    </Size>
+  </AoTexture>
+  <Tiling>
+    <X>2</X>
+    <Y>2</Y>
+  </Tiling>
+  <Offset>
+    <X>0</X>
+    <Y>0</Y>
+  </Offset>
+  <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+  <SpecularSmoothness>0.2</SpecularSmoothness>
+</Material>

@@ -60,22 +60,25 @@ public abstract class RenderPass : IComparable<RenderPass>
 
 	public void Render()
 	{
-		if (CanRender() == false)
-		{
-			return;
-		}
-
+		// if (CanRender() == false)
+		// {
+		// 	return;
+		// }
+		PreBindFrameBuffer();
+		BindFrameBuffer();
 		PreRender();
 		// foreach (Action renderCall in _renderQueue)
 		// {
 		// renderCall.Invoke();
 		// }
 		_renderAction?.Invoke(); // post process doesnt have render action so ?. 
-		
+
 		PostRender();
+		UnbindFrameBuffer();
+		PostUnbindFrameBuffer();
 	}
 
-	public virtual void RenderToFramebuffer(RenderTexture target, FramebufferAttachment attachment)
+	public virtual void RenderToRenderTexture(RenderTexture target, FramebufferAttachment attachment)
 	{
 		if (PassRenderTexture == null)
 		{
@@ -91,20 +94,20 @@ public abstract class RenderPass : IComparable<RenderPass>
 		// GL.Viewport(0, 0, (int) target.Size.X*2, (int) target.Size.Y*2);
 		// wtf, why does the viewport need to be target.Size.X * 2 ??????
 		// its 1380,
-		if (attachment == FramebufferAttachment.Color)
+		if (attachment == FramebufferAttachment.Color && PassRenderTexture.ColorAttachment != -1)
 		{
 			target.RenderColorAttachment(PassRenderTexture.ColorAttachment);
 		}
 
-		if (attachment == FramebufferAttachment.Depth)
+		if (attachment == FramebufferAttachment.Depth && target.DepthAttachment != -1 && PassRenderTexture.DepthAttachment != -1)
 		{
-			//target.RenderDepthAttachment(PassRenderTexture.DepthAttachment);
+			target.RenderDepthAttachment(PassRenderTexture.DepthAttachment);
 		}
 
 		target.Unbind();
 	}
 
-	protected virtual void PreRender()
+	internal void BindFrameBuffer()
 	{
 		PassRenderTexture?.Bind();
 
@@ -114,12 +117,26 @@ public abstract class RenderPass : IComparable<RenderPass>
 		}
 	}
 
-	protected virtual void PostRender()
+	internal void UnbindFrameBuffer()
 	{
 		PassRenderTexture?.Unbind();
 	}
 
-	protected virtual void SetupRenderTexture()
+	protected virtual void PreBindFrameBuffer()
 	{
 	}
+
+	protected virtual void PostUnbindFrameBuffer()
+	{
+	}
+
+	protected virtual void PreRender()
+	{
+	}
+
+	protected virtual void PostRender()
+	{
+	}
+
+	protected abstract void SetupRenderTexture();
 }

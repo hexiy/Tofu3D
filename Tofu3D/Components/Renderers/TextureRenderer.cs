@@ -7,7 +7,7 @@ public class TextureRenderer : Renderer
 	public Texture Texture;
 	public Vector2 Tiling = Vector2.One;
 	public Vector2 Offset = Vector2.Zero;
-	public override bool CanRender => Texture.Loaded && BoxShape != null && base.CanRender;
+	public override bool CanRender => Texture.Loaded;// && BoxShape != null;// && base.CanRender;
 
 
 	public virtual void LoadTexture(string texturePath)

@@ -25,7 +25,7 @@ public class RenderPassPostProcess : RenderPass
 	}
 
 
-	public override void RenderToFramebuffer(RenderTexture target, FramebufferAttachment attachment)
+	public override void RenderToRenderTexture(RenderTexture target, FramebufferAttachment attachment)
 	{
 		if (PassRenderTexture == null)
 		{
@@ -66,7 +66,5 @@ public class RenderPassPostProcess : RenderPass
 		}
 
 		PassRenderTexture = new RenderTexture(size: RenderPassSystem.ViewSize, colorAttachment: true, depthAttachment: true);
-
-		base.SetupRenderTexture();
 	}
 }

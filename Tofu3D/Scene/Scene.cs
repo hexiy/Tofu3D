@@ -53,6 +53,7 @@ public class Scene
 		SceneFogManager = new SceneFogManager(this);
 		_sceneRenderQueue = new SceneRenderQueue(this);
 
+		RenderPassSystem.RegisterRender(RenderPassType.ZPrePass, RenderWorld);
 		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderWorld);
 		RenderPassSystem.RegisterRender(RenderPassType.UI, RenderUI);
 		// RenderPassSystem.RegisterRender(RenderPassType.Transparency, RenderTransparent);
@@ -76,6 +77,7 @@ public class Scene
 
 		// GameObjects.Clear();
 		// GameObjects = new List<GameObject>();
+		RenderPassSystem.RemoveRender(RenderPassType.ZPrePass, RenderWorld);
 		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderWorld);
 		RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
 		Tofu.I.InstancedRenderingSystem.ClearBuffers();
@@ -177,10 +179,8 @@ public class Scene
 
 	private void SetOpenGLState()
 	{
-		GL.Enable(EnableCap.DepthTest);
-		GL.DepthFunc(DepthFunction.Less);
-		GL.Enable(EnableCap.StencilTest);
-
+		// GL.Enable(EnableCap.DepthTest);
+		// GL.DepthFunc(DepthFunction.Lequal);
 
 		GL.Enable(EnableCap.CullFace);
 		GL.CullFace(CullFaceMode.Back);
@@ -196,11 +196,11 @@ public class Scene
 	{
 		SetOpenGLState();
 
-		GL.ClearDepth(1000);
-		//
-		//
-		GL.Viewport(0, 0, (int) Camera.MainCamera.Size.X, (int) Camera.MainCamera.Size.Y);
-		GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+		// GL.ClearDepth(1000);
+		// //
+		// //
+		// GL.Viewport(0, 0, (int) Camera.MainCamera.Size.X, (int) Camera.MainCamera.Size.Y);
+		// GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 
 		_sceneRenderQueue.RenderWorld();
 		Tofu.I.InstancedRenderingSystem.RenderInstances();
@@ -216,9 +216,9 @@ public class Scene
 
 	public void RenderUI()
 	{
-		GL.Enable(EnableCap.DepthTest);
-		GL.DepthFunc(DepthFunction.Less);
-		GL.Enable(EnableCap.StencilTest);
+		// GL.Enable(EnableCap.DepthTest);
+		// GL.DepthFunc(DepthFunction.Less);
+		// GL.Enable(EnableCap.StencilTest);
 
 		_sceneRenderQueue.RenderUI();
 

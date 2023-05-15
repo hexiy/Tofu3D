@@ -12,14 +12,14 @@ public class Renderer : Component, IComparable<Renderer>
 	[Hide]
 	public bool AutomaticallyFindBoxShape = true;
 	public Color Color = Color.White;
-	public float DistanceFromCamera;
+	// public float DistanceFromCamera;
 
 	[Show]
 	public Material Material;
-	internal bool OnScreen = true;
+	// internal bool OnScreen = true;
 	public float Layer { get; set; }
 	[XmlIgnore] public Matrix4x4 LatestModelViewProjection { get; private set; }
-	[Hide] public virtual bool CanRender => OnScreen && Enabled && GameObject.Awoken && GameObject.ActiveInHierarchy;
+	[Hide] public virtual bool CanRender => true; // && Enabled && GameObject.Awoken && GameObject.ActiveInHierarchy;
 
 	public RenderMode RenderMode = RenderMode.Opaque;
 
@@ -32,7 +32,8 @@ public class Renderer : Component, IComparable<Renderer>
 		}
 
 		// return (GameObject.IndexInHierarchy * 1e-15f + Layer).CompareTo(comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer);
-		return (comparePart.DistanceFromCamera + (comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer)).CompareTo(DistanceFromCamera + (GameObject.IndexInHierarchy * 1e-15f + Layer));
+		// return (comparePart.DistanceFromCamera + (comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer)).CompareTo(DistanceFromCamera + (GameObject.IndexInHierarchy * 1e-15f + Layer));
+		return ((comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer)).CompareTo((GameObject.IndexInHierarchy * 1e-15f + Layer));
 
 		//return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
 	}
@@ -96,7 +97,7 @@ public class Renderer : Component, IComparable<Renderer>
 		if (RenderSettings.CurrentWireframeRenderSettings.WireframeVisible)
 		{
 			Material.Shader.SetColor("u_rendererColor", Color.Black);
-			GL.LineWidth(RenderSettings.CurrentWireframeRenderSettings.WireframeLineWidth / (DistanceFromCamera * 10));
+			// GL.LineWidth(RenderSettings.CurrentWireframeRenderSettings.WireframeLineWidth / (DistanceFromCamera * 10));
 
 			// float s = Mathf.SinAbs(Time.EditorElapsedTime * 0.5f);
 			GL_DrawArrays(PrimitiveType.LineLoop, 0, indicesCount);
@@ -161,7 +162,8 @@ public class Renderer : Component, IComparable<Renderer>
 
 	public Matrix4x4 GetMvpForOutline()
 	{
-		float outlineThickness = 0.002f * ((float) MathHelper.Sin(Time.EditorElapsedTime * 2) + 1.3f) * DistanceFromCamera * BoxShape.Size.Length();
+		// float outlineThickness = 0.002f * ((float) MathHelper.Sin(Time.EditorElapsedTime * 2) + 1.3f) * DistanceFromCamera * BoxShape.Size.Length();
+		float outlineThickness = 0.002f * ((float) MathHelper.Sin(Time.EditorElapsedTime * 2) + 1.3f) * BoxShape.Size.Length();
 		// float outlineThickness = 0.04f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime*5)),0) * DistanceFromCamera * 0.3f;
 		Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
 
@@ -205,7 +207,7 @@ public class Renderer : Component, IComparable<Renderer>
 
 		UpdateMvp();
 
-		DistanceFromCamera = CalculateDistanceFromCamera();
+		// DistanceFromCamera = CalculateDistanceFromCamera();
 		if (Color.A != 255)
 		{
 			if (RenderMode != RenderMode.Transparent)
@@ -247,10 +249,10 @@ public class Renderer : Component, IComparable<Renderer>
 			return;
 		}
 
-		// if (GameObject.IsStatic == false || LatestModelViewProjection == null)
-		// {
-		LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
-		// }
+		if (InstancingData.InstancingDataDirty || GameObject.IsStatic == false)
+		{
+			LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
+		}
 	}
 
 	public virtual void Render()

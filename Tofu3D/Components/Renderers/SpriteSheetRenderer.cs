@@ -71,11 +71,6 @@ public class SpriteSheetRenderer : SpriteRenderer
 
 	public override void Render()
 	{
-		if (OnScreen == false)
-		{
-			return;
-		}
-
 		if (BoxShape == null)
 		{
 			return;

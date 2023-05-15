@@ -126,7 +126,7 @@ public class TextRenderer : SpriteRenderer
 
 	public override void Render()
 	{
-		if (OnScreen == false || BoxShape == null || Texture.Loaded == false || Text == null)
+		if (BoxShape == null || Texture.Loaded == false || Text == null)
 		{
 			return;
 		}

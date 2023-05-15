@@ -92,19 +92,19 @@ public class ModelRenderer : TextureRenderer
 		}
 
 
-		if (GameObject == TransformHandle.I?.GameObject)
-		{
-			GL.Disable(EnableCap.DepthTest);
-		}
-		else
-		{
-			GL.Enable(EnableCap.DepthTest);
-		}
+		// if (GameObject == TransformHandle.I?.GameObject)
+		// {
+		// 	GL.Disable(EnableCap.DepthTest);
+		// }
+		// else
+		// {
+		// 	GL.Enable(EnableCap.DepthTest);
+		// }
 
 		bool drawOutline = GameObject.Selected;
 
 		//GL.Enable(EnableCap.DepthTest);
-		if (RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth)
+		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth or RenderPassType.ZPrePass)
 		{
 			Material depthMaterial = AssetManager.Load<Material>("DepthModel");
 			ShaderManager.UseShader(depthMaterial.Shader);

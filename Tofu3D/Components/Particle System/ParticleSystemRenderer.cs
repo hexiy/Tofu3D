@@ -10,11 +10,6 @@ public class ParticleSystemRenderer : SpriteRenderer
 
 	public override void Render()
 	{
-		if (OnScreen == false)
-		{
-			return;
-		}
-
 		if (BoxShape == null)
 		{
 			return;

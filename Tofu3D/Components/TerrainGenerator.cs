@@ -143,14 +143,22 @@ public class TerrainGenerator : Component
 		int z = 0;
 
 		SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
-
+		float peak = Random.Range(10, 20);
+		Vector2 flatSurfaceAreaPosition = new Vector2(30, 30);
 		foreach (GameObject go in _concurrentBag)
 		{
 			go.Transform.SetParent(Transform);
 
-			float positionY = Mathf.Sin((float) x / TerrainSize * 10f) * Mathf.Cos((float) z / TerrainSize * 10f) * 5;
+			float positionY = Mathf.Sin((float) x / 10f) * Mathf.Cos((float) z / 10) * 15;
 			positionY = positionY.TranslateToGrid(2);
+
 			go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
+			float distToFlatSurface = Vector2.Distance(flatSurfaceAreaPosition, new Vector2(go.Transform.WorldPosition.X, go.Transform.WorldPosition.Z));
+			float maxDist = 100;
+			if (distToFlatSurface < maxDist)
+			{
+				positionY = Mathf.Lerp(positionY, 0, (maxDist - distToFlatSurface)/maxDist);
+			}
 
 
 			x++;
@@ -159,6 +167,9 @@ public class TerrainGenerator : Component
 				x = 0;
 				z++;
 			}
+
+			peak += Random.Range(-0.01f, 0.01f);
+			peak = Mathf.Clamp(peak, 10, 25);
 		}
 
 		Debug.EndAndLogTimer($"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");

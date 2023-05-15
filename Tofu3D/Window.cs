@@ -27,7 +27,7 @@ public class Window : GameWindow
 		LoadIcon();
 		Title = WindowTitleText;
 		GLFW.WindowHint(WindowHintBool.Decorated, false);
-		// GL.Disable(EnableCap.Multisample);
+		GL.Disable(EnableCap.Multisample);
 	}
 
 	private void LoadIcon()

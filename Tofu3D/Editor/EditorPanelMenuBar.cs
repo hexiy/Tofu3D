@@ -1,4 +1,5 @@
 using ImGuiNET;
+using OpenTK.Windowing.Common;
 using Tofu3D.Rendering;
 
 namespace Tofu3D;
@@ -96,7 +97,17 @@ public class EditorPanelMenuBar : EditorPanel
 				ImGui.EndMenu();
 			}
 
-			bool showDebugButton = true;// KeyboardInput.IsKeyDown(Keys.LeftAlt);
+			bool vsyncButtonClicked = ImGui.BeginMenu($"VSync[{Tofu.I.Window.VSync}]");
+			if (vsyncButtonClicked)
+			{
+				Tofu.I.Window.VSync = Tofu.I.Window.VSync == VSyncMode.Off ? VSyncMode.On : VSyncMode.Off;
+				ImGui.CloseCurrentPopup();
+
+
+				ImGui.EndMenu();
+			}
+
+			bool showDebugButton = true; // KeyboardInput.IsKeyDown(Keys.LeftAlt);
 			if (showDebugButton)
 			{
 				bool debugButtonClicked = ImGui.SmallButton($"Debug [{(Global.Debug ? "ON" : "OFF")}]");

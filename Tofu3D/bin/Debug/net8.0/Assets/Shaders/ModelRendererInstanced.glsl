@@ -99,10 +99,9 @@ return shadow;
 
 void main(void)
 {
-
 vec2 uvCoords = (uv + u_offset) * u_tiling;
 float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
-vec3 norm = normalize(- normal);
+vec3 norm = normalize(-normal);
 
 //if(u_normalStrength!=0){
 //}
