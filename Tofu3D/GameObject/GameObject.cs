@@ -5,7 +5,7 @@ using Component = Scripts.Component;
 
 namespace Tofu3D;
 
-public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, ICloneable
+public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 {
 	public bool IsStatic
 	{
@@ -78,7 +78,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 	{
 		bool stateChanged = ActiveSelf != tgl;
 		_activeSelf = tgl;
-		if (stateChanged)
+		if (stateChanged && Started)
 		{
 			if (_activeSelf)
 			{
@@ -91,15 +91,15 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 		}
 	}
 
-	public void OnEnable()
+	private void OnEnable()
 	{
-		Components.ForEach(c => c.OnEnable());
+		Components.ForEach(c => c.OnEnabled());
 		Transform?.Children.ForEach(child => child.GameObject.OnEnable());
 	}
 
-	public void OnDisable()
+	private void OnDisable()
 	{
-		Components.ForEach(c => c.OnDisable());
+		Components.ForEach(c => c.OnDisabled());
 		Transform?.Children.ForEach(child => child.GameObject.OnDisable());
 	}
 
@@ -429,7 +429,10 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 			}
 		}
 
-		OnEnable();
+		if (ActiveInHierarchy)
+		{
+			OnEnable();
+		}
 
 		Started = true;
 	}
@@ -531,13 +534,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 		FixedUpdateComponents();
 	}
 
-	private void OnComponentAdded(Component comp)
-	{
-		InvokeOnComponentAddedOnComponents(comp);
-		CheckForTransformComponent(comp);
-		SceneManager.CurrentScene.OnComponentAdded(comp);
-	}
-
 	public Component AddExistingComponent(Component comp)
 	{
 		comp.GameObject = this;
@@ -545,12 +541,13 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 
 		Components.Add(comp);
 
-		OnComponentAdded(comp);
 		if (Awoken)
 		{
 			comp.Awake();
 		}
 
+		InvokeOnComponentAddedOnComponents(comp);
+		CheckForTransformComponent(comp);
 		/* for (int i = 0; i < ComponentsWaitingToBePaired.Count; i++)
 		 {
 			   if (ComponentsWaitingToBePaired[i].GetType() == type)
@@ -611,8 +608,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 				component.Start();
 			}
 		}
-
-		OnComponentAdded(component);
 
 		/* for (int i = 0; i < ComponentsWaitingToBePaired.Count; i++)
 		 {
@@ -849,17 +844,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 		   }
 	 }*/
 
-	public void Render()
-	{
-		for (int i = 0; i < Components.Count; i++)
-		{
-			if (Components[i] is Renderer && (Components[i] as Renderer).CanRender)
-			{
-				(Components[i] as Renderer).Render();
-			}
-		}
-	}
-
 	public Vector3 TransformToWorld(Vector3 localPoint)
 	{
 		return localPoint + Transform.WorldPosition;
@@ -900,7 +884,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 		return true;
 	}
 
-	public object Clone()
+	public object Clone(bool active=true)
 	{
 		object memberwiseClone = this.MemberwiseClone();
 		GameObject clone = (GameObject) memberwiseClone;
@@ -934,9 +918,9 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>, IClo
 			clone.Components[i].Started = false;
 		}
 
+		clone._activeSelf = active;
 		clone.Awake();
 		clone.Start();
-		clone.OnEnable();
 
 		return (object) clone;
 	}

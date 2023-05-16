@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Tofu3D.Components;
 
 namespace Scripts;
 
@@ -92,11 +93,11 @@ public class Component : IDestroyable, ICloneable
 		{
 			if (Enabled)
 			{
-				OnEnable();
+				OnEnabled();
 			}
 			else
 			{
-				OnDisable();
+				OnDisabled();
 			}
 		}
 	}
@@ -150,6 +151,7 @@ public class Component : IDestroyable, ICloneable
 	public virtual void Awake()
 	{
 		Awoken = true;
+		Scene.ComponentAwoken(this);
 	}
 
 	public virtual void Start()
@@ -160,19 +162,22 @@ public class Component : IDestroyable, ICloneable
 	/// <summary>
 	/// Called when component/gameobject is enabled(including creation after Awake() and Start()
 	/// </summary>
-	public virtual void OnEnable()
+	public virtual void OnEnabled()
 	{
+		Scene.ComponentEnabled(this);
 	}
 
 	/// <summary>
 	/// Called when component/gameobject is disabled
 	/// </summary>
-	public virtual void OnDisable()
+	public virtual void OnDisabled()
 	{
+		Scene.ComponentDisabled(this);
 	}
 
 	public virtual void OnDestroyed()
 	{
+		Scene.ComponentRemoved(this);
 	}
 
 	public virtual void EditorUpdate()

@@ -1,7 +1,7 @@
 ﻿namespace Tofu3D;
 
 [ExecuteInEditMode]
-public class BlockPlacingController : Component
+public class BlockPlacingController : Component, IComponentUpdateable
 {
 	[Show]
 	public GameObject MovingCube;

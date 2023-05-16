@@ -35,7 +35,7 @@ public class EditorPanelInspector : EditorPanel
 		I = this;
 
 		_componentTypes = typeof(Component).Assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
-		Scene.ComponentAdded += OnComponentAddedToScene;
+		Scene.ComponentAwoken += OnComponentAddedToScene;
 		GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
 		MouseInput.RegisterPassThroughEdgesCondition(() => _editing && MouseInput.IsButtonDown(MouseInput.Buttons.Left));
 		Global.DebugStateChanged += (b) => QueueInspectorRefresh();

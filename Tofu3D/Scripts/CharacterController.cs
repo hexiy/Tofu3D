@@ -1,6 +1,6 @@
 ﻿namespace Scripts;
 
-public class CharacterController : Component
+public class CharacterController : Component, IComponentUpdateable
 {
 	public float JumpForce = 10000;
 	bool _jumpKeyDown;

@@ -1,6 +1,6 @@
 using System.Threading;
 
-public class StressTester : Component
+public class StressTester : Component, IComponentUpdateable
 {
 	[Show]
 	public int Milliseconds = 1;

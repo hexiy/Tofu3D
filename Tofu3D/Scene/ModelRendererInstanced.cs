@@ -10,18 +10,19 @@ public class ModelRendererInstanced : Renderer
 		base.Awake();
 	}
 
-	public override void OnEnable()
+	public override void OnEnabled()
 	{
 		InstancingData.InstancingDataDirty = true;
+		InstancingData.MatrixDirty = true;
 
-		base.OnEnable();
+		base.OnEnabled();
 	}
 
-	public override void OnDisable()
+	public override void OnDisabled()
 	{
 		Tofu.I.InstancedRenderingSystem.UpdateObjectData(this, remove: true);
 
-		base.OnDisable();
+		base.OnDisabled();
 	}
 
 	public override void SetDefaultMaterial()
@@ -43,7 +44,7 @@ public class ModelRendererInstanced : Renderer
 
 	public override void Render()
 	{
-		if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false)
+		if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false && InstancingData.MatrixDirty == false)
 		{
 			return;
 		}
@@ -72,7 +73,6 @@ public class ModelRendererInstanced : Renderer
 		if (updatedData)
 		{
 			InstancingData.InstancingDataDirty = false;
-			var x = 123;
 		}
 	}
 }

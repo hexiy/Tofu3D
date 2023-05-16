@@ -305,10 +305,10 @@ public class Transform : Component
 
 	public void SetParent(Transform par, bool updateTransform = false)
 	{
-		if (ParentId != -1 && SceneManager.CurrentScene.GetGameObject(ParentId) != null)
-		{
-			SceneManager.CurrentScene.GetGameObject(ParentId).Transform.RemoveChild(GameObjectId);
-		}
+		// if (ParentId != -1 && SceneManager.CurrentScene.GetGameObject(ParentId) != null)
+		// {
+		// 	SceneManager.CurrentScene.GetGameObject(ParentId).Transform.RemoveChild(GameObjectId);
+		// }
 
 		if (updateTransform)
 		{

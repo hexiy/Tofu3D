@@ -1,7 +1,9 @@
-﻿namespace Scripts;
+﻿using Tofu3D.Components;
+
+namespace Scripts;
 
 [ExecuteInEditMode]
-public class Renderer : Component, IComparable<Renderer>
+public class Renderer : Component, IComparable<Renderer>, IComponentRenderable, IComponentUpdateable
 {
 	[XmlIgnore]
 	public RendererInstancingData InstancingData;
@@ -63,7 +65,7 @@ public class Renderer : Component, IComparable<Renderer>
 
 	public virtual void SetDefaultMaterial()
 	{
-		Material.SetShader(Material.Shader);
+		Material.InitShader();
 	}
 
 	// private Matrix4x4 GetModelViewProjectionOld()
@@ -249,9 +251,10 @@ public class Renderer : Component, IComparable<Renderer>
 			return;
 		}
 
-		if (InstancingData.InstancingDataDirty || GameObject.IsStatic == false)
+		if (InstancingData.MatrixDirty || GameObject.IsStatic == false)
 		{
 			LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
+			InstancingData.MatrixDirty = false;
 		}
 	}
 

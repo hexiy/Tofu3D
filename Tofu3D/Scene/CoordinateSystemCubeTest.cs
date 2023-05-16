@@ -1,5 +1,5 @@
 ﻿[ExecuteInEditMode]
-public class CoordinateSystemCubeTest : Component
+public class CoordinateSystemCubeTest : Component, IComponentUpdateable
 {
 	[Show]
 	public GameObject CubeForward;

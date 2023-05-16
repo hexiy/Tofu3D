@@ -1,7 +1,7 @@
 ﻿namespace Tofu3D;
 
 [ExecuteInEditMode]
-public class Camera : Component
+public class Camera : Component, IComponentUpdateable
 {
 	public static Action<Vector2> CameraSizeChanged = (newSize) => { };
 	//public int antialiasingStrength = 0;

@@ -13,7 +13,7 @@ public class SceneLightingManager
 	{
 		I = this;
 		_scene = scene;
-		Scene.ComponentAdded += OnSceneComponentAdded;
+		Scene.ComponentAwoken += OnSceneComponentAdded;
 	}
 
 	public void Update()

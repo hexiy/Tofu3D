@@ -1,4 +1,4 @@
-﻿public class Benchmark : Component
+﻿public class Benchmark : Component, IComponentUpdateable
 {
 	public override void Awake()
 	{

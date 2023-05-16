@@ -1,5 +1,5 @@
 ﻿[ExecuteInEditMode]
-public class MonkeyHead : Component
+public class MonkeyHead : Component, IComponentUpdateable
 {
 	Renderer _renderer;
 

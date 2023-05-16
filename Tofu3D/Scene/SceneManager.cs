@@ -73,7 +73,6 @@ public static class SceneManager
 			sceneFile.GameObjects[i].Start();
 		}
 
-
 		CurrentScene.CreateDefaultObjects();
 
 		Scene.AnySceneLoaded.Invoke();

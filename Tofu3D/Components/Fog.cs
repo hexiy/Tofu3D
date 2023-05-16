@@ -1,5 +1,5 @@
 ﻿[ExecuteInEditMode]
-public class Fog : Component
+public class Fog : Component, IComponentUpdateable
 {
 	public float StartDistance = 10;
 	public float EndDistance = 20;

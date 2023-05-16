@@ -1,6 +1,6 @@
 using Tofu3D.Physics;
 
-public class PhysicsTest : Component
+public class PhysicsTest : Component, IComponentUpdateable
 {
 	BoxShape _boxShape;
 	ModelRenderer _modelRenderer;

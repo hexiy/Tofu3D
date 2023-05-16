@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Tofu3D;
 
 [ExecuteInEditMode]
-public class TerrainGenerator : Component
+public class TerrainGenerator : Component, IComponentUpdateable
 {
 	public GameObject CubePrefab;
 	[XmlIgnore]
@@ -120,7 +120,7 @@ public class TerrainGenerator : Component
 		for (int i = startIndex; i < endIndex; i++)
 		{
 			// Debug.Log(i);
-			GameObject go = (GameObject) referenceGameObject.Clone();
+			GameObject go = (GameObject) referenceGameObject.Clone(active:false);
 			go.Name = $"Thread:{threadIndex} go {i}";
 			go.DynamicallyCreated = true;
 
@@ -143,8 +143,6 @@ public class TerrainGenerator : Component
 		int z = 0;
 
 		SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
-		float peak = Random.Range(10, 20);
-		Vector2 flatSurfaceAreaPosition = new Vector2(30, 30);
 		foreach (GameObject go in _concurrentBag)
 		{
 			go.Transform.SetParent(Transform);
@@ -153,23 +151,13 @@ public class TerrainGenerator : Component
 			positionY = positionY.TranslateToGrid(2);
 
 			go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
-			float distToFlatSurface = Vector2.Distance(flatSurfaceAreaPosition, new Vector2(go.Transform.WorldPosition.X, go.Transform.WorldPosition.Z));
-			float maxDist = 100;
-			if (distToFlatSurface < maxDist)
-			{
-				positionY = Mathf.Lerp(positionY, 0, (maxDist - distToFlatSurface)/maxDist);
-			}
-
-
+go.SetActive(true);
 			x++;
 			if (x > TerrainSize)
 			{
 				x = 0;
 				z++;
 			}
-
-			peak += Random.Range(-0.01f, 0.01f);
-			peak = Mathf.Clamp(peak, 10, 25);
 		}
 
 		Debug.EndAndLogTimer($"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");

@@ -1,4 +1,4 @@
-﻿public class PositionConstraint : Component
+﻿public class PositionConstraint : Component, IComponentUpdateable
 {
 	public float PosY = 0;
 	float _jumpY = 0;

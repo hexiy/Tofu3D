@@ -1,7 +1,7 @@
 using System.IO;
 
 [ExecuteInEditMode]
-public class Grid : Component
+public class Grid : Component, IComponentUpdateable
 {
 	BoxShape _boxShape;
 	SpriteRenderer _spriteRenderer;

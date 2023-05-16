@@ -1,5 +1,5 @@
 [ExecuteInEditMode]
-public class Canvas : Component
+public class Canvas : Component, IComponentUpdateable
 {
 	public static Canvas I { get; private set; }
 

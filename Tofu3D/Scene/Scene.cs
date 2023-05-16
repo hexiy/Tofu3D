@@ -11,7 +11,10 @@ public class Scene
 {
 	SceneLightingManager _sceneLightingManager;
 	public SceneFogManager SceneFogManager { get; private set; }
-	SceneRenderQueue _sceneRenderQueue;
+
+	RenderableComponentQueue _renderableComponentQueue;
+	UpdateableComponentQueue _updateableComponentQueue;
+
 	public TransformHandle TransformHandle;
 
 	// List<GameObject> _gameObjects = new();
@@ -38,9 +41,13 @@ public class Scene
 		get { return Path.GetFileName(ScenePath); }
 	}
 
+	public static Action SceneStartedDisposing = () => { };
 	public static Action SceneDisposed = () => { };
-	public static Action<Component> ComponentAdded = component => { };
-	public static Action SceneModified = () => { };
+	public static Action<Component> ComponentAwoken = component => { };
+	public static Action<Component> ComponentRemoved = component => { };
+	public static Action<Component> ComponentEnabled = component => { };
+	public static Action<Component> ComponentDisabled = component => { };
+	// public static Action SceneModified = () => { };
 	public static Action AnySceneLoaded = () => { };
 	Camera Camera
 	{
@@ -51,16 +58,17 @@ public class Scene
 	{
 		_sceneLightingManager = new SceneLightingManager(this);
 		SceneFogManager = new SceneFogManager(this);
-		_sceneRenderQueue = new SceneRenderQueue(this);
+		_renderableComponentQueue = new RenderableComponentQueue();
+		_updateableComponentQueue = new UpdateableComponentQueue();
 
 		RenderPassSystem.RegisterRender(RenderPassType.ZPrePass, RenderWorld);
 		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderWorld);
-		RenderPassSystem.RegisterRender(RenderPassType.UI, RenderUI);
 		// RenderPassSystem.RegisterRender(RenderPassType.Transparency, RenderTransparent);
 	}
 
 	public void DisposeScene()
 	{
+		SceneStartedDisposing.Invoke();
 		// while (GameObjects.Count > 0)
 		// {
 		// 	GameObjects[0].Destroy();
@@ -79,16 +87,16 @@ public class Scene
 		// GameObjects = new List<GameObject>();
 		RenderPassSystem.RemoveRender(RenderPassType.ZPrePass, RenderWorld);
 		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderWorld);
-		RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
+		// RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
 		Tofu.I.InstancedRenderingSystem.ClearBuffers();
 
 		SceneDisposed.Invoke();
 	}
 
-	public void ForceRenderQueueChanged()
-	{
-		_sceneRenderQueue.RenderQueueChanged();
-	}
+	// public void ForceRenderQueueChanged()
+	// {
+	// 	_renderableComponentQueue.RenderQueueChanged();
+	// }
 
 	public void CreateDefaultObjects()
 	{
@@ -136,47 +144,42 @@ public class Scene
 		Debug.StartGraphTimer("Scene Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
 
 		_sceneLightingManager.Update();
-		_sceneRenderQueue.Update();
 		SceneFogManager.Update();
 
-		Camera.MainCamera.GameObject.Update();
-		TransformHandle.I.GameObject.Update();
+		// Camera.MainCamera.GameObject.Update();
+		// TransformHandle.I.GameObject.Update();
 
+		_updateableComponentQueue.UpdateComponents();
 
-		for (int i = 0; i < GameObjects.Count; i++)
-		{
-			GameObjects[i].IndexInHierarchy = i;
-			/*if (GameObjects[i] == Camera.MainCamera.GameObject)
-			{
-				continue;
-			}
-
-			if (GameObjects[i] == TransformHandle.I.GameObject)
-			{
-				continue;
-			}
-
-			if (Global.GameRunning || GameObjects[i].AlwaysUpdate)
-			{
-				GameObjects[i].Update();
-				GameObjects[i].FixedUpdate();
-			}
-			else if (Global.GameRunning == false)
-			{
-				//gameObjects[i].EditorUpdate();*/
-			GameObjects[i].Update();
-			// }
-		}
+// 		for (int i = 0; i < GameObjects.Count; i++)
+// 		{
+// 			GameObjects[i].IndexInHierarchy = i;
+// 			/*if (GameObjects[i] == Camera.MainCamera.GameObject)
+// 			{
+// 				continue;
+// 			}
+//
+// 			if (GameObjects[i] == TransformHandle.I.GameObject)
+// 			{
+// 				continue;
+// 			}
+//
+// 			if (Global.GameRunning || GameObjects[i].AlwaysUpdate)
+// 			{
+// 				GameObjects[i].Update();
+// 				GameObjects[i].FixedUpdate();
+// 			}
+// 			else if (Global.GameRunning == false)
+// 			{
+// 				//gameObjects[i].EditorUpdate();*/
+// 			GameObjects[i].Update();
+// 			// }
+// 		}
 
 		Debug.EndGraphTimer("Scene Update");
 	}
 
-	public void OnComponentAdded(Component component)
-	{
-		ComponentAdded.Invoke(component);
-		SceneModified.Invoke();
-	}
-
+	// ReSharper disable once InconsistentNaming
 	private void SetOpenGLState()
 	{
 		// GL.Enable(EnableCap.DepthTest);
@@ -187,6 +190,7 @@ public class Scene
 		GL.FrontFace(FrontFaceDirection.Cw);
 	}
 
+	// ReSharper disable once InconsistentNaming
 	private void RestoreOpenGLState()
 	{
 		GL.Disable(EnableCap.CullFace);
@@ -202,31 +206,31 @@ public class Scene
 		// GL.Viewport(0, 0, (int) Camera.MainCamera.Size.X, (int) Camera.MainCamera.Size.Y);
 		// GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 
-		_sceneRenderQueue.RenderWorld();
+		_renderableComponentQueue.RenderWorld();
 		Tofu.I.InstancedRenderingSystem.RenderInstances();
 
-		if (TransformHandle.Transform.IsInCanvas == false)
-		{
-			TransformHandle.I.GameObject.Render();
-		}
+		// if (TransformHandle.Transform.IsInCanvas == false)
+		// {
+		// 	TransformHandle.I.GameObject.Render();
+		// }
 
 
 		RestoreOpenGLState();
 	}
 
-	public void RenderUI()
-	{
-		// GL.Enable(EnableCap.DepthTest);
-		// GL.DepthFunc(DepthFunction.Less);
-		// GL.Enable(EnableCap.StencilTest);
-
-		_sceneRenderQueue.RenderUI();
-
-		if (TransformHandle.Transform.IsInCanvas)
-		{
-			TransformHandle.I.GameObject.Render();
-		}
-	}
+	// public void RenderUI()
+	// {
+	// 	// GL.Enable(EnableCap.DepthTest);
+	// 	// GL.DepthFunc(DepthFunction.Less);
+	// 	// GL.Enable(EnableCap.StencilTest);
+	//
+	// 	_renderableComponentQueue.RenderUI();
+	//
+	// 	if (TransformHandle.Transform.IsInCanvas)
+	// 	{
+	// 		TransformHandle.I.GameObject.Render();
+	// 	}
+	// }
 
 	// public void RenderTransparent()
 	// {
@@ -332,14 +336,14 @@ public class Scene
 	{
 		GameObjects.Add(gameObject);
 
-		_sceneRenderQueue.RenderQueueChanged();
+		// _renderableComponentQueue.RenderQueueChanged();
 	}
 
 	public void AddGameObjectsToScene(IEnumerable<GameObject> gameObjects)
 	{
 		GameObjects.AddRange(gameObjects);
 
-		_sceneRenderQueue.RenderQueueChanged();
+		// _renderableComponentQueue.RenderQueueChanged();
 	}
 
 	public void CreateEmptySceneAndOpenIt(string path)
@@ -358,7 +362,7 @@ public class Scene
 			GameObjects.Remove(gameObject);
 		}
 
-		SceneModified.Invoke();
+		// SceneModified.Invoke();
 	}
 
 	void OnMouse3Clicked()

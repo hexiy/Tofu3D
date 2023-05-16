@@ -1,5 +1,5 @@
 ﻿[ExecuteInEditMode]
-public class MouseTracker : Component
+public class MouseTracker : Component, IComponentUpdateable
 {
 	bool _clicked;
 	public float ScaleSpeed = 20;

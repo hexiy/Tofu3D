@@ -6,7 +6,7 @@ using SharpAudio.Codec;
 namespace Tofu3D;
 
 [ExecuteInEditMode]
-public class AudioSource : Component
+public class AudioSource : Component, IComponentUpdateable
 {
 	[Show]
 	public AudioClip Clip;

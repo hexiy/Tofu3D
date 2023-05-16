@@ -9,7 +9,7 @@
     <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
     <ShadowMapTextureLocation>-1</ShadowMapTextureLocation>
   </Shader>
-  <Vao>10</Vao>
+  <Vao>7</Vao>
   <RenderMode>Opaque</RenderMode>
   <AlbedoTint>
     <B>255</B>

@@ -6,7 +6,7 @@ using Tofu3D.Rendering;
 namespace Tofu3D;
 
 [ExecuteInEditMode]
-public class Skybox : Component
+public class Skybox : Component, IComponentUpdateable
 {
 	Material _material;
 	CubemapTexture _texture;
@@ -50,18 +50,18 @@ public class Skybox : Component
 		base.Update();
 	}
 
-	public override void OnEnable()
+	public override void OnEnabled()
 	{
 		RenderPassSystem.RegisterRender(RenderPassType.Skybox, RenderSkybox);
 
-		base.OnEnable();
+		base.OnEnabled();
 	}
 
-	public override void OnDisable()
+	public override void OnDisabled()
 	{
 		RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
 
-		base.OnDisable();
+		base.OnDisabled();
 	}
 
 	private void RenderSkybox()

@@ -85,8 +85,12 @@ public class InstancedRenderingSystem
 	private void ResizeBufferData(InstancedRenderingObjectBufferData bufferData)
 	{
 		bufferData.FutureMaxNumberOfObjects += 10; // 10 in the tank
+		if (bufferData.FutureMaxNumberOfObjects > 1000)
+		{
+			bufferData.FutureMaxNumberOfObjects += 500;
+		}
 		bufferData.MaxNumberOfObjects = bufferData.FutureMaxNumberOfObjects;
-		Debug.Log($"Resizing buffer to new size:{bufferData.MaxNumberOfObjects}");
+		// Debug.Log($"Resizing buffer to new size:{bufferData.MaxNumberOfObjects}");
 
 		Array.Resize(ref bufferData.Buffer, bufferData.MaxNumberOfObjects * VertexCountOfFloats);
 		bufferData.Vbo = -1;

@@ -1,6 +1,6 @@
 ﻿namespace Scripts;
 
-public class AnimationController : Component
+public class AnimationController : Component, IComponentUpdateable
 {
 	public float AnimationSpeed = 1;
 

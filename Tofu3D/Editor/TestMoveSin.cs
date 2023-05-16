@@ -1,5 +1,5 @@
 // [ExecuteInEditMode]
-public class TestMoveSin : Component
+public class TestMoveSin : Component, IComponentUpdateable
 {
 	public override void Awake()
 	{

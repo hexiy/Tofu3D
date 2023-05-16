@@ -3,7 +3,7 @@
 namespace Tofu3D;
 
 [ExecuteInEditMode]
-public class TransformHandle : Component
+public class TransformHandle : Component, IComponentUpdateable
 {
 	public enum Axis
 	{
