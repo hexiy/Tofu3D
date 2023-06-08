@@ -24,6 +24,7 @@ public class Renderer : Component, IComparable<Renderer>, IComponentRenderable, 
 	[Hide] public virtual bool CanRender => true; // && Enabled && GameObject.Awoken && GameObject.ActiveInHierarchy;
 
 	public RenderMode RenderMode = RenderMode.Opaque;
+	public Mesh Mesh;
 
 	public int CompareTo(Renderer comparePart)
 	{

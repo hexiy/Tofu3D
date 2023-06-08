@@ -2,8 +2,6 @@
 
 public class ModelRendererInstanced : Renderer
 {
-	public Model Model;
-
 	public override void Awake()
 	{
 		InstancingData = new RendererInstancingData();
@@ -36,9 +34,9 @@ public class ModelRendererInstanced : Renderer
 			Material = AssetManager.Load<Material>(Material.AssetPath);
 		}
 
-		if (Model)
+		if (Mesh)
 		{
-			Model = AssetManager.Load<Model>(Model.AssetPath);
+			Mesh = AssetManager.Load<Mesh>(Mesh.AssetPath);
 		}
 	}
 
@@ -49,7 +47,12 @@ public class ModelRendererInstanced : Renderer
 			return;
 		}
 
-		bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
+		if (Mesh == null)
+		{
+			return;
+		}
+
+		/*bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
 		if (isTransformHandle && (RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques && RenderPassSystem.CurrentRenderPassType != RenderPassType.UI))
 		{
 			return;
@@ -63,12 +66,9 @@ public class ModelRendererInstanced : Renderer
 		if (Model == null)
 		{
 			return;
-		}
+		}*/
 
-
-		// float speed = 2;
-		// float posY = Mathf.Sin(Time.EditorElapsedTime*speed + Transform.LocalPosition.X / 10) * 3 + Mathf.Sin(Time.EditorElapsedTime*speed + Transform.LocalPosition.Z / 10) * 4;
-		// Transform.LocalPosition = Transform.LocalPosition.Set(y: posY);
+		
 		bool updatedData = Tofu.I.InstancedRenderingSystem.UpdateObjectData(this);
 		if (updatedData)
 		{

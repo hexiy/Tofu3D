@@ -68,7 +68,6 @@ public class SpriteRenderer : TextureRenderer
 
 	public override void Render()
 	{
-		return;
 		if (false)
 		{
 			// BatchingManager.UpdateAttribs(Texture.Id, GameObjectId, Transform.WorldPosition,

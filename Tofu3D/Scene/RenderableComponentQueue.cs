@@ -14,7 +14,7 @@ public class RenderableComponentQueue : IComponentQueue
 	{
 		Scene.ComponentEnabled += OnComponentEnabled;
 		Scene.ComponentDisabled += OnComponentDisabled;
-		
+
 		Scene.SceneStartedDisposing += OnSceneStartedDisposing;
 		Scene.SceneDisposed += OnSceneDisposed;
 	}

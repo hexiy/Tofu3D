@@ -43,7 +43,7 @@ public class InstancedRenderingSystem
 		}
 	}
 
-	private void RemoveObjectFromBuffer(InstancedRenderingObjectBufferData bufferData, ModelRendererInstanced renderer)
+	private void RemoveObjectFromBuffer(InstancedRenderingObjectBufferData bufferData, Renderer renderer)
 	{
 		for (int i = 0; i < VertexCountOfFloats; i++)
 		{
@@ -89,6 +89,7 @@ public class InstancedRenderingSystem
 		{
 			bufferData.FutureMaxNumberOfObjects += 500;
 		}
+
 		bufferData.MaxNumberOfObjects = bufferData.FutureMaxNumberOfObjects;
 		// Debug.Log($"Resizing buffer to new size:{bufferData.MaxNumberOfObjects}");
 
@@ -103,7 +104,7 @@ public class InstancedRenderingSystem
 		InstancedRenderingObjectDefinition definition = _definitions[definitionIndex];
 		Material material = definition.Material;
 		material = AssetManager.Load<Material>(material.AssetPath);
-		Model model = definition.Model;
+		Mesh mesh = definition.Mesh;
 		InstancedRenderingObjectBufferData bufferData = objectBufferPair.Value;
 		// GL.Enable(EnableCap.DepthTest);
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth or RenderPassType.ZPrePass)
@@ -113,9 +114,9 @@ public class InstancedRenderingSystem
 			depthMaterial.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
 
-			ShaderManager.BindVertexArray(model.Vao);
+			ShaderManager.BindVertexArray(mesh.Vao);
 
-			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, model.VerticesCount, instancesCount: objectBufferPair.Value.NumberOfObjects);
+			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount, instancesCount: objectBufferPair.Value.NumberOfObjects);
 		}
 
 		else if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
@@ -201,13 +202,13 @@ public class InstancedRenderingSystem
 			}
 
 
-			ShaderManager.BindVertexArray(model.Vao);
+			ShaderManager.BindVertexArray(mesh.Vao);
 
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 
-			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, model.VerticesCount, instancesCount: objectBufferPair.Value.NumberOfObjects);
+			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount, instancesCount: objectBufferPair.Value.NumberOfObjects);
 
 			// GL.ActiveTexture(TextureUnit.Texture0); // DOESNT WORK
 		}
@@ -235,15 +236,15 @@ public class InstancedRenderingSystem
 		DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount * instancesCount);
 	}
 
-	public bool UpdateObjectData(ModelRendererInstanced renderer, bool remove = false)
+	public bool UpdateObjectData(Renderer renderer, bool remove = false)
 	{
 		InstancedRenderingObjectBufferData bufferData;
 		Material material = renderer.Material;
-		Model model = renderer.Model;
+		Mesh mesh = renderer.Mesh;
 		if (renderer.InstancingData.InstancedRenderingDefinitionIndex == -1)
 		{
 			// no buffer exists for this combination-create one
-			InstancedRenderingObjectDefinition definition = new InstancedRenderingObjectDefinition(model, material, renderer.GameObject.IsStaticSelf);
+			InstancedRenderingObjectDefinition definition = new InstancedRenderingObjectDefinition(mesh, material, renderer.GameObject.IsStaticSelf);
 			int definitionIndex = _definitions.Contains(definition) ? _definitions.IndexOf(definition) : _definitions.Count;
 
 			// find bufferData if its already created
@@ -335,7 +336,7 @@ public class InstancedRenderingSystem
 	private InstancedRenderingObjectBufferData InitializeBufferData(InstancedRenderingObjectDefinition objectDefinition)
 	{
 		Debug.Log("Initializing Instanced Buffer Data");
-		GL.BindVertexArray(objectDefinition.Model.Vao);
+		GL.BindVertexArray(objectDefinition.Mesh.Vao);
 
 		InstancedRenderingObjectBufferData bufferData = new InstancedRenderingObjectBufferData
 		                                                {

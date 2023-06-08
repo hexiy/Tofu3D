@@ -155,7 +155,7 @@ public class EditorPanelInspector : EditorPanel
 		if (HasInspectableData)
 		{
 			ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 2);
-			DrawInspectables();
+			DrawInspectables(_currentInspectableDatas);
 			ImGui.PopStyleVar(1);
 
 			if (_refreshQueued)
@@ -194,15 +194,15 @@ public class EditorPanelInspector : EditorPanel
 		                                                   typeof(string),
 		                                                   typeof(Action),
 		                                                   typeof(AudioClip),
-		                                                   typeof(Model),
+		                                                   typeof(Mesh),
 		                                                   typeof(Shader),
 	                                                   };
 	// if its a list, simply draw it like any other value but under the list row
 	List<Type> _componentTypes;
 
-	void DrawInspectables()
+	void DrawInspectables(List<InspectableData> inspectableDatas)
 	{
-		GameObject gameObject = (_currentInspectableDatas[0].Inspectable as Component)?.GameObject;
+		GameObject gameObject = (inspectableDatas[0].Inspectable as Component)?.GameObject;
 		if (gameObject?.IsPrefab == true)
 		{
 			if (ImGui.Button("Update prefab"))
@@ -259,7 +259,8 @@ public class EditorPanelInspector : EditorPanel
 			}
 		}
 
-		foreach (InspectableData componentInspectorData in _currentInspectableDatas)
+		InspectableData materialToShowAtTheBottom = null;
+		foreach (InspectableData componentInspectorData in inspectableDatas)
 		{
 			Component component = componentInspectorData.Inspectable as Component;
 
@@ -292,15 +293,25 @@ public class EditorPanelInspector : EditorPanel
 			string inspectableName = componentInspectorData.InspectableType.Name;
 			if (componentInspectorData.InspectableType.IsSubclassOf(typeof(Component)))
 			{
-				Component c = componentInspectorData.Inspectable as Component;
-				inspectableName = (Global.Debug ? $"[{c.GameObjectId}] " : "") + componentInspectorData.InspectableType.Name;
+				inspectableName = (Global.Debug ? $"[{component.GameObjectId}] " : "") + componentInspectorData.InspectableType.Name;
 			}
 
-			if (ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen))
+			if (componentInspectorData.InspectableType == typeof(Material))
+			{
+				ImGui.PushStyleColor(ImGuiCol.Header, Color.Honeydew.ToVector4());
+			}
+
+			bool headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);
+			if (componentInspectorData.InspectableType == typeof(Material))
+			{
+				ImGui.PopStyleColor();
+			}
+
+			if (headerClicked)
 			{
 				if (componentInspectorData.InspectableType == typeof(Material))
 				{
-					DrawMaterialStuff(componentInspectorData);
+					// DrawMaterialStuff(componentInspectorData);
 				}
 
 
@@ -321,7 +332,13 @@ public class EditorPanelInspector : EditorPanel
 					_actionQueue += () => { AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
 				}
 			}
+
+			if (componentInspectorData.InspectableType.IsSubclassOf(typeof(Renderer)))
+			{
+				materialToShowAtTheBottom = new InspectableData((componentInspectorData.Inspectable as Renderer).Material);
+			}
 		}
+
 
 		if (gameObject)
 		{
@@ -372,57 +389,66 @@ public class EditorPanelInspector : EditorPanel
 				ImGui.EndPopup();
 			}
 		}
-	}
 
-	void DrawMaterialStuff(InspectableData componentInspectorData)
-	{
-		PushNextId();
-		Material selectedMaterial = componentInspectorData.Inspectable as Material;
-		// bool saveMaterialClicked = ImGui.Button("Save");
-		// if (saveMaterialClicked)
-		// {
-		// 	// AssetManager.Save<Material>(selectedMaterial);
-		// }
-
-		string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.AssetPath);
-		ImGui.Text(materialName);
-
-		ImGui.Text("Shader");
-		float itemWidth = 400;
-		ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth);
-		ImGui.SetNextItemWidth(itemWidth);
-
-		string shaderPath = selectedMaterial.Shader?.Path ?? "";
-		string shaderName = Path.GetFileName(shaderPath);
-		bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-		if (clicked)
+		if (materialToShowAtTheBottom != null)
 		{
-			EditorPanelBrowser.I.GoToFile(shaderPath);
-		}
-
-		if (ImGui.BeginDragDropTarget())
-		{
-			ImGui.AcceptDragDropPayload("SHADER", ImGuiDragDropFlags.None);
-
-			shaderPath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-			if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && shaderPath.Length > 0)
-			{
-				//shaderPath = Path.GetRelativePath("Assets", shaderPath);
-				Shader shader = new(shaderPath);
-
-				selectedMaterial.Shader = shader;
-				_actionQueue += () => { AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
-				// AssetManager.Save<Material>(selectedMaterial);
-			}
-
-			ImGui.EndDragDropTarget();
-		}
-
-		if (selectedMaterial.Shader == null)
-		{
-			return;
+			ImGui.Dummy(new Vector2(0, 50));
+			DrawInspectables(new List<InspectableData>
+			                 {
+				                 materialToShowAtTheBottom
+			                 });
 		}
 	}
+
+	// void DrawMaterialStuff(InspectableData componentInspectorData)
+	// {
+	// 	PushNextId();
+	// 	Material selectedMaterial = componentInspectorData.Inspectable as Material;
+	// 	// bool saveMaterialClicked = ImGui.Button("Save");
+	// 	// if (saveMaterialClicked)
+	// 	// {
+	// 	// 	// AssetManager.Save<Material>(selectedMaterial);
+	// 	// }
+	//
+	// 	string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.AssetPath);
+	// 	ImGui.Text(materialName);
+	//
+	// 	ImGui.Text("Shader");
+	// 	float itemWidth = 400;
+	// 	ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth);
+	// 	ImGui.SetNextItemWidth(itemWidth);
+	//
+	// 	string shaderPath = selectedMaterial.Shader?.Path ?? "";
+	// 	string shaderName = Path.GetFileName(shaderPath);
+	// 	bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+	// 	if (clicked)
+	// 	{
+	// 		EditorPanelBrowser.I.GoToFile(shaderPath);
+	// 	}
+	//
+	// 	if (ImGui.BeginDragDropTarget())
+	// 	{
+	// 		ImGui.AcceptDragDropPayload("SHADER", ImGuiDragDropFlags.None);
+	//
+	// 		shaderPath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+	// 		if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && shaderPath.Length > 0)
+	// 		{
+	// 			//shaderPath = Path.GetRelativePath("Assets", shaderPath);
+	// 			Shader shader = new(shaderPath);
+	//
+	// 			selectedMaterial.Shader = shader;
+	// 			_actionQueue += () => { AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
+	// 			// AssetManager.Save<Material>(selectedMaterial);
+	// 		}
+	//
+	// 		ImGui.EndDragDropTarget();
+	// 	}
+	//
+	// 	if (selectedMaterial.Shader == null)
+	// 	{
+	// 		return;
+	// 	}
+	// }
 
 	bool DrawFieldOrProperty(FieldOrPropertyInfo info, InspectableData componentInspectorData)
 	{
@@ -540,11 +566,11 @@ public class EditorPanelInspector : EditorPanel
 				info.SetValue(componentInspectorData.Inspectable, (Vector2) systemv2);
 			}
 		}
-		else if (info.FieldOrPropertyType == typeof(Model))
+		else if (info.FieldOrPropertyType == typeof(Mesh))
 		{
-			Model model = (Model) info.GetValue(componentInspectorData.Inspectable);
+			Mesh mesh = (Mesh) info.GetValue(componentInspectorData.Inspectable);
 
-			string assetName = Path.GetFileName(model?.AssetPath) ?? "";
+			string assetName = Path.GetFileName(mesh?.AssetPath) ?? "";
 
 			bool clicked = ImGui.Button(assetName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 
@@ -556,9 +582,9 @@ public class EditorPanelInspector : EditorPanel
 				{
 					// fileName = Path.GetRelativePath("Assets", fileName);
 
-					model = AssetManager.Load<Model>(filePath);
+					mesh = AssetManager.Load<Mesh>(filePath);
 					// gameObject.GetComponent<Renderer>().Material.Vao = model.Vao; // materials are shared
-					info.SetValue(componentInspectorData.Inspectable, model);
+					info.SetValue(componentInspectorData.Inspectable, mesh);
 				}
 
 				ImGui.EndDragDropTarget();

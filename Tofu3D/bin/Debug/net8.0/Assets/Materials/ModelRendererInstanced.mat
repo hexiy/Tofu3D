@@ -9,7 +9,6 @@
     <AmbientOcclusionTextureLocation>24</AmbientOcclusionTextureLocation>
     <ShadowMapTextureLocation>25</ShadowMapTextureLocation>
   </Shader>
-  <Vao>0</Vao>
   <RenderMode>Opaque</RenderMode>
   <AlbedoTexture>
     <AssetPath>Assets\2D\Grass_Block_TEX.png</AssetPath>
@@ -40,6 +39,6 @@
     <X>0</X>
     <Y>0</Y>
   </Offset>
-  <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-  <SpecularSmoothness>0.2</SpecularSmoothness>
+  <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+  <SpecularSmoothness>0</SpecularSmoothness>
 </Material>

@@ -2,19 +2,19 @@
 
 namespace Tofu3D;
 
-public class ModelLoader : AssetLoader<Model>
+public class ModelLoader : AssetLoader<Mesh>
 {
-	public override Model SaveAsset(ref Model asset, AssetLoadSettingsBase loadSettings)
+	public override Mesh SaveAsset(ref Mesh asset, AssetLoadSettingsBase loadSettings)
 	{
 		throw new NotImplementedException();
 	}
 
-	public override void UnloadAsset(Asset<Model> asset)
+	public override void UnloadAsset(Asset<Mesh> asset)
 	{
 		GL.DeleteTexture(asset.AssetRuntimeHandle.Id);
 	}
 
-	public override Asset<Model> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
+	public override Asset<Mesh> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
 	{
 		ModelLoadSettings loadSettings = assetLoadSettings as ModelLoadSettings;
 
@@ -99,16 +99,16 @@ public class ModelLoader : AssetLoader<Model>
 			}
 		}
 
-		Model model = new Model();
-		model.VertexBufferDataLength = everything.Count;
-		model.VerticesCount = totalVerticesCount;
+		Mesh mesh = new Mesh();
+		mesh.VertexBufferDataLength = everything.Count;
+		mesh.VerticesCount = totalVerticesCount;
 		int[] countsOfElements = new[] {3, 2, 3};
 		
-		BufferFactory.CreateModelBuffers(vao: ref model.Vao, vertexBufferData: everything.ToArray(), countsOfElements);
+		BufferFactory.CreateModelBuffers(vao: ref mesh.Vao, vertexBufferData: everything.ToArray(), countsOfElements);
 		
-		model.InitAssetRuntimeHandle(model.Vao);
-		model.AssetPath = loadSettings.Path;
+		mesh.InitAssetRuntimeHandle(mesh.Vao);
+		mesh.AssetPath = loadSettings.Path;
 
-		return model;
+		return mesh;
 	}
 }

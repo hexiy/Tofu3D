@@ -4,7 +4,7 @@ using OpenTK.Compute.OpenCL;
 
 namespace Tofu3D;
 
-public class ModelLoadSettings : AssetLoadSettings<Model>
+public class ModelLoadSettings : AssetLoadSettings<Mesh>
 {
 	public static ModelLoadSettings DefaultSettingsModel = new ModelLoadSettings(path: string.Empty);
 

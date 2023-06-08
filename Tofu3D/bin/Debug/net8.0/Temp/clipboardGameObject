@@ -11,7 +11,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>BlockInstanced</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -33,12 +33,12 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>0</X>
+        <X>-1.7</X>
         <Y>0</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
+        <X>-1.7</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
@@ -81,7 +81,6 @@
           <AmbientOcclusionTextureLocation>24</AmbientOcclusionTextureLocation>
           <ShadowMapTextureLocation>25</ShadowMapTextureLocation>
         </Shader>
-        <Vao>0</Vao>
         <RenderMode>Opaque</RenderMode>
         <AlbedoTexture>
           <AssetPath>Assets\2D\Grass_Block_TEX.png</AssetPath>
@@ -112,17 +111,17 @@
           <X>0</X>
           <Y>0</Y>
         </Offset>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.2</SpecularSmoothness>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
-      <Layer>0</Layer>
-      <Model>
+      <Mesh>
         <AssetPath>Assets\3D\Grass_Block.obj</AssetPath>
         <Vao>6</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <VerticesCount>36</VerticesCount>
-      </Model>
+      </Mesh>
+      <Layer>0</Layer>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>

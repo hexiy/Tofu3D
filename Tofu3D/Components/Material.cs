@@ -13,7 +13,7 @@ public class Material : Asset<Material>
 	[Hide]
 	public Shader Shader;
 
-	[Hide]
+	[Hide][XmlIgnore]
 	public int Vao;
 	public RenderMode RenderMode = RenderMode.Opaque;
 

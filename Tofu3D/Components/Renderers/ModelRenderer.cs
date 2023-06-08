@@ -2,7 +2,7 @@ using Tofu3D.Rendering;
 
 public class ModelRenderer : TextureRenderer
 {
-	public Model Model;
+	// public Mesh Mesh;
 	public bool CastShadow = true;
 	// Color _mousePickingColor;
 	[SliderF(0, 1)]
@@ -38,9 +38,9 @@ public class ModelRenderer : TextureRenderer
 			Material = AssetManager.Load<Material>(Material.AssetPath);
 		}
 
-		if (Model)
+		if (Mesh)
 		{
-			Model = AssetManager.Load<Model>(Model.AssetPath);
+			Mesh = AssetManager.Load<Mesh>(Mesh.AssetPath);
 		}
 		// Material = AssetManager.Load<Material>("ModelRenderer");
 
@@ -86,7 +86,7 @@ public class ModelRenderer : TextureRenderer
 			return;
 		}
 
-		if (Model == null)
+		if (Mesh == null)
 		{
 			return;
 		}
@@ -111,8 +111,8 @@ public class ModelRenderer : TextureRenderer
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 
 
-			ShaderManager.BindVertexArray(Model.Vao);
-			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.VerticesCount);
+			ShaderManager.BindVertexArray(Mesh.Vao);
+			GL_DrawArrays(PrimitiveType.Triangles, 0, Mesh.VerticesCount);
 		}
 
 		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
@@ -210,17 +210,17 @@ public class ModelRenderer : TextureRenderer
 
 			// if (Model != null)
 			// {
-			ShaderManager.BindVertexArray(Model.Vao);
+			ShaderManager.BindVertexArray(Mesh.Vao);
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
 			if (isTransformHandle == false)
 			{
-				RenderWireframe(Model.VerticesCount);
+				RenderWireframe(Mesh.VerticesCount);
 			}
 
 			// GL_DrawArrays(PrimitiveType.Triangles, 0, Model.IndicesCount);
-			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.VerticesCount);
+			GL_DrawArrays(PrimitiveType.Triangles, 0, Mesh.VerticesCount);
 
 
 			// }
@@ -234,11 +234,11 @@ public class ModelRenderer : TextureRenderer
 		}
 		else
 		{
-			if (Model != null)
+			if (Mesh != null)
 			{
-				ShaderManager.BindVertexArray(Model.Vao);
+				ShaderManager.BindVertexArray(Mesh.Vao);
 
-				GL_DrawArrays(PrimitiveType.Triangles, 0, Model.VerticesCount);
+				GL_DrawArrays(PrimitiveType.Triangles, 0, Mesh.VerticesCount);
 			}
 			else
 			{
@@ -270,10 +270,10 @@ public class ModelRenderer : TextureRenderer
 			outlineMaterial.Shader.SetMatrix4X4("u_model", GetModelMatrix());
 			outlineMaterial.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
 
-			ShaderManager.BindVertexArray(Model.Vao);
+			ShaderManager.BindVertexArray(Mesh.Vao);
 			GL.ActiveTexture(TextureUnit.Texture0);
 			TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
-			GL_DrawArrays(PrimitiveType.Triangles, 0, Model.VerticesCount);
+			GL_DrawArrays(PrimitiveType.Triangles, 0, Mesh.VerticesCount);
 
 
 			GL.StencilMask(0xFF);
