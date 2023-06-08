@@ -449,5 +449,6 @@ public class EditorPanelBrowser : EditorPanel
 		}
 
 		CurrentDirectory = Directory.GetParent(directory);
+		RefreshAssets();
 	}
 }

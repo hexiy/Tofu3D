@@ -635,13 +635,25 @@ public class EditorPanelInspector : EditorPanel
 			Texture texture = (Texture) info.GetValue(componentInspectorData.Inspectable);
 			string textureName = texture == null ? "" : Path.GetFileName(texture.AssetPath);
 
+			int posX = (int)ImGui.GetCursorPosX();
+
+			if (texture == null)
+			{
+				ImGui.Dummy(new Vector2(150, 150));
+			}
+			else
+			{
+				ImGui.Image(texture.TextureId, new Vector2(150, 150));
+			}
+
+			ImGui.SetCursorPosX(posX);
 			bool clicked = ImGui.Button(textureName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 			bool rightMouseClicked = ImGui.IsItemClicked(ImGuiMouseButton.Right);
 			//ImiGui.Text(textureName);
 			if (clicked)
 			{
-				Debug.Log("TODO");
-				// EditorPanelBrowser.I.GoToFile((componentInspectorData.Inspectable as TextureRenderer).Texture.AssetPath);
+				// Debug.Log("TODO");
+				_actionQueue += () => { EditorPanelBrowser.I.GoToFile(texture.AssetPath); };
 			}
 
 			if (rightMouseClicked)

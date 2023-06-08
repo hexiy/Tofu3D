@@ -11,7 +11,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>BlockInstanced</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
