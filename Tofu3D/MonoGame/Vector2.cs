@@ -13,7 +13,7 @@ namespace Tofu3D;
 ///         Describes a 2D-vector.
 /// </summary>
 #if XNADESIGNPROVIDED
-    [System.ComponentModel.TypeConverter(typeof(Microsoft.Xna.Framework.Design.Vector2TypeConverter))]
+    [System.ComponentMesh.TypeConverter(typeof(Microsoft.Xna.Framework.Design.Vector2TypeConverter))]
 #endif
 [DataContract]
 [DebuggerDisplay("{DebugDisplayString,nq}")]

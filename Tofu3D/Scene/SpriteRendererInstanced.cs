@@ -19,7 +19,7 @@ public class SpriteRendererInstanced : Renderer
 		// }
 		if (Mesh)
 		{
-			Mesh = AssetManager.Load<Mesh>(Mesh.AssetPath);
+			Mesh = Tofu.I.AssetManager.Load<Mesh>(Mesh.Path);
 		}
 		//BatchingManager.AddObjectToBatcher(Texture.Id, this);
 		base.Awake();
@@ -69,7 +69,7 @@ public class SpriteRendererInstanced : Renderer
 		// }
 
 		// Material = AssetManager.Load<Material>("SpriteRendererInstanced");
-		Material = AssetManager.Load<Material>("ModelRendererInstanced");
+		Material = Tofu.I.AssetManager.Load<Material>("ModelRendererInstanced");
 
 		// base.SetDefaultMaterial();
 	}

@@ -119,7 +119,7 @@
       <Content Include="bin\Debug\net7.0\Assets\Audio\oriental.mp3" />
       <Content Include="bin\Debug\net7.0\Assets\Materials\Alien.mat" />
       <Content Include="bin\Debug\net7.0\Assets\Materials\BoxMaterial.mat" />
-      <Content Include="bin\Debug\net7.0\Assets\Materials\DepthModel.mat" />
+      <Content Include="bin\Debug\net7.0\Assets\Materials\DepthMesh.mat" />
       <Content Include="bin\Debug\net7.0\Assets\Materials\DepthRenderTexture.mat" />
       <Content Include="bin\Debug\net7.0\Assets\Materials\mat1test.mat" />
       <Content Include="bin\Debug\net7.0\Assets\Materials\matsssss.mat" />
@@ -198,7 +198,7 @@
       <Content Include="bin\Debug\net7.0\Microsoft.CodeAnalysis.Workspaces.dll" />
       <Content Include="bin\Debug\net7.0\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
       <Content Include="bin\Debug\net7.0\Microsoft.DotNet.PlatformAbstractions.dll" />
-      <Content Include="bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll" />
+      <Content Include="bin\Debug\net7.0\Microsoft.Extensions.DependencyMesh.dll" />
       <Content Include="bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll" />
       <Content Include="bin\Debug\net7.0\NativeLibraryLoader.dll" />
       <Content Include="bin\Debug\net7.0\Newtonsoft.Json.dll" />
@@ -304,7 +304,7 @@
       <Content Include="bin\Debug\net7.0\SharpGen.Runtime.dll" />
       <Content Include="bin\Debug\net7.0\SixLabors.ImageSharp.dll" />
       <Content Include="bin\Debug\net7.0\System.CodeDom.dll" />
-      <Content Include="bin\Debug\net7.0\System.Composition.AttributedModel.dll" />
+      <Content Include="bin\Debug\net7.0\System.Composition.AttributedMesh.dll" />
       <Content Include="bin\Debug\net7.0\System.Composition.Convention.dll" />
       <Content Include="bin\Debug\net7.0\System.Composition.Hosting.dll" />
       <Content Include="bin\Debug\net7.0\System.Composition.Runtime.dll" />

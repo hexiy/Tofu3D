@@ -3,15 +3,15 @@
 public class Pool
 {
 	public Stack<GameObject> FreeObjects = new();
-	public GameObject Model;
+	public GameObject Go;
 	public Stack<GameObject> UsedObjects = new();
 
 	void AddNewObject()
 	{
 		GameObject gameObject = GameObject.Create(name: "Pooled object");
-		for (int i = 0; i < Model.Components.Count; i++)
+		for (int i = 0; i < Go.Components.Count; i++)
 		{
-			gameObject.AddComponent(Model.Components[i].GetType());
+			gameObject.AddComponent(Go.Components[i].GetType());
 		}
 
 		gameObject.Awake();
