@@ -6,7 +6,7 @@ public class EditorPanel
 {
 	public virtual string Name => "";
 
-	public virtual Vector2 Size => new Vector2(Tofu.I.Window.ClientSize.X - 1600, Tofu.I.Window.ClientSize.Y - Editor.SceneViewSize.Y + 1);
+	public virtual Vector2 Size => new Vector2(Tofu.I.Window.ClientSize.X - 1600, Tofu.I.Window.ClientSize.Y - Tofu.I.Editor.SceneViewSize.Y + 1);
 	public virtual Vector2 Position => new Vector2(0, Tofu.I.Window.ClientSize.Y);
 	public virtual Vector2 Pivot => new Vector2(0, 1);
 	public virtual ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.None;

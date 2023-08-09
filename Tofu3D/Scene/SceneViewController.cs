@@ -11,12 +11,10 @@ public class SceneViewController
 
 	public SceneViewController()
 	{
-		I = this;
 		MouseInput.RegisterPassThroughEdgesCondition(() => AllowPassThroughEdges);
 		SetProjectionMode(CurrentProjectionMode);
 	}
 
-	public static SceneViewController I { get; private set; }
 	public bool IsPanningCamera { get; private set; }
 	public bool AllowPassThroughEdges { get; set; }
 

@@ -1,19 +1,19 @@
 ﻿namespace Tofu3D;
 
-public static class RenderSettings
+public class RenderSettings
 {
-	public static WireframeRenderSettings CurrentWireframeRenderSettings;
-	public static ViewRenderModeSettings CurrentRenderModeSettings;
+	public WireframeRenderSettings CurrentWireframeRenderSettings;
+	public ViewRenderModeSettings CurrentRenderModeSettings;
 		
 	
 
-	public static void SaveData()
+	public void SaveData()
 	{
 		PersistentData.Set("RenderSettings.Wireframe", CurrentWireframeRenderSettings);
 		PersistentData.Set("RenderSettings.ViewRenderMode", CurrentRenderModeSettings);
 	}
 
-	public static void LoadSavedData()
+	public void LoadSavedData()
 	{
 		CurrentWireframeRenderSettings = PersistentData.Get<WireframeRenderSettings>("RenderSettings.Wireframe", new WireframeRenderSettings());
 		CurrentRenderModeSettings = PersistentData.Get<ViewRenderModeSettings>("RenderSettings.ViewRenderMode", new ViewRenderModeSettings());

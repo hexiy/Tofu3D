@@ -102,28 +102,28 @@ public class InstancedRenderingSystem
 		int definitionIndex = objectBufferPair.Key;
 		InstancedRenderingObjectDefinition definition = _definitions[definitionIndex];
 		Material material = definition.Material;
-		material = AssetManager.Load<Material>(material.AssetPath);
+		material = Tofu.I.AssetManager.Load<Material>(material.Path);
 		Model model = definition.Model;
 		InstancedRenderingObjectBufferData bufferData = objectBufferPair.Value;
 		// GL.Enable(EnableCap.DepthTest);
-		if (RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth or RenderPassType.ZPrePass)
+		if (Tofu.I.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth or RenderPassType.ZPrePass)
 		{
-			Material depthMaterial = AssetManager.Load<Material>("ModelRendererInstancedDepth");
-			ShaderManager.UseShader(depthMaterial.Shader);
+			Material depthMaterial = Tofu.I.AssetManager.Load<Material>("ModelRendererInstancedDepth");
+			Tofu.I.ShaderManager.UseShader(depthMaterial.Shader);
 			depthMaterial.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
 
-			ShaderManager.BindVertexArray(model.Vao);
+			Tofu.I.ShaderManager.BindVertexArray(model.Vao);
 
 			GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, model.VerticesCount, instancesCount: objectBufferPair.Value.NumberOfObjects);
 		}
 
-		else if (RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
+		else if (Tofu.I.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
 		{
-			ShaderManager.UseShader(material.Shader);
+			Tofu.I.ShaderManager.UseShader(material.Shader);
 
 
-			material.Shader.SetFloat("u_renderMode", (int) RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
+			material.Shader.SetFloat("u_renderMode", (int) Tofu.I.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
 
 			material.Shader.SetMatrix4X4("u_viewProjection", Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
@@ -152,25 +152,25 @@ public class InstancedRenderingSystem
 			material.Shader.SetFloat("u_specularHighlightsEnabled", material.SpecularHighlightsEnabled ? 1 : 0);
 
 			//FOG
-			bool fogEnabled = SceneManager.CurrentScene.SceneFogManager.FogEnabled;
+			bool fogEnabled = Tofu.I.SceneManager.CurrentScene.SceneFogManager.FogEnabled;
 			material.Shader.SetFloat("u_fogEnabled", fogEnabled ? 1 : 0);
 			if (fogEnabled)
 			{
-				material.Shader.SetColor("u_fogColor", SceneManager.CurrentScene.SceneFogManager.FogColor1);
-				material.Shader.SetFloat("u_fogIntensity", SceneManager.CurrentScene.SceneFogManager.Intensity);
-				if (SceneManager.CurrentScene.SceneFogManager.IsGradient)
+				material.Shader.SetColor("u_fogColor", Tofu.I.SceneManager.CurrentScene.SceneFogManager.FogColor1);
+				material.Shader.SetFloat("u_fogIntensity", Tofu.I.SceneManager.CurrentScene.SceneFogManager.Intensity);
+				if (Tofu.I.SceneManager.CurrentScene.SceneFogManager.IsGradient)
 				{
-					material.Shader.SetColor("u_fogColor2", SceneManager.CurrentScene.SceneFogManager.FogColor2);
-					material.Shader.SetFloat("u_fogGradientSmoothness", SceneManager.CurrentScene.SceneFogManager.GradientSmoothness);
+					material.Shader.SetColor("u_fogColor2", Tofu.I.SceneManager.CurrentScene.SceneFogManager.FogColor2);
+					material.Shader.SetFloat("u_fogGradientSmoothness", Tofu.I.SceneManager.CurrentScene.SceneFogManager.GradientSmoothness);
 				}
 				else
 				{
-					material.Shader.SetColor("u_fogColor2", SceneManager.CurrentScene.SceneFogManager.FogColor1);
+					material.Shader.SetColor("u_fogColor2", Tofu.I.SceneManager.CurrentScene.SceneFogManager.FogColor1);
 				}
 
-				material.Shader.SetFloat("u_fogStartDistance", SceneManager.CurrentScene.SceneFogManager.FogStartDistance);
-				material.Shader.SetFloat("u_fogEndDistance", SceneManager.CurrentScene.SceneFogManager.FogEndDistance);
-				material.Shader.SetFloat("u_fogPositionY", SceneManager.CurrentScene.SceneFogManager.FogPositionY);
+				material.Shader.SetFloat("u_fogStartDistance", Tofu.I.SceneManager.CurrentScene.SceneFogManager.FogStartDistance);
+				material.Shader.SetFloat("u_fogEndDistance", Tofu.I.SceneManager.CurrentScene.SceneFogManager.FogEndDistance);
+				material.Shader.SetFloat("u_fogPositionY", Tofu.I.SceneManager.CurrentScene.SceneFogManager.FogPositionY);
 			}
 
 			// material.Shader.SetFloat("u_aoStrength", _normalDisabled ? 0 : 1);
@@ -183,7 +183,7 @@ public class InstancedRenderingSystem
 			}
 
 			// NORMAL
-			// TextureHelper.BindTexture(AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
+			// TextureHelper.BindTexture(Tofu.I.AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
 			// GL.ActiveTexture(TextureUnit.Texture1);
 			// TextureHelper.BindTexture(_idNormal);
 
@@ -201,7 +201,7 @@ public class InstancedRenderingSystem
 			}
 
 
-			ShaderManager.BindVertexArray(model.Vao);
+			Tofu.I.ShaderManager.BindVertexArray(model.Vao);
 
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);

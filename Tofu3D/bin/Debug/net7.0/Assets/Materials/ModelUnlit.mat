@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Additive>false</Additive>
+  <Path>Assets/Materials/ModelUnlit.mat</Path>
+  <Shader>
+    <BufferType>Rendertexture</BufferType>
+    <Path>Assets/Shaders/ModelRendererUnlit.glsl</Path>
+  </Shader>
+  <Vao>20</Vao>
+  <Vbo>0</Vbo>
+</Material>

@@ -61,8 +61,8 @@ public class Scene
 		_renderableComponentQueue = new RenderableComponentQueue();
 		_updateableComponentQueue = new UpdateableComponentQueue();
 
-		RenderPassSystem.RegisterRender(RenderPassType.ZPrePass, RenderWorld);
-		RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderWorld);
+		Tofu.I.RenderPassSystem.RegisterRender(RenderPassType.ZPrePass, RenderWorld);
+		Tofu.I.RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderWorld);
 		// RenderPassSystem.RegisterRender(RenderPassType.Transparency, RenderTransparent);
 	}
 
@@ -85,8 +85,8 @@ public class Scene
 
 		// GameObjects.Clear();
 		// GameObjects = new List<GameObject>();
-		RenderPassSystem.RemoveRender(RenderPassType.ZPrePass, RenderWorld);
-		RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderWorld);
+		Tofu.I.RenderPassSystem.RemoveRender(RenderPassType.ZPrePass, RenderWorld);
+		Tofu.I.RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderWorld);
 		// RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
 		Tofu.I.InstancedRenderingSystem.ClearBuffers();
 
@@ -346,13 +346,13 @@ public class Scene
 		// _renderableComponentQueue.RenderQueueChanged();
 	}
 
-	public void CreateEmptySceneAndOpenIt(string path)
+	public void SetupAndSaveEmptyScene(string path)
 	{
 		IDsManager.GameObjectNextId = 0;
-		SceneManager.LastOpenedScene = path;
+		Tofu.I.SceneManager.LastOpenedScene = path;
 		GameObjects = new List<GameObject>();
 		CreateDefaultObjects();
-		SceneSerializer.SaveGameObjects(GetSceneFile(), path);
+		Tofu.I.SceneSerializer.SaveGameObjects(GetSceneFile(), path);
 	}
 
 	public void OnGameObjectDestroyed(GameObject gameObject)

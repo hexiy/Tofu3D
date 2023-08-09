@@ -15,7 +15,7 @@ public class TextureLoader : AssetLoader<Texture>
 
 	public override void UnloadAsset(Asset<Texture> asset)
 	{
-		GL.DeleteTexture(asset.AssetRuntimeHandle.Id);
+		GL.DeleteTexture(asset.Handle.Id);
 	}
 
 	public override Asset<Texture> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
@@ -28,18 +28,12 @@ public class TextureLoader : AssetLoader<Texture>
 			path = Folders.Get2DAssetPath("purple.png");
 		}
 
-
 		TextureHelper.BindTexture(id, TextureType.Texture2D);
-
 
 		Vector2 imageSize = Vector2.Zero;
 
 		Image<Rgba32> image = Image.Load<Rgba32>(path);
 		imageSize = new Vector2(image.Width, image.Height);
-		if (loadSettings.FlipX)
-		{
-			image.Mutate(x => x.Flip(FlipMode.Vertical));
-		}
 
 		byte[] pixels = new byte[4 * image.Width * image.Height];
 		image.Frames[0].CopyPixelDataTo(pixels);
@@ -56,18 +50,21 @@ public class TextureLoader : AssetLoader<Texture>
 		GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int) loadSettings.FilterMode);
 		GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int) loadSettings.FilterMode);
 
-		GL.TextureParameter(id, TextureParameterName.TextureMinFilter, (int) loadSettings.FilterMode + 257);
-		GL.TextureParameter(id, TextureParameterName.TextureLodBias, -0.4f);
-		
+		// crashes the engine on macos
+		if (OperatingSystem.IsWindows)
+		{
+			GL.TextureParameter(id, TextureParameterName.TextureMinFilter, (int) loadSettings.FilterMode + 257);
+			GL.TextureParameter(id, TextureParameterName.TextureLodBias, -0.4f);
+		}
+
 		ImGuiController.CheckGlError("texture load");
 
 		Texture texture = new()
 		                  {
 			                  Size = imageSize,
 			                  Loaded = true,
-			                  AssetPath = loadSettings.Path,
+			                  Path = loadSettings.Path,
 			                  LoadSettings = loadSettings
-			                  // Paths = loadSettings.Paths
 		                  };
 		texture.InitAssetRuntimeHandle(id);
 

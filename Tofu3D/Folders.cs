@@ -5,7 +5,7 @@ namespace Tofu3D;
 public class Folders
 {
 	/// <summary>
-	/// Including "Assets/"
+	/// From "Desktop/project/bin/Assets/2D/xx.png" to "Assets/2D/xx.png"
 	/// </summary>
 	/// <param name="path"></param>
 	/// <returns></returns>
@@ -15,7 +15,7 @@ public class Folders
 		{
 			return Assets;
 		}
-
+	
 		return Path.Combine("Assets", Path.GetRelativePath(Assets, path));
 	}
 
@@ -24,6 +24,11 @@ public class Folders
 		return Path.Combine(Textures, assetName);
 	}
 
+	/// <summary>
+	/// From "Desktop/project/bin/Assets/2D/xx.png" to "bin/Assets/2D/xx.png"
+	/// </summary>
+	/// <param name="path"></param>
+	/// <returns></returns>
 	public static string GetPathRelativeToEngineFolder(string path)
 	{
 		if (path.Length == 0)
@@ -31,7 +36,7 @@ public class Folders
 			return Assets;
 		}
 
-		return Path.Combine(EngineFolderPath, Path.GetRelativePath(EngineFolderPath, path));
+		return Path.GetRelativePath(EngineFolderPath, path);
 	}
 
 	public static string EngineFolderPath

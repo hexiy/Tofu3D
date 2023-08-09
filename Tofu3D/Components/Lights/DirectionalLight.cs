@@ -35,7 +35,7 @@ public class DirectionalLight : LightBase
 		// DepthRenderTexture = new RenderTexture(size: Size, colorAttachment: false, depthAttachment: true);
 		// DisplayDepthRenderTexture = new RenderTexture(size: Size, colorAttachment: true, depthAttachment: false);
 
-		RenderPassSystem.RegisterRender(RenderPassType.DirectionalLightShadowDepth, RenderDirectionalLightShadowDepth);
+		Tofu.I.RenderPassSystem.RegisterRender(RenderPassType.DirectionalLightShadowDepth, RenderDirectionalLightShadowDepth);
 		RenderPassDirectionalLightShadowDepth.I?.SetDirectionalLight(this);
 
 		base.Awake();
@@ -62,7 +62,7 @@ public class DirectionalLight : LightBase
 
 		ConfigureForShadowMapping();
 
-		SceneManager.CurrentScene.RenderWorld();
+		Tofu.I.SceneManager.CurrentScene.RenderWorld();
 
 		ConfigureForSceneRender();
 	}
@@ -70,7 +70,7 @@ public class DirectionalLight : LightBase
 	public override void OnDestroyed()
 	{
 		ConfigureForSceneRender();
-		RenderPassSystem.RemoveRender(RenderPassType.DirectionalLightShadowDepth, RenderDirectionalLightShadowDepth);
+		Tofu.I.RenderPassSystem.RemoveRender(RenderPassType.DirectionalLightShadowDepth, RenderDirectionalLightShadowDepth);
 
 		base.OnDestroyed();
 	}

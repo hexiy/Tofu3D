@@ -8,7 +8,7 @@ namespace Tofu3D;
 
 public class EditorPanelBrowser : EditorPanel
 {
-	public override Vector2 Size => new Vector2(Tofu.I.Window.ClientSize.X - 1600, Tofu.I.Window.ClientSize.Y - Editor.SceneViewSize.Y + 1);
+	public override Vector2 Size => new Vector2(Tofu.I.Window.ClientSize.X - 1600, Tofu.I.Window.ClientSize.Y - Tofu.I.Editor.SceneViewSize.Y + 1);
 	public override Vector2 Position => new Vector2(0, Tofu.I.Window.ClientSize.Y);
 	public override Vector2 Pivot => new Vector2(0, 1);
 
@@ -34,12 +34,12 @@ public class EditorPanelBrowser : EditorPanel
 	{
 		I = this;
 
-		AssetsWatcher.RegisterFileChangedCallback(OnFileChanged, "*");
+		Tofu.I.AssetsWatcher.RegisterFileChangedCallback(OnFileChanged, "*");
 		CreateContextItems();
 
-		_fileIcon = AssetManager.Load<Texture>(path: "Resources/FileIcon.png", loadSettings: _iconTextureLoadSettings);
+		_fileIcon = Tofu.I.AssetManager.Load<Texture>(path: "Resources/FileIcon.png", loadSettings: _iconTextureLoadSettings);
 
-		_directoryIcon = AssetManager.Load<Texture>(path: "Resources/DirectoryIcon.png", loadSettings: _iconTextureLoadSettings);
+		_directoryIcon = Tofu.I.AssetManager.Load<Texture>(path: "Resources/DirectoryIcon.png", loadSettings: _iconTextureLoadSettings);
 
 		CurrentDirectory = new DirectoryInfo("Assets");
 
@@ -50,14 +50,14 @@ public class EditorPanelBrowser : EditorPanel
 	{
 		BrowserContextItem createSceneContextItem = new("Create Scene", "scene", ".scene", filePath =>
 		{
-			SceneManager.CurrentScene.CreateEmptySceneAndOpenIt(filePath);
+			Tofu.I.SceneManager.CurrentScene.SetupAndSaveEmptyScene(filePath);
 			RefreshAssets();
 		});
 		BrowserContextItem createMaterialContextItem = new("Create Material", "mat", ".mat", filePath =>
 		{
 			Material createdMaterial = new();
-			createdMaterial.AssetPath = filePath;
-			// AssetManager.Save<Material>(createdMaterial);
+			createdMaterial.Path = filePath;
+			// Tofu.I.AssetManager.Save<Material>(createdMaterial);
 			RefreshAssets();
 		});
 		_contextItems = new List<BrowserContextItem>
@@ -121,7 +121,7 @@ public class EditorPanelBrowser : EditorPanel
 			{
 				// _textures[i] = new Texture();
 				// _textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
-				_textures[i] = AssetManager.Load<Texture>(path: _assets[i], loadSettings: _iconTextureLoadSettings);
+				_textures[i] = Tofu.I.AssetManager.Load<Texture>(path: _assets[i], loadSettings: _iconTextureLoadSettings);
 			}
 		}
 	}
@@ -169,7 +169,7 @@ public class EditorPanelBrowser : EditorPanel
 			bool saveBtnPressed = ImGui.Button("Save Prefab");
 			if (saveBtnPressed)
 			{
-				SceneSerializer.SaveGameObject(GameObjectSelectionManager.GetSelectedGameObject(), Path.Combine("Assets", CurrentDirectory.Name, GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
+				Tofu.I.SceneSerializer.SaveGameObject(GameObjectSelectionManager.GetSelectedGameObject(), Path.Combine("Assets", CurrentDirectory.Name, GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
 			}
 		}
 
@@ -339,7 +339,7 @@ public class EditorPanelBrowser : EditorPanel
 					{
 						string assetsRelativePath = Path.Combine("Assets", Path.GetRelativePath("Assets", _assets[assetIndex]));
 
-						ShaderManager.QueueShaderReload(assetsRelativePath);
+						Tofu.I.ShaderManager.QueueShaderReload(assetsRelativePath);
 						Debug.Log($"Reloaded shader:{assetName}");
 					}
 				}
@@ -383,13 +383,13 @@ public class EditorPanelBrowser : EditorPanel
 
 				if (assetExtension == ".prefab")
 				{
-					GameObject go = SceneSerializer.LoadPrefab(_assets[assetIndex]);
+					GameObject go = Tofu.I.SceneSerializer.LoadPrefab(_assets[assetIndex]);
 					EditorPanelHierarchy.I.SelectGameObject(go.Id);
 				}
 
 				if (assetExtension == ".scene")
 				{
-					SceneManager.LoadScene(_assets[assetIndex]);
+					Tofu.I.SceneManager.LoadScene(_assets[assetIndex]);
 				}
 			}
 

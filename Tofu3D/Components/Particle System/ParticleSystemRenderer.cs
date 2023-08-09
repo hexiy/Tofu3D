@@ -26,7 +26,7 @@ public class ParticleSystemRenderer : SpriteRenderer
 			_particlesInBatcher++;
 		}
 
-		ShaderManager.UseShader(Material.Shader);
+		Tofu.I.ShaderManager.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_repeats", Tiling);
 		TextureHelper.BindTexture(Texture.TextureId);
 
@@ -35,7 +35,7 @@ public class ParticleSystemRenderer : SpriteRenderer
 			Material.Shader.SetMatrix4X4("u_mvp", GetParticleMvpMatrix(particle));
 			Material.Shader.SetColor("u_color", particle.Color.ToVector4());
 
-			ShaderManager.BindVertexArray(Material.Vao);
+			Tofu.I.ShaderManager.BindVertexArray(Material.Vao);
 
 
 			// GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.ConstantColor); cool

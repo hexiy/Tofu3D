@@ -5,14 +5,14 @@ namespace Tofu3D;
 
 public class AssetsWatcher
 {
-	static FileSystemWatcher _watcher;
+	FileSystemWatcher _watcher;
 
-	static Queue<FileChangedInfo> _changedFilesQueue = new Queue<FileChangedInfo>();
+	Queue<FileChangedInfo> _changedFilesQueue = new Queue<FileChangedInfo>();
 
 	// ShaderCache can register for ".shader" file changes, so we only check the extension once 
-	static Dictionary<AssetSupportedFileNameExtensions, Action<FileChangedInfo>> _fileWithExtensionChangedConsumers = new Dictionary<AssetSupportedFileNameExtensions, Action<FileChangedInfo>>();
+	Dictionary<AssetSupportedFileNameExtensions, Action<FileChangedInfo>> _fileWithExtensionChangedConsumers = new Dictionary<AssetSupportedFileNameExtensions, Action<FileChangedInfo>>();
 
-	public static void RegisterFileChangedCallback(Action<FileChangedInfo> fileChanged, params string[] extensions)
+	public void RegisterFileChangedCallback(Action<FileChangedInfo> fileChanged, params string[] extensions)
 	{
 		AssetSupportedFileNameExtensions assetSupportedFileNameExtensions = new AssetSupportedFileNameExtensions(extensions);
 		_fileWithExtensionChangedConsumers[assetSupportedFileNameExtensions] = fileChanged;
@@ -32,7 +32,7 @@ public class AssetsWatcher
 	// 	}
 	// }
 
-	public static void StartWatching()
+	public void StartWatching()
 	{
 		_watcher = new FileSystemWatcher(Folders.Assets);
 		_watcher.IncludeSubdirectories = true;
@@ -45,7 +45,7 @@ public class AssetsWatcher
 		_watcher.Error += (sender, args) => throw args.GetException();
 	}
 
-	static void OnFileManipulated(object sender, FileSystemEventArgs e)
+	void OnFileManipulated(object sender, FileSystemEventArgs e)
 	{
 		// if (File.Exists(e.FullPath) == false)
 		// {
@@ -81,14 +81,14 @@ public class AssetsWatcher
 
 		if (AssetUtils.IsShader(assetsRelativePath))
 		{
-			ShaderManager.QueueShaderReload(assetsRelativePath);
+			Tofu.I.ShaderManager.QueueShaderReload(assetsRelativePath);
 		}
 	}
 
 	/// <summary>
 	/// At the end of every frame we process all the file changes in case they accumulate multiple times in that frame
 	/// </summary>
-	public static void ProcessChangedFilesQueue()
+	public void ProcessChangedFilesQueue()
 	{
 		lock (_changedFilesQueue)
 		{
@@ -114,7 +114,7 @@ public class AssetsWatcher
 		}
 	}
 
-	private static void ClearChangedFilesQueue()
+	private void ClearChangedFilesQueue()
 	{
 		_changedFilesQueue.Clear();
 	}

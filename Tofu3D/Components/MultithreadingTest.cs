@@ -47,9 +47,9 @@ public class MultithreadingTest : Component
 			// Debug.Log(i);
 		}
 
-		lock (SceneManager.CurrentScene.GameObjects)
+		lock (Tofu.I.SceneManager.CurrentScene.GameObjects)
 		{
-			SceneManager.CurrentScene.AddGameObjectsToScene(gameObjects);
+			Tofu.I.SceneManager.CurrentScene.AddGameObjectsToScene(gameObjects);
 		}
 
 		Debug.EndTimer("Task");

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AssetPath>Assets/Materials/ModelRendererUnlit.mat</AssetPath>
+  <Additive>false</Additive>
+  <Shader>
+    <BufferType>Model</BufferType>
+    <Path>Assets\Shaders\ModelRendererUnlit.glsl</Path>
+    <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+    <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+  </Shader>
+  <Vao>9</Vao>
+  <RenderMode>Opaque</RenderMode>
+  <Tiling>
+    <X>0</X>
+    <Y>0</Y>
+  </Tiling>
+  <Offset>
+    <X>0</X>
+    <Y>0</Y>
+  </Offset>
+</Material>

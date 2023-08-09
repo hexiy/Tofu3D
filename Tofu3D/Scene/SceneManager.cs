@@ -2,23 +2,24 @@ using System.IO;
 
 namespace Tofu3D;
 
-public static class SceneManager
+public class SceneManager
 {
-	public static Scene CurrentScene { get; private set; }
+	public Scene CurrentScene { get; private set; }
 	// public PersistentObject<string> LastOpenedScene = ("lastOpenedScene", "Assets/Scenes/scene1.scene");
-	public static string LastOpenedScene
+	public string LastOpenedScene
 	{
 		get { return PersistentData.GetString("lastOpenedScene", "Assets/Scenes/scene1.scene"); }
 		set { PersistentData.Set("lastOpenedScene", value); }
 	}
 
-	public static void LoadLastOpenedScene()
+	public void LoadLastOpenedScene()
 	{
-		LoadScene(SceneManager.LastOpenedScene);
+		LoadScene(LastOpenedScene);
 	}
 
-	public static bool LoadScene(string path = null)
+	public bool LoadScene(string path = null)
 	{
+	
 		Debug.ClearLogs();
 
 		Debug.StartTimer("LoadScene");
@@ -32,22 +33,26 @@ public static class SceneManager
 		if (CurrentScene != null)
 		{
 			CurrentScene?.DisposeScene();
-
-			
 		}
 
 
 		CurrentScene = new Scene();
+
+		if (path == null || File.Exists(LastOpenedScene) == false)
+		{
+			CurrentScene.SetupAndSaveEmptyScene(Path.Combine("Assets","Scenes", "scene0.scene"));
+		}
+		
 		CurrentScene.ScenePath = path;
 
 		CurrentScene.Initialize();
 
-		SceneFile sceneFile = SceneSerializer.LoadSceneFile(path);
+		SceneFile sceneFile = Tofu.I.SceneSerializer.LoadSceneFile(path);
 
-		SceneSerializer.ConnectGameObjectsWithComponents(sceneFile);
+		Tofu.I.SceneSerializer.ConnectGameObjectsWithComponents(sceneFile);
 		IDsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
 
-		SceneSerializer.ConnectParentsAndChildren(sceneFile);
+		Tofu.I.SceneSerializer.ConnectParentsAndChildren(sceneFile);
 		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 		{
 			for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
@@ -81,7 +86,7 @@ public static class SceneManager
 		return true;
 	}
 
-	public static void SaveScene(string path = null)
+	public void SaveScene(string path = null)
 	{
 		path = path ?? LastOpenedScene;
 		if (path.Length < 1)
@@ -90,6 +95,6 @@ public static class SceneManager
 		}
 
 		LastOpenedScene = path;
-		SceneSerializer.SaveGameObjects(CurrentScene.GetSceneFile(), path);
+		Tofu.I.SceneSerializer.SaveGameObjects(CurrentScene.GetSceneFile(), path);
 	}
 }

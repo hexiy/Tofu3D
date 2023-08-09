@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.IO;
+using System.Runtime.InteropServices;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Common.Input;
@@ -13,7 +14,7 @@ namespace Tofu3D;
 
 public class Window : GameWindow
 {
-	public ImGuiController ImGuiController;
+	bool _loaded = false;
 
 	public Window() : base(new GameWindowSettings() { }, // dont specify fps.... otherwise deltatime fucks up and update and render is called not 1:1
 	                       new NativeWindowSettings
@@ -32,7 +33,7 @@ public class Window : GameWindow
 
 	private void LoadIcon()
 	{
-		Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(@"Resources\icon.png");
+		Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(Path.Combine("Resources", "icon.png"));
 		image.DangerousTryGetSinglePixelMemory(out var imageSpan);
 
 		byte[] imageBytes = MemoryMarshal.AsBytes(imageSpan.Span).ToArray();
@@ -49,7 +50,6 @@ public class Window : GameWindow
 	{
 		get { return $"Tofu3D | {GL.GetString(StringName.Version)}"; }
 	}
-	bool _loaded = false;
 
 	protected override unsafe void OnLoad()
 	{
@@ -57,13 +57,12 @@ public class Window : GameWindow
 
 		Size = new Vector2i(width, height);
 		Location = Vector2i.Zero;
-		ImGuiController = new ImGuiController(width, height);
 
 
 		// WindowState = WindowState.Fullscreen;
 		WindowState = WindowState.Maximized;
 
-		Scene.AnySceneLoaded += () => { Title = $"{WindowTitleText} | {SceneManager.CurrentScene?.SceneName}"; };
+		Scene.AnySceneLoaded += () => { Title = $"{WindowTitleText} | {Tofu.I.SceneManager.CurrentScene?.SceneName}"; };
 
 		this.Focus();
 
@@ -80,75 +79,32 @@ public class Window : GameWindow
 	{
 		if (_loaded == false) return;
 		base.OnResize(e);
-
-		// Update the opengl viewport
-		//GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
-
-		// Tell ImGui of the new size
-		ImGuiController?.WindowResized(ClientSize.X, ClientSize.Y);
+		
+		Tofu.I.ImGuiController?.WindowResized(ClientSize.X, ClientSize.Y);
 	}
 
 	protected override void OnUpdateFrame(FrameEventArgs e)
 	{
 		if (_loaded == false) return;
-		Time.EditorDeltaTime = (float) (e.Time);
-
+		
 		base.OnUpdateFrame(e);
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs e)
 	{
 		if (_loaded == false) return;
-
-		Time.EditorDeltaTime = (float) (e.Time);
-
-		Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
-
-		Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 60f));
-
-		RenderPassSystem.RenderAllPasses();
-
-		Debug.EndGraphTimer("Scene Render");
-
-
-		Debug.StartGraphTimer("ImGui", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromMilliseconds(2));
-
-		bool renderImGui = true;
-		if (renderImGui)
-		{
-			ImGuiController.Update(this, (float) e.Time);
-			GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
-
-			ImGuiController.WindowResized(ClientSize.X, ClientSize.Y);
-
-			Tofu.I.Editor.Draw();
-
-			ImGuiController.Render();
-		}
-
-		Debug.EndGraphTimer("ImGui");
-
-		SwapBuffers();
-
 		base.OnRenderFrame(e);
-
-		Debug.EndGraphTimer("Window Render");
-
-		Debug.ResetTimers();
-		Debug.ClearAdditiveStats();
 	}
 
 	protected override void OnTextInput(TextInputEventArgs e)
 	{
 		base.OnTextInput(e);
-
-		ImGuiController.PressChar((char) e.Unicode);
+		Tofu.I.ImGuiController.PressChar((char) e.Unicode);
 	}
 
 	protected override void OnMouseWheel(MouseWheelEventArgs e)
 	{
 		base.OnMouseWheel(e);
-
-		ImGuiController.MouseScroll(new Vector2(e.OffsetX, e.OffsetY));
+		Tofu.I.ImGuiController.MouseScroll(new Vector2(e.OffsetX, e.OffsetY));
 	}
 }

@@ -7,7 +7,7 @@ namespace Tofu3D;
 public class EditorPanelProfiler : EditorPanel
 {
 	public override string Name => "Profiler";
-	public override Vector2 Size => new Vector2(800, Tofu.I.Window.ClientSize.Y - Editor.SceneViewSize.Y + 1);
+	public override Vector2 Size => new Vector2(800, Tofu.I.Window.ClientSize.Y - Tofu.I.Editor.SceneViewSize.Y + 1);
 	public override Vector2 Position => new Vector2(Tofu.I.Window.ClientSize.X, Tofu.I.Window.ClientSize.Y);
 	public override Vector2 Pivot => new Vector2(1, 1);
 	public static EditorPanelProfiler I { get; private set; }
@@ -26,7 +26,7 @@ public class EditorPanelProfiler : EditorPanel
 
 		SetWindow();
 
-		ImGui.Text($"GameObjects in scene: {SceneManager.CurrentScene.GameObjects.Count}");
+		ImGui.Text($"GameObjects in scene: {Tofu.I.SceneManager.CurrentScene.GameObjects.Count}");
 
 		foreach (KeyValuePair<string, string> stat in Debug.Stats)
 		{

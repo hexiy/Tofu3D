@@ -46,9 +46,9 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 			{
 				get
 				{
-					int index = SceneManager.CurrentScene.GetGameObjectIndexInHierarchy(parentID);
+					int index = Tofu.I.SceneManager.CurrentScene.GetGameObjectIndexInHierarchy(parentID);
 					if (index != -1)
-					{ return SceneManager.CurrentScene.gameObjects[index]; }
+					{ return Tofu.I.SceneManager.CurrentScene.gameObjects[index]; }
 					else
 					{
 						return null;
@@ -56,12 +56,12 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 				}
 				set
 				{
-					int index = SceneManager.CurrentScene.GetGameObjectIndexInHierarchy(parentID);
+					int index = Tofu.I.SceneManager.CurrentScene.GetGameObjectIndexInHierarchy(parentID);
 
 					parentID = (int)value.id;
 					if (index != -1)
 					{
-						SceneManager.CurrentScene.gameObjects[SceneManager.CurrentScene.GetGameObjectIndexInHierarchy(parentID)] = value;
+						Tofu.I.SceneManager.CurrentScene.gameObjects[Tofu.I.SceneManager.CurrentScene.GetGameObjectIndexInHierarchy(parentID)] = value;
 					}
 				}
 			}
@@ -144,7 +144,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
 		if (addToScene)
 		{
-			SceneManager.CurrentScene.AddGameObjectToScene(go);
+			Tofu.I.SceneManager.CurrentScene.AddGameObjectToScene(go);
 		}
 
 		if (position != null)
@@ -219,12 +219,12 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
 					if (goFieldValue.IsPrefab)
 					{
-						GameObject loadedGo = SceneSerializer.LoadPrefab(goFieldValue.PrefabPath, true);
+						GameObject loadedGo = Tofu.I.SceneSerializer.LoadPrefab(goFieldValue.PrefabPath, true);
 						infos[i].SetValue(component, loadedGo);
 					}
 					else
 					{
-						GameObject foundGameObject = SceneManager.CurrentScene.GetGameObject(goFieldValue.Id);
+						GameObject foundGameObject = Tofu.I.SceneManager.CurrentScene.GetGameObject(goFieldValue.Id);
 						infos[i].SetValue(component, foundGameObject);
 					}
 				}
@@ -247,7 +247,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 							continue;
 						}
 
-						gosFieldValue[goIndex] = SceneManager.CurrentScene.GetGameObject(gosFieldValue[goIndex].Id);
+						gosFieldValue[goIndex] = Tofu.I.SceneManager.CurrentScene.GetGameObject(gosFieldValue[goIndex].Id);
 						//	gosFieldValue[i].Components();
 					}
 
@@ -463,7 +463,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 			Transform.Parent.RemoveChild(Id);
 		}
 
-		SceneManager.CurrentScene.OnGameObjectDestroyed(this);
+		Tofu.I.SceneManager.CurrentScene.OnGameObjectDestroyed(this);
 	}
 
 	public void Destroy()

@@ -41,7 +41,7 @@ public static class BufferFactory
 
 
 		vao = GL.GenVertexArray();
-		ShaderManager.BindVertexArray(vao);
+		Tofu.I.ShaderManager.BindVertexArray(vao);
 
 
 		VertexBuffer vertexBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexData: vertices, elementsPerVertex: 4);

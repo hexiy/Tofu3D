@@ -5,7 +5,7 @@ public class CubemapTexture : Asset<CubemapTexture>
 {
 	public int TextureId
 	{
-		get { return AssetRuntimeHandle.Id; }
+		get { return Handle.Id; }
 	}
 	public bool Loaded;
 	public Vector2 Size;
@@ -15,6 +15,6 @@ public class CubemapTexture : Asset<CubemapTexture>
 
 	public void Delete()
 	{
-		AssetManager.Unload(this, LoadSettings);
+		Tofu.I.AssetManager.Unload(this, LoadSettings);
 	}
 }

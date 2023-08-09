@@ -5,7 +5,7 @@ public class Texture : Asset<Texture>
 {
 	public int TextureId
 	{
-		get { return AssetRuntimeHandle.Id; }
+		get { return Handle.Id; }
 	}
 	[XmlIgnore]
 	public bool Loaded;
@@ -16,6 +16,6 @@ public class Texture : Asset<Texture>
 
 	public void Delete()
 	{
-		AssetManager.Unload(this, LoadSettings);
+		Tofu.I.AssetManager.Unload(this, LoadSettings);
 	}
 }

@@ -1,6 +1,6 @@
 namespace Tofu3D.Rendering;
 
-public static class RenderPassSystem
+public class RenderPassSystem
 {
 	// we need to first render the whole scene for directional light
 	// next pass-opaques we now have a shadowmap so we drav the scene normally
@@ -10,28 +10,28 @@ public static class RenderPassSystem
 	// should be reorderable and being able to add new pass easily...
 	// every pass will have its own texture
 	// in editor we will be able to visualise all the passes
-	public static List<RenderPass> RenderPasses { get; private set; } = new List<RenderPass>();
+	public List<RenderPass> RenderPasses { get; private set; } = new List<RenderPass>();
 
-	public static RenderPassType CurrentRenderPassType { get; private set; } = RenderPassType.DirectionalLightShadowDepth;
-	public static RenderTexture FinalRenderTexture /*
+	public RenderPassType CurrentRenderPassType { get; private set; } = RenderPassType.DirectionalLightShadowDepth;
+	public RenderTexture FinalRenderTexture /*
 	{
 		get { return _renderPasses[^1].PassRenderTexture; }
 	} //*/ { get; private set; } //= new RenderTexture(new Vector2(100, 100), true, false);
-	private static bool _initialized;
-	public static Vector2 ViewSize { get; private set; } = new Vector2(100, 100);
-	public static bool CanRender
+	private bool _initialized;
+	public Vector2 ViewSize { get; private set; } = new Vector2(100, 100);
+	public bool CanRender
 	{
 		get { return Camera.MainCamera?.IsActive == true && _initialized; }
 	}
 
-	public static void Initialize()
+	public void Initialize()
 	{
 		CreatePasses();
 		RebuildRenderTextures(ViewSize);
 		Camera.CameraSizeChanged += RebuildRenderTextures;
 	}
 
-	public static void RebuildRenderTextures(Vector2 viewSize)
+	public void RebuildRenderTextures(Vector2 viewSize)
 	{
 		ViewSize = viewSize;
 		FinalRenderTexture = new RenderTexture(ViewSize, colorAttachment: true, depthAttachment: false);
@@ -44,7 +44,7 @@ public static class RenderPassSystem
 		_initialized = true;
 	}
 
-	private static void CreatePasses()
+	private void CreatePasses()
 	{
 		RenderPassSkybox renderPassSkybox = new RenderPassSkybox();
 		RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new RenderPassDirectionalLightShadowDepth();
@@ -58,13 +58,13 @@ public static class RenderPassSystem
 		// RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
 	}
 
-	public static void RegisterRenderPass(RenderPass renderPass)
+	public void RegisterRenderPass(RenderPass renderPass)
 	{
 		RenderPasses.Add(renderPass);
 		// _renderPasses.Sort();
 	}
 
-	public static void RemoveRender(RenderPassType type, Action render)
+	public void RemoveRender(RenderPassType type, Action render)
 	{
 		foreach (RenderPass renderPass in RenderPasses)
 		{
@@ -76,7 +76,7 @@ public static class RenderPassSystem
 		}
 	}
 
-	public static void RegisterRender(RenderPassType type, Action render)
+	public void RegisterRender(RenderPassType type, Action render)
 	{
 		foreach (RenderPass renderPass in RenderPasses)
 		{
@@ -88,7 +88,7 @@ public static class RenderPassSystem
 		}
 	}
 
-	public static void RenderAllPasses()
+	public void RenderAllPasses()
 	{
 		if (CanRender == false)
 		{
@@ -123,7 +123,7 @@ public static class RenderPassSystem
 		RenderFinalRenderTexture();
 	}
 
-	private static void RenderFinalRenderTexture()
+	private void RenderFinalRenderTexture()
 	{
 		FinalRenderTexture.Clear();
 		

@@ -8,7 +8,7 @@ namespace Tofu3D;
 
 public class EditorPanelConsole : EditorPanel
 {
-	public override Vector2 Size => new Vector2(800, Tofu.I.Window.ClientSize.Y - Editor.SceneViewSize.Y + 1);
+	public override Vector2 Size => new Vector2(800, Tofu.I.Window.ClientSize.Y - Tofu.I.Editor.SceneViewSize.Y + 1);
 	public override Vector2 Position => new Vector2(Tofu.I.Window.ClientSize.X - 800, Tofu.I.Window.ClientSize.Y);
 	public override Vector2 Pivot => new Vector2(1, 1);
 	public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoScrollbar;
@@ -83,20 +83,20 @@ public class EditorPanelConsole : EditorPanel
 
 			bool hasFlag = (_currentLogCategoryFilter & filter) == filter;
 			// ImGui.RadioButton(filter.ToString(), hasFlag); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
-			int textureId = EditorTextures.I.LogCategoryInfoIcon.TextureId;
+			int textureId = Tofu.I.Editor.EditorTextures.LogCategoryInfoIcon.TextureId;
 			if (filter == LogCategoryFilter.Error)
 			{
-				textureId = EditorTextures.I.LogCategoryErrorIcon.TextureId;
+				textureId = Tofu.I.Editor.EditorTextures.LogCategoryErrorIcon.TextureId;
 			}
 
 			if (filter == LogCategoryFilter.Warning)
 			{
-				textureId = EditorTextures.I.LogCategoryWarningIcon.TextureId;
+				textureId = Tofu.I.Editor.EditorTextures.LogCategoryWarningIcon.TextureId;
 			}
 
 			if (filter == LogCategoryFilter.Timer)
 			{
-				textureId = EditorTextures.I.LogCategoryTimerIcon.TextureId;
+				textureId = Tofu.I.Editor.EditorTextures.LogCategoryTimerIcon.TextureId;
 			}
 
 			ImGui.Image(textureId, new System.Numerics.Vector2(30, 30), new Vector2(0, 0), new Vector2(1, 1), hasFlag ? new Vector4(1, 1, 1, 1) : new Vector4(1, 1, 1, 0.3f)); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
@@ -151,20 +151,20 @@ public class EditorPanelConsole : EditorPanel
 			}
 
 
-			int textureId = EditorTextures.I.LogCategoryInfoIcon.TextureId;
+			int textureId = Tofu.I.Editor.EditorTextures.LogCategoryInfoIcon.TextureId;
 			if (log.LogCategory == LogCategory.Error)
 			{
-				textureId = EditorTextures.I.LogCategoryErrorIcon.TextureId;
+				textureId = Tofu.I.Editor.EditorTextures.LogCategoryErrorIcon.TextureId;
 			}
 
 			if (log.LogCategory == LogCategory.Warning)
 			{
-				textureId = EditorTextures.I.LogCategoryWarningIcon.TextureId;
+				textureId = Tofu.I.Editor.EditorTextures.LogCategoryWarningIcon.TextureId;
 			}
 
 			if (log.LogCategory == LogCategory.Timer)
 			{
-				textureId = EditorTextures.I.LogCategoryTimerIcon.TextureId;
+				textureId = Tofu.I.Editor.EditorTextures.LogCategoryTimerIcon.TextureId;
 			}
 
 			ImGui.SameLine();
@@ -189,7 +189,6 @@ public class EditorPanelConsole : EditorPanel
 		{
 			// ImGui.SetScrollY(ImGui.GetScrollMaxY());
 			ImGui.SetScrollY(logsCount * 35);
-
 		}
 
 		_lastFrameMessagesCount = logsCount;

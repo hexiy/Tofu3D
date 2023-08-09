@@ -13,7 +13,7 @@ public class TransformHandle : Component, IComponentUpdateable
 		Xy,
 	}
 
-	public static bool ObjectSelected;
+	public bool ObjectSelected;
 	public BoxShape BoxColliderX;
 	public BoxShape BoxColliderXy;
 	public BoxShape BoxColliderY;
@@ -60,17 +60,17 @@ public class TransformHandle : Component, IComponentUpdateable
 		ModelRendererZ = GameObject.AddComponent<ModelRendererInstanced>();
 		ModelRendererXy = GameObject.AddComponent<ModelRendererInstanced>();
 
-		// Material unlitMaterial = AssetManager.Load<Material>("ModelRendererUnlit");
-		Material unlitMaterial = AssetManager.Load<Material>("ModelRendererUnlit");
+		// Material unlitMaterial = Tofu.I.AssetManager.Load<Material>("ModelRendererUnlit");
+		Material unlitMaterial = Tofu.I.AssetManager.Load<Material>("ModelRendererUnlit");
 		ModelRendererX.Material = unlitMaterial;
 		ModelRendererY.Material = unlitMaterial;
 		ModelRendererXy.Material = unlitMaterial;
 		ModelRendererZ.Material = unlitMaterial;
 
-		PremadeComponentSetups.PrepareCube(ModelRendererX);
-		PremadeComponentSetups.PrepareCube(ModelRendererY);
-		PremadeComponentSetups.PrepareCube(ModelRendererXy);
-		PremadeComponentSetups.PrepareCube(ModelRendererZ);
+		PremadeComponentSetupsHelper.PrepareCube(ModelRendererX);
+		PremadeComponentSetupsHelper.PrepareCube(ModelRendererY);
+		PremadeComponentSetupsHelper.PrepareCube(ModelRendererXy);
+		PremadeComponentSetupsHelper.PrepareCube(ModelRendererZ);
 
 		ModelRendererXy.Layer = 1000;
 		ModelRendererX.Layer = 1000;
@@ -276,7 +276,8 @@ public class TransformHandle : Component, IComponentUpdateable
 
 	public void SelectObjects(List<int> selection)
 	{
-		GameObject.SetActive(selection != null);
+		// GameObject.SetActive(selection != null);
+		GameObject.SetActive(false);
 		Transform.MockIsInCanvas = false;
 
 		if (selection == null)
@@ -294,7 +295,7 @@ public class TransformHandle : Component, IComponentUpdateable
 		_selectedTransforms = new List<Transform>();
 		for (int i = 0; i < selection.Count; i++)
 		{
-			GameObject go = SceneManager.CurrentScene.GetGameObject(selection[i]);
+			GameObject go = Tofu.I.SceneManager.CurrentScene.GetGameObject(selection[i]);
 
 			if (go != null)
 			{

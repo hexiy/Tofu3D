@@ -9,7 +9,7 @@ namespace Tofu3D;
 
 public class EditorPanelInspector : EditorPanel
 {
-	public override Vector2 Size => new Vector2(700, Editor.SceneViewSize.Y);
+	public override Vector2 Size => new Vector2(700, Tofu.I.Editor.SceneViewSize.Y);
 	public override Vector2 Position => new Vector2(Tofu.I.Window.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
 	public override Vector2 Pivot => new Vector2(1, 0);
 
@@ -83,7 +83,7 @@ public class EditorPanelInspector : EditorPanel
 		// }
 		// else
 		// {
-		// 	_selectedInspectable = SceneManager.CurrentScene.GetGameObject(ids[0]);
+		// 	_selectedInspectable = Tofu.I.SceneManager.CurrentScene.GetGameObject(ids[0]);
 		// 	UpdateCurrentComponentsCache();
 		// 	_selectedMaterial = null;
 		// }
@@ -96,7 +96,7 @@ public class EditorPanelInspector : EditorPanel
 		}
 
 
-		GameObject go = SceneManager.CurrentScene.GetGameObject(ids[0]);
+		GameObject go = Tofu.I.SceneManager.CurrentScene.GetGameObject(ids[0]);
 		SelectInspectables(go.Components);
 	}
 
@@ -132,7 +132,7 @@ public class EditorPanelInspector : EditorPanel
 
 	public void OnMaterialSelected(string materialPath)
 	{
-		object materialInspectable = AssetManager.Load<Material>(Path.GetFileName(materialPath));
+		object materialInspectable = Tofu.I.AssetManager.Load<Material>(Path.GetFileName(materialPath));
 		SelectInspectable(materialInspectable);
 	}
 
@@ -207,7 +207,7 @@ public class EditorPanelInspector : EditorPanel
 		{
 			if (ImGui.Button("Update prefab"))
 			{
-				SceneSerializer.SaveGameObject(gameObject, gameObject.PrefabPath);
+				Tofu.I.SceneSerializer.SaveGameObject(gameObject, gameObject.PrefabPath);
 			}
 
 			ImGui.SameLine();
@@ -318,7 +318,7 @@ public class EditorPanelInspector : EditorPanel
 				if (componentInspectorData.InspectableType == typeof(Material) && (_editing || ImGui.IsMouseReleased(ImGuiMouseButton.Left) || ImGui.IsMouseReleased(ImGuiMouseButton.Right)))
 				{
 					// detect drag and drop texture too....
-					_actionQueue += () => { AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
+					_actionQueue += () => { Tofu.I.AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
 				}
 			}
 		}
@@ -381,10 +381,10 @@ public class EditorPanelInspector : EditorPanel
 		// bool saveMaterialClicked = ImGui.Button("Save");
 		// if (saveMaterialClicked)
 		// {
-		// 	// AssetManager.Save<Material>(selectedMaterial);
+		// 	// Tofu.I.AssetManager.Save<Material>(selectedMaterial);
 		// }
 
-		string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.AssetPath);
+		string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.Path);
 		ImGui.Text(materialName);
 
 		ImGui.Text("Shader");
@@ -411,8 +411,8 @@ public class EditorPanelInspector : EditorPanel
 				Shader shader = new(shaderPath);
 
 				selectedMaterial.Shader = shader;
-				_actionQueue += () => { AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
-				// AssetManager.Save<Material>(selectedMaterial);
+				_actionQueue += () => { Tofu.I.AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
+				// Tofu.I.AssetManager.Save<Material>(selectedMaterial);
 			}
 
 			ImGui.EndDragDropTarget();
@@ -508,7 +508,7 @@ public class EditorPanelInspector : EditorPanel
 						ImGuiPayloadPtr x = ImGui.GetDragDropPayload();
 						if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 						{
-							GameObject foundGo = SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
+							GameObject foundGo = Tofu.I.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
 							list[j] = foundGo;
 							info.SetValue(componentInspectorData.Inspectable, list);
 						}
@@ -544,7 +544,7 @@ public class EditorPanelInspector : EditorPanel
 		{
 			Model model = (Model) info.GetValue(componentInspectorData.Inspectable);
 
-			string assetName = Path.GetFileName(model?.AssetPath) ?? "";
+			string assetName = Path.GetFileName(model?.Path) ?? "";
 
 			bool clicked = ImGui.Button(assetName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 
@@ -556,7 +556,7 @@ public class EditorPanelInspector : EditorPanel
 				{
 					// fileName = Path.GetRelativePath("Assets", fileName);
 
-					model = AssetManager.Load<Model>(filePath);
+					model = Tofu.I.AssetManager.Load<Model>(filePath);
 					// gameObject.GetComponent<Renderer>().Material.Vao = model.Vao; // materials are shared
 					info.SetValue(componentInspectorData.Inspectable, model);
 				}
@@ -573,7 +573,7 @@ public class EditorPanelInspector : EditorPanel
 				info.SetValue(componentInspectorData.Inspectable, audioClip);
 			}
 
-			string clipName = Path.GetFileName(audioClip?.AssetPath);
+			string clipName = Path.GetFileName(audioClip?.Path);
 
 			bool clicked = ImGui.Button(clipName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 
@@ -586,7 +586,7 @@ public class EditorPanelInspector : EditorPanel
 				{
 					// fileName = Path.GetRelativePath("Assets", fileName);
 
-					audioClip.AssetPath = fileName;
+					audioClip.Path = fileName;
 					info.SetValue(componentInspectorData.Inspectable, audioClip);
 				}
 
@@ -607,7 +607,7 @@ public class EditorPanelInspector : EditorPanel
 		else if (info.FieldOrPropertyType == typeof(Texture))
 		{
 			Texture texture = (Texture) info.GetValue(componentInspectorData.Inspectable);
-			string textureName = texture == null ? "" : Path.GetFileName(texture.AssetPath);
+			string textureName = texture == null ? "" : Path.GetFileName(texture.Path);
 
 			bool clicked = ImGui.Button(textureName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 			bool rightMouseClicked = ImGui.IsItemClicked(ImGuiMouseButton.Right);
@@ -633,7 +633,7 @@ public class EditorPanelInspector : EditorPanel
 
 					textureName = payload;
 
-					Texture loadedTexture = AssetManager.Load<Texture>(textureName);
+					Texture loadedTexture = Tofu.I.AssetManager.Load<Texture>(textureName);
 
 					info.SetValue(componentInspectorData.Inspectable, loadedTexture);
 				}
@@ -644,17 +644,17 @@ public class EditorPanelInspector : EditorPanel
 		else if (info.FieldOrPropertyType == typeof(CubemapTexture))
 		{
 			CubemapTexture cubemapTexture = info.ListElement as CubemapTexture;
-			string textureName = Path.GetFileName(cubemapTexture.AssetPath);
+			string textureName = Path.GetFileName(cubemapTexture.Path);
 
 			bool clicked = ImGui.Button(textureName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 			if (clicked)
 			{
-				EditorPanelBrowser.I.GoToFile(cubemapTexture.AssetPath);
+				EditorPanelBrowser.I.GoToFile(cubemapTexture.Path);
 			}
 		}
 		else if (info.FieldOrPropertyType == typeof(Material))
 		{
-			string materialPath = Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.AssetPath);
+			string materialPath = Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.Path);
 
 			materialPath = materialPath ?? "";
 			bool clicked = ImGui.Button(materialPath, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
@@ -675,7 +675,7 @@ public class EditorPanelInspector : EditorPanel
 					payload = payload;
 					string materialName = Path.GetFileName(payload);
 
-					Material draggedMaterial = AssetManager.Load<Material>(payload);
+					Material draggedMaterial = Tofu.I.AssetManager.Load<Material>(payload);
 					if (draggedMaterial.Shader == null)
 					{
 						Debug.Log("No Shader attached to material.");
@@ -710,7 +710,7 @@ public class EditorPanelInspector : EditorPanel
 				{
 					if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 					{
-						GameObject loadedGo = SceneSerializer.LoadPrefab(payload, true);
+						GameObject loadedGo = Tofu.I.SceneSerializer.LoadPrefab(payload, true);
 						info.SetValue(componentInspectorData.Inspectable, loadedGo);
 					}
 				}
@@ -729,7 +729,7 @@ public class EditorPanelInspector : EditorPanel
 					//	string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 					if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 					{
-						GameObject foundGo = SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
+						GameObject foundGo = Tofu.I.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
 						info.SetValue(componentInspectorData.Inspectable, foundGo);
 					}
 				}

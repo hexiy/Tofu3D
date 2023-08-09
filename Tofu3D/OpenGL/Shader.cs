@@ -43,11 +43,16 @@ public class
 
 	public void Load()
 	{
+		AssetUtils.ValidateAssetPath(ref Path);
+
 		if (AssetUtils.Exists(Path) == false)
 		{
-			Path = System.IO.Path.Combine("Assets", Path);
+			string newPath = System.IO.Path.Combine("Assets", Path);
+			if (AssetUtils.Exists(newPath))
+			{
+				Path = newPath;
+			}
 		}
-
 		if (Path.Contains(".mat")) // IF ITS mat  not .glsl, just assign SpriteRenderer so we can fix it without crashing
 		{
 			Path = System.IO.Path.Combine("Assets", "Shaders", "SpriteRenderer.glsl");
@@ -105,7 +110,7 @@ public class
 		GL.DeleteShader(fs);
 
 
-		ShaderManager.UseShader(this);
+		Tofu.I.ShaderManager.UseShader(this);
 		AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
 		// NormalTextureLocation = GetUniformLocation("textureNormal");
 		AmbientOcclusionTextureLocation = GetUniformLocation("textureAo");

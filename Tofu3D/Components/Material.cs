@@ -13,6 +13,7 @@ public class Material : Asset<Material>
 	[Hide]
 	public Shader Shader;
 
+	[XmlIgnore]
 	[Hide]
 	public int Vao;
 	public RenderMode RenderMode = RenderMode.Opaque;
@@ -41,14 +42,14 @@ public class Material : Asset<Material>
 
 	public void LoadTextures()
 	{
-		if (AlbedoTexture)
+		if (AlbedoTexture?.Path.Length>2)
 		{
-			AlbedoTexture = AssetManager.Load<Texture>(AlbedoTexture.AssetPath);
+			AlbedoTexture = Tofu.I.AssetManager.Load<Texture>(AlbedoTexture.Path);
 		}
 
-		if (AoTexture)
+		if (AoTexture?.Path.Length>2)
 		{
-			AoTexture = AssetManager.Load<Texture>(AoTexture.AssetPath);
+			AoTexture = Tofu.I.AssetManager.Load<Texture>(AoTexture.Path);
 		}
 	}
 

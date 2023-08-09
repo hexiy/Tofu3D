@@ -6,16 +6,16 @@ public static class Tweener
 	{
 		Tween tween = new()
 		              {Duration = duration, EndValue = endValue, StartValue = startValue, CurrentTime = 0, OnUpdate = onUpdate};
-		return TweenManager.I.StartTween(tween);
+		return Tofu.I.TweenManager.StartTween(tween);
 	}
 
 	public static void Kill(object target)
 	{
-		for (int i = 0; i < TweenManager.I.ActiveTweens.Count; i++)
+		for (int i = 0; i < Tofu.I.TweenManager.ActiveTweens.Count; i++)
 		{
-			if (TweenManager.I.ActiveTweens[i].Target == target)
+			if (Tofu.I.TweenManager.ActiveTweens[i].Target == target)
 			{
-				TweenManager.I.RemoveTween(i);
+				Tofu.I.TweenManager.RemoveTween(i);
 				return;
 			}
 		}

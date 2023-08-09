@@ -2,9 +2,10 @@
 
 public abstract class AssetBase
 {
-	[XmlIgnore] public AssetRuntimeHandle AssetRuntimeHandle { get; set; }
+	[XmlIgnore] public AssetHandle Handle { get; set; }
 	[Hide]
-	public string AssetPath = "";
+	[XmlElement("AssetPath")]
+	public string Path = "";
 
 	// private Asset()
 	// {

@@ -305,9 +305,9 @@ public class Transform : Component
 
 	public void SetParent(Transform par, bool updateTransform = false)
 	{
-		// if (ParentId != -1 && SceneManager.CurrentScene.GetGameObject(ParentId) != null)
+		// if (ParentId != -1 && Tofu.I.SceneManager.CurrentScene.GetGameObject(ParentId) != null)
 		// {
-		// 	SceneManager.CurrentScene.GetGameObject(ParentId).Transform.RemoveChild(GameObjectId);
+		// 	Tofu.I.SceneManager.CurrentScene.GetGameObject(ParentId).Transform.RemoveChild(GameObjectId);
 		// }
 
 		if (updateTransform)

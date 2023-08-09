@@ -5,7 +5,6 @@ namespace Tofu3D;
 public class CubemapTextureLoadSettings : AssetLoadSettings<CubemapTexture>
 {
 	public static CubemapTextureLoadSettings DefaultSettings = new CubemapTextureLoadSettings( // paths: new[] {string.Empty},
-	                                                                                          flipX: false,
 	                                                                                          filterMode: TextureFilterMode.Bilinear,
 	                                                                                          wrapMode: TextureWrapMode.ClampToEdge,
 	                                                                                          canSetDefaultSettings: false);
@@ -14,10 +13,8 @@ public class CubemapTextureLoadSettings : AssetLoadSettings<CubemapTexture>
 	public string[] Paths { get; private set; }
 	public TextureFilterMode FilterMode { get; private set; }
 	public TextureWrapMode WrapMode { get; private set; }
-	public bool FlipX { get; private set; }
 
 	public CubemapTextureLoadSettings(string[]? paths = null, // set only one element for single texture cubemaps
-	                                  bool? flipX = null,
 	                                  TextureFilterMode? filterMode = null,
 	                                  TextureWrapMode? wrapMode = null,
 	                                  bool? canSetDefaultSettings = true)
@@ -36,7 +33,6 @@ public class CubemapTextureLoadSettings : AssetLoadSettings<CubemapTexture>
 		this.Paths = paths ?? defaultSettings?.Paths;
 		this.FilterMode = filterMode ?? defaultSettings.FilterMode;
 		this.WrapMode = wrapMode ?? defaultSettings.WrapMode;
-		this.FlipX = flipX ?? defaultSettings.FlipX;
 	}
 
 	public CubemapTextureLoadSettings()
@@ -48,7 +44,6 @@ public class CubemapTextureLoadSettings : AssetLoadSettings<CubemapTexture>
 		// this.Paths = defaultSettings.Paths;
 		this.FilterMode = defaultSettings.FilterMode;
 		this.WrapMode = defaultSettings.WrapMode;
-		this.FlipX = defaultSettings.FlipX;
 	}
 
 	// differentiate between textures based on their load settings
@@ -63,7 +58,6 @@ public class CubemapTextureLoadSettings : AssetLoadSettings<CubemapTexture>
 
 		hashCodeCombiner.Add(FilterMode.GetHashCode());
 		hashCodeCombiner.Add(WrapMode.GetHashCode());
-		hashCodeCombiner.Add(FlipX.GetHashCode());
 		return hashCodeCombiner.CombinedHash;
 	}
 }

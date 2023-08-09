@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 
 namespace Tofu3D;
 
@@ -15,6 +16,7 @@ public static class StackTraceFactory
 
 		// stackTrace.FullText = stackTraceFullText;
 		// var a = new System.Diagnostics.StackFrame(true);
+		int skipFrames = 3;
 		var b = new System.Diagnostics.StackTrace(fNeedFileInfo: true, skipFrames: 3);
 		System.Diagnostics.StackFrame[] frames = b.GetFrames();
 
