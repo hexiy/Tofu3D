@@ -38,6 +38,10 @@ public class ModelRendererInstanced : Renderer
 		{
 			Mesh = Tofu.I.AssetManager.Load<Mesh>(Mesh.Path);
 		}
+		else
+		{
+			Mesh = null;
+		}
 	}
 
 	public override void Render()

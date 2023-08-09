@@ -38,9 +38,13 @@ public class ModelRenderer : TextureRenderer
 			Material = Tofu.I.AssetManager.Load<Material>(Material.Path);
 		}
 
-		if (Mesh)
+		if (Mesh?.Path.Length>0)
 		{
 			Mesh = Tofu.I.AssetManager.Load<Mesh>(Mesh.Path);
+		}
+		else
+		{
+			Mesh = null;
 		}
 		// Material = Tofu.I.AssetManager.Load<Material>("ModelRenderer");
 

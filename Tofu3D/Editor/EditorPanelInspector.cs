@@ -322,7 +322,7 @@ public class EditorPanelInspector : EditorPanel
 
                 foreach (FieldOrPropertyInfo info in componentInspectorData.Infos)
                 {
-                    bool drawn = DrawInspectables(info, componentInspectorData);
+                    bool drawn = DrawFieldOrProperty(info, componentInspectorData);
                     if (drawn == false)
                     {
                         continue;
@@ -408,556 +408,557 @@ public class EditorPanelInspector : EditorPanel
             {
                 materialToShowAtTheBottom
             });
-            // void DrawMaterialStuff(InspectableData componentInspectorData)
-            // {
-            // 	PushNextId();
-            // 	Material selectedMaterial = componentInspectorData.Inspectable as Material;
-            // 	// bool saveMaterialClicked = ImGui.Button("Save");
-            // 	// if (saveMaterialClicked)
-            // 	// {
-            // 	// 	// Tofu.I.AssetManager.Save<Material>(selectedMaterial);
-            // 	// }
-            //
-            // 	string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.Path);
-            // 	ImGui.Text(materialName);
-            //
-            // 	ImGui.Text("Shader");
-            // 	float itemWidth = 400;
-            // 	ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth);
-            // 	ImGui.SetNextItemWidth(itemWidth);
-            //
-            // 	string shaderPath = selectedMaterial.Shader?.Path ?? "";
-            // 	string shaderName = Path.GetFileName(shaderPath);
-            // 	bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-            // 	if (clicked)
-            // 	{
-            // 		EditorPanelBrowser.I.GoToFile(shaderPath);
-            // 	}
-            //
-            // 	if (ImGui.BeginDragDropTarget())
-            // 	{
-            // 		ImGui.AcceptDragDropPayload("SHADER", ImGuiDragDropFlags.None);
-            //
-            // 		shaderPath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-            // 		if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && shaderPath.Length > 0)
-            // 		{
-            // 			//shaderPath = Path.GetRelativePath("Assets", shaderPath);
-            // 			Shader shader = new(shaderPath);
-            //
-            // 			selectedMaterial.Shader = shader;
-            // 			_actionQueue += () => { Tofu.I.AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
-            // 			// Tofu.I.AssetManager.Save<Material>(selectedMaterial);
-            // 		}
-            //
-            // 		ImGui.EndDragDropTarget();
-            // 	}
-            //
-            // 	if (selectedMaterial.Shader == null)
-            // 	{
-            // 		return;
-            // 	}
-            // }
+        }
+        // void DrawMaterialStuff(InspectableData componentInspectorData)
+        // {
+        // 	PushNextId();
+        // 	Material selectedMaterial = componentInspectorData.Inspectable as Material;
+        // 	// bool saveMaterialClicked = ImGui.Button("Save");
+        // 	// if (saveMaterialClicked)
+        // 	// {
+        // 	// 	// Tofu.I.AssetManager.Save<Material>(selectedMaterial);
+        // 	// }
+        //
+        // 	string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.Path);
+        // 	ImGui.Text(materialName);
+        //
+        // 	ImGui.Text("Shader");
+        // 	float itemWidth = 400;
+        // 	ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth);
+        // 	ImGui.SetNextItemWidth(itemWidth);
+        //
+        // 	string shaderPath = selectedMaterial.Shader?.Path ?? "";
+        // 	string shaderName = Path.GetFileName(shaderPath);
+        // 	bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+        // 	if (clicked)
+        // 	{
+        // 		EditorPanelBrowser.I.GoToFile(shaderPath);
+        // 	}
+        //
+        // 	if (ImGui.BeginDragDropTarget())
+        // 	{
+        // 		ImGui.AcceptDragDropPayload("SHADER", ImGuiDragDropFlags.None);
+        //
+        // 		shaderPath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+        // 		if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && shaderPath.Length > 0)
+        // 		{
+        // 			//shaderPath = Path.GetRelativePath("Assets", shaderPath);
+        // 			Shader shader = new(shaderPath);
+        //
+        // 			selectedMaterial.Shader = shader;
+        // 			_actionQueue += () => { Tofu.I.AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
+        // 			// Tofu.I.AssetManager.Save<Material>(selectedMaterial);
+        // 		}
+        //
+        // 		ImGui.EndDragDropTarget();
+        // 	}
+        //
+        // 	if (selectedMaterial.Shader == null)
+        // 	{
+        // 		return;
+        // 	}
+        // }
 
-            // void DrawMaterialStuff(InspectableData componentInspectorData)
-            // {
-            // 	PushNextId();
-            // 	Material selectedMaterial = componentInspectorData.Inspectable as Material;
-            // 	// bool saveMaterialClicked = ImGui.Button("Save");
-            // 	// if (saveMaterialClicked)
-            // 	// {
-            // 	// 	// AssetManager.Save<Material>(selectedMaterial);
-            // 	// }
-            //
-            // 	string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.AssetPath);
-            // 	ImGui.Text(materialName);
-            //
-            // 	ImGui.Text("Shader");
-            // 	float itemWidth = 400;
-            // 	ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth);
-            // 	ImGui.SetNextItemWidth(itemWidth);
-            //
-            // 	string shaderPath = selectedMaterial.Shader?.Path ?? "";
-            // 	string shaderName = Path.GetFileName(shaderPath);
-            // 	bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-            // 	if (clicked)
-            // 	{
-            // 		EditorPanelBrowser.I.GoToFile(shaderPath);
-            // 	}
-            //
-            // 	if (ImGui.BeginDragDropTarget())
-            // 	{
-            // 		ImGui.AcceptDragDropPayload("SHADER", ImGuiDragDropFlags.None);
-            //
-            // 		shaderPath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-            // 		if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && shaderPath.Length > 0)
-            // 		{
-            // 			//shaderPath = Path.GetRelativePath("Assets", shaderPath);
-            // 			Shader shader = new(shaderPath);
-            //
-            // 			selectedMaterial.Shader = shader;
-            // 			_actionQueue += () => { AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
-            // 			// AssetManager.Save<Material>(selectedMaterial);
-            // 		}
-            //
-            // 		ImGui.EndDragDropTarget();
-            // 	}
-            //
-            // 	if (selectedMaterial.Shader == null)
-            // 	{
-            // 		return;
-            // 	}
-            // }
+        // void DrawMaterialStuff(InspectableData componentInspectorData)
+        // {
+        // 	PushNextId();
+        // 	Material selectedMaterial = componentInspectorData.Inspectable as Material;
+        // 	// bool saveMaterialClicked = ImGui.Button("Save");
+        // 	// if (saveMaterialClicked)
+        // 	// {
+        // 	// 	// AssetManager.Save<Material>(selectedMaterial);
+        // 	// }
+        //
+        // 	string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.AssetPath);
+        // 	ImGui.Text(materialName);
+        //
+        // 	ImGui.Text("Shader");
+        // 	float itemWidth = 400;
+        // 	ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth);
+        // 	ImGui.SetNextItemWidth(itemWidth);
+        //
+        // 	string shaderPath = selectedMaterial.Shader?.Path ?? "";
+        // 	string shaderName = Path.GetFileName(shaderPath);
+        // 	bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+        // 	if (clicked)
+        // 	{
+        // 		EditorPanelBrowser.I.GoToFile(shaderPath);
+        // 	}
+        //
+        // 	if (ImGui.BeginDragDropTarget())
+        // 	{
+        // 		ImGui.AcceptDragDropPayload("SHADER", ImGuiDragDropFlags.None);
+        //
+        // 		shaderPath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+        // 		if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && shaderPath.Length > 0)
+        // 		{
+        // 			//shaderPath = Path.GetRelativePath("Assets", shaderPath);
+        // 			Shader shader = new(shaderPath);
+        //
+        // 			selectedMaterial.Shader = shader;
+        // 			_actionQueue += () => { AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
+        // 			// AssetManager.Save<Material>(selectedMaterial);
+        // 		}
+        //
+        // 		ImGui.EndDragDropTarget();
+        // 	}
+        //
+        // 	if (selectedMaterial.Shader == null)
+        // 	{
+        // 		return;
+        // 	}
+        // }
+    }
 
-            bool DrawFieldOrProperty(FieldOrPropertyInfo info, InspectableData componentInspectorData)
+
+    bool DrawFieldOrProperty(FieldOrPropertyInfo info, InspectableData componentInspectorData)
+    {
+        if (info.CanShowInEditor == false)
+        {
+            return false;
+        }
+
+        PushNextId();
+
+        // ReSharper disable once ReplaceWithSingleAssignment.False
+        bool hovering = false;
+        if (ImGui.IsMouseHoveringRect(ImGui.GetCursorScreenPos(),
+                ImGui.GetCursorScreenPos() +
+                new System.Numerics.Vector2(1500, ImGui.GetFrameHeightWithSpacing())))
+        {
+            hovering = true;
+        }
+
+        ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 10);
+
+        if (info.IsListElement == false)
+        {
+            if (info.IsReadonly)
             {
-                if (info.CanShowInEditor == false)
+                ImGui.BeginDisabled();
+            }
+
+            if (hovering)
+            {
+                ImGui.TextColored(new Vector4(0.7f, 0.4f, 0.6f, 1), info.Name);
+            }
+            else
+            {
+                ImGui.Text(info.Name);
+            }
+        }
+
+        float itemWidth1 = 400;
+        ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth1);
+        ImGui.SetNextItemWidth(itemWidth1);
+
+        if (info.IsGenericList)
+        {
+            object obj = info.GetValue(componentInspectorData.Inspectable);
+            IList list = (IList)obj;
+
+
+            if (ImGui.Button("+"))
+            {
+                object newElement = Activator.CreateInstance(info.GenericParameterType);
+                list.Add(newElement);
+                info.SetValue(componentInspectorData.Inspectable, list);
+            }
+
+            ImGui.SameLine();
+            if (ImGui.CollapsingHeader($"List<{info.GenericParameterType.Name}>",
+                    ImGuiTreeNodeFlags.DefaultOpen))
+            {
+                for (int j = 0; j < list.Count; j++)
                 {
-                    return false;
-                }
+                    PushNextId();
+                    bool xClicked = ImGui.Button("x",
+                        new System.Numerics.Vector2(ImGui.GetFrameHeight(), ImGui.GetFrameHeight()));
 
-                PushNextId();
-
-                // ReSharper disable once ReplaceWithSingleAssignment.False
-                bool hovering = false;
-                if (ImGui.IsMouseHoveringRect(ImGui.GetCursorScreenPos(),
-                        ImGui.GetCursorScreenPos() +
-                        new System.Numerics.Vector2(1500, ImGui.GetFrameHeightWithSpacing())))
-                {
-                    hovering = true;
-                }
-
-                ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 10);
-
-                if (info.IsListElement == false)
-                {
-                    if (info.IsReadonly)
+                    if (xClicked)
                     {
-                        ImGui.BeginDisabled();
-                    }
-
-                    if (hovering)
-                    {
-                        ImGui.TextColored(new Vector4(0.7f, 0.4f, 0.6f, 1), info.Name);
-                    }
-                    else
-                    {
-                        ImGui.Text(info.Name);
-                    }
-                }
-
-                float itemWidth1 = 400;
-                ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth1);
-                ImGui.SetNextItemWidth(itemWidth1);
-
-                if (info.IsGenericList)
-                {
-                    object obj = info.GetValue(componentInspectorData.Inspectable);
-                    IList list = (IList)obj;
-
-
-                    if (ImGui.Button("+"))
-                    {
-                        object newElement = Activator.CreateInstance(info.GenericParameterType);
-                        list.Add(newElement);
+                        list.RemoveAt(j);
                         info.SetValue(componentInspectorData.Inspectable, list);
+                        continue;
                     }
 
                     ImGui.SameLine();
-                    if (ImGui.CollapsingHeader($"List<{info.GenericParameterType.Name}>",
-                            ImGuiTreeNodeFlags.DefaultOpen))
-                    {
-                        for (int j = 0; j < list.Count; j++)
-                        {
-                            PushNextId();
-                            bool xClicked = ImGui.Button("x",
-                                new System.Numerics.Vector2(ImGui.GetFrameHeight(), ImGui.GetFrameHeight()));
 
-                            if (xClicked)
-                            {
-                                list.RemoveAt(j);
-                                info.SetValue(componentInspectorData.Inspectable, list);
-                                continue;
-                            }
-
-                            ImGui.SameLine();
-
-                            bool isNull = list[j] == null;
-                            string name = isNull ? "<null>" : "name";
+                    bool isNull = list[j] == null;
+                    string name = isNull ? "<null>" : "name";
 
 
-                            FieldOrPropertyInfo listElementFieldOrProperty = new FieldOrPropertyInfo(list, j);
-                            listElementFieldOrProperty.IsListElement = true;
-                            DrawFieldOrProperty(listElementFieldOrProperty, componentInspectorData);
-                            /*if (ImGui.BeginDragDropTarget())
-                            {
-                                ImGui.AcceptDragDropPayload("GAMEOBJECT", ImGuiDragDropFlags.None);
-
-                                string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                                ImGuiPayloadPtr x = ImGui.GetDragDropPayload();
-                                if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
-                                {
-                                    GameObject foundGo = Tofu.I.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
-                                    list[j] = foundGo;
-                                    info.SetValue(componentInspectorData.Inspectable, list);
-                                }
-
-                                ImGui.EndDragDropTarget();
-                            }*/
-                        }
-
-                        info.SetValue(componentInspectorData.Inspectable, list);
-                        // FieldInfo info;
-                        // info.get
-                        // info.SetValue(componentInspectorData.InspectableType, obj);
-                    }
-                }
-
-                if (info.FieldOrPropertyType == typeof(Vector3))
-                {
-                    System.Numerics.Vector3 systemv3 = (Vector3)info.GetValue(componentInspectorData.Inspectable);
-                    if (ImGui.DragFloat3("", ref systemv3, 0.01f))
-                    {
-                        info.SetValue(componentInspectorData.Inspectable, (Vector3)systemv3);
-                    }
-                }
-                else if (info.FieldOrPropertyType == typeof(Vector2))
-                {
-                    System.Numerics.Vector2 systemv2 = (Vector2)info.GetValue(componentInspectorData.Inspectable);
-                    if (ImGui.DragFloat2("", ref systemv2, 0.01f))
-                    {
-                        info.SetValue(componentInspectorData.Inspectable, (Vector2)systemv2);
-                    }
-                }
-                else if (info.FieldOrPropertyType == typeof(Mesh))
-                {
-                    Mesh mesh = (Mesh)info.GetValue(componentInspectorData.Inspectable);
-
-                    string assetName = Path.GetFileName(mesh?.Path) ?? "";
-
-                    bool clicked = ImGui.Button(assetName,
-                        new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-
-                    if (ImGui.BeginDragDropTarget())
-                    {
-                        ImGui.AcceptDragDropPayload("CONTENT_BROWSER_MODEL", ImGuiDragDropFlags.None);
-                        string filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                        if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0)
-                        {
-                            // fileName = Path.GetRelativePath("Assets", fileName);
-
-                            mesh = Tofu.I.AssetManager.Load<Mesh>(filePath);
-                            // gameObject.GetComponent<Renderer>().Material.Vao = Mesh.Vao; // materials are shared
-                            info.SetValue(componentInspectorData.Inspectable, mesh);
-                        }
-
-                        ImGui.EndDragDropTarget();
-                    }
-                }
-                else if (info.FieldOrPropertyType == typeof(AudioClip))
-                {
-                    AudioClip audioClip = (AudioClip)info.GetValue(componentInspectorData.Inspectable);
-                    if (audioClip == null)
-                    {
-                        audioClip = new AudioClip();
-                        info.SetValue(componentInspectorData.Inspectable, audioClip);
-                    }
-
-                    string clipName = Path.GetFileName(audioClip?.Path);
-
-                    bool clicked = ImGui.Button(clipName,
-                        new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-
-
-                    if (ImGui.BeginDragDropTarget())
-                    {
-                        ImGui.AcceptDragDropPayload("CONTENT_BROWSER_AUDIOCLIP", ImGuiDragDropFlags.None);
-                        string fileName = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                        if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && fileName.Length > 0)
-                        {
-                            // fileName = Path.GetRelativePath("Assets", fileName);
-
-                            audioClip.Path = fileName;
-                            info.SetValue(componentInspectorData.Inspectable, audioClip);
-                        }
-
-                        ImGui.EndDragDropTarget();
-                    }
-                }
-                else if (info.FieldOrPropertyType == typeof(Action))
-                {
-                    Action action = (Action)info.GetValue(componentInspectorData.Inspectable);
-                    ImGui.PushStyleColor(ImGuiCol.Text, ImGui.GetStyle().Colors[(int)ImGuiCol.Text]);
-                    if (ImGui.Button($"> {info.Name} <",
-                            new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight())))
-                    {
-                        action?.Invoke();
-                    }
-
-                    ImGui.PopStyleColor(1);
-                }
-                else if (info.FieldOrPropertyType == typeof(Texture))
-                {
-                    Texture texture = (Texture)info.GetValue(componentInspectorData.Inspectable);
-                    string textureName = texture == null ? "" : Path.GetFileName(texture.Path);
-
-                    int posX = (int)ImGui.GetCursorPosX();
-
-                    if (texture == null)
-                    {
-                        ImGui.Dummy(new Vector2(150, 150));
-                    }
-                    else
-                    {
-                        ImGui.Image(texture.TextureId, new Vector2(150, 150));
-                    }
-
-                    ImGui.SetCursorPosX(posX);
-                    bool clicked = ImGui.Button(textureName,
-                        new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-                    bool rightMouseClicked = ImGui.IsItemClicked(ImGuiMouseButton.Right);
-                    //ImiGui.Text(textureName);
-                    if (clicked)
-                    {
-                        // Debug.Log("TODO");
-                        _actionQueue += () => { EditorPanelBrowser.I.GoToFile(texture.Path); };
-                    }
-
-                    if (rightMouseClicked)
-                    {
-                        info.SetValue(componentInspectorData.Inspectable, null);
-                    }
-
-                    if (ImGui.BeginDragDropTarget())
-                    {
-                        ImGui.AcceptDragDropPayload("CONTENT_BROWSER_TEXTURE", ImGuiDragDropFlags.None);
-                        string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                        if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
-                        {
-                            payload = Path.GetRelativePath(Folders.EngineFolderPath, payload);
-
-                            textureName = payload;
-
-                            Texture loadedTexture = Tofu.I.AssetManager.Load<Texture>(textureName);
-
-                            info.SetValue(componentInspectorData.Inspectable, loadedTexture);
-                        }
-
-                        ImGui.EndDragDropTarget();
-                    }
-                }
-                else if (info.FieldOrPropertyType == typeof(CubemapTexture))
-                {
-                    CubemapTexture cubemapTexture = info.ListElement as CubemapTexture;
-                    string textureName = Path.GetFileName(cubemapTexture.Path);
-
-                    bool clicked = ImGui.Button(textureName,
-                        new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-                    if (clicked)
-                    {
-                        EditorPanelBrowser.I.GoToFile(cubemapTexture.Path);
-                    }
-                }
-                else if (info.FieldOrPropertyType == typeof(Material))
-                {
-                    string materialPath =
-                        Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.Path);
-
-                    materialPath = materialPath ?? "";
-                    bool clicked = ImGui.Button(materialPath,
-                        new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-                    if (clicked)
-                    {
-                        _actionQueue += () =>
-                            SelectInspectable((componentInspectorData.Inspectable as Renderer).Material);
-
-
-                        // EditorPanelBrowser.I.GoToFile(materialPath);
-                    }
-
-                    if (ImGui.BeginDragDropTarget())
-                    {
-                        ImGui.AcceptDragDropPayload("CONTENT_BROWSER_MATERIAL", ImGuiDragDropFlags.None);
-                        string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                        if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
-                        {
-                            payload = payload;
-                            string materialName = Path.GetFileName(payload);
-
-                            Material draggedMaterial = Tofu.I.AssetManager.Load<Material>(payload);
-                            if (draggedMaterial.Shader == null)
-                            {
-                                Debug.Log("No Shader attached to material.");
-                            }
-                            else
-                            {
-                                (componentInspectorData.Inspectable as Renderer).Material = draggedMaterial;
-                            }
-                            // load new material
-                        }
-
-                        ImGui.EndDragDropTarget();
-                    }
-                }
-                else if (info.FieldOrPropertyType == typeof(GameObject))
-                {
-                    GameObject goObject = info.GetValue(componentInspectorData.Inspectable) as GameObject;
-                    string fieldGoName = goObject?.Name ?? "";
-                    bool clicked = ImGui.Button(fieldGoName,
-                        new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-                    if (clicked && goObject != null)
-                    {
-                        EditorPanelHierarchy.I.SelectGameObject(goObject.Id);
-                        return true;
-                    }
-
-                    if (ImGui.BeginDragDropTarget())
-                    {
-                        ImGui.AcceptDragDropPayload("PREFAB_PATH", ImGuiDragDropFlags.None);
-                        string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                        string dataType = ImGui.GetDragDropPayload().DataType.GetStringASCII()
-                            .Replace("\0", string.Empty);
-                        if (dataType == "PREFAB_PATH")
-                        {
-                            if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
-                            {
-                                GameObject loadedGo = Tofu.I.SceneSerializer.LoadPrefab(payload, true);
-                                info.SetValue(componentInspectorData.Inspectable, loadedGo);
-                            }
-                        }
-
-                        ImGui.EndDragDropTarget();
-                    }
-
-                    if (ImGui.BeginDragDropTarget())
+                    FieldOrPropertyInfo listElementFieldOrProperty = new FieldOrPropertyInfo(list, j);
+                    listElementFieldOrProperty.IsListElement = true;
+                    DrawFieldOrProperty(listElementFieldOrProperty, componentInspectorData);
+                    /*if (ImGui.BeginDragDropTarget())
                     {
                         ImGui.AcceptDragDropPayload("GAMEOBJECT", ImGuiDragDropFlags.None);
-                        string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                        string dataType = ImGui.GetDragDropPayload().DataType.GetStringASCII()
-                            .Replace("\0", string.Empty);
 
-                        if (dataType == "GAMEOBJECT")
+                        string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                        ImGuiPayloadPtr x = ImGui.GetDragDropPayload();
+                        if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
                         {
-                            //	string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                            if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
-                            {
-                                GameObject foundGo = Tofu.I.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
-                                info.SetValue(componentInspectorData.Inspectable, foundGo);
-                            }
+                            GameObject foundGo = Tofu.I.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
+                            list[j] = foundGo;
+                            info.SetValue(componentInspectorData.Inspectable, list);
                         }
 
                         ImGui.EndDragDropTarget();
-                    }
-                }
-                else if (info.FieldOrPropertyType == typeof(Color))
-                {
-                    System.Numerics.Vector4 fieldValue =
-                        ((Color)info.GetValue(componentInspectorData.Inspectable)).ToVector4();
-
-                    bool hasColor3Attribute =
-                        info.CustomAttributes.Count(data => data.AttributeType == typeof(Color3Attrib)) > 0;
-                    bool changed = false;
-                    if (hasColor3Attribute)
-                    {
-                        System.Numerics.Vector3 vec3 = Extensions.ToVector3(fieldValue);
-
-                        changed = ImGui.ColorEdit3("", ref vec3);
-                        fieldValue = new System.Numerics.Vector4(vec3.X, vec3.Y, vec3.Z, fieldValue.W);
-                    }
-                    else
-                    {
-                        changed = ImGui.ColorEdit4("", ref fieldValue);
-                    }
-
-                    if (changed)
-                    {
-                        info.SetValue(componentInspectorData.Inspectable, fieldValue.ToColor());
-                    }
-                }
-                else if (info.FieldOrPropertyType == typeof(bool))
-                {
-                    ImGui.SameLine(ImGui.GetWindowWidth() - ImGui.GetContentRegionAvail().X / 2);
-
-                    bool fieldValue = (bool)info.GetValue(componentInspectorData.Inspectable);
-
-                    if (ImGui.Checkbox("", ref fieldValue))
-                    {
-                        info.SetValue(componentInspectorData.Inspectable, fieldValue);
-                        _refreshQueued = true;
-                    }
-                }
-                else if (info.FieldOrPropertyType == typeof(float))
-                {
-                    float fieldValue = (float)info.GetValue(componentInspectorData.Inspectable);
-
-                    SliderF sliderAttrib = null;
-                    List<CustomAttributeData> a = info.FieldOrPropertyType.CustomAttributes.ToList();
-                    for (int i = 0; i < info.CustomAttributes.Count(); i++)
-                    {
-                        if (info.CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(SliderF))
-                        {
-                            FieldInfo fieldType = componentInspectorData.Inspectable.GetType().GetField(info.Name);
-                            if (fieldType != null)
-                            {
-                                sliderAttrib = fieldType.GetCustomAttribute<SliderF>();
-                            }
-                            else
-                            {
-                                PropertyInfo propertyType =
-                                    componentInspectorData.Inspectable.GetType().GetProperty(info.Name);
-                                sliderAttrib = propertyType.GetCustomAttribute<SliderF>();
-                            }
-                        }
-                    }
-
-                    if (sliderAttrib != null)
-                    {
-                        if (ImGui.SliderFloat("", ref fieldValue, sliderAttrib.MinValue, sliderAttrib.MaxValue))
-                        {
-                            info.SetValue(componentInspectorData.Inspectable, fieldValue);
-                        }
-                    }
-                    else
-                    {
-                        if (ImGui.DragFloat("", ref fieldValue, 0.01f, float.NegativeInfinity, float.PositiveInfinity,
-                                "%.05f"))
-                        {
-                            info.SetValue(componentInspectorData.Inspectable, fieldValue);
-                        }
-                    }
-                }
-                else if (info.FieldOrPropertyType == typeof(int))
-                {
-                    int fieldValue = (int)info.GetValue(componentInspectorData.Inspectable);
-
-
-                    if (ImGui.DragInt("", ref fieldValue))
-                    {
-                        info.SetValue(componentInspectorData.Inspectable, fieldValue);
-                    }
-                }
-                else if (info.FieldOrPropertyType == typeof(string))
-                {
-                    string fieldValue = info.GetValue(componentInspectorData.Inspectable)?.ToString();
-
-                    if (ImGui.InputTextMultiline("", ref fieldValue, 100,
-                            new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, 200)))
-                    {
-                        info.SetValue(componentInspectorData.Inspectable, fieldValue);
-                    }
+                    }*/
                 }
 
-                if (info.IsReadonly)
-                {
-                    ImGui.EndDisabled();
-                }
-
-                if (ImGui.IsItemEdited())
-                {
-                    _editing = true;
-                }
-
-                return true;
+                info.SetValue(componentInspectorData.Inspectable, list);
+                // FieldInfo info;
+                // info.get
+                // info.SetValue(componentInspectorData.InspectableType, obj);
             }
         }
+
+        if (info.FieldOrPropertyType == typeof(Vector3))
+        {
+            System.Numerics.Vector3 systemv3 = (Vector3)info.GetValue(componentInspectorData.Inspectable);
+            if (ImGui.DragFloat3("", ref systemv3, 0.01f))
+            {
+                info.SetValue(componentInspectorData.Inspectable, (Vector3)systemv3);
+            }
+        }
+        else if (info.FieldOrPropertyType == typeof(Vector2))
+        {
+            System.Numerics.Vector2 systemv2 = (Vector2)info.GetValue(componentInspectorData.Inspectable);
+            if (ImGui.DragFloat2("", ref systemv2, 0.01f))
+            {
+                info.SetValue(componentInspectorData.Inspectable, (Vector2)systemv2);
+            }
+        }
+        else if (info.FieldOrPropertyType == typeof(Mesh))
+        {
+            Mesh mesh = (Mesh)info.GetValue(componentInspectorData.Inspectable);
+
+            string assetName = Path.GetFileName(mesh?.Path) ?? "";
+
+            bool clicked = ImGui.Button(assetName,
+                new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+
+            if (ImGui.BeginDragDropTarget())
+            {
+                ImGui.AcceptDragDropPayload("CONTENT_BROWSER_MODEL", ImGuiDragDropFlags.None);
+                string filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0)
+                {
+                    // fileName = Path.GetRelativePath("Assets", fileName);
+
+                    mesh = Tofu.I.AssetManager.Load<Mesh>(filePath);
+                    // gameObject.GetComponent<Renderer>().Material.Vao = Mesh.Vao; // materials are shared
+                    info.SetValue(componentInspectorData.Inspectable, mesh);
+                }
+
+                ImGui.EndDragDropTarget();
+            }
+        }
+        else if (info.FieldOrPropertyType == typeof(AudioClip))
+        {
+            AudioClip audioClip = (AudioClip)info.GetValue(componentInspectorData.Inspectable);
+            if (audioClip == null)
+            {
+                audioClip = new AudioClip();
+                info.SetValue(componentInspectorData.Inspectable, audioClip);
+            }
+
+            string clipName = Path.GetFileName(audioClip?.Path);
+
+            bool clicked = ImGui.Button(clipName,
+                new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+
+
+            if (ImGui.BeginDragDropTarget())
+            {
+                ImGui.AcceptDragDropPayload("CONTENT_BROWSER_AUDIOCLIP", ImGuiDragDropFlags.None);
+                string fileName = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && fileName.Length > 0)
+                {
+                    // fileName = Path.GetRelativePath("Assets", fileName);
+
+                    audioClip.Path = fileName;
+                    info.SetValue(componentInspectorData.Inspectable, audioClip);
+                }
+
+                ImGui.EndDragDropTarget();
+            }
+        }
+        else if (info.FieldOrPropertyType == typeof(Action))
+        {
+            Action action = (Action)info.GetValue(componentInspectorData.Inspectable);
+            ImGui.PushStyleColor(ImGuiCol.Text, ImGui.GetStyle().Colors[(int)ImGuiCol.Text]);
+            if (ImGui.Button($"> {info.Name} <",
+                    new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight())))
+            {
+                action?.Invoke();
+            }
+
+            ImGui.PopStyleColor(1);
+        }
+        else if (info.FieldOrPropertyType == typeof(Texture))
+        {
+            Texture texture = (Texture)info.GetValue(componentInspectorData.Inspectable);
+            string textureName = texture == null ? "" : Path.GetFileName(texture.Path);
+
+            int posX = (int)ImGui.GetCursorPosX();
+
+            if (texture == null)
+            {
+                ImGui.Dummy(new Vector2(150, 150));
+            }
+            else
+            {
+                ImGui.Image(texture.TextureId, new Vector2(150, 150));
+            }
+
+            ImGui.SetCursorPosX(posX);
+            bool clicked = ImGui.Button(textureName,
+                new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+            bool rightMouseClicked = ImGui.IsItemClicked(ImGuiMouseButton.Right);
+            //ImiGui.Text(textureName);
+            if (clicked)
+            {
+                // Debug.Log("TODO");
+                _actionQueue += () => { EditorPanelBrowser.I.GoToFile(texture.Path); };
+            }
+
+            if (rightMouseClicked)
+            {
+                info.SetValue(componentInspectorData.Inspectable, null);
+            }
+
+            if (ImGui.BeginDragDropTarget())
+            {
+                ImGui.AcceptDragDropPayload("CONTENT_BROWSER_TEXTURE", ImGuiDragDropFlags.None);
+                string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+                {
+                    payload = Path.GetRelativePath(Folders.EngineFolderPath, payload);
+
+                    textureName = payload;
+
+                    Texture loadedTexture = Tofu.I.AssetManager.Load<Texture>(textureName);
+
+                    info.SetValue(componentInspectorData.Inspectable, loadedTexture);
+                }
+
+                ImGui.EndDragDropTarget();
+            }
+        }
+        else if (info.FieldOrPropertyType == typeof(CubemapTexture))
+        {
+            CubemapTexture cubemapTexture = info.ListElement as CubemapTexture;
+            string textureName = Path.GetFileName(cubemapTexture.Path);
+
+            bool clicked = ImGui.Button(textureName,
+                new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+            if (clicked)
+            {
+                EditorPanelBrowser.I.GoToFile(cubemapTexture.Path);
+            }
+        }
+        else if (info.FieldOrPropertyType == typeof(Material))
+        {
+            string materialPath =
+                Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.Path);
+
+            materialPath = materialPath ?? "";
+            bool clicked = ImGui.Button(materialPath,
+                new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+            if (clicked)
+            {
+                _actionQueue += () =>
+                    SelectInspectable((componentInspectorData.Inspectable as Renderer).Material);
+
+
+                // EditorPanelBrowser.I.GoToFile(materialPath);
+            }
+
+            if (ImGui.BeginDragDropTarget())
+            {
+                ImGui.AcceptDragDropPayload("CONTENT_BROWSER_MATERIAL", ImGuiDragDropFlags.None);
+                string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+                {
+                    payload = payload;
+                    string materialName = Path.GetFileName(payload);
+
+                    Material draggedMaterial = Tofu.I.AssetManager.Load<Material>(payload);
+                    if (draggedMaterial.Shader == null)
+                    {
+                        Debug.Log("No Shader attached to material.");
+                    }
+                    else
+                    {
+                        (componentInspectorData.Inspectable as Renderer).Material = draggedMaterial;
+                    }
+                    // load new material
+                }
+
+                ImGui.EndDragDropTarget();
+            }
+        }
+        else if (info.FieldOrPropertyType == typeof(GameObject))
+        {
+            GameObject goObject = info.GetValue(componentInspectorData.Inspectable) as GameObject;
+            string fieldGoName = goObject?.Name ?? "";
+            bool clicked = ImGui.Button(fieldGoName,
+                new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+            if (clicked && goObject != null)
+            {
+                EditorPanelHierarchy.I.SelectGameObject(goObject.Id);
+                return true;
+            }
+
+            if (ImGui.BeginDragDropTarget())
+            {
+                ImGui.AcceptDragDropPayload("PREFAB_PATH", ImGuiDragDropFlags.None);
+                string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                string dataType = ImGui.GetDragDropPayload().DataType.GetStringASCII()
+                    .Replace("\0", string.Empty);
+                if (dataType == "PREFAB_PATH")
+                {
+                    if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+                    {
+                        GameObject loadedGo = Tofu.I.SceneSerializer.LoadPrefab(payload, true);
+                        info.SetValue(componentInspectorData.Inspectable, loadedGo);
+                    }
+                }
+
+                ImGui.EndDragDropTarget();
+            }
+
+            if (ImGui.BeginDragDropTarget())
+            {
+                ImGui.AcceptDragDropPayload("GAMEOBJECT", ImGuiDragDropFlags.None);
+                string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                string dataType = ImGui.GetDragDropPayload().DataType.GetStringASCII()
+                    .Replace("\0", string.Empty);
+
+                if (dataType == "GAMEOBJECT")
+                {
+                    //	string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                    if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+                    {
+                        GameObject foundGo = Tofu.I.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
+                        info.SetValue(componentInspectorData.Inspectable, foundGo);
+                    }
+                }
+
+                ImGui.EndDragDropTarget();
+            }
+        }
+        else if (info.FieldOrPropertyType == typeof(Color))
+        {
+            System.Numerics.Vector4 fieldValue =
+                ((Color)info.GetValue(componentInspectorData.Inspectable)).ToVector4();
+
+            bool hasColor3Attribute =
+                info.CustomAttributes.Count(data => data.AttributeType == typeof(Color3Attrib)) > 0;
+            bool changed = false;
+            if (hasColor3Attribute)
+            {
+                System.Numerics.Vector3 vec3 = Extensions.ToVector3(fieldValue);
+
+                changed = ImGui.ColorEdit3("", ref vec3);
+                fieldValue = new System.Numerics.Vector4(vec3.X, vec3.Y, vec3.Z, fieldValue.W);
+            }
+            else
+            {
+                changed = ImGui.ColorEdit4("", ref fieldValue);
+            }
+
+            if (changed)
+            {
+                info.SetValue(componentInspectorData.Inspectable, fieldValue.ToColor());
+            }
+        }
+        else if (info.FieldOrPropertyType == typeof(bool))
+        {
+            ImGui.SameLine(ImGui.GetWindowWidth() - ImGui.GetContentRegionAvail().X / 2);
+
+            bool fieldValue = (bool)info.GetValue(componentInspectorData.Inspectable);
+
+            if (ImGui.Checkbox("", ref fieldValue))
+            {
+                info.SetValue(componentInspectorData.Inspectable, fieldValue);
+                _refreshQueued = true;
+            }
+        }
+        else if (info.FieldOrPropertyType == typeof(float))
+        {
+            float fieldValue = (float)info.GetValue(componentInspectorData.Inspectable);
+
+            SliderF sliderAttrib = null;
+            List<CustomAttributeData> a = info.FieldOrPropertyType.CustomAttributes.ToList();
+            for (int i = 0; i < info.CustomAttributes.Count(); i++)
+            {
+                if (info.CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(SliderF))
+                {
+                    FieldInfo fieldType = componentInspectorData.Inspectable.GetType().GetField(info.Name);
+                    if (fieldType != null)
+                    {
+                        sliderAttrib = fieldType.GetCustomAttribute<SliderF>();
+                    }
+                    else
+                    {
+                        PropertyInfo propertyType =
+                            componentInspectorData.Inspectable.GetType().GetProperty(info.Name);
+                        sliderAttrib = propertyType.GetCustomAttribute<SliderF>();
+                    }
+                }
+            }
+
+            if (sliderAttrib != null)
+            {
+                if (ImGui.SliderFloat("", ref fieldValue, sliderAttrib.MinValue, sliderAttrib.MaxValue))
+                {
+                    info.SetValue(componentInspectorData.Inspectable, fieldValue);
+                }
+            }
+            else
+            {
+                if (ImGui.DragFloat("", ref fieldValue, 0.01f, float.NegativeInfinity, float.PositiveInfinity,
+                        "%.05f"))
+                {
+                    info.SetValue(componentInspectorData.Inspectable, fieldValue);
+                }
+            }
+        }
+        else if (info.FieldOrPropertyType == typeof(int))
+        {
+            int fieldValue = (int)info.GetValue(componentInspectorData.Inspectable);
+
+
+            if (ImGui.DragInt("", ref fieldValue))
+            {
+                info.SetValue(componentInspectorData.Inspectable, fieldValue);
+            }
+        }
+        else if (info.FieldOrPropertyType == typeof(string))
+        {
+            string fieldValue = info.GetValue(componentInspectorData.Inspectable)?.ToString();
+
+            if (ImGui.InputTextMultiline("", ref fieldValue, 100,
+                    new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, 200)))
+            {
+                info.SetValue(componentInspectorData.Inspectable, fieldValue);
+            }
+        }
+
+        if (info.IsReadonly)
+        {
+            ImGui.EndDisabled();
+        }
+
+        if (ImGui.IsItemEdited())
+        {
+            _editing = true;
+        }
+
+        return true;
     }
 }
