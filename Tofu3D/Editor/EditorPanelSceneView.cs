@@ -26,9 +26,9 @@ public class EditorPanelSceneView : EditorPanel
 			ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
 			ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 
-			Editor.SceneViewSize = RenderPassSystem.FinalRenderTexture.Size + new Vector2(0, tooltipsPanelHeight);
+			Tofu.I.Editor.SceneViewSize = Tofu.I.RenderPassSystem.FinalRenderTexture.Size + new Vector2(0, tooltipsPanelHeight);
 
-			ImGui.SetNextWindowSize(RenderPassSystem.FinalRenderTexture.Size, ImGuiCond.FirstUseEver);
+			ImGui.SetNextWindowSize(Tofu.I.RenderPassSystem.FinalRenderTexture.Size, ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
 
 			ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
@@ -76,7 +76,7 @@ public class EditorPanelSceneView : EditorPanel
 			{
 				if (ImGui.BeginPopupContextWindow("Render passes"))
 				{
-					foreach (RenderPass renderPass in RenderPassSystem.RenderPasses)
+					foreach (RenderPass renderPass in Tofu.I.RenderPassSystem.RenderPasses)
 					{
 						bool isEnabled = renderPass.Enabled;
 						bool wasEnabled = isEnabled;
@@ -117,17 +117,17 @@ public class EditorPanelSceneView : EditorPanel
 				{
 					foreach (ViewRenderMode mode in Enum.GetValues(typeof(ViewRenderMode)))
 					{
-						bool isEnabled = RenderSettings.CurrentRenderModeSettings.CurrentRenderMode == mode;
+						bool isEnabled = Tofu.I.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode == mode;
 						bool wasEnabled = isEnabled;
 						bool clicked = ImGui.Checkbox(mode.ToString(), ref isEnabled);
 						bool hovered = ImGui.IsItemHovered();
 						if (hovered)
 						{
-							bool isNew = RenderSettings.CurrentRenderModeSettings.CurrentRenderMode != mode;
-							RenderSettings.CurrentRenderModeSettings.CurrentRenderMode = mode;
+							bool isNew = Tofu.I.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode != mode;
+							Tofu.I.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode = mode;
 							if (isNew)
 							{
-								RenderSettings.SaveData();
+								Tofu.I.RenderSettings.SaveData();
 							}
 						}
 
@@ -151,12 +151,12 @@ public class EditorPanelSceneView : EditorPanel
 
 			//////////
 			/// 
-			ImGui.PushStyleColor(ImGuiCol.Text, RenderSettings.CurrentWireframeRenderSettings.WireframeVisible ? activeColor : inactiveColor);
+			ImGui.PushStyleColor(ImGuiCol.Text, Tofu.I.RenderSettings.CurrentWireframeRenderSettings.WireframeVisible ? activeColor : inactiveColor);
 			bool wireframeButtonClicked = ImGui.Button("Wireframe");
 			if (wireframeButtonClicked)
 			{
-				RenderSettings.CurrentWireframeRenderSettings.WireframeVisible = !RenderSettings.CurrentWireframeRenderSettings.WireframeVisible;
-				RenderSettings.SaveData();
+				Tofu.I.RenderSettings.CurrentWireframeRenderSettings.WireframeVisible = !Tofu.I.RenderSettings.CurrentWireframeRenderSettings.WireframeVisible;
+				Tofu.I.RenderSettings.SaveData();
 			}
 
 			ImGui.PopStyleColor();
@@ -185,17 +185,17 @@ public class EditorPanelSceneView : EditorPanel
 
 			ImGui.SetNextItemWidth(200);
 
-			string projectionModeButtonText = SceneViewController.I.CurrentProjectionMode == ProjectionMode.Orthographic ? "2D" : "3D";
+			string projectionModeButtonText = Tofu.I.SceneViewController.CurrentProjectionMode == ProjectionMode.Orthographic ? "2D" : "3D";
 			bool projectionButtonClicked = ImGui.Button(projectionModeButtonText);
 			if (projectionButtonClicked)
 			{
-				if (SceneViewController.I.CurrentProjectionMode == ProjectionMode.Orthographic)
+				if (Tofu.I.SceneViewController.CurrentProjectionMode == ProjectionMode.Orthographic)
 				{
-					SceneViewController.I.SetProjectionMode(ProjectionMode.Perspective);
+					Tofu.I.SceneViewController.SetProjectionMode(ProjectionMode.Perspective);
 				}
 				else
 				{
-					SceneViewController.I.SetProjectionMode(ProjectionMode.Orthographic);
+					Tofu.I.SceneViewController.SetProjectionMode(ProjectionMode.Orthographic);
 				}
 			}
 
@@ -204,16 +204,16 @@ public class EditorPanelSceneView : EditorPanel
 			// ImGui.SetCursorPosX(0);
 			ImGui.SetCursorPos(new Vector2(0, tooltipsPanelHeight));
 
-			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
+			Tofu.I.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
 
-			if (RenderPassSystem.CanRender)
+			if (Tofu.I.RenderPassSystem.CanRender)
 			{
-				ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, RenderPassSystem.FinalRenderTexture.Size,
+				ImGui.Image((IntPtr) Tofu.I.RenderPassSystem.FinalRenderTexture.ColorAttachment, Tofu.I.RenderPassSystem.FinalRenderTexture.Size,
 				            new Vector2(0, 1), new Vector2(1, 0));
 			}
 			else
 			{
-				ImGui.Dummy(RenderPassSystem.FinalRenderTexture.Size);
+				ImGui.Dummy(Tofu.I.RenderPassSystem.FinalRenderTexture.Size);
 			}
 
 			// ImGui.Image((IntPtr) RenderPassManager.FinalRenderTexture.ColorAttachment, RenderPassManager.FinalRenderTexture.Size * 0.9f,
@@ -251,8 +251,8 @@ public class EditorPanelSceneView : EditorPanel
 			            ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration);
 
 			ImGui.SetCursorPosX(0);
-			Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
-			ImGui.Image((IntPtr) RenderPassSystem.FinalRenderTexture.ColorAttachment, Camera.MainCamera.Size,
+			Tofu.I.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
+			ImGui.Image((IntPtr) Tofu.I.RenderPassSystem.FinalRenderTexture.ColorAttachment, Camera.MainCamera.Size,
 			            new Vector2(0, 1), new Vector2(1, 0));
 
 			ImGui.End();

@@ -11,7 +11,7 @@ public class ModelLoader : AssetLoader<Mesh>
 
 	public override void UnloadAsset(Asset<Mesh> asset)
 	{
-		GL.DeleteTexture(asset.AssetRuntimeHandle.Id);
+		GL.DeleteTexture(asset.Handle.Id);
 	}
 
 	public override Asset<Mesh> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
@@ -107,7 +107,7 @@ public class ModelLoader : AssetLoader<Mesh>
 		BufferFactory.CreateModelBuffers(vao: ref mesh.Vao, vertexBufferData: everything.ToArray(), countsOfElements);
 		
 		mesh.InitAssetRuntimeHandle(mesh.Vao);
-		mesh.AssetPath = loadSettings.Path;
+		mesh.Path = loadSettings.Path;
 
 		return mesh;
 	}

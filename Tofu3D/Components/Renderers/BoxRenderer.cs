@@ -12,7 +12,7 @@ public class BoxRenderer : Renderer
 		if (Material == null)
 		{
 			
-			Material = AssetManager.Load<Material>("BoxMaterial");
+			Material = Tofu.I.AssetManager.Load<Material>("BoxMaterial");
 		}
 
 		base.SetDefaultMaterial();
@@ -24,8 +24,8 @@ public class BoxRenderer : Renderer
 		{
 			return;
 		}
-		
-		ShaderManager.UseShader(Material.Shader);
+
+		Tofu.I.ShaderManager.UseShader(Material.Shader);
 
 		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 		Material.Shader.SetColor("u_color", Color.ToVector4());
@@ -35,7 +35,7 @@ public class BoxRenderer : Renderer
 			Material.Shader.SetFloat("time", (float) Material.Shader.Uniforms["time"]);
 		}
 
-		ShaderManager.BindVertexArray(Material.Vao);
+		Tofu.I.ShaderManager.BindVertexArray(Material.Vao);
 
 		//GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 

@@ -89,7 +89,7 @@ public class TextRenderer : SpriteRenderer
 		{
 			TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsTexture2D;
 			// TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
-			Texture = AssetManager.Load<Texture>(Texture.AssetPath, textureLoadSettings);
+			Texture = Tofu.I.AssetManager.Load<Texture>(Texture.Path, textureLoadSettings);
 		}
 
 		base.Awake();
@@ -97,7 +97,7 @@ public class TextRenderer : SpriteRenderer
 
 	public override void SetDefaultMaterial()
 	{
-		Material = AssetManager.Load<Material>("TextRenderer");
+		Material = Tofu.I.AssetManager.Load<Material>("TextRenderer");
 
 		Material.Additive = false;
 	}
@@ -121,7 +121,7 @@ public class TextRenderer : SpriteRenderer
 		}
 
 
-		Texture = AssetManager.Load<Texture>(texturePath);
+		Texture = Tofu.I.AssetManager.Load<Texture>(texturePath);
 	}
 
 	public override void Render()
@@ -133,7 +133,7 @@ public class TextRenderer : SpriteRenderer
 
 		//Debug.Log("Draw text:" + text?.text);
 
-		ShaderManager.UseShader(Material.Shader);
+		Tofu.I.ShaderManager.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
 
 		if (Transform.IsInCanvas)
@@ -228,7 +228,7 @@ public class TextRenderer : SpriteRenderer
 
 			Material.Shader.SetVector2("offset", drawOffset);
 
-			ShaderManager.BindVertexArray(Material.Vao);
+			Tofu.I.ShaderManager.BindVertexArray(Material.Vao);
 
 			if (Material.Additive)
 			{

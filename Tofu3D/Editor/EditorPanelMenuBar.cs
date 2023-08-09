@@ -45,7 +45,7 @@ public class EditorPanelMenuBar : EditorPanel
 				{
 					ImGui.CloseCurrentPopup();
 
-					Editor.BeforeDraw += EditorLayoutManager.LoadDefaultLayout; // load layout before drawing anything, otherwise we break the layout by calling imgui after this editor panel
+					Tofu.I.Editor.BeforeDraw += EditorLayoutManager.LoadDefaultLayout; // load layout before drawing anything, otherwise we break the layout by calling imgui after this editor panel
 				}
 
 				bool saveDefaultLayoutButtonClicked = ImGui.Button("Save Default Layout");
@@ -78,7 +78,7 @@ public class EditorPanelMenuBar : EditorPanel
 			bool skyboxButtonClicked = ImGui.BeginMenu("Skybox");
 			if (skyboxButtonClicked)
 			{
-				EditorPanelInspector.I.SelectInspectable(SceneManager.CurrentScene.FindComponent<Skybox>());
+				EditorPanelInspector.I.SelectInspectable(Tofu.I.SceneManager.CurrentScene.FindComponent<Skybox>());
 
 				ImGui.CloseCurrentPopup();
 

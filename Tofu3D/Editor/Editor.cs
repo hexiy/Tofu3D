@@ -4,15 +4,15 @@ namespace Tofu3D;
 
 public class Editor
 {
-	public static Vector2 SceneViewPosition = new(0, 0);
-	public static Vector2 SceneViewSize = new(0, 0);
+	public Vector2 SceneViewPosition = new(0, 0);
+	public Vector2 SceneViewSize = new(0, 0);
 	//private ImGuiRenderer _imGuiRenderer;
 	EditorPanel[] _editorPanels;
 
 	List<RangeAccessor<System.Numerics.Vector4>> _themes = new();
 
 	// Is cleared after invocation
-	public static Action BeforeDraw = () => { };
+	public Action BeforeDraw = () => { };
 
 	//public static Vector2 ScreenToWorld(Vector2 screenPosition)
 	//{
@@ -21,13 +21,14 @@ public class Editor
 	public static readonly ImGuiWindowFlags ImGuiDefaultWindowFlags = ImGuiWindowFlags.NoCollapse /* | ImGuiWindowFlags.AlwaysAutoResize*/ /* | ImGuiWindowFlags.NoDocking*/;
 
 	ImGuiWindowClassPtr _panelWindowClassPtr;
-
-	public unsafe void Init()
+	public EditorTextures EditorTextures;
+	public unsafe void Initialize()
 	{
 		EditorLayoutManager.LoadLastLayout();
 		EditorThemeing.SetTheme();
-		EditorTextures editorTextures = new EditorTextures();
-		
+
+		EditorTextures = new EditorTextures();
+
 		ImGuiWindowClass panelWindowClas = new ImGuiWindowClass() {DockNodeFlagsOverrideSet = ImGuiDockNodeFlags.None /*ImGuiDockNodeFlags.AutoHideTabBar*/};
 		_panelWindowClassPtr = new ImGuiWindowClassPtr(&panelWindowClas);
 
@@ -52,7 +53,7 @@ public class Editor
 				                new EditorPanelSceneView()
 			                };
 		}
-
+        
 		for (int i = 0; i < _editorPanels.Length; i++)
 		{
 			_editorPanels[i].Init();
@@ -77,7 +78,7 @@ public class Editor
 		{
 			if (Global.GameRunning == false)
 			{
-				SceneManager.SaveScene();
+				Tofu.I.SceneManager.SaveScene();
 			}
 		}
 
@@ -85,7 +86,7 @@ public class Editor
 		{
 			if (Global.GameRunning == false)
 			{
-				SceneManager.LoadLastOpenedScene();
+				Tofu.I.SceneManager.LoadLastOpenedScene();
 			}
 		}
 

@@ -11,23 +11,14 @@ public class Skybox : Component, IComponentUpdateable
 	Material _material;
 	CubemapTexture _texture;
 	public float Fov = 60;
-	public List<CubemapTexture> Textures = new List<CubemapTexture>();
-	public List<int> Ints = new List<int>();
-	public List<Color> Colors = new List<Color>();
 
 	public override void Awake()
 	{
-		_material = AssetManager.Load<Material>("Skybox");
+		_material = Tofu.I.AssetManager.Load<Material>("Skybox");
 
 		_texture = new CubemapTexture();
 		string[] texturePaths = new[]
 		                        {
-			                        /*Path.Combine(Folders.Textures, "skyCubemap", "sky_left.png"),
-			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_right.png"),
-			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_down.png"),
-			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_up.png"),
-			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_front.png"),
-			                        Path.Combine(Folders.Textures, "skyCubemap", "sky_back.png"),*/
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Right.bmp"),
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Left.bmp"),
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Top.bmp"),
@@ -36,8 +27,8 @@ public class Skybox : Component, IComponentUpdateable
 			                        Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Back.bmp"),
 		                        };
 
-		CubemapTextureLoadSettings cubemapTextureLoadSettings = new CubemapTextureLoadSettings(paths: texturePaths, flipX: false);
-		_texture = AssetManager.Load<CubemapTexture>(cubemapTextureLoadSettings);
+		CubemapTextureLoadSettings cubemapTextureLoadSettings = new CubemapTextureLoadSettings(paths: texturePaths);
+		_texture = Tofu.I.AssetManager.Load<CubemapTexture>(cubemapTextureLoadSettings);
 
 		base.Awake();
 	}
@@ -45,21 +36,21 @@ public class Skybox : Component, IComponentUpdateable
 	public override void Update()
 	{
 		// Debug.StatSetValue("SkyboxList Textures", $"{Textures.Count}");
-		Debug.StatSetValue("SkyboxList Ints", $"SkyboxList Ints count {Ints.Count}");
+		// Debug.StatSetValue("SkyboxList Ints", $"SkyboxList Ints count {Ints.Count}");
 		// Debug.StatSetValue("SkyboxList Colors", $"{Colors.Count}");
 		base.Update();
 	}
 
 	public override void OnEnabled()
 	{
-		RenderPassSystem.RegisterRender(RenderPassType.Skybox, RenderSkybox);
+		Tofu.I.RenderPassSystem.RegisterRender(RenderPassType.Skybox, RenderSkybox);
 
 		base.OnEnabled();
 	}
 
 	public override void OnDisabled()
 	{
-		RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
+		Tofu.I.RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
 
 		base.OnDisabled();
 	}
@@ -73,7 +64,7 @@ public class Skybox : Component, IComponentUpdateable
 
 		GL.DepthMask(false);
 
-		ShaderManager.UseShader(_material.Shader);
+		Tofu.I.ShaderManager.UseShader(_material.Shader);
 
 		Vector3 forwardLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
 		Vector3 upLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
@@ -86,7 +77,7 @@ public class Skybox : Component, IComponentUpdateable
 		_material.Shader.SetMatrix4X4("u_view", viewMatrix);
 		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix);
 
-		ShaderManager.BindVertexArray(_material.Vao);
+		Tofu.I.ShaderManager.BindVertexArray(_material.Vao);
 
 		GL.ActiveTexture(TextureUnit.Texture0);
 		TextureHelper.BindTexture(_texture.TextureId, TextureType.Cubemap);

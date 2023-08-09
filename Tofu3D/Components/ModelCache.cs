@@ -21,7 +21,7 @@ public class ModelCache
 			}
 		}
 
-		_loadedModels.Add(ModelAssetManager.LoadModel(Path.Combine(Folders.Models, name)));
+		_loadedModels.Add(ModelTofu.I.AssetManager.LoadModel(Path.Combine(Folders.Models, name)));
 
 		for (int i = 0; i < _loadedModels.Count; i++)
 		{

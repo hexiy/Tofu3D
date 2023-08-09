@@ -20,11 +20,11 @@ public class RenderPassUI : RenderPass
 	{
 		if (PassRenderTexture != null)
 		{
-			PassRenderTexture.Size = RenderPassSystem.ViewSize;
+			PassRenderTexture.Size = Tofu.I.RenderPassSystem.ViewSize;
 			PassRenderTexture.Invalidate(generateBrandNewTextures: false);
 			return;
 		}
 
-		PassRenderTexture = new RenderTexture(size: RenderPassSystem.ViewSize, colorAttachment: true, depthAttachment: true, hasStencil: true);
+		PassRenderTexture = new RenderTexture(size: Tofu.I.RenderPassSystem.ViewSize, colorAttachment: true, depthAttachment: true, hasStencil: true);
 	}
 }

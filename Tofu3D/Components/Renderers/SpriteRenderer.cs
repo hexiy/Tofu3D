@@ -19,7 +19,7 @@ public class SpriteRenderer : TextureRenderer
 		else
 		{
 			TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
-			Texture = AssetManager.Load<Texture>(Texture.AssetPath, textureLoadSettings);
+			Texture = Tofu.I.AssetManager.Load<Texture>(Texture.Path, textureLoadSettings);
 		}
 
 		//BatchingManager.AddObjectToBatcher(Texture.Id, this);
@@ -52,10 +52,10 @@ public class SpriteRenderer : TextureRenderer
 	{
 		// if (Material?.AssetPath.Length == 0)
 		// {
-		// 	Material = AssetManager.Load<Material>("SpriteRenderer");
+		// 	Material = Tofu.I.AssetManager.Load<Material>("SpriteRenderer");
 		// }
 
-		Material = AssetManager.Load<Material>("SpriteRenderer");
+		Material = Tofu.I.AssetManager.Load<Material>("SpriteRenderer");
 
 		// base.SetDefaultMaterial();
 	}
@@ -84,7 +84,7 @@ public class SpriteRenderer : TextureRenderer
 			GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
 			GL.StencilMask(0xFF);
 		}
-		ShaderManager.UseShader(Material.Shader);
+		Tofu.I.ShaderManager.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
 		if (Transform.IsInCanvas)
 		{
@@ -100,7 +100,7 @@ public class SpriteRenderer : TextureRenderer
 		Material.Shader.SetVector2("u_tiling", Tiling);
 		Material.Shader.SetVector2("u_offset", Offset);
 
-		ShaderManager.BindVertexArray(Material.Vao);
+		Tofu.I.ShaderManager.BindVertexArray(Material.Vao);
 
 		if (Material.Additive)
 		{
@@ -126,7 +126,7 @@ public class SpriteRenderer : TextureRenderer
 			GL.StencilMask(0x00);
 			GL.Disable(EnableCap.DepthTest);
 
-			ShaderManager.UseShader(Material.Shader);
+			Tofu.I.ShaderManager.UseShader(Material.Shader);
 
 			if (Transform.IsInCanvas)
 			{
@@ -139,7 +139,7 @@ public class SpriteRenderer : TextureRenderer
 
 			Material.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
 
-			ShaderManager.BindVertexArray(Material.Vao);
+			Tofu.I.ShaderManager.BindVertexArray(Material.Vao);
 
 			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

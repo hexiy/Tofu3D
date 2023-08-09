@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {
+    "net7.0": {
       "FFmpeg.AutoGen/4.4.1.1": {
         "type": "package",
         "compile": {
@@ -309,12 +309,12 @@
       "Microsoft.Win32.SystemEvents/8.0.0-preview.1.23110.8": {
         "type": "package",
         "compile": {
-          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+          "lib/net7.0/Microsoft.Win32.SystemEvents.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+          "lib/net7.0/Microsoft.Win32.SystemEvents.dll": {
             "related": ".xml"
           }
         },
@@ -322,7 +322,7 @@
           "buildTransitive/net6.0/_._": {}
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+          "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -734,12 +734,12 @@
       "System.CodeDom/8.0.0-preview.1.23110.8": {
         "type": "package",
         "compile": {
-          "lib/net8.0/System.CodeDom.dll": {
+          "lib/net7.0/System.CodeDom.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/System.CodeDom.dll": {
+          "lib/net7.0/System.CodeDom.dll": {
             "related": ".xml"
           }
         },
@@ -915,12 +915,12 @@
           "Microsoft.Win32.SystemEvents": "8.0.0-preview.1.23110.8"
         },
         "compile": {
-          "lib/net8.0/System.Drawing.Common.dll": {
+          "lib/net7.0/System.Drawing.Common.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/System.Drawing.Common.dll": {
+          "lib/net7.0/System.Drawing.Common.dll": {
             "related": ".xml"
           }
         },
@@ -1368,12 +1368,12 @@
           "System.Windows.Extensions": "8.0.0-preview.1.23110.8"
         },
         "compile": {
-          "lib/net8.0/System.Security.Permissions.dll": {
+          "lib/net7.0/System.Security.Permissions.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/System.Security.Permissions.dll": {
+          "lib/net7.0/System.Security.Permissions.dll": {
             "related": ".xml"
           }
         },
@@ -1520,17 +1520,17 @@
           "System.Drawing.Common": "8.0.0-preview.1.23110.8"
         },
         "compile": {
-          "lib/net8.0/System.Windows.Extensions.dll": {
+          "lib/net7.0/System.Windows.Extensions.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/System.Windows.Extensions.dll": {
+          "lib/net7.0/System.Windows.Extensions.dll": {
             "related": ".xml"
           }
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net8.0/System.Windows.Extensions.dll": {
+          "runtimes/win/lib/net7.0/System.Windows.Extensions.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -5437,7 +5437,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net8.0": [
+    "net7.0": [
       "ImGui.NET >= 1.87.3",
       "Microsoft.CodeAnalysis.Workspaces.Common >= 4.5.0-2.final",
       "Microsoft.CodeDom.Providers.DotNetCompilerPlatform >= 4.1.0-preview1",
@@ -5453,29 +5453,29 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hexiy\\.nuget\\packages\\": {}
+    "/Users/hexiy/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dev\\Tofu3D\\Tofu3D\\Tofu3D.csproj",
+      "projectUniqueName": "/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj",
       "projectName": "Tofu3D",
-      "projectPath": "C:\\Dev\\Tofu3D\\Tofu3D\\Tofu3D.csproj",
-      "packagesPath": "C:\\Users\\hexiy\\.nuget\\packages\\",
-      "outputPath": "C:\\Dev\\Tofu3D\\Tofu3D\\obj\\",
+      "projectPath": "/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj",
+      "packagesPath": "/Users/hexiy/.nuget/packages/",
+      "outputPath": "/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\hexiy\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/hexiy/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net8.0"
+        "net7.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "projectReferences": {}
         }
       },
@@ -5486,8 +5486,8 @@
       }
     },
     "frameworks": {
-      "net8.0": {
-        "targetAlias": "net8.0",
+      "net7.0": {
+        "targetAlias": "net7.0",
         "dependencies": {
           "ImGui.NET": {
             "target": "Package",
@@ -5554,7 +5554,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-preview.2.23157.25\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -5563,10 +5563,10 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Microsoft.CodeDom.Providers.DotNetCompilerPlatform 4.1.0-preview1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "message": "Package 'Microsoft.CodeDom.Providers.DotNetCompilerPlatform 4.1.0-preview1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
       "libraryId": "Microsoft.CodeDom.Providers.DotNetCompilerPlatform",
       "targetGraphs": [
-        "net8.0"
+        "net7.0"
       ]
     }
   ]

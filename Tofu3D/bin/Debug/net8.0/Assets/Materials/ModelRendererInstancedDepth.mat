@@ -4,7 +4,7 @@
   <Additive>false</Additive>
   <Shader>
     <BufferType>Model</BufferType>
-    <Path>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Shaders\ModelRendererInstancedDepth.glsl</Path>
+    <Path>Assets/Shaders/ModelRendererInstancedDepth.glsl</Path>
     <AlbedoTextureLocation>-1</AlbedoTextureLocation>
     <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
     <ShadowMapTextureLocation>-1</ShadowMapTextureLocation>

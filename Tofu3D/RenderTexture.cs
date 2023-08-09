@@ -25,8 +25,8 @@ public class RenderTexture
 
 	public RenderTexture(Vector2 size, bool colorAttachment = false, bool depthAttachment = false, bool hasStencil = false, bool isGrayscale = false)
 	{
-		_depthRenderTextureMaterial = AssetManager.Load<Material>("DepthRenderTexture");
-		_renderTextureMaterial = AssetManager.Load<Material>("RenderTexture");
+		_depthRenderTextureMaterial = Tofu.I.AssetManager.Load<Material>("Materials/DepthRenderTexture.mat");
+		_renderTextureMaterial = Tofu.I.AssetManager.Load<Material>("RenderTexture.mat");
 		Size = size;
 		_hasColorAttachment = colorAttachment;
 		_hasDepthAttachment = depthAttachment;
@@ -154,10 +154,10 @@ public class RenderTexture
 
 	public void RenderDepthAttachment(int texture)
 	{
-		ShaderManager.UseShader(_depthRenderTextureMaterial.Shader);
+		Tofu.I.ShaderManager.UseShader(_depthRenderTextureMaterial.Shader);
 		_depthRenderTextureMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
-		ShaderManager.BindVertexArray(_depthRenderTextureMaterial.Vao);
+		Tofu.I.ShaderManager.BindVertexArray(_depthRenderTextureMaterial.Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 		GL.ActiveTexture(TextureUnit.Texture0);
@@ -167,7 +167,7 @@ public class RenderTexture
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
 		DebugHelper.LogDrawCall();
-		ShaderManager.BindVertexArray(0);
+		Tofu.I.ShaderManager.BindVertexArray(0);
 	}
 
 	public void RenderColorAttachment(int texture)
@@ -175,10 +175,10 @@ public class RenderTexture
 		// return;
 		// GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
 
-		ShaderManager.UseShader(_renderTextureMaterial.Shader);
+		Tofu.I.ShaderManager.UseShader(_renderTextureMaterial.Shader);
 		_renderTextureMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
-		ShaderManager.BindVertexArray(_renderTextureMaterial.Vao);
+		Tofu.I.ShaderManager.BindVertexArray(_renderTextureMaterial.Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
@@ -188,6 +188,6 @@ public class RenderTexture
 		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
 		DebugHelper.LogDrawCall();
-		ShaderManager.BindVertexArray(0);
+		Tofu.I.ShaderManager.BindVertexArray(0);
 	}
 }

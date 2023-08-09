@@ -16,14 +16,14 @@ public class CubeSpawner : Component
 			return;
 		}
 
-		GameObject go = SceneSerializer.LoadPrefab(Prefab.PrefabPath);
+		GameObject go = Tofu.I.SceneSerializer.LoadPrefab(Prefab.PrefabPath);
 		go.Awake();
-SceneSerializer.SaveClipboardGameObject(go);
+		Tofu.I.SceneSerializer.SaveClipboardGameObject(go);
 		for (int x = 0; x < 10; x++)
 		{
 			for (int y = 0; y < 10; y++)
 			{
-				GameObject go1 = SceneSerializer.LoadClipboardGameObject();
+				GameObject go1 = Tofu.I.SceneSerializer.LoadClipboardGameObject();
 				go1.Transform.WorldPosition = new Vector3(x*15 - 70,-5,y*15-70);
 			}
 		}

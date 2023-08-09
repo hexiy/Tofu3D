@@ -14,7 +14,7 @@ public class CubemapTextureLoader : AssetLoader<CubemapTexture>
 
 	public override void UnloadAsset(Asset<CubemapTexture> asset)
 	{
-		GL.DeleteTexture(asset.AssetRuntimeHandle.Id);
+		GL.DeleteTexture(asset.Handle.Id);
 	}
 
 	public override Asset<CubemapTexture> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
@@ -27,9 +27,7 @@ public class CubemapTextureLoader : AssetLoader<CubemapTexture>
 
 		GL.ActiveTexture(TextureUnit.Texture0);
 
-
 		TextureHelper.BindTexture(id, TextureType.Cubemap);
-
 
 		for (int textureIndex = 0; textureIndex < pixelsCollection.Length; textureIndex++)
 		{
@@ -37,19 +35,13 @@ public class CubemapTextureLoader : AssetLoader<CubemapTexture>
 			// path = loadSettings.Paths[textureIndex];
 			Image<Rgba32> image = Image.Load<Rgba32>(path);
 			imageSize = new Vector2(image.Width, image.Height);
-			if (loadSettings.FlipX)
-			{
-				image.Mutate(x => x.Flip(FlipMode.Vertical));
-			}
 
 			pixelsCollection[textureIndex] = new byte[4 * image.Width * image.Height];
 			image.Frames[0].CopyPixelDataTo(pixelsCollection[textureIndex]);
 
 			TextureTarget textureTarget = TextureTarget.TextureCubeMap;
 
-
 			GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX + textureIndex, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixelsCollection[textureIndex]);
-
 
 			GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int) loadSettings.WrapMode);
 			GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int) loadSettings.WrapMode);
@@ -65,7 +57,7 @@ public class CubemapTextureLoader : AssetLoader<CubemapTexture>
 		                         {
 			                         Size = imageSize,
 			                         Loaded = true,
-			                         AssetPath = loadSettings.Path,
+			                         Path = loadSettings.Path,
 			                         LoadSettings = loadSettings
 		                         };
 		texture.InitAssetRuntimeHandle(id);

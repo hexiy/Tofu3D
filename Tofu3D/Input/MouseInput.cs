@@ -242,8 +242,8 @@ public static class MouseInput
 		// 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
 		// }
 
-		ScreenPosition = new Vector2(Tofu.I.Window.MouseState.X - Editor.SceneViewPosition.X,
-		                             -Tofu.I.Window.MouseState.Y + Camera.MainCamera.Size.Y + Editor.SceneViewPosition.Y + 25); // 25 EditorPanelMenuBar height
+		ScreenPosition = new Vector2(Tofu.I.Window.MouseState.X - Tofu.I.Editor.SceneViewPosition.X,
+		                             -Tofu.I.Window.MouseState.Y + Camera.MainCamera.Size.Y + Tofu.I.Editor.SceneViewPosition.Y + 25); // 25 EditorPanelMenuBar height
 	}
 
 	static float _sceneViewPadding = 20;

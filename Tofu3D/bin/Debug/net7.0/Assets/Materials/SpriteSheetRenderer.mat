@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AssetPath>Assets/Materials/SpriteSheetRenderer.mat</AssetPath>
+  <Additive>false</Additive>
+  <Shader>
+    <BufferType>Rendertexture</BufferType>
+    <Path>Assets\Shaders\SpriteSheetRenderer.glsl</Path>
+  </Shader>
+  <Vao>18</Vao>
+  <RenderMode>Opaque</RenderMode>
+</Material>

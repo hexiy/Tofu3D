@@ -7,6 +7,6 @@ public abstract class Asset<T> : AssetBase where T : Asset<T> //, new()
 {
 	public void InitAssetRuntimeHandle(int id)
 	{
-		AssetRuntimeHandle = new AssetRuntimeHandle() {Id = id, AssetType = typeof(T)};
+		Handle = new AssetHandle() {Id = id, AssetType = typeof(T)};
 	}
 }

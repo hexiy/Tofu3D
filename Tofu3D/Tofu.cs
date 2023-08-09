@@ -8,14 +8,30 @@ namespace Tofu3D;
 // Main Application Context
 public class Tofu
 {
-	// AssetSerializer _assetSerializer;
-	public TweenManager TweenManager;
-	public SceneViewController SceneViewController;
-	public Editor Editor;
+	public static Tofu I { get; private set; }
+
+	// EDITOR
 	public Window Window;
+	public Editor Editor;
+	public ImGuiController ImGuiController;
+
+	// RENDERING
+	public RenderSettings RenderSettings;
+	public RenderPassSystem RenderPassSystem;
+	public ShaderManager ShaderManager;
 	public InstancedRenderingSystem InstancedRenderingSystem;
 
-	public static Tofu I { get; private set; }
+	// ASSETS
+	public AssetManager AssetManager;
+	public SceneSerializer SceneSerializer;
+	public AssetsWatcher AssetsWatcher;
+
+	// SCENE
+	public SceneManager SceneManager;
+	public SceneViewController SceneViewController;
+
+	// MISC
+	public TweenManager TweenManager;
 
 	public Tofu()
 	{
@@ -27,49 +43,92 @@ public class Tofu
 		SystemConfig.Configure();
 		Global.LoadSavedData();
 
-		SceneSerializer.Initialize();
+		AssetManager = new AssetManager();
+		SceneManager = new SceneManager();
+		SceneSerializer = new SceneSerializer();
+		RenderSettings = new RenderSettings();
+		AssetsWatcher = new AssetsWatcher();
+		ShaderManager = new ShaderManager();
+		TweenManager = new TweenManager();
+
 		RenderSettings.LoadSavedData();
 		AssetsWatcher.StartWatching();
-		ShaderManager.Initialize();
+		Tofu.I.ShaderManager.Initialize();
 
-		
+
 		Window = new Window();
-		Window.Load += () => { OnWindowLoad(Window); };
+		Window.Load += OnWindowLoad;
 		Window.UpdateFrame += OnWindowUpdate;
+		Window.RenderFrame += OnWindowRender;
 		Window.Run();
 	}
 
-	void OnWindowLoad(Window window)
+	void OnWindowLoad()
 	{
 		InstancedRenderingSystem = new InstancedRenderingSystem();
+
+		RenderPassSystem = new RenderPassSystem();
 		RenderPassSystem.Initialize();
 
+		ImGuiController = new ImGuiController();
+
 		Editor = new Editor();
-		Editor.Init();
-
-		// _assetSerializer = new AssetSerializer();
-		TweenManager = new TweenManager();
+		Editor.Initialize();
+		
 		SceneViewController = new SceneViewController();
-
-
+		
 		SceneManager.LoadLastOpenedScene();
-		// Scene = new Scene();
-		// Scene.Initialize();
 	}
 
-	void OnWindowUpdate(FrameEventArgs obj)
+	void OnWindowUpdate(FrameEventArgs e)
 	{
+		Time.EditorDeltaTime = (float) (e.Time);
+
 		Debug.StartGraphTimer("Editor Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
 
 		Time.Update();
 		MouseInput.Update();
-		TweenManager.I.Update();
+		TweenManager.Update();
 		SceneViewController.Update();
 		AssetsWatcher.ProcessChangedFilesQueue();
-		ShaderManager.ReloadQueuedShaders();
+		Tofu.I.ShaderManager.ReloadQueuedShaders();
 
-		SceneManager.CurrentScene.Update();
+		Tofu.I.SceneManager.CurrentScene.Update();
 		Editor.Update();
 		Debug.EndGraphTimer("Editor Update");
+	}
+
+	void OnWindowRender(FrameEventArgs e)
+	{
+		Time.EditorDeltaTime = (float) (e.Time);
+
+		Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
+
+		Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 60f));
+
+		RenderPassSystem.RenderAllPasses();
+
+		Debug.EndGraphTimer("Scene Render");
+
+
+		Debug.StartGraphTimer("ImGui", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromMilliseconds(2));
+
+		ImGuiController.Update(Window, (float) e.Time);
+		GL.Viewport(0, 0, Window.ClientSize.X, Window.ClientSize.Y);
+
+		ImGuiController.WindowResized(Window.ClientSize.X, Window.ClientSize.Y);
+
+		Tofu.I.Editor.Draw();
+
+		ImGuiController.Render();
+
+		Debug.EndGraphTimer("ImGui");
+
+		Window.SwapBuffers();
+
+		Debug.EndGraphTimer("Window Render");
+
+		Debug.ResetTimers();
+		Debug.ClearAdditiveStats();
 	}
 }

@@ -3,19 +3,31 @@ using System.Linq;
 
 namespace Tofu3D;
 
-public static class SceneSerializer
+public class SceneSerializer
 {
-	static List<Type> _serializableTypes = new();
+	List<Type> _serializableTypes = new();
 
-	static XmlSerializer _xmlSerializer;
+	XmlSerializer _xmlSerializer;
+	public XmlSerializer MainXmlSerializer
+	{
+		get
+		{
+			if (_xmlSerializer == null)
+			{
+				UpdateSerializableTypes();
+			}
 
-	public static void Initialize()
+			return _xmlSerializer;
+		}
+	}
+
+	public SceneSerializer()
 	{
 		UpdateSerializableTypes();
 	}
 
 	// update serializable types only on file watch script changed
-	static void UpdateSerializableTypes()
+	void UpdateSerializableTypes()
 	{
 		if (_serializableTypes.Count == 0)
 		{
@@ -38,7 +50,7 @@ public static class SceneSerializer
 		}
 	}
 
-	public static void SaveGameObject(GameObject go, string prefabPath)
+	public void SaveGameObject(GameObject go, string prefabPath)
 	{
 		go.IsPrefab = true;
 		go.PrefabPath = prefabPath;
@@ -47,7 +59,7 @@ public static class SceneSerializer
 		SaveGameObjects(prefabSceneFile, prefabPath);
 	}
 
-	public static void SaveClipboardGameObject(GameObject go)
+	public void SaveClipboardGameObject(GameObject go)
 	{
 		if (Directory.Exists("Temp") == false)
 		{
@@ -59,12 +71,12 @@ public static class SceneSerializer
 		SaveGameObjects(prefabSceneFile, Path.Combine("Temp", "clipboardGameObject"));
 	}
 
-	public static GameObject LoadClipboardGameObject()
+	public GameObject LoadClipboardGameObject()
 	{
 		return LoadPrefab(Path.Combine("Temp", "clipboardGameObject"));
 	}
 
-	public static GameObject LoadPrefab(string prefabPath, bool inBackground = false)
+	public GameObject LoadPrefab(string prefabPath, bool inBackground = false)
 	{
 		// string timerName = $"LoadPrefab()";
 		// Debug.StartTimer(timerName);
@@ -99,7 +111,7 @@ public static class SceneSerializer
 
 			if (inBackground == false)
 			{
-				SceneManager.CurrentScene.AddGameObjectToScene(go);
+				Tofu.I.SceneManager.CurrentScene.AddGameObjectToScene(go);
 				go.Awake();
 				go.Start();
 			}
@@ -108,8 +120,9 @@ public static class SceneSerializer
 		return mainGo;
 	}
 
-	public static void SaveGameObjects(SceneFile sceneFile, string scenePath)
+	public void SaveGameObjects(SceneFile sceneFile, string scenePath)
 	{
+		File.Create(scenePath).Close();
 		using (StreamWriter sw = new(scenePath))
 		{
 			for (int i = 0; i < sceneFile.GameObjects.Count; i++)
@@ -135,7 +148,7 @@ public static class SceneSerializer
 		}
 	}
 
-	public static SceneFile LoadSceneFile(string scenePath)
+	public SceneFile LoadSceneFile(string scenePath)
 	{
 		/*string xml = "";
 		using (StreamReader sr = new(scenePath))
@@ -193,7 +206,7 @@ public static class SceneSerializer
 		}
 	}
 
-	public static void ConnectParentsAndChildren(SceneFile sf, bool newIDs = false)
+	public void ConnectParentsAndChildren(SceneFile sf, bool newIDs = false)
 	{
 		GameObject[] gos = sf.GameObjects.ToArray();
 		Component[] comps = sf.Components.ToArray();
@@ -271,7 +284,7 @@ public static class SceneSerializer
 		sf.Components = comps.ToList();
 	}
 
-	public static void ConnectGameObjectsWithComponents(SceneFile sf)
+	public void ConnectGameObjectsWithComponents(SceneFile sf)
 	{
 		GameObject[] gos = sf.GameObjects.ToArray();
 		Component[] comps = sf.Components.ToArray();

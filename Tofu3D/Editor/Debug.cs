@@ -53,7 +53,7 @@ public static class Debug
 	{
 		Log(message.ToString(), logCategory);
 	}
-
+	
 	public static void StartGraphTimer(string timerName, DebugGraphTimer.SourceGroup group = DebugGraphTimer.SourceGroup.None, TimeSpan? redline = null, int drawOrder = 0)
 	{
 		if (Global.EditorAttached == false)

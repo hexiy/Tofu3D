@@ -25,18 +25,18 @@ public class ModelRendererInstanced : Renderer
 
 	public override void SetDefaultMaterial()
 	{
-		if (Material?.AssetPath.Length == 0 || Material == null)
+		if (Material?.Path.Length == 0 || Material == null)
 		{
-			Material = AssetManager.Load<Material>("ModelRendererInstanced");
+			Material = Tofu.I.AssetManager.Load<Material>("ModelRendererInstanced");
 		}
 		else
 		{
-			Material = AssetManager.Load<Material>(Material.AssetPath);
+			Material = Tofu.I.AssetManager.Load<Material>(Material.Path);
 		}
 
-		if (Mesh)
+		if (Mesh?.Path.Length>0)
 		{
-			Mesh = AssetManager.Load<Mesh>(Mesh.AssetPath);
+			Mesh = Tofu.I.AssetManager.Load<Mesh>(Mesh.Path);
 		}
 	}
 
@@ -52,13 +52,14 @@ public class ModelRendererInstanced : Renderer
 			return;
 		}
 
-		/*bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
-		if (isTransformHandle && (RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques && RenderPassSystem.CurrentRenderPassType != RenderPassType.UI))
+		/*
+		 bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
+		if (isTransformHandle && (Tofu.I.RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques && Tofu.I.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI))
 		{
 			return;
 		}
 
-		if (Transform.IsInCanvas && RenderPassSystem.CurrentRenderPassType != RenderPassType.UI || Transform.IsInCanvas == false && RenderPassSystem.CurrentRenderPassType == RenderPassType.UI)
+		if (Transform.IsInCanvas && Tofu.I.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI || Transform.IsInCanvas == false && Tofu.I.RenderPassSystem.CurrentRenderPassType == RenderPassType.UI)
 		{
 			return;
 		}
