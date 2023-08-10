@@ -44,6 +44,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 	protected override void PreRender()
 	{
 		GL.Enable(EnableCap.DepthTest);
+		GL.DepthMask(true);
 
 		// it would be nice to render the skybox to the light view preview textures
 		// RenderPassSkybox.I.Render();

@@ -187,7 +187,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>BallFogEnd</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -219,7 +219,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Sponza</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -241,14 +241,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>1.0923755</X>
-        <Y>-0.8603828</Y>
-        <Z>-3.1560485</Z>
+        <X>1.0922852</X>
+        <Y>-0.86033213</Y>
+        <Z>-3.1556895</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1.0923755</X>
-        <Y>-0.8603828</Y>
-        <Z>-3.1560485</Z>
+        <X>1.0922852</X>
+        <Y>-0.86033213</Y>
+        <Z>-3.1556895</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -261,8 +261,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-7.812781</X>
-        <Y>-14.164152</Y>
+        <X>-0.4207402</X>
+        <Y>352.31863</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -292,7 +292,7 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>0</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <Enabled>false</Enabled>
       <Fov>60</Fov>
     </Component>
     <Component xsi:type="Fog">
@@ -457,6 +457,10 @@
         <int>37</int>
         <int>37</int>
         <int>37</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
         <int>37</int>
         <int>66</int>
         <int>37</int>
@@ -1388,27 +1392,27 @@
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <AoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/solidColor.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>256</X>
+            <Y>256</Y>
           </Size>
         </AoTexture>
         <Tiling>
-          <X>5</X>
-          <Y>5</Y>
+          <X>-5</X>
+          <Y>-5</Y>
         </Tiling>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.3</SpecularSmoothness>
+        <SpecularSmoothness>0.2</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/monke.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>7</Vao>
         <VertexBufferDataLength>371688</VertexBufferDataLength>
         <VerticesCount>46461</VerticesCount>
       </Mesh>
@@ -1508,27 +1512,27 @@
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <AoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/solidColor.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>256</X>
+            <Y>256</Y>
           </Size>
         </AoTexture>
         <Tiling>
-          <X>5</X>
-          <Y>5</Y>
+          <X>-5</X>
+          <Y>-5</Y>
         </Tiling>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.3</SpecularSmoothness>
+        <SpecularSmoothness>0.2</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/sphere.obj</AssetPath>
-        <Vao>10</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <VerticesCount>2880</VerticesCount>
       </Mesh>
@@ -1628,27 +1632,27 @@
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <AoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/solidColor.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>256</X>
+            <Y>256</Y>
           </Size>
         </AoTexture>
         <Tiling>
-          <X>5</X>
-          <Y>5</Y>
+          <X>-5</X>
+          <Y>-5</Y>
         </Tiling>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.3</SpecularSmoothness>
+        <SpecularSmoothness>0.2</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/torus.obj</AssetPath>
-        <Vao>12</Vao>
+        <Vao>9</Vao>
         <VertexBufferDataLength>27648</VertexBufferDataLength>
         <VerticesCount>3456</VerticesCount>
       </Mesh>
@@ -1748,27 +1752,27 @@
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <AoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/solidColor.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>256</X>
+            <Y>256</Y>
           </Size>
         </AoTexture>
         <Tiling>
-          <X>5</X>
-          <Y>5</Y>
+          <X>-5</X>
+          <Y>-5</Y>
         </Tiling>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.3</SpecularSmoothness>
+        <SpecularSmoothness>0.2</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/Grass_Block.obj</AssetPath>
-        <Vao>11</Vao>
+        <Vao>10</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <VerticesCount>36</VerticesCount>
       </Mesh>
@@ -1868,27 +1872,27 @@
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <AoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/solidColor.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>256</X>
+            <Y>256</Y>
           </Size>
         </AoTexture>
         <Tiling>
-          <X>5</X>
-          <Y>5</Y>
+          <X>-5</X>
+          <Y>-5</Y>
         </Tiling>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.3</SpecularSmoothness>
+        <SpecularSmoothness>0.2</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/sphere.obj</AssetPath>
-        <Vao>10</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <VerticesCount>2880</VerticesCount>
       </Mesh>
@@ -1988,27 +1992,27 @@
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <AoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/solidColor.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>256</X>
+            <Y>256</Y>
           </Size>
         </AoTexture>
         <Tiling>
-          <X>5</X>
-          <Y>5</Y>
+          <X>-5</X>
+          <Y>-5</Y>
         </Tiling>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.3</SpecularSmoothness>
+        <SpecularSmoothness>0.2</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/Teapot.obj</AssetPath>
-        <Vao>9</Vao>
+        <Vao>11</Vao>
         <VertexBufferDataLength>506112</VertexBufferDataLength>
         <VerticesCount>63264</VerticesCount>
       </Mesh>
@@ -2108,32 +2112,32 @@
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <AoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/solidColor.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>256</X>
+            <Y>256</Y>
           </Size>
         </AoTexture>
         <Tiling>
-          <X>5</X>
-          <Y>5</Y>
+          <X>-5</X>
+          <Y>-5</Y>
         </Tiling>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.3</SpecularSmoothness>
+        <SpecularSmoothness>0.2</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/sponza.obj</AssetPath>
-        <Vao>8</Vao>
+        <Vao>12</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Mesh>
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>605</GameObjectNextId>
+  <GameObjectNextId>609</GameObjectNextId>
 </SceneFile>
