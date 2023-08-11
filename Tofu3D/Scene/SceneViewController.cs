@@ -11,7 +11,7 @@ public class SceneViewController
 
 	public SceneViewController()
 	{
-		MouseInput.RegisterPassThroughEdgesCondition(() => AllowPassThroughEdges);
+		Tofu.I.MouseInput.RegisterPassThroughEdgesCondition(() => AllowPassThroughEdges);
 		SetProjectionMode(CurrentProjectionMode);
 	}
 
@@ -120,9 +120,9 @@ public class SceneViewController
 		}
 
 
-		bool isMouseOverSceneView = MouseInput.ScreenPosition.X < Camera.MainCamera.Size.X && MouseInput.ScreenPosition.Y < Camera.MainCamera.Size.Y && MouseInput.ScreenPosition.Y > 0;
+		bool isMouseOverSceneView = Tofu.I.MouseInput.ScreenPosition.X < Camera.MainCamera.Size.X && Tofu.I.MouseInput.ScreenPosition.Y < Camera.MainCamera.Size.Y && Tofu.I.MouseInput.ScreenPosition.Y > 0;
 // Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
-		bool justClicked = MouseInput.ButtonPressed(MouseInput.Buttons.Left) | MouseInput.ButtonPressed(MouseInput.Buttons.Right);
+		bool justClicked = Tofu.I.MouseInput.ButtonPressed(MouseButtons.Left) | Tofu.I.MouseInput.ButtonPressed(MouseButtons.Right);
 		if (justClicked)
 		{
 			_clickedInsideScene = isMouseOverSceneView;
@@ -132,7 +132,7 @@ public class SceneViewController
 
 		HandleMouseScroll();
 		bool validInput = (isMouseOverSceneView || _clickedInsideScene) && (_clickedInsideScene) || (justClicked == false && isMouseOverSceneView && _clickedInsideScene);
-		if (MouseInput.IsButtonDown(MouseInput.Buttons.Left) || MouseInput.IsButtonDown(MouseInput.Buttons.Right))
+		if (Tofu.I.MouseInput.IsButtonDown(MouseButtons.Left) || Tofu.I.MouseInput.IsButtonDown(MouseButtons.Right))
 		{
 			if (validInput)
 			{
@@ -144,18 +144,18 @@ public class SceneViewController
 
 		if (Camera.MainCamera.IsOrthographic == false)
 		{
-			if (validInput && MouseInput.IsButtonDown(MouseInput.Buttons.Right))
+			if (validInput && Tofu.I.MouseInput.IsButtonDown(MouseButtons.Right))
 			{
-				_smoothScreenDeltaVectorForMovement = Vector2.Lerp(_smoothScreenDeltaVectorForMovement, MouseInput.ScreenDelta, Time.EditorDeltaTime * 15);
+				_smoothScreenDeltaVectorForMovement = Vector2.Lerp(_smoothScreenDeltaVectorForMovement, Tofu.I.MouseInput.ScreenDelta, Time.EditorDeltaTime * 15);
 			}
 			else
 			{
 				_smoothScreenDeltaVectorForMovement = Vector2.Lerp(_smoothScreenDeltaVectorForMovement, Vector2.Zero, Time.EditorDeltaTime * 7);
 			}
 
-			if (validInput && MouseInput.IsButtonDown(MouseInput.Buttons.Left))
+			if (validInput && Tofu.I.MouseInput.IsButtonDown(MouseButtons.Left))
 			{
-				_smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation, MouseInput.ScreenDelta, Time.EditorDeltaTime * 30);
+				_smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation, Tofu.I.MouseInput.ScreenDelta, Time.EditorDeltaTime * 30);
 			}
 			else
 			{
@@ -215,11 +215,11 @@ public class SceneViewController
 	void HandleMouseScroll()
 	{
 		// Z POSITION
-		if (MouseInput.ScrollDelta != 0)
+		if (Tofu.I.MouseInput.ScrollDelta != 0)
 		{
 			if (Camera.MainCamera.IsOrthographic)
 			{
-				_targetOrthoSize += -MouseInput.ScrollDelta * (_targetOrthoSize * 0.04f);
+				_targetOrthoSize += -Tofu.I.MouseInput.ScrollDelta * (_targetOrthoSize * 0.04f);
 				_targetOrthoSize = Mathf.Clamp(_targetOrthoSize, 0.1f, Mathf.Infinity);
 				// Camera.I.ortographicSize = Mathf.Eerp(Camera.I.ortographicSize, targetOrthoSize, Time.editorDeltaTime * 10f);
 				// macbook trackpad has smooth scrolling so no eerping
@@ -227,9 +227,9 @@ public class SceneViewController
 			}
 			else
 			{
-				MoveCameraByLocalVector(new Vector3(0, 0, Mathf.Clamp(MouseInput.ScrollDelta, -10, 10)) * _moveSpeed*0.2f);
+				MoveCameraByLocalVector(new Vector3(0, 0, Mathf.Clamp(Tofu.I.MouseInput.ScrollDelta, -10, 10)) * _moveSpeed*0.2f);
 
-				//Camera.I.transform.position += Camera.I.transform.TransformDirection(Vector3.Forward) * MouseInput.ScrollDelta * 0.05f;
+				//Camera.I.transform.position += Camera.I.transform.TransformDirection(Vector3.Forward) * Tofu.I.MouseInput.ScrollDelta * 0.05f;
 			}
 		}
 	}
@@ -237,10 +237,10 @@ public class SceneViewController
 	void HandleButtonInputs()
 	{
 		// PANNING
-		if (MouseInput.IsButtonDown() && Camera.MainCamera.IsOrthographic)
+		if (Tofu.I.MouseInput.IsButtonDown() && Camera.MainCamera.IsOrthographic)
 		{
-			Camera.MainCamera.Transform.LocalPosition += Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector2(-MouseInput.ScreenDelta.X, MouseInput.ScreenDelta.Y)) * Camera.MainCamera.OrthographicSize;
-			// MouseInput.ScreenDelta -= MouseInput.ScreenDelta;
+			Camera.MainCamera.Transform.LocalPosition += Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector2(-Tofu.I.MouseInput.ScreenDelta.X, Tofu.I.MouseInput.ScreenDelta.Y)) * Camera.MainCamera.OrthographicSize;
+			// Tofu.I.MouseInput.ScreenDelta -= Tofu.I.MouseInput.ScreenDelta;
 		}
 	}
 

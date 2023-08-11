@@ -39,8 +39,8 @@ public class EditorPanelInspector : EditorPanel
             .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
         Scene.ComponentAwoken += OnComponentAddedToScene;
         GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
-        MouseInput.RegisterPassThroughEdgesCondition(() =>
-            _editing && MouseInput.IsButtonDown(MouseInput.Buttons.Left));
+        Tofu.I.MouseInput.RegisterPassThroughEdgesCondition(() =>
+            _editing && Tofu.I.MouseInput.IsButtonDown(MouseButtons.Left));
         Global.DebugStateChanged += (b) => QueueInspectorRefresh();
     }
 
@@ -809,7 +809,8 @@ public class EditorPanelInspector : EditorPanel
                 new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
             if (clicked && goObject != null)
             {
-                EditorPanelHierarchy.I.SelectGameObject(goObject.Id);
+                // todo
+                // EditorPanelHierarchy.I.SelectGameObject(goObject.Id);
                 return true;
             }
 

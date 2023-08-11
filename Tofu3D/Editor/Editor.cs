@@ -28,9 +28,11 @@ public class Editor
     ImGuiWindowClassPtr _panelWindowClassPtr;
     public EditorTextures EditorTextures;
 
+    private EditorLayoutManager _editorLayoutManager;
     public unsafe void Initialize()
     {
-        EditorLayoutManager.LoadLastLayout();
+        _editorLayoutManager = new EditorLayoutManager();
+        _editorLayoutManager.LoadLastLayout();
         EditorThemeing.SetTheme();
 
         EditorTextures = new EditorTextures();
@@ -43,7 +45,7 @@ public class Editor
         {
             _editorPanels = new EditorPanel[]
             {
-                new EditorPanelMenuBar(),
+                new EditorPanelMenuBar(editorLayoutManager:_editorLayoutManager),
                 new EditorPanelHierarchy(),
                 new EditorPanelInspector(),
                 new EditorPanelBrowser(),
@@ -76,7 +78,9 @@ public class Editor
 
     public void Update()
     {
-        EditorLayoutManager.Update();
+        
+        _editorLayoutManager.Update();
+        
         for (int i = 0; i < _editorPanels.Length; i++)
         {
             _editorPanels[i].Update();

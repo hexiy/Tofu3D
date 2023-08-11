@@ -17,11 +17,9 @@ public class EditorPanelHierarchy : EditorPanel
 	List<int> _gameObjectsIndexesSelectedBefore = new List<int>();
 	List<int> _selectedGameObjectsIDs = new List<int>();
 	bool _showUpdatePrefabPopup;
-	public static EditorPanelHierarchy I { get; private set; }
 
 	public override void Init()
 	{
-		I = this;
 		Scene.AnySceneLoaded += ResetGameObjectSelection;
 	}
 
@@ -371,7 +369,7 @@ public class EditorPanelHierarchy : EditorPanel
 		{
 			AddGameObjectToSelection(currentGameObject.Id);
 		}
-		else if (ImGui.IsItemHovered() && MouseInput.ButtonReleased())
+		else if (ImGui.IsItemHovered() && Tofu.I.MouseInput.ButtonReleased())
 		{
 			_gameObjectsIndexesSelectedBefore = _selectedGameObjectsIDs;
 			SelectGameObject(currentGameObject.Id);

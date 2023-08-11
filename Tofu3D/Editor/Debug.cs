@@ -4,9 +4,9 @@ using System.Threading;
 
 namespace Tofu3D;
 
-public static class Debug
+public class Debug
 {
-	static List<LogEntry> _logs = new();
+    static List<LogEntry> _logs = new();
 
 	public static readonly int Limit = 3000;
 

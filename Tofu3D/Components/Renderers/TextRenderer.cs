@@ -188,9 +188,9 @@ public class TextRenderer : SpriteRenderer
 			// {
 			// 	Transform.WorldPosition = Transform.WorldPosition + new Vector2(0, (float) MathHelper.Sin(Time.EditorElapsedTime + symbolIndex * 0.1f) * 1);
 			//
-			// 	float distanceToCursor = Vector2.Distance(Transform.WorldPosition, MouseInput.WorldPosition);
+			// 	float distanceToCursor = Vector2.Distance(Transform.WorldPosition, Tofu.I.MouseInput.WorldPosition);
 			// 	Transform.WorldScale = originalScale * fontSizeScale * Mathf.Clamp((0.2f / distanceToCursor + 1f), 1, 1.3f);
-			// 	Debug.StatSetValue("MouseWOrldPos:", $"MouseWorldPos:{MouseInput.WorldPosition}");
+			// 	Debug.StatSetValue("MouseWOrldPos:", $"MouseWorldPos:{Tofu.I.MouseInput.WorldPosition}");
 			// }
 
 			UpdateMvp();

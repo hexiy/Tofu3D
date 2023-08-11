@@ -17,15 +17,15 @@ public class MouseTracker : Component, IComponentUpdateable
 
 	public override void Update()
 	{
-		Transform.WorldPosition = MouseInput.ScreenPosition;
+		Transform.WorldPosition = Tofu.I.MouseInput.ScreenPosition;
 		Transform.Rotation = Transform.Rotation.Set(z: Transform.Rotation.Z + Time.EditorDeltaTime * 150);
-		if (MouseInput.ButtonPressed(MouseInput.Buttons.Left) || MouseInput.ButtonPressed(MouseInput.Buttons.Right))
+		if (Tofu.I.MouseInput.ButtonPressed(MouseButtons.Left) || Tofu.I.MouseInput.ButtonPressed(MouseButtons.Right))
 		{
 			Transform.LocalScale = Vector3.One;
 
 			_clicked = true;
 		}
-		else if (MouseInput.ButtonReleased())
+		else if (Tofu.I.MouseInput.ButtonReleased())
 		{
 			_clicked = false;
 		}

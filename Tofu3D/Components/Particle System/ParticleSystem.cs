@@ -163,19 +163,19 @@ public class ParticleSystem : Component
 //            }
 //            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
 //            {
-//                lastMousePos = MouseInput.Position;
+//                lastMousePos = Tofu.I.MouseInput.Position;
 //            }
 //            ///// Space filling
 //            /*for (int i = 0; i < 10; i++)
 //            {
 //
 //                Particle p = new Particle();
-//                Vector2 dir = (lastMousePos - MouseInput.Position).NormalizedCopy();
-//                float l = (lastMousePos - MouseInput.Position).Length();
-//                p.position = MouseInput.Position + dir * l * (i / 10);
+//                Vector2 dir = (lastMousePos - Tofu.I.MouseInput.Position).NormalizedCopy();
+//                float l = (lastMousePos - Tofu.I.MouseInput.Position).Length();
+//                p.position = Tofu.I.MouseInput.Position + dir * l * (i / 10);
 //                Random rnd = new Random();
 //                //p.velocity = StartVelocity + new Vector2(rnd.Next((int)-StartVelocityVariation, (int)StartVelocityVariation), rnd.Next((int)-StartVelocityVariation, (int)StartVelocityVariation));
-//                p.velocity = (lastMousePos - MouseInput.Position).NormalizedCopy() * 80;
+//                p.velocity = (lastMousePos - Tofu.I.MouseInput.Position).NormalizedCopy() * 80;
 //                particles.Add(p);
 //
 //                if (particles.Count > MaxParticles)
@@ -185,7 +185,7 @@ public class ParticleSystem : Component
 //            }*/
 //Particle p = pool.GetObject();
 //p.lifetime = 0;
-//            //p.position = MouseInput.Position;
+//            //p.position = Tofu.I.MouseInput.Position;
 //            p.radius = StartSize;
 //            //float sineY = (float)Math.Sin(Time.elapsedTime * 4) * 200 * (Extensions.Clamp((float)Math.Abs(Math.Sin(Time.elapsedTime)), 0.6f, 1f));
 //            //float sineX = (float)Math.Cos(Time.elapsedTime * 4) * 200 * (Extensions.Clamp((float)Math.Abs(Math.Cos(Time.elapsedTime)), 0.6f, 1f));
@@ -205,7 +205,7 @@ public class ParticleSystem : Component
 //            p.position = new Vector2(center.X / 2 + sineX + wiggle.X, center.Y / 2 + sineY + wiggle.Y);
 //
 ////p.velocity = StartVelocity + new Vector2(rnd.Next((int)-StartVelocityVariation, (int)StartVelocityVariation), rnd.Next((int)-StartVelocityVariation, (int)StartVelocityVariation));
-////p.velocity = (lastMousePos - MouseInput.Position).NormalizedCopy() * 80;
+////p.velocity = (lastMousePos - Tofu.I.MouseInput.Position).NormalizedCopy() * 80;
 //p.color = StartColor;
 //            p.color = Extensions.ColorFromHSVToXna(Time.elapsedTime* 50, 1, 1);
 //            lock (listLock)
@@ -243,7 +243,7 @@ public class ParticleSystem : Component
 //                });
 //
 //            /*
-//    float dist = Vector2.Distance(MouseInput.Position, particles[i].transform.Position);
+//    float dist = Vector2.Distance(Tofu.I.MouseInput.Position, particles[i].transform.Position);
 //    float hue = dist * 0.8f;
 //    float saturation = 1;
 //    float value = 1;
@@ -254,7 +254,7 @@ public class ParticleSystem : Component
 //    }
 //    if (dist > 30 + ringOffset && dist < 50 + ringOffset)
 //    {
-//    if (Extensions.AngleBetween(particles[i].transform.Position, Extensions.Round(MouseInput.Position)) == Math.PI / 180 * 45)
+//    if (Extensions.AngleBetween(particles[i].transform.Position, Extensions.Round(Tofu.I.MouseInput.Position)) == Math.PI / 180 * 45)
 //    {
 //        value = MathHelper.Clamp(1 / (ringOffset / 50), 0, 1);
 //    }

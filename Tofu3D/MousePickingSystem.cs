@@ -83,7 +83,7 @@ public static class MousePickingSystem
 		// GL.ReadPixels(0,0,1,1,PixelFormat.Rgb, PixelType.UnsignedByte, ref pixels);
 
 		// need to update even when not moving mouse because objects can move in the scene
-		// if (MouseInput.ScreenDelta == Vector2.Zero || SceneNavigation.I.IsPanningCamera)
+		// if (Tofu.I.MouseInput.ScreenDelta == Vector2.Zero || SceneNavigation.I.IsPanningCamera)
 		// {
 		// 	return;
 		// }
@@ -92,7 +92,7 @@ public static class MousePickingSystem
 			return;
 		}
 
-		GL.ReadPixels((int) MouseInput.ScreenPosition.X, (int) MouseInput.ScreenPosition.Y, 1, 1, PixelFormat.Rgb, PixelType.UnsignedByte, ref _tempPixels);
+		GL.ReadPixels((int) Tofu.I.MouseInput.ScreenPosition.X, (int) Tofu.I.MouseInput.ScreenPosition.Y, 1, 1, PixelFormat.Rgb, PixelType.UnsignedByte, ref _tempPixels);
 		
 		//Color color = new Color(_pixels);
 

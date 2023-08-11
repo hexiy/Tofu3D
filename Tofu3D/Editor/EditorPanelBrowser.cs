@@ -384,7 +384,8 @@ public class EditorPanelBrowser : EditorPanel
 				if (assetExtension == ".prefab")
 				{
 					GameObject go = Tofu.I.SceneSerializer.LoadPrefab(_assets[assetIndex]);
-					EditorPanelHierarchy.I.SelectGameObject(go.Id);
+					// todo
+					// EditorPanelHierarchy.I.SelectGameObject(go.Id);
 				}
 
 				if (assetExtension == ".scene")

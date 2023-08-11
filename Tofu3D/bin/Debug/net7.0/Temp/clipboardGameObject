@@ -6,12 +6,12 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>221</Id>
-      <IndexInHierarchy>13</IndexInHierarchy>
+      <Id>54231</Id>
+      <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Sponza</Name>
+      <Name>BlockInstanced</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -21,7 +21,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>221</GameObjectId>
+      <GameObjectId>54231</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
@@ -33,13 +33,13 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>1</X>
-        <Y>-2.02</Y>
+        <X>0</X>
+        <Y>0</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1</X>
-        <Y>-2.02</Y>
+        <X>0</X>
+        <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
@@ -54,29 +54,13 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>-269.3</Y>
+        <Y>0</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>221</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>0.01</X>
-        <Y>0.01</Y>
-        <Z>0.01</Z>
-      </Size>
-    </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>221</GameObjectId>
+      <GameObjectId>54231</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
@@ -132,12 +116,28 @@
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/sponza.obj</AssetPath>
-        <Vao>12</Vao>
-        <VertexBufferDataLength>6294408</VertexBufferDataLength>
-        <VerticesCount>786801</VerticesCount>
+        <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/Grass_Block.obj</AssetPath>
+        <Vao>6</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
+        <VerticesCount>36</VerticesCount>
       </Mesh>
       <Layer>0</Layer>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>54231</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </Size>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

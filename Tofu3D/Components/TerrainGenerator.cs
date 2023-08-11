@@ -29,11 +29,11 @@ public class TerrainGenerator : Component, IComponentUpdateable
 		base.Awake();
 	}
 
-	public override void Start()
+	/*public override void Start()
 	{
-		// Spawn.Invoke();
+		Spawn.Invoke();
 		base.Start();
-	}
+	}*/
 
 	void DestroyTerrain()
 	{

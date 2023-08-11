@@ -187,7 +187,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>BallFogEnd</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -219,7 +219,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Sponza</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -261,8 +261,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-0.4207402</X>
-        <Y>352.31863</Y>
+        <X>-3.5269156</X>
+        <Y>339.26562</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -457,6 +457,8 @@
         <int>37</int>
         <int>37</int>
         <int>37</int>
+        <int>37</int>
+        <int>66</int>
         <int>37</int>
         <int>66</int>
         <int>37</int>
@@ -1399,8 +1401,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>-5</X>
-          <Y>-5</Y>
+          <X>3</X>
+          <Y>3</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -1519,8 +1521,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>-5</X>
-          <Y>-5</Y>
+          <X>3</X>
+          <Y>3</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -1639,8 +1641,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>-5</X>
-          <Y>-5</Y>
+          <X>3</X>
+          <Y>3</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -1759,8 +1761,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>-5</X>
-          <Y>-5</Y>
+          <X>3</X>
+          <Y>3</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -1879,8 +1881,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>-5</X>
-          <Y>-5</Y>
+          <X>3</X>
+          <Y>3</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -1999,8 +2001,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>-5</X>
-          <Y>-5</Y>
+          <X>3</X>
+          <Y>3</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -2119,8 +2121,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>-5</X>
-          <Y>-5</Y>
+          <X>3</X>
+          <Y>3</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -2139,5 +2141,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>609</GameObjectNextId>
+  <GameObjectNextId>611</GameObjectNextId>
 </SceneFile>

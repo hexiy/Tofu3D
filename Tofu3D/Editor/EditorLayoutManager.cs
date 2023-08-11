@@ -4,24 +4,24 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public static class EditorLayoutManager
+public class EditorLayoutManager
 {
 	// string _lastUsedLayoutName => PersistentData.;
 
-	static float _autoSaveTimer = 3;
-	static readonly string DefaultSettingsName = "defaultSettings.ini";
-	public static string LastUsedLayoutName
+    float _autoSaveTimer = 3;
+	readonly string DefaultSettingsName = "defaultSettings.ini";
+	public string LastUsedLayoutName
 	{
 		get { return PersistentData.GetString(nameof(LastUsedLayoutName), String.Empty); }
 		private set { PersistentData.Set(nameof(LastUsedLayoutName), value); }
 	}
 
-	public static void SaveCurrentLayout()
+	public void SaveCurrentLayout()
 	{
 		SaveLayout("editor.ini");
 	}
 
-	private static void SaveLayout(string fileName)
+	private void SaveLayout(string fileName)
 	{
 		if (fileName == DefaultSettingsName)
 		{
@@ -32,12 +32,12 @@ public static class EditorLayoutManager
 		LastUsedLayoutName = fileName;
 	}
 
-	public static void LoadDefaultLayout()
+	public void LoadDefaultLayout()
 	{
 		LoadLayout(DefaultSettingsName);
 	}
 
-	private static void LoadLayout(string fileName)
+	private void LoadLayout(string fileName)
 	{
 		if (File.Exists(fileName) == false)
 		{
@@ -53,7 +53,7 @@ public static class EditorLayoutManager
 		LastUsedLayoutName = fileName;
 	}
 
-	public static void LoadLastLayout()
+	public void LoadLastLayout()
 	{
 		if (LastUsedLayoutName != String.Empty)
 		{
@@ -65,7 +65,7 @@ public static class EditorLayoutManager
 		}
 	}
 
-	public static void Update()
+	public void Update()
 	{
 		// _autoSaveTimer -= Time.EditorDeltaTime;
 		// if (_autoSaveTimer <= 0)
@@ -75,7 +75,7 @@ public static class EditorLayoutManager
 		// }
 	}
 
-	public static void SaveDefaultLayout()
+	public void SaveDefaultLayout()
 	{
 		ImGui.SaveIniSettingsToDisk(DefaultSettingsName);
 		LastUsedLayoutName = DefaultSettingsName;

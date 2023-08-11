@@ -14,14 +14,14 @@ public class ButtonTween : Component
 	public override void Update()
 	{
 		//if (needToScale == false) { return; }
-		bool mouseInside = MouseInput.WorldPosition.In(GetComponent<BoxShape>());
-		if (MouseInput.ButtonPressed() && mouseInside)
+		bool mouseInside = Tofu.I.MouseInput.WorldPosition.In(GetComponent<BoxShape>());
+		if (Tofu.I.MouseInput.ButtonPressed() && mouseInside)
 		{
 			Transform.LocalScale = Vector3.One;
 
 			_clicked = true;
 		}
-		else if (MouseInput.ButtonReleased())
+		else if (Tofu.I.MouseInput.ButtonReleased())
 		{
 			_clicked = false;
 		}

@@ -115,13 +115,13 @@ public class TransformHandle : Component, IComponentUpdateable
 			Transform.LocalScale = Vector3.One * Vector3.Distance(Transform.WorldPosition, Camera.MainCamera.Transform.WorldPosition) * 0.2f;
 		}
 
-		if (MouseInput.ButtonReleased())
+		if (Tofu.I.MouseInput.ButtonReleased())
 		{
 			CurrentAxisSelected = null;
 			Clicked = false;
 		}
 
-		if (MouseInput.ButtonPressed())
+		if (Tofu.I.MouseInput.ButtonPressed())
 		{
 			Clicked = false;
 			// if (MousePickingSystem.HoveredRenderer == ModelRendererX)
@@ -149,11 +149,11 @@ public class TransformHandle : Component, IComponentUpdateable
 			// }
 		}
 
-		if (MouseInput.IsButtonDown() && GameObject.ActiveInHierarchy && Clicked)
+		if (Tofu.I.MouseInput.IsButtonDown() && GameObject.ActiveInHierarchy && Clicked)
 		{
 			SetSelectedObjectRigidbodyAwake(false);
-			// Move(MouseInput.WorldDelta);
-			Move(MouseInput.ScreenDelta); // /_selectedTransforms[0].GetComponent<Renderer>().DistanceFromCamera * 1000f);
+			// Move(Tofu.I.MouseInput.WorldDelta);
+			Move(Tofu.I.MouseInput.ScreenDelta); // /_selectedTransforms[0].GetComponent<Renderer>().DistanceFromCamera * 1000f);
 		}
 		else
 		{
@@ -261,13 +261,13 @@ public class TransformHandle : Component, IComponentUpdateable
 				switch (CurrentAxisSelected)
 				{
 					case Axis.X:
-						_selectedTransforms[i].LocalPosition = new Vector3(MouseInput.WorldPosition.TranslateToGrid().X, _selectedTransforms[i].LocalPosition.Y, 0);
+						_selectedTransforms[i].LocalPosition = new Vector3(Tofu.I.MouseInput.WorldPosition.TranslateToGrid().X, _selectedTransforms[i].LocalPosition.Y, 0);
 						break;
 					case Axis.Y:
-						_selectedTransforms[i].LocalPosition = new Vector3(_selectedTransforms[i].LocalPosition.X, MouseInput.WorldPosition.TranslateToGrid().Y, 0);
+						_selectedTransforms[i].LocalPosition = new Vector3(_selectedTransforms[i].LocalPosition.X, Tofu.I.MouseInput.WorldPosition.TranslateToGrid().Y, 0);
 						break;
 					case Axis.Xy:
-						_selectedTransforms[i].LocalPosition = MouseInput.WorldPosition.TranslateToGrid(50);
+						_selectedTransforms[i].LocalPosition = Tofu.I.MouseInput.WorldPosition.TranslateToGrid(50);
 						break;
 				}
 			}

@@ -3,86 +3,25 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Tofu3D;
 
-public static class MouseInput
+public partial class MouseInput
 {
 	public delegate void MouseEvent();
 
 	//
 	// Summary:
 	//     Specifies the buttons of a mouse.
-	public enum Buttons
-	{
-		//
-		// Summary:
-		//     The first button.
-		Button1 = 0,
+	float _sceneViewPadding = 20;
 
-		//
-		// Summary:
-		//     The second button.
-		Button2 = 1,
-
-		//
-		// Summary:
-		//     The third button.
-		Button3 = 2,
-
-		//
-		// Summary:
-		//     The fourth button.
-		Button4 = 3,
-
-		//
-		// Summary:
-		//     The fifth button.
-		Button5 = 4,
-
-		//
-		// Summary:
-		//     The sixth button.
-		Button6 = 5,
-
-		//
-		// Summary:
-		//     The seventh button.
-		Button7 = 6,
-
-		//
-		// Summary:
-		//     The eighth button.
-		Button8 = 7,
-
-		//
-		// Summary:
-		//     The left mouse button. This corresponds to OpenTK.Windowing.GraphicsLibraryFramework.MouseButton.Button1.
-		Left = 0,
-
-		//
-		// Summary:
-		//     The right mouse button. This corresponds to OpenTK.Windowing.GraphicsLibraryFramework.MouseButton.Button2.
-		Right = 1,
-
-		//
-		// Summary:
-		//     The middle mouse button. This corresponds to OpenTK.Windowing.GraphicsLibraryFramework.MouseButton.Button3.
-		Middle = 2,
-
-		//
-		// Summary:
-		//     The highest mouse button available.
-		Last = 7
-	}
-
-	public static Vector2 ScreenDelta { get; private set; }
+	public Vector2 ScreenDelta { get; private set; }
 
 	/// <summary>
 	/// Screen position of mouse
 	/// </summary>
-	public static Vector2 ScreenPosition { get; private set; } = Vector2.Zero;
+	public Vector2 ScreenPosition { get; private set; } = Vector2.Zero;
 
-	private static List<Func<bool>> _passThroughEdgesConditions = new List<Func<bool>>();
+	private List<Func<bool>> _passThroughEdgesConditions = new List<Func<bool>>();
 
-	public static void RegisterPassThroughEdgesCondition(Func<bool> func)
+	public void RegisterPassThroughEdgesCondition(Func<bool> func)
 	{
 		_passThroughEdgesConditions.Add(func);
 	}
@@ -91,7 +30,7 @@ public static class MouseInput
 	/// Returns true if any condition returns true
 	/// </summary>
 	/// <returns></returns>
-	private static bool EvaluateAllPassThroughEdgesConditions()
+	private bool EvaluateAllPassThroughEdgesConditions()
 	{
 		foreach (Func<bool> condition in _passThroughEdgesConditions)
 		{
@@ -106,7 +45,7 @@ public static class MouseInput
 
 	// public static EventHandler<Func<bool>> PassThroughEdgesConditions;
 
-	public static Vector2 WorldDelta
+	public Vector2 WorldDelta
 	{
 		get
 		{
@@ -121,12 +60,12 @@ public static class MouseInput
 		}
 	}
 
-	public static Vector2 WorldPosition
+	public Vector2 WorldPosition
 	{
 		get { return Camera.MainCamera.ScreenToWorld(ScreenPosition); }
 	}
 
-	public static float ScrollDelta
+	public float ScrollDelta
 	{
 		get
 		{
@@ -139,49 +78,49 @@ public static class MouseInput
 		}
 	}
 
-	public static bool IsButtonDown(Buttons button = Buttons.Left)
+	public bool IsButtonDown(MouseButtons mouseButton = MouseButtons.Left)
 	{
 		// if (IsMouseInSceneView() == false)
 		// {
 		// 	return false;
 		// }
 
-		return Tofu.I.Window.MouseState.IsButtonDown((MouseButton) button);
+		return Tofu.I.Window.MouseState.IsButtonDown((MouseButton) mouseButton);
 	}
 
-	public static bool IsButtonUp(Buttons button = Buttons.Left)
+	public bool IsButtonUp(MouseButtons mouseButton = MouseButtons.Left)
 	{
 		if (IsMouseInSceneView() == false)
 		{
 			return false;
 		}
 
-		return Tofu.I.Window.MouseState.IsButtonDown((MouseButton) button) == false;
+		return Tofu.I.Window.MouseState.IsButtonDown((MouseButton) mouseButton) == false;
 	}
 
-	public static bool ButtonPressed(Buttons button = Buttons.Left)
+	public bool ButtonPressed(MouseButtons mouseButton = MouseButtons.Left)
 	{
 		// if (IsMouseInSceneView() == false)
 		// {
 		// 	return false;
 		// }
 
-		return Tofu.I.Window.MouseState.WasButtonDown((MouseButton) button) == false && Tofu.I.Window.MouseState.IsButtonDown((MouseButton) button);
+		return Tofu.I.Window.MouseState.WasButtonDown((MouseButton) mouseButton) == false && Tofu.I.Window.MouseState.IsButtonDown((MouseButton) mouseButton);
 	}
 
-	public static bool ButtonReleased(Buttons button = Buttons.Left)
+	public bool ButtonReleased(MouseButtons mouseButton = MouseButtons.Left)
 	{
 		// if (IsMouseInSceneView() == false) commented 2023/05/04
 		// {
 		// 	return false;
 		// }
 
-		return Tofu.I.Window.MouseState.WasButtonDown((MouseButton) button) && Tofu.I.Window.MouseState.IsButtonDown((MouseButton) button) == false;
+		return Tofu.I.Window.MouseState.WasButtonDown((MouseButton) mouseButton) && Tofu.I.Window.MouseState.IsButtonDown((MouseButton) mouseButton) == false;
 	}
 
-	static bool _skipOneFrame = false;
+    bool _skipOneFrame = false;
 
-	public static void Update()
+	public void Update()
 	{
 		if (_skipOneFrame)
 		{
@@ -246,9 +185,8 @@ public static class MouseInput
 		                             -Tofu.I.Window.MouseState.Y + Camera.MainCamera.Size.Y + Tofu.I.Editor.SceneViewPosition.Y + 25); // 25 EditorPanelMenuBar height
 	}
 
-	static float _sceneViewPadding = 20;
 
-	static bool IsMouseInSceneView()
+    bool IsMouseInSceneView()
 	{
 		return ScreenPosition.X > -_sceneViewPadding && ScreenPosition.X < Camera.MainCamera.Size.X + _sceneViewPadding && ScreenPosition.Y > -_sceneViewPadding && ScreenPosition.Y < Camera.MainCamera.Size.Y + _sceneViewPadding;
 	}

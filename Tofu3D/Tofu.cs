@@ -32,6 +32,9 @@ public class Tofu
 
 	// MISC
 	public TweenManager TweenManager;
+	
+	// INPUT
+	public MouseInput MouseInput;
 
 	public Tofu()
 	{
@@ -50,10 +53,11 @@ public class Tofu
 		AssetsWatcher = new AssetsWatcher();
 		ShaderManager = new ShaderManager();
 		TweenManager = new TweenManager();
+		MouseInput = new MouseInput();
 
 		RenderSettings.LoadSavedData();
 		AssetsWatcher.StartWatching();
-		Tofu.I.ShaderManager.Initialize();
+		ShaderManager.Initialize();
 
 
 		Window = new Window();
@@ -91,9 +95,9 @@ public class Tofu
 		TweenManager.Update();
 		SceneViewController.Update();
 		AssetsWatcher.ProcessChangedFilesQueue();
-		Tofu.I.ShaderManager.ReloadQueuedShaders();
+		ShaderManager.ReloadQueuedShaders();
 
-		Tofu.I.SceneManager.CurrentScene.Update();
+		SceneManager.CurrentScene.Update();
 		Editor.Update();
 		Debug.EndGraphTimer("Editor Update");
 	}
@@ -118,7 +122,7 @@ public class Tofu
 
 		ImGuiController.WindowResized(Window.ClientSize.X, Window.ClientSize.Y);
 
-		Tofu.I.Editor.Draw();
+		Editor.Draw();
 
 		ImGuiController.Render();
 
