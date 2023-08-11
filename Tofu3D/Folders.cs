@@ -23,7 +23,10 @@ public class Folders
 	{
 		return Path.Combine(Textures, assetName);
 	}
-
+	public static string GetResourcePath(string assetName)
+	{
+		return Path.Combine(Resources, assetName);
+	}
 	/// <summary>
 	/// From "Desktop/project/bin/Assets/2D/xx.png" to "bin/Assets/2D/xx.png"
 	/// </summary>
@@ -42,6 +45,10 @@ public class Folders
 	public static string EngineFolderPath
 	{
 		get { return Environment.CurrentDirectory; }
+	}
+	public static string Resources
+	{
+		get { return "Resources"; }
 	}
 	public static string Assets
 	{

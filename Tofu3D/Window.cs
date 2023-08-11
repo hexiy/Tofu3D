@@ -46,6 +46,9 @@ public class Window : GameWindow
 	{
 		get { return new Vector2(Size.X, Size.Y); }
 	}
+
+	private float _monitorScale;
+	public float MonitorScale => _monitorScale;
 	public string WindowTitleText
 	{
 		get { return $"Tofu3D | {GL.GetString(StringName.Version)}"; }
@@ -54,7 +57,7 @@ public class Window : GameWindow
 	protected override unsafe void OnLoad()
 	{
 		GLFW.GetMonitorWorkarea((Monitor*) this.CurrentMonitor.Pointer, out int x, out int y, out int width, out int height);
-
+		GLFW.GetMonitorContentScale((Monitor*) this.CurrentMonitor.Pointer, out _monitorScale, out _);
 		Size = new Vector2i(width, height);
 		Location = Vector2i.Zero;
 

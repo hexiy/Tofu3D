@@ -8,6 +8,7 @@ public class Editor
 	public Vector2 SceneViewSize = new(0, 0);
 	//private ImGuiRenderer _imGuiRenderer;
 	EditorPanel[] _editorPanels;
+	private EditorDialogManager _editorDialogManager;
 
 	List<RangeAccessor<System.Numerics.Vector4>> _themes = new();
 
@@ -59,6 +60,7 @@ public class Editor
 			_editorPanels[i].Init();
 		}
 
+		_editorDialogManager = new EditorDialogManager();
 		if (Global.EditorAttached)
 		{
 			// EditorPanelHierarchy.I.GameObjectsSelected += OnGameObjectSelected;
@@ -73,6 +75,7 @@ public class Editor
 		{
 			_editorPanels[i].Update();
 		}
+		_editorDialogManager.Update();
 
 		if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.WasKeyJustPressed(Keys.S))
 		{
@@ -92,8 +95,12 @@ public class Editor
 
 		if (KeyboardInput.IsKeyDown(Keys.Escape))
 		{
-			Tofu.I.Window.Close();
+			ShowDialog(new EditorDialogParams("yo.", 
+				new EditorDialogButtonDefinition("close", clicked:Tofu.I.Window.Close, closeOnClick:true),
+				new EditorDialogButtonDefinition("no", clicked: () => { }, closeOnClick:true)));
+			// Tofu.I.Window.Close();
 		}
+		
 	}
 
 	public void Draw()
@@ -116,5 +123,17 @@ public class Editor
 		{
 			EditorPanelSceneView.I.Draw();
 		}
+		
+		_editorDialogManager.Draw();
+	}
+
+	public EditorDialogHandle ShowDialog(EditorDialogParams editorDialogParams)
+	{
+		return _editorDialogManager.ShowDialog(editorDialogParams);
+	}
+
+	public void HideDialog(EditorDialogHandle dialogHandle)
+	{
+		_editorDialogManager.HideDialog(dialogHandle);
 	}
 }

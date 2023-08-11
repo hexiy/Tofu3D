@@ -25,7 +25,7 @@ public class TextureLoader : AssetLoader<Texture>
 		string path = loadSettings.Path;
 		if (File.Exists(path) == false)
 		{
-			path = Folders.Get2DAssetPath("purple.png");
+			path = Folders.GetResourcePath("purple.png");
 		}
 
 		TextureHelper.BindTexture(id, TextureType.Texture2D);
