@@ -27,13 +27,25 @@ public class EditorDialogManager
 
     public void HideDialog(EditorDialogHandle dialogHandle)
     {
+        GetDialogByHandle(dialogHandle)?.Hide();
+    }
+
+    private EditorDialog? GetDialogByHandle(EditorDialogHandle dialogHandle)
+    {
         foreach (EditorDialog editorDialog in _dialogs)
         {
             if (editorDialog.Handle == dialogHandle)
             {
-                editorDialog.Hide();
+                return editorDialog;
             }
         }
+
+        return null;
+    }
+
+    public bool IsDialogActive(EditorDialogHandle dialogHandle)
+    {
+        return GetDialogByHandle(dialogHandle)?.IsActive ??false;
     }
 
     public void Update()

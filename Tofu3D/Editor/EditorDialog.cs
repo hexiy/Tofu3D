@@ -46,11 +46,17 @@ public class EditorDialog
         ImGui.Image(Tofu.I.Editor.EditorTextures.WhitePixel.TextureId, panelSize, uv0: Vector2.Zero, Vector2.One,
             tint_col: Color.White.ToVector4());
         bool hoveringPanel = ImGui.IsItemHovered();
+        ImGui.SetCursorScreenPos(Screen.Center + new Vector2(0,-50));
+        TofuGUI.Text(_dialogParams.message);
 
-        ImGui.SetCursorScreenPos(Screen.Center);
+        int index = 0;
         foreach (EditorDialogButtonDefinition button in _dialogParams.buttons)
         {
-            bool btnClicked = ImGui.Button(button.text);
+            ImGui.SetCursorScreenPos(Screen.Center + new Vector2(0,index*TofuGUI.ButtonSize.Y+(index*20)));
+            index++;
+            bool btnClicked =TofuGUI.Button(button.text);
+            
+            // bool btnClicked = ImGui.Button(button.text);
             if (btnClicked)
             {
                 button.clicked?.Invoke();
@@ -59,7 +65,8 @@ public class EditorDialog
                     Hide();
                 }
             }
-            ImGui.SameLine();
+            // ImGui.NewLine();
+            // ImGui.SameLine();
         }
         if (ImGui.IsMouseClicked(ImGuiMouseButton.Left) && ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly) && hoveringPanel==false )
         {
