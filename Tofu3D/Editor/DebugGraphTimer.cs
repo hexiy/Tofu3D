@@ -69,7 +69,7 @@ public class DebugGraphTimer : IComparable<DebugGraphTimer>
 		{
 			_foundMaxSample = Samples.Max();
 			_foundMinSample = Samples.Min();
-			_findMaxTriggerFrameCounter = 50;
+			_findMaxTriggerFrameCounter = 3;
 			Sample10FramesAgo = (float) Math.Round(sample, 2);
 		}
 

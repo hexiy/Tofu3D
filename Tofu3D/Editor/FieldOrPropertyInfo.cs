@@ -6,7 +6,7 @@ namespace Tofu3D;
 
 public class FieldOrPropertyInfo
 {
-	public bool CanShowInEditor = true;
+	public bool CanShowInEditor;
 	FieldInfo _fieldInfo;
 	public bool IsReadonly;
 	PropertyInfo _propertyInfo;
@@ -119,6 +119,11 @@ public class FieldOrPropertyInfo
 
 	void UpdateCanShowInEditor(object obj)
 	{
+		CanShowInEditor = true;
+		if (_fieldInfo?.IsPrivate==true)
+		{
+			CanShowInEditor = false;
+		}
 		if (_fieldInfo != null && _fieldInfo.DeclaringType == typeof(Component))
 		{
 			CanShowInEditor = false;

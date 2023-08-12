@@ -18,6 +18,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
 	public int TerrainSize = 10;
 	public int ThreadsToUse = 2;
 	float _cubeModelSize = 2;
+	[Show] private float _huh = 2;
 
 	bool _savedToClipboard = false;
 

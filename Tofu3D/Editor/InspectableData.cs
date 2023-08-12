@@ -22,7 +22,7 @@ public class InspectableData
 
 	public void InitInfos()
 	{
-		FieldInfo[] fields = InspectableType.GetFields();
+		FieldInfo[] fields = InspectableType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 		PropertyInfo[] properties = InspectableType.GetProperties();
 
 		Infos = new FieldOrPropertyInfo[fields.Length + properties.Length];

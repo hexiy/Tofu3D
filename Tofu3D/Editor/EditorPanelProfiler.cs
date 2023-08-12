@@ -89,20 +89,20 @@ public class EditorPanelProfiler : EditorPanel
 				ImGui.SetCursorPosX(0);
 				ImGui.Indent();
 
-				ImGui.Text($"{timerPair.Value.Label}:{msDurationSlower.ToString("F2")} ms");
+				ImGui.Text($"{timerPair.Value.Label}:{msDurationSlower.ToString("F3")} ms");
 
 				ImGui.Unindent();
 			}
 			else
 			{
 				int plotWidth = (int) ImGui.GetContentRegionAvail().X;
-				if (timerPair.Value.Samples.Length != plotWidth && plotWidth > 0)
-				{
-					timerPair.Value.SetSamplesBufferSize((uint) plotWidth);
-				}
+				// if (timerPair.Value.Samples.Length != plotWidth && plotWidth > 0)
+				// {
+					// timerPair.Value.SetSamplesBufferSize((uint) plotWidth);
+				// }
 				
 				ImGui.PlotHistogram(string.Empty, ref timerPair.Value.Samples[0], timerPair.Value.Samples.Length, timerPair.Value.Offset,
-				                    $"{timerPair.Value.Label}:{msDurationSlower.ToString("F2")} ms",
+				                    $"{timerPair.Value.Label}:{msDurationSlower.ToString("F3")} ms",
 				                    timerPair.Value.MinSample, timerPair.Value.MaxSample,
 				                    new Vector2(plotWidth, 100));
 			}
