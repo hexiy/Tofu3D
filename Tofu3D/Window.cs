@@ -63,7 +63,7 @@ public class Window : GameWindow
 		Location = Vector2i.Zero;
 
 		bool secondaryMonitor = true;
-		if (secondaryMonitor)
+		if (secondaryMonitor && GLFW.GetMonitors().Length>1)
 		{
 			Location = Vector2i.Zero + new Vector2i(0, -height);
 		}
