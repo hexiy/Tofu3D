@@ -59,8 +59,14 @@ public class Window : GameWindow
 		GLFW.GetMonitorWorkarea((Monitor*) this.CurrentMonitor.Pointer, out int x, out int y, out int width, out int height);
 		GLFW.GetMonitorContentScale((Monitor*) this.CurrentMonitor.Pointer, out _monitorScale, out _);
 		Size = new Vector2i(width, height);
+
 		Location = Vector2i.Zero;
 
+		bool secondaryMonitor = true;
+		if (secondaryMonitor)
+		{
+			Location = Vector2i.Zero + new Vector2i(0, -height);
+		}
 
 		// WindowState = WindowState.Fullscreen;
 		WindowState = WindowState.Maximized;

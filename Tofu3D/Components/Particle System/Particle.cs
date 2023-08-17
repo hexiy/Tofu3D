@@ -9,4 +9,7 @@ public class Particle
 	public bool Visible = false;
 	public Vector3 WorldPosition = new(0, 0, 0);
 	public Color SpawnColor;
+	
+	[XmlIgnore]
+	public RendererInstancingData InstancingData = new RendererInstancingData();
 }

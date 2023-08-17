@@ -8,7 +8,7 @@ namespace Scripts;
 
 public class Component : IDestroyable, ICloneable
 {
-	static Dictionary<string, MethodInfo> _executeInEditModeMethods = new Dictionary<string, MethodInfo>();
+    Dictionary<string, MethodInfo> _executeInEditModeMethods = new Dictionary<string, MethodInfo>();
 	[XmlIgnore] public bool CanExecuteUpdateInEditMode { get; private set; } = false;
 
 	public bool CallComponentExecuteInEditModeMethod(string methodName)

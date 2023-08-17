@@ -149,6 +149,7 @@
       <Content Include="bin\Debug\net7.0\Assets\Scenes\old scenes\scene3Nature.scene" />
       <Content Include="bin\Debug\net7.0\Assets\Scenes\old scenes\sponza.scene" />
       <Content Include="bin\Debug\net7.0\Assets\Scenes\old scenes\sponzaInstanced.scene" />
+      <Content Include="bin\Debug\net7.0\Assets\Scenes\particles.scene" />
       <Content Include="bin\Debug\net7.0\Assets\Scenes\scene0.scene" />
       <Content Include="bin\Debug\net7.0\Assets\Shaders\BoxRenderer.glsl" />
       <Content Include="bin\Debug\net7.0\Assets\Shaders\DepthModelRenderer.glsl" />

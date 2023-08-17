@@ -35,7 +35,7 @@ public class SpriteRendererInstanced : Renderer
 
 	public override void OnDisabled()
 	{
-		Tofu.I.InstancedRenderingSystem.UpdateObjectData(this, remove: true);
+		Tofu.I.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, remove: true);
 
 		base.OnDisabled();
 	}
@@ -91,7 +91,7 @@ public class SpriteRendererInstanced : Renderer
 			return;
 		}
 
-		bool updatedData = Tofu.I.InstancedRenderingSystem.UpdateObjectData(this);
+		bool updatedData = Tofu.I.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData);
 		if (updatedData)
 		{
 			InstancingData.InstancingDataDirty = false;

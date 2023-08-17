@@ -11,7 +11,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -219,7 +219,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Sponza</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -261,8 +261,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-3.5269156</X>
-        <Y>339.26562</Y>
+        <X>-3.2373605</X>
+        <Y>339.23694</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -284,15 +284,15 @@
       <IsOrthographic>false</IsOrthographic>
       <OrthographicSize>2</OrthographicSize>
       <Size>
-        <X>2276</X>
-        <Y>1229</Y>
+        <X>1460</X>
+        <Y>957</Y>
       </Size>
     </Component>
     <Component xsi:type="Skybox">
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>0</GameObjectId>
       <Started>true</Started>
-      <Enabled>false</Enabled>
+      <Enabled>true</Enabled>
       <Fov>60</Fov>
     </Component>
     <Component xsi:type="Fog">
@@ -457,6 +457,8 @@
         <int>37</int>
         <int>37</int>
         <int>37</int>
+        <int>37</int>
+        <int>66</int>
         <int>37</int>
         <int>66</int>
         <int>37</int>
@@ -1380,10 +1382,10 @@
         </Shader>
         <RenderMode>Opaque</RenderMode>
         <AlbedoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -1401,8 +1403,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>3</X>
-          <Y>3</Y>
+          <X>-1</X>
+          <Y>-1</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -1413,8 +1415,8 @@
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/monke.obj</AssetPath>
-        <Vao>7</Vao>
+        <AssetPath>Assets/3D/monke.obj</AssetPath>
+        <Vao>9</Vao>
         <VertexBufferDataLength>371688</VertexBufferDataLength>
         <VerticesCount>46461</VerticesCount>
       </Mesh>
@@ -1500,10 +1502,10 @@
         </Shader>
         <RenderMode>Opaque</RenderMode>
         <AlbedoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -1521,8 +1523,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>3</X>
-          <Y>3</Y>
+          <X>-1</X>
+          <Y>-1</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -1533,8 +1535,8 @@
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/sphere.obj</AssetPath>
-        <Vao>8</Vao>
+        <AssetPath>Assets/3D/sphere.obj</AssetPath>
+        <Vao>10</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <VerticesCount>2880</VerticesCount>
       </Mesh>
@@ -1620,10 +1622,10 @@
         </Shader>
         <RenderMode>Opaque</RenderMode>
         <AlbedoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -1641,8 +1643,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>3</X>
-          <Y>3</Y>
+          <X>-1</X>
+          <Y>-1</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -1653,8 +1655,8 @@
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/torus.obj</AssetPath>
-        <Vao>9</Vao>
+        <AssetPath>Assets/3D/torus.obj</AssetPath>
+        <Vao>11</Vao>
         <VertexBufferDataLength>27648</VertexBufferDataLength>
         <VerticesCount>3456</VerticesCount>
       </Mesh>
@@ -1740,10 +1742,10 @@
         </Shader>
         <RenderMode>Opaque</RenderMode>
         <AlbedoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -1761,8 +1763,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>3</X>
-          <Y>3</Y>
+          <X>-1</X>
+          <Y>-1</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -1773,8 +1775,8 @@
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/Grass_Block.obj</AssetPath>
-        <Vao>10</Vao>
+        <AssetPath>Assets/3D/Grass_Block.obj</AssetPath>
+        <Vao>12</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <VerticesCount>36</VerticesCount>
       </Mesh>
@@ -1860,10 +1862,10 @@
         </Shader>
         <RenderMode>Opaque</RenderMode>
         <AlbedoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -1881,8 +1883,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>3</X>
-          <Y>3</Y>
+          <X>-1</X>
+          <Y>-1</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -1893,8 +1895,8 @@
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/sphere.obj</AssetPath>
-        <Vao>8</Vao>
+        <AssetPath>Assets/3D/sphere.obj</AssetPath>
+        <Vao>10</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <VerticesCount>2880</VerticesCount>
       </Mesh>
@@ -1980,10 +1982,10 @@
         </Shader>
         <RenderMode>Opaque</RenderMode>
         <AlbedoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -2001,8 +2003,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>3</X>
-          <Y>3</Y>
+          <X>-1</X>
+          <Y>-1</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -2013,8 +2015,8 @@
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/Teapot.obj</AssetPath>
-        <Vao>11</Vao>
+        <AssetPath>Assets/3D/Teapot.obj</AssetPath>
+        <Vao>13</Vao>
         <VertexBufferDataLength>506112</VertexBufferDataLength>
         <VerticesCount>63264</VerticesCount>
       </Mesh>
@@ -2100,10 +2102,10 @@
         </Shader>
         <RenderMode>Opaque</RenderMode>
         <AlbedoTexture>
-          <AssetPath>Assets/2D/stone.png</AssetPath>
+          <AssetPath>Assets/2D/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -2121,8 +2123,8 @@
           </Size>
         </AoTexture>
         <Tiling>
-          <X>3</X>
-          <Y>3</Y>
+          <X>-1</X>
+          <Y>-1</Y>
         </Tiling>
         <Offset>
           <X>0</X>
@@ -2133,13 +2135,13 @@
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/sponza.obj</AssetPath>
-        <Vao>12</Vao>
+        <AssetPath>Assets/3D/sponza.obj</AssetPath>
+        <Vao>14</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Mesh>
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>611</GameObjectNextId>
+  <GameObjectNextId>613</GameObjectNextId>
 </SceneFile>

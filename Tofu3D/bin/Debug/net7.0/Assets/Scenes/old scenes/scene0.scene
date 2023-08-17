@@ -217,7 +217,7 @@
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
       <Model>
-        <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/cube.obj</AssetPath>
+        <AssetPath>Assets/3D/cube.obj</AssetPath>
         <Vao>7</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <VerticesCount>36</VerticesCount>

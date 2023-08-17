@@ -116,8 +116,8 @@
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/Grass_Block.obj</AssetPath>
-        <Vao>6</Vao>
+        <AssetPath>Assets/3D/Grass_Block.obj</AssetPath>
+        <Vao>12</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <VerticesCount>36</VerticesCount>
       </Mesh>

@@ -1,75 +1,108 @@
-﻿namespace Scripts;
+﻿using Tofu3D.Rendering;
 
-public class ParticleSystemRenderer : SpriteRenderer
+public class ParticleSystemRenderer : Renderer
 {
-	public new bool AllowMultiple = false;
+    private ParticleSystem _particleSystem;
 
-	private int _particlesInBatcher;
-	public ParticleSystem ParticleSystem;
-	public bool Additive = true;
+    public void SetParticleSystem(ParticleSystem particleSystem)
+    {
+        _particleSystem = particleSystem;
+        SetParticlesInstancingDataDirty();
+    }
 
-	public override void Render()
-	{
-		if (BoxShape == null)
-		{
-			return;
-		}
+    private void SetParticlesInstancingDataDirty()
+    {
+        foreach (Particle particle in _particleSystem?.Particles)
+        {
+            particle.InstancingData.InstancingDataDirty = true;
+            particle.InstancingData.MatrixDirty = true;
+        }
+    }
 
-		if (Texture.Loaded == false)
-		{
-			return;
-		}
+    private void RemoveAllParticlesFromInstancedRenderingSystem()
+    {
+        foreach (Particle particle in _particleSystem?.Particles)
+        {
+            Tofu.I.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData, remove: true);
+        }
+    }
 
-		while (_particlesInBatcher < ParticleSystem.Particles.Count)
-		{
-			//BatchingManager.AddObjectToBatcher(texture.id, this, particlesInBatcher);
-			_particlesInBatcher++;
-		}
+    public override void OnEnabled()
+    {
+        SetParticlesInstancingDataDirty();
 
-		Tofu.I.ShaderManager.UseShader(Material.Shader);
-		Material.Shader.SetVector2("u_repeats", Tiling);
-		TextureHelper.BindTexture(Texture.TextureId);
+        base.OnEnabled();
+    }
 
-		foreach (Particle particle in ParticleSystem.Particles)
-		{
-			Material.Shader.SetMatrix4X4("u_mvp", GetParticleMvpMatrix(particle));
-			Material.Shader.SetColor("u_color", particle.Color.ToVector4());
+    public override void OnDisabled()
+    {
+        RemoveAllParticlesFromInstancedRenderingSystem();
 
-			Tofu.I.ShaderManager.BindVertexArray(Material.Vao);
+        base.OnDisabled();
+    }
+
+    public override void SetDefaultMaterial()
+    {
+        if (Material?.Path.Length == 0 || Material == null)
+        {
+            Material = Tofu.I.AssetManager.Load<Material>("ModelRendererInstanced");
+        }
+        else
+        {
+            Material = Tofu.I.AssetManager.Load<Material>(Material.Path);
+        }
+
+        if (Mesh?.Path.Length > 0)
+        {
+            Mesh = Tofu.I.AssetManager.Load<Mesh>(Mesh.Path);
+        }
+        else
+        {
+            Mesh = null;
+        }
+    }
+
+    public override void Render()
+    {
+        if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false && InstancingData.MatrixDirty == false)
+        {
+            return;
+        }
+
+        if (Mesh == null)
+        {
+            return;
+        }
+
+        /*
+         bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
+        if (isTransformHandle && (Tofu.I.RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques && Tofu.I.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI))
+        {
+            return;
+        }
+
+        if (Transform.IsInCanvas && Tofu.I.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI || Transform.IsInCanvas == false && Tofu.I.RenderPassSystem.CurrentRenderPassType == RenderPassType.UI)
+        {
+            return;
+        }
+
+        if (Model == null)
+        {
+            return;
+        }*/
 
 
-			// GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.ConstantColor); cool
-			if (Additive)
-			{
-				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-			}
-			else
-			{
-				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-			}
+        foreach (Particle particle in _particleSystem.Particles)
+        {
+            Matrix4x4 particleModelMatrix = Matrix4x4.CreateTranslation(particle.WorldPosition * Transform.WorldScale);
 
-			GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
-
-			DebugHelper.LogDrawCall();
-		}
-		//BatchingManager.UpdateAttribs(texture.id, gameObjectID, particleSystem.particles[i].worldPosition, new Vector2(particleSystem.particles[i].radius),
-		//                              particleSystem.particles[i].color, i);
-
-		Debug.StatSetValue("Particles", ParticleSystem.Particles.Count);
-	}
-
-	public Matrix4x4 GetParticleMvpMatrix(Particle particle)
-	{
-		Vector3 pivotOffset = -(particle.Radius * Transform.WorldScale) / 2
-		                    + particle.Radius * Transform.WorldScale * Transform.Pivot;
-
-		Matrix4x4 pivot = Matrix4x4.CreateTranslation(-pivotOffset.X, -pivotOffset.Y, -pivotOffset.Z);
-		Matrix4x4 translation = Matrix4x4.CreateTranslation(particle.WorldPosition + BoxShape.Offset * Transform.WorldScale) * Matrix4x4.CreateScale(1, 1, -1);
-
-		Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.Rotation.Y / 180 * Mathf.Pi,
-		                                                      -Transform.Rotation.X / 180 * Mathf.Pi,
-		                                                      -Transform.Rotation.Z / 180 * Mathf.Pi);
-		Matrix4x4 scale = Matrix4x4.CreateScale(particle.Radius * Transform.WorldScale);
-		return scale * Matrix4x4.Identity * pivot * rotation * translation * Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
-	}
+            Tofu.I.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData,particleModelMatrix);
+            // return;
+        }
+        // bool updatedData = Tofu.I.InstancedRenderingSystem.UpdateObjectData(this,);
+        // if (updatedData)
+        // {
+        // InstancingData.InstancingDataDirty = false;
+        // }
+    }
 }

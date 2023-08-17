@@ -1,7 +1,7 @@
 ﻿namespace Scripts;
 
 [ExecuteInEditMode]
-public class ParticleSystem : Component
+public class ParticleSystem : Component, IComponentUpdateable
 {
 	public new bool AllowMultiple = false;
 	public Particle LatestParticle;
@@ -12,7 +12,7 @@ public class ParticleSystem : Component
 	public List<Particle> Particles = new(1000000);
 
 	private Pool<Particle> _pool = new(() => new Particle());
-	private ModelRendererInstanced _renderer;
+	private ParticleSystemRenderer _renderer;
 
 	private float _time;
 	[Show] public Vector2 StartVelocity { get; set; } = new(0, 0);
@@ -27,15 +27,16 @@ public class ParticleSystem : Component
 	[Show] public float SpawnRate { get; set; } = 0.5f; // spawn every half second
 	[Show] public Vector2 SpawnBoundsSize { get; set; } = new(5, 5); // spawn every half second
 
+    
 	public override void Awake()
 	{
-		_renderer = GameObject.GetComponent<ModelRendererInstanced>();
+		_renderer = GameObject.GetComponent<ParticleSystemRenderer>();
 		if (_renderer == null)
 		{
-			_renderer = GameObject.AddComponent<ModelRendererInstanced>();
+			_renderer = GameObject.AddComponent<ParticleSystemRenderer>();
 		}
 
-		// _renderer.ParticleSystem = this;
+		_renderer.SetParticleSystem(this);
 
 		base.Awake();
 	}
@@ -49,7 +50,7 @@ public class ParticleSystem : Component
 			SpawnParticle();
 			_time -= SpawnRate;
 		}
-
+		// Debug.Log(Particles.Count);
 		for (int i = 0; i < Particles.Count; i++)
 			//Parallel.For(0, particles.Count, new ParallelOptions() {MaxDegreeOfParallelism = Environment.ProcessorCount * 20}, (i) =>
 			//{

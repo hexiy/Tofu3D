@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj": {}
+    "/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj": {}
   },
   "projects": {
-    "/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj": {
+    "/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj",
+        "projectUniqueName": "/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj",
         "projectName": "Tofu3D",
-        "projectPath": "/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj",
+        "projectPath": "/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj",
         "packagesPath": "/Users/hexiy/.nuget/packages/",
-        "outputPath": "/Users/hexiy/Desktop/dev/Game Engine dev/Tofu3D/Tofu3D/obj/",
+        "outputPath": "/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/hexiy/.nuget/NuGet/NuGet.Config"
@@ -103,7 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
         }
       }
     }

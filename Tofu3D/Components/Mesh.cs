@@ -1,3 +1,4 @@
+[Serializable]
 public class Mesh : Asset<Mesh>
 {
 	public int Vao;
