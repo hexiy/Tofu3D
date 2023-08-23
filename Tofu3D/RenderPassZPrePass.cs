@@ -22,11 +22,10 @@ public class RenderPassZPrePass : RenderPass
 
 		GL.DepthMask(true);
 
-		// GL.DepthMask(true);
-
 		GL.ClearDepth(1);
 		GL.Clear(ClearBufferMask.DepthBufferBit);
-		GL.DepthRange(0, 1f);
+		// GL.DepthRange(0, Camera.MainCamera.FarPlaneDistance);
+		GL.DepthRange(0, 1);
 		GL.DepthFunc(DepthFunction.Lequal);
 	}
 

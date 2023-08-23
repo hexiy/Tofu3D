@@ -1,5 +1,5 @@
 ﻿[ExecuteInEditMode]
-public class CubeSpinner : Component
+public class CubeSpinner : Component, IComponentUpdateable
 {
 	public override void Awake()
 	{

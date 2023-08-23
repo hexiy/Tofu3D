@@ -12,7 +12,7 @@ public static class Time
 	public static float FixedDeltaTime = 0.01f;
 	public static float ElapsedTime;
 	public static float EditorElapsedTime;
-	public static float EditorElapsedTicks;
+	public static int EditorElapsedTicks;
 	public static float ElapsedSeconds;
 	public static ulong ElapsedTicks;
 	public static ulong TimeScale = 0;

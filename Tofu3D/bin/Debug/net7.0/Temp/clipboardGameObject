@@ -117,7 +117,7 @@
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>Assets/3D/Grass_Block.obj</AssetPath>
-        <Vao>12</Vao>
+        <Vao>6</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <VerticesCount>36</VerticesCount>
       </Mesh>

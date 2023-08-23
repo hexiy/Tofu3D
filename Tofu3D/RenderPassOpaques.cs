@@ -27,15 +27,9 @@ public class RenderPassOpaques : RenderPass
 		GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, PassRenderTexture.Id);
 		int sizeX = (int) PassRenderTexture.Size.X;
 		int sizeY = (int) PassRenderTexture.Size.Y;
-		// GL.DepthMask(true);
-		// GL.Enable(EnableCap.DepthTest);
 		GL.BlitFramebuffer(0, 0, sizeX, sizeY, 0, 0, sizeX, sizeY, ClearBufferMask.DepthBufferBit, BlitFramebufferFilter.Nearest);
-
-
-		// GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, 0);
-		// GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, 0);
-		// RenderPassZPrePass.I.UnbindFrameBuffer();
-		// BindFrameBuffer();
+		
+		base.PreBindFrameBuffer();
 	}
 
 	protected override void PreRender()
