@@ -44,12 +44,12 @@ public class Material : Asset<Material>
 	{
 		if (AlbedoTexture?.Path.Length>2)
 		{
-			AlbedoTexture = Tofu.I.AssetManager.Load<Texture>(AlbedoTexture.Path);
+			AlbedoTexture = Tofu.AssetManager.Load<Texture>(AlbedoTexture.Path);
 		}
 
 		if (AoTexture?.Path.Length>2)
 		{
-			AoTexture = Tofu.I.AssetManager.Load<Texture>(AoTexture.Path);
+			AoTexture = Tofu.AssetManager.Load<Texture>(AoTexture.Path);
 		}
 	}
 

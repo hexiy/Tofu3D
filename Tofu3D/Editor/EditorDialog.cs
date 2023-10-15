@@ -37,13 +37,13 @@ public class EditorDialog
         ImGui.Begin("Dialog",
             ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoDecoration |
             ImGuiWindowFlags.NoBackground);
-        ImGui.Image(Tofu.I.Editor.EditorTextures.WhitePixel.TextureId, bgPanelSize, uv0: Vector2.Zero, Vector2.One,
+        ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId, bgPanelSize, uv0: Vector2.Zero, Vector2.One,
             tint_col: new Vector4(0f, 0f, 0f, 0.9f));
 
 
         Vector2 panelSize = new Vector2(300, 200);
         ImGui.SetCursorScreenPos(Screen.Center - panelSize / 2);
-        ImGui.Image(Tofu.I.Editor.EditorTextures.WhitePixel.TextureId, panelSize, uv0: Vector2.Zero, Vector2.One,
+        ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId, panelSize, uv0: Vector2.Zero, Vector2.One,
             tint_col: Color.White.ToVector4());
         bool hoveringPanel = ImGui.IsItemHovered();
         ImGui.SetCursorScreenPos(Screen.Center + new Vector2(0,-50));

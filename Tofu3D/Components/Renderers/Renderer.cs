@@ -97,7 +97,7 @@ public class Renderer : Component, IComparable<Renderer>, IComponentRenderable, 
 
 	internal void RenderWireframe(int indicesCount)
 	{
-		if (Tofu.I.RenderSettings.CurrentWireframeRenderSettings.WireframeVisible)
+		if (Tofu.RenderSettings.CurrentWireframeRenderSettings.WireframeVisible)
 		{
 			Material.Shader.SetColor("u_rendererColor", Color.Black);
 			// GL.LineWidth(RenderSettings.CurrentWireframeRenderSettings.WireframeLineWidth / (DistanceFromCamera * 10));
@@ -204,7 +204,7 @@ public class Renderer : Component, IComparable<Renderer>, IComponentRenderable, 
 		/*if (Material != null && Material.IsValid == false)
 		{
 			Debug.LogError("Material invalid, reloading");
-			Material = Tofu.I.AssetManager.Load<Material>(Material.AssetPath);
+			Material = Tofu.AssetManager.Load<Material>(Material.AssetPath);
 			// Material.IsValid = true;
 		}*/
 

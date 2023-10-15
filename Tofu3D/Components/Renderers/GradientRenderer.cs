@@ -18,7 +18,7 @@ public class GradientRenderer : Renderer
 	{
 		if (Material == null)
 		{
-			Material = Tofu.I.AssetManager.Load<Material>("GradientMaterial");
+			Material = Tofu.AssetManager.Load<Material>("GradientMaterial");
 		}
 
 		base.SetDefaultMaterial();
@@ -31,7 +31,7 @@ public class GradientRenderer : Renderer
 			return;
 		}
 
-		Tofu.I.ShaderManager.UseShader(Material.Shader);
+		Tofu.ShaderManager.UseShader(Material.Shader);
 
 
 		Material.Shader.SetVector4("u_color_a", GradientColorA.ToVector4());
@@ -46,7 +46,7 @@ public class GradientRenderer : Renderer
 			Material.Shader.SetFloat("time", (float) Material.Shader.Uniforms["time"]);
 		}
 
-		Tofu.I.ShaderManager.BindVertexArray(Material.Vao);
+		Tofu.ShaderManager.BindVertexArray(Material.Vao);
 
 		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 

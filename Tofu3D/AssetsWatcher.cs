@@ -81,7 +81,7 @@ public class AssetsWatcher
 
 		if (AssetUtils.IsShader(assetsRelativePath))
 		{
-			Tofu.I.ShaderManager.QueueShaderReload(assetsRelativePath);
+			Tofu.ShaderManager.QueueShaderReload(assetsRelativePath);
 		}
 	}
 

@@ -26,7 +26,7 @@ public class SceneManager
 
 
 		LastOpenedScene = path;
-		// Tofu.I.Window.Title = Tofu.I.Window.WindowTitleText + " | " + Path.GetFileNameWithoutExtension(path);
+		// Tofu.Window.Title = Tofu.Window.WindowTitleText + " | " + Path.GetFileNameWithoutExtension(path);
 
 
 		//Add method to clean scene
@@ -47,12 +47,12 @@ public class SceneManager
 
 		CurrentScene.Initialize();
 
-		SceneFile sceneFile = Tofu.I.SceneSerializer.LoadSceneFile(path);
+		SceneFile sceneFile = Tofu.SceneSerializer.LoadSceneFile(path);
 
-		Tofu.I.SceneSerializer.ConnectGameObjectsWithComponents(sceneFile);
+		Tofu.SceneSerializer.ConnectGameObjectsWithComponents(sceneFile);
 		IDsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
 
-		Tofu.I.SceneSerializer.ConnectParentsAndChildren(sceneFile);
+		Tofu.SceneSerializer.ConnectParentsAndChildren(sceneFile);
 		for (int i = 0; i < sceneFile.GameObjects.Count; i++)
 		{
 			for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
@@ -95,6 +95,6 @@ public class SceneManager
 		}
 
 		LastOpenedScene = path;
-		Tofu.I.SceneSerializer.SaveGameObjects(CurrentScene.GetSceneFile(), path);
+		Tofu.SceneSerializer.SaveGameObjects(CurrentScene.GetSceneFile(), path);
 	}
 }

@@ -41,11 +41,11 @@ public class RenderPassOpaques : RenderPass
 	{
 		if (PassRenderTexture != null)
 		{
-			PassRenderTexture.Size = Tofu.I.RenderPassSystem.ViewSize;
+			PassRenderTexture.Size = Tofu.RenderPassSystem.ViewSize;
 			PassRenderTexture.Invalidate(generateBrandNewTextures: false);
 			return;
 		}
 
-		PassRenderTexture = new RenderTexture(size: Tofu.I.RenderPassSystem.ViewSize, colorAttachment: true, depthAttachment: true);
+		PassRenderTexture = new RenderTexture(size: Tofu.RenderPassSystem.ViewSize, colorAttachment: true, depthAttachment: true);
 	}
 }

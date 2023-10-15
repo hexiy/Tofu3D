@@ -18,7 +18,7 @@ public class ModelRendererInstanced : Renderer
 
     public override void OnDisabled()
     {
-        Tofu.I.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, remove: true);
+        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, remove: true);
 
         base.OnDisabled();
     }
@@ -27,16 +27,16 @@ public class ModelRendererInstanced : Renderer
     {
         if (Material?.Path.Length == 0 || Material == null)
         {
-            Material = Tofu.I.AssetManager.Load<Material>("ModelRendererInstanced");
+            Material = Tofu.AssetManager.Load<Material>("ModelRendererInstanced");
         }
         else
         {
-            Material = Tofu.I.AssetManager.Load<Material>(Material.Path);
+            Material = Tofu.AssetManager.Load<Material>(Material.Path);
         }
 
         if (Mesh?.Path.Length > 0)
         {
-            Mesh = Tofu.I.AssetManager.Load<Mesh>(Mesh.Path);
+            Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
         }
         else
         {
@@ -58,12 +58,12 @@ public class ModelRendererInstanced : Renderer
 
         /*
          bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
-        if (isTransformHandle && (Tofu.I.RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques && Tofu.I.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI))
+        if (isTransformHandle && (Tofu.RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques && Tofu.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI))
         {
             return;
         }
 
-        if (Transform.IsInCanvas && Tofu.I.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI || Transform.IsInCanvas == false && Tofu.I.RenderPassSystem.CurrentRenderPassType == RenderPassType.UI)
+        if (Transform.IsInCanvas && Tofu.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI || Transform.IsInCanvas == false && Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.UI)
         {
             return;
         }
@@ -74,7 +74,7 @@ public class ModelRendererInstanced : Renderer
         }*/
 
 
-        bool updatedData = Tofu.I.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData);
+        bool updatedData = Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData);
         if (updatedData)
         {
             InstancingData.InstancingDataDirty = false;

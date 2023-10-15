@@ -19,7 +19,7 @@ public class SpriteRendererInstanced : Renderer
 		// }
 		if (Mesh)
 		{
-			Mesh = Tofu.I.AssetManager.Load<Mesh>(Mesh.Path);
+			Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
 		}
 		//BatchingManager.AddObjectToBatcher(Texture.Id, this);
 		base.Awake();
@@ -35,7 +35,7 @@ public class SpriteRendererInstanced : Renderer
 
 	public override void OnDisabled()
 	{
-		Tofu.I.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, remove: true);
+		Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, remove: true);
 
 		base.OnDisabled();
 	}
@@ -69,7 +69,7 @@ public class SpriteRendererInstanced : Renderer
 		// }
 
 		// Material = AssetManager.Load<Material>("SpriteRendererInstanced");
-		Material = Tofu.I.AssetManager.Load<Material>("ModelRendererInstanced");
+		Material = Tofu.AssetManager.Load<Material>("ModelRendererInstanced");
 
 		// base.SetDefaultMaterial();
 	}
@@ -91,7 +91,7 @@ public class SpriteRendererInstanced : Renderer
 			return;
 		}
 
-		bool updatedData = Tofu.I.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData);
+		bool updatedData = Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData);
 		if (updatedData)
 		{
 			InstancingData.InstancingDataDirty = false;

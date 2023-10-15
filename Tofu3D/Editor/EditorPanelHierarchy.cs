@@ -5,8 +5,8 @@ namespace Tofu3D;
 
 public class EditorPanelHierarchy : EditorPanel
 {
-	public override Vector2 Size => new Vector2(700, Tofu.I.Editor.SceneViewSize.Y);
-	public override Vector2 Position => new Vector2(Tofu.I.Window.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
+	public override Vector2 Size => new Vector2(700, Tofu.Editor.SceneViewSize.Y);
+	public override Vector2 Position => new Vector2(Tofu.Window.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
 	public override Vector2 Pivot => new Vector2(1, 0);
 
 	public override string Name => "Hierarchy";
@@ -50,7 +50,7 @@ public class EditorPanelHierarchy : EditorPanel
 			if (GameObjectSelectionManager.GetSelectedGameObject() != null)
 			{
 				_clipboardGameObject = GameObjectSelectionManager.GetSelectedGameObject();
-				Tofu.I.SceneSerializer.SaveClipboardGameObject(_clipboardGameObject);
+				Tofu.SceneSerializer.SaveClipboardGameObject(_clipboardGameObject);
 			}
 		}
 
@@ -58,7 +58,7 @@ public class EditorPanelHierarchy : EditorPanel
 		{
 			if (_clipboardGameObject != null)
 			{
-				GameObject loadedGo = Tofu.I.SceneSerializer.LoadClipboardGameObject();
+				GameObject loadedGo = Tofu.SceneSerializer.LoadClipboardGameObject();
 				SelectGameObject(loadedGo.Id);
 			}
 		}
@@ -66,7 +66,7 @@ public class EditorPanelHierarchy : EditorPanel
 
 	void DestroySelectedGameObjects()
 	{
-		int firstSelectedGameObjectIndex = Tofu.I.SceneManager.CurrentScene.GetGameObject(_selectedGameObjectsIDs[0]).IndexInHierarchy;
+		int firstSelectedGameObjectIndex = Tofu.SceneManager.CurrentScene.GetGameObject(_selectedGameObjectsIDs[0]).IndexInHierarchy;
 		foreach (GameObject selectedGameObject in GameObjectSelectionManager.GetSelectedGameObjects())
 		{
 			_selectedGameObjectsIDs.Remove(selectedGameObject.Id);
@@ -77,7 +77,7 @@ public class EditorPanelHierarchy : EditorPanel
 
 		int distance = int.MaxValue;
 		int closestGameObjectId = -1;
-		foreach (GameObject gameObject in Tofu.I.SceneManager.CurrentScene.GameObjects)
+		foreach (GameObject gameObject in Tofu.SceneManager.CurrentScene.GameObjects)
 		{
 			if (gameObject.Silent)
 			{
@@ -107,22 +107,22 @@ public class EditorPanelHierarchy : EditorPanel
 		GameObject go = GameObjectSelectionManager.GetSelectedGameObjects()[0];
 		int oldIndex = go.IndexInHierarchy;
 
-		if (oldIndex + direction >= Tofu.I.SceneManager.CurrentScene.GameObjects.Count || oldIndex + direction < 0)
+		if (oldIndex + direction >= Tofu.SceneManager.CurrentScene.GameObjects.Count || oldIndex + direction < 0)
 		{
 			return;
 		}
 
-		while (Tofu.I.SceneManager.CurrentScene.GameObjects[oldIndex + direction].Transform.Parent != null)
+		while (Tofu.SceneManager.CurrentScene.GameObjects[oldIndex + direction].Transform.Parent != null)
 		{
 			direction += addToIndex;
 		}
 
-		Tofu.I.SceneManager.CurrentScene.GameObjects.RemoveAt(oldIndex);
-		Tofu.I.SceneManager.CurrentScene.GameObjects.Insert(oldIndex + direction, go);
+		Tofu.SceneManager.CurrentScene.GameObjects.RemoveAt(oldIndex);
+		Tofu.SceneManager.CurrentScene.GameObjects.Insert(oldIndex + direction, go);
 
 
 		//_selectedGameObjectsIndexes = oldIndex + direction;
-		//GameObjectsSelected.Invoke(Tofu.I.SceneManager.CurrentScene.GameObjects[oldIndex + direction].Id);
+		//GameObjectsSelected.Invoke(Tofu.SceneManager.CurrentScene.GameObjects[oldIndex + direction].Id);
 	}
 
 	public void ResetGameObjectSelection()
@@ -194,7 +194,7 @@ public class EditorPanelHierarchy : EditorPanel
 			{
 				GameObject go = GameObject.Create(name: "Child");
 				go.Awake();
-				go.Transform.SetParent(Tofu.I.SceneManager.CurrentScene.GetGameObject(gameObjectId).Transform);
+				go.Transform.SetParent(Tofu.SceneManager.CurrentScene.GetGameObject(gameObjectId).Transform);
 			}
 		}
 
@@ -202,7 +202,7 @@ public class EditorPanelHierarchy : EditorPanel
 		if (ImGui.Button("Clear scene"))
 		{
 			List<GameObject> toDestroy = new List<GameObject>();
-			foreach (GameObject go in Tofu.I.SceneManager.CurrentScene.GameObjects)
+			foreach (GameObject go in Tofu.SceneManager.CurrentScene.GameObjects)
 			{
 				if (go != Camera.MainCamera.GameObject && go.Silent == false)
 				{
@@ -216,7 +216,7 @@ public class EditorPanelHierarchy : EditorPanel
 			}
 		}
 
-		for (int goIndex = 0; goIndex < Tofu.I.SceneManager.CurrentScene.GameObjects.Count; goIndex++)
+		for (int goIndex = 0; goIndex < Tofu.SceneManager.CurrentScene.GameObjects.Count; goIndex++)
 		{
 			//PushNextId();
 			if (ImGui.IsItemVisible() == false)
@@ -238,12 +238,12 @@ public class EditorPanelHierarchy : EditorPanel
 	{
 		if (isChild == false)
 		{
-			// PushNextId(Tofu.I.SceneManager.CurrentScene.GameObjects[goIndex].Id.ToString());
+			// PushNextId(Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Id.ToString());
 			PushNextId();
 		}
 
 
-		GameObject currentGameObject = Tofu.I.SceneManager.CurrentScene.GameObjects[goIndex];
+		GameObject currentGameObject = Tofu.SceneManager.CurrentScene.GameObjects[goIndex];
 		if (currentGameObject.Transform.Parent != null && isChild == false) // only draw children from recursive DrawGameObjectRow calls
 		{
 			return;
@@ -295,7 +295,7 @@ public class EditorPanelHierarchy : EditorPanel
 
 		if (ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left) && false) // todo remove false
 		{
-			Tofu.I.SceneViewController.MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
+			Tofu.SceneViewController.MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
 		}
 
 
@@ -328,7 +328,7 @@ public class EditorPanelHierarchy : EditorPanel
 			string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 			if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 			{
-				GameObject foundGo = Tofu.I.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
+				GameObject foundGo = Tofu.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
 				SetParent(child: foundGo.Transform, currentGameObject.Transform);
 			}
 
@@ -346,15 +346,15 @@ public class EditorPanelHierarchy : EditorPanel
 				// select them all
 
 
-				int alreadySelectedGameObjectIndex = Tofu.I.SceneManager.CurrentScene.GetGameObject(_selectedGameObjectsIDs[0]).IndexInHierarchy;
+				int alreadySelectedGameObjectIndex = Tofu.SceneManager.CurrentScene.GetGameObject(_selectedGameObjectsIDs[0]).IndexInHierarchy;
 				int newlySelectedGameObjectIndex = currentGameObject.IndexInHierarchy;
 
 				int selectionStartGameObjectIndex = Math.Min(alreadySelectedGameObjectIndex, newlySelectedGameObjectIndex);
 				int selectionEndGameObjectIndex = Math.Max(alreadySelectedGameObjectIndex, newlySelectedGameObjectIndex);
 
-				foreach (GameObject gameObject in Tofu.I.SceneManager.CurrentScene.GameObjects)
+				foreach (GameObject gameObject in Tofu.SceneManager.CurrentScene.GameObjects)
 				{
-					for (int i = 0; i < Tofu.I.SceneManager.CurrentScene.GameObjects.Count; i++)
+					for (int i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
 					{
 						if (gameObject.IndexInHierarchy >= selectionStartGameObjectIndex && gameObject.IndexInHierarchy <= selectionEndGameObjectIndex)
 						{
@@ -369,7 +369,7 @@ public class EditorPanelHierarchy : EditorPanel
 		{
 			AddGameObjectToSelection(currentGameObject.Id);
 		}
-		else if (ImGui.IsItemHovered() && Tofu.I.MouseInput.ButtonReleased())
+		else if (ImGui.IsItemHovered() && Tofu.MouseInput.ButtonReleased())
 		{
 			_gameObjectsIndexesSelectedBefore = _selectedGameObjectsIDs;
 			SelectGameObject(currentGameObject.Id);
@@ -409,9 +409,9 @@ public class EditorPanelHierarchy : EditorPanel
 			string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 			if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
 			{
-				GameObject droppedGameObject = Tofu.I.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
-				Tofu.I.SceneManager.CurrentScene.GameObjects.RemoveAt(droppedGameObject.IndexInHierarchy);
-				Tofu.I.SceneManager.CurrentScene.GameObjects.Insert(currentGameObject.IndexInHierarchy + (after ? 1 : 0), droppedGameObject);
+				GameObject droppedGameObject = Tofu.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
+				Tofu.SceneManager.CurrentScene.GameObjects.RemoveAt(droppedGameObject.IndexInHierarchy);
+				Tofu.SceneManager.CurrentScene.GameObjects.Insert(currentGameObject.IndexInHierarchy + (after ? 1 : 0), droppedGameObject);
 
 				droppedGameObject.Transform.SetParent(currentGameObject.Transform.Parent);
 			}

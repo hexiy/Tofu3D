@@ -26,7 +26,7 @@ public class DemoManager : Component
 			return;
 		}
 
-		Tofu.I.SceneViewController.MoveToGameObject(DemoGameObjects[_currentIndex]);
+		Tofu.SceneViewController.MoveToGameObject(DemoGameObjects[_currentIndex]);
 		//Camera.I.Transform.LocalPosition = DemoGameObjects[_currentIndex].Transform.LocalPosition;
 	}
 }

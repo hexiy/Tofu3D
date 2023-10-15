@@ -26,8 +26,8 @@ public class MaterialLoader : AssetLoader<Material>
 
         // asset.IsValid = false;
 
-        Tofu.I.AssetManager.Unload(asset, loadSettings);
-        asset = Tofu.I.AssetManager.Load<Material>(loadSettings);
+        Tofu.AssetManager.Unload(asset, loadSettings);
+        asset = Tofu.AssetManager.Load<Material>(loadSettings);
         return asset;
         // return (Material) LoadAsset(loadSettings);
     }

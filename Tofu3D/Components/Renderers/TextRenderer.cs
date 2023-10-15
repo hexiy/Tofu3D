@@ -89,7 +89,7 @@ public class TextRenderer : SpriteRenderer
 		{
 			TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsTexture2D;
 			// TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
-			Texture = Tofu.I.AssetManager.Load<Texture>(Texture.Path, textureLoadSettings);
+			Texture = Tofu.AssetManager.Load<Texture>(Texture.Path, textureLoadSettings);
 		}
 
 		base.Awake();
@@ -97,7 +97,7 @@ public class TextRenderer : SpriteRenderer
 
 	public override void SetDefaultMaterial()
 	{
-		Material = Tofu.I.AssetManager.Load<Material>("TextRenderer");
+		Material = Tofu.AssetManager.Load<Material>("TextRenderer");
 
 		Material.Additive = false;
 	}
@@ -121,7 +121,7 @@ public class TextRenderer : SpriteRenderer
 		}
 
 
-		Texture = Tofu.I.AssetManager.Load<Texture>(texturePath);
+		Texture = Tofu.AssetManager.Load<Texture>(texturePath);
 	}
 
 	public override void Render()
@@ -133,7 +133,7 @@ public class TextRenderer : SpriteRenderer
 
 		//Debug.Log("Draw text:" + text?.text);
 
-		Tofu.I.ShaderManager.UseShader(Material.Shader);
+		Tofu.ShaderManager.UseShader(Material.Shader);
 		Material.Shader.SetVector2("u_resolution", Texture.Size);
 
 		if (Transform.IsInCanvas)
@@ -188,9 +188,9 @@ public class TextRenderer : SpriteRenderer
 			// {
 			// 	Transform.WorldPosition = Transform.WorldPosition + new Vector2(0, (float) MathHelper.Sin(Time.EditorElapsedTime + symbolIndex * 0.1f) * 1);
 			//
-			// 	float distanceToCursor = Vector2.Distance(Transform.WorldPosition, Tofu.I.MouseInput.WorldPosition);
+			// 	float distanceToCursor = Vector2.Distance(Transform.WorldPosition, Tofu.MouseInput.WorldPosition);
 			// 	Transform.WorldScale = originalScale * fontSizeScale * Mathf.Clamp((0.2f / distanceToCursor + 1f), 1, 1.3f);
-			// 	Debug.StatSetValue("MouseWOrldPos:", $"MouseWorldPos:{Tofu.I.MouseInput.WorldPosition}");
+			// 	Debug.StatSetValue("MouseWOrldPos:", $"MouseWorldPos:{Tofu.MouseInput.WorldPosition}");
 			// }
 
 			UpdateMvp();
@@ -228,7 +228,7 @@ public class TextRenderer : SpriteRenderer
 
 			Material.Shader.SetVector2("offset", drawOffset);
 
-			Tofu.I.ShaderManager.BindVertexArray(Material.Vao);
+			Tofu.ShaderManager.BindVertexArray(Material.Vao);
 
 			if (Material.Additive)
 			{

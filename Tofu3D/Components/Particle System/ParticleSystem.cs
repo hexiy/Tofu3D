@@ -15,17 +15,17 @@ public class ParticleSystem : Component, IComponentUpdateable
 	private ParticleSystemRenderer _renderer;
 
 	private float _time;
-	[Show] public Vector2 StartVelocity { get; set; } = new(0, 0);
+	[Show] public Vector3 StartVelocity { get; set; } = new(0, 0,0);
 	[Show] public float Speed { get; set; } = 2;
-	[Show] public float StartSize { get; set; } = 20;
-	[Show] public float EndSize { get; set; } = 0;
+	[Show] public Vector3 StartSize { get; set; } = new(1);
+	[Show] public Vector3 EndSize { get; set; } = new(1);
 	[Show] public Color StartColor { get; set; } = Color.White;
 	[Show] public Color StartColor2 { get; set; } = Color.Gray;
 	[Show] public Color EndColor { get; set; } = Color.Black;
 	[Show] public int MaxParticles { get; set; } = 1000000;
 	[Show] public float MaxLifetime { get; set; } = 1;
 	[Show] public float SpawnRate { get; set; } = 0.5f; // spawn every half second
-	[Show] public Vector2 SpawnBoundsSize { get; set; } = new(5, 5); // spawn every half second
+	[Show] public Vector3 SpawnBoundsSize { get; set; } = new(5, 5, 5); // spawn every half second
 
     
 	public override void Awake()
@@ -68,7 +68,7 @@ public class ParticleSystem : Component, IComponentUpdateable
 
 				//particles[i].color = new Color(255,255,255,(int)(((int)particles[i].lifetime / MaxLifetime + 0.2f) * 255));
 
-				Particles[i].Radius = Mathf.Lerp(StartSize, EndSize, Particles[i].Lifetime / MaxLifetime);
+				Particles[i].Size = Tofu3D.Vector3.Lerp(StartSize, EndSize, Particles[i].Lifetime / MaxLifetime);
 
 				if (Particles[i].Lifetime > MaxLifetime)
 				{
@@ -88,9 +88,9 @@ public class ParticleSystem : Component, IComponentUpdateable
 		LatestParticle = p;
 		p.Visible = true;
 		p.Lifetime = 0;
-		p.Radius = StartSize;
+		p.Size = StartSize;
 		p.WorldPosition = Transform.WorldPosition;
-		p.WorldPosition += new Vector2(Random.Range(-SpawnBoundsSize.X, SpawnBoundsSize.X), Random.Range(-SpawnBoundsSize.Y, SpawnBoundsSize.Y));
+		p.WorldPosition += new Vector3(Random.Range(-SpawnBoundsSize.X, SpawnBoundsSize.X), Random.Range(-SpawnBoundsSize.Y, SpawnBoundsSize.Y),Random.Range(-SpawnBoundsSize.Z, SpawnBoundsSize.Z));
 
 		p.Velocity = StartVelocity;
 		//p.Color = StartColor;
@@ -164,19 +164,19 @@ public class ParticleSystem : Component, IComponentUpdateable
 //            }
 //            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
 //            {
-//                lastMousePos = Tofu.I.MouseInput.Position;
+//                lastMousePos = Tofu.MouseInput.Position;
 //            }
 //            ///// Space filling
 //            /*for (int i = 0; i < 10; i++)
 //            {
 //
 //                Particle p = new Particle();
-//                Vector2 dir = (lastMousePos - Tofu.I.MouseInput.Position).NormalizedCopy();
-//                float l = (lastMousePos - Tofu.I.MouseInput.Position).Length();
-//                p.position = Tofu.I.MouseInput.Position + dir * l * (i / 10);
+//                Vector2 dir = (lastMousePos - Tofu.MouseInput.Position).NormalizedCopy();
+//                float l = (lastMousePos - Tofu.MouseInput.Position).Length();
+//                p.position = Tofu.MouseInput.Position + dir * l * (i / 10);
 //                Random rnd = new Random();
 //                //p.velocity = StartVelocity + new Vector2(rnd.Next((int)-StartVelocityVariation, (int)StartVelocityVariation), rnd.Next((int)-StartVelocityVariation, (int)StartVelocityVariation));
-//                p.velocity = (lastMousePos - Tofu.I.MouseInput.Position).NormalizedCopy() * 80;
+//                p.velocity = (lastMousePos - Tofu.MouseInput.Position).NormalizedCopy() * 80;
 //                particles.Add(p);
 //
 //                if (particles.Count > MaxParticles)
@@ -186,7 +186,7 @@ public class ParticleSystem : Component, IComponentUpdateable
 //            }*/
 //Particle p = pool.GetObject();
 //p.lifetime = 0;
-//            //p.position = Tofu.I.MouseInput.Position;
+//            //p.position = Tofu.MouseInput.Position;
 //            p.radius = StartSize;
 //            //float sineY = (float)Math.Sin(Time.elapsedTime * 4) * 200 * (Extensions.Clamp((float)Math.Abs(Math.Sin(Time.elapsedTime)), 0.6f, 1f));
 //            //float sineX = (float)Math.Cos(Time.elapsedTime * 4) * 200 * (Extensions.Clamp((float)Math.Abs(Math.Cos(Time.elapsedTime)), 0.6f, 1f));
@@ -206,7 +206,7 @@ public class ParticleSystem : Component, IComponentUpdateable
 //            p.position = new Vector2(center.X / 2 + sineX + wiggle.X, center.Y / 2 + sineY + wiggle.Y);
 //
 ////p.velocity = StartVelocity + new Vector2(rnd.Next((int)-StartVelocityVariation, (int)StartVelocityVariation), rnd.Next((int)-StartVelocityVariation, (int)StartVelocityVariation));
-////p.velocity = (lastMousePos - Tofu.I.MouseInput.Position).NormalizedCopy() * 80;
+////p.velocity = (lastMousePos - Tofu.MouseInput.Position).NormalizedCopy() * 80;
 //p.color = StartColor;
 //            p.color = Extensions.ColorFromHSVToXna(Time.elapsedTime* 50, 1, 1);
 //            lock (listLock)
@@ -244,7 +244,7 @@ public class ParticleSystem : Component, IComponentUpdateable
 //                });
 //
 //            /*
-//    float dist = Vector2.Distance(Tofu.I.MouseInput.Position, particles[i].transform.Position);
+//    float dist = Vector2.Distance(Tofu.MouseInput.Position, particles[i].transform.Position);
 //    float hue = dist * 0.8f;
 //    float saturation = 1;
 //    float value = 1;
@@ -255,7 +255,7 @@ public class ParticleSystem : Component, IComponentUpdateable
 //    }
 //    if (dist > 30 + ringOffset && dist < 50 + ringOffset)
 //    {
-//    if (Extensions.AngleBetween(particles[i].transform.Position, Extensions.Round(Tofu.I.MouseInput.Position)) == Math.PI / 180 * 45)
+//    if (Extensions.AngleBetween(particles[i].transform.Position, Extensions.Round(Tofu.MouseInput.Position)) == Math.PI / 180 * 45)
 //    {
 //        value = MathHelper.Clamp(1 / (ringOffset / 50), 0, 1);
 //    }

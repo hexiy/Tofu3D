@@ -15,7 +15,7 @@ public class InspectorObjectReferencesTest : Component
 		//gos = new List<GameObject>();
 		AddGameObjectToList = () =>
 		{
-			GameObject go = GameObject.Create(name: "testGO" + Tofu.I.SceneManager.CurrentScene.GameObjects.Count);
+			GameObject go = GameObject.Create(name: "testGO" + Tofu.SceneManager.CurrentScene.GameObjects.Count);
 			go.Transform.Pivot = new Vector3(0.5f, 0.5f, 0.5f);
 			BoxShape boxShape = go.AddComponent<BoxShape>();
 			boxShape.Size = new Vector2(100, 100);

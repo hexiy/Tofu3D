@@ -27,7 +27,7 @@ public class TextureRenderer : Renderer
 			Texture = new Texture();
 		}
 
-		Texture = Tofu.I.AssetManager.Load<Texture>(texturePath);
+		Texture = Tofu.AssetManager.Load<Texture>(texturePath);
 	}
 
 	public virtual void SetDefaultTexture(string texturePath)

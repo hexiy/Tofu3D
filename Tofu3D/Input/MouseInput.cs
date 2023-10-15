@@ -74,7 +74,7 @@ public partial class MouseInput
 				return 0;
 			}
 
-			return Tofu.I.Window.MouseState.ScrollDelta.Y;
+			return Tofu.Window.MouseState.ScrollDelta.Y;
 		}
 	}
 
@@ -85,7 +85,7 @@ public partial class MouseInput
 		// 	return false;
 		// }
 
-		return Tofu.I.Window.MouseState.IsButtonDown((MouseButton) mouseButton);
+		return Tofu.Window.MouseState.IsButtonDown((MouseButton) mouseButton);
 	}
 
 	public bool IsButtonUp(MouseButtons mouseButton = MouseButtons.Left)
@@ -95,7 +95,7 @@ public partial class MouseInput
 			return false;
 		}
 
-		return Tofu.I.Window.MouseState.IsButtonDown((MouseButton) mouseButton) == false;
+		return Tofu.Window.MouseState.IsButtonDown((MouseButton) mouseButton) == false;
 	}
 
 	public bool ButtonPressed(MouseButtons mouseButton = MouseButtons.Left)
@@ -105,7 +105,7 @@ public partial class MouseInput
 		// 	return false;
 		// }
 
-		return Tofu.I.Window.MouseState.WasButtonDown((MouseButton) mouseButton) == false && Tofu.I.Window.MouseState.IsButtonDown((MouseButton) mouseButton);
+		return Tofu.Window.MouseState.WasButtonDown((MouseButton) mouseButton) == false && Tofu.Window.MouseState.IsButtonDown((MouseButton) mouseButton);
 	}
 
 	public bool ButtonReleased(MouseButtons mouseButton = MouseButtons.Left)
@@ -115,7 +115,7 @@ public partial class MouseInput
 		// 	return false;
 		// }
 
-		return Tofu.I.Window.MouseState.WasButtonDown((MouseButton) mouseButton) && Tofu.I.Window.MouseState.IsButtonDown((MouseButton) mouseButton) == false;
+		return Tofu.Window.MouseState.WasButtonDown((MouseButton) mouseButton) && Tofu.Window.MouseState.IsButtonDown((MouseButton) mouseButton) == false;
 	}
 
     bool _skipOneFrame = false;
@@ -131,44 +131,44 @@ public partial class MouseInput
 		bool allowPassThroughEdges = EvaluateAllPassThroughEdgesConditions(); // uh so how does this work, do i get true when all of them are true or what
 
 		// Debug.StatSetValue("MouseInput AllowPassthroughEdges", $"AllowPassthroughEdges {allowPassThroughEdges}");
-		MouseState mouseState = Tofu.I.Window.MouseState;
-		Vector2 mousePosCorrected = new Vector2(mouseState.Position.X, Tofu.I.Window.Size.Y - mouseState.Position.Y);
+		MouseState mouseState = Tofu.Window.MouseState;
+		Vector2 mousePosCorrected = new Vector2(mouseState.Position.X, Tofu.Window.Size.Y - mouseState.Position.Y);
 		// Debug.StatSetValue("mousePos", $"MousePos:{mousePosCorrected}");
 		bool passedThroughEdge = false;
 		if (allowPassThroughEdges)
 		{
 			if (mousePosCorrected.X < 1 && ScreenDelta.X < 0)
 			{
-				Tofu.I.Window.MousePosition = new OpenTK.Mathematics.Vector2(Tofu.I.Window.Size.X - 5, Tofu.I.Window.MousePosition.Y);
+				Tofu.Window.MousePosition = new OpenTK.Mathematics.Vector2(Tofu.Window.Size.X - 5, Tofu.Window.MousePosition.Y);
 				passedThroughEdge = true;
 			}
 			// do what the if statement above does but for the right side of the screen
-			else if (mousePosCorrected.X > Tofu.I.Window.Size.X - 2 && ScreenDelta.X > 0)
+			else if (mousePosCorrected.X > Tofu.Window.Size.X - 2 && ScreenDelta.X > 0)
 			{
-				Tofu.I.Window.MousePosition = new OpenTK.Mathematics.Vector2(5, Tofu.I.Window.MousePosition.Y);
+				Tofu.Window.MousePosition = new OpenTK.Mathematics.Vector2(5, Tofu.Window.MousePosition.Y);
 				passedThroughEdge = true;
 			}
-			else if (mousePosCorrected.Y > Tofu.I.Window.Size.Y - 2 && ScreenDelta.Y > 0)
+			else if (mousePosCorrected.Y > Tofu.Window.Size.Y - 2 && ScreenDelta.Y > 0)
 			{
-				Tofu.I.Window.MousePosition = new OpenTK.Mathematics.Vector2(Tofu.I.Window.MousePosition.X, Tofu.I.Window.Size.Y);
+				Tofu.Window.MousePosition = new OpenTK.Mathematics.Vector2(Tofu.Window.MousePosition.X, Tofu.Window.Size.Y);
 				passedThroughEdge = true;
 			}
 			else if (mousePosCorrected.Y < 1 && ScreenDelta.Y < 0)
 			{
-				Tofu.I.Window.MousePosition = new OpenTK.Mathematics.Vector2(Tofu.I.Window.MousePosition.X, 5);
+				Tofu.Window.MousePosition = new OpenTK.Mathematics.Vector2(Tofu.Window.MousePosition.X, 5);
 				passedThroughEdge = true;
 			}
 
 
 			if (passedThroughEdge)
 			{
-				mouseState = Tofu.I.Window.MouseState;
+				mouseState = Tofu.Window.MouseState;
 			}
 		}
 
 		ScreenDelta = new Vector2(mouseState.Delta.X, -mouseState.Delta.Y);
 
-		if (passedThroughEdge || Math.Abs(ScreenDelta.X) > Tofu.I.Window.Size.X - 100 || Math.Abs(ScreenDelta.Y) > Tofu.I.Window.Size.Y - 100)
+		if (passedThroughEdge || Math.Abs(ScreenDelta.X) > Tofu.Window.Size.X - 100 || Math.Abs(ScreenDelta.Y) > Tofu.Window.Size.Y - 100)
 		{
 			_skipOneFrame = true;
 			// Debug.Log($"ScreenDelta:{ScreenDelta.ToString()}");
@@ -181,8 +181,8 @@ public partial class MouseInput
 		// 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
 		// }
 
-		ScreenPosition = new Vector2(Tofu.I.Window.MouseState.X - Tofu.I.Editor.SceneViewPosition.X,
-		                             -Tofu.I.Window.MouseState.Y + Camera.MainCamera.Size.Y + Tofu.I.Editor.SceneViewPosition.Y + 25); // 25 EditorPanelMenuBar height
+		ScreenPosition = new Vector2(Tofu.Window.MouseState.X - Tofu.Editor.SceneViewPosition.X,
+		                             -Tofu.Window.MouseState.Y + Camera.MainCamera.Size.Y + Tofu.Editor.SceneViewPosition.Y + 25); // 25 EditorPanelMenuBar height
 	}
 
 

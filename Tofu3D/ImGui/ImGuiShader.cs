@@ -32,7 +32,7 @@ class ImGuiShader
 
 	public void UseShader()
 	{
-		Tofu.I.ShaderManager.ShaderInUse = Program;
+		Tofu.ShaderManager.ShaderInUse = Program;
 		GL.UseProgram(Program);
 	}
 

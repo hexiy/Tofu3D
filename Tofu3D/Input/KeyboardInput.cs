@@ -5,19 +5,19 @@ public static class KeyboardInput
     public static bool WasKeyJustPressed(Keys key)
     {
         SwapPlatformSpecificKeys(ref key);
-        return Tofu.I.Window.KeyboardState.IsKeyPressed((OpenTK.Windowing.GraphicsLibraryFramework.Keys)key);
+        return Tofu.Window.KeyboardState.IsKeyPressed((OpenTK.Windowing.GraphicsLibraryFramework.Keys)key);
     }
 
     public static bool WasKeyJustReleased(Keys key)
     {
         SwapPlatformSpecificKeys(ref key);
-        return Tofu.I.Window.KeyboardState.IsKeyReleased((OpenTK.Windowing.GraphicsLibraryFramework.Keys)key);
+        return Tofu.Window.KeyboardState.IsKeyReleased((OpenTK.Windowing.GraphicsLibraryFramework.Keys)key);
     }
 
     public static bool IsKeyDown(Keys key)
     {
         SwapPlatformSpecificKeys(ref key);
-        return Tofu.I.Window.KeyboardState.IsKeyDown((OpenTK.Windowing.GraphicsLibraryFramework.Keys)key);
+        return Tofu.Window.KeyboardState.IsKeyDown((OpenTK.Windowing.GraphicsLibraryFramework.Keys)key);
     }
 
     public static bool IsKeyUp(Keys key)

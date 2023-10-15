@@ -14,7 +14,7 @@ public static class TextureHelper
 		int hash = GetHash(textureLoadSettings.Path);
 		if (_cachedTextures.ContainsKey(hash) == false)
 		{
-			Texture texture = Tofu.I.AssetManager.Load<Texture>(textureLoadSettings);
+			Texture texture = Tofu.AssetManager.Load<Texture>(textureLoadSettings);
 			_cachedTextures.Add(hash, texture);
 			return texture;
 		}

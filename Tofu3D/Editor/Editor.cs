@@ -92,7 +92,7 @@ public class Editor
         {
             if (Global.GameRunning == false)
             {
-                Tofu.I.SceneManager.SaveScene();
+                Tofu.SceneManager.SaveScene();
             }
         }
 
@@ -100,7 +100,7 @@ public class Editor
         {
             if (Global.GameRunning == false)
             {
-                Tofu.I.SceneManager.LoadLastOpenedScene();
+                Tofu.SceneManager.LoadLastOpenedScene();
             }
         }
 
@@ -109,12 +109,12 @@ public class Editor
         {
             if (exitDialogIsActive)
             {
-                Tofu.I.Window.Close();
+                Tofu.Window.Close();
                 return;
             }
 
             _exitDialogHandle = ShowDialog(new EditorDialogParams("Close Tofu3D?",
-                new EditorDialogButtonDefinition("Close", clicked: Tofu.I.Window.Close, closeOnClick: true),
+                new EditorDialogButtonDefinition("Close", clicked: Tofu.Window.Close, closeOnClick: true),
                 new EditorDialogButtonDefinition("No", clicked: () => { }, closeOnClick: true)));
         }
     }

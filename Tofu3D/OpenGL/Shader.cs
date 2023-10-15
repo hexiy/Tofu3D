@@ -110,7 +110,7 @@ public class
 		GL.DeleteShader(fs);
 
 
-		Tofu.I.ShaderManager.UseShader(this);
+		Tofu.ShaderManager.UseShader(this);
 		AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
 		// NormalTextureLocation = GetUniformLocation("textureNormal");
 		AmbientOcclusionTextureLocation = GetUniformLocation("textureAo");

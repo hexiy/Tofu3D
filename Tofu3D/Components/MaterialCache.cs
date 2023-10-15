@@ -25,7 +25,7 @@ public class MaterialCache
 		}
 
 
-		Material material = MaterialTofu.I.AssetManager.LoadMaterial(Path.Combine(Folders.Materials, name));
+		Material material = MaterialTofu.AssetManager.LoadMaterial(Path.Combine(Folders.Materials, name));
 
 
 		_loadedMaterials.Add(material);

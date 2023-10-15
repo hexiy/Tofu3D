@@ -16,6 +16,6 @@ public class Texture : Asset<Texture>
 
 	public void Delete()
 	{
-		Tofu.I.AssetManager.Unload(this, LoadSettings);
+		Tofu.AssetManager.Unload(this, LoadSettings);
 	}
 }

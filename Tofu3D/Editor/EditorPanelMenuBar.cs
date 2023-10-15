@@ -30,7 +30,7 @@ public class EditorPanelMenuBar : EditorPanel
 
         if (Global.EditorAttached)
         {
-            ImGui.SetNextWindowSize(new Vector2(Tofu.I.Window.Size.X * 2, 50), ImGuiCond.FirstUseEver);
+            ImGui.SetNextWindowSize(new Vector2(Tofu.Window.Size.X * 2, 50), ImGuiCond.FirstUseEver);
             ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
             // ImGui.PushStyleColor(ImGuiCol.WindowBg, Color.Red.ToVector4());
             // ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoTitleBar);
@@ -52,7 +52,7 @@ public class EditorPanelMenuBar : EditorPanel
                 {
                     ImGui.CloseCurrentPopup();
 
-                    Tofu.I.Editor.BeforeDraw +=
+                    Tofu.Editor.BeforeDraw +=
                         _editorLayoutManager
                             .LoadDefaultLayout; // load layout before drawing anything, otherwise we break the layout by calling imgui after this editor panel
                 }
@@ -87,7 +87,7 @@ public class EditorPanelMenuBar : EditorPanel
             bool skyboxButtonClicked = ImGui.BeginMenu("Skybox");
             if (skyboxButtonClicked)
             {
-                EditorPanelInspector.I.SelectInspectable(Tofu.I.SceneManager.CurrentScene.FindComponent<Skybox>());
+                EditorPanelInspector.I.SelectInspectable(Tofu.SceneManager.CurrentScene.FindComponent<Skybox>());
 
                 ImGui.CloseCurrentPopup();
 
@@ -98,7 +98,7 @@ public class EditorPanelMenuBar : EditorPanel
             bool instancedRenderingClicked = ImGui.BeginMenu("Instanced Rendering");
             if (instancedRenderingClicked)
             {
-                EditorPanelInspector.I.SelectInspectable(Tofu.I.InstancedRenderingSystem);
+                EditorPanelInspector.I.SelectInspectable(Tofu.InstancedRenderingSystem);
 
                 ImGui.CloseCurrentPopup();
 
@@ -106,10 +106,10 @@ public class EditorPanelMenuBar : EditorPanel
                 ImGui.EndMenu();
             }
 
-            bool vsyncButtonClicked = ImGui.BeginMenu($"VSync[{Tofu.I.Window.VSync}]");
+            bool vsyncButtonClicked = ImGui.BeginMenu($"VSync[{Tofu.Window.VSync}]");
             if (vsyncButtonClicked)
             {
-                Tofu.I.Window.VSync = Tofu.I.Window.VSync == VSyncMode.Off ? VSyncMode.On : VSyncMode.Off;
+                Tofu.Window.VSync = Tofu.Window.VSync == VSyncMode.Off ? VSyncMode.On : VSyncMode.Off;
                 ImGui.CloseCurrentPopup();
 
 

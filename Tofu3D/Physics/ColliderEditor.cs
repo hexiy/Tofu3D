@@ -32,8 +32,8 @@
 //			dynamicVertex.Active = false;
 //			// Dynamic vertex >>>>>>>>>>>>>>>
 
-//			Tofu.I.MouseInput.Mouse1Down += OnMouseLeftClick;
-//			Tofu.I.MouseInput.Mouse1Up += () =>
+//			Tofu.MouseInput.Mouse1Down += OnMouseLeftClick;
+//			Tofu.MouseInput.Mouse1Up += () =>
 //			{
 //				if (selectedPoint != null)
 //				{
@@ -42,7 +42,7 @@
 //				}
 //			};
 
-//			Tofu.I.MouseInput.Mouse2Down += OnMouseRightClick;
+//			Tofu.MouseInput.Mouse2Down += OnMouseRightClick;
 
 //		}
 
@@ -66,7 +66,7 @@
 //		{
 //			for (int i = 0; i < verticeGameObjects.Count; i++)
 //			{
-//				if (Tofu.I.MouseInput.Position.In(verticeGameObjects[i].GetComponent<BoxShape>()).intersects)
+//				if (Tofu.MouseInput.Position.In(verticeGameObjects[i].GetComponent<BoxShape>()).intersects)
 //				{
 //					return i;
 //				}
@@ -91,7 +91,7 @@
 //			{
 //				verticeGameObjects[(int)vertexIndex].GetComponent<Renderer>().Color = Color.DeepSkyBlue;
 //				selectedPoint = verticeGameObjects[(int)vertexIndex];
-//				offset = -selectedPoint.TransformToLocal(Tofu.I.MouseInput.Position);
+//				offset = -selectedPoint.TransformToLocal(Tofu.MouseInput.Position);
 //			}
 //			if (vertexIndex == null && dynamicVertex.Active) // find line on which the point is, and at that position,insert new point
 //			{
@@ -102,7 +102,7 @@
 //				{
 //					Vector2 point1 = polygonCollider.TransformToWorld(polygonCollider.Points[i]);
 //					Vector2 point2 = i + 1 >= polygonCollider.Points.Count ? polygonCollider.TransformToWorld(polygonCollider.Points[0]) : polygonCollider.TransformToWorld(polygonCollider.Points[i + 1]);
-//					var dist = PhysicsExtensions.DistanceFromLine(point1, point2, Tofu.I.MouseInput.Position);
+//					var dist = PhysicsExtensions.DistanceFromLine(point1, point2, Tofu.MouseInput.Position);
 //					if (dist < minDistance)
 //					{
 //						minDistance = dist;
@@ -111,14 +111,14 @@
 //				}
 
 //				newPointIndex = newPointIndex + 1 >= polygonCollider.Points.Count ? 0 : newPointIndex + 1;
-//				polygonCollider.Points.Insert(newPointIndex, polygonCollider.transform.TransformVector(Tofu.I.MouseInput.Position));
+//				polygonCollider.Points.Insert(newPointIndex, polygonCollider.transform.TransformVector(Tofu.MouseInput.Position));
 //				polygonCollider.BuildEdges();
 
-//				//polygonCollider.localPoints.Insert(newPointIndex,Tofu.I.MouseInput.Position-polygonCollider.Transform.Position);
+//				//polygonCollider.localPoints.Insert(newPointIndex,Tofu.MouseInput.Position-polygonCollider.Transform.Position);
 
 //				// creating new Point
 //				GameObject pointGO = GameObject.Create(name: "ColliderEditor point");
-//				pointGO.transform.position = Tofu.I.MouseInput.Position;
+//				pointGO.transform.position = Tofu.MouseInput.Position;
 //				BoxShape boxCollider = pointGO.AddComponent<BoxShape>();
 //				boxCollider.rect = new RectangleF(0, 0, 10, 10);
 
@@ -155,7 +155,7 @@
 //				return;
 //				shape = null;//Editor.GetInstance().GetSelectedGameObject()?.GetComponent<Collider>();
 
-//				Tofu.I.SceneManager.CurrentScene.transformHandle.GameObject.Active = false;
+//				Tofu.SceneManager.CurrentScene.transformHandle.GameObject.Active = false;
 
 //				polygonCollider = (PolygonShape)shape;
 //				if (polygonCollider != null)
@@ -202,21 +202,21 @@
 //				dynamicVertex.Active = false;
 //				if (Keyboard.GetState().IsKeyDown(Keys.LeftControl))
 //				{
-//					selectedPoint.transform.position = Extensions.TranslateToGrid(Tofu.I.MouseInput.Position);
+//					selectedPoint.transform.position = Extensions.TranslateToGrid(Tofu.MouseInput.Position);
 //				}
 //				else
 //				{
-//					selectedPoint.transform.position = (Tofu.I.MouseInput.Position + offset);
+//					selectedPoint.transform.position = (Tofu.MouseInput.Position + offset);
 //				}
 //				//polygonCollider.localPoints[verticeGameObjects.IndexOf(selectedPoint)] = selectedPoint.GetComponent<BoxCollider>().rect.Center - polygonCollider.Transform.Position;
-//				polygonCollider.Points[verticeGameObjects.IndexOf(selectedPoint)] = polygonCollider.transform.TransformVector(Tofu.I.MouseInput.Position) + verticeBoxOffset + offset;
+//				polygonCollider.Points[verticeGameObjects.IndexOf(selectedPoint)] = polygonCollider.transform.TransformVector(Tofu.MouseInput.Position) + verticeBoxOffset + offset;
 //			}
 //			else// no point selected
 //			{
 //				bool overVertex = false;
 //				for (int i = 0; i < verticeGameObjects.Count; i++) // loop through vertices, if it is under mouse, highlight it, and also disable dynamicVertex
 //				{
-//					if (Tofu.I.MouseInput.Position.In(verticeGameObjects[i].GetComponent<BoxShape>()).intersects)
+//					if (Tofu.MouseInput.Position.In(verticeGameObjects[i].GetComponent<BoxShape>()).intersects)
 //					{
 //						verticeGameObjects[i].GetComponent<Renderer>().Color = Color.DeepSkyBlue;
 //						overVertex = true;
@@ -237,14 +237,14 @@
 //					{
 //						Vector2 point1 = polygonCollider.TransformToWorld(polygonCollider.Points[i]);
 //						Vector2 point2 = i + 1 >= polygonCollider.Points.Count ? polygonCollider.TransformToWorld(polygonCollider.Points[0]) : polygonCollider.TransformToWorld(polygonCollider.Points[i + 1]);
-//						var dist = PhysicsExtensions.DistanceFromLine(point1, point2, Tofu.I.MouseInput.Position);
+//						var dist = PhysicsExtensions.DistanceFromLine(point1, point2, Tofu.MouseInput.Position);
 //						if (dist < minDistance)
 //						{
 //							minDistance = dist;
-//							pointOnLine = PhysicsExtensions.ClosestPointOnLine(point1, point2, Tofu.I.MouseInput.Position);
+//							pointOnLine = PhysicsExtensions.ClosestPointOnLine(point1, point2, Tofu.MouseInput.Position);
 //						}
 //					}
-//					if (Vector2.Distance(pointOnLine, Tofu.I.MouseInput.Position) < 10) // dont do anything if we are too far away from line
+//					if (Vector2.Distance(pointOnLine, Tofu.MouseInput.Position) < 10) // dont do anything if we are too far away from line
 //					{
 //						dynamicVertex.Active = true;
 //						dynamicVertex.transform.position = (pointOnLine - (dynamicVertex.GetComponent<BoxShape>().rect.Size / 2).ToVector2());

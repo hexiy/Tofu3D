@@ -14,7 +14,7 @@ public class Skybox : Component, IComponentUpdateable
 
 	public override void Awake()
 	{
-		_material = Tofu.I.AssetManager.Load<Material>("Skybox");
+		_material = Tofu.AssetManager.Load<Material>("Skybox");
 
 		_texture = new CubemapTexture();
 		string[] texturePaths = new[]
@@ -28,7 +28,7 @@ public class Skybox : Component, IComponentUpdateable
 		                        };
 
 		CubemapTextureLoadSettings cubemapTextureLoadSettings = new CubemapTextureLoadSettings(paths: texturePaths);
-		_texture = Tofu.I.AssetManager.Load<CubemapTexture>(cubemapTextureLoadSettings);
+		_texture = Tofu.AssetManager.Load<CubemapTexture>(cubemapTextureLoadSettings);
 
 		base.Awake();
 	}
@@ -43,14 +43,14 @@ public class Skybox : Component, IComponentUpdateable
 
 	public override void OnEnabled()
 	{
-		Tofu.I.RenderPassSystem.RegisterRender(RenderPassType.Skybox, RenderSkybox);
+		Tofu.RenderPassSystem.RegisterRender(RenderPassType.Skybox, RenderSkybox);
 
 		base.OnEnabled();
 	}
 
 	public override void OnDisabled()
 	{
-		Tofu.I.RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
+		Tofu.RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
 
 		base.OnDisabled();
 	}
@@ -64,7 +64,7 @@ public class Skybox : Component, IComponentUpdateable
 
 		GL.DepthMask(false);
 
-		Tofu.I.ShaderManager.UseShader(_material.Shader);
+		Tofu.ShaderManager.UseShader(_material.Shader);
 
 		Vector3 forwardLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
 		Vector3 upLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
@@ -77,7 +77,7 @@ public class Skybox : Component, IComponentUpdateable
 		_material.Shader.SetMatrix4X4("u_view", viewMatrix);
 		_material.Shader.SetMatrix4X4("u_projection", projectionMatrix);
 
-		Tofu.I.ShaderManager.BindVertexArray(_material.Vao);
+		Tofu.ShaderManager.BindVertexArray(_material.Vao);
 
 		GL.ActiveTexture(TextureUnit.Texture0);
 		TextureHelper.BindTexture(_texture.TextureId, TextureType.Cubemap);

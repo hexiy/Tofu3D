@@ -5,12 +5,12 @@ public class Brush : Component
 	public override void Update()
 	{
 		int spawn = 0;
-		if (Tofu.I.MouseInput.IsButtonDown())
+		if (Tofu.MouseInput.IsButtonDown())
 		{
 			spawn = 1;
 		}
 
-		if (Tofu.I.MouseInput.IsButtonDown(MouseButtons.Button2))
+		if (Tofu.MouseInput.IsButtonDown(MouseButtons.Button2))
 		{
 			Camera.I.GetComponent<CameraController>().enabled = false;
 			spawn = 2;
@@ -37,7 +37,7 @@ public class Brush : Component
 			go.AddComponent<Rigidbody>();
 			go.GetComponent<Rigidbody>().isStatic = spawn == 2;
 
-			go.transform.position = Tofu.I.MouseInput.WorldPosition;
+			go.transform.position = Tofu.MouseInput.WorldPosition;
 			go.Awake();
 
 			go.GetComponent<Rigidbody>().AngularVelocity = Rendom.Range(-10f, 10f);

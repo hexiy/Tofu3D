@@ -28,17 +28,28 @@ public class DirectionalLight : LightBase
 	float _cameraBeforeTransformationOrthographicSize;
 
 	public static Matrix4x4 LightSpaceViewProjectionMatrix = Matrix4x4.Identity;
-
+	public static DirectionalLight I { get; private set; } = null;
 	[ExecuteInEditMode]
 	public override void Awake()
 	{
 		// DepthRenderTexture = new RenderTexture(size: Size, colorAttachment: false, depthAttachment: true);
 		// DisplayDepthRenderTexture = new RenderTexture(size: Size, colorAttachment: true, depthAttachment: false);
 
-		Tofu.I.RenderPassSystem.RegisterRender(RenderPassType.DirectionalLightShadowDepth, RenderDirectionalLightShadowDepth);
+		Tofu.RenderPassSystem.RegisterRender(RenderPassType.DirectionalLightShadowDepth, RenderDirectionalLightShadowDepth);
 		RenderPassDirectionalLightShadowDepth.I?.SetDirectionalLight(this);
-
 		base.Awake();
+	}
+
+	public override void OnDisabled()
+	{
+		I = null;
+		base.OnDisabled();
+	}
+
+	public override void OnEnabled()
+	{
+		I = this;
+		base.OnEnabled();
 	}
 
 	public override void Update()
@@ -62,7 +73,7 @@ public class DirectionalLight : LightBase
 
 		ConfigureForShadowMapping();
 
-		Tofu.I.SceneManager.CurrentScene.RenderWorld();
+		Tofu.SceneManager.CurrentScene.RenderWorld();
 
 		ConfigureForSceneRender();
 	}
@@ -70,7 +81,7 @@ public class DirectionalLight : LightBase
 	public override void OnDestroyed()
 	{
 		ConfigureForSceneRender();
-		Tofu.I.RenderPassSystem.RemoveRender(RenderPassType.DirectionalLightShadowDepth, RenderDirectionalLightShadowDepth);
+		Tofu.RenderPassSystem.RemoveRender(RenderPassType.DirectionalLightShadowDepth, RenderDirectionalLightShadowDepth);
 
 		base.OnDestroyed();
 	}

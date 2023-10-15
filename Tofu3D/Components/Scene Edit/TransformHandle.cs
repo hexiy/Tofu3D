@@ -60,8 +60,8 @@ public class TransformHandle : Component, IComponentUpdateable
 		ModelRendererZ = GameObject.AddComponent<ModelRendererInstanced>();
 		ModelRendererXy = GameObject.AddComponent<ModelRendererInstanced>();
 
-		// Material unlitMaterial = Tofu.I.AssetManager.Load<Material>("ModelRendererUnlit");
-		Material unlitMaterial = Tofu.I.AssetManager.Load<Material>("ModelRendererUnlit");
+		// Material unlitMaterial = Tofu.AssetManager.Load<Material>("ModelRendererUnlit");
+		Material unlitMaterial = Tofu.AssetManager.Load<Material>("ModelRendererUnlit");
 		ModelRendererX.Material = unlitMaterial;
 		ModelRendererY.Material = unlitMaterial;
 		ModelRendererXy.Material = unlitMaterial;
@@ -115,13 +115,13 @@ public class TransformHandle : Component, IComponentUpdateable
 			Transform.LocalScale = Vector3.One * Vector3.Distance(Transform.WorldPosition, Camera.MainCamera.Transform.WorldPosition) * 0.2f;
 		}
 
-		if (Tofu.I.MouseInput.ButtonReleased())
+		if (Tofu.MouseInput.ButtonReleased())
 		{
 			CurrentAxisSelected = null;
 			Clicked = false;
 		}
 
-		if (Tofu.I.MouseInput.ButtonPressed())
+		if (Tofu.MouseInput.ButtonPressed())
 		{
 			Clicked = false;
 			// if (MousePickingSystem.HoveredRenderer == ModelRendererX)
@@ -149,11 +149,11 @@ public class TransformHandle : Component, IComponentUpdateable
 			// }
 		}
 
-		if (Tofu.I.MouseInput.IsButtonDown() && GameObject.ActiveInHierarchy && Clicked)
+		if (Tofu.MouseInput.IsButtonDown() && GameObject.ActiveInHierarchy && Clicked)
 		{
 			SetSelectedObjectRigidbodyAwake(false);
-			// Move(Tofu.I.MouseInput.WorldDelta);
-			Move(Tofu.I.MouseInput.ScreenDelta); // /_selectedTransforms[0].GetComponent<Renderer>().DistanceFromCamera * 1000f);
+			// Move(Tofu.MouseInput.WorldDelta);
+			Move(Tofu.MouseInput.ScreenDelta); // /_selectedTransforms[0].GetComponent<Renderer>().DistanceFromCamera * 1000f);
 		}
 		else
 		{
@@ -261,13 +261,13 @@ public class TransformHandle : Component, IComponentUpdateable
 				switch (CurrentAxisSelected)
 				{
 					case Axis.X:
-						_selectedTransforms[i].LocalPosition = new Vector3(Tofu.I.MouseInput.WorldPosition.TranslateToGrid().X, _selectedTransforms[i].LocalPosition.Y, 0);
+						_selectedTransforms[i].LocalPosition = new Vector3(Tofu.MouseInput.WorldPosition.TranslateToGrid().X, _selectedTransforms[i].LocalPosition.Y, 0);
 						break;
 					case Axis.Y:
-						_selectedTransforms[i].LocalPosition = new Vector3(_selectedTransforms[i].LocalPosition.X, Tofu.I.MouseInput.WorldPosition.TranslateToGrid().Y, 0);
+						_selectedTransforms[i].LocalPosition = new Vector3(_selectedTransforms[i].LocalPosition.X, Tofu.MouseInput.WorldPosition.TranslateToGrid().Y, 0);
 						break;
 					case Axis.Xy:
-						_selectedTransforms[i].LocalPosition = Tofu.I.MouseInput.WorldPosition.TranslateToGrid(50);
+						_selectedTransforms[i].LocalPosition = Tofu.MouseInput.WorldPosition.TranslateToGrid(50);
 						break;
 				}
 			}
@@ -295,7 +295,7 @@ public class TransformHandle : Component, IComponentUpdateable
 		_selectedTransforms = new List<Transform>();
 		for (int i = 0; i < selection.Count; i++)
 		{
-			GameObject go = Tofu.I.SceneManager.CurrentScene.GetGameObject(selection[i]);
+			GameObject go = Tofu.SceneManager.CurrentScene.GetGameObject(selection[i]);
 
 			if (go != null)
 			{

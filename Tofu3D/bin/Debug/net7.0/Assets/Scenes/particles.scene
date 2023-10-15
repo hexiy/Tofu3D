@@ -38,10 +38,10 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>9</Id>
+      <Id>82</Id>
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>GameObject</Name>
+      <Name>Directional Light</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -54,10 +54,26 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>82</Id>
+      <Id>97</Id>
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>Light</Name>
+      <Name>AmbientLight</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>128</Id>
+      <IndexInHierarchy>0</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>Curve</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -81,14 +97,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-10.917791</X>
-        <Y>12.8908825</Y>
-        <Z>-21.093979</Z>
+        <X>-23.192348</X>
+        <Y>15.831191</Y>
+        <Z>-23.448774</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-10.917791</X>
-        <Y>12.8908825</Y>
-        <Z>-21.093979</Z>
+        <X>-23.192348</X>
+        <Y>15.831191</Y>
+        <Z>-23.448774</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -101,8 +117,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>10.84387</X>
-        <Y>37.98762</Y>
+        <X>11.5329075</X>
+        <Y>40.595257</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -119,7 +135,7 @@
         <PackedValue>4280427042</PackedValue>
       </Color>
       <NearPlaneDistance>1</NearPlaneDistance>
-      <FarPlaneDistance>50</FarPlaneDistance>
+      <FarPlaneDistance>1000</FarPlaneDistance>
       <FieldOfView>60</FieldOfView>
       <IsOrthographic>false</IsOrthographic>
       <OrthographicSize>2</OrthographicSize>
@@ -134,6 +150,32 @@
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Fov>60</Fov>
+    </Component>
+    <Component xsi:type="Fog">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>0</GameObjectId>
+      <Started>true</Started>
+      <Enabled>false</Enabled>
+      <StartDistance>25</StartDistance>
+      <EndDistance>40</EndDistance>
+      <PositionY>6.08</PositionY>
+      <IsGradient>true</IsGradient>
+      <GradientSmoothness>2.141</GradientSmoothness>
+      <Color1>
+        <B>209</B>
+        <G>217</G>
+        <R>65</R>
+        <A>199</A>
+        <PackedValue>3352418625</PackedValue>
+      </Color1>
+      <Color2>
+        <B>237</B>
+        <G>21</G>
+        <R>66</R>
+        <A>135</A>
+        <PackedValue>2280461634</PackedValue>
+      </Color2>
+      <Intensity>0.987</Intensity>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -181,41 +223,54 @@
       <Enabled>true</Enabled>
       <LatestParticle>
         <Color>
-          <B>230</B>
-          <G>230</G>
-          <R>230</R>
-          <A>255</A>
-          <PackedValue>4293322470</PackedValue>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>254</A>
+          <PackedValue>4278190079</PackedValue>
         </Color>
-        <Lifetime>0.0166239</Lifetime>
-        <Radius>11102.621</Radius>
+        <Lifetime>0.0134371</Lifetime>
+        <Size>
+          <X>1.9946252</X>
+          <Y>1.9946252</Y>
+          <Z>1.9946252</Z>
+        </Size>
         <Velocity>
-          <X>4.0664954</X>
-          <Y>4.0664954</Y>
-          <Z>0</Z>
+          <X>4.0537486</X>
+          <Y>4.0537486</Y>
+          <Z>5.0671854</Z>
         </Velocity>
         <Visible>true</Visible>
         <WorldPosition>
-          <X>2.0363624</X>
-          <Y>-1.9773991</Y>
-          <Z>0</Z>
+          <X>-5.7958183</X>
+          <Y>-4.691967</Y>
+          <Z>0.06808828</Z>
         </WorldPosition>
         <SpawnColor>
-          <B>231</B>
-          <G>231</G>
-          <R>231</R>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
           <A>255</A>
-          <PackedValue>4293388263</PackedValue>
+          <PackedValue>4294967295</PackedValue>
         </SpawnColor>
       </LatestParticle>
       <ListLock />
       <StartVelocity>
         <X>4</X>
         <Y>4</Y>
+        <Z>5</Z>
       </StartVelocity>
       <Speed>0.1</Speed>
-      <StartSize>11111</StartSize>
-      <EndSize>22</EndSize>
+      <StartSize>
+        <X>2</X>
+        <Y>2</Y>
+        <Z>2</Z>
+      </StartSize>
+      <EndSize>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </EndSize>
       <StartColor>
         <B>255</B>
         <G>255</G>
@@ -224,25 +279,26 @@
         <PackedValue>4294967295</PackedValue>
       </StartColor>
       <StartColor2>
-        <B>128</B>
-        <G>128</G>
-        <R>128</R>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
         <A>255</A>
-        <PackedValue>4286611584</PackedValue>
+        <PackedValue>4294967295</PackedValue>
       </StartColor2>
       <EndColor>
-        <B>0</B>
-        <G>0</G>
-        <R>0</R>
-        <A>255</A>
-        <PackedValue>4278190080</PackedValue>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>0</A>
+        <PackedValue>16777215</PackedValue>
       </EndColor>
-      <MaxParticles>11111</MaxParticles>
-      <MaxLifetime>22</MaxLifetime>
-      <SpawnRate>0.05</SpawnRate>
+      <MaxParticles>50000</MaxParticles>
+      <MaxLifetime>5</MaxLifetime>
+      <SpawnRate>0.02</SpawnRate>
       <SpawnBoundsSize>
         <X>10</X>
         <Y>10</Y>
+        <Z>0</Z>
       </SpawnBoundsSize>
     </Component>
     <Component xsi:type="BoxShape">
@@ -264,126 +320,6 @@
     <Component xsi:type="ParticleSystemRenderer">
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>6</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <Material>
-        <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
-        <Additive>false</Additive>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-          <AlbedoTextureLocation>25</AlbedoTextureLocation>
-          <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
-          <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
-        </Shader>
-        <RenderMode>Opaque</RenderMode>
-        <AlbedoTexture>
-          <AssetPath>Assets/2D/Grass_Block_TEX.png</AssetPath>
-          <Size>
-            <X>1440</X>
-            <Y>1920</Y>
-          </Size>
-        </AlbedoTexture>
-        <AlbedoTint>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>255</A>
-          <PackedValue>4294967295</PackedValue>
-        </AlbedoTint>
-        <AoTexture>
-          <AssetPath>Assets/2D/solidColor.png</AssetPath>
-          <Size>
-            <X>256</X>
-            <Y>256</Y>
-          </Size>
-        </AoTexture>
-        <Tiling>
-          <X>-1</X>
-          <Y>-1</Y>
-        </Tiling>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.2</SpecularSmoothness>
-      </Material>
-      <RenderMode>Opaque</RenderMode>
-      <Mesh>
-        <AssetPath>Assets/3D/cube.obj</AssetPath>
-        <Vao>6</Vao>
-        <VertexBufferDataLength>288</VertexBufferDataLength>
-        <VerticesCount>36</VerticesCount>
-      </Mesh>
-      <Layer>0</Layer>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>9</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>20</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>20</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>9</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>5</X>
-        <Y>5</Y>
-        <Z>5</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>9</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
@@ -490,7 +426,7 @@
       <GameObjectId>82</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <Intensity>8.964</Intensity>
+      <Intensity>6.373</Intensity>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -502,14 +438,112 @@
       <Rotate>false</Rotate>
       <RotateOffset>0</RotateOffset>
       <RefreshRate>60</RefreshRate>
-      <NearPlaneDistance>0.0001</NearPlaneDistance>
-      <FarPlaneDistance>1000</FarPlaneDistance>
+      <NearPlaneDistance>0</NearPlaneDistance>
+      <FarPlaneDistance>0</FarPlaneDistance>
       <OrthographicSize>15</OrthographicSize>
       <Size>
         <X>1000</X>
         <Y>1000</Y>
       </Size>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>97</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>0.880806</X>
+        <Y>0.57735026</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0.880806</X>
+        <Y>0.57735026</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="AmbientLight">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>97</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Intensity>0.777</Intensity>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>128</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>0.880806</X>
+        <Y>0.57735026</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0.880806</X>
+        <Y>0.57735026</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="CurveTestComponent">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>128</GameObjectId>
+      <Started>false</Started>
+      <Enabled>true</Enabled>
+    </Component>
   </Components>
-  <GameObjectNextId>91</GameObjectNextId>
+  <GameObjectNextId>131</GameObjectNextId>
 </SceneFile>

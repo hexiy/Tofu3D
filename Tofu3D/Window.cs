@@ -28,7 +28,7 @@ public class Window : GameWindow
 		LoadIcon();
 		Title = WindowTitleText;
 		GLFW.WindowHint(WindowHintBool.Decorated, false);
-		GL.Disable(EnableCap.Multisample);
+		// GL.Disable(EnableCap.Multisample);
 	}
 
 	private void LoadIcon()
@@ -71,7 +71,7 @@ public class Window : GameWindow
 		// WindowState = WindowState.Fullscreen;
 		WindowState = WindowState.Maximized;
 
-		Scene.AnySceneLoaded += () => { Title = $"{WindowTitleText} | {Tofu.I.SceneManager.CurrentScene?.SceneName}"; };
+		Scene.AnySceneLoaded += () => { Title = $"{WindowTitleText} | {Tofu.SceneManager.CurrentScene?.SceneName}"; };
 
 		this.Focus();
 
@@ -89,7 +89,7 @@ public class Window : GameWindow
 		if (_loaded == false) return;
 		base.OnResize(e);
 		
-		Tofu.I.ImGuiController?.WindowResized(ClientSize.X, ClientSize.Y);
+		Tofu.ImGuiController?.WindowResized(ClientSize.X, ClientSize.Y);
 	}
 
 	protected override void OnUpdateFrame(FrameEventArgs e)
@@ -108,12 +108,12 @@ public class Window : GameWindow
 	protected override void OnTextInput(TextInputEventArgs e)
 	{
 		base.OnTextInput(e);
-		Tofu.I.ImGuiController.PressChar((char) e.Unicode);
+		Tofu.ImGuiController.PressChar((char) e.Unicode);
 	}
 
 	protected override void OnMouseWheel(MouseWheelEventArgs e)
 	{
 		base.OnMouseWheel(e);
-		Tofu.I.ImGuiController.MouseScroll(new Vector2(e.OffsetX, e.OffsetY));
+		Tofu.ImGuiController.MouseScroll(new Vector2(e.OffsetX, e.OffsetY));
 	}
 }

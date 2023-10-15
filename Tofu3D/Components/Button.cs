@@ -42,13 +42,13 @@ public class Button : Component
 			return;
 		}
 
-		_mouseIsOver = Tofu.I.MouseInput.WorldPosition.In(BoxShape);
-		if (Tofu.I.MouseInput.ButtonPressed() && _mouseIsOver)
+		_mouseIsOver = Tofu.MouseInput.WorldPosition.In(BoxShape);
+		if (Tofu.MouseInput.ButtonPressed() && _mouseIsOver)
 		{
 			_onClickedAction?.Invoke();
 			_clicked = true;
 		}
-		else if (Tofu.I.MouseInput.ButtonReleased())
+		else if (Tofu.MouseInput.ButtonReleased())
 		{
 			if (_mouseIsOver)
 			{

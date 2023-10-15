@@ -10,7 +10,7 @@ public class ShaderManager
 
 	public void Initialize()
 	{
-		Tofu.I.AssetsWatcher.RegisterFileChangedCallback(OnFileChanged, ".glsl");
+		Tofu.AssetsWatcher.RegisterFileChangedCallback(OnFileChanged, ".glsl");
 	}
 
 	void OnFileChanged(FileChangedInfo fileChangedInfo)
@@ -60,7 +60,7 @@ public class ShaderManager
 
 	private void ReloadShader(string shaderPath)
 	{
-		List<Material> allLoadedMaterials = Tofu.I.AssetManager.GetAllLoadedAssetsOfType<Material>();
+		List<Material> allLoadedMaterials = Tofu.AssetManager.GetAllLoadedAssetsOfType<Material>();
 		foreach (Material loadedMaterial in allLoadedMaterials)
 		{
 			if (loadedMaterial.Shader?.Path == shaderPath)
@@ -73,7 +73,7 @@ public class ShaderManager
 			}
 		}
 		/*// find all Renderer components, and check if the material has the changed shader and reload it, ehh this doesnt work with renderpass shaders for example
-		List<Renderer> renderersInScene = Tofu.I.SceneManager.CurrentScene.FindComponentsInScene<Renderer>();
+		List<Renderer> renderersInScene = Tofu.SceneManager.CurrentScene.FindComponentsInScene<Renderer>();
 		foreach (Renderer renderer in renderersInScene)
 		{
 			if (renderer.Material?.Shader?.Path == shaderPath)

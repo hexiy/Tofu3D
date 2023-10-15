@@ -111,7 +111,7 @@ public class SceneSerializer
 
 			if (inBackground == false)
 			{
-				Tofu.I.SceneManager.CurrentScene.AddGameObjectToScene(go);
+				Tofu.SceneManager.CurrentScene.AddGameObjectToScene(go);
 				go.Awake();
 				go.Start();
 			}

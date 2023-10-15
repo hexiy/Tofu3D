@@ -35,7 +35,7 @@ public class Debug
 		{
 			_logs.Add(logEntry);
 
-			//Tofu.I.Window.Title = logs.Last();
+			//Tofu.Window.Title = logs.Last();
 
 			if (_logs.Count > Limit + 1)
 			{

@@ -19,9 +19,8 @@ public static class Program
 		// _ = new LightManager();
 		//
 		// AssetsWatcher.StartWatching();
-
-		Tofu tofu = new Tofu();
-		tofu.Launch();
+		
+		Tofu.Launch();
 		/*Debug.StartTimer("Editor startup");
 		using Window window = new();
 		window.Run();*/

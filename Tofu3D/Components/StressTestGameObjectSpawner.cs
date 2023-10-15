@@ -19,7 +19,7 @@ public class StressTestGameObjectSpawner : Component
 		{
 			if (_savedToClipboard == false)
 			{
-				Tofu.I.SceneSerializer.SaveClipboardGameObject(Go);
+				Tofu.SceneSerializer.SaveClipboardGameObject(Go);
 			}
 
 			string timerName = $"StressTest";
@@ -29,7 +29,7 @@ public class StressTestGameObjectSpawner : Component
 			for (int i = 0; i < SpawnCount; i++)
 			{
 				// GameObject go = SceneSerializer.Experimental_LoadClipboardGameObject();
-				GameObject go = Tofu.I.SceneSerializer.LoadClipboardGameObject();
+				GameObject go = Tofu.SceneSerializer.LoadClipboardGameObject();
 				go.Transform.LocalPosition += new Vector3(Random.Range(-10f, 10f), Random.Range(0, 10), Random.Range(0, 10));
 				go.Transform.Rotation += new Vector3(0, Random.Range(0, 360), 0);
 				go.GetComponent<Renderer>().Color = Random.RandomColor();
@@ -41,11 +41,11 @@ public class StressTestGameObjectSpawner : Component
 		};
 		Despawn += () =>
 		{
-			for (int j = 0; j < Tofu.I.SceneManager.CurrentScene.GameObjects.Count; j++)
+			for (int j = 0; j < Tofu.SceneManager.CurrentScene.GameObjects.Count; j++)
 			{
 				if (j > 10)
 				{
-					Tofu.I.SceneManager.CurrentScene.GameObjects[j].Destroy();
+					Tofu.SceneManager.CurrentScene.GameObjects[j].Destroy();
 				}
 			}
 		};

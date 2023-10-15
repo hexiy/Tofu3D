@@ -38,7 +38,7 @@ public class Camera : Component, IComponentUpdateable
 		GameObject.AlwaysUpdate = true;
 		// if (Global.EditorAttached == false)
 		// {
-		// 	Size = new Vector2(Tofu.I.Window.ClientSize.X, Tofu.I.Window.ClientSize.Y);
+		// 	Size = new Vector2(Tofu.Window.ClientSize.X, Tofu.Window.ClientSize.Y);
 		// }
 
 		UpdateMatrices();

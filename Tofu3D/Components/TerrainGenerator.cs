@@ -71,7 +71,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
 			return;
 		}
 
-		Tofu.I.SceneSerializer.SaveClipboardGameObject(CubePrefab);
+		Tofu.SceneSerializer.SaveClipboardGameObject(CubePrefab);
 
 		DestroyTerrain();
 		_concurrentBag.Clear();
@@ -98,7 +98,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
 			return;
 		}
 
-		Tofu.I.SceneSerializer.SaveClipboardGameObject(CubePrefab);
+		Tofu.SceneSerializer.SaveClipboardGameObject(CubePrefab);
 
 		DestroyTerrain();
 		_concurrentBag.Clear();
@@ -143,7 +143,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
 		int x = 0;
 		int z = 0;
 
-		Tofu.I.SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
+		Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
 		foreach (GameObject go in _concurrentBag)
 		{
 			go.Transform.SetParent(Transform);
@@ -174,9 +174,9 @@ go.SetActive(true);
 			Debug.Log(i);
 		}
 
-		lock (Tofu.I.SceneManager.CurrentScene.GameObjects)
+		lock (Tofu.SceneManager.CurrentScene.GameObjects)
 		{
-			Tofu.I.SceneManager.CurrentScene.AddGameObjectsToScene(gameObjects);
+			Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(gameObjects);
 		}
 	}
 }

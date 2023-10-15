@@ -18,7 +18,7 @@ public abstract class RenderPass : IComparable<RenderPass>
 	protected RenderPass(RenderPassType type)
 	{
 		RenderPassType = type;
-		Tofu.I.RenderPassSystem.RegisterRenderPass(this);
+		Tofu.RenderPassSystem.RegisterRenderPass(this);
 	}
 
 	public virtual void Initialize()

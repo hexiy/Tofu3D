@@ -23,7 +23,7 @@ public class ParticleSystemRenderer : Renderer
     {
         foreach (Particle particle in _particleSystem?.Particles)
         {
-            Tofu.I.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData, remove: true);
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData, remove: true);
         }
     }
 
@@ -45,16 +45,16 @@ public class ParticleSystemRenderer : Renderer
     {
         if (Material?.Path.Length == 0 || Material == null)
         {
-            Material = Tofu.I.AssetManager.Load<Material>("ModelRendererInstanced");
+            Material = Tofu.AssetManager.Load<Material>("ModelRendererInstanced");
         }
         else
         {
-            Material = Tofu.I.AssetManager.Load<Material>(Material.Path);
+            Material = Tofu.AssetManager.Load<Material>(Material.Path);
         }
 
         if (Mesh?.Path.Length > 0)
         {
-            Mesh = Tofu.I.AssetManager.Load<Mesh>(Mesh.Path);
+            Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
         }
         else
         {
@@ -76,12 +76,12 @@ public class ParticleSystemRenderer : Renderer
 
         /*
          bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
-        if (isTransformHandle && (Tofu.I.RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques && Tofu.I.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI))
+        if (isTransformHandle && (Tofu.RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques && Tofu.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI))
         {
             return;
         }
 
-        if (Transform.IsInCanvas && Tofu.I.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI || Transform.IsInCanvas == false && Tofu.I.RenderPassSystem.CurrentRenderPassType == RenderPassType.UI)
+        if (Transform.IsInCanvas && Tofu.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI || Transform.IsInCanvas == false && Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.UI)
         {
             return;
         }
@@ -94,12 +94,13 @@ public class ParticleSystemRenderer : Renderer
 
         foreach (Particle particle in _particleSystem.Particles)
         {
-            Matrix4x4 particleModelMatrix = Matrix4x4.CreateTranslation(particle.WorldPosition * Transform.WorldScale);
+            Matrix4x4 particleModelMatrix = Matrix4x4.CreateScale(particle.Size) *
+                                            Matrix4x4.CreateTranslation(particle.WorldPosition * Transform.WorldScale);
 
-            Tofu.I.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData,particleModelMatrix);
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData, particleModelMatrix, color:particle.Color);
             // return;
         }
-        // bool updatedData = Tofu.I.InstancedRenderingSystem.UpdateObjectData(this,);
+        // bool updatedData = Tofu.InstancedRenderingSystem.UpdateObjectData(this,);
         // if (updatedData)
         // {
         // InstancingData.InstancingDataDirty = false;

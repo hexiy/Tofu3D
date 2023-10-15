@@ -6,42 +6,42 @@ using Tofu3D.Tweening;
 namespace Tofu3D;
 
 // Main Application Context
-public class Tofu
+public static class Tofu
 {
-	public static Tofu I { get; private set; }
+	// public static Tofu I { get; private set; }
 
 	// EDITOR
-	public Window Window;
-	public Editor Editor;
-	public ImGuiController ImGuiController;
+	public static Window Window;
+	public static Editor Editor;
+	public static ImGuiController ImGuiController;
 
 	// RENDERING
-	public RenderSettings RenderSettings;
-	public RenderPassSystem RenderPassSystem;
-	public ShaderManager ShaderManager;
-	public InstancedRenderingSystem InstancedRenderingSystem;
+	public static RenderSettings RenderSettings;
+	public static RenderPassSystem RenderPassSystem;
+	public static ShaderManager ShaderManager;
+	public static InstancedRenderingSystem InstancedRenderingSystem;
 
 	// ASSETS
-	public AssetManager AssetManager;
-	public SceneSerializer SceneSerializer;
-	public AssetsWatcher AssetsWatcher;
+	public static AssetManager AssetManager;
+	public static SceneSerializer SceneSerializer;
+	public static AssetsWatcher AssetsWatcher;
 
 	// SCENE
-	public SceneManager SceneManager;
-	public SceneViewController SceneViewController;
+	public static SceneManager SceneManager;
+	public static SceneViewController SceneViewController;
 
 	// MISC
-	public TweenManager TweenManager;
+	public static TweenManager TweenManager;
 	
 	// INPUT
-	public MouseInput MouseInput;
+	public static MouseInput MouseInput;
 
-	public Tofu()
+	static Tofu()
 	{
-		I = this;
+		// I = this;
 	}
 
-	public void Launch()
+	public static void Launch()
 	{
 		SystemConfig.Configure();
 		Global.LoadSavedData();
@@ -58,8 +58,7 @@ public class Tofu
 		RenderSettings.LoadSavedData();
 		AssetsWatcher.StartWatching();
 		ShaderManager.Initialize();
-
-
+        
 		Window = new Window();
 		Window.Load += OnWindowLoad;
 		Window.UpdateFrame += OnWindowUpdate;
@@ -67,7 +66,7 @@ public class Tofu
 		Window.Run();
 	}
 
-	void OnWindowLoad()
+	static void OnWindowLoad()
 	{
 		InstancedRenderingSystem = new InstancedRenderingSystem();
 
@@ -84,7 +83,7 @@ public class Tofu
 		SceneManager.LoadLastOpenedScene();
 	}
 
-	void OnWindowUpdate(FrameEventArgs e)
+	static void OnWindowUpdate(FrameEventArgs e)
 	{
 		Time.EditorDeltaTime = (float) (e.Time);
 
@@ -102,7 +101,7 @@ public class Tofu
 		Debug.EndGraphTimer("Editor Update");
 	}
 
-	void OnWindowRender(FrameEventArgs e)
+	static void OnWindowRender(FrameEventArgs e)
 	{
 		Time.EditorDeltaTime = (float) (e.Time);
 

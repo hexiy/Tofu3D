@@ -28,7 +28,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 	{
 		if (Material == null)
 		{
-			Material = Tofu.I.AssetManager.Load<Material>("SpriteSheetRenderer");
+			Material = Tofu.AssetManager.Load<Material>("SpriteSheetRenderer");
 		}
 
 		base.SetDefaultMaterial();
@@ -60,7 +60,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 			return;
 		}
 
-		Texture = Tofu.I.AssetManager.Load<Texture>(texturePath);
+		Texture = Tofu.AssetManager.Load<Texture>(texturePath);
 
 		UpdateBoxShapeSize();
 		if (Batched && false)
@@ -93,7 +93,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 		}
 		else
 		{
-			Tofu.I.ShaderManager.UseShader(Material.Shader);
+			Tofu.ShaderManager.UseShader(Material.Shader);
 			Material.Shader.SetVector2("u_resolution", Texture.Size);
 			Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 			Material.Shader.SetColor("u_color", Color.ToVector4());
@@ -110,7 +110,7 @@ public class SpriteSheetRenderer : SpriteRenderer
 			//_zoomAmount = texture.size.X/spriteSize.X*2;
 			Material.Shader.SetVector2("zoomAmount", _spritesCount);
 
-			Tofu.I.ShaderManager.BindVertexArray(Material.Vao);
+			Tofu.ShaderManager.BindVertexArray(Material.Vao);
 
 			if (Material.Additive)
 			{

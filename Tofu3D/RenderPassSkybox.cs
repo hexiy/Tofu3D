@@ -23,6 +23,6 @@ public class RenderPassSkybox : RenderPass
 
 	protected override void SetupRenderTexture()
 	{
-		PassRenderTexture = new RenderTexture(size: Tofu.I.RenderPassSystem.ViewSize, colorAttachment: true);
+		PassRenderTexture = new RenderTexture(size: Tofu.RenderPassSystem.ViewSize, colorAttachment: true);
 	}
 }

@@ -8,8 +8,8 @@ namespace Tofu3D;
 
 public class EditorPanelConsole : EditorPanel
 {
-	public override Vector2 Size => new Vector2(800, Tofu.I.Window.ClientSize.Y - Tofu.I.Editor.SceneViewSize.Y + 1);
-	public override Vector2 Position => new Vector2(Tofu.I.Window.ClientSize.X - 800, Tofu.I.Window.ClientSize.Y);
+	public override Vector2 Size => new Vector2(800, Tofu.Window.ClientSize.Y - Tofu.Editor.SceneViewSize.Y + 1);
+	public override Vector2 Position => new Vector2(Tofu.Window.ClientSize.X - 800, Tofu.Window.ClientSize.Y);
 	public override Vector2 Pivot => new Vector2(1, 1);
 	public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoScrollbar;
 
@@ -83,20 +83,20 @@ public class EditorPanelConsole : EditorPanel
 
 			bool hasFlag = (_currentLogCategoryFilter & filter) == filter;
 			// ImGui.RadioButton(filter.ToString(), hasFlag); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
-			int textureId = Tofu.I.Editor.EditorTextures.LogCategoryInfoIcon.TextureId;
+			int textureId = Tofu.Editor.EditorTextures.LogCategoryInfoIcon.TextureId;
 			if (filter == LogCategoryFilter.Error)
 			{
-				textureId = Tofu.I.Editor.EditorTextures.LogCategoryErrorIcon.TextureId;
+				textureId = Tofu.Editor.EditorTextures.LogCategoryErrorIcon.TextureId;
 			}
 
 			if (filter == LogCategoryFilter.Warning)
 			{
-				textureId = Tofu.I.Editor.EditorTextures.LogCategoryWarningIcon.TextureId;
+				textureId = Tofu.Editor.EditorTextures.LogCategoryWarningIcon.TextureId;
 			}
 
 			if (filter == LogCategoryFilter.Timer)
 			{
-				textureId = Tofu.I.Editor.EditorTextures.LogCategoryTimerIcon.TextureId;
+				textureId = Tofu.Editor.EditorTextures.LogCategoryTimerIcon.TextureId;
 			}
 
 			ImGui.Image(textureId, new System.Numerics.Vector2(30, 30), new Vector2(0, 0), new Vector2(1, 1), hasFlag ? new Vector4(1, 1, 1, 1) : new Vector4(1, 1, 1, 0.3f)); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
@@ -146,25 +146,25 @@ public class EditorPanelConsole : EditorPanel
 			bool clicked = ImGui.IsItemClicked();
 			if (clicked)
 			{
-				Tofu.I.Window.ClipboardString = log.Message;
+				Tofu.Window.ClipboardString = log.Message;
 				_selectedMessageIndex = _selectedMessageIndex == i ? -1 : i;
 			}
 
 
-			int textureId = Tofu.I.Editor.EditorTextures.LogCategoryInfoIcon.TextureId;
+			int textureId = Tofu.Editor.EditorTextures.LogCategoryInfoIcon.TextureId;
 			if (log.LogCategory == LogCategory.Error)
 			{
-				textureId = Tofu.I.Editor.EditorTextures.LogCategoryErrorIcon.TextureId;
+				textureId = Tofu.Editor.EditorTextures.LogCategoryErrorIcon.TextureId;
 			}
 
 			if (log.LogCategory == LogCategory.Warning)
 			{
-				textureId = Tofu.I.Editor.EditorTextures.LogCategoryWarningIcon.TextureId;
+				textureId = Tofu.Editor.EditorTextures.LogCategoryWarningIcon.TextureId;
 			}
 
 			if (log.LogCategory == LogCategory.Timer)
 			{
-				textureId = Tofu.I.Editor.EditorTextures.LogCategoryTimerIcon.TextureId;
+				textureId = Tofu.Editor.EditorTextures.LogCategoryTimerIcon.TextureId;
 			}
 
 			ImGui.SameLine();
