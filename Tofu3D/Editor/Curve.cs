@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Tofu3D;
 
 public class Curve
@@ -10,11 +12,12 @@ public class Curve
 
     public Curve()
     {
-RecalculateCurve();
+        RecalculateCurve();
     }
 
     public void RecalculateCurve()
     {
+        DefiningPoints.Sort((vector2, vector3) => vector2.X.CompareTo(vector3.X));
         _points = new float[NUM_OF_POINTS];
         Vector2[] uh = HigherOrderBezierCurve(DefiningPoints, NUM_OF_POINTS);
         for (int i = 0; i < _points.Length; i++)
@@ -30,7 +33,7 @@ RecalculateCurve();
     }
 
     // A function that takes an array of n+1 points that define a higher-order Bezier curve
-// and returns an array of points that approximate the curve
+    // and returns an array of points that approximate the curve
     public static Vector2[] HigherOrderBezierCurve(List<Vector2> points, int numPoints)
     {
         // Check if the input array has at least two points
@@ -80,7 +83,7 @@ RecalculateCurve();
         return output;
     }
 
-// A helper function that calculates the binomial coefficient using a recursive formula
+    // A helper function that calculates the binomial coefficient using a recursive formula
     public static int BinomialCoefficient(int n, int k)
     {
         // Check if n and k are non-negative integers

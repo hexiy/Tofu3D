@@ -647,6 +647,7 @@ public class EditorPanelInspector : EditorPanel
                     string.Empty,
                     0, 1,
                     graphSize);
+               Vector2 cursorPos= ImGui.GetCursorPos();
 
                 for (int i = 0; i < curve.DefiningPoints.Count; i++)
                 {
@@ -678,19 +679,21 @@ public class EditorPanelInspector : EditorPanel
                     {
                         curve.DefiningPoints[i] += Tofu.MouseInput.ScreenDelta / graphSize * 2;
                         curve.RecalculateCurve();
+                        Debug.Log($"Dragging curve point:{curve.DefiningPoints[i]}");
                     }
 
                     bool doubleClicked = ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
                     if (doubleClicked)
                     {
                         Vector2 cursorPosRelativeToCurveSpace =
-                            (Tofu.MouseInput.ScreenPosition - screenPos) / graphSize * 2;
+                            (Tofu.MouseInput.ScreenPosition - screenPos) / graphSize * 2 * new Vector2(1,0);
 
                         Debug.Log($"Added point to curve :{cursorPosRelativeToCurveSpace}");
                         curve.AddDefiningPoint(cursorPosRelativeToCurveSpace);
                         break;
                     }
                 }
+                ImGui.SetCursorPos(cursorPos); // so the next imgui element doesnt move with control points
             }
             else if (info.FieldOrPropertyType == typeof(Mesh))
             {
