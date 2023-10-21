@@ -16,6 +16,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
         Vector2 mousePos = Tofu.MouseInput.PositionInWindow;
         Vector2 mousePosRelativeToGraph =
             (mousePos - screenPos)*Tofu.Window.MonitorScale + new Vector2(0,(graphSize.Y));
+        Vector2 mousePosInGraphNormalizedCoordinates = (mousePosRelativeToGraph / graphSize);
         Debug.Log(mousePosRelativeToGraph);
 
 
@@ -28,7 +29,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
 
 
         bool cursorIsInsideGraph = ImGui.IsItemHovered();
-        bool doubleClickedGraph = ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
+        bool doubleClickedGraph = cursorIsInsideGraph && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
 
         Vector2 cursorPos = ImGui.GetCursorPos();
 
@@ -64,7 +65,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
             {
                 // curve.DefiningPoints[i] += Tofu.MouseInput.ScreenDelta / graphSize * 2;
                 // 
-                curve.DefiningPoints[i] = (mousePosRelativeToGraph / graphSize);
+                curve.DefiningPoints[i] = mousePosInGraphNormalizedCoordinates;
 
                 // Vector2 newPos = new Vector2(pos.X + (curve.DefiningPoints[i].X * graphSize.X),
                 //     pos.Y + (1 - curve.DefiningPoints[i].Y) * graphSize.Y);
@@ -83,6 +84,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
                         curve.DefiningPoints.RemoveAt(i);
                         Debug.Log("Removed point");
                         doubleClickedGraph = false;
+                        curve.RecalculateCurve();
                         break;
                     }
                 }
@@ -91,11 +93,8 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
 
         if (doubleClickedGraph)
         {
-            Vector2 cursorPosRelativeToCurveSpace =
-                (Tofu.MouseInput.PositionInView - screenPos) / graphSize * 2 * new Vector2(1, 0);
-
-            Debug.Log($"Added point to curve :{cursorPosRelativeToCurveSpace}");
-            curve.AddDefiningPoint(cursorPosRelativeToCurveSpace);
+            curve.AddDefiningPoint(mousePosInGraphNormalizedCoordinates);
+            curve.RecalculateCurve();
         }
 
         ImGui.SetCursorPos(cursorPos); // so the next imgui element doesnt move with control points
