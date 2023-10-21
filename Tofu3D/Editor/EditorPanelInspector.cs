@@ -17,7 +17,7 @@ public class EditorPanelInspector : EditorPanel
 
     string _addComponentPopupText = "";
     int _contentMaxWidth;
-    private int draggingPointIndex=-1;
+    private int draggingPointIndex = -1;
 
     public static EditorPanelInspector I { get; private set; }
 
@@ -647,7 +647,11 @@ public class EditorPanelInspector : EditorPanel
                     string.Empty,
                     0, 1,
                     graphSize);
-               Vector2 cursorPos= ImGui.GetCursorPos();
+
+                bool cursorIsInsideGraph = ImGui.IsItemHovered();
+                bool doubleClickedGraph = ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
+
+                Vector2 cursorPos = ImGui.GetCursorPos();
 
                 for (int i = 0; i < curve.DefiningPoints.Count; i++)
                 {
@@ -655,13 +659,15 @@ public class EditorPanelInspector : EditorPanel
 
                     Vector2 newPos = new Vector2(pos.X + (curve.DefiningPoints[i].X * graphSize.X),
                         pos.Y + (1 - curve.DefiningPoints[i].Y) * graphSize.Y);
+
                     ImGui.SetCursorPos(newPos - new Vector2(15));
 
                     Texture texture = Tofu.AssetManager.Load<Texture>("Resources/dot.png");
+
                     ImGui.Image(texture.TextureId, new(30), new(0), new(1), Color.Purple.ToVector4());
 
-
-                    if (draggingPointIndex!=-1 && ImGui.IsMouseDown(ImGuiMouseButton.Left) == false)
+                    bool cursorHoversCurrentPoint = ImGui.IsItemHovered();
+                    if (draggingPointIndex != -1 && ImGui.IsMouseDown(ImGuiMouseButton.Left) == false)
                     {
                         draggingPointIndex = -1;
                     }
@@ -675,24 +681,39 @@ public class EditorPanelInspector : EditorPanel
                         }
                     }
 
-                    if (draggingPointIndex==i)
+                    if (draggingPointIndex == i && cursorIsInsideGraph)
                     {
                         curve.DefiningPoints[i] += Tofu.MouseInput.ScreenDelta / graphSize * 2;
                         curve.RecalculateCurve();
-                        Debug.Log($"Dragging curve point:{curve.DefiningPoints[i]}");
+                        // Debug.Log($"Dragging curve point:{curve.DefiningPoints[i]}");
                     }
 
                     bool doubleClicked = ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
                     if (doubleClicked)
                     {
-                        Vector2 cursorPosRelativeToCurveSpace =
-                            (Tofu.MouseInput.ScreenPosition - screenPos) / graphSize * 2 * new Vector2(1,0);
-
-                        Debug.Log($"Added point to curve :{cursorPosRelativeToCurveSpace}");
-                        curve.AddDefiningPoint(cursorPosRelativeToCurveSpace);
-                        break;
+                        if (cursorHoversCurrentPoint)
+                        {
+                            if (curve.CanRemovePoint)
+                            {
+                                // remoove the hovered point
+                                curve.DefiningPoints.RemoveAt(i);
+                                Debug.Log("Removed point");
+                                doubleClickedGraph = false;
+                                break;
+                            }
+                        }
                     }
                 }
+
+                if (doubleClickedGraph)
+                {
+                    Vector2 cursorPosRelativeToCurveSpace =
+                        (Tofu.MouseInput.ScreenPosition - screenPos) / graphSize * 2 * new Vector2(1, 0);
+
+                    Debug.Log($"Added point to curve :{cursorPosRelativeToCurveSpace}");
+                    curve.AddDefiningPoint(cursorPosRelativeToCurveSpace);
+                }
+
                 ImGui.SetCursorPos(cursorPos); // so the next imgui element doesnt move with control points
             }
             else if (info.FieldOrPropertyType == typeof(Mesh))

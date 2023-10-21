@@ -7,19 +7,44 @@ public class Curve
     private static readonly int NUM_OF_POINTS = 1000;
     public float[] _points;
 
-    public List<Vector2> DefiningPoints = new List<Vector2>()
-        { new Vector2(0, 0.5f), new Vector2(0.5f, 0f), new Vector2(0.8f, 0.5f) };
+    public List<Vector2> DefiningPoints;
 
     public Curve()
     {
         RecalculateCurve();
     }
 
+    public float Sample(float t)
+    {
+        t = Mathf.Clamp(t, 0, 1);
+        
+        return _points[(int)((NUM_OF_POINTS-1) * t)];
+    }
     public void RecalculateCurve()
     {
-        DefiningPoints.Sort((vector2, vector3) => vector2.X.CompareTo(vector3.X));
+        if (DefiningPoints==null || DefiningPoints.Count < 2)
+        {
+            return;
+            // DefiningPoints = new List<Vector2>()
+            //      { new Vector2(0, 0.5f), new Vector2(0.5f, 0f), new Vector2(0.8f, 0.5f) };
+        }
+        // DefiningPoints.Sort((vector2, vector3) => vector2.X.CompareTo(vector3.X));
+        DefiningPoints.ForEach((vector2 => vector2 = Vector2.Clamp(vector2,Vector2.Zero, Vector2.One)));
+
+        for (int i = 0; i < DefiningPoints.Count; i++)
+        {
+            DefiningPoints[i] = new Vector2(Mathf.Clamp(DefiningPoints[i].X, 0, 1),
+                Mathf.Clamp(DefiningPoints[i].Y, 0, 1));
+        }
+       
         _points = new float[NUM_OF_POINTS];
-        Vector2[] uh = HigherOrderBezierCurve(DefiningPoints, NUM_OF_POINTS);
+
+        Vector2[] x=new Vector2[DefiningPoints.Count];
+         DefiningPoints.CopyTo(x);
+         List<Vector2> xList = x.ToList();
+         xList.Sort((vector2, vector3) => vector2.X.CompareTo(vector3.X));
+
+        Vector2[] uh = HigherOrderBezierCurve(xList, NUM_OF_POINTS);
         for (int i = 0; i < _points.Length; i++)
         {
             // _points[i] = Mathf.Sin((float)i / NUM_OF_POINTS * Mathf.TwoPi * 10) * 0.5f + 0.5f;
@@ -32,6 +57,7 @@ public class Curve
         DefiningPoints.Add(point);
     }
 
+    public bool CanRemovePoint => DefiningPoints.Count > 2;
     // A function that takes an array of n+1 points that define a higher-order Bezier curve
     // and returns an array of points that approximate the curve
     public static Vector2[] HigherOrderBezierCurve(List<Vector2> points, int numPoints)

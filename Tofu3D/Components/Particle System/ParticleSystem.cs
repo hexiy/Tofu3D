@@ -17,8 +17,10 @@ public class ParticleSystem : Component, IComponentUpdateable
 	private float _time;
 	[Show] public Vector3 StartVelocity { get; set; } = new(0, 0,0);
 	[Show] public float Speed { get; set; } = 2;
-	[Show] public Vector3 StartSize { get; set; } = new(1);
-	[Show] public Vector3 EndSize { get; set; } = new(1);
+	// [Show] public Vector3 StartSize { get; set; } = new(1);
+	// [Show] public Vector3 EndSize { get; set; } = new(1);
+	[Show] public Curve SizeCurve = new Curve();
+
 	[Show] public Color StartColor { get; set; } = Color.White;
 	[Show] public Color StartColor2 { get; set; } = Color.Gray;
 	[Show] public Color EndColor { get; set; } = Color.Black;
@@ -68,7 +70,7 @@ public class ParticleSystem : Component, IComponentUpdateable
 
 				//particles[i].color = new Color(255,255,255,(int)(((int)particles[i].lifetime / MaxLifetime + 0.2f) * 255));
 
-				Particles[i].Size = Tofu3D.Vector3.Lerp(StartSize, EndSize, Particles[i].Lifetime / MaxLifetime);
+				Particles[i].Size = Tofu3D.Vector3.Lerp(Particles[i].Size, Vector3.One*SizeCurve.Sample(Particles[i].Lifetime / MaxLifetime), Time.EditorDeltaTime*50);
 
 				if (Particles[i].Lifetime > MaxLifetime)
 				{
@@ -76,6 +78,7 @@ public class ParticleSystem : Component, IComponentUpdateable
 					_pool.PutObject(Particles[i]);
 
 					Particles.RemoveAt(i);
+					i--;
 				}
 			}
 
@@ -88,7 +91,7 @@ public class ParticleSystem : Component, IComponentUpdateable
 		LatestParticle = p;
 		p.Visible = true;
 		p.Lifetime = 0;
-		p.Size = StartSize;
+		p.Size = Vector3.One*SizeCurve.Sample(0);
 		p.WorldPosition = Transform.WorldPosition;
 		p.WorldPosition += new Vector3(Random.Range(-SpawnBoundsSize.X, SpawnBoundsSize.X), Random.Range(-SpawnBoundsSize.Y, SpawnBoundsSize.Y),Random.Range(-SpawnBoundsSize.Z, SpawnBoundsSize.Z));
 
