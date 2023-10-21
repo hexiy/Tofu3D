@@ -1,9 +1,4 @@
 ﻿using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using Tofu3D.Physics;
-using Tofu3D.Rendering;
-using Tofu3D.Tweening;
 
 namespace Tofu3D;
 

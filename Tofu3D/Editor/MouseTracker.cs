@@ -17,7 +17,7 @@ public class MouseTracker : Component, IComponentUpdateable
 
 	public override void Update()
 	{
-		Transform.WorldPosition = Tofu.MouseInput.ScreenPosition;
+		Transform.WorldPosition = Tofu.MouseInput.PositionInView;
 		Transform.Rotation = Transform.Rotation.Set(z: Transform.Rotation.Z + Time.EditorDeltaTime * 150);
 		if (Tofu.MouseInput.ButtonPressed(MouseButtons.Left) || Tofu.MouseInput.ButtonPressed(MouseButtons.Right))
 		{

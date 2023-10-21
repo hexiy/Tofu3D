@@ -1,6 +1,4 @@
-﻿using System.Drawing.Drawing2D;
-using Microsoft.DotNet.PlatformAbstractions;
-using OpenTK.Compute.OpenCL;
+﻿using Microsoft.DotNet.PlatformAbstractions;
 
 namespace Tofu3D;
 

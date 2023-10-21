@@ -1,6 +1,4 @@
-﻿using Tofu3D.Rendering;
-
-public class ModelRendererInstanced : Renderer
+﻿public class ModelRendererInstanced : Renderer
 {
     public override void Awake()
     {

@@ -6,9 +6,7 @@ using OpenTK.Windowing.Common.Input;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.ColorSpaces;
 using SixLabors.ImageSharp.PixelFormats;
-using Tofu3D.Rendering;
 
 namespace Tofu3D;
 
@@ -46,6 +44,8 @@ public class Window : GameWindow
 	{
 		get { return new Vector2(Size.X, Size.Y); }
 	}
+
+	public Vector2 WindowPosition { get; private set; }
 
 	private float _monitorScale;
 	public float MonitorScale => _monitorScale;
@@ -86,10 +86,16 @@ public class Window : GameWindow
 
 	protected override void OnResize(ResizeEventArgs e)
 	{
-		if (_loaded == false) return;
+		// if (_loaded == false) return;
 		base.OnResize(e);
 		
 		Tofu.ImGuiController?.WindowResized(ClientSize.X, ClientSize.Y);
+	}
+
+	protected override void OnMove(WindowPositionEventArgs e)
+	{
+		WindowPosition = new Vector2(e.Position.X, e.Position.Y);
+		base.OnMove(e);
 	}
 
 	protected override void OnUpdateFrame(FrameEventArgs e)

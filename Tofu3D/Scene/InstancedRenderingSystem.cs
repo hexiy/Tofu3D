@@ -1,6 +1,4 @@
-﻿using Tofu3D.Rendering;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public class InstancedRenderingSystem
 {

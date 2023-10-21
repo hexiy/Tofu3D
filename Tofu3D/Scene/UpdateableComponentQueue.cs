@@ -1,6 +1,4 @@
-﻿using Tofu3D.Components;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public class UpdateableComponentQueue : IComponentQueue
 {

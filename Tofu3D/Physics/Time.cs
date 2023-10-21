@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using OpenTK.Windowing.Common;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public static class Time
 {

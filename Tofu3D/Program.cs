@@ -1,10 +1,4 @@
-﻿using System.Globalization;
-using System.IO;
-using System.Threading;
-using Tofu3D.Rendering;
-using Tofu3D.Tweening;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public static class Program
 {

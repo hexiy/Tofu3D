@@ -2,6 +2,7 @@
 
 public class InspectorObjectReferencesTest : Component
 {
+	[Show] public Vector2 xxxxx;
 	[XmlIgnore]
 	public Action AddGameObjectToList;
 	[Show]

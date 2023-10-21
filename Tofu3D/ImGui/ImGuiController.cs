@@ -6,7 +6,6 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using ErrorCode = OpenTK.Graphics.OpenGL4.ErrorCode;
 using Keys = OpenTK.Windowing.GraphicsLibraryFramework.Keys;
 using OperatingSystem = Tofu3D.OperatingSystem;
-using Window = Tofu3D.Window;
 
 public class ImGuiController : IDisposable
 {
@@ -250,7 +249,6 @@ void main()
     void UpdateImGuiInput(GameWindow wnd)
     {
         ImGuiIOPtr io = ImGui.GetIO();
-
         MouseState mouseState = wnd.MouseState;
         KeyboardState keyboardState = wnd.KeyboardState;
 

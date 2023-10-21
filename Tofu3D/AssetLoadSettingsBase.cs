@@ -1,6 +1,4 @@
-﻿using Microsoft.DotNet.PlatformAbstractions;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public abstract class AssetLoadSettingsBase
 {

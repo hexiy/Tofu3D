@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using ImGuiNET;
+﻿using ImGuiNET;
 
 namespace Tofu3D;
 

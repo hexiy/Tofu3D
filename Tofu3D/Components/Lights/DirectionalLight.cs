@@ -1,5 +1,3 @@
-using Tofu3D.Rendering;
-
 [ExecuteInEditMode]
 public class DirectionalLight : LightBase
 {

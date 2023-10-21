@@ -25,7 +25,7 @@ public class PhysicsTest : Component, IComponentUpdateable
 		}
 
 		// Ray ray = new Ray(Camera.I.ScreenToWorld(Tofu.MouseInput.ScreenPosition)*1000, Camera.I.TransformToWorld(Vector3.Forward).Normalized());
-		Ray ray = new(Camera.MainCamera.TransformToWorld(Tofu.MouseInput.ScreenPosition), Camera.MainCamera.TransformToWorld(Tofu.MouseInput.ScreenPosition) + Camera.MainCamera.TransformToWorld(Vector3.Forward).Normalized());
+		Ray ray = new(Camera.MainCamera.TransformToWorld(Tofu.MouseInput.PositionInView), Camera.MainCamera.TransformToWorld(Tofu.MouseInput.PositionInView) + Camera.MainCamera.TransformToWorld(Vector3.Forward).Normalized());
 
 		RaycastResult result = Physics.Raycast(ray);
 

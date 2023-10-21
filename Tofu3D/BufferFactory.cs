@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public static class BufferFactory
 {

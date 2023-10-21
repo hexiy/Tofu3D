@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace Tofu3D;
 
 public struct LogEntry

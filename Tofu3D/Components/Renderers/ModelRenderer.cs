@@ -1,5 +1,3 @@
-using Tofu3D.Rendering;
-
 public class ModelRenderer : TextureRenderer
 {
 	// public Mesh Mesh;

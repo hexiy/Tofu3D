@@ -1,6 +1,4 @@
-﻿using Tofu3D.Rendering;
-
-public class ParticleSystemRenderer : Renderer
+﻿public class ParticleSystemRenderer : Renderer
 {
     private ParticleSystem _particleSystem;
 

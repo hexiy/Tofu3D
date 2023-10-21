@@ -1,7 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
-using System.Numerics;
-using Tofu3D.Rendering;
 
 namespace Tofu3D;
 

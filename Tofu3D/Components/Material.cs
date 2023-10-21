@@ -1,4 +1,3 @@
-using System.IO;
 using Microsoft.DotNet.PlatformAbstractions;
 
 namespace Scripts;

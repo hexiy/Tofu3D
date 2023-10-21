@@ -1,6 +1,5 @@
 using ImGuiNET;
 using OpenTK.Windowing.Common;
-using Tofu3D.Rendering;
 
 namespace Tofu3D;
 

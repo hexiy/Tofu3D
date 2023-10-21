@@ -1,6 +1,4 @@
-﻿using System.Data.SqlTypes;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public class PersistentObject<T>
 {

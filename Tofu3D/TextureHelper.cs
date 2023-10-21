@@ -1,8 +1,4 @@
-﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public static class TextureHelper
 {

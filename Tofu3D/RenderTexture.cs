@@ -1,8 +1,4 @@
-﻿using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.IO;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public class RenderTexture
 {

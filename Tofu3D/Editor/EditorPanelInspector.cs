@@ -1,8 +1,6 @@
 using System.Collections;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using ImGuiNET;
 
 namespace Tofu3D;
@@ -17,24 +15,75 @@ public class EditorPanelInspector : EditorPanel
 
     string _addComponentPopupText = "";
     int _contentMaxWidth;
-    private int draggingPointIndex = -1;
 
     public static EditorPanelInspector I { get; private set; }
 
     Action _actionQueue = () => { };
+    public void AddActionToActionQueue(Action action) => _actionQueue += action;
     List<InspectableData> _currentInspectableDatas = new List<InspectableData>(); // cached inspectable data
     bool _editing;
 
     bool _refreshQueued = false;
+
+    public void QueueRefresh() => _refreshQueued = true;
+    // if its a list, simply draw it like any other value but under the list row
+    List<Type> _componentTypes;
 
     private bool HasInspectableData
     {
         get { return _currentInspectableDatas.Count > 0; }
     }
 
+    private Dictionary<Type, IInspectorFieldDrawable> _inspectorFieldDrawables;
+
+    public static List<Type> InspectorSupportedTypes; /* = new()
+    {
+        typeof(GameObject),
+        typeof(Material),
+        typeof(Vector3),
+        typeof(Vector2),
+        typeof(Texture),
+        typeof(CubemapTexture),
+        typeof(Color),
+        typeof(bool),
+        typeof(float),
+        typeof(int),
+        typeof(string),
+        typeof(Action),
+        typeof(AudioClip),
+        typeof(Mesh),
+        typeof(Shader),
+        typeof(Curve)
+    };*/
+
     public override void Init()
     {
         I = this;
+
+        _inspectorFieldDrawables = new Dictionary<Type, IInspectorFieldDrawable>()
+        {
+            { typeof(Vector2), new InspectorFieldDrawerVector2() },
+            { typeof(Vector3), new InspectorFieldDrawerVector3() },
+            { typeof(GameObject), new InspectorFieldDrawerGameObject() },
+            { typeof(Material), new InspectorFieldDrawerMaterial() },
+            { typeof(Texture), new InspectorFieldDrawerTexture() },
+            { typeof(CubemapTexture), new InspectorFieldDrawerCubemapTexture() },
+            { typeof(Color), new InspectorFieldDrawerColor() },
+            { typeof(bool), new InspectorFieldDrawerBool() },
+            { typeof(float), new InspectorFieldDrawerFloat() },
+            { typeof(int), new InspectorFieldDrawerInt() },
+            { typeof(string), new InspectorFieldDrawerString() },
+            { typeof(Action), new InspectorFieldDrawerAction() },
+            { typeof(AudioClip), new InspectorFieldDrawerAudioClip() },
+            { typeof(Mesh), new InspectorFieldDrawerMesh() },
+            { typeof(Curve), new InspectorFieldDrawerCurve() },
+        };
+
+        InspectorSupportedTypes = new();
+        foreach (KeyValuePair<Type, IInspectorFieldDrawable> keyValuePair in _inspectorFieldDrawables)
+        {
+            InspectorSupportedTypes.Add(keyValuePair.Key);
+        }
 
         _componentTypes = typeof(Component).Assembly.GetTypes()
             .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
@@ -175,36 +224,11 @@ public class EditorPanelInspector : EditorPanel
             // }
         }
 
-        // if (_selectedMaterial != null)
-        // {
-        // 	DrawMaterialInspector();
-        // }
 
         ImGui.End();
     }
 
-    public static List<Type> InspectorSupportedTypes = new()
-    {
-        typeof(GameObject),
-        typeof(Material),
-        typeof(Vector3),
-        typeof(Vector2),
-        typeof(Texture),
-        typeof(CubemapTexture),
-        typeof(Color),
-        typeof(bool),
-        typeof(float),
-        typeof(int),
-        typeof(string),
-        typeof(Action),
-        typeof(AudioClip),
-        typeof(Mesh),
-        typeof(Shader),
-        typeof(Curve)
-    };
 
-    // if its a list, simply draw it like any other value but under the list row
-    List<Type> _componentTypes;
 
     void DrawInspectables(List<InspectableData> inspectableDatas)
     {
@@ -411,105 +435,6 @@ public class EditorPanelInspector : EditorPanel
                 materialToShowAtTheBottom
             });
         }
-        // void DrawMaterialStuff(InspectableData componentInspectorData)
-        // {
-        // 	PushNextId();
-        // 	Material selectedMaterial = componentInspectorData.Inspectable as Material;
-        // 	// bool saveMaterialClicked = ImGui.Button("Save");
-        // 	// if (saveMaterialClicked)
-        // 	// {
-        // 	// 	// Tofu.AssetManager.Save<Material>(selectedMaterial);
-        // 	// }
-        //
-        // 	string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.Path);
-        // 	ImGui.Text(materialName);
-        //
-        // 	ImGui.Text("Shader");
-        // 	float itemWidth = 400;
-        // 	ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth);
-        // 	ImGui.SetNextItemWidth(itemWidth);
-        //
-        // 	string shaderPath = selectedMaterial.Shader?.Path ?? "";
-        // 	string shaderName = Path.GetFileName(shaderPath);
-        // 	bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-        // 	if (clicked)
-        // 	{
-        // 		EditorPanelBrowser.I.GoToFile(shaderPath);
-        // 	}
-        //
-        // 	if (ImGui.BeginDragDropTarget())
-        // 	{
-        // 		ImGui.AcceptDragDropPayload("SHADER", ImGuiDragDropFlags.None);
-        //
-        // 		shaderPath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-        // 		if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && shaderPath.Length > 0)
-        // 		{
-        // 			//shaderPath = Path.GetRelativePath("Assets", shaderPath);
-        // 			Shader shader = new(shaderPath);
-        //
-        // 			selectedMaterial.Shader = shader;
-        // 			_actionQueue += () => { Tofu.AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
-        // 			// Tofu.AssetManager.Save<Material>(selectedMaterial);
-        // 		}
-        //
-        // 		ImGui.EndDragDropTarget();
-        // 	}
-        //
-        // 	if (selectedMaterial.Shader == null)
-        // 	{
-        // 		return;
-        // 	}
-        // }
-
-        // void DrawMaterialStuff(InspectableData componentInspectorData)
-        // {
-        // 	PushNextId();
-        // 	Material selectedMaterial = componentInspectorData.Inspectable as Material;
-        // 	// bool saveMaterialClicked = ImGui.Button("Save");
-        // 	// if (saveMaterialClicked)
-        // 	// {
-        // 	// 	// AssetManager.Save<Material>(selectedMaterial);
-        // 	// }
-        //
-        // 	string materialName = Path.GetFileNameWithoutExtension(selectedMaterial.AssetPath);
-        // 	ImGui.Text(materialName);
-        //
-        // 	ImGui.Text("Shader");
-        // 	float itemWidth = 400;
-        // 	ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth);
-        // 	ImGui.SetNextItemWidth(itemWidth);
-        //
-        // 	string shaderPath = selectedMaterial.Shader?.Path ?? "";
-        // 	string shaderName = Path.GetFileName(shaderPath);
-        // 	bool clicked = ImGui.Button(shaderName, new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-        // 	if (clicked)
-        // 	{
-        // 		EditorPanelBrowser.I.GoToFile(shaderPath);
-        // 	}
-        //
-        // 	if (ImGui.BeginDragDropTarget())
-        // 	{
-        // 		ImGui.AcceptDragDropPayload("SHADER", ImGuiDragDropFlags.None);
-        //
-        // 		shaderPath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-        // 		if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && shaderPath.Length > 0)
-        // 		{
-        // 			//shaderPath = Path.GetRelativePath("Assets", shaderPath);
-        // 			Shader shader = new(shaderPath);
-        //
-        // 			selectedMaterial.Shader = shader;
-        // 			_actionQueue += () => { AssetManager.Save<Material>(componentInspectorData.Inspectable as Material); };
-        // 			// AssetManager.Save<Material>(selectedMaterial);
-        // 		}
-        //
-        // 		ImGui.EndDragDropTarget();
-        // 	}
-        //
-        // 	if (selectedMaterial.Shader == null)
-        // 	{
-        // 		return;
-        // 	}
-        // }
     }
 
 
@@ -617,425 +542,8 @@ public class EditorPanelInspector : EditorPanel
             }
         }
 
-        if (info.FieldOrPropertyType == typeof(Vector3))
-        {
-            System.Numerics.Vector3 systemv3 = (Vector3)info.GetValue(componentInspectorData.Inspectable);
-            if (ImGui.DragFloat3("", ref systemv3, 0.01f))
-            {
-                info.SetValue(componentInspectorData.Inspectable, (Vector3)systemv3);
-            }
-        }
-        else if (info.FieldOrPropertyType == typeof(Vector2))
-        {
-            System.Numerics.Vector2 systemv2 = (Vector2)info.GetValue(componentInspectorData.Inspectable);
-            if (ImGui.DragFloat2("", ref systemv2, 0.01f))
-            {
-                info.SetValue(componentInspectorData.Inspectable, (Vector2)systemv2);
-            }
-        }
-        else
-        {
-            if (info.FieldOrPropertyType == typeof(Curve))
-            {
-                Curve curve = (Curve)info.GetValue(componentInspectorData.Inspectable);
-                float v = curve._points[0];
-
-                Vector2 pos = ImGui.GetCursorPos();
-                Vector2 screenPos = ImGui.GetCursorScreenPos() / Tofu.Window.MonitorScale;
-                Vector2 graphSize = new(300, 100);
-                ImGui.PlotLines(string.Empty, ref curve._points[0], curve._points.Length, 0,
-                    string.Empty,
-                    0, 1,
-                    graphSize);
-
-                bool cursorIsInsideGraph = ImGui.IsItemHovered();
-                bool doubleClickedGraph = ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
-
-                Vector2 cursorPos = ImGui.GetCursorPos();
-
-                for (int i = 0; i < curve.DefiningPoints.Count; i++)
-                {
-                    ImGui.SameLine();
-
-                    Vector2 newPos = new Vector2(pos.X + (curve.DefiningPoints[i].X * graphSize.X),
-                        pos.Y + (1 - curve.DefiningPoints[i].Y) * graphSize.Y);
-
-                    ImGui.SetCursorPos(newPos - new Vector2(15));
-
-                    Texture texture = Tofu.AssetManager.Load<Texture>("Resources/dot.png");
-
-                    ImGui.Image(texture.TextureId, new(30), new(0), new(1), Color.Purple.ToVector4());
-
-                    bool cursorHoversCurrentPoint = ImGui.IsItemHovered();
-                    if (draggingPointIndex != -1 && ImGui.IsMouseDown(ImGuiMouseButton.Left) == false)
-                    {
-                        draggingPointIndex = -1;
-                    }
-                    else if (draggingPointIndex == -1)
-                    {
-                        bool x = ImGui.IsItemHovered() && ImGui.IsMouseDragging(ImGuiMouseButton.Left);
-                        x = x || ImGui.IsItemClicked();
-                        if (x)
-                        {
-                            draggingPointIndex = i;
-                        }
-                    }
-
-                    if (draggingPointIndex == i && cursorIsInsideGraph)
-                    {
-                        curve.DefiningPoints[i] += Tofu.MouseInput.ScreenDelta / graphSize * 2;
-                        curve.RecalculateCurve();
-                        // Debug.Log($"Dragging curve point:{curve.DefiningPoints[i]}");
-                    }
-
-                    bool doubleClicked = ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
-                    if (doubleClicked)
-                    {
-                        if (cursorHoversCurrentPoint)
-                        {
-                            if (curve.CanRemovePoint)
-                            {
-                                // remoove the hovered point
-                                curve.DefiningPoints.RemoveAt(i);
-                                Debug.Log("Removed point");
-                                doubleClickedGraph = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                if (doubleClickedGraph)
-                {
-                    Vector2 cursorPosRelativeToCurveSpace =
-                        (Tofu.MouseInput.ScreenPosition - screenPos) / graphSize * 2 * new Vector2(1, 0);
-
-                    Debug.Log($"Added point to curve :{cursorPosRelativeToCurveSpace}");
-                    curve.AddDefiningPoint(cursorPosRelativeToCurveSpace);
-                }
-
-                ImGui.SetCursorPos(cursorPos); // so the next imgui element doesnt move with control points
-            }
-            else if (info.FieldOrPropertyType == typeof(Mesh))
-            {
-                Mesh mesh = (Mesh)info.GetValue(componentInspectorData.Inspectable);
-
-                string assetName = Path.GetFileName(mesh?.Path) ?? "";
-
-                bool clicked = ImGui.Button(assetName,
-                    new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-
-                if (ImGui.BeginDragDropTarget())
-                {
-                    ImGui.AcceptDragDropPayload("CONTENT_BROWSER_MODEL", ImGuiDragDropFlags.None);
-                    string filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                    if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0)
-                    {
-                        // fileName = Path.GetRelativePath("Assets", fileName);
-
-                        mesh = Tofu.AssetManager.Load<Mesh>(filePath);
-                        // gameObject.GetComponent<Renderer>().Material.Vao = Mesh.Vao; // materials are shared
-                        info.SetValue(componentInspectorData.Inspectable, mesh);
-                    }
-
-                    ImGui.EndDragDropTarget();
-                }
-            }
-            else if (info.FieldOrPropertyType == typeof(AudioClip))
-            {
-                AudioClip audioClip = (AudioClip)info.GetValue(componentInspectorData.Inspectable);
-                if (audioClip == null)
-                {
-                    audioClip = new AudioClip();
-                    info.SetValue(componentInspectorData.Inspectable, audioClip);
-                }
-
-                string clipName = Path.GetFileName(audioClip?.Path);
-
-                bool clicked = ImGui.Button(clipName,
-                    new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-
-
-                if (ImGui.BeginDragDropTarget())
-                {
-                    ImGui.AcceptDragDropPayload("CONTENT_BROWSER_AUDIOCLIP", ImGuiDragDropFlags.None);
-                    string fileName = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                    if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && fileName.Length > 0)
-                    {
-                        // fileName = Path.GetRelativePath("Assets", fileName);
-
-                        audioClip.Path = fileName;
-                        info.SetValue(componentInspectorData.Inspectable, audioClip);
-                    }
-
-                    ImGui.EndDragDropTarget();
-                }
-            }
-            else if (info.FieldOrPropertyType == typeof(Action))
-            {
-                Action action = (Action)info.GetValue(componentInspectorData.Inspectable);
-                ImGui.PushStyleColor(ImGuiCol.Text, ImGui.GetStyle().Colors[(int)ImGuiCol.Text]);
-                if (ImGui.Button($"> {info.Name} <",
-                        new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight())))
-                {
-                    action?.Invoke();
-                }
-
-                ImGui.PopStyleColor(1);
-            }
-            else if (info.FieldOrPropertyType == typeof(Texture))
-            {
-                Texture texture = (Texture)info.GetValue(componentInspectorData.Inspectable);
-                string textureName = texture == null ? "" : Path.GetFileName(texture.Path);
-
-                int posX = (int)ImGui.GetCursorPosX();
-
-                if (texture == null)
-                {
-                    ImGui.Dummy(new Vector2(150, 150));
-                }
-                else
-                {
-                    ImGui.Image(texture.TextureId, new Vector2(150, 150));
-                }
-
-                ImGui.SetCursorPosX(posX);
-                bool clicked = ImGui.Button(textureName,
-                    new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-                bool rightMouseClicked = ImGui.IsItemClicked(ImGuiMouseButton.Right);
-                //ImiGui.Text(textureName);
-                if (clicked)
-                {
-                    // Debug.Log("TODO");
-                    _actionQueue += () => { EditorPanelBrowser.I.GoToFile(texture.Path); };
-                }
-
-                if (rightMouseClicked)
-                {
-                    info.SetValue(componentInspectorData.Inspectable, null);
-                }
-
-                if (ImGui.BeginDragDropTarget())
-                {
-                    ImGui.AcceptDragDropPayload("CONTENT_BROWSER_TEXTURE", ImGuiDragDropFlags.None);
-                    string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                    if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
-                    {
-                        payload = Path.GetRelativePath(Folders.EngineFolderPath, payload);
-
-                        textureName = payload;
-
-                        Texture loadedTexture = Tofu.AssetManager.Load<Texture>(textureName);
-
-                        info.SetValue(componentInspectorData.Inspectable, loadedTexture);
-                    }
-
-                    ImGui.EndDragDropTarget();
-                }
-            }
-            else if (info.FieldOrPropertyType == typeof(CubemapTexture))
-            {
-                CubemapTexture cubemapTexture = info.ListElement as CubemapTexture;
-                string textureName = Path.GetFileName(cubemapTexture.Path);
-
-                bool clicked = ImGui.Button(textureName,
-                    new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-                if (clicked)
-                {
-                    EditorPanelBrowser.I.GoToFile(cubemapTexture.Path);
-                }
-            }
-            else if (info.FieldOrPropertyType == typeof(Material))
-            {
-                string materialPath =
-                    Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.Path);
-
-                materialPath = materialPath ?? "";
-                bool clicked = ImGui.Button(materialPath,
-                    new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-                if (clicked)
-                {
-                    _actionQueue += () =>
-                        SelectInspectable((componentInspectorData.Inspectable as Renderer).Material);
-
-
-                    // EditorPanelBrowser.I.GoToFile(materialPath);
-                }
-
-                if (ImGui.BeginDragDropTarget())
-                {
-                    ImGui.AcceptDragDropPayload("CONTENT_BROWSER_MATERIAL", ImGuiDragDropFlags.None);
-                    string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                    if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
-                    {
-                        payload = payload;
-                        string materialName = Path.GetFileName(payload);
-
-                        Material draggedMaterial = Tofu.AssetManager.Load<Material>(payload);
-                        if (draggedMaterial.Shader == null)
-                        {
-                            Debug.Log("No Shader attached to material.");
-                        }
-                        else
-                        {
-                            (componentInspectorData.Inspectable as Renderer).Material = draggedMaterial;
-                        }
-                        // load new material
-                    }
-
-                    ImGui.EndDragDropTarget();
-                }
-            }
-            else if (info.FieldOrPropertyType == typeof(GameObject))
-            {
-                GameObject goObject = info.GetValue(componentInspectorData.Inspectable) as GameObject;
-                string fieldGoName = goObject?.Name ?? "";
-                bool clicked = ImGui.Button(fieldGoName,
-                    new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-                if (clicked && goObject != null)
-                {
-                    // todo
-                    // EditorPanelHierarchy.I.SelectGameObject(goObject.Id);
-                    return true;
-                }
-
-                if (ImGui.BeginDragDropTarget())
-                {
-                    ImGui.AcceptDragDropPayload("PREFAB_PATH", ImGuiDragDropFlags.None);
-                    string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                    string dataType = ImGui.GetDragDropPayload().DataType.GetStringASCII()
-                        .Replace("\0", string.Empty);
-                    if (dataType == "PREFAB_PATH")
-                    {
-                        if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
-                        {
-                            GameObject loadedGo = Tofu.SceneSerializer.LoadPrefab(payload, true);
-                            info.SetValue(componentInspectorData.Inspectable, loadedGo);
-                        }
-                    }
-
-                    ImGui.EndDragDropTarget();
-                }
-
-                if (ImGui.BeginDragDropTarget())
-                {
-                    ImGui.AcceptDragDropPayload("GAMEOBJECT", ImGuiDragDropFlags.None);
-                    string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                    string dataType = ImGui.GetDragDropPayload().DataType.GetStringASCII()
-                        .Replace("\0", string.Empty);
-
-                    if (dataType == "GAMEOBJECT")
-                    {
-                        //	string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                        if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
-                        {
-                            GameObject foundGo = Tofu.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
-                            info.SetValue(componentInspectorData.Inspectable, foundGo);
-                        }
-                    }
-
-                    ImGui.EndDragDropTarget();
-                }
-            }
-            else if (info.FieldOrPropertyType == typeof(Color))
-            {
-                System.Numerics.Vector4 fieldValue =
-                    ((Color)info.GetValue(componentInspectorData.Inspectable)).ToVector4();
-
-                bool hasColor3Attribute =
-                    info.CustomAttributes.Count(data => data.AttributeType == typeof(Color3Attrib)) > 0;
-                bool changed = false;
-                if (hasColor3Attribute)
-                {
-                    System.Numerics.Vector3 vec3 = Extensions.ToVector3(fieldValue);
-
-                    changed = ImGui.ColorEdit3("", ref vec3);
-                    fieldValue = new System.Numerics.Vector4(vec3.X, vec3.Y, vec3.Z, fieldValue.W);
-                }
-                else
-                {
-                    changed = ImGui.ColorEdit4("", ref fieldValue);
-                }
-
-                if (changed)
-                {
-                    info.SetValue(componentInspectorData.Inspectable, fieldValue.ToColor());
-                }
-            }
-            else if (info.FieldOrPropertyType == typeof(bool))
-            {
-                ImGui.SameLine(ImGui.GetWindowWidth() - ImGui.GetContentRegionAvail().X / 2);
-
-                bool fieldValue = (bool)info.GetValue(componentInspectorData.Inspectable);
-
-                if (ImGui.Checkbox("", ref fieldValue))
-                {
-                    info.SetValue(componentInspectorData.Inspectable, fieldValue);
-                    _refreshQueued = true;
-                }
-            }
-            else if (info.FieldOrPropertyType == typeof(float))
-            {
-                float fieldValue = (float)info.GetValue(componentInspectorData.Inspectable);
-
-                SliderF sliderAttrib = null;
-                List<CustomAttributeData> a = info.FieldOrPropertyType.CustomAttributes.ToList();
-                for (int i = 0; i < info.CustomAttributes.Count(); i++)
-                {
-                    if (info.CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(SliderF))
-                    {
-                        FieldInfo fieldType = componentInspectorData.Inspectable.GetType().GetField(info.Name);
-                        if (fieldType != null)
-                        {
-                            sliderAttrib = fieldType.GetCustomAttribute<SliderF>();
-                        }
-                        else
-                        {
-                            PropertyInfo propertyType =
-                                componentInspectorData.Inspectable.GetType().GetProperty(info.Name);
-                            sliderAttrib = propertyType.GetCustomAttribute<SliderF>();
-                        }
-                    }
-                }
-
-                if (sliderAttrib != null)
-                {
-                    if (ImGui.SliderFloat("", ref fieldValue, sliderAttrib.MinValue, sliderAttrib.MaxValue))
-                    {
-                        info.SetValue(componentInspectorData.Inspectable, fieldValue);
-                    }
-                }
-                else
-                {
-                    if (ImGui.DragFloat("", ref fieldValue, 0.01f, float.NegativeInfinity, float.PositiveInfinity,
-                            "%.05f"))
-                    {
-                        info.SetValue(componentInspectorData.Inspectable, fieldValue);
-                    }
-                }
-            }
-            else if (info.FieldOrPropertyType == typeof(int))
-            {
-                int fieldValue = (int)info.GetValue(componentInspectorData.Inspectable);
-
-
-                if (ImGui.DragInt("", ref fieldValue))
-                {
-                    info.SetValue(componentInspectorData.Inspectable, fieldValue);
-                }
-            }
-            else if (info.FieldOrPropertyType == typeof(string))
-            {
-                string fieldValue = info.GetValue(componentInspectorData.Inspectable)?.ToString();
-
-                if (ImGui.InputTextMultiline("", ref fieldValue, 100,
-                        new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, 200)))
-                {
-                    info.SetValue(componentInspectorData.Inspectable, fieldValue);
-                }
-            }
-        }
-
+        _inspectorFieldDrawables[info.FieldOrPropertyType].Draw(info, componentInspectorData);
+        
         if (info.IsReadonly)
         {
             ImGui.EndDisabled();

@@ -120,7 +120,7 @@ public class SceneViewController
 		}
 
 
-		bool isMouseOverSceneView = Tofu.MouseInput.ScreenPosition.X < Camera.MainCamera.Size.X && Tofu.MouseInput.ScreenPosition.Y < Camera.MainCamera.Size.Y && Tofu.MouseInput.ScreenPosition.Y > 0;
+		bool isMouseOverSceneView = Tofu.MouseInput.PositionInView.X < Camera.MainCamera.Size.X && Tofu.MouseInput.PositionInView.Y < Camera.MainCamera.Size.Y && Tofu.MouseInput.PositionInView.Y > 0;
 // Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
 		bool justClicked = Tofu.MouseInput.ButtonPressed(MouseButtons.Left) | Tofu.MouseInput.ButtonPressed(MouseButtons.Right);
 		if (justClicked)

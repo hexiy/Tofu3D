@@ -1,6 +1,4 @@
-﻿using Tofu3D.Components;
-
-namespace Scripts;
+﻿namespace Scripts;
 
 [ExecuteInEditMode]
 public class Renderer : Component, IComparable<Renderer>, IComponentRenderable, IComponentUpdateable

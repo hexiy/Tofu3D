@@ -1,4 +1,4 @@
-﻿using OpenTK.Windowing.Common.Input;
+﻿using ImGuiNET;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Tofu3D;
@@ -17,7 +17,8 @@ public partial class MouseInput
 	/// <summary>
 	/// Screen position of mouse
 	/// </summary>
-	public Vector2 ScreenPosition { get; private set; } = Vector2.Zero;
+	public Vector2 PositionInView { get; private set; } = Vector2.Zero;
+	public Vector2 PositionInWindow { get; private set; } = Vector2.Zero;
 
 	private List<Func<bool>> _passThroughEdgesConditions = new List<Func<bool>>();
 
@@ -62,7 +63,7 @@ public partial class MouseInput
 
 	public Vector2 WorldPosition
 	{
-		get { return Camera.MainCamera.ScreenToWorld(ScreenPosition); }
+		get { return Camera.MainCamera.ScreenToWorld(PositionInView); }
 	}
 
 	public float ScrollDelta
@@ -181,13 +182,19 @@ public partial class MouseInput
 		// 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
 		// }
 
-		ScreenPosition = new Vector2(Tofu.Window.MouseState.X - Tofu.Editor.SceneViewPosition.X,
+		
+		PositionInWindow = new Vector2(Tofu.Window.MousePosition.X, Tofu.Window.Size.Y - Tofu.Window.MousePosition.Y);
+		PositionInView = new Vector2(Tofu.Window.MouseState.X - Tofu.Editor.SceneViewPosition.X,
 		                             -Tofu.Window.MouseState.Y + Camera.MainCamera.Size.Y + Tofu.Editor.SceneViewPosition.Y + 25); // 25 EditorPanelMenuBar height
+		
+		// Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
+		Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
+		// Debug.StatSetValue("imgui mouse pos", $"imgui mmouse pos: {ImGui.GetMousePos()}");
 	}
 
 
     bool IsMouseInSceneView()
 	{
-		return ScreenPosition.X > -_sceneViewPadding && ScreenPosition.X < Camera.MainCamera.Size.X + _sceneViewPadding && ScreenPosition.Y > -_sceneViewPadding && ScreenPosition.Y < Camera.MainCamera.Size.Y + _sceneViewPadding;
+		return PositionInView.X > -_sceneViewPadding && PositionInView.X < Camera.MainCamera.Size.X + _sceneViewPadding && PositionInView.Y > -_sceneViewPadding && PositionInView.Y < Camera.MainCamera.Size.Y + _sceneViewPadding;
 	}
 }

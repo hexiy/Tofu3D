@@ -1,8 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Threading;
-using ImGuiNET;
-using OpenTK.Windowing.Common;
+﻿using ImGuiNET;
 
 namespace Tofu3D;
 

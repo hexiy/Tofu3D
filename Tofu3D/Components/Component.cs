@@ -1,8 +1,5 @@
 ﻿using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using Tofu3D.Components;
 
 namespace Scripts;
 

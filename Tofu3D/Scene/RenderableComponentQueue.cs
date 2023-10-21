@@ -1,5 +1,3 @@
-using Tofu3D.Components;
-
 namespace Tofu3D;
 
 public class RenderableComponentQueue : IComponentQueue
