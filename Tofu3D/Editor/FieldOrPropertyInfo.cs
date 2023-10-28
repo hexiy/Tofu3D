@@ -5,233 +5,177 @@ namespace Tofu3D;
 
 public class FieldOrPropertyInfo
 {
-	public bool CanShowInEditor;
-	FieldInfo _fieldInfo;
-	public bool IsReadonly;
-	PropertyInfo _propertyInfo;
-	public bool IsGenericList;
-	public Type GenericParameterType;
-	public bool IsListElement;
+    public bool CanShowInEditor;
+    public bool HasSpaceAttribute;
+    public string? HeaderText;
+    private FieldInfo _fieldInfo;
+    public bool IsReadonly;
+    private PropertyInfo _propertyInfo;
+    public bool IsGenericList;
+    public Type GenericParameterType;
+    public bool IsListElement;
 
-	public Object ListElement
-	{
-		get { return _list[_index]; }
-	}
-	IList _list;
-	int _index = -1;
+    public object ListElement => _list[_index];
 
-	public FieldOrPropertyInfo(IList list, int index)
-	{
-		_list = list;
-		_index = index;
-	}
+    private IList _list;
+    private int _index = -1;
 
-	public FieldOrPropertyInfo(FieldInfo fi, object obj)
-	{
-		SetInfo(fi, obj);
-	}
+    public FieldOrPropertyInfo(IList list, int index)
+    {
+        _list = list;
+        _index = index;
+    }
 
-	public FieldOrPropertyInfo(PropertyInfo pi, object obj)
-	{
-		SetInfo(pi, obj);
-	}
+    public FieldOrPropertyInfo(FieldInfo fi, object obj)
+    {
+        SetInfo(fi, obj);
+    }
 
-	// fix memory hog, dont create new infos, just update
-	public void SetInfo(FieldInfo fi, object obj)
-	{
-		_fieldInfo = fi;
-		UpdateCanShowInEditor(obj);
-	}
+    public FieldOrPropertyInfo(PropertyInfo pi, object obj)
+    {
+        SetInfo(pi, obj);
+    }
 
-	public void SetInfo(PropertyInfo pi, object obj)
-	{
-		_propertyInfo = pi;
-		UpdateCanShowInEditor(obj);
-	}
+    // fix memory hog, dont create new infos, just update
+    public void SetInfo(FieldInfo fi, object obj)
+    {
+        _fieldInfo = fi;
+        UpdateCanShowInEditor(obj);
+    }
 
-	public IEnumerable<CustomAttributeData> CustomAttributes
-	{
-		get
-		{
-			if (_index != -1)
-			{
-				return ListElement.GetType().CustomAttributes;
-			}
+    public void SetInfo(PropertyInfo pi, object obj)
+    {
+        _propertyInfo = pi;
+        UpdateCanShowInEditor(obj);
+    }
 
-			if (_fieldInfo != null)
-			{
-				return _fieldInfo.CustomAttributes;
-			}
+    public IEnumerable<CustomAttributeData> CustomAttributes
+    {
+        get
+        {
+            if (_index != -1) return ListElement.GetType().CustomAttributes;
 
-			if (_propertyInfo != null)
-			{
-				return _propertyInfo.CustomAttributes;
-			}
+            if (_fieldInfo != null) return _fieldInfo.CustomAttributes;
 
-			return null;
-		}
-	}
-	public string Name
-	{
-		get
-		{
-			if (_index!=-1)
-			{
-				return "RefObject";
-			}
+            if (_propertyInfo != null) return _propertyInfo.CustomAttributes;
 
-			if (_fieldInfo != null)
-			{
-				return _fieldInfo.Name;
-			}
+            return null;
+        }
+    }
 
-			if (_propertyInfo != null)
-			{
-				return _propertyInfo.Name;
-			}
+    public string Name
+    {
+        get
+        {
+            if (_index != -1) return "RefObject";
 
-			return null;
-		}
-	}
-	public Type FieldOrPropertyType
-	{
-		get
-		{
-			if (_index!=-1)
-			{
-				return ListElement.GetType();
-			}
+            if (_fieldInfo != null) return _fieldInfo.Name;
 
-			if (_fieldInfo != null)
-			{
-				return _fieldInfo.FieldType;
-			}
+            if (_propertyInfo != null) return _propertyInfo.Name;
 
-			if (_propertyInfo != null)
-			{
-				return _propertyInfo.PropertyType;
-			}
+            return null;
+        }
+    }
 
-			return null;
-		}
-	}
+    public Type FieldOrPropertyType
+    {
+        get
+        {
+            if (_index != -1) return ListElement.GetType();
 
-	void UpdateCanShowInEditor(object obj)
-	{
-		CanShowInEditor = true;
-		if (_fieldInfo?.IsPrivate==true)
-		{
-			CanShowInEditor = false;
-		}
-		if (_fieldInfo != null && _fieldInfo.DeclaringType == typeof(Component))
-		{
-			CanShowInEditor = false;
-		}
+            if (_fieldInfo != null) return _fieldInfo.FieldType;
 
-		if (_propertyInfo != null && _propertyInfo?.DeclaringType == typeof(Component))
-		{
-			CanShowInEditor = false;
-		}
+            if (_propertyInfo != null) return _propertyInfo.PropertyType;
 
-		foreach (CustomAttributeData attribute in CustomAttributes)
-		{
-			if (attribute.AttributeType == typeof(Show))
-			{
-				CanShowInEditor = true;
-			}
+            return null;
+        }
+    }
 
-			else if (attribute.AttributeType == typeof(ShowIf))
-			{
-				Type objType = obj.GetType();
+    private void UpdateCanShowInEditor(object obj)
+    {
+        CanShowInEditor = true;
+        if (_fieldInfo?.IsPrivate == true) CanShowInEditor = false;
 
-				string name = attribute.ConstructorArguments[0].Value.ToString();
+        if (_fieldInfo != null && _fieldInfo.DeclaringType == typeof(Component)) CanShowInEditor = false;
 
-				FieldInfo field = objType.GetField(name);
-				PropertyInfo property = objType.GetProperty(name);
-				if (field != null)
-				{
-					CanShowInEditor = (bool) field.GetValue(obj);
-				}
+        if (_propertyInfo != null && _propertyInfo?.DeclaringType == typeof(Component)) CanShowInEditor = false;
 
-				if (property != null)
-				{
-					CanShowInEditor = (bool) property.GetValue(obj);
-				}
-			}
+        foreach (CustomAttributeData attribute in CustomAttributes)
+        {
+            if (attribute.AttributeType == typeof(Show)) CanShowInEditor = true;
 
-			else if (attribute.AttributeType == typeof(ShowIfNot))
-			{
-				string name = attribute.ConstructorArguments[0].Value.ToString();
-				Type objType = obj.GetType();
+            if (attribute.AttributeType == typeof(Space)) HasSpaceAttribute = true;
 
-				FieldInfo field = objType.GetField(name);
-				PropertyInfo property = objType.GetProperty(name);
-				if (field != null)
-				{
-					CanShowInEditor = (bool) field.GetValue(obj) == false;
-				}
+            if (attribute.AttributeType == typeof(Header))
+            {
+                Type objType = obj.GetType();
 
-				if (property != null)
-				{
-					CanShowInEditor = (bool) property.GetValue(obj) == false;
-				}
-			}
+                string text = attribute.ConstructorArguments[0].Value.ToString();
 
-			else if (attribute.AttributeType == typeof(Hide))
-			{
-				CanShowInEditor = false;
-			}
+                HeaderText = text;
+            }
 
-			if (Global.Debug)
-			{
-				if (CanShowInEditor == false)
-				{
-					IsReadonly = true;
-				}
+            else if (attribute.AttributeType == typeof(ShowIf))
+            {
+                Type objType = obj.GetType();
 
-				CanShowInEditor = true;
-			}
-		}
-	}
+                string name = attribute.ConstructorArguments[0].Value.ToString();
 
-	public object? GetValue(object? obj)
-	{
-		if (_index!=-1)
-		{
-			return ListElement;
-		}
+                FieldInfo field = objType.GetField(name,
+                    BindingFlags.Default | BindingFlags.Instance | BindingFlags.NonPublic);
+                PropertyInfo property = objType.GetProperty(name,
+                    BindingFlags.Default | BindingFlags.Instance | BindingFlags.NonPublic);
+                if (field != null) CanShowInEditor = (bool)field.GetValue(obj);
 
-		if (_fieldInfo != null)
-		{
-			return _fieldInfo.GetValue(obj);
-		}
+                if (property != null) CanShowInEditor = (bool)property.GetValue(obj);
+            }
 
-		if (_propertyInfo != null)
-		{
-			return _propertyInfo.GetValue(obj);
-		}
+            else if (attribute.AttributeType == typeof(ShowIfNot))
+            {
+                string name = attribute.ConstructorArguments[0].Value.ToString();
+                Type objType = obj.GetType();
 
-		return null;
-	}
+                FieldInfo field = objType.GetField(name);
+                PropertyInfo property = objType.GetProperty(name);
+                if (field != null) CanShowInEditor = (bool)field.GetValue(obj) == false;
 
-	public void SetValue(object? obj, object? value)
-	{
-		if (_fieldInfo != null)
-		{
-			_fieldInfo.SetValue(obj, value);
-		}
+                if (property != null) CanShowInEditor = (bool)property.GetValue(obj) == false;
+            }
 
-		if (_propertyInfo != null)
-		{
-			if (_propertyInfo.GetSetMethod() != null)
-			{
-				_propertyInfo.SetValue(obj, value);
-			}
-		}
+            else if (attribute.AttributeType == typeof(Hide))
+            {
+                CanShowInEditor = false;
+            }
 
-		if (_index!=-1)
-		{
-			_list[_index] = value;
-		}
-	}
+            if (Global.Debug)
+            {
+                if (CanShowInEditor == false) IsReadonly = true;
+
+                CanShowInEditor = true;
+            }
+        }
+    }
+
+    public object? GetValue(object? obj)
+    {
+        if (_index != -1) return ListElement;
+
+        if (_fieldInfo != null) return _fieldInfo.GetValue(obj);
+
+        if (_propertyInfo != null) return _propertyInfo.GetValue(obj);
+
+
+        return null;
+    }
+
+    public void SetValue(object? obj, object? value)
+    {
+        if (_fieldInfo != null) _fieldInfo.SetValue(obj, value);
+
+        if (_propertyInfo != null)
+            if (_propertyInfo.GetSetMethod() != null)
+                _propertyInfo.SetValue(obj, value);
+
+        if (_index != -1) _list[_index] = value;
+    }
 }

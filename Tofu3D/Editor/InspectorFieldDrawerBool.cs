@@ -13,7 +13,7 @@ public class InspectorFieldDrawerBool : InspectorFieldDrawable<bool>
         if (ImGui.Checkbox("", ref fieldValue))
         {
             info.SetValue(componentInspectorData.Inspectable, fieldValue);
-            EditorPanelInspector.I.QueueRefresh();
+            EditorPanelInspector.I.QueueRefresh(componentInspectorData);
         }
     }
 }

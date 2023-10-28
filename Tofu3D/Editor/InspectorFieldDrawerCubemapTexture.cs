@@ -13,9 +13,6 @@ public class InspectorFieldDrawerCubemapTexture : InspectorFieldDrawable<Cubemap
 
         bool clicked = ImGui.Button(textureName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-        if (clicked)
-        {
-            EditorPanelBrowser.I.GoToFile(cubemapTexture.Path);
-        }
+        if (clicked) EditorPanelBrowser.I.GoToFile(cubemapTexture.Path);
     }
 }

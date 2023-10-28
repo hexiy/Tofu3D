@@ -2,9 +2,9 @@
 
 public class FollowMouse : Component
 {
-	public override void Update()
-	{
-		transform.position = Tofu.MouseInput.ScreenPosition;
-	}
+    public override void Update()
+    {
+        transform.position = Tofu.MouseInput.ScreenPosition;
+    }
 }*/
 

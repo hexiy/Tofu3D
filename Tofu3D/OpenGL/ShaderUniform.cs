@@ -2,7 +2,7 @@
 
 public struct ShaderUniform
 {
-	public string Name;
-	public Type Type;
-	public object Value;
+    public string Name;
+    public Type Type;
+    public object Value;
 }

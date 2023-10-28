@@ -5,60 +5,65 @@ namespace Tofu3D;
 
 public class VertexBuffer
 {
-	int ElementsPerVertex { get; init; }
-	// public int Vbo { get; private init; }
-	private int SizeOfElementInBytes { get; init; }
-	VertexAttribPointerType VertexAttribPointerType { get; init; }
+    private int ElementsPerVertex { get; init; }
 
-	private VertexBuffer(int elementsPerVertex /*, int vbo*/, int sizeOfElementInBytes, VertexAttribPointerType vertexAttribPointerType)
-	{
-		SizeOfElementInBytes = sizeOfElementInBytes;
-		ElementsPerVertex = elementsPerVertex;
-		VertexAttribPointerType = vertexAttribPointerType;
-	}
+    // public int Vbo { get; private init; }
+    private int SizeOfElementInBytes { get; init; }
+    private VertexAttribPointerType VertexAttribPointerType { get; init; }
 
-	public static VertexBuffer Create<T>(BufferTarget bufferTarget, T[] vertexData, int elementsPerVertex)
-	{
-		int vbo = GL.GenBuffer();
-		GL.BindBuffer(bufferTarget, vbo);
-		int sizeOfElementInBytes = Unsafe.SizeOf<T>();
-		if (sizeOfElementInBytes == 0)
-		{
-			throw new ArgumentNullException("Define VertexBuffer data value type(float,uint) as the generic parameter Create<T>");
-		}
+    private VertexBuffer(int elementsPerVertex /*, int vbo*/, int sizeOfElementInBytes,
+        VertexAttribPointerType vertexAttribPointerType)
+    {
+        SizeOfElementInBytes = sizeOfElementInBytes;
+        ElementsPerVertex = elementsPerVertex;
+        VertexAttribPointerType = vertexAttribPointerType;
+    }
 
-		VertexAttribPointerType vertexAttribPointerType = VertexAttribPointerType.Float;
+    public static VertexBuffer Create<T>(BufferTarget bufferTarget, T[] vertexData, int elementsPerVertex)
+    {
+        int vbo = GL.GenBuffer();
+        GL.BindBuffer(bufferTarget, vbo);
+        int sizeOfElementInBytes = Unsafe.SizeOf<T>();
+        if (sizeOfElementInBytes == 0)
+            throw new ArgumentNullException(
+                "Define VertexBuffer data value type(float,uint) as the generic parameter Create<T>");
 
-		if (bufferTarget == BufferTarget.ArrayBuffer)
-		{
-			float[] vertexDataFloats = vertexData.Cast<float>().ToArray();
-			vertexAttribPointerType = VertexAttribPointerType.Float;
-			GL.BufferData(bufferTarget, sizeOfElementInBytes * vertexDataFloats.Length, vertexDataFloats, BufferUsageHint.StaticDraw);
-		}
+        VertexAttribPointerType vertexAttribPointerType = VertexAttribPointerType.Float;
 
-		if (bufferTarget == BufferTarget.ElementArrayBuffer)
-		{
-			uint[] vertexDataInts = vertexData.Cast<uint>().ToArray();
-			vertexAttribPointerType = VertexAttribPointerType.UnsignedInt;
+        if (bufferTarget == BufferTarget.ArrayBuffer)
+        {
+            float[] vertexDataFloats = vertexData.Cast<float>().ToArray();
+            vertexAttribPointerType = VertexAttribPointerType.Float;
+            GL.BufferData(bufferTarget, sizeOfElementInBytes * vertexDataFloats.Length, vertexDataFloats,
+                BufferUsageHint.StaticDraw);
+        }
 
-			GL.BufferData(bufferTarget, sizeOfElementInBytes * vertexDataInts.Length, vertexDataInts, BufferUsageHint.StaticDraw);
-		}
+        if (bufferTarget == BufferTarget.ElementArrayBuffer)
+        {
+            uint[] vertexDataInts = vertexData.Cast<uint>().ToArray();
+            vertexAttribPointerType = VertexAttribPointerType.UnsignedInt;
 
-		VertexBuffer vertexBuffer = new VertexBuffer(elementsPerVertex, sizeOfElementInBytes, vertexAttribPointerType);
-		return vertexBuffer;
-	}
+            GL.BufferData(bufferTarget, sizeOfElementInBytes * vertexDataInts.Length, vertexDataInts,
+                BufferUsageHint.StaticDraw);
+        }
 
-	public void EnableAttribs(bool sequential = true, params int[] countsOfElements)
-	{
-		int nextAttribIndex = 0;
-		int currentAttribOffset = 0;
-		foreach (int countOfElements in countsOfElements)
-		{
-			GL.VertexAttribPointer(nextAttribIndex, countOfElements, VertexAttribPointerType, false, ElementsPerVertex * SizeOfElementInBytes, (IntPtr) (sequential ? (currentAttribOffset * SizeOfElementInBytes) : 0));
+        VertexBuffer vertexBuffer = new(elementsPerVertex, sizeOfElementInBytes, vertexAttribPointerType);
+        return vertexBuffer;
+    }
 
-			GL.EnableVertexAttribArray(nextAttribIndex);
-			currentAttribOffset += countOfElements;
-			nextAttribIndex++;
-		}
-	}
+    public void EnableAttribs(bool sequential = true, params int[] countsOfElements)
+    {
+        int nextAttribIndex = 0;
+        int currentAttribOffset = 0;
+        foreach (int countOfElements in countsOfElements)
+        {
+            GL.VertexAttribPointer(nextAttribIndex, countOfElements, VertexAttribPointerType, false,
+                ElementsPerVertex * SizeOfElementInBytes,
+                (IntPtr)(sequential ? currentAttribOffset * SizeOfElementInBytes : 0));
+
+            GL.EnableVertexAttribArray(nextAttribIndex);
+            currentAttribOffset += countOfElements;
+            nextAttribIndex++;
+        }
+    }
 }

@@ -4,10 +4,10 @@ namespace Tofu3D;
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Class, Inherited = false)]
 public sealed class ShowIf : Show
 {
-	public string FieldName;
+    public string FieldName;
 
-	public ShowIf(string fieldName)
-	{
-		this.FieldName = fieldName;
-	}
+    public ShowIf(string fieldName)
+    {
+        FieldName = fieldName;
+    }
 }

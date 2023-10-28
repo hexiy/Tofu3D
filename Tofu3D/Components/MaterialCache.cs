@@ -4,42 +4,43 @@ namespace Tofu3D;
 
 public class MaterialCache
 {
-	static List<Material> _loadedMaterials = new();
+    static List<Material> _loadedMaterials = new();
 
-	public static Material ModelRendererMaterial { get; private set; }
-	public static Material ModelRendererUnlitMaterial { get; private set; }
+    public static Material ModelRendererMaterial { get; private set; }
+    public static Material ModelRendererUnlitMaterial { get; private set; }
 
-	public static Material GetMaterial(string name)
-	{
-		if (name.Contains(".mat") == false)
-		{
-			name += ".mat";
-		}
+    public static Material GetMaterial(string name)
+    {
+        if (name.Contains(".mat") == false)
+        {
+            name += ".mat";
+        }
 
-		for (int i = 0; i < _loadedMaterials.Count; i++)
-		{
-			if (_loadedMaterials[i].FileName == name)
-			{
-				return _loadedMaterials[i];
-			}
-		}
-
-
-		Material material = MaterialTofu.AssetManager.LoadMaterial(Path.Combine(Folders.Materials, name));
+        for (int i = 0; i < _loadedMaterials.Count; i++)
+        {
+            if (_loadedMaterials[i].FileName == name)
+            {
+                return _loadedMaterials[i];
+            }
+        }
 
 
-		_loadedMaterials.Add(material);
-		if (ModelRendererMaterial == null)
-		{
-			CacheModelRendererMaterials();
-		}
+        Material material = MaterialTofu.AssetManager.LoadMaterial(Path.Combine(Folders.Materials, name));
 
-		return material;
-	}
 
-	private static void CacheModelRendererMaterials()
-	{
-		ModelRendererMaterial = GetMaterial("ModelRenderer");
-		ModelRendererUnlitMaterial = GetMaterial("ModelRendererUnlit");
-	}
+        _loadedMaterials.Add(material);
+        if (ModelRendererMaterial == null)
+        {
+            CacheModelRendererMaterials();
+        }
+
+        return material;
+    }
+
+    private static void CacheModelRendererMaterials()
+    {
+        ModelRendererMaterial = GetMaterial("ModelRenderer");
+        ModelRendererUnlitMaterial = GetMaterial("ModelRendererUnlit");
+    }
 }*/
+

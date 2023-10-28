@@ -4,256 +4,242 @@ namespace Tofu3D;
 
 public class SceneViewController
 {
-	bool _clickedInsideScene;
-	float _targetOrthoSize = -1;
-	float _moveSpeed = 5f; // WASD units moved per seconds
-	float _moveSpeedMultiplier = 1; // WASD units moved per seconds
+    private bool _clickedInsideScene;
+    private float _targetOrthoSize = -1;
+    private float _moveSpeed = 5f; // WASD units moved per seconds
+    private float _moveSpeedMultiplier = 1; // WASD units moved per seconds
 
-	public SceneViewController()
-	{
-		Tofu.MouseInput.RegisterPassThroughEdgesCondition(() => AllowPassThroughEdges);
-		SetProjectionMode(CurrentProjectionMode);
-	}
+    public SceneViewController()
+    {
+        Tofu.MouseInput.RegisterPassThroughEdgesCondition(() => AllowPassThroughEdges);
+        SetProjectionMode(CurrentProjectionMode);
+    }
 
-	public bool IsPanningCamera { get; private set; }
-	public bool AllowPassThroughEdges { get; set; }
+    public bool IsPanningCamera { get; private set; }
+    public bool AllowPassThroughEdges { get; set; }
 
-	public PersistentObject<ProjectionMode> CurrentProjectionMode = ("sceneViewProjectionMode", Tofu3D.ProjectionMode.Perspective);
-	// rotation before going into orthographic mode
-	PersistentObject<Vector3> _cameraRotationInPerspectiveMode = ("_cameraRotationInPerspectiveMode", Vector3.Zero);
-	PersistentObject<Vector3> _cameraPositionInPerspectiveMode = ("_cameraPositionInPerspectiveMode", Vector3.Zero);
-	PersistentObject<float> _cameraFieldOfViewInperspectiveMode = ("_cameraFieldOfViewInperspectiveMode", 90);
-	// PersistentObject<int> _savedInt = new PersistentObject<int>();
-	Vector2 _smoothScreenDeltaVectorForMovement = Vector3.Zero;
-	Vector2 _smoothScreenDeltaVectorForRotation = Vector3.Zero;
+    public PersistentObject<ProjectionMode> CurrentProjectionMode =
+        ("sceneViewProjectionMode", ProjectionMode.Perspective);
 
-	Vector3 _smoothKeyboardInputMoveVector = Vector3.Zero;
+    // rotation before going into orthographic mode
+    private PersistentObject<Vector3> _cameraRotationInPerspectiveMode =
+        ("_cameraRotationInPerspectiveMode", Vector3.Zero);
 
-	Vector3 _keyboardInputDirectionVector = Vector3.Zero;
-	// public ProjectionMode ProjectionMode
-	// {
-	// 	get { return (ProjectionMode) PersistentData.GetInt("SceneViewControllerPerspectiveMode", 0); }
-	// 	private set { PersistentData.Set("SceneViewControllerPerspectiveMode", (int) value); }
-	// }
+    private PersistentObject<Vector3> _cameraPositionInPerspectiveMode =
+        ("_cameraPositionInPerspectiveMode", Vector3.Zero);
 
-	public void MoveToGameObject(GameObject targetGo)
-	{
-		Vector3 cameraStartPos = Camera.MainCamera.Transform.LocalPosition;
-		Vector3 cameraEndPos = targetGo.Transform.LocalPosition + new Vector3(0, 0, -4);
+    private PersistentObject<float> _cameraFieldOfViewInperspectiveMode = ("_cameraFieldOfViewInperspectiveMode", 90);
 
-		if (cameraStartPos == cameraEndPos)
-		{
-			cameraEndPos = targetGo.Transform.LocalPosition + new Vector3(0, 0, -2);
-		}
+    // PersistentObject<int> _savedInt = new PersistentObject<int>();
+    private Vector2 _smoothScreenDeltaVectorForMovement = Vector3.Zero;
+    private Vector2 _smoothScreenDeltaVectorForRotation = Vector3.Zero;
 
-		float cameraOrthoSize = Camera.MainCamera.OrthographicSize;
-		Tweener.Tween(0, 1, 1.3f, progress =>
-		{
-			// Debug.Log("TWEENING:" + progress);
-			Camera.MainCamera.OrthographicSize = cameraOrthoSize + (float) MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
-			Camera.MainCamera.Transform.LocalPosition = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
-		});
-	}
+    private Vector3 _smoothKeyboardInputMoveVector = Vector3.Zero;
 
-	public void SetProjectionMode(ProjectionMode newProjectionMode)
-	{
-		if (newProjectionMode == CurrentProjectionMode)
-		{
-			return;
-		}
+    private Vector3 _keyboardInputDirectionVector = Vector3.Zero;
+    // public ProjectionMode ProjectionMode
+    // {
+    // 	get { return (ProjectionMode) PersistentData.GetInt("SceneViewControllerPerspectiveMode", 0); }
+    // 	private set { PersistentData.Set("SceneViewControllerPerspectiveMode", (int) value); }
+    // }
 
-		if (newProjectionMode == ProjectionMode.Orthographic && CurrentProjectionMode == ProjectionMode.Perspective)
-		{
-			_cameraRotationInPerspectiveMode.Value = Camera.MainCamera.Transform.Rotation;
-			_cameraPositionInPerspectiveMode.Value = Camera.MainCamera.Transform.WorldPosition;
-			_cameraFieldOfViewInperspectiveMode.Value = Camera.MainCamera.FieldOfView;
-		}
+    public void MoveToGameObject(GameObject targetGo)
+    {
+        Vector3 cameraStartPos = Camera.MainCamera.Transform.LocalPosition;
+        Vector3 cameraEndPos = targetGo.Transform.LocalPosition + new Vector3(0, 0, -4);
 
-		float tweenDuration = 1f;
-		Tweener.Tween(Camera.MainCamera.Transform.Rotation.X, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.X : 0, tweenDuration,
-		              (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(x: f); });
-		Tweener.Tween(Camera.MainCamera.Transform.Rotation.Y, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Y : 0, tweenDuration,
-		              (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(y: f); });
-		Tweener.Tween(Camera.MainCamera.Transform.WorldPosition.Z, newProjectionMode == ProjectionMode.Perspective ? _cameraPositionInPerspectiveMode.Value.Z : Camera.MainCamera.Transform.WorldPosition.Z - 350, tweenDuration,
-		              (f) => { Camera.MainCamera.Transform.WorldPosition = Camera.MainCamera.Transform.WorldPosition.Set(z: f); });
+        if (cameraStartPos == cameraEndPos) cameraEndPos = targetGo.Transform.LocalPosition + new Vector3(0, 0, -2);
 
-		Tween tween = Tweener.Tween(Camera.MainCamera.Transform.Rotation.Z, newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Z : 0, tweenDuration,
-		                            (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(z: f); });
+        float cameraOrthoSize = Camera.MainCamera.OrthographicSize;
+        Tweener.Tween(0, 1, 1.3f, progress =>
+        {
+            // Debug.Log("TWEENING:" + progress);
+            Camera.MainCamera.OrthographicSize = cameraOrthoSize + (float)MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
+            Camera.MainCamera.Transform.LocalPosition = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
+        });
+    }
 
-		Tweener.Tween(Camera.MainCamera.FieldOfView, newProjectionMode == ProjectionMode.Perspective ? _cameraFieldOfViewInperspectiveMode : 14, tweenDuration, (f) => { Camera.MainCamera.FieldOfView = f; });
+    public void SetProjectionMode(ProjectionMode newProjectionMode)
+    {
+        if (newProjectionMode == CurrentProjectionMode) return;
 
+        if (newProjectionMode == ProjectionMode.Orthographic && CurrentProjectionMode == ProjectionMode.Perspective)
+        {
+            _cameraRotationInPerspectiveMode.Value = Camera.MainCamera.Transform.Rotation;
+            _cameraPositionInPerspectiveMode.Value = Camera.MainCamera.Transform.WorldPosition;
+            _cameraFieldOfViewInperspectiveMode.Value = Camera.MainCamera.FieldOfView;
+        }
 
-		if (newProjectionMode == ProjectionMode.Orthographic)
-		{
-			tween.SetOnComplete(() => { Camera.MainCamera.IsOrthographic = newProjectionMode == ProjectionMode.Orthographic; });
-		}
-		else
-		{
-			Camera.MainCamera.IsOrthographic = newProjectionMode == ProjectionMode.Orthographic;
-		}
+        float tweenDuration = 1f;
+        Tweener.Tween(Camera.MainCamera.Transform.Rotation.X,
+            newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.X : 0,
+            tweenDuration,
+            (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(f); });
+        Tweener.Tween(Camera.MainCamera.Transform.Rotation.Y,
+            newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Y : 0,
+            tweenDuration,
+            (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(y: f); });
+        Tweener.Tween(Camera.MainCamera.Transform.WorldPosition.Z,
+            newProjectionMode == ProjectionMode.Perspective
+                ? _cameraPositionInPerspectiveMode.Value.Z
+                : Camera.MainCamera.Transform.WorldPosition.Z - 350, tweenDuration,
+            (f) =>
+            {
+                Camera.MainCamera.Transform.WorldPosition = Camera.MainCamera.Transform.WorldPosition.Set(z: f);
+            });
 
-		CurrentProjectionMode.Value = newProjectionMode;
-	}
+        Tween tween = Tweener.Tween(Camera.MainCamera.Transform.Rotation.Z,
+            newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Z : 0,
+            tweenDuration,
+            (f) => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(z: f); });
 
-	public void Update()
-	{
-		IsPanningCamera = false;
-		if (_targetOrthoSize == -1 && Camera.MainCamera != null)
-		{
-			_targetOrthoSize = Camera.MainCamera.OrthographicSize;
-		}
-
-		if (TransformHandle.I.Clicked)
-		{
-			//return;
-		}
-
-		if (Global.EditorAttached == false)
-		{
-			return;
-		}
-
-		if (KeyboardInput.WasKeyJustPressed(Keys.F))
-		{
-			Debug.Log("TODO");
-			// todo MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
-		}
+        Tweener.Tween(Camera.MainCamera.FieldOfView,
+            newProjectionMode == ProjectionMode.Perspective ? _cameraFieldOfViewInperspectiveMode : 14, tweenDuration,
+            (f) => { Camera.MainCamera.FieldOfView = f; });
 
 
-		bool isMouseOverSceneView = Tofu.MouseInput.PositionInView.X < Camera.MainCamera.Size.X && Tofu.MouseInput.PositionInView.Y < Camera.MainCamera.Size.Y && Tofu.MouseInput.PositionInView.Y > 0;
+        if (newProjectionMode == ProjectionMode.Orthographic)
+            tween.SetOnComplete(() =>
+            {
+                Camera.MainCamera.IsOrthographic = newProjectionMode == ProjectionMode.Orthographic;
+            });
+        else
+            Camera.MainCamera.IsOrthographic = newProjectionMode == ProjectionMode.Orthographic;
+
+        CurrentProjectionMode.Value = newProjectionMode;
+    }
+
+    public void Update()
+    {
+        IsPanningCamera = false;
+        if (_targetOrthoSize == -1 && Camera.MainCamera != null) _targetOrthoSize = Camera.MainCamera.OrthographicSize;
+
+        if (TransformHandle.I.Clicked)
+        {
+            //return;
+        }
+
+        if (Global.EditorAttached == false) return;
+
+        if (KeyboardInput.WasKeyJustPressed(Keys.F)) Debug.Log("TODO");
+        // todo MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
+
+        bool isMouseOverSceneView = Tofu.MouseInput.PositionInView.X < Camera.MainCamera.Size.X &&
+                                    Tofu.MouseInput.PositionInView.Y < Camera.MainCamera.Size.Y &&
+                                    Tofu.MouseInput.PositionInView.Y > 0;
 // Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
-		bool justClicked = Tofu.MouseInput.ButtonPressed(MouseButtons.Left) | Tofu.MouseInput.ButtonPressed(MouseButtons.Right);
-		if (justClicked)
-		{
-			_clickedInsideScene = isMouseOverSceneView;
-		}
+        bool justClicked = Tofu.MouseInput.ButtonPressed(MouseButtons.Left) |
+                           Tofu.MouseInput.ButtonPressed(MouseButtons.Right);
+        if (justClicked) _clickedInsideScene = isMouseOverSceneView;
 
-		AllowPassThroughEdges = false;
+        AllowPassThroughEdges = false;
 
-		HandleMouseScroll();
-		bool validInput = (isMouseOverSceneView || _clickedInsideScene) && (_clickedInsideScene) || (justClicked == false && isMouseOverSceneView && _clickedInsideScene);
-		if (Tofu.MouseInput.IsButtonDown(MouseButtons.Left) || Tofu.MouseInput.IsButtonDown(MouseButtons.Right))
-		{
-			if (validInput)
-			{
-				AllowPassThroughEdges = true;
+        HandleMouseScroll();
+        bool validInput = ((isMouseOverSceneView || _clickedInsideScene) && _clickedInsideScene) ||
+                          (justClicked == false && isMouseOverSceneView && _clickedInsideScene);
+        if (Tofu.MouseInput.IsButtonDown(MouseButtons.Left) || Tofu.MouseInput.IsButtonDown(MouseButtons.Right))
+            if (validInput)
+            {
+                AllowPassThroughEdges = true;
 
-				HandleButtonInputs();
-			}
-		}
+                HandleButtonInputs();
+            }
 
-		if (Camera.MainCamera.IsOrthographic == false)
-		{
-			if (validInput && Tofu.MouseInput.IsButtonDown(MouseButtons.Right))
-			{
-				_smoothScreenDeltaVectorForMovement = Vector2.Lerp(_smoothScreenDeltaVectorForMovement, Tofu.MouseInput.ScreenDelta, Time.EditorDeltaTime * 15);
-			}
-			else
-			{
-				_smoothScreenDeltaVectorForMovement = Vector2.Lerp(_smoothScreenDeltaVectorForMovement, Vector2.Zero, Time.EditorDeltaTime * 7);
-			}
+        if (Camera.MainCamera.IsOrthographic == false)
+        {
+            if (validInput && Tofu.MouseInput.IsButtonDown(MouseButtons.Right))
+                _smoothScreenDeltaVectorForMovement = Vector2.Lerp(_smoothScreenDeltaVectorForMovement,
+                    Tofu.MouseInput.ScreenDelta, Time.EditorDeltaTime * 15);
+            else
+                _smoothScreenDeltaVectorForMovement = Vector2.Lerp(_smoothScreenDeltaVectorForMovement, Vector2.Zero,
+                    Time.EditorDeltaTime * 7);
 
-			if (validInput && Tofu.MouseInput.IsButtonDown(MouseButtons.Left))
-			{
-				_smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation, Tofu.MouseInput.ScreenDelta, Time.EditorDeltaTime * 30);
-			}
-			else
-			{
-				_smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation, Vector2.Zero, Time.EditorDeltaTime * 10);
-			}
+            if (validInput && Tofu.MouseInput.IsButtonDown(MouseButtons.Left))
+                _smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation,
+                    Tofu.MouseInput.ScreenDelta, Time.EditorDeltaTime * 30);
+            else
+                _smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation, Vector2.Zero,
+                    Time.EditorDeltaTime * 10);
 
-			MoveCameraByLocalVector(_smoothScreenDeltaVectorForMovement * 30 / Tofu.Window.WindowSize);
-			Camera.MainCamera.Transform.Rotation += new Vector3(-_smoothScreenDeltaVectorForRotation.Y, _smoothScreenDeltaVectorForRotation.X, 0) * 0.2f;
+            MoveCameraByLocalVector(_smoothScreenDeltaVectorForMovement * 30 / Tofu.Window.WindowSize);
+            Camera.MainCamera.Transform.Rotation += new Vector3(-_smoothScreenDeltaVectorForRotation.Y,
+                _smoothScreenDeltaVectorForRotation.X, 0) * 0.2f;
 
 
-			float keyboardMoveSpeed = _moveSpeed;
+            float keyboardMoveSpeed = _moveSpeed;
 
-			_keyboardInputDirectionVector = Vector3.Zero;
-			if (KeyboardInput.IsKeyDown(Keys.LeftControl) == false)
-			{
-				if (KeyboardInput.IsKeyDown(Keys.W))
-				{
-					_keyboardInputDirectionVector += Vector3.Forward;
-				}
+            _keyboardInputDirectionVector = Vector3.Zero;
+            if (KeyboardInput.IsKeyDown(Keys.LeftControl) == false)
+            {
+                if (KeyboardInput.IsKeyDown(Keys.W)) _keyboardInputDirectionVector += Vector3.Forward;
 
-				if (KeyboardInput.IsKeyDown(Keys.S))
-				{
-					_keyboardInputDirectionVector += Vector3.Backward;
-				}
+                if (KeyboardInput.IsKeyDown(Keys.S)) _keyboardInputDirectionVector += Vector3.Backward;
 
-				if (KeyboardInput.IsKeyDown(Keys.A))
-				{
-					_keyboardInputDirectionVector += Vector3.Left;
-				}
+                if (KeyboardInput.IsKeyDown(Keys.A)) _keyboardInputDirectionVector += Vector3.Left;
 
-				if (KeyboardInput.IsKeyDown(Keys.D))
-				{
-					_keyboardInputDirectionVector += Vector3.Right;
-				}
-			}
+                if (KeyboardInput.IsKeyDown(Keys.D)) _keyboardInputDirectionVector += Vector3.Right;
+            }
 
 
-			if (KeyboardInput.IsKeyDown(Keys.LeftShift))
-			{
-				_moveSpeedMultiplier = Mathf.Lerp(_moveSpeedMultiplier, 2, Time.EditorDeltaTime * 10);
-				//Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 100, Time.EditorDeltaTime * 7);
-			}
-			else
-			{
-				_moveSpeedMultiplier = Mathf.Lerp(_moveSpeedMultiplier, 1, Time.EditorDeltaTime * 10);
-				//Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 60, Time.EditorDeltaTime * 7);
-			}
+            if (KeyboardInput.IsKeyDown(Keys.LeftShift))
+                _moveSpeedMultiplier = Mathf.Lerp(_moveSpeedMultiplier, 2, Time.EditorDeltaTime * 10);
+            //Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 100, Time.EditorDeltaTime * 7);
+            else
+                _moveSpeedMultiplier = Mathf.Lerp(_moveSpeedMultiplier, 1, Time.EditorDeltaTime * 10);
+            //Camera.I.FieldOfView = Mathf.Lerp(Camera.I.FieldOfView, 60, Time.EditorDeltaTime * 7);
+            keyboardMoveSpeed = keyboardMoveSpeed * _moveSpeedMultiplier;
 
-			keyboardMoveSpeed = keyboardMoveSpeed * _moveSpeedMultiplier;
+            _smoothKeyboardInputMoveVector = Vector3.Lerp(_smoothKeyboardInputMoveVector, _keyboardInputDirectionVector,
+                Time.EditorDeltaTime * 4);
 
-			_smoothKeyboardInputMoveVector = Vector3.Lerp(_smoothKeyboardInputMoveVector, _keyboardInputDirectionVector, Time.EditorDeltaTime * 4);
+            MoveCameraByLocalVector(_smoothKeyboardInputMoveVector * keyboardMoveSpeed * Time.EditorDeltaTime);
+        }
+    }
 
-			MoveCameraByLocalVector(_smoothKeyboardInputMoveVector * keyboardMoveSpeed * Time.EditorDeltaTime);
-		}
-	}
+    private void HandleMouseScroll()
+    {
+        // Z POSITION
+        if (Tofu.MouseInput.ScrollDelta != 0)
+        {
+            if (Camera.MainCamera.IsOrthographic)
+            {
+                _targetOrthoSize += -Tofu.MouseInput.ScrollDelta * (_targetOrthoSize * 0.04f);
+                _targetOrthoSize = Mathf.Clamp(_targetOrthoSize, 0.1f, Mathf.Infinity);
+                // Camera.I.ortographicSize = Mathf.Eerp(Camera.I.ortographicSize, targetOrthoSize, Time.editorDeltaTime * 10f);
+                // macbook trackpad has smooth scrolling so no eerping
+                Camera.MainCamera.OrthographicSize = _targetOrthoSize;
+            }
+            else
+            {
+                MoveCameraByLocalVector(new Vector3(0, 0, Mathf.Clamp(Tofu.MouseInput.ScrollDelta, -10, 10)) *
+                                        _moveSpeed * 0.2f);
 
-	void HandleMouseScroll()
-	{
-		// Z POSITION
-		if (Tofu.MouseInput.ScrollDelta != 0)
-		{
-			if (Camera.MainCamera.IsOrthographic)
-			{
-				_targetOrthoSize += -Tofu.MouseInput.ScrollDelta * (_targetOrthoSize * 0.04f);
-				_targetOrthoSize = Mathf.Clamp(_targetOrthoSize, 0.1f, Mathf.Infinity);
-				// Camera.I.ortographicSize = Mathf.Eerp(Camera.I.ortographicSize, targetOrthoSize, Time.editorDeltaTime * 10f);
-				// macbook trackpad has smooth scrolling so no eerping
-				Camera.MainCamera.OrthographicSize = _targetOrthoSize;
-			}
-			else
-			{
-				MoveCameraByLocalVector(new Vector3(0, 0, Mathf.Clamp(Tofu.MouseInput.ScrollDelta, -10, 10)) * _moveSpeed*0.2f);
+                //Camera.I.transform.position += Camera.I.transform.TransformDirection(Vector3.Forward) * Tofu.MouseInput.ScrollDelta * 0.05f;
+            }
+        }
+    }
 
-				//Camera.I.transform.position += Camera.I.transform.TransformDirection(Vector3.Forward) * Tofu.MouseInput.ScrollDelta * 0.05f;
-			}
-		}
-	}
+    private void HandleButtonInputs()
+    {
+        // PANNING
+        if (Tofu.MouseInput.IsButtonDown() && Camera.MainCamera.IsOrthographic)
+            Camera.MainCamera.Transform.LocalPosition +=
+                Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(
+                    new Vector2(-Tofu.MouseInput.ScreenDelta.X, Tofu.MouseInput.ScreenDelta.Y)) *
+                Camera.MainCamera.OrthographicSize;
+        // Tofu.MouseInput.ScreenDelta -= Tofu.MouseInput.ScreenDelta;
+    }
 
-	void HandleButtonInputs()
-	{
-		// PANNING
-		if (Tofu.MouseInput.IsButtonDown() && Camera.MainCamera.IsOrthographic)
-		{
-			Camera.MainCamera.Transform.LocalPosition += Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector2(-Tofu.MouseInput.ScreenDelta.X, Tofu.MouseInput.ScreenDelta.Y)) * Camera.MainCamera.OrthographicSize;
-			// Tofu.MouseInput.ScreenDelta -= Tofu.MouseInput.ScreenDelta;
-		}
-	}
+    private void MoveCameraByLocalVector(Vector3 moveVector)
+    {
+        Vector3 delta = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(moveVector);
 
-	void MoveCameraByLocalVector(Vector3 moveVector)
-	{
-		Vector3 delta = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(moveVector);
+        // Debug.StatSetValue("DASDSAD", $"CameraDir:{Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(moveVector)}");
+        //Debug.Log(delta);
+        //Camera.I.Transform.LocalPosition += delta;
+        Camera.MainCamera.Transform.WorldPosition += delta;
+        // Camera.I.Transform.LocalPosition += dir * moveSpeed;
 
-		// Debug.StatSetValue("DASDSAD", $"CameraDir:{Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(moveVector)}");
-		//Debug.Log(delta);
-		//Camera.I.Transform.LocalPosition += delta;
-		Camera.MainCamera.Transform.WorldPosition += delta;
-		// Camera.I.Transform.LocalPosition += dir * moveSpeed;
-
-		Camera.MainCamera.UpdateMatrices();
-	}
+        Camera.MainCamera.UpdateMatrices();
+    }
 }

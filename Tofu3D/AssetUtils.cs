@@ -26,10 +26,7 @@ public class AssetUtils
         assetPath = assetPath.Replace("net8", "net7");
         // assetPath = assetPath.Replace(" ", "\\ ");
         bool isValid = File.Exists(assetPath);
-        if (isValid)
-        {
-            return assetPath;
-        }
+        if (isValid) return assetPath;
         bool existsInAssetFolder = File.Exists(Path.Combine(Folders.Assets, assetPath));
         if (existsInAssetFolder)
         {
@@ -41,13 +38,10 @@ public class AssetUtils
             assetPath = Folders.GetPathRelativeToEngineFolder(assetPath);
         }
 
-        if (AssetUtils.Exists(assetPath) == false)
+        if (Exists(assetPath) == false)
         {
-            string assetPathInAssetsFolder = System.IO.Path.Combine("Assets", assetPath);
-            if (File.Exists(assetPathInAssetsFolder))
-            {
-                assetPath = assetPathInAssetsFolder;
-            }
+            string assetPathInAssetsFolder = Path.Combine("Assets", assetPath);
+            if (File.Exists(assetPathInAssetsFolder)) assetPath = assetPathInAssetsFolder;
         }
 
         // if (AssetUtils.Exists(assetPath) == false)

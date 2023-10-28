@@ -1,6 +1,6 @@
 ﻿namespace Tofu3D;
 
-interface IDestroyable
+internal interface IDestroyable
 {
-	void OnDestroyed();
+    void OnDestroyed();
 }

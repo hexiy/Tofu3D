@@ -7,130 +7,130 @@ namespace Tofu3D;
 // Main Application Context
 public static class Tofu
 {
-	// public static Tofu I { get; private set; }
+    // public static Tofu I { get; private set; }
 
-	// EDITOR
-	public static Window Window;
-	public static Editor Editor;
-	public static ImGuiController ImGuiController;
+    // EDITOR
+    public static Window Window;
+    public static Editor Editor;
+    public static ImGuiController ImGuiController;
 
-	// RENDERING
-	public static RenderSettings RenderSettings;
-	public static RenderPassSystem RenderPassSystem;
-	public static ShaderManager ShaderManager;
-	public static InstancedRenderingSystem InstancedRenderingSystem;
+    // RENDERING
+    public static RenderSettings RenderSettings;
+    public static RenderPassSystem RenderPassSystem;
+    public static ShaderManager ShaderManager;
+    public static InstancedRenderingSystem InstancedRenderingSystem;
 
-	// ASSETS
-	public static AssetManager AssetManager;
-	public static SceneSerializer SceneSerializer;
-	public static AssetsWatcher AssetsWatcher;
+    // ASSETS
+    public static AssetManager AssetManager;
+    public static SceneSerializer SceneSerializer;
+    public static AssetsWatcher AssetsWatcher;
 
-	// SCENE
-	public static SceneManager SceneManager;
-	public static SceneViewController SceneViewController;
+    // SCENE
+    public static SceneManager SceneManager;
+    public static SceneViewController SceneViewController;
 
-	// MISC
-	public static TweenManager TweenManager;
-	
-	// INPUT
-	public static MouseInput MouseInput;
+    // MISC
+    public static TweenManager TweenManager;
 
-	static Tofu()
-	{
-		// I = this;
-	}
+    // INPUT
+    public static MouseInput MouseInput;
 
-	public static void Launch()
-	{
-		SystemConfig.Configure();
-		Global.LoadSavedData();
+    static Tofu()
+    {
+        // I = this;
+    }
 
-		AssetManager = new AssetManager();
-		SceneManager = new SceneManager();
-		SceneSerializer = new SceneSerializer();
-		RenderSettings = new RenderSettings();
-		AssetsWatcher = new AssetsWatcher();
-		ShaderManager = new ShaderManager();
-		TweenManager = new TweenManager();
-		MouseInput = new MouseInput();
+    public static void Launch()
+    {
+        SystemConfig.Configure();
+        Global.LoadSavedData();
 
-		RenderSettings.LoadSavedData();
-		AssetsWatcher.StartWatching();
-		ShaderManager.Initialize();
-        
-		Window = new Window();
-		Window.Load += OnWindowLoad;
-		Window.UpdateFrame += OnWindowUpdate;
-		Window.RenderFrame += OnWindowRender;
-		Window.Run();
-	}
+        AssetManager = new AssetManager();
+        SceneManager = new SceneManager();
+        SceneSerializer = new SceneSerializer();
+        RenderSettings = new RenderSettings();
+        AssetsWatcher = new AssetsWatcher();
+        ShaderManager = new ShaderManager();
+        TweenManager = new TweenManager();
+        MouseInput = new MouseInput();
 
-	static void OnWindowLoad()
-	{
-		InstancedRenderingSystem = new InstancedRenderingSystem();
+        RenderSettings.LoadSavedData();
+        AssetsWatcher.StartWatching();
+        ShaderManager.Initialize();
 
-		RenderPassSystem = new RenderPassSystem();
-		RenderPassSystem.Initialize();
+        Window = new Window();
+        Window.Load += OnWindowLoad;
+        Window.UpdateFrame += OnWindowUpdate;
+        Window.RenderFrame += OnWindowRender;
+        Window.Run();
+    }
 
-		ImGuiController = new ImGuiController();
+    private static void OnWindowLoad()
+    {
+        InstancedRenderingSystem = new InstancedRenderingSystem();
 
-		Editor = new Editor();
-		Editor.Initialize();
-		
-		SceneViewController = new SceneViewController();
-		
-		SceneManager.LoadLastOpenedScene();
-	}
+        RenderPassSystem = new RenderPassSystem();
+        RenderPassSystem.Initialize();
 
-	static void OnWindowUpdate(FrameEventArgs e)
-	{
-		Time.EditorDeltaTime = (float) (e.Time);
+        ImGuiController = new ImGuiController();
 
-		Debug.StartGraphTimer("Editor Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
+        Editor = new Editor();
+        Editor.Initialize();
 
-		Time.Update();
-		MouseInput.Update();
-		TweenManager.Update();
-		SceneViewController.Update();
-		AssetsWatcher.ProcessChangedFilesQueue();
-		ShaderManager.ReloadQueuedShaders();
+        SceneViewController = new SceneViewController();
 
-		SceneManager.CurrentScene.Update();
-		Editor.Update();
-		Debug.EndGraphTimer("Editor Update");
-	}
+        SceneManager.LoadLastOpenedScene();
+    }
 
-	static void OnWindowRender(FrameEventArgs e)
-	{
-		Time.EditorDeltaTime = (float) (e.Time);
+    private static void OnWindowUpdate(FrameEventArgs e)
+    {
+        Time.EditorDeltaTime = (float)e.Time;
 
-		Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
+        Debug.StartGraphTimer("Editor Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
 
-		Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 60f));
+        Time.Update();
+        MouseInput.Update();
+        TweenManager.Update();
+        SceneViewController.Update();
+        AssetsWatcher.ProcessChangedFilesQueue();
+        ShaderManager.ReloadQueuedShaders();
 
-		RenderPassSystem.RenderAllPasses();
+        SceneManager.CurrentScene.Update();
+        Editor.Update();
+        Debug.EndGraphTimer("Editor Update");
+    }
 
-		Debug.EndGraphTimer("Scene Render");
+    private static void OnWindowRender(FrameEventArgs e)
+    {
+        Time.EditorDeltaTime = (float)e.Time;
+
+        Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
+
+        Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 60f));
+
+        RenderPassSystem.RenderAllPasses();
+
+        Debug.EndGraphTimer("Scene Render");
 
 
-		Debug.StartGraphTimer("ImGui", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromMilliseconds(2));
+        Debug.StartGraphTimer("ImGui", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromMilliseconds(2));
 
-		ImGuiController.Update(Window, (float) e.Time);
-		GL.Viewport(0, 0, Window.ClientSize.X, Window.ClientSize.Y);
+        ImGuiController.Update(Window, (float)e.Time);
+        GL.Viewport(0, 0, Window.ClientSize.X, Window.ClientSize.Y);
 
-		ImGuiController.WindowResized(Window.ClientSize.X, Window.ClientSize.Y);
+        ImGuiController.WindowResized(Window.ClientSize.X, Window.ClientSize.Y);
 
-		Editor.Draw();
+        Editor.Draw();
 
-		ImGuiController.Render();
+        ImGuiController.Render();
 
-		Debug.EndGraphTimer("ImGui");
+        Debug.EndGraphTimer("ImGui");
 
-		Window.SwapBuffers();
+        Window.SwapBuffers();
 
-		Debug.EndGraphTimer("Window Render");
+        Debug.EndGraphTimer("Window Render");
 
-		Debug.ResetTimers();
-		Debug.ClearAdditiveStats();
-	}
+        Debug.ResetTimers();
+        Debug.ClearAdditiveStats();
+    }
 }

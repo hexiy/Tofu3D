@@ -6,69 +6,66 @@ namespace Tofu3D.Physics;
 
 public static class PhysicsController
 {
-	public static bool Running = true;
+    public static bool Running = true;
 
-	public static World World;
-	static Task _physicsTask;
-	static Stopwatch _sw = new();
+    public static World World;
+    private static Task _physicsTask;
+    private static Stopwatch _sw = new();
 
-	public static void Init()
-	{
-		World = new World();
+    public static void Init()
+    {
+        World = new World();
 
-		// PhysicsTask = Task.Run(PhysicsLoop);
-	}
+        // PhysicsTask = Task.Run(PhysicsLoop);
+    }
 
-	// public static void PhysicsLoop()
-	// {
-	// 	while (true)
-	// 	{
-	// 		if (Running && Global.GameRunning)
-	// 		{
-	// 			var a = Stopwatch.StartNew();
-	// 			Step();
-	//
-	// 			a.Stop();
-	// 			Wait(Time.fixedDeltaTime - a.Elapsed.Seconds); // if update took 5 ms, and deltaTime is 15 ms, only wait for 10 ms
-	// 		}
-	// 		else
-	// 		{
-	// 			Wait(0.3f); // wait if physics is disabled
-	// 		}
-	// 	}
-	// }
+    // public static void PhysicsLoop()
+    // {
+    // 	while (true)
+    // 	{
+    // 		if (Running && Global.GameRunning)
+    // 		{
+    // 			var a = Stopwatch.StartNew();
+    // 			Step();
+    //
+    // 			a.Stop();
+    // 			Wait(Time.fixedDeltaTime - a.Elapsed.Seconds); // if update took 5 ms, and deltaTime is 15 ms, only wait for 10 ms
+    // 		}
+    // 		else
+    // 		{
+    // 			Wait(0.3f); // wait if physics is disabled
+    // 		}
+    // 	}
+    // }
 
-	// private static void Step()
-	// {
-	// 	lock (World)
-	// 	{
-	// 		World.Step(Time.fixedDeltaTime);
-	// 	}
-	// }
+    // private static void Step()
+    // {
+    // 	lock (World)
+    // 	{
+    // 		World.Step(Time.fixedDeltaTime);
+    // 	}
+    // }
 
-	static void Wait(double seconds)
-	{
-		if (seconds < 0)
-		{
-			return;
-		}
+    private static void Wait(double seconds)
+    {
+        if (seconds < 0) return;
 
-		Thread.Sleep((int) (seconds * 1000f));
-		//sw.Restart();
-		//
-		//while (sw.ElapsedMilliseconds < milliseconds)
-		//{
-		//
-		//}
-	}
+        Thread.Sleep((int)(seconds * 1000f));
+        //sw.Restart();
+        //
+        //while (sw.ElapsedMilliseconds < milliseconds)
+        //{
+        //
+        //}
+    }
 
-	public static void StartPhysics()
-	{
-		Running = true;
-	}
+    public static void StartPhysics()
+    {
+        Running = true;
+    }
 
-	public static void StopPhysics()
-	{
-		Running = false;
-	}
+    public static void StopPhysics()
+    {
+        Running = false;
+    }
 }

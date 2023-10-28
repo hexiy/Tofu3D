@@ -2,6 +2,6 @@
 
 public class ViewRenderModeSettings
 {
-	public ViewRenderMode CurrentRenderMode = ViewRenderMode.Regular;
-	// some other parameters?
+    public ViewRenderMode CurrentRenderMode = ViewRenderMode.Regular;
+    // some other parameters?
 }

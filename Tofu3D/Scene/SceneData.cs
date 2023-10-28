@@ -2,5 +2,5 @@
 
 public struct SceneData
 {
-	public List<GameObject> GameObjects;
+    public List<GameObject> GameObjects;
 }

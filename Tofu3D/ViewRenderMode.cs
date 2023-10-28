@@ -2,7 +2,7 @@
 
 public enum ViewRenderMode
 {
-	Regular=0,
-	Positions=1,
-	Normals=2
+    Regular = 0,
+    Positions = 1,
+    Normals = 2
 }

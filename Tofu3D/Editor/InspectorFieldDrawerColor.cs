@@ -25,9 +25,6 @@ public class InspectorFieldDrawerColor : InspectorFieldDrawable<Color>
             changed = ImGui.ColorEdit4("", ref fieldValue);
         }
 
-        if (changed)
-        {
-            info.SetValue(componentInspectorData.Inspectable, fieldValue.ToColor());
-        }
+        if (changed) info.SetValue(componentInspectorData.Inspectable, fieldValue.ToColor());
     }
 }

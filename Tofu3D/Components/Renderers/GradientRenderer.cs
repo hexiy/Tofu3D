@@ -2,56 +2,49 @@
 
 public class GradientRenderer : Renderer
 {
-	[Show]
-	public Color GradientColorA;
-	[Show]
-	public Color GradientColorB;
+    [Show]
+    public Color GradientColorA;
 
-	public override void Awake()
-	{
-		base.Awake();
+    [Show]
+    public Color GradientColorB;
 
-		SetDefaultMaterial();
-	}
+    public override void Awake()
+    {
+        base.Awake();
 
-	public override void SetDefaultMaterial()
-	{
-		if (Material == null)
-		{
-			Material = Tofu.AssetManager.Load<Material>("GradientMaterial");
-		}
+        SetDefaultMaterial();
+    }
 
-		base.SetDefaultMaterial();
-	}
+    public override void SetDefaultMaterial()
+    {
+        if (Material == null) Material = Tofu.AssetManager.Load<Material>("GradientMaterial");
 
-	public override void Render()
-	{
-		if (BoxShape == null || Material == null)
-		{
-			return;
-		}
+        base.SetDefaultMaterial();
+    }
 
-		Tofu.ShaderManager.UseShader(Material.Shader);
+    public override void Render()
+    {
+        if (BoxShape == null || Material == null) return;
+
+        Tofu.ShaderManager.UseShader(Material.Shader);
 
 
-		Material.Shader.SetVector4("u_color_a", GradientColorA.ToVector4());
-		Material.Shader.SetVector4("u_color_b", GradientColorB.ToVector4());
+        Material.Shader.SetVector4("u_color_a", GradientColorA.ToVector4());
+        Material.Shader.SetVector4("u_color_b", GradientColorB.ToVector4());
 
-		Material.Shader.SetVector2("u_resolution", Vector2.One);
-		Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
-		Material.Shader.SetColor("u_color", Color.ToVector4());
-		Material.Shader.SetVector4("u_tint", (Vector4) Material.Shader.Uniforms["u_tint"]);
-		if (Material.Shader.Uniforms.ContainsKey("time"))
-		{
-			Material.Shader.SetFloat("time", (float) Material.Shader.Uniforms["time"]);
-		}
+        Material.Shader.SetVector2("u_resolution", Vector2.One);
+        Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+        Material.Shader.SetColor("u_color", Color.ToVector4());
+        Material.Shader.SetVector4("u_tint", (Vector4)Material.Shader.Uniforms["u_tint"]);
+        if (Material.Shader.Uniforms.ContainsKey("time"))
+            Material.Shader.SetFloat("time", (float)Material.Shader.Uniforms["time"]);
 
-		Tofu.ShaderManager.BindVertexArray(Material.Vao);
+        Tofu.ShaderManager.BindVertexArray(Material.Vao);
 
-		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+        GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
-		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
+        GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
-		DebugHelper.LogDrawCall();
-	}
+        DebugHelper.LogDrawCall();
+    }
 }

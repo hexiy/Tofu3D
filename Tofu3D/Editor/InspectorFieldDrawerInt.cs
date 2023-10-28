@@ -9,9 +9,6 @@ public class InspectorFieldDrawerInt : InspectorFieldDrawable<int>
         int fieldValue = GetValue(info, componentInspectorData);
 
 
-        if (ImGui.DragInt("", ref fieldValue))
-        {
-            SetValue(info, componentInspectorData, fieldValue);
-        }
+        if (ImGui.DragInt("", ref fieldValue)) SetValue(info, componentInspectorData, fieldValue);
     }
 }

@@ -3,8 +3,12 @@ namespace Tofu3D;
 [ExecuteInEditMode]
 public class CurveTestComponent : Component, IComponentUpdateable
 {
-    [Show] private Curve _curve;
-    [Show] private float p;
+    [Show]
+    private Curve _curve;
+
+    [Show]
+    private float p;
+
     public override void Awake()
     {
         _curve = new Curve();

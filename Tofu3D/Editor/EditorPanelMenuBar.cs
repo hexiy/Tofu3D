@@ -22,10 +22,7 @@ public class EditorPanelMenuBar : EditorPanel
 
     public override void Draw()
     {
-        if (Active == false)
-        {
-            return;
-        }
+        if (Active == false) return;
 
         if (Global.EditorAttached)
         {
@@ -119,10 +116,7 @@ public class EditorPanelMenuBar : EditorPanel
             if (showDebugButton)
             {
                 bool debugButtonClicked = ImGui.SmallButton($"Debug [{(Global.Debug ? "ON" : "OFF")}]");
-                if (debugButtonClicked)
-                {
-                    Global.Debug = !Global.Debug;
-                }
+                if (debugButtonClicked) Global.Debug = !Global.Debug;
             }
 
             ImGui.EndMainMenuBar();

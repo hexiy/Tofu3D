@@ -12,11 +12,9 @@ public class InspectorFieldDrawerGameObject : InspectorFieldDrawable<GameObject>
         bool clicked = ImGui.Button(fieldGoName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
         if (clicked && goObject != null)
-        {
             // todo
             // EditorPanelHierarchy.I.SelectGameObject(goObject.Id);
             return;
-        }
 
         if (ImGui.BeginDragDropTarget())
         {
@@ -25,13 +23,11 @@ public class InspectorFieldDrawerGameObject : InspectorFieldDrawable<GameObject>
             string dataType = ImGui.GetDragDropPayload().DataType.GetStringASCII()
                 .Replace("\0", string.Empty);
             if (dataType == "PREFAB_PATH")
-            {
                 if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
                 {
                     GameObject loadedGo = Tofu.SceneSerializer.LoadPrefab(payload, true);
                     info.SetValue(componentInspectorData.Inspectable, loadedGo);
                 }
-            }
 
             ImGui.EndDragDropTarget();
         }
@@ -44,14 +40,12 @@ public class InspectorFieldDrawerGameObject : InspectorFieldDrawable<GameObject>
                 .Replace("\0", string.Empty);
 
             if (dataType == "GAMEOBJECT")
-            {
                 //	string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                 if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
                 {
                     GameObject foundGo = Tofu.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
                     info.SetValue(componentInspectorData.Inspectable, foundGo);
                 }
-            }
 
             ImGui.EndDragDropTarget();
         }

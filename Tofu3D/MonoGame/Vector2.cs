@@ -28,12 +28,14 @@ public struct Vector2 : IEquatable<Vector2>
     /// <summary>
     ///         The x coordinate of this <see cref="Vector2" />.
     /// </summary>
-    [DataMember] public float X;
+    [DataMember]
+    public float X;
 
     /// <summary>
     ///         The y coordinate of this <see cref="Vector2" />.
     /// </summary>
-    [DataMember] public float Y;
+    [DataMember]
+    public float Y;
 
     #endregion
 
@@ -73,16 +75,11 @@ public struct Vector2 : IEquatable<Vector2>
 
     #region Internal Properties
 
-    internal string DebugDisplayString
-    {
-        get
-        {
-            return string.Concat(
-                X.ToString("F4"), "  ",
-                Y.ToString("F4")
-            );
-        }
-    }
+    internal string DebugDisplayString =>
+        string.Concat(
+            X.ToString("F4"), "  ",
+            Y.ToString("F4")
+        );
 
     public static object TranslateToGrid { get; set; }
 
@@ -672,10 +669,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
     public override bool Equals(object obj)
     {
-        if (obj is Vector2)
-        {
-            return Equals((Vector2)obj);
-        }
+        if (obj is Vector2) return Equals((Vector2)obj);
 
         return false;
     }
@@ -732,7 +726,7 @@ public struct Vector2 : IEquatable<Vector2>
     {
         unchecked
         {
-            return X.GetHashCode() * 397 ^ Y.GetHashCode();
+            return (X.GetHashCode() * 397) ^ Y.GetHashCode();
         }
     }
 
@@ -1226,25 +1220,15 @@ public struct Vector2 : IEquatable<Vector2>
         int destinationIndex,
         int length)
     {
-        if (sourceArray == null)
-        {
-            throw new ArgumentNullException("sourceArray");
-        }
+        if (sourceArray == null) throw new ArgumentNullException("sourceArray");
 
-        if (destinationArray == null)
-        {
-            throw new ArgumentNullException("destinationArray");
-        }
+        if (destinationArray == null) throw new ArgumentNullException("destinationArray");
 
         if (sourceArray.Length < sourceIndex + length)
-        {
             throw new ArgumentException("Source array length is lesser than sourceIndex + length");
-        }
 
         if (destinationArray.Length < destinationIndex + length)
-        {
             throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
-        }
 
         for (int x = 0; x < length; x++)
         {
@@ -1276,25 +1260,15 @@ public struct Vector2 : IEquatable<Vector2>
         int destinationIndex,
         int length)
     {
-        if (sourceArray == null)
-        {
-            throw new ArgumentNullException("sourceArray");
-        }
+        if (sourceArray == null) throw new ArgumentNullException("sourceArray");
 
-        if (destinationArray == null)
-        {
-            throw new ArgumentNullException("destinationArray");
-        }
+        if (destinationArray == null) throw new ArgumentNullException("destinationArray");
 
         if (sourceArray.Length < sourceIndex + length)
-        {
             throw new ArgumentException("Source array length is lesser than sourceIndex + length");
-        }
 
         if (destinationArray.Length < destinationIndex + length)
-        {
             throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
-        }
 
         for (int x = 0; x < length; x++)
         {
@@ -1387,25 +1361,15 @@ public struct Vector2 : IEquatable<Vector2>
         int destinationIndex,
         int length)
     {
-        if (sourceArray == null)
-        {
-            throw new ArgumentNullException("sourceArray");
-        }
+        if (sourceArray == null) throw new ArgumentNullException("sourceArray");
 
-        if (destinationArray == null)
-        {
-            throw new ArgumentNullException("destinationArray");
-        }
+        if (destinationArray == null) throw new ArgumentNullException("destinationArray");
 
         if (sourceArray.Length < sourceIndex + length)
-        {
             throw new ArgumentException("Source array length is lesser than sourceIndex + length");
-        }
 
         if (destinationArray.Length < destinationIndex + length)
-        {
             throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
-        }
 
         for (int i = 0; i < length; i++)
         {
@@ -1427,20 +1391,12 @@ public struct Vector2 : IEquatable<Vector2>
         ref Matrix matrix,
         Vector2[] destinationArray)
     {
-        if (sourceArray == null)
-        {
-            throw new ArgumentNullException("sourceArray");
-        }
+        if (sourceArray == null) throw new ArgumentNullException("sourceArray");
 
-        if (destinationArray == null)
-        {
-            throw new ArgumentNullException("destinationArray");
-        }
+        if (destinationArray == null) throw new ArgumentNullException("destinationArray");
 
         if (destinationArray.Length < sourceArray.Length)
-        {
             throw new ArgumentException("Destination array length is lesser than source array length");
-        }
 
         for (int i = 0; i < sourceArray.Length; i++)
         {

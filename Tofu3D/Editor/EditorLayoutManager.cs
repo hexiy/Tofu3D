@@ -5,78 +5,69 @@ namespace Tofu3D;
 
 public class EditorLayoutManager
 {
-	// string _lastUsedLayoutName => PersistentData.;
+    // string _lastUsedLayoutName => PersistentData.;
 
-    float _autoSaveTimer = 3;
-	readonly string DefaultSettingsName = "defaultSettings.ini";
-	public string LastUsedLayoutName
-	{
-		get { return PersistentData.GetString(nameof(LastUsedLayoutName), String.Empty); }
-		private set { PersistentData.Set(nameof(LastUsedLayoutName), value); }
-	}
+    private float _autoSaveTimer = 3;
+    private readonly string DefaultSettingsName = "defaultSettings.ini";
 
-	public void SaveCurrentLayout()
-	{
-		SaveLayout("editor.ini");
-	}
+    public string LastUsedLayoutName
+    {
+        get => PersistentData.GetString(nameof(LastUsedLayoutName), string.Empty);
+        private set => PersistentData.Set(nameof(LastUsedLayoutName), value);
+    }
 
-	private void SaveLayout(string fileName)
-	{
-		if (fileName == DefaultSettingsName)
-		{
-			return;
-		}
+    public void SaveCurrentLayout()
+    {
+        SaveLayout("editor.ini");
+    }
 
-		ImGui.SaveIniSettingsToDisk(fileName);
-		LastUsedLayoutName = fileName;
-	}
+    private void SaveLayout(string fileName)
+    {
+        if (fileName == DefaultSettingsName) return;
 
-	public void LoadDefaultLayout()
-	{
-		LoadLayout(DefaultSettingsName);
-	}
+        ImGui.SaveIniSettingsToDisk(fileName);
+        LastUsedLayoutName = fileName;
+    }
 
-	private void LoadLayout(string fileName)
-	{
-		if (File.Exists(fileName) == false)
-		{
-			if (fileName != DefaultSettingsName)
-			{
-				LoadDefaultLayout();
-			}
+    public void LoadDefaultLayout()
+    {
+        LoadLayout(DefaultSettingsName);
+    }
 
-			return;
-		}
+    private void LoadLayout(string fileName)
+    {
+        if (File.Exists(fileName) == false)
+        {
+            if (fileName != DefaultSettingsName) LoadDefaultLayout();
 
-		ImGui.LoadIniSettingsFromDisk(fileName);
-		LastUsedLayoutName = fileName;
-	}
+            return;
+        }
 
-	public void LoadLastLayout()
-	{
-		if (LastUsedLayoutName != String.Empty)
-		{
-			LoadLayout(LastUsedLayoutName);
-		}
-		else
-		{
-			LoadDefaultLayout();
-		}
-	}
+        ImGui.LoadIniSettingsFromDisk(fileName);
+        LastUsedLayoutName = fileName;
+    }
 
-	public void Update()
-	{
-		// _autoSaveTimer -= Time.EditorDeltaTime;
-		// if (_autoSaveTimer <= 0)
-		// {
-		// 	SaveCurrentLayout();
-		// 	_autoSaveTimer = 3;
-		// }
-	}
+    public void LoadLastLayout()
+    {
+        if (LastUsedLayoutName != string.Empty)
+            LoadLayout(LastUsedLayoutName);
+        else
+            LoadDefaultLayout();
+    }
 
-	public void SaveDefaultLayout()
-	{
-		ImGui.SaveIniSettingsToDisk(DefaultSettingsName);
-		LastUsedLayoutName = DefaultSettingsName;
-	}
+    public void Update()
+    {
+        // _autoSaveTimer -= Time.EditorDeltaTime;
+        // if (_autoSaveTimer <= 0)
+        // {
+        // 	SaveCurrentLayout();
+        // 	_autoSaveTimer = 3;
+        // }
+    }
+
+    public void SaveDefaultLayout()
+    {
+        ImGui.SaveIniSettingsToDisk(DefaultSettingsName);
+        LastUsedLayoutName = DefaultSettingsName;
+    }
 }

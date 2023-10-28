@@ -4,70 +4,63 @@ namespace Tofu3D;
 
 public class Button : Component
 {
-	public delegate void MouseAction();
+    public delegate void MouseAction();
 
-	//[LinkableComponent]
-	public BoxShape BoxShape;
-	bool _clicked;
-	bool _mouseIsOver;
-	[XmlIgnore]
-	MouseAction _onClickedAction;
-	[XmlIgnore]
-	public MouseAction OnReleasedAction;
+    //[LinkableComponent]
+    public BoxShape BoxShape;
+    private bool _clicked;
+    private bool _mouseIsOver;
 
-	//[LinkableComponent]
-	public Renderer Renderer;
+    [XmlIgnore]
+    private MouseAction _onClickedAction;
 
-	public override void Awake()
-	{
-		//onClickedAction += () => renderer.color = new Color(215, 125, 125);
-		//onReleasedAction += () => renderer.color = Color.White;
-		//onReleasedAction += SpawnCubes;
+    [XmlIgnore]
+    public MouseAction OnReleasedAction;
 
-		if (GetComponent<ButtonTween>() == null)
-		{
-			GameObject.AddComponent<ButtonTween>().Awake();
-		}
+    //[LinkableComponent]
+    public Renderer Renderer;
 
-		Renderer = GetComponent<Renderer>();
-		BoxShape = GetComponent<BoxShape>();
+    public override void Awake()
+    {
+        //onClickedAction += () => renderer.color = new Color(215, 125, 125);
+        //onReleasedAction += () => renderer.color = Color.White;
+        //onReleasedAction += SpawnCubes;
 
-		base.Awake();
-	}
+        if (GetComponent<ButtonTween>() == null) GameObject.AddComponent<ButtonTween>().Awake();
 
-	public override void Update()
-	{
-		if (Renderer == false || BoxShape == false)
-		{
-			return;
-		}
+        Renderer = GetComponent<Renderer>();
+        BoxShape = GetComponent<BoxShape>();
 
-		_mouseIsOver = Tofu.MouseInput.WorldPosition.In(BoxShape);
-		if (Tofu.MouseInput.ButtonPressed() && _mouseIsOver)
-		{
-			_onClickedAction?.Invoke();
-			_clicked = true;
-		}
-		else if (Tofu.MouseInput.ButtonReleased())
-		{
-			if (_mouseIsOver)
-			{
-				OnReleasedAction?.Invoke();
-			}
+        base.Awake();
+    }
 
-			_clicked = false;
-		}
+    public override void Update()
+    {
+        if (Renderer == false || BoxShape == false) return;
 
-		if (_clicked == false)
-		{
-			//renderer.color = mouseIsOver ? Color.Gray : Color.White;
-		}
+        _mouseIsOver = Tofu.MouseInput.WorldPosition.In(BoxShape);
+        if (Tofu.MouseInput.ButtonPressed() && _mouseIsOver)
+        {
+            _onClickedAction?.Invoke();
+            _clicked = true;
+        }
+        else if (Tofu.MouseInput.ButtonReleased())
+        {
+            if (_mouseIsOver) OnReleasedAction?.Invoke();
 
-		if (_clicked && _mouseIsOver == false) // up event when me move out of button bounds, even when clicked
-		{
-			OnReleasedAction?.Invoke();
-			_clicked = false;
-		}
-		//renderer.color = Color.Black;
-	}
+            _clicked = false;
+        }
+
+        if (_clicked == false)
+        {
+            //renderer.color = mouseIsOver ? Color.Gray : Color.White;
+        }
+
+        if (_clicked && _mouseIsOver == false) // up event when me move out of button bounds, even when clicked
+        {
+            OnReleasedAction?.Invoke();
+            _clicked = false;
+        }
+        //renderer.color = Color.Black;
+    }
 }

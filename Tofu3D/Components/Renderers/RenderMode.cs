@@ -1,5 +1,5 @@
 ﻿public enum RenderMode
 {
-	Opaque,
-	Transparent
+    Opaque,
+    Transparent
 }

@@ -2,141 +2,129 @@ namespace Tofu3D.Rendering;
 
 public abstract class RenderPass : IComparable<RenderPass>
 {
-	public RenderPassType RenderPassType { get; private set; }
-	// List<Action> _renderQueue = new List<Action>();
-	Action _renderAction;
-	public RenderTexture PassRenderTexture { get; protected set; }
+    public RenderPassType RenderPassType { get; private set; }
 
-	public bool Enabled = true;
+    // List<Action> _renderQueue = new List<Action>();
+    private Action _renderAction;
+    public RenderTexture PassRenderTexture { get; protected set; }
 
-	public virtual bool CanRender()
-	{
-		// return _renderQueue.Count > 0 && Enabled;
-		return _renderAction != null && Enabled;
-	}
+    public bool Enabled = true;
 
-	protected RenderPass(RenderPassType type)
-	{
-		RenderPassType = type;
-		Tofu.RenderPassSystem.RegisterRenderPass(this);
-	}
+    public virtual bool CanRender()
+    {
+        // return _renderQueue.Count > 0 && Enabled;
+        return _renderAction != null && Enabled;
+    }
 
-	public virtual void Initialize()
-	{
-	}
+    protected RenderPass(RenderPassType type)
+    {
+        RenderPassType = type;
+        Tofu.RenderPassSystem.RegisterRenderPass(this);
+    }
 
-	public virtual void Clear()
-	{
-		if (CanRender() == false)
-		{
-			return;
-		}
+    public virtual void Initialize()
+    {
+    }
 
-		PassRenderTexture.Clear();
-	}
+    public virtual void Clear()
+    {
+        if (CanRender() == false) return;
 
-	public int CompareTo(RenderPass comparePart)
-	{
-		if (comparePart == null)
-		{
-			return 1;
-		}
+        PassRenderTexture.Clear();
+    }
 
-		return RenderPassType.CompareTo(comparePart.RenderPassType);
-	}
+    public int CompareTo(RenderPass comparePart)
+    {
+        if (comparePart == null) return 1;
 
-	public void RegisterRender(Action render)
-	{
-		// _renderQueue.Clear();
-		// _renderQueue.Add(render);
-		_renderAction = render;
-	}
+        return RenderPassType.CompareTo(comparePart.RenderPassType);
+    }
 
-	public void RemoveRender(Action render)
-	{
-		// _renderQueue.Remove(render);
-		_renderAction = null;
-	}
+    public void RegisterRender(Action render)
+    {
+        // _renderQueue.Clear();
+        // _renderQueue.Add(render);
+        _renderAction = render;
+    }
 
-	public void Render()
-	{
-		// if (CanRender() == false)
-		// {
-		// 	return;
-		// }
-		PreBindFrameBuffer();
-		BindFrameBuffer();
-		PreRender();
-		// foreach (Action renderCall in _renderQueue)
-		// {
-		// renderCall.Invoke();
-		// }
-		_renderAction?.Invoke(); // post process doesnt have render action so ?. 
+    public void RemoveRender(Action render)
+    {
+        // _renderQueue.Remove(render);
+        _renderAction = null;
+    }
 
-		PostRender();
-		UnbindFrameBuffer();
-		PostUnbindFrameBuffer();
-	}
+    public void Render()
+    {
+        // if (CanRender() == false)
+        // {
+        // 	return;
+        // }
+        PreBindFrameBuffer();
+        BindFrameBuffer();
+        PreRender();
+        // foreach (Action renderCall in _renderQueue)
+        // {
+        // renderCall.Invoke();
+        // }
+        _renderAction?.Invoke(); // post process doesnt have render action so ?. 
 
-	public virtual void RenderToRenderTexture(RenderTexture target, FramebufferAttachment attachment)
-	{
-		if (PassRenderTexture == null)
-		{
-			Debug.Log($"PassRenderTexture == null");
-			return;
-		}
+        PostRender();
+        UnbindFrameBuffer();
+        PostUnbindFrameBuffer();
+    }
 
-		// GL.ClearColor(Color.Orchid.ToOtherColor());
-		// GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+    public virtual void RenderToRenderTexture(RenderTexture target, FramebufferAttachment attachment)
+    {
+        if (PassRenderTexture == null)
+        {
+            Debug.Log($"PassRenderTexture == null");
+            return;
+        }
 
-		target.Bind();
-		// GL.Viewport(0, 0, (int) target.Size.X, (int) target.Size.Y);
-		// GL.Viewport(0, 0, (int) target.Size.X*2, (int) target.Size.Y*2);
-		// wtf, why does the viewport need to be target.Size.X * 2 ??????
-		// its 1380,
-		if (attachment == FramebufferAttachment.Color && PassRenderTexture.ColorAttachment != -1)
-		{
-			target.RenderColorAttachment(PassRenderTexture.ColorAttachment);
-		}
+        // GL.ClearColor(Color.Orchid.ToOtherColor());
+        // GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-		if (attachment == FramebufferAttachment.Depth && target.DepthAttachment != -1 && PassRenderTexture.DepthAttachment != -1)
-		{
-			target.RenderDepthAttachment(PassRenderTexture.DepthAttachment);
-		}
+        target.Bind();
+        // GL.Viewport(0, 0, (int) target.Size.X, (int) target.Size.Y);
+        // GL.Viewport(0, 0, (int) target.Size.X*2, (int) target.Size.Y*2);
+        // wtf, why does the viewport need to be target.Size.X * 2 ??????
+        // its 1380,
+        if (attachment == FramebufferAttachment.Color && PassRenderTexture.ColorAttachment != -1)
+            target.RenderColorAttachment(PassRenderTexture.ColorAttachment);
 
-		target.Unbind();
-	}
+        if (attachment == FramebufferAttachment.Depth && target.DepthAttachment != -1 &&
+            PassRenderTexture.DepthAttachment != -1) target.RenderDepthAttachment(PassRenderTexture.DepthAttachment);
 
-	internal void BindFrameBuffer()
-	{
-		PassRenderTexture?.Bind();
+        target.Unbind();
+    }
 
-		if (PassRenderTexture != null)
-		{
-			GL.Viewport(0, 0, (int) PassRenderTexture.Size.X, (int) PassRenderTexture.Size.Y);
-		}
-	}
+    internal void BindFrameBuffer()
+    {
+        PassRenderTexture?.Bind();
 
-	internal void UnbindFrameBuffer()
-	{
-		PassRenderTexture?.Unbind();
-	}
+        if (PassRenderTexture != null) GL.Viewport(0, 0, (int)PassRenderTexture.Size.X, (int)PassRenderTexture.Size.Y);
+    }
 
-	protected virtual void PreBindFrameBuffer()
-	{
-	}
+    internal void UnbindFrameBuffer()
+    {
+        PassRenderTexture?.Unbind();
+    }
 
-	protected virtual void PostUnbindFrameBuffer()
-	{
-	}
+    protected virtual void PreBindFrameBuffer()
+    {
+    }
 
-	protected virtual void PreRender()
-	{
-	}
+    protected virtual void PostUnbindFrameBuffer()
+    {
+    }
 
-	protected virtual void PostRender()
-	{
-	}
+    protected virtual void PreRender()
+    {
+    }
 
-	protected abstract void SetupRenderTexture();
+    protected virtual void PostRender()
+    {
+    }
+
+    protected abstract void SetupRenderTexture();
 }

@@ -9,29 +9,29 @@ using OperatingSystem = Tofu3D.OperatingSystem;
 
 public class ImGuiController : IDisposable
 {
-    static bool _khrDebugAvailable;
+    private static bool _khrDebugAvailable;
 
-    readonly List<char> _pressedChars = new();
+    private readonly List<char> _pressedChars = new();
 
     //private Texture _fontTexture;
 
-    int _fontTexture;
-    bool _frameBegun;
-    int _indexBuffer;
-    int _indexBufferSize;
+    private int _fontTexture;
+    private bool _frameBegun;
+    private int _indexBuffer;
+    private int _indexBufferSize;
 
-    readonly System.Numerics.Vector2 _scaleFactor = System.Numerics.Vector2.One;
+    private readonly System.Numerics.Vector2 _scaleFactor = System.Numerics.Vector2.One;
 
-    int _shader;
-    int _shaderFontTextureLocation;
-    int _shaderProjectionMatrixLocation;
+    private int _shader;
+    private int _shaderFontTextureLocation;
+    private int _shaderProjectionMatrixLocation;
 
-    int _vertexArray;
-    int _vertexBuffer;
-    int _vertexBufferSize;
-    int _windowHeight;
+    private int _vertexArray;
+    private int _vertexBuffer;
+    private int _vertexBufferSize;
+    private int _windowHeight;
 
-    int _windowWidth;
+    private int _windowWidth;
 
     /// <summary>
     ///         Constructs a new ImGuiController.
@@ -44,7 +44,7 @@ public class ImGuiController : IDisposable
         int major = GL.GetInteger(GetPName.MajorVersion);
         int minor = GL.GetInteger(GetPName.MinorVersion);
 
-        _khrDebugAvailable = major == 4 && minor >= 3 || IsExtensionSupported("KHR_debug");
+        _khrDebugAvailable = (major == 4 && minor >= 3) || IsExtensionSupported("KHR_debug");
 
         IntPtr context = ImGui.CreateContext();
         ImGui.SetCurrentContext(context);
@@ -220,10 +220,7 @@ void main()
     /// </summary>
     public void Update(GameWindow wnd, float deltaSeconds)
     {
-        if (_frameBegun)
-        {
-            ImGui.Render();
-        }
+        if (_frameBegun) ImGui.Render();
 
         SetPerFrameImGuiData(deltaSeconds);
         UpdateImGuiInput(wnd);
@@ -236,7 +233,7 @@ void main()
     ///         Sets per-frame data based on the associated window.
     ///         This is called by Update(float).
     /// </summary>
-    void SetPerFrameImGuiData(float deltaSeconds)
+    private void SetPerFrameImGuiData(float deltaSeconds)
     {
         ImGuiIOPtr io = ImGui.GetIO();
         io.DisplaySize = new System.Numerics.Vector2(
@@ -246,7 +243,7 @@ void main()
         io.DeltaTime = deltaSeconds; // DeltaTime is in seconds.
     }
 
-    void UpdateImGuiInput(GameWindow wnd)
+    private void UpdateImGuiInput(GameWindow wnd)
     {
         ImGuiIOPtr io = ImGui.GetIO();
         MouseState mouseState = wnd.MouseState;
@@ -256,28 +253,19 @@ void main()
         io.MouseDown[1] = mouseState[MouseButton.Right];
         io.MouseDown[2] = mouseState[MouseButton.Middle];
 
-        Vector2i screenPoint = new Vector2i((int)mouseState.X, (int)mouseState.Y);
-        if (OperatingSystem.IsMacOS)
-        {
-            screenPoint *= 2;
-        }
+        Vector2i screenPoint = new((int)mouseState.X, (int)mouseState.Y);
+        if (OperatingSystem.IsMacOS) screenPoint *= 2;
 
         io.MousePos = new System.Numerics.Vector2(screenPoint.X, screenPoint.Y);
 
         foreach (Keys key in Enum.GetValues(typeof(Keys)))
         {
-            if (key == Keys.Unknown)
-            {
-                continue;
-            }
+            if (key == Keys.Unknown) continue;
 
             io.KeysDown[(int)key] = keyboardState.IsKeyDown(key);
         }
 
-        foreach (char c in _pressedChars)
-        {
-            io.AddInputCharacter(c);
-        }
+        foreach (char c in _pressedChars) io.AddInputCharacter(c);
 
         _pressedChars.Clear();
 
@@ -300,7 +288,7 @@ void main()
         io.MouseWheelH = offset.X;
     }
 
-    static void SetKeyMappings()
+    private static void SetKeyMappings()
     {
         ImGuiIOPtr io = ImGui.GetIO();
         io.KeyMap[(int)ImGuiKey.Tab] = (int)Keys.Tab;
@@ -324,12 +312,9 @@ void main()
         io.KeyMap[(int)ImGuiKey.Z] = (int)Keys.Z;
     }
 
-    void RenderImDrawData(ImDrawDataPtr drawData)
+    private void RenderImDrawData(ImDrawDataPtr drawData)
     {
-        if (drawData.CmdListsCount == 0)
-        {
-            return;
-        }
+        if (drawData.CmdListsCount == 0) return;
 
         // Get intial state.
         int prevVao = GL.GetInteger(GetPName.VertexArrayBinding);
@@ -432,10 +417,7 @@ void main()
             for (int cmdI = 0; cmdI < cmdList.CmdBuffer.Size; cmdI++)
             {
                 ImDrawCmdPtr pcmd = cmdList.CmdBuffer[cmdI];
-                if (pcmd.UserCallback != IntPtr.Zero)
-                {
-                    throw new NotImplementedException();
-                }
+                if (pcmd.UserCallback != IntPtr.Zero) throw new NotImplementedException();
 
                 GL.ActiveTexture(TextureUnit.Texture0);
                 GL.BindTexture(TextureTarget.Texture2D, (int)pcmd.TextureId);
@@ -447,16 +429,12 @@ void main()
                 CheckGlError("Scissor");
 
                 if ((io.BackendFlags & ImGuiBackendFlags.RendererHasVtxOffset) != 0)
-                {
                     GL.DrawElementsBaseVertex(PrimitiveType.Triangles, (int)pcmd.ElemCount,
                         DrawElementsType.UnsignedShort, (IntPtr)(pcmd.IdxOffset * sizeof(ushort)),
                         unchecked((int)pcmd.VtxOffset));
-                }
                 else
-                {
                     GL.DrawElements(BeginMode.Triangles, (int)pcmd.ElemCount, DrawElementsType.UnsignedShort,
                         (int)pcmd.IdxOffset * sizeof(ushort));
-                }
 
                 CheckGlError("Draw");
             }
@@ -479,60 +457,38 @@ void main()
             (BlendingFactorSrc)prevBlendFuncSrcAlpha,
             (BlendingFactorDest)prevBlendFuncDstAlpha);
         if (prevBlendEnabled)
-        {
             GL.Enable(EnableCap.Blend);
-        }
         else
-        {
             GL.Disable(EnableCap.Blend);
-        }
 
         if (prevDepthTestEnabled)
-        {
             GL.Enable(EnableCap.DepthTest);
-        }
         else
-        {
             GL.Disable(EnableCap.DepthTest);
-        }
 
         if (prevCullFaceEnabled)
-        {
             GL.Enable(EnableCap.CullFace);
-        }
         else
-        {
             GL.Disable(EnableCap.CullFace);
-        }
 
         if (prevScissorTestEnabled)
-        {
             GL.Enable(EnableCap.ScissorTest);
-        }
         else
-        {
             GL.Disable(EnableCap.ScissorTest);
-        }
     }
 
     public static void LabelObject(ObjectLabelIdentifier objLabelIdent, int glObject, string name)
     {
-        if (_khrDebugAvailable)
-        {
-            GL.ObjectLabel(objLabelIdent, glObject, name.Length, name);
-        }
+        if (_khrDebugAvailable) GL.ObjectLabel(objLabelIdent, glObject, name.Length, name);
     }
 
-    static bool IsExtensionSupported(string name)
+    private static bool IsExtensionSupported(string name)
     {
         int n = GL.GetInteger(GetPName.NumExtensions);
         for (int i = 0; i < n; i++)
         {
             string extension = GL.GetString(StringNameIndexed.Extensions, i);
-            if (extension == name)
-            {
-                return true;
-            }
+            if (extension == name) return true;
         }
 
         return false;
@@ -567,7 +523,7 @@ void main()
         return program;
     }
 
-    static int CompileShader(string name, ShaderType type, string source)
+    private static int CompileShader(string name, ShaderType type, string source)
     {
         int shader = GL.CreateShader(type);
         LabelObject(ObjectLabelIdentifier.Shader, shader, $"Shader: {name}");

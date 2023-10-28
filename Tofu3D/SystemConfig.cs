@@ -6,10 +6,10 @@ namespace Tofu3D;
 
 public static class SystemConfig
 {
-	public static void Configure()
-	{
-		Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
+    public static void Configure()
+    {
+        Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
 
-		Environment.CurrentDirectory = Directory.GetParent(Folders.Assets).FullName;
-	}
+        Environment.CurrentDirectory = Directory.GetParent(Folders.Assets).FullName;
+    }
 }

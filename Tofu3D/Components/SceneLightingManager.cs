@@ -2,129 +2,113 @@
 
 public class SceneLightingManager
 {
-	List<LightBase> _lights = new List<LightBase>();
+    private List<LightBase> _lights = new();
 
-	DirectionalLight _directionalLight;
-	readonly Scene _scene;
+    private DirectionalLight _directionalLight;
+    private readonly Scene _scene;
 
-	public static SceneLightingManager I { get; private set; }
+    public static SceneLightingManager I { get; private set; }
 
-	public SceneLightingManager(Scene scene)
-	{
-		I = this;
-		_scene = scene;
-		Scene.ComponentAwoken += OnSceneComponentAdded;
-	}
+    public SceneLightingManager(Scene scene)
+    {
+        I = this;
+        _scene = scene;
+        Scene.ComponentAwoken += OnSceneComponentAdded;
+    }
 
-	public void Update()
-	{
-	}
+    public void Update()
+    {
+    }
 
-	void OnSceneComponentAdded(Component obj)
-	{
-		if (_directionalLight == null)
-		{
-			_lights = _scene.FindComponentsInScene<LightBase>(ignoreInactive: true);
+    private void OnSceneComponentAdded(Component obj)
+    {
+        if (_directionalLight == null)
+        {
+            _lights = _scene.FindComponentsInScene<LightBase>(true);
 
-			_directionalLight = _scene.FindComponent<DirectionalLight>(ignoreInactive: true);
-		}
-	}
+            _directionalLight = _scene.FindComponent<DirectionalLight>(true);
+        }
+    }
 
-	public float[] GetPointLightsPositions()
-	{
-		List<float> floats = new List<float>();
-		for (int i = 0; i < _lights.Count; i++)
-		{
-			if (_lights[i] is PointLight)
-			{
-				floats.Add(_lights[i].Transform.WorldPosition.X);
-				floats.Add(_lights[i].Transform.WorldPosition.Y);
-				floats.Add(_lights[i].Transform.WorldPosition.Z);
-			}
-		}
+    public float[] GetPointLightsPositions()
+    {
+        List<float> floats = new();
+        for (int i = 0; i < _lights.Count; i++)
+            if (_lights[i] is PointLight)
+            {
+                floats.Add(_lights[i].Transform.WorldPosition.X);
+                floats.Add(_lights[i].Transform.WorldPosition.Y);
+                floats.Add(_lights[i].Transform.WorldPosition.Z);
+            }
 
 
-		return floats.ToArray();
-	}
+        return floats.ToArray();
+    }
 
-	public float[] GetPointLightsColors()
-	{
-		List<float> floats = new List<float>();
-		for (int i = 0; i < _lights.Count; i++)
-		{
-			if (_lights[i] is PointLight)
-			{
-				floats.Add(_lights[i].Color.R / 255f);
-				floats.Add(_lights[i].Color.G / 255f);
-				floats.Add(_lights[i].Color.B / 255f);
-			}
-		}
+    public float[] GetPointLightsColors()
+    {
+        List<float> floats = new();
+        for (int i = 0; i < _lights.Count; i++)
+            if (_lights[i] is PointLight)
+            {
+                floats.Add(_lights[i].Color.R / 255f);
+                floats.Add(_lights[i].Color.G / 255f);
+                floats.Add(_lights[i].Color.B / 255f);
+            }
 
 
-		return floats.ToArray();
-	}
+        return floats.ToArray();
+    }
 
-	public float[] GetPointLightsIntensities()
-	{
-		List<float> floats = new List<float>();
-		for (int i = 0; i < _lights.Count; i++)
-		{
-			if (_lights[i] is PointLight)
-			{
-				floats.Add(_lights[i].Intensity);
-			}
-		}
+    public float[] GetPointLightsIntensities()
+    {
+        List<float> floats = new();
+        for (int i = 0; i < _lights.Count; i++)
+            if (_lights[i] is PointLight)
+                floats.Add(_lights[i].Intensity);
 
-		return floats.ToArray();
-	}
+        return floats.ToArray();
+    }
 
-	public Color GetAmbientLightsColor()
-	{
-		Color col = new Color(0, 0, 0, 1);
+    public Color GetAmbientLightsColor()
+    {
+        Color col = new(0, 0, 0, 1);
 
 
-		for (int i = 0; i < _lights.Count; i++)
-		{
-			if (_lights[i].GetType() == typeof(AmbientLight))
-			{
-				col += _lights[i].Color;
-			}
-		}
+        for (int i = 0; i < _lights.Count; i++)
+            if (_lights[i].GetType() == typeof(AmbientLight))
+                col += _lights[i].Color;
 
-		return col;
-	}
+        return col;
+    }
 
-	public float GetAmbientLightsIntensity()
-	{
-		float intensity = 0;
-		for (int i = 0; i < _lights.Count; i++)
-		{
-			if (_lights[i].GetType() == typeof(AmbientLight))
-			{
-				intensity += _lights[i].Intensity * (_lights[i].IsActive ? 1 : 0);
-			}
-		}
+    public float GetAmbientLightsIntensity()
+    {
+        float intensity = 0;
+        for (int i = 0; i < _lights.Count; i++)
+            if (_lights[i].GetType() == typeof(AmbientLight))
+                intensity += _lights[i].Intensity * (_lights[i].IsActive ? 1 : 0);
 
-		return Mathf.ClampMin(intensity, 0);
-	}
+        return Mathf.ClampMin(intensity, 0);
+    }
 
-	public Color GetDirectionalLightColor()
-	{
-		return _directionalLight?.Color ?? Color.Black;
-	}
+    public Color GetDirectionalLightColor()
+    {
+        return _directionalLight?.Color ?? Color.Black;
+    }
 
-	public Vector3 GetDirectionalLightDirection()
-	{
-		return _directionalLight?.Transform.Forward ?? Vector3.Zero;
-	}
+    public Vector3 GetDirectionalLightDirection()
+    {
+        return _directionalLight?.Transform.Forward ?? Vector3.Zero;
+    }
 
-	public Vector3 GetDirectionalLightPosition()
-	{
-		return _directionalLight?.Transform.WorldPosition ?? Vector3.Zero;
-	}
+    public Vector3 GetDirectionalLightPosition()
+    {
+        return _directionalLight?.Transform.WorldPosition ?? Vector3.Zero;
+    }
 
-	public float GetDirectionalLightIntensity()
-	{
-		return (_directionalLight?.Intensity ?? 0) * (_directionalLight?.IsActive == true ? 1 : 0);
-	}
+    public float GetDirectionalLightIntensity()
+    {
+        return (_directionalLight?.Intensity ?? 0) * (_directionalLight?.IsActive == true ? 1 : 0);
+    }
 }

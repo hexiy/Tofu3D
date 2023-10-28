@@ -15,10 +15,8 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
         // screenPos = screenPos * new Vector2(1, -1);
         Vector2 mousePos = Tofu.MouseInput.PositionInWindow;
         Vector2 mousePosRelativeToGraph =
-            (mousePos - screenPos)*Tofu.Window.MonitorScale + new Vector2(0,(graphSize.Y));
-        Vector2 mousePosInGraphNormalizedCoordinates = (mousePosRelativeToGraph / graphSize);
-        Debug.Log(mousePosRelativeToGraph);
-
+            (mousePos - screenPos) * Tofu.Window.MonitorScale + new Vector2(0, graphSize.Y);
+        Vector2 mousePosInGraphNormalizedCoordinates = mousePosRelativeToGraph / graphSize;
 
         Curve curve = GetValue(info, componentInspectorData);
 
@@ -27,7 +25,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
             0, 1,
             graphSize);
 
-
+        ImGui.PushClipRect(ImGui.GetItemRectMin(), ImGui.GetItemRectMax(), false);
         bool cursorIsInsideGraph = ImGui.IsItemHovered();
         bool doubleClickedGraph = cursorIsInsideGraph && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
 
@@ -37,28 +35,37 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
         {
             ImGui.SameLine();
 
-            Vector2 newPos = new Vector2(pos.X + (curve.DefiningPoints[i].X * graphSize.X),
+            Vector2 newPos = new(pos.X + curve.DefiningPoints[i].X * graphSize.X,
                 pos.Y + (1 - curve.DefiningPoints[i].Y) * graphSize.Y);
 
-            ImGui.SetCursorPos(newPos - new Vector2(15));
 
             Texture texture = Tofu.AssetManager.Load<Texture>("Resources/dot.png");
 
-            ImGui.Image(texture.TextureId, new(30), new(0), new(1), Color.Purple.ToVector4());
+            Color circleColor = Color.Purple;
+
+            ImGui.SetCursorPos(newPos - new Vector2(15));
+            ImGui.Image(texture.TextureId, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
 
             bool cursorHoversCurrentPoint = ImGui.IsItemHovered();
-            if (draggingPointIndex != -1 && ImGui.IsMouseDown(ImGuiMouseButton.Left) == false)
+            bool currentPointIsClicked = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown(MouseButtons.Button1);
+            if (cursorHoversCurrentPoint) circleColor = Color.MidnightBlue;
+
+            if (currentPointIsClicked) circleColor = Color.IndianRed;
+
+
+            ImGui.SetCursorPos(newPos - new Vector2(15));
+
+            ImGui.Image(texture.TextureId, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
+
+            if (draggingPointIndex != -1 && Tofu.MouseInput.IsButtonDown(MouseButtons.Button1) == false)
             {
                 draggingPointIndex = -1;
             }
             else if (draggingPointIndex == -1)
             {
-                bool x = ImGui.IsItemHovered() && ImGui.IsMouseDragging(ImGuiMouseButton.Left);
-                x = x || ImGui.IsItemClicked();
-                if (x)
-                {
-                    draggingPointIndex = i;
-                }
+                bool x = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown(MouseButtons.Button1);
+                x = x || currentPointIsClicked;
+                if (x) draggingPointIndex = i;
             }
 
             if (draggingPointIndex == i && cursorIsInsideGraph)
@@ -73,21 +80,21 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
                 // Debug.Log($"Dragging curve point:{curve.DefiningPoints[i]}");
             }
 
-            bool doubleClicked = ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
-            if (doubleClicked)
+            if (Tofu.MouseInput.ButtonReleased())
             {
-                if (cursorHoversCurrentPoint)
-                {
-                    if (curve.CanRemovePoint)
-                    {
-                        // remoove the hovered point
-                        curve.DefiningPoints.RemoveAt(i);
-                        Debug.Log("Removed point");
-                        doubleClickedGraph = false;
-                        curve.RecalculateCurve();
-                        break;
-                    }
-                }
+                // curve.RecalculateCurve();
+            }
+
+            // bool doubleClicked = ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
+            bool removePoint = ImGui.IsMouseClicked(ImGuiMouseButton.Left) && KeyboardInput.IsKeyDown(Keys.LeftControl);
+            if (removePoint && cursorHoversCurrentPoint && curve.CanRemovePoint)
+            {
+                // remoove the hovered point
+                curve.DefiningPoints.RemoveAt(i);
+                Debug.Log("Removed point");
+                doubleClickedGraph = false;
+                curve.RecalculateCurve();
+                break;
             }
         }
 
@@ -98,5 +105,6 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
         }
 
         ImGui.SetCursorPos(cursorPos); // so the next imgui element doesnt move with control points
+        ImGui.PopClipRect();
     }
 }

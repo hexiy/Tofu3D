@@ -4,7 +4,7 @@ namespace Tofu3D;
 
 public static class TofuGUI
 {
-    public static Vector2 ButtonSize => new Vector2(150, 35);
+    public static Vector2 ButtonSize => new(150, 35);
 
     public static void CenterNextItem(Vector2 size)
     {

@@ -5,196 +5,186 @@ namespace Tofu3D;
 
 public partial class MouseInput
 {
-	public delegate void MouseEvent();
+    public delegate void MouseEvent();
 
-	//
-	// Summary:
-	//     Specifies the buttons of a mouse.
-	float _sceneViewPadding = 20;
+    //
+    // Summary:
+    //     Specifies the buttons of a mouse.
+    private float _sceneViewPadding = 20;
 
-	public Vector2 ScreenDelta { get; private set; }
+    public Vector2 ScreenDelta { get; private set; }
 
-	/// <summary>
-	/// Screen position of mouse
-	/// </summary>
-	public Vector2 PositionInView { get; private set; } = Vector2.Zero;
-	public Vector2 PositionInWindow { get; private set; } = Vector2.Zero;
+    /// <summary>
+    /// Screen position of mouse
+    /// </summary>
+    public Vector2 PositionInView { get; private set; } = Vector2.Zero;
 
-	private List<Func<bool>> _passThroughEdgesConditions = new List<Func<bool>>();
+    public Vector2 PositionInWindow { get; private set; } = Vector2.Zero;
 
-	public void RegisterPassThroughEdgesCondition(Func<bool> func)
-	{
-		_passThroughEdgesConditions.Add(func);
-	}
+    private List<Func<bool>> _passThroughEdgesConditions = new();
 
-	/// <summary>
-	/// Returns true if any condition returns true
-	/// </summary>
-	/// <returns></returns>
-	private bool EvaluateAllPassThroughEdgesConditions()
-	{
-		foreach (Func<bool> condition in _passThroughEdgesConditions)
-		{
-			if (condition.Invoke() == true)
-			{
-				return true;
-			}
-		}
+    public void RegisterPassThroughEdgesCondition(Func<bool> func)
+    {
+        _passThroughEdgesConditions.Add(func);
+    }
 
-		return false;
-	}
+    /// <summary>
+    /// Returns true if any condition returns true
+    /// </summary>
+    /// <returns></returns>
+    private bool EvaluateAllPassThroughEdgesConditions()
+    {
+        foreach (var condition in _passThroughEdgesConditions)
+            if (condition.Invoke() == true)
+                return true;
 
-	// public static EventHandler<Func<bool>> PassThroughEdgesConditions;
+        return false;
+    }
 
-	public Vector2 WorldDelta
-	{
-		get
-		{
-			if (Camera.MainCamera.IsOrthographic)
-			{
-				return ScreenDelta * Camera.MainCamera.OrthographicSize;
-			}
-			else
-			{
-				return ScreenDelta;
-			}
-		}
-	}
+    // public static EventHandler<Func<bool>> PassThroughEdgesConditions;
 
-	public Vector2 WorldPosition
-	{
-		get { return Camera.MainCamera.ScreenToWorld(PositionInView); }
-	}
+    public Vector2 WorldDelta
+    {
+        get
+        {
+            if (Camera.MainCamera.IsOrthographic)
+                return ScreenDelta * Camera.MainCamera.OrthographicSize;
+            else
+                return ScreenDelta;
+        }
+    }
 
-	public float ScrollDelta
-	{
-		get
-		{
-			if (IsMouseInSceneView() == false)
-			{
-				return 0;
-			}
+    public Vector2 WorldPosition => Camera.MainCamera.ScreenToWorld(PositionInView);
 
-			return Tofu.Window.MouseState.ScrollDelta.Y;
-		}
-	}
+    public float ScrollDelta
+    {
+        get
+        {
+            if (IsMouseInSceneView() == false) return 0;
 
-	public bool IsButtonDown(MouseButtons mouseButton = MouseButtons.Left)
-	{
-		// if (IsMouseInSceneView() == false)
-		// {
-		// 	return false;
-		// }
+            return Tofu.Window.MouseState.ScrollDelta.Y;
+        }
+    }
 
-		return Tofu.Window.MouseState.IsButtonDown((MouseButton) mouseButton);
-	}
+    public bool IsButtonDown(MouseButtons mouseButton = MouseButtons.Left)
+    {
+        // if (IsMouseInSceneView() == false)
+        // {
+        // 	return false;
+        // }
 
-	public bool IsButtonUp(MouseButtons mouseButton = MouseButtons.Left)
-	{
-		if (IsMouseInSceneView() == false)
-		{
-			return false;
-		}
+        return Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton);
+    }
 
-		return Tofu.Window.MouseState.IsButtonDown((MouseButton) mouseButton) == false;
-	}
+    public bool IsButtonUp(MouseButtons mouseButton = MouseButtons.Left)
+    {
+        if (IsMouseInSceneView() == false) return false;
 
-	public bool ButtonPressed(MouseButtons mouseButton = MouseButtons.Left)
-	{
-		// if (IsMouseInSceneView() == false)
-		// {
-		// 	return false;
-		// }
+        return Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton) == false;
+    }
 
-		return Tofu.Window.MouseState.WasButtonDown((MouseButton) mouseButton) == false && Tofu.Window.MouseState.IsButtonDown((MouseButton) mouseButton);
-	}
+    public bool ButtonPressed(MouseButtons mouseButton = MouseButtons.Left)
+    {
+        // if (IsMouseInSceneView() == false)
+        // {
+        // 	return false;
+        // }
 
-	public bool ButtonReleased(MouseButtons mouseButton = MouseButtons.Left)
-	{
-		// if (IsMouseInSceneView() == false) commented 2023/05/04
-		// {
-		// 	return false;
-		// }
+        return Tofu.Window.MouseState.WasButtonDown((MouseButton)mouseButton) == false &&
+               Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton);
+    }
 
-		return Tofu.Window.MouseState.WasButtonDown((MouseButton) mouseButton) && Tofu.Window.MouseState.IsButtonDown((MouseButton) mouseButton) == false;
-	}
+    public bool ButtonReleased(MouseButtons mouseButton = MouseButtons.Left)
+    {
+        // if (IsMouseInSceneView() == false) commented 2023/05/04
+        // {
+        // 	return false;
+        // }
 
-    bool _skipOneFrame = false;
+        return Tofu.Window.MouseState.WasButtonDown((MouseButton)mouseButton) &&
+               Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton) == false;
+    }
 
-	public void Update()
-	{
-		if (_skipOneFrame)
-		{
-			_skipOneFrame = false;
-			return;
-		}
+    private bool _skipOneFrame = false;
 
-		bool allowPassThroughEdges = EvaluateAllPassThroughEdgesConditions(); // uh so how does this work, do i get true when all of them are true or what
+    public void Update()
+    {
+        if (_skipOneFrame)
+        {
+            _skipOneFrame = false;
+            return;
+        }
 
-		// Debug.StatSetValue("MouseInput AllowPassthroughEdges", $"AllowPassthroughEdges {allowPassThroughEdges}");
-		MouseState mouseState = Tofu.Window.MouseState;
-		Vector2 mousePosCorrected = new Vector2(mouseState.Position.X, Tofu.Window.Size.Y - mouseState.Position.Y);
-		// Debug.StatSetValue("mousePos", $"MousePos:{mousePosCorrected}");
-		bool passedThroughEdge = false;
-		if (allowPassThroughEdges)
-		{
-			if (mousePosCorrected.X < 1 && ScreenDelta.X < 0)
-			{
-				Tofu.Window.MousePosition = new OpenTK.Mathematics.Vector2(Tofu.Window.Size.X - 5, Tofu.Window.MousePosition.Y);
-				passedThroughEdge = true;
-			}
-			// do what the if statement above does but for the right side of the screen
-			else if (mousePosCorrected.X > Tofu.Window.Size.X - 2 && ScreenDelta.X > 0)
-			{
-				Tofu.Window.MousePosition = new OpenTK.Mathematics.Vector2(5, Tofu.Window.MousePosition.Y);
-				passedThroughEdge = true;
-			}
-			else if (mousePosCorrected.Y > Tofu.Window.Size.Y - 2 && ScreenDelta.Y > 0)
-			{
-				Tofu.Window.MousePosition = new OpenTK.Mathematics.Vector2(Tofu.Window.MousePosition.X, Tofu.Window.Size.Y);
-				passedThroughEdge = true;
-			}
-			else if (mousePosCorrected.Y < 1 && ScreenDelta.Y < 0)
-			{
-				Tofu.Window.MousePosition = new OpenTK.Mathematics.Vector2(Tofu.Window.MousePosition.X, 5);
-				passedThroughEdge = true;
-			}
+        bool allowPassThroughEdges =
+            EvaluateAllPassThroughEdgesConditions(); // uh so how does this work, do i get true when all of them are true or what
+
+        // Debug.StatSetValue("MouseInput AllowPassthroughEdges", $"AllowPassthroughEdges {allowPassThroughEdges}");
+        MouseState mouseState = Tofu.Window.MouseState;
+        Vector2 mousePosCorrected = new(mouseState.Position.X, Tofu.Window.Size.Y - mouseState.Position.Y);
+        // Debug.StatSetValue("mousePos", $"MousePos:{mousePosCorrected}");
+        bool passedThroughEdge = false;
+        if (allowPassThroughEdges)
+        {
+            if (mousePosCorrected.X < 1 && ScreenDelta.X < 0)
+            {
+                Tofu.Window.MousePosition =
+                    new OpenTK.Mathematics.Vector2(Tofu.Window.Size.X - 5, Tofu.Window.MousePosition.Y);
+                passedThroughEdge = true;
+            }
+            // do what the if statement above does but for the right side of the screen
+            else if (mousePosCorrected.X > Tofu.Window.Size.X - 2 && ScreenDelta.X > 0)
+            {
+                Tofu.Window.MousePosition = new OpenTK.Mathematics.Vector2(5, Tofu.Window.MousePosition.Y);
+                passedThroughEdge = true;
+            }
+            else if (mousePosCorrected.Y > Tofu.Window.Size.Y - 2 && ScreenDelta.Y > 0)
+            {
+                Tofu.Window.MousePosition =
+                    new OpenTK.Mathematics.Vector2(Tofu.Window.MousePosition.X, Tofu.Window.Size.Y);
+                passedThroughEdge = true;
+            }
+            else if (mousePosCorrected.Y < 1 && ScreenDelta.Y < 0)
+            {
+                Tofu.Window.MousePosition = new OpenTK.Mathematics.Vector2(Tofu.Window.MousePosition.X, 5);
+                passedThroughEdge = true;
+            }
 
 
-			if (passedThroughEdge)
-			{
-				mouseState = Tofu.Window.MouseState;
-			}
-		}
+            if (passedThroughEdge) mouseState = Tofu.Window.MouseState;
+        }
 
-		ScreenDelta = new Vector2(mouseState.Delta.X, -mouseState.Delta.Y);
+        ScreenDelta = new Vector2(mouseState.Delta.X, -mouseState.Delta.Y);
 
-		if (passedThroughEdge || Math.Abs(ScreenDelta.X) > Tofu.Window.Size.X - 100 || Math.Abs(ScreenDelta.Y) > Tofu.Window.Size.Y - 100)
-		{
-			_skipOneFrame = true;
-			// Debug.Log($"ScreenDelta:{ScreenDelta.ToString()}");
-			ScreenDelta = Vector2.Zero;
-		}
+        if (passedThroughEdge || Math.Abs(ScreenDelta.X) > Tofu.Window.Size.X - 100 ||
+            Math.Abs(ScreenDelta.Y) > Tofu.Window.Size.Y - 100)
+        {
+            _skipOneFrame = true;
+            // Debug.Log($"ScreenDelta:{ScreenDelta.ToString()}");
+            ScreenDelta = Vector2.Zero;
+        }
 
 
-		// if (Camera.I.IsOrthographic == false)
-		// {
-		// 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
-		// }
-
-		
-		PositionInWindow = new Vector2(Tofu.Window.MousePosition.X, Tofu.Window.Size.Y - Tofu.Window.MousePosition.Y);
-		PositionInView = new Vector2(Tofu.Window.MouseState.X - Tofu.Editor.SceneViewPosition.X,
-		                             -Tofu.Window.MouseState.Y + Camera.MainCamera.Size.Y + Tofu.Editor.SceneViewPosition.Y + 25); // 25 EditorPanelMenuBar height
-		
-		// Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
-		Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
-		// Debug.StatSetValue("imgui mouse pos", $"imgui mmouse pos: {ImGui.GetMousePos()}");
-	}
+        // if (Camera.I.IsOrthographic == false)
+        // {
+        // 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
+        // }
 
 
-    bool IsMouseInSceneView()
-	{
-		return PositionInView.X > -_sceneViewPadding && PositionInView.X < Camera.MainCamera.Size.X + _sceneViewPadding && PositionInView.Y > -_sceneViewPadding && PositionInView.Y < Camera.MainCamera.Size.Y + _sceneViewPadding;
-	}
+        PositionInWindow = new Vector2(Tofu.Window.MousePosition.X, Tofu.Window.Size.Y - Tofu.Window.MousePosition.Y);
+        PositionInView = new Vector2(Tofu.Window.MouseState.X - Tofu.Editor.SceneViewPosition.X,
+            -Tofu.Window.MouseState.Y + Camera.MainCamera.Size.Y + Tofu.Editor.SceneViewPosition.Y +
+            25); // 25 EditorPanelMenuBar height
+
+        // Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
+        Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
+        // Debug.StatSetValue("imgui mouse pos", $"imgui mmouse pos: {ImGui.GetMousePos()}");
+    }
+
+
+    private bool IsMouseInSceneView()
+    {
+        return PositionInView.X > -_sceneViewPadding &&
+               PositionInView.X < Camera.MainCamera.Size.X + _sceneViewPadding &&
+               PositionInView.Y > -_sceneViewPadding && PositionInView.Y < Camera.MainCamera.Size.Y + _sceneViewPadding;
+    }
 }

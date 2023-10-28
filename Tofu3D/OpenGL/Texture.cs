@@ -3,19 +3,18 @@
 [Serializable]
 public class Texture : Asset<Texture>
 {
-	public int TextureId
-	{
-		get { return Handle.Id; }
-	}
-	[XmlIgnore]
-	public bool Loaded;
-	public Vector2 Size;
+    public int TextureId => Handle.Id;
 
-	[XmlIgnore] // ignore for now
-	public TextureLoadSettings LoadSettings;
+    [XmlIgnore]
+    public bool Loaded;
 
-	public void Delete()
-	{
-		Tofu.AssetManager.Unload(this, LoadSettings);
-	}
+    public Vector2 Size;
+
+    [XmlIgnore] // ignore for now
+    public TextureLoadSettings LoadSettings;
+
+    public void Delete()
+    {
+        Tofu.AssetManager.Unload(this, LoadSettings);
+    }
 }

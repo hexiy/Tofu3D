@@ -2,29 +2,29 @@
 
 public class RenderPassUI : RenderPass
 {
-	public static RenderPassUI I { get; private set; }
+    public static RenderPassUI I { get; private set; }
 
-	public RenderPassUI() : base(RenderPassType.UI)
-	{
-		I = this;
-	}
+    public RenderPassUI() : base(RenderPassType.UI)
+    {
+        I = this;
+    }
 
-	public override void Initialize()
-	{
-		SetupRenderTexture();
+    public override void Initialize()
+    {
+        SetupRenderTexture();
 
-		base.Initialize();
-	}
+        base.Initialize();
+    }
 
-	protected override void SetupRenderTexture()
-	{
-		if (PassRenderTexture != null)
-		{
-			PassRenderTexture.Size = Tofu.RenderPassSystem.ViewSize;
-			PassRenderTexture.Invalidate(generateBrandNewTextures: false);
-			return;
-		}
+    protected override void SetupRenderTexture()
+    {
+        if (PassRenderTexture != null)
+        {
+            PassRenderTexture.Size = Tofu.RenderPassSystem.ViewSize;
+            PassRenderTexture.Invalidate(false);
+            return;
+        }
 
-		PassRenderTexture = new RenderTexture(size: Tofu.RenderPassSystem.ViewSize, colorAttachment: true, depthAttachment: true, hasStencil: true);
-	}
+        PassRenderTexture = new RenderTexture(Tofu.RenderPassSystem.ViewSize, true, true, true);
+    }
 }

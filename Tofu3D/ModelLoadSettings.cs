@@ -4,26 +4,28 @@ namespace Tofu3D;
 
 public class ModelLoadSettings : AssetLoadSettings<Mesh>
 {
-	public static ModelLoadSettings DefaultSettingsModel = new ModelLoadSettings(path: string.Empty);
+    public static ModelLoadSettings DefaultSettingsModel = new(string.Empty);
 
-	public ModelLoadSettings(string? path = null,
-	                         bool? canSetDefaultSettings = true)
-	{
-		ModelLoadSettings defaultSettings = canSetDefaultSettings == true ? DefaultSettingsModel : null; // not possible if this isnt a struct
+    public ModelLoadSettings(string? path = null,
+        bool? canSetDefaultSettings = true)
+    {
+        ModelLoadSettings
+            defaultSettings =
+                canSetDefaultSettings == true ? DefaultSettingsModel : null; // not possible if this isnt a struct
 
-		this.Path = path ?? defaultSettings?.Path;
-	}
+        Path = path ?? defaultSettings?.Path;
+    }
 
-	public ModelLoadSettings()
-	{
-		ModelLoadSettings defaultSettings = DefaultSettingsModel; // not possible if this isnt a struct
-		this.Path = defaultSettings.Path;
-	}
+    public ModelLoadSettings()
+    {
+        ModelLoadSettings defaultSettings = DefaultSettingsModel; // not possible if this isnt a struct
+        Path = defaultSettings.Path;
+    }
 
-	public override int GetHashCode()
-	{
-		HashCodeCombiner hashCodeCombiner = HashCodeCombiner.Start();
-		hashCodeCombiner.Add(base.GetHashCode());
-		return hashCodeCombiner.CombinedHash;
-	}
+    public override int GetHashCode()
+    {
+        HashCodeCombiner hashCodeCombiner = HashCodeCombiner.Start();
+        hashCodeCombiner.Add(base.GetHashCode());
+        return hashCodeCombiner.CombinedHash;
+    }
 }

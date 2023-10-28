@@ -4,29 +4,26 @@ namespace Tofu3D;
 
 public class EditorPanelFloating : EditorPanel
 {
-	public static EditorPanelFloating I { get; private set; }
+    public static EditorPanelFloating I { get; private set; }
 
-	public override void Init()
-	{
-		I = this;
-	}
+    public override void Init()
+    {
+        I = this;
+    }
 
-	public override void Draw()
-	{
-		if (Active == false)
-		{
-			return;
-		}
+    public override void Draw()
+    {
+        if (Active == false) return;
 
-		//ImGui.SetNextWindowBgAlpha (0);
-		ImGui.Begin("Floating", ImGuiWindowFlags.NoCollapse);
+        //ImGui.SetNextWindowBgAlpha (0);
+        ImGui.Begin("Floating", ImGuiWindowFlags.NoCollapse);
 
-		ImGui.Image((IntPtr) Tofu.RenderPassSystem.FinalRenderTexture.ColorAttachment, new Vector2(300, 300));
+        ImGui.Image((IntPtr)Tofu.RenderPassSystem.FinalRenderTexture.ColorAttachment, new Vector2(300, 300));
 
-		ImGui.End();
-	}
+        ImGui.End();
+    }
 
-	public override void Update()
-	{
-	}
+    public override void Update()
+    {
+    }
 }

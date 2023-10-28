@@ -2,47 +2,47 @@
 
 public class RenderPassZPrePass : RenderPass
 {
-	public static RenderPassZPrePass I { get; private set; }
+    public static RenderPassZPrePass I { get; private set; }
 
-	public RenderPassZPrePass() : base(RenderPassType.ZPrePass)
-	{
-		I = this;
-	}
+    public RenderPassZPrePass() : base(RenderPassType.ZPrePass)
+    {
+        I = this;
+    }
 
-	public override void Initialize()
-	{
-		SetupRenderTexture();
+    public override void Initialize()
+    {
+        SetupRenderTexture();
 
-		base.Initialize();
-	}
+        base.Initialize();
+    }
 
-	protected override void PreRender()
-	{
-		GL.Enable(EnableCap.DepthTest);
+    protected override void PreRender()
+    {
+        GL.Enable(EnableCap.DepthTest);
 
-		GL.DepthMask(true);
+        GL.DepthMask(true);
 
-		GL.ClearDepth(1);
-		GL.Clear(ClearBufferMask.DepthBufferBit);
-		// GL.DepthRange(0, Camera.MainCamera.FarPlaneDistance);
-		GL.DepthRange(0, 1);
-		GL.DepthFunc(DepthFunction.Lequal);
-	}
+        GL.ClearDepth(1);
+        GL.Clear(ClearBufferMask.DepthBufferBit);
+        // GL.DepthRange(0, Camera.MainCamera.FarPlaneDistance);
+        GL.DepthRange(0, 1);
+        GL.DepthFunc(DepthFunction.Lequal);
+    }
 
-	protected override void PostUnbindFrameBuffer()
-	{
-		GL.DepthMask(false);
-	}
+    protected override void PostUnbindFrameBuffer()
+    {
+        GL.DepthMask(false);
+    }
 
-	protected override void SetupRenderTexture()
-	{
-		if (PassRenderTexture != null)
-		{
-			PassRenderTexture.Size = Tofu.RenderPassSystem.ViewSize;
-			PassRenderTexture.Invalidate(generateBrandNewTextures: false);
-			return;
-		}
+    protected override void SetupRenderTexture()
+    {
+        if (PassRenderTexture != null)
+        {
+            PassRenderTexture.Size = Tofu.RenderPassSystem.ViewSize;
+            PassRenderTexture.Invalidate(false);
+            return;
+        }
 
-		PassRenderTexture = new RenderTexture(size: Tofu.RenderPassSystem.ViewSize, colorAttachment: false, depthAttachment: true, hasStencil: false);
-	}
+        PassRenderTexture = new RenderTexture(Tofu.RenderPassSystem.ViewSize, false, true, false);
+    }
 }

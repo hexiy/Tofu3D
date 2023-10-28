@@ -2,6 +2,6 @@
 
 public class WireframeRenderSettings
 {
-	public bool WireframeVisible = true;
-	public float WireframeLineWidth = 5;
+    public bool WireframeVisible = true;
+    public float WireframeLineWidth = 5;
 }

@@ -4,25 +4,26 @@ namespace Tofu3D.Components;
 
 public class UiController : Component
 {
-	public GameObject Bg;
-	[Show]
-	public GameObject PlayBtn;
+    public GameObject Bg;
 
-	public override void Start()
-	{
-		PlayBtn.GetComponent<Button>().OnReleasedAction += PlayClicked;
-		base.Start();
-	}
+    [Show]
+    public GameObject PlayBtn;
 
-	void PlayClicked()
-	{
-		Tweener.Tween(1, 0, 0.7f, f =>
-		{
-			Debug.Log($"Tweening alpha progress:{f}");
+    public override void Start()
+    {
+        PlayBtn.GetComponent<Button>().OnReleasedAction += PlayClicked;
+        base.Start();
+    }
 
-			PlayBtn.GetComponent<Renderer>().Color = PlayBtn.GetComponent<Renderer>().Color.SetA(f);
-			Bg.GetComponent<Renderer>().Color = Bg.GetComponent<Renderer>().Color.SetA(f);
-		});
-		//playBtn.GetComponent<Renderer>();
-	}
+    private void PlayClicked()
+    {
+        Tweener.Tween(1, 0, 0.7f, f =>
+        {
+            Debug.Log($"Tweening alpha progress:{f}");
+
+            PlayBtn.GetComponent<Renderer>().Color = PlayBtn.GetComponent<Renderer>().Color.SetA(f);
+            Bg.GetComponent<Renderer>().Color = Bg.GetComponent<Renderer>().Color.SetA(f);
+        });
+        //playBtn.GetComponent<Renderer>();
+    }
 }

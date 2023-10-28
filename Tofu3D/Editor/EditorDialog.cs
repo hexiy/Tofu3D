@@ -37,45 +37,37 @@ public class EditorDialog
         ImGui.Begin("Dialog",
             ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoDecoration |
             ImGuiWindowFlags.NoBackground);
-        ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId, bgPanelSize, uv0: Vector2.Zero, Vector2.One,
-            tint_col: new Vector4(0f, 0f, 0f, 0.9f));
+        ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId, bgPanelSize, Vector2.Zero, Vector2.One,
+            new Vector4(0f, 0f, 0f, 0.9f));
 
 
-        Vector2 panelSize = new Vector2(300, 200);
+        Vector2 panelSize = new(300, 200);
         ImGui.SetCursorScreenPos(Screen.Center - panelSize / 2);
-        ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId, panelSize, uv0: Vector2.Zero, Vector2.One,
-            tint_col: Color.White.ToVector4());
+        ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId, panelSize, Vector2.Zero, Vector2.One,
+            Color.White.ToVector4());
         bool hoveringPanel = ImGui.IsItemHovered();
-        ImGui.SetCursorScreenPos(Screen.Center + new Vector2(0,-50));
+        ImGui.SetCursorScreenPos(Screen.Center + new Vector2(0, -50));
         TofuGUI.Text(_dialogParams.message);
 
         int index = 0;
         foreach (EditorDialogButtonDefinition button in _dialogParams.buttons)
         {
-            ImGui.SetCursorScreenPos(Screen.Center + new Vector2(0,index*TofuGUI.ButtonSize.Y+(index*20)));
+            ImGui.SetCursorScreenPos(Screen.Center + new Vector2(0, index * TofuGUI.ButtonSize.Y + index * 20));
             index++;
-            bool btnClicked =TofuGUI.Button(button.text);
-            
+            bool btnClicked = TofuGUI.Button(button.text);
+
             // bool btnClicked = ImGui.Button(button.text);
             if (btnClicked)
             {
                 button.clicked?.Invoke();
-                if (button.closeOnClick)
-                {
-                    Hide();
-                }
+                if (button.closeOnClick) Hide();
             }
             // ImGui.NewLine();
             // ImGui.SameLine();
         }
-        if (ImGui.IsMouseClicked(ImGuiMouseButton.Left) && ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly) && hoveringPanel==false )
-        {
-            Hide();
-        }
+
+        if (ImGui.IsMouseClicked(ImGuiMouseButton.Left) && ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly) &&
+            hoveringPanel == false) Hide();
         ImGui.End();
-
-        
-
-
     }
 }

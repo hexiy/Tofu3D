@@ -8,7 +8,7 @@ public class InspectorFieldDrawerAudioClip : InspectorFieldDrawable<AudioClip>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        AudioClip audioClip =GetValue(info,componentInspectorData);
+        AudioClip audioClip = GetValue(info, componentInspectorData);
         if (audioClip == null)
         {
             audioClip = new AudioClip();
@@ -30,7 +30,7 @@ public class InspectorFieldDrawerAudioClip : InspectorFieldDrawable<AudioClip>
                 // fileName = Path.GetRelativePath("Assets", fileName);
 
                 audioClip.Path = fileName;
-                SetValue(info,componentInspectorData,audioClip);
+                SetValue(info, componentInspectorData, audioClip);
             }
 
             ImGui.EndDragDropTarget();

@@ -2,69 +2,69 @@
 
 public class RenderPassPostProcess : RenderPass
 {
-	public static RenderPassPostProcess I { get; private set; }
-	Material _postProcessMaterial;
+    public static RenderPassPostProcess I { get; private set; }
+    private Material _postProcessMaterial;
 
 
-	public override bool CanRender()
-	{
-		return Enabled;
-	}
+    public override bool CanRender()
+    {
+        return Enabled;
+    }
 
-	public RenderPassPostProcess() : base(RenderPassType.PostProcess)
-	{
-		I = this;
-	}
+    public RenderPassPostProcess() : base(RenderPassType.PostProcess)
+    {
+        I = this;
+    }
 
-	public override void Initialize()
-	{
-		SetupRenderTexture();
+    public override void Initialize()
+    {
+        SetupRenderTexture();
 
-		_postProcessMaterial = Tofu.AssetManager.Load<Material>("PostProcess");
-		base.Initialize();
-	}
-
-
-	public override void RenderToRenderTexture(RenderTexture target, FramebufferAttachment attachment)
-	{
-		if (PassRenderTexture == null)
-		{
-			Debug.Log($"PassRenderTexture == null");
-			return;
-		}
+        _postProcessMaterial = Tofu.AssetManager.Load<Material>("PostProcess");
+        base.Initialize();
+    }
 
 
-		target.Bind();
+    public override void RenderToRenderTexture(RenderTexture target, FramebufferAttachment attachment)
+    {
+        if (PassRenderTexture == null)
+        {
+            Debug.Log($"PassRenderTexture == null");
+            return;
+        }
 
 
-		Tofu.ShaderManager.UseShader(_postProcessMaterial.Shader);
-		_postProcessMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
-		_postProcessMaterial.Shader.SetFloat("u_time", Time.EditorElapsedTime);
+        target.Bind();
 
-		Tofu.ShaderManager.BindVertexArray(_postProcessMaterial.Vao);
 
-		GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+        Tofu.ShaderManager.UseShader(_postProcessMaterial.Shader);
+        _postProcessMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
+        _postProcessMaterial.Shader.SetFloat("u_time", Time.EditorElapsedTime);
 
-		GL.ActiveTexture(TextureUnit.Texture0);
-		TextureHelper.BindTexture(target.ColorAttachment);
+        Tofu.ShaderManager.BindVertexArray(_postProcessMaterial.Vao);
 
-		GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
+        GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
-		DebugHelper.LogDrawCall();
-		Tofu.ShaderManager.BindVertexArray(0);
+        GL.ActiveTexture(TextureUnit.Texture0);
+        TextureHelper.BindTexture(target.ColorAttachment);
 
-		target.Unbind();
-	}
+        GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
-	protected override void SetupRenderTexture()
-	{
-		if (PassRenderTexture != null)
-		{
-			PassRenderTexture.Size = Tofu.RenderPassSystem.ViewSize;
-			PassRenderTexture.Invalidate(generateBrandNewTextures: false);
-			return;
-		}
+        DebugHelper.LogDrawCall();
+        Tofu.ShaderManager.BindVertexArray(0);
 
-		PassRenderTexture = new RenderTexture(size: Tofu.RenderPassSystem.ViewSize, colorAttachment: true, depthAttachment: true);
-	}
+        target.Unbind();
+    }
+
+    protected override void SetupRenderTexture()
+    {
+        if (PassRenderTexture != null)
+        {
+            PassRenderTexture.Size = Tofu.RenderPassSystem.ViewSize;
+            PassRenderTexture.Invalidate(false);
+            return;
+        }
+
+        PassRenderTexture = new RenderTexture(Tofu.RenderPassSystem.ViewSize, true, true);
+    }
 }

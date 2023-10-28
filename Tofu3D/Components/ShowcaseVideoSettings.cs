@@ -1,19 +1,19 @@
 [ExecuteInEditMode]
 public class ShowcaseVideoSettings : Component
 {
-	public override void Awake()
-	{
-		base.Awake();
-	}
+    public override void Awake()
+    {
+        base.Awake();
+    }
 
-	public override void Start()
-	{
-		Camera.MainCamera.OrthographicSize = 1.6f;
-		base.Start();
-	}
+    public override void Start()
+    {
+        Camera.MainCamera.OrthographicSize = 1.6f;
+        base.Start();
+    }
 
-	public override void Update()
-	{
-		base.Update();
-	}
+    public override void Update()
+    {
+        base.Update();
+    }
 }

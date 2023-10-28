@@ -2,8 +2,8 @@
 
 public enum BufferType
 {
-	Rendertexture,
-	Sprite,
-	Model,
-	Cubemap
+    Rendertexture,
+    Sprite,
+    Model,
+    Cubemap
 }

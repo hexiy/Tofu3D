@@ -2,20 +2,21 @@
 
 public abstract class AssetLoadSettingsBase
 {
-	string _path = "";
-	public string Path
-	{
-		get { return _path; }
-		internal set { _path = value; }
-	}
+    private string _path = "";
 
-	public void ValidatePath()
-	{
-		AssetUtils.ValidateAssetPath(ref _path);
-	}
+    public string Path
+    {
+        get => _path;
+        internal set => _path = value;
+    }
 
-	public override int GetHashCode()
-	{
-		return (_path ?? "").GetHashCode();
-	}
+    public void ValidatePath()
+    {
+        AssetUtils.ValidateAssetPath(ref _path);
+    }
+
+    public override int GetHashCode()
+    {
+        return (_path ?? "").GetHashCode();
+    }
 }

@@ -2,5 +2,4 @@
 
 public class AssetLoadSettings<T> : AssetLoadSettingsBase where T : Asset<T>
 {
-
 }

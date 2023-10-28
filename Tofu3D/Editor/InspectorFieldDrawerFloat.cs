@@ -13,7 +13,6 @@ public class InspectorFieldDrawerFloat : InspectorFieldDrawable<float>
         SliderF sliderAttrib = null;
         List<CustomAttributeData> a = info.FieldOrPropertyType.CustomAttributes.ToList();
         for (int i = 0; i < info.CustomAttributes.Count(); i++)
-        {
             if (info.CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(SliderF))
             {
                 FieldInfo fieldType = componentInspectorData.Inspectable.GetType().GetField(info.Name);
@@ -28,22 +27,17 @@ public class InspectorFieldDrawerFloat : InspectorFieldDrawable<float>
                     sliderAttrib = propertyType.GetCustomAttribute<SliderF>();
                 }
             }
-        }
 
         if (sliderAttrib != null)
         {
             if (ImGui.SliderFloat("", ref fieldValue, sliderAttrib.MinValue, sliderAttrib.MaxValue))
-            {
-                SetValue(info,componentInspectorData,fieldValue);
-            }
+                SetValue(info, componentInspectorData, fieldValue);
         }
         else
         {
             if (ImGui.DragFloat("", ref fieldValue, 0.01f, float.NegativeInfinity, float.PositiveInfinity,
                     "%.05f"))
-            {
-                SetValue(info,componentInspectorData,fieldValue);
-            }
+                SetValue(info, componentInspectorData, fieldValue);
         }
     }
 }

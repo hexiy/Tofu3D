@@ -9,10 +9,10 @@ public class Editor
     public Vector2 SceneViewSize = new(0, 0);
 
     //private ImGuiRenderer _imGuiRenderer;
-    EditorPanel[] _editorPanels;
+    private EditorPanel[] _editorPanels;
     private EditorDialogManager _editorDialogManager;
     private EditorDialogHandle _exitDialogHandle;
-    List<RangeAccessor<System.Numerics.Vector4>> _themes = new();
+    private List<RangeAccessor<System.Numerics.Vector4>> _themes = new();
 
     // Is cleared after invocation
     public Action BeforeDraw = () => { };
@@ -25,10 +25,11 @@ public class Editor
         ImGuiDefaultWindowFlags = ImGuiWindowFlags.NoCollapse /* | ImGuiWindowFlags.AlwaysAutoResize*/
         /* | ImGuiWindowFlags.NoDocking*/;
 
-    ImGuiWindowClassPtr _panelWindowClassPtr;
+    private ImGuiWindowClassPtr _panelWindowClassPtr;
     public EditorTextures EditorTextures;
 
     private EditorLayoutManager _editorLayoutManager;
+
     public unsafe void Initialize()
     {
         _editorLayoutManager = new EditorLayoutManager();
@@ -37,15 +38,14 @@ public class Editor
 
         EditorTextures = new EditorTextures();
 
-        ImGuiWindowClass panelWindowClas = new ImGuiWindowClass()
+        ImGuiWindowClass panelWindowClas = new()
             { DockNodeFlagsOverrideSet = ImGuiDockNodeFlags.None /*ImGuiDockNodeFlags.AutoHideTabBar*/ };
         _panelWindowClassPtr = new ImGuiWindowClassPtr(&panelWindowClas);
 
         if (Global.EditorAttached)
-        {
             _editorPanels = new EditorPanel[]
             {
-                new EditorPanelMenuBar(editorLayoutManager:_editorLayoutManager),
+                new EditorPanelMenuBar(_editorLayoutManager),
                 new EditorPanelHierarchy(),
                 new EditorPanelInspector(),
                 new EditorPanelBrowser(),
@@ -53,20 +53,14 @@ public class Editor
                 new EditorPanelProfiler(),
                 new EditorPanelSceneView()
             };
-        }
 
         else
-        {
             _editorPanels = new EditorPanel[]
             {
                 new EditorPanelSceneView()
             };
-        }
 
-        for (int i = 0; i < _editorPanels.Length; i++)
-        {
-            _editorPanels[i].Init();
-        }
+        for (int i = 0; i < _editorPanels.Length; i++) _editorPanels[i].Init();
 
         _editorDialogManager = new EditorDialogManager();
         if (Global.EditorAttached)
@@ -78,31 +72,19 @@ public class Editor
 
     public void Update()
     {
-        
         _editorLayoutManager.Update();
-        
-        for (int i = 0; i < _editorPanels.Length; i++)
-        {
-            _editorPanels[i].Update();
-        }
+
+        for (int i = 0; i < _editorPanels.Length; i++) _editorPanels[i].Update();
 
         _editorDialogManager.Update();
 
         if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.WasKeyJustPressed(Keys.S))
-        {
             if (Global.GameRunning == false)
-            {
                 Tofu.SceneManager.SaveScene();
-            }
-        }
 
         if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.WasKeyJustPressed(Keys.R))
-        {
             if (Global.GameRunning == false)
-            {
                 Tofu.SceneManager.LoadLastOpenedScene();
-            }
-        }
 
         bool exitDialogIsActive = _editorDialogManager.IsDialogActive(_exitDialogHandle);
         if (KeyboardInput.WasKeyJustPressed(Keys.Escape))
@@ -114,8 +96,8 @@ public class Editor
             }
 
             _exitDialogHandle = ShowDialog(new EditorDialogParams("Close Tofu3D?",
-                new EditorDialogButtonDefinition("Close", clicked: Tofu.Window.Close, closeOnClick: true),
-                new EditorDialogButtonDefinition("No", clicked: () => { }, closeOnClick: true)));
+                new EditorDialogButtonDefinition("Close", Tofu.Window.Close, true),
+                new EditorDialogButtonDefinition("No", () => { }, true)));
         }
     }
 
@@ -130,16 +112,10 @@ public class Editor
 
 
         if (Global.EditorAttached)
-        {
             for (int i = 0; i < _editorPanels.Length; i++)
-            {
                 _editorPanels[i].Draw();
-            }
-        }
         else
-        {
             EditorPanelSceneView.I.Draw();
-        }
 
         _editorDialogManager.Draw();
     }

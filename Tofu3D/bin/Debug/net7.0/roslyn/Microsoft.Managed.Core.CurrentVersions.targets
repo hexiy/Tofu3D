@@ -1,5 +1,5 @@
 <Project>
-  <PropertyGroup>
-    <CompilerApiVersion>roslyn4.1</CompilerApiVersion>
-  </PropertyGroup>
+    <PropertyGroup>
+        <CompilerApiVersion>roslyn4.1</CompilerApiVersion>
+    </PropertyGroup>
 </Project>

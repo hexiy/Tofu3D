@@ -2,6 +2,6 @@
 
 public enum TextureFilterMode
 {
-	Point= 9728,
-	Bilinear= 9729,
+    Point = 9728,
+    Bilinear = 9729
 }

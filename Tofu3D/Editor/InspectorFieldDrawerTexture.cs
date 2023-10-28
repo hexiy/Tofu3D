@@ -14,13 +14,9 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Texture>
         int posX = (int)ImGui.GetCursorPosX();
 
         if (texture == null)
-        {
             ImGui.Dummy(new Vector2(150, 150));
-        }
         else
-        {
             ImGui.Image(texture.TextureId, new Vector2(150, 150));
-        }
 
         ImGui.SetCursorPosX(posX);
         bool clicked = ImGui.Button(textureName,
@@ -28,15 +24,10 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Texture>
         bool rightMouseClicked = ImGui.IsItemClicked(ImGuiMouseButton.Right);
         //ImiGui.Text(textureName);
         if (clicked)
-        {
             // Debug.Log("TODO");
             EditorPanelInspector.I.AddActionToActionQueue(() => { EditorPanelBrowser.I.GoToFile(texture.Path); });
-        }
 
-        if (rightMouseClicked)
-        {
-            SetValue(info, componentInspectorData, null);
-        }
+        if (rightMouseClicked) SetValue(info, componentInspectorData, null);
 
         if (ImGui.BeginDragDropTarget())
         {
@@ -50,7 +41,7 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Texture>
 
                 Texture loadedTexture = Tofu.AssetManager.Load<Texture>(textureName);
 
-                SetValue(info,componentInspectorData, loadedTexture);
+                SetValue(info, componentInspectorData, loadedTexture);
             }
 
             ImGui.EndDragDropTarget();

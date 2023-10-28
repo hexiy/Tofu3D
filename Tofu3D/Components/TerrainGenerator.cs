@@ -6,175 +6,171 @@ namespace Tofu3D;
 [ExecuteInEditMode]
 public class TerrainGenerator : Component, IComponentUpdateable
 {
-	public GameObject CubePrefab;
-	[XmlIgnore]
-	public Action Spawn;
-	[XmlIgnore]
-	public Action SpawnSingleThreaded;
-	[XmlIgnore]
-	public Action Despawn;
-	public int TerrainSize = 10;
-	public int ThreadsToUse = 2;
-	float _cubeModelSize = 2;
-	[Show] private float _huh = 2;
+    public GameObject CubePrefab;
 
-	bool _savedToClipboard = false;
+    [XmlIgnore]
+    public Action Spawn;
 
-	public override void Awake()
-	{
-		Spawn += StartTerrainGenerationOnNewThread;
-		SpawnSingleThreaded += StartTerrainGenerationOnNewThread;
-		Despawn += DestroyTerrain;
-		base.Awake();
-	}
+    [XmlIgnore]
+    public Action SpawnSingleThreaded;
 
-	/*public override void Start()
-	{
-		Spawn.Invoke();
-		base.Start();
-	}*/
+    [XmlIgnore]
+    public Action Despawn;
 
-	void DestroyTerrain()
-	{
-		for (int i = 0; i < Transform.Children.Count; i++)
-		{
-			Transform.Children[0].GameObject.Destroy();
-		}
+    public int TerrainSize = 10;
+    public int ThreadsToUse = 2;
+    private float _cubeModelSize = 2;
 
-		Transform.Children = new List<Transform>();
-	}
+    [Show]
+    private float _huh = 2;
 
-	public override void Update()
-	{
-		if (_threadsWorkingCount == 0)
-		{
-			_threadsWorkingCount = -1;
-			AddBlocksToScene();
-		}
+    private bool _savedToClipboard = false;
 
-		if (KeyboardInput.WasKeyJustPressed(Keys.Space))
-		{
-			Spawn?.Invoke();
-		}
+    public override void Awake()
+    {
+        Spawn += StartTerrainGenerationOnNewThread;
+        SpawnSingleThreaded += StartTerrainGenerationOnNewThread;
+        Despawn += DestroyTerrain;
+        base.Awake();
+    }
 
-		base.Update();
-	}
+    /*public override void Start()
+    {
+        Spawn.Invoke();
+        base.Start();
+    }*/
 
-	int _threadsWorkingCount = -1;
+    private void DestroyTerrain()
+    {
+        for (int i = 0; i < Transform.Children.Count; i++) Transform.Children[0].GameObject.Destroy();
 
-	private void StartTerrainGenerationOnNewThread()
-	{
-		if (CubePrefab == null)
-		{
-			return;
-		}
+        Transform.Children = new List<Transform>();
+    }
 
-		Tofu.SceneSerializer.SaveClipboardGameObject(CubePrefab);
+    public override void Update()
+    {
+        if (_threadsWorkingCount == 0)
+        {
+            _threadsWorkingCount = -1;
+            AddBlocksToScene();
+        }
 
-		DestroyTerrain();
-		_concurrentBag.Clear();
+        if (KeyboardInput.WasKeyJustPressed(Keys.Space)) Spawn?.Invoke();
 
-		Debug.StartTimer($"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");
+        base.Update();
+    }
 
-		int numberOfThreads = ThreadsToUse;
-		_threadsWorkingCount = numberOfThreads;
-		List<Thread> threads = new List<Thread>();
-		for (int threadIndex = 0; threadIndex < numberOfThreads; threadIndex++)
-		{
-			int capturedThreadIndex = threadIndex;
-			Thread thread = new Thread(() => GenerateTerrain(TerrainSize, CubePrefab, capturedThreadIndex, numberOfThreads));
-			threads.Add(thread);
-		}
+    private int _threadsWorkingCount = -1;
 
-		threads.ForEach(t => t.Start());
-	}
+    private void StartTerrainGenerationOnNewThread()
+    {
+        if (CubePrefab == null) return;
 
-	private void StartTerrainGenerationOnMainThread()
-	{
-		if (CubePrefab == null)
-		{
-			return;
-		}
+        Tofu.SceneSerializer.SaveClipboardGameObject(CubePrefab);
 
-		Tofu.SceneSerializer.SaveClipboardGameObject(CubePrefab);
+        DestroyTerrain();
+        _concurrentBag.Clear();
 
-		DestroyTerrain();
-		_concurrentBag.Clear();
+        Debug.StartTimer(
+            $"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");
 
-		GenerateTerrain(TerrainSize, CubePrefab, 0, 1);
-	}
+        int numberOfThreads = ThreadsToUse;
+        _threadsWorkingCount = numberOfThreads;
+        List<Thread> threads = new();
+        for (int threadIndex = 0; threadIndex < numberOfThreads; threadIndex++)
+        {
+            int capturedThreadIndex = threadIndex;
+            Thread thread = new(() => GenerateTerrain(TerrainSize, CubePrefab, capturedThreadIndex, numberOfThreads));
+            threads.Add(thread);
+        }
 
-	ConcurrentQueue<GameObject> _concurrentBag = new ConcurrentQueue<GameObject>();
+        threads.ForEach(t => t.Start());
+    }
 
-	private void GenerateTerrain(int terrainSize, GameObject referenceGameObject, int threadIndex, int numberOfThreads)
-	{
-		Debug.StartTimer($"Thread #{threadIndex} finished");
+    private void StartTerrainGenerationOnMainThread()
+    {
+        if (CubePrefab == null) return;
 
-		int totalBlocks = terrainSize * terrainSize;
-		int blocksPerThread = totalBlocks / numberOfThreads;
-		int startIndex = blocksPerThread * threadIndex;
-		int endIndex = blocksPerThread + (threadIndex * blocksPerThread);
+        Tofu.SceneSerializer.SaveClipboardGameObject(CubePrefab);
+
+        DestroyTerrain();
+        _concurrentBag.Clear();
+
+        GenerateTerrain(TerrainSize, CubePrefab, 0, 1);
+    }
+
+    private ConcurrentQueue<GameObject> _concurrentBag = new();
+
+    private void GenerateTerrain(int terrainSize, GameObject referenceGameObject, int threadIndex, int numberOfThreads)
+    {
+        Debug.StartTimer($"Thread #{threadIndex} finished");
+
+        int totalBlocks = terrainSize * terrainSize;
+        int blocksPerThread = totalBlocks / numberOfThreads;
+        int startIndex = blocksPerThread * threadIndex;
+        int endIndex = blocksPerThread + threadIndex * blocksPerThread;
 
 
-		for (int i = startIndex; i < endIndex; i++)
-		{
-			// Debug.Log(i);
-			GameObject go = (GameObject) referenceGameObject.Clone(active:false);
-			go.Name = $"Thread:{threadIndex} go {i}";
-			go.DynamicallyCreated = true;
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            // Debug.Log(i);
+            GameObject go = (GameObject)referenceGameObject.Clone(false);
+            go.Name = $"Thread:{threadIndex} go {i}";
+            go.DynamicallyCreated = true;
 
-			_concurrentBag.Enqueue(go);
-		}
+            _concurrentBag.Enqueue(go);
+        }
 
 
-		Debug.EndAndLogTimer($"Thread #{threadIndex} finished");
+        Debug.EndAndLogTimer($"Thread #{threadIndex} finished");
 
-		_threadsWorkingCount--;
-		if (_threadsWorkingCount == 0)
-		{
-			// AddBlocksToScene();
-		}
-	}
+        _threadsWorkingCount--;
+        if (_threadsWorkingCount == 0)
+        {
+            // AddBlocksToScene();
+        }
+    }
 
-	private void AddBlocksToScene()
-	{
-		int x = 0;
-		int z = 0;
+    private void AddBlocksToScene()
+    {
+        int x = 0;
+        int z = 0;
 
-		Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
-		foreach (GameObject go in _concurrentBag)
-		{
-			go.Transform.SetParent(Transform);
+        Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
+        foreach (GameObject go in _concurrentBag)
+        {
+            go.Transform.SetParent(Transform);
 
-			float positionY = Mathf.Sin((float) x / 10f) * Mathf.Cos((float) z / 10) * 15;
-			positionY = positionY.TranslateToGrid(2);
+            float positionY = Mathf.Sin((float)x / 10f) * Mathf.Cos((float)z / 10) * 15;
+            positionY = positionY.TranslateToGrid(2);
 
-			go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
-go.SetActive(true);
-			x++;
-			if (x > TerrainSize)
-			{
-				x = 0;
-				z++;
-			}
-		}
+            go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
+            go.SetActive(true);
+            x++;
+            if (x > TerrainSize)
+            {
+                x = 0;
+                z++;
+            }
+        }
 
-		Debug.EndAndLogTimer($"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");
-	}
+        Debug.EndAndLogTimer(
+            $"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");
+    }
 
-	void LongTask()
-	{
-		List<GameObject> gameObjects = new List<GameObject>(20000);
-		for (int i = 0; i < 20000; i++)
-		{
-			GameObject go = GameObject.Create(name: i.ToString(), addToScene: false);
-			gameObjects.Add(go);
-			Debug.Log(i);
-		}
+    private void LongTask()
+    {
+        List<GameObject> gameObjects = new(20000);
+        for (int i = 0; i < 20000; i++)
+        {
+            GameObject go = GameObject.Create(name: i.ToString(), addToScene: false);
+            gameObjects.Add(go);
+            Debug.Log(i);
+        }
 
-		lock (Tofu.SceneManager.CurrentScene.GameObjects)
-		{
-			Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(gameObjects);
-		}
-	}
+        lock (Tofu.SceneManager.CurrentScene.GameObjects)
+        {
+            Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(gameObjects);
+        }
+    }
 }

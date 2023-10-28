@@ -2,96 +2,96 @@ namespace Scripts;
 
 public class PolygonShape : Shape
 {
-	public int HighlightEdgeIndex = 0;
-	float _lastRotation;
-	[XmlIgnore]
-	public Action OnPointsEdit; // = Engine.ColliderEditor.GetInstance().ToggleEditing;
-	public Vector2 Position = new(0, 0);
+    public int HighlightEdgeIndex = 0;
+    private float _lastRotation;
 
-	/// <summary>
-	///         LOCAL points
-	/// </summary>
+    [XmlIgnore]
+    public Action OnPointsEdit; // = Engine.ColliderEditor.GetInstance().ToggleEditing;
 
-	[Show]
-	public List<Vector2> Points { get; } = new();
-	public List<Vector2> OriginalPoints { get; } = new();
+    public Vector2 Position = new(0, 0);
 
-	public List<Vector2> Edges { get; } = new()
-	                                      {new Vector2(0, 0)};
+    /// <summary>
+    ///         LOCAL points
+    /// </summary>
 
-	/// <summary>
-	///         Returns center in WORLD
-	/// </summary>
-	public Vector2 Center
-	{
-		get
-		{
-			float totalX = 0;
-			float totalY = 0;
-			for (int i = 0; i < Points.Count; i++)
-			{
-				totalX += Points[i].X;
-				totalY += Points[i].Y;
-			}
+    [Show]
+    public List<Vector2> Points { get; } = new();
 
-			return TransformToWorld(new Vector2(totalX / Points.Count, totalY / Points.Count));
-		}
-	}
+    public List<Vector2> OriginalPoints { get; } = new();
 
-	public override void Awake()
-	{
-		BuildEdges();
-		base.Awake();
-	}
+    public List<Vector2> Edges { get; } = new() { new Vector2(0, 0) };
 
-	public void BuildEdges()
-	{
-		if (OriginalPoints.Count == 0 || Points.Count != OriginalPoints.Count)
-		{
-			OriginalPoints.Clear();
-			OriginalPoints.AddRange(Points.ToArray());
-		}
+    /// <summary>
+    ///         Returns center in WORLD
+    /// </summary>
+    public Vector2 Center
+    {
+        get
+        {
+            float totalX = 0;
+            float totalY = 0;
+            for (int i = 0; i < Points.Count; i++)
+            {
+                totalX += Points[i].X;
+                totalY += Points[i].Y;
+            }
 
-		Vector2 p1;
-		Vector2 p2;
-		Edges.Clear();
-		for (int i = 0; i < Points.Count; i++)
-		{
-			p1 = Points[i];
-			if (i + 1 >= Points.Count)
-			{
-				p2 = Points[0];
-			}
-			else
-			{
-				p2 = Points[i + 1];
-			}
+            return TransformToWorld(new Vector2(totalX / Points.Count, totalY / Points.Count));
+        }
+    }
 
-			Edges.Add(p2 - p1);
-		}
-	}
+    public override void Awake()
+    {
+        BuildEdges();
+        base.Awake();
+    }
 
-	public override void Update()
-	{
-		if (Transform.Rotation.Z != _lastRotation)
-		{
-			SetRotation(Transform.Rotation.Z);
-			_lastRotation = Transform.Rotation.Z;
-		}
+    public void BuildEdges()
+    {
+        if (OriginalPoints.Count == 0 || Points.Count != OriginalPoints.Count)
+        {
+            OriginalPoints.Clear();
+            OriginalPoints.AddRange(Points.ToArray());
+        }
 
-		base.Update();
-	}
+        Vector2 p1;
+        Vector2 p2;
+        Edges.Clear();
+        for (int i = 0; i < Points.Count; i++)
+        {
+            p1 = Points[i];
+            if (i + 1 >= Points.Count)
+                p2 = Points[0];
+            else
+                p2 = Points[i + 1];
 
-	public void SetRotation(float angle)
-	{
-		//if (angle > 0.01 || float.IsNaN(angle)) { return; }
-		for (int i = 0; i < Points.Count; i++)
-		{
-			Vector2 originalPoint = OriginalPoints[i];
+            Edges.Add(p2 - p1);
+        }
+    }
 
-			Points[i] = new Vector2(originalPoint.X * (float) Math.Cos(-angle) - originalPoint.Y * (float) Math.Sin(-angle), originalPoint.X * (float) Math.Sin(-angle) + originalPoint.Y * (float) Math.Cos(-angle));
-		}
+    public override void Update()
+    {
+        if (Transform.Rotation.Z != _lastRotation)
+        {
+            SetRotation(Transform.Rotation.Z);
+            _lastRotation = Transform.Rotation.Z;
+        }
 
-		BuildEdges();
-	}
+        base.Update();
+    }
+
+    public void SetRotation(float angle)
+    {
+        //if (angle > 0.01 || float.IsNaN(angle)) { return; }
+        for (int i = 0; i < Points.Count; i++)
+        {
+            Vector2 originalPoint = OriginalPoints[i];
+
+            Points[i] = new Vector2(
+                originalPoint.X * (float)Math.Cos(-angle) - originalPoint.Y * (float)Math.Sin(-angle),
+                originalPoint.X * (float)Math.Sin(-angle) + originalPoint.Y * (float)Math.Cos(-angle));
+        }
+
+        BuildEdges();
+    }
 }

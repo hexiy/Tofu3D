@@ -4,63 +4,65 @@ namespace Tofu3D;
 
 public class EditorPanel
 {
-	public virtual string Name => "";
+    public virtual string Name => "";
 
-	public virtual Vector2 Size => new Vector2(Tofu.Window.ClientSize.X - 1600, Tofu.Window.ClientSize.Y - Tofu.Editor.SceneViewSize.Y + 1);
-	public virtual Vector2 Position => new Vector2(0, Tofu.Window.ClientSize.Y);
-	public virtual Vector2 Pivot => new Vector2(0, 1);
-	public virtual ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.None;
+    public virtual Vector2 Size => new(Tofu.Window.ClientSize.X - 1600,
+        Tofu.Window.ClientSize.Y - Tofu.Editor.SceneViewSize.Y + 1);
 
-	internal bool Active = true;
+    public virtual Vector2 Position => new(0, Tofu.Window.ClientSize.Y);
+    public virtual Vector2 Pivot => new(0, 1);
+    public virtual ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.None;
 
-	internal bool IsPanelHovered;
+    internal bool Active = true;
 
-	int _currentId;
-	public int WindowWidth;
+    internal bool IsPanelHovered;
 
-	internal void ResetId()
-	{
-		_currentId = 0;
-	}
+    private int _currentId;
+    public int WindowWidth;
 
-	internal void PushNextId()
-	{
-		ImGui.PushID(int_id: _currentId++);
-	}
+    internal void ResetId()
+    {
+        _currentId = 0;
+    }
 
-	internal void PushNextId(string id)
-	{
-		ImGui.PushID(id);
-	}
+    internal void PushNextId()
+    {
+        ImGui.PushID(_currentId++);
+    }
 
-	internal void PopId()
-	{
-		ImGui.PopID();
-	}
+    internal void PushNextId(string id)
+    {
+        ImGui.PushID(id);
+    }
 
-	public virtual void Init()
-	{
-	}
+    internal void PopId()
+    {
+        ImGui.PopID();
+    }
 
-	public virtual void Update()
-	{
-	}
+    public virtual void Init()
+    {
+    }
 
-	public virtual void Draw()
-	{
-	}
+    public virtual void Update()
+    {
+    }
 
-	public void SetWindow()
-	{
-		ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);
-		ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
-		ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | AdditionalWindowFlags);
-	}
+    public virtual void Draw()
+    {
+    }
 
-	public void EndWindow()
-	{
-		IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
+    public void SetWindow()
+    {
+        ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);
+        ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
+        ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | AdditionalWindowFlags);
+    }
 
-		ImGui.End();
-	}
+    public void EndWindow()
+    {
+        IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
+
+        ImGui.End();
+    }
 }

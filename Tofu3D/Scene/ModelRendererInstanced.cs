@@ -24,35 +24,22 @@
     public override void SetDefaultMaterial()
     {
         if (Material?.Path.Length == 0 || Material == null)
-        {
             Material = Tofu.AssetManager.Load<Material>("ModelRendererInstanced");
-        }
         else
-        {
             Material = Tofu.AssetManager.Load<Material>(Material.Path);
-        }
 
         if (Mesh?.Path.Length > 0)
-        {
             Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
-        }
         else
-        {
             Mesh = null;
-        }
     }
 
     public override void Render()
     {
-        if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false && InstancingData.MatrixDirty == false)
-        {
-            return;
-        }
+        if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
+            InstancingData.MatrixDirty == false) return;
 
-        if (Mesh == null)
-        {
-            return;
-        }
+        if (Mesh == null) return;
 
         /*
          bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
@@ -73,9 +60,6 @@
 
 
         bool updatedData = Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData);
-        if (updatedData)
-        {
-            InstancingData.InstancingDataDirty = false;
-        }
+        if (updatedData) InstancingData.InstancingDataDirty = false;
     }
 }

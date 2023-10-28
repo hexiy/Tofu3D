@@ -1,7 +1,7 @@
 namespace Tofu3D;
 
-struct MousePickingObject
+internal struct MousePickingObject
 {
-	public Renderer Renderer;
-	public uint Color;
+    public Renderer Renderer;
+    public uint Color;
 }

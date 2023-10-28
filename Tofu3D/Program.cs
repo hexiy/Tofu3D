@@ -2,21 +2,20 @@
 
 public static class Program
 {
-	static void Main()
-	{
-		
-		// _ = new SceneSerializer();
-		// _ = new Scene();
-		// _ = new TweenManager();
-		// _ = new SceneViewNavigation();
-		// _ = new Editor();
-		// _ = new LightManager();
-		//
-		// AssetsWatcher.StartWatching();
-		
-		Tofu.Launch();
-		/*Debug.StartTimer("Editor startup");
-		using Window window = new();
-		window.Run();*/
-	}
+    private static void Main()
+    {
+        // _ = new SceneSerializer();
+        // _ = new Scene();
+        // _ = new TweenManager();
+        // _ = new SceneViewNavigation();
+        // _ = new Editor();
+        // _ = new LightManager();
+        //
+        // AssetsWatcher.StartWatching();
+
+        Tofu.Launch();
+        /*Debug.StartTimer("Editor startup");
+        using Window window = new();
+        window.Run();*/
+    }
 }

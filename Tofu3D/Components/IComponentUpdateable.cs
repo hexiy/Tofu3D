@@ -2,5 +2,5 @@
 
 public interface IComponentUpdateable
 {
-	public void Update();
+    public void Update();
 }

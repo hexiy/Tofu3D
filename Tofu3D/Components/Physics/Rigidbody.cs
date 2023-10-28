@@ -4,124 +4,102 @@ namespace Scripts;
 
 public class Rigidbody : Component
 {
-	[Hide]
-	public new bool AllowMultiple = false;
+    [Hide]
+    public new bool AllowMultiple = false;
 
-	public float AngularDrag = 1f;
-	public Vector2 BodyPos;
-	[XmlIgnore]
-	public List<Rigidbody> TouchingRigidbodies = new();
+    public float AngularDrag = 1f;
+    public Vector2 BodyPos;
 
-	[XmlIgnore]
-	// //[LinkableComponent]
-	public Shape Shape
-	{
-		get { return GetComponent<Shape>(); }
-	}
+    [XmlIgnore]
+    public List<Rigidbody> TouchingRigidbodies = new();
 
-	public override void Awake()
-	{
-		CreateBody();
+    [XmlIgnore]
+    // //[LinkableComponent]
+    public Shape Shape => GetComponent<Shape>();
 
-		base.Awake();
-	}
+    public override void Awake()
+    {
+        CreateBody();
 
-	public void CreateBody()
-	{
-		BoxShape boxShape = GetComponent<BoxShape>();
+        base.Awake();
+    }
 
-		if (boxShape != null)
-		{
-			BoxShape shape = new();
+    public void CreateBody()
+    {
+        BoxShape boxShape = GetComponent<BoxShape>();
 
-			lock (PhysicsController.World)
-			{
-				PhysicsController.World.AddBody(this);
-			}
-		}
-	}
+        if (boxShape != null)
+        {
+            BoxShape shape = new();
 
-	public override void FixedUpdate()
-	{
-	}
+            lock (PhysicsController.World)
+            {
+                PhysicsController.World.AddBody(this);
+            }
+        }
+    }
 
-	// public void UpdateTransform()
-	// {
-	// 	if (body == null)
-	// 	{
-	// 		return;
-	// 	}
-	//
-	// 	transform.position = new Vector2(body.Position.X, body.Position.Y) * Physics.WORLD_SCALE;
-	// 	transform.Rotation = new Vector3(transform.Rotation.X, transform.Rotation.Y, body.Rotation * Mathf.TwoPi * 2);
-	// }
+    public override void FixedUpdate()
+    {
+    }
 
-	public override void OnDestroyed()
-	{
-		for (int i = 0; i < TouchingRigidbodies.Count; i++)
-		{
-			TouchingRigidbodies[i].OnCollisionExit(this);
-			OnCollisionExit(TouchingRigidbodies[i]);
-		}
-	}
+    // public void UpdateTransform()
+    // {
+    // 	if (body == null)
+    // 	{
+    // 		return;
+    // 	}
+    //
+    // 	transform.position = new Vector2(body.Position.X, body.Position.Y) * Physics.WORLD_SCALE;
+    // 	transform.Rotation = new Vector3(transform.Rotation.X, transform.Rotation.Y, body.Rotation * Mathf.TwoPi * 2);
+    // }
 
-	public override void OnCollisionEnter(Rigidbody rigidbody) // TODO-TRANSLATE CURRENT VELOCITY TO COLLIDED RIGIDBODY, ADD FORCE (MassRatio2/MassRatio1)
-	{
-		TouchingRigidbodies.Add(rigidbody);
+    public override void OnDestroyed()
+    {
+        for (int i = 0; i < TouchingRigidbodies.Count; i++)
+        {
+            TouchingRigidbodies[i].OnCollisionExit(this);
+            OnCollisionExit(TouchingRigidbodies[i]);
+        }
+    }
 
-		// Call callback on components that implement interface IPhysicsCallbackListener
-		for (int i = 0; i < GameObject.Components.Count; i++)
-		{
-			if (GameObject.Components[i] is Rigidbody == false)
-			{
-				GameObject.Components[i].OnCollisionEnter(rigidbody);
-			}
-		}
-	}
+    public override void
+        OnCollisionEnter(
+            Rigidbody rigidbody) // TODO-TRANSLATE CURRENT VELOCITY TO COLLIDED RIGIDBODY, ADD FORCE (MassRatio2/MassRatio1)
+    {
+        TouchingRigidbodies.Add(rigidbody);
 
-	public override void OnCollisionExit(Rigidbody rigidbody)
-	{
-		if (TouchingRigidbodies.Contains(rigidbody))
-		{
-			TouchingRigidbodies.Remove(rigidbody);
-		}
+        // Call callback on components that implement interface IPhysicsCallbackListener
+        for (int i = 0; i < GameObject.Components.Count; i++)
+            if (GameObject.Components[i] is Rigidbody == false)
+                GameObject.Components[i].OnCollisionEnter(rigidbody);
+    }
 
-		for (int i = 0; i < GameObject.Components.Count; i++)
-		{
-			if (GameObject.Components[i] is Rigidbody == false)
-			{
-				GameObject.Components[i].OnCollisionExit(rigidbody);
-			}
-		}
-	}
+    public override void OnCollisionExit(Rigidbody rigidbody)
+    {
+        if (TouchingRigidbodies.Contains(rigidbody)) TouchingRigidbodies.Remove(rigidbody);
 
-	public override void OnTriggerEnter(Rigidbody rigidbody)
-	{
-		TouchingRigidbodies.Add(rigidbody);
+        for (int i = 0; i < GameObject.Components.Count; i++)
+            if (GameObject.Components[i] is Rigidbody == false)
+                GameObject.Components[i].OnCollisionExit(rigidbody);
+    }
 
-		// Call callback on components that implement interface IPhysicsCallbackListener
-		for (int i = 0; i < GameObject.Components.Count; i++)
-		{
-			if (GameObject.Components[i] is Rigidbody == false)
-			{
-				GameObject.Components[i].OnTriggerEnter(rigidbody);
-			}
-		}
-	}
+    public override void OnTriggerEnter(Rigidbody rigidbody)
+    {
+        TouchingRigidbodies.Add(rigidbody);
 
-	public override void OnTriggerExit(Rigidbody rigidbody)
-	{
-		if (TouchingRigidbodies.Contains(rigidbody))
-		{
-			TouchingRigidbodies.Remove(rigidbody);
-		}
+        // Call callback on components that implement interface IPhysicsCallbackListener
+        for (int i = 0; i < GameObject.Components.Count; i++)
+            if (GameObject.Components[i] is Rigidbody == false)
+                GameObject.Components[i].OnTriggerEnter(rigidbody);
+    }
 
-		for (int i = 0; i < GameObject.Components.Count; i++)
-		{
-			if (GameObject.Components[i] is Rigidbody == false)
-			{
-				GameObject.Components[i].OnTriggerExit(rigidbody);
-			}
-		}
-	}
+    public override void OnTriggerExit(Rigidbody rigidbody)
+    {
+        if (TouchingRigidbodies.Contains(rigidbody)) TouchingRigidbodies.Remove(rigidbody);
+
+        for (int i = 0; i < GameObject.Components.Count; i++)
+            if (GameObject.Components[i] is Rigidbody == false)
+                GameObject.Components[i].OnTriggerExit(rigidbody);
+    }
 }
