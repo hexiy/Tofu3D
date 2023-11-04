@@ -23,24 +23,26 @@ public class InspectableData
 
     public void InitInfos()
     {
-        FieldInfo[] fields =
-            InspectableType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-        PropertyInfo[] properties = InspectableType.GetProperties();
+        List<MemberInfo> members = InspectableType
+            .FindMembers(MemberTypes.Field | MemberTypes.Property,
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
+                null,
+                null).ToList();
 
-        Infos = new FieldOrPropertyInfo[fields.Length + properties.Length];
-
-        for (int fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
-            Infos[fieldIndex] = new FieldOrPropertyInfo(fields[fieldIndex], Inspectable);
-        // Infos[fieldIndex].SetInfo(fields[fieldIndex], Component);
-        int offset = fields.Length;
-
-        for (int propertyIndex = 0; propertyIndex < properties.Length; propertyIndex++)
+        Infos = new FieldOrPropertyInfo[members.Count];
+        for (int i = 0; i < members.Count; i++)
         {
-            Infos[offset + propertyIndex] = new FieldOrPropertyInfo(properties[propertyIndex], Inspectable);
-
-            // Infos[offset + propertyIndex].SetInfo(properties[propertyIndex], Component);
-            if (properties[propertyIndex].GetValue(Inspectable) == null)
-                Infos[offset + propertyIndex].CanShowInEditor = false;
+            MemberInfo memberInfo = members[i];
+            if (memberInfo.MemberType is MemberTypes.Field)
+            {
+                Infos[i] = new FieldOrPropertyInfo((FieldInfo)memberInfo, Inspectable);
+            }
+            else
+            {
+                Infos[i] = new FieldOrPropertyInfo((PropertyInfo)memberInfo, Inspectable);
+                if (Infos[i].GetValue(Inspectable) == null)
+                    Infos[i].CanShowInEditor = false;
+            }
         }
 
 
