@@ -129,14 +129,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-19.05628</X>
-        <Y>4.7721963</Y>
-        <Z>-11.057288</Z>
+        <X>-5.530279</X>
+        <Y>-0.78786147</Y>
+        <Z>-12.88966</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-19.05628</X>
-        <Y>4.7721963</Y>
-        <Z>-11.057288</Z>
+        <X>-5.530279</X>
+        <Y>-0.78786147</Y>
+        <Z>-12.88966</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -149,8 +149,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>31.445246</X>
-        <Y>44.1264</Y>
+        <X>23.790457</X>
+        <Y>17.408838</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -261,22 +261,22 @@
           <A>255</A>
           <PackedValue>4294967295</PackedValue>
         </Color>
-        <Lifetime>0.008396</Lifetime>
+        <Lifetime>0.014209</Lifetime>
         <Size>
-          <X>0.14014955</X>
-          <Y>0.14014955</Y>
-          <Z>0.14014955</Z>
+          <X>0.14487614</X>
+          <Y>0.14487614</Y>
+          <Z>0.14487614</Z>
         </Size>
         <Velocity>
-          <X>4.033584</X>
-          <Y>4.033584</Y>
-          <Z>4.033584</Z>
+          <X>4.056836</X>
+          <Y>4.056836</Y>
+          <Z>4.056836</Z>
         </Velocity>
         <Visible>true</Visible>
         <WorldPosition>
-          <X>0.86593014</X>
-          <Y>0.25354603</Y>
-          <Z>0.82765776</Z>
+          <X>-0.007929921</X>
+          <Y>-1.7345301</Y>
+          <Z>2.413818</Z>
         </WorldPosition>
         <SpawnColor>
           <B>255</B>
@@ -1291,6 +1291,14 @@
           <float>0</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -2437,9 +2445,18 @@
             <X>1</X>
             <Y>1</Y>
           </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
         </DefiningPoints>
       </ColorCurve>
       <StartColorType>Single</StartColorType>
+      <EndColorType>Single</EndColorType>
       <StartVelocity>
         <X>4</X>
         <Y>4</Y>
@@ -2467,6 +2484,13 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </EndColor>
+      <EndColor2>
+        <B>0</B>
+        <G>0</G>
+        <R>0</R>
+        <A>255</A>
+        <PackedValue>4278190080</PackedValue>
+      </EndColor2>
       <MaxParticles>50000</MaxParticles>
       <MaxLifetime>1</MaxLifetime>
       <SpawnRate>0.02</SpawnRate>
@@ -2551,7 +2575,7 @@
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>Assets/3D/cube.obj</AssetPath>
-        <Vao>6</Vao>
+        <Vao>8</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <VerticesCount>36</VerticesCount>
       </Mesh>
@@ -2718,6 +2742,7 @@
       <GameObjectId>128</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
+      <x>0</x>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -2768,32 +2793,32 @@
           <B>0</B>
           <G>0</G>
           <R>0</R>
-          <A>29</A>
-          <PackedValue>486539264</PackedValue>
+          <A>202</A>
+          <PackedValue>3388997632</PackedValue>
         </Color>
-        <Lifetime>0.008396</Lifetime>
+        <Lifetime>0.007413</Lifetime>
         <Size>
-          <X>0.13393745</X>
-          <Y>0.13393745</Y>
-          <Z>0.13393745</Z>
+          <X>0.13428523</X>
+          <Y>0.13428523</Y>
+          <Z>0.13428523</Z>
         </Size>
         <Velocity>
           <X>0</X>
-          <Y>10.08396</Y>
+          <Y>10.07413</Y>
           <Z>0</Z>
         </Velocity>
         <Visible>true</Visible>
         <WorldPosition>
-          <X>-17.400362</X>
-          <Y>-28.354088</Y>
-          <Z>-1.7763214</Z>
+          <X>25.913523</X>
+          <Y>-28.369673</Y>
+          <Z>-2.679945</Z>
         </WorldPosition>
         <SpawnColor>
           <B>0</B>
           <G>0</G>
           <R>0</R>
-          <A>27</A>
-          <PackedValue>452984832</PackedValue>
+          <A>202</A>
+          <PackedValue>3388997632</PackedValue>
         </SpawnColor>
       </LatestParticle>
       <ListLock />
@@ -3801,6 +3826,14 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -4948,6 +4981,14 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.08268229</X>
             <Y>0.001875</Y>
           </Vector2>
@@ -4966,6 +5007,7 @@
         </DefiningPoints>
       </ColorCurve>
       <StartColorType>Single</StartColorType>
+      <EndColorType>Single</EndColorType>
       <StartVelocity>
         <X>0</X>
         <Y>10</Y>
@@ -4993,6 +5035,13 @@
         <A>255</A>
         <PackedValue>4278190080</PackedValue>
       </EndColor>
+      <EndColor2>
+        <B>0</B>
+        <G>0</G>
+        <R>0</R>
+        <A>255</A>
+        <PackedValue>4278190080</PackedValue>
+      </EndColor2>
       <MaxParticles>998000</MaxParticles>
       <MaxLifetime>2</MaxLifetime>
       <SpawnRate>0.005</SpawnRate>
@@ -5077,7 +5126,7 @@
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/sphere.obj</AssetPath>
-        <Vao>7</Vao>
+        <Vao>9</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <VerticesCount>2880</VerticesCount>
       </Mesh>
@@ -5128,7 +5177,8 @@
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ParticleColorType1>Random</ParticleColorType1>
+      <BBBBB>1</BBBBB>
     </Component>
   </Components>
-  <GameObjectNextId>209</GameObjectNextId>
+  <GameObjectNextId>211</GameObjectNextId>
 </SceneFile>

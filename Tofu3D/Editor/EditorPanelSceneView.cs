@@ -34,7 +34,7 @@ public class EditorPanelSceneView : EditorPanel
             if ((Vector2)ImGui.GetWindowSize() - new Vector2(0, tooltipsPanelHeight) != Camera.MainCamera.Size)
             {
                 Camera.MainCamera.SetSize(ImGui.GetWindowSize() - new System.Numerics.Vector2(0, tooltipsPanelHeight));
-                Debug.Log("SetSize");
+                // Debug.Log("SetSize");
             }
 
             ImGui.SetCursorPosX(Camera.MainCamera.Size.X / 2 - 400);
