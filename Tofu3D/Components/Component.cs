@@ -62,6 +62,7 @@ public class Component : IDestroyable, ICloneable
                                      info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
     }
 
+    [Hide]
     public bool AllowMultiple = true;
 
     [XmlIgnore]

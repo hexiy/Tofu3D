@@ -124,17 +124,20 @@ public class SceneViewController
         if (KeyboardInput.WasKeyJustPressed(Keys.F)) Debug.Log("TODO");
         // todo MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
 
-        bool isMouseOverSceneView = Tofu.MouseInput.PositionInView.X < Camera.MainCamera.Size.X &&
-                                    Tofu.MouseInput.PositionInView.Y < Camera.MainCamera.Size.Y &&
-                                    Tofu.MouseInput.PositionInView.Y > 0;
+        bool isMouseOverSceneView = Tofu.MouseInput.IsMouseInSceneView;
 // Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
+        Debug.StatSetValue("isMouseOverSceneView", $"isMouseOverSceneView:{isMouseOverSceneView}");
         bool justClicked = Tofu.MouseInput.ButtonPressed(MouseButtons.Left) |
                            Tofu.MouseInput.ButtonPressed(MouseButtons.Right);
         if (justClicked) _clickedInsideScene = isMouseOverSceneView;
 
         AllowPassThroughEdges = false;
 
-        HandleMouseScroll();
+        if (isMouseOverSceneView)
+        {
+            HandleMouseScroll();
+        }
+
         bool validInput = ((isMouseOverSceneView || _clickedInsideScene) && _clickedInsideScene) ||
                           (justClicked == false && isMouseOverSceneView && _clickedInsideScene);
         if (Tofu.MouseInput.IsButtonDown(MouseButtons.Left) || Tofu.MouseInput.IsButtonDown(MouseButtons.Right))

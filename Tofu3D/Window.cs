@@ -50,7 +50,7 @@ public class Window : GameWindow
 
     private float _monitorScale;
     public float MonitorScale => _monitorScale;
-    public string WindowTitleText => $"Tofu3D | {GL.GetString(StringName.Version)}";
+    public string WindowTitleText => $"Tofu3D | {GL.GetString(StringName.Version)} | {Tofu.SceneManager.CurrentScene?.SceneName} | {WindowSize}";
 
     protected override unsafe void OnLoad()
     {
@@ -66,7 +66,7 @@ public class Window : GameWindow
         // WindowState = WindowState.Fullscreen;
         WindowState = WindowState.Maximized;
 
-        Scene.AnySceneLoaded += () => { Title = $"{WindowTitleText} | {Tofu.SceneManager.CurrentScene?.SceneName}"; };
+        Scene.AnySceneLoaded += () => { Title = WindowTitleText; };
 
         Focus();
 

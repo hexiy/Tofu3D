@@ -122,6 +122,15 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
+    ///         Converts a <see cref="OpenTK.Mathematics.Vector2" /> to a <see cref="Vector2" />.
+    /// </summary>
+    /// <param name="value">The converted value.</param>
+    public static implicit operator Vector2(OpenTK.Mathematics.Vector2 value)
+    {
+        return new Vector2(value.X, value.Y);
+    }
+    
+    /// <summary>
     ///         Converts a <see cref="System.Numerics.Vector2" /> to a <see cref="Vector2" />.
     /// </summary>
     /// <param name="value">The converted value.</param>

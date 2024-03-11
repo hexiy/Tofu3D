@@ -18,12 +18,12 @@ public class EditorPanelSceneView : EditorPanel
 
         if (Global.EditorAttached)
         {
-            int tooltipsPanelHeight = 70;
+            // int tooltipsPanelHeight = 70;
             ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
             ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 
             Tofu.Editor.SceneViewSize =
-                Tofu.RenderPassSystem.FinalRenderTexture.Size + new Vector2(0, tooltipsPanelHeight);
+                Tofu.RenderPassSystem.FinalRenderTexture.Size / Screen.Scale;// + new Vector2(0, tooltipsPanelHeight);
 
             ImGui.SetNextWindowSize(Tofu.RenderPassSystem.FinalRenderTexture.Size, ImGuiCond.FirstUseEver);
             ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
@@ -31,9 +31,9 @@ public class EditorPanelSceneView : EditorPanel
             ImGui.Begin(Name,
                 Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
 
-            if ((Vector2)ImGui.GetWindowSize() - new Vector2(0, tooltipsPanelHeight) != Camera.MainCamera.Size)
+            if ((Vector2)ImGui.GetWindowSize()!= Camera.MainCamera.Size)
             {
-                Camera.MainCamera.SetSize(ImGui.GetWindowSize() - new System.Numerics.Vector2(0, tooltipsPanelHeight));
+                Camera.MainCamera.SetSize(ImGui.GetWindowSize());
                 // Debug.Log("SetSize");
             }
 
@@ -178,9 +178,12 @@ public class EditorPanelSceneView : EditorPanel
                                  null;
             // _renderCameraViews = true;
             // ImGui.SetCursorPosX(0);
-            ImGui.SetCursorPos(new Vector2(0, tooltipsPanelHeight));
+            ImGui.SetCursorPos(new Vector2(0, 0));
 
-            Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
+            Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(),
+                ImGuiHelper.FlipYToGoodSpace(ImGui.GetCursorPosY()) - (Tofu.RenderPassSystem.FinalRenderTexture.Size.Y / Screen.Scale)-15);
+            
+            Debug.StatSetValue("aaaa",$"scne size {Tofu.RenderPassSystem.FinalRenderTexture.Size.Y / Screen.Scale}");
 
             if (Tofu.RenderPassSystem.CanRender)
                 ImGui.Image((IntPtr)Tofu.RenderPassSystem.FinalRenderTexture.ColorAttachment,
@@ -188,6 +191,8 @@ public class EditorPanelSceneView : EditorPanel
                     new Vector2(0, 1), new Vector2(1, 0));
             else
                 ImGui.Dummy(Tofu.RenderPassSystem.FinalRenderTexture.Size);
+
+            Tofu.MouseInput.IsMouseInSceneView = ImGui.IsItemHovered();
 
             // ImGui.Image((IntPtr) RenderPassManager.FinalRenderTexture.ColorAttachment, RenderPassManager.FinalRenderTexture.Size * 0.9f,
             //             new Vector2(-0.5f, 0.5f), new Vector2(0.5f, -0.5f), Color.White.ToVector4(), Color.Aqua.ToVector4());

@@ -4,6 +4,7 @@ namespace Tofu3D;
 
 public class Editor
 {
+    // Left Bottom corner of the scene view
     public Vector2 SceneViewPosition = new(0, 0);
 
     public Vector2 SceneViewSize = new(0, 0);

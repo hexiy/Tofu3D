@@ -60,7 +60,7 @@ public partial class MouseInput
     {
         get
         {
-            if (IsMouseInSceneView() == false) return 0;
+            if (IsMouseInSceneView == false) return 0;
 
             return Tofu.Window.MouseState.ScrollDelta.Y;
         }
@@ -78,7 +78,7 @@ public partial class MouseInput
 
     public bool IsButtonUp(MouseButtons mouseButton = MouseButtons.Left)
     {
-        if (IsMouseInSceneView() == false) return false;
+        if (IsMouseInSceneView == false) return false;
 
         return Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton) == false;
     }
@@ -170,21 +170,21 @@ public partial class MouseInput
         // }
 
 
-        PositionInWindow = new Vector2(Tofu.Window.MousePosition.X, Tofu.Window.Size.Y - Tofu.Window.MousePosition.Y);
-        PositionInView = new Vector2(Tofu.Window.MouseState.X - Tofu.Editor.SceneViewPosition.X,
-            -Tofu.Window.MouseState.Y + Camera.MainCamera.Size.Y + Tofu.Editor.SceneViewPosition.Y +
-            25); // 25 EditorPanelMenuBar height
+        PositionInWindow = ImGuiHelper.FlipYToGoodSpace(Tofu.Window.MousePosition);
+        PositionInView = new Vector2(PositionInWindow.X- Tofu.Editor.SceneViewPosition.X,
+            PositionInWindow.Y - Tofu.Editor.SceneViewPosition.Y);
 
+        Debug.StatSetValue("MousePos",$"Mouse Position In Editor:{PositionInWindow}");
+        Debug.StatSetValue("PositionInView",$"PositionInView:{PositionInView}");
+        Debug.StatSetValue("SceneViewPos",$"SceneViewPos:{Tofu.Editor.SceneViewPosition}");
+        // Debug.StatSetValue("MousePosFlipped",$"mouse pos flipped:{ImGuiHelper.FlipYToGoodSpace(Tofu.Window.MousePosition)}");
         // Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
-        Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
+        // Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
+        // Debug.StatSetValue("Mouse position scene view", $"Mouse pos in scene view: {PositionInView}");
+        // Debug.StatSetValue("SceneViewPosition", $"sceneViewPosition: {Tofu.Editor.SceneViewPosition}");
         // Debug.StatSetValue("imgui mouse pos", $"imgui mmouse pos: {ImGui.GetMousePos()}");
     }
 
 
-    private bool IsMouseInSceneView()
-    {
-        return PositionInView.X > -_sceneViewPadding &&
-               PositionInView.X < Camera.MainCamera.Size.X + _sceneViewPadding &&
-               PositionInView.Y > -_sceneViewPadding && PositionInView.Y < Camera.MainCamera.Size.Y + _sceneViewPadding;
-    }
+    public bool IsMouseInSceneView = false;
 }
