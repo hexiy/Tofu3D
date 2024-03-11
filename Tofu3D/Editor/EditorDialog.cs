@@ -31,9 +31,10 @@ public class EditorDialog
 
     public void Draw()
     {
-        Vector2 bgPanelSize = Screen.Size * 1.3f;
-        // ImGui.SetNextWindowSize(bgPanelSize, ImGuiCond.Always);
+        Vector2 bgPanelSize = Screen.WindowSize*1.2f;
+        ImGui.SetNextWindowSize(bgPanelSize, ImGuiCond.Always);
         ImGui.SetNextWindowPos(Screen.Center, ImGuiCond.Always, new Vector2(0.5f, 0.5f));
+
         ImGui.Begin("Dialog",
             ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoDecoration |
             ImGuiWindowFlags.NoBackground);
@@ -44,7 +45,7 @@ public class EditorDialog
         Vector2 panelSize = new(300, 200);
         ImGui.SetCursorScreenPos(Screen.Center - panelSize / 2);
         ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId, panelSize, Vector2.Zero, Vector2.One,
-            Color.White.ToVector4());
+            new Vector4(1f, 0.96f, 0.90f, 1.00f));
         bool hoveringPanel = ImGui.IsItemHovered();
         ImGui.SetCursorScreenPos(Screen.Center + new Vector2(0, -50));
         TofuGUI.Text(_dialogParams.message);

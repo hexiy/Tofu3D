@@ -8,9 +8,16 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Material>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        string materialPath =
-            Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.Path);
+        string materialPath = "";
 
+        if (componentInspectorData.Inspectable is Renderer)
+        {
+            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.Path);
+        }
+        else if (componentInspectorData.Inspectable is Material)
+        {
+            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Material).Path);
+        }
         materialPath = materialPath ?? "";
         bool clicked = ImGui.Button(materialPath,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));

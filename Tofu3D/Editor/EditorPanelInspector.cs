@@ -144,7 +144,7 @@ public class EditorPanelInspector : EditorPanel
 
     private void RefreshInspectable(object inspectable)
     {
-        _currentInspectableDatas.First(data => data.Inspectable == inspectable)?.InitInfos();
+        _currentInspectableDatas.FirstOrDefault(data => data.Inspectable == inspectable, null)?.InitInfos();
     }
 
     private void OnGameObjectsSelected(List<int> ids)

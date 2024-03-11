@@ -241,14 +241,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>1.0922852</X>
-        <Y>-0.86033213</Y>
-        <Z>-3.1556895</Z>
+        <X>9.506051</X>
+        <Y>6.7986774</Y>
+        <Z>17.762197</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1.0922852</X>
-        <Y>-0.86033213</Y>
-        <Z>-3.1556895</Z>
+        <X>9.506051</X>
+        <Y>6.7986774</Y>
+        <Z>17.762197</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -261,8 +261,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-3.2373605</X>
-        <Y>339.23694</Y>
+        <X>15.730069</X>
+        <Y>-62.323795</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -285,7 +285,7 @@
       <OrthographicSize>2</OrthographicSize>
       <Size>
         <X>1460</X>
-        <Y>957</Y>
+        <Y>1027</Y>
       </Size>
     </Component>
     <Component xsi:type="Skybox">
@@ -457,6 +457,10 @@
         <int>37</int>
         <int>37</int>
         <int>37</int>
+        <int>37</int>
+        <int>66</int>
+        <int>37</int>
+        <int>66</int>
         <int>37</int>
         <int>66</int>
         <int>37</int>
@@ -1776,7 +1780,7 @@
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>Assets/3D/Grass_Block.obj</AssetPath>
-        <Vao>12</Vao>
+        <Vao>6</Vao>
         <VertexBufferDataLength>288</VertexBufferDataLength>
         <VerticesCount>36</VerticesCount>
       </Mesh>
@@ -2016,7 +2020,7 @@
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>Assets/3D/Teapot.obj</AssetPath>
-        <Vao>13</Vao>
+        <Vao>12</Vao>
         <VertexBufferDataLength>506112</VertexBufferDataLength>
         <VerticesCount>63264</VerticesCount>
       </Mesh>
@@ -2136,12 +2140,12 @@
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath>Assets/3D/sponza.obj</AssetPath>
-        <Vao>14</Vao>
+        <Vao>13</Vao>
         <VertexBufferDataLength>6294408</VertexBufferDataLength>
         <VerticesCount>786801</VerticesCount>
       </Mesh>
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>613</GameObjectNextId>
+  <GameObjectNextId>617</GameObjectNextId>
 </SceneFile>
