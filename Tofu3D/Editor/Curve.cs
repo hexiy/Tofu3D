@@ -29,7 +29,8 @@ public class Curve
                 { new(0, 0f), new(1f, 1f) };
         // DefiningPoints.Sort((vector2, vector3) => vector2.X.CompareTo(vector3.X));
         // DefiningPoints.Sort((v1,v2)=>v1.X.CompareTo(v2.X));
-        DefiningPoints.ForEach(vector2 => vector2 = Vector2.Clamp(vector2, Vector2.Zero, Vector2.One));
+        
+        // DefiningPoints.ForEach(vector2 => vector2 = Vector2.Clamp(vector2, Vector2.Zero, Vector2.One));
 
         for (int i = 0; i < DefiningPoints.Count; i++)
             DefiningPoints[i] = new Vector2(Mathf.Clamp(DefiningPoints[i].X, 0, 1),

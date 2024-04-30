@@ -35,7 +35,7 @@ public class CoordinateSystemCubeTest : Component, IComponentUpdateable
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         Vector3 endPosition = _startingPosition + Transform.TransformVectorToWorldSpaceVector(MoveLoopTarget) * 5;
         Transform.WorldPosition = Vector3.Lerp(_startingPosition, endPosition,
@@ -54,7 +54,5 @@ public class CoordinateSystemCubeTest : Component, IComponentUpdateable
         }
 
         if (CubeLoopTarget != null) CubeLoopTarget.Transform.WorldPosition = endPosition;
-
-        base.Update();
     }
 }

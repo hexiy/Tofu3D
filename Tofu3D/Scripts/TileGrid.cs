@@ -69,7 +69,7 @@ public class TileGrid : Component
     //	}
     //	base.OnDestroyed();
     //}
-    public override void Update()
+    public void Update()
     {
         if (KeyboardInput.IsKeyDown(Keys.Space))
         {

@@ -94,11 +94,10 @@ public class AudioSource : Component, IComponentUpdateable
         _soundStream.State = SoundStreamState.Paused;
     }
 
-    public override void Update()
+    public void Update()
     {
         if (_soundStream == null) return;
 
         _soundStream.Volume = Volume;
-        base.Update();
     }
 }

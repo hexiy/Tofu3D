@@ -439,25 +439,25 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     }
     */
 
-    public virtual void Update()
-    {
-        if (ActiveInHierarchy == false && UpdateWhenDisabled == false) return;
-
-        if (Awoken == false) return;
-
-        if (_destroyTimerRunning)
-        {
-            DestroyTimer -= Time.DeltaTime;
-            if (DestroyTimer < 0)
-            {
-                _destroyTimerRunning = false;
-                Destroy();
-                return;
-            }
-        }
-
-        UpdateComponents();
-    }
+    // public virtual void Update()
+    // {
+    //     if (ActiveInHierarchy == false && UpdateWhenDisabled == false) return;
+    //
+    //     if (Awoken == false) return;
+    //
+    //     if (_destroyTimerRunning)
+    //     {
+    //         DestroyTimer -= Time.DeltaTime;
+    //         if (DestroyTimer < 0)
+    //         {
+    //             _destroyTimerRunning = false;
+    //             Destroy();
+    //             return;
+    //         }
+    //     }
+    //
+    //     // UpdateComponents();
+    // }
 
     public virtual void FixedUpdate()
     {
@@ -644,72 +644,73 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         }
     }*/
 
-    private void UpdateComponents()
-    {
-        lock (_componentsLock)
-        {
-            for (int i = 0; i < Components.Count; i++)
-                if (Components[i].Enabled && Components[i].Awoken)
-                {
-                    if (Global.GameRunning == false)
-                    {
-                        if (Components[i].CanExecuteUpdateInEditMode) Components[i].Update();
-                        // bool foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Update));
-                    }
-                    else
-                    {
-                        Components[i].Update();
-                    }
-                }
-        }
-    }
+    // components are now updated independently of gameobject, in the IUpdateableComponentQueue
+    // private void UpdateComponents()
+    // {
+    //     lock (_componentsLock)
+    //     {
+    //         for (int i = 0; i < Components.Count; i++)
+    //             if (Components[i].Enabled && Components[i].Awoken)
+    //             {
+    //                 if (Global.GameRunning == false)
+    //                 {
+    //                     if (Components[i].CanExecuteUpdateInEditMode) Components[i].Update();
+    //                     // bool foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Update));
+    //                 }
+    //                 else
+    //                 {
+    //                     Components[i].Update();
+    //                 }
+    //             }
+    //     }
+    // }
 
-    public void Update_Test1()
-    {
-        if (ActiveInHierarchy == false && UpdateWhenDisabled == false) return;
+    // public void Update_Test1()
+    // {
+    //     if (ActiveInHierarchy == false && UpdateWhenDisabled == false) return;
+    //
+    //     if (Awoken == false) return;
+    //
+    //     if (_destroyTimerRunning)
+    //     {
+    //         DestroyTimer -= Time.DeltaTime;
+    //         if (DestroyTimer < 0)
+    //         {
+    //             _destroyTimerRunning = false;
+    //             Destroy();
+    //             return;
+    //         }
+    //     }
+    //
+    //     UpdateComponents_Test1();
+    // }
+    //
+    // public void UpdateComponents_Test1()
+    // {
+    //     for (int i = 0; i < Components.Count; i++)
+    //         if (Components[i].Enabled && Components[i].Awoken)
+    //         {
+    //             if (Global.GameRunning == false)
+    //             {
+    //                 if (Components[i].CanExecuteUpdateInEditMode) Components[i].Update();
+    //                 // bool foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Update));
+    //             }
+    //             else
+    //             {
+    //                 Components[i].Update();
+    //             }
+    //         }
+    // }
 
-        if (Awoken == false) return;
-
-        if (_destroyTimerRunning)
-        {
-            DestroyTimer -= Time.DeltaTime;
-            if (DestroyTimer < 0)
-            {
-                _destroyTimerRunning = false;
-                Destroy();
-                return;
-            }
-        }
-
-        UpdateComponents_Test1();
-    }
-
-    public void UpdateComponents_Test1()
-    {
-        for (int i = 0; i < Components.Count; i++)
-            if (Components[i].Enabled && Components[i].Awoken)
-            {
-                if (Global.GameRunning == false)
-                {
-                    if (Components[i].CanExecuteUpdateInEditMode) Components[i].Update();
-                    // bool foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Update));
-                }
-                else
-                {
-                    Components[i].Update();
-                }
-            }
-    }
-
-    private void UpdateRenderers()
-    {
-        lock (_componentsLock)
-        {
-            for (int i = 0; i < Components.Count; i++)
-                if (Components[i].Enabled && Components[i].Awoken && Components[i] is Renderer)
-                    Components[i].Update();
-        }
-    }
+    // private void UpdateRenderers()
+    // {
+    //     lock (_componentsLock)
+    //     {
+    //         for (int i = 0; i < Components.Count; i++)
+    //             if (Components[i].Enabled && Components[i].Awoken && Components[i] is Renderer)
+    //                 Components[i].Update();
+    //     }
+    // }
 
     private void FixedUpdateComponents()
     {

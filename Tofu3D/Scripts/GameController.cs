@@ -38,7 +38,7 @@ public class GameController : Component
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         if (KeyboardInput.IsKeyDown(Keys.Space))
         {

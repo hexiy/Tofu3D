@@ -17,7 +17,7 @@
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         if (_jumping == false) _positionDelta += Vector3.Distance(Transform.WorldPosition, _lastFramePosition);
 
@@ -43,6 +43,5 @@
         Transform.Rotation = Transform.Rotation.Set(z: rotationWobble * 2);
 
         _lastFramePosition = Transform.WorldPosition;
-        base.Update();
     }
 }

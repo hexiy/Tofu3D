@@ -23,7 +23,7 @@ public class EditorPanelHierarchy : EditorPanel
         Scene.AnySceneLoaded += ResetGameObjectSelection;
     }
 
-    public override void Update()
+    public void Update()
     {
         if (ImGui.IsMouseDragging(ImGuiMouseButton.Left) && IsPanelHovered)
             _currentSpaceHeight = 5;

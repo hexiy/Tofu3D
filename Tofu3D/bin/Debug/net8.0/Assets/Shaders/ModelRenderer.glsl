@@ -17,7 +17,7 @@ out vec4 FragPosLightSpace;
 
 void main(void)
 {
-        vec3 newPos = a_pos.xyz;
+vec3 newPos = a_pos.xyz;
 gl_Position = u_mvp * vec4(newPos.xyz, 1.0);
 vertexPositionWorld = vec3(u_model * vec4(newPos.xyz, 1.0));
 normal = transpose(inverse(mat3(u_model))) * a_normal;

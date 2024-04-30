@@ -57,7 +57,7 @@ public class Camera : Component, IComponentUpdateable
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         if (IsOrthographic)
             Transform.LocalScale = Vector3.One * OrthographicSize;
@@ -66,7 +66,6 @@ public class Camera : Component, IComponentUpdateable
             Transform.LocalScale = Vector3.One;
 
         UpdateMatrices();
-        base.Update();
     }
 
     public void SetSize(Vector2 newSize)

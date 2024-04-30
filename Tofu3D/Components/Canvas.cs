@@ -14,13 +14,11 @@ public class Canvas : Component, IComponentUpdateable
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         return;
         //Debug.Log(Transform.LocalPosition - Camera.I.Transform.LocalPosition);
         Transform.LocalPosition = Camera.MainCamera.Transform.LocalPosition;
         Transform.LocalScale = Camera.MainCamera.Transform.LocalScale;
-
-        base.Update();
     }
 }

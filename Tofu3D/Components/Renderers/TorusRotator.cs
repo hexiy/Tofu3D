@@ -11,9 +11,8 @@ public class TorusRotator : Component
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         Transform.Rotation = Transform.Rotation.Add(-Time.EditorDeltaTime * 10);
-        base.Update();
     }
 }

@@ -47,7 +47,13 @@ public class Debug
     {
         Log(message.ToString(), logCategory);
     }
-
+    public static void LogDebug(object message, LogCategory logCategory = LogCategory.Info)
+    {
+        if (Global.Debug)
+        {
+            Log(message.ToString(), logCategory);
+        }
+    }
     public static void StartGraphTimer(string timerName,
         DebugGraphTimer.SourceGroup group = DebugGraphTimer.SourceGroup.None, TimeSpan? redline = null,
         int drawOrder = 0)

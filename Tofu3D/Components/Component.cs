@@ -5,6 +5,10 @@ namespace Scripts;
 
 public class Component : IDestroyable, ICloneable
 {
+#if DEBUG
+    public float UpdateTime { get; set; }// how long in ms it took to update this gameobject
+#endif
+    
     private Dictionary<string, MethodInfo> _executeInEditModeMethods = new();
 
     [XmlIgnore]
@@ -174,9 +178,9 @@ public class Component : IDestroyable, ICloneable
     {
     }
 
-    public virtual void Update()
-    {
-    }
+    // public virtual void Update()
+    // {
+    // }
 
     public virtual void FixedUpdate()
     {

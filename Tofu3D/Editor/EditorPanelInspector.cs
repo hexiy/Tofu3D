@@ -2,7 +2,6 @@ using System.Collections;
 using System.IO;
 using System.Linq;
 using ImGuiNET;
-using SharpGen.Runtime;
 
 namespace Tofu3D;
 
@@ -121,7 +120,7 @@ public class EditorPanelInspector : EditorPanel
         }
     }
 
-    public override void Update()
+    public void Update()
     {
         _actionQueue.Invoke();
         _actionQueue = () => { };

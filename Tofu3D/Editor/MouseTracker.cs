@@ -15,7 +15,7 @@ public class MouseTracker : Component, IComponentUpdateable
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         Transform.WorldPosition = Tofu.MouseInput.PositionInView;
         Transform.Rotation = Transform.Rotation.Set(z: Transform.Rotation.Z + Time.EditorDeltaTime * 150);
@@ -36,6 +36,5 @@ public class MouseTracker : Component, IComponentUpdateable
         else
             Transform.LocalScale = Vector3.Lerp(Transform.LocalScale, Vector3.One, Time.EditorDeltaTime * ScaleSpeed);
 
-        base.Update();
     }
 }

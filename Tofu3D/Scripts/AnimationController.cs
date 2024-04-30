@@ -28,7 +28,7 @@ public class AnimationController : Component, IComponentUpdateable
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         if (AnimationSpeed == 0) return;
 
@@ -46,8 +46,6 @@ public class AnimationController : Component, IComponentUpdateable
                 _spriteSheetRenderer.CurrentSpriteIndex++;
             }
         }
-
-        base.Update();
     }
 
     public void ResetCurrentAnimation()
