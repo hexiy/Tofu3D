@@ -15,7 +15,7 @@ public class TestMoveSin : Component, IComponentUpdateable
     private int _c = 0;
     private int _dir = 1;
 
-    public override void Update()
+    public void Update()
     {
         Transform.LocalPosition = new Vector3((float)Math.Sin(Time.EditorElapsedTime * 5) * 10, 0, 0);
         if (Time.EditorElapsedTicks % 10 == 0)
@@ -30,6 +30,5 @@ public class TestMoveSin : Component, IComponentUpdateable
             Debug.Log(x);
         }
 
-        base.Update();
     }
 }

@@ -11,9 +11,8 @@ public class CubeSpinner : Component, IComponentUpdateable
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         Transform.Rotation = Transform.Rotation.Add(y: Time.EditorDeltaTime * 20);
-        base.Update();
     }
 }

@@ -15,7 +15,7 @@ public class CharacterController : Component, IComponentUpdateable
         base.Awake();
     }
 
-    public override void FixedUpdate()
+    public void Update()
     {
         if (_rb == null) return;
 
@@ -30,7 +30,6 @@ public class CharacterController : Component, IComponentUpdateable
         }
 
         _jumpKeyDown = KeyboardInput.IsKeyDown(Keys.W);
-        //rb.body.ApplyForce(new Vector2(input.X, 0));
-        base.Update();
+        //rb.body.ApplyForce(new Vector2(input.X, 0));    }
     }
 }

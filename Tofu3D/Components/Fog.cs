@@ -18,10 +18,8 @@ public class Fog : Component, IComponentUpdateable
     [SliderF(0, 1)]
     public float Intensity = 1;
 
-    public override void Update()
+    public void Update()
     {
         EndDistance = Mathf.ClampMin(EndDistance, StartDistance + 0.001f);
-
-        base.Update();
     }
 }

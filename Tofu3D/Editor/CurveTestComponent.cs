@@ -25,9 +25,8 @@ public class CurveTestComponent : Component, IComponentUpdateable
         base.Awake();
     }
 
-    public override void Update()
+    public void Update()
     {
         // Debug.Log(_curve.Sample(p));
-        base.Update();
     }
 }

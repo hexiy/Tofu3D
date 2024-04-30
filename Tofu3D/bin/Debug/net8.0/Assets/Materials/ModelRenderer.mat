@@ -4,10 +4,10 @@
   <Additive>false</Additive>
   <Shader>
     <BufferType>Model</BufferType>
-    <Path>Assets\Shaders\ModelRenderer.glsl</Path>
+    <Path>Assets/Shaders/ModelRenderer.glsl</Path>
     <AlbedoTextureLocation>-1</AlbedoTextureLocation>
     <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
-    <ShadowMapTextureLocation>30</ShadowMapTextureLocation>
+    <ShadowMapTextureLocation>0</ShadowMapTextureLocation>
   </Shader>
   <RenderMode>Opaque</RenderMode>
   <AlbedoTint>

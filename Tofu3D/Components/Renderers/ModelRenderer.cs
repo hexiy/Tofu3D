@@ -46,7 +46,7 @@ public class ModelRenderer : TextureRenderer
         base.OnDestroyed();
     }
 
-    public override void Update()
+    public void Update()
     {
         // if (RenderMode == RenderMode.Opaque && Material.RenderMode != RenderMode)
         // {
@@ -57,8 +57,6 @@ public class ModelRenderer : TextureRenderer
         // {
         // 	Material = Tofu.AssetManager.Load<Material>("ModelRendererUnlit");
         // }
-
-        base.Update();
     }
 
     public override void Render()

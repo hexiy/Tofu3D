@@ -215,7 +215,7 @@ public class Renderer : Component, IComparable<Renderer>, IComponentRenderable, 
         return new Vector4(BoxShape.Size.X * Transform.LocalScale.X, BoxShape.Size.Y * Transform.LocalScale.Y, 1, 1);
     }
 
-    public override void Update()
+    public void Update()
     {
         /*if (Material != null && Material.IsValid == false)
         {
@@ -243,8 +243,6 @@ public class Renderer : Component, IComparable<Renderer>, IComponentRenderable, 
         // {
         // 	UpdateMvp();
         // }
-
-        base.Update();
     }
 
     private float CalculateDistanceFromCamera()

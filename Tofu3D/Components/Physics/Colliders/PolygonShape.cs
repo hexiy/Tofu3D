@@ -69,7 +69,7 @@ public class PolygonShape : Shape
         }
     }
 
-    public override void Update()
+    public void Update()
     {
         if (Transform.Rotation.Z != _lastRotation)
         {
@@ -77,7 +77,6 @@ public class PolygonShape : Shape
             _lastRotation = Transform.Rotation.Z;
         }
 
-        base.Update();
     }
 
     public void SetRotation(float angle)

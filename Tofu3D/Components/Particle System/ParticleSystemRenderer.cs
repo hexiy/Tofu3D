@@ -50,7 +50,7 @@
             Mesh = null;
     }
 
-    public override void Render()
+    public void Render()
     {
         if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
             InstancingData.MatrixDirty == false) return;

@@ -4,20 +4,12 @@
   <Additive>false</Additive>
   <Shader>
     <BufferType>Sprite</BufferType>
-    <Path>Assets\Shaders\SpriteRenderer.glsl</Path>
+    <Path>Assets/Shaders/SpriteRenderer.glsl</Path>
     <AlbedoTextureLocation>-1</AlbedoTextureLocation>
     <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
     <ShadowMapTextureLocation>-1</ShadowMapTextureLocation>
   </Shader>
-  <Vao>8</Vao>
   <RenderMode>Opaque</RenderMode>
-  <AlbedoTexture>
-    <AssetPath>Assets\2D\solidColor.png</AssetPath>
-    <Size>
-      <X>256</X>
-      <Y>256</Y>
-    </Size>
-  </AlbedoTexture>
   <AlbedoTint>
     <B>255</B>
     <G>255</G>
@@ -25,13 +17,6 @@
     <A>255</A>
     <PackedValue>4294967295</PackedValue>
   </AlbedoTint>
-  <AoTexture>
-    <AssetPath>Assets\2D\solidColor.png</AssetPath>
-    <Size>
-      <X>256</X>
-      <Y>256</Y>
-    </Size>
-  </AoTexture>
   <Tiling>
     <X>0</X>
     <Y>0</Y>

@@ -34,7 +34,7 @@ public class Button : Component
         base.Awake();
     }
 
-    public override void Update()
+    public void Update()
     {
         if (Renderer == false || BoxShape == false) return;
 

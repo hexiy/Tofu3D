@@ -33,8 +33,7 @@ public class InspectorObjectReferencesTest : Component
         base.Awake();
     }
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
     }
 }

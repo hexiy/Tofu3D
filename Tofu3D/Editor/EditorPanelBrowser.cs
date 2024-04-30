@@ -67,7 +67,7 @@ public class EditorPanelBrowser : EditorPanel
         _contextItems = new List<BrowserContextItem> { createSceneContextItem, createMaterialContextItem };
     }
 
-    public override void Update()
+    public void Update()
     {
     }
 

@@ -79,7 +79,7 @@ public class ParticleSystem : Component, IComponentUpdateable
         base.Awake();
     }
 
-    public override void Update()
+    public void Update()
     {
         _time += Time.EditorDeltaTime;
         SpawnRate = Mathf.ClampMin(SpawnRate, 0.0001f);
@@ -99,6 +99,7 @@ public class ParticleSystem : Component, IComponentUpdateable
                 Particles[i].Velocity += StartVelocity * Time.EditorDeltaTime;
 
                 Particles[i].WorldPosition += Particles[i].Velocity * Time.EditorDeltaTime;
+                Particles[i].WorldPosition += new Vector3(Mathf.Sin(Particles[i].WorldPosition.Y*0.5f)*0.2f,0,Mathf.Cos(Particles[i].WorldPosition.Y*0.5f)*0.2f);
 
                 Particles[i].Lifetime += Time.EditorDeltaTime;
 
@@ -114,7 +115,6 @@ public class ParticleSystem : Component, IComponentUpdateable
                 if (Particles[i].Lifetime > MaxLifetime) Particles[i].Visible = false;
             }
 
-        base.Update();
     }
 
     public void DisableParticle(int particleIndex)
@@ -199,7 +199,7 @@ public class ParticleSystem : Component, IComponentUpdateable
 //            base.Awake();
 //        }
 //        Vector2 lastMousePos = new Vector2(0, 0);
-//        public override void Update()
+//        public void Update
 //        {
 //            if (Mouse.GetState().RightButton == ButtonState.Pressed)
 //            {

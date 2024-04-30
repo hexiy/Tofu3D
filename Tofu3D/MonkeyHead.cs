@@ -14,10 +14,9 @@ public class MonkeyHead : Component, IComponentUpdateable
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         Color color = Extensions.ColorFromHsv(Time.EditorElapsedTime * 200, 0.6f, 1);
         _renderer.Color = color;
-        base.Update();
     }
 }

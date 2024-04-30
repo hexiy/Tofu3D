@@ -30,7 +30,7 @@
 // 		base.Start();
 // 	}
 //
-// 	public override void Update()
+// 	public void Update()
 // 	{
 // 		float velX = rb.Velocity.X;
 // 		float velY = rb.Velocity.Y;

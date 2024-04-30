@@ -19,6 +19,9 @@ public class ModelLoader : AssetLoader<Mesh>
         ModelLoadSettings loadSettings = assetLoadSettings as ModelLoadSettings;
 
         string modelPath = loadSettings.Path;
+
+        Debug.LogDebug($"Loading asset at path {assetLoadSettings.Path}");
+
         string[] data = File.ReadAllText(modelPath).Split("\n");
 
         List<float> vertices = new();

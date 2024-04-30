@@ -15,7 +15,7 @@ public class PartyBoi : Component
         base.Awake();
     }
 
-    public override void Update()
+    public void Update()
     {
         hue += Time.deltaTime * 300;
         /*if (hue > 360)

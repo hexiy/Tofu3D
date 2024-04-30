@@ -11,7 +11,7 @@ public class ButtonTween : Component
         base.Awake();
     }
 
-    public override void Update()
+    public void Update()
     {
         //if (needToScale == false) { return; }
         bool mouseInside = Tofu.MouseInput.WorldPosition.In(GetComponent<BoxShape>());

@@ -3,5 +3,6 @@
   <component name="ActiveTabHighlighterConfigurationV2">
     <option name="enabled" value="true" />
     <option name="background" value="#AD2E9C" />
+    <option name="backgroundDark" value="" />
   </component>
 </project>

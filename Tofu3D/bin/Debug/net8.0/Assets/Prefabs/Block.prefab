@@ -71,7 +71,7 @@
       </Color>
       <DistanceFromCamera>11.475541</DistanceFromCamera>
       <Material>
-        <AssetPath>C:\Dev\Tofu3D\Tofu3D\bin\Debug\net8.0\Assets\Materials\ModelRendererInstanced.mat</AssetPath>
+        <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>

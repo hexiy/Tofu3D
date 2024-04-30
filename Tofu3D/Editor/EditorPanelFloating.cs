@@ -23,7 +23,7 @@ public class EditorPanelFloating : EditorPanel
         ImGui.End();
     }
 
-    public override void Update()
+    public void Update()
     {
     }
 }

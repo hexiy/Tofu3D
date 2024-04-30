@@ -15,9 +15,8 @@ public class ScrollUV : Component
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         _textureRenderer.Offset.Set(Time.EditorElapsedTime * 0.02f);
-        base.Update();
     }
 }

@@ -221,7 +221,7 @@ public class Transform : Component
         Update();
     }
 
-    public override void Update()
+    public void Update()
     {
         if (Parent)
         {

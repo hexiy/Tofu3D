@@ -30,12 +30,11 @@ public class Skybox : Component, IComponentUpdateable
         base.Awake();
     }
 
-    public override void Update()
+    public void Update()
     {
         // Debug.StatSetValue("SkyboxList Textures", $"{Textures.Count}");
         // Debug.StatSetValue("SkyboxList Ints", $"SkyboxList Ints count {Ints.Count}");
         // Debug.StatSetValue("SkyboxList Colors", $"{Colors.Count}");
-        base.Update();
     }
 
     public override void OnEnabled()

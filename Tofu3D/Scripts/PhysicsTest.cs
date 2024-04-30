@@ -17,7 +17,7 @@ public class PhysicsTest : Component, IComponentUpdateable
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         if (_boxShape == null || _modelRenderer == null) return;
 
@@ -38,7 +38,5 @@ public class PhysicsTest : Component, IComponentUpdateable
         // {
         // 	modelRenderer.color = Color.White;
         // }
-
-        base.Update();
     }
 }

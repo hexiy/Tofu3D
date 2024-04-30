@@ -10,7 +10,7 @@ public class MousePickingSensor : Component
         base.Awake();
     }
 
-    public override void Update()
+    public void Update()
     {
         if (_renderer == MousePickingSystem.HoveredRenderer)
         {

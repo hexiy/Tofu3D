@@ -2,11 +2,11 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Authors>hexiy</Authors>
         <AssemblyName>Tofu3D</AssemblyName>
-        <LangVersion>11</LangVersion>
+        <LangVersion>12</LangVersion>
         <ApplicationIcon>tofu3d.ico</ApplicationIcon>
         <Nullable>enable</Nullable>
     </PropertyGroup>
@@ -18,14 +18,14 @@
         <WarningLevel>4</WarningLevel>
         <OutputPath>bin\Debug</OutputPath>
         <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-        <DefineConstants>TRACE;OS_MACOS</DefineConstants>
+        <DefineConstants>TRACE;OS_MACOS;DEBUG</DefineConstants>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <PlatformTarget>AnyCPU</PlatformTarget>
         <WarningLevel>4</WarningLevel>
-        <DefineConstants>TRACE;OS_MACOS</DefineConstants>
+        <DefineConstants>TRACE;OS_MACOS;DEBUG</DefineConstants>
         <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     </PropertyGroup>
 

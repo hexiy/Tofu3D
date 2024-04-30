@@ -1,4 +1,4 @@
-public class DemoButton : Component
+public class DemoButton : Component, IComponentUpdateable
 {
     public override void Awake()
     {
@@ -12,8 +12,7 @@ public class DemoButton : Component
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
     }
 }

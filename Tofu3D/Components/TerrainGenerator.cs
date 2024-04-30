@@ -47,7 +47,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
         Transform.Children = new List<Transform>();
     }
 
-    public override void Update()
+    public void Update()
     {
         if (_threadsWorkingCount == 0)
         {
@@ -57,7 +57,6 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
         if (KeyboardInput.WasKeyJustPressed(Keys.Space)) Spawn?.Invoke();
 
-        base.Update();
     }
 
     private int _threadsWorkingCount = -1;

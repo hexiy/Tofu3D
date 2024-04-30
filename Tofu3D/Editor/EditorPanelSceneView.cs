@@ -245,7 +245,7 @@ public class EditorPanelSceneView : EditorPanel
         }
     }
 
-    public override void Update()
+    public void Update()
     {
     }
 

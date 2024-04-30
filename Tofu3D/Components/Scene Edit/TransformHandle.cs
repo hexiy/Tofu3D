@@ -102,7 +102,7 @@ public class TransformHandle : Component, IComponentUpdateable
         // }
     }
 
-    public override void Update()
+    public void Update()
     {
         if (Camera.MainCamera.IsOrthographic)
             Transform.LocalScale = Vector3.One * Camera.MainCamera.OrthographicSize * 1.5f;
@@ -195,7 +195,6 @@ public class TransformHandle : Component, IComponentUpdateable
         // 	ModelRendererZ.Color = Color.Cyan;
         // }
 
-        base.Update();
     }
 
     public void Move(Vector3 deltaVector)

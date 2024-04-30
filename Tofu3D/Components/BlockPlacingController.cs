@@ -6,7 +6,7 @@ public class BlockPlacingController : Component, IComponentUpdateable
     [Show]
     public GameObject MovingCube;
 
-    public override void Update()
+    public void Update()
     {
         if (MovingCube != null)
         {
@@ -16,7 +16,5 @@ public class BlockPlacingController : Component, IComponentUpdateable
             blockPosition = blockPosition.TranslateToGrid(2);
             MovingCube.Transform.WorldPosition = blockPosition;
         }
-
-        base.Update();
     }
 }

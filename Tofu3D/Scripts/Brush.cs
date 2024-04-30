@@ -2,7 +2,7 @@
 
 public class Brush : Component
 {
-    public override void Update()
+    public void Update()
     {
         int spawn = 0;
         if (Tofu.MouseInput.IsButtonDown())

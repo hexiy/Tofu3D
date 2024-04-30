@@ -27,7 +27,7 @@ public class Grid : Component, IComponentUpdateable
         base.Start();
     }
 
-    public override void Update()
+    public void Update()
     {
         // float clampedOrthoSize = Mathf.ClampMin(Camera.I.OrthographicSize, 1);
         // _boxShape.Size = Camera.I.Size;
@@ -35,6 +35,5 @@ public class Grid : Component, IComponentUpdateable
         _spriteRenderer.Offset = Camera.MainCamera.Transform.WorldPosition * PanSpeed / _spriteRenderer.Tiling;
         Transform.LocalScale = Vector3.One;
         Transform.LocalPosition = Vector3.Zero;
-        base.Update();
     }
 }
