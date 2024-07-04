@@ -1,7 +1,7 @@
 ﻿namespace Scripts;
 
 [ExecuteInEditMode]
-public class Renderer : Component, IComparable<Renderer>, IComponentRenderable, IComponentUpdateable
+public abstract class Renderer : Component, IComparable<Renderer>, IComponentRenderable, IComponentUpdateable
 {
     [XmlIgnore]
     public RendererInstancingData InstancingData;
@@ -261,7 +261,5 @@ public class Renderer : Component, IComparable<Renderer>, IComponentRenderable, 
         }
     }
 
-    public virtual void Render()
-    {
-    }
+    public abstract void Render();
 }

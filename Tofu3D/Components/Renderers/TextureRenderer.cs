@@ -1,6 +1,6 @@
 using System.IO;
 
-public class TextureRenderer : Renderer
+public abstract class TextureRenderer : Renderer
 {
     [XmlIgnore]
     public Action SetNativeSize;
@@ -9,7 +9,7 @@ public class TextureRenderer : Renderer
     public Vector2 Tiling = Vector2.One;
     public Vector2 Offset = Vector2.Zero;
     public override bool CanRender => Texture.Loaded; // && BoxShape != null;// && base.CanRender;
-
+    
 
     public virtual void LoadTexture(string texturePath)
     {

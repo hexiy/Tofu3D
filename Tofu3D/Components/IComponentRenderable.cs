@@ -2,5 +2,5 @@
 
 public interface IComponentRenderable
 {
-    public void Render();
+    public abstract void Render();
 }

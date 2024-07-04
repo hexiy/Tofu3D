@@ -1,4 +1,6 @@
 ﻿
+using System.Runtime.InteropServices;
+
 namespace Tofu3D;
 
 public class UpdateableComponentQueue : IComponentQueue
@@ -35,7 +37,6 @@ public class UpdateableComponentQueue : IComponentQueue
     {
         Debug.StatSetValue($"Update queue components", $"Update queue components: {_components.Count}");
         for (int i = 0; i < _components.Count; i++) _components[i].Update();
-        
     }
 
     public void AddComponent(IComponentUpdateable component)

@@ -168,11 +168,22 @@ public class EditorPanelHierarchy : EditorPanel
         }
 
         for (int goIndex = 0; goIndex < Tofu.SceneManager.CurrentScene.GameObjects.Count; goIndex++)
+        {
             //PushNextId();
+            if (Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Transform.Parent != null)
+            {
+                // TODO fix this nonsense, i just quickly did this so closed gameobject with 130k children doesnt suck cpu cycles
+                goIndex =
+                    Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Transform.Parent.GameObject.IndexInHierarchy +
+                    Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Transform.Parent.ChildrenIDs.Count - 1;
+                continue;
+            }
+
             if (ImGui.IsItemVisible() == false)
                 ImGui.Dummy(new System.Numerics.Vector2(100, 50));
             else
                 DrawGameObjectRow(goIndex);
+        }
 
         EndWindow();
     }
@@ -225,7 +236,6 @@ public class EditorPanelHierarchy : EditorPanel
         flags |= ImGuiTreeNodeFlags.SpanFullWidth;
         flags |= ImGuiTreeNodeFlags.OpenOnDoubleClick;
         bool opened = ImGui.TreeNodeEx(rowText, flags);
-
 
         if (ImGui.IsItemClicked(ImGuiMouseButton.Right)) currentGameObject.SetActive(!currentGameObject.ActiveSelf);
 
