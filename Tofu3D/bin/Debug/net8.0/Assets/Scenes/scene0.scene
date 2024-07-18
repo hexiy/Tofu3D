@@ -13,7 +13,7 @@
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
-      <Started>false</Started>
+      <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
@@ -22,7 +22,7 @@
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>0</GameObjectId>
-      <Started>false</Started>
+      <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
@@ -62,7 +62,7 @@
     <Component xsi:type="Camera">
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>0</GameObjectId>
-      <Started>false</Started>
+      <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Color>
@@ -78,10 +78,10 @@
       <IsOrthographic>false</IsOrthographic>
       <OrthographicSize>2</OrthographicSize>
       <Size>
-        <X>1380</X>
-        <Y>900</Y>
+        <X>1460</X>
+        <Y>1027</Y>
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>2</GameObjectNextId>
+  <GameObjectNextId>4</GameObjectNextId>
 </SceneFile>
