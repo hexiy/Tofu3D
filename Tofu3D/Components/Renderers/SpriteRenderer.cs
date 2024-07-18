@@ -72,7 +72,7 @@ public class SpriteRenderer : TextureRenderer
             //                               Transform.Rotation.Z, Color);
             return;
 
-        bool drawOutline = GameObject.Selected;
+        bool drawOutline = GameObject.Selected && false;
         if (drawOutline)
         {
             GL.StencilOp(StencilOp.Keep, StencilOp.Keep, StencilOp.Replace);

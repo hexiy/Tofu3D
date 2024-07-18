@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Linq;
+using System.Runtime.InteropServices;
 using ImGuiNET;
 
 namespace Tofu3D;
@@ -169,20 +170,22 @@ public class EditorPanelHierarchy : EditorPanel
 
         for (int goIndex = 0; goIndex < Tofu.SceneManager.CurrentScene.GameObjects.Count; goIndex++)
         {
-            //PushNextId();
+            int gameObjectID = Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Id;
+            // PushNextId();
             if (Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Transform.Parent != null)
             {
-                // TODO fix this nonsense, i just quickly did this so closed gameobject with 130k children doesnt suck cpu cycles
+                /*// TODO fix this nonsense, i just quickly did this so closed gameobject with 130k children doesnt suck cpu cycles
+                 // yeah this crashes the engine when adding a child lawl
                 goIndex =
                     Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Transform.Parent.GameObject.IndexInHierarchy +
-                    Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Transform.Parent.ChildrenIDs.Count - 1;
+                    Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Transform.Parent.ChildrenIDs.Count - 1;*/
                 continue;
             }
 
             if (ImGui.IsItemVisible() == false)
                 ImGui.Dummy(new System.Numerics.Vector2(100, 50));
             else
-                DrawGameObjectRow(goIndex);
+                DrawGameObjectRow(gameObjectID);
         }
 
         EndWindow();
@@ -190,21 +193,23 @@ public class EditorPanelHierarchy : EditorPanel
 
     private float _currentSpaceHeight = 0;
 
-    private void DrawGameObjectRow(int goIndex, bool isChild = false)
+    
+    private void DrawGameObjectRow(int gameObjectID, bool isChild = false)
     {
-        if (isChild == false)
+        // if (isChild == false)
             // PushNextId(Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Id.ToString());
             PushNextId();
 
 
-        GameObject currentGameObject = Tofu.SceneManager.CurrentScene.GameObjects[goIndex];
+// TODO very slow
+        GameObject currentGameObject = Tofu.SceneManager.CurrentScene.GameObjects.First(go => go.Id==gameObjectID);
         if (currentGameObject.Transform.Parent != null &&
             isChild == false) // only draw children from recursive DrawGameObjectRow calls
             return;
 
         if (currentGameObject.Silent && Global.Debug == false) return;
 
-        if (goIndex == 0) DrawSpaceBetween(currentGameObject, false);
+        if (gameObjectID == 0) DrawSpaceBetween(currentGameObject, false);
 
         //bool hasAnyChildren = false;
         bool hasAnyChildren = currentGameObject.Transform.Children?.Count > 0;
@@ -322,7 +327,7 @@ public class EditorPanelHierarchy : EditorPanel
             List<Transform> children = currentGameObject.Transform.Children;
 
             for (int childrenIndex = 0; childrenIndex < children.Count; childrenIndex++)
-                DrawGameObjectRow(children[childrenIndex].GameObject.IndexInHierarchy, true);
+                DrawGameObjectRow(children[childrenIndex].GameObject.Id, true);
             //ImGui.TreePop();
             ImGui.TreePop();
         }

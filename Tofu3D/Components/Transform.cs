@@ -132,7 +132,7 @@ public class Transform : Component
     public bool MockIsInCanvas = false;
 
     [Show]
-    internal bool IsInCanvas { get; private set; } /*
+    internal bool IsInCanvas => MockIsInCanvas; /*
     {
         get { return Transform.Parent?.GetComponent<Canvas>() != null || MockIsInCanvas; }
     }*/

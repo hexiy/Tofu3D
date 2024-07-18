@@ -1,4 +1,4 @@
-﻿namespace Tofu3D;
+﻿/*namespace Tofu3D;
 
 public class SpriteRendererInstanced : Renderer
 {
@@ -39,7 +39,7 @@ public class SpriteRendererInstanced : Renderer
         material = new Material();
         Shader shader = new(Path.Combine(Folders.Shaders, "SpriteRenderer.glsl"));
         material.SetShader(shader);
-    }*/
+    }#1#
 
     // internal virtual void UpdateBoxShapeSize()
     // {
@@ -81,4 +81,4 @@ public class SpriteRendererInstanced : Renderer
         bool updatedData = Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData);
         if (updatedData) InstancingData.InstancingDataDirty = false;
     }
-}
+}*/

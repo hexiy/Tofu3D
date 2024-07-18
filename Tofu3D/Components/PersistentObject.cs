@@ -14,9 +14,9 @@ public class PersistentObject<T>
             // return (T) Enum.ToObject(typeof(T), obj);
             if (typeof(T) == typeof(Vector3))
             {
-                string[] split = obj.ToString().Split();
-                Vector3 vector = new(float.Parse(split[0].Substring(1)), float.Parse(split[2]),
-                    float.Parse(split[4].Substring(0, split[4].Length - 1)));
+                string[] split = obj.ToString().Split(',');
+                Vector3 vector = new(float.Parse(split[0].Substring(5)), float.Parse(split[1].Substring(4)),
+                    float.Parse(split[2].Substring(4, split[2].Length - 5)));
                 return (T)Convert.ChangeType(vector, typeof(T));
             }
 
