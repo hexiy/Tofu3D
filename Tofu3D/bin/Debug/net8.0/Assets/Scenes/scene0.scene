@@ -11,7 +11,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -76,12 +76,13 @@
       <FarPlaneDistance>50</FarPlaneDistance>
       <FieldOfView>60</FieldOfView>
       <IsOrthographic>false</IsOrthographic>
-      <OrthographicSize>2</OrthographicSize>
+      <OrthographicSize>1.6</OrthographicSize>
       <Size>
         <X>1460</X>
         <Y>1027</Y>
       </Size>
     </Component>
+    
   </Components>
-  <GameObjectNextId>4</GameObjectNextId>
+  <GameObjectNextId>8</GameObjectNextId>
 </SceneFile>

@@ -180,43 +180,43 @@ public class SceneSerializer
         {
             using StreamReader sr = new(scenePath);
 
-            // string sceneText = sr.ReadToEnd();
-            // string finalSceneText = sceneText;
-            // string xmlString = "<Component xsi:type=";
-            //
-            // int[] componentLineIndexes = sceneText.AllIndexesOf(xmlString).ToArray();
-            //
-            // var allComponentTypes = typeof(Component).Assembly.GetTypes()
-            //     .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
-            // var allComponentStrings = new string[allComponentTypes.Count];
-            // for (int i = 0; i < allComponentTypes.Count; i++)
-            // {
-            //     allComponentStrings[i] = allComponentTypes[i].Name;
-            // }
-            //
-            // foreach (int componentLineIndex in componentLineIndexes)
-            // {
-            //     string str = sceneText.Substring(componentLineIndex);
-            //     int length = sceneText.IndexOf(value: ">", startIndex: componentLineIndex)-componentLineIndex - xmlString.Length-2;
-            //     string componentName = sceneText.Substring(componentLineIndex+xmlString.Length+1, length);
-            //     if (allComponentStrings.Contains(componentName) == false)
-            //     {
-            //         Debug.LogError($"Found invalid component:{componentName}, removing it");
-            //         int startIndex = componentLineIndex;
-            //         int lengthOfComponentString = sceneText.IndexOf(value: "</Component>", startIndex: componentLineIndex)-componentLineIndex+"</Component>".Length;
-            //
-            //         string wholeComponentString = finalSceneText.Substring(startIndex, lengthOfComponentString);
-            //         finalSceneText = finalSceneText.Replace(wholeComponentString,"");
-            //     }
-            //     
-            // }
-
-            // using StreamWriter sw = new StreamWriter(scenePath);
-            // sw.Write(finalSceneText);
+            string sceneText = sr.ReadToEnd();
+            string finalSceneText = sceneText;
+            string xmlString = "<Component xsi:type=";
             
-            // using StreamReader sr2 = new(scenePath);
+            int[] componentLineIndexes = sceneText.AllIndexesOf(xmlString).ToArray();
+            
+            var allComponentTypes = typeof(Component).Assembly.GetTypes()
+                .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
+            var allComponentStrings = new string[allComponentTypes.Count];
+            for (int i = 0; i < allComponentTypes.Count; i++)
+            {
+                allComponentStrings[i] = allComponentTypes[i].Name;
+            }
+            
+            foreach (int componentLineIndex in componentLineIndexes)
+            {
+                string str = sceneText.Substring(componentLineIndex);
+                int length = sceneText.IndexOf(value: ">", startIndex: componentLineIndex)-componentLineIndex - xmlString.Length-2;
+                string componentName = sceneText.Substring(componentLineIndex+xmlString.Length+1, length);
+                if (allComponentStrings.Contains(componentName) == false)
+                {
+                    Debug.LogError($"Found invalid component:{componentName}, removing it");
+                    int startIndex = componentLineIndex;
+                    int lengthOfComponentString = sceneText.IndexOf(value: "</Component>", startIndex: componentLineIndex)-componentLineIndex+"</Component>".Length;
+            
+                    string wholeComponentString = finalSceneText.Substring(startIndex, lengthOfComponentString);
+                    finalSceneText = finalSceneText.Replace(wholeComponentString,"");
+                }
+                
+            }
 
-            SceneFile sceneFile = (SceneFile)_xmlSerializer.Deserialize(sr);
+            File.WriteAllText(scenePath,finalSceneText);
+            
+            
+            using StreamReader sr2 = new(scenePath);
+            
+            SceneFile sceneFile = (SceneFile)_xmlSerializer.Deserialize(sr2);
             return sceneFile;
         }
         else
