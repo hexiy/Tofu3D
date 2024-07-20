@@ -194,6 +194,8 @@ public class SceneSerializer
                 allComponentStrings[i] = allComponentTypes[i].Name;
             }
             
+            // Find components that no longer exist and replace them with MissingComponent component, we save that, and if that component is brought back we recover the component
+            
             foreach (int componentLineIndex in componentLineIndexes)
             {
                 string str = sceneText.Substring(componentLineIndex);
@@ -206,7 +208,19 @@ public class SceneSerializer
                     int lengthOfComponentString = sceneText.IndexOf(value: "</Component>", startIndex: componentLineIndex)-componentLineIndex+"</Component>".Length;
             
                     string wholeComponentString = finalSceneText.Substring(startIndex, lengthOfComponentString);
-                    finalSceneText = finalSceneText.Replace(wholeComponentString,"");
+                    
+                    MissingComponent missingComponent = new MissingComponent();
+                    missingComponent.SetMissingComponentXML(wholeComponentString);
+
+                    int ind1 = wholeComponentString.IndexOf("<GameObjectId>")+"<GameObjectId>".Length;
+                    int ind2 = wholeComponentString.IndexOf("</GameObjectId>");
+                    string gameObjectIDString =
+                        wholeComponentString.Substring(ind1, ind2 - ind1);
+                    int gameObjectID = Int32.Parse(gameObjectIDString);
+
+                    missingComponent.GameObjectId = gameObjectID;
+                    string missingComponentXML = missingComponent.GetXMLOfThisComponent();
+                    finalSceneText = finalSceneText.Replace(wholeComponentString,missingComponentXML);
                 }
                 
             }

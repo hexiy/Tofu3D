@@ -346,9 +346,9 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
                     Components[i].Awake();
                 }
 
-                if (Components[i].Awoken == false)
-                    Debug.LogError(
-                        $"Couldn't awaken component [{Components[i].GetType().ToString()}] with gameobjectID {Id}");
+                // if (Components[i].Awoken == false)
+                //     Debug.LogError(
+                //         $"Couldn't awaken component [{Components[i].GetType().ToString()}] with gameobjectID {Id}");
             }
 
         Awoken = true;

@@ -61,6 +61,10 @@ public class Component : IDestroyable, ICloneable
     public Component()
     {
         MethodInfo info = GetType().GetMethod("Update");
+        if (info == null)
+        {
+            return;
+        }
         CanExecuteUpdateInEditMode = GetType().GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
         CanExecuteUpdateInEditMode = CanExecuteUpdateInEditMode ||
                                      info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
