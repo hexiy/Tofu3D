@@ -50,14 +50,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>0</X>
+        <X>-0.24960949</X>
         <Y>0</Y>
-        <Z>-1.2500778</Z>
+        <Z>-5.7347183</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
+        <X>-0.24960949</X>
         <Y>0</Y>
-        <Z>-1.2500778</Z>
+        <Z>-5.7347183</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -147,5 +147,5 @@
       <_myString>x</_myString>
     </Component>
   </Components>
-  <GameObjectNextId>19</GameObjectNextId>
+  <GameObjectNextId>55</GameObjectNextId>
 </SceneFile>

@@ -199,18 +199,21 @@ public class SceneSerializer
             foreach (int componentLineIndex in componentLineIndexes)
             {
                 string str = sceneText.Substring(componentLineIndex);
-                int length = sceneText.IndexOf(value: ">", startIndex: componentLineIndex)-componentLineIndex - xmlString.Length-2;
-                string componentName = sceneText.Substring(componentLineIndex+xmlString.Length+1, length);
-                if (allComponentStrings.Contains(componentName) == false)
+                int length = sceneText.IndexOf(value: '"', startIndex: componentLineIndex+xmlString.Length+1)-componentLineIndex - xmlString.Length-2;
+                string componentName = sceneText.Substring(componentLineIndex+xmlString.Length+1, length+1);
+                
+                
+                int startIndex = componentLineIndex;
+                int lengthOfComponentString = sceneText.IndexOf(value: "</Component>", startIndex: componentLineIndex)-componentLineIndex+"</Component>".Length;
+            
+                string wholeComponentString = finalSceneText.Substring(startIndex, lengthOfComponentString);
+
+                if (allComponentStrings.Contains(componentName) == false && componentName != nameof(MissingComponent))
                 {
                     Debug.LogError($"Found invalid component:{componentName}, removing it");
-                    int startIndex = componentLineIndex;
-                    int lengthOfComponentString = sceneText.IndexOf(value: "</Component>", startIndex: componentLineIndex)-componentLineIndex+"</Component>".Length;
-            
-                    string wholeComponentString = finalSceneText.Substring(startIndex, lengthOfComponentString);
-                    
+       
                     MissingComponent missingComponent = new MissingComponent();
-                    missingComponent.SetMissingComponentXML(wholeComponentString);
+                    missingComponent.SetMissingComponentXML(componentName,wholeComponentString);
 
                     int ind1 = wholeComponentString.IndexOf("<GameObjectId>")+"<GameObjectId>".Length;
                     int ind2 = wholeComponentString.IndexOf("</GameObjectId>");
@@ -221,6 +224,34 @@ public class SceneSerializer
                     missingComponent.GameObjectId = gameObjectID;
                     string missingComponentXML = missingComponent.GetXMLOfThisComponent();
                     finalSceneText = finalSceneText.Replace(wholeComponentString,missingComponentXML);
+                }
+
+                if (componentName == nameof(MissingComponent))
+                {
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(Component), new Type[]{typeof(MissingComponent)});
+                    string abc = "<Component xsi:type=\"MissingComponent\">";
+                    string abc2 = "<Component xsi:type=\"MissingComponent\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">";
+                    string wholeComponentStringNew = wholeComponentString.Replace(abc, abc2);
+                    StringReader stringReader = new StringReader(wholeComponentStringNew);
+                    MissingComponent missingComponent = (MissingComponent)xmlSerializer.Deserialize(stringReader);
+                    // get _oldComponentTypeName from MissingComponent as xml
+                    string nameOfOldComponentTypeName = missingComponent._oldComponentTypeName;
+                    
+                    bool itExistsNow = false;// we want to bring back the missing component
+                    for (int i = 0; i < allComponentTypes.Count; i++)
+                    {
+                        if (allComponentTypes[i].Name == nameOfOldComponentTypeName)
+                        {
+                            itExistsNow = true;
+                            break;
+                        }
+                    }
+
+                    if (itExistsNow)
+                    {
+                       Debug.Log($"brought back component {missingComponent._oldComponentTypeName}");
+                       finalSceneText = finalSceneText.Replace(wholeComponentString,missingComponent._oldComponentXMLString);
+                    }
                 }
                 
             }

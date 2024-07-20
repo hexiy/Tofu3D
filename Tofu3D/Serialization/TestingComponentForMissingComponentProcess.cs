@@ -1,6 +1,6 @@
-// namespace Tofu3D;
-//
-// public class TestingComponentForMissingComponentProcess :Component
-// {
-//     [Show] public string _myString = "x";
-// }
+namespace Tofu3D;
+
+public class TestingComponentForMissingComponentProcess : Component
+{
+    [Show] public string _myString = "x";
+}

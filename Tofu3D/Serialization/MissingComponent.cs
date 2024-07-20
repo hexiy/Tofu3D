@@ -1,14 +1,16 @@
 using System.IO;
 
-namespace Tofu3D;
+namespace Scripts;
 
 public class MissingComponent : Component
 {
-    public string _missingComponentXML;
+    public string _oldComponentXMLString;
+    public string _oldComponentTypeName;
 
-    public void SetMissingComponentXML(string xml)
+    public void SetMissingComponentXML(string oldComponentTypeName,string xml)
     {
-        _missingComponentXML = xml;
+        _oldComponentTypeName = oldComponentTypeName;
+        _oldComponentXMLString = xml;
     }
     public string GetXMLOfThisComponent()
     {
@@ -20,11 +22,27 @@ public class MissingComponent : Component
 
         xml = xml.Substring(xml.IndexOf("<MissingComponent"));
 
+        // string aaaa =
+        //     "<MissingComponent xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">";
+        // string bbbb = "<Component xsi:type=\"MissingComponent\">\n";  
         string aaaa =
-            "<Component xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xsi:type=\"MissingComponent\">";
-        string bbbb = "<Component xsi:type=\"MissingComponent\">\n";
-        
-        xml = xml.Replace(aaaa, bbbb);
+            "<MissingComponent";
+        string bbbb = "<Component xsi:type=\"MissingComponent\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"";
+        // string bbbb = "<Component xsi:type=\"MissingComponent\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"";
+
+        if (xml.Contains("xmlns:xsi") == false)
+        {
+            xml = xml.Replace(aaaa, bbbb);
+        }
+        else
+        {
+            bbbb = "<Component xsi:type=\"MissingComponent\"";
+            xml = xml.Replace(aaaa, bbbb);
+        }
+
+        string x = "</MissingComponent>";
+        string y = "</Component>";
+        xml = xml.Replace(x, y);
         return xml;
     }
 }
