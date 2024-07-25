@@ -31,7 +31,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <IsStaticSelf>false</IsStaticSelf>
@@ -79,7 +79,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <IsStaticSelf>false</IsStaticSelf>
@@ -95,7 +95,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <IsStaticSelf>false</IsStaticSelf>
@@ -111,7 +111,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <IsStaticSelf>false</IsStaticSelf>
@@ -122,6 +122,22 @@
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <Name>Particles</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>false</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>false</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>230</Id>
+      <IndexInHierarchy>0</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>GameObject</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -146,14 +162,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>-5.530279</X>
-        <Y>-0.78786147</Y>
-        <Z>-12.88966</Z>
+        <X>8.234482</X>
+        <Y>11.918389</Y>
+        <Z>24.225393</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-5.530279</X>
-        <Y>-0.78786147</Y>
-        <Z>-12.88966</Z>
+        <X>8.234482</X>
+        <Y>11.918389</Y>
+        <Z>24.225393</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -166,8 +182,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>3.3718078</X>
-        <Y>4.5990467</Y>
+        <X>-3.635368</X>
+        <Y>-183.90665</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -283,22 +299,22 @@
           <A>255</A>
           <PackedValue>4294967295</PackedValue>
         </Color>
-        <Lifetime>0.024870198</Lifetime>
+        <Lifetime>0.0145265</Lifetime>
         <Size>
-          <X>0.15761098</X>
-          <Y>0.15761098</Y>
-          <Z>0.15761098</Z>
+          <X>0.14538267</X>
+          <Y>0.14538267</Y>
+          <Z>0.14538267</Z>
         </Size>
         <Velocity>
-          <X>4.099481</X>
-          <Y>4.099481</Y>
-          <Z>4.099481</Z>
+          <X>4.058106</X>
+          <Y>4.058106</Y>
+          <Z>4.058106</Z>
         </Velocity>
         <Visible>true</Visible>
         <WorldPosition>
-          <X>-2.3863087</X>
-          <Y>-2.7856283</Y>
-          <Z>-2.4273322</Z>
+          <X>1.2970324</X>
+          <Y>-1.56845</Y>
+          <Z>-0.08455585</Z>
         </WorldPosition>
         <SpawnColor>
           <B>255</B>
@@ -1313,6 +1329,86 @@
           <float>0</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -2587,6 +2683,86 @@
             <X>1</X>
             <Y>1</Y>
           </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
         </DefiningPoints>
       </ColorCurve>
       <StartColorType>Single</StartColorType>
@@ -2937,32 +3113,32 @@
           <B>0</B>
           <G>0</G>
           <R>0</R>
-          <A>166</A>
-          <PackedValue>2785017856</PackedValue>
+          <A>18</A>
+          <PackedValue>301989888</PackedValue>
         </Color>
-        <Lifetime>0.0082713</Lifetime>
+        <Lifetime>0.0138616</Lifetime>
         <Size>
-          <X>0.13445997</X>
-          <Y>0.13445997</Y>
-          <Z>0.13445997</Z>
+          <X>0.13366361</X>
+          <Y>0.13366361</Y>
+          <Z>0.13366361</Z>
         </Size>
         <Velocity>
           <X>0</X>
-          <Y>10.082713</Y>
+          <Y>10.138616</Y>
           <Z>0</Z>
         </Velocity>
         <Visible>true</Visible>
         <WorldPosition>
-          <X>-21.267105</X>
-          <Y>-28.359186</Y>
-          <Z>-1.1224315</Z>
+          <X>4.75917</X>
+          <Y>-28.296051</Y>
+          <Z>30.169012</Z>
         </WorldPosition>
         <SpawnColor>
           <B>0</B>
           <G>0</G>
           <R>0</R>
-          <A>166</A>
-          <PackedValue>2785017856</PackedValue>
+          <A>16</A>
+          <PackedValue>268435456</PackedValue>
         </SpawnColor>
       </LatestParticle>
       <ListLock />
@@ -3970,6 +4146,86 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -5124,6 +5380,86 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -5383,7 +5719,7 @@
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/sphere.obj</AssetPath>
+        <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/sphere.obj</AssetPath>
         <Vao>7</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <VerticesCount>2880</VerticesCount>
@@ -5490,32 +5826,32 @@
           <B>0</B>
           <G>0</G>
           <R>0</R>
-          <A>130</A>
-          <PackedValue>2181038080</PackedValue>
+          <A>177</A>
+          <PackedValue>2969567232</PackedValue>
         </Color>
-        <Lifetime>0.0082713</Lifetime>
+        <Lifetime>0.0188159</Lifetime>
         <Size>
-          <X>0.13395323</X>
-          <Y>0.13395323</Y>
-          <Z>0.13395323</Z>
+          <X>0.13005945</X>
+          <Y>0.13005945</Y>
+          <Z>0.13005945</Z>
         </Size>
         <Velocity>
           <X>0</X>
-          <Y>10.082713</Y>
+          <Y>10.188159</Y>
           <Z>0</Z>
         </Velocity>
         <Visible>true</Visible>
         <WorldPosition>
-          <X>10.503168</X>
-          <Y>-28.355139</Y>
-          <Z>-23.376482</Z>
+          <X>19.303833</X>
+          <Y>-28.25488</Y>
+          <Z>-12.108387</Z>
         </WorldPosition>
         <SpawnColor>
           <B>0</B>
           <G>0</G>
           <R>0</R>
-          <A>129</A>
-          <PackedValue>2164260864</PackedValue>
+          <A>176</A>
+          <PackedValue>2952790016</PackedValue>
         </SpawnColor>
       </LatestParticle>
       <ListLock />
@@ -6523,6 +6859,86 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -7685,6 +8101,86 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -7952,13 +8448,136 @@
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net7.0/Assets/3D/sphere.obj</AssetPath>
+        <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/sphere.obj</AssetPath>
         <Vao>7</Vao>
         <VertexBufferDataLength>23040</VertexBufferDataLength>
         <VerticesCount>2880</VerticesCount>
       </Mesh>
       <Layer>0</Layer>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>230</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="SpriteRendererInstanced">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>230</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <Material>
+        <AssetPath>Assets\Materials\SpriteRendererInstanced.mat</AssetPath>
+        <Additive>false</Additive>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/SpriteRendererInstanced.glsl</Path>
+          <AlbedoTextureLocation>25</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
+        </Shader>
+        <RenderMode>Opaque</RenderMode>
+        <AlbedoTexture>
+          <AssetPath>Assets/2D/Grass_Block_TEX.png</AssetPath>
+          <Size>
+            <X>1440</X>
+            <Y>1920</Y>
+          </Size>
+        </AlbedoTexture>
+        <AlbedoTint>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>255</A>
+          <PackedValue>4294967295</PackedValue>
+        </AlbedoTint>
+        <AoTexture>
+          <AssetPath>Assets/2D/solidColor.png</AssetPath>
+          <Size>
+            <X>256</X>
+            <Y>256</Y>
+          </Size>
+        </AoTexture>
+        <Tiling>
+          <X>-1</X>
+          <Y>-1</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0.2</SpecularSmoothness>
+      </Material>
+      <RenderMode>Opaque</RenderMode>
+      <Mesh>
+        <AssetPath />
+        <Vao>8</Vao>
+        <VertexBufferDataLength>24</VertexBufferDataLength>
+        <VerticesCount>6</VerticesCount>
+      </Mesh>
+      <Layer>0</Layer>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>230</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>10</X>
+        <Y>10</Y>
+        <Z>10</Z>
+      </Size>
+    </Component>
   </Components>
-  <GameObjectNextId>228</GameObjectNextId>
+  <GameObjectNextId>249</GameObjectNextId>
 </SceneFile>

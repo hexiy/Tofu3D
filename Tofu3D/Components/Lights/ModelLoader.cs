@@ -103,7 +103,7 @@ public class ModelLoader : AssetLoader<Mesh>
         mesh.VerticesCount = totalVerticesCount;
         int[] countsOfElements = new[] { 3, 2, 3 };
 
-        BufferFactory.CreateModelBuffers(ref mesh.Vao, everything.ToArray(), countsOfElements);
+        BufferFactory.CreateGenericBuffer(ref mesh.Vao, everything.ToArray(), countsOfElements);
 
         mesh.InitAssetRuntimeHandle(mesh.Vao);
         mesh.Path = loadSettings.Path;

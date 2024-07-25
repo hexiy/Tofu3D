@@ -20,7 +20,7 @@
     private void RemoveAllParticlesFromInstancedRenderingSystem()
     {
         foreach (Particle particle in _particleSystem?.Particles)
-            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData, remove: true);
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData, remove: true, vertexBufferStructureType: VertexBufferStructureType.Model);
     }
 
     public override void OnEnabled()
@@ -83,7 +83,7 @@
             Matrix4x4 particleModelMatrix = Matrix4x4.CreateScale(particle.Size * (particle.Visible ? 1 : 0)) *
                                             Matrix4x4.CreateTranslation(particle.WorldPosition * Transform.WorldScale);
 
-            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData, particleModelMatrix,
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData, vertexBufferStructureType: VertexBufferStructureType.Model, particleModelMatrix,
                 color: particle.Color);
 
             if (particle.Visible == false) _particleSystem.DisableParticle(i);

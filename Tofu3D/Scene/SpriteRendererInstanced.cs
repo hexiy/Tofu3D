@@ -1,9 +1,11 @@
-﻿/*namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public class SpriteRendererInstanced : Renderer
 {
     public override void Awake()
     {
+        InstancingData = new RendererInstancingData();
+
         // SetNativeSize += () => { UpdateBoxShapeSize(); };
         SetDefaultMaterial();
         // if (Texture == null)
@@ -15,8 +17,17 @@ public class SpriteRendererInstanced : Renderer
         // 	TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
         // 	Texture = AssetManager.Load<Texture>(Texture.AssetPath, textureLoadSettings);
         // }
-        if (Mesh) Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
-        //BatchingManager.AddObjectToBatcher(Texture.Id, this);
+        // if (Mesh)
+        // {
+            Mesh = new();
+            Mesh.VertexBufferDataLength = 24;
+            Mesh.VerticesCount = 6;
+
+            BufferFactory.CreateSpriteRendererBuffer(ref Mesh.Vao);
+
+            
+            // Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
+        // }
         base.Awake();
     }
 
@@ -30,7 +41,7 @@ public class SpriteRendererInstanced : Renderer
 
     public override void OnDisabled()
     {
-        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, remove: true);
+        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, VertexBufferStructureType.Quad, remove: true);
 
         base.OnDisabled();
     }
@@ -39,7 +50,7 @@ public class SpriteRendererInstanced : Renderer
         material = new Material();
         Shader shader = new(Path.Combine(Folders.Shaders, "SpriteRenderer.glsl"));
         material.SetShader(shader);
-    }#1#
+    }*/
 
     // internal virtual void UpdateBoxShapeSize()
     // {
@@ -64,7 +75,7 @@ public class SpriteRendererInstanced : Renderer
         // }
 
         // Material = AssetManager.Load<Material>("SpriteRendererInstanced");
-        Material = Tofu.AssetManager.Load<Material>("ModelRendererInstanced");
+        Material = Tofu.AssetManager.Load<Material>("SpriteRendererInstanced");
 
         // base.SetDefaultMaterial();
     }
@@ -78,7 +89,7 @@ public class SpriteRendererInstanced : Renderer
 
         if (Mesh == null) return;
 
-        bool updatedData = Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData);
+        bool updatedData = Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, VertexBufferStructureType.Quad);
         if (updatedData) InstancingData.InstancingDataDirty = false;
     }
-}*/
+}

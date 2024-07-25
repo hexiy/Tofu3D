@@ -16,7 +16,7 @@
 
     public override void OnDisabled()
     {
-        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, remove: true);
+        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, remove: true, vertexBufferStructureType: VertexBufferStructureType.Model);
 
         base.OnDisabled();
     }
@@ -59,7 +59,7 @@
         }*/
 
 
-        bool updatedData = Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData);
+        bool updatedData = Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, VertexBufferStructureType.Model);
         if (updatedData) InstancingData.InstancingDataDirty = false;
     }
 }

@@ -36,22 +36,45 @@ public static class BufferFactory
         VertexBuffer vertexBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertices, 4);
         vertexBuffer.EnableAttribs(false, 2, 2);
     }
+       public static void CreateSpriteRendererBuffer(ref int vao)
+       {
+           float[] spriteVertexBufferData = new[]
+           {
+               -0.5f, -0.5f, 0, 0,
+               0.5f, -0.5f, 1, 0,
+               -0.5f, 0.5f, 0, 1,
 
-    public static void CreateModelBuffers(ref int vao, float[] vertexBufferData, int[] countsOfElements)
-    {
-        GL.Enable(EnableCap.DepthTest);
+               -0.5f, 0.5f, 0, 1,
+               0.5f, -0.5f, 1, 0,
+               0.5f, 0.5f, 1, 1
+           };
+           int[] countsOfElements = new[]
+           {
+               2, // Positions
+               2  // UVs
+           };
+           CreateGenericBuffer(ref vao,spriteVertexBufferData, countsOfElements);
+       }
+       public static void CreateGenericBuffer(ref int vao, float[] vertexBufferData, int[] countsOfElements)
+       {
+           GL.Enable(EnableCap.DepthTest);
 
-        vao = GL.GenVertexArray();
-        GL.BindVertexArray(vao);
+           vao = GL.GenVertexArray();
+           GL.BindVertexArray(vao);
 
-        VertexBuffer vertexBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexBufferData, 8);
-        vertexBuffer.EnableAttribs(true, countsOfElements);
+           int elementsCountPerVertex = 0;
+           for (int i = 0; i < countsOfElements.Length; i++)
+           {
+               elementsCountPerVertex += countsOfElements[i];
+           }
+           VertexBuffer vertexBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexBufferData, elementsCountPerVertex);
+           vertexBuffer.EnableAttribs(false, countsOfElements);
 
 
-        /*VertexBuffer instanceBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexData: translations, elementsPerVertex: 8);
+           /*VertexBuffer instanceBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexData: translations, elementsPerVertex: 8);
 
-        GL.EnableVertexAttribArray(2);
-        vertexBuffer.EnableAttribs(sequential: true, countsOfElements);*/
+           GL.EnableVertexAttribArray(2);
+           vertexBuffer.EnableAttribs(sequential: true, countsOfElements);*/
 
         GL.BindVertexArray(0);
         GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
