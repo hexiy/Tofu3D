@@ -2,14 +2,14 @@
 <SceneFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameObjects>
     <GameObject>
-      <IsStaticSelf>true</IsStaticSelf>
+      <IsStaticSelf>false</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>54231</Id>
-      <IndexInHierarchy>4</IndexInHierarchy>
+      <Id>230</Id>
+      <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>BlockInstanced</Name>
+      <Name>GameObject</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -21,7 +21,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>54231</GameObjectId>
+      <GameObjectId>230</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -30,7 +30,7 @@
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
-        <Z>0.5</Z>
+        <Z>0</Z>
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
@@ -59,9 +59,9 @@
         <Z>0</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="ModelRendererInstanced">
+    <Component xsi:type="SpriteRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>54231</GameObjectId>
+      <GameObjectId>230</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -74,11 +74,11 @@
         <PackedValue>4294967295</PackedValue>
       </Color>
       <Material>
-        <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
+        <AssetPath>Assets\Materials\SpriteRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <Shader>
           <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+          <Path>Assets/Shaders/SpriteRendererInstanced.glsl</Path>
           <AlbedoTextureLocation>25</AlbedoTextureLocation>
           <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
           <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
@@ -110,24 +110,24 @@
           <Y>-1</Y>
         </Tiling>
         <Offset>
-          <X>0</X>
+          <X>1.86</X>
           <Y>0</Y>
         </Offset>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.2</SpecularSmoothness>
+        <SpecularSmoothness>0.46</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>Assets/3D/Grass_Block.obj</AssetPath>
-        <Vao>13</Vao>
-        <VertexBufferDataLength>288</VertexBufferDataLength>
-        <VerticesCount>36</VerticesCount>
+        <AssetPath />
+        <Vao>2319</Vao>
+        <VertexBufferDataLength>24</VertexBufferDataLength>
+        <VerticesCount>6</VerticesCount>
       </Mesh>
       <Layer>0</Layer>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>54231</GameObjectId>
+      <GameObjectId>230</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -137,9 +137,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>16.3</X>
+        <Y>10</Y>
+        <Z>10</Z>
       </Size>
     </Component>
   </Components>

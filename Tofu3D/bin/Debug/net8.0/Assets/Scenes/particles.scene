@@ -59,7 +59,7 @@
       <IsPrefab>false</IsPrefab>
       <Name>AmbientLight</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -139,7 +139,23 @@
       <IsPrefab>false</IsPrefab>
       <Name>GameObject</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <IsStaticSelf>true</IsStaticSelf>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>253</Id>
+      <IndexInHierarchy>0</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <Name>GameObject</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -162,14 +178,14 @@
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
       <WorldPosition>
-        <X>8.234482</X>
-        <Y>11.918389</Y>
-        <Z>24.225393</Z>
+        <X>1.7436988</X>
+        <Y>2.8403223</Y>
+        <Z>25.296482</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>8.234482</X>
-        <Y>11.918389</Y>
-        <Z>24.225393</Z>
+        <X>1.7436988</X>
+        <Y>2.8403223</Y>
+        <Z>25.296482</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -182,8 +198,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-3.635368</X>
-        <Y>-183.90665</Y>
+        <X>0.78938544</X>
+        <Y>-177.73787</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -202,7 +218,7 @@
       </Color>
       <NearPlaneDistance>1</NearPlaneDistance>
       <FarPlaneDistance>1000</FarPlaneDistance>
-      <FieldOfView>91.18</FieldOfView>
+      <FieldOfView>80</FieldOfView>
       <IsOrthographic>false</IsOrthographic>
       <OrthographicSize>2</OrthographicSize>
       <Size>
@@ -1538,6 +1554,54 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.50158846</X>
             <Y>0.90765625</Y>
           </Vector2>
@@ -2555,6 +2619,54 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -4347,6 +4459,54 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.016822917</X>
             <Y>0.02296875</Y>
           </Vector2>
@@ -5380,6 +5540,54 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -7068,6 +7276,54 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.016822917</X>
             <Y>0.02296875</Y>
           </Vector2>
@@ -8310,6 +8566,54 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.08268229</X>
             <Y>0.001875</Y>
           </Vector2>
@@ -8464,8 +8768,8 @@
       <ChildrenIDs />
       <ParentId>-1</ParentId>
       <Pivot>
-        <X>0</X>
-        <Y>0</Y>
+        <X>0.5</X>
+        <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
       <MockIsInCanvas>false</MockIsInCanvas>
@@ -8546,16 +8850,16 @@
           <Y>-1</Y>
         </Tiling>
         <Offset>
-          <X>0</X>
+          <X>1.86</X>
           <Y>0</Y>
         </Offset>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.2</SpecularSmoothness>
+        <SpecularSmoothness>0.46</SpecularSmoothness>
       </Material>
       <RenderMode>Opaque</RenderMode>
       <Mesh>
         <AssetPath />
-        <Vao>8</Vao>
+        <Vao>3320</Vao>
         <VertexBufferDataLength>24</VertexBufferDataLength>
         <VerticesCount>6</VerticesCount>
       </Mesh>
@@ -8573,11 +8877,75 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>10</X>
+        <X>16.3</X>
         <Y>10</Y>
         <Z>10</Z>
       </Size>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>253</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <WorldPosition>
+        <X>1.1928777</X>
+        <Y>0.83909965</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>1.1928777</X>
+        <Y>0.83909965</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="StressTestGameObjectSpawner">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>253</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Go>
+        <IsStaticSelf>false</IsStaticSelf>
+        <AlwaysUpdate>false</AlwaysUpdate>
+        <DestroyTimer>2</DestroyTimer>
+        <DynamicallyCreated>false</DynamicallyCreated>
+        <Id>230</Id>
+        <IndexInHierarchy>0</IndexInHierarchy>
+        <IsPrefab>false</IsPrefab>
+        <Name>GameObject</Name>
+        <PrefabPath />
+        <Selected>false</Selected>
+        <Silent>false</Silent>
+        <Started>true</Started>
+        <UpdateWhenDisabled>false</UpdateWhenDisabled>
+        <ActiveSelf>true</ActiveSelf>
+      </Go>
+      <SpawnCount>1000</SpawnCount>
+    </Component>
   </Components>
-  <GameObjectNextId>249</GameObjectNextId>
+  <GameObjectNextId>262</GameObjectNextId>
 </SceneFile>
