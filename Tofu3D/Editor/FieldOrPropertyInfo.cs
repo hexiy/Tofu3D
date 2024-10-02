@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Reflection;
 
 namespace Tofu3D;
@@ -95,9 +96,11 @@ public class FieldOrPropertyInfo
     {
         CanShowInEditor = true;
         if (_fieldInfo?.IsPrivate == true) CanShowInEditor = false;
-
         if (_fieldInfo != null && _fieldInfo.DeclaringType == typeof(Component)) CanShowInEditor = false;
 
+
+        // if property is private, dont show it
+        if (_propertyInfo?.GetAccessors(true).Any(a => a.IsPrivate) == true) CanShowInEditor = false;
         if (_propertyInfo != null && _propertyInfo?.DeclaringType == typeof(Component)) CanShowInEditor = false;
 
         foreach (CustomAttributeData attribute in CustomAttributes)
