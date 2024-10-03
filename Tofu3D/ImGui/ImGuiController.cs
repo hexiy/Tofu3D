@@ -32,6 +32,7 @@ public class ImGuiController : IDisposable
     private int _windowHeight;
 
     private int _windowWidth;
+    Matrix4 mvp;
 
     /// <summary>
     ///         Constructs a new ImGuiController.
@@ -220,7 +221,10 @@ void main()
     /// </summary>
     public void Update(GameWindow wnd, float deltaSeconds)
     {
-        if (_frameBegun) ImGui.Render();
+        // if (_frameBegun)
+        // {
+        //     ImGui.Render();
+        // }
 
         SetPerFrameImGuiData(deltaSeconds);
         UpdateImGuiInput(wnd);
@@ -237,9 +241,9 @@ void main()
     {
         ImGuiIOPtr io = ImGui.GetIO();
         io.DisplaySize = new System.Numerics.Vector2(
-            _windowWidth / _scaleFactor.X,
-            _windowHeight / _scaleFactor.Y);
-        io.DisplayFramebufferScale = _scaleFactor;
+            _windowWidth,
+            _windowHeight);
+        io.DisplayFramebufferScale = Vector2.One;
         io.DeltaTime = deltaSeconds; // DeltaTime is in seconds.
     }
 
@@ -375,7 +379,7 @@ void main()
 
         // Setup orthographic projection matrix into our constant buffer
         ImGuiIOPtr io = ImGui.GetIO();
-        Matrix4 mvp = Matrix4.CreateOrthographicOffCenter(
+        mvp = Matrix4.CreateOrthographicOffCenter(
             0.0f,
             io.DisplaySize.X,
             io.DisplaySize.Y,
@@ -406,16 +410,21 @@ void main()
         {
             ImDrawListPtr cmdList = drawData.CmdListsRange[n];
 
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero,
-                cmdList.VtxBuffer.Size * Unsafe.SizeOf<ImDrawVert>(), cmdList.VtxBuffer.Data);
+            GL.BufferData(BufferTarget.ArrayBuffer,cmdList.VtxBuffer.Size * Unsafe.SizeOf<ImDrawVert>(), cmdList.VtxBuffer.Data, BufferUsageHint.StaticDraw);
+            // GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero,
+            //     cmdList.VtxBuffer.Size * Unsafe.SizeOf<ImDrawVert>(), cmdList.VtxBuffer.Data);
             CheckGlError($"Data Vert {n}");
+            
+            GL.BufferData(BufferTarget.ElementArrayBuffer,cmdList.IdxBuffer.Size * sizeof(ushort),
+                cmdList.IdxBuffer.Data, BufferUsageHint.StaticDraw);
 
-            GL.BufferSubData(BufferTarget.ElementArrayBuffer, IntPtr.Zero, cmdList.IdxBuffer.Size * sizeof(ushort),
-                cmdList.IdxBuffer.Data);
+            // GL.BufferSubData(BufferTarget.ElementArrayBuffer, IntPtr.Zero, cmdList.IdxBuffer.Size * sizeof(ushort),
+            //     cmdList.IdxBuffer.Data);
             CheckGlError($"Data Idx {n}");
 
             for (int cmdI = 0; cmdI < cmdList.CmdBuffer.Size; cmdI++)
             {
+                // continue;
                 ImDrawCmdPtr pcmd = cmdList.CmdBuffer[cmdI];
                 if (pcmd.UserCallback != IntPtr.Zero) throw new NotImplementedException();
 

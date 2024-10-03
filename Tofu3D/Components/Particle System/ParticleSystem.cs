@@ -98,19 +98,17 @@ public class ParticleSystem : Component, IComponentUpdateable
             {
                 Particles[i].Velocity += StartVelocity * Time.EditorDeltaTime;
 
-                Particles[i].WorldPosition += Particles[i].Velocity * Time.EditorDeltaTime;
-                Particles[i].WorldPosition += new Vector3(Mathf.Sin(Particles[i].WorldPosition.Y*0.5f)*0.2f,0,Mathf.Cos(Particles[i].WorldPosition.Y*0.5f)*0.2f);
+                // Particles[i].WorldPosition += Particles[i].Velocity * Time.EditorDeltaTime;
+                // Particles[i].WorldPosition += new Vector3(Mathf.Sin(Particles[i].WorldPosition.Y*0.5f)*0.2f,0,Mathf.Cos(Particles[i].WorldPosition.Y*0.5f)*0.2f);
 
                 Particles[i].Lifetime += Time.EditorDeltaTime;
 
-                // Particles[i].Color = Color.Lerp(StartColor, EndColor, Particles[i].Lifetime / MaxLifetime);
                 Particles[i].Color = Color.Lerp(Particles[i].SpawnColor, EndColor,
                     ColorCurve.Sample(Particles[i].Lifetime / MaxLifetime));
 
-                //particles[i].color = new Color(255,255,255,(int)(((int)particles[i].lifetime / MaxLifetime + 0.2f) * 255));
 
-                Particles[i].Size = Vector3.Lerp(Particles[i].Size,
-                    Vector3.One * SizeCurve.Sample(Particles[i].Lifetime / MaxLifetime), Time.EditorDeltaTime * 50);
+                // Particles[i].Size = Vector3.Lerp(Particles[i].Size,
+                //     Vector3.One * SizeCurve.Sample(Particles[i].Lifetime / MaxLifetime), Time.EditorDeltaTime * 50);
 
                 if (Particles[i].Lifetime > MaxLifetime) Particles[i].Visible = false;
             }

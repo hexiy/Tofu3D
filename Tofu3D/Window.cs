@@ -13,7 +13,19 @@ namespace Tofu3D;
 public class Window : GameWindow
 {
     private bool _loaded = false;
-
+    public bool VSyncEnabled
+    {
+        get
+        {
+            bool v = PersistentData.GetBool("VSync", false);
+            return v;
+        }
+        set
+        {
+            VSync = value ? VSyncMode.On : VSyncMode.Off;
+            PersistentData.Set("VSync", value);
+        } }
+    
     public Window() : base(
         new GameWindowSettings
             { }, // dont specify fps.... otherwise deltatime fucks up and update and render is called not 1:1
@@ -24,7 +36,7 @@ public class Window : GameWindow
             Profile = ContextProfile.Core /*NumberOfSamples = 8,*/
         })
     {
-        VSync = VSyncMode.On;
+        VSync = VSyncEnabled? VSyncMode.On : VSyncMode.Off;
         // this.UpdateFrequency = 60;
         // this.RenderFrequency = 0;
         LoadIcon();
@@ -96,7 +108,7 @@ public class Window : GameWindow
     protected override void OnUpdateFrame(FrameEventArgs e)
     {
         if (_loaded == false) return;
-
+        Title = WindowTitleText + $"FPS [{Time.MinFps} <-> {Time.MaxFps}]";
         base.OnUpdateFrame(e);
     }
 

@@ -102,10 +102,10 @@ public class EditorPanelMenuBar : EditorPanel
                 ImGui.EndMenu();
             }
 
-            bool vsyncButtonClicked = ImGui.BeginMenu($"VSync[{Tofu.Window.VSync}]");
+            bool vsyncButtonClicked = ImGui.BeginMenu($"VSync[{Tofu.Window.VSyncEnabled}]");
             if (vsyncButtonClicked)
             {
-                Tofu.Window.VSync = Tofu.Window.VSync == VSyncMode.Off ? VSyncMode.On : VSyncMode.Off;
+                Tofu.Window.VSyncEnabled = !Tofu.Window.VSyncEnabled;
                 ImGui.CloseCurrentPopup();
 
 
