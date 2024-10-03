@@ -11,6 +11,10 @@ Heavily in progress so things will break :)
 <a href="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/screen2.png"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/screen2.png" align="center" width="100%" ></a>
 <a href="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/screen1.png"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/screen1.png" align="center" width="100%" ></a>
 
+On linux install glfw
+Fedora: dnf install glfw
+
+
 OpenTK ImGui implementation from https://github.com/NogginBops/ImGui.NET_OpenTK_Sample
 
 Used code
