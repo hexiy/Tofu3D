@@ -130,7 +130,7 @@ public class Scene
 
     public void Update()
     {
-        Debug.StartGraphTimer("Scene Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
+        Debug.StartGraphTimer("Scene Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 120f));
 
         _sceneLightingManager.Update();
         SceneFogManager.Update();

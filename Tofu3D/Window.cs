@@ -23,6 +23,16 @@ public class Window : GameWindow
         set
         {
             VSync = value ? VSyncMode.On : VSyncMode.Off;
+            if (value == true)
+            {
+                this.UpdateFrequency = 120;
+                this.RenderFrequency = 120;
+            }
+            else
+            {
+                this.UpdateFrequency = 0;
+                this.RenderFrequency = 0;
+            }
             PersistentData.Set("VSync", value);
         } }
     
@@ -36,9 +46,8 @@ public class Window : GameWindow
             Profile = ContextProfile.Core /*NumberOfSamples = 8,*/
         })
     {
-        VSync = VSyncEnabled? VSyncMode.On : VSyncMode.Off;
-        // this.UpdateFrequency = 60;
-        // this.RenderFrequency = 0;
+
+        VSyncEnabled = VSyncEnabled;
         LoadIcon();
         Title = WindowTitleText;
         GLFW.WindowHint(WindowHintBool.Decorated, false);

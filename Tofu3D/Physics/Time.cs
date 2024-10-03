@@ -12,7 +12,7 @@ public static class Time
     public static int EditorElapsedTicks;
     public static float ElapsedSeconds;
     public static ulong ElapsedTicks;
-    public static ulong TimeScale = 0;
+    public static ulong TimeScale = 1;
 
     public static int MaxFps = 0;
     public static int MinFps = 0;
@@ -29,6 +29,7 @@ public static class Time
         // _deltaTimeTotal = (float) Tofu.Window.RenderTime + (float) Tofu.Window.UpdateTime; //_stopwatch.ElapsedMilliseconds / 1000f;
         // _stopwatch.Restart();
         // _deltaTimeTotal = (float) (Tofu.Window.RenderTime + Tofu.Window.UpdateTime);
+
 
         int fps = (int)(1f / EditorDeltaTime);
         if (fps > MaxFps && EditorElapsedTime > 1) MaxFps = fps;
@@ -69,6 +70,7 @@ public static class Time
         EditorElapsedTime += EditorDeltaTime;
         EditorElapsedTicks++;
 
+        
         if (Global.GameRunning)
         {
             DeltaTime = EditorDeltaTime;

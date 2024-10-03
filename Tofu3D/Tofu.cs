@@ -84,9 +84,9 @@ public static class Tofu
 
     private static void OnWindowUpdate(FrameEventArgs e)
     {
-        Time.EditorDeltaTime = (float)e.Time;
+        // Time.EditorDeltaTime = (float)e.Time;
 
-        Debug.StartGraphTimer("Editor Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 60f));
+        Debug.StartGraphTimer("Editor Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 120f));
 
         Time.Update();
         MouseInput.Update();
@@ -104,9 +104,9 @@ public static class Tofu
     {
         Time.EditorDeltaTime = (float)e.Time;
 
-        Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 60f), -1);
+        Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 120f), -1);
 
-        Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 60f));
+        Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 120f));
 
         RenderPassSystem.RenderAllPasses();
 

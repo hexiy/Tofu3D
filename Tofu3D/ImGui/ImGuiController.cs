@@ -66,7 +66,7 @@ public class ImGuiController : IDisposable
         CreateDeviceResources();
         SetKeyMappings();
 
-        SetPerFrameImGuiData(1f / 60f);
+        SetPerFrameImGuiData(1f / 120f);
 
         ImGui.NewFrame();
         _frameBegun = true;
@@ -210,9 +210,11 @@ void main()
     {
         if (_frameBegun)
         {
-            _frameBegun = false;
+        _frameBegun = false;
             ImGui.Render();
             RenderImDrawData(ImGui.GetDrawData());
+
+            
         }
     }
 
@@ -231,6 +233,7 @@ void main()
 
         _frameBegun = true;
         ImGui.NewFrame();
+        // after this we render all parts of the editor
     }
 
     /// <summary>
