@@ -136,10 +136,10 @@ public class SceneViewController
             return;
         }
 
-        if (KeyboardInput.WasKeyJustPressed(Keys.F))
-        {
-            Debug.Log("TODO");
-        }
+        // if (KeyboardInput.WasKeyJustPressed(Keys.F))
+        // {
+        //     Debug.Log("TODO");
+        // }
         // todo MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
 
         var isMouseOverSceneView = Tofu.MouseInput.IsMouseInSceneView;

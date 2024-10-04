@@ -1,18 +1,1 @@
-{
-  "LastUsedLayoutName": "\"defaultSettings.ini\"",
-  "PersistentObject_sceneViewProjectionMode": "0",
-  "PersistentObject__cameraRotationInPerspectiveMode": "{\"X\":-5.5345845,\"Y\":108.015594,\"Z\":0.0}",
-  "PersistentObject__cameraPositionInPerspectiveMode": "{\"X\":-20.680655,\"Y\":0.762415,\"Z\":15.612946}",
-  "PersistentObject__cameraFieldOfViewInperspectiveMode": "60.0",
-  "lastOpenedScene": "\"/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Scenes/particles.scene\"",
-  "lastSelectedGameObjectId": "353",
-  "RenderSettings.Wireframe": "{\"WireframeVisible\":false,\"WireframeLineWidth\":5.0}",
-  "RenderSettings.ViewRenderMode": "{\"CurrentRenderMode\":0}",
-  "Global.Debug": "false",
-  "DebugTimerCollapsed_Editor Update": "false",
-  "DebugTimerCollapsed_ImGui": "true",
-  "DebugTimerCollapsed_Scene Render": "true",
-  "DebugTimerCollapsed_Window Render": "false",
-  "DebugTimerCollapsed_Scene Update": "false",
-  "VSync": "false"
-}
+{"LastUsedLayoutName":"\"defaultSettings.ini\"","PersistentObject_sceneViewProjectionMode":"0","PersistentObject__cameraRotationInPerspectiveMode":"{\"X\":-5.5345845,\"Y\":108.015594,\"Z\":0.0}","PersistentObject__cameraPositionInPerspectiveMode":"{\"X\":-20.680655,\"Y\":0.762415,\"Z\":15.612946}","PersistentObject__cameraFieldOfViewInperspectiveMode":"60.0","lastOpenedScene":"\"/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Scenes/particles.scene\"","lastSelectedGameObjectId":"6","RenderSettings.Wireframe":"{\"WireframeVisible\":false,\"WireframeLineWidth\":5.0}","RenderSettings.ViewRenderMode":"{\"CurrentRenderMode\":0}","Global.Debug":"false","DebugTimerCollapsed_Editor Update":"false","DebugTimerCollapsed_ImGui":"true","DebugTimerCollapsed_Scene Render":"true","DebugTimerCollapsed_Window Render":"false","DebugTimerCollapsed_Scene Update":"false","VSync":"false"}

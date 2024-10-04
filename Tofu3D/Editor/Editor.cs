@@ -8,8 +8,10 @@ public class Editor
     //{
     //	return (screenPosition - gameViewPosition) * Camera.I.cameraSize + Camera.I.transform.position;
     //}
+    private bool _sceneViewFullscreen = false;
+
     public static readonly ImGuiWindowFlags
-        ImGuiDefaultWindowFlags = ImGuiWindowFlags.NoCollapse /* | ImGuiWindowFlags.AlwaysAutoResize*/
+        ImGuiDefaultWindowFlags = ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove /* | ImGuiWindowFlags.AlwaysAutoResize*/
         /* | ImGuiWindowFlags.NoDocking*/;
 
     private EditorDialogManager _editorDialogManager;
@@ -62,6 +64,7 @@ public class Editor
         {
             _editorPanels = new EditorPanel[]
             {
+                new EditorPanelMenuBar(_editorLayoutManager),
                 new EditorPanelSceneView()
             };
         }
@@ -119,6 +122,16 @@ public class Editor
                 new EditorDialogButtonDefinition("Close", Tofu.Window.Close, true),
                 new EditorDialogButtonDefinition("No", () => { }, true)));
         }
+
+        if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.WasKeyJustPressed(Keys.F))
+        {
+            ToggleFullscreenOfSceneView();
+        }
+    }
+
+    private void ToggleFullscreenOfSceneView()
+    {
+        _sceneViewFullscreen = !_sceneViewFullscreen;
     }
 
     public void Draw()
@@ -130,17 +143,20 @@ public class Editor
         ImGui.DockSpaceOverViewport(viewportPtr,
             ImGuiDockNodeFlags.PassthruCentralNode /*, ImGuiDockNodeFlags.NoDockingInCentralNode*/);
 
+        if (_sceneViewFullscreen || Global.EditorAttached == false)
+        {
+            EditorPanelMenuBar.I.Draw();
 
-        if (Global.EditorAttached)
+            EditorPanelSceneView.I.IsFullscreen = true;
+            EditorPanelSceneView.I.Draw();
+            
+        }
+        else
         {
             for (var i = 0; i < _editorPanels.Length; i++)
             {
                 _editorPanels[i].Draw();
             }
-        }
-        else
-        {
-            EditorPanelSceneView.I.Draw();
         }
 
         _editorDialogManager.Draw();

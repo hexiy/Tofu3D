@@ -18,6 +18,7 @@ public class EditorPanel
     public virtual Vector2 Position => new(0, Tofu.Window.ClientSize.Y);
     public virtual Vector2 Pivot => new(0, 1);
     public virtual ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.None;
+    public bool IsFullscreen { get; set; }
 
     internal void ResetId()
     {

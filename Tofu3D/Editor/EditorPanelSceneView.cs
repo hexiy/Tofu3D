@@ -33,9 +33,11 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.SetNextWindowSize(Tofu.RenderPassSystem.FinalRenderTexture.Size, ImGuiCond.FirstUseEver);
             ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
-
-            ImGui.Begin(Name,
-                Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
+ImGuiWindowFlags flags = Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse;
+if (IsFullscreen)
+{
+}
+            ImGui.Begin(Name,flags);
 
             if ((Vector2)ImGui.GetWindowSize() != Camera.MainCamera.Size)
             {
