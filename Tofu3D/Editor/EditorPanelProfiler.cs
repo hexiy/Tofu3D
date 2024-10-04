@@ -144,7 +144,7 @@ public class EditorPanelProfiler : EditorPanel
         ImGui.End();
     }
 
-    public void Update()
+    public override void Update()
     {
     }
 }

@@ -131,7 +131,7 @@ public class EditorPanelMenuBar : EditorPanel
         }
     }
 
-    public void Update()
+    public override void Update()
     {
     }
 }

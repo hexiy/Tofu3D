@@ -25,7 +25,7 @@ public class EditorPanelHierarchy : EditorPanel
         Scene.AnySceneLoaded += ResetGameObjectSelection;
     }
 
-    public void Update()
+    public override void Update()
     {
         if (ImGui.IsMouseDragging(ImGuiMouseButton.Left) && IsPanelHovered)
         {

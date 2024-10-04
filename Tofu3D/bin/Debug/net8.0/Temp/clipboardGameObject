@@ -2,14 +2,14 @@
 <SceneFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameObjects>
     <GameObject>
-      <IsStaticSelf>true</IsStaticSelf>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>54231</Id>
-      <IndexInHierarchy>4</IndexInHierarchy>
+      <Id>353</Id>
+      <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <Name>BlockInstanced</Name>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>GameObject</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -21,27 +21,27 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>54231</GameObjectId>
+      <GameObjectId>353</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
+      <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <WorldPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>1.2</X>
+        <Y>0</Y>
+        <Z>-9</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
+        <X>1.2</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>-9</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -59,9 +59,26 @@
         <Z>0</Z>
       </Rotation>
     </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>353</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>3</X>
+        <Y>3</Y>
+        <Z>3</Z>
+      </Size>
+    </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>54231</GameObjectId>
+      <GameObjectId>353</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -76,19 +93,11 @@
       <Material>
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-          <AlbedoTextureLocation>25</AlbedoTextureLocation>
-          <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
-          <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
-        </Shader>
-        <RenderMode>Opaque</RenderMode>
         <AlbedoTexture>
-          <AssetPath>Assets/2D/Grass_Block_TEX.png</AssetPath>
+          <AssetPath>Assets/2D/solidColor.png</AssetPath>
           <Size>
-            <X>1440</X>
-            <Y>1920</Y>
+            <X>256</X>
+            <Y>256</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -105,42 +114,33 @@
             <Y>256</Y>
           </Size>
         </AoTexture>
-        <Tiling>
-          <X>-1</X>
-          <Y>-1</Y>
-        </Tiling>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
+        <RenderMode>Opaque</RenderMode>
+        <Shader>
+          <AlbedoTextureLocation>25</AlbedoTextureLocation>
+          <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+          <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
+        </Shader>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
+        <Tiling>
+          <X>-1</X>
+          <Y>-1</Y>
+        </Tiling>
       </Material>
-      <RenderMode>Opaque</RenderMode>
       <Mesh>
-        <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/plane.obj</AssetPath>
-        <Vao>20</Vao>
-        <VertexBufferDataLength>48</VertexBufferDataLength>
-        <VerticesCount>6</VerticesCount>
+        <AssetPath>Assets/3D/Grass_Block.obj</AssetPath>
+        <Vao>9</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
+        <VerticesCount>36</VerticesCount>
       </Mesh>
+      <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>54231</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </Size>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

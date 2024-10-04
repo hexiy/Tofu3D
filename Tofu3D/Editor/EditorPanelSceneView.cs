@@ -280,7 +280,7 @@ if (IsFullscreen)
         }
     }
 
-    public void Update()
+    public override void Update()
     {
     }
 

@@ -295,7 +295,7 @@ public class EditorPanelConsole : EditorPanel
         return EditorColors.LogCategoryInfo;
     }
 
-    public void Update()
+    public override void Update()
     {
     }
 }
