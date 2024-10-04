@@ -25,7 +25,7 @@ void main(void)
 mat4 a_model = mat4(vec4(a_model_1, 0), vec4(a_model_2, 0), vec4(a_model_3, 0), vec4(a_model_4, 1));
 mat4 mvp = u_viewProjection * a_model;
 gl_Position = mvp * vec4(a_pos.xyz, 1.0);
-uv = a_uv;
+uv = a_uv * vec2(1,-1);
 color = a_color;
 
 
