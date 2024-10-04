@@ -3,10 +3,10 @@
   <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
   <Additive>false</Additive>
   <AlbedoTexture>
-    <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+    <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
     <Size>
-      <X>4096</X>
-      <Y>4096</Y>
+      <X>2048</X>
+      <Y>2048</Y>
     </Size>
   </AlbedoTexture>
   <AlbedoTint>

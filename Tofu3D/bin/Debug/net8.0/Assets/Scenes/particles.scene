@@ -242,14 +242,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-12.8237915</X>
-        <Y>12.611006</Y>
-        <Z>-1.2429326</Z>
+        <X>-19.844559</X>
+        <Y>53.735764</Y>
+        <Z>-7.2607093</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-12.8237915</X>
-        <Y>12.611006</Y>
-        <Z>-1.2429326</Z>
+        <X>-19.844559</X>
+        <Y>53.735764</Y>
+        <Z>-7.2607093</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -262,8 +262,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>19.109848</X>
-        <Y>45.07808</Y>
+        <X>11.04355</X>
+        <Y>42.828903</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -1375,6 +1375,22 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -4753,6 +4769,22 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.50158846</X>
             <Y>0.90765625</Y>
           </Vector2>
@@ -4845,10 +4877,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -4866,8 +4898,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>-1.4</X>
-          <Y>-1.76</Y>
+          <X>0</X>
+          <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -4880,8 +4912,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>0.1</X>
-          <Y>0.1</Y>
+          <X>1</X>
+          <Y>1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -6112,6 +6144,22 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -9490,6 +9538,22 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.016822917</X>
             <Y>0.02296875</Y>
           </Vector2>
@@ -9598,10 +9662,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -9619,8 +9683,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>-1.4</X>
-          <Y>-1.76</Y>
+          <X>0</X>
+          <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -9633,8 +9697,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>0.1</X>
-          <Y>0.1</Y>
+          <X>1</X>
+          <Y>1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -10745,6 +10809,22 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -14139,6 +14219,22 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.016822917</X>
             <Y>0.02296875</Y>
           </Vector2>
@@ -14247,10 +14343,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -14268,8 +14364,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>-1.4</X>
-          <Y>-1.76</Y>
+          <X>0</X>
+          <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -14282,8 +14378,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>0.1</X>
-          <Y>0.1</Y>
+          <X>1</X>
+          <Y>1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -14394,7 +14490,7 @@
       </Material>
       <Mesh>
         <AssetPath />
-        <Vao>13</Vao>
+        <Vao>16</Vao>
         <VertexBufferDataLength>24</VertexBufferDataLength>
         <VerticesCount>6</VerticesCount>
       </Mesh>
@@ -14557,10 +14653,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -14578,8 +14674,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>-1.4</X>
-          <Y>-1.76</Y>
+          <X>0</X>
+          <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -14592,8 +14688,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>0.1</X>
-          <Y>0.1</Y>
+          <X>1</X>
+          <Y>1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -14680,10 +14776,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -14701,8 +14797,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>-1.4</X>
-          <Y>-1.76</Y>
+          <X>0</X>
+          <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -14715,8 +14811,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>0.1</X>
-          <Y>0.1</Y>
+          <X>1</X>
+          <Y>1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -14803,10 +14899,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -14824,8 +14920,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>-1.4</X>
-          <Y>-1.76</Y>
+          <X>0</X>
+          <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -14838,8 +14934,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>0.1</X>
-          <Y>0.1</Y>
+          <X>1</X>
+          <Y>1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -14926,10 +15022,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -14947,8 +15043,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>-1.4</X>
-          <Y>-1.76</Y>
+          <X>0</X>
+          <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -14961,8 +15057,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>0.1</X>
-          <Y>0.1</Y>
+          <X>1</X>
+          <Y>1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -14975,5 +15071,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>496</GameObjectNextId>
+  <GameObjectNextId>500</GameObjectNextId>
 </SceneFile>
