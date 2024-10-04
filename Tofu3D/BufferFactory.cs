@@ -80,13 +80,13 @@ public static class BufferFactory
         }
 
         var vertexBuffer = VertexBuffer.Create(BufferTarget.ArrayBuffer, vertexBufferData, elementsCountPerVertex);
-        vertexBuffer.EnableAttribs(false, countsOfElements);
+        vertexBuffer.EnableAttribs(true, countsOfElements);
 
 
-        /*VertexBuffer instanceBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexData: translations, elementsPerVertex: 8);
-
-        GL.EnableVertexAttribArray(2);
-        vertexBuffer.EnableAttribs(sequential: true, countsOfElements);*/
+//         /*VertexBuffer instanceBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexData: translations, elementsPerVertex: 8);
+//
+//         GL.EnableVertexAttribArray(2);
+//         vertexBuffer.EnableAttribs(sequential: true, countsOfElements);*/
 
         GL.BindVertexArray(0);
         GL.BindBuffer(BufferTarget.ArrayBuffer, 0);

@@ -5,23 +5,23 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>460</Id>
+      <Id>487</Id>
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Sculpture</Name>
+      <Name>Block</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>false</ActiveSelf>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
   </GameObjects>
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>460</GameObjectId>
+      <GameObjectId>487</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -61,7 +61,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>460</GameObjectId>
+      <GameObjectId>487</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -71,14 +71,14 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>5</X>
-        <Y>5</Y>
-        <Z>5</Z>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>460</GameObjectId>
+      <GameObjectId>487</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -94,10 +94,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+          <AssetPath>Assets/3D/grass block/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -115,8 +115,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>-1.4</X>
-          <Y>-1.76</Y>
+          <X>0</X>
+          <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -129,15 +129,15 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>0.1</X>
-          <Y>0.1</Y>
+          <X>1</X>
+          <Y>-1</Y>
         </Tiling>
       </Material>
       <Mesh>
-        <AssetPath>Assets/3D/sculpture/sculpture.obj</AssetPath>
-        <Vao>21</Vao>
-        <VertexBufferDataLength>1199952</VertexBufferDataLength>
-        <VerticesCount>149994</VerticesCount>
+        <AssetPath>Assets/3D/grass block/Grass_Block.obj</AssetPath>
+        <Vao>10</Vao>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
+        <VerticesCount>36</VerticesCount>
       </Mesh>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>

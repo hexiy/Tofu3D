@@ -105,7 +105,7 @@ public class ModelRenderer : TextureRenderer
         // 	GL.Enable(EnableCap.DepthTest);
         // }
 
-        var drawOutline = GameObject.Selected;
+        var drawOutline = GameObject.Selected && false;
 
         //GL.Enable(EnableCap.DepthTest);
         if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth

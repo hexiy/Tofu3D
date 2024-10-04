@@ -3,10 +3,10 @@
   <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
   <Additive>false</Additive>
   <AlbedoTexture>
-    <AssetPath>Assets/3D/grass block/Grass_Block_TEX.png</AssetPath>
+    <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
     <Size>
-      <X>1440</X>
-      <Y>1920</Y>
+      <X>2048</X>
+      <Y>2048</Y>
     </Size>
   </AlbedoTexture>
   <AlbedoTint>
@@ -17,10 +17,10 @@
     <PackedValue>4294967295</PackedValue>
   </AlbedoTint>
   <AoTexture>
-    <AssetPath>Assets/2D/white.png</AssetPath>
+    <AssetPath>Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</AssetPath>
     <Size>
-      <X>1</X>
-      <Y>1</Y>
+      <X>2048</X>
+      <Y>2048</Y>
     </Size>
   </AoTexture>
   <Offset>
