@@ -130,7 +130,8 @@ discard; // having this fixes transparency sorting but breaks debug depthmap
 float shadow = 1 - ShadowCalculation();
 //        shadow
 if (shadow == 0) {
-result.rgb = ambientLighting.rgb;
+		float a = (ambientLighting.r + ambientLighting.g+ambientLighting.b)/3;
+result.rgb = ambientLighting.rgb+(vec3(a,a,a)*result.rgb);
 }
 else{
 result.rgb+=ambientLighting.rgb;

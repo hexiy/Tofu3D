@@ -3,10 +3,10 @@
   <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
   <Additive>false</Additive>
   <AlbedoTexture>
-    <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
+    <AssetPath>Assets/3D/grass block/Grass_Block_TEX.png</AssetPath>
     <Size>
-      <X>2048</X>
-      <Y>2048</Y>
+      <X>1440</X>
+      <Y>1920</Y>
     </Size>
   </AlbedoTexture>
   <AlbedoTint>
@@ -24,8 +24,8 @@
     </Size>
   </AoTexture>
   <Offset>
-    <X>-1.4</X>
-    <Y>-1.76</Y>
+    <X>0</X>
+    <Y>0</Y>
   </Offset>
   <RenderMode>Opaque</RenderMode>
   <Shader>
@@ -38,7 +38,7 @@
   <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
   <SpecularSmoothness>0.2</SpecularSmoothness>
   <Tiling>
-    <X>0.1</X>
-    <Y>0.1</Y>
+    <X>1</X>
+    <Y>-1</Y>
   </Tiling>
 </Material>

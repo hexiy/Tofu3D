@@ -59,7 +59,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>AmbientLight</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -219,7 +219,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Block</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -242,14 +242,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-19.844559</X>
-        <Y>53.735764</Y>
-        <Z>-7.2607093</Z>
+        <X>-15.230346</X>
+        <Y>25.705303</Y>
+        <Z>16.2904</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-19.844559</X>
-        <Y>53.735764</Y>
-        <Z>-7.2607093</Z>
+        <X>-15.230346</X>
+        <Y>25.705303</Y>
+        <Z>16.2904</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -262,8 +262,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>11.04355</X>
-        <Y>42.828903</Y>
+        <X>36.86067</X>
+        <Y>130.24832</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -1375,6 +1375,54 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -4785,6 +4833,54 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.50158846</X>
             <Y>0.90765625</Y>
           </Vector2>
@@ -4877,10 +4973,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
+          <AssetPath>Assets/3D/grass block/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>2048</X>
-            <Y>2048</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -4898,8 +4994,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>0</X>
-          <Y>0</Y>
+          <X>1</X>
+          <Y>-1</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -4912,8 +5008,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>1</X>
-          <Y>1</Y>
+          <X>0.1</X>
+          <Y>0.1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -4978,7 +5074,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <Intensity>4.301</Intensity>
+      <Intensity>10.518</Intensity>
       <FarPlaneDistance>100</FarPlaneDistance>
       <NearPlaneDistance>0.1</NearPlaneDistance>
       <OrthographicSize>40</OrthographicSize>
@@ -5038,13 +5134,13 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Color>
-        <B>91</B>
-        <G>91</G>
-        <R>91</R>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
         <A>255</A>
-        <PackedValue>4284177243</PackedValue>
+        <PackedValue>4294967295</PackedValue>
       </Color>
-      <Intensity>0.363</Intensity>
+      <Intensity>0.259</Intensity>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -6144,6 +6240,54 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -9554,6 +9698,54 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.016822917</X>
             <Y>0.02296875</Y>
           </Vector2>
@@ -9662,10 +9854,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
+          <AssetPath>Assets/3D/grass block/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>2048</X>
-            <Y>2048</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -9683,8 +9875,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>0</X>
-          <Y>0</Y>
+          <X>1</X>
+          <Y>-1</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -9697,8 +9889,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>1</X>
-          <Y>1</Y>
+          <X>0.1</X>
+          <Y>0.1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -10809,6 +11001,54 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -14235,6 +14475,54 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.016822917</X>
             <Y>0.02296875</Y>
           </Vector2>
@@ -14343,10 +14631,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
+          <AssetPath>Assets/3D/grass block/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>2048</X>
-            <Y>2048</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -14364,8 +14652,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>0</X>
-          <Y>0</Y>
+          <X>1</X>
+          <Y>-1</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -14378,8 +14666,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>1</X>
-          <Y>1</Y>
+          <X>0.1</X>
+          <Y>0.1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -14490,7 +14778,7 @@
       </Material>
       <Mesh>
         <AssetPath />
-        <Vao>16</Vao>
+        <Vao>18</Vao>
         <VertexBufferDataLength>24</VertexBufferDataLength>
         <VerticesCount>6</VerticesCount>
       </Mesh>
@@ -14653,10 +14941,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
+          <AssetPath>Assets/3D/grass block/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>2048</X>
-            <Y>2048</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -14674,8 +14962,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>0</X>
-          <Y>0</Y>
+          <X>1</X>
+          <Y>-1</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -14688,8 +14976,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>1</X>
-          <Y>1</Y>
+          <X>0.1</X>
+          <Y>0.1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -14776,10 +15064,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
+          <AssetPath>Assets/3D/grass block/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>2048</X>
-            <Y>2048</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -14797,8 +15085,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>0</X>
-          <Y>0</Y>
+          <X>1</X>
+          <Y>-1</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -14811,8 +15099,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>1</X>
-          <Y>1</Y>
+          <X>0.1</X>
+          <Y>0.1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -14899,10 +15187,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
+          <AssetPath>Assets/3D/grass block/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>2048</X>
-            <Y>2048</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -14920,8 +15208,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>0</X>
-          <Y>0</Y>
+          <X>1</X>
+          <Y>-1</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -14934,8 +15222,8 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>1</X>
-          <Y>1</Y>
+          <X>0.1</X>
+          <Y>0.1</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -15022,10 +15310,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
+          <AssetPath>Assets/3D/grass block/Grass_Block_TEX.png</AssetPath>
           <Size>
-            <X>2048</X>
-            <Y>2048</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -15043,8 +15331,8 @@
           </Size>
         </AoTexture>
         <Offset>
-          <X>0</X>
-          <Y>0</Y>
+          <X>1</X>
+          <Y>-1</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -15057,19 +15345,19 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>1</X>
-          <Y>1</Y>
+          <X>0.1</X>
+          <Y>0.1</Y>
         </Tiling>
       </Material>
       <Mesh>
-        <AssetPath>Assets/3D/chaos-belly-plate/source/1d7e925654624282a6a6409d5156d97b.obj</AssetPath>
+        <AssetPath>Assets/3D/grass block/Grass_Block.obj</AssetPath>
         <Vao>14</Vao>
-        <VertexBufferDataLength>1165344</VertexBufferDataLength>
-        <VerticesCount>145668</VerticesCount>
+        <VertexBufferDataLength>288</VertexBufferDataLength>
+        <VerticesCount>36</VerticesCount>
       </Mesh>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>500</GameObjectNextId>
+  <GameObjectNextId>512</GameObjectNextId>
 </SceneFile>
