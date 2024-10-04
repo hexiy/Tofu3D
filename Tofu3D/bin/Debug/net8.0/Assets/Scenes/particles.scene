@@ -210,14 +210,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-17.495659</X>
-        <Y>24.7317</Y>
-        <Z>-29.238974</Z>
+        <X>-13.7645035</X>
+        <Y>24.14616</Y>
+        <Z>-27.974598</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-17.495659</X>
-        <Y>24.7317</Y>
-        <Z>-29.238974</Z>
+        <X>-13.7645035</X>
+        <Y>24.14616</Y>
+        <Z>-27.974598</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -230,8 +230,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>25.805363</X>
-        <Y>19.669786</Y>
+        <X>11.053056</X>
+        <Y>21.024971</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -2223,6 +2223,14 @@
             <X>1</X>
             <Y>1</Y>
           </Vector2>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
         </DefiningPoints>
       </ColorCurve>
       <EndColorType>Single</EndColorType>
@@ -3264,6 +3272,14 @@
           <float>0</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -6377,6 +6393,14 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.08268229</X>
             <Y>0.001875</Y>
           </Vector2>
@@ -7433,6 +7457,14 @@
           <float>1</float>
         </_points>
         <DefiningPoints>
+          <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
           <Vector2>
             <X>0</X>
             <Y>0</Y>
@@ -10442,6 +10474,14 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.08268229</X>
             <Y>0.001875</Y>
           </Vector2>
@@ -12379,6 +12419,14 @@
             <Y>1</Y>
           </Vector2>
           <Vector2>
+            <X>0</X>
+            <Y>0</Y>
+          </Vector2>
+          <Vector2>
+            <X>1</X>
+            <Y>1</Y>
+          </Vector2>
+          <Vector2>
             <X>0.016822917</X>
             <Y>0.02296875</Y>
           </Vector2>
@@ -12969,5 +13017,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>420</GameObjectNextId>
+  <GameObjectNextId>422</GameObjectNextId>
 </SceneFile>
