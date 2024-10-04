@@ -86,7 +86,7 @@ float currentDepth = projCoords.z;
 // check whether current frag pos is in shadow
 //    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
 
-float bias = 0.002;
+float bias = 0.001;
 
 float shadow = currentDepth - bias > closestDepth ? 1.0: 0.0;
 

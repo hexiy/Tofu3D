@@ -5,23 +5,23 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>353</Id>
+      <Id>460</Id>
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>GameObject</Name>
+      <Name>Sculpture</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
   </GameObjects>
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>353</GameObjectId>
+      <GameObjectId>460</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -29,19 +29,19 @@
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <Pivot>
-        <X>0</X>
+        <X>0.5</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>1.2</X>
-        <Y>0</Y>
-        <Z>-9</Z>
+        <X>-8.6</X>
+        <Y>3</Y>
+        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1.2</X>
-        <Y>0</Y>
-        <Z>-9</Z>
+        <X>-8.6</X>
+        <Y>3</Y>
+        <Z>0</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -55,13 +55,13 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>0</Y>
+        <Y>-124.94</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>353</GameObjectId>
+      <GameObjectId>460</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -71,14 +71,14 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>3</X>
-        <Y>3</Y>
-        <Z>3</Z>
+        <X>5</X>
+        <Y>5</Y>
+        <Z>5</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>353</GameObjectId>
+      <GameObjectId>460</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -94,10 +94,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/2D/solidColor.png</AssetPath>
+          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
           <Size>
-            <X>256</X>
-            <Y>256</Y>
+            <X>4096</X>
+            <Y>4096</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -108,15 +108,15 @@
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <AoTexture>
-          <AssetPath>Assets/2D/solidColor.png</AssetPath>
+          <AssetPath>Assets/2D/white.png</AssetPath>
           <Size>
-            <X>256</X>
-            <Y>256</Y>
+            <X>1</X>
+            <Y>1</Y>
           </Size>
         </AoTexture>
         <Offset>
-          <X>0</X>
-          <Y>0</Y>
+          <X>-1.4</X>
+          <Y>-1.76</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
@@ -126,18 +126,18 @@
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
           <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
         </Shader>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.2</SpecularSmoothness>
         <Tiling>
-          <X>-1</X>
-          <Y>-1</Y>
+          <X>0.1</X>
+          <Y>0.1</Y>
         </Tiling>
       </Material>
       <Mesh>
-        <AssetPath>Assets/3D/Grass_Block.obj</AssetPath>
-        <Vao>9</Vao>
-        <VertexBufferDataLength>288</VertexBufferDataLength>
-        <VerticesCount>36</VerticesCount>
+        <AssetPath>Assets/3D/sculpture/sculpture.obj</AssetPath>
+        <Vao>21</Vao>
+        <VertexBufferDataLength>1199952</VertexBufferDataLength>
+        <VerticesCount>149994</VerticesCount>
       </Mesh>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>

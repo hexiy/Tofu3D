@@ -127,7 +127,7 @@ public class Window : GameWindow
             return;
         }
 
-        Title = WindowTitleText + $"FPS [{Time.MinFps} <-> {Time.MaxFps}]";
+        Title = WindowTitleText + $" FPS [{Time.MinFps} <-> {Time.MaxFps}]";
         base.OnUpdateFrame(e);
     }
 

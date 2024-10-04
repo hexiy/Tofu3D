@@ -2,19 +2,11 @@
 <Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
   <Additive>false</Additive>
-  <Shader>
-    <BufferType>Model</BufferType>
-    <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-    <AlbedoTextureLocation>25</AlbedoTextureLocation>
-    <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
-    <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
-  </Shader>
-  <RenderMode>Opaque</RenderMode>
   <AlbedoTexture>
-    <AssetPath>Assets/2D/solidColor.png</AssetPath>
+    <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
     <Size>
-      <X>256</X>
-      <Y>256</Y>
+      <X>4096</X>
+      <Y>4096</Y>
     </Size>
   </AlbedoTexture>
   <AlbedoTint>
@@ -25,20 +17,28 @@
     <PackedValue>4294967295</PackedValue>
   </AlbedoTint>
   <AoTexture>
-    <AssetPath>Assets/2D/solidColor.png</AssetPath>
+    <AssetPath>Assets/2D/white.png</AssetPath>
     <Size>
-      <X>256</X>
-      <Y>256</Y>
+      <X>1</X>
+      <Y>1</Y>
     </Size>
   </AoTexture>
-  <Tiling>
-    <X>-1</X>
-    <Y>-1</Y>
-  </Tiling>
   <Offset>
-    <X>0</X>
-    <Y>0</Y>
+    <X>-1.4</X>
+    <Y>-1.76</Y>
   </Offset>
-  <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+  <RenderMode>Opaque</RenderMode>
+  <Shader>
+    <AlbedoTextureLocation>25</AlbedoTextureLocation>
+    <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
+    <BufferType>Model</BufferType>
+    <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+    <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
+  </Shader>
+  <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
   <SpecularSmoothness>0.2</SpecularSmoothness>
+  <Tiling>
+    <X>0.1</X>
+    <Y>0.1</Y>
+  </Tiling>
 </Material>

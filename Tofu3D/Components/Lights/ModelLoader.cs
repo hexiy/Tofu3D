@@ -61,22 +61,27 @@ public class ModelLoader : AssetLoader<Mesh>
             else if (line.StartsWith("f ")) // indices
             {
                 numberOfIndicesPerLine = lineSplit.Length - 1;
-                for (var indiceIndex = 0; indiceIndex < numberOfIndicesPerLine; indiceIndex++)
+                bool isQuad = numberOfIndicesPerLine == 4;
+                int[] indicesSequenceForFirstTriangle = new int[] { 0, 1, 2 };
+                int[] indicesSequenceForSecondTriangle = new int[] { 0, 2, 3 };
+                
+                for (var k = 0; k < 3; k++)
                 {
+                    int indiceIndex = indicesSequenceForFirstTriangle[k];
                     totalVerticesCount++;
 
-                    var nums = lineSplit[indiceIndex + 1].Split('/');
-                    for (var i = 0; i < nums.Length; i++)
+                    var group = lineSplit[indiceIndex + 1].Split('/');
+                    for (var i = 0; i < group.Length; i++)
                     {
-                        if (nums[i].Length == 0)
+                        if (group[i].Length == 0)
                         {
-                            nums[i] = "0";
+                            group[i] = "0";
                         }
                     }
 
-                    var positionIndex = int.Parse(nums[0]) - 1;
-                    var uvIndex = int.Parse(nums[1]) - 1;
-                    var normalIndex = int.Parse(nums[2]) - 1;
+                    var positionIndex = int.Parse(group[0]) - 1;
+                    var uvIndex = int.Parse(group[1]) - 1;
+                    var normalIndex = int.Parse(group[2]) - 1;
 
                     everything.Add(vertices[positionIndex * 3]);
                     everything.Add(vertices[positionIndex * 3 + 1]);
@@ -96,6 +101,47 @@ public class ModelLoader : AssetLoader<Mesh>
                     everything.Add(normals[normalIndex * 3]);
                     everything.Add(normals[normalIndex * 3 + 1]);
                     everything.Add(normals[normalIndex * 3 + 2]);
+                }
+
+                if (isQuad)
+                {
+                    for (var k = 0; k < 3; k++)
+                    {
+                        int indiceIndex = indicesSequenceForSecondTriangle[k];
+                        totalVerticesCount++;
+
+                        var group = lineSplit[indiceIndex + 1].Split('/');
+                        for (var i = 0; i < group.Length; i++)
+                        {
+                            if (group[i].Length == 0)
+                            {
+                                group[i] = "0";
+                            }
+                        }
+
+                        var positionIndex = int.Parse(group[0]) - 1;
+                        var uvIndex = int.Parse(group[1]) - 1;
+                        var normalIndex = int.Parse(group[2]) - 1;
+
+                        everything.Add(vertices[positionIndex * 3]);
+                        everything.Add(vertices[positionIndex * 3 + 1]);
+                        everything.Add(vertices[positionIndex * 3 + 2]);
+
+                        if (uvIndex == -1)
+                        {
+                            everything.Add(0);
+                            everything.Add(0);
+                        }
+                        else
+                        {
+                            everything.Add(uvs[uvIndex * 2]);
+                            everything.Add(uvs[uvIndex * 2 + 1]);
+                        }
+
+                        everything.Add(normals[normalIndex * 3]);
+                        everything.Add(normals[normalIndex * 3 + 1]);
+                        everything.Add(normals[normalIndex * 3 + 2]);
+                    }
                 }
             }
         }
