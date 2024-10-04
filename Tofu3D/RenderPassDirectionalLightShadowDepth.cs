@@ -54,13 +54,15 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
     protected override void PostRender()
     {
         base.PostRender();
-        // bool renderToDebugTexture = GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
+        bool renderToDebugTexture =
+            GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
-        // if (renderToDebugTexture)
-        // {
-        // RenderToDebugDepthTexture();
-        // }
-        // GL.Disable(EnableCap.DepthTest);
+        if (renderToDebugTexture)
+        {
+            RenderToDebugDepthTexture();
+        }
+
+        GL.Disable(EnableCap.DepthTest);
     }
 
     private void RenderToDebugDepthTexture()

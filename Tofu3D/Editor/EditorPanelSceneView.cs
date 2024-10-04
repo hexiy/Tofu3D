@@ -18,7 +18,7 @@ public class EditorPanelSceneView : EditorPanel
 
         if (Global.EditorAttached)
         {
-            _renderCameraViews = Global.Debug &&
+            _renderCameraViews = /*Global.Debug &&*/
                                  GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() !=
                                  null;
 

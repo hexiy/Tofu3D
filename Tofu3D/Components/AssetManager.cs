@@ -85,12 +85,18 @@ public class AssetManager
         AssetLoadSettings<T> settings = loadSettings as AssetLoadSettings<T> ??
                                         Activator.CreateInstance(_loadSettingsTypes[typeof(T)]) as AssetLoadSettings<T>;
         settings.Path = asset.Path;
+        settings.ValidatePath();
         if (File.Exists(settings.Path) == false)
-            // Debug.LogError("Cannot save asset, no path present");
+        {
+            Debug.LogError("Cannot save asset, no path present");
             return null;
+        }
+
 
         int hash = settings.GetHashCode();
 
+        
+        // code in SaveAsset should use settings path to save the file not asset.path!!!
         (_loaders[typeof(T)] as AssetLoader<T>).SaveAsset(ref asset, settings);
 
         Debug.StatSetValue("LoadedAssets", $"LoadedAssets:{_assets.Count}");

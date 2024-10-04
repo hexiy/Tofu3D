@@ -120,7 +120,7 @@ public class EditorPanelInspector : EditorPanel
         }
     }
 
-    public void Update()
+    public override void Update()
     {
         _actionQueue.Invoke();
         _actionQueue = () => { };
@@ -344,13 +344,13 @@ public class EditorPanelInspector : EditorPanel
                     //ImGui.PopID();
                 }
 
-                if (componentInspectorData.InspectableType == typeof(Material) && (_editing ||
+                /*if (componentInspectorData.InspectableType == typeof(Material) && (_editing ||
                         ImGui.IsMouseReleased(ImGuiMouseButton.Left) || ImGui.IsMouseReleased(ImGuiMouseButton.Right)))
                     // detect drag and drop texture too....
                     _actionQueue += () =>
                     {
                         Tofu.AssetManager.Save<Material>(componentInspectorData.Inspectable as Material);
-                    };
+                    };*/
             }
 
             if (componentInspectorData.InspectableType.IsSubclassOf(typeof(Renderer)))

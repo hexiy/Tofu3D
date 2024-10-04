@@ -12,16 +12,18 @@ public class AssetUtils
     private static Dictionary<string, bool> ExistingAssets = new Dictionary<string, bool>();
     public static bool Exists(string path)
     {
-        ExistingAssets.TryGetValue(path, out var existing);
-        if (existing)
-        {
-            return true;
-        }
-        else
-        {
-            ExistingAssets[path] = File.Exists(path);
-            return ExistingAssets[path];
-        }
+        return File.Exists(path);
+        // ExistingAssets.TryGetValue(path, out var existing);
+        //
+        // if (existing)
+        // {
+        //     return true;
+        // }
+        // else
+        // {
+        //     ExistingAssets[path] = File.Exists(path);
+        //     return ExistingAssets[path];
+        // }
     }
 
     public static string ValidateAssetPath(ref string assetPath)
@@ -36,8 +38,9 @@ public class AssetUtils
         // assetPath = assetPath.Replace("net8", "net7");
         assetPath = assetPath.Replace("net7", "net8");
         // assetPath = assetPath.Replace(" ", "\\ ");
-        bool isValid = Exists(assetPath);
-        if (isValid) return assetPath;
+        
+        // bool isValid = Exists(assetPath);
+        // if (isValid) return assetPath;
         bool existsInAssetFolder = Exists(Path.Combine(Folders.Assets, assetPath));
         if (existsInAssetFolder)
         {

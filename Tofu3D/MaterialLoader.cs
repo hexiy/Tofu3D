@@ -14,7 +14,8 @@ public class MaterialLoader : AssetLoader<Material>
 
     public override Material SaveAsset(ref Material asset, AssetLoadSettingsBase loadSettings)
     {
-        StreamWriter sw = new(asset.Path);
+        // make sure to use loadSettings.Path not asset.path
+        StreamWriter sw = new(loadSettings.Path);
 
         // asset.IsValid = true;
         _xmlSerializer.Serialize(sw, asset);

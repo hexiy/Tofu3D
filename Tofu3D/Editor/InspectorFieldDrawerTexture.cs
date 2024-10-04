@@ -68,6 +68,12 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Texture>
                     Texture loadedTexture = Tofu.AssetManager.Load<Texture>(textureName);
 
                     SetValue(info, componentInspectorData, loadedTexture);
+
+                    if (componentInspectorData.Inspectable is Material)
+                    {
+                        EditorPanelInspector.I.AddActionToActionQueue(() =>
+                            Tofu.AssetManager.Save<Material>(componentInspectorData.Inspectable as Material));
+                    }
                 }
 
                 ImGui.EndDragDropTarget();
