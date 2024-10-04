@@ -1,9 +1,9 @@
 public class DemoManager : Component
 {
-    public static DemoManager I { get; private set; }
+    private int _currentIndex;
 
     public List<GameObject> DemoGameObjects = new();
-    private int _currentIndex = 0;
+    public static DemoManager I { get; private set; }
 
     public override void Awake()
     {

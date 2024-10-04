@@ -14,10 +14,10 @@ public static class TofuGUI
 
     public static bool Button(string text, Vector2? size = null)
     {
-        Vector2 sizeValue = size ?? ButtonSize;
+        var sizeValue = size ?? ButtonSize;
         Vector2 currentCursorPos = ImGui.GetCursorPos();
         ImGui.SetCursorPos(currentCursorPos - sizeValue / 2);
-        bool clicked = ImGui.Button(text, sizeValue);
+        var clicked = ImGui.Button(text, sizeValue);
         return clicked;
     }
 

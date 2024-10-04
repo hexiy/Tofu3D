@@ -11,11 +11,13 @@ public static class Tweener
 
     public static void Kill(object target)
     {
-        for (int i = 0; i < Tofu.TweenManager.ActiveTweens.Count; i++)
+        for (var i = 0; i < Tofu.TweenManager.ActiveTweens.Count; i++)
+        {
             if (Tofu.TweenManager.ActiveTweens[i].Target == target)
             {
                 Tofu.TweenManager.RemoveTween(i);
                 return;
             }
+        }
     }
 }

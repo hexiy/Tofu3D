@@ -3,12 +3,13 @@
 [Serializable]
 public class CubemapTexture : Asset<CubemapTexture>
 {
-    public int TextureId => Handle.Id;
     public bool Loaded;
-    public Vector2 Size;
 
     [XmlIgnore] // ignore for now
     public CubemapTextureLoadSettings LoadSettings;
+
+    public Vector2 Size;
+    public int TextureId => Handle.Id;
 
     public void Delete()
     {

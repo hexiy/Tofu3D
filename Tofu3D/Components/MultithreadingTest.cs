@@ -3,14 +3,11 @@
 [ExecuteInEditMode]
 public class MultithreadingTest : Component
 {
-    [Show]
-    public GameObject ReferenceGameObject;
+    [XmlIgnore] public Action ExecuteLongTaskOnMainThread;
 
-    [XmlIgnore]
-    public Action ExecuteLongTaskOnMainThread;
+    [XmlIgnore] public Action ExecuteLongTaskOnNewThread;
 
-    [XmlIgnore]
-    public Action ExecuteLongTaskOnNewThread;
+    [Show] public GameObject ReferenceGameObject;
 
     public int SpawnCount = 5000;
 
@@ -38,9 +35,9 @@ public class MultithreadingTest : Component
         Debug.StartTimer("Task");
         List<GameObject> gameObjects = new(SpawnCount);
 
-        for (int i = 0; i < SpawnCount; i++)
+        for (var i = 0; i < SpawnCount; i++)
         {
-            GameObject go2 = (GameObject)ReferenceGameObject.Clone();
+            var go2 = (GameObject)ReferenceGameObject.Clone();
             go2.Name = i.ToString();
             go2.Transform.LocalPosition +=
                 new Vector3(Random.Range(-10f, 10f), Random.Range(0, 10), Random.Range(0, 10));

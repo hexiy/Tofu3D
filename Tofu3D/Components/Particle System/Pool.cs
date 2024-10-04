@@ -4,12 +4,15 @@ namespace Tofu3D;
 
 public class Pool<T>
 {
-    private ConcurrentBag<T> _collection = new();
-    private Func<T> _objectGenerator;
+    private readonly ConcurrentBag<T> _collection = new();
+    private readonly Func<T> _objectGenerator;
 
     public Pool(Func<T> generator)
     {
-        if (generator == null) throw new ArgumentNullException("objectGenerator");
+        if (generator == null)
+        {
+            throw new ArgumentNullException("objectGenerator");
+        }
 
         _collection = new ConcurrentBag<T>();
         _objectGenerator = generator;
@@ -25,7 +28,10 @@ public class Pool<T>
     public T GetObject()
     {
         T item;
-        if (_collection.TryTake(out item)) return item;
+        if (_collection.TryTake(out item))
+        {
+            return item;
+        }
 
         return _objectGenerator();
     }

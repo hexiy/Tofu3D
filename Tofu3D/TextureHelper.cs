@@ -42,7 +42,7 @@ public static class TextureHelper
 
         _textureInUse = id;*/
 
-        TextureTarget textureTarget = textureType == TextureType.Texture2D
+        var textureTarget = textureType == TextureType.Texture2D
             ? TextureTarget.Texture2D
             : TextureTarget.TextureCubeMap;
         GL.BindTexture(textureTarget, id);

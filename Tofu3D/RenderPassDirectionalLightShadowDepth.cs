@@ -4,22 +4,19 @@ namespace Tofu3D;
 
 public class RenderPassDirectionalLightShadowDepth : RenderPass
 {
-    public static RenderPassDirectionalLightShadowDepth I { get; private set; }
-
     private DirectionalLight _directionalLight;
-
-    // shadows depth map
-    public RenderTexture DebugGrayscaleTexture { get; private set; }
 
     public RenderPassDirectionalLightShadowDepth() : base(RenderPassType.DirectionalLightShadowDepth)
     {
         I = this;
     }
 
-    public override bool CanRender()
-    {
-        return _directionalLight?.IsActive == true && Enabled;
-    }
+    public static RenderPassDirectionalLightShadowDepth I { get; private set; }
+
+    // shadows depth map
+    public RenderTexture DebugGrayscaleTexture { get; private set; }
+
+    public override bool CanRender() => _directionalLight?.IsActive == true && Enabled;
 
     public override void Initialize()
     {
@@ -38,7 +35,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
         // PassRenderTexture contains the depth, we render that depth with DeptRenderTexture.glsl shader to DepthMapRenderTexture and use that as a shadowmap
         PassRenderTexture = new RenderTexture(_directionalLight.Size, false, true);
         PassRenderTexture.ClearColor = new Color(0, 150, 0, 255);
-        DebugGrayscaleTexture = new RenderTexture(_directionalLight.Size, true, false);
+        DebugGrayscaleTexture = new RenderTexture(_directionalLight.Size, true);
     }
 
     protected override void PreRender()
@@ -54,7 +51,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
     protected override void PostRender()
     {
         base.PostRender();
-        bool renderToDebugTexture =
+        var renderToDebugTexture =
             GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
         if (renderToDebugTexture)
@@ -67,7 +64,10 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 
     private void RenderToDebugDepthTexture()
     {
-        if (_directionalLight == null) return;
+        if (_directionalLight == null)
+        {
+            return;
+        }
 
         GL.ActiveTexture(TextureUnit.Texture1);
 

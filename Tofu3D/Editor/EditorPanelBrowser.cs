@@ -8,6 +8,22 @@ namespace Tofu3D;
 
 public class EditorPanelBrowser : EditorPanel
 {
+    private readonly int _itemsInRow = 8;
+    private string[] _assets = Array.Empty<string>();
+
+    private List<BrowserContextItem> _contextItems;
+    private Texture _directoryIcon;
+
+    private Texture _fileIcon;
+
+    private readonly Vector2 _iconSize = new(200, 180);
+
+    private readonly TextureLoadSettings _iconTextureLoadSettings = new(filterMode: TextureFilterMode.Point);
+
+    private Texture[] _textures = Array.Empty<Texture>();
+
+    public DirectoryInfo CurrentDirectory;
+
     public override Vector2 Size => new(Tofu.Window.ClientSize.X - 1600,
         Tofu.Window.ClientSize.Y - Tofu.Editor.SceneViewSize.Y + 1);
 
@@ -15,22 +31,7 @@ public class EditorPanelBrowser : EditorPanel
     public override Vector2 Pivot => new(0, 1);
 
     public override string Name => "Browser";
-    private string[] _assets = Array.Empty<string>();
-
-    private List<BrowserContextItem> _contextItems;
-
-    public DirectoryInfo CurrentDirectory;
-    private Texture _directoryIcon;
-
-    private Texture _fileIcon;
-
-    private Vector2 _iconSize = new(200, 180);
-
-    private Texture[] _textures = Array.Empty<Texture>();
     public static EditorPanelBrowser I { get; private set; }
-
-    private TextureLoadSettings _iconTextureLoadSettings = new(filterMode: TextureFilterMode.Point);
-    private readonly int _itemsInRow = 8;
 
     public override void Init()
     {
@@ -73,12 +74,15 @@ public class EditorPanelBrowser : EditorPanel
 
     private void OnFileChanged(FileChangedInfo fileChangedInfo)
     {
-        string directoryName = Path.GetDirectoryName(fileChangedInfo.Path);
-        string currentDirectoryAssetsRelativePath = Folders.GetPathRelativeToAssetsFolder(CurrentDirectory.FullName);
-        bool fileGotDeletedInCurrentDirectory =
+        var directoryName = Path.GetDirectoryName(fileChangedInfo.Path);
+        var currentDirectoryAssetsRelativePath = Folders.GetPathRelativeToAssetsFolder(CurrentDirectory.FullName);
+        var fileGotDeletedInCurrentDirectory =
             fileChangedInfo.Path ==
             currentDirectoryAssetsRelativePath; // when file is deleted, we only get the directory
-        if (directoryName != currentDirectoryAssetsRelativePath && fileGotDeletedInCurrentDirectory == false) return;
+        if (directoryName != currentDirectoryAssetsRelativePath && fileGotDeletedInCurrentDirectory == false)
+        {
+            return;
+        }
 
         // file in currently selected folder changed
         RefreshAssets();
@@ -86,65 +90,81 @@ public class EditorPanelBrowser : EditorPanel
 
     private void RefreshAssets()
     {
-        if (Directory.Exists(CurrentDirectory.FullName) == false) return;
+        if (Directory.Exists(CurrentDirectory.FullName) == false)
+        {
+            return;
+        }
 
-        string[] tmpAssets = Directory.GetDirectories(CurrentDirectory.FullName);
-        List<string> allAssets = tmpAssets
+        var tmpAssets = Directory.GetDirectories(CurrentDirectory.FullName);
+        var allAssets = tmpAssets
             .Concat(Directory.GetFiles(CurrentDirectory.FullName, "", SearchOption.TopDirectoryOnly)).ToList();
 
-        for (int i = 0; i < allAssets.Count; i++)
+        for (var i = 0; i < allAssets.Count; i++)
+        {
             if (Path.GetFileName(allAssets[i]).StartsWith('.'))
             {
                 allAssets.RemoveAt(i);
                 i--;
             }
+        }
 
         _assets = allAssets.ToArray();
 
-        for (int i = 0; i < _textures.Length; i++)
+        for (var i = 0; i < _textures.Length; i++)
+        {
             if (_textures[i] != null && _textures[i].Loaded)
             {
                 _textures[i].Delete();
                 _textures[i] = null;
             }
+        }
 
         _textures = new Texture[_assets.Length];
-        for (int i = 0; i < _assets.Length; i++)
+        for (var i = 0; i < _assets.Length; i++)
         {
-            string assetExtension = Path.GetExtension(_assets[i]).ToLower();
+            var assetExtension = Path.GetExtension(_assets[i]).ToLower();
 
             if (assetExtension.ToLower().Contains(".jpg") || assetExtension.ToLower().Contains(".png") ||
                 assetExtension.ToLower().Contains(".jpeg"))
                 // _textures[i] = new Texture();
                 // _textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
+            {
                 _textures[i] = Tofu.AssetManager.Load<Texture>(_assets[i], _iconTextureLoadSettings);
+            }
         }
     }
 
     public override void Draw()
     {
-        if (Active == false) return;
+        if (Active == false)
+        {
+            return;
+        }
 
         SetWindow();
 
         ResetId();
 
         if (ImGui.Button("<"))
+        {
             if (CurrentDirectory.Name.ToLower() != "assets")
             {
                 CurrentDirectory = CurrentDirectory.Parent;
                 RefreshAssets();
             }
+        }
 
         ImGui.SameLine();
 
         if (ImGui.Button("Open in Finder"))
+        {
             Process.Start(new ProcessStartInfo
             {
                 FileName = CurrentDirectory.FullName,
                 UseShellExecute = true,
                 Verb = "open"
             });
+        }
 
 
         if (GameObjectSelectionManager.GetSelectedGameObject() != null)
@@ -154,11 +174,13 @@ public class EditorPanelBrowser : EditorPanel
             // ResetId();
 
             PushNextId();
-            bool saveBtnPressed = ImGui.Button("Save Prefab");
+            var saveBtnPressed = ImGui.Button("Save Prefab");
             if (saveBtnPressed)
+            {
                 Tofu.SceneSerializer.SaveGameObject(GameObjectSelectionManager.GetSelectedGameObject(),
                     Path.Combine("Assets", CurrentDirectory.Name,
                         GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
+            }
         }
 
 
@@ -192,16 +214,19 @@ public class EditorPanelBrowser : EditorPanel
         //
         //	ImGui.EndGroup();
         //}
-        for (int assetIndex = 0; assetIndex < _assets.Length; assetIndex++)
+        for (var assetIndex = 0; assetIndex < _assets.Length; assetIndex++)
         {
-            if (assetIndex != 0 && assetIndex % _itemsInRow != 0) ImGui.SameLine();
+            if (assetIndex != 0 && assetIndex % _itemsInRow != 0)
+            {
+                ImGui.SameLine();
+            }
 
             DirectoryInfo directoryInfo = new(_assets[assetIndex]);
-            bool isDirectory = directoryInfo.Exists;
+            var isDirectory = directoryInfo.Exists;
 
             ImGui.BeginGroup();
-            string assetName = Path.GetFileNameWithoutExtension(_assets[assetIndex]);
-            string assetExtension = Path.GetExtension(_assets[assetIndex]).ToLower();
+            var assetName = Path.GetFileNameWithoutExtension(_assets[assetIndex]);
+            var assetExtension = Path.GetExtension(_assets[assetIndex]).ToLower();
 
             PushNextId();
 
@@ -209,98 +234,112 @@ public class EditorPanelBrowser : EditorPanel
 
             if (isDirectory)
             {
-                ImGui.ImageButton((IntPtr)_directoryIcon.TextureId, _iconSize);
+                ImGui.ImageButton(_directoryIcon.TextureId, _iconSize);
                 //ImGui.ImageButton((IntPtr) 0, new Vector2(100, 90));
             }
             else
             {
                 if (_textures[assetIndex] != null && _textures[assetIndex].Loaded)
-                    ImGui.ImageButton((IntPtr)_textures[assetIndex].TextureId, _iconSize);
+                {
+                    ImGui.ImageButton(_textures[assetIndex].TextureId, _iconSize);
+                }
                 else
                     //ImGui.ImageButton((IntPtr) fileIcon.id, new Vector2(100, 90));
-                    ImGui.ImageButton((IntPtr)_fileIcon.TextureId, _iconSize);
+                {
+                    ImGui.ImageButton(_fileIcon.TextureId, _iconSize);
+                }
             }
             //ImGui.PopStyleColor();
 
 
             if (assetExtension.ToLower().Contains(".jpg") || assetExtension.ToLower().Contains(".png") ||
                 assetExtension.ToLower().Contains(".jpeg"))
+            {
                 if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
                 {
-                    string itemPath = _assets[assetIndex];
-                    IntPtr stringPointer = Marshal.StringToHGlobalAnsi(itemPath);
+                    var itemPath = _assets[assetIndex];
+                    var stringPointer = Marshal.StringToHGlobalAnsi(itemPath);
 
                     ImGui.SetDragDropPayload("CONTENT_BROWSER_TEXTURE", stringPointer,
                         (uint)(sizeof(char) * itemPath.Length));
 
-                    string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                    var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-                    ImGui.Image((IntPtr)_textures[assetIndex].TextureId, _iconSize);
+                    ImGui.Image(_textures[assetIndex].TextureId, _iconSize);
 
                     //ImGui.Text(Path.GetFileNameWithoutExtension(itemPath));
                     Marshal.FreeHGlobal(stringPointer);
 
                     ImGui.EndDragDropSource();
                 }
+            }
 
             if (assetExtension.ToLower().Contains(".mp3") || assetExtension.ToLower().Contains(".wav"))
+            {
                 if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
                 {
-                    string itemPath = _assets[assetIndex];
-                    IntPtr stringPointer = Marshal.StringToHGlobalAnsi(itemPath);
+                    var itemPath = _assets[assetIndex];
+                    var stringPointer = Marshal.StringToHGlobalAnsi(itemPath);
 
                     ImGui.SetDragDropPayload("CONTENT_BROWSER_AUDIOCLIP", stringPointer,
                         (uint)(sizeof(char) * itemPath.Length));
 
-                    string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                    var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-                    ImGui.Image((IntPtr)_fileIcon.TextureId, _iconSize);
+                    ImGui.Image(_fileIcon.TextureId, _iconSize);
 
 
                     Marshal.FreeHGlobal(stringPointer);
 
                     ImGui.EndDragDropSource();
                 }
+            }
 
             if (assetExtension.ToLower().Contains(".obj"))
+            {
                 if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
                 {
-                    string itemPath = _assets[assetIndex];
-                    IntPtr stringPointer = Marshal.StringToHGlobalAnsi(itemPath);
+                    var itemPath = _assets[assetIndex];
+                    var stringPointer = Marshal.StringToHGlobalAnsi(itemPath);
 
                     ImGui.SetDragDropPayload("CONTENT_BROWSER_MODEL", stringPointer,
                         (uint)(sizeof(char) * itemPath.Length));
 
-                    string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                    var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-                    ImGui.Image((IntPtr)_fileIcon.TextureId, _iconSize);
+                    ImGui.Image(_fileIcon.TextureId, _iconSize);
 
                     Marshal.FreeHGlobal(stringPointer);
 
                     ImGui.EndDragDropSource();
                 }
+            }
 
-            bool isMaterial = assetExtension.ToLower().Contains(".mat");
-            bool isShader = assetExtension.ToLower().Contains(".glsl");
-            bool isPrefab = assetExtension.ToLower().Contains(".prefab");
+            var isMaterial = assetExtension.ToLower().Contains(".mat");
+            var isShader = assetExtension.ToLower().Contains(".glsl");
+            var isPrefab = assetExtension.ToLower().Contains(".prefab");
             if (isShader || isMaterial)
             {
                 if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
                 {
-                    string itemPath = _assets[assetIndex];
-                    IntPtr stringPointer = Marshal.StringToHGlobalAnsi(itemPath);
+                    var itemPath = _assets[assetIndex];
+                    var stringPointer = Marshal.StringToHGlobalAnsi(itemPath);
 
                     if (isMaterial)
+                    {
                         ImGui.SetDragDropPayload("CONTENT_BROWSER_MATERIAL", stringPointer,
                             (uint)(sizeof(char) * itemPath.Length));
+                    }
 
                     if (isShader)
+                    {
                         ImGui.SetDragDropPayload("CONTENT_BROWSER_SHADER", stringPointer,
                             (uint)(sizeof(char) * itemPath.Length));
+                    }
 
-                    string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                    var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-                    ImGui.Image((IntPtr)_fileIcon.TextureId, new Vector2(100, 90));
+                    ImGui.Image(_fileIcon.TextureId, new Vector2(100, 90));
 
                     //ImGui.Text(Path.GetFileNameWithoutExtension(itemPath));
 
@@ -310,35 +349,43 @@ public class EditorPanelBrowser : EditorPanel
                 }
 
                 if (isShader)
+                {
                     if (ImGui.IsItemHovered() && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left))
                     {
-                        string assetsRelativePath =
+                        var assetsRelativePath =
                             Path.Combine("Assets", Path.GetRelativePath("Assets", _assets[assetIndex]));
 
                         Tofu.ShaderManager.QueueShaderReload(assetsRelativePath);
                         Debug.Log($"Reloaded shader:{assetName}");
                     }
+                }
             }
 
             if (isPrefab)
+            {
                 if (ImGui.BeginDragDropSource())
                 {
-                    string itemPath = _assets[assetIndex];
-                    IntPtr stringPointer = Marshal.StringToHGlobalAnsi(itemPath);
+                    var itemPath = _assets[assetIndex];
+                    var stringPointer = Marshal.StringToHGlobalAnsi(itemPath);
 
                     ImGui.SetDragDropPayload("PREFAB_PATH", stringPointer, (uint)(sizeof(char) * itemPath.Length));
 
                     //string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                    ImGui.Image((IntPtr)_fileIcon.TextureId, _iconSize);
+                    ImGui.Image(_fileIcon.TextureId, _iconSize);
 
                     Marshal.FreeHGlobal(stringPointer);
 
                     ImGui.EndDragDropSource();
                 }
+            }
 
             if (ImGui.IsItemHovered() && ImGui.IsMouseReleased(ImGuiMouseButton.Left))
+            {
                 if (assetExtension.ToLower().Contains(".mat"))
+                {
                     EditorPanelInspector.I.OnMaterialSelected(_assets[assetIndex]);
+                }
+            }
 
             if (ImGui.IsItemHovered() && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left))
             {
@@ -351,22 +398,27 @@ public class EditorPanelBrowser : EditorPanel
 
                 if (assetExtension == ".prefab")
                 {
-                    GameObject go = Tofu.SceneSerializer.LoadPrefab(_assets[assetIndex]);
+                    var go = Tofu.SceneSerializer.LoadPrefab(_assets[assetIndex]);
                     // todo
                     // EditorPanelHierarchy.I.SelectGameObject(go.Id);
                 }
 
-                if (assetExtension == ".scene") Tofu.SceneManager.LoadScene(_assets[assetIndex]);
+                if (assetExtension == ".scene")
+                {
+                    Tofu.SceneManager.LoadScene(_assets[assetIndex]);
+                }
             }
 
             //ImGui.SetCursorPosY(ImGui.GetCursorPosY() - 25);
             //ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 5);
 
-            int maxCharsLimit = 15;
-            string a = assetName.Substring(0, Math.Clamp(assetName.Length, 0, maxCharsLimit));
+            var maxCharsLimit = 15;
+            var a = assetName.Substring(0, Math.Clamp(assetName.Length, 0, maxCharsLimit));
             ImGui.Text(a);
             if (assetName.Length > maxCharsLimit)
+            {
                 ImGui.Text(assetName.Substring(maxCharsLimit, assetName.Length - maxCharsLimit));
+            }
 
             ImGui.EndGroup();
         }
@@ -375,7 +427,10 @@ public class EditorPanelBrowser : EditorPanel
         // show prefabs as btns from array that updates in Update()
         if (ImGui.BeginPopupContextWindow("BrowserPopup"))
         {
-            for (int i = 0; i < _contextItems.Count; i++) _contextItems[i].ShowContextItem();
+            for (var i = 0; i < _contextItems.Count; i++)
+            {
+                _contextItems[i].ShowContextItem();
+            }
             /*if (ImGui.Button("New Scene"))
             {
                 showCreateScenePopup = true;
@@ -391,7 +446,10 @@ public class EditorPanelBrowser : EditorPanel
             ImGui.EndPopup();
         }
 
-        for (int i = 0; i < _contextItems.Count; i++) _contextItems[i].ShowPopupIfOpen();
+        for (var i = 0; i < _contextItems.Count; i++)
+        {
+            _contextItems[i].ShowPopupIfOpen();
+        }
 
 
         ImGui.End();
@@ -401,7 +459,10 @@ public class EditorPanelBrowser : EditorPanel
 
     public void GoToFile(string directory)
     {
-        if (File.Exists(directory) == false) return;
+        if (File.Exists(directory) == false)
+        {
+            return;
+        }
 
         CurrentDirectory = Directory.GetParent(directory);
         RefreshAssets();

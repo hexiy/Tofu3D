@@ -3,81 +3,51 @@
 [ExecuteInEditMode]
 public class ParticleSystem : Component, IComponentUpdateable
 {
+    private readonly Pool<Particle> _pool = new(() => new Particle());
+    private ParticleSystemRenderer _renderer;
+
+    private float _time;
     public new bool AllowMultiple = false;
+
+    [Show] public Curve ColorCurve = new();
+
+    [Space] [Show] public ParticleColorType EndColorType;
+
     public Particle LatestParticle;
 
     public object ListLock = new();
 
-    [XmlIgnore]
-    public List<Particle> Particles = new(1000000);
-
-    private Pool<Particle> _pool = new(() => new Particle());
-    private ParticleSystemRenderer _renderer;
-
-    private float _time;
-
-    [Show]
-    public Vector3 StartVelocity { get; set; } = new(0, 0, 0);
-
-    [Show]
-    public float Speed { get; set; } = 2;
+    [XmlIgnore] public List<Particle> Particles = new(1000000);
 
     // [Show] public Vector3 StartSize { get; set; } = new(1);
     // [Show] public Vector3 EndSize { get; set; } = new(1);
-    [Show]
-    public Curve SizeCurve = new();
+    [Show] public Curve SizeCurve = new();
 
-    [Show]
-    public Curve ColorCurve = new();
+    [Space] [Show] public ParticleColorType StartColorType;
 
-    [Space]
-    [Show]
-    public ParticleColorType StartColorType;
+    [Show] public Vector3 StartVelocity { get; set; } = new(0, 0, 0);
+
+    [Show] public float Speed { get; set; } = 2;
 
     private bool ShowStartColor2 => StartColorType is ParticleColorType.Random;
 
-    [Show]
-    public Color StartColor { get; set; } = Color.White;
+    [Show] public Color StartColor { get; set; } = Color.White;
 
-    [ShowIf(nameof(ShowStartColor2))]
-    public Color StartColor2 { get; set; } = Color.Gray;
-
-    [Space]
-    [Show]
-    public ParticleColorType EndColorType;
+    [ShowIf(nameof(ShowStartColor2))] public Color StartColor2 { get; set; } = Color.Gray;
 
     private bool ShowEndColor2 => EndColorType is ParticleColorType.Random;
 
-    [Show]
-    public Color EndColor { get; set; } = Color.Black;
+    [Show] public Color EndColor { get; set; } = Color.Black;
 
-    [ShowIf(nameof(ShowEndColor2))]
-    public Color EndColor2 { get; set; } = Color.Black;
+    [ShowIf(nameof(ShowEndColor2))] public Color EndColor2 { get; set; } = Color.Black;
 
-    [Space]
-    [Header("Space :3")]
-    [Show]
-    public int MaxParticles { get; set; } = 1000000;
+    [Space] [Header("Space :3")] [Show] public int MaxParticles { get; set; } = 1000000;
 
-    [Show]
-    public float MaxLifetime { get; set; } = 1;
+    [Show] public float MaxLifetime { get; set; } = 1;
 
-    [Show]
-    public float SpawnRate { get; set; } = 0.5f; // spawn every half second
+    [Show] public float SpawnRate { get; set; } = 0.5f; // spawn every half second
 
-    [Show]
-    public Vector3 SpawnBoundsSize { get; set; } = new(5, 5, 5); // spawn every half second
-
-
-    public override void Awake()
-    {
-        _renderer = GameObject.GetComponent<ParticleSystemRenderer>();
-        if (_renderer == null) _renderer = GameObject.AddComponent<ParticleSystemRenderer>();
-
-        _renderer.SetParticleSystem(this);
-
-        base.Awake();
-    }
+    [Show] public Vector3 SpawnBoundsSize { get; set; } = new(5, 5, 5); // spawn every half second
 
     public void Update()
     {
@@ -90,16 +60,18 @@ public class ParticleSystem : Component, IComponentUpdateable
         }
 
         // Debug.Log(Particles.Count);
-        for (int i = 0; i < Particles.Count; i++)
+        for (var i = 0; i < Particles.Count; i++)
             //Parallel.For(0, particles.Count, new ParallelOptions() {MaxDegreeOfParallelism = Environment.ProcessorCount * 20}, (i) =>
             //{
 
+        {
             if (Particles.Count > i && Particles[i] != null)
             {
                 Particles[i].Velocity += StartVelocity * Time.EditorDeltaTime;
 
                 Particles[i].WorldPosition += Particles[i].Velocity * Time.EditorDeltaTime;
-                Particles[i].WorldPosition += new Vector3(Mathf.Sin(Particles[i].WorldPosition.Y*0.5f)*0.2f,0,Mathf.Cos(Particles[i].WorldPosition.Y*0.5f)*0.2f);
+                Particles[i].WorldPosition += new Vector3(Mathf.Sin(Particles[i].WorldPosition.Y * 0.5f) * 0.2f, 0,
+                    Mathf.Cos(Particles[i].WorldPosition.Y * 0.5f) * 0.2f);
 
                 Particles[i].Lifetime += Time.EditorDeltaTime;
 
@@ -110,9 +82,26 @@ public class ParticleSystem : Component, IComponentUpdateable
                 Particles[i].Size = Vector3.Lerp(Particles[i].Size,
                     Vector3.One * SizeCurve.Sample(Particles[i].Lifetime / MaxLifetime), Time.EditorDeltaTime * 50);
 
-                if (Particles[i].Lifetime > MaxLifetime) Particles[i].Visible = false;
+                if (Particles[i].Lifetime > MaxLifetime)
+                {
+                    Particles[i].Visible = false;
+                }
             }
+        }
+    }
 
+
+    public override void Awake()
+    {
+        _renderer = GameObject.GetComponent<ParticleSystemRenderer>();
+        if (_renderer == null)
+        {
+            _renderer = GameObject.AddComponent<ParticleSystemRenderer>();
+        }
+
+        _renderer.SetParticleSystem(this);
+
+        base.Awake();
     }
 
     public void DisableParticle(int particleIndex)
@@ -124,7 +113,7 @@ public class ParticleSystem : Component, IComponentUpdateable
 
     private void SpawnParticle()
     {
-        Particle p = _pool.GetObject();
+        var p = _pool.GetObject();
         LatestParticle = p;
         p.Visible = true;
         p.Lifetime = 0;
@@ -143,8 +132,8 @@ public class ParticleSystem : Component, IComponentUpdateable
 
             if (Particles.Count > MaxParticles)
             {
-                int num = Particles.Count - MaxParticles;
-                for (int i = 0; i < num; i++)
+                var num = Particles.Count - MaxParticles;
+                for (var i = 0; i < num; i++)
                 {
                     _pool.PutObject(Particles[i]);
                     Particles.RemoveAt(i);

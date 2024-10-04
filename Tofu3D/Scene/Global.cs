@@ -1,8 +1,11 @@
 ﻿public static class Global
 {
+    public const string DebugFlag = nameof(Debug);
     public static bool GameRunning = false;
     public static bool EditorAttached = true;
     private static bool _debug;
+
+    public static Action<bool> DebugStateChanged = b => { };
 
     public static bool Debug
     {
@@ -14,9 +17,6 @@
             DebugStateChanged.Invoke(_debug);
         }
     }
-
-    public static Action<bool> DebugStateChanged = (b) => { };
-    public const string DebugFlag = nameof(Debug);
 
     private static void SaveData()
     {

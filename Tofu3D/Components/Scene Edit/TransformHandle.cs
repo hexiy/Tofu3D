@@ -11,20 +11,125 @@ public class TransformHandle : Component, IComponentUpdateable
         Xy
     }
 
-    public bool ObjectSelected;
+    private List<Transform> _selectedTransforms;
     public BoxShape BoxColliderX;
     public BoxShape BoxColliderXy;
     public BoxShape BoxColliderY;
     public BoxShape BoxColliderZ;
+
+    public bool Clicked;
+    public Axis? CurrentAxisSelected;
     public ModelRendererInstanced ModelRendererX;
     public ModelRendererInstanced ModelRendererXy;
     public ModelRendererInstanced ModelRendererY;
     public ModelRendererInstanced ModelRendererZ;
 
-    public bool Clicked;
-    public Axis? CurrentAxisSelected;
-    private List<Transform> _selectedTransforms;
+    public bool ObjectSelected;
     public static TransformHandle I { get; private set; }
+
+    public void Update()
+    {
+        if (Camera.MainCamera.IsOrthographic)
+        {
+            Transform.LocalScale = Vector3.One * Camera.MainCamera.OrthographicSize * 1.5f;
+        }
+        else
+        {
+            Transform.LocalScale = Vector3.One *
+                                   Vector3.Distance(Transform.WorldPosition,
+                                       Camera.MainCamera.Transform.WorldPosition) * 0.2f;
+        }
+
+        if (Tofu.MouseInput.ButtonReleased())
+        {
+            CurrentAxisSelected = null;
+            Clicked = false;
+        }
+
+        if (Tofu.MouseInput.ButtonPressed())
+        {
+            Clicked = false;
+        }
+
+        // if (MousePickingSystem.HoveredRenderer == ModelRendererX)
+        // {
+        // 	CurrentAxisSelected = Axis.X;
+        // 	Clicked = true;
+        // }
+        //
+        // if (MousePickingSystem.HoveredRenderer == ModelRendererY)
+        // {
+        // 	CurrentAxisSelected = Axis.Y;
+        // 	Clicked = true;
+        // }
+        //
+        // if (MousePickingSystem.HoveredRenderer == ModelRendererZ)
+        // {
+        // 	CurrentAxisSelected = Axis.Z;
+        // 	Clicked = true;
+        // }
+        //
+        // if (MousePickingSystem.HoveredRenderer == ModelRendererXy)
+        // {
+        // 	CurrentAxisSelected = Axis.Xy;
+        // 	Clicked = true;
+        // }
+        if (Tofu.MouseInput.IsButtonDown() && GameObject.ActiveInHierarchy && Clicked)
+        {
+            SetSelectedObjectRigidbodyAwake(false);
+            // Move(Tofu.MouseInput.WorldDelta);
+            Move(Tofu.MouseInput
+                .ScreenDelta); // /_selectedTransforms[0].GetComponent<Renderer>().DistanceFromCamera * 1000f);
+        }
+        else
+        {
+            SetSelectedObjectRigidbodyAwake(true);
+        }
+
+        if (ObjectSelected == false || _selectedTransforms == null)
+            //GameObject.Active = false;
+        {
+            return;
+        }
+
+        Transform.WorldPosition = GetCenterOfSelection();
+        Transform.Rotation = GetRotationOfSelection();
+        // if (MousePickingSystem.HoveredRenderer == ModelRendererX || CurrentAxisSelected == Axis.X)
+        // {
+        // 	ModelRendererX.Color = Color.WhiteSmoke;
+        // }
+        // else
+        // {
+        // 	ModelRendererX.Color = Color.Red;
+        // }
+        //
+        // if (MousePickingSystem.HoveredRenderer == ModelRendererY || CurrentAxisSelected == Axis.Y)
+        // {
+        // 	ModelRendererY.Color = Color.WhiteSmoke;
+        // }
+        // else
+        // {
+        // 	ModelRendererY.Color = Color.YellowGreen;
+        // }
+        //
+        // if (MousePickingSystem.HoveredRenderer == ModelRendererXy || CurrentAxisSelected == Axis.Xy)
+        // {
+        // 	ModelRendererXy.Color = Color.WhiteSmoke;
+        // }
+        // else
+        // {
+        // 	ModelRendererXy.Color = Color.Gold;
+        // }
+        //
+        // if (MousePickingSystem.HoveredRenderer == ModelRendererZ || CurrentAxisSelected == Axis.Z)
+        // {
+        // 	ModelRendererZ.Color = Color.WhiteSmoke;
+        // }
+        // else
+        // {
+        // 	ModelRendererZ.Color = Color.Cyan;
+        // }
+    }
 
     public override void Awake()
     {
@@ -59,7 +164,7 @@ public class TransformHandle : Component, IComponentUpdateable
         ModelRendererXy = GameObject.AddComponent<ModelRendererInstanced>();
 
         // Material unlitMaterial = Tofu.AssetManager.Load<Material>("ModelRendererUnlit");
-        Material unlitMaterial = Tofu.AssetManager.Load<Material>("ModelRendererUnlit");
+        var unlitMaterial = Tofu.AssetManager.Load<Material>("ModelRendererUnlit");
         ModelRendererX.Material = unlitMaterial;
         ModelRendererY.Material = unlitMaterial;
         ModelRendererXy.Material = unlitMaterial;
@@ -102,107 +207,12 @@ public class TransformHandle : Component, IComponentUpdateable
         // }
     }
 
-    public void Update()
-    {
-        if (Camera.MainCamera.IsOrthographic)
-            Transform.LocalScale = Vector3.One * Camera.MainCamera.OrthographicSize * 1.5f;
-        else
-            Transform.LocalScale = Vector3.One *
-                                   Vector3.Distance(Transform.WorldPosition,
-                                       Camera.MainCamera.Transform.WorldPosition) * 0.2f;
-
-        if (Tofu.MouseInput.ButtonReleased())
-        {
-            CurrentAxisSelected = null;
-            Clicked = false;
-        }
-
-        if (Tofu.MouseInput.ButtonPressed()) Clicked = false;
-        // if (MousePickingSystem.HoveredRenderer == ModelRendererX)
-        // {
-        // 	CurrentAxisSelected = Axis.X;
-        // 	Clicked = true;
-        // }
-        //
-        // if (MousePickingSystem.HoveredRenderer == ModelRendererY)
-        // {
-        // 	CurrentAxisSelected = Axis.Y;
-        // 	Clicked = true;
-        // }
-        //
-        // if (MousePickingSystem.HoveredRenderer == ModelRendererZ)
-        // {
-        // 	CurrentAxisSelected = Axis.Z;
-        // 	Clicked = true;
-        // }
-        //
-        // if (MousePickingSystem.HoveredRenderer == ModelRendererXy)
-        // {
-        // 	CurrentAxisSelected = Axis.Xy;
-        // 	Clicked = true;
-        // }
-        if (Tofu.MouseInput.IsButtonDown() && GameObject.ActiveInHierarchy && Clicked)
-        {
-            SetSelectedObjectRigidbodyAwake(false);
-            // Move(Tofu.MouseInput.WorldDelta);
-            Move(Tofu.MouseInput
-                .ScreenDelta); // /_selectedTransforms[0].GetComponent<Renderer>().DistanceFromCamera * 1000f);
-        }
-        else
-        {
-            SetSelectedObjectRigidbodyAwake(true);
-        }
-
-        if (ObjectSelected == false || _selectedTransforms == null)
-            //GameObject.Active = false;
-            return;
-
-        Transform.WorldPosition = GetCenterOfSelection();
-        Transform.Rotation = GetRotationOfSelection();
-        // if (MousePickingSystem.HoveredRenderer == ModelRendererX || CurrentAxisSelected == Axis.X)
-        // {
-        // 	ModelRendererX.Color = Color.WhiteSmoke;
-        // }
-        // else
-        // {
-        // 	ModelRendererX.Color = Color.Red;
-        // }
-        //
-        // if (MousePickingSystem.HoveredRenderer == ModelRendererY || CurrentAxisSelected == Axis.Y)
-        // {
-        // 	ModelRendererY.Color = Color.WhiteSmoke;
-        // }
-        // else
-        // {
-        // 	ModelRendererY.Color = Color.YellowGreen;
-        // }
-        //
-        // if (MousePickingSystem.HoveredRenderer == ModelRendererXy || CurrentAxisSelected == Axis.Xy)
-        // {
-        // 	ModelRendererXy.Color = Color.WhiteSmoke;
-        // }
-        // else
-        // {
-        // 	ModelRendererXy.Color = Color.Gold;
-        // }
-        //
-        // if (MousePickingSystem.HoveredRenderer == ModelRendererZ || CurrentAxisSelected == Axis.Z)
-        // {
-        // 	ModelRendererZ.Color = Color.WhiteSmoke;
-        // }
-        // else
-        // {
-        // 	ModelRendererZ.Color = Color.Cyan;
-        // }
-
-    }
-
     public void Move(Vector3 deltaVector)
     {
         // return;
         deltaVector = Camera.MainCamera.ScreenToWorld(deltaVector) * 100 * 5000;
 
-        Vector3 moveVector = Vector3.Zero;
+        var moveVector = Vector3.Zero;
         switch (CurrentAxisSelected)
         {
             case Axis.X:
@@ -224,9 +234,11 @@ public class TransformHandle : Component, IComponentUpdateable
 
         // _selectedTransform.LocalPosition = _selectedTransform.TranslateWorldToLocal(_selectedTransform.WorldPosition);
 
-        for (int i = 0; i < _selectedTransforms.Count; i++)
+        for (var i = 0; i < _selectedTransforms.Count; i++)
+        {
             _selectedTransforms[i].LocalPosition +=
                 moveVector / (_selectedTransforms[i].Parent?.WorldScale ?? Vector3.One);
+        }
 
         // todo just do the position delta move in transform component for (int i = 0; i < selectedTransform.children.Count; i++) selectedTransform.children[i].position += moveVector;
 
@@ -244,7 +256,9 @@ public class TransformHandle : Component, IComponentUpdateable
         // }
 
         if (KeyboardInput.IsKeyDown(Keys.LeftShift))
-            for (int i = 0; i < _selectedTransforms.Count; i++)
+        {
+            for (var i = 0; i < _selectedTransforms.Count; i++)
+            {
                 switch (CurrentAxisSelected)
                 {
                     case Axis.X:
@@ -260,6 +274,8 @@ public class TransformHandle : Component, IComponentUpdateable
                         _selectedTransforms[i].LocalPosition = Tofu.MouseInput.WorldPosition.TranslateToGrid(50);
                         break;
                 }
+            }
+        }
     }
 
     public void SelectObjects(List<int> selection)
@@ -281,13 +297,16 @@ public class TransformHandle : Component, IComponentUpdateable
         }
 
         _selectedTransforms = new List<Transform>();
-        for (int i = 0; i < selection.Count; i++)
+        for (var i = 0; i < selection.Count; i++)
         {
-            GameObject go = Tofu.SceneManager.CurrentScene.GetGameObject(selection[i]);
+            var go = Tofu.SceneManager.CurrentScene.GetGameObject(selection[i]);
 
             if (go != null)
             {
-                if (go.Transform.IsInCanvas == true) Transform.MockIsInCanvas = true;
+                if (go.Transform.IsInCanvas)
+                {
+                    Transform.MockIsInCanvas = true;
+                }
 
                 _selectedTransforms.Add(go.Transform);
             }
@@ -299,8 +318,11 @@ public class TransformHandle : Component, IComponentUpdateable
 
     private Vector3 GetCenterOfSelection()
     {
-        Vector3 accumulatedPos = Vector3.Zero;
-        for (int i = 0; i < _selectedTransforms.Count; i++) accumulatedPos += _selectedTransforms[i].WorldPosition;
+        var accumulatedPos = Vector3.Zero;
+        for (var i = 0; i < _selectedTransforms.Count; i++)
+        {
+            accumulatedPos += _selectedTransforms[i].WorldPosition;
+        }
 
         accumulatedPos = accumulatedPos / _selectedTransforms.Count;
         return accumulatedPos;
@@ -308,8 +330,11 @@ public class TransformHandle : Component, IComponentUpdateable
 
     private Vector3 GetRotationOfSelection()
     {
-        Vector3 rotation = Vector3.Zero;
-        if (_selectedTransforms.Count > 0) rotation = _selectedTransforms[0].Rotation;
+        var rotation = Vector3.Zero;
+        if (_selectedTransforms.Count > 0)
+        {
+            rotation = _selectedTransforms[0].Rotation;
+        }
 
         return rotation;
     }

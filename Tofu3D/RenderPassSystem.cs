@@ -2,6 +2,7 @@ namespace Tofu3D.Rendering;
 
 public class RenderPassSystem
 {
+    private bool _initialized;
     // we need to first render the whole scene for directional light
     // next pass-opaques we now have a shadowmap so we drav the scene normally
     // post process pass to post process scene
@@ -10,7 +11,7 @@ public class RenderPassSystem
     // should be reorderable and being able to add new pass easily...
     // every pass will have its own texture
     // in editor we will be able to visualise all the passes
-    public List<RenderPass> RenderPasses { get; private set; } = new();
+    public List<RenderPass> RenderPasses { get; } = new();
 
     public RenderPassType CurrentRenderPassType { get; private set; } = RenderPassType.DirectionalLightShadowDepth;
 
@@ -19,7 +20,6 @@ public class RenderPassSystem
         get { return _renderPasses[^1].PassRenderTexture; }
     } //*/ { get; private set; } //= new RenderTexture(new Vector2(100, 100), true, false);
 
-    private bool _initialized;
     public Vector2 ViewSize { get; private set; } = new(100, 100);
     public bool CanRender => Camera.MainCamera?.IsActive == true && _initialized;
 
@@ -33,9 +33,12 @@ public class RenderPassSystem
     public void RebuildRenderTextures(Vector2 viewSize)
     {
         ViewSize = viewSize;
-        FinalRenderTexture = new RenderTexture(ViewSize, true, false);
+        FinalRenderTexture = new RenderTexture(ViewSize, true);
 
-        foreach (RenderPass renderPass in RenderPasses) renderPass.Initialize();
+        foreach (var renderPass in RenderPasses)
+        {
+            renderPass.Initialize();
+        }
 
         _initialized = true;
     }
@@ -62,40 +65,53 @@ public class RenderPassSystem
 
     public void RemoveRender(RenderPassType type, Action render)
     {
-        foreach (RenderPass renderPass in RenderPasses)
+        foreach (var renderPass in RenderPasses)
+        {
             if (renderPass.RenderPassType == type)
             {
                 renderPass.RemoveRender(render);
                 return;
             }
+        }
     }
 
     public void RegisterRender(RenderPassType type, Action render)
     {
-        foreach (RenderPass renderPass in RenderPasses)
+        foreach (var renderPass in RenderPasses)
+        {
             if (renderPass.RenderPassType == type)
             {
                 renderPass.RegisterRender(render);
                 return;
             }
+        }
     }
 
     public void RenderAllPasses()
     {
-        if (CanRender == false) return;
+        if (CanRender == false)
+        {
+            return;
+        }
 
         // GL.Enable(EnableCap.Blend);
 
-        foreach (RenderPass renderPass in RenderPasses)
+        foreach (var renderPass in RenderPasses)
         {
-            if (renderPass.CanRender() == false) continue;
+            if (renderPass.CanRender() == false)
+            {
+                continue;
+            }
 
             renderPass.Clear();
         }
 
-        foreach (RenderPass renderPass in RenderPasses)
+        foreach (var renderPass in RenderPasses)
         {
-            if (renderPass.CanRender() == false) continue;
+            if (renderPass.CanRender() == false)
+            {
+                continue;
+            }
 
             CurrentRenderPassType = renderPass.RenderPassType;
 
@@ -110,13 +126,22 @@ public class RenderPassSystem
     {
         FinalRenderTexture.Clear();
 
-        if (CanRender == false) return;
-
-        foreach (RenderPass renderPass in RenderPasses)
+        if (CanRender == false)
         {
-            if (renderPass.RenderPassType == RenderPassType.DirectionalLightShadowDepth) continue;
+            return;
+        }
 
-            if (renderPass.CanRender() == false) continue;
+        foreach (var renderPass in RenderPasses)
+        {
+            if (renderPass.RenderPassType == RenderPassType.DirectionalLightShadowDepth)
+            {
+                continue;
+            }
+
+            if (renderPass.CanRender() == false)
+            {
+                continue;
+            }
 
             renderPass.RenderToRenderTexture(FinalRenderTexture, FramebufferAttachment.Color);
         }

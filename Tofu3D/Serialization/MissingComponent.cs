@@ -4,20 +4,21 @@ namespace Scripts;
 
 public class MissingComponent : Component
 {
-    public string _oldComponentXMLString;
     public string _oldComponentTypeName;
+    public string _oldComponentXMLString;
 
-    public void SetMissingComponentXML(string oldComponentTypeName,string xml)
+    public void SetMissingComponentXML(string oldComponentTypeName, string xml)
     {
         _oldComponentTypeName = oldComponentTypeName;
         _oldComponentXMLString = xml;
     }
+
     public string GetXMLOfThisComponent()
     {
         using var stream = new StringWriter();
-        var serializer = new XmlSerializer(typeof(MissingComponent), new Type[]{typeof(MissingComponent)});
+        var serializer = new XmlSerializer(typeof(MissingComponent), new[] { typeof(MissingComponent) });
         serializer.Serialize(stream, this);
-        string xml = stream.ToString();
+        var xml = stream.ToString();
         var a = xml.IndexOf("<MissingComponent");
 
         xml = xml.Substring(xml.IndexOf("<MissingComponent"));
@@ -25,9 +26,10 @@ public class MissingComponent : Component
         // string aaaa =
         //     "<MissingComponent xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">";
         // string bbbb = "<Component xsi:type=\"MissingComponent\">\n";  
-        string aaaa =
+        var aaaa =
             "<MissingComponent";
-        string bbbb = "<Component xsi:type=\"MissingComponent\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"";
+        var bbbb =
+            "<Component xsi:type=\"MissingComponent\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"";
         // string bbbb = "<Component xsi:type=\"MissingComponent\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"";
 
         if (xml.Contains("xmlns:xsi") == false)
@@ -40,8 +42,8 @@ public class MissingComponent : Component
             xml = xml.Replace(aaaa, bbbb);
         }
 
-        string x = "</MissingComponent>";
-        string y = "</Component>";
+        var x = "</MissingComponent>";
+        var y = "</Component>";
         xml = xml.Replace(x, y);
         return xml;
     }

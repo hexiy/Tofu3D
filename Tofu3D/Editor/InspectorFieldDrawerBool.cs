@@ -8,7 +8,7 @@ public class InspectorFieldDrawerBool : InspectorFieldDrawable<bool>
     {
         ImGui.SameLine(ImGui.GetWindowWidth() - ImGui.GetContentRegionAvail().X / 2);
 
-        bool fieldValue = (bool)info.GetValue(componentInspectorData.Inspectable);
+        var fieldValue = (bool)info.GetValue(componentInspectorData.Inspectable);
 
         if (ImGui.Checkbox("", ref fieldValue))
         {

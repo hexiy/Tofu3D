@@ -2,12 +2,12 @@ namespace Tofu3D.Rendering;
 
 public class RenderPassOpaques : RenderPass
 {
-    public static RenderPassOpaques I { get; private set; }
-
     public RenderPassOpaques() : base(RenderPassType.Opaques)
     {
         I = this;
     }
+
+    public static RenderPassOpaques I { get; private set; }
 
     public override void Initialize()
     {
@@ -24,8 +24,8 @@ public class RenderPassOpaques : RenderPass
 
         GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassZPrePass.I.PassRenderTexture.Id);
         GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, PassRenderTexture.Id);
-        int sizeX = (int)PassRenderTexture.Size.X;
-        int sizeY = (int)PassRenderTexture.Size.Y;
+        var sizeX = (int)PassRenderTexture.Size.X;
+        var sizeY = (int)PassRenderTexture.Size.Y;
         GL.BlitFramebuffer(0, 0, sizeX, sizeY, 0, 0, sizeX, sizeY, ClearBufferMask.DepthBufferBit,
             BlitFramebufferFilter.Nearest);
 

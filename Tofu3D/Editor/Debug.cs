@@ -18,11 +18,17 @@ public class Debug
 
     private static void Log(string message, LogCategory logCategory = LogCategory.Info)
     {
-        if (Paused) return;
+        if (Paused)
+        {
+            return;
+        }
 
-        if (Global.EditorAttached == false) return;
+        if (Global.EditorAttached == false)
+        {
+            return;
+        }
 
-        StackTrace stackTrace = StackTraceFactory.GetStackTrace();
+        var stackTrace = StackTraceFactory.GetStackTrace();
         LogEntry logEntry = new()
         {
             Message = message, StackTrace = stackTrace,
@@ -34,7 +40,10 @@ public class Debug
 
             //Tofu.Window.Title = logs.Last();
 
-            if (_logs.Count > Limit + 1) _logs.RemoveAt(0);
+            if (_logs.Count > Limit + 1)
+            {
+                _logs.RemoveAt(0);
+            }
         }
     }
 
@@ -47,6 +56,7 @@ public class Debug
     {
         Log(message.ToString(), logCategory);
     }
+
     public static void LogDebug(object message, LogCategory logCategory = LogCategory.Info)
     {
         if (Global.Debug)
@@ -54,11 +64,15 @@ public class Debug
             Log(message.ToString(), logCategory);
         }
     }
+
     public static void StartGraphTimer(string timerName,
         DebugGraphTimer.SourceGroup group = DebugGraphTimer.SourceGroup.None, TimeSpan? redline = null,
         int drawOrder = 0)
     {
-        if (Global.EditorAttached == false) return;
+        if (Global.EditorAttached == false)
+        {
+            return;
+        }
 
         if (GraphTimers.ContainsKey(timerName))
         {
@@ -78,7 +92,10 @@ public class Debug
 
     public static void StartTimer(string timerName)
     {
-        if (Global.EditorAttached == false) return;
+        if (Global.EditorAttached == false)
+        {
+            return;
+        }
 
         lock (SimpleTimers)
         {
@@ -98,37 +115,59 @@ public class Debug
 
     public static void StatAddValue(string statName, float value)
     {
-        if (Global.EditorAttached == false) return;
+        if (Global.EditorAttached == false)
+        {
+            return;
+        }
 
         if (AdditiveStats.ContainsKey(statName) == false)
+        {
             AdditiveStats[statName] = value;
+        }
         else
+        {
             AdditiveStats[statName] += value;
+        }
     }
 
     public static void StatSetAdditiveValue(string statName, float value)
     {
-        if (Global.EditorAttached == false) return;
+        if (Global.EditorAttached == false)
+        {
+            return;
+        }
 
 
-        if (AdditiveStats.ContainsKey(statName) == false) AdditiveStats[statName] = 0;
+        if (AdditiveStats.ContainsKey(statName) == false)
+        {
+            AdditiveStats[statName] = 0;
+        }
 
         AdditiveStats[statName] = value;
     }
 
     public static void StatSetValue(string statName, object value)
     {
-        if (Global.EditorAttached == false) return;
+        if (Global.EditorAttached == false)
+        {
+            return;
+        }
 
 
-        if (Stats.ContainsKey(statName) == false) Stats[statName] = "";
+        if (Stats.ContainsKey(statName) == false)
+        {
+            Stats[statName] = "";
+        }
 
         Stats[statName] = value.ToString();
     }
 
     public static void EndGraphTimer(string timerName)
     {
-        if (Global.EditorAttached == false) return;
+        if (Global.EditorAttached == false)
+        {
+            return;
+        }
 
         /*
         if (Timers.ContainsKey(timerName) == false)
@@ -141,43 +180,59 @@ public class Debug
 
     public static float EndTimer(string timerName)
     {
-        if (Global.EditorAttached == false) return -1;
+        if (Global.EditorAttached == false)
+        {
+            return -1;
+        }
 
         SimpleTimers[timerName].Stop();
-        float msDuration = (float)Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
+        var msDuration = (float)Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
         return msDuration;
     }
 
     public static void EndAndLogGraphTimer(string timerName)
     {
-        if (Global.EditorAttached == false) return;
+        if (Global.EditorAttached == false)
+        {
+            return;
+        }
 
         EndGraphTimer(timerName);
-        float msDuration = (float)Math.Round(GraphTimers[timerName].Stopwatch.Elapsed.TotalMilliseconds, 2);
+        var msDuration = (float)Math.Round(GraphTimers[timerName].Stopwatch.Elapsed.TotalMilliseconds, 2);
 
         StatSetValue(timerName, msDuration);
     }
 
     public static void EndAndStatTimer(string timerName, bool additiveStat = false)
     {
-        if (Global.EditorAttached == false) return;
+        if (Global.EditorAttached == false)
+        {
+            return;
+        }
 
         EndTimer(timerName);
-        float msDuration = (float)Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
+        var msDuration = (float)Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
 
 
         if (additiveStat)
+        {
             StatAddValue(timerName, msDuration);
+        }
         else
+        {
             StatSetValue(timerName, msDuration);
+        }
     }
 
     public static float EndAndLogTimer(string timerName)
     {
-        if (Global.EditorAttached == false) return -1;
+        if (Global.EditorAttached == false)
+        {
+            return -1;
+        }
 
         EndTimer(timerName);
-        float msDuration = (float)Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
+        var msDuration = (float)Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
 
         Log($"{timerName} : {msDuration} ms", LogCategory.Timer);
         return msDuration;
@@ -186,13 +241,21 @@ public class Debug
     public static void ResetTimers()
     {
         //Timers.Clear();
-        foreach (KeyValuePair<string, DebugGraphTimer> timerPair in GraphTimers)
+        foreach (var timerPair in GraphTimers)
+        {
             if (timerPair.Value.Stopwatch.IsRunning == false)
+            {
                 timerPair.Value.Stopwatch.Reset();
+            }
+        }
 
-        foreach (KeyValuePair<string, Stopwatch> timerPair in SimpleTimers)
+        foreach (var timerPair in SimpleTimers)
+        {
             if (timerPair.Value.IsRunning == false)
+            {
                 timerPair.Value.Reset();
+            }
+        }
     }
 
     public static void ClearAdditiveStats()
@@ -206,8 +269,5 @@ public class Debug
         _logs.Clear();
     }
 
-    public static ref List<LogEntry> GetLogsRef()
-    {
-        return ref _logs;
-    }
+    public static ref List<LogEntry> GetLogsRef() => ref _logs;
 }

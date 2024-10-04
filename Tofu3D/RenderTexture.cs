@@ -2,22 +2,21 @@
 
 public class RenderTexture
 {
+    private readonly Material _depthRenderTextureMaterial;
+
+    private readonly bool _hasColorAttachment;
+    private readonly bool _hasDepthAttachment;
+    private readonly bool _hasStencil;
+
+    private bool _isGrayscale;
+    private readonly Material _renderTextureMaterial;
+    public Color ClearColor = new(0, 0, 0, 0);
     public int ColorAttachment = -1;
     public int DepthAttachment = -1;
     public int Id;
 
-    private bool _hasColorAttachment;
-    private bool _hasDepthAttachment;
-    private bool _hasStencil;
-
-    private bool _isGrayscale;
-
     // public Material RenderTextureMaterial;
     public Vector2 Size;
-    public Color ClearColor = new(0, 0, 0, 0);
-
-    private Material _depthRenderTextureMaterial;
-    private Material _renderTextureMaterial;
 
     public RenderTexture(Vector2 size, bool colorAttachment = false, bool depthAttachment = false,
         bool hasStencil = false, bool isGrayscale = false)
@@ -31,7 +30,7 @@ public class RenderTexture
         _isGrayscale = isGrayscale;
         //GL.DeleteFramebuffers(1, ref id);
         // CreateMaterial();
-        Invalidate(true);
+        Invalidate();
     }
 
     /*void CreateMaterial()
@@ -43,13 +42,19 @@ public class RenderTexture
 
     public void Invalidate(bool generateBrandNewTextures = true)
     {
-        if (generateBrandNewTextures) Id = GL.GenFramebuffer();
+        if (generateBrandNewTextures)
+        {
+            Id = GL.GenFramebuffer();
+        }
 
         GL.BindFramebuffer(FramebufferTarget.Framebuffer, Id);
 
         if (_hasColorAttachment)
         {
-            if (generateBrandNewTextures) ColorAttachment = GL.GenTexture();
+            if (generateBrandNewTextures)
+            {
+                ColorAttachment = GL.GenTexture();
+            }
 
             //GL.CreateTextures(TextureTarget.Texture2D, 1, out colorAttachment);
             GL.BindTexture(TextureTarget.Texture2D, ColorAttachment);
@@ -75,16 +80,23 @@ public class RenderTexture
 
         if (_hasDepthAttachment)
         {
-            if (generateBrandNewTextures) DepthAttachment = GL.GenTexture();
+            if (generateBrandNewTextures)
+            {
+                DepthAttachment = GL.GenTexture();
+            }
 
             GL.BindTexture(TextureTarget.Texture2D, DepthAttachment);
 
             if (_hasStencil)
+            {
                 GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Depth24Stencil8, (int)Size.X, (int)Size.Y,
                     0, PixelFormat.DepthStencil, PixelType.UnsignedInt248, (IntPtr)null);
+            }
             else
+            {
                 GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.DepthComponent, (int)Size.X, (int)Size.Y,
                     0, PixelFormat.DepthComponent, PixelType.Float, (IntPtr)null);
+            }
 
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter,
                 (int)TextureMinFilter.Nearest);
@@ -118,7 +130,9 @@ public class RenderTexture
         // GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int) TextureWrapMode.ClampToBorder);
         // GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapR, (int) TextureWrapMode.ClampToBorder);
         if (GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer) != FramebufferErrorCode.FramebufferComplete)
+        {
             Debug.Log("RENDER TEXTURE ERROR");
+        }
 
         GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
     }

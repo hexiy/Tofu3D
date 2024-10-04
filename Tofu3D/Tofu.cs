@@ -35,11 +35,6 @@ public static class Tofu
     // INPUT
     public static MouseInput MouseInput;
 
-    static Tofu()
-    {
-        // I = this;
-    }
-
     public static void Launch()
     {
         SystemConfig.Configure();

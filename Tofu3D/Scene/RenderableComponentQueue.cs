@@ -3,7 +3,7 @@ namespace Tofu3D;
 public class RenderableComponentQueue : IComponentQueue
 {
     // bool _renderQueueChanged;
-    private List<IComponentRenderable> _components = new();
+    private readonly List<IComponentRenderable> _components = new();
 
     // public List<Renderer> RenderQueueWorld { get; private set; } = new();
     // public List<Renderer> RenderQueueUI { get; private set; } = new();
@@ -15,6 +15,22 @@ public class RenderableComponentQueue : IComponentQueue
 
         Scene.SceneStartedDisposing += OnSceneStartedDisposing;
         Scene.SceneDisposed += OnSceneDisposed;
+    }
+
+    public void OnComponentEnabled(Component component)
+    {
+        if (component is IComponentRenderable componentRenderable)
+        {
+            _components.Add(componentRenderable);
+        }
+    }
+
+    public void OnComponentDisabled(Component component)
+    {
+        if (component is IComponentRenderable componentRenderable)
+        {
+            _components.Remove(componentRenderable);
+        }
     }
 
     private void OnSceneDisposed()
@@ -45,21 +61,13 @@ public class RenderableComponentQueue : IComponentQueue
         _components.Remove(component);
     }
 
-    public void OnComponentEnabled(Component component)
-    {
-        if (component is IComponentRenderable componentRenderable) _components.Add(componentRenderable);
-    }
-
-    public void OnComponentDisabled(Component component)
-    {
-        if (component is IComponentRenderable componentRenderable) _components.Remove(componentRenderable);
-    }
-
     public void RenderWorld()
     {
-        for (int i = 0; i < _components.Count; i++)
+        for (var i = 0; i < _components.Count; i++)
             // RenderQueueWorld[i].UpdateMvp();
+        {
             _components[i].Render();
+        }
     }
 // public void Update()
 // {

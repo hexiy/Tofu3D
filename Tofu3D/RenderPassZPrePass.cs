@@ -2,12 +2,12 @@
 
 public class RenderPassZPrePass : RenderPass
 {
-    public static RenderPassZPrePass I { get; private set; }
-
     public RenderPassZPrePass() : base(RenderPassType.ZPrePass)
     {
         I = this;
     }
+
+    public static RenderPassZPrePass I { get; private set; }
 
     public override void Initialize()
     {
@@ -43,6 +43,6 @@ public class RenderPassZPrePass : RenderPass
             return;
         }
 
-        PassRenderTexture = new RenderTexture(Tofu.RenderPassSystem.ViewSize, false, true, false);
+        PassRenderTexture = new RenderTexture(Tofu.RenderPassSystem.ViewSize, false, true);
     }
 }

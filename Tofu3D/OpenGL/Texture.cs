@@ -3,15 +3,13 @@
 [Serializable]
 public class Texture : Asset<Texture>
 {
-    public int TextureId => Handle.Id;
-
-    [XmlIgnore]
-    public bool Loaded;
-
-    public Vector2 Size;
+    [XmlIgnore] public bool Loaded;
 
     [XmlIgnore] // ignore for now
     public TextureLoadSettings LoadSettings;
+
+    public Vector2 Size;
+    public int TextureId => Handle.Id;
 
     public void Delete()
     {

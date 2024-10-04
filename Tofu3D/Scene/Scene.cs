@@ -4,13 +4,20 @@ namespace Tofu3D;
 
 public class Scene
 {
-    private SceneLightingManager _sceneLightingManager;
-    public SceneFogManager SceneFogManager { get; private set; }
+    public static Action SceneStartedDisposing = () => { };
+    public static Action SceneDisposed = () => { };
+    public static Action<Component> ComponentAwoken = component => { };
+    public static Action<Component> ComponentRemoved = component => { };
+    public static Action<Component> ComponentEnabled = component => { };
+
+    public static Action<Component> ComponentDisabled = component => { };
+
+    // public static Action SceneModified = () => { };
+    public static Action AnySceneLoaded = () => { };
 
     private RenderableComponentQueue _renderableComponentQueue;
+    private SceneLightingManager _sceneLightingManager;
     private UpdateableComponentQueue _updateableComponentQueue;
-
-    public TransformHandle TransformHandle;
 
     // List<GameObject> _gameObjects = new();
     public List<GameObject> GameObjects = new();
@@ -32,18 +39,10 @@ public class Scene
         }
     }*/
     public string ScenePath = "";
+
+    public TransformHandle TransformHandle;
+    public SceneFogManager SceneFogManager { get; private set; }
     public string SceneName => Path.GetFileName(ScenePath);
-
-    public static Action SceneStartedDisposing = () => { };
-    public static Action SceneDisposed = () => { };
-    public static Action<Component> ComponentAwoken = component => { };
-    public static Action<Component> ComponentRemoved = component => { };
-    public static Action<Component> ComponentEnabled = component => { };
-
-    public static Action<Component> ComponentDisabled = component => { };
-
-    // public static Action SceneModified = () => { };
-    public static Action AnySceneLoaded = () => { };
     private Camera Camera => Camera.MainCamera;
 
     public void Initialize()
@@ -66,7 +65,10 @@ public class Scene
         // 	GameObjects[0].Destroy();
         // }
 
-        foreach (GameObject gameObject in GameObjects) gameObject.SetActive(false);
+        foreach (var gameObject in GameObjects)
+        {
+            gameObject.SetActive(false);
+        }
         // while (GameObjects.Count > 0)
         // {
         // 	GameObjects[0].Destroy();
@@ -98,7 +100,7 @@ public class Scene
     {
         if (FindComponent(typeof(Camera)) == null)
         {
-            GameObject camGo = GameObject.Create(name: "Camera");
+            var camGo = GameObject.Create(name: "Camera");
             camGo.AddComponent<Camera>();
             camGo.Awake();
         }
@@ -107,7 +109,7 @@ public class Scene
     private void CreateGrid()
     {
         return;
-        GameObject gridGameObject = GameObject.Create(silent: true);
+        var gridGameObject = GameObject.Create(silent: true);
         gridGameObject.AddComponent<Grid>();
         gridGameObject.DynamicallyCreated = true;
         gridGameObject.AlwaysUpdate = true;
@@ -118,7 +120,7 @@ public class Scene
 
     private void CreateTransformHandle()
     {
-        GameObject transformHandleGameObject = GameObject.Create(silent: true);
+        var transformHandleGameObject = GameObject.Create(silent: true);
         TransformHandle = transformHandleGameObject.AddComponent<TransformHandle>();
         transformHandleGameObject.DynamicallyCreated = true;
         transformHandleGameObject.AlwaysUpdate = true;
@@ -231,9 +233,12 @@ public class Scene
         SceneFile sf = new();
         sf.Components = new List<Component>();
         sf.GameObjects = new List<GameObject>();
-        for (int i = 0; i < GameObjects.Count; i++)
+        for (var i = 0; i < GameObjects.Count; i++)
         {
-            if (GameObjects[i].DynamicallyCreated) continue;
+            if (GameObjects[i].DynamicallyCreated)
+            {
+                continue;
+            }
 
             sf.Components.AddRange(GameObjects[i].Components);
             sf.GameObjects.Add(GameObjects[i]);
@@ -245,10 +250,13 @@ public class Scene
 
     public GameObject FindComponent(Type type)
     {
-        foreach (GameObject gameObject in GameObjects)
+        foreach (var gameObject in GameObjects)
         {
-            Component bl = gameObject.GetComponent(type);
-            if (bl != null) return gameObject;
+            var bl = gameObject.GetComponent(type);
+            if (bl != null)
+            {
+                return gameObject;
+            }
         }
 
         return null;
@@ -256,10 +264,13 @@ public class Scene
 
     public T FindComponent<T>(bool ignoreInactive = false) where T : Component
     {
-        foreach (GameObject gameObject in GameObjects)
+        foreach (var gameObject in GameObjects)
         {
             Component bl = gameObject.GetComponent<T>();
-            if (bl != null && ((ignoreInactive && bl.IsActive) || ignoreInactive == false)) return (T)bl;
+            if (bl != null && ((ignoreInactive && bl.IsActive) || ignoreInactive == false))
+            {
+                return (T)bl;
+            }
         }
 
         return null;
@@ -268,12 +279,15 @@ public class Scene
     public List<T> FindComponentsInScene<T>(bool ignoreInactive = false) where T : Component
     {
         List<T> components = new();
-        foreach (GameObject gameObject in GameObjects)
+        foreach (var gameObject in GameObjects)
         {
-            T bl = gameObject.GetComponent<T>();
+            var bl = gameObject.GetComponent<T>();
             if (bl != null)
             {
-                if (ignoreInactive == true && (bl.Enabled == false || bl.GameObject.ActiveSelf == false)) continue;
+                if (ignoreInactive && (bl.Enabled == false || bl.GameObject.ActiveSelf == false))
+                {
+                    continue;
+                }
 
                 components.Add(bl);
             }
@@ -284,9 +298,13 @@ public class Scene
 
     public GameObject GetGameObject(int id)
     {
-        for (int i = 0; i < GameObjects.Count; i++)
+        for (var i = 0; i < GameObjects.Count; i++)
+        {
             if (GameObjects[i].Id == id)
+            {
                 return GameObjects[i];
+            }
+        }
 
         return null;
     }
@@ -294,9 +312,13 @@ public class Scene
     public List<GameObject> GetGameObjects(List<int> ids)
     {
         List<GameObject> foundGameObjects = new();
-        for (int i = 0; i < GameObjects.Count; i++)
+        for (var i = 0; i < GameObjects.Count; i++)
+        {
             if (ids.Contains(GameObjects[i].Id))
+            {
                 foundGameObjects.Add(GameObjects[i]);
+            }
+        }
 
         return foundGameObjects;
     }
@@ -326,7 +348,10 @@ public class Scene
 
     public void OnGameObjectDestroyed(GameObject gameObject)
     {
-        if (GameObjects.Contains(gameObject)) GameObjects.Remove(gameObject);
+        if (GameObjects.Contains(gameObject))
+        {
+            GameObjects.Remove(gameObject);
+        }
 
         // SceneModified.Invoke();
     }

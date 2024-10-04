@@ -8,24 +8,31 @@ namespace Tofu3D;
 [ExecuteInEditMode]
 public class AudioSource : Component, IComponentUpdateable
 {
-    [Show]
-    public AudioClip Clip;
-
-    [SliderF(0, 1)]
-    public float Volume;
-
-    [XmlIgnore]
-    public Action PlaySoundBtn;
-
-    [XmlIgnore]
-    public Action StopSoundBtn;
+    public static AudioEngine AudioEngine = AudioEngine.CreateDefault(new AudioEngineOptions(48000, 2));
+    private MemoryStream _audioMemoryStream;
+    private bool _initialized;
+    private string _loadedAudioFileName = "";
 
     private SoundStream _soundStream;
-    public static AudioEngine AudioEngine = AudioEngine.CreateDefault(new AudioEngineOptions(48000, 2));
-    private bool _initialized = false;
-    private MemoryStream _audioMemoryStream;
-    private string _loadedAudioFileName = "";
     private ThreadStart _threadStart;
+
+    [Show] public AudioClip Clip;
+
+    [XmlIgnore] public Action PlaySoundBtn;
+
+    [XmlIgnore] public Action StopSoundBtn;
+
+    [SliderF(0, 1)] public float Volume;
+
+    public void Update()
+    {
+        if (_soundStream == null)
+        {
+            return;
+        }
+
+        _soundStream.Volume = Volume;
+    }
 
     public override void Awake()
     {
@@ -41,7 +48,7 @@ public class AudioSource : Component, IComponentUpdateable
     {
         _threadStart = () =>
         {
-            byte[] bytes = File.ReadAllBytes(Clip.Path);
+            var bytes = File.ReadAllBytes(Clip.Path);
             _loadedAudioFileName = Clip.Path;
             if (_audioMemoryStream != null)
             {
@@ -66,7 +73,10 @@ public class AudioSource : Component, IComponentUpdateable
 
     public void PlaySound()
     {
-        if (_soundStream?.State == SoundStreamState.Playing) return;
+        if (_soundStream?.State == SoundStreamState.Playing)
+        {
+            return;
+        }
 
         if (Clip.Path != _loadedAudioFileName)
         {
@@ -82,22 +92,21 @@ public class AudioSource : Component, IComponentUpdateable
 
     public void PauseSound()
     {
-        if (_initialized == false) return;
+        if (_initialized == false)
+        {
+            return;
+        }
 
         _soundStream.State = SoundStreamState.Paused;
     }
 
     public void StopSound()
     {
-        if (_initialized == false) return;
+        if (_initialized == false)
+        {
+            return;
+        }
 
         _soundStream.State = SoundStreamState.Paused;
-    }
-
-    public void Update()
-    {
-        if (_soundStream == null) return;
-
-        _soundStream.Volume = Volume;
     }
 }

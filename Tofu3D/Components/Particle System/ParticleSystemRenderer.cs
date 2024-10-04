@@ -10,7 +10,7 @@
 
     private void SetParticlesInstancingDataDirty()
     {
-        foreach (Particle particle in _particleSystem?.Particles)
+        foreach (var particle in _particleSystem?.Particles)
         {
             particle.InstancingData.InstancingDataDirty = true;
             particle.InstancingData.MatrixDirty = true;
@@ -19,8 +19,11 @@
 
     private void RemoveAllParticlesFromInstancedRenderingSystem()
     {
-        foreach (Particle particle in _particleSystem?.Particles)
-            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData, remove: true, vertexBufferStructureType: VertexBufferStructureType.Model);
+        foreach (var particle in _particleSystem?.Particles)
+        {
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData, remove: true,
+                vertexBufferStructureType: VertexBufferStructureType.Model);
+        }
     }
 
     public override void OnEnabled()
@@ -40,22 +43,36 @@
     public override void SetDefaultMaterial()
     {
         if (Material?.Path.Length == 0 || Material == null)
+        {
             Material = Tofu.AssetManager.Load<Material>("ModelRendererInstanced");
+        }
         else
+        {
             Material = Tofu.AssetManager.Load<Material>(Material.Path);
+        }
 
         if (Mesh?.Path.Length > 0)
+        {
             Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
+        }
         else
+        {
             Mesh = null;
+        }
     }
 
     public override void Render()
     {
         if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
-            InstancingData.MatrixDirty == false) return;
+            InstancingData.MatrixDirty == false)
+        {
+            return;
+        }
 
-        if (Mesh == null) return;
+        if (Mesh == null)
+        {
+            return;
+        }
 
         /*
          bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
@@ -75,18 +92,22 @@
         }*/
 
 
-        for (int i = 0; i < _particleSystem.Particles.Count; i++)
+        for (var i = 0; i < _particleSystem.Particles.Count; i++)
         {
-            Particle particle = _particleSystem.Particles[i];
+            var particle = _particleSystem.Particles[i];
 
 
-            Matrix4x4 particleModelMatrix = Matrix4x4.CreateScale(particle.Size * (particle.Visible ? 1 : 0)) *
-                                            Matrix4x4.CreateTranslation(particle.WorldPosition * Transform.WorldScale);
+            var particleModelMatrix = Matrix4x4.CreateScale(particle.Size * (particle.Visible ? 1 : 0)) *
+                                      Matrix4x4.CreateTranslation(particle.WorldPosition * Transform.WorldScale);
 
-            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData, vertexBufferStructureType: VertexBufferStructureType.Model, particleModelMatrix,
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData,
+                VertexBufferStructureType.Model, particleModelMatrix,
                 color: particle.Color);
 
-            if (particle.Visible == false) _particleSystem.DisableParticle(i);
+            if (particle.Visible == false)
+            {
+                _particleSystem.DisableParticle(i);
+            }
             // return;
         }
         // bool updatedData = Tofu.InstancedRenderingSystem.UpdateObjectData(this,);

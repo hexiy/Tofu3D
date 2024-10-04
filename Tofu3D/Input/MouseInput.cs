@@ -1,45 +1,31 @@
-﻿using ImGuiNET;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Tofu3D;
 
-public partial class MouseInput
+public class MouseInput
 {
     public delegate void MouseEvent();
+
+    private readonly List<Func<bool>> _passThroughEdgesConditions = new();
 
     //
     // Summary:
     //     Specifies the buttons of a mouse.
     private float _sceneViewPadding = 20;
 
+    private bool _skipOneFrame;
+
+
+    public bool IsMouseInSceneView = false;
+
     public Vector2 ScreenDelta { get; private set; }
 
     /// <summary>
-    /// Screen position of mouse
+    ///     Screen position of mouse
     /// </summary>
     public Vector2 PositionInView { get; private set; } = Vector2.Zero;
 
     public Vector2 PositionInWindow { get; private set; } = Vector2.Zero;
-
-    private List<Func<bool>> _passThroughEdgesConditions = new();
-
-    public void RegisterPassThroughEdgesCondition(Func<bool> func)
-    {
-        _passThroughEdgesConditions.Add(func);
-    }
-
-    /// <summary>
-    /// Returns true if any condition returns true
-    /// </summary>
-    /// <returns></returns>
-    private bool EvaluateAllPassThroughEdgesConditions()
-    {
-        foreach (var condition in _passThroughEdgesConditions)
-            if (condition.Invoke() == true)
-                return true;
-
-        return false;
-    }
 
     // public static EventHandler<Func<bool>> PassThroughEdgesConditions;
 
@@ -48,9 +34,11 @@ public partial class MouseInput
         get
         {
             if (Camera.MainCamera.IsOrthographic)
+            {
                 return ScreenDelta * Camera.MainCamera.OrthographicSize;
-            else
-                return ScreenDelta;
+            }
+
+            return ScreenDelta;
         }
     }
 
@@ -60,52 +48,69 @@ public partial class MouseInput
     {
         get
         {
-            if (IsMouseInSceneView == false) return 0;
+            if (IsMouseInSceneView == false)
+            {
+                return 0;
+            }
 
             return Tofu.Window.MouseState.ScrollDelta.Y;
         }
     }
 
-    public bool IsButtonDown(MouseButtons mouseButton = MouseButtons.Left)
+    public void RegisterPassThroughEdgesCondition(Func<bool> func)
     {
+        _passThroughEdgesConditions.Add(func);
+    }
+
+    /// <summary>
+    ///     Returns true if any condition returns true
+    /// </summary>
+    /// <returns></returns>
+    private bool EvaluateAllPassThroughEdgesConditions()
+    {
+        foreach (var condition in _passThroughEdgesConditions)
+        {
+            if (condition.Invoke())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool IsButtonDown(MouseButtons mouseButton = MouseButtons.Left) =>
         // if (IsMouseInSceneView() == false)
         // {
         // 	return false;
         // }
-
-        return Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton);
-    }
+        Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton);
 
     public bool IsButtonUp(MouseButtons mouseButton = MouseButtons.Left)
     {
-        if (IsMouseInSceneView == false) return false;
+        if (IsMouseInSceneView == false)
+        {
+            return false;
+        }
 
         return Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton) == false;
     }
 
-    public bool ButtonPressed(MouseButtons mouseButton = MouseButtons.Left)
-    {
+    public bool ButtonPressed(MouseButtons mouseButton = MouseButtons.Left) =>
         // if (IsMouseInSceneView() == false)
         // {
         // 	return false;
         // }
+        Tofu.Window.MouseState.WasButtonDown((MouseButton)mouseButton) == false &&
+        Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton);
 
-        return Tofu.Window.MouseState.WasButtonDown((MouseButton)mouseButton) == false &&
-               Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton);
-    }
-
-    public bool ButtonReleased(MouseButtons mouseButton = MouseButtons.Left)
-    {
+    public bool ButtonReleased(MouseButtons mouseButton = MouseButtons.Left) =>
         // if (IsMouseInSceneView() == false) commented 2023/05/04
         // {
         // 	return false;
         // }
-
-        return Tofu.Window.MouseState.WasButtonDown((MouseButton)mouseButton) &&
-               Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton) == false;
-    }
-
-    private bool _skipOneFrame = false;
+        Tofu.Window.MouseState.WasButtonDown((MouseButton)mouseButton) &&
+        Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton) == false;
 
     public void Update()
     {
@@ -115,14 +120,14 @@ public partial class MouseInput
             return;
         }
 
-        bool allowPassThroughEdges =
+        var allowPassThroughEdges =
             EvaluateAllPassThroughEdgesConditions(); // uh so how does this work, do i get true when all of them are true or what
 
         // Debug.StatSetValue("MouseInput AllowPassthroughEdges", $"AllowPassthroughEdges {allowPassThroughEdges}");
-        MouseState mouseState = Tofu.Window.MouseState;
+        var mouseState = Tofu.Window.MouseState;
         Vector2 mousePosCorrected = new(mouseState.Position.X, Tofu.Window.Size.Y - mouseState.Position.Y);
         // Debug.StatSetValue("mousePos", $"MousePos:{mousePosCorrected}");
-        bool passedThroughEdge = false;
+        var passedThroughEdge = false;
         if (allowPassThroughEdges)
         {
             if (mousePosCorrected.X < 1 && ScreenDelta.X < 0)
@@ -150,7 +155,10 @@ public partial class MouseInput
             }
 
 
-            if (passedThroughEdge) mouseState = Tofu.Window.MouseState;
+            if (passedThroughEdge)
+            {
+                mouseState = Tofu.Window.MouseState;
+            }
         }
 
         ScreenDelta = new Vector2(mouseState.Delta.X, -mouseState.Delta.Y);
@@ -171,12 +179,12 @@ public partial class MouseInput
 
 
         PositionInWindow = ImGuiHelper.FlipYToGoodSpace(Tofu.Window.MousePosition);
-        PositionInView = new Vector2(PositionInWindow.X- Tofu.Editor.SceneViewPosition.X,
+        PositionInView = new Vector2(PositionInWindow.X - Tofu.Editor.SceneViewPosition.X,
             PositionInWindow.Y - Tofu.Editor.SceneViewPosition.Y);
 
-        Debug.StatSetValue("MousePos",$"Mouse Position In Editor:{PositionInWindow}");
-        Debug.StatSetValue("PositionInView",$"PositionInView:{PositionInView}");
-        Debug.StatSetValue("SceneViewPos",$"SceneViewPos:{Tofu.Editor.SceneViewPosition}");
+        Debug.StatSetValue("MousePos", $"Mouse Position In Editor:{PositionInWindow}");
+        Debug.StatSetValue("PositionInView", $"PositionInView:{PositionInView}");
+        Debug.StatSetValue("SceneViewPos", $"SceneViewPos:{Tofu.Editor.SceneViewPosition}");
         // Debug.StatSetValue("MousePosFlipped",$"mouse pos flipped:{ImGuiHelper.FlipYToGoodSpace(Tofu.Window.MousePosition)}");
         // Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
         // Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
@@ -184,7 +192,4 @@ public partial class MouseInput
         // Debug.StatSetValue("SceneViewPosition", $"sceneViewPosition: {Tofu.Editor.SceneViewPosition}");
         // Debug.StatSetValue("imgui mouse pos", $"imgui mmouse pos: {ImGui.GetMousePos()}");
     }
-
-
-    public bool IsMouseInSceneView = false;
 }

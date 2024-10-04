@@ -1,5 +1,9 @@
 public class DemoButton : Component, IComponentUpdateable
 {
+    public void Update()
+    {
+    }
+
     public override void Awake()
     {
         base.Awake();
@@ -10,9 +14,5 @@ public class DemoButton : Component, IComponentUpdateable
         GetComponent<Button>().OnReleasedAction += DemoManager.I.NextButtonClicked;
 
         base.Start();
-    }
-
-    public void Update()
-    {
     }
 }

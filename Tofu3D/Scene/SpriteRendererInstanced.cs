@@ -19,14 +19,14 @@ public class SpriteRendererInstanced : Renderer
         // }
         // if (Mesh)
         // {
-            Mesh = new();
-            Mesh.VertexBufferDataLength = 24;
-            Mesh.VerticesCount = 6;
+        Mesh = new Mesh();
+        Mesh.VertexBufferDataLength = 24;
+        Mesh.VerticesCount = 6;
 
-            BufferFactory.CreateSpriteRendererBuffer(ref Mesh.Vao);
+        BufferFactory.CreateSpriteRendererBuffer(ref Mesh.Vao);
 
-            
-            // Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
+
+        // Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
         // }
         base.Awake();
     }
@@ -41,7 +41,8 @@ public class SpriteRendererInstanced : Renderer
 
     public override void OnDisabled()
     {
-        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, VertexBufferStructureType.Quad, remove: true);
+        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, VertexBufferStructureType.Quad,
+            remove: true);
 
         base.OnDisabled();
     }
@@ -83,13 +84,26 @@ public class SpriteRendererInstanced : Renderer
     public override void Render()
     {
         if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
-            InstancingData.MatrixDirty == false) return;
+            InstancingData.MatrixDirty == false)
+        {
+            return;
+        }
 
-        if (BoxShape == null) return;
+        if (BoxShape == null)
+        {
+            return;
+        }
 
-        if (Mesh == null) return;
+        if (Mesh == null)
+        {
+            return;
+        }
 
-        bool updatedData = Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, VertexBufferStructureType.Quad);
-        if (updatedData) InstancingData.InstancingDataDirty = false;
+        var updatedData =
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, VertexBufferStructureType.Quad);
+        if (updatedData)
+        {
+            InstancingData.InstancingDataDirty = false;
+        }
     }
 }

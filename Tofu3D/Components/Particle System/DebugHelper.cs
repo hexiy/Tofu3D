@@ -15,7 +15,7 @@ public static class DebugHelper
             // System.Diagnostics.StackFrame[] frames = b.GetFrames();
             // string callerName = frames[0].GetMethod().DeclaringType.Name;
 
-            string className = Path.GetFileNameWithoutExtension(filePath);
+            var className = Path.GetFileNameWithoutExtension(filePath);
             Debug.StatAddValue($"Draw Calls [{className}]", 1);
         }
     }
@@ -30,7 +30,7 @@ public static class DebugHelper
             // System.Diagnostics.StackFrame[] frames = b.GetFrames();
             // string callerName = frames[0].GetMethod().DeclaringType.Name;
 
-            string className = Path.GetFileNameWithoutExtension(filePath);
+            var className = Path.GetFileNameWithoutExtension(filePath);
             Debug.StatAddValue($"Total vertices [{className}]:", verticesCount);
         }
     }

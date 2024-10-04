@@ -5,16 +5,21 @@ namespace Scripts;
 [ExecuteInEditMode]
 public class Transform : Component
 {
-    [XmlIgnore]
-    [Hide]
-    public List<Transform> Children = new();
-
-    [Hide]
-    public List<int> ChildrenIDs = new();
-
-    public override bool CanBeDisabled => false;
-
     private Vector3? _lastFramePosition;
+
+    private Vector3 _localPosition;
+
+    private Vector3 _localScale = Vector3.One;
+
+    private Vector3 _rotation = Vector3.Zero;
+
+    private Vector3 _worldPosition;
+
+    [XmlIgnore] [Hide] public List<Transform> Children = new();
+
+    [Hide] public List<int> ChildrenIDs = new();
+
+    public bool MockIsInCanvas = false;
     //[Hide] public Vector3 localPosition { get { return position - GetParentPosition(); } set { position = GetParentPosition() + value; } }
     //[Hide] public Vector3 initialAngleDifferenceFromParent = Vector3.Zero;
     //[Hide] public Vector3 up { get { return position + TransformVector(new Vector3(0, 1, 0)); } }
@@ -29,15 +34,13 @@ public class Transform : Component
             localPosition = value;
         }
     }*/
-    [XmlIgnore]
-    public Transform Parent;
+    [XmlIgnore] public Transform Parent;
 
-    [Hide]
-    public int ParentId = -1;
+    [Hide] public int ParentId = -1;
 
     public Vector3 Pivot = new(0, 0, 0);
 
-    private Vector3 _worldPosition;
+    public override bool CanBeDisabled => false;
 
     [Hide]
     public Vector3 WorldPosition
@@ -47,14 +50,16 @@ public class Transform : Component
         {
             _worldPosition = value;
 
-            Vector3 calculatedLocalPos = TranslateWorldToLocal(_worldPosition);
-            if (_localPosition != calculatedLocalPos) _localPosition = calculatedLocalPos;
+            var calculatedLocalPos = TranslateWorldToLocal(_worldPosition);
+            if (_localPosition != calculatedLocalPos)
+            {
+                _localPosition = calculatedLocalPos;
+            }
+
             //LocalPosition = calculatedLocalPos;
             UpdateChildrenPositions();
         }
     }
-
-    private Vector3 _localPosition;
 
     public Vector3 LocalPosition
     {
@@ -63,19 +68,24 @@ public class Transform : Component
         {
             _localPosition = value;
 
-            if (GameObject?.Transform == null) return;
+            if (GameObject?.Transform == null)
+            {
+                return;
+            }
 
-            Vector3 calculatedWorldPos = TranslateLocalToWorld(_localPosition);
+            var calculatedWorldPos = TranslateLocalToWorld(_localPosition);
             // local to world is okay
             //Vector3 calculatedLocalPos = TranslateWorldToLocal(calculatedWorldPos);
 
-            if (_worldPosition != calculatedWorldPos) _worldPosition = calculatedWorldPos;
+            if (_worldPosition != calculatedWorldPos)
+            {
+                _worldPosition = calculatedWorldPos;
+            }
+
             // WorldPosition = calculatedWorldPos;
             UpdateChildrenPositions();
         }
     }
-
-    private Vector3 _localScale = Vector3.One;
 
     // [Hide]
     public Vector3 LocalScale
@@ -94,8 +104,8 @@ public class Transform : Component
     {
         get
         {
-            Transform pr = Parent;
-            Vector3 scl = Transform.LocalScale;
+            var pr = Parent;
+            var scl = Transform.LocalScale;
 
             while (pr != null)
             {
@@ -107,8 +117,8 @@ public class Transform : Component
         }
         set
         {
-            Transform pr = Parent;
-            Vector3 parentsScale = Vector3.One;
+            var pr = Parent;
+            var parentsScale = Vector3.One;
             while (pr != null)
             {
                 parentsScale = parentsScale * pr.LocalScale;
@@ -129,15 +139,11 @@ public class Transform : Component
         }
     }
 
-    public bool MockIsInCanvas = false;
-
     [Show]
     internal bool IsInCanvas => MockIsInCanvas; /*
     {
         get { return Transform.Parent?.GetComponent<Canvas>() != null || MockIsInCanvas; }
     }*/
-
-    private Vector3 _rotation = Vector3.Zero;
 
     public Vector3 Rotation
     {
@@ -145,22 +151,19 @@ public class Transform : Component
         set => _rotation = new Vector3(value.X % 360, value.Y % 360, value.Z % 360);
     }
 
-    [Hide]
-    public Vector3 WorldRotation => Rotation + GetParentsRotation();
+    [Hide] public Vector3 WorldRotation => Rotation + GetParentsRotation();
 
-    private Vector3 GetParentsRotation()
-    {
-        return Parent?.Rotation ?? Vector3.Zero;
-    }
+    [Hide] public Vector3 Forward => Transform.TransformVectorToWorldSpaceVector(Vector3.Forward);
 
-    [Hide]
-    public Vector3 Forward => Transform.TransformVectorToWorldSpaceVector(Vector3.Forward);
+    private Vector3 GetParentsRotation() => Parent?.Rotation ?? Vector3.Zero;
 
     private void UpdateChildrenPositions()
     {
-        for (int i = 0; i < Children.Count; i++)
+        for (var i = 0; i < Children.Count; i++)
             //Children[i].LocalPosition = Children[i].TranslateWorldToLocal(Children[i].WorldPosition);
+        {
             Children[i].WorldPosition = Children[i].TranslateLocalToWorld(Children[i].LocalPosition);
+        }
         // setting WorldPosition sets _localPosition too, which just fucks it up
     }
 
@@ -179,9 +182,13 @@ public class Transform : Component
             // PARENT_SCALE 2
             // CHILD_POS 0
             // CHILD_WORLD = 0   +    3*2          =   6
+        {
             worldPos = localPos * Parent.WorldScale + Parent.WorldPosition;
+        }
         else
+        {
             worldPos = localPos;
+        }
 
         return worldPos;
     }
@@ -197,7 +204,9 @@ public class Transform : Component
             // 0      =       12   -  (3*4)
             // 1 = 13 - (3*4)
             // LOCAL_POS = WORLD_POS - (PARENT_POS * PARENT_SCALE)
+        {
             localPos = worldPos - Parent.LocalScale * Parent._worldPosition;
+        }
         // child moves further with bigger parent position it shouldnt be like that... right?
         // PARENT_POS 10
         // PARENT_SCALE 2
@@ -205,7 +214,9 @@ public class Transform : Component
         // LOCAL_POS should be 3 ??? or 3/2 shenanigans, try both(2/3 too)
         //localPos = (worldPos - Parent._worldPosition);
         else
+        {
             localPos = worldPos;
+        }
 
         return localPos;
     }
@@ -249,19 +260,23 @@ public class Transform : Component
 
     public void RemoveChild(int id)
     {
-        for (int i = 0; i < Children.Count; i++)
+        for (var i = 0; i < Children.Count; i++)
+        {
             if (Children[i].GameObjectId == id)
             {
                 Children.RemoveAt(i);
                 break;
             }
+        }
 
-        for (int i = 0; i < ChildrenIDs.Count; i++)
+        for (var i = 0; i < ChildrenIDs.Count; i++)
+        {
             if (ChildrenIDs[i] == id)
             {
                 ChildrenIDs.RemoveAt(i);
                 break;
             }
+        }
     }
 
     public void SetParent(Transform par, bool updateTransform = false)
@@ -290,7 +305,10 @@ public class Transform : Component
 
     public Vector3 GetParentPosition()
     {
-        if (Parent != null) return Parent.Transform.WorldPosition;
+        if (Parent != null)
+        {
+            return Parent.Transform.WorldPosition;
+        }
 
         return Vector3.Zero;
     }
@@ -299,10 +317,10 @@ public class Transform : Component
     {
         // v1 = new Vector3(-v1.X, -v1.Y, -v1.Z);
 
-        Matrix4x4 transformationMatrix = -Matrix4x4.CreateTranslation(v1)
-                                         * Matrix4x4.CreateRotationX(v2.X / 180 * Mathf.Pi)
-                                         * Matrix4x4.CreateRotationY(v2.Y / 180 * Mathf.Pi)
-                                         * Matrix4x4.CreateRotationZ(v2.Z / 180 * Mathf.Pi);
+        var transformationMatrix = -Matrix4x4.CreateTranslation(v1)
+                                   * Matrix4x4.CreateRotationX(v2.X / 180 * Mathf.Pi)
+                                   * Matrix4x4.CreateRotationY(v2.Y / 180 * Mathf.Pi)
+                                   * Matrix4x4.CreateRotationZ(v2.Z / 180 * Mathf.Pi);
 
         Vector3 x = transformationMatrix.Translation;
         return x;
@@ -321,10 +339,10 @@ public class Transform : Component
         // return x;
         // dir = new Vector3(-dir.X, -dir.Y, -dir.Z);
         //dir = dir.Normalized();
-        Matrix4x4 transformationMatrix = Matrix4x4.CreateTranslation(dir)
-                                         * Matrix4x4.CreateRotationX(Transform.WorldRotation.X / 180 * Mathf.Pi)
-                                         * Matrix4x4.CreateRotationY(Transform.WorldRotation.Y / 180 * Mathf.Pi)
-                                         * Matrix4x4.CreateRotationZ(Transform.WorldRotation.Z / 180 * Mathf.Pi);
+        var transformationMatrix = Matrix4x4.CreateTranslation(dir)
+                                   * Matrix4x4.CreateRotationX(Transform.WorldRotation.X / 180 * Mathf.Pi)
+                                   * Matrix4x4.CreateRotationY(Transform.WorldRotation.Y / 180 * Mathf.Pi)
+                                   * Matrix4x4.CreateRotationZ(Transform.WorldRotation.Z / 180 * Mathf.Pi);
 
         Vector3 x = transformationMatrix.Translation;
 

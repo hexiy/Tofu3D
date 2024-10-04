@@ -17,23 +17,32 @@ public class EditorPanelProfiler : EditorPanel
 
     public override void Draw()
     {
-        if (Active == false) return;
+        if (Active == false)
+        {
+            return;
+        }
 
         SetWindow();
 
         ImGui.Text($"GameObjects in scene: {Tofu.SceneManager.CurrentScene.GameObjects.Count}");
 
-        foreach (KeyValuePair<string, string> stat in Debug.Stats) ImGui.Text($"{stat.Value}");
-
-        foreach (KeyValuePair<string, float> stat in Debug.AdditiveStats) ImGui.Text($"{stat.Key} : {stat.Value}");
-
-        DebugGraphTimer.SourceGroup currentSourceGroup = DebugGraphTimer.SourceGroup.None;
-
-        foreach (KeyValuePair<string, DebugGraphTimer> timerPair in Debug.GraphTimers)
+        foreach (var stat in Debug.Stats)
         {
-            float msDuration = (float)Math.Round(timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds, 2);
+            ImGui.Text($"{stat.Value}");
+        }
+
+        foreach (var stat in Debug.AdditiveStats)
+        {
+            ImGui.Text($"{stat.Key} : {stat.Value}");
+        }
+
+        var currentSourceGroup = DebugGraphTimer.SourceGroup.None;
+
+        foreach (var timerPair in Debug.GraphTimers)
+        {
+            var msDuration = (float)Math.Round(timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds, 2);
             // float msDuration = (float) timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds;
-            float msDurationSlower = timerPair.Value.Sample10FramesAgo;
+            var msDurationSlower = timerPair.Value.Sample10FramesAgo;
             timerPair.Value.AddSample(msDuration);
 
             if (timerPair.Value.Group != currentSourceGroup)
@@ -44,19 +53,28 @@ public class EditorPanelProfiler : EditorPanel
                 ImGui.SetWindowFontScale(1);
             }
 
-            bool redlineHasValue = timerPair.Value.Redline.HasValue;
+            var redlineHasValue = timerPair.Value.Redline.HasValue;
             if (redlineHasValue)
+            {
                 ImGui.PushStyleColor(ImGuiCol.Text,
                     Color.Lerp(Color.Black, Color.Red, Mathf.Clamp(msDuration / timerPair.Value.Redline.Value, 0, 1))
                         .ToVector4());
+            }
 
 
-            if (redlineHasValue) ImGui.PushStyleVar(ImGuiStyleVar.DisabledAlpha, 1);
+            if (redlineHasValue)
+            {
+                ImGui.PushStyleVar(ImGuiStyleVar.DisabledAlpha, 1);
+            }
+
             // dont change alpha, we only BeginDisable so we dont see any hover toolips
-            bool disableHover = ImGui.IsMouseClicked(ImGuiMouseButton.Left) == false;
-            if (disableHover) ImGui.BeginDisabled();
+            var disableHover = ImGui.IsMouseClicked(ImGuiMouseButton.Left) == false;
+            if (disableHover)
+            {
+                ImGui.BeginDisabled();
+            }
 
-            bool clickedOnAnyControl = false;
+            var clickedOnAnyControl = false;
             // ImGui.PushStyleColor(ImGuiCol.PlotHistogram, Color.DarkRed.ToVector4());
 
 
@@ -77,7 +95,7 @@ public class EditorPanelProfiler : EditorPanel
             }
             else
             {
-                int plotWidth = (int)ImGui.GetContentRegionAvail().X;
+                var plotWidth = (int)ImGui.GetContentRegionAvail().X;
                 // if (timerPair.Value.Samples.Length != plotWidth && plotWidth > 0)
                 // {
                 // timerPair.Value.SetSamplesBufferSize((uint) plotWidth);
@@ -94,15 +112,27 @@ public class EditorPanelProfiler : EditorPanel
 
             clickedOnAnyControl |= ImGui.IsItemClicked();
 
-            if (disableHover) ImGui.EndDisabled();
+            if (disableHover)
+            {
+                ImGui.EndDisabled();
+            }
 
-            if (redlineHasValue) ImGui.PopStyleVar();
+            if (redlineHasValue)
+            {
+                ImGui.PopStyleVar();
+            }
 
-            if (clickedOnAnyControl) timerPair.Value.Collapsed = !timerPair.Value.Collapsed;
+            if (clickedOnAnyControl)
+            {
+                timerPair.Value.Collapsed = !timerPair.Value.Collapsed;
+            }
 
             ImGui.Separator();
 
-            if (redlineHasValue) ImGui.PopStyleColor();
+            if (redlineHasValue)
+            {
+                ImGui.PopStyleColor();
+            }
 
             // float timerDuration = (float) timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds;
             // ImGui.PushStyleColor(ImGuiCol.Text, Color.Lerp(Color.White, Color.Red, Mathf.Clamp(timerDuration / 40 - 1, 0, 1)).ToVector4());

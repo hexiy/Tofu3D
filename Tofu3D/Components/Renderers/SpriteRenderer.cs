@@ -4,8 +4,7 @@ namespace Tofu3D;
 
 public class SpriteRenderer : TextureRenderer
 {
-    [Hide]
-    public virtual bool Batched { get; set; } = false;
+    [Hide] public virtual bool Batched { get; set; } = false;
 
     public override void Awake()
     {
@@ -19,7 +18,7 @@ public class SpriteRenderer : TextureRenderer
         }
         else
         {
-            TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
+            var textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
             Texture = Tofu.AssetManager.Load<Texture>(Texture.Path, textureLoadSettings);
         }
 
@@ -39,9 +38,13 @@ public class SpriteRenderer : TextureRenderer
         if (BoxShape != null)
         {
             if (Transform.IsInCanvas)
+            {
                 BoxShape.Size = Texture.Size;
+            }
             else
+            {
                 BoxShape.Size = Texture.Size;
+            }
         }
     }
 
@@ -70,9 +73,11 @@ public class SpriteRenderer : TextureRenderer
             //                               new Vector2(GetComponent<BoxShape>().Size.X * Transform.WorldScale.X,
             //                                           GetComponent<BoxShape>().Size.Y * Transform.WorldScale.Y),
             //                               Transform.Rotation.Z, Color);
+        {
             return;
+        }
 
-        bool drawOutline = GameObject.Selected && false;
+        var drawOutline = GameObject.Selected && false;
         if (drawOutline)
         {
             GL.StencilOp(StencilOp.Keep, StencilOp.Keep, StencilOp.Replace);
@@ -84,10 +89,14 @@ public class SpriteRenderer : TextureRenderer
         Material.Shader.SetVector2("u_resolution", Texture.Size);
         if (Transform.IsInCanvas)
             // Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrix() * Matrix4x4.CreateScale(1f/Units.OneWorldUnit));
+        {
             Material.Shader.SetMatrix4X4("u_mvp",
                 GetModelMatrixForCanvasObject()); // * Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
+        }
         else
+        {
             Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+        }
 
         Material.Shader.SetColor("u_rendererColor", Color);
         Material.Shader.SetVector2("u_tiling", Tiling);
@@ -96,9 +105,13 @@ public class SpriteRenderer : TextureRenderer
         Tofu.ShaderManager.BindVertexArray(Material.Vao);
 
         if (Material.Additive)
+        {
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusConstantColor);
+        }
         else
+        {
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+        }
 
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
@@ -118,9 +131,13 @@ public class SpriteRenderer : TextureRenderer
             Tofu.ShaderManager.UseShader(Material.Shader);
 
             if (Transform.IsInCanvas)
+            {
                 Material.Shader.SetMatrix4X4("u_mvp", GetCanvasMvpForOutline());
+            }
             else
+            {
                 Material.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
+            }
 
             Material.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
 
@@ -143,7 +160,6 @@ public class SpriteRenderer : TextureRenderer
 }
 
 // STENCIL working
-
 /*
 public override void Render()
         {

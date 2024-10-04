@@ -40,10 +40,14 @@ internal class ImGuiTexture : IDisposable
 
         if (generateMipmaps)
             // Calculate how many levels to generate for this texture
+        {
             MipmapLevels = (int)Math.Floor(Math.Log(Math.Max(Width, Height), 2));
+        }
         else
             // There is only one level
+        {
             MipmapLevels = 1;
+        }
 
         Util.CheckGlError("Clear");
 
@@ -51,7 +55,7 @@ internal class ImGuiTexture : IDisposable
         GL.TextureStorage2D(GlTexture, MipmapLevels, InternalFormat, Width, Height);
         Util.CheckGlError("Storage2d");
 
-        BitmapData data = image.LockBits(new Rectangle(0, 0, Width, Height),
+        var data = image.LockBits(new Rectangle(0, 0, Width, Height),
             ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
 
         GL.TextureSubImage2D(GlTexture, 0, 0, 0, Width, Height, OpenTK.Graphics.OpenGL4.PixelFormat.Bgra,
@@ -60,7 +64,10 @@ internal class ImGuiTexture : IDisposable
 
         image.UnlockBits(data);
 
-        if (generateMipmaps) GL.GenerateTextureMipmap(GlTexture);
+        if (generateMipmaps)
+        {
+            GL.GenerateTextureMipmap(GlTexture);
+        }
 
         GL.TextureParameter(GlTexture, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
         Util.CheckGlError("WrapS");
@@ -104,7 +111,10 @@ internal class ImGuiTexture : IDisposable
         GL.TextureSubImage2D(GlTexture, 0, 0, 0, Width, Height, OpenTK.Graphics.OpenGL4.PixelFormat.Bgra,
             PixelType.UnsignedByte, data);
 
-        if (generateMipmaps) GL.GenerateTextureMipmap(GlTexture);
+        if (generateMipmaps)
+        {
+            GL.GenerateTextureMipmap(GlTexture);
+        }
 
         SetWrap(TextureCoordinate.S, TextureWrapMode.Repeat);
         SetWrap(TextureCoordinate.T, TextureWrapMode.Repeat);

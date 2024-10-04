@@ -5,14 +5,14 @@ namespace Tofu3D;
 public class InspectorFieldDrawerEnum : InspectorFieldDrawable<Enum>
 {
     // private bool _popupOpened = false;
-    private int _selectedEnumValueIndex = 0;
+    private int _selectedEnumValueIndex;
 
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        Enum fieldValue = GetValue(info, componentInspectorData);
+        var fieldValue = GetValue(info, componentInspectorData);
 
-        string[] enumValuesNames = Enum.GetNames(info.FieldOrPropertyType);
-        bool clicked = ImGui.Combo(fieldValue.ToString(), ref _selectedEnumValueIndex, enumValuesNames,
+        var enumValuesNames = Enum.GetNames(info.FieldOrPropertyType);
+        var clicked = ImGui.Combo(fieldValue.ToString(), ref _selectedEnumValueIndex, enumValuesNames,
             enumValuesNames.Length);
         if (clicked)
         {

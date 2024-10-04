@@ -5,31 +5,90 @@ namespace Scripts;
 
 public class Component : IDestroyable, ICloneable
 {
+    private bool _enabled = true;
+
+    private readonly Dictionary<string, MethodInfo> _executeInEditModeMethods = new();
+
+    [Hide] public bool AllowMultiple = true;
+
+    [XmlIgnore] [DefaultValue(false)] public bool Awoken;
+
+    [XmlIgnore] public GameObject GameObject;
+
+    public int GameObjectId;
+    public bool Started;
+
+    public Component()
+    {
+        var info = GetType().GetMethod("Update");
+        if (info == null)
+        {
+            return;
+        }
+
+        CanExecuteUpdateInEditMode = GetType().GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
+        CanExecuteUpdateInEditMode = CanExecuteUpdateInEditMode ||
+                                     info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
+    }
 #if DEBUG
-    public float UpdateTime { get; set; }// how long in ms it took to update this gameobject
+    public float UpdateTime { get; set; } // how long in ms it took to update this gameobject
 #endif
-    
-    private Dictionary<string, MethodInfo> _executeInEditModeMethods = new();
+
+    [XmlIgnore] public bool CanExecuteUpdateInEditMode { get; }
+
+    public bool Enabled
+    {
+        get => _enabled;
+        set => SetEnabled(value);
+    }
+
+    public virtual bool CanBeDisabled => true;
+
+    public bool IsActive => GameObject.ActiveInHierarchy && Enabled;
 
     [XmlIgnore]
-    public bool CanExecuteUpdateInEditMode { get; private set; } = false;
+    public Transform Transform
+
+    {
+        get => GameObject.Transform;
+        set => GameObject.Transform = value;
+    }
+
+    public object Clone() => MemberwiseClone();
+
+    /*object memberwiseClone = this.MemberwiseClone();
+        Component clone = (Component) memberwiseClone;
+
+        clone.GameObjectId = -1;
+        clone.GameObject = null;
+
+        return (object) clone;*/
+    public virtual void OnDestroyed()
+    {
+        Scene.ComponentRemoved(this);
+    }
 
     public bool CallComponentExecuteInEditModeMethod(string methodName)
     {
-        if (methodName == "Update") return CanExecuteUpdateInEditMode;
+        if (methodName == "Update")
+        {
+            return CanExecuteUpdateInEditMode;
+        }
 
-        Type type = GetType();
-        string typeString = type.ToString();
-        string typeAndMethodString = string.Concat(typeString, methodName);
+        var type = GetType();
+        var typeString = type.ToString();
+        var typeAndMethodString = string.Concat(typeString, methodName);
 
-        bool methodHasExecuteInEditModeAttrib = false;
+        var methodHasExecuteInEditModeAttrib = false;
         if (_executeInEditModeMethods.ContainsKey(typeAndMethodString) == false)
         {
             methodHasExecuteInEditModeAttrib = type.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
 
-            MethodInfo info = type.GetMethod(methodName);
+            var info = type.GetMethod(methodName);
             if (methodHasExecuteInEditModeAttrib == false)
+            {
                 methodHasExecuteInEditModeAttrib = info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
+            }
 
             _executeInEditModeMethods[typeAndMethodString] = methodHasExecuteInEditModeAttrib ? info : null;
         }
@@ -58,70 +117,29 @@ public class Component : IDestroyable, ICloneable
         return false;
     }
 
-    public Component()
+    private void SetEnabled(bool tgl)
     {
-        MethodInfo info = GetType().GetMethod("Update");
-        if (info == null)
+        if (CanBeDisabled == false && tgl == false)
         {
             return;
         }
-        CanExecuteUpdateInEditMode = GetType().GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
-        CanExecuteUpdateInEditMode = CanExecuteUpdateInEditMode ||
-                                     info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
-    }
 
-    [Hide]
-    public bool AllowMultiple = true;
-
-    [XmlIgnore]
-    [DefaultValue(false)]
-    public bool Awoken;
-
-    private bool _enabled = true;
-
-    public bool Enabled
-    {
-        get => _enabled;
-        set => SetEnabled(value);
-    }
-
-    public virtual bool CanBeDisabled => true;
-
-    private void SetEnabled(bool tgl)
-    {
-        if (CanBeDisabled == false && tgl == false) return;
-
-        bool changedState = Enabled != tgl;
+        var changedState = Enabled != tgl;
         _enabled = tgl;
         if (changedState)
         {
             if (Enabled)
+            {
                 OnEnabled();
+            }
             else
+            {
                 OnDisabled();
+            }
         }
     }
 
-    public bool IsActive => GameObject.ActiveInHierarchy && Enabled;
-
-    [XmlIgnore]
-    public GameObject GameObject;
-
-    public int GameObjectId;
-    public bool Started;
-
-    [XmlIgnore]
-    public Transform Transform
-
-    {
-        get => GameObject.Transform;
-        set => GameObject.Transform = value;
-    }
-
-    public T GetComponent<T>(int? index = null) where T : Component
-    {
-        return GameObject.GetComponent<T>(index);
-    }
+    public T GetComponent<T>(int? index = null) where T : Component => GameObject.GetComponent<T>(index);
 
     public TComponent AddComponent<TComponent>() where TComponent : Component, new()
     {
@@ -130,21 +148,12 @@ public class Component : IDestroyable, ICloneable
         return GameObject.AddComponent<TComponent>();
     }
 
-    public bool HasComponent<T>() where T : Component
-    {
-        return GameObject.HasComponent<T>();
-    }
+    public bool HasComponent<T>() where T : Component => GameObject.HasComponent<T>();
 
-    public List<T> GetComponents<T>() where T : Component
-    {
-        return GameObject.GetComponents<T>();
-    }
+    public List<T> GetComponents<T>() where T : Component => GameObject.GetComponents<T>();
 
-// Doesnt respect rotation
-    public Vector3 TransformToWorld(Vector3 localPoint)
-    {
-        return localPoint + Transform.WorldPosition;
-    }
+    // Doesnt respect rotation
+    public Vector3 TransformToWorld(Vector3 localPoint) => localPoint + Transform.WorldPosition;
 
     public virtual void Awake()
     {
@@ -158,7 +167,7 @@ public class Component : IDestroyable, ICloneable
     }
 
     /// <summary>
-    /// Called when component/gameobject is enabled(including creation after Awake() and Start()
+    ///     Called when component/gameobject is enabled(including creation after Awake() and Start()
     /// </summary>
     public virtual void OnEnabled()
     {
@@ -166,16 +175,11 @@ public class Component : IDestroyable, ICloneable
     }
 
     /// <summary>
-    /// Called when component/gameobject is disabled
+    ///     Called when component/gameobject is disabled
     /// </summary>
     public virtual void OnDisabled()
     {
         Scene.ComponentDisabled(this);
-    }
-
-    public virtual void OnDestroyed()
-    {
-        Scene.ComponentRemoved(this);
     }
 
     public virtual void EditorUpdate()
@@ -216,28 +220,21 @@ public class Component : IDestroyable, ICloneable
 
     public int CompareTo(bool other)
     {
-        if (this == null) return 0;
+        if (this == null)
+        {
+            return 0;
+        }
 
         return 1;
     }
 
     public static implicit operator bool(Component instance)
     {
-        if (instance == null) return false;
+        if (instance == null)
+        {
+            return false;
+        }
 
         return true;
-    }
-
-    public object Clone()
-    {
-        return MemberwiseClone();
-
-        /*object memberwiseClone = this.MemberwiseClone();
-        Component clone = (Component) memberwiseClone;
-
-        clone.GameObjectId = -1;
-        clone.GameObject = null;
-
-        return (object) clone;*/
     }
 }

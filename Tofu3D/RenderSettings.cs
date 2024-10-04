@@ -2,8 +2,8 @@
 
 public class RenderSettings
 {
-    public WireframeRenderSettings CurrentWireframeRenderSettings;
     public ViewRenderModeSettings CurrentRenderModeSettings;
+    public WireframeRenderSettings CurrentWireframeRenderSettings;
 
 
     public void SaveData()
@@ -15,8 +15,8 @@ public class RenderSettings
     public void LoadSavedData()
     {
         CurrentWireframeRenderSettings =
-            PersistentData.Get<WireframeRenderSettings>("RenderSettings.Wireframe", new WireframeRenderSettings());
+            PersistentData.Get("RenderSettings.Wireframe", new WireframeRenderSettings());
         CurrentRenderModeSettings =
-            PersistentData.Get<ViewRenderModeSettings>("RenderSettings.ViewRenderMode", new ViewRenderModeSettings());
+            PersistentData.Get("RenderSettings.ViewRenderMode", new ViewRenderModeSettings());
     }
 }

@@ -19,7 +19,7 @@ gl_Position = u_mvp * vec4(a_pos.xy, 1.0, 1.0);
 [FRAGMENT]
 #version 410 core
 
- in vec2 uv;
+in vec2 uv;
 uniform sampler2D textureObject;
 uniform vec4 u_color = vec4(1.0);
 uniform vec2 u_resolution = vec2(100.0);
@@ -41,8 +41,8 @@ texColor.a = pow(texColor.a, 50); // make the brights brighter and darks darker
 if (texColor.a < 1){
 discard;
 }
-        if(texColor.a>1){
-        texColor.a = 1;
+if (texColor.a > 1){
+texColor.a = 1;
 }
 texColor.r = 1;
 texColor.g = 1;

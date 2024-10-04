@@ -7,49 +7,6 @@ namespace Tofu3D;
 
 public class EditorPanelInspector : EditorPanel
 {
-    public override Vector2 Size => new(700, Tofu.Editor.SceneViewSize.Y);
-    public override Vector2 Position => new(Tofu.Window.ClientSize.X - I.WindowWidth, 0);
-    public override Vector2 Pivot => new(1, 0);
-
-    public override string Name => "Inspector";
-
-    private string _addComponentPopupText = "";
-    private int _contentMaxWidth;
-
-    public static EditorPanelInspector I { get; private set; }
-
-    private Action _actionQueue = () => { };
-
-    public void AddActionToActionQueue(Action action)
-    {
-        _actionQueue += action;
-    }
-
-    private List<InspectableData> _currentInspectableDatas = new(); // cached inspectable data
-    private bool _editing;
-
-    private bool _refreshQueued = false;
-    private int _refreshQueuedInspectableIndex = -1; // -1 = all
-
-    public void QueueRefresh()
-    {
-        _refreshQueuedInspectableIndex = -1;
-        _refreshQueued = true;
-    }
-
-    public void QueueRefresh(InspectableData inspectableData)
-    {
-        _refreshQueuedInspectableIndex = _currentInspectableDatas.IndexOf(inspectableData);
-        _refreshQueued = true;
-    }
-
-    // if its a list, simply draw it like any other value but under the list row
-    private List<Type> _componentTypes;
-
-    private bool HasInspectableData => _currentInspectableDatas.Count > 0;
-
-    private Dictionary<Type, IInspectorFieldDrawable> _inspectorFieldDrawables;
-
     public static List<Type> InspectorSupportedTypes; /* = new()
     {
         typeof(GameObject),
@@ -69,6 +26,48 @@ public class EditorPanelInspector : EditorPanel
         typeof(Shader),
         typeof(Curve)
     };*/
+
+    private Action _actionQueue = () => { };
+
+    private string _addComponentPopupText = "";
+
+    // if its a list, simply draw it like any other value but under the list row
+    private List<Type> _componentTypes;
+    private int _contentMaxWidth;
+
+    private readonly List<InspectableData> _currentInspectableDatas = new(); // cached inspectable data
+    private bool _editing;
+
+    private Dictionary<Type, IInspectorFieldDrawable> _inspectorFieldDrawables;
+
+    private bool _refreshQueued;
+    private int _refreshQueuedInspectableIndex = -1; // -1 = all
+    public override Vector2 Size => new(700, Tofu.Editor.SceneViewSize.Y);
+    public override Vector2 Position => new(Tofu.Window.ClientSize.X - I.WindowWidth, 0);
+    public override Vector2 Pivot => new(1, 0);
+
+    public override string Name => "Inspector";
+
+    public static EditorPanelInspector I { get; private set; }
+
+    private bool HasInspectableData => _currentInspectableDatas.Count > 0;
+
+    public void AddActionToActionQueue(Action action)
+    {
+        _actionQueue += action;
+    }
+
+    public void QueueRefresh()
+    {
+        _refreshQueuedInspectableIndex = -1;
+        _refreshQueued = true;
+    }
+
+    public void QueueRefresh(InspectableData inspectableData)
+    {
+        _refreshQueuedInspectableIndex = _currentInspectableDatas.IndexOf(inspectableData);
+        _refreshQueued = true;
+    }
 
     public override void Init()
     {
@@ -96,22 +95,24 @@ public class EditorPanelInspector : EditorPanel
 
         InspectorSupportedTypes = new List<Type>();
         foreach (var keyValuePair in _inspectorFieldDrawables)
+        {
             InspectorSupportedTypes.Add(keyValuePair.Key);
+        }
 
         _componentTypes = typeof(Component).Assembly.GetTypes()
             .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
         Scene.ComponentAwoken += OnComponentAddedToScene;
         GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
         Tofu.MouseInput.RegisterPassThroughEdgesCondition(() =>
-            _editing && Tofu.MouseInput.IsButtonDown(MouseButtons.Left));
-        Global.DebugStateChanged += (b) => QueueInspectorRefresh();
+            _editing && Tofu.MouseInput.IsButtonDown());
+        Global.DebugStateChanged += b => QueueInspectorRefresh();
     }
 
     private void OnComponentAddedToScene(Component comp)
     {
-        foreach (InspectableData currentInspectableData in _currentInspectableDatas)
+        foreach (var currentInspectableData in _currentInspectableDatas)
         {
-            Component c = currentInspectableData.Inspectable as Component;
+            var c = currentInspectableData.Inspectable as Component;
             if (c?.GameObject == comp.GameObject)
             {
                 SelectInspectables(comp.GameObject.Components); // RefreshInspector();
@@ -167,7 +168,7 @@ public class EditorPanelInspector : EditorPanel
         }
 
 
-        GameObject go = Tofu.SceneManager.CurrentScene.GetGameObject(ids[0]);
+        var go = Tofu.SceneManager.CurrentScene.GetGameObject(ids[0]);
         SelectInspectables(go.Components);
     }
 
@@ -187,14 +188,14 @@ public class EditorPanelInspector : EditorPanel
     }*/
     public void SelectInspectable(object inspectable)
     {
-        SelectInspectables(new List<object>() { inspectable });
+        SelectInspectables(new List<object> { inspectable });
     }
 
     public void SelectInspectables(IList inspectables)
     {
         ClearInspectableDatas();
 
-        foreach (object inspectable in inspectables)
+        foreach (var inspectable in inspectables)
         {
             InspectableData inspectableData = new(inspectable);
             _currentInspectableDatas.Add(inspectableData);
@@ -209,7 +210,10 @@ public class EditorPanelInspector : EditorPanel
 
     public override void Draw()
     {
-        if (Active == false) return;
+        if (Active == false)
+        {
+            return;
+        }
 
         WindowWidth = 800;
         _contentMaxWidth = WindowWidth - (int)ImGui.GetStyle().WindowPadding.X * 1;
@@ -231,9 +235,13 @@ public class EditorPanelInspector : EditorPanel
                 _refreshQueued = false;
 
                 if (_refreshQueuedInspectableIndex == -1)
+                {
                     RefreshInspector();
+                }
                 else
+                {
                     RefreshInspectable(_currentInspectableDatas[_refreshQueuedInspectableIndex]);
+                }
             }
 
             // properties with ShowIf and ShowIfNot attributes need to be reevaluated to show or not
@@ -250,13 +258,19 @@ public class EditorPanelInspector : EditorPanel
 
     private void DrawInspectables(List<InspectableData> inspectableDatas)
     {
-        GameObject gameObject = (inspectableDatas[0].Inspectable as Component)?.GameObject;
+        var gameObject = (inspectableDatas[0].Inspectable as Component)?.GameObject;
         if (gameObject?.IsPrefab == true)
         {
-            if (ImGui.Button("Update prefab")) Tofu.SceneSerializer.SaveGameObject(gameObject, gameObject.PrefabPath);
+            if (ImGui.Button("Update prefab"))
+            {
+                Tofu.SceneSerializer.SaveGameObject(gameObject, gameObject.PrefabPath);
+            }
 
             ImGui.SameLine();
-            if (ImGui.Button("Delete prefab")) gameObject.IsPrefab = false;
+            if (ImGui.Button("Delete prefab"))
+            {
+                gameObject.IsPrefab = false;
+            }
         }
 
         _editing = false;
@@ -266,42 +280,57 @@ public class EditorPanelInspector : EditorPanel
             PushNextId();
             ImGui.SetScrollX(0);
 
-            string gameObjectName = gameObject.Name;
-            bool gameObjectActiveSelf = gameObject.ActiveSelf;
+            var gameObjectName = gameObject.Name;
+            var gameObjectActiveSelf = gameObject.ActiveSelf;
             ImGui.Checkbox("", ref gameObjectActiveSelf);
             gameObject.SetActive(gameObjectActiveSelf);
             ImGui.SameLine();
 
-            bool wasStatic = gameObject.IsStaticSelf;
-            if (gameObject.IsStaticSelf) ImGui.PushStyleColor(ImGuiCol.Text, Color.Purple.ToVector4());
+            var wasStatic = gameObject.IsStaticSelf;
+            if (gameObject.IsStaticSelf)
+            {
+                ImGui.PushStyleColor(ImGuiCol.Text, Color.Purple.ToVector4());
+            }
 
-            bool staticButtonClicked = ImGui.Button("STATIC");
+            var staticButtonClicked = ImGui.Button("STATIC");
 
-            if (staticButtonClicked) gameObject.IsStaticSelf = !gameObject.IsStaticSelf;
+            if (staticButtonClicked)
+            {
+                gameObject.IsStaticSelf = !gameObject.IsStaticSelf;
+            }
 
-            if (wasStatic) ImGui.PopStyleColor();
+            if (wasStatic)
+            {
+                ImGui.PopStyleColor();
+            }
 
             ImGui.SameLine();
 
 
             PushNextId();
             ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
-            if (ImGui.InputText("", ref gameObjectName, 100)) gameObject.Name = gameObjectName;
+            if (ImGui.InputText("", ref gameObjectName, 100))
+            {
+                gameObject.Name = gameObjectName;
+            }
         }
 
         InspectableData materialToShowAtTheBottom = null;
-        foreach (InspectableData componentInspectorData in inspectableDatas)
+        foreach (var componentInspectorData in inspectableDatas)
         {
-            Component component = componentInspectorData.Inspectable as Component;
+            var component = componentInspectorData.Inspectable as Component;
 
             if (component)
             {
                 PushNextId();
                 if (component.CanBeDisabled)
                 {
-                    bool componentEnabled = component.Enabled;
-                    bool toggledComponent = ImGui.Checkbox("", ref componentEnabled);
-                    if (toggledComponent) component.Enabled = componentEnabled;
+                    var componentEnabled = component.Enabled;
+                    var toggledComponent = ImGui.Checkbox("", ref componentEnabled);
+                    if (toggledComponent)
+                    {
+                        component.Enabled = componentEnabled;
+                    }
 
                     ImGui.SameLine();
 
@@ -317,16 +346,23 @@ public class EditorPanelInspector : EditorPanel
 
             PushNextId();
 
-            string inspectableName = componentInspectorData.InspectableType.Name;
+            var inspectableName = componentInspectorData.InspectableType.Name;
             if (componentInspectorData.InspectableType.IsSubclassOf(typeof(Component)))
+            {
                 inspectableName = (Global.Debug ? $"[{component.GameObjectId}] " : "") +
                                   componentInspectorData.InspectableType.Name;
+            }
 
             if (componentInspectorData.InspectableType == typeof(Material))
+            {
                 ImGui.PushStyleColor(ImGuiCol.Header, Color.Honeydew.ToVector4());
+            }
 
-            bool headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);
-            if (componentInspectorData.InspectableType == typeof(Material)) ImGui.PopStyleColor();
+            var headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);
+            if (componentInspectorData.InspectableType == typeof(Material))
+            {
+                ImGui.PopStyleColor();
+            }
 
             if (headerClicked)
             {
@@ -336,10 +372,12 @@ public class EditorPanelInspector : EditorPanel
                 }
 
 
-                foreach (FieldOrPropertyInfo info in componentInspectorData.Infos)
+                foreach (var info in componentInspectorData.Infos)
                 {
-                    bool drawn = DrawFieldOrProperty(info, componentInspectorData);
-                    if (drawn == false) continue;
+                    var drawn = DrawFieldOrProperty(info, componentInspectorData);
+                    if (drawn == false)
+                    {
+                    }
 
                     //ImGui.PopID();
                 }
@@ -354,14 +392,16 @@ public class EditorPanelInspector : EditorPanel
             }
 
             if (componentInspectorData.InspectableType.IsSubclassOf(typeof(Renderer)))
+            {
                 materialToShowAtTheBottom =
                     new InspectableData((componentInspectorData.Inspectable as Renderer).Material);
+            }
         }
 
 
         if (gameObject)
         {
-            bool justOpened = false;
+            var justOpened = false;
             if (ImGui.Button("+"))
             {
                 ImGui.OpenPopup("AddComponentPopup");
@@ -370,31 +410,40 @@ public class EditorPanelInspector : EditorPanel
 
             if (ImGui.BeginPopupContextWindow("AddComponentPopup"))
             {
-                if (justOpened) ImGui.SetKeyboardFocusHere(0);
+                if (justOpened)
+                {
+                    ImGui.SetKeyboardFocusHere(0);
+                }
 
-                bool enterPressed = ImGui.InputText("", ref _addComponentPopupText, 100,
+                var enterPressed = ImGui.InputText("", ref _addComponentPopupText, 100,
                     ImGuiInputTextFlags.EnterReturnsTrue);
 
 
                 if (_addComponentPopupText.Length > 0)
                 {
-                    for (int i = 0; i < _componentTypes.Count; i++)
+                    for (var i = 0; i < _componentTypes.Count; i++)
+                    {
                         if (_componentTypes[i].Name.ToLower().Contains(_addComponentPopupText.ToLower()))
+                        {
                             if (ImGui.Button(_componentTypes[i].Name) || enterPressed)
                             {
                                 gameObject.AddComponent(_componentTypes[i]);
                                 ImGui.CloseCurrentPopup();
                                 break;
                             }
+                        }
+                    }
                 }
                 else
                 {
-                    for (int i = 0; i < _componentTypes.Count; i++)
+                    for (var i = 0; i < _componentTypes.Count; i++)
+                    {
                         if (ImGui.Button(_componentTypes[i].Name))
                         {
                             gameObject.AddComponent(_componentTypes[i]);
                             ImGui.CloseCurrentPopup();
                         }
+                    }
                 }
 
                 ImGui.EndPopup();
@@ -414,7 +463,11 @@ public class EditorPanelInspector : EditorPanel
 
     private bool DrawFieldOrProperty(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        if (info.HasSpaceAttribute) ImGui.NewLine();
+        if (info.HasSpaceAttribute)
+        {
+            ImGui.NewLine();
+        }
+
         if (info.HeaderText != null)
         {
             ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 10);
@@ -422,26 +475,38 @@ public class EditorPanelInspector : EditorPanel
             // ImGui.NewLine();
         }
 
-        if (info.CanShowInEditor == false) return false;
+        if (info.CanShowInEditor == false)
+        {
+            return false;
+        }
 
         PushNextId();
 
-        bool hovering = false;
+        var hovering = false;
         if (ImGui.IsMouseHoveringRect(ImGui.GetCursorScreenPos(),
                 ImGui.GetCursorScreenPos() +
                 new System.Numerics.Vector2(1500, ImGui.GetFrameHeightWithSpacing())))
+        {
             hovering = true;
+        }
 
         ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 10);
 
         if (info.IsListElement == false)
         {
-            if (info.IsReadonly) ImGui.BeginDisabled();
+            if (info.IsReadonly)
+            {
+                ImGui.BeginDisabled();
+            }
 
             if (hovering)
+            {
                 ImGui.TextColored(new Vector4(0.7f, 0.4f, 0.6f, 1), info.Name);
+            }
             else
+            {
                 ImGui.Text(info.Name);
+            }
         }
 
         float itemWidth1 = 400;
@@ -450,13 +515,13 @@ public class EditorPanelInspector : EditorPanel
 
         if (info.IsGenericList)
         {
-            object obj = info.GetValue(componentInspectorData.Inspectable);
-            IList list = (IList)obj;
+            var obj = info.GetValue(componentInspectorData.Inspectable);
+            var list = (IList)obj;
 
 
             if (ImGui.Button("+"))
             {
-                object newElement = Activator.CreateInstance(info.GenericParameterType);
+                var newElement = Activator.CreateInstance(info.GenericParameterType);
                 list.Add(newElement);
                 info.SetValue(componentInspectorData.Inspectable, list);
             }
@@ -465,10 +530,10 @@ public class EditorPanelInspector : EditorPanel
             if (ImGui.CollapsingHeader($"List<{info.GenericParameterType.Name}>",
                     ImGuiTreeNodeFlags.DefaultOpen))
             {
-                for (int j = 0; j < list.Count; j++)
+                for (var j = 0; j < list.Count; j++)
                 {
                     PushNextId();
-                    bool xClicked = ImGui.Button("x",
+                    var xClicked = ImGui.Button("x",
                         new System.Numerics.Vector2(ImGui.GetFrameHeight(), ImGui.GetFrameHeight()));
 
                     if (xClicked)
@@ -480,8 +545,8 @@ public class EditorPanelInspector : EditorPanel
 
                     ImGui.SameLine();
 
-                    bool isNull = list[j] == null;
-                    string name = isNull ? "<null>" : "name";
+                    var isNull = list[j] == null;
+                    var name = isNull ? "<null>" : "name";
 
 
                     FieldOrPropertyInfo listElementFieldOrProperty = new(list, j);
@@ -518,12 +583,20 @@ public class EditorPanelInspector : EditorPanel
         else
         {
             if (_inspectorFieldDrawables.ContainsKey(info.FieldOrPropertyType))
+            {
                 _inspectorFieldDrawables[info.FieldOrPropertyType].Draw(info, componentInspectorData);
+            }
         }
 
-        if (info.IsReadonly) ImGui.EndDisabled();
+        if (info.IsReadonly)
+        {
+            ImGui.EndDisabled();
+        }
 
-        if (ImGui.IsItemEdited()) _editing = true;
+        if (ImGui.IsItemEdited())
+        {
+            _editing = true;
+        }
 
         return true;
     }
