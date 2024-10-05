@@ -54,7 +54,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
         var renderToDebugTexture =
             GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
-        if (renderToDebugTexture)
+        if (renderToDebugTexture || true)
         {
             RenderToDebugDepthTexture();
         }

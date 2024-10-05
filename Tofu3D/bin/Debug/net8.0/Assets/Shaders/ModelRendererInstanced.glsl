@@ -21,7 +21,7 @@ out vec2 uv;
 out vec3 normal;
 out vec4 color;
 out vec4 fragPosLightSpace;
-out mat4 TBN;
+out mat3 TBN;
 
 void main(void)
 {
@@ -42,7 +42,7 @@ fragPosLightSpace = lightMvp * vec4(a_pos.xyz, 1.0);
 vec3 T = normalize(vec3(a_model * vec4(a_tangent,   0.0)));
 vec3 B = normalize(vec3(a_model * vec4(a_bitangent, 0.0)));
 vec3 N = normalize(vec3(a_model * vec4(a_normal,    0.0)));
-mat3 TBN = mat3(T, B, N);
+TBN = mat3(T, B, N);
 }
 
 [FRAGMENT]
@@ -112,21 +112,23 @@ void main(void)
 vec2 uvCoords = (uv + u_offset) * u_tiling;
 vec3 norm = normalize(- normal);
 
-//norm = texture(textureNormal, uvCoords).rgb;
-//norm = norm * 2.0 - 1.0;
-//norm = normalize(TBN * norm);
-//		
+norm = texture(textureNormal, uvCoords).rgb;
+norm = norm * 2.0 - 1.0;
+norm = normalize(TBN * norm);
+
 
 float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
-float directionalLightFactor = max(dot(norm, u_directionalLightDirection), 0.0);
-vec4 dirColor = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
 
+vec3 lightDirTangent = normalize(TBN * u_directionalLightDirection);
+float directionalLightFactor = max(dot(norm, lightDirTangent), 0.0);
+vec4 dirColor = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
+		
 vec4 texturePixelColor = texture(textureAlbedo, uvCoords) * u_albedoTint;
 vec4 result = texturePixelColor * color;
 
 vec4 ambientLighting = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
-//result *= ambientLighting + dirColor;
-result *= ambientLighting;
+result *= ambientLighting + dirColor;
+//result *= ambientLighting;
 
 result.a = texturePixelColor.a * color.a;
 
@@ -142,11 +144,12 @@ float shadow = 1 - ShadowCalculation();
 //        shadow
 if (shadow == 0) {
 		float a = (ambientLighting.r + ambientLighting.g+ambientLighting.b)/3;
-result.rgb = ambientLighting.rgb+(vec3(a,a,a)*result.rgb);
+result.rgb = ambientLighting.rgb*(vec3(a,a,a)*result.rgb);
 }
 else{
-result.rgb+=ambientLighting.rgb;
+//result.rgb+=ambientLighting.rgb;
 }
+		
 if (u_specularHighlightsEnabled == 1) {
 vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, norm);
 vec3 viewDir = - normalize(u_camPos - vertexPositionWorld);
@@ -161,8 +164,7 @@ specular /= 3;
 result.rgb += specular;
 
 }
-//vec4 aoTexture = texture(textureAo, uvCoords);
-//result.rgb *= aoTexture.rgb;
+
 
 
 if (u_fogEnabled == 1 && u_renderMode == 0)
@@ -192,7 +194,8 @@ fogFactor = fogFactor * finalFogColor.a;
 result.rgb = mix(result.rgb, finalFogColor.rgb, fogFactor);
 }
 
-
+float aoTexture = texture(textureAo, uvCoords).r;
+result.rgb *= aoTexture;
 
 if (u_renderMode == 0) // regular
 {

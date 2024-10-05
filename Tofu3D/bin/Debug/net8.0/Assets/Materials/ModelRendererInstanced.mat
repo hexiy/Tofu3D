@@ -17,17 +17,17 @@
     <PackedValue>4294967295</PackedValue>
   </AlbedoTint>
   <AmbientOcclusionTexture>
-    <AssetPath>Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</AssetPath>
+    <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
     <Size>
-      <X>2048</X>
-      <Y>2048</Y>
+      <X>4096</X>
+      <Y>4096</Y>
     </Size>
   </AmbientOcclusionTexture>
   <NormalTexture>
-    <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</AssetPath>
+    <AssetPath>Assets/2D/white.png</AssetPath>
     <Size>
-      <X>2048</X>
-      <Y>2048</Y>
+      <X>1</X>
+      <Y>1</Y>
     </Size>
   </NormalTexture>
   <Offset>
@@ -36,14 +36,14 @@
   </Offset>
   <RenderMode>Opaque</RenderMode>
   <Shader>
-    <AlbedoTextureLocation>24</AlbedoTextureLocation>
-    <NormalTextureLocation>-1</NormalTextureLocation>
-    <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+    <AlbedoTextureLocation>26</AlbedoTextureLocation>
+    <NormalTextureLocation>2</NormalTextureLocation>
+    <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
     <BufferType>Model</BufferType>
     <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-    <ShadowMapTextureLocation>0</ShadowMapTextureLocation>
+    <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
   </Shader>
-  <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+  <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
   <SpecularSmoothness>0.2</SpecularSmoothness>
   <Tiling>
     <X>1</X>

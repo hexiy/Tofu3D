@@ -147,12 +147,6 @@ public class ModelLoader : AssetLoader<Mesh>
         }
 
 
-        List<float> quadedEverything = new List<float>();
-        // for (var i = 0; i < vertices; i++) ;
-        // if we can match 2 positions from each triangle, we found a match for quad
-        // but we need this in a nice format not just floats
-        // posx posy poz uvx uvy normx normy normz
-
         Mesh mesh = new();
         // mesh.VertexBufferDataLength = everything.Count;
         mesh.VerticesCount = totalVerticesCount;
@@ -173,7 +167,7 @@ public class ModelLoader : AssetLoader<Mesh>
         List<float> newEverything = new List<float>();
 
         for (int indexOfVertex1Start = 0;
-             indexOfVertex1Start < everything.Count - floatsPerTriangle;
+             indexOfVertex1Start < everything.Count;
              indexOfVertex1Start += floatsPerTriangle)
         {
             Vector3 position1 = new Vector3(

@@ -63,7 +63,7 @@ public class VertexBuffer
 
             GL.VertexAttribPointer(index: nextAttribIndex, size: countOfElements, type: VertexAttribPointerType, false,
                 stride: ElementsPerVertex * SizeOfElementInBytes,
-                (IntPtr)(sequential ? currentAttribOffset * SizeOfElementInBytes : 0));
+                (IntPtr)(sequential ? (currentAttribOffset) * SizeOfElementInBytes : 0));
 
             currentAttribOffset += countOfElements;
             nextAttribIndex++;

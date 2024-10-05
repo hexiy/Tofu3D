@@ -184,25 +184,25 @@ public class InstancedRenderingSystem
                 TextureHelper.BindTexture(material.AlbedoTexture.TextureId);
             }
 
-            // // Normal Texture
-            // if (material.NormalTexture)
-            // {
-            //     GL.ActiveTexture(TextureUnit.Texture1);
-            //     TextureHelper.BindTexture(material.NormalTexture.TextureId);
-            // }
-            //
-            // // Ambient Occlusion Texture
-            // if (material.AmbientOcclusionTexture)
-            // {
-            //     GL.ActiveTexture(TextureUnit.Texture2);
-            //     TextureHelper.BindTexture(material.AmbientOcclusionTexture.TextureId);
-            // }
-            //
-            // if (RenderPassDirectionalLightShadowDepth.I?.PassRenderTexture != null)
-            // {
-            //     GL.ActiveTexture(TextureUnit.Texture3);
-            //     TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.DepthAttachment);
-            // }
+            // Normal Texture
+            if (material.NormalTexture)
+            {
+                GL.ActiveTexture(TextureUnit.Texture1);
+                TextureHelper.BindTexture(material.NormalTexture.TextureId);
+            }
+            
+            // Ambient Occlusion Texture
+            if (material.AmbientOcclusionTexture)
+            {
+                GL.ActiveTexture(TextureUnit.Texture2);
+                TextureHelper.BindTexture(material.AmbientOcclusionTexture.TextureId);
+            }
+            
+            if (RenderPassDirectionalLightShadowDepth.I?.PassRenderTexture != null)
+            {
+                GL.ActiveTexture(TextureUnit.Texture3);
+                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.DepthAttachment);
+            }
 
 
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
@@ -359,7 +359,7 @@ public class InstancedRenderingSystem
             MaxNumberOfObjects = 1,
             FutureMaxNumberOfObjects = 1,
             Vbo = -1,
-            NumberOfObjects = 1
+            NumberOfObjects = 0
         };
 
         bufferData.Buffer = new float[bufferData.MaxNumberOfObjects * bufferData.InstancedVertexCountOfFloats];
