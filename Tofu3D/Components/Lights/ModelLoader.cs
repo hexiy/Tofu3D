@@ -146,78 +146,49 @@ public class ModelLoader : AssetLoader<Mesh>
             }
         }
 
+
+        List<float> quadedEverything = new List<float>();
+        // for (var i = 0; i < vertices; i++) ;
+        // if we can match 2 positions from each triangle, we found a match for quad
+        // but we need this in a nice format not just floats
+        // posx posy poz uvx uvy normx normy normz
+
         Mesh mesh = new();
         // mesh.VertexBufferDataLength = everything.Count;
         mesh.VerticesCount = totalVerticesCount;
         int[] countsOfElements = { 3, 2, 3, 3, 3 }; // position, uv, normal, tangent, bitangent
+        
 
-        
-        // 2 triangles looks like this in the data
-        // position1.X, position1.Y, position1.Z, uv1.X, uv1.Y,  nm.X, nm.Y, nm.Z
-        // position2.X, position2.Y, position2.Z, uv2.X, uv2.Y,  nm.X, nm.Y, nm.Z
-        // position3.X, position3.Y, position3.Z, uv3.X, uv3.Y,  nm.X, nm.Y, nm.Z
-        
-        // position1.X, position1.Y, position1.Z, uv1.X, uv1.Y,  nm.X, nm.Y, nm.Z
-        // position2.X, position2.Y, position2.Z, uv2.X, uv2.Y,  nm.X, nm.Y, nm.Z
-        // position4.X, position4.Y, position4.Z, uv3.X, uv3.Y,  nm.X, nm.Y, nm.Z
-
-        
         // now we need to calculate tangents and bitangents per triangle
 
         int floatsOfPosition = 9; // pos(3x vector3)
         int floatsOfUv = 6; // uv(3x vector2)
         int floatsOfNormal = 9; // norm(3x vector3)
 
-        // should be 48 floatsPerQuad 
 
         int floatsPerTriangle =
             floatsOfPosition + floatsOfUv + floatsOfNormal; // (9+6+9) = 24
         int floatsPerVertex = floatsPerTriangle / 3; // 24/3 = 8 to get to another vertex
 
-        int floatsPerQuad = floatsPerTriangle * 2; // 24*2 = 48
-        
-        // so we loop through everything per quad basis, and then insert the results per vertex basis
         List<float> newEverything = new List<float>();
-        for (int indexOfVertex1Start = 0;
-             indexOfVertex1Start < everything.Count-floatsPerTriangle;
-             indexOfVertex1Start += floatsPerQuad)
-        {
-            int indexOfVertex2Start = indexOfVertex1Start + floatsPerTriangle;  
 
-            // lay out our quad here
+        for (int indexOfVertex1Start = 0;
+             indexOfVertex1Start < everything.Count - floatsPerTriangle;
+             indexOfVertex1Start += floatsPerTriangle)
+        {
             Vector3 position1 = new Vector3(
                 everything[indexOfVertex1Start + 0],
                 everything[indexOfVertex1Start + 1],
                 everything[indexOfVertex1Start + 2]);
             Vector3 position2 = new Vector3(
-                everything[indexOfVertex1Start + floatsPerVertex+ 0],
-                everything[indexOfVertex1Start + floatsPerVertex+ 1],
-                everything[indexOfVertex1Start + floatsPerVertex+ 2]);
+                everything[indexOfVertex1Start + floatsPerVertex + 0],
+                everything[indexOfVertex1Start + floatsPerVertex + 1],
+                everything[indexOfVertex1Start + floatsPerVertex + 2]);
             Vector3 position3 = new Vector3(
-                everything[indexOfVertex1Start + floatsPerVertex + floatsPerVertex+0],
-                everything[indexOfVertex1Start + floatsPerVertex + floatsPerVertex+1],
-                everything[indexOfVertex1Start + floatsPerVertex + floatsPerVertex+2]);
-
-            // 4th position is not right after position3, because we store it as triangles not quads, we go the size of a triangle forward
-            Vector3 position4 = new Vector3(
-                everything[indexOfVertex2Start + 0],
-                everything[indexOfVertex2Start + 1],
-                everything[indexOfVertex2Start + 2]);
-            // but do we know if this is not the same as position 1 2 or 3??ugh
-            if (position4 == position1 || position4 == position2 || position4 == position3)
-            {
-                position4 = new Vector3(
-                    everything[indexOfVertex2Start + floatsPerVertex+ 0],
-                    everything[indexOfVertex2Start + floatsPerVertex+ 1],
-                    everything[indexOfVertex2Start + floatsPerVertex+ 2]);
-                if (position4 == position1 || position4 == position2 || position4 == position3)
-                {
-                    position4 = new Vector3(
-                        everything[indexOfVertex2Start + floatsPerVertex + floatsPerVertex+ 0],
-                        everything[indexOfVertex2Start + floatsPerVertex + floatsPerVertex+ 1],
-                        everything[indexOfVertex2Start + floatsPerVertex + floatsPerVertex+ 2]);
-                }
-            }
+                everything[indexOfVertex1Start + floatsPerVertex + floatsPerVertex + 0],
+                everything[indexOfVertex1Start + floatsPerVertex + floatsPerVertex + 1],
+                everything[indexOfVertex1Start + floatsPerVertex + floatsPerVertex + 2]);
+            
 
             int offset = 3; // pos.x,pos.y,pos.z
             Vector2 uv1 = new Vector2(
@@ -226,13 +197,9 @@ public class ModelLoader : AssetLoader<Mesh>
             Vector2 uv2 = new Vector2(
                 everything[indexOfVertex1Start + offset + floatsPerVertex + 0],
                 everything[indexOfVertex1Start + offset + floatsPerVertex + 1]);
-            // jump to next triangle
             Vector2 uv3 = new Vector2(
-                everything[indexOfVertex2Start + offset + 0],
-                everything[indexOfVertex2Start + offset + 1]);
-            Vector2 uv4 = new Vector2(
-                everything[indexOfVertex2Start + offset + floatsPerVertex + 0],
-                everything[indexOfVertex2Start + offset + floatsPerVertex + 1]);
+                everything[indexOfVertex1Start + offset + floatsPerVertex+ floatsPerVertex+ 0],
+                everything[indexOfVertex1Start + offset + floatsPerVertex+ floatsPerVertex+ 1]);
 
 
             offset = 5; // pos.x,pos.y,pos.z, uv.x,uv.y
@@ -250,52 +217,49 @@ public class ModelLoader : AssetLoader<Mesh>
             Vector3 edge2 = position3 - position1;
             Vector2 deltaUV1 = uv2 - uv1;
             Vector2 deltaUV2 = uv3 - uv1;
-            
+
             float f = 1.0f / (deltaUV1.X * deltaUV2.Y - deltaUV2.X * deltaUV1.Y);
-            
-            
+
+
             tangent1.X = f * (deltaUV2.Y * edge1.X - deltaUV1.Y * edge2.X);
             tangent1.Y = f * (deltaUV2.Y * edge1.Y - deltaUV1.Y * edge2.Y);
             tangent1.Z = f * (deltaUV2.Y * edge1.Z - deltaUV1.Y * edge2.Z);
-            
+
             bitangent1.X = f * (-deltaUV2.X * edge1.X + deltaUV1.X * edge2.X);
             bitangent1.Y = f * (-deltaUV2.X * edge1.Y + deltaUV1.X * edge2.Y);
             bitangent1.Z = f * (-deltaUV2.X * edge1.Z + deltaUV1.X * edge2.Z);
-            
+
             // triangle 2
             // ----------
-            edge1 = position3 - position1;
-            edge2 = position4 - position1;
-            deltaUV1 = uv3 - uv1;
-            deltaUV2 = uv4 - uv1;
-            
+            edge1 = position2 - position1;
+            edge2 = position3 - position1;
+            deltaUV1 = uv2 - uv1;
+            deltaUV2 = uv3 - uv1;
+
             f = 1.0f / (deltaUV1.X * deltaUV2.Y - deltaUV2.X * deltaUV1.Y);
-            
+
             tangent2.X = f * (deltaUV2.Y * edge1.X - deltaUV1.Y * edge2.X);
             tangent2.Y = f * (deltaUV2.Y * edge1.Y - deltaUV1.Y * edge2.Y);
             tangent2.Z = f * (deltaUV2.Y * edge1.Z - deltaUV1.Y * edge2.Z);
-            
-            
+
+
             bitangent2.X = f * (-deltaUV2.X * edge1.X + deltaUV1.X * edge2.X);
             bitangent2.Y = f * (-deltaUV2.X * edge1.Y + deltaUV1.X * edge2.Y);
             bitangent2.Z = f * (-deltaUV2.X * edge1.Z + deltaUV1.X * edge2.Z);
+
             
-            
-            float[] quadVertices = {
+            float[] triangleVertices =
+            {
                 // positions                           // uvs        // normals        // tangent                          // bitangent
                 position1.X, position1.Y, position1.Z, uv1.X, uv1.Y, nm.X, nm.Y, nm.Z, tangent1.X, tangent1.Y, tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
                 position2.X, position2.Y, position2.Z, uv2.X, uv2.Y, nm.X, nm.Y, nm.Z, tangent1.X, tangent1.Y, tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
                 position3.X, position3.Y, position3.Z, uv3.X, uv3.Y, nm.X, nm.Y, nm.Z, tangent1.X, tangent1.Y, tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
-            
-                position1.X, position1.Y, position1.Z, uv1.X, uv1.Y, nm.X, nm.Y, nm.Z, tangent2.X, tangent2.Y, tangent2.Z, bitangent2.X, bitangent2.Y, bitangent2.Z,
-                position3.X, position3.Y, position3.Z, uv3.X, uv3.Y, nm.X, nm.Y, nm.Z, tangent2.X, tangent2.Y, tangent2.Z, bitangent2.X, bitangent2.Y, bitangent2.Z,
-                position4.X, position4.Y, position4.Z, uv4.X, uv4.Y, nm.X, nm.Y, nm.Z, tangent2.X, tangent2.Y, tangent2.Z, bitangent2.X, bitangent2.Y, bitangent2.Z
             };
-            newEverything.AddRange(quadVertices);
+            newEverything.AddRange(triangleVertices);
         }
 
         // ohh preto to nefunguje lebo uvs idu prve a tak normals v data, ale pri citani to je naopak
-        
+
         var oldCount = everything.Count;
         var newCount = newEverything.Count;
         // just to compare if we have correct amount of data
@@ -356,7 +320,7 @@ public class ModelLoader : AssetLoader<Mesh>
         // };
 
         // newEverything = everything; //////// testing
-        // countsOfElements = new[]{ 3, 2, 3 }; //////// testing
+        // countsOfElements = new[] { 3, 2, 3 }; //////// testing
         BufferFactory.CreateGenericBuffer(ref mesh.Vao, newEverything.ToArray(), countsOfElements);
 
         mesh.InitAssetRuntimeHandle(mesh.Vao);

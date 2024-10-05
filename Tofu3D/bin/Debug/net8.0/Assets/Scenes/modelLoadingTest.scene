@@ -57,7 +57,23 @@
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Block</Name>
+      <Name>sculpture-triangles</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>623</Id>
+      <IndexInHierarchy>0</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>mask-quads</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -82,14 +98,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-12.491858</X>
-        <Y>38.61235</Y>
-        <Z>-5.5884233</Z>
+        <X>-11.831703</X>
+        <Y>5.11654</Y>
+        <Z>-1.6770557</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-12.491858</X>
-        <Y>38.61235</Y>
-        <Z>-5.5884233</Z>
+        <X>-11.831703</X>
+        <Y>5.11654</Y>
+        <Z>-1.6770557</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -102,8 +118,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>14.1219845</X>
-        <Y>38.547237</Y>
+        <X>-26.47827</X>
+        <Y>64.97863</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -361,10 +377,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
+          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
           <Size>
-            <X>2048</X>
-            <Y>2048</Y>
+            <X>4096</X>
+            <Y>4096</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -374,6 +390,151 @@
           <A>255</A>
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
+        <AmbientOcclusionTexture>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</AssetPath>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+        </AmbientOcclusionTexture>
+        <NormalTexture>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</AssetPath>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+        </NormalTexture>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+        <RenderMode>Opaque</RenderMode>
+        <Shader>
+          <AlbedoTextureLocation>24</AlbedoTextureLocation>
+          <NormalTextureLocation>-1</NormalTextureLocation>
+          <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+          <ShadowMapTextureLocation>0</ShadowMapTextureLocation>
+        </Shader>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0.2</SpecularSmoothness>
+        <Tiling>
+          <X>1</X>
+          <Y>1</Y>
+        </Tiling>
+      </Material>
+      <Mesh>
+        <AssetPath>Assets/3D/sculpture/sculpture.obj</AssetPath>
+        <Vao>6</Vao>
+        <VertexBufferDataLength>0</VertexBufferDataLength>
+        <VerticesCount>149994</VerticesCount>
+      </Mesh>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>0</Layer>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>623</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0.6</X>
+        <Y>1.4</Y>
+        <Z>3</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0.6</X>
+        <Y>1.4</Y>
+        <Z>3</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-124.94</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>623</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRendererInstanced">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>623</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <Material>
+        <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
+        <Additive>false</Additive>
+        <AlbedoTexture>
+          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+          <Size>
+            <X>4096</X>
+            <Y>4096</Y>
+          </Size>
+        </AlbedoTexture>
+        <AlbedoTint>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>255</A>
+          <PackedValue>4294967295</PackedValue>
+        </AlbedoTint>
+        <AmbientOcclusionTexture>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</AssetPath>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+        </AmbientOcclusionTexture>
+        <NormalTexture>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</AssetPath>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+        </NormalTexture>
         <Offset>
           <X>0</X>
           <Y>0</Y>
@@ -396,13 +557,13 @@
       </Material>
       <Mesh>
         <AssetPath>Assets/3D/chaos-belly-plate/source/1d7e925654624282a6a6409d5156d97b.obj</AssetPath>
-        <Vao>6</Vao>
-        <VertexBufferDataLength>1165344</VertexBufferDataLength>
+        <Vao>7</Vao>
+        <VertexBufferDataLength>0</VertexBufferDataLength>
         <VerticesCount>145668</VerticesCount>
       </Mesh>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>619</GameObjectNextId>
+  <GameObjectNextId>634</GameObjectNextId>
 </SceneFile>

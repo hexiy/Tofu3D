@@ -59,11 +59,12 @@ public class VertexBuffer
         var currentAttribOffset = 0;
         foreach (var countOfElements in countsOfElements)
         {
-            GL.VertexAttribPointer(nextAttribIndex, countOfElements, VertexAttribPointerType, false,
-                ElementsPerVertex * SizeOfElementInBytes,
+            GL.EnableVertexAttribArray(nextAttribIndex);
+
+            GL.VertexAttribPointer(index: nextAttribIndex, size: countOfElements, type: VertexAttribPointerType, false,
+                stride: ElementsPerVertex * SizeOfElementInBytes,
                 (IntPtr)(sequential ? currentAttribOffset * SizeOfElementInBytes : 0));
 
-            GL.EnableVertexAttribArray(nextAttribIndex);
             currentAttribOffset += countOfElements;
             nextAttribIndex++;
         }
