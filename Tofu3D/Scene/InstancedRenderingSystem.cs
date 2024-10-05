@@ -177,30 +177,32 @@ public class InstancedRenderingSystem
 
             // material.Shader.SetFloat("u_aoStrength", _normalDisabled ? 0 : 1);
 
-            // ALBEDO
+            // Albedo Texture
             if (material.AlbedoTexture)
             {
                 GL.ActiveTexture(TextureUnit.Texture0);
                 TextureHelper.BindTexture(material.AlbedoTexture.TextureId);
             }
 
-            // NORMAL
-            // TextureHelper.BindTexture(Tofu.AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
-            // GL.ActiveTexture(TextureUnit.Texture1);
-            // TextureHelper.BindTexture(_idNormal);
-
-            // AO
-            if (material.AoTexture)
-            {
-                GL.ActiveTexture(TextureUnit.Texture1);
-                TextureHelper.BindTexture(material.AoTexture.TextureId);
-            }
-
-            if (RenderPassDirectionalLightShadowDepth.I?.PassRenderTexture != null)
-            {
-                GL.ActiveTexture(TextureUnit.Texture2);
-                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.DepthAttachment);
-            }
+            // // Normal Texture
+            // if (material.NormalTexture)
+            // {
+            //     GL.ActiveTexture(TextureUnit.Texture1);
+            //     TextureHelper.BindTexture(material.NormalTexture.TextureId);
+            // }
+            //
+            // // Ambient Occlusion Texture
+            // if (material.AmbientOcclusionTexture)
+            // {
+            //     GL.ActiveTexture(TextureUnit.Texture2);
+            //     TextureHelper.BindTexture(material.AmbientOcclusionTexture.TextureId);
+            // }
+            //
+            // if (RenderPassDirectionalLightShadowDepth.I?.PassRenderTexture != null)
+            // {
+            //     GL.ActiveTexture(TextureUnit.Texture3);
+            //     TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.DepthAttachment);
+            // }
 
 
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
@@ -388,71 +390,71 @@ public class InstancedRenderingSystem
             if (bufferData.VertexBufferStructureType == VertexBufferStructureType.Model)
             {
                 // unique attribs for each instance
-                GL.EnableVertexAttribArray(3);
-                GL.EnableVertexAttribArray(4);
                 GL.EnableVertexAttribArray(5);
                 GL.EnableVertexAttribArray(6);
                 GL.EnableVertexAttribArray(7);
+                GL.EnableVertexAttribArray(8);
+                GL.EnableVertexAttribArray(9);
 
                 // https://stackoverflow.com/a/28597384
                 //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
-                GL.VertexAttribPointer(3, sizeof(float), VertexAttribPointerType.Float, false,
-                    bufferData._instancedVertexDataSizeInBytes,
-                    0);
-                GL.VertexAttribPointer(4, sizeof(float), VertexAttribPointerType.Float, false,
-                    bufferData._instancedVertexDataSizeInBytes,
-                    1 * 3 * sizeof(float));
                 GL.VertexAttribPointer(5, sizeof(float), VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
-                    2 * 3 * sizeof(float));
+                    0);
                 GL.VertexAttribPointer(6, sizeof(float), VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
-                    3 * 3 * sizeof(float));
+                    1 * 3 * sizeof(float));
                 GL.VertexAttribPointer(7, sizeof(float), VertexAttribPointerType.Float, false,
+                    bufferData._instancedVertexDataSizeInBytes,
+                    2 * 3 * sizeof(float));
+                GL.VertexAttribPointer(8, sizeof(float), VertexAttribPointerType.Float, false,
+                    bufferData._instancedVertexDataSizeInBytes,
+                    3 * 3 * sizeof(float));
+                GL.VertexAttribPointer(9, sizeof(float), VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
                     4 * 3 * sizeof(float));
 
 
-                GL.VertexAttribDivisor(3, 1);
-                GL.VertexAttribDivisor(4, 1);
                 GL.VertexAttribDivisor(5, 1);
                 GL.VertexAttribDivisor(6, 1);
                 GL.VertexAttribDivisor(7, 1);
+                GL.VertexAttribDivisor(8, 1);
+                GL.VertexAttribDivisor(9, 1);
             }
 
             if (bufferData.VertexBufferStructureType == VertexBufferStructureType.Quad)
             {
                 // unique attribs for each instance
-                GL.EnableVertexAttribArray(3);
-                GL.EnableVertexAttribArray(4);
                 GL.EnableVertexAttribArray(5);
                 GL.EnableVertexAttribArray(6);
                 GL.EnableVertexAttribArray(7);
+                GL.EnableVertexAttribArray(8);
+                GL.EnableVertexAttribArray(9);
 
                 // https://stackoverflow.com/a/28597384
                 //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
-                GL.VertexAttribPointer(3, sizeof(float), VertexAttribPointerType.Float, false,
-                    bufferData._instancedVertexDataSizeInBytes,
-                    0);
-                GL.VertexAttribPointer(4, sizeof(float), VertexAttribPointerType.Float, false,
-                    bufferData._instancedVertexDataSizeInBytes,
-                    1 * 3 * sizeof(float));
                 GL.VertexAttribPointer(5, sizeof(float), VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
-                    2 * 3 * sizeof(float));
+                    0);
                 GL.VertexAttribPointer(6, sizeof(float), VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
-                    3 * 3 * sizeof(float));
+                    1 * 3 * sizeof(float));
                 GL.VertexAttribPointer(7, sizeof(float), VertexAttribPointerType.Float, false,
+                    bufferData._instancedVertexDataSizeInBytes,
+                    2 * 3 * sizeof(float));
+                GL.VertexAttribPointer(8, sizeof(float), VertexAttribPointerType.Float, false,
+                    bufferData._instancedVertexDataSizeInBytes,
+                    3 * 3 * sizeof(float));
+                GL.VertexAttribPointer(9, sizeof(float), VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
                     4 * 3 * sizeof(float));
 
 
-                GL.VertexAttribDivisor(3, 1);
-                GL.VertexAttribDivisor(4, 1);
                 GL.VertexAttribDivisor(5, 1);
                 GL.VertexAttribDivisor(6, 1);
                 GL.VertexAttribDivisor(7, 1);
+                GL.VertexAttribDivisor(8, 1);
+                GL.VertexAttribDivisor(9, 1);
             }
         }
         else

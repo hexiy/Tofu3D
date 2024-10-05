@@ -5,20 +5,23 @@
 layout (location = 0) in vec3 a_pos;
 layout (location = 1) in vec2 a_uv;
 layout (location = 2) in vec3 a_normal;
-layout (location = 3) in vec3 a_model_1;
-layout (location = 4) in vec3 a_model_2;
-layout (location = 5) in vec3 a_model_3;
-layout (location = 6) in vec3 a_model_4;
-layout (location = 7) in vec4 a_color;
+layout (location = 3) in vec3 a_tangent;
+layout (location = 4) in vec3 a_bitangent;
+layout (location = 5) in vec3 a_model_1;
+layout (location = 6) in vec3 a_model_2;
+layout (location = 7) in vec3 a_model_3;
+layout (location = 8) in vec3 a_model_4;
+layout (location = 9) in vec4 a_color;
 
 uniform mat4 u_viewProjection;
 uniform mat4 u_lightSpaceViewProjection;
 
 out vec3 vertexPositionWorld;
-out vec3 normal;
 out vec2 uv;
+out vec3 normal;
 out vec4 color;
 out vec4 fragPosLightSpace;
+out mat4 TBN;
 
 void main(void)
 {
@@ -34,6 +37,12 @@ normal = transpose(inverse(mat3(a_model))) * a_normal;
 
 mat4 lightMvp = u_lightSpaceViewProjection * a_model;
 fragPosLightSpace = lightMvp * vec4(a_pos.xyz, 1.0);
+
+// NORMALS
+vec3 T = normalize(vec3(a_model * vec4(a_tangent,   0.0)));
+vec3 B = normalize(vec3(a_model * vec4(a_bitangent, 0.0)));
+vec3 N = normalize(vec3(a_model * vec4(a_normal,    0.0)));
+mat3 TBN = mat3(T, B, N);
 }
 
 [FRAGMENT]
@@ -61,7 +70,7 @@ uniform float u_fogGradientSmoothness = 1;
 uniform float u_fogIntensity = 1;
 
 uniform sampler2D textureAlbedo;
-//uniform sampler2D textureNormal;
+uniform sampler2D textureNormal;
 uniform sampler2D textureAo;
 uniform sampler2D shadowMap;
 
@@ -70,6 +79,7 @@ in vec2 uv;
 in vec3 vertexPositionWorld;
 in vec4 color;
 in vec4 fragPosLightSpace;
+in mat3 TBN;
 
 out vec4 frag_color;
 
@@ -100,21 +110,23 @@ return shadow;
 void main(void)
 {
 vec2 uvCoords = (uv + u_offset) * u_tiling;
-float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
 vec3 norm = normalize(- normal);
 
-//if(u_normalStrength!=0){
-//}
+//norm = texture(textureNormal, uvCoords).rgb;
+//norm = norm * 2.0 - 1.0;
+//norm = normalize(TBN * norm);
+//		
 
+float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
 float directionalLightFactor = max(dot(norm, u_directionalLightDirection), 0.0);
 vec4 dirColor = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
-
 
 vec4 texturePixelColor = texture(textureAlbedo, uvCoords) * u_albedoTint;
 vec4 result = texturePixelColor * color;
 
 vec4 ambientLighting = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
-result *= ambientLighting + dirColor;
+//result *= ambientLighting + dirColor;
+result *= ambientLighting;
 
 result.a = texturePixelColor.a * color.a;
 
@@ -122,7 +134,6 @@ result.a = texturePixelColor.a * color.a;
 if (result.a < 0.05) {
 discard; // having this fixes transparency sorting but breaks debug depthmap
 }
-
 
 
 
@@ -139,6 +150,7 @@ result.rgb+=ambientLighting.rgb;
 if (u_specularHighlightsEnabled == 1) {
 vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, norm);
 vec3 viewDir = - normalize(u_camPos - vertexPositionWorld);
+////////// problem is below
 
 float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32 * u_specularSmoothness);
 vec3 specular = u_specularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 2;
@@ -149,8 +161,8 @@ specular /= 3;
 result.rgb += specular;
 
 }
-vec4 aoTexture = texture(textureAo, uvCoords);
-result.rgb *= aoTexture.rgb;
+//vec4 aoTexture = texture(textureAo, uvCoords);
+//result.rgb *= aoTexture.rgb;
 
 
 if (u_fogEnabled == 1 && u_renderMode == 0)

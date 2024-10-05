@@ -19,8 +19,7 @@ public class
     private int _uLocationUMvp = -1;
 
     public int AlbedoTextureLocation;
-
-    // public int NormalTextureLocation;
+    public int NormalTextureLocation;
     public int AmbientOcclusionTextureLocation;
 
     public BufferType BufferType;
@@ -127,36 +126,33 @@ public class
 
         Tofu.ShaderManager.UseShader(this);
         AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
-        // NormalTextureLocation = GetUniformLocation("textureNormal");
+        NormalTextureLocation = GetUniformLocation("textureNormal");
         AmbientOcclusionTextureLocation = GetUniformLocation("textureAo");
         ShadowMapTextureLocation = GetUniformLocation("shadowMap");
+
+        int indx = 0;
         if (AlbedoTextureLocation != -1)
         {
-            GL.Uniform1(AlbedoTextureLocation, 0);
+            GL.Uniform1(AlbedoTextureLocation, indx);
+            indx++;
         }
 
-        // if (NormalTextureLocation != -1)
-        // {
-        // 	GL.Uniform1(NormalTextureLocation, 1);
-        // }
+        if (NormalTextureLocation != -1)
+        {
+            GL.Uniform1(NormalTextureLocation, indx);
+            indx++;
+        }
 
         if (AmbientOcclusionTextureLocation != -1)
         {
-            GL.Uniform1(AmbientOcclusionTextureLocation, 1);
+            GL.Uniform1(AmbientOcclusionTextureLocation, indx);
+            indx++;
         }
 
         if (ShadowMapTextureLocation != -1)
         {
-            if (AlbedoTextureLocation == -1)
-            {
-                GL.Uniform1(ShadowMapTextureLocation, 0);
-            }
-            else
-            {
-                GL.Uniform1(ShadowMapTextureLocation, 1);
-            }
-
-            GL.Uniform1(ShadowMapTextureLocation, 2); //instancing
+            GL.Uniform1(ShadowMapTextureLocation, indx);
+            indx++;
         }
 
         // int mainTextureLocation = GL.GetUniformLocation(ShaderCache.ShaderInUse, "textureObject");

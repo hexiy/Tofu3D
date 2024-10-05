@@ -10,7 +10,8 @@ public class Material : Asset<Material>
 
     public Texture AlbedoTexture;
     public Color AlbedoTint = Color.White;
-    public Texture AoTexture;
+    public Texture AmbientOcclusionTexture;
+    public Texture NormalTexture;
     public Vector2 Offset;
 
     public RenderMode RenderMode = RenderMode.Opaque;
@@ -31,7 +32,8 @@ public class Material : Asset<Material>
         hashCodeCombiner.Add(Shader?.GetHashCode());
         hashCodeCombiner.Add(AlbedoTexture?.GetHashCode());
         hashCodeCombiner.Add(AlbedoTint.GetHashCode());
-        hashCodeCombiner.Add(AoTexture?.GetHashCode());
+        hashCodeCombiner.Add(AmbientOcclusionTexture?.GetHashCode());
+        hashCodeCombiner.Add(NormalTexture?.GetHashCode());
         hashCodeCombiner.Add(Tiling.GetHashCode());
         hashCodeCombiner.Add(Offset.GetHashCode());
         return hashCodeCombiner.CombinedHash;
@@ -44,9 +46,14 @@ public class Material : Asset<Material>
             AlbedoTexture = Tofu.AssetManager.Load<Texture>(AlbedoTexture.Path);
         }
 
-        if (AoTexture?.Path.Length > 2)
+        if (AmbientOcclusionTexture?.Path.Length > 2)
         {
-            AoTexture = Tofu.AssetManager.Load<Texture>(AoTexture.Path);
+            AmbientOcclusionTexture = Tofu.AssetManager.Load<Texture>(AmbientOcclusionTexture.Path);
+        }
+        
+        if (NormalTexture?.Path.Length > 2)
+        {
+            NormalTexture = Tofu.AssetManager.Load<Texture>(NormalTexture.Path);
         }
     }
 
