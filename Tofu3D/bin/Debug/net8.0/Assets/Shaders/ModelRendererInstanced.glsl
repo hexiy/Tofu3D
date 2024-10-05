@@ -110,18 +110,23 @@ return shadow;
 void main(void)
 {
 vec2 uvCoords = (uv + u_offset) * u_tiling;
-vec3 norm = normalize(- normal);
+//vec3 norm = normalize(- normal);
 
-norm = texture(textureNormal, uvCoords).rgb;
+vec3 norm = texture(textureNormal, uvCoords).rgb;
 norm = norm * 2.0 - 1.0;
 norm = normalize(TBN * norm);
 
 
 float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
 
-vec3 lightDirTangent = normalize(TBN * u_directionalLightDirection);
+vec3 lightDirTangent = normalize(u_directionalLightDirection);
 float directionalLightFactor = max(dot(norm, lightDirTangent), 0.0);
+
+//
+//float directionalLightFactor = max(dot(norm, u_directionalLightDirection), 0.0);
 vec4 dirColor = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
+		
+		
 		
 vec4 texturePixelColor = texture(textureAlbedo, uvCoords) * u_albedoTint;
 vec4 result = texturePixelColor * color;
@@ -143,8 +148,9 @@ discard; // having this fixes transparency sorting but breaks debug depthmap
 float shadow = 1 - ShadowCalculation();
 //        shadow
 if (shadow == 0) {
-		float a = (ambientLighting.r + ambientLighting.g+ambientLighting.b)/3;
-result.rgb = ambientLighting.rgb*(vec3(a,a,a)*result.rgb);
+//		float a = (ambientLighting.r + ambientLighting.g+ambientLighting.b)/3;
+//result.rgb = ambientLighting.rgb*(vec3(a,a,a)*result.rgb);
+result.rgb = vec3(0,0,0);
 }
 else{
 //result.rgb+=ambientLighting.rgb;
@@ -154,9 +160,11 @@ if (u_specularHighlightsEnabled == 1) {
 vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, norm);
 vec3 viewDir = - normalize(u_camPos - vertexPositionWorld);
 ////////// problem is below
-
-float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32 * u_specularSmoothness);
-vec3 specular = u_specularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 2;
+float clampedSpecularSmoothness= max(u_specularSmoothness,0);
+float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32 * clampedSpecularSmoothness);
+		spec = max(spec,0);
+vec3 specular = clampedSpecularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 2;
+		
 //vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
 if (shadow == 0) {
 specular /= 3;

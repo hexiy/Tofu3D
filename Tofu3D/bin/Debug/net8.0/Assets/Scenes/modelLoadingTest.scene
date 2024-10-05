@@ -27,7 +27,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Directional Light</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -47,7 +47,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -59,7 +59,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>mask-quads</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -82,14 +82,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-1.0055027</X>
-        <Y>0.85423994</Y>
-        <Z>6.971701</Z>
+        <X>-3.0514467</X>
+        <Y>9.121293</Y>
+        <Z>-7.882531</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-1.0055027</X>
-        <Y>0.85423994</Y>
-        <Z>6.971701</Z>
+        <X>-3.0514467</X>
+        <Y>9.121293</Y>
+        <Z>-7.882531</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -102,8 +102,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>22.909306</X>
-        <Y>155.98143</Y>
+        <X>10.682071</X>
+        <Y>0.6483901</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -182,12 +182,12 @@
       <WorldPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>-0.4</Z>
+        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>-0.4</Z>
+        <Z>0</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -200,9 +200,9 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-111</X>
-        <Y>-160</Y>
-        <Z>-11</Z>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
       </Rotation>
     </Component>
     <Component xsi:type="DirectionalLight">
@@ -218,10 +218,10 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <Intensity>12.374</Intensity>
-      <FarPlaneDistance>100000</FarPlaneDistance>
-      <NearPlaneDistance>1.42</NearPlaneDistance>
-      <OrthographicSize>12</OrthographicSize>
+      <Intensity>10</Intensity>
+      <FarPlaneDistance>1000000</FarPlaneDistance>
+      <NearPlaneDistance>0.1</NearPlaneDistance>
+      <OrthographicSize>-6.2</OrthographicSize>
       <RefreshRate>60</RefreshRate>
       <Rotate>false</Rotate>
       <RotateOffset>1000</RotateOffset>
@@ -301,14 +301,14 @@
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
+        <X>-2.64</X>
         <Y>0</Y>
-        <Z>5</Z>
+        <Z>-5</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
+        <X>-2.64</X>
         <Y>0</Y>
-        <Z>5</Z>
+        <Z>-5</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -322,7 +322,7 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>8.2</Y>
+        <Y>-168.62</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -361,10 +361,10 @@
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -375,17 +375,17 @@
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <AmbientOcclusionTexture>
-          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</AssetPath>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
         </AmbientOcclusionTexture>
         <NormalTexture>
-          <AssetPath>Assets/2D/white.png</AssetPath>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</AssetPath>
           <Size>
-            <X>1</X>
-            <Y>1</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
         </NormalTexture>
         <Offset>
@@ -402,21 +402,21 @@
           <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
         </Shader>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.3</SpecularSmoothness>
+        <SpecularSmoothness>0.16</SpecularSmoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
         </Tiling>
       </Material>
       <Mesh>
-        <AssetPath>Assets/3D/sculpture/sculpture.obj</AssetPath>
-        <Vao>7</Vao>
+        <AssetPath>Assets/3D/chaos-belly-plate/source/1d7e925654624282a6a6409d5156d97b.obj</AssetPath>
+        <Vao>6</Vao>
         <VertexBufferDataLength>0</VertexBufferDataLength>
-        <VerticesCount>149994</VerticesCount>
+        <VerticesCount>145668</VerticesCount>
       </Mesh>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>802</GameObjectNextId>
+  <GameObjectNextId>861</GameObjectNextId>
 </SceneFile>

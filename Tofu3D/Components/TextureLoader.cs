@@ -44,8 +44,8 @@ public class TextureLoader : AssetLoader<Texture>
         GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)loadSettings.WrapMode);
         GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)loadSettings.WrapMode);
         GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)loadSettings.WrapMode);
-        GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)loadSettings.FilterMode);
-        GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)loadSettings.FilterMode);
+        // GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)loadSettings.FilterMode);
+        // GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)loadSettings.FilterMode);
 
         // crashes the engine on macos
         if (OperatingSystem.IsWindows)
