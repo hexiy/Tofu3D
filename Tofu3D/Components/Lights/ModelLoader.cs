@@ -197,10 +197,27 @@ public class ModelLoader : AssetLoader<Mesh>
 
 
             offset = 5; // pos.x,pos.y,pos.z, uv.x,uv.y
-            Vector3 nm = new Vector3(
+            
+            // average out normals
+
+            Vector3 nm1 = new Vector3(
                 everything[indexOfVertex1Start + offset + 0],
                 everything[indexOfVertex1Start + offset + 1],
                 everything[indexOfVertex1Start + offset + 2]);
+               Vector3 nm2 = new Vector3(
+                everything[indexOfVertex1Start + offset + floatsPerVertex + 0],
+                everything[indexOfVertex1Start + offset + floatsPerVertex + 1],
+                everything[indexOfVertex1Start + offset + floatsPerVertex + 2]); 
+               Vector3 nm3 = new Vector3(
+                everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 0],
+                everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 1],
+                everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 2]);
+
+               Vector3 nm = (nm1 + nm2 + nm3)/3f;
+            // Vector3 nm = new Vector3(
+            //     everything[indexOfVertex1Start + offset + 0],
+            //     everything[indexOfVertex1Start + offset + 1],
+            //     everything[indexOfVertex1Start + offset + 2]);
 
             Vector3 tangent1;
             Vector3 bitangent1;
