@@ -60,6 +60,7 @@ public class DirectionalLight : LightBase
             Transform.Rotation = Transform.Rotation.Set(Mathf.SinAbs(Time.EditorElapsedTime * 0.5f) + 0.2f * 30,
                 RotateOffset + (float)Math.Sin(Time.EditorElapsedTime * Speed) * 50);
         }
+
     }
 
     public void RenderDirectionalLightShadowDepth()

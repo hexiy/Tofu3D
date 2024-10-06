@@ -143,8 +143,8 @@ public class InstancedRenderingSystem
                 directionalLightColor.Z, SceneLightingManager.I.GetDirectionalLightIntensity());
             material.Shader.SetVector4("u_directionalLightColor", directionalLightColor);
             material.Shader.SetVector3("u_directionalLightDirection",
-                -SceneLightingManager.I.GetDirectionalLightDirection());
-
+                SceneLightingManager.I.GetDirectionalLightDirection().Normalized());
+Debug.Log("light dir:"+SceneLightingManager.I.GetDirectionalLightDirection().Normalized());
 
             material.Shader.SetFloat("u_specularSmoothness", material.SpecularSmoothness);
             material.Shader.SetFloat("u_specularHighlightsEnabled", material.SpecularHighlightsEnabled ? 1 : 0);

@@ -153,7 +153,7 @@ public class Transform : Component
 
     [Hide] public Vector3 WorldRotation => Rotation + GetParentsRotation();
 
-    [Hide] public Vector3 Forward => Transform.TransformVectorToWorldSpaceVector(Vector3.Forward);
+    [Hide] public Vector3 Forward => Transform.GetDirectionFromRotation(Rotation);
 
     private Vector3 GetParentsRotation() => Parent?.Rotation ?? Vector3.Zero;
 
@@ -326,6 +326,20 @@ public class Transform : Component
         return x;
     }
 
+    public Vector3 GetDirectionFromRotation(Vector3 rotation)
+    {
+        float pitch = rotation.X;
+        float yaw = rotation.Y;
+        float pitchRadians = MathHelper.DegreesToRadians(pitch);
+        float yawRadians = MathHelper.DegreesToRadians(yaw);
+
+        Vector3 direction;
+        direction.Z = (float)(Math.Cos(pitchRadians) * Math.Cos(yawRadians));
+        direction.Y = (float)Math.Sin(pitchRadians);
+        direction.X = (float)(Math.Cos(pitchRadians) * Math.Sin(yawRadians));
+
+        return direction.Normalized(); // Optionally normalize the vector
+    }
     public Vector3 TransformVectorToWorldSpaceVector(Vector3 dir)
     {
         // dir = dir.Normalized();
