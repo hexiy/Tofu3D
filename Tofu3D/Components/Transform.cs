@@ -338,7 +338,7 @@ public class Transform : Component
         direction.Y = (float)Math.Sin(pitchRadians);
         direction.X = (float)(Math.Cos(pitchRadians) * Math.Sin(yawRadians));
 
-        return direction.Normalized(); // Optionally normalize the vector
+        return direction.Normalized();
     }
     public Vector3 TransformVectorToWorldSpaceVector(Vector3 dir)
     {

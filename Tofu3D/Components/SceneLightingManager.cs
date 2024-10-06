@@ -110,6 +110,10 @@ public class SceneLightingManager
 
     public Color GetDirectionalLightColor() => _directionalLight?.Color ?? Color.Black;
 
+    /// <summary>
+    /// Normalized direction vector
+    /// </summary>
+    /// <returns></returns>
     public Vector3 GetDirectionalLightDirection() => _directionalLight?.Transform.Forward ?? Vector3.Zero;
 
     public Vector3 GetDirectionalLightPosition() => _directionalLight?.Transform.WorldPosition ?? Vector3.Zero;

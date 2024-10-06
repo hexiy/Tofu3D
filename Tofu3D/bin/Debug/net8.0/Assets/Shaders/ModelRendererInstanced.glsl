@@ -111,23 +111,26 @@ void main(void)
 {
 vec2 uvCoords = (uv + u_offset) * u_tiling;
 //vec3 norm = normalize(- normal);
+		
+		
 vec3 norm = normalize(normal);
-float diff = max(dot(norm, -u_directionalLightDirection), 0.0);
-vec3 diffuse = diff * u_directionalLightColor.rgb;
+//float diff = max(dot(norm, -u_directionalLightDirection), 0.0);
+//vec3 diffuse = diff * u_directionalLightColor.rgb;
 		
 //vec3 norm = texture(textureNormal, uvCoords).rgb;
 //norm = norm * 2.0 - 1.0;
-//norm = normalize(TBN * norm);
+norm = normalize(TBN * norm);
+		
 //
 //
-//float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
 //
-//vec3 lightDirTangent = normalize(u_directionalLightDirection);
-//float directionalLightFactor = max(dot(norm, lightDirTangent), 0.0);
+vec3 lightDirTangent = normalize(TBN * -u_directionalLightDirection);
+float directionalLightFactor = max(dot(norm, lightDirTangent), 0.0);
 //
 ////
 ////float directionalLightFactor = max(dot(norm, u_directionalLightDirection), 0.0);
-//vec4 dirColor = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
+float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
+vec4 diffuse = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
 //		
 		
 		
