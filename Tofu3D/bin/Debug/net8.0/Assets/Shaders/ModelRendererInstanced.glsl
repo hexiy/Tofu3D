@@ -98,7 +98,7 @@ float currentDepth = projCoords.z;
 // check whether current frag pos is in shadow
 //    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
 
-float bias = 0.001;
+float bias = 0.0001;
 
 float shadow = currentDepth - bias > closestDepth ? 1.0: 0.0;
 
@@ -150,7 +150,7 @@ float shadow = ShadowCalculation(); // 1 if in shadow
 //        shadow
 if (shadow == 1) {
 		float a = (ambient.r + ambient.g + ambient.b)/10;
-result.rgb = ambient.rgb*(vec3(a,a,a)*result.rgb);
+result.rgb = ambient.rgb*(vec3(a,a,a)*texturePixelColor.rgb * color.rgb);
 //		result.rgb = vec3(1,0,0); // red
 }
 else{

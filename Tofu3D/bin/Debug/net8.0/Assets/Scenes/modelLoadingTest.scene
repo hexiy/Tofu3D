@@ -98,14 +98,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-0.6368789</X>
-        <Y>2.6491365</Y>
-        <Z>-2.3331695</Z>
+        <X>-2.601451</X>
+        <Y>3.1923885</Y>
+        <Z>-1.1296424</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-0.6368789</X>
-        <Y>2.6491365</Y>
-        <Z>-2.3331695</Z>
+        <X>-2.601451</X>
+        <Y>3.1923885</Y>
+        <Z>-1.1296424</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -118,8 +118,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>30.954569</X>
-        <Y>-15.849074</Y>
+        <X>23.03232</X>
+        <Y>16.295921</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -410,8 +410,8 @@
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
-          <AlbedoTextureLocation>25</AlbedoTextureLocation>
-          <NormalTextureLocation>-1</NormalTextureLocation>
+          <AlbedoTextureLocation>26</AlbedoTextureLocation>
+          <NormalTextureLocation>2</NormalTextureLocation>
           <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
           <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
           <BufferType>Model</BufferType>
@@ -541,8 +541,8 @@
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
-          <AlbedoTextureLocation>25</AlbedoTextureLocation>
-          <NormalTextureLocation>-1</NormalTextureLocation>
+          <AlbedoTextureLocation>26</AlbedoTextureLocation>
+          <NormalTextureLocation>2</NormalTextureLocation>
           <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
           <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
           <BufferType>Model</BufferType>
@@ -565,5 +565,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>983</GameObjectNextId>
+  <GameObjectNextId>985</GameObjectNextId>
 </SceneFile>
