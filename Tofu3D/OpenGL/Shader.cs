@@ -18,14 +18,14 @@ public class
 
     private int _uLocationUMvp = -1;
 
-    public int AlbedoTextureLocation;
-    public int NormalTextureLocation;
-    public int AmbientOcclusionTextureLocation;
+    public int AlbedoTextureLocation=-1;
+    public int NormalTextureLocation=-1;
+    public int AmbientOcclusionTextureLocation=-1;
+    public int ShadowMapTextureLocation=-1;
 
     public BufferType BufferType;
 
     public string Path;
-    public int ShadowMapTextureLocation;
 
     [XmlIgnore] public Dictionary<string, object> Uniforms = new()
     {
@@ -125,12 +125,15 @@ public class
 
 
         Tofu.ShaderManager.UseShader(this);
+
         AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
         NormalTextureLocation = GetUniformLocation("textureNormal");
         AmbientOcclusionTextureLocation = GetUniformLocation("textureAo");
         ShadowMapTextureLocation = GetUniformLocation("shadowMap");
 
         int indx = 0;
+        
+        // GL.Uniform1 to bind the texture to the texture unit-Texture0, Texture1 etc
         if (AlbedoTextureLocation != -1)
         {
             GL.Uniform1(AlbedoTextureLocation, indx);
@@ -148,7 +151,7 @@ public class
             GL.Uniform1(AmbientOcclusionTextureLocation, indx);
             indx++;
         }
-
+        
         if (ShadowMapTextureLocation != -1)
         {
             GL.Uniform1(ShadowMapTextureLocation, indx);

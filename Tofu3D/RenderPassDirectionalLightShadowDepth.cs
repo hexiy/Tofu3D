@@ -14,7 +14,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
     public static RenderPassDirectionalLightShadowDepth I { get; private set; }
 
     // shadows depth map
-    public RenderTexture DebugGrayscaleTexture { get; private set; }
+    public RenderTexture DebugDepthVisualisationTexture { get; private set; }
 
     public override bool CanRender() => _directionalLight?.IsActive == true && Enabled;
 
@@ -35,7 +35,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
         // PassRenderTexture contains the depth, we render that depth with DeptRenderTexture.glsl shader to DepthMapRenderTexture and use that as a shadowmap
         PassRenderTexture = new RenderTexture(_directionalLight.Size, false, true);
         PassRenderTexture.ClearColor = new Color(0, 150, 0, 255);
-        DebugGrayscaleTexture = new RenderTexture(_directionalLight.Size, true);
+        DebugDepthVisualisationTexture = new RenderTexture(_directionalLight.Size, true);
     }
 
     protected override void PreRender()
@@ -56,13 +56,13 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 
         if (renderToDebugTexture || true)
         {
-            RenderToDebugDepthTexture();
+            RenderToDebugDepthVisualisationTexture();
         }
 
         GL.Disable(EnableCap.DepthTest);
     }
 
-    private void RenderToDebugDepthTexture()
+    private void RenderToDebugDepthVisualisationTexture()
     {
         if (_directionalLight == null)
         {
@@ -71,17 +71,17 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 
         GL.ActiveTexture(TextureUnit.Texture1);
 
-        DebugGrayscaleTexture.Bind();
+        DebugDepthVisualisationTexture.Bind();
 
         // GL.ClearColor(Color.Yellow.ToOtherColor());
         // GL.Clear(ClearBufferMask.ColorBufferBit);
 
-        GL.Viewport(0, 0, (int)DebugGrayscaleTexture.Size.X, (int)DebugGrayscaleTexture.Size.Y);
+        GL.Viewport(0, 0, (int)DebugDepthVisualisationTexture.Size.X, (int)DebugDepthVisualisationTexture.Size.Y);
         // GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         // GL.ClearColor(1,0,1,1);
 
-        DebugGrayscaleTexture.RenderDepthAttachment(PassRenderTexture.DepthAttachment);
+        DebugDepthVisualisationTexture.RenderDepthAttachment(PassRenderTexture.DepthAttachment);
 
-        DebugGrayscaleTexture.Unbind();
+        DebugDepthVisualisationTexture.Unbind();
     }
 }

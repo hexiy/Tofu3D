@@ -38,7 +38,7 @@ normal = transpose(inverse(mat3(a_model))) * a_normal;
 mat4 lightMvp = u_lightSpaceViewProjection * a_model;
 fragPosLightSpace = lightMvp * vec4(a_pos.xyz, 1.0);
 
-// NORMALS
+// TBN for normal texture mapping
 vec3 T = normalize(vec3(a_model * vec4(a_tangent,   0.0)));
 vec3 B = normalize(vec3(a_model * vec4(a_bitangent, 0.0)));
 vec3 N = normalize(vec3(a_model * vec4(a_normal,    0.0)));
@@ -83,6 +83,8 @@ in mat3 TBN;
 
 out vec4 frag_color;
 
+		
+		// 1 if in shadow-black, 0 if in light
 float ShadowCalculation()
 {
 // perform perspective divide
@@ -113,21 +115,25 @@ vec2 uvCoords = (uv + u_offset) * u_tiling;
 
 vec3 norm = normalize(normal);
 
+vec3 variableJustSoTextureNormalIsUsedByCompiler = texture(textureNormal, uvCoords).rgb;
+
 //vec3 norm = texture(textureNormal, uvCoords).rgb;
 //norm = norm * 2.0 - 1.0;
 norm = normalize(TBN * norm);
 		
-vec3 lightDirTangent = normalize(TBN * -u_directionalLightDirection);
-float directionalLightFactor = max(dot(norm, lightDirTangent), 0.0);
-float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
-vec4 diffuse = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
-		
 vec4 texturePixelColor = texture(textureAlbedo, uvCoords) * u_albedoTint;
 vec4 result = texturePixelColor * color;
 
-vec4 ambientLighting = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
-result *= ambientLighting + vec4(diffuse.rgb,1);
-//result *= ambientLighting;
+vec3 correctedLightDir = u_directionalLightDirection * vec3(1,-1,1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
+vec3 lightDirTangent = normalize(TBN * -correctedLightDir.rgb);
+float directionalLightFactor = max(dot(norm, lightDirTangent), 0.0);
+float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
+vec4 diffuse = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
+result *= vec4(diffuse.rgb,1);
+		
+vec4 ambient = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
+result *= ambient;
+//result *= ambient;
 
 result.a = texturePixelColor.a * color.a;
 
@@ -137,19 +143,21 @@ discard; // having this fixes transparency sorting but breaks debug depthmap
 }
 
 
+float aoTexture = texture(textureAo, uvCoords).r;
+result.rgb *= aoTexture;
 
+float shadow = ShadowCalculation(); // 1 if in shadow
+//        shadow
+if (shadow == 1) {
+		float a = (ambient.r + ambient.g + ambient.b)/10;
+result.rgb = ambient.rgb*(vec3(a,a,a)*result.rgb);
+//		result.rgb = vec3(1,0,0); // red
+}
+else{
+result.rgb= result.rgb * ambient.rgb;
+//result.rgb = vec3(0,1,0); // green
 
-//float shadow = ShadowCalculation();
-////        shadow
-//if (shadow == 0) {
-//		float a = (ambientLighting.r + ambientLighting.g+ambientLighting.b)/10;
-//result.rgb = ambientLighting.rgb*(vec3(a,a,a)*result.rgb);
-//}
-//else{
-//result.rgb= result.rgb * ambientLighting.rgb;
-//}
-//		
-		
+}
 		
 //if (u_specularHighlightsEnabled == 1) {
 //vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, norm);
@@ -199,8 +207,7 @@ fogFactor = fogFactor * finalFogColor.a;
 result.rgb = mix(result.rgb, finalFogColor.rgb, fogFactor);
 }
 
-float aoTexture = texture(textureAo, uvCoords).r;
-result.rgb *= aoTexture;
+
 
 if (u_renderMode == 0) // regular
 {

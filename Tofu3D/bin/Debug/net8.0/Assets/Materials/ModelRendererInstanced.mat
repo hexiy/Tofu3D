@@ -3,10 +3,10 @@
   <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
   <Additive>false</Additive>
   <AlbedoTexture>
-    <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+    <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
     <Size>
-      <X>4096</X>
-      <Y>4096</Y>
+      <X>2048</X>
+      <Y>2048</Y>
     </Size>
   </AlbedoTexture>
   <AlbedoTint>
@@ -17,17 +17,17 @@
     <PackedValue>4294967295</PackedValue>
   </AlbedoTint>
   <AmbientOcclusionTexture>
-    <AssetPath>Assets/2D/white.png</AssetPath>
+    <AssetPath>Assets/2D/purple.png</AssetPath>
     <Size>
-      <X>1</X>
-      <Y>1</Y>
+      <X>256</X>
+      <Y>256</Y>
     </Size>
   </AmbientOcclusionTexture>
   <NormalTexture>
-    <AssetPath>Assets/2D/white.png</AssetPath>
+    <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</AssetPath>
     <Size>
-      <X>1</X>
-      <Y>1</Y>
+      <X>2048</X>
+      <Y>2048</Y>
     </Size>
   </NormalTexture>
   <Offset>
@@ -36,12 +36,12 @@
   </Offset>
   <RenderMode>Opaque</RenderMode>
   <Shader>
-    <AlbedoTextureLocation>26</AlbedoTextureLocation>
-    <NormalTextureLocation>2</NormalTextureLocation>
+    <AlbedoTextureLocation>25</AlbedoTextureLocation>
+    <NormalTextureLocation>-1</NormalTextureLocation>
     <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
+    <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
     <BufferType>Model</BufferType>
     <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-    <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
   </Shader>
   <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
   <SpecularSmoothness>0.44</SpecularSmoothness>

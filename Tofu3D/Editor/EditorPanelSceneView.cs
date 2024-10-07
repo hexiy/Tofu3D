@@ -75,16 +75,16 @@ if (IsFullscreen)
             // 	ImGui.Image((IntPtr) RenderPassOpaques.I.PassRenderTexture.ColorAttachment, RenderPassOpaques.I.PassRenderTexture.Size,
             // 	           new Vector2(0, 1), new Vector2(1, 0));
             // }
-            if (_renderCameraViews && RenderPassDirectionalLightShadowDepth.I?.DebugGrayscaleTexture != null)
+            if (_renderCameraViews && RenderPassDirectionalLightShadowDepth.I?.DebugDepthVisualisationTexture != null)
             {
-                var ratio = RenderPassDirectionalLightShadowDepth.I.DebugGrayscaleTexture.Size.Y /
-                            RenderPassDirectionalLightShadowDepth.I.DebugGrayscaleTexture.Size.X;
-                var sizeX = Mathf.ClampMax(RenderPassDirectionalLightShadowDepth.I.DebugGrayscaleTexture.Size.X, 400);
+                var ratio = RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.Y /
+                            RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.X;
+                var sizeX = Mathf.ClampMax(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.X, 400);
                 var sizeY = sizeX * ratio;
 
                 ImGui.SetCursorPos(new Vector2(5, 75));
 
-                ImGui.Image(RenderPassDirectionalLightShadowDepth.I.DebugGrayscaleTexture.ColorAttachment,
+                ImGui.Image(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.ColorAttachment,
                     new Vector2(sizeX, sizeY),
                     new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
             }

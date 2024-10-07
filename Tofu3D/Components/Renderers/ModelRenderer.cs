@@ -213,10 +213,10 @@ public class ModelRenderer : TextureRenderer
 
             GL.ActiveTexture(TextureUnit.Texture0);
             TextureHelper.BindTexture(Texture.TextureId);
-            if (RenderPassDirectionalLightShadowDepth.I?.DebugGrayscaleTexture != null)
+            if (RenderPassDirectionalLightShadowDepth.I?.DebugDepthVisualisationTexture != null)
             {
                 GL.ActiveTexture(TextureUnit.Texture1);
-                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DebugGrayscaleTexture
+                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture
                     .ColorAttachment);
             }
 
