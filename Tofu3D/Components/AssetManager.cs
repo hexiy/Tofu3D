@@ -91,11 +91,11 @@ public class AssetManager
                        Activator.CreateInstance(_loadSettingsTypes[typeof(T)]) as AssetLoadSettings<T>;
         settings.Path = asset.Path;
         settings.ValidatePath();
-        if (File.Exists(settings.Path) == false)
-        {
-            Debug.LogError("Cannot save asset, no path present");
-            return null;
-        }
+        // if (File.Exists(settings.Path) == false)
+        // {
+        //     Debug.LogError("Cannot save asset, no path present");
+        //     return null;
+        // }
 
 
         var hash = settings.GetHashCode();

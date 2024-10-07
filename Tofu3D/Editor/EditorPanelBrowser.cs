@@ -62,7 +62,7 @@ public class EditorPanelBrowser : EditorPanel
             {
                 Material createdMaterial = new();
                 createdMaterial.Path = filePath;
-                // Tofu.AssetManager.Save<Material>(createdMaterial);
+                Tofu.AssetManager.Save<Material>(createdMaterial);
                 RefreshAssets();
             });
         _contextItems = new List<BrowserContextItem> { createSceneContextItem, createMaterialContextItem };

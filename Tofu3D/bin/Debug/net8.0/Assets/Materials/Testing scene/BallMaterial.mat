@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
+  <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/BallMaterial.mat</AssetPath>
   <Shader>
     <AlbedoTextureLocation>26</AlbedoTextureLocation>
     <NormalTextureLocation>2</NormalTextureLocation>
@@ -11,10 +11,10 @@
   </Shader>
   <Additive>false</Additive>
   <AlbedoTexture>
-    <AssetPath>Assets/2D/grass.jpg</AssetPath>
+    <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
     <Size>
-      <X>1500</X>
-      <Y>1500</Y>
+      <X>4096</X>
+      <Y>4096</Y>
     </Size>
   </AlbedoTexture>
   <AlbedoTint>
@@ -32,10 +32,10 @@
     </Size>
   </AmbientOcclusionTexture>
   <NormalTexture>
-    <AssetPath>Assets/2D/white.png</AssetPath>
+    <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</AssetPath>
     <Size>
-      <X>1</X>
-      <Y>1</Y>
+      <X>2048</X>
+      <Y>2048</Y>
     </Size>
   </NormalTexture>
   <Offset>
@@ -44,9 +44,9 @@
   </Offset>
   <RenderMode>Opaque</RenderMode>
   <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-  <SpecularSmoothness>0.44</SpecularSmoothness>
+  <SpecularSmoothness>0.08</SpecularSmoothness>
   <Tiling>
-    <X>4</X>
-    <Y>4</Y>
+    <X>1</X>
+    <Y>1</Y>
   </Tiling>
 </Material>

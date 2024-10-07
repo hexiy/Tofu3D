@@ -9,7 +9,7 @@
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>cube</Name>
+      <Name>sculpture</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -34,14 +34,14 @@
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
-        <Y>2.4</Y>
-        <Z>1.8</Z>
+        <X>-4.38</X>
+        <Y>-0.16</Y>
+        <Z>2.46</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>2.4</Y>
-        <Z>1.8</Z>
+        <X>-4.38</X>
+        <Y>-0.16</Y>
+        <Z>2.46</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -71,9 +71,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>2</X>
+        <Y>2</Y>
+        <Z>2</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRendererInstanced">
@@ -91,13 +91,21 @@
         <PackedValue>4294967295</PackedValue>
       </Color>
       <Material>
-        <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
+        <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/BallMaterial.mat</AssetPath>
+        <Shader>
+          <AlbedoTextureLocation>26</AlbedoTextureLocation>
+          <NormalTextureLocation>2</NormalTextureLocation>
+          <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+        </Shader>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
+          <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
           <Size>
-            <X>2048</X>
-            <Y>2048</Y>
+            <X>4096</X>
+            <Y>4096</Y>
           </Size>
         </AlbedoTexture>
         <AlbedoTint>
@@ -108,44 +116,29 @@
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <AmbientOcclusionTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</AssetPath>
+          <AssetPath>Assets/2D/white.png</AssetPath>
           <Size>
-            <X>2048</X>
-            <Y>2048</Y>
+            <X>1</X>
+            <Y>1</Y>
           </Size>
         </AmbientOcclusionTexture>
-        <NormalTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</AssetPath>
-          <Size>
-            <X>2048</X>
-            <Y>2048</Y>
-          </Size>
-        </NormalTexture>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
-        <Shader>
-          <AlbedoTextureLocation>26</AlbedoTextureLocation>
-          <NormalTextureLocation>2</NormalTextureLocation>
-          <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
-          <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-        </Shader>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.44</SpecularSmoothness>
+        <SpecularSmoothness>0.08</SpecularSmoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
         </Tiling>
       </Material>
       <Mesh>
-        <AssetPath>Assets/3D/sphere.obj</AssetPath>
-        <Vao>8</Vao>
+        <AssetPath>Assets/3D/sculpture/sculpture.obj</AssetPath>
+        <Vao>10</Vao>
         <VertexBufferDataLength>0</VertexBufferDataLength>
-        <VerticesCount>2880</VerticesCount>
+        <VerticesCount>149994</VerticesCount>
       </Mesh>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>

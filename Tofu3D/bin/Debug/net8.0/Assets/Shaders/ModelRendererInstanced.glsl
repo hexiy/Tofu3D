@@ -117,20 +117,18 @@ vec2 uvCoords = (uv + u_offset) * u_tiling;
 vec3 variableJustSoTextureNormalIsUsedByCompiler = texture(textureNormal, uvCoords).rgb;
 		
 		
-vec3 norm = normalize(normal);
+vec3 vertexNormalTBN = normalize(TBN * normal);
         
-//vec3 norm = texture(textureNormal, uvCoords).rgb;
-//norm = norm * 2.0 - 1.0;
 
 
+vec3 texNormal = texture(textureNormal, uvCoords).rgb;
+texNormal = texNormal * 2.0 - 1.0; // Normalizing the normal values from the texture
+texNormal = normalize(TBN * -texNormal); // Transforming the normal values from the texture space to the world space
+//norm = normalize(TBN * norm);
+ float blendFactor = 0.6;
+ vec3 finalNormal = normalize(mix(vertexNormalTBN, texNormal, blendFactor));
+        
 
-vec3 texNorm = texture(textureNormal, uvCoords).rgb;
-texNorm = texNorm * 2.0 - 1.0; // Normalizing the normal values from the texture
-//norm = normalize(TBN * texNorm); // Transforming the normal values from the texture space to the world space
-        
-norm = normalize(TBN * norm);
-		
-        
 vec4 albedoColor = texture(textureAlbedo, uvCoords) * u_albedoTint*color;
 
 vec4 aoColor = texture(textureAo, uvCoords);
@@ -140,7 +138,7 @@ vec4 final_ambient = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
 		
 vec3 correctedLightDir = u_directionalLightDirection * vec3(1,-1,1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
 vec3 lightDirTangent = normalize(TBN * -correctedLightDir.rgb);
-float directionalLightFactor = max(dot(norm, lightDirTangent), 0.0);
+float directionalLightFactor = max(dot(finalNormal, lightDirTangent), 0.0);
 float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
 vec4 final_diffuse = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
 
@@ -156,8 +154,8 @@ discard; // having this fixes transparency sorting but breaks debug depthmap
 
 
 if (u_specularHighlightsEnabled == 1) {
-vec3 reflectedLightVectorWorld = reflect(-correctedLightDir,normalize(normal));
-vec3 viewDir = - normalize(u_camPos - vertexPositionWorld);
+vec3 reflectedLightVectorWorld = reflect(correctedLightDir, finalNormal);
+vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
 ////////// problem is below
 float clampedSpecularSmoothness= max(u_specularSmoothness,0);
 float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32 * clampedSpecularSmoothness);
@@ -170,7 +168,7 @@ vec3 specular = clampedSpecularSmoothness * spec * u_directionalLightColor.rgb *
 //specular /= 3;
 //}
 
-result.rgb += specular;//*normalize(albedoColor.rgb+vec3(0.3));
+result.rgb *= max(vec3(1), specular+1);//*normalize(albedoColor.rgb+vec3(0.3));
 
 }
 
@@ -237,7 +235,7 @@ if (u_renderMode == 2) // normals
 {
 //frag_color = vec4(normalize(- normal) * result.rgb, result.a);
 //frag_color = vec4(normalize(- normal), result.a);
-frag_color = vec4(norm, result.a);
+frag_color = vec4(finalNormal, result.a);
 }
 //	gl_FragDepth = gl_FragCoord.z;
 }

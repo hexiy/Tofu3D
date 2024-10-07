@@ -79,6 +79,7 @@ public class EditorPanelInspector : EditorPanel
             { typeof(Vector3), new InspectorFieldDrawerVector3() },
             { typeof(GameObject), new InspectorFieldDrawerGameObject() },
             { typeof(Material), new InspectorFieldDrawerMaterial() },
+            { typeof(Shader), new InspectorFieldDrawerShader() },
             { typeof(Texture), new InspectorFieldDrawerTexture() },
             { typeof(CubemapTexture), new InspectorFieldDrawerCubemapTexture() },
             { typeof(Color), new InspectorFieldDrawerColor() },
@@ -204,7 +205,7 @@ public class EditorPanelInspector : EditorPanel
 
     public void OnMaterialSelected(string materialPath)
     {
-        object materialInspectable = Tofu.AssetManager.Load<Material>(Path.GetFileName(materialPath));
+        object materialInspectable = Tofu.AssetManager.Load<Material>(materialPath);
         SelectInspectable(materialInspectable);
     }
 

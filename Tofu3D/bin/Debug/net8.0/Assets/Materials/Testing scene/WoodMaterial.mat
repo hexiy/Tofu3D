@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
+  <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/WoodMaterial.mat</AssetPath>
   <Shader>
     <AlbedoTextureLocation>26</AlbedoTextureLocation>
     <NormalTextureLocation>2</NormalTextureLocation>
@@ -11,10 +11,10 @@
   </Shader>
   <Additive>false</Additive>
   <AlbedoTexture>
-    <AssetPath>Assets/2D/grass.jpg</AssetPath>
+    <AssetPath>Assets/3D/wood/tex_u1_v1_diffuse.jpg</AssetPath>
     <Size>
-      <X>1500</X>
-      <Y>1500</Y>
+      <X>8192</X>
+      <Y>8192</Y>
     </Size>
   </AlbedoTexture>
   <AlbedoTint>
@@ -32,10 +32,10 @@
     </Size>
   </AmbientOcclusionTexture>
   <NormalTexture>
-    <AssetPath>Assets/2D/white.png</AssetPath>
+    <AssetPath>Assets/3D/wood/tex_u1_v1_normal.jpg</AssetPath>
     <Size>
-      <X>1</X>
-      <Y>1</Y>
+      <X>8192</X>
+      <Y>8192</Y>
     </Size>
   </NormalTexture>
   <Offset>
@@ -43,10 +43,10 @@
     <Y>0</Y>
   </Offset>
   <RenderMode>Opaque</RenderMode>
-  <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-  <SpecularSmoothness>0.44</SpecularSmoothness>
+  <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+  <SpecularSmoothness>0</SpecularSmoothness>
   <Tiling>
-    <X>4</X>
-    <Y>4</Y>
+    <X>1</X>
+    <Y>1</Y>
   </Tiling>
 </Material>

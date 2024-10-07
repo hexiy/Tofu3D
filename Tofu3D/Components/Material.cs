@@ -5,6 +5,7 @@ namespace Scripts;
 [Serializable]
 public class Material : Asset<Material>
 {
+    public Shader Shader;
     // public bool IsValid = true;
     [Hide] public bool Additive = false;
 
@@ -16,7 +17,6 @@ public class Material : Asset<Material>
 
     public RenderMode RenderMode = RenderMode.Opaque;
 
-    [Hide] public Shader Shader;
 
     public bool SpecularHighlightsEnabled;
     public float SpecularSmoothness;

@@ -214,6 +214,7 @@ public class ModelLoader : AssetLoader<Mesh>
                 everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 2]);
 
                Vector3 nm = (nm1 + nm2 + nm3)/3f;
+               // Vector3 nm = nm1;
             // Vector3 nm = new Vector3(
             //     everything[indexOfVertex1Start + offset + 0],
             //     everything[indexOfVertex1Start + offset + 1],
