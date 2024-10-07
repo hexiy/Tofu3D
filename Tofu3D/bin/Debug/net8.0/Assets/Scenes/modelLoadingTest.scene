@@ -27,7 +27,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Directional Light</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -47,7 +47,7 @@
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -81,6 +81,38 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>1035</Id>
+      <IndexInHierarchy>0</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>cube</Name>
+      <PrefabPath />
+      <Selected>true</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>1040</Id>
+      <IndexInHierarchy>0</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>cube</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
   </GameObjects>
   <Components>
     <Component xsi:type="Transform">
@@ -98,14 +130,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-3.3579655</X>
-        <Y>0.88386977</Y>
-        <Z>-1.7408962</Z>
+        <X>-2.8718736</X>
+        <Y>1.180197</Y>
+        <Z>-3.3079014</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-3.3579655</X>
-        <Y>0.88386977</Y>
-        <Z>-1.7408962</Z>
+        <X>-2.8718736</X>
+        <Y>1.180197</Y>
+        <Z>-3.3079014</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -118,8 +150,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>15.434179</X>
-        <Y>19.80809</Y>
+        <X>-0.09202804</X>
+        <Y>15.195346</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -187,7 +219,16 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <ChildrenIDs />
+      <ChildrenIDs>
+        <int>1040</int>
+        <int>1040</int>
+        <int>1040</int>
+        <int>1040</int>
+        <int>1040</int>
+        <int>1040</int>
+        <int>1040</int>
+        <int>1040</int>
+      </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -228,11 +269,11 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Color>
-        <B>0</B>
-        <G>0</G>
+        <B>255</B>
+        <G>255</G>
         <R>255</R>
         <A>255</A>
-        <PackedValue>4278190335</PackedValue>
+        <PackedValue>4294967295</PackedValue>
       </Color>
       <Intensity>5.96</Intensity>
       <FarPlaneDistance>100</FarPlaneDistance>
@@ -294,13 +335,13 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Color>
-        <B>244</B>
+        <B>255</B>
         <G>255</G>
-        <R>0</R>
+        <R>255</R>
         <A>255</A>
-        <PackedValue>4294246144</PackedValue>
+        <PackedValue>4294967295</PackedValue>
       </Color>
-      <Intensity>0.42</Intensity>
+      <Intensity>0.14</Intensity>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -398,10 +439,10 @@
           </Size>
         </AmbientOcclusionTexture>
         <NormalTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</AssetPath>
+          <AssetPath>Assets/2D/space.PNG</AssetPath>
           <Size>
-            <X>2048</X>
-            <Y>2048</Y>
+            <X>1024</X>
+            <Y>1024</Y>
           </Size>
         </NormalTexture>
         <Offset>
@@ -417,11 +458,11 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.44</SpecularSmoothness>
         <Tiling>
-          <X>1</X>
-          <Y>1</Y>
+          <X>4</X>
+          <Y>4</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -485,9 +526,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>5</X>
+        <X>8</X>
         <Y>1</Y>
-        <Z>5</Z>
+        <Z>8</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRendererInstanced">
@@ -529,10 +570,10 @@
           </Size>
         </AmbientOcclusionTexture>
         <NormalTexture>
-          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</AssetPath>
+          <AssetPath>Assets/2D/space.PNG</AssetPath>
           <Size>
-            <X>2048</X>
-            <Y>2048</Y>
+            <X>1024</X>
+            <Y>1024</Y>
           </Size>
         </NormalTexture>
         <Offset>
@@ -548,11 +589,11 @@
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.44</SpecularSmoothness>
         <Tiling>
-          <X>1</X>
-          <Y>1</Y>
+          <X>4</X>
+          <Y>4</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -564,6 +605,268 @@
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1035</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>2.4</Y>
+        <Z>1.8</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>2.4</Y>
+        <Z>1.8</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-146.6</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1035</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRendererInstanced">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1035</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <Material>
+        <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
+        <Additive>false</Additive>
+        <AlbedoTexture>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+        </AlbedoTexture>
+        <AlbedoTint>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>255</A>
+          <PackedValue>4294967295</PackedValue>
+        </AlbedoTint>
+        <AmbientOcclusionTexture>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</AssetPath>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+        </AmbientOcclusionTexture>
+        <NormalTexture>
+          <AssetPath>Assets/2D/space.PNG</AssetPath>
+          <Size>
+            <X>1024</X>
+            <Y>1024</Y>
+          </Size>
+        </NormalTexture>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+        <RenderMode>Opaque</RenderMode>
+        <Shader>
+          <AlbedoTextureLocation>26</AlbedoTextureLocation>
+          <NormalTextureLocation>2</NormalTextureLocation>
+          <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+        </Shader>
+        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0.44</SpecularSmoothness>
+        <Tiling>
+          <X>4</X>
+          <Y>4</Y>
+        </Tiling>
+      </Material>
+      <Mesh>
+        <AssetPath>Assets/3D/sphere.obj</AssetPath>
+        <Vao>8</Vao>
+        <VertexBufferDataLength>0</VertexBufferDataLength>
+        <VerticesCount>2880</VerticesCount>
+      </Mesh>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>0</Layer>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1040</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <ParentId>82</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>21.2</X>
+        <Y>22</Y>
+        <Z>-39.2</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>90</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1040</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>8</X>
+        <Y>8</Y>
+        <Z>8</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRendererInstanced">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1040</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <Material>
+        <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
+        <Additive>false</Additive>
+        <AlbedoTexture>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+        </AlbedoTexture>
+        <AlbedoTint>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>255</A>
+          <PackedValue>4294967295</PackedValue>
+        </AlbedoTint>
+        <AmbientOcclusionTexture>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</AssetPath>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+        </AmbientOcclusionTexture>
+        <NormalTexture>
+          <AssetPath>Assets/2D/space.PNG</AssetPath>
+          <Size>
+            <X>1024</X>
+            <Y>1024</Y>
+          </Size>
+        </NormalTexture>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+        <RenderMode>Opaque</RenderMode>
+        <Shader>
+          <AlbedoTextureLocation>26</AlbedoTextureLocation>
+          <NormalTextureLocation>2</NormalTextureLocation>
+          <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+        </Shader>
+        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0.44</SpecularSmoothness>
+        <Tiling>
+          <X>4</X>
+          <Y>4</Y>
+        </Tiling>
+      </Material>
+      <Mesh>
+        <AssetPath>Assets/3D/torus.obj</AssetPath>
+        <Vao>9</Vao>
+        <VertexBufferDataLength>0</VertexBufferDataLength>
+        <VerticesCount>3456</VerticesCount>
+      </Mesh>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>0</Layer>
+    </Component>
   </Components>
-  <GameObjectNextId>1023</GameObjectNextId>
+  <GameObjectNextId>1055</GameObjectNextId>
 </SceneFile>

@@ -24,10 +24,10 @@
     </Size>
   </AmbientOcclusionTexture>
   <NormalTexture>
-    <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</AssetPath>
+    <AssetPath>Assets/2D/space.PNG</AssetPath>
     <Size>
-      <X>2048</X>
-      <Y>2048</Y>
+      <X>1024</X>
+      <Y>1024</Y>
     </Size>
   </NormalTexture>
   <Offset>
@@ -43,10 +43,10 @@
     <BufferType>Model</BufferType>
     <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
   </Shader>
-  <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+  <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
   <SpecularSmoothness>0.44</SpecularSmoothness>
   <Tiling>
-    <X>1</X>
-    <Y>1</Y>
+    <X>4</X>
+    <Y>4</Y>
   </Tiling>
 </Material>

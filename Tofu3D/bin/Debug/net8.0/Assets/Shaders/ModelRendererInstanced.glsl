@@ -118,10 +118,19 @@ vec3 variableJustSoTextureNormalIsUsedByCompiler = texture(textureNormal, uvCoor
 		
 		
 vec3 norm = normalize(normal);
+        
 //vec3 norm = texture(textureNormal, uvCoords).rgb;
 //norm = norm * 2.0 - 1.0;
+
+
+
+vec3 texNorm = texture(textureNormal, uvCoords).rgb;
+texNorm = texNorm * 2.0 - 1.0; // Normalizing the normal values from the texture
+//norm = normalize(TBN * texNorm); // Transforming the normal values from the texture space to the world space
+        
 norm = normalize(TBN * norm);
 		
+        
 vec4 albedoColor = texture(textureAlbedo, uvCoords) * u_albedoTint*color;
 
 vec4 aoColor = texture(textureAo, uvCoords);
@@ -146,7 +155,24 @@ discard; // having this fixes transparency sorting but breaks debug depthmap
 }
 
 
+if (u_specularHighlightsEnabled == 1) {
+vec3 reflectedLightVectorWorld = reflect(-correctedLightDir,normalize(normal));
+vec3 viewDir = - normalize(u_camPos - vertexPositionWorld);
+////////// problem is below
+float clampedSpecularSmoothness= max(u_specularSmoothness,0);
+float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32 * clampedSpecularSmoothness);
+spec = max(spec,0);
+vec3 specular = clampedSpecularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 2;
 
+//vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
+
+//if (shadow == 0) {
+//specular /= 3;
+//}
+
+result.rgb += specular;//*normalize(albedoColor.rgb+vec3(0.3));
+
+}
 
 float shadow = ShadowCalculation(); // 1 if in shadow
 //        shadow
@@ -162,24 +188,7 @@ result.rgb= result.rgb;
 
 }
 		
-//if (u_specularHighlightsEnabled == 1) {
-//vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, norm);
-//vec3 viewDir = - normalize(u_camPos - vertexPositionWorld);
-//////////// problem is below
-//float clampedSpecularSmoothness= max(u_specularSmoothness,0);
-//float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32 * clampedSpecularSmoothness);
-//		spec = max(spec,0);
-//vec3 specular = clampedSpecularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 2;
-//		
-////vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
-//		
-////if (shadow == 0) {
-////specular /= 3;
-////}
-//		
-//result.rgb += specular*normalize(texturePixelColor.rgb+vec3(0.3));
-//
-//}
+
 
 
 

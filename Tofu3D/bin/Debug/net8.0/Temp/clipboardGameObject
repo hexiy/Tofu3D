@@ -5,11 +5,11 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>623</Id>
+      <Id>1035</Id>
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>mask-quads</Name>
+      <Name>cube</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -21,7 +21,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>623</GameObjectId>
+      <GameObjectId>1035</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -35,13 +35,13 @@
       </Pivot>
       <WorldPosition>
         <X>0</X>
-        <Y>0</Y>
-        <Z>5</Z>
+        <Y>2.4</Y>
+        <Z>1.8</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
-        <Y>0</Y>
-        <Z>5</Z>
+        <Y>2.4</Y>
+        <Z>1.8</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -55,13 +55,13 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>0</Y>
+        <Y>-146.6</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>623</GameObjectId>
+      <GameObjectId>1035</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -78,7 +78,7 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>623</GameObjectId>
+      <GameObjectId>1035</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -108,10 +108,10 @@
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <AmbientOcclusionTexture>
-          <AssetPath>Assets/2D/white.png</AssetPath>
+          <AssetPath>Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</AssetPath>
           <Size>
-            <X>1</X>
-            <Y>1</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
         </AmbientOcclusionTexture>
         <NormalTexture>
@@ -127,14 +127,14 @@
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <Shader>
-          <AlbedoTextureLocation>25</AlbedoTextureLocation>
-          <NormalTextureLocation>-1</NormalTextureLocation>
+          <AlbedoTextureLocation>26</AlbedoTextureLocation>
+          <NormalTextureLocation>2</NormalTextureLocation>
           <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
           <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.44</SpecularSmoothness>
         <Tiling>
           <X>1</X>
@@ -142,10 +142,10 @@
         </Tiling>
       </Material>
       <Mesh>
-        <AssetPath>Assets/3D/grass block/Grass_Block.obj</AssetPath>
-        <Vao>6</Vao>
+        <AssetPath>Assets/3D/sphere.obj</AssetPath>
+        <Vao>8</Vao>
         <VertexBufferDataLength>0</VertexBufferDataLength>
-        <VerticesCount>36</VerticesCount>
+        <VerticesCount>2880</VerticesCount>
       </Mesh>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
