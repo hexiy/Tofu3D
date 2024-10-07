@@ -113,29 +113,32 @@ void main(void)
 {
 vec2 uvCoords = (uv + u_offset) * u_tiling;
 
-vec3 norm = normalize(normal);
 
 vec3 variableJustSoTextureNormalIsUsedByCompiler = texture(textureNormal, uvCoords).rgb;
-
+		
+		
+vec3 norm = normalize(normal);
 //vec3 norm = texture(textureNormal, uvCoords).rgb;
 //norm = norm * 2.0 - 1.0;
 norm = normalize(TBN * norm);
 		
-vec4 texturePixelColor = texture(textureAlbedo, uvCoords) * u_albedoTint;
-vec4 result = texturePixelColor * color;
+vec4 albedoColor = texture(textureAlbedo, uvCoords) * u_albedoTint*color;
 
+vec4 aoColor = texture(textureAo, uvCoords);
+
+
+vec4 final_ambient = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
+		
 vec3 correctedLightDir = u_directionalLightDirection * vec3(1,-1,1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
 vec3 lightDirTangent = normalize(TBN * -correctedLightDir.rgb);
 float directionalLightFactor = max(dot(norm, lightDirTangent), 0.0);
 float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
-vec4 diffuse = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
-result *= vec4(diffuse.rgb,1);
-		
-vec4 ambient = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
-result *= ambient;
+vec4 final_diffuse = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
+
 //result *= ambient;
 
-result.a = texturePixelColor.a * color.a;
+vec4 result = albedoColor * aoColor * max(final_ambient, final_diffuse) + min(final_ambient, final_diffuse);
+result.a = albedoColor.a * color.a;
 
 
 if (result.a < 0.05) {
@@ -143,18 +146,18 @@ discard; // having this fixes transparency sorting but breaks debug depthmap
 }
 
 
-float aoTexture = texture(textureAo, uvCoords).r;
-result.rgb *= aoTexture;
+
 
 float shadow = ShadowCalculation(); // 1 if in shadow
 //        shadow
 if (shadow == 1) {
-		float a = (ambient.r + ambient.g + ambient.b)/10;
-result.rgb = ambient.rgb*(vec3(a,a,a)*texturePixelColor.rgb * color.rgb);
+//result.rgb = result.rgb * 0.1;
 //		result.rgb = vec3(1,0,0); // red
+ result = albedoColor * aoColor *  final_ambient;
+
 }
 else{
-result.rgb= result.rgb * ambient.rgb;
+result.rgb= result.rgb;
 //result.rgb = vec3(0,1,0); // green
 
 }
@@ -225,8 +228,7 @@ if (u_renderMode == 2) // normals
 {
 //frag_color = vec4(normalize(- normal) * result.rgb, result.a);
 //frag_color = vec4(normalize(- normal), result.a);
-frag_color = vec4(normalize(normal), result.a);
+frag_color = vec4(norm, result.a);
 }
-
 //	gl_FragDepth = gl_FragCoord.z;
 }

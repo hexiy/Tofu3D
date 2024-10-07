@@ -17,10 +17,10 @@
     <PackedValue>4294967295</PackedValue>
   </AlbedoTint>
   <AmbientOcclusionTexture>
-    <AssetPath>Assets/2D/purple.png</AssetPath>
+    <AssetPath>Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</AssetPath>
     <Size>
-      <X>256</X>
-      <Y>256</Y>
+      <X>2048</X>
+      <Y>2048</Y>
     </Size>
   </AmbientOcclusionTexture>
   <NormalTexture>
@@ -36,8 +36,8 @@
   </Offset>
   <RenderMode>Opaque</RenderMode>
   <Shader>
-    <AlbedoTextureLocation>25</AlbedoTextureLocation>
-    <NormalTextureLocation>-1</NormalTextureLocation>
+    <AlbedoTextureLocation>26</AlbedoTextureLocation>
+    <NormalTextureLocation>2</NormalTextureLocation>
     <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
     <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
     <BufferType>Model</BufferType>
