@@ -122,7 +122,13 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     private void OnEnable()
     {
-        Components.ForEach(c => c.OnEnabled());
+        Components.ForEach(c =>
+        {
+            if (c.Enabled)
+            {
+                c.OnEnabled();
+            } // check for c.Enabled, before it loaded a scene with disabled component but put it in the update queue because this enabled it...
+        });
         Transform?.Children.ForEach(child => child.GameObject.OnEnable());
     }
 

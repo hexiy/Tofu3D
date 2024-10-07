@@ -57,6 +57,11 @@ public class UpdateableComponentQueue : IComponentQueue
 
     public void AddComponent(IComponentUpdateable component)
     {
+        if (_components.Contains(component))
+        {
+            return;
+        }
+
         _components.Add(component);
     }
 
