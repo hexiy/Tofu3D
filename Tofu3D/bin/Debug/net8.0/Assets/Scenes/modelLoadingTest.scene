@@ -43,7 +43,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>AmbientLight</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -91,7 +91,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>sculpture</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -146,14 +146,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-1.483762</X>
-        <Y>0.6861231</Y>
-        <Z>0.8469241</Z>
+        <X>-1.7962245</X>
+        <Y>0.5318779</Y>
+        <Z>2.0551736</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-1.483762</X>
-        <Y>0.6861231</Y>
-        <Z>0.8469241</Z>
+        <X>-1.7962245</X>
+        <Y>0.5318779</Y>
+        <Z>2.0551736</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -166,8 +166,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>15.922381</X>
-        <Y>-93.64314</Y>
+        <X>12.658509</X>
+        <Y>-93.25584</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -190,8 +190,8 @@
       <NearPlaneDistance>0.20001</NearPlaneDistance>
       <OrthographicSize>80</OrthographicSize>
       <Size>
-        <X>3024</X>
-        <Y>1802</Y>
+        <X>1600</X>
+        <Y>901</Y>
       </Size>
     </Component>
     <Component xsi:type="Skybox">
@@ -236,6 +236,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>1040</int>
         <int>1040</int>
         <int>1040</int>
         <int>1040</int>
@@ -326,7 +327,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <Intensity>9.02</Intensity>
+      <Intensity>10.18</Intensity>
       <FarPlaneDistance>100</FarPlaneDistance>
       <NearPlaneDistance>0</NearPlaneDistance>
       <OrthographicSize>4.82</OrthographicSize>
@@ -468,7 +469,7 @@
       <Material>
         <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/MaskMaterial.mat</AssetPath>
         <Shader>
-          <AlbedoTextureLocation>26</AlbedoTextureLocation>
+          <AlbedoTextureLocation>27</AlbedoTextureLocation>
           <NormalTextureLocation>2</NormalTextureLocation>
           <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
           <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
@@ -509,8 +510,8 @@
           <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
+        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0.62</SpecularSmoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -599,7 +600,7 @@
       <Material>
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Shader>
-          <AlbedoTextureLocation>26</AlbedoTextureLocation>
+          <AlbedoTextureLocation>27</AlbedoTextureLocation>
           <NormalTextureLocation>2</NormalTextureLocation>
           <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
           <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
@@ -730,7 +731,7 @@
       <Material>
         <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/BallMaterial.mat</AssetPath>
         <Shader>
-          <AlbedoTextureLocation>26</AlbedoTextureLocation>
+          <AlbedoTextureLocation>27</AlbedoTextureLocation>
           <NormalTextureLocation>2</NormalTextureLocation>
           <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
           <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
@@ -772,7 +773,7 @@
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.32</SpecularSmoothness>
+        <SpecularSmoothness>0.22</SpecularSmoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -861,7 +862,7 @@
       <Material>
         <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
         <Shader>
-          <AlbedoTextureLocation>26</AlbedoTextureLocation>
+          <AlbedoTextureLocation>27</AlbedoTextureLocation>
           <NormalTextureLocation>2</NormalTextureLocation>
           <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
           <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
@@ -992,7 +993,7 @@
       <Material>
         <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/WoodMaterial.mat</AssetPath>
         <Shader>
-          <AlbedoTextureLocation>26</AlbedoTextureLocation>
+          <AlbedoTextureLocation>27</AlbedoTextureLocation>
           <NormalTextureLocation>2</NormalTextureLocation>
           <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
           <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
@@ -1050,5 +1051,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>1126</GameObjectNextId>
+  <GameObjectNextId>1128</GameObjectNextId>
 </SceneFile>
