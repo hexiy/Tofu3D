@@ -59,7 +59,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>mask</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -91,7 +91,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>sculpture</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -146,14 +146,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-1.7962245</X>
-        <Y>0.5318779</Y>
-        <Z>2.0551736</Z>
+        <X>-2.417226</X>
+        <Y>-0.37940684</Y>
+        <Z>-1.6184405</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-1.7962245</X>
-        <Y>0.5318779</Y>
-        <Z>2.0551736</Z>
+        <X>-2.417226</X>
+        <Y>-0.37940684</Y>
+        <Z>-1.6184405</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -166,8 +166,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>12.658509</X>
-        <Y>-93.25584</Y>
+        <X>-5.4472156</X>
+        <Y>1.7351365</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -190,8 +190,8 @@
       <NearPlaneDistance>0.20001</NearPlaneDistance>
       <OrthographicSize>80</OrthographicSize>
       <Size>
-        <X>1600</X>
-        <Y>901</Y>
+        <X>3024</X>
+        <Y>1802</Y>
       </Size>
     </Component>
     <Component xsi:type="Skybox">
@@ -236,6 +236,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>1040</int>
         <int>1040</int>
         <int>1040</int>
         <int>1040</int>
@@ -393,7 +394,7 @@
         <A>255</A>
         <PackedValue>4289177511</PackedValue>
       </Color>
-      <Intensity>0.06</Intensity>
+      <Intensity>0.02</Intensity>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -641,11 +642,11 @@
           <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.44</SpecularSmoothness>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>-2.48</SpecularSmoothness>
         <Tiling>
-          <X>4</X>
-          <Y>4</Y>
+          <X>8</X>
+          <Y>8</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -773,7 +774,7 @@
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.22</SpecularSmoothness>
+        <SpecularSmoothness>0.08</SpecularSmoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -903,11 +904,11 @@
           <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.44</SpecularSmoothness>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>-2.48</SpecularSmoothness>
         <Tiling>
-          <X>4</X>
-          <Y>4</Y>
+          <X>8</X>
+          <Y>8</Y>
         </Tiling>
       </Material>
       <Mesh>
@@ -1051,5 +1052,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>1128</GameObjectNextId>
+  <GameObjectNextId>1130</GameObjectNextId>
 </SceneFile>
