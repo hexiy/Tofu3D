@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SceneFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GameObjects>
+    <GameObject>
+      <AlwaysUpdate>true</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>0</Id>
+      <IndexInHierarchy>0</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>Camera</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+  </GameObjects>
+  <Components>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>0</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>-2.2097394E-05</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>-2.2097394E-05</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="Camera">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>0</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Color>
+        <B>34</B>
+        <G>34</G>
+        <R>34</R>
+        <A>255</A>
+        <PackedValue>4280427042</PackedValue>
+      </Color>
+      <FarPlaneDistance>50</FarPlaneDistance>
+      <FieldOfView>60</FieldOfView>
+      <IsOrthographic>false</IsOrthographic>
+      <NearPlaneDistance>1</NearPlaneDistance>
+      <OrthographicSize>2</OrthographicSize>
+      <Size>
+        <X>1380</X>
+        <Y>900</Y>
+      </Size>
+    </Component>
+  </Components>
+  <GameObjectNextId>4</GameObjectNextId>
+</SceneFile>

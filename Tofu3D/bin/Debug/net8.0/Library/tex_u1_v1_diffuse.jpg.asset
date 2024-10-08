@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Asset_Texture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Path>Library/tex_u1_v1_diffuse.jpg.asset</Path>
+  <Size>
+    <X>8192</X>
+    <Y>8192</Y>
+  </Size>
+</Asset_Texture>

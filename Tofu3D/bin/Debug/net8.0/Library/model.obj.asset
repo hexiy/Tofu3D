@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Asset_Mesh xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Path>Library/model.obj.asset</Path>
+  <ModelAssetHandle>
+    <Id>0</Id>
+  </ModelAssetHandle>
+  <Vao>806</Vao>
+  <VerticesCount>122196</VerticesCount>
+  <VertexBufferDataLength>0</VertexBufferDataLength>
+</Asset_Mesh>
