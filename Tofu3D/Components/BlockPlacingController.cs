@@ -3,16 +3,15 @@
 [ExecuteInEditMode]
 public class BlockPlacingController : Component, IComponentUpdateable
 {
-    [Show]
-    public GameObject MovingCube;
+    [Show] public GameObject MovingCube;
 
     public void Update()
     {
         if (MovingCube != null)
         {
-            Vector3 blockPosition = Camera.MainCamera.Transform.WorldPosition +
-                                    Camera.MainCamera.Transform
-                                        .TransformVectorToWorldSpaceVector(new Vector3(1, 1, 10));
+            var blockPosition = Camera.MainCamera.Transform.WorldPosition +
+                                Camera.MainCamera.Transform
+                                    .TransformVectorToWorldSpaceVector(new Vector3(1, 1, 10));
             blockPosition = blockPosition.TranslateToGrid(2);
             MovingCube.Transform.WorldPosition = blockPosition;
         }

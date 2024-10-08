@@ -2,9 +2,11 @@ namespace Tofu3D;
 
 public abstract class InspectorFieldDrawable<T> : IInspectorFieldDrawable
 {
+    public abstract void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData);
+
     internal T GetValue(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        T v = (T)info.GetValue(componentInspectorData.Inspectable);
+        var v = (T)info.GetValue(componentInspectorData.Inspectable);
         return v;
     }
 
@@ -12,6 +14,4 @@ public abstract class InspectorFieldDrawable<T> : IInspectorFieldDrawable
     {
         info.SetValue(componentInspectorData.Inspectable, value);
     }
-
-    public abstract void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData);
 }

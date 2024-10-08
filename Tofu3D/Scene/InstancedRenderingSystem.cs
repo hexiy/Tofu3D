@@ -2,19 +2,17 @@
 
 public class InstancedRenderingSystem
 {
+    private List<InstancedRenderingObjectDefinition> _definitions = new();
+
     // index in _definitions
     private Dictionary<int, InstancedRenderingObjectBufferData> _objectBufferDatas = new();
 
-    private List<InstancedRenderingObjectDefinition> _definitions = new();
-
-    public InstancedRenderingSystem()
-    {
-    }
-
     public void ClearBuffers()
     {
-        foreach (KeyValuePair<int, InstancedRenderingObjectBufferData> pair in _objectBufferDatas)
+        foreach (var pair in _objectBufferDatas)
+        {
             GL.DeleteBuffer(pair.Value.Vbo);
+        }
 
         _objectBufferDatas = new Dictionary<int, InstancedRenderingObjectBufferData>();
         _definitions = new List<InstancedRenderingObjectDefinition>();
@@ -24,9 +22,12 @@ public class InstancedRenderingSystem
     {
         // GL.Enable(EnableCap.DepthTest);
 
-        foreach (KeyValuePair<int, InstancedRenderingObjectBufferData> objectDefinitionBufferPair in _objectBufferDatas)
+        foreach (var objectDefinitionBufferPair in _objectBufferDatas)
         {
-            if (objectDefinitionBufferPair.Value.NumberOfObjects == 0) continue;
+            if (objectDefinitionBufferPair.Value.NumberOfObjects == 0)
+            {
+                continue;
+            }
 
             RenderSpecific(objectDefinitionBufferPair);
         }
@@ -35,8 +36,10 @@ public class InstancedRenderingSystem
     private void RemoveObjectFromBuffer(InstancedRenderingObjectBufferData bufferData,
         RendererInstancingData instancingData)
     {
-        for (int i = 0; i < bufferData.InstancedVertexCountOfFloats; i++)
+        for (var i = 0; i < bufferData.InstancedVertexCountOfFloats; i++)
+        {
             bufferData.Buffer[instancingData.InstancedRenderingStartingIndexInBuffer + i] = 0;
+        }
 
         bufferData.EmptyStartIndexes.Add(instancingData.InstancedRenderingStartingIndexInBuffer);
 
@@ -49,28 +52,32 @@ public class InstancedRenderingSystem
     {
         if (bufferData.EmptyStartIndexes.Count > 0)
         {
-            int index = bufferData.EmptyStartIndexes[0];
+            var index = bufferData.EmptyStartIndexes[0];
             bufferData.EmptyStartIndexes.RemoveAt(0);
             return index;
         }
-        else
+
+        if (bufferData.NumberOfObjects == bufferData.MaxNumberOfObjects)
         {
-            if (bufferData.NumberOfObjects == bufferData.MaxNumberOfObjects)
-            {
-                bufferData.FutureMaxNumberOfObjects += 1;
-                return -1;
-            }
-
-            if (bufferData.Buffer.Length < bufferData.InstancedVertexCountOfFloats * bufferData.MaxNumberOfObjects) return -1;
-
-            return bufferData.NumberOfObjects * bufferData.InstancedVertexCountOfFloats;
+            bufferData.FutureMaxNumberOfObjects += 1;
+            return -1;
         }
+
+        if (bufferData.Buffer.Length < bufferData.InstancedVertexCountOfFloats * bufferData.MaxNumberOfObjects)
+        {
+            return -1;
+        }
+
+        return bufferData.NumberOfObjects * bufferData.InstancedVertexCountOfFloats;
     }
 
     private void ResizeBufferData(InstancedRenderingObjectBufferData bufferData)
     {
         bufferData.FutureMaxNumberOfObjects += 10; // 10 in the tank
-        if (bufferData.FutureMaxNumberOfObjects > 1000) bufferData.FutureMaxNumberOfObjects += 500;
+        if (bufferData.FutureMaxNumberOfObjects > 1000)
+        {
+            bufferData.FutureMaxNumberOfObjects += 500;
+        }
 
         bufferData.MaxNumberOfObjects = bufferData.FutureMaxNumberOfObjects;
         // Debug.Log($"Resizing buffer to new size:{bufferData.MaxNumberOfObjects}");
@@ -82,17 +89,17 @@ public class InstancedRenderingSystem
 
     private void RenderSpecific(KeyValuePair<int, InstancedRenderingObjectBufferData> objectBufferPair)
     {
-        int definitionIndex = objectBufferPair.Key;
-        InstancedRenderingObjectDefinition definition = _definitions[definitionIndex];
-        Material material = definition.Material;
+        var definitionIndex = objectBufferPair.Key;
+        var definition = _definitions[definitionIndex];
+        var material = definition.Material;
         material = Tofu.AssetManager.Load<Material>(material.Path);
-        Mesh mesh = definition.Mesh;
-        InstancedRenderingObjectBufferData bufferData = objectBufferPair.Value;
+        var mesh = definition.Mesh;
+        var bufferData = objectBufferPair.Value;
         // GL.Enable(EnableCap.DepthTest);
         if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
             or RenderPassType.ZPrePass)
         {
-            Material depthMaterial = Tofu.AssetManager.Load<Material>("ModelRendererInstancedDepth");
+            var depthMaterial = Tofu.AssetManager.Load<Material>("ModelRendererInstancedDepth");
             Tofu.ShaderManager.UseShader(depthMaterial.Shader);
             depthMaterial.Shader.SetMatrix4X4("u_viewProjection",
                 Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
@@ -126,24 +133,23 @@ public class InstancedRenderingSystem
             material.Shader.SetMatrix4X4("u_lightSpaceViewProjection", DirectionalLight.LightSpaceViewProjectionMatrix);
 
 
-            Vector4 ambientColor = SceneLightingManager.I.GetAmbientLightsColor().ToVector4();
+            var ambientColor = SceneLightingManager.I.GetAmbientLightsColor().ToVector4();
             ambientColor = new Vector4(ambientColor.X, ambientColor.Y, ambientColor.Z,
                 SceneLightingManager.I.GetAmbientLightsIntensity());
             material.Shader.SetVector4("u_ambientLightColor", ambientColor);
 
-            Vector4 directionalLightColor = SceneLightingManager.I.GetDirectionalLightColor().ToVector4();
+            var directionalLightColor = SceneLightingManager.I.GetDirectionalLightColor().ToVector4();
             directionalLightColor = new Vector4(directionalLightColor.X, directionalLightColor.Y,
                 directionalLightColor.Z, SceneLightingManager.I.GetDirectionalLightIntensity());
             material.Shader.SetVector4("u_directionalLightColor", directionalLightColor);
             material.Shader.SetVector3("u_directionalLightDirection",
                 SceneLightingManager.I.GetDirectionalLightDirection());
 
-
             material.Shader.SetFloat("u_specularSmoothness", material.SpecularSmoothness);
             material.Shader.SetFloat("u_specularHighlightsEnabled", material.SpecularHighlightsEnabled ? 1 : 0);
 
             //FOG
-            bool fogEnabled = Tofu.SceneManager.CurrentScene.SceneFogManager.FogEnabled;
+            var fogEnabled = Tofu.SceneManager.CurrentScene.SceneFogManager.FogEnabled;
             material.Shader.SetFloat("u_fogEnabled", fogEnabled ? 1 : 0);
             if (fogEnabled)
             {
@@ -170,28 +176,35 @@ public class InstancedRenderingSystem
 
             // material.Shader.SetFloat("u_aoStrength", _normalDisabled ? 0 : 1);
 
-            // ALBEDO
+            // Albedo Texture
             if (material.AlbedoTexture)
             {
                 GL.ActiveTexture(TextureUnit.Texture0);
                 TextureHelper.BindTexture(material.AlbedoTexture.TextureId);
             }
 
-            // NORMAL
-            // TextureHelper.BindTexture(Tofu.AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
-            // GL.ActiveTexture(TextureUnit.Texture1);
-            // TextureHelper.BindTexture(_idNormal);
-
-            // AO
-            if (material.AoTexture)
+            // Normal Texture
+            if (material.NormalTexture)
             {
+                material.Shader.SetFloat("u_hasNormalTexture", 1);
                 GL.ActiveTexture(TextureUnit.Texture1);
-                TextureHelper.BindTexture(material.AoTexture.TextureId);
+                TextureHelper.BindTexture(material.NormalTexture.TextureId);
             }
-
-            if (RenderPassDirectionalLightShadowDepth.I?.PassRenderTexture != null)
+            else
+            {
+                material.Shader.SetFloat("u_hasNormalTexture", 0);
+            }
+            
+            // Ambient Occlusion Texture
+            if (material.AmbientOcclusionTexture)
             {
                 GL.ActiveTexture(TextureUnit.Texture2);
+                TextureHelper.BindTexture(material.AmbientOcclusionTexture.TextureId);
+            }
+            
+            if (RenderPassDirectionalLightShadowDepth.I?.PassRenderTexture != null)
+            {
+                GL.ActiveTexture(TextureUnit.Texture3);
                 TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.DepthAttachment);
             }
 
@@ -211,14 +224,18 @@ public class InstancedRenderingSystem
 
         // resize the buffer if needed, after drawing the old one
         if (bufferData.Buffer.Length != bufferData.InstancedVertexCountOfFloats * bufferData.FutureMaxNumberOfObjects)
+        {
             ResizeBufferData(bufferData);
+        }
 
         if (objectBufferPair.Value.NeedsUpload)
         {
             UploadBufferData(objectBufferPair.Value);
             if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques)
                 // hmm i though this would fix the flicker
+            {
                 objectBufferPair.Value.NeedsUpload = false;
+            }
         }
     }
 
@@ -231,24 +248,28 @@ public class InstancedRenderingSystem
         DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount * instancesCount);
     }
 
-    public bool UpdateObjectData(Renderer renderer, ref RendererInstancingData instancingData, VertexBufferStructureType vertexBufferStructureType,
+    public bool UpdateObjectData(Renderer renderer, ref RendererInstancingData instancingData,
+        VertexBufferStructureType vertexBufferStructureType,
         Matrix4x4? modelMatrix = null, bool isStatic = false, bool remove = false, Color? color = null)
     {
-        Mesh mesh = renderer.Mesh;
-        Material material = renderer.Material;
-        if (mesh == null) return false;
+        var mesh = renderer.Mesh;
+        var material = renderer.Material;
+        if (mesh == null)
+        {
+            return false;
+        }
 
         InstancedRenderingObjectBufferData bufferData;
         if (instancingData.InstancedRenderingDefinitionIndex == -1)
         {
             // no buffer exists for this combination-create one
             InstancedRenderingObjectDefinition definition = new(mesh, material, isStatic, vertexBufferStructureType);
-            int definitionIndex = _definitions.Contains(definition)
+            var definitionIndex = _definitions.Contains(definition)
                 ? _definitions.IndexOf(definition)
                 : _definitions.Count;
 
             // find bufferData if its already created
-            if (_objectBufferDatas.TryGetValue(definitionIndex, out InstancedRenderingObjectBufferData? data))
+            if (_objectBufferDatas.TryGetValue(definitionIndex, out var data))
             {
                 bufferData = data;
             }
@@ -280,19 +301,26 @@ public class InstancedRenderingSystem
             // assign new InstancedRenderingIndex
             instancingData.InstancedRenderingStartingIndexInBuffer = GetEmptyIndexInBuffer(bufferData);
 
-            if (instancingData.InstancedRenderingStartingIndexInBuffer == -1) return false;
+            if (instancingData.InstancedRenderingStartingIndexInBuffer == -1)
+            {
+                return false;
+            }
 
             bufferData.NumberOfObjects++;
         }
 
         bufferData.NeedsUpload = true;
 
-        if (instancingData.InstancedRenderingStartingIndexInBuffer != -1 && remove == true)
+        if (instancingData.InstancedRenderingStartingIndexInBuffer != -1 && remove)
+        {
             RemoveObjectFromBuffer(bufferData, instancingData);
+        }
         else if (instancingData.InstancedRenderingStartingIndexInBuffer != -1)
+        {
             CopyObjectDataToBuffer(color ?? renderer.Color, modelMatrix ?? renderer.GetModelMatrix(),
                 ref bufferData.Buffer,
                 instancingData.InstancedRenderingStartingIndexInBuffer);
+        }
 
         _objectBufferDatas[instancingData.InstancedRenderingDefinitionIndex] = bufferData;
 
@@ -331,11 +359,11 @@ public class InstancedRenderingSystem
 
         InstancedRenderingObjectBufferData bufferData = new()
         {
-            VertexBufferStructureType = objectDefinition.vertexBufferStructureType, 
+            VertexBufferStructureType = objectDefinition.vertexBufferStructureType,
             MaxNumberOfObjects = 1,
             FutureMaxNumberOfObjects = 1,
             Vbo = -1,
-            NumberOfObjects = 1
+            NumberOfObjects = 0
         };
 
         bufferData.Buffer = new float[bufferData.MaxNumberOfObjects * bufferData.InstancedVertexCountOfFloats];
@@ -348,7 +376,7 @@ public class InstancedRenderingSystem
 
     private void UploadBufferData(InstancedRenderingObjectBufferData bufferData)
     {
-        bool newBuffer = false;
+        var newBuffer = false;
         if (bufferData.Vbo == -1)
         {
             newBuffer = true;
@@ -359,82 +387,84 @@ public class InstancedRenderingSystem
 
         if (newBuffer)
         {
-            GL.BufferData(BufferTarget.ArrayBuffer, bufferData._instancedVertexDataSizeInBytes * bufferData.MaxNumberOfObjects,
+            GL.BufferData(BufferTarget.ArrayBuffer,
+                bufferData._instancedVertexDataSizeInBytes * bufferData.MaxNumberOfObjects,
                 bufferData.Buffer, BufferUsageHint.StaticDraw);
 
             if (bufferData.VertexBufferStructureType == VertexBufferStructureType.Model)
             {
                 // unique attribs for each instance
-                GL.EnableVertexAttribArray(3);
-                GL.EnableVertexAttribArray(4);
                 GL.EnableVertexAttribArray(5);
                 GL.EnableVertexAttribArray(6);
                 GL.EnableVertexAttribArray(7);
+                GL.EnableVertexAttribArray(8);
+                GL.EnableVertexAttribArray(9);
 
                 // https://stackoverflow.com/a/28597384
                 //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
-                GL.VertexAttribPointer(3, sizeof(float), VertexAttribPointerType.Float, false,
-                    bufferData._instancedVertexDataSizeInBytes,
-                    0);
-                GL.VertexAttribPointer(4, sizeof(float), VertexAttribPointerType.Float, false,
-                    bufferData._instancedVertexDataSizeInBytes,
-                    1 * 3 * sizeof(float));
                 GL.VertexAttribPointer(5, sizeof(float), VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
-                    2 * 3 * sizeof(float));
+                    0);
                 GL.VertexAttribPointer(6, sizeof(float), VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
-                    3 * 3 * sizeof(float));
+                    1 * 3 * sizeof(float));
                 GL.VertexAttribPointer(7, sizeof(float), VertexAttribPointerType.Float, false,
+                    bufferData._instancedVertexDataSizeInBytes,
+                    2 * 3 * sizeof(float));
+                GL.VertexAttribPointer(8, sizeof(float), VertexAttribPointerType.Float, false,
+                    bufferData._instancedVertexDataSizeInBytes,
+                    3 * 3 * sizeof(float));
+                GL.VertexAttribPointer(9, sizeof(float), VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
                     4 * 3 * sizeof(float));
 
 
-                GL.VertexAttribDivisor(3, 1);
-                GL.VertexAttribDivisor(4, 1);
                 GL.VertexAttribDivisor(5, 1);
                 GL.VertexAttribDivisor(6, 1);
                 GL.VertexAttribDivisor(7, 1);
+                GL.VertexAttribDivisor(8, 1);
+                GL.VertexAttribDivisor(9, 1);
             }
 
             if (bufferData.VertexBufferStructureType == VertexBufferStructureType.Quad)
             {
                 // unique attribs for each instance
-                GL.EnableVertexAttribArray(3);
-                GL.EnableVertexAttribArray(4);
                 GL.EnableVertexAttribArray(5);
                 GL.EnableVertexAttribArray(6);
                 GL.EnableVertexAttribArray(7);
+                GL.EnableVertexAttribArray(8);
+                GL.EnableVertexAttribArray(9);
 
                 // https://stackoverflow.com/a/28597384
                 //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
-                GL.VertexAttribPointer(3, sizeof(float), VertexAttribPointerType.Float, false,
-                    bufferData._instancedVertexDataSizeInBytes,
-                    0);
-                GL.VertexAttribPointer(4, sizeof(float), VertexAttribPointerType.Float, false,
-                    bufferData._instancedVertexDataSizeInBytes,
-                    1 * 3 * sizeof(float));
                 GL.VertexAttribPointer(5, sizeof(float), VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
-                    2 * 3 * sizeof(float));
+                    0);
                 GL.VertexAttribPointer(6, sizeof(float), VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
-                    3 * 3 * sizeof(float));
+                    1 * 3 * sizeof(float));
                 GL.VertexAttribPointer(7, sizeof(float), VertexAttribPointerType.Float, false,
+                    bufferData._instancedVertexDataSizeInBytes,
+                    2 * 3 * sizeof(float));
+                GL.VertexAttribPointer(8, sizeof(float), VertexAttribPointerType.Float, false,
+                    bufferData._instancedVertexDataSizeInBytes,
+                    3 * 3 * sizeof(float));
+                GL.VertexAttribPointer(9, sizeof(float), VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
                     4 * 3 * sizeof(float));
 
 
-                GL.VertexAttribDivisor(3, 1);
-                GL.VertexAttribDivisor(4, 1);
                 GL.VertexAttribDivisor(5, 1);
                 GL.VertexAttribDivisor(6, 1);
                 GL.VertexAttribDivisor(7, 1);
+                GL.VertexAttribDivisor(8, 1);
+                GL.VertexAttribDivisor(9, 1);
             }
         }
         else
         {
-            GL.BufferSubData(BufferTarget.ArrayBuffer, 0, bufferData._instancedVertexDataSizeInBytes * bufferData.MaxNumberOfObjects,
+            GL.BufferSubData(BufferTarget.ArrayBuffer, 0,
+                bufferData._instancedVertexDataSizeInBytes * bufferData.MaxNumberOfObjects,
                 bufferData.Buffer);
             // GL.BufferData(BufferTarget.ArrayBuffer, _vertexDataSizeInBytes * bufferData.MaxNumberOfObjects, bufferData.Buffer, BufferUsageHint.StaticDraw);
         }

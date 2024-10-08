@@ -2,7 +2,7 @@ namespace Tofu3D;
 
 public class EditorDialogManager
 {
-    private List<EditorDialog> _dialogs;
+    private readonly List<EditorDialog> _dialogs;
 
     public EditorDialogManager()
     {
@@ -14,9 +14,13 @@ public class EditorDialogManager
 
     public EditorDialogHandle ShowDialog(EditorDialogParams dialogParams)
     {
-        foreach (EditorDialog dialog in _dialogs)
+        foreach (var dialog in _dialogs)
+        {
             if (dialog.IsActive == false)
+            {
                 return dialog.Show(dialogParams);
+            }
+        }
 
         return null;
     }
@@ -28,29 +32,38 @@ public class EditorDialogManager
 
     private EditorDialog? GetDialogByHandle(EditorDialogHandle dialogHandle)
     {
-        foreach (EditorDialog editorDialog in _dialogs)
+        foreach (var editorDialog in _dialogs)
+        {
             if (editorDialog.Handle == dialogHandle)
+            {
                 return editorDialog;
+            }
+        }
 
         return null;
     }
 
-    public bool IsDialogActive(EditorDialogHandle dialogHandle)
-    {
-        return GetDialogByHandle(dialogHandle)?.IsActive ?? false;
-    }
+    public bool IsDialogActive(EditorDialogHandle dialogHandle) => GetDialogByHandle(dialogHandle)?.IsActive ?? false;
 
     public void Update()
     {
-        foreach (EditorDialog editorDialog in _dialogs)
+        foreach (var editorDialog in _dialogs)
+        {
             if (editorDialog.IsActive)
+            {
                 editorDialog.Update();
+            }
+        }
     }
 
     public void Draw()
     {
-        foreach (EditorDialog editorDialog in _dialogs)
+        foreach (var editorDialog in _dialogs)
+        {
             if (editorDialog.IsActive)
+            {
                 editorDialog.Draw();
+            }
+        }
     }
 }

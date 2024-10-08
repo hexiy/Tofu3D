@@ -6,32 +6,6 @@ namespace Tofu3D;
 
 public class DebugGraphTimer : IComparable<DebugGraphTimer>
 {
-    public float[] Samples { get; private set; } = new float[500];
-    public int CurrentIndex { get; private set; } = 0;
-
-    private float _foundMaxSample;
-    private float _foundMinSample;
-    public float MaxSample;
-    public float MinSample;
-    private int _findMaxTriggerFrameCounter = 0;
-    public float Sample10FramesAgo = 0;
-    public Stopwatch Stopwatch;
-
-    public int Offset = 0;
-    public string Label;
-    public float? Redline;
-
-    private int _desiredDrawOrder;
-    private int GroupModifiedDrawOrder => _desiredDrawOrder + (int)Group;
-
-    public bool Collapsed
-    {
-        get => PersistentData.GetBool($"DebugTimerCollapsed_{Label}", false);
-        set => PersistentData.Set($"DebugTimerCollapsed_{Label}", value);
-    }
-
-    public float LabelWidth { get; private set; }
-
     public enum SourceGroup
     {
         None = -100,
@@ -39,7 +13,21 @@ public class DebugGraphTimer : IComparable<DebugGraphTimer>
         Render = 100
     }
 
+    private readonly int _desiredDrawOrder;
+    private int _findMaxTriggerFrameCounter;
+
+    private float _foundMaxSample;
+    private float _foundMinSample;
+
     public SourceGroup Group = SourceGroup.None;
+    public string Label;
+    public float MaxSample;
+    public float MinSample;
+
+    public int Offset;
+    public float? Redline;
+    public float Sample10FramesAgo;
+    public Stopwatch Stopwatch;
 
     public DebugGraphTimer(string label, SourceGroup group = SourceGroup.None, TimeSpan? redline = null,
         int drawOrder = 0)
@@ -52,6 +40,20 @@ public class DebugGraphTimer : IComparable<DebugGraphTimer>
         Label = label;
         Stopwatch = new Stopwatch();
     }
+
+    public float[] Samples { get; private set; } = new float[500];
+    public int CurrentIndex { get; private set; }
+    private int GroupModifiedDrawOrder => _desiredDrawOrder + (int)Group;
+
+    public bool Collapsed
+    {
+        get => PersistentData.GetBool($"DebugTimerCollapsed_{Label}", false);
+        set => PersistentData.Set($"DebugTimerCollapsed_{Label}", value);
+    }
+
+    public float LabelWidth { get; private set; }
+
+    public int CompareTo(DebugGraphTimer other) => GroupModifiedDrawOrder.CompareTo(other.GroupModifiedDrawOrder);
 
     public void SetSamplesBufferSize(uint bufferSize)
     {
@@ -81,11 +83,9 @@ public class DebugGraphTimer : IComparable<DebugGraphTimer>
 
     private void CheckForLimit()
     {
-        if (CurrentIndex >= Samples.Length) CurrentIndex = 0;
-    }
-
-    public int CompareTo(DebugGraphTimer other)
-    {
-        return GroupModifiedDrawOrder.CompareTo(other.GroupModifiedDrawOrder);
+        if (CurrentIndex >= Samples.Length)
+        {
+            CurrentIndex = 0;
+        }
     }
 }

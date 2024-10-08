@@ -9,7 +9,10 @@ public static class RiderIDE
 
     public static void OpenStackTrace(StackFrame stackFrame)
     {
-        if (stackFrame.FileFullPath?.Length == 0) return;
+        if (stackFrame.FileFullPath?.Length == 0)
+        {
+            return;
+        }
 
         try
         {

@@ -4,22 +4,24 @@ public class ModelRenderer : TextureRenderer
     public bool CastShadow = true;
 
     // Color _mousePickingColor;
-    [SliderF(0, 1)]
-    public float SmoothShading = 0;
-
-    [SliderF(0, 1)]
-    public float SpecularSmoothness = 0.01f;
+    [SliderF(0, 1)] public float SmoothShading = 0;
 
     public bool SpecularHighlightsEnabled = true;
+
+    [SliderF(0, 1)] public float SpecularSmoothness = 0.01f;
 
     public override void Awake()
     {
         // _mousePickingColor = MousePickingSystem.RegisterObject(this);
 
         if (Texture == null)
+        {
             Texture = new Texture();
+        }
         else
+        {
             LoadTexture(Texture.Path);
+        }
 
         base.Awake();
     }
@@ -27,14 +29,22 @@ public class ModelRenderer : TextureRenderer
     public override void SetDefaultMaterial()
     {
         if (Material?.Path.Length == 0 || Material == null)
+        {
             Material = Tofu.AssetManager.Load<Material>("ModelRenderer");
+        }
         else
+        {
             Material = Tofu.AssetManager.Load<Material>(Material.Path);
+        }
 
         if (Mesh?.Path.Length > 0)
+        {
             Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
+        }
         else
+        {
             Mesh = null;
+        }
         // Material = Tofu.AssetManager.Load<Material>("ModelRenderer");
 
         // base.CreateMaterial();
@@ -61,17 +71,29 @@ public class ModelRenderer : TextureRenderer
 
     public override void Render()
     {
-        bool isTransformHandle = GameObject == TransformHandle.I.GameObject;
+        var isTransformHandle = GameObject == TransformHandle.I.GameObject;
         if (isTransformHandle && Tofu.RenderPassSystem.CurrentRenderPassType != RenderPassType.Opaques &&
-            Tofu.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI) return;
+            Tofu.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI)
+        {
+            return;
+        }
 
         if (CastShadow == false &&
-            Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth) return;
+            Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.DirectionalLightShadowDepth)
+        {
+            return;
+        }
 
         if ((Transform.IsInCanvas && Tofu.RenderPassSystem.CurrentRenderPassType != RenderPassType.UI) ||
-            (Transform.IsInCanvas == false && Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.UI)) return;
+            (Transform.IsInCanvas == false && Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.UI))
+        {
+            return;
+        }
 
-        if (Mesh == null) return;
+        if (Mesh == null)
+        {
+            return;
+        }
 
 
         // if (GameObject == TransformHandle.I?.GameObject)
@@ -83,13 +105,13 @@ public class ModelRenderer : TextureRenderer
         // 	GL.Enable(EnableCap.DepthTest);
         // }
 
-        bool drawOutline = GameObject.Selected;
+        var drawOutline = GameObject.Selected && false;
 
         //GL.Enable(EnableCap.DepthTest);
         if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
             or RenderPassType.ZPrePass)
         {
-            Material depthMaterial = Tofu.AssetManager.Load<Material>("DepthModel");
+            var depthMaterial = Tofu.AssetManager.Load<Material>("DepthModel");
             Tofu.ShaderManager.UseShader(depthMaterial.Shader);
             Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 
@@ -122,15 +144,19 @@ public class ModelRenderer : TextureRenderer
             Material.Shader.SetMatrix4X4("u_lightSpaceMatrix", DirectionalLight.LightSpaceViewProjectionMatrix);
 
             if (Transform.IsInCanvas)
+            {
                 Material.Shader.SetMatrix4X4("u_mvp", GetModelMatrixForCanvasObject());
+            }
             else
+            {
                 Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
+            }
 
             Material.Shader.SetFloat("u_renderMode",
                 (int)Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
             Material.Shader.SetFloat("u_time", Time.EditorElapsedTime);
 
-            bool fogEnabled = Tofu.SceneManager.CurrentScene.SceneFogManager.FogEnabled;
+            var fogEnabled = Tofu.SceneManager.CurrentScene.SceneFogManager.FogEnabled;
             Material.Shader.SetFloat("u_fogEnabled", fogEnabled ? 1 : 0);
             if (fogEnabled)
             {
@@ -179,7 +205,7 @@ public class ModelRenderer : TextureRenderer
 
             // Vector3 adjustedLightDirection = Transform.RotateVectorByRotation(SceneLightingManager.I.GetDirectionalLightDirection(), -Transform.Rotation);
             // Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
-            Vector3 adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
+            var adjustedLightDirection = SceneLightingManager.I.GetDirectionalLightDirection();
 
             // we can compute light direction 2 in relation to our rotation so we dont have to rotate normals in shader 
             Material.Shader.SetVector3("u_directionalLightDirection", adjustedLightDirection);
@@ -187,10 +213,10 @@ public class ModelRenderer : TextureRenderer
 
             GL.ActiveTexture(TextureUnit.Texture0);
             TextureHelper.BindTexture(Texture.TextureId);
-            if (RenderPassDirectionalLightShadowDepth.I?.DebugGrayscaleTexture != null)
+            if (RenderPassDirectionalLightShadowDepth.I?.DebugDepthVisualisationTexture != null)
             {
                 GL.ActiveTexture(TextureUnit.Texture1);
-                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DebugGrayscaleTexture
+                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture
                     .ColorAttachment);
             }
 
@@ -201,7 +227,10 @@ public class ModelRenderer : TextureRenderer
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
-            if (isTransformHandle == false) RenderWireframe(Mesh.VerticesCount);
+            if (isTransformHandle == false)
+            {
+                RenderWireframe(Mesh.VerticesCount);
+            }
 
             // GL_DrawArrays(PrimitiveType.Triangles, 0, Mesh.IndicesCount);
             GL_DrawArrays(PrimitiveType.Triangles, 0, Mesh.VerticesCount);
@@ -240,13 +269,17 @@ public class ModelRenderer : TextureRenderer
             // GL.Disable(EnableCap.DepthTest);
             GL.Disable(EnableCap.Blend);
 
-            Material outlineMaterial = Tofu.AssetManager.Load<Material>("ModelRendererUnlit");
+            var outlineMaterial = Tofu.AssetManager.Load<Material>("ModelRendererUnlit");
             Tofu.ShaderManager.UseShader(outlineMaterial.Shader);
 
             if (Transform.IsInCanvas)
+            {
                 outlineMaterial.Shader.SetMatrix4X4("u_mvp", GetCanvasMvpForOutline());
+            }
             else
+            {
                 outlineMaterial.Shader.SetMatrix4X4("u_mvp", GetMvpForOutline());
+            }
 
             outlineMaterial.Shader.SetMatrix4X4("u_model", GetModelMatrix());
             outlineMaterial.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));

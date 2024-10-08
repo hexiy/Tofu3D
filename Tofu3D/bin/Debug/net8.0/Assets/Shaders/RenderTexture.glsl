@@ -21,7 +21,7 @@ gl_Position = u_mvp * vec4(position.x, position.y, 0.0, 1.0);// * vec4(2,2,1,1);
 
 [FRAGMENT]
 #version 410 core
-in vec2 texCoord;
+ in vec2 texCoord;
 uniform sampler2D textureObject;
 layout (location = 0) out vec4 color;
 
@@ -32,13 +32,13 @@ vec4 c = texture(textureObject, texCoord);
 //		if(c.r ==0 && c.g == 0 && c.b==0){
 //		discard;
 //}
-		if(c.a <0.1){
-		discard;
+if (c.a < 0.1){
+discard;
 }
 //		else{
 color = vec4(c.r, c.g, c.b, c.a);
 //}
-		
+
 //   FragColor = texture(textureObject, texCoord).rgb;
 //color += vec3(0,texCoord.x,texCoord.y);
 //color = vec3(0,posssss.x,posssss.y);

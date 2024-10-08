@@ -6,10 +6,8 @@ namespace Tofu3D;
 
 public class TextureLoader : AssetLoader<Texture>
 {
-    public override Texture SaveAsset(ref Texture asset, AssetLoadSettingsBase loadSettings)
-    {
+    public override Texture SaveAsset(ref Texture asset, AssetLoadSettingsBase loadSettings) =>
         throw new NotImplementedException();
-    }
 
     public override void UnloadAsset(Asset<Texture> asset)
     {
@@ -18,22 +16,25 @@ public class TextureLoader : AssetLoader<Texture>
 
     public override Asset<Texture> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
     {
-        TextureLoadSettings loadSettings = assetLoadSettings as TextureLoadSettings;
-        int id = GL.GenTexture();
-        string path = loadSettings.Path;
-        if (File.Exists(path) == false) path = Folders.GetResourcePath("purple.png");
+        var loadSettings = assetLoadSettings as TextureLoadSettings;
+        var id = GL.GenTexture();
+        var path = loadSettings.Path;
+        if (File.Exists(path) == false)
+        {
+            path = Folders.GetResourcePath("purple.png");
+        }
 
-        TextureHelper.BindTexture(id, TextureType.Texture2D);
+        TextureHelper.BindTexture(id);
 
-        Vector2 imageSize = Vector2.Zero;
+        var imageSize = Vector2.Zero;
 
         var image = Image.Load<Rgba32>(path);
         imageSize = new Vector2(image.Width, image.Height);
 
-        byte[] pixels = new byte[4 * image.Width * image.Height];
+        var pixels = new byte[4 * image.Width * image.Height];
         image.Frames[0].CopyPixelDataTo(pixels);
 
-        TextureTarget textureTarget = TextureTarget.Texture2D;
+        var textureTarget = TextureTarget.Texture2D;
 
         GL.TexImage2D(textureTarget, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba,
             PixelType.UnsignedByte, pixels);
@@ -43,8 +44,8 @@ public class TextureLoader : AssetLoader<Texture>
         GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)loadSettings.WrapMode);
         GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)loadSettings.WrapMode);
         GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)loadSettings.WrapMode);
-        GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)loadSettings.FilterMode);
-        GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)loadSettings.FilterMode);
+        // GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)loadSettings.FilterMode);
+        // GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)loadSettings.FilterMode);
 
         // crashes the engine on macos
         if (OperatingSystem.IsWindows)

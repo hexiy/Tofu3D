@@ -10,7 +10,7 @@ using System.Text;
 namespace Tofu3D;
 
 /// <summary>
-///         Describes a 2D-vector.
+///     Describes a 2D-vector.
 /// </summary>
 #if XNADESIGNPROVIDED
     [System.ComponentMesh.TypeConverter(typeof(Microsoft.Xna.Framework.Design.Vector2TypeConverter))]
@@ -26,48 +26,46 @@ public struct Vector2 : IEquatable<Vector2>
     #region Public Fields
 
     /// <summary>
-    ///         The x coordinate of this <see cref="Vector2" />.
+    ///     The x coordinate of this <see cref="Vector2" />.
     /// </summary>
-    [DataMember]
-    public float X;
+    [DataMember] public float X;
 
     /// <summary>
-    ///         The y coordinate of this <see cref="Vector2" />.
+    ///     The y coordinate of this <see cref="Vector2" />.
     /// </summary>
-    [DataMember]
-    public float Y;
+    [DataMember] public float Y;
 
     #endregion
 
     #region Properties
 
     /// <summary>
-    ///         Returns a <see cref="Vector2" /> with components 0, 0.
+    ///     Returns a <see cref="Vector2" /> with components 0, 0.
     /// </summary>
     public static Vector2 Zero { get; } = new(0f, 0f);
 
     /// <summary>
-    ///         Returns a <see cref="Vector2" /> with components 1, 1.
+    ///     Returns a <see cref="Vector2" /> with components 1, 1.
     /// </summary>
     public static Vector2 One { get; } = new(1f, 1f);
 
     /// <summary>
-    ///         Returns a <see cref="Vector2" /> with components -1, 0.
+    ///     Returns a <see cref="Vector2" /> with components -1, 0.
     /// </summary>
     public static Vector2 Left { get; } = new(-1f, 0f);
 
     /// <summary>
-    ///         Returns a <see cref="Vector2" /> with components -1, 0.
+    ///     Returns a <see cref="Vector2" /> with components -1, 0.
     /// </summary>
     public static Vector2 Right { get; } = new(1f, 0f);
 
     /// <summary>
-    ///         Returns a <see cref="Vector2" /> with components -1, 0.
+    ///     Returns a <see cref="Vector2" /> with components -1, 0.
     /// </summary>
     public static Vector2 Up { get; } = new(0f, 1f);
 
     /// <summary>
-    ///         Returns a <see cref="Vector2" /> with components -1, 0.
+    ///     Returns a <see cref="Vector2" /> with components -1, 0.
     /// </summary>
     public static Vector2 Down { get; } = new(0f, -1f);
 
@@ -88,7 +86,7 @@ public struct Vector2 : IEquatable<Vector2>
     #region Constructors
 
     /// <summary>
-    ///         Constructs a 2d vector with X and Y from two values.
+    ///     Constructs a 2d vector with X and Y from two values.
     /// </summary>
     /// <param name="x">The x coordinate in 2d-space.</param>
     /// <param name="y">The y coordinate in 2d-space.</param>
@@ -99,7 +97,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Constructs a 2d vector with X and Y set to the same value.
+    ///     Constructs a 2d vector with X and Y set to the same value.
     /// </summary>
     /// <param name="value">The x and y coordinates in 2d-space.</param>
     public Vector2(float value)
@@ -113,43 +111,31 @@ public struct Vector2 : IEquatable<Vector2>
     #region Operators
 
     /// <summary>
-    ///         Converts a <see cref="System.Numerics.Vector2" /> to a <see cref="Vector2" />.
+    ///     Converts a <see cref="System.Numerics.Vector2" /> to a <see cref="Vector2" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator Vector2(System.Numerics.Vector2 value)
-    {
-        return new Vector2(value.X, value.Y);
-    }
+    public static implicit operator Vector2(System.Numerics.Vector2 value) => new(value.X, value.Y);
 
     /// <summary>
-    ///         Converts a <see cref="OpenTK.Mathematics.Vector2" /> to a <see cref="Vector2" />.
+    ///     Converts a <see cref="OpenTK.Mathematics.Vector2" /> to a <see cref="Vector2" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator Vector2(OpenTK.Mathematics.Vector2 value)
-    {
-        return new Vector2(value.X, value.Y);
-    }
-    
-    /// <summary>
-    ///         Converts a <see cref="System.Numerics.Vector2" /> to a <see cref="Vector2" />.
-    /// </summary>
-    /// <param name="value">The converted value.</param>
-    public static implicit operator System.Numerics.Vector2(Vector2 value)
-    {
-        return new System.Numerics.Vector2(value.X, value.Y);
-    }
+    public static implicit operator Vector2(OpenTK.Mathematics.Vector2 value) => new(value.X, value.Y);
 
     /// <summary>
-    ///         Converts a <see cref="Vector3" /> to a <see cref="Vector2" />.
+    ///     Converts a <see cref="System.Numerics.Vector2" /> to a <see cref="Vector2" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator Vector2(Vector3 value)
-    {
-        return new Vector2(value.X, value.Y);
-    }
+    public static implicit operator System.Numerics.Vector2(Vector2 value) => new(value.X, value.Y);
 
     /// <summary>
-    ///         Inverts values in the specified <see cref="Vector2" />.
+    ///     Converts a <see cref="Vector3" /> to a <see cref="Vector2" />.
+    /// </summary>
+    /// <param name="value">The converted value.</param>
+    public static implicit operator Vector2(Vector3 value) => new(value.X, value.Y);
+
+    /// <summary>
+    ///     Inverts values in the specified <see cref="Vector2" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" /> on the right of the sub sign.</param>
     /// <returns>Result of the inversion.</returns>
@@ -161,7 +147,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Adds two vectors.
+    ///     Adds two vectors.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" /> on the left of the add sign.</param>
     /// <param name="value2">Source <see cref="Vector2" /> on the right of the add sign.</param>
@@ -174,7 +160,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Adds two vectors.
+    ///     Adds two vectors.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" /> on the left of the add sign.</param>
     /// <param name="value2">Source <see cref="Vector3" /> on the right of the add sign.</param>
@@ -187,7 +173,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Subtracts a <see cref="Vector2" /> from a <see cref="Vector2" />.
+    ///     Subtracts a <see cref="Vector2" /> from a <see cref="Vector2" />.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" /> on the left of the sub sign.</param>
     /// <param name="value2">Source <see cref="Vector2" /> on the right of the sub sign.</param>
@@ -200,7 +186,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Subtracts a <see cref="Vector2" /> from a <see cref="Vector2" />.
+    ///     Subtracts a <see cref="Vector2" /> from a <see cref="Vector2" />.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" /> on the left of the sub sign.</param>
     /// <param name="value2">Source <see cref="Vector2" /> on the right of the sub sign.</param>
@@ -213,7 +199,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Multiplies the components of two vectors by each other.
+    ///     Multiplies the components of two vectors by each other.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" /> on the left of the mul sign.</param>
     /// <param name="value2">Source <see cref="Vector3" /> on the right of the mul sign.</param>
@@ -254,7 +240,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Multiplies the components of two vectors by each other.
+    ///     Multiplies the components of two vectors by each other.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" /> on the left of the mul sign.</param>
     /// <param name="value2">Source <see cref="Vector3" /> on the right of the mul sign.</param>
@@ -267,7 +253,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Multiplies the components of vector by a scalar.
+    ///     Multiplies the components of vector by a scalar.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" /> on the left of the mul sign.</param>
     /// <param name="scaleFactor">Scalar value on the right of the mul sign.</param>
@@ -280,7 +266,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Multiplies the components of vector by a scalar.
+    ///     Multiplies the components of vector by a scalar.
     /// </summary>
     /// <param name="scaleFactor">Scalar value on the left of the mul sign.</param>
     /// <param name="value">Source <see cref="Vector2" /> on the right of the mul sign.</param>
@@ -293,7 +279,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector2" /> by the components of another <see cref="Vector2" />.
+    ///     Divides the components of a <see cref="Vector2" /> by the components of another <see cref="Vector2" />.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" /> on the left of the div sign.</param>
     /// <param name="value2">Divisor <see cref="Vector2" /> on the right of the div sign.</param>
@@ -307,7 +293,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector2" /> by the components of another <see cref="Vector3" />.
+    ///     Divides the components of a <see cref="Vector2" /> by the components of another <see cref="Vector3" />.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" /> on the left of the div sign.</param>
     /// <param name="value2">Divisor <see cref="Vector3" /> on the right of the div sign.</param>
@@ -321,7 +307,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector2" /> by a scalar.
+    ///     Divides the components of a <see cref="Vector2" /> by a scalar.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" /> on the left of the div sign.</param>
     /// <param name="divider">Divisor scalar on the right of the div sign.</param>
@@ -329,62 +315,50 @@ public struct Vector2 : IEquatable<Vector2>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector2 operator /(Vector2 value1, float divider)
     {
-        float factor = 1 / divider;
+        var factor = 1 / divider;
         value1.X *= factor;
         value1.Y *= factor;
         return value1;
     }
 
     /// <summary>
-    ///         Compares whether two <see cref="Vector2" /> instances are equal.
+    ///     Compares whether two <see cref="Vector2" /> instances are equal.
     /// </summary>
     /// <param name="value1"><see cref="Vector2" /> instance on the left of the equal sign.</param>
     /// <param name="value2"><see cref="Vector2" /> instance on the right of the equal sign.</param>
     /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-    public static bool operator ==(Vector2 value1, Vector2 value2)
-    {
-        return value1.X == value2.X && value1.Y == value2.Y;
-    }
+    public static bool operator ==(Vector2 value1, Vector2 value2) => value1.X == value2.X && value1.Y == value2.Y;
 
     /// <summary>
-    ///         Compares whether two <see cref="Vector2" /> instances are not equal.
+    ///     Compares whether two <see cref="Vector2" /> instances are not equal.
     /// </summary>
     /// <param name="value1"><see cref="Vector2" /> instance on the left of the not equal sign.</param>
     /// <param name="value2"><see cref="Vector2" /> instance on the right of the not equal sign.</param>
     /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>
-    public static bool operator !=(Vector2 value1, Vector2 value2)
-    {
-        return value1.X != value2.X || value1.Y != value2.Y;
-    }
+    public static bool operator !=(Vector2 value1, Vector2 value2) => value1.X != value2.X || value1.Y != value2.Y;
 
     /// <summary>
-    ///         Compares whether two <see cref="Vector2" /> and <see cref="Vector3" /> instances are equal.
+    ///     Compares whether two <see cref="Vector2" /> and <see cref="Vector3" /> instances are equal.
     /// </summary>
     /// <param name="value1"><see cref="Vector2" /> instance on the left of the equal sign.</param>
     /// <param name="value2"><see cref="Vector3" /> instance on the right of the equal sign.</param>
     /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-    public static bool operator ==(Vector2 value1, Vector3 value2)
-    {
-        return value1.X == value2.X && value1.Y == value2.Y;
-    }
+    public static bool operator ==(Vector2 value1, Vector3 value2) => value1.X == value2.X && value1.Y == value2.Y;
 
     /// <summary>
-    ///         Compares whether two <see cref="Vector2" /> and <see cref="Vector3" /> instances are not equal.
+    ///     Compares whether two <see cref="Vector2" /> and <see cref="Vector3" /> instances are not equal.
     /// </summary>
     /// <param name="value1"><see cref="Vector2" /> instance on the left of the not equal sign.</param>
     /// <param name="value2"><see cref="Vector3" /> instance on the right of the not equal sign.</param>
     /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>
-    public static bool operator !=(Vector2 value1, Vector3 value2)
-    {
-        return value1.X != value2.X || value1.Y != value2.Y;
-    }
+    public static bool operator !=(Vector2 value1, Vector3 value2) => value1.X != value2.X || value1.Y != value2.Y;
 
     #endregion
 
     #region Public Methods
 
     /// <summary>
-    ///         Performs vector addition on <paramref name="value1" /> and <paramref name="value2" />.
+    ///     Performs vector addition on <paramref name="value1" /> and <paramref name="value2" />.
     /// </summary>
     /// <param name="value1">The first vector to add.</param>
     /// <param name="value2">The second vector to add.</param>
@@ -397,9 +371,9 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Performs vector addition on <paramref name="value1" /> and
-    ///         <paramref name="value2" />, storing the result of the
-    ///         addition in <paramref name="result" />.
+    ///     Performs vector addition on <paramref name="value1" /> and
+    ///     <paramref name="value2" />, storing the result of the
+    ///     addition in <paramref name="result" />.
     /// </summary>
     /// <param name="value1">The first vector to add.</param>
     /// <param name="value2">The second vector to add.</param>
@@ -411,42 +385,40 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains the cartesian coordinates of a vector specified in
-    ///         barycentric coordinates and relative to 2d-triangle.
+    ///     Creates a new <see cref="Vector2" /> that contains the cartesian coordinates of a vector specified in
+    ///     barycentric coordinates and relative to 2d-triangle.
     /// </summary>
     /// <param name="value1">The first vector of 2d-triangle.</param>
     /// <param name="value2">The second vector of 2d-triangle.</param>
     /// <param name="value3">The third vector of 2d-triangle.</param>
     /// <param name="amount1">
-    ///         Barycentric scalar <c>b2</c> which represents a weighting factor towards second vector of
-    ///         2d-triangle.
+    ///     Barycentric scalar <c>b2</c> which represents a weighting factor towards second vector of
+    ///     2d-triangle.
     /// </param>
     /// <param name="amount2">
-    ///         Barycentric scalar <c>b3</c> which represents a weighting factor towards third vector of
-    ///         2d-triangle.
+    ///     Barycentric scalar <c>b3</c> which represents a weighting factor towards third vector of
+    ///     2d-triangle.
     /// </param>
     /// <returns>The cartesian translation of barycentric coordinates.</returns>
-    public static Vector2 Barycentric(Vector2 value1, Vector2 value2, Vector2 value3, float amount1, float amount2)
-    {
-        return new Vector2(
+    public static Vector2 Barycentric(Vector2 value1, Vector2 value2, Vector2 value3, float amount1, float amount2) =>
+        new(
             Mathf.Barycentric(value1.X, value2.X, value3.X, amount1, amount2),
             Mathf.Barycentric(value1.Y, value2.Y, value3.Y, amount1, amount2));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains the cartesian coordinates of a vector specified in
-    ///         barycentric coordinates and relative to 2d-triangle.
+    ///     Creates a new <see cref="Vector2" /> that contains the cartesian coordinates of a vector specified in
+    ///     barycentric coordinates and relative to 2d-triangle.
     /// </summary>
     /// <param name="value1">The first vector of 2d-triangle.</param>
     /// <param name="value2">The second vector of 2d-triangle.</param>
     /// <param name="value3">The third vector of 2d-triangle.</param>
     /// <param name="amount1">
-    ///         Barycentric scalar <c>b2</c> which represents a weighting factor towards second vector of
-    ///         2d-triangle.
+    ///     Barycentric scalar <c>b2</c> which represents a weighting factor towards second vector of
+    ///     2d-triangle.
     /// </param>
     /// <param name="amount2">
-    ///         Barycentric scalar <c>b3</c> which represents a weighting factor towards third vector of
-    ///         2d-triangle.
+    ///     Barycentric scalar <c>b3</c> which represents a weighting factor towards third vector of
+    ///     2d-triangle.
     /// </param>
     /// <param name="result">The cartesian translation of barycentric coordinates as an output parameter.</param>
     public static void Barycentric(ref Vector2 value1, ref Vector2 value2, ref Vector2 value3, float amount1,
@@ -457,7 +429,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains CatmullRom interpolation of the specified vectors.
+    ///     Creates a new <see cref="Vector2" /> that contains CatmullRom interpolation of the specified vectors.
     /// </summary>
     /// <param name="value1">The first vector in interpolation.</param>
     /// <param name="value2">The second vector in interpolation.</param>
@@ -465,15 +437,13 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="value4">The fourth vector in interpolation.</param>
     /// <param name="amount">Weighting factor.</param>
     /// <returns>The result of CatmullRom interpolation.</returns>
-    public static Vector2 CatmullRom(Vector2 value1, Vector2 value2, Vector2 value3, Vector2 value4, float amount)
-    {
-        return new Vector2(
+    public static Vector2 CatmullRom(Vector2 value1, Vector2 value2, Vector2 value3, Vector2 value4, float amount) =>
+        new(
             Mathf.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
             Mathf.CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains CatmullRom interpolation of the specified vectors.
+    ///     Creates a new <see cref="Vector2" /> that contains CatmullRom interpolation of the specified vectors.
     /// </summary>
     /// <param name="value1">The first vector in interpolation.</param>
     /// <param name="value2">The second vector in interpolation.</param>
@@ -489,7 +459,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Round the members of this <see cref="Vector2" /> towards positive infinity.
+    ///     Round the members of this <see cref="Vector2" /> towards positive infinity.
     /// </summary>
     public void Ceiling()
     {
@@ -498,8 +468,8 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains members from another vector rounded towards positive
-    ///         infinity.
+    ///     Creates a new <see cref="Vector2" /> that contains members from another vector rounded towards positive
+    ///     infinity.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <returns>The rounded <see cref="Vector2" />.</returns>
@@ -511,8 +481,8 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains members from another vector rounded towards positive
-    ///         infinity.
+    ///     Creates a new <see cref="Vector2" /> that contains members from another vector rounded towards positive
+    ///     infinity.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <param name="result">The rounded <see cref="Vector2" />.</param>
@@ -523,21 +493,19 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Clamps the specified value within a range.
+    ///     Clamps the specified value within a range.
     /// </summary>
     /// <param name="value1">The value to clamp.</param>
     /// <param name="min">The min value.</param>
     /// <param name="max">The max value.</param>
     /// <returns>The clamped value.</returns>
-    public static Vector2 Clamp(Vector2 value1, Vector2 min, Vector2 max)
-    {
-        return new Vector2(
+    public static Vector2 Clamp(Vector2 value1, Vector2 min, Vector2 max) =>
+        new(
             Mathf.Clamp(value1.X, min.X, max.X),
             Mathf.Clamp(value1.Y, min.Y, max.Y));
-    }
 
     /// <summary>
-    ///         Clamps the specified value within a range.
+    ///     Clamps the specified value within a range.
     /// </summary>
     /// <param name="value1">The value to clamp.</param>
     /// <param name="min">The min value.</param>
@@ -550,7 +518,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Returns the distance between two vectors.
+    ///     Returns the distance between two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -562,7 +530,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Returns the distance between two vectors.
+    ///     Returns the distance between two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -574,7 +542,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Returns the squared distance between two vectors.
+    ///     Returns the squared distance between two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -586,7 +554,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Returns the squared distance between two vectors.
+    ///     Returns the squared distance between two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -598,7 +566,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector2" /> by the components of another <see cref="Vector2" />.
+    ///     Divides the components of a <see cref="Vector2" /> by the components of another <see cref="Vector2" />.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" />.</param>
     /// <param name="value2">Divisor <see cref="Vector2" />.</param>
@@ -611,7 +579,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector2" /> by the components of another <see cref="Vector2" />.
+    ///     Divides the components of a <see cref="Vector2" /> by the components of another <see cref="Vector2" />.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" />.</param>
     /// <param name="value2">Divisor <see cref="Vector2" />.</param>
@@ -623,45 +591,42 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector2" /> by a scalar.
+    ///     Divides the components of a <see cref="Vector2" /> by a scalar.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" />.</param>
     /// <param name="divider">Divisor scalar.</param>
     /// <returns>The result of dividing a vector by a scalar.</returns>
     public static Vector2 Divide(Vector2 value1, float divider)
     {
-        float factor = 1 / divider;
+        var factor = 1 / divider;
         value1.X *= factor;
         value1.Y *= factor;
         return value1;
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector2" /> by a scalar.
+    ///     Divides the components of a <see cref="Vector2" /> by a scalar.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" />.</param>
     /// <param name="divider">Divisor scalar.</param>
     /// <param name="result">The result of dividing a vector by a scalar as an output parameter.</param>
     public static void Divide(ref Vector2 value1, float divider, out Vector2 result)
     {
-        float factor = 1 / divider;
+        var factor = 1 / divider;
         result.X = value1.X * factor;
         result.Y = value1.Y * factor;
     }
 
     /// <summary>
-    ///         Returns a dot product of two vectors.
+    ///     Returns a dot product of two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
     /// <returns>The dot product of two vectors.</returns>
-    public static float Dot(Vector2 value1, Vector2 value2)
-    {
-        return value1.X * value2.X + value1.Y * value2.Y;
-    }
+    public static float Dot(Vector2 value1, Vector2 value2) => value1.X * value2.X + value1.Y * value2.Y;
 
     /// <summary>
-    ///         Returns a dot product of two vectors.
+    ///     Returns a dot product of two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -672,29 +637,29 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Compares whether current instance is equal to specified <see cref="Object" />.
+    ///     Compares whether current instance is equal to specified <see cref="Object" />.
     /// </summary>
     /// <param name="obj">The <see cref="Object" /> to compare.</param>
     /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
     public override bool Equals(object obj)
     {
-        if (obj is Vector2) return Equals((Vector2)obj);
+        if (obj is Vector2)
+        {
+            return Equals((Vector2)obj);
+        }
 
         return false;
     }
 
     /// <summary>
-    ///         Compares whether current instance is equal to specified <see cref="Vector2" />.
+    ///     Compares whether current instance is equal to specified <see cref="Vector2" />.
     /// </summary>
     /// <param name="other">The <see cref="Vector2" /> to compare.</param>
     /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-    public bool Equals(Vector2 other)
-    {
-        return X == other.X && Y == other.Y;
-    }
+    public bool Equals(Vector2 other) => X == other.X && Y == other.Y;
 
     /// <summary>
-    ///         Round the members of this <see cref="Vector2" /> towards negative infinity.
+    ///     Round the members of this <see cref="Vector2" /> towards negative infinity.
     /// </summary>
     public void Floor()
     {
@@ -703,8 +668,8 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains members from another vector rounded towards negative
-    ///         infinity.
+    ///     Creates a new <see cref="Vector2" /> that contains members from another vector rounded towards negative
+    ///     infinity.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <returns>The rounded <see cref="Vector2" />.</returns>
@@ -716,8 +681,8 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains members from another vector rounded towards negative
-    ///         infinity.
+    ///     Creates a new <see cref="Vector2" /> that contains members from another vector rounded towards negative
+    ///     infinity.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <param name="result">The rounded <see cref="Vector2" />.</param>
@@ -728,7 +693,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Gets the hash code of this <see cref="Vector2" />.
+    ///     Gets the hash code of this <see cref="Vector2" />.
     /// </summary>
     /// <returns>Hash code of this <see cref="Vector2" />.</returns>
     public override int GetHashCode()
@@ -740,7 +705,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains hermite spline interpolation.
+    ///     Creates a new <see cref="Vector2" /> that contains hermite spline interpolation.
     /// </summary>
     /// <param name="value1">The first position vector.</param>
     /// <param name="tangent1">The first tangent vector.</param>
@@ -748,14 +713,12 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="tangent2">The second tangent vector.</param>
     /// <param name="amount">Weighting factor.</param>
     /// <returns>The hermite spline interpolation vector.</returns>
-    public static Vector2 Hermite(Vector2 value1, Vector2 tangent1, Vector2 value2, Vector2 tangent2, float amount)
-    {
-        return new Vector2(Mathf.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount),
+    public static Vector2 Hermite(Vector2 value1, Vector2 tangent1, Vector2 value2, Vector2 tangent2, float amount) =>
+        new(Mathf.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount),
             Mathf.Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains hermite spline interpolation.
+    ///     Creates a new <see cref="Vector2" /> that contains hermite spline interpolation.
     /// </summary>
     /// <param name="value1">The first position vector.</param>
     /// <param name="tangent1">The first tangent vector.</param>
@@ -771,25 +734,19 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Returns the length of this <see cref="Vector2" />.
+    ///     Returns the length of this <see cref="Vector2" />.
     /// </summary>
     /// <returns>The length of this <see cref="Vector2" />.</returns>
-    public float Length()
-    {
-        return MathF.Sqrt(X * X + Y * Y);
-    }
+    public float Length() => MathF.Sqrt(X * X + Y * Y);
 
     /// <summary>
-    ///         Returns the squared length of this <see cref="Vector2" />.
+    ///     Returns the squared length of this <see cref="Vector2" />.
     /// </summary>
     /// <returns>The squared length of this <see cref="Vector2" />.</returns>
-    public float LengthSquared()
-    {
-        return X * X + Y * Y;
-    }
+    public float LengthSquared() => X * X + Y * Y;
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains linear interpolation of the specified vectors.
+    ///     Creates a new <see cref="Vector2" /> that contains linear interpolation of the specified vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -804,7 +761,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains linear interpolation of the specified vectors.
+    ///     Creates a new <see cref="Vector2" /> that contains linear interpolation of the specified vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -818,28 +775,26 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains linear interpolation of the specified vectors.
-    ///         Uses <see cref="Mathf.LerpPrecise" /> on MathHelper for the interpolation.
-    ///         Less efficient but more precise compared to <see cref="Vector2.Lerp(Vector2, Vector2, float)" />.
-    ///         See remarks section of <see cref="Mathf.LerpPrecise" /> on MathHelper for more info.
+    ///     Creates a new <see cref="Vector2" /> that contains linear interpolation of the specified vectors.
+    ///     Uses <see cref="Mathf.LerpPrecise" /> on MathHelper for the interpolation.
+    ///     Less efficient but more precise compared to <see cref="Vector2.Lerp(Vector2, Vector2, float)" />.
+    ///     See remarks section of <see cref="Mathf.LerpPrecise" /> on MathHelper for more info.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
     /// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
     /// <returns>The result of linear interpolation of the specified vectors.</returns>
-    public static Vector2 LerpPrecise(Vector2 value1, Vector2 value2, float amount)
-    {
-        return new Vector2(
+    public static Vector2 LerpPrecise(Vector2 value1, Vector2 value2, float amount) =>
+        new(
             Mathf.LerpPrecise(value1.X, value2.X, amount),
             Mathf.LerpPrecise(value1.Y, value2.Y, amount));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains linear interpolation of the specified vectors.
-    ///         Uses <see cref="Mathf.LerpPrecise" /> on MathHelper for the interpolation.
-    ///         Less efficient but more precise compared to
-    ///         <see cref="Vector2.Lerp(ref Vector2, ref Vector2, float, out Vector2)" />.
-    ///         See remarks section of <see cref="Mathf.LerpPrecise" /> on MathHelper for more info.
+    ///     Creates a new <see cref="Vector2" /> that contains linear interpolation of the specified vectors.
+    ///     Uses <see cref="Mathf.LerpPrecise" /> on MathHelper for the interpolation.
+    ///     Less efficient but more precise compared to
+    ///     <see cref="Vector2.Lerp(ref Vector2, ref Vector2, float, out Vector2)" />.
+    ///     See remarks section of <see cref="Mathf.LerpPrecise" /> on MathHelper for more info.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -852,19 +807,17 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a maximal values from the two vectors.
+    ///     Creates a new <see cref="Vector2" /> that contains a maximal values from the two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
     /// <returns>The <see cref="Vector2" /> with maximal values from the two vectors.</returns>
-    public static Vector2 Max(Vector2 value1, Vector2 value2)
-    {
-        return new Vector2(value1.X > value2.X ? value1.X : value2.X,
+    public static Vector2 Max(Vector2 value1, Vector2 value2) =>
+        new(value1.X > value2.X ? value1.X : value2.X,
             value1.Y > value2.Y ? value1.Y : value2.Y);
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a maximal values from the two vectors.
+    ///     Creates a new <see cref="Vector2" /> that contains a maximal values from the two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -876,19 +829,17 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a minimal values from the two vectors.
+    ///     Creates a new <see cref="Vector2" /> that contains a minimal values from the two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
     /// <returns>The <see cref="Vector2" /> with minimal values from the two vectors.</returns>
-    public static Vector2 Min(Vector2 value1, Vector2 value2)
-    {
-        return new Vector2(value1.X < value2.X ? value1.X : value2.X,
+    public static Vector2 Min(Vector2 value1, Vector2 value2) =>
+        new(value1.X < value2.X ? value1.X : value2.X,
             value1.Y < value2.Y ? value1.Y : value2.Y);
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a minimal values from the two vectors.
+    ///     Creates a new <see cref="Vector2" /> that contains a minimal values from the two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -900,7 +851,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a multiplication of two vectors.
+    ///     Creates a new <see cref="Vector2" /> that contains a multiplication of two vectors.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" />.</param>
     /// <param name="value2">Source <see cref="Vector2" />.</param>
@@ -913,7 +864,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a multiplication of two vectors.
+    ///     Creates a new <see cref="Vector2" /> that contains a multiplication of two vectors.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" />.</param>
     /// <param name="value2">Source <see cref="Vector2" />.</param>
@@ -925,7 +876,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a multiplication of <see cref="Vector2" /> and a scalar.
+    ///     Creates a new <see cref="Vector2" /> that contains a multiplication of <see cref="Vector2" /> and a scalar.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" />.</param>
     /// <param name="scaleFactor">Scalar value.</param>
@@ -938,7 +889,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a multiplication of <see cref="Vector2" /> and a scalar.
+    ///     Creates a new <see cref="Vector2" /> that contains a multiplication of <see cref="Vector2" /> and a scalar.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" />.</param>
     /// <param name="scaleFactor">Scalar value.</param>
@@ -950,7 +901,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains the specified vector inversion.
+    ///     Creates a new <see cref="Vector2" /> that contains the specified vector inversion.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <returns>The result of the vector inversion.</returns>
@@ -962,7 +913,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains the specified vector inversion.
+    ///     Creates a new <see cref="Vector2" /> that contains the specified vector inversion.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <param name="result">The result of the vector inversion as an output parameter.</param>
@@ -973,42 +924,42 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Turns this <see cref="Vector2" /> to a unit vector with the same direction.
+    ///     Turns this <see cref="Vector2" /> to a unit vector with the same direction.
     /// </summary>
     public void Normalize()
     {
-        float val = 1.0f / MathF.Sqrt(X * X + Y * Y);
+        var val = 1.0f / MathF.Sqrt(X * X + Y * Y);
         X *= val;
         Y *= val;
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a normalized values from another vector.
+    ///     Creates a new <see cref="Vector2" /> that contains a normalized values from another vector.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <returns>Unit vector.</returns>
     public static Vector2 Normalize(Vector2 value)
     {
-        float val = 1.0f / MathF.Sqrt(value.X * value.X + value.Y * value.Y);
+        var val = 1.0f / MathF.Sqrt(value.X * value.X + value.Y * value.Y);
         value.X *= val;
         value.Y *= val;
         return value;
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a normalized values from another vector.
+    ///     Creates a new <see cref="Vector2" /> that contains a normalized values from another vector.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <param name="result">Unit vector as an output parameter.</param>
     public static void Normalize(ref Vector2 value, out Vector2 result)
     {
-        float val = 1.0f / MathF.Sqrt(value.X * value.X + value.Y * value.Y);
+        var val = 1.0f / MathF.Sqrt(value.X * value.X + value.Y * value.Y);
         result.X = value.X * val;
         result.Y = value.Y * val;
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains reflect vector of the given vector and normal.
+    ///     Creates a new <see cref="Vector2" /> that contains reflect vector of the given vector and normal.
     /// </summary>
     /// <param name="vector">Source <see cref="Vector2" />.</param>
     /// <param name="normal">Reflection normal.</param>
@@ -1016,27 +967,27 @@ public struct Vector2 : IEquatable<Vector2>
     public static Vector2 Reflect(Vector2 vector, Vector2 normal)
     {
         Vector2 result;
-        float val = 2.0f * (vector.X * normal.X + vector.Y * normal.Y);
+        var val = 2.0f * (vector.X * normal.X + vector.Y * normal.Y);
         result.X = vector.X - normal.X * val;
         result.Y = vector.Y - normal.Y * val;
         return result;
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains reflect vector of the given vector and normal.
+    ///     Creates a new <see cref="Vector2" /> that contains reflect vector of the given vector and normal.
     /// </summary>
     /// <param name="vector">Source <see cref="Vector2" />.</param>
     /// <param name="normal">Reflection normal.</param>
     /// <param name="result">Reflected vector as an output parameter.</param>
     public static void Reflect(ref Vector2 vector, ref Vector2 normal, out Vector2 result)
     {
-        float val = 2.0f * (vector.X * normal.X + vector.Y * normal.Y);
+        var val = 2.0f * (vector.X * normal.X + vector.Y * normal.Y);
         result.X = vector.X - normal.X * val;
         result.Y = vector.Y - normal.Y * val;
     }
 
     /// <summary>
-    ///         Round the members of this <see cref="Vector2" /> to the nearest integer value.
+    ///     Round the members of this <see cref="Vector2" /> to the nearest integer value.
     /// </summary>
     public void Round()
     {
@@ -1045,8 +996,8 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains members from another vector rounded to the nearest integer
-    ///         value.
+    ///     Creates a new <see cref="Vector2" /> that contains members from another vector rounded to the nearest integer
+    ///     value.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <returns>The rounded <see cref="Vector2" />.</returns>
@@ -1058,8 +1009,8 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains members from another vector rounded to the nearest integer
-    ///         value.
+    ///     Creates a new <see cref="Vector2" /> that contains members from another vector rounded to the nearest integer
+    ///     value.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <param name="result">The rounded <see cref="Vector2" />.</param>
@@ -1070,21 +1021,19 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains cubic interpolation of the specified vectors.
+    ///     Creates a new <see cref="Vector2" /> that contains cubic interpolation of the specified vectors.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" />.</param>
     /// <param name="value2">Source <see cref="Vector2" />.</param>
     /// <param name="amount">Weighting value.</param>
     /// <returns>Cubic interpolation of the specified vectors.</returns>
-    public static Vector2 SmoothStep(Vector2 value1, Vector2 value2, float amount)
-    {
-        return new Vector2(
+    public static Vector2 SmoothStep(Vector2 value1, Vector2 value2, float amount) =>
+        new(
             Mathf.SmoothStep(value1.X, value2.X, amount),
             Mathf.SmoothStep(value1.Y, value2.Y, amount));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains cubic interpolation of the specified vectors.
+    ///     Creates a new <see cref="Vector2" /> that contains cubic interpolation of the specified vectors.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" />.</param>
     /// <param name="value2">Source <see cref="Vector2" />.</param>
@@ -1097,7 +1046,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains subtraction of on <see cref="Vector2" /> from a another.
+    ///     Creates a new <see cref="Vector2" /> that contains subtraction of on <see cref="Vector2" /> from a another.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" />.</param>
     /// <param name="value2">Source <see cref="Vector2" />.</param>
@@ -1110,7 +1059,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains subtraction of on <see cref="Vector2" /> from a another.
+    ///     Creates a new <see cref="Vector2" /> that contains subtraction of on <see cref="Vector2" /> from a another.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector2" />.</param>
     /// <param name="value2">Source <see cref="Vector2" />.</param>
@@ -1122,8 +1071,8 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Returns a <see cref="String" /> representation of this <see cref="Vector2" /> in the format:
-    ///         {X:[<see cref="X" />] Y:[<see cref="Y" />]}
+    ///     Returns a <see cref="String" /> representation of this <see cref="Vector2" /> in the format:
+    ///     {X:[<see cref="X" />] Y:[<see cref="Y" />]}
     /// </summary>
     /// <returns>A <see cref="String" /> representation of this <see cref="Vector2" />.</returns>
     public override string ToString()
@@ -1138,45 +1087,40 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Gets a <see cref="Point" /> representation for this object.
+    ///     Gets a <see cref="Point" /> representation for this object.
     /// </summary>
     /// <returns>A <see cref="Point" /> representation for this object.</returns>
-    public Point ToPoint()
-    {
-        return new Point((int)X, (int)Y);
-    }
+    public Point ToPoint() => new((int)X, (int)Y);
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a transformation of 2d-vector by the specified
-    ///         <see cref="Matrix" />.
+    ///     Creates a new <see cref="Vector2" /> that contains a transformation of 2d-vector by the specified
+    ///     <see cref="Matrix" />.
     /// </summary>
     /// <param name="position">Source <see cref="Vector2" />.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
     /// <returns>Transformed <see cref="Vector2" />.</returns>
-    public static Vector2 Transform(Vector2 position, Matrix matrix)
-    {
-        return new Vector2(position.X * matrix.M11 + position.Y * matrix.M21 + matrix.M41,
+    public static Vector2 Transform(Vector2 position, Matrix matrix) =>
+        new(position.X * matrix.M11 + position.Y * matrix.M21 + matrix.M41,
             position.X * matrix.M12 + position.Y * matrix.M22 + matrix.M42);
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a transformation of 2d-vector by the specified
-    ///         <see cref="Matrix" />.
+    ///     Creates a new <see cref="Vector2" /> that contains a transformation of 2d-vector by the specified
+    ///     <see cref="Matrix" />.
     /// </summary>
     /// <param name="position">Source <see cref="Vector2" />.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
     /// <param name="result">Transformed <see cref="Vector2" /> as an output parameter.</param>
     public static void Transform(ref Vector2 position, ref Matrix matrix, out Vector2 result)
     {
-        float x = position.X * matrix.M11 + position.Y * matrix.M21 + matrix.M41;
-        float y = position.X * matrix.M12 + position.Y * matrix.M22 + matrix.M42;
+        var x = position.X * matrix.M11 + position.Y * matrix.M21 + matrix.M41;
+        var y = position.X * matrix.M12 + position.Y * matrix.M22 + matrix.M42;
         result.X = x;
         result.Y = y;
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a transformation of 2d-vector by the specified
-    ///         <see cref="Quaternion" />, representing the rotation.
+    ///     Creates a new <see cref="Vector2" /> that contains a transformation of 2d-vector by the specified
+    ///     <see cref="Quaternion" />, representing the rotation.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <param name="rotation">The <see cref="Quaternion" /> which contains rotation transformation.</param>
@@ -1188,8 +1132,8 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a transformation of 2d-vector by the specified
-    ///         <see cref="Quaternion" />, representing the rotation.
+    ///     Creates a new <see cref="Vector2" /> that contains a transformation of 2d-vector by the specified
+    ///     <see cref="Quaternion" />, representing the rotation.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <param name="rotation">The <see cref="Quaternion" /> which contains rotation transformation.</param>
@@ -1199,8 +1143,8 @@ public struct Vector2 : IEquatable<Vector2>
         Vector3 rot1 = new(rotation.X + rotation.X, rotation.Y + rotation.Y, rotation.Z + rotation.Z);
         Vector3 rot2 = new(rotation.X, rotation.X, rotation.W);
         Vector3 rot3 = new(1, rotation.Y, rotation.Z);
-        Vector3 rot4 = rot1 * rot2;
-        Vector3 rot5 = rot1 * rot3;
+        var rot4 = rot1 * rot2;
+        var rot5 = rot1 * rot3;
 
         Vector2 v = new();
         v.X = (float)(value.X * (1.0 - rot5.Y - rot5.Z) + value.Y * (rot4.Y - (double)rot4.Z));
@@ -1210,16 +1154,16 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Apply transformation on vectors within array of <see cref="Vector2" /> by the specified <see cref="Matrix" />
-    ///         and places the results in an another array.
+    ///     Apply transformation on vectors within array of <see cref="Vector2" /> by the specified <see cref="Matrix" />
+    ///     and places the results in an another array.
     /// </summary>
     /// <param name="sourceArray">Source array.</param>
     /// <param name="sourceIndex">The starting index of transformation in the source array.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
     /// <param name="destinationArray">Destination array.</param>
     /// <param name="destinationIndex">
-    ///         The starting index in the destination array, where the first <see cref="Vector2" />
-    ///         should be written.
+    ///     The starting index in the destination array, where the first <see cref="Vector2" />
+    ///     should be written.
     /// </param>
     /// <param name="length">The number of vectors to be transformed.</param>
     public static void Transform(Vector2[] sourceArray,
@@ -1229,20 +1173,30 @@ public struct Vector2 : IEquatable<Vector2>
         int destinationIndex,
         int length)
     {
-        if (sourceArray == null) throw new ArgumentNullException("sourceArray");
+        if (sourceArray == null)
+        {
+            throw new ArgumentNullException("sourceArray");
+        }
 
-        if (destinationArray == null) throw new ArgumentNullException("destinationArray");
+        if (destinationArray == null)
+        {
+            throw new ArgumentNullException("destinationArray");
+        }
 
         if (sourceArray.Length < sourceIndex + length)
+        {
             throw new ArgumentException("Source array length is lesser than sourceIndex + length");
+        }
 
         if (destinationArray.Length < destinationIndex + length)
-            throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
-
-        for (int x = 0; x < length; x++)
         {
-            Vector2 position = sourceArray[sourceIndex + x];
-            Vector2 destination = destinationArray[destinationIndex + x];
+            throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
+        }
+
+        for (var x = 0; x < length; x++)
+        {
+            var position = sourceArray[sourceIndex + x];
+            var destination = destinationArray[destinationIndex + x];
             destination.X = position.X * matrix.M11 + position.Y * matrix.M21 + matrix.M41;
             destination.Y = position.X * matrix.M12 + position.Y * matrix.M22 + matrix.M42;
             destinationArray[destinationIndex + x] = destination;
@@ -1250,16 +1204,16 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Apply transformation on vectors within array of <see cref="Vector2" /> by the specified
-    ///         <see cref="Quaternion" /> and places the results in an another array.
+    ///     Apply transformation on vectors within array of <see cref="Vector2" /> by the specified
+    ///     <see cref="Quaternion" /> and places the results in an another array.
     /// </summary>
     /// <param name="sourceArray">Source array.</param>
     /// <param name="sourceIndex">The starting index of transformation in the source array.</param>
     /// <param name="rotation">The <see cref="Quaternion" /> which contains rotation transformation.</param>
     /// <param name="destinationArray">Destination array.</param>
     /// <param name="destinationIndex">
-    ///         The starting index in the destination array, where the first <see cref="Vector2" />
-    ///         should be written.
+    ///     The starting index in the destination array, where the first <see cref="Vector2" />
+    ///     should be written.
     /// </param>
     /// <param name="length">The number of vectors to be transformed.</param>
     public static void Transform(Vector2[] sourceArray,
@@ -1269,20 +1223,30 @@ public struct Vector2 : IEquatable<Vector2>
         int destinationIndex,
         int length)
     {
-        if (sourceArray == null) throw new ArgumentNullException("sourceArray");
+        if (sourceArray == null)
+        {
+            throw new ArgumentNullException("sourceArray");
+        }
 
-        if (destinationArray == null) throw new ArgumentNullException("destinationArray");
+        if (destinationArray == null)
+        {
+            throw new ArgumentNullException("destinationArray");
+        }
 
         if (sourceArray.Length < sourceIndex + length)
+        {
             throw new ArgumentException("Source array length is lesser than sourceIndex + length");
+        }
 
         if (destinationArray.Length < destinationIndex + length)
-            throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
-
-        for (int x = 0; x < length; x++)
         {
-            Vector2 position = sourceArray[sourceIndex + x];
-            Vector2 destination = destinationArray[destinationIndex + x];
+            throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
+        }
+
+        for (var x = 0; x < length; x++)
+        {
+            var position = sourceArray[sourceIndex + x];
+            var destination = destinationArray[destinationIndex + x];
 
             Vector2 v;
             Transform(ref position, ref rotation, out v);
@@ -1295,8 +1259,8 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Apply transformation on all vectors within array of <see cref="Vector2" /> by the specified
-    ///         <see cref="Matrix" /> and places the results in an another array.
+    ///     Apply transformation on all vectors within array of <see cref="Vector2" /> by the specified
+    ///     <see cref="Matrix" /> and places the results in an another array.
     /// </summary>
     /// <param name="sourceArray">Source array.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
@@ -1309,8 +1273,8 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Apply transformation on all vectors within array of <see cref="Vector2" /> by the specified
-    ///         <see cref="Quaternion" /> and places the results in an another array.
+    ///     Apply transformation on all vectors within array of <see cref="Vector2" /> by the specified
+    ///     <see cref="Quaternion" /> and places the results in an another array.
     /// </summary>
     /// <param name="sourceArray">Source array.</param>
     /// <param name="rotation">The <see cref="Quaternion" /> which contains rotation transformation.</param>
@@ -1323,44 +1287,42 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a transformation of the specified normal by the specified
-    ///         <see cref="Matrix" />.
+    ///     Creates a new <see cref="Vector2" /> that contains a transformation of the specified normal by the specified
+    ///     <see cref="Matrix" />.
     /// </summary>
     /// <param name="normal">Source <see cref="Vector2" /> which represents a normal vector.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
     /// <returns>Transformed normal.</returns>
-    public static Vector2 TransformNormal(Vector2 normal, Matrix matrix)
-    {
-        return new Vector2(normal.X * matrix.M11 + normal.Y * matrix.M21,
+    public static Vector2 TransformNormal(Vector2 normal, Matrix matrix) =>
+        new(normal.X * matrix.M11 + normal.Y * matrix.M21,
             normal.X * matrix.M12 + normal.Y * matrix.M22);
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector2" /> that contains a transformation of the specified normal by the specified
-    ///         <see cref="Matrix" />.
+    ///     Creates a new <see cref="Vector2" /> that contains a transformation of the specified normal by the specified
+    ///     <see cref="Matrix" />.
     /// </summary>
     /// <param name="normal">Source <see cref="Vector2" /> which represents a normal vector.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
     /// <param name="result">Transformed normal as an output parameter.</param>
     public static void TransformNormal(ref Vector2 normal, ref Matrix matrix, out Vector2 result)
     {
-        float x = normal.X * matrix.M11 + normal.Y * matrix.M21;
-        float y = normal.X * matrix.M12 + normal.Y * matrix.M22;
+        var x = normal.X * matrix.M11 + normal.Y * matrix.M21;
+        var y = normal.X * matrix.M12 + normal.Y * matrix.M22;
         result.X = x;
         result.Y = y;
     }
 
     /// <summary>
-    ///         Apply transformation on normals within array of <see cref="Vector2" /> by the specified <see cref="Matrix" />
-    ///         and places the results in an another array.
+    ///     Apply transformation on normals within array of <see cref="Vector2" /> by the specified <see cref="Matrix" />
+    ///     and places the results in an another array.
     /// </summary>
     /// <param name="sourceArray">Source array.</param>
     /// <param name="sourceIndex">The starting index of transformation in the source array.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
     /// <param name="destinationArray">Destination array.</param>
     /// <param name="destinationIndex">
-    ///         The starting index in the destination array, where the first <see cref="Vector2" />
-    ///         should be written.
+    ///     The starting index in the destination array, where the first <see cref="Vector2" />
+    ///     should be written.
     /// </param>
     /// <param name="length">The number of normals to be transformed.</param>
     public static void TransformNormal(Vector2[] sourceArray,
@@ -1370,19 +1332,29 @@ public struct Vector2 : IEquatable<Vector2>
         int destinationIndex,
         int length)
     {
-        if (sourceArray == null) throw new ArgumentNullException("sourceArray");
+        if (sourceArray == null)
+        {
+            throw new ArgumentNullException("sourceArray");
+        }
 
-        if (destinationArray == null) throw new ArgumentNullException("destinationArray");
+        if (destinationArray == null)
+        {
+            throw new ArgumentNullException("destinationArray");
+        }
 
         if (sourceArray.Length < sourceIndex + length)
+        {
             throw new ArgumentException("Source array length is lesser than sourceIndex + length");
+        }
 
         if (destinationArray.Length < destinationIndex + length)
-            throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
-
-        for (int i = 0; i < length; i++)
         {
-            Vector2 normal = sourceArray[sourceIndex + i];
+            throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
+        }
+
+        for (var i = 0; i < length; i++)
+        {
+            var normal = sourceArray[sourceIndex + i];
 
             destinationArray[destinationIndex + i] = new Vector2(normal.X * matrix.M11 + normal.Y * matrix.M21,
                 normal.X * matrix.M12 + normal.Y * matrix.M22);
@@ -1390,8 +1362,8 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Apply transformation on all normals within array of <see cref="Vector2" /> by the specified
-    ///         <see cref="Matrix" /> and places the results in an another array.
+    ///     Apply transformation on all normals within array of <see cref="Vector2" /> by the specified
+    ///     <see cref="Matrix" /> and places the results in an another array.
     /// </summary>
     /// <param name="sourceArray">Source array.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
@@ -1400,16 +1372,24 @@ public struct Vector2 : IEquatable<Vector2>
         ref Matrix matrix,
         Vector2[] destinationArray)
     {
-        if (sourceArray == null) throw new ArgumentNullException("sourceArray");
+        if (sourceArray == null)
+        {
+            throw new ArgumentNullException("sourceArray");
+        }
 
-        if (destinationArray == null) throw new ArgumentNullException("destinationArray");
+        if (destinationArray == null)
+        {
+            throw new ArgumentNullException("destinationArray");
+        }
 
         if (destinationArray.Length < sourceArray.Length)
-            throw new ArgumentException("Destination array length is lesser than source array length");
-
-        for (int i = 0; i < sourceArray.Length; i++)
         {
-            Vector2 normal = sourceArray[i];
+            throw new ArgumentException("Destination array length is lesser than source array length");
+        }
+
+        for (var i = 0; i < sourceArray.Length; i++)
+        {
+            var normal = sourceArray[i];
 
             destinationArray[i] = new Vector2(normal.X * matrix.M11 + normal.Y * matrix.M21,
                 normal.X * matrix.M12 + normal.Y * matrix.M22);
@@ -1417,7 +1397,7 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Deconstruction method for <see cref="Vector2" />.
+    ///     Deconstruction method for <see cref="Vector2" />.
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
@@ -1428,21 +1408,15 @@ public struct Vector2 : IEquatable<Vector2>
     }
 
     /// <summary>
-    ///         Returns a <see cref="System.Numerics.Vector2" />.
+    ///     Returns a <see cref="System.Numerics.Vector2" />.
     /// </summary>
-    public System.Numerics.Vector2 ToNumericsVector2()
-    {
-        return new System.Numerics.Vector2(X, Y);
-    }
+    public System.Numerics.Vector2 ToNumericsVector2() => new(X, Y);
 
     /// <summary>
-    ///         Returns a <see cref="System.Numerics.Vector2" />.
+    ///     Returns a <see cref="System.Numerics.Vector2" />.
     /// </summary>
     // ReSharper disable once InconsistentNaming
-    public OpenTK.Mathematics.Vector2 ToOpenTKVector2()
-    {
-        return new OpenTK.Mathematics.Vector2(X, Y);
-    }
+    public OpenTK.Mathematics.Vector2 ToOpenTKVector2() => new(X, Y);
 
     #endregion
 }

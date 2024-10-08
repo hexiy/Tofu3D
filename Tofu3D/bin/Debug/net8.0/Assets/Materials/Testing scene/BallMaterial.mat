@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/BallMaterial.mat</AssetPath>
+  <Shader>
+    <AlbedoTextureLocation>26</AlbedoTextureLocation>
+    <NormalTextureLocation>2</NormalTextureLocation>
+    <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
+    <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
+    <BufferType>Model</BufferType>
+    <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+  </Shader>
+  <Additive>false</Additive>
+  <AlbedoTexture>
+    <AssetPath>Assets/3D/sculpture/sculpture.jpeg</AssetPath>
+    <Size>
+      <X>4096</X>
+      <Y>4096</Y>
+    </Size>
+  </AlbedoTexture>
+  <AlbedoTint>
+    <B>255</B>
+    <G>255</G>
+    <R>255</R>
+    <A>255</A>
+    <PackedValue>4294967295</PackedValue>
+  </AlbedoTint>
+  <AmbientOcclusionTexture>
+    <AssetPath>Assets/2D/white.png</AssetPath>
+    <Size>
+      <X>1</X>
+      <Y>1</Y>
+    </Size>
+  </AmbientOcclusionTexture>
+  <NormalTexture>
+    <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</AssetPath>
+    <Size>
+      <X>2048</X>
+      <Y>2048</Y>
+    </Size>
+  </NormalTexture>
+  <Offset>
+    <X>0</X>
+    <Y>0</Y>
+  </Offset>
+  <RenderMode>Opaque</RenderMode>
+  <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+  <SpecularSmoothness>0.08</SpecularSmoothness>
+  <Tiling>
+    <X>1</X>
+    <Y>1</Y>
+  </Tiling>
+</Material>

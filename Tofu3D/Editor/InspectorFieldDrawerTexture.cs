@@ -8,10 +8,10 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Texture>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        Texture texture = GetValue(info, componentInspectorData);
-        string textureName = texture == null ? "" : Path.GetFileName(texture.Path);
+        var texture = GetValue(info, componentInspectorData);
+        var textureName = texture == null ? "" : Path.GetFileName(texture.Path);
 
-        int posX = (int)ImGui.GetCursorPosX();
+        var posX = (int)ImGui.GetCursorPosX();
 
         if (texture == null)
         {
@@ -32,9 +32,9 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Texture>
         ImGui.SetCursorPosX(posX);
 
 
-        bool clicked = ImGui.Button(textureName,
+        var clicked = ImGui.Button(textureName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-        bool rightMouseClicked = ImGui.IsItemClicked(ImGuiMouseButton.Right);
+        var rightMouseClicked = ImGui.IsItemClicked(ImGuiMouseButton.Right);
         //ImiGui.Text(textureName);
         if (clicked)
         {
@@ -58,16 +58,22 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Texture>
             if (ImGui.BeginDragDropTarget())
             {
                 ImGui.AcceptDragDropPayload("CONTENT_BROWSER_TEXTURE", ImGuiDragDropFlags.None);
-                string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                 if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
                 {
                     payload = Path.GetRelativePath(Folders.EngineFolderPath, payload);
 
                     textureName = payload;
 
-                    Texture loadedTexture = Tofu.AssetManager.Load<Texture>(textureName);
+                    var loadedTexture = Tofu.AssetManager.Load<Texture>(textureName);
 
                     SetValue(info, componentInspectorData, loadedTexture);
+
+                    if (componentInspectorData.Inspectable is Material)
+                    {
+                        EditorPanelInspector.I.AddActionToActionQueue(() =>
+                            Tofu.AssetManager.Save<Material>(componentInspectorData.Inspectable as Material));
+                    }
                 }
 
                 ImGui.EndDragDropTarget();

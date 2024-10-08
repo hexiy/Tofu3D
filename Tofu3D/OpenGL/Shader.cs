@@ -6,30 +6,31 @@ namespace Tofu3D;
 public class
     Shader : IDisposable
 {
-    [XmlIgnore]
-    public bool IsLoaded { get; private set; } = false;
+    private float[] _getMatrix4X4ValuesArray =
+    {
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0
+    };
 
-    public BufferType BufferType;
-
-    [XmlIgnore]
-    public int ProgramId { get; set; }
-
-    public string Path;
     private int _uLocationUColor = -1;
 
     private int _uLocationUMvp = -1;
 
-    [XmlIgnore]
-    public Dictionary<string, object> Uniforms = new()
+    public int AlbedoTextureLocation=-1;
+    public int NormalTextureLocation=-1;
+    public int AmbientOcclusionTextureLocation=-1;
+    public int ShadowMapTextureLocation=-1;
+
+    public BufferType BufferType;
+
+    public string Path;
+
+    [XmlIgnore] public Dictionary<string, object> Uniforms = new()
     {
         { "u_tint", new Vector4(1, 1, 1, 1) }
     };
-
-    // make Uniforms List<ShaderUniform> and get index from that
-    public int GetUniformLocation(string uniformName)
-    {
-        return GL.GetUniformLocation(ProgramId, uniformName);
-    }
 
     public Shader()
     {
@@ -40,10 +41,17 @@ public class
         Path = filePath;
     }
 
+    [XmlIgnore] public bool IsLoaded { get; private set; }
+
+    [XmlIgnore] public int ProgramId { get; set; }
+
     public void Dispose()
     {
         // GL.DeleteProgram(ProgramId); // dont really do this since multiple materials can be using the shader
     }
+
+    // make Uniforms List<ShaderUniform> and get index from that
+    public int GetUniformLocation(string uniformName) => GL.GetUniformLocation(ProgramId, uniformName);
 
     public void Load()
     {
@@ -51,13 +59,18 @@ public class
 
         if (AssetUtils.Exists(Path) == false)
         {
-            string newPath = System.IO.Path.Combine("Assets", Path);
-            if (AssetUtils.Exists(newPath)) Path = newPath;
+            var newPath = System.IO.Path.Combine("Assets", Path);
+            if (AssetUtils.Exists(newPath))
+            {
+                Path = newPath;
+            }
         }
 
         if (Path.Contains(
                 ".mat")) // IF ITS mat  not .glsl, just assign SpriteRenderer so we can fix it without crashing
+        {
             Path = System.IO.Path.Combine("Assets", "Shaders", "SpriteRenderer.glsl");
+        }
 
         if (AssetUtils.Exists(Path) == false)
         {
@@ -67,10 +80,10 @@ public class
         }
 
         // GetAllUniforms();
-        string shaderFile = File.ReadAllText(Path);
+        var shaderFile = File.ReadAllText(Path);
 
-        string vertexCode = GetVertexShaderFromFileString(shaderFile);
-        string fragmentCode = GetFragmentShaderFromFileString(shaderFile);
+        var vertexCode = GetVertexShaderFromFileString(shaderFile);
+        var fragmentCode = GetFragmentShaderFromFileString(shaderFile);
         BufferType = GetBufferTypeFromFileString(shaderFile);
 
 
@@ -80,9 +93,12 @@ public class
         GL.ShaderSource(vs, vertexCode);
         GL.CompileShader(vs);
 
-        string error = "";
+        var error = "";
         GL.GetShaderInfoLog(vs, out error);
-        if (error.Length > 0) System.Diagnostics.Debug.WriteLine("ERROR COMPILING VERTEX SHADER " + error);
+        if (error.Length > 0)
+        {
+            System.Diagnostics.Debug.WriteLine("ERROR COMPILING VERTEX SHADER " + error);
+        }
 
         fs = GL.CreateShader(ShaderType.FragmentShader);
         GL.ShaderSource(fs, fragmentCode);
@@ -90,7 +106,10 @@ public class
 
         error = "";
         GL.GetShaderInfoLog(fs, out error);
-        if (error.Length > 0) System.Diagnostics.Debug.WriteLine("ERROR COMPILING FRAGMENT SHADER " + error);
+        if (error.Length > 0)
+        {
+            System.Diagnostics.Debug.WriteLine("ERROR COMPILING FRAGMENT SHADER " + error);
+        }
 
         ProgramId = GL.CreateProgram();
         GL.AttachShader(ProgramId, vs);
@@ -106,27 +125,37 @@ public class
 
 
         Tofu.ShaderManager.UseShader(this);
+
         AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
-        // NormalTextureLocation = GetUniformLocation("textureNormal");
+        NormalTextureLocation = GetUniformLocation("textureNormal");
         AmbientOcclusionTextureLocation = GetUniformLocation("textureAo");
         ShadowMapTextureLocation = GetUniformLocation("shadowMap");
-        if (AlbedoTextureLocation != -1) GL.Uniform1(AlbedoTextureLocation, 0);
 
-        // if (NormalTextureLocation != -1)
-        // {
-        // 	GL.Uniform1(NormalTextureLocation, 1);
-        // }
+        int indx = 0;
+        
+        // GL.Uniform1 to bind the texture to the texture unit-Texture0, Texture1 etc
+        if (AlbedoTextureLocation != -1)
+        {
+            GL.Uniform1(AlbedoTextureLocation, indx);
+            indx++;
+        }
 
-        if (AmbientOcclusionTextureLocation != -1) GL.Uniform1(AmbientOcclusionTextureLocation, 1);
+        if (NormalTextureLocation != -1)
+        {
+            GL.Uniform1(NormalTextureLocation, indx);
+            indx++;
+        }
 
+        if (AmbientOcclusionTextureLocation != -1)
+        {
+            GL.Uniform1(AmbientOcclusionTextureLocation, indx);
+            indx++;
+        }
+        
         if (ShadowMapTextureLocation != -1)
         {
-            if (AlbedoTextureLocation == -1)
-                GL.Uniform1(ShadowMapTextureLocation, 0);
-            else
-                GL.Uniform1(ShadowMapTextureLocation, 1);
-
-            GL.Uniform1(ShadowMapTextureLocation, 2); //instancing
+            GL.Uniform1(ShadowMapTextureLocation, indx);
+            indx++;
         }
 
         // int mainTextureLocation = GL.GetUniformLocation(ShaderCache.ShaderInUse, "textureObject");
@@ -151,7 +180,7 @@ public class
         // 	_uLocationUMvp = location;
         // }
 
-        int location = GL.GetUniformLocation(ProgramId, uniformName);
+        var location = GL.GetUniformLocation(ProgramId, uniformName);
 
         GL.UniformMatrix4(location, 1, false, GetMatrix4X4Values(mat));
         // GL.UniformMatrix4(location, 1, false, GetMatrix4X4Values(mat));
@@ -160,42 +189,42 @@ public class
 
     public void SetFloat(string uniformName, float fl)
     {
-        int location = GL.GetUniformLocation(ProgramId, uniformName);
+        var location = GL.GetUniformLocation(ProgramId, uniformName);
         GL.Uniform1(location, fl);
         Uniforms[uniformName] = fl;
     }
 
     public void SetVector2(string uniformName, Vector2 vec)
     {
-        int location = GL.GetUniformLocation(ProgramId, uniformName);
+        var location = GL.GetUniformLocation(ProgramId, uniformName);
         GL.Uniform2(location, vec.X, vec.Y);
         Uniforms[uniformName] = vec;
     }
 
     public void SetVector3(string uniformName, Vector3 vec)
     {
-        int location = GL.GetUniformLocation(ProgramId, uniformName);
+        var location = GL.GetUniformLocation(ProgramId, uniformName);
         GL.Uniform3(location, vec.X, vec.Y, vec.Z);
         Uniforms[uniformName] = vec;
     }
 
     public void SetVector3Array(string uniformName, float[] floats)
     {
-        int location = GL.GetUniformLocation(ProgramId, uniformName);
+        var location = GL.GetUniformLocation(ProgramId, uniformName);
         GL.Uniform3(location, floats.Length, floats);
         Uniforms[uniformName] = floats;
     }
 
     public void SetFloatArray(string uniformName, float[] floats)
     {
-        int location = GL.GetUniformLocation(ProgramId, uniformName);
+        var location = GL.GetUniformLocation(ProgramId, uniformName);
         GL.Uniform1(location, floats.Length, floats);
         Uniforms[uniformName] = floats;
     }
 
     public void SetVector4(string uniformName, Vector4 vec)
     {
-        int location = GL.GetUniformLocation(ProgramId, uniformName);
+        var location = GL.GetUniformLocation(ProgramId, uniformName);
         GL.Uniform4(location, vec.X, vec.Y, vec.Z, vec.W);
         Uniforms[uniformName] = vec;
     }
@@ -204,7 +233,7 @@ public class
     {
         // if (_uLocationUColor == -1)
         // {
-        int location = GL.GetUniformLocation(ProgramId, uniformName);
+        var location = GL.GetUniformLocation(ProgramId, uniformName);
         // _uLocationUColor = location;
         // }
 
@@ -216,7 +245,7 @@ public class
     {
         // if (_uLocationUColor == -1)
         // {
-        int location = GL.GetUniformLocation(ProgramId, uniformName);
+        var location = GL.GetUniformLocation(ProgramId, uniformName);
         // _uLocationUColor = location;
         // }
 
@@ -232,33 +261,41 @@ public class
         List<ShaderUniform> uniforms = new();
 
         Path = Path.Replace(@"\", "/");
-        string filename = System.IO.Path.GetFileName(Path);
+        var filename = System.IO.Path.GetFileName(Path);
 
         Path = System.IO.Path.Combine("Assets", "Shaders", filename);
 
-        if (File.Exists(Path) == false) return new ShaderUniform[] { };
+        if (File.Exists(Path) == false)
+        {
+            return new ShaderUniform[] { };
+        }
 
         using (StreamReader sr = new(Path))
         {
-            string shaderString = sr.ReadToEnd();
-            int currentIndexInString = 0;
-            string trimmedShaderString = shaderString;
+            var shaderString = sr.ReadToEnd();
+            var currentIndexInString = 0;
+            var trimmedShaderString = shaderString;
 
             while (trimmedShaderString.Contains("uniform"))
             {
-                int startIndex = trimmedShaderString.IndexOf("uniform");
-                int endIndex = startIndex + trimmedShaderString.Substring(startIndex).IndexOf(";");
+                var startIndex = trimmedShaderString.IndexOf("uniform");
+                var endIndex = startIndex + trimmedShaderString.Substring(startIndex).IndexOf(";");
 
-                int endIndexWithEqualsOperator = startIndex + trimmedShaderString.Substring(startIndex).IndexOf("=");
+                var endIndexWithEqualsOperator = startIndex + trimmedShaderString.Substring(startIndex).IndexOf("=");
 
                 if (endIndexWithEqualsOperator < endIndex) // if we have "=", trim it so it isnt in the name
+                {
                     endIndex = endIndexWithEqualsOperator;
+                }
 
-                if (startIndex > endIndex) break;
+                if (startIndex > endIndex)
+                {
+                    break;
+                }
 
                 ShaderUniform uniform = new();
 
-                string[] uniformString = trimmedShaderString.Substring(startIndex, endIndex - startIndex).Split(' ');
+                var uniformString = trimmedShaderString.Substring(startIndex, endIndex - startIndex).Split(' ');
 
                 uniform.Name = uniformString[2];
                 uniform.Type = GetUniformType(uniformString[1]);
@@ -274,30 +311,28 @@ public class
 
     private Type GetUniformType(string typeName)
     {
-        if (typeName == "vec4") return typeof(Vector4);
+        if (typeName == "vec4")
+        {
+            return typeof(Vector4);
+        }
 
-        if (typeName == "vec3") return typeof(Vector3);
+        if (typeName == "vec3")
+        {
+            return typeof(Vector3);
+        }
 
-        if (typeName == "mat4") return typeof(Matrix4x4);
+        if (typeName == "mat4")
+        {
+            return typeof(Matrix4x4);
+        }
 
-        if (typeName == "float") return typeof(float);
+        if (typeName == "float")
+        {
+            return typeof(float);
+        }
 
         return typeof(string);
     }
-
-    private float[] _getMatrix4X4ValuesArray = new float[]
-    {
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0
-    };
-
-    public int AlbedoTextureLocation;
-
-    // public int NormalTextureLocation;
-    public int AmbientOcclusionTextureLocation;
-    public int ShadowMapTextureLocation;
 
     private float[] GetMatrix4X4Values(Matrix4x4 m)
     {
@@ -328,14 +363,11 @@ public class
                };*/
     }
 
-    public int GetAttribLocation(string attribName)
-    {
-        return GL.GetAttribLocation(ProgramId, attribName);
-    }
+    public int GetAttribLocation(string attribName) => GL.GetAttribLocation(ProgramId, attribName);
 
     public static BufferType GetBufferTypeFromFileString(string shaderFile)
     {
-        string typeString = shaderFile.Substring(shaderFile.IndexOf("["),
+        var typeString = shaderFile.Substring(shaderFile.IndexOf("["),
             shaderFile.IndexOf("]")); //File.ReadA;
 
         typeString = typeString.Substring(12);
@@ -345,14 +377,10 @@ public class
         return type;
     }
 
-    public static string GetVertexShaderFromFileString(string shaderFile)
-    {
-        return shaderFile.Substring(shaderFile.IndexOf("[VERTEX]") + 8,
+    public static string GetVertexShaderFromFileString(string shaderFile) =>
+        shaderFile.Substring(shaderFile.IndexOf("[VERTEX]") + 8,
             shaderFile.IndexOf("[FRAGMENT]") - shaderFile.IndexOf("[VERTEX]") - 8); //File.ReadA;
-    }
 
-    public static string GetFragmentShaderFromFileString(string shaderFile)
-    {
-        return shaderFile.Substring(shaderFile.IndexOf("[FRAGMENT]") + 10); //File.ReadA;
-    }
+    public static string GetFragmentShaderFromFileString(string shaderFile) =>
+        shaderFile.Substring(shaderFile.IndexOf("[FRAGMENT]") + 10); //File.ReadA;
 }

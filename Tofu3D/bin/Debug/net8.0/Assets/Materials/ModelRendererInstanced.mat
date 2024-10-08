@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
-  <Additive>false</Additive>
   <Shader>
+    <AlbedoTextureLocation>26</AlbedoTextureLocation>
+    <NormalTextureLocation>2</NormalTextureLocation>
+    <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
+    <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
     <BufferType>Model</BufferType>
-    <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
-    <AlbedoTextureLocation>23</AlbedoTextureLocation>
-    <AmbientOcclusionTextureLocation>24</AmbientOcclusionTextureLocation>
-    <ShadowMapTextureLocation>25</ShadowMapTextureLocation>
+    <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
   </Shader>
-  <Vao>0</Vao>
-  <RenderMode>Opaque</RenderMode>
+  <Additive>false</Additive>
   <AlbedoTexture>
-    <AssetPath>Assets\2D\Grass_Block_TEX.png</AssetPath>
+    <AssetPath>Assets/2D/grass.jpg</AssetPath>
     <Size>
-      <X>1440</X>
-      <Y>1920</Y>
+      <X>1500</X>
+      <Y>1500</Y>
     </Size>
   </AlbedoTexture>
   <AlbedoTint>
@@ -25,21 +24,29 @@
     <A>255</A>
     <PackedValue>4294967295</PackedValue>
   </AlbedoTint>
-  <AoTexture>
-    <AssetPath>Assets\2D\solidColor.png</AssetPath>
+  <AmbientOcclusionTexture>
+    <AssetPath>Assets/2D/white.png</AssetPath>
     <Size>
-      <X>256</X>
-      <Y>256</Y>
+      <X>1</X>
+      <Y>1</Y>
     </Size>
-  </AoTexture>
-  <Tiling>
-    <X>-1</X>
-    <Y>-1</Y>
-  </Tiling>
+  </AmbientOcclusionTexture>
+  <NormalTexture>
+    <AssetPath>Assets/2D/white.png</AssetPath>
+    <Size>
+      <X>1</X>
+      <Y>1</Y>
+    </Size>
+  </NormalTexture>
   <Offset>
     <X>0</X>
     <Y>0</Y>
   </Offset>
+  <RenderMode>Opaque</RenderMode>
   <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-  <SpecularSmoothness>0.2</SpecularSmoothness>
+  <SpecularSmoothness>0.44</SpecularSmoothness>
+  <Tiling>
+    <X>4</X>
+    <Y>4</Y>
+  </Tiling>
 </Material>

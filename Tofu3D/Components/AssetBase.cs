@@ -2,12 +2,9 @@
 
 public abstract class AssetBase
 {
-    [XmlIgnore]
-    public AssetHandle Handle { get; set; }
+    [Hide] [XmlElement("AssetPath")] public string Path = "";
 
-    [Hide]
-    [XmlElement("AssetPath")]
-    public string Path = "";
+    [XmlIgnore] public AssetHandle Handle { get; set; }
 
     // private Asset()
     // {
@@ -15,7 +12,10 @@ public abstract class AssetBase
 
     public static implicit operator bool(AssetBase instance)
     {
-        if (instance == null) return false;
+        if (instance == null)
+        {
+            return false;
+        }
 
         return true;
     }

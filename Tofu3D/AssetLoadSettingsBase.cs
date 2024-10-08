@@ -15,8 +15,5 @@ public abstract class AssetLoadSettingsBase
         AssetUtils.ValidateAssetPath(ref _path);
     }
 
-    public override int GetHashCode()
-    {
-        return (_path ?? "").GetHashCode();
-    }
+    public override int GetHashCode() => (_path ?? "").GetHashCode();
 }

@@ -10,9 +10,9 @@ public class InspectorFieldDrawerColor : InspectorFieldDrawable<Color>
         System.Numerics.Vector4 fieldValue =
             ((Color)info.GetValue(componentInspectorData.Inspectable)).ToVector4();
 
-        bool hasColor3Attribute =
+        var hasColor3Attribute =
             info.CustomAttributes.Count(data => data.AttributeType == typeof(Color3Attrib)) > 0;
-        bool changed = false;
+        var changed = false;
         if (hasColor3Attribute)
         {
             System.Numerics.Vector3 vec3 = Extensions.ToVector3(fieldValue);
@@ -25,6 +25,9 @@ public class InspectorFieldDrawerColor : InspectorFieldDrawable<Color>
             changed = ImGui.ColorEdit4("", ref fieldValue);
         }
 
-        if (changed) info.SetValue(componentInspectorData.Inspectable, fieldValue.ToColor());
+        if (changed)
+        {
+            info.SetValue(componentInspectorData.Inspectable, fieldValue.ToColor());
+        }
     }
 }

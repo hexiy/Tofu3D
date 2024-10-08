@@ -5,10 +5,8 @@ namespace Tofu3D;
 
 public class CubemapTextureLoader : AssetLoader<CubemapTexture>
 {
-    public override CubemapTexture SaveAsset(ref CubemapTexture asset, AssetLoadSettingsBase loadSettings)
-    {
+    public override CubemapTexture SaveAsset(ref CubemapTexture asset, AssetLoadSettingsBase loadSettings) =>
         throw new NotImplementedException();
-    }
 
     public override void UnloadAsset(Asset<CubemapTexture> asset)
     {
@@ -17,19 +15,19 @@ public class CubemapTextureLoader : AssetLoader<CubemapTexture>
 
     public override Asset<CubemapTexture> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
     {
-        CubemapTextureLoadSettings loadSettings = assetLoadSettings as CubemapTextureLoadSettings;
-        int id = GL.GenTexture();
-        string[] paths = loadSettings.Paths;
-        byte[][] pixelsCollection = new byte[paths.Length][];
-        Vector2 imageSize = Vector2.Zero;
+        var loadSettings = assetLoadSettings as CubemapTextureLoadSettings;
+        var id = GL.GenTexture();
+        var paths = loadSettings.Paths;
+        var pixelsCollection = new byte[paths.Length][];
+        var imageSize = Vector2.Zero;
 
         GL.ActiveTexture(TextureUnit.Texture0);
 
         TextureHelper.BindTexture(id, TextureType.Cubemap);
 
-        for (int textureIndex = 0; textureIndex < pixelsCollection.Length; textureIndex++)
+        for (var textureIndex = 0; textureIndex < pixelsCollection.Length; textureIndex++)
         {
-            string path = paths[textureIndex];
+            var path = paths[textureIndex];
             // path = loadSettings.Paths[textureIndex];
             var image = Image.Load<Rgba32>(path);
             imageSize = new Vector2(image.Width, image.Height);
@@ -37,7 +35,7 @@ public class CubemapTextureLoader : AssetLoader<CubemapTexture>
             pixelsCollection[textureIndex] = new byte[4 * image.Width * image.Height];
             image.Frames[0].CopyPixelDataTo(pixelsCollection[textureIndex]);
 
-            TextureTarget textureTarget = TextureTarget.TextureCubeMap;
+            var textureTarget = TextureTarget.TextureCubeMap;
 
             GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX + textureIndex, 0, PixelInternalFormat.Rgba,
                 image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, pixelsCollection[textureIndex]);

@@ -51,9 +51,9 @@ float vignette = smoothstep(1.1, .3, len);
 vec3 vignetteColor = mix(texColor.rgb, texColor.rgb * vignette, .3);
 
 
-        vec3 resultColor= vec3(1,1,1);
-        resultColor *= contrastColor;
-        resultColor *= vignetteColor;
+vec3 resultColor= vec3(1, 1, 1);
+resultColor *= contrastColor;
+resultColor *= vignetteColor;
 
 color = vec4(resultColor, 1);
 }

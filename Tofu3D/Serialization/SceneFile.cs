@@ -14,7 +14,7 @@ public struct SceneFile
         sceneFile.GameObjects.Add(go);
         sceneFile.Components.AddRange(go.Components);
 
-        for (int i = 0; i < go.Transform.Children.Count; i++)
+        for (var i = 0; i < go.Transform.Children.Count; i++)
         {
             sceneFile.GameObjects.Add(go.Transform.Children[i].GameObject);
             sceneFile.Components.AddRange(go.Transform.Children[i].GameObject.Components);

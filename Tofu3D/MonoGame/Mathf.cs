@@ -5,79 +5,77 @@
 namespace Tofu3D;
 
 /// <summary>
-///         Contains commonly used precalculated values and mathematical operations.
+///     Contains commonly used precalculated values and mathematical operations.
 /// </summary>
 public static class Mathf
 {
     /// <summary>
-    ///         Represents the mathematical constant e(2.71828175).
+    ///     Represents the mathematical constant e(2.71828175).
     /// </summary>
     public const float Infinity = float.MaxValue;
 
     /// <summary>
-    ///         Represents the mathematical constant e(2.71828175).
+    ///     Represents the mathematical constant e(2.71828175).
     /// </summary>
     public const float E = MathF.E;
 
     /// <summary>
-    ///         Represents the log base ten of e(0.4342945).
+    ///     Represents the log base ten of e(0.4342945).
     /// </summary>
     public const float Log10E = 0.4342945f;
 
     /// <summary>
-    ///         Represents the log base two of e(1.442695).
+    ///     Represents the log base two of e(1.442695).
     /// </summary>
     public const float Log2E = 1.442695f;
 
     /// <summary>
-    ///         Represents the value of pi(3.14159274).
+    ///     Represents the value of pi(3.14159274).
     /// </summary>
     public const float Pi = MathF.PI;
 
     /// <summary>
-    ///         Represents the value of pi divided by two(1.57079637).
+    ///     Represents the value of pi divided by two(1.57079637).
     /// </summary>
     public const float PiOver2 = (float)(Math.PI / 2.0);
 
     /// <summary>
-    ///         Represents the value of pi divided by four(0.7853982).
+    ///     Represents the value of pi divided by four(0.7853982).
     /// </summary>
     public const float PiOver4 = (float)(Math.PI / 4.0);
 
     /// <summary>
-    ///         Represents the value of pi times two(6.28318548).
+    ///     Represents the value of pi times two(6.28318548).
     /// </summary>
     public const float TwoPi = (float)(Math.PI * 2.0);
 
     /// <summary>
-    ///         Represents the value of pi times two(6.28318548).
-    ///         This is an alias of TwoPi.
+    ///     Represents the value of pi times two(6.28318548).
+    ///     This is an alias of TwoPi.
     /// </summary>
     public const float Tau = TwoPi;
 
     /// <summary>
-    ///         Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized
-    ///         barycentric (areal) coordinates.
+    ///     Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized
+    ///     barycentric (areal) coordinates.
     /// </summary>
     /// <param name="value1">The coordinate on one axis of vertex 1 of the defining triangle.</param>
     /// <param name="value2">The coordinate on the same axis of vertex 2 of the defining triangle.</param>
     /// <param name="value3">The coordinate on the same axis of vertex 3 of the defining triangle.</param>
     /// <param name="amount1">
-    ///         The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the
-    ///         coordinate of which is specified in value2.
+    ///     The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the
+    ///     coordinate of which is specified in value2.
     /// </param>
     /// <param name="amount2">
-    ///         The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the
-    ///         coordinate of which is specified in value3.
+    ///     The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the
+    ///     coordinate of which is specified in value3.
     /// </param>
     /// <returns>Cartesian coordinate of the specified point with respect to the axis being used.</returns>
-    public static float Barycentric(float value1, float value2, float value3, float amount1, float amount2)
-    {
-        return value1 + (value2 - value1) * amount1 + (value3 - value1) * amount2;
-    }
+    public static float Barycentric(float value1, float value2, float value3, float amount1, float amount2) =>
+        value1 + (value2 - value1) * amount1 + (value3 - value1) * amount2;
 
     /// <summary>
-    ///         Performs a Catmull-Rom interpolation using the specified positions.
+    ///     Performs a Catmull-Rom interpolation using the specified positions.
     /// </summary>
     /// <param name="value1">The first position in the interpolation.</param>
     /// <param name="value2">The second position in the interpolation.</param>
@@ -90,14 +88,14 @@ public static class Mathf
         // Using formula from http://www.mvps.org/directx/articles/catmull/
         // Internally using doubles not to lose precission
         double amountSquared = amount * amount;
-        double amountCubed = amountSquared * amount;
+        var amountCubed = amountSquared * amount;
         return (float)(0.5 * (2.0 * value2 + (value3 - value1) * amount +
                               (2.0 * value1 - 5.0 * value2 + 4.0 * value3 - value4) * amountSquared +
                               (3.0 * value2 - value1 - 3.0 * value3 + value4) * amountCubed));
     }
 
     /// <summary>
-    ///         Restricts a value to be within a specified range.
+    ///     Restricts a value to be within a specified range.
     /// </summary>
     /// <param name="value">The value to clamp.</param>
     /// <param name="min">The minimum value. If <c>value</c> is less than <c>min</c>, <c>min</c> will be returned.</param>
@@ -116,7 +114,7 @@ public static class Mathf
     }
 
     /// <summary>
-    ///         Restricts a value to be within a specified range.
+    ///     Restricts a value to be within a specified range.
     /// </summary>
     /// <param name="value">The value to clamp.</param>
     /// <param name="max">The maximum value. If <c>value</c> is greater than <c>max</c>, <c>max</c> will be returned.</param>
@@ -131,7 +129,7 @@ public static class Mathf
     }
 
     /// <summary>
-    ///         Restricts a value to be within a specified range.
+    ///     Restricts a value to be within a specified range.
     /// </summary>
     /// <param name="value">The value to clamp.</param>
     /// <param name="min">The minimum value. If <c>value</c> is less than <c>min</c>, <c>min</c> will be returned.</param>
@@ -146,7 +144,7 @@ public static class Mathf
     }
 
     /// <summary>
-    ///         Restricts a value to be within a specified range.
+    ///     Restricts a value to be within a specified range.
     /// </summary>
     /// <param name="value">The value to clamp.</param>
     /// <param name="min">The minimum value. If <c>value</c> is less than <c>min</c>, <c>min</c> will be returned.</param>
@@ -160,18 +158,15 @@ public static class Mathf
     }
 
     /// <summary>
-    ///         Calculates the absolute value of the difference of two values.
+    ///     Calculates the absolute value of the difference of two values.
     /// </summary>
     /// <param name="value1">Source value.</param>
     /// <param name="value2">Source value.</param>
     /// <returns>Distance between the two values.</returns>
-    public static float Distance(float value1, float value2)
-    {
-        return Math.Abs(value1 - value2);
-    }
+    public static float Distance(float value1, float value2) => Math.Abs(value1 - value2);
 
     /// <summary>
-    ///         Performs a Hermite spline interpolation.
+    ///     Performs a Hermite spline interpolation.
     /// </summary>
     /// <param name="value1">Source position.</param>
     /// <param name="tangent1">Source tangent.</param>
@@ -184,159 +179,127 @@ public static class Mathf
         // All transformed to double not to lose precission
         // Otherwise, for high numbers of param:amount the result is NaN instead of Infinity
         double v1 = value1, v2 = value2, t1 = tangent1, t2 = tangent2, s = amount, result;
-        double sCubed = s * s * s;
-        double sSquared = s * s;
+        var sCubed = s * s * s;
+        var sSquared = s * s;
 
         if (amount == 0f)
+        {
             result = value1;
+        }
         else if (amount == 1f)
+        {
             result = value2;
+        }
         else
+        {
             result = (2 * v1 - 2 * v2 + t2 + t1) * sCubed + (3 * v2 - 3 * v1 - 2 * t1 - t2) * sSquared + t1 * s + v1;
+        }
 
         return (float)result;
     }
 
     /// <summary>
-    ///         Linearly interpolates between two values.
+    ///     Linearly interpolates between two values.
     /// </summary>
     /// <param name="value1">Source value.</param>
     /// <param name="value2">Destination value.</param>
     /// <param name="amount">Value between 0 and 1 indicating the weight of value2.</param>
     /// <returns>Interpolated value.</returns>
     /// <remarks>
-    ///         This method performs the linear interpolation based on the following formula:
-    ///         <code>value1 + (value2 - value1) * amount</code>.
-    ///         Passing amount a value of 0 will cause value1 to be returned, a value of 1 will cause value2 to be returned.
-    ///         See <see cref="Mathf.LerpPrecise" /> for a less efficient version with more precision around edge cases.
+    ///     This method performs the linear interpolation based on the following formula:
+    ///     <code>value1 + (value2 - value1) * amount</code>.
+    ///     Passing amount a value of 0 will cause value1 to be returned, a value of 1 will cause value2 to be returned.
+    ///     See <see cref="Mathf.LerpPrecise" /> for a less efficient version with more precision around edge cases.
     /// </remarks>
-    public static float Lerp(float value1, float value2, float amount)
-    {
-        return value1 + (value2 - value1) * amount;
-    }
+    public static float Lerp(float value1, float value2, float amount) => value1 + (value2 - value1) * amount;
 
     /// <summary>
-    ///         Linearly interpolates between two values.
+    ///     Linearly interpolates between two values.
     /// </summary>
     /// <param name="value1">Source value.</param>
     /// <param name="value2">Destination value.</param>
     /// <param name="amount">Value between 0 and 1 indicating the weight of value2.</param>
     /// <returns>Interpolated value.</returns>
     /// <remarks>
-    ///         This method performs the linear interpolation based on the following formula:
-    ///         <code>value1 + (value2 - value1) * amount</code>.
-    ///         Passing amount a value of 0 will cause value1 to be returned, a value of 1 will cause value2 to be returned.
-    ///         See <see cref="Mathf.LerpPrecise" /> for a less efficient version with more precision around edge cases.
+    ///     This method performs the linear interpolation based on the following formula:
+    ///     <code>value1 + (value2 - value1) * amount</code>.
+    ///     Passing amount a value of 0 will cause value1 to be returned, a value of 1 will cause value2 to be returned.
+    ///     See <see cref="Mathf.LerpPrecise" /> for a less efficient version with more precision around edge cases.
     /// </remarks>
-    public static float Eerp(float value1, float value2, float amount)
-    {
-        return Pow(value1, 1 - amount) * Pow(value2, amount);
-    }
+    public static float Eerp(float value1, float value2, float amount) => Pow(value1, 1 - amount) * Pow(value2, amount);
 
-    public static float Pow(float value1, float value2)
-    {
-        return (float)Math.Pow(value1, value2);
-    }
+    public static float Pow(float value1, float value2) => (float)Math.Pow(value1, value2);
 
-    public static float Abs(float value1)
-    {
-        return Math.Abs(value1);
-    }
+    public static float Abs(float value1) => Math.Abs(value1);
 
-    public static float Sin(float value1)
-    {
-        return (float)Math.Sin(value1);
-    }
+    public static float Sin(float value1) => (float)Math.Sin(value1);
 
-    public static float SinAbs(float value1)
-    {
-        return Abs(Sin(value1));
-    }
+    public static float SinAbs(float value1) => Abs(Sin(value1));
 
-    public static float Cos(float value1)
-    {
-        return (float)Math.Cos(value1);
-    }
+    public static float Cos(float value1) => (float)Math.Cos(value1);
 
-    public static float CosAbs(float value1)
-    {
-        return Abs(Cos(value1));
-    }
+    public static float CosAbs(float value1) => Abs(Cos(value1));
 
     /// <summary>
-    ///         Linearly interpolates between two values.
-    ///         This method is a less efficient, more precise version of <see cref="Mathf.Lerp" />.
-    ///         See remarks for more info.
+    ///     Linearly interpolates between two values.
+    ///     This method is a less efficient, more precise version of <see cref="Mathf.Lerp" />.
+    ///     See remarks for more info.
     /// </summary>
     /// <param name="value1">Source value.</param>
     /// <param name="value2">Destination value.</param>
     /// <param name="amount">Value between 0 and 1 indicating the weight of value2.</param>
     /// <returns>Interpolated value.</returns>
     /// <remarks>
-    ///         This method performs the linear interpolation based on the following formula:
-    ///         <code>((1 - amount) * value1) + (value2 * amount)</code>.
-    ///         Passing amount a value of 0 will cause value1 to be returned, a value of 1 will cause value2 to be returned.
-    ///         This method does not have the floating point precision issue that <see cref="Mathf.Lerp" /> has.
-    ///         i.e. If there is a big gap between value1 and value2 in magnitude (e.g. value1=10000000000000000, value2=1),
-    ///         right at the edge of the interpolation range (amount=1), <see cref="Mathf.Lerp" /> will return 0 (whereas it
-    ///         should return 1).
-    ///         This also holds for value1=10^17, value2=10; value1=10^18,value2=10^2... so on.
-    ///         For an in depth explanation of the issue, see below references:
-    ///         Relevant Wikipedia Article: https://en.wikipedia.org/wiki/Linear_interpolation#Programming_language_support
-    ///         Relevant StackOverflow Answer:
-    ///         http://stackoverflow.com/questions/4353525/floating-point-linear-interpolation#answer-23716956
+    ///     This method performs the linear interpolation based on the following formula:
+    ///     <code>((1 - amount) * value1) + (value2 * amount)</code>.
+    ///     Passing amount a value of 0 will cause value1 to be returned, a value of 1 will cause value2 to be returned.
+    ///     This method does not have the floating point precision issue that <see cref="Mathf.Lerp" /> has.
+    ///     i.e. If there is a big gap between value1 and value2 in magnitude (e.g. value1=10000000000000000, value2=1),
+    ///     right at the edge of the interpolation range (amount=1), <see cref="Mathf.Lerp" /> will return 0 (whereas it
+    ///     should return 1).
+    ///     This also holds for value1=10^17, value2=10; value1=10^18,value2=10^2... so on.
+    ///     For an in depth explanation of the issue, see below references:
+    ///     Relevant Wikipedia Article: https://en.wikipedia.org/wiki/Linear_interpolation#Programming_language_support
+    ///     Relevant StackOverflow Answer:
+    ///     http://stackoverflow.com/questions/4353525/floating-point-linear-interpolation#answer-23716956
     /// </remarks>
-    public static float LerpPrecise(float value1, float value2, float amount)
-    {
-        return (1 - amount) * value1 + value2 * amount;
-    }
+    public static float LerpPrecise(float value1, float value2, float amount) =>
+        (1 - amount) * value1 + value2 * amount;
 
     /// <summary>
-    ///         Returns the greater of two values.
+    ///     Returns the greater of two values.
     /// </summary>
     /// <param name="value1">Source value.</param>
     /// <param name="value2">Source value.</param>
     /// <returns>The greater value.</returns>
-    public static float Max(float value1, float value2)
-    {
-        return value1 > value2 ? value1 : value2;
-    }
+    public static float Max(float value1, float value2) => value1 > value2 ? value1 : value2;
 
     /// <summary>
-    ///         Returns the greater of two values.
+    ///     Returns the greater of two values.
     /// </summary>
     /// <param name="value1">Source value.</param>
     /// <param name="value2">Source value.</param>
     /// <returns>The greater value.</returns>
-    public static int Max(int value1, int value2)
-    {
-        return value1 > value2 ? value1 : value2;
-    }
+    public static int Max(int value1, int value2) => value1 > value2 ? value1 : value2;
 
     /// <summary>
-    ///         Returns the lesser of two values.
+    ///     Returns the lesser of two values.
     /// </summary>
     /// <param name="value1">Source value.</param>
     /// <param name="value2">Source value.</param>
     /// <returns>The lesser value.</returns>
-    public static float Min(float value1, float value2)
-    {
-        return value1 < value2 ? value1 : value2;
-    }
+    public static float Min(float value1, float value2) => value1 < value2 ? value1 : value2;
 
     /// <summary>
-    ///         Returns the lesser of two values.
+    ///     Returns the lesser of two values.
     /// </summary>
     /// <param name="value1">Source value.</param>
     /// <param name="value2">Source value.</param>
     /// <returns>The lesser value.</returns>
-    public static int Min(int value1, int value2)
-    {
-        return value1 < value2 ? value1 : value2;
-    }
+    public static int Min(int value1, int value2) => value1 < value2 ? value1 : value2;
 
     /// <summary>
-    ///         Interpolates between two values using a cubic equation.
+    ///     Interpolates between two values using a cubic equation.
     /// </summary>
     /// <param name="value1">Source value.</param>
     /// <param name="value2">Source value.</param>
@@ -347,66 +310,66 @@ public static class Mathf
         // It is expected that 0 < amount < 1
         // If amount < 0, return value1
         // If amount > 1, return value2
-        float result = Clamp(amount, 0f, 1f);
+        var result = Clamp(amount, 0f, 1f);
         result = Hermite(value1, 0f, value2, 0f, result);
 
         return result;
     }
 
     /// <summary>
-    ///         Converts radians to degrees.
+    ///     Converts radians to degrees.
     /// </summary>
     /// <param name="radians">The angle in radians.</param>
     /// <returns>The angle in degrees.</returns>
     /// <remarks>
-    ///         This method uses double precission internally,
-    ///         though it returns single float
-    ///         Factor = 180 / pi
+    ///     This method uses double precission internally,
+    ///     though it returns single float
+    ///     Factor = 180 / pi
     /// </remarks>
-    public static float ToDegrees(float radians)
-    {
-        return (float)(radians * 57.295779513082320876798154814105);
-    }
+    public static float ToDegrees(float radians) => (float)(radians * 57.295779513082320876798154814105);
 
     /// <summary>
-    ///         Converts degrees to radians.
+    ///     Converts degrees to radians.
     /// </summary>
     /// <param name="degrees">The angle in degrees.</param>
     /// <returns>The angle in radians.</returns>
     /// <remarks>
-    ///         This method uses double precission internally,
-    ///         though it returns single float
-    ///         Factor = pi / 180
+    ///     This method uses double precission internally,
+    ///     though it returns single float
+    ///     Factor = pi / 180
     /// </remarks>
-    public static float ToRadians(float degrees)
-    {
-        return (float)(degrees * 0.017453292519943295769236907684886);
-    }
+    public static float ToRadians(float degrees) => (float)(degrees * 0.017453292519943295769236907684886);
 
     /// <summary>
-    ///         Reduces a given angle to a value between π and -π.
+    ///     Reduces a given angle to a value between π and -π.
     /// </summary>
     /// <param name="angle">The angle to reduce, in radians.</param>
     /// <returns>The new angle, in radians.</returns>
     public static float WrapAngle(float angle)
     {
-        if (angle > -Pi && angle <= Pi) return angle;
+        if (angle > -Pi && angle <= Pi)
+        {
+            return angle;
+        }
 
         angle %= TwoPi;
-        if (angle <= -Pi) return angle + TwoPi;
+        if (angle <= -Pi)
+        {
+            return angle + TwoPi;
+        }
 
-        if (angle > Pi) return angle - TwoPi;
+        if (angle > Pi)
+        {
+            return angle - TwoPi;
+        }
 
         return angle;
     }
 
     /// <summary>
-    ///         Determines if value is powered by two.
+    ///     Determines if value is powered by two.
     /// </summary>
     /// <param name="value">A value.</param>
     /// <returns><c>true</c> if <c>value</c> is powered by two; otherwise <c>false</c>.</returns>
-    public static bool IsPowerOfTwo(int value)
-    {
-        return value > 0 && (value & (value - 1)) == 0;
-    }
+    public static bool IsPowerOfTwo(int value) => value > 0 && (value & (value - 1)) == 0;
 }

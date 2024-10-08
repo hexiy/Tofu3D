@@ -11,14 +11,14 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
         Vector2 graphSize = new(300, 100);
 
         Vector2 pos = ImGui.GetCursorPos();
-        Vector2 screenPos = TofuImGui.GetCursorScreenPos();
+        var screenPos = TofuImGui.GetCursorScreenPos();
         // screenPos = screenPos * new Vector2(1, -1);
-        Vector2 mousePos = Tofu.MouseInput.PositionInWindow;
-        Vector2 mousePosRelativeToGraph =
+        var mousePos = Tofu.MouseInput.PositionInWindow;
+        var mousePosRelativeToGraph =
             (mousePos - screenPos) * Tofu.Window.MonitorScale + new Vector2(0, graphSize.Y);
-        Vector2 mousePosInGraphNormalizedCoordinates = mousePosRelativeToGraph / graphSize;
+        var mousePosInGraphNormalizedCoordinates = mousePosRelativeToGraph / graphSize;
 
-        Curve curve = GetValue(info, componentInspectorData);
+        var curve = GetValue(info, componentInspectorData);
 
         ImGui.PlotLines(string.Empty, ref curve._points[0], curve._points.Length, 0,
             string.Empty,
@@ -26,12 +26,12 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
             graphSize);
 
         ImGui.PushClipRect(ImGui.GetItemRectMin(), ImGui.GetItemRectMax(), false);
-        bool cursorIsInsideGraph = ImGui.IsItemHovered();
-        bool doubleClickedGraph = cursorIsInsideGraph && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
+        var cursorIsInsideGraph = ImGui.IsItemHovered();
+        var doubleClickedGraph = cursorIsInsideGraph && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
 
         Vector2 cursorPos = ImGui.GetCursorPos();
 
-        for (int i = 0; i < curve.DefiningPoints.Count; i++)
+        for (var i = 0; i < curve.DefiningPoints.Count; i++)
         {
             ImGui.SameLine();
 
@@ -39,33 +39,42 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
                 pos.Y + (1 - curve.DefiningPoints[i].Y) * graphSize.Y);
 
 
-            Texture texture = Tofu.AssetManager.Load<Texture>("Resources/dot.png");
+            var texture = Tofu.AssetManager.Load<Texture>("Resources/dot.png");
 
-            Color circleColor = Color.Purple;
+            var circleColor = Color.Purple;
 
             ImGui.SetCursorPos(newPos - new Vector2(15));
             ImGui.Image(texture.TextureId, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
 
-            bool cursorHoversCurrentPoint = ImGui.IsItemHovered();
-            bool currentPointIsClicked = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown(MouseButtons.Button1);
-            if (cursorHoversCurrentPoint) circleColor = Color.MidnightBlue;
+            var cursorHoversCurrentPoint = ImGui.IsItemHovered();
+            var currentPointIsClicked = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown();
+            if (cursorHoversCurrentPoint)
+            {
+                circleColor = Color.MidnightBlue;
+            }
 
-            if (currentPointIsClicked) circleColor = Color.IndianRed;
+            if (currentPointIsClicked)
+            {
+                circleColor = Color.IndianRed;
+            }
 
 
             ImGui.SetCursorPos(newPos - new Vector2(15));
 
             ImGui.Image(texture.TextureId, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
 
-            if (draggingPointIndex != -1 && Tofu.MouseInput.IsButtonDown(MouseButtons.Button1) == false)
+            if (draggingPointIndex != -1 && Tofu.MouseInput.IsButtonDown() == false)
             {
                 draggingPointIndex = -1;
             }
             else if (draggingPointIndex == -1)
             {
-                bool x = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown(MouseButtons.Button1);
+                var x = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown();
                 x = x || currentPointIsClicked;
-                if (x) draggingPointIndex = i;
+                if (x)
+                {
+                    draggingPointIndex = i;
+                }
             }
 
             if (draggingPointIndex == i && cursorIsInsideGraph)
@@ -86,7 +95,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
             }
 
             // bool doubleClicked = ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
-            bool removePoint = ImGui.IsMouseClicked(ImGuiMouseButton.Left) && KeyboardInput.IsKeyDown(Keys.LeftControl);
+            var removePoint = ImGui.IsMouseClicked(ImGuiMouseButton.Left) && KeyboardInput.IsKeyDown(Keys.LeftControl);
             if (removePoint && cursorHoversCurrentPoint && curve.CanRemovePoint)
             {
                 // remoove the hovered point

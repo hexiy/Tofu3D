@@ -1,22 +1,41 @@
 ﻿[ExecuteInEditMode]
 public class CoordinateSystemCubeTest : Component, IComponentUpdateable
 {
-    [Show]
-    public GameObject CubeForward;
-
-    [Show]
-    public GameObject CubeUp;
-
-    [Show]
-    public GameObject CubeLoopTarget;
-
-    [Show]
-    public Vector3 MoveLoopTarget = new(0, 0, 5);
-
     private Vector3 _startingPosition;
 
-    [Show]
-    public float MoveSpeed = 1;
+    [Show] public GameObject CubeForward;
+
+    [Show] public GameObject CubeLoopTarget;
+
+    [Show] public GameObject CubeUp;
+
+    [Show] public Vector3 MoveLoopTarget = new(0, 0, 5);
+
+    [Show] public float MoveSpeed = 1;
+
+    public void Update()
+    {
+        var endPosition = _startingPosition + Transform.TransformVectorToWorldSpaceVector(MoveLoopTarget) * 5;
+        Transform.WorldPosition = Vector3.Lerp(_startingPosition, endPosition,
+            (float)Math.Abs(Math.Cos(Time.EditorElapsedTime * MoveSpeed)));
+
+        if (CubeForward != null)
+        {
+            var cubeForwardPosition = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 2));
+            CubeForward.Transform.WorldPosition = Transform.WorldPosition + cubeForwardPosition;
+        }
+
+        if (CubeUp != null)
+        {
+            var cubeUpPosition = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 2, 0));
+            CubeUp.Transform.WorldPosition = Transform.WorldPosition + cubeUpPosition;
+        }
+
+        if (CubeLoopTarget != null)
+        {
+            CubeLoopTarget.Transform.WorldPosition = endPosition;
+        }
+    }
 
     public override void Awake()
     {
@@ -33,26 +52,5 @@ public class CoordinateSystemCubeTest : Component, IComponentUpdateable
     public override void Start()
     {
         base.Start();
-    }
-
-    public void Update()
-    {
-        Vector3 endPosition = _startingPosition + Transform.TransformVectorToWorldSpaceVector(MoveLoopTarget) * 5;
-        Transform.WorldPosition = Vector3.Lerp(_startingPosition, endPosition,
-            (float)Math.Abs(Math.Cos(Time.EditorElapsedTime * MoveSpeed)));
-
-        if (CubeForward != null)
-        {
-            Vector3 cubeForwardPosition = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 2));
-            CubeForward.Transform.WorldPosition = Transform.WorldPosition + cubeForwardPosition;
-        }
-
-        if (CubeUp != null)
-        {
-            Vector3 cubeUpPosition = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 2, 0));
-            CubeUp.Transform.WorldPosition = Transform.WorldPosition + cubeUpPosition;
-        }
-
-        if (CubeLoopTarget != null) CubeLoopTarget.Transform.WorldPosition = endPosition;
     }
 }

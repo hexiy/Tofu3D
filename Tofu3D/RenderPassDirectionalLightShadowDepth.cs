@@ -4,22 +4,19 @@ namespace Tofu3D;
 
 public class RenderPassDirectionalLightShadowDepth : RenderPass
 {
-    public static RenderPassDirectionalLightShadowDepth I { get; private set; }
-
     private DirectionalLight _directionalLight;
-
-    // shadows depth map
-    public RenderTexture DebugGrayscaleTexture { get; private set; }
 
     public RenderPassDirectionalLightShadowDepth() : base(RenderPassType.DirectionalLightShadowDepth)
     {
         I = this;
     }
 
-    public override bool CanRender()
-    {
-        return _directionalLight?.IsActive == true && Enabled;
-    }
+    public static RenderPassDirectionalLightShadowDepth I { get; private set; }
+
+    // shadows depth map
+    public RenderTexture DebugDepthVisualisationTexture { get; private set; }
+
+    public override bool CanRender() => _directionalLight?.IsActive == true && Enabled;
 
     public override void Initialize()
     {
@@ -38,7 +35,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
         // PassRenderTexture contains the depth, we render that depth with DeptRenderTexture.glsl shader to DepthMapRenderTexture and use that as a shadowmap
         PassRenderTexture = new RenderTexture(_directionalLight.Size, false, true);
         PassRenderTexture.ClearColor = new Color(0, 150, 0, 255);
-        DebugGrayscaleTexture = new RenderTexture(_directionalLight.Size, true, false);
+        DebugDepthVisualisationTexture = new RenderTexture(_directionalLight.Size, true);
     }
 
     protected override void PreRender()
@@ -54,32 +51,37 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
     protected override void PostRender()
     {
         base.PostRender();
-        // bool renderToDebugTexture = GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
+        var renderToDebugTexture =
+            GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
-        // if (renderToDebugTexture)
-        // {
-        // RenderToDebugDepthTexture();
-        // }
-        // GL.Disable(EnableCap.DepthTest);
+        if (renderToDebugTexture || true)
+        {
+            RenderToDebugDepthVisualisationTexture();
+        }
+
+        GL.Disable(EnableCap.DepthTest);
     }
 
-    private void RenderToDebugDepthTexture()
+    private void RenderToDebugDepthVisualisationTexture()
     {
-        if (_directionalLight == null) return;
+        if (_directionalLight == null)
+        {
+            return;
+        }
 
         GL.ActiveTexture(TextureUnit.Texture1);
 
-        DebugGrayscaleTexture.Bind();
+        DebugDepthVisualisationTexture.Bind();
 
         // GL.ClearColor(Color.Yellow.ToOtherColor());
         // GL.Clear(ClearBufferMask.ColorBufferBit);
 
-        GL.Viewport(0, 0, (int)DebugGrayscaleTexture.Size.X, (int)DebugGrayscaleTexture.Size.Y);
+        GL.Viewport(0, 0, (int)DebugDepthVisualisationTexture.Size.X, (int)DebugDepthVisualisationTexture.Size.Y);
         // GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         // GL.ClearColor(1,0,1,1);
 
-        DebugGrayscaleTexture.RenderDepthAttachment(PassRenderTexture.DepthAttachment);
+        DebugDepthVisualisationTexture.RenderDepthAttachment(PassRenderTexture.DepthAttachment);
 
-        DebugGrayscaleTexture.Unbind();
+        DebugDepthVisualisationTexture.Unbind();
     }
 }

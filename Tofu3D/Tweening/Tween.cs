@@ -9,21 +9,18 @@ public class Tween
         Restart
     }
 
+    private LoopType _loopType;
+
     public float CurrentTime;
     public float Delay;
     public float Duration;
     public float EndValue;
-
-    private LoopType _loopType;
     public Action OnComplete;
     public Action<float> OnUpdate;
     public float StartValue;
     public object Target;
 
-    public float GetValue()
-    {
-        return Mathf.Lerp(StartValue, EndValue, Mathf.Clamp(CurrentTime / Duration, 0, 1));
-    }
+    public float GetValue() => Mathf.Lerp(StartValue, EndValue, Mathf.Clamp(CurrentTime / Duration, 0, 1));
 
     public Tween SetLoop(LoopType lt)
     {
@@ -43,10 +40,7 @@ public class Tween
         return this;
     }
 
-    public LoopType GetLoop()
-    {
-        return _loopType;
-    }
+    public LoopType GetLoop() => _loopType;
 
     public Tween SetTarget(object obj)
     {

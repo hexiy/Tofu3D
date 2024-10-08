@@ -4,16 +4,25 @@ public static class BufferFactory
 {
     public static void CreateBufferForShader(Material material)
     {
-        if (material.Shader.BufferType == BufferType.Rendertexture) CreateRenderTextureBuffers(ref material.Vao);
+        if (material.Shader.BufferType == BufferType.Rendertexture)
+        {
+            CreateRenderTextureBuffers(ref material.Vao);
+        }
 
-        if (material.Shader.BufferType == BufferType.Sprite) CreateRenderTextureBuffers(ref material.Vao);
+        if (material.Shader.BufferType == BufferType.Sprite)
+        {
+            CreateRenderTextureBuffers(ref material.Vao);
+        }
 
         if (material.Shader.BufferType == BufferType.Model)
         {
             // CreateModelBuffers(ref material.Vao);
         }
 
-        if (material.Shader.BufferType == BufferType.Cubemap) CreateCubemapBuffers(ref material.Vao);
+        if (material.Shader.BufferType == BufferType.Cubemap)
+        {
+            CreateCubemapBuffers(ref material.Vao);
+        }
     }
 
     public static void CreateRenderTextureBuffers(ref int vao)
@@ -33,48 +42,51 @@ public static class BufferFactory
         Tofu.ShaderManager.BindVertexArray(vao);
 
 
-        VertexBuffer vertexBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertices, 4);
+        var vertexBuffer = VertexBuffer.Create(BufferTarget.ArrayBuffer, vertices, 4);
         vertexBuffer.EnableAttribs(false, 2, 2);
     }
-       public static void CreateSpriteRendererBuffer(ref int vao)
-       {
-           float[] spriteVertexBufferData = new[]
-           {
-               -0.5f, -0.5f, 0, 0,
-               0.5f, -0.5f, 1, 0,
-               -0.5f, 0.5f, 0, 1,
 
-               -0.5f, 0.5f, 0, 1,
-               0.5f, -0.5f, 1, 0,
-               0.5f, 0.5f, 1, 1
-           };
-           int[] countsOfElements = new[]
-           {
-               2, // Positions
-               2  // UVs
-           };
-           CreateGenericBuffer(ref vao,spriteVertexBufferData, countsOfElements);
-       }
-       public static void CreateGenericBuffer(ref int vao, float[] vertexBufferData, int[] countsOfElements)
-       {
-           GL.Enable(EnableCap.DepthTest);
+    public static void CreateSpriteRendererBuffer(ref int vao)
+    {
+        float[] spriteVertexBufferData =
+        {
+            -0.5f, -0.5f, 0, 0,
+            0.5f, -0.5f, 1, 0,
+            -0.5f, 0.5f, 0, 1,
 
-           vao = GL.GenVertexArray();
-           GL.BindVertexArray(vao);
+            -0.5f, 0.5f, 0, 1,
+            0.5f, -0.5f, 1, 0,
+            0.5f, 0.5f, 1, 1
+        };
+        int[] countsOfElements =
+        {
+            2, // Positions
+            2 // UVs
+        };
+        CreateGenericBuffer(ref vao, spriteVertexBufferData, countsOfElements);
+    }
 
-           int elementsCountPerVertex = 0;
-           for (int i = 0; i < countsOfElements.Length; i++)
-           {
-               elementsCountPerVertex += countsOfElements[i];
-           }
-           VertexBuffer vertexBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexBufferData, elementsCountPerVertex);
-           vertexBuffer.EnableAttribs(false, countsOfElements);
+    public static void CreateGenericBuffer(ref int vao, float[] vertexBufferData, int[] countsOfElements)
+    {
+        GL.Enable(EnableCap.DepthTest);
+
+        vao = GL.GenVertexArray();
+        GL.BindVertexArray(vao);
+
+        var elementsCountPerVertex = 0;
+        for (var i = 0; i < countsOfElements.Length; i++)
+        {
+            elementsCountPerVertex += countsOfElements[i];
+        }
+
+        var vertexBuffer = VertexBuffer.Create(BufferTarget.ArrayBuffer, vertexBufferData, elementsCountPerVertex);
+        vertexBuffer.EnableAttribs(true, countsOfElements);
 
 
-           /*VertexBuffer instanceBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexData: translations, elementsPerVertex: 8);
-
-           GL.EnableVertexAttribArray(2);
-           vertexBuffer.EnableAttribs(sequential: true, countsOfElements);*/
+//         /*VertexBuffer instanceBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexData: translations, elementsPerVertex: 8);
+//
+//         GL.EnableVertexAttribArray(2);
+//         vertexBuffer.EnableAttribs(sequential: true, countsOfElements);*/
 
         GL.BindVertexArray(0);
         GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
@@ -83,7 +95,7 @@ public static class BufferFactory
     public static void CreateCubemapBuffers(ref int vao)
     {
         GL.Enable(EnableCap.DepthTest);
-        float[] vertices = new float[]
+        float[] vertices =
         {
             -1.0f, -1.0f, 1.0f, // 0        7-----------6
             1.0f, -1.0f, 1.0f, // 1       /|          /|
@@ -95,7 +107,7 @@ public static class BufferFactory
             -1.0f, 1.0f, -1.0f // 7
         };
 
-        uint[] indices = new uint[]
+        uint[] indices =
         {
             // Right
             1, 2, 6,
@@ -119,10 +131,10 @@ public static class BufferFactory
         vao = GL.GenVertexArray();
         GL.BindVertexArray(vao);
 
-        VertexBuffer vertexBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertices, 3);
+        var vertexBuffer = VertexBuffer.Create(BufferTarget.ArrayBuffer, vertices, 3);
         vertexBuffer.EnableAttribs(false, 3); // xyz
 
-        VertexBuffer indexBuffer = VertexBuffer.Create<uint>(BufferTarget.ElementArrayBuffer, indices, 3);
+        var indexBuffer = VertexBuffer.Create(BufferTarget.ElementArrayBuffer, indices, 3);
     }
     /*private static void CreateSpriteRendererBuffers(ref int vao, ref int vbo)
     {

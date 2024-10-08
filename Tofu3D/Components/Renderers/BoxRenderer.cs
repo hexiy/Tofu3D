@@ -9,14 +9,20 @@ public class BoxRenderer : Renderer
 
     public override void SetDefaultMaterial()
     {
-        if (Material == null) Material = Tofu.AssetManager.Load<Material>("BoxMaterial");
+        if (Material == null)
+        {
+            Material = Tofu.AssetManager.Load<Material>("BoxMaterial");
+        }
 
         base.SetDefaultMaterial();
     }
 
     public override void Render()
     {
-        if (BoxShape == null || Material == null) return;
+        if (BoxShape == null || Material == null)
+        {
+            return;
+        }
 
         Tofu.ShaderManager.UseShader(Material.Shader);
 
@@ -24,7 +30,9 @@ public class BoxRenderer : Renderer
         Material.Shader.SetColor("u_color", Color.ToVector4());
         //material.shader.SetVector4("u_tint", (Vector4) material.shader.uniforms["u_tint"]);
         if (Material.Shader.Uniforms.ContainsKey("time"))
+        {
             Material.Shader.SetFloat("time", (float)Material.Shader.Uniforms["time"]);
+        }
 
         Tofu.ShaderManager.BindVertexArray(Material.Vao);
 

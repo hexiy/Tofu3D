@@ -5,10 +5,10 @@ namespace Tofu3D;
 
 public class EditorLayoutManager
 {
+    private readonly string DefaultSettingsName = "defaultSettings.ini";
     // string _lastUsedLayoutName => PersistentData.;
 
     private float _autoSaveTimer = 3;
-    private readonly string DefaultSettingsName = "defaultSettings.ini";
 
     public string LastUsedLayoutName
     {
@@ -23,7 +23,10 @@ public class EditorLayoutManager
 
     private void SaveLayout(string fileName)
     {
-        if (fileName == DefaultSettingsName) return;
+        if (fileName == DefaultSettingsName)
+        {
+            return;
+        }
 
         ImGui.SaveIniSettingsToDisk(fileName);
         LastUsedLayoutName = fileName;
@@ -38,7 +41,10 @@ public class EditorLayoutManager
     {
         if (File.Exists(fileName) == false)
         {
-            if (fileName != DefaultSettingsName) LoadDefaultLayout();
+            if (fileName != DefaultSettingsName)
+            {
+                LoadDefaultLayout();
+            }
 
             return;
         }
@@ -50,9 +56,13 @@ public class EditorLayoutManager
     public void LoadLastLayout()
     {
         if (LastUsedLayoutName != string.Empty)
+        {
             LoadLayout(LastUsedLayoutName);
+        }
         else
+        {
             LoadDefaultLayout();
+        }
     }
 
     public void Update()

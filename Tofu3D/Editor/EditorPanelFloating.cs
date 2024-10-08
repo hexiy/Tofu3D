@@ -13,12 +13,15 @@ public class EditorPanelFloating : EditorPanel
 
     public override void Draw()
     {
-        if (Active == false) return;
+        if (Active == false)
+        {
+            return;
+        }
 
         //ImGui.SetNextWindowBgAlpha (0);
         ImGui.Begin("Floating", ImGuiWindowFlags.NoCollapse);
 
-        ImGui.Image((IntPtr)Tofu.RenderPassSystem.FinalRenderTexture.ColorAttachment, new Vector2(300, 300));
+        ImGui.Image(Tofu.RenderPassSystem.FinalRenderTexture.ColorAttachment, new Vector2(300, 300));
 
         ImGui.End();
     }

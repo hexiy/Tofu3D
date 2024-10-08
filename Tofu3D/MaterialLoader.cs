@@ -4,17 +4,18 @@ namespace Tofu3D;
 
 public class MaterialLoader : AssetLoader<Material>
 {
-    private XmlSerializer _xmlSerializer;
+    private readonly XmlSerializer _xmlSerializer;
 
     public MaterialLoader()
     {
         _xmlSerializer = new XmlSerializer(typeof(Material),
-            new Type[] { typeof(Texture), typeof(AssetBase), typeof(Shader) });
+            new[] { typeof(Texture), typeof(AssetBase), typeof(Shader) });
     }
 
     public override Material SaveAsset(ref Material asset, AssetLoadSettingsBase loadSettings)
     {
-        StreamWriter sw = new(asset.Path);
+        // make sure to use loadSettings.Path not asset.path
+        StreamWriter sw = new(loadSettings.Path);
 
         // asset.IsValid = true;
         _xmlSerializer.Serialize(sw, asset);
@@ -37,14 +38,19 @@ public class MaterialLoader : AssetLoader<Material>
 
     public override Asset<Material> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
     {
-        MaterialLoadSettings loadSettings = assetLoadSettings as MaterialLoadSettings;
+        var loadSettings = assetLoadSettings as MaterialLoadSettings;
 
-        if (loadSettings.Path.Contains(".mat") == false) loadSettings.Path += ".mat";
+        if (loadSettings.Path.Contains(".mat") == false)
+        {
+            loadSettings.Path += ".mat";
+        }
 
         loadSettings.Path = AssetUtils.ValidateAssetPath(loadSettings.Path);
 
         if (File.Exists(loadSettings.Path) == false)
+        {
             loadSettings.Path = Path.Combine(Folders.Materials, loadSettings.Path);
+        }
 
 
         StreamReader sr = new(loadSettings.Path);
@@ -63,7 +69,10 @@ public class MaterialLoader : AssetLoader<Material>
 
         sr.Close();
         material.LoadTextures();
-        if (material.Shader != null) material.InitShader();
+        if (material.Shader != null)
+        {
+            material.InitShader();
+        }
 
         material.InitAssetRuntimeHandle(material.Vao);
         // material.IsValid = true;

@@ -11,10 +11,13 @@ public static class PersistentData
 
     private static void LoadAllData()
     {
-        if (File.Exists(PersistentDataFileName) == false) return;
+        if (File.Exists(PersistentDataFileName) == false)
+        {
+            return;
+        }
 
-        string jsonFileContent = File.ReadAllText(PersistentDataFileName);
-        object? x = JsonConvert.DeserializeObject(jsonFileContent);
+        var jsonFileContent = File.ReadAllText(PersistentDataFileName);
+        var x = JsonConvert.DeserializeObject(jsonFileContent);
         _data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonFileContent);
         // _data = new Dictionary<string, object>();
         // using (StreamReader sr = new(PersistentDataFileName))
@@ -34,11 +37,11 @@ public static class PersistentData
 
     private static void Save()
     {
-        string json = JsonConvert.SerializeObject(_data);
+        var json = JsonConvert.SerializeObject(_data);
 
         if (File.Exists(PersistentDataFileName) == false)
         {
-            FileStream fs = File.Create(PersistentDataFileName);
+            var fs = File.Create(PersistentDataFileName);
             fs.Close();
         }
 
@@ -57,20 +60,29 @@ public static class PersistentData
 
     public static T Get<T>(string key, T? defaultValue) where T : class
     {
-        if (_data.Count == 0) LoadAllData();
+        if (_data.Count == 0)
+        {
+            LoadAllData();
+        }
 
         if (_data.ContainsKey(key) == false)
         {
-            if (defaultValue != null) return defaultValue;
+            if (defaultValue != null)
+            {
+                return defaultValue;
+            }
 
             return null;
         }
 
-        T deserializedObject =
-            JsonConvert.DeserializeObject<T>(_data[key].ToString()); // needs this for serialized classes
+        var deserializedObject =
+            JsonConvert.DeserializeObject<T>(_data[key]); // needs this for serialized classes
         if (deserializedObject == null) //_data[key] is not T)
         {
-            if (defaultValue != null) return defaultValue;
+            if (defaultValue != null)
+            {
+                return defaultValue;
+            }
 
             return null;
         }
@@ -80,11 +92,17 @@ public static class PersistentData
 
     public static object Get(string key, object? defaultValue = null)
     {
-        if (_data.Count == 0) LoadAllData();
+        if (_data.Count == 0)
+        {
+            LoadAllData();
+        }
 
         if (_data.ContainsKey(key) == false)
         {
-            if (defaultValue != null) return defaultValue;
+            if (defaultValue != null)
+            {
+                return defaultValue;
+            }
 
             return null;
         }
@@ -92,26 +110,20 @@ public static class PersistentData
         return _data[key];
     }
 
-    public static string GetString(string key, string? defaultValue = null)
-    {
-        return Get(key, defaultValue)?.ToString();
-    }
+    public static string GetString(string key, string? defaultValue = null) => Get(key, defaultValue);
 
-    public static int GetInt(string key, int? defaultValue = null)
-    {
-        return int.Parse(Get(key, defaultValue)?.ToString());
-    }
+    public static int GetInt(string key, int? defaultValue = null) => int.Parse(Get(key, defaultValue)?.ToString());
 
-    public static bool GetBool(string key, bool? defaultValue = null)
-    {
-        return bool.Parse(Get(key, defaultValue)?.ToString());
-    }
+    public static bool GetBool(string key, bool? defaultValue = null) => bool.Parse(Get(key, defaultValue)?.ToString());
 
     public static void Set(string key, object value)
     {
-        if (_data.Count == 0) LoadAllData();
+        if (_data.Count == 0)
+        {
+            LoadAllData();
+        }
 
-        string json = JsonConvert.SerializeObject(value); // needs this for serialized classes
+        var json = JsonConvert.SerializeObject(value); // needs this for serialized classes
 
         _data[key] = json;
 

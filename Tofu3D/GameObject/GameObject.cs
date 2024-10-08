@@ -7,36 +7,26 @@ namespace Tofu3D;
 
 public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 {
-    public bool IsStatic => IsStaticSelf || Transform?.Parent?.GameObject.IsStatic == true;
-    public bool IsStaticSelf = false;
-
     private bool _activeSelf = true;
-
-    public bool ActiveSelf
-    {
-        get => _activeSelf;
-        set => SetActive(value);
-    }
-
-    public bool AlwaysUpdate = false;
-
-    [DefaultValue(false)]
-    public bool Awoken;
-
-    //[System.Xml.Serialization.XmlArrayItem(type: typeof(Component))]
-    [XmlIgnore]
-    public List<Component> Components = new();
 
     private object _componentsLock = new();
     private bool _destroyTimerRunning;
+
+    public bool AlwaysUpdate = false;
+
+    [DefaultValue(false)] public bool Awoken;
+
+    //[System.Xml.Serialization.XmlArrayItem(type: typeof(Component))]
+    [XmlIgnore] public List<Component> Components = new();
+
     public float DestroyTimer = 2;
     public bool DynamicallyCreated = false;
     public int Id = -1;
 
-    [Hide]
-    public int IndexInHierarchy = 0;
+    [Hide] public int IndexInHierarchy = 0;
 
     public bool IsPrefab = false;
+    public bool IsStaticSelf = false;
     public string Name = "";
     public string PrefabPath = "";
     public bool Selected = false;
@@ -71,27 +61,74 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public bool UpdateWhenDisabled = false;
 
-    public GameObject()
+    public bool IsStatic => IsStaticSelf || Transform?.Parent?.GameObject.IsStatic == true;
+
+    public bool ActiveSelf
     {
-        // OnComponentAdded += LinkComponents;
+        get => _activeSelf;
+        set => SetActive(value);
     }
+
+    public bool ActiveInHierarchy
+    {
+        get
+        {
+            if (Transform.Parent == null)
+            {
+                return ActiveSelf;
+            }
+
+            if (Transform.Parent.GameObject.ActiveSelf == false)
+            {
+                return false;
+            }
+
+            return Transform.Parent.GameObject.ActiveInHierarchy && ActiveSelf;
+        }
+    }
+
+    [XmlIgnore] public Transform Transform { get; set; }
+
+    public int CompareTo(bool other)
+    {
+        if (this == null)
+        {
+            return 0;
+        }
+
+        return 1;
+    }
+
+    public bool Equals(GameObject x, GameObject y) => x?.Id == y?.Id;
+
+    public int GetHashCode(GameObject obj) => obj.Id;
 
     public void SetActive(bool tgl)
     {
-        bool stateChanged = ActiveSelf != tgl;
+        var stateChanged = ActiveSelf != tgl;
         _activeSelf = tgl;
         if (stateChanged && Started)
         {
             if (_activeSelf)
+            {
                 OnEnable();
+            }
             else
+            {
                 OnDisable();
+            }
         }
     }
 
     private void OnEnable()
     {
-        Components.ForEach(c => c.OnEnabled());
+        Components.ForEach(c =>
+        {
+            if (c.Enabled)
+            {
+                c.OnEnabled();
+            } // check for c.Enabled, before it loaded a scene with disabled component but put it in the update queue because this enabled it...
+        });
         Transform?.Children.ForEach(child => child.GameObject.OnEnable());
     }
 
@@ -100,21 +137,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         Components.ForEach(c => c.OnDisabled());
         Transform?.Children.ForEach(child => child.GameObject.OnDisable());
     }
-
-    public bool ActiveInHierarchy
-    {
-        get
-        {
-            if (Transform.Parent == null) return ActiveSelf;
-
-            if (Transform.Parent.GameObject.ActiveSelf == false) return false;
-
-            return Transform.Parent.GameObject.ActiveInHierarchy && ActiveSelf;
-        }
-    }
-
-    [XmlIgnore]
-    public Transform Transform { get; set; }
     //private List<Component> ComponentsWaitingToBePaired = new List<Component>();
 
     public static GameObject Create(Vector3? position = null, Vector3? scale = null, string name = "",
@@ -126,15 +148,30 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         go.Silent = silent;
 
 
-        if (go.Id == -1) go.AssignNewId();
+        if (go.Id == -1)
+        {
+            go.AssignNewId();
+        }
 
-        if (go.Transform == null && go.GetComponent<Transform>() == null) go.Transform = go.AddComponent<Transform>();
+        if (go.Transform == null && go.GetComponent<Transform>() == null)
+        {
+            go.Transform = go.AddComponent<Transform>();
+        }
 
-        if (addToScene) Tofu.SceneManager.CurrentScene.AddGameObjectToScene(go);
+        if (addToScene)
+        {
+            Tofu.SceneManager.CurrentScene.AddGameObjectToScene(go);
+        }
 
-        if (position != null) go.Transform.WorldPosition = position.Value;
+        if (position != null)
+        {
+            go.Transform.WorldPosition = position.Value;
+        }
 
-        if (scale != null) go.Transform.LocalScale = scale.Value;
+        if (scale != null)
+        {
+            go.Transform.LocalScale = scale.Value;
+        }
 
         return go;
     }
@@ -145,7 +182,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         IDsManager.GameObjectNextId++;
 
 
-        for (int i = 0; i < Components.Count; i++)
+        for (var i = 0; i < Components.Count; i++)
         {
             Components[i].GameObjectId = Id;
             Components[i].GameObject = this;
@@ -154,56 +191,77 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     private void DestroyChildren()
     {
-        for (int i = 0; i < Transform.Children.Count; i++) Transform.Children[i].GameObject.Destroy();
+        for (var i = 0; i < Transform.Children.Count; i++)
+        {
+            Transform.Children[i].GameObject.Destroy();
+        }
     }
 
     private void CheckForTransformComponent(Component component)
     {
-        if (component is Transform) Transform = component as Transform;
+        if (component is Transform)
+        {
+            Transform = component as Transform;
+        }
     }
 
     private void InvokeOnComponentAddedOnComponents(Component comp)
     {
-        for (int i = 0; i < Components.Count; i++) Components[i].OnNewComponentAdded(comp);
+        for (var i = 0; i < Components.Count; i++)
+        {
+            Components[i].OnNewComponentAdded(comp);
+        }
     }
 
     public void LinkGameObjectFieldsInComponents()
     {
         // find "GameObject" members and find them in the scene
-        for (int c = 0; c < Components.Count; c++)
+        for (var c = 0; c < Components.Count; c++)
         {
-            Component component = Components[c];
+            var component = Components[c];
 
-            Type sourceType1 = component.GetType();
+            var sourceType1 = component.GetType();
 
-            FieldInfo[] infos = sourceType1.GetFields();
-            for (int i = 0; i < infos.Length; i++)
+            var infos = sourceType1.GetFields();
+            for (var i = 0; i < infos.Length; i++)
+            {
                 if (infos[i].FieldType == typeof(GameObject) && infos[i].Name != "gameObject")
                 {
-                    GameObject goFieldValue = infos[i].GetValue(component) as GameObject;
-                    if (goFieldValue == null) continue;
+                    var goFieldValue = infos[i].GetValue(component) as GameObject;
+                    if (goFieldValue == null)
+                    {
+                        continue;
+                    }
 
                     if (goFieldValue.IsPrefab)
                     {
-                        GameObject loadedGo = Tofu.SceneSerializer.LoadPrefab(goFieldValue.PrefabPath, true);
+                        var loadedGo = Tofu.SceneSerializer.LoadPrefab(goFieldValue.PrefabPath, true);
                         infos[i].SetValue(component, loadedGo);
                     }
                     else
                     {
-                        GameObject foundGameObject = Tofu.SceneManager.CurrentScene.GetGameObject(goFieldValue.Id);
+                        var foundGameObject = Tofu.SceneManager.CurrentScene.GetGameObject(goFieldValue.Id);
                         infos[i].SetValue(component, foundGameObject);
                     }
                 }
+            }
 
-            for (int i = 0; i < infos.Length; i++)
+            for (var i = 0; i < infos.Length; i++)
+            {
                 if (infos[i].FieldType == typeof(List<GameObject>))
                 {
-                    List<GameObject> gosFieldValue = infos[i].GetValue(component) as List<GameObject>;
-                    if (gosFieldValue == null) continue;
-
-                    for (int goIndex = 0; goIndex < gosFieldValue.Count; goIndex++)
+                    var gosFieldValue = infos[i].GetValue(component) as List<GameObject>;
+                    if (gosFieldValue == null)
                     {
-                        if (gosFieldValue[goIndex] == null) continue;
+                        continue;
+                    }
+
+                    for (var goIndex = 0; goIndex < gosFieldValue.Count; goIndex++)
+                    {
+                        if (gosFieldValue[goIndex] == null)
+                        {
+                            continue;
+                        }
 
                         gosFieldValue[goIndex] =
                             Tofu.SceneManager.CurrentScene.GetGameObject(gosFieldValue[goIndex].Id);
@@ -212,6 +270,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
                     infos[i].SetValue(component, gosFieldValue);
                 }
+            }
         }
     }
 
@@ -303,7 +362,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     }*/
 
     /// <summary>
-    ///         give every found component in class its gameobject and transform reference
+    ///     give every found component in class its gameobject and transform reference
     /// </summary>
     /// <param name="gameObject"></param>
     /// <param name="component"></param>
@@ -312,7 +371,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         component.Transform = Transform;
         component.GameObject = this;
         return;
-        Type sourceType = component.GetType();
+        var sourceType = component.GetType();
 
         // fields that are derived from Component
         List<FieldInfo> componentFields = new();
@@ -322,10 +381,10 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
         List<FieldInfo> gameObjectFields = new();
         List<FieldInfo> transformFields = new();
-        for (int i = 0; i < componentFields.Count; i++)
+        for (var i = 0; i < componentFields.Count; i++)
         {
-            PropertyInfo gameObjectFieldInfo = componentFields[0].FieldType.GetProperty("gameObject");
-            PropertyInfo transformFieldInfo = componentFields[0].FieldType.GetProperty("transform");
+            var gameObjectFieldInfo = componentFields[0].FieldType.GetProperty("gameObject");
+            var transformFieldInfo = componentFields[0].FieldType.GetProperty("transform");
 
             gameObjectFieldInfo?.SetValue(component, this);
             transformFieldInfo?.SetValue(component, Transform);
@@ -334,12 +393,13 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public virtual void Awake()
     {
-        for (int i = 0; i < Components.Count; i++)
+        for (var i = 0; i < Components.Count; i++)
+        {
             if (Components[i].Awoken == false) // && Components[i].Enabled)
             {
                 if (Global.GameRunning == false)
                 {
-                    bool foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Awake));
+                    var foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Awake));
                 }
                 else
                 {
@@ -350,36 +410,43 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
                 //     Debug.LogError(
                 //         $"Couldn't awaken component [{Components[i].GetType().ToString()}] with gameobjectID {Id}");
             }
+        }
 
         Awoken = true;
     }
 
-    public bool CallComponentExecuteInEditModeMethod(Component component, string methodName)
-    {
-        return component.CallComponentExecuteInEditModeMethod(methodName);
-    }
+    public bool CallComponentExecuteInEditModeMethod(Component component, string methodName) =>
+        component.CallComponentExecuteInEditModeMethod(methodName);
 
     public virtual void PreSceneSave()
     {
-        for (int i = 0; i < Components.Count; i++) Components[i].PreSceneSave();
+        for (var i = 0; i < Components.Count; i++)
+        {
+            Components[i].PreSceneSave();
+        }
     }
 
     public virtual void Start()
     {
-        for (int i = 0; i < Components.Count; i++)
+        for (var i = 0; i < Components.Count; i++)
+        {
             if (Components[i].Enabled)
             {
                 if (Global.GameRunning == false)
                 {
-                    bool foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Start));
+                    var foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Start));
                 }
                 else
                 {
                     Components[i].Start();
                 }
             }
+        }
 
-        if (ActiveInHierarchy) OnEnable();
+        if (ActiveInHierarchy)
+        {
+            OnEnable();
+        }
 
         Started = true;
     }
@@ -397,12 +464,18 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
         // lock (_componentsLock)
         // {
-        for (int i = 0; i < Components.Count; i++) Components[i].OnDestroyed();
+        for (var i = 0; i < Components.Count; i++)
+        {
+            Components[i].OnDestroyed();
+        }
 
         // Components.Clear();
         // }
 
-        if (Transform.Parent != null) Transform.Parent.RemoveChild(Id);
+        if (Transform.Parent != null)
+        {
+            Transform.Parent.RemoveChild(Id);
+        }
 
         Tofu.SceneManager.CurrentScene.OnGameObjectDestroyed(this);
     }
@@ -418,7 +491,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public void DestroyDelayed(float delay)
     {
         _destroyTimerRunning = true;
-        DestroyTimer = (float)delay;
+        DestroyTimer = delay;
     }
 
     /*
@@ -461,7 +534,10 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public virtual void FixedUpdate()
     {
-        if (ActiveInHierarchy == false && UpdateWhenDisabled == false) return;
+        if (ActiveInHierarchy == false && UpdateWhenDisabled == false)
+        {
+            return;
+        }
 
         FixedUpdateComponents();
     }
@@ -473,7 +549,10 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
         Components.Add(comp);
 
-        if (Awoken) comp.Awake();
+        if (Awoken)
+        {
+            comp.Awake();
+        }
 
         InvokeOnComponentAddedOnComponents(comp);
         CheckForTransformComponent(comp);
@@ -501,7 +580,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         /* if ((transform != null || GetComponent<Transform>() != null) && type == typeof(Transform)) {
                 return null;
           }*/
-        Component component = (Component)Activator.CreateInstance(type);
+        var component = (Component)Activator.CreateInstance(type);
 
         if (component.AllowMultiple == false && GetComponent(type))
         {
@@ -518,7 +597,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         {
             if (Global.GameRunning == false)
             {
-                bool foundMethod = CallComponentExecuteInEditModeMethod(component, nameof(Awake));
+                var foundMethod = CallComponentExecuteInEditModeMethod(component, nameof(Awake));
             }
             else
             {
@@ -530,7 +609,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         {
             if (Global.GameRunning == false)
             {
-                bool foundMethod = CallComponentExecuteInEditModeMethod(component, nameof(Start));
+                var foundMethod = CallComponentExecuteInEditModeMethod(component, nameof(Start));
             }
             else
             {
@@ -570,33 +649,44 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public void RemoveComponent(Type type)
     {
-        for (int i = 0; i < Components.Count; i++)
+        for (var i = 0; i < Components.Count; i++)
+        {
             if (Components[i].GetType() == type)
             {
                 RemoveComponent(Components[i]);
                 return;
             }
+        }
     }
 
     public T GetComponent<T>(int? index = null) where T : Component
     {
-        int k = index == null ? 0 : (int)index;
-        for (int i = 0; i < Components.Count; i++)
+        var k = index == null ? 0 : (int)index;
+        for (var i = 0; i < Components.Count; i++)
+        {
             if (Components[i] is T)
             {
-                if (k == 0) return (T)Components[i];
+                if (k == 0)
+                {
+                    return (T)Components[i];
+                }
 
                 k--;
             }
+        }
 
         return null;
     }
 
     public bool HasComponent<T>() where T : Component
     {
-        for (int i = 0; i < Components.Count; i++)
+        for (var i = 0; i < Components.Count; i++)
+        {
             if (Components[i] is T)
+            {
                 return true;
+            }
+        }
 
         return false;
     }
@@ -604,18 +694,26 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public List<T> GetComponents<T>() where T : Component
     {
         List<T> componentsToReturn = new();
-        for (int i = 0; i < Components.Count; i++)
+        for (var i = 0; i < Components.Count; i++)
+        {
             if (Components[i] is T)
+            {
                 componentsToReturn.Add(Components[i] as T);
+            }
+        }
 
         return componentsToReturn;
     }
 
     public Component GetComponent(Type type)
     {
-        for (int i = 0; i < Components.Count; i++)
+        for (var i = 0; i < Components.Count; i++)
+        {
             if (Components[i].GetType() == type)
+            {
                 return Components[i];
+            }
+        }
 
         return null;
     }
@@ -623,9 +721,13 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public List<Component> GetComponents(Type type)
     {
         List<Component> componentsToReturn = new();
-        for (int i = 0; i < Components.Count; i++)
+        for (var i = 0; i < Components.Count; i++)
+        {
             if (Components[i].GetType() == type)
+            {
                 componentsToReturn.Add(Components[i]);
+            }
+        }
 
         return componentsToReturn;
     }
@@ -714,9 +816,13 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     private void FixedUpdateComponents()
     {
-        for (int i = 0; i < Components.Count; i++)
+        for (var i = 0; i < Components.Count; i++)
+        {
             if (Components[i].Enabled && Components[i].Awoken)
+            {
                 Components[i].FixedUpdate();
+            }
+        }
     }
     /* public void RegisterComponentPair(Component comp, Type type)
      {
@@ -727,51 +833,31 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
            }
      }*/
 
-    public Vector3 TransformToWorld(Vector3 localPoint)
-    {
-        return localPoint + Transform.WorldPosition;
-    }
+    public Vector3 TransformToWorld(Vector3 localPoint) => localPoint + Transform.WorldPosition;
 
-    public Vector3 TransformToLocal(Vector3 worldPoint)
-    {
-        return worldPoint - Transform.WorldPosition;
-    }
-
-    public bool Equals(GameObject x, GameObject y)
-    {
-        return x?.Id == y?.Id;
-    }
-
-    public int GetHashCode(GameObject obj)
-    {
-        return obj.Id;
-    }
-
-    public int CompareTo(bool other)
-    {
-        if (this == null) return 0;
-
-        return 1;
-    }
+    public Vector3 TransformToLocal(Vector3 worldPoint) => worldPoint - Transform.WorldPosition;
 
     public static implicit operator bool(GameObject instance)
     {
-        if (instance == null) return false;
+        if (instance == null)
+        {
+            return false;
+        }
 
         return true;
     }
 
     public object Clone(bool active = true)
     {
-        object memberwiseClone = MemberwiseClone();
-        GameObject clone = (GameObject)memberwiseClone;
+        var memberwiseClone = MemberwiseClone();
+        var clone = (GameObject)memberwiseClone;
 
 
         clone.Components = new List<Component>();
 
-        for (int i = 0; i < Components.Count; i++)
+        for (var i = 0; i < Components.Count; i++)
         {
-            Component componentClone = (Component)Components[i].Clone();
+            var componentClone = (Component)Components[i].Clone();
             if (componentClone is Renderer)
             {
                 (componentClone as Renderer).InstancingData.InstancedRenderingStartingIndexInBuffer = -1;
@@ -789,7 +875,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         clone.Awoken = false;
         clone.Started = false;
 
-        for (int i = 0; i < clone.Components.Count; i++)
+        for (var i = 0; i < clone.Components.Count; i++)
         {
             clone.Components[i].Awoken = false;
             clone.Components[i].Started = false;
@@ -799,6 +885,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         clone.Awake();
         clone.Start();
 
-        return (object)clone;
+        return clone;
     }
 }

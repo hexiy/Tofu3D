@@ -6,35 +6,45 @@ public static class GameObjectSelectionManager
 
     public static void SelectGameObjects(List<int> goIds)
     {
-        if (goIds == null) goIds = new List<int>();
+        if (goIds == null)
+        {
+            goIds = new List<int>();
+        }
+
         if (goIds != null && goIds?.Count > 0)
         {
-            for (int i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
-                if (goIds.Contains(Tofu.SceneManager.CurrentScene.GameObjects[i].Id) == false)
-                    Tofu.SceneManager.CurrentScene.GameObjects[i].Selected = false;
-
-            for (int i = 0; i < goIds.Count; i++)
+            for (var i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
             {
-                GameObject go = Tofu.SceneManager.CurrentScene.GetGameObject(goIds[i]);
-                if (go != null) go.Selected = true;
+                if (goIds.Contains(Tofu.SceneManager.CurrentScene.GameObjects[i].Id) == false)
+                {
+                    Tofu.SceneManager.CurrentScene.GameObjects[i].Selected = false;
+                }
+            }
+
+            for (var i = 0; i < goIds.Count; i++)
+            {
+                var go = Tofu.SceneManager.CurrentScene.GetGameObject(goIds[i]);
+                if (go != null)
+                {
+                    go.Selected = true;
+                }
             }
         }
 
-        bool isCameraOrTransformHandle = false;
+        var isCameraOrTransformHandle = false;
         if (Camera.MainCamera != null)
+        {
             isCameraOrTransformHandle = goIds.Contains(Camera.MainCamera.GameObjectId) ||
                                         goIds.Contains(TransformHandle.I.GameObjectId);
+        }
 
         if (isCameraOrTransformHandle == false && goIds.Count != 0)
         {
             TransformHandle.I.SelectObjects(goIds);
             PersistentData.Set("lastSelectedGameObjectId", goIds[0]);
         }
-        else
-        {
-            // TransformHandle.I.SelectObjects(null);
-        }
 
+        // TransformHandle.I.SelectObjects(null);
         GameObjectsSelected?.Invoke(goIds);
     }
 
@@ -62,9 +72,13 @@ public static class GameObjectSelectionManager
 
     public static int GetGameObjectIndexInHierarchy(int id)
     {
-        for (int i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
+        for (var i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
+        {
             if (Tofu.SceneManager.CurrentScene.GameObjects[i].Id == id)
+            {
                 return i;
+            }
+        }
 
         return -1;
     }
@@ -72,18 +86,26 @@ public static class GameObjectSelectionManager
     public static List<GameObject> GetSelectedGameObjects()
     {
         List<GameObject> selectedGameObjects = new();
-        for (int i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
+        for (var i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
+        {
             if (Tofu.SceneManager.CurrentScene.GameObjects[i].Selected)
+            {
                 selectedGameObjects.Add(Tofu.SceneManager.CurrentScene.GameObjects[i]);
+            }
+        }
 
         return selectedGameObjects;
     }
 
     public static GameObject GetSelectedGameObject()
     {
-        for (int i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
+        for (var i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
+        {
             if (Tofu.SceneManager.CurrentScene.GameObjects[i].Selected)
+            {
                 return Tofu.SceneManager.CurrentScene.GameObjects[i];
+            }
+        }
 
         return null;
     }

@@ -2,12 +2,12 @@
 
 public class RenderPassUI : RenderPass
 {
-    public static RenderPassUI I { get; private set; }
-
     public RenderPassUI() : base(RenderPassType.UI)
     {
         I = this;
     }
+
+    public static RenderPassUI I { get; private set; }
 
     public override void Initialize()
     {

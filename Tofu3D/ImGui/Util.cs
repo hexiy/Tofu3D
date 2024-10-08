@@ -7,16 +7,16 @@ namespace Dear_ImGui_Sample;
 internal static class Util
 {
     [Pure]
-    public static float Clamp(float value, float min, float max)
-    {
-        return value < min ? min : value > max ? max : value;
-    }
+    public static float Clamp(float value, float min, float max) => value < min ? min : value > max ? max : value;
 
     [Conditional("DEBUG")]
     public static void CheckGlError(string title)
     {
-        ErrorCode error = GL.GetError();
-        if (error != ErrorCode.NoError) Debug.Log($"{title}: {error}");
+        var error = GL.GetError();
+        if (error != ErrorCode.NoError)
+        {
+            Debug.Log($"{title}: {error}");
+        }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

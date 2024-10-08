@@ -9,7 +9,7 @@ public class ModelLoadSettings : AssetLoadSettings<Mesh>
     public ModelLoadSettings(string? path = null,
         bool? canSetDefaultSettings = true)
     {
-        ModelLoadSettings
+        var
             defaultSettings =
                 canSetDefaultSettings == true ? DefaultSettingsModel : null; // not possible if this isnt a struct
 
@@ -18,13 +18,13 @@ public class ModelLoadSettings : AssetLoadSettings<Mesh>
 
     public ModelLoadSettings()
     {
-        ModelLoadSettings defaultSettings = DefaultSettingsModel; // not possible if this isnt a struct
+        var defaultSettings = DefaultSettingsModel; // not possible if this isnt a struct
         Path = defaultSettings.Path;
     }
 
     public override int GetHashCode()
     {
-        HashCodeCombiner hashCodeCombiner = HashCodeCombiner.Start();
+        var hashCodeCombiner = HashCodeCombiner.Start();
         hashCodeCombiner.Add(base.GetHashCode());
         return hashCodeCombiner.CombinedHash;
     }

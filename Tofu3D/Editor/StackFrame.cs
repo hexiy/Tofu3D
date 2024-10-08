@@ -2,9 +2,9 @@ namespace Tofu3D;
 
 public class StackFrame
 {
-    public string Text;
-    public string FileShort;
-    public string FileFullPath;
-    public int Line;
     public int Column;
+    public string FileFullPath;
+    public string FileShort;
+    public int Line;
+    public string Text;
 }

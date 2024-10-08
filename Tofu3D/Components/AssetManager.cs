@@ -2,10 +2,9 @@
 
 public class AssetManager
 {
-    private Dictionary<Type, IAssetLoader> _loaders = new();
-    private Dictionary<Type, Type> _loadSettingsTypes = new();
-
-    private Dictionary<int, AssetBase> _assets = new();
+    private readonly Dictionary<int, AssetBase> _assets = new();
+    private readonly Dictionary<Type, IAssetLoader> _loaders = new();
+    private readonly Dictionary<Type, Type> _loadSettingsTypes = new();
 
     public AssetManager()
     {
@@ -15,14 +14,16 @@ public class AssetManager
         AddAssetLoader(new CubemapTextureLoader());
 
 
-        foreach (Type loadSettingsType in new[]
+        foreach (var loadSettingsType in new[]
                  {
                      typeof(TextureLoadSettings),
                      typeof(ModelLoadSettings),
                      typeof(MaterialLoadSettings),
                      typeof(CubemapTextureLoadSettings)
                  })
+        {
             _loadSettingsTypes.Add(loadSettingsType.BaseType.GenericTypeArguments[0], loadSettingsType);
+        }
     }
 
     public void AddLoadSettingsType(Type type)
@@ -38,11 +39,15 @@ public class AssetManager
     public List<T> GetAllLoadedAssetsOfType<T>() where T : Asset<T>
     {
         List<T> foundAssets = new();
-        Type t = typeof(T);
+        var t = typeof(T);
 
-        foreach (KeyValuePair<int, AssetBase> keyValuePair in _assets)
+        foreach (var keyValuePair in _assets)
+        {
             if (keyValuePair.Value.Handle.AssetType == t)
+            {
                 foundAssets.Add(keyValuePair.Value as T);
+            }
+        }
 
         return foundAssets;
     }
@@ -51,8 +56,8 @@ public class AssetManager
     {
         // AssetLoadSettings<T> loadSettings = new();
 
-        AssetLoadSettings<T> settings = loadSettings as AssetLoadSettings<T> ??
-                                        Activator.CreateInstance(_loadSettingsTypes[typeof(T)]) as AssetLoadSettings<T>;
+        var settings = loadSettings as AssetLoadSettings<T> ??
+                       Activator.CreateInstance(_loadSettingsTypes[typeof(T)]) as AssetLoadSettings<T>;
         settings.Path = path;
         return Load<T>(settings);
     }
@@ -63,7 +68,7 @@ public class AssetManager
         // 
         T asset;
         loadSettings.ValidatePath();
-        int hash = loadSettings.GetHashCode();
+        var hash = loadSettings.GetHashCode();
 
         if (_assets.ContainsKey(hash))
         {
@@ -82,15 +87,21 @@ public class AssetManager
 
     public T Save<T>(T asset, AssetLoadSettingsBase loadSettings = null) where T : Asset<T>, new()
     {
-        AssetLoadSettings<T> settings = loadSettings as AssetLoadSettings<T> ??
-                                        Activator.CreateInstance(_loadSettingsTypes[typeof(T)]) as AssetLoadSettings<T>;
+        var settings = loadSettings as AssetLoadSettings<T> ??
+                       Activator.CreateInstance(_loadSettingsTypes[typeof(T)]) as AssetLoadSettings<T>;
         settings.Path = asset.Path;
-        if (File.Exists(settings.Path) == false)
-            // Debug.LogError("Cannot save asset, no path present");
-            return null;
+        settings.ValidatePath();
+        // if (File.Exists(settings.Path) == false)
+        // {
+        //     Debug.LogError("Cannot save asset, no path present");
+        //     return null;
+        // }
 
-        int hash = settings.GetHashCode();
 
+        var hash = settings.GetHashCode();
+
+
+        // code in SaveAsset should use settings path to save the file not asset.path!!!
         (_loaders[typeof(T)] as AssetLoader<T>).SaveAsset(ref asset, settings);
 
         Debug.StatSetValue("LoadedAssets", $"LoadedAssets:{_assets.Count}");
@@ -100,7 +111,7 @@ public class AssetManager
 
     public void Unload<T>(Asset<T> asset, AssetLoadSettingsBase loadSettings) where T : Asset<T>
     {
-        int hash = loadSettings.GetHashCode();
+        var hash = loadSettings.GetHashCode();
 
         if (_assets.ContainsKey(hash))
         {

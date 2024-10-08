@@ -5,30 +5,19 @@ using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Common.Input;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using Image = SixLabors.ImageSharp.Image;
 
 namespace Tofu3D;
 
 public class Window : GameWindow
 {
-    private bool _loaded = false;
-    public bool VSyncEnabled
-    {
-        get
-        {
-            bool v = PersistentData.GetBool("VSync", false);
-            return v;
-        }
-        set
-        {
-            VSync = value ? VSyncMode.On : VSyncMode.Off;
-            PersistentData.Set("VSync", value);
-        } }
-    
+    private bool _loaded;
+
+    private float _monitorScale;
+
     public Window() : base(
-        new GameWindowSettings
-            { }, // dont specify fps.... otherwise deltatime fucks up and update and render is called not 1:1
+        new GameWindowSettings(), // dont specify fps.... otherwise deltatime fucks up and update and render is called not 1:1
         new NativeWindowSettings
         {
             /*Size = new Vector2i(1, 1),*/
@@ -36,44 +25,70 @@ public class Window : GameWindow
             Profile = ContextProfile.Core /*NumberOfSamples = 8,*/
         })
     {
-        VSync = VSyncEnabled? VSyncMode.On : VSyncMode.Off;
-        // this.UpdateFrequency = 60;
-        // this.RenderFrequency = 0;
+        VSyncEnabled = VSyncEnabled;
         LoadIcon();
         Title = WindowTitleText;
         GLFW.WindowHint(WindowHintBool.Decorated, false);
         // GL.Disable(EnableCap.Multisample);
     }
 
-    private void LoadIcon()
+    public bool VSyncEnabled
     {
-        var image = SixLabors.ImageSharp.Image.Load<Rgba32>(Path.Combine("Resources", "icon.png"));
-        image.DangerousTryGetSinglePixelMemory(out var imageSpan);
+        get
+        {
+            var v = PersistentData.GetBool("VSync", false);
+            return v;
+        }
+        set
+        {
+            VSync = value ? VSyncMode.On : VSyncMode.Off;
+            if (value)
+            {
+                UpdateFrequency = 120;
+                RenderFrequency = 120;
+            }
+            else
+            {
+                UpdateFrequency = 0;
+                RenderFrequency = 0;
+            }
 
-        byte[] imageBytes = MemoryMarshal.AsBytes(imageSpan.Span).ToArray();
-        WindowIcon windowIcon = new(new OpenTK.Windowing.Common.Input.Image(image.Width, image.Height, imageBytes));
-
-        Icon = windowIcon;
+            PersistentData.Set("VSync", value);
+        }
     }
 
     public Vector2 WindowSize => new(Size.X, Size.Y);
 
     public Vector2 WindowPosition { get; private set; }
-
-    private float _monitorScale;
     public float MonitorScale => _monitorScale;
-    public string WindowTitleText => $"Tofu3D | {GL.GetString(StringName.Version)} | {Tofu.SceneManager.CurrentScene?.SceneName} | {WindowSize}";
+
+    public string WindowTitleText =>
+        $"Tofu3D | {GL.GetString(StringName.Version)} | {Tofu.SceneManager.CurrentScene?.SceneName} | {WindowSize}";
+
+    private void LoadIcon()
+    {
+        var image = Image.Load<Rgba32>(Path.Combine("Resources", "icon.png"));
+        image.DangerousTryGetSinglePixelMemory(out var imageSpan);
+
+        var imageBytes = MemoryMarshal.AsBytes(imageSpan.Span).ToArray();
+        WindowIcon windowIcon = new(new OpenTK.Windowing.Common.Input.Image(image.Width, image.Height, imageBytes));
+
+        Icon = windowIcon;
+    }
 
     protected override unsafe void OnLoad()
     {
-        GLFW.GetMonitorWorkarea((Monitor*)CurrentMonitor.Pointer, out int x, out int y, out int width, out int height);
+        GLFW.GetMonitorWorkarea((Monitor*)CurrentMonitor.Pointer, out var x, out var y, out var width, out var height);
         GLFW.GetMonitorContentScale((Monitor*)CurrentMonitor.Pointer, out _monitorScale, out _);
         Size = new Vector2i(width, height);
 
         Location = Vector2i.Zero;
 
-        bool secondaryMonitor = true;
-        if (secondaryMonitor && GLFW.GetMonitors().Length > 1) Location = Vector2i.Zero + new Vector2i(0, -height);
+        var secondaryMonitor = true;
+        if (secondaryMonitor && GLFW.GetMonitors().Length > 1)
+        {
+            Location = Vector2i.Zero + new Vector2i(0, -height);
+        }
 
         // WindowState = WindowState.Fullscreen;
         WindowState = WindowState.Maximized;
@@ -107,14 +122,22 @@ public class Window : GameWindow
 
     protected override void OnUpdateFrame(FrameEventArgs e)
     {
-        if (_loaded == false) return;
-        Title = WindowTitleText + $"FPS [{Time.MinFps} <-> {Time.MaxFps}]";
+        if (_loaded == false)
+        {
+            return;
+        }
+
+        Title = WindowTitleText + $" FPS [{Time.MinFps} <-> {Time.MaxFps}]";
         base.OnUpdateFrame(e);
     }
 
     protected override void OnRenderFrame(FrameEventArgs e)
     {
-        if (_loaded == false) return;
+        if (_loaded == false)
+        {
+            return;
+        }
+
         base.OnRenderFrame(e);
     }
 

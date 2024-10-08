@@ -33,11 +33,20 @@ public static class KeyboardInput
         return;
 #endif
         if (key is Keys.LeftSuper)
+        {
             key = Keys.LeftControl;
+        }
         else if (key is Keys.RightSuper)
+        {
             key = Keys.RightControl;
+        }
         else if (key is Keys.LeftControl)
+        {
             key = Keys.LeftSuper;
-        else if (key is Keys.RightControl) key = Keys.RightSuper;
+        }
+        else if (key is Keys.RightControl)
+        {
+            key = Keys.RightSuper;
+        }
     }
 }

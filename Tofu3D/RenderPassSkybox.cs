@@ -4,12 +4,12 @@ namespace Tofu3D;
 
 public class RenderPassSkybox : RenderPass
 {
-    public static RenderPassSkybox I { get; private set; }
-
     public RenderPassSkybox() : base(RenderPassType.Skybox)
     {
         I = this;
     }
+
+    public static RenderPassSkybox I { get; private set; }
     // protected override bool CanRender()
     // {
     // 	return _directionalLight?.IsActive == true;

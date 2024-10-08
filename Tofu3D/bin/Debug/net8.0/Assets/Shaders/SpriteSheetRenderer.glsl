@@ -1,4 +1,4 @@
-﻿[BUFFERTYPE:Sprite]
+﻿[BUFFERTYPE: Sprite]
 [VERTEX]
 #version 410 core
 

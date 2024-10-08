@@ -4,6 +4,12 @@ namespace Tofu3D;
 
 public class EditorPanel
 {
+    private int _currentId;
+
+    internal bool Active = true;
+
+    internal bool IsPanelHovered;
+    public int WindowWidth;
     public virtual string Name => "";
 
     public virtual Vector2 Size => new(Tofu.Window.ClientSize.X - 1600,
@@ -12,13 +18,7 @@ public class EditorPanel
     public virtual Vector2 Position => new(0, Tofu.Window.ClientSize.Y);
     public virtual Vector2 Pivot => new(0, 1);
     public virtual ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.None;
-
-    internal bool Active = true;
-
-    internal bool IsPanelHovered;
-
-    private int _currentId;
-    public int WindowWidth;
+    public bool IsFullscreen { get; set; }
 
     internal void ResetId()
     {

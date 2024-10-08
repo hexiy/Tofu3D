@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace Tofu3D;
 
 /// <summary>
-///         Describes a 4D-vector.
+///     Describes a 4D-vector.
 /// </summary>
 #if XNADESIGNPROVIDED
     [System.ComponentMesh.TypeConverter(typeof(Microsoft.Xna.Framework.Design.Vector4TypeConverter))]
@@ -24,60 +24,56 @@ public struct Vector4 : IEquatable<Vector4>
     #region Public Fields
 
     /// <summary>
-    ///         The x coordinate of this <see cref="Vector4" />.
+    ///     The x coordinate of this <see cref="Vector4" />.
     /// </summary>
-    [DataMember]
-    public float X;
+    [DataMember] public float X;
 
     /// <summary>
-    ///         The y coordinate of this <see cref="Vector4" />.
+    ///     The y coordinate of this <see cref="Vector4" />.
     /// </summary>
-    [DataMember]
-    public float Y;
+    [DataMember] public float Y;
 
     /// <summary>
-    ///         The z coordinate of this <see cref="Vector4" />.
+    ///     The z coordinate of this <see cref="Vector4" />.
     /// </summary>
-    [DataMember]
-    public float Z;
+    [DataMember] public float Z;
 
     /// <summary>
-    ///         The w coordinate of this <see cref="Vector4" />.
+    ///     The w coordinate of this <see cref="Vector4" />.
     /// </summary>
-    [DataMember]
-    public float W;
+    [DataMember] public float W;
 
     #endregion
 
     #region Public Properties
 
     /// <summary>
-    ///         Returns a <see cref="Vector4" /> with components 0, 0, 0, 0.
+    ///     Returns a <see cref="Vector4" /> with components 0, 0, 0, 0.
     /// </summary>
     public static Vector4 Zero { get; } = new();
 
     /// <summary>
-    ///         Returns a <see cref="Vector4" /> with components 1, 1, 1, 1.
+    ///     Returns a <see cref="Vector4" /> with components 1, 1, 1, 1.
     /// </summary>
     public static Vector4 One { get; } = new(1f, 1f, 1f, 1f);
 
     /// <summary>
-    ///         Returns a <see cref="Vector4" /> with components 1, 0, 0, 0.
+    ///     Returns a <see cref="Vector4" /> with components 1, 0, 0, 0.
     /// </summary>
     public static Vector4 UnitX { get; } = new(1f, 0f, 0f, 0f);
 
     /// <summary>
-    ///         Returns a <see cref="Vector4" /> with components 0, 1, 0, 0.
+    ///     Returns a <see cref="Vector4" /> with components 0, 1, 0, 0.
     /// </summary>
     public static Vector4 UnitY { get; } = new(0f, 1f, 0f, 0f);
 
     /// <summary>
-    ///         Returns a <see cref="Vector4" /> with components 0, 0, 1, 0.
+    ///     Returns a <see cref="Vector4" /> with components 0, 0, 1, 0.
     /// </summary>
     public static Vector4 UnitZ { get; } = new(0f, 0f, 1f, 0f);
 
     /// <summary>
-    ///         Returns a <see cref="Vector4" /> with components 0, 0, 0, 1.
+    ///     Returns a <see cref="Vector4" /> with components 0, 0, 0, 1.
     /// </summary>
     public static Vector4 UnitW { get; } = new(0f, 0f, 0f, 1f);
 
@@ -98,7 +94,7 @@ public struct Vector4 : IEquatable<Vector4>
     #region Constructors
 
     /// <summary>
-    ///         Constructs a 3d vector with X, Y, Z and W from four values.
+    ///     Constructs a 3d vector with X, Y, Z and W from four values.
     /// </summary>
     /// <param name="x">The x coordinate in 4d-space.</param>
     /// <param name="y">The y coordinate in 4d-space.</param>
@@ -113,7 +109,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Constructs a 3d vector with X and Z from <see cref="Vector2" /> and Z and W from the scalars.
+    ///     Constructs a 3d vector with X and Z from <see cref="Vector2" /> and Z and W from the scalars.
     /// </summary>
     /// <param name="value">The x and y coordinates in 4d-space.</param>
     /// <param name="z">The z coordinate in 4d-space.</param>
@@ -127,7 +123,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Constructs a 3d vector with X, Y, Z from <see cref="Vector3" /> and W from a scalar.
+    ///     Constructs a 3d vector with X, Y, Z from <see cref="Vector3" /> and W from a scalar.
     /// </summary>
     /// <param name="value">The x, y and z coordinates in 4d-space.</param>
     /// <param name="w">The w coordinate in 4d-space.</param>
@@ -140,7 +136,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Constructs a 4d vector with X, Y, Z and W set to the same value.
+    ///     Constructs a 4d vector with X, Y, Z and W set to the same value.
     /// </summary>
     /// <param name="value">The x, y, z and w coordinates in 4d-space.</param>
     public Vector4(float value)
@@ -156,7 +152,7 @@ public struct Vector4 : IEquatable<Vector4>
     #region Public Methods
 
     /// <summary>
-    ///         Performs vector addition on <paramref name="value1" /> and <paramref name="value2" />.
+    ///     Performs vector addition on <paramref name="value1" /> and <paramref name="value2" />.
     /// </summary>
     /// <param name="value1">The first vector to add.</param>
     /// <param name="value2">The second vector to add.</param>
@@ -171,9 +167,9 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Performs vector addition on <paramref name="value1" /> and
-    ///         <paramref name="value2" />, storing the result of the
-    ///         addition in <paramref name="result" />.
+    ///     Performs vector addition on <paramref name="value1" /> and
+    ///     <paramref name="value2" />, storing the result of the
+    ///     addition in <paramref name="result" />.
     /// </summary>
     /// <param name="value1">The first vector to add.</param>
     /// <param name="value2">The second vector to add.</param>
@@ -187,44 +183,42 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains the cartesian coordinates of a vector specified in
-    ///         barycentric coordinates and relative to 4d-triangle.
+    ///     Creates a new <see cref="Vector4" /> that contains the cartesian coordinates of a vector specified in
+    ///     barycentric coordinates and relative to 4d-triangle.
     /// </summary>
     /// <param name="value1">The first vector of 4d-triangle.</param>
     /// <param name="value2">The second vector of 4d-triangle.</param>
     /// <param name="value3">The third vector of 4d-triangle.</param>
     /// <param name="amount1">
-    ///         Barycentric scalar <c>b2</c> which represents a weighting factor towards second vector of
-    ///         4d-triangle.
+    ///     Barycentric scalar <c>b2</c> which represents a weighting factor towards second vector of
+    ///     4d-triangle.
     /// </param>
     /// <param name="amount2">
-    ///         Barycentric scalar <c>b3</c> which represents a weighting factor towards third vector of
-    ///         4d-triangle.
+    ///     Barycentric scalar <c>b3</c> which represents a weighting factor towards third vector of
+    ///     4d-triangle.
     /// </param>
     /// <returns>The cartesian translation of barycentric coordinates.</returns>
-    public static Vector4 Barycentric(Vector4 value1, Vector4 value2, Vector4 value3, float amount1, float amount2)
-    {
-        return new Vector4(
+    public static Vector4 Barycentric(Vector4 value1, Vector4 value2, Vector4 value3, float amount1, float amount2) =>
+        new(
             Mathf.Barycentric(value1.X, value2.X, value3.X, amount1, amount2),
             Mathf.Barycentric(value1.Y, value2.Y, value3.Y, amount1, amount2),
             Mathf.Barycentric(value1.Z, value2.Z, value3.Z, amount1, amount2),
             Mathf.Barycentric(value1.W, value2.W, value3.W, amount1, amount2));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains the cartesian coordinates of a vector specified in
-    ///         barycentric coordinates and relative to 4d-triangle.
+    ///     Creates a new <see cref="Vector4" /> that contains the cartesian coordinates of a vector specified in
+    ///     barycentric coordinates and relative to 4d-triangle.
     /// </summary>
     /// <param name="value1">The first vector of 4d-triangle.</param>
     /// <param name="value2">The second vector of 4d-triangle.</param>
     /// <param name="value3">The third vector of 4d-triangle.</param>
     /// <param name="amount1">
-    ///         Barycentric scalar <c>b2</c> which represents a weighting factor towards second vector of
-    ///         4d-triangle.
+    ///     Barycentric scalar <c>b2</c> which represents a weighting factor towards second vector of
+    ///     4d-triangle.
     /// </param>
     /// <param name="amount2">
-    ///         Barycentric scalar <c>b3</c> which represents a weighting factor towards third vector of
-    ///         4d-triangle.
+    ///     Barycentric scalar <c>b3</c> which represents a weighting factor towards third vector of
+    ///     4d-triangle.
     /// </param>
     /// <param name="result">The cartesian translation of barycentric coordinates as an output parameter.</param>
     public static void Barycentric(ref Vector4 value1, ref Vector4 value2, ref Vector4 value3, float amount1,
@@ -237,7 +231,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains CatmullRom interpolation of the specified vectors.
+    ///     Creates a new <see cref="Vector4" /> that contains CatmullRom interpolation of the specified vectors.
     /// </summary>
     /// <param name="value1">The first vector in interpolation.</param>
     /// <param name="value2">The second vector in interpolation.</param>
@@ -245,17 +239,15 @@ public struct Vector4 : IEquatable<Vector4>
     /// <param name="value4">The fourth vector in interpolation.</param>
     /// <param name="amount">Weighting factor.</param>
     /// <returns>The result of CatmullRom interpolation.</returns>
-    public static Vector4 CatmullRom(Vector4 value1, Vector4 value2, Vector4 value3, Vector4 value4, float amount)
-    {
-        return new Vector4(
+    public static Vector4 CatmullRom(Vector4 value1, Vector4 value2, Vector4 value3, Vector4 value4, float amount) =>
+        new(
             Mathf.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
             Mathf.CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount),
             Mathf.CatmullRom(value1.Z, value2.Z, value3.Z, value4.Z, amount),
             Mathf.CatmullRom(value1.W, value2.W, value3.W, value4.W, amount));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains CatmullRom interpolation of the specified vectors.
+    ///     Creates a new <see cref="Vector4" /> that contains CatmullRom interpolation of the specified vectors.
     /// </summary>
     /// <param name="value1">The first vector in interpolation.</param>
     /// <param name="value2">The second vector in interpolation.</param>
@@ -273,7 +265,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Round the members of this <see cref="Vector4" /> towards positive infinity.
+    ///     Round the members of this <see cref="Vector4" /> towards positive infinity.
     /// </summary>
     public void Ceiling()
     {
@@ -284,8 +276,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains members from another vector rounded towards positive
-    ///         infinity.
+    ///     Creates a new <see cref="Vector4" /> that contains members from another vector rounded towards positive
+    ///     infinity.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <returns>The rounded <see cref="Vector4" />.</returns>
@@ -299,8 +291,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains members from another vector rounded towards positive
-    ///         infinity.
+    ///     Creates a new <see cref="Vector4" /> that contains members from another vector rounded towards positive
+    ///     infinity.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <param name="result">The rounded <see cref="Vector4" />.</param>
@@ -313,23 +305,21 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Clamps the specified value within a range.
+    ///     Clamps the specified value within a range.
     /// </summary>
     /// <param name="value1">The value to clamp.</param>
     /// <param name="min">The min value.</param>
     /// <param name="max">The max value.</param>
     /// <returns>The clamped value.</returns>
-    public static Vector4 Clamp(Vector4 value1, Vector4 min, Vector4 max)
-    {
-        return new Vector4(
+    public static Vector4 Clamp(Vector4 value1, Vector4 min, Vector4 max) =>
+        new(
             Mathf.Clamp(value1.X, min.X, max.X),
             Mathf.Clamp(value1.Y, min.Y, max.Y),
             Mathf.Clamp(value1.Z, min.Z, max.Z),
             Mathf.Clamp(value1.W, min.W, max.W));
-    }
 
     /// <summary>
-    ///         Clamps the specified value within a range.
+    ///     Clamps the specified value within a range.
     /// </summary>
     /// <param name="value1">The value to clamp.</param>
     /// <param name="min">The min value.</param>
@@ -344,18 +334,15 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Returns the distance between two vectors.
+    ///     Returns the distance between two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
     /// <returns>The distance between two vectors.</returns>
-    public static float Distance(Vector4 value1, Vector4 value2)
-    {
-        return MathF.Sqrt(DistanceSquared(value1, value2));
-    }
+    public static float Distance(Vector4 value1, Vector4 value2) => MathF.Sqrt(DistanceSquared(value1, value2));
 
     /// <summary>
-    ///         Returns the distance between two vectors.
+    ///     Returns the distance between two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -366,19 +353,17 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Returns the squared distance between two vectors.
+    ///     Returns the squared distance between two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
     /// <returns>The squared distance between two vectors.</returns>
-    public static float DistanceSquared(Vector4 value1, Vector4 value2)
-    {
-        return (value1.W - value2.W) * (value1.W - value2.W) + (value1.X - value2.X) * (value1.X - value2.X) +
-               (value1.Y - value2.Y) * (value1.Y - value2.Y) + (value1.Z - value2.Z) * (value1.Z - value2.Z);
-    }
+    public static float DistanceSquared(Vector4 value1, Vector4 value2) =>
+        (value1.W - value2.W) * (value1.W - value2.W) + (value1.X - value2.X) * (value1.X - value2.X) +
+        (value1.Y - value2.Y) * (value1.Y - value2.Y) + (value1.Z - value2.Z) * (value1.Z - value2.Z);
 
     /// <summary>
-    ///         Returns the squared distance between two vectors.
+    ///     Returns the squared distance between two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -390,7 +375,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector4" /> by the components of another <see cref="Vector4" />.
+    ///     Divides the components of a <see cref="Vector4" /> by the components of another <see cref="Vector4" />.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" />.</param>
     /// <param name="value2">Divisor <see cref="Vector4" />.</param>
@@ -405,14 +390,14 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector4" /> by a scalar.
+    ///     Divides the components of a <see cref="Vector4" /> by a scalar.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" />.</param>
     /// <param name="divider">Divisor scalar.</param>
     /// <returns>The result of dividing a vector by a scalar.</returns>
     public static Vector4 Divide(Vector4 value1, float divider)
     {
-        float factor = 1f / divider;
+        var factor = 1f / divider;
         value1.W *= factor;
         value1.X *= factor;
         value1.Y *= factor;
@@ -421,14 +406,14 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector4" /> by a scalar.
+    ///     Divides the components of a <see cref="Vector4" /> by a scalar.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" />.</param>
     /// <param name="divider">Divisor scalar.</param>
     /// <param name="result">The result of dividing a vector by a scalar as an output parameter.</param>
     public static void Divide(ref Vector4 value1, float divider, out Vector4 result)
     {
-        float factor = 1f / divider;
+        var factor = 1f / divider;
         result.W = value1.W * factor;
         result.X = value1.X * factor;
         result.Y = value1.Y * factor;
@@ -436,7 +421,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector4" /> by the components of another <see cref="Vector4" />.
+    ///     Divides the components of a <see cref="Vector4" /> by the components of another <see cref="Vector4" />.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" />.</param>
     /// <param name="value2">Divisor <see cref="Vector4" />.</param>
@@ -450,18 +435,16 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Returns a dot product of two vectors.
+    ///     Returns a dot product of two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
     /// <returns>The dot product of two vectors.</returns>
-    public static float Dot(Vector4 value1, Vector4 value2)
-    {
-        return value1.X * value2.X + value1.Y * value2.Y + value1.Z * value2.Z + value1.W * value2.W;
-    }
+    public static float Dot(Vector4 value1, Vector4 value2) =>
+        value1.X * value2.X + value1.Y * value2.Y + value1.Z * value2.Z + value1.W * value2.W;
 
     /// <summary>
-    ///         Returns a dot product of two vectors.
+    ///     Returns a dot product of two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -472,30 +455,25 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Compares whether current instance is equal to specified <see cref="Object" />.
+    ///     Compares whether current instance is equal to specified <see cref="Object" />.
     /// </summary>
     /// <param name="obj">The <see cref="Object" /> to compare.</param>
     /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-    public override bool Equals(object obj)
-    {
-        return obj is Vector4 ? this == (Vector4)obj : false;
-    }
+    public override bool Equals(object obj) => obj is Vector4 ? this == (Vector4)obj : false;
 
     /// <summary>
-    ///         Compares whether current instance is equal to specified <see cref="Vector4" />.
+    ///     Compares whether current instance is equal to specified <see cref="Vector4" />.
     /// </summary>
     /// <param name="other">The <see cref="Vector4" /> to compare.</param>
     /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-    public bool Equals(Vector4 other)
-    {
-        return W == other.W
-               && X == other.X
-               && Y == other.Y
-               && Z == other.Z;
-    }
+    public bool Equals(Vector4 other) =>
+        W == other.W
+        && X == other.X
+        && Y == other.Y
+        && Z == other.Z;
 
     /// <summary>
-    ///         Round the members of this <see cref="Vector4" /> towards negative infinity.
+    ///     Round the members of this <see cref="Vector4" /> towards negative infinity.
     /// </summary>
     public void Floor()
     {
@@ -506,8 +484,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains members from another vector rounded towards negative
-    ///         infinity.
+    ///     Creates a new <see cref="Vector4" /> that contains members from another vector rounded towards negative
+    ///     infinity.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <returns>The rounded <see cref="Vector4" />.</returns>
@@ -521,8 +499,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains members from another vector rounded towards negative
-    ///         infinity.
+    ///     Creates a new <see cref="Vector4" /> that contains members from another vector rounded towards negative
+    ///     infinity.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <param name="result">The rounded <see cref="Vector4" />.</param>
@@ -535,14 +513,14 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Gets the hash code of this <see cref="Vector4" />.
+    ///     Gets the hash code of this <see cref="Vector4" />.
     /// </summary>
     /// <returns>Hash code of this <see cref="Vector4" />.</returns>
     public override int GetHashCode()
     {
         unchecked
         {
-            int hashCode = W.GetHashCode();
+            var hashCode = W.GetHashCode();
             hashCode = (hashCode * 397) ^ X.GetHashCode();
             hashCode = (hashCode * 397) ^ Y.GetHashCode();
             hashCode = (hashCode * 397) ^ Z.GetHashCode();
@@ -551,7 +529,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains hermite spline interpolation.
+    ///     Creates a new <see cref="Vector4" /> that contains hermite spline interpolation.
     /// </summary>
     /// <param name="value1">The first position vector.</param>
     /// <param name="tangent1">The first tangent vector.</param>
@@ -559,16 +537,14 @@ public struct Vector4 : IEquatable<Vector4>
     /// <param name="tangent2">The second tangent vector.</param>
     /// <param name="amount">Weighting factor.</param>
     /// <returns>The hermite spline interpolation vector.</returns>
-    public static Vector4 Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount)
-    {
-        return new Vector4(Mathf.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount),
+    public static Vector4 Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount) =>
+        new(Mathf.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount),
             Mathf.Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount),
             Mathf.Hermite(value1.Z, tangent1.Z, value2.Z, tangent2.Z, amount),
             Mathf.Hermite(value1.W, tangent1.W, value2.W, tangent2.W, amount));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains hermite spline interpolation.
+    ///     Creates a new <see cref="Vector4" /> that contains hermite spline interpolation.
     /// </summary>
     /// <param name="value1">The first position vector.</param>
     /// <param name="tangent1">The first tangent vector.</param>
@@ -586,41 +562,33 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Returns the length of this <see cref="Vector4" />.
+    ///     Returns the length of this <see cref="Vector4" />.
     /// </summary>
     /// <returns>The length of this <see cref="Vector4" />.</returns>
-    public float Length()
-    {
-        return MathF.Sqrt(X * X + Y * Y + Z * Z + W * W);
-    }
+    public float Length() => MathF.Sqrt(X * X + Y * Y + Z * Z + W * W);
 
     /// <summary>
-    ///         Returns the squared length of this <see cref="Vector4" />.
+    ///     Returns the squared length of this <see cref="Vector4" />.
     /// </summary>
     /// <returns>The squared length of this <see cref="Vector4" />.</returns>
-    public float LengthSquared()
-    {
-        return X * X + Y * Y + Z * Z + W * W;
-    }
+    public float LengthSquared() => X * X + Y * Y + Z * Z + W * W;
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains linear interpolation of the specified vectors.
+    ///     Creates a new <see cref="Vector4" /> that contains linear interpolation of the specified vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
     /// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
     /// <returns>The result of linear interpolation of the specified vectors.</returns>
-    public static Vector4 Lerp(Vector4 value1, Vector4 value2, float amount)
-    {
-        return new Vector4(
+    public static Vector4 Lerp(Vector4 value1, Vector4 value2, float amount) =>
+        new(
             Mathf.Lerp(value1.X, value2.X, amount),
             Mathf.Lerp(value1.Y, value2.Y, amount),
             Mathf.Lerp(value1.Z, value2.Z, amount),
             Mathf.Lerp(value1.W, value2.W, amount));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains linear interpolation of the specified vectors.
+    ///     Creates a new <see cref="Vector4" /> that contains linear interpolation of the specified vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -635,30 +603,28 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains linear interpolation of the specified vectors.
-    ///         Uses <see cref="Mathf.LerpPrecise" /> on MathHelper for the interpolation.
-    ///         Less efficient but more precise compared to <see cref="Vector4.Lerp(Vector4, Vector4, float)" />.
-    ///         See remarks section of <see cref="Mathf.LerpPrecise" /> on MathHelper for more info.
+    ///     Creates a new <see cref="Vector4" /> that contains linear interpolation of the specified vectors.
+    ///     Uses <see cref="Mathf.LerpPrecise" /> on MathHelper for the interpolation.
+    ///     Less efficient but more precise compared to <see cref="Vector4.Lerp(Vector4, Vector4, float)" />.
+    ///     See remarks section of <see cref="Mathf.LerpPrecise" /> on MathHelper for more info.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
     /// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
     /// <returns>The result of linear interpolation of the specified vectors.</returns>
-    public static Vector4 LerpPrecise(Vector4 value1, Vector4 value2, float amount)
-    {
-        return new Vector4(
+    public static Vector4 LerpPrecise(Vector4 value1, Vector4 value2, float amount) =>
+        new(
             Mathf.LerpPrecise(value1.X, value2.X, amount),
             Mathf.LerpPrecise(value1.Y, value2.Y, amount),
             Mathf.LerpPrecise(value1.Z, value2.Z, amount),
             Mathf.LerpPrecise(value1.W, value2.W, amount));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains linear interpolation of the specified vectors.
-    ///         Uses <see cref="Mathf.LerpPrecise" /> on MathHelper for the interpolation.
-    ///         Less efficient but more precise compared to
-    ///         <see cref="Vector4.Lerp(ref Vector4, ref Vector4, float, out Vector4)" />.
-    ///         See remarks section of <see cref="Mathf.LerpPrecise" /> on MathHelper for more info.
+    ///     Creates a new <see cref="Vector4" /> that contains linear interpolation of the specified vectors.
+    ///     Uses <see cref="Mathf.LerpPrecise" /> on MathHelper for the interpolation.
+    ///     Less efficient but more precise compared to
+    ///     <see cref="Vector4.Lerp(ref Vector4, ref Vector4, float, out Vector4)" />.
+    ///     See remarks section of <see cref="Mathf.LerpPrecise" /> on MathHelper for more info.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -673,22 +639,20 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a maximal values from the two vectors.
+    ///     Creates a new <see cref="Vector4" /> that contains a maximal values from the two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
     /// <returns>The <see cref="Vector4" /> with maximal values from the two vectors.</returns>
-    public static Vector4 Max(Vector4 value1, Vector4 value2)
-    {
-        return new Vector4(
+    public static Vector4 Max(Vector4 value1, Vector4 value2) =>
+        new(
             Mathf.Max(value1.X, value2.X),
             Mathf.Max(value1.Y, value2.Y),
             Mathf.Max(value1.Z, value2.Z),
             Mathf.Max(value1.W, value2.W));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a maximal values from the two vectors.
+    ///     Creates a new <see cref="Vector4" /> that contains a maximal values from the two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -702,22 +666,20 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a minimal values from the two vectors.
+    ///     Creates a new <see cref="Vector4" /> that contains a minimal values from the two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
     /// <returns>The <see cref="Vector4" /> with minimal values from the two vectors.</returns>
-    public static Vector4 Min(Vector4 value1, Vector4 value2)
-    {
-        return new Vector4(
+    public static Vector4 Min(Vector4 value1, Vector4 value2) =>
+        new(
             Mathf.Min(value1.X, value2.X),
             Mathf.Min(value1.Y, value2.Y),
             Mathf.Min(value1.Z, value2.Z),
             Mathf.Min(value1.W, value2.W));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a minimal values from the two vectors.
+    ///     Creates a new <see cref="Vector4" /> that contains a minimal values from the two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
     /// <param name="value2">The second vector.</param>
@@ -731,7 +693,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a multiplication of two vectors.
+    ///     Creates a new <see cref="Vector4" /> that contains a multiplication of two vectors.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" />.</param>
     /// <param name="value2">Source <see cref="Vector4" />.</param>
@@ -746,7 +708,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a multiplication of <see cref="Vector4" /> and a scalar.
+    ///     Creates a new <see cref="Vector4" /> that contains a multiplication of <see cref="Vector4" /> and a scalar.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" />.</param>
     /// <param name="scaleFactor">Scalar value.</param>
@@ -761,7 +723,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a multiplication of <see cref="Vector4" /> and a scalar.
+    ///     Creates a new <see cref="Vector4" /> that contains a multiplication of <see cref="Vector4" /> and a scalar.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" />.</param>
     /// <param name="scaleFactor">Scalar value.</param>
@@ -775,7 +737,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a multiplication of two vectors.
+    ///     Creates a new <see cref="Vector4" /> that contains a multiplication of two vectors.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" />.</param>
     /// <param name="value2">Source <see cref="Vector4" />.</param>
@@ -789,7 +751,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains the specified vector inversion.
+    ///     Creates a new <see cref="Vector4" /> that contains the specified vector inversion.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <returns>The result of the vector inversion.</returns>
@@ -800,7 +762,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains the specified vector inversion.
+    ///     Creates a new <see cref="Vector4" /> that contains the specified vector inversion.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <param name="result">The result of the vector inversion as an output parameter.</param>
@@ -813,11 +775,11 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Turns this <see cref="Vector4" /> to a unit vector with the same direction.
+    ///     Turns this <see cref="Vector4" /> to a unit vector with the same direction.
     /// </summary>
     public void Normalize()
     {
-        float factor = MathF.Sqrt(X * X + Y * Y + Z * Z + W * W);
+        var factor = MathF.Sqrt(X * X + Y * Y + Z * Z + W * W);
         factor = 1f / factor;
         X *= factor;
         Y *= factor;
@@ -826,25 +788,25 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a normalized values from another vector.
+    ///     Creates a new <see cref="Vector4" /> that contains a normalized values from another vector.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <returns>Unit vector.</returns>
     public static Vector4 Normalize(Vector4 value)
     {
-        float factor = MathF.Sqrt(value.X * value.X + value.Y * value.Y + value.Z * value.Z + value.W * value.W);
+        var factor = MathF.Sqrt(value.X * value.X + value.Y * value.Y + value.Z * value.Z + value.W * value.W);
         factor = 1f / factor;
         return new Vector4(value.X * factor, value.Y * factor, value.Z * factor, value.W * factor);
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a normalized values from another vector.
+    ///     Creates a new <see cref="Vector4" /> that contains a normalized values from another vector.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <param name="result">Unit vector as an output parameter.</param>
     public static void Normalize(ref Vector4 value, out Vector4 result)
     {
-        float factor = MathF.Sqrt(value.X * value.X + value.Y * value.Y + value.Z * value.Z + value.W * value.W);
+        var factor = MathF.Sqrt(value.X * value.X + value.Y * value.Y + value.Z * value.Z + value.W * value.W);
         factor = 1f / factor;
         result.W = value.W * factor;
         result.X = value.X * factor;
@@ -853,7 +815,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Round the members of this <see cref="Vector4" /> to the nearest integer value.
+    ///     Round the members of this <see cref="Vector4" /> to the nearest integer value.
     /// </summary>
     public void Round()
     {
@@ -864,8 +826,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains members from another vector rounded to the nearest integer
-    ///         value.
+    ///     Creates a new <see cref="Vector4" /> that contains members from another vector rounded to the nearest integer
+    ///     value.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <returns>The rounded <see cref="Vector4" />.</returns>
@@ -879,8 +841,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains members from another vector rounded to the nearest integer
-    ///         value.
+    ///     Creates a new <see cref="Vector4" /> that contains members from another vector rounded to the nearest integer
+    ///     value.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <param name="result">The rounded <see cref="Vector4" />.</param>
@@ -893,23 +855,21 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains cubic interpolation of the specified vectors.
+    ///     Creates a new <see cref="Vector4" /> that contains cubic interpolation of the specified vectors.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" />.</param>
     /// <param name="value2">Source <see cref="Vector4" />.</param>
     /// <param name="amount">Weighting value.</param>
     /// <returns>Cubic interpolation of the specified vectors.</returns>
-    public static Vector4 SmoothStep(Vector4 value1, Vector4 value2, float amount)
-    {
-        return new Vector4(
+    public static Vector4 SmoothStep(Vector4 value1, Vector4 value2, float amount) =>
+        new(
             Mathf.SmoothStep(value1.X, value2.X, amount),
             Mathf.SmoothStep(value1.Y, value2.Y, amount),
             Mathf.SmoothStep(value1.Z, value2.Z, amount),
             Mathf.SmoothStep(value1.W, value2.W, amount));
-    }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains cubic interpolation of the specified vectors.
+    ///     Creates a new <see cref="Vector4" /> that contains cubic interpolation of the specified vectors.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" />.</param>
     /// <param name="value2">Source <see cref="Vector4" />.</param>
@@ -924,7 +884,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains subtraction of on <see cref="Vector4" /> from a another.
+    ///     Creates a new <see cref="Vector4" /> that contains subtraction of on <see cref="Vector4" /> from a another.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" />.</param>
     /// <param name="value2">Source <see cref="Vector4" />.</param>
@@ -939,7 +899,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains subtraction of on <see cref="Vector4" /> from a another.
+    ///     Creates a new <see cref="Vector4" /> that contains subtraction of on <see cref="Vector4" /> from a another.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" />.</param>
     /// <param name="value2">Source <see cref="Vector4" />.</param>
@@ -955,8 +915,8 @@ public struct Vector4 : IEquatable<Vector4>
     #region Transform
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a transformation of 2d-vector by the specified
-    ///         <see cref="Matrix" />.
+    ///     Creates a new <see cref="Vector4" /> that contains a transformation of 2d-vector by the specified
+    ///     <see cref="Matrix" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
@@ -969,8 +929,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a transformation of 2d-vector by the specified
-    ///         <see cref="Quaternion" />.
+    ///     Creates a new <see cref="Vector4" /> that contains a transformation of 2d-vector by the specified
+    ///     <see cref="Quaternion" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <param name="rotation">The <see cref="Quaternion" /> which contains rotation transformation.</param>
@@ -983,8 +943,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a transformation of 3d-vector by the specified
-    ///         <see cref="Matrix" />.
+    ///     Creates a new <see cref="Vector4" /> that contains a transformation of 3d-vector by the specified
+    ///     <see cref="Matrix" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector3" />.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
@@ -997,8 +957,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a transformation of 3d-vector by the specified
-    ///         <see cref="Quaternion" />.
+    ///     Creates a new <see cref="Vector4" /> that contains a transformation of 3d-vector by the specified
+    ///     <see cref="Quaternion" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector3" />.</param>
     /// <param name="rotation">The <see cref="Quaternion" /> which contains rotation transformation.</param>
@@ -1011,8 +971,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a transformation of 4d-vector by the specified
-    ///         <see cref="Matrix" />.
+    ///     Creates a new <see cref="Vector4" /> that contains a transformation of 4d-vector by the specified
+    ///     <see cref="Matrix" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
@@ -1024,8 +984,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a transformation of 4d-vector by the specified
-    ///         <see cref="Quaternion" />.
+    ///     Creates a new <see cref="Vector4" /> that contains a transformation of 4d-vector by the specified
+    ///     <see cref="Quaternion" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <param name="rotation">The <see cref="Quaternion" /> which contains rotation transformation.</param>
@@ -1038,8 +998,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a transformation of 2d-vector by the specified
-    ///         <see cref="Matrix" />.
+    ///     Creates a new <see cref="Vector4" /> that contains a transformation of 2d-vector by the specified
+    ///     <see cref="Matrix" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
@@ -1053,8 +1013,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a transformation of 2d-vector by the specified
-    ///         <see cref="Quaternion" />.
+    ///     Creates a new <see cref="Vector4" /> that contains a transformation of 2d-vector by the specified
+    ///     <see cref="Quaternion" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector2" />.</param>
     /// <param name="rotation">The <see cref="Quaternion" /> which contains rotation transformation.</param>
@@ -1065,8 +1025,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a transformation of 3d-vector by the specified
-    ///         <see cref="Matrix" />.
+    ///     Creates a new <see cref="Vector4" /> that contains a transformation of 3d-vector by the specified
+    ///     <see cref="Matrix" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector3" />.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
@@ -1080,8 +1040,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a transformation of 3d-vector by the specified
-    ///         <see cref="Quaternion" />.
+    ///     Creates a new <see cref="Vector4" /> that contains a transformation of 3d-vector by the specified
+    ///     <see cref="Quaternion" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector3" />.</param>
     /// <param name="rotation">The <see cref="Quaternion" /> which contains rotation transformation.</param>
@@ -1092,18 +1052,18 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a transformation of 4d-vector by the specified
-    ///         <see cref="Matrix" />.
+    ///     Creates a new <see cref="Vector4" /> that contains a transformation of 4d-vector by the specified
+    ///     <see cref="Matrix" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
     /// <param name="result">Transformed <see cref="Vector4" /> as an output parameter.</param>
     public static void Transform(ref Vector4 value, ref Matrix matrix, out Vector4 result)
     {
-        float x = value.X * matrix.M11 + value.Y * matrix.M21 + value.Z * matrix.M31 + value.W * matrix.M41;
-        float y = value.X * matrix.M12 + value.Y * matrix.M22 + value.Z * matrix.M32 + value.W * matrix.M42;
-        float z = value.X * matrix.M13 + value.Y * matrix.M23 + value.Z * matrix.M33 + value.W * matrix.M43;
-        float w = value.X * matrix.M14 + value.Y * matrix.M24 + value.Z * matrix.M34 + value.W * matrix.M44;
+        var x = value.X * matrix.M11 + value.Y * matrix.M21 + value.Z * matrix.M31 + value.W * matrix.M41;
+        var y = value.X * matrix.M12 + value.Y * matrix.M22 + value.Z * matrix.M32 + value.W * matrix.M42;
+        var z = value.X * matrix.M13 + value.Y * matrix.M23 + value.Z * matrix.M33 + value.W * matrix.M43;
+        var w = value.X * matrix.M14 + value.Y * matrix.M24 + value.Z * matrix.M34 + value.W * matrix.M44;
         result.X = x;
         result.Y = y;
         result.Z = z;
@@ -1111,8 +1071,8 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Creates a new <see cref="Vector4" /> that contains a transformation of 4d-vector by the specified
-    ///         <see cref="Quaternion" />.
+    ///     Creates a new <see cref="Vector4" /> that contains a transformation of 4d-vector by the specified
+    ///     <see cref="Quaternion" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" />.</param>
     /// <param name="rotation">The <see cref="Quaternion" /> which contains rotation transformation.</param>
@@ -1123,16 +1083,16 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Apply transformation on vectors within array of <see cref="Vector4" /> by the specified <see cref="Matrix" />
-    ///         and places the results in an another array.
+    ///     Apply transformation on vectors within array of <see cref="Vector4" /> by the specified <see cref="Matrix" />
+    ///     and places the results in an another array.
     /// </summary>
     /// <param name="sourceArray">Source array.</param>
     /// <param name="sourceIndex">The starting index of transformation in the source array.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
     /// <param name="destinationArray">Destination array.</param>
     /// <param name="destinationIndex">
-    ///         The starting index in the destination array, where the first <see cref="Vector4" />
-    ///         should be written.
+    ///     The starting index in the destination array, where the first <see cref="Vector4" />
+    ///     should be written.
     /// </param>
     /// <param name="length">The number of vectors to be transformed.</param>
     public static void Transform(Vector4[] sourceArray,
@@ -1142,34 +1102,44 @@ public struct Vector4 : IEquatable<Vector4>
         int destinationIndex,
         int length)
     {
-        if (sourceArray == null) throw new ArgumentNullException("sourceArray");
+        if (sourceArray == null)
+        {
+            throw new ArgumentNullException("sourceArray");
+        }
 
-        if (destinationArray == null) throw new ArgumentNullException("destinationArray");
+        if (destinationArray == null)
+        {
+            throw new ArgumentNullException("destinationArray");
+        }
 
         if (sourceArray.Length < sourceIndex + length)
+        {
             throw new ArgumentException("Source array length is lesser than sourceIndex + length");
+        }
 
         if (destinationArray.Length < destinationIndex + length)
-            throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
-
-        for (int i = 0; i < length; i++)
         {
-            Vector4 value = sourceArray[sourceIndex + i];
+            throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
+        }
+
+        for (var i = 0; i < length; i++)
+        {
+            var value = sourceArray[sourceIndex + i];
             destinationArray[destinationIndex + i] = Transform(value, matrix);
         }
     }
 
     /// <summary>
-    ///         Apply transformation on vectors within array of <see cref="Vector4" /> by the specified
-    ///         <see cref="Quaternion" /> and places the results in an another array.
+    ///     Apply transformation on vectors within array of <see cref="Vector4" /> by the specified
+    ///     <see cref="Quaternion" /> and places the results in an another array.
     /// </summary>
     /// <param name="sourceArray">Source array.</param>
     /// <param name="sourceIndex">The starting index of transformation in the source array.</param>
     /// <param name="rotation">The <see cref="Quaternion" /> which contains rotation transformation.</param>
     /// <param name="destinationArray">Destination array.</param>
     /// <param name="destinationIndex">
-    ///         The starting index in the destination array, where the first <see cref="Vector4" />
-    ///         should be written.
+    ///     The starting index in the destination array, where the first <see cref="Vector4" />
+    ///     should be written.
     /// </param>
     /// <param name="length">The number of vectors to be transformed.</param>
     public static void Transform(Vector4[] sourceArray,
@@ -1179,65 +1149,91 @@ public struct Vector4 : IEquatable<Vector4>
         int destinationIndex,
         int length)
     {
-        if (sourceArray == null) throw new ArgumentNullException("sourceArray");
+        if (sourceArray == null)
+        {
+            throw new ArgumentNullException("sourceArray");
+        }
 
-        if (destinationArray == null) throw new ArgumentNullException("destinationArray");
+        if (destinationArray == null)
+        {
+            throw new ArgumentNullException("destinationArray");
+        }
 
         if (sourceArray.Length < sourceIndex + length)
+        {
             throw new ArgumentException("Source array length is lesser than sourceIndex + length");
+        }
 
         if (destinationArray.Length < destinationIndex + length)
-            throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
-
-        for (int i = 0; i < length; i++)
         {
-            Vector4 value = sourceArray[sourceIndex + i];
+            throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
+        }
+
+        for (var i = 0; i < length; i++)
+        {
+            var value = sourceArray[sourceIndex + i];
             destinationArray[destinationIndex + i] = Transform(value, rotation);
         }
     }
 
     /// <summary>
-    ///         Apply transformation on all vectors within array of <see cref="Vector4" /> by the specified
-    ///         <see cref="Matrix" /> and places the results in an another array.
+    ///     Apply transformation on all vectors within array of <see cref="Vector4" /> by the specified
+    ///     <see cref="Matrix" /> and places the results in an another array.
     /// </summary>
     /// <param name="sourceArray">Source array.</param>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
     /// <param name="destinationArray">Destination array.</param>
     public static void Transform(Vector4[] sourceArray, ref Matrix matrix, Vector4[] destinationArray)
     {
-        if (sourceArray == null) throw new ArgumentNullException("sourceArray");
+        if (sourceArray == null)
+        {
+            throw new ArgumentNullException("sourceArray");
+        }
 
-        if (destinationArray == null) throw new ArgumentNullException("destinationArray");
+        if (destinationArray == null)
+        {
+            throw new ArgumentNullException("destinationArray");
+        }
 
         if (destinationArray.Length < sourceArray.Length)
-            throw new ArgumentException("Destination array length is lesser than source array length");
-
-        for (int i = 0; i < sourceArray.Length; i++)
         {
-            Vector4 value = sourceArray[i];
+            throw new ArgumentException("Destination array length is lesser than source array length");
+        }
+
+        for (var i = 0; i < sourceArray.Length; i++)
+        {
+            var value = sourceArray[i];
             destinationArray[i] = Transform(value, matrix);
         }
     }
 
     /// <summary>
-    ///         Apply transformation on all vectors within array of <see cref="Vector4" /> by the specified
-    ///         <see cref="Quaternion" /> and places the results in an another array.
+    ///     Apply transformation on all vectors within array of <see cref="Vector4" /> by the specified
+    ///     <see cref="Quaternion" /> and places the results in an another array.
     /// </summary>
     /// <param name="sourceArray">Source array.</param>
     /// <param name="rotation">The <see cref="Quaternion" /> which contains rotation transformation.</param>
     /// <param name="destinationArray">Destination array.</param>
     public static void Transform(Vector4[] sourceArray, ref Quaternion rotation, Vector4[] destinationArray)
     {
-        if (sourceArray == null) throw new ArgumentNullException("sourceArray");
+        if (sourceArray == null)
+        {
+            throw new ArgumentNullException("sourceArray");
+        }
 
-        if (destinationArray == null) throw new ArgumentNullException("destinationArray");
+        if (destinationArray == null)
+        {
+            throw new ArgumentNullException("destinationArray");
+        }
 
         if (destinationArray.Length < sourceArray.Length)
-            throw new ArgumentException("Destination array length is lesser than source array length");
-
-        for (int i = 0; i < sourceArray.Length; i++)
         {
-            Vector4 value = sourceArray[i];
+            throw new ArgumentException("Destination array length is lesser than source array length");
+        }
+
+        for (var i = 0; i < sourceArray.Length; i++)
+        {
+            var value = sourceArray[i];
             destinationArray[i] = Transform(value, rotation);
         }
     }
@@ -1245,17 +1241,14 @@ public struct Vector4 : IEquatable<Vector4>
     #endregion
 
     /// <summary>
-    ///         Returns a <see cref="String" /> representation of this <see cref="Vector4" /> in the format:
-    ///         {X:[<see cref="X" />] Y:[<see cref="Y" />] Z:[<see cref="Z" />] W:[<see cref="W" />]}
+    ///     Returns a <see cref="String" /> representation of this <see cref="Vector4" /> in the format:
+    ///     {X:[<see cref="X" />] Y:[<see cref="Y" />] Z:[<see cref="Z" />] W:[<see cref="W" />]}
     /// </summary>
     /// <returns>A <see cref="String" /> representation of this <see cref="Vector4" />.</returns>
-    public override string ToString()
-    {
-        return "{X:" + X + " Y:" + Y + " Z:" + Z + " W:" + W + "}";
-    }
+    public override string ToString() => "{X:" + X + " Y:" + Y + " Z:" + Z + " W:" + W + "}";
 
     /// <summary>
-    ///         Deconstruction method for <see cref="Vector4" />.
+    ///     Deconstruction method for <see cref="Vector4" />.
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
@@ -1270,72 +1263,55 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Returns a <see cref="System.Numerics.Vector4" />.
+    ///     Returns a <see cref="System.Numerics.Vector4" />.
     /// </summary>
-    public System.Numerics.Vector4 ToNumerics()
-    {
-        return new System.Numerics.Vector4(X, Y, Z, W);
-    }
+    public System.Numerics.Vector4 ToNumerics() => new(X, Y, Z, W);
 
     #endregion
 
     #region Operators
 
     /// <summary>
-    ///         Converts a <see cref="System.Numerics.Vector4" /> to a <see cref="Vector4" />.
+    ///     Converts a <see cref="System.Numerics.Vector4" /> to a <see cref="Vector4" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator Vector4(System.Numerics.Vector4 value)
-    {
-        return new Vector4(value.X, value.Y, value.Z, value.W);
-    }
+    public static implicit operator Vector4(System.Numerics.Vector4 value) => new(value.X, value.Y, value.Z, value.W);
 
     /// <summary>
-    ///         Converts a <see cref="Vector4" /> to a <see cref="System.Numerics.Vector4" />.
+    ///     Converts a <see cref="Vector4" /> to a <see cref="System.Numerics.Vector4" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator System.Numerics.Vector4(Vector4 value)
-    {
-        return new System.Numerics.Vector4(value.X, value.Y, value.Z, value.W);
-    }
+    public static implicit operator System.Numerics.Vector4(Vector4 value) => new(value.X, value.Y, value.Z, value.W);
 
     /// <summary>
-    ///         Inverts values in the specified <see cref="Vector4" />.
+    ///     Inverts values in the specified <see cref="Vector4" />.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" /> on the right of the sub sign.</param>
     /// <returns>Result of the inversion.</returns>
-    public static Vector4 operator -(Vector4 value)
-    {
-        return new Vector4(-value.X, -value.Y, -value.Z, -value.W);
-    }
+    public static Vector4 operator -(Vector4 value) => new(-value.X, -value.Y, -value.Z, -value.W);
 
     /// <summary>
-    ///         Compares whether two <see cref="Vector4" /> instances are equal.
+    ///     Compares whether two <see cref="Vector4" /> instances are equal.
     /// </summary>
     /// <param name="value1"><see cref="Vector4" /> instance on the left of the equal sign.</param>
     /// <param name="value2"><see cref="Vector4" /> instance on the right of the equal sign.</param>
     /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-    public static bool operator ==(Vector4 value1, Vector4 value2)
-    {
-        return value1.W == value2.W
-               && value1.X == value2.X
-               && value1.Y == value2.Y
-               && value1.Z == value2.Z;
-    }
+    public static bool operator ==(Vector4 value1, Vector4 value2) =>
+        value1.W == value2.W
+        && value1.X == value2.X
+        && value1.Y == value2.Y
+        && value1.Z == value2.Z;
 
     /// <summary>
-    ///         Compares whether two <see cref="Vector4" /> instances are not equal.
+    ///     Compares whether two <see cref="Vector4" /> instances are not equal.
     /// </summary>
     /// <param name="value1"><see cref="Vector4" /> instance on the left of the not equal sign.</param>
     /// <param name="value2"><see cref="Vector4" /> instance on the right of the not equal sign.</param>
     /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>
-    public static bool operator !=(Vector4 value1, Vector4 value2)
-    {
-        return !(value1 == value2);
-    }
+    public static bool operator !=(Vector4 value1, Vector4 value2) => !(value1 == value2);
 
     /// <summary>
-    ///         Adds two vectors.
+    ///     Adds two vectors.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" /> on the left of the add sign.</param>
     /// <param name="value2">Source <see cref="Vector4" /> on the right of the add sign.</param>
@@ -1350,7 +1326,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Subtracts a <see cref="Vector4" /> from a <see cref="Vector4" />.
+    ///     Subtracts a <see cref="Vector4" /> from a <see cref="Vector4" />.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" /> on the left of the sub sign.</param>
     /// <param name="value2">Source <see cref="Vector4" /> on the right of the sub sign.</param>
@@ -1365,7 +1341,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Multiplies the components of two vectors by each other.
+    ///     Multiplies the components of two vectors by each other.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" /> on the left of the mul sign.</param>
     /// <param name="value2">Source <see cref="Vector4" /> on the right of the mul sign.</param>
@@ -1380,7 +1356,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Multiplies the components of vector by a scalar.
+    ///     Multiplies the components of vector by a scalar.
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" /> on the left of the mul sign.</param>
     /// <param name="scaleFactor">Scalar value on the right of the mul sign.</param>
@@ -1395,7 +1371,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Multiplies the components of vector by a scalar.
+    ///     Multiplies the components of vector by a scalar.
     /// </summary>
     /// <param name="scaleFactor">Scalar value on the left of the mul sign.</param>
     /// <param name="value">Source <see cref="Vector4" /> on the right of the mul sign.</param>
@@ -1410,7 +1386,7 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector4" /> by the components of another <see cref="Vector4" />.
+    ///     Divides the components of a <see cref="Vector4" /> by the components of another <see cref="Vector4" />.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" /> on the left of the div sign.</param>
     /// <param name="value2">Divisor <see cref="Vector4" /> on the right of the div sign.</param>
@@ -1425,14 +1401,14 @@ public struct Vector4 : IEquatable<Vector4>
     }
 
     /// <summary>
-    ///         Divides the components of a <see cref="Vector4" /> by a scalar.
+    ///     Divides the components of a <see cref="Vector4" /> by a scalar.
     /// </summary>
     /// <param name="value1">Source <see cref="Vector4" /> on the left of the div sign.</param>
     /// <param name="divider">Divisor scalar on the right of the div sign.</param>
     /// <returns>The result of dividing a vector by a scalar.</returns>
     public static Vector4 operator /(Vector4 value1, float divider)
     {
-        float factor = 1f / divider;
+        var factor = 1f / divider;
         value1.W *= factor;
         value1.X *= factor;
         value1.Y *= factor;

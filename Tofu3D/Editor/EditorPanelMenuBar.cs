@@ -1,19 +1,19 @@
 using ImGuiNET;
-using OpenTK.Windowing.Common;
 
 namespace Tofu3D;
 
 public class EditorPanelMenuBar : EditorPanel
 {
-    public static EditorPanelMenuBar I { get; private set; }
-    public override string Name => "Menu Bar";
-    private EditorLayoutManager _editorLayoutManager;
+    private readonly EditorLayoutManager _editorLayoutManager;
 
 
     public EditorPanelMenuBar(EditorLayoutManager editorLayoutManager)
     {
         _editorLayoutManager = editorLayoutManager;
     }
+
+    public static EditorPanelMenuBar I { get; private set; }
+    public override string Name => "Menu Bar";
 
     public override void Init()
     {
@@ -22,7 +22,10 @@ public class EditorPanelMenuBar : EditorPanel
 
     public override void Draw()
     {
-        if (Active == false) return;
+        if (Active == false)
+        {
+            return;
+        }
 
         if (Global.EditorAttached)
         {
@@ -32,10 +35,10 @@ public class EditorPanelMenuBar : EditorPanel
             // ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoTitleBar);
             ImGui.BeginMainMenuBar();
 
-            bool layoutButtonClicked = ImGui.BeginMenu("Layout");
+            var layoutButtonClicked = ImGui.BeginMenu("Layout");
             if (layoutButtonClicked)
             {
-                bool saveCurrentLayoutButtonClicked = ImGui.Button("Save Current Layout");
+                var saveCurrentLayoutButtonClicked = ImGui.Button("Save Current Layout");
                 if (saveCurrentLayoutButtonClicked)
                 {
                     ImGui.CloseCurrentPopup();
@@ -43,7 +46,7 @@ public class EditorPanelMenuBar : EditorPanel
                     _editorLayoutManager.SaveCurrentLayout();
                 }
 
-                bool loadDefaultLayoutButtonClicked = ImGui.Button("Load Default Layout");
+                var loadDefaultLayoutButtonClicked = ImGui.Button("Load Default Layout");
                 if (loadDefaultLayoutButtonClicked)
                 {
                     ImGui.CloseCurrentPopup();
@@ -53,7 +56,7 @@ public class EditorPanelMenuBar : EditorPanel
                             .LoadDefaultLayout; // load layout before drawing anything, otherwise we break the layout by calling imgui after this editor panel
                 }
 
-                bool saveDefaultLayoutButtonClicked = ImGui.Button("Save Default Layout");
+                var saveDefaultLayoutButtonClicked = ImGui.Button("Save Default Layout");
                 if (saveDefaultLayoutButtonClicked)
                 {
                     ImGui.CloseCurrentPopup();
@@ -65,10 +68,10 @@ public class EditorPanelMenuBar : EditorPanel
                 ImGui.EndMenu();
             }
 
-            bool persistentDataButtonClicked = ImGui.BeginMenu("Persistent Data");
+            var persistentDataButtonClicked = ImGui.BeginMenu("Persistent Data");
             if (persistentDataButtonClicked)
             {
-                bool resetPersistentDataButtonClicked = ImGui.Button("Reset");
+                var resetPersistentDataButtonClicked = ImGui.Button("Reset");
                 if (resetPersistentDataButtonClicked)
                 {
                     ImGui.CloseCurrentPopup();
@@ -80,7 +83,7 @@ public class EditorPanelMenuBar : EditorPanel
             }
 
 
-            bool skyboxButtonClicked = ImGui.BeginMenu("Skybox");
+            var skyboxButtonClicked = ImGui.BeginMenu("Skybox");
             if (skyboxButtonClicked)
             {
                 EditorPanelInspector.I.SelectInspectable(Tofu.SceneManager.CurrentScene.FindComponent<Skybox>());
@@ -91,7 +94,7 @@ public class EditorPanelMenuBar : EditorPanel
                 ImGui.EndMenu();
             }
 
-            bool instancedRenderingClicked = ImGui.BeginMenu("Instanced Rendering");
+            var instancedRenderingClicked = ImGui.BeginMenu("Instanced Rendering");
             if (instancedRenderingClicked)
             {
                 EditorPanelInspector.I.SelectInspectable(Tofu.InstancedRenderingSystem);
@@ -102,7 +105,7 @@ public class EditorPanelMenuBar : EditorPanel
                 ImGui.EndMenu();
             }
 
-            bool vsyncButtonClicked = ImGui.BeginMenu($"VSync[{Tofu.Window.VSyncEnabled}]");
+            var vsyncButtonClicked = ImGui.BeginMenu($"VSync[{Tofu.Window.VSyncEnabled}]");
             if (vsyncButtonClicked)
             {
                 Tofu.Window.VSyncEnabled = !Tofu.Window.VSyncEnabled;
@@ -112,11 +115,14 @@ public class EditorPanelMenuBar : EditorPanel
                 ImGui.EndMenu();
             }
 
-            bool showDebugButton = true; // KeyboardInput.IsKeyDown(Keys.LeftAlt);
+            var showDebugButton = true; // KeyboardInput.IsKeyDown(Keys.LeftAlt);
             if (showDebugButton)
             {
-                bool debugButtonClicked = ImGui.SmallButton($"Debug [{(Global.Debug ? "ON" : "OFF")}]");
-                if (debugButtonClicked) Global.Debug = !Global.Debug;
+                var debugButtonClicked = ImGui.SmallButton($"Debug [{(Global.Debug ? "ON" : "OFF")}]");
+                if (debugButtonClicked)
+                {
+                    Global.Debug = !Global.Debug;
+                }
             }
 
             ImGui.EndMainMenuBar();
@@ -125,7 +131,7 @@ public class EditorPanelMenuBar : EditorPanel
         }
     }
 
-    public void Update()
+    public override void Update()
     {
     }
 }

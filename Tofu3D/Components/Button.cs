@@ -6,16 +6,15 @@ public class Button : Component
 {
     public delegate void MouseAction();
 
-    //[LinkableComponent]
-    public BoxShape BoxShape;
     private bool _clicked;
     private bool _mouseIsOver;
 
-    [XmlIgnore]
-    private MouseAction _onClickedAction;
+    [XmlIgnore] private MouseAction _onClickedAction;
 
-    [XmlIgnore]
-    public MouseAction OnReleasedAction;
+    //[LinkableComponent]
+    public BoxShape BoxShape;
+
+    [XmlIgnore] public MouseAction OnReleasedAction;
 
     //[LinkableComponent]
     public Renderer Renderer;
@@ -26,7 +25,10 @@ public class Button : Component
         //onReleasedAction += () => renderer.color = Color.White;
         //onReleasedAction += SpawnCubes;
 
-        if (GetComponent<ButtonTween>() == null) GameObject.AddComponent<ButtonTween>().Awake();
+        if (GetComponent<ButtonTween>() == null)
+        {
+            GameObject.AddComponent<ButtonTween>().Awake();
+        }
 
         Renderer = GetComponent<Renderer>();
         BoxShape = GetComponent<BoxShape>();
@@ -36,7 +38,10 @@ public class Button : Component
 
     public void Update()
     {
-        if (Renderer == false || BoxShape == false) return;
+        if (Renderer == false || BoxShape == false)
+        {
+            return;
+        }
 
         _mouseIsOver = Tofu.MouseInput.WorldPosition.In(BoxShape);
         if (Tofu.MouseInput.ButtonPressed() && _mouseIsOver)
@@ -46,7 +51,10 @@ public class Button : Component
         }
         else if (Tofu.MouseInput.ButtonReleased())
         {
-            if (_mouseIsOver) OnReleasedAction?.Invoke();
+            if (_mouseIsOver)
+            {
+                OnReleasedAction?.Invoke();
+            }
 
             _clicked = false;
         }

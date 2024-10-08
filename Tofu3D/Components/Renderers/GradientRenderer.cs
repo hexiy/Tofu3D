@@ -2,11 +2,9 @@
 
 public class GradientRenderer : Renderer
 {
-    [Show]
-    public Color GradientColorA;
+    [Show] public Color GradientColorA;
 
-    [Show]
-    public Color GradientColorB;
+    [Show] public Color GradientColorB;
 
     public override void Awake()
     {
@@ -17,14 +15,20 @@ public class GradientRenderer : Renderer
 
     public override void SetDefaultMaterial()
     {
-        if (Material == null) Material = Tofu.AssetManager.Load<Material>("GradientMaterial");
+        if (Material == null)
+        {
+            Material = Tofu.AssetManager.Load<Material>("GradientMaterial");
+        }
 
         base.SetDefaultMaterial();
     }
 
     public override void Render()
     {
-        if (BoxShape == null || Material == null) return;
+        if (BoxShape == null || Material == null)
+        {
+            return;
+        }
 
         Tofu.ShaderManager.UseShader(Material.Shader);
 
@@ -37,7 +41,9 @@ public class GradientRenderer : Renderer
         Material.Shader.SetColor("u_color", Color.ToVector4());
         Material.Shader.SetVector4("u_tint", (Vector4)Material.Shader.Uniforms["u_tint"]);
         if (Material.Shader.Uniforms.ContainsKey("time"))
+        {
             Material.Shader.SetFloat("time", (float)Material.Shader.Uniforms["time"]);
+        }
 
         Tofu.ShaderManager.BindVertexArray(Material.Vao);
 

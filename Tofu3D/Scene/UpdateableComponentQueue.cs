@@ -1,11 +1,8 @@
-﻿
-using System.Runtime.InteropServices;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 public class UpdateableComponentQueue : IComponentQueue
 {
-    private List<IComponentUpdateable> _components = new();
+    private readonly List<IComponentUpdateable> _components = new();
 
     public UpdateableComponentQueue()
     {
@@ -13,6 +10,22 @@ public class UpdateableComponentQueue : IComponentQueue
         Scene.ComponentDisabled += OnComponentDisabled;
         Scene.SceneStartedDisposing += OnSceneStartedDisposing;
         Scene.SceneDisposed += OnSceneDisposed;
+    }
+
+    public void OnComponentEnabled(Component component)
+    {
+        if (component is IComponentUpdateable componentUpdateable)
+        {
+            AddComponent(componentUpdateable);
+        }
+    }
+
+    public void OnComponentDisabled(Component component)
+    {
+        if (component is IComponentUpdateable componentUpdateable)
+        {
+            RemoveComponent(componentUpdateable);
+        }
     }
 
     private void OnSceneDisposed()
@@ -35,27 +48,25 @@ public class UpdateableComponentQueue : IComponentQueue
 
     public void UpdateComponents()
     {
-        Debug.StatSetValue($"Update queue components", $"Update queue components: {_components.Count}");
-        for (int i = 0; i < _components.Count; i++) _components[i].Update();
+        Debug.StatSetValue("Update queue components", $"Update queue components: {_components.Count}");
+        for (var i = 0; i < _components.Count; i++)
+        {
+            _components[i].Update();
+        }
     }
 
     public void AddComponent(IComponentUpdateable component)
     {
+        if (_components.Contains(component))
+        {
+            return;
+        }
+
         _components.Add(component);
     }
 
     public void RemoveComponent(IComponentUpdateable component)
     {
         _components.Remove(component);
-    }
-
-    public void OnComponentEnabled(Component component)
-    {
-        if (component is IComponentUpdateable componentUpdateable) AddComponent(componentUpdateable);
-    }
-
-    public void OnComponentDisabled(Component component)
-    {
-        if (component is IComponentUpdateable componentUpdateable) RemoveComponent(componentUpdateable);
     }
 }

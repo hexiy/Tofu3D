@@ -2,19 +2,17 @@
 
 public class RenderPassPostProcess : RenderPass
 {
-    public static RenderPassPostProcess I { get; private set; }
     private Material _postProcessMaterial;
-
-
-    public override bool CanRender()
-    {
-        return Enabled;
-    }
 
     public RenderPassPostProcess() : base(RenderPassType.PostProcess)
     {
         I = this;
     }
+
+    public static RenderPassPostProcess I { get; private set; }
+
+
+    public override bool CanRender() => Enabled;
 
     public override void Initialize()
     {
@@ -29,7 +27,7 @@ public class RenderPassPostProcess : RenderPass
     {
         if (PassRenderTexture == null)
         {
-            Debug.Log($"PassRenderTexture == null");
+            Debug.Log("PassRenderTexture == null");
             return;
         }
 

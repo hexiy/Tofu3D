@@ -4,9 +4,9 @@ namespace Tofu3D;
 
 public class ShaderManager
 {
+    private readonly List<string> _shadersReloadQueue = new();
     public int ShaderInUse = -1;
     public int VaoInUse = -100;
-    private List<string> _shadersReloadQueue = new();
 
     public void Initialize()
     {
@@ -15,12 +15,18 @@ public class ShaderManager
 
     private void OnFileChanged(FileChangedInfo fileChangedInfo)
     {
-        if (fileChangedInfo.ChangeType is WatcherChangeTypes.Changed) QueueShaderReload(fileChangedInfo.Path);
+        if (fileChangedInfo.ChangeType is WatcherChangeTypes.Changed)
+        {
+            QueueShaderReload(fileChangedInfo.Path);
+        }
     }
 
     public void BindVertexArray(int vao)
     {
-        if (vao == VaoInUse) return;
+        if (vao == VaoInUse)
+        {
+            return;
+        }
 
         VaoInUse = vao;
         GL.BindVertexArray(vao);
@@ -33,7 +39,10 @@ public class ShaderManager
 
     public void UseShader(int programId)
     {
-        if (programId == ShaderInUse) return;
+        if (programId == ShaderInUse)
+        {
+            return;
+        }
 
         ShaderInUse = programId;
         GL.UseProgram(programId);
@@ -41,15 +50,19 @@ public class ShaderManager
 
     public void QueueShaderReload(string shaderPath)
     {
-        if (_shadersReloadQueue.Contains(shaderPath)) return;
+        if (_shadersReloadQueue.Contains(shaderPath))
+        {
+            return;
+        }
 
         _shadersReloadQueue.Add(shaderPath);
     }
 
     private void ReloadShader(string shaderPath)
     {
-        List<Material> allLoadedMaterials = Tofu.AssetManager.GetAllLoadedAssetsOfType<Material>();
-        foreach (Material loadedMaterial in allLoadedMaterials)
+        var allLoadedMaterials = Tofu.AssetManager.GetAllLoadedAssetsOfType<Material>();
+        foreach (var loadedMaterial in allLoadedMaterials)
+        {
             if (loadedMaterial.Shader?.Path == shaderPath)
             {
                 Shader shader = new(shaderPath);
@@ -58,6 +71,7 @@ public class ShaderManager
 
                 loadedMaterial.SetShader(shader);
             }
+        }
         /*// find all Renderer components, and check if the material has the changed shader and reload it, ehh this doesnt work with renderpass shaders for example
         List<Renderer> renderersInScene = Tofu.SceneManager.CurrentScene.FindComponentsInScene<Renderer>();
         foreach (Renderer renderer in renderersInScene)
@@ -75,7 +89,10 @@ public class ShaderManager
 
     public void ReloadQueuedShaders()
     {
-        for (int i = 0; i < _shadersReloadQueue.Count; i++) ReloadShader(_shadersReloadQueue[i]);
+        for (var i = 0; i < _shadersReloadQueue.Count; i++)
+        {
+            ReloadShader(_shadersReloadQueue[i]);
+        }
 
         _shadersReloadQueue.Clear();
     }

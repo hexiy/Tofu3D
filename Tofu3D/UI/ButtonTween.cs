@@ -14,7 +14,7 @@ public class ButtonTween : Component
     public void Update()
     {
         //if (needToScale == false) { return; }
-        bool mouseInside = Tofu.MouseInput.WorldPosition.In(GetComponent<BoxShape>());
+        var mouseInside = Tofu.MouseInput.WorldPosition.In(GetComponent<BoxShape>());
         if (Tofu.MouseInput.ButtonPressed() && mouseInside)
         {
             Transform.LocalScale = Vector3.One;
@@ -27,9 +27,13 @@ public class ButtonTween : Component
         }
 
         if (_clicked)
+        {
             Transform.LocalScale =
                 Vector3.Lerp(Transform.LocalScale, Vector3.One * ScaleTarget, Time.DeltaTime * ScaleSpeed);
+        }
         else
+        {
             Transform.LocalScale = Vector3.Lerp(Transform.LocalScale, Vector3.One, Time.DeltaTime * ScaleSpeed);
+        }
     }
 }

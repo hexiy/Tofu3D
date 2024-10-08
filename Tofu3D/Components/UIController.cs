@@ -6,8 +6,7 @@ public class UiController : Component
 {
     public GameObject Bg;
 
-    [Show]
-    public GameObject PlayBtn;
+    [Show] public GameObject PlayBtn;
 
     public override void Start()
     {

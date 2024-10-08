@@ -14,9 +14,6 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
         wrapMode: TextureWrapMode.Repeat,
         canSetDefaultSettings: false);
 
-    public TextureFilterMode FilterMode { get; private set; }
-    public TextureWrapMode WrapMode { get; private set; }
-
     public TextureLoadSettings(string? path = null,
         string[]? paths = null,
         TextureType? textureType = null,
@@ -24,7 +21,7 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
         TextureWrapMode? wrapMode = null,
         bool? canSetDefaultSettings = true)
     {
-        TextureLoadSettings defaultSettings =
+        var defaultSettings =
             canSetDefaultSettings == true
                 ? GetDefaultSettingsForTextureType(textureType)
                 : null; // not possible if this isnt a struct
@@ -36,7 +33,7 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
 
     public TextureLoadSettings()
     {
-        TextureLoadSettings
+        var
             defaultSettings = GetDefaultSettingsForTextureType(null); // not possible if this isnt a struct
 
 
@@ -45,16 +42,22 @@ public class TextureLoadSettings : AssetLoadSettings<Texture>
         WrapMode = defaultSettings.WrapMode;
     }
 
+    public TextureFilterMode FilterMode { get; }
+    public TextureWrapMode WrapMode { get; }
+
     private static TextureLoadSettings GetDefaultSettingsForTextureType(TextureType? textureType)
     {
-        if (textureType == TextureType.Texture2D) return DefaultSettingsTexture2D;
+        if (textureType == TextureType.Texture2D)
+        {
+            return DefaultSettingsTexture2D;
+        }
 
         return DefaultSettingsTexture2D;
     }
 
     public override int GetHashCode()
     {
-        HashCodeCombiner hashCodeCombiner = HashCodeCombiner.Start();
+        var hashCodeCombiner = HashCodeCombiner.Start();
         hashCodeCombiner.Add(base.GetHashCode());
         hashCodeCombiner.Add(FilterMode.GetHashCode());
         hashCodeCombiner.Add(WrapMode.GetHashCode());

@@ -2,16 +2,15 @@ namespace Scripts;
 
 public class PolygonShape : Shape
 {
-    public int HighlightEdgeIndex = 0;
     private float _lastRotation;
+    public int HighlightEdgeIndex = 0;
 
-    [XmlIgnore]
-    public Action OnPointsEdit; // = Engine.ColliderEditor.GetInstance().ToggleEditing;
+    [XmlIgnore] public Action OnPointsEdit; // = Engine.ColliderEditor.GetInstance().ToggleEditing;
 
     public Vector2 Position = new(0, 0);
 
     /// <summary>
-    ///         LOCAL points
+    ///     LOCAL points
     /// </summary>
 
     [Show]
@@ -22,7 +21,7 @@ public class PolygonShape : Shape
     public List<Vector2> Edges { get; } = new() { new Vector2(0, 0) };
 
     /// <summary>
-    ///         Returns center in WORLD
+    ///     Returns center in WORLD
     /// </summary>
     public Vector2 Center
     {
@@ -30,7 +29,7 @@ public class PolygonShape : Shape
         {
             float totalX = 0;
             float totalY = 0;
-            for (int i = 0; i < Points.Count; i++)
+            for (var i = 0; i < Points.Count; i++)
             {
                 totalX += Points[i].X;
                 totalY += Points[i].Y;
@@ -57,13 +56,17 @@ public class PolygonShape : Shape
         Vector2 p1;
         Vector2 p2;
         Edges.Clear();
-        for (int i = 0; i < Points.Count; i++)
+        for (var i = 0; i < Points.Count; i++)
         {
             p1 = Points[i];
             if (i + 1 >= Points.Count)
+            {
                 p2 = Points[0];
+            }
             else
+            {
                 p2 = Points[i + 1];
+            }
 
             Edges.Add(p2 - p1);
         }
@@ -76,15 +79,14 @@ public class PolygonShape : Shape
             SetRotation(Transform.Rotation.Z);
             _lastRotation = Transform.Rotation.Z;
         }
-
     }
 
     public void SetRotation(float angle)
     {
         //if (angle > 0.01 || float.IsNaN(angle)) { return; }
-        for (int i = 0; i < Points.Count; i++)
+        for (var i = 0; i < Points.Count; i++)
         {
-            Vector2 originalPoint = OriginalPoints[i];
+            var originalPoint = OriginalPoints[i];
 
             Points[i] = new Vector2(
                 originalPoint.X * (float)Math.Cos(-angle) - originalPoint.Y * (float)Math.Sin(-angle),
