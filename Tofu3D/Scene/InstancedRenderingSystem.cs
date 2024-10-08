@@ -186,8 +186,13 @@ public class InstancedRenderingSystem
             // Normal Texture
             if (material.NormalTexture)
             {
+                material.Shader.SetFloat("u_hasNormalTexture", 1);
                 GL.ActiveTexture(TextureUnit.Texture1);
                 TextureHelper.BindTexture(material.NormalTexture.TextureId);
+            }
+            else
+            {
+                material.Shader.SetFloat("u_hasNormalTexture", 0);
             }
             
             // Ambient Occlusion Texture

@@ -69,6 +69,8 @@ uniform float u_fogPositionY = 0;
 uniform float u_fogGradientSmoothness = 1;
 uniform float u_fogIntensity = 1;
 
+uniform float u_hasNormalTexture = 0;
+
 uniform sampler2D textureAlbedo;
 uniform sampler2D textureNormal;
 uniform sampler2D textureAo;
@@ -125,7 +127,7 @@ vec3 texNormal = texture(textureNormal, uvCoords).rgb;
 texNormal = texNormal * 2.0 - 1.0; // Normalizing the normal values from the texture
 texNormal = normalize(TBN * -texNormal); // Transforming the normal values from the texture space to the world space
 //norm = normalize(TBN * norm);
- float blendFactor = 0.6;
+ float blendFactor = 0.8 * u_hasNormalTexture;
  vec3 finalNormal = normalize(mix(vertexNormalTBN, texNormal, blendFactor));
         
 
