@@ -1,10 +1,9 @@
-﻿namespace Tofu3D;
-
+﻿[Serializable]
 public abstract class AssetBase
 {
-    [Hide] [XmlElement("AssetPath")] public string Path = "";
-
-    [XmlIgnore] public AssetHandle Handle { get; set; }
+    public string Path = "";
+    [XmlIgnore]
+    public AssetHandle Handle { get; set; }
 
     // private Asset()
     // {

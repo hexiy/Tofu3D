@@ -60,7 +60,7 @@ public class ShaderManager
 
     private void ReloadShader(string shaderPath)
     {
-        var allLoadedMaterials = Tofu.AssetManager.GetAllLoadedAssetsOfType<Material>();
+        var allLoadedMaterials = Tofu.AssetManager.GetAllLoadedAssetsOfType<Asset_Material>();
         foreach (var loadedMaterial in allLoadedMaterials)
         {
             if (loadedMaterial.Shader?.Path == shaderPath)

@@ -4,7 +4,7 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Texture>
+public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Asset_Texture>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
@@ -65,14 +65,14 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Texture>
 
                     textureName = payload;
 
-                    var loadedTexture = Tofu.AssetManager.Load<Texture>(textureName);
+                    var loadedTexture = Tofu.AssetManager.Load<Asset_Texture>(textureName);
 
                     SetValue(info, componentInspectorData, loadedTexture);
 
-                    if (componentInspectorData.Inspectable is Material)
+                    if (componentInspectorData.Inspectable is Asset_Material)
                     {
-                        EditorPanelInspector.I.AddActionToActionQueue(() =>
-                            Tofu.AssetManager.Save<Material>(componentInspectorData.Inspectable as Material));
+                        // EditorPanelInspector.I.AddActionToActionQueue(() =>
+                            // Tofu.AssetManager.Save<Asset_Material>(componentInspectorData.Inspectable as Asset_Material));
                     }
                 }
 

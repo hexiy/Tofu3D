@@ -4,7 +4,7 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Material>
+public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Material>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
@@ -14,9 +14,9 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Material>
         {
             materialPath = Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.Path);
         }
-        else if (componentInspectorData.Inspectable is Material)
+        else if (componentInspectorData.Inspectable is Asset_Material)
         {
-            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Material).Path);
+            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Asset_Material).Path);
         }
 
         materialPath = materialPath ?? "";
@@ -39,7 +39,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Material>
                 payload = payload;
                 var materialName = Path.GetFileName(payload);
 
-                var draggedMaterial = Tofu.AssetManager.Load<Material>(payload);
+                var draggedMaterial = Tofu.AssetManager.Load<Asset_Material>(payload);
                 if (draggedMaterial.Shader == null)
                 {
                     Debug.Log("No Shader attached to material.");

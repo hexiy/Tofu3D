@@ -1,6 +1,6 @@
 namespace Tofu3D;
 
-public class AssetImporter
+public abstract class AssetImporter<T> : IAssetImporter where T : Asset<T>
 {
-    
+    public abstract T ImportAsset(AssetImportParameters<T>? assetImportParameters);
 }

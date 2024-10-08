@@ -13,9 +13,9 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
     [XmlIgnore] public RendererInstancingData InstancingData;
     // public float DistanceFromCamera;
 
-    [Show] public Material Material;
-
-    public Mesh Mesh;
+    [Show] public Asset_Material Material;
+    
+    public Asset_Mesh AssetMesh;
 
     public RenderMode RenderMode = RenderMode.Opaque;
 
@@ -75,7 +75,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
         /*if (Material != null && Material.IsValid == false)
         {
             Debug.LogError("Material invalid, reloading");
-            Material = Tofu.AssetManager.Load<Material>(Material.AssetPath);
+            Material = Tofu.AssetManager.Load<Asset_Material>(Material.AssetPath);
             // Material.IsValid = true;
         }*/
 

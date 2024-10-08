@@ -1,11 +1,11 @@
-﻿using SixLabors.ImageSharp;
+﻿/*using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace Tofu3D;
 
 public class CubemapTextureLoader : AssetLoader<CubemapTexture>
 {
-    public override CubemapTexture SaveAsset(ref CubemapTexture asset, AssetLoadSettingsBase loadSettings) =>
+    public override CubemapTexture SaveAsset(ref CubemapTexture asset) =>
         throw new NotImplementedException();
 
     public override void UnloadAsset(Asset<CubemapTexture> asset)
@@ -61,4 +61,4 @@ public class CubemapTextureLoader : AssetLoader<CubemapTexture>
 
         return texture;
     }
-}
+}*/

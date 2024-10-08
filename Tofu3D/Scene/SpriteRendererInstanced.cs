@@ -19,11 +19,11 @@ public class SpriteRendererInstanced : Renderer
         // }
         // if (Mesh)
         // {
-        Mesh = new Mesh();
-        Mesh.VertexBufferDataLength = 24;
-        Mesh.VerticesCount = 6;
+        AssetMesh = new Asset_Mesh();
+        AssetMesh.VertexBufferDataLength = 24;
+        AssetMesh.VerticesCount = 6;
 
-        BufferFactory.CreateSpriteRendererBuffer(ref Mesh.Vao);
+        BufferFactory.CreateSpriteRendererBuffer(ref AssetMesh.Vao);
 
 
         // Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
@@ -72,11 +72,11 @@ public class SpriteRendererInstanced : Renderer
     {
         // if (Material?.AssetPath.Length == 0)
         // {
-        // 	Material = AssetManager.Load<Material>("SpriteRenderer");
+        // 	Material = AssetManager.Load<Asset_Material>("SpriteRenderer");
         // }
 
-        // Material = AssetManager.Load<Material>("SpriteRendererInstanced");
-        Material = Tofu.AssetManager.Load<Material>("SpriteRendererInstanced");
+        // Material = AssetManager.Load<Asset_Material>("SpriteRendererInstanced");
+        Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/SpriteRendererInstanced.mat");
 
         // base.SetDefaultMaterial();
     }
@@ -94,7 +94,7 @@ public class SpriteRendererInstanced : Renderer
             return;
         }
 
-        if (Mesh == null)
+        if (AssetMesh == null)
         {
             return;
         }

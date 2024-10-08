@@ -16,7 +16,7 @@ public class ModelRenderer : TextureRenderer
 
         if (Texture == null)
         {
-            Texture = new Texture();
+            Texture = new Asset_Texture();
         }
         else
         {
@@ -30,22 +30,22 @@ public class ModelRenderer : TextureRenderer
     {
         if (Material?.Path.Length == 0 || Material == null)
         {
-            Material = Tofu.AssetManager.Load<Material>("ModelRenderer");
+            Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/ModelRenderer.mat");
         }
         else
         {
-            Material = Tofu.AssetManager.Load<Material>(Material.Path);
+            Material = Tofu.AssetManager.Load<Asset_Material>(Material.Path);
         }
 
-        if (Mesh?.Path.Length > 0)
+        if (AssetMesh?.Path.Length > 0)
         {
-            Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
+            AssetMesh = Tofu.AssetManager.Load<Asset_Mesh>(AssetMesh.Path);
         }
         else
         {
-            Mesh = null;
+            AssetMesh = null;
         }
-        // Material = Tofu.AssetManager.Load<Material>("ModelRenderer");
+        // Material = Tofu.AssetManager.Load<Asset_Material>("ModelRenderer");
 
         // base.CreateMaterial();
     }
@@ -60,12 +60,12 @@ public class ModelRenderer : TextureRenderer
     {
         // if (RenderMode == RenderMode.Opaque && Material.RenderMode != RenderMode)
         // {
-        // 	Material = Tofu.AssetManager.Load<Material>("ModelRenderer");
+        // 	Material = Tofu.AssetManager.Load<Asset_Material>("ModelRenderer");
         // }
         //
         // if (RenderMode == RenderMode.Transparent && Material.RenderMode != RenderMode)
         // {
-        // 	Material = Tofu.AssetManager.Load<Material>("ModelRendererUnlit");
+        // 	Material = Tofu.AssetManager.Load<Asset_Material>("ModelRendererUnlit");
         // }
     }
 
@@ -90,7 +90,7 @@ public class ModelRenderer : TextureRenderer
             return;
         }
 
-        if (Mesh == null)
+        if (AssetMesh == null)
         {
             return;
         }
@@ -111,13 +111,13 @@ public class ModelRenderer : TextureRenderer
         if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
             or RenderPassType.ZPrePass)
         {
-            var depthMaterial = Tofu.AssetManager.Load<Material>("DepthModel");
+            var depthMaterial = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/DepthModel.mat");
             Tofu.ShaderManager.UseShader(depthMaterial.Shader);
             Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 
 
-            Tofu.ShaderManager.BindVertexArray(Mesh.Vao);
-            GL_DrawArrays(PrimitiveType.Triangles, 0, Mesh.VerticesCount);
+            Tofu.ShaderManager.BindVertexArray(AssetMesh.Vao);
+            GL_DrawArrays(PrimitiveType.Triangles, 0, AssetMesh.VerticesCount);
         }
 
         if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
@@ -223,17 +223,17 @@ public class ModelRenderer : TextureRenderer
 
             // if (Model != null)
             // {
-            Tofu.ShaderManager.BindVertexArray(Mesh.Vao);
+            Tofu.ShaderManager.BindVertexArray(AssetMesh.Vao);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
             if (isTransformHandle == false)
             {
-                RenderWireframe(Mesh.VerticesCount);
+                RenderWireframe(AssetMesh.VerticesCount);
             }
 
             // GL_DrawArrays(PrimitiveType.Triangles, 0, Mesh.IndicesCount);
-            GL_DrawArrays(PrimitiveType.Triangles, 0, Mesh.VerticesCount);
+            GL_DrawArrays(PrimitiveType.Triangles, 0, AssetMesh.VerticesCount);
 
 
             // }
@@ -247,11 +247,11 @@ public class ModelRenderer : TextureRenderer
         }
         else
         {
-            if (Mesh != null)
+            if (AssetMesh != null)
             {
-                Tofu.ShaderManager.BindVertexArray(Mesh.Vao);
+                Tofu.ShaderManager.BindVertexArray(AssetMesh.Vao);
 
-                GL_DrawArrays(PrimitiveType.Triangles, 0, Mesh.VerticesCount);
+                GL_DrawArrays(PrimitiveType.Triangles, 0, AssetMesh.VerticesCount);
             }
             else
             {
@@ -269,7 +269,7 @@ public class ModelRenderer : TextureRenderer
             // GL.Disable(EnableCap.DepthTest);
             GL.Disable(EnableCap.Blend);
 
-            var outlineMaterial = Tofu.AssetManager.Load<Material>("ModelRendererUnlit");
+            var outlineMaterial = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/ModelRendererUnlit.mat");
             Tofu.ShaderManager.UseShader(outlineMaterial.Shader);
 
             if (Transform.IsInCanvas)
@@ -284,10 +284,10 @@ public class ModelRenderer : TextureRenderer
             outlineMaterial.Shader.SetMatrix4X4("u_model", GetModelMatrix());
             outlineMaterial.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
 
-            Tofu.ShaderManager.BindVertexArray(Mesh.Vao);
+            Tofu.ShaderManager.BindVertexArray(AssetMesh.Vao);
             GL.ActiveTexture(TextureUnit.Texture0);
-            TextureHelper.BindTexture(Tofu.AssetManager.Load<Texture>("Assets/2D/solidColor.png").TextureId);
-            GL_DrawArrays(PrimitiveType.Triangles, 0, Mesh.VerticesCount);
+            TextureHelper.BindTexture(Tofu.AssetManager.Load<Asset_Texture>("Assets/2D/solidColor.png").TextureId);
+            GL_DrawArrays(PrimitiveType.Triangles, 0, AssetMesh.VerticesCount);
 
 
             GL.StencilMask(0xFF);
@@ -309,7 +309,7 @@ public class ModelRenderer : TextureRenderer
                 GL.Enable(EnableCap.DepthTest);
             }
 
-            Material mousePickingMaterial = Tofu.AssetManager.Load<Material>("ModelMousePicking");
+            Material mousePickingMaterial = Tofu.AssetManager.Load<Asset_Material>("ModelMousePicking");
             ShaderCache.UseShader(mousePickingMaterial.Shader);
 
             mousePickingMaterial.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);

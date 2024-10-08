@@ -29,7 +29,7 @@ public class SpriteSheetRenderer : SpriteRenderer
     {
         if (Material == null)
         {
-            Material = Tofu.AssetManager.Load<Material>("SpriteSheetRenderer");
+            Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/SpriteSheetRenderer.mat");
         }
 
         base.SetDefaultMaterial();
@@ -60,7 +60,7 @@ public class SpriteSheetRenderer : SpriteRenderer
             return;
         }
 
-        Texture = Tofu.AssetManager.Load<Texture>(texturePath);
+        Texture = Tofu.AssetManager.Load<Asset_Texture>(texturePath);
 
         UpdateBoxShapeSize();
         if (Batched && false)

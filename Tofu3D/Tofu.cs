@@ -21,6 +21,7 @@ public static class Tofu
     public static InstancedRenderingSystem InstancedRenderingSystem;
 
     // ASSETS
+    public static AssetDatabase AssetDatabase;
     public static AssetManager AssetManager;
     public static SceneSerializer SceneSerializer;
     public static AssetsWatcher AssetsWatcher;
@@ -40,7 +41,8 @@ public static class Tofu
         SystemConfig.Configure();
         Global.LoadSavedData();
 
-        AssetManager = new AssetManager();
+        AssetDatabase = new AssetDatabase();
+        AssetManager = new AssetManager(assetDatabase:AssetDatabase);
         SceneManager = new SceneManager();
         SceneSerializer = new SceneSerializer();
         RenderSettings = new RenderSettings();

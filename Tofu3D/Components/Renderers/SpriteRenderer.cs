@@ -14,12 +14,12 @@ public class SpriteRenderer : TextureRenderer
         SetDefaultMaterial();
         if (Texture == null)
         {
-            Texture = new Texture();
+            Texture = new Asset_Texture();
         }
         else
         {
-            var textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
-            Texture = Tofu.AssetManager.Load<Texture>(Texture.Path, textureLoadSettings);
+            // var textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
+            Texture = Tofu.AssetManager.Load<Asset_Texture>(Texture.Path);
         }
 
         //BatchingManager.AddObjectToBatcher(Texture.Id, this);
@@ -52,10 +52,10 @@ public class SpriteRenderer : TextureRenderer
     {
         // if (Material?.AssetPath.Length == 0)
         // {
-        // 	Material = Tofu.AssetManager.Load<Material>("SpriteRenderer");
+        // 	Material = Tofu.AssetManager.Load<Asset_Material>("SpriteRenderer");
         // }
 
-        Material = Tofu.AssetManager.Load<Material>("SpriteRenderer");
+        Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/SpriteRenderer.mat");
 
         // base.SetDefaultMaterial();
     }

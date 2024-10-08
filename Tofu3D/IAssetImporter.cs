@@ -1,6 +1,3 @@
-namespace Tofu3D;
-
-public class IAssetImporter
+public interface IAssetImporter
 {
-    
 }

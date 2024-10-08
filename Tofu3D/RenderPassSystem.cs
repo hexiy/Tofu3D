@@ -33,7 +33,7 @@ public class RenderPassSystem
     public void RebuildRenderTextures(Vector2 viewSize)
     {
         ViewSize = viewSize;
-        FinalRenderTexture = new RenderTexture(ViewSize, true);
+        // FinalRenderTexture = new RenderTexture(ViewSize, true);
 
         foreach (var renderPass in RenderPasses)
         {

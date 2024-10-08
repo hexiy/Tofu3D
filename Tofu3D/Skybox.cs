@@ -5,7 +5,7 @@ namespace Tofu3D;
 [ExecuteInEditMode]
 public class Skybox : Component, IComponentUpdateable
 {
-    private Material _material;
+    private Asset_Material _material;
     private CubemapTexture _texture;
     public float Fov = 60;
 
@@ -18,7 +18,8 @@ public class Skybox : Component, IComponentUpdateable
 
     public override void Awake()
     {
-        _material = Tofu.AssetManager.Load<Material>("Skybox");
+        /*
+        _material = Tofu.AssetManager.Load<Asset_Material>("Skybox");
 
         _texture = new CubemapTexture();
         string[] texturePaths =
@@ -33,6 +34,7 @@ public class Skybox : Component, IComponentUpdateable
 
         CubemapTextureLoadSettings cubemapTextureLoadSettings = new(texturePaths);
         _texture = Tofu.AssetManager.Load<CubemapTexture>(cubemapTextureLoadSettings);
+        */
 
         base.Awake();
     }
@@ -53,6 +55,7 @@ public class Skybox : Component, IComponentUpdateable
 
     private void RenderSkybox()
     {
+        return;
         if (Enabled == false || GameObject.ActiveInHierarchy == false)
         {
             return;

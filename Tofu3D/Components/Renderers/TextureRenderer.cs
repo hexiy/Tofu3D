@@ -6,7 +6,7 @@ public abstract class TextureRenderer : Renderer
 
     [XmlIgnore] public Action SetNativeSize;
 
-    public Texture Texture;
+    public Asset_Texture Texture;
     public Vector2 Tiling = Vector2.One;
     public override bool CanRender => Texture.Loaded; // && BoxShape != null;// && base.CanRender;
 
@@ -25,17 +25,17 @@ public abstract class TextureRenderer : Renderer
 
         if (Texture == null)
         {
-            Texture = new Texture();
+            Texture = new Asset_Texture();
         }
 
-        Texture = Tofu.AssetManager.Load<Texture>(texturePath);
+        Texture = Tofu.AssetManager.Load<Asset_Texture>(texturePath);
     }
 
     public virtual void SetDefaultTexture(string texturePath)
     {
         if (Texture == null)
         {
-            Texture = new Texture();
+            Texture = new Asset_Texture();
             Texture.Path = texturePath;
         }
     }

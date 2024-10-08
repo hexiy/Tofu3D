@@ -17,7 +17,7 @@ public class GradientRenderer : Renderer
     {
         if (Material == null)
         {
-            Material = Tofu.AssetManager.Load<Material>("GradientMaterial");
+            Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/GradientMaterial.mat");
         }
 
         base.SetDefaultMaterial();

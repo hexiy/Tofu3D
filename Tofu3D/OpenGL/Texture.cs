@@ -1,4 +1,4 @@
-﻿namespace Tofu3D;
+﻿/*namespace Tofu3D;
 
 [Serializable]
 public class Texture : Asset<Texture>
@@ -15,4 +15,4 @@ public class Texture : Asset<Texture>
     {
         Tofu.AssetManager.Unload(this, LoadSettings);
     }
-}
+}*/

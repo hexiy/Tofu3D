@@ -6,6 +6,7 @@ public class Folders
 {
     public static string EngineFolderPath => Environment.CurrentDirectory;
     public static string Resources => "Resources";
+    public static string Library => "Library";
 
     public static string Assets => Path.Combine(Environment.CurrentDirectory, "Assets");
     public static string Textures => Path.Combine(Assets, "2D");

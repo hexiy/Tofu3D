@@ -4,11 +4,11 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class InspectorFieldDrawerMesh : InspectorFieldDrawable<Mesh>
+public class InspectorFieldDrawerMesh : InspectorFieldDrawable<Asset_Mesh>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        var mesh = (Mesh)info.GetValue(componentInspectorData.Inspectable);
+        var mesh = (Asset_Mesh)info.GetValue(componentInspectorData.Inspectable);
 
         var assetName = Path.GetFileName(mesh?.Path) ?? "";
 
@@ -23,7 +23,7 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<Mesh>
             {
                 // fileName = Path.GetRelativePath("Assets", fileName);
 
-                mesh = Tofu.AssetManager.Load<Mesh>(filePath);
+                mesh = Tofu.AssetManager.Load<Asset_Mesh>(filePath);
                 // gameObject.GetComponent<Renderer>().Material.Vao = Mesh.Vao; // materials are shared
                 info.SetValue(componentInspectorData.Inspectable, mesh);
             }

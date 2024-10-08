@@ -2,14 +2,14 @@
 
 public class RenderTexture
 {
-    private readonly Material _depthRenderTextureMaterial;
+    private readonly Asset_Material _depthRenderTextureMaterial;
 
     private readonly bool _hasColorAttachment;
     private readonly bool _hasDepthAttachment;
     private readonly bool _hasStencil;
 
     private bool _isGrayscale;
-    private readonly Material _renderTextureMaterial;
+    private readonly Asset_Material _renderTextureMaterial;
     public Color ClearColor = new(0, 0, 0, 0);
     public int ColorAttachment = -1;
     public int DepthAttachment = -1;
@@ -21,8 +21,8 @@ public class RenderTexture
     public RenderTexture(Vector2 size, bool colorAttachment = false, bool depthAttachment = false,
         bool hasStencil = false, bool isGrayscale = false)
     {
-        _depthRenderTextureMaterial = Tofu.AssetManager.Load<Material>("Materials/DepthRenderTexture.mat");
-        _renderTextureMaterial = Tofu.AssetManager.Load<Material>("RenderTexture.mat");
+        _depthRenderTextureMaterial = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/DepthRenderTexture.mat");
+        _renderTextureMaterial = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/RenderTexture.mat");
         Size = size;
         _hasColorAttachment = colorAttachment;
         _hasDepthAttachment = depthAttachment;

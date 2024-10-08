@@ -1,4 +1,4 @@
-﻿using Microsoft.DotNet.PlatformAbstractions;
+﻿/*using Microsoft.DotNet.PlatformAbstractions;
 
 namespace Tofu3D;
 
@@ -23,7 +23,7 @@ public class CubemapTextureLoadSettings : AssetLoadSettings<CubemapTexture>
         if (paths != null)
         {
             SetPaths(paths);
-        }*/
+        }#1#
 
         Paths = paths ?? defaultSettings?.Paths;
         FilterMode = filterMode ?? defaultSettings.FilterMode;
@@ -60,4 +60,4 @@ public class CubemapTextureLoadSettings : AssetLoadSettings<CubemapTexture>
         hashCodeCombiner.Add(WrapMode.GetHashCode());
         return hashCodeCombiner.CombinedHash;
     }
-}
+}*/

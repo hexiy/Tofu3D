@@ -1,6 +1,4 @@
-﻿namespace Tofu3D;
-
-[Serializable]
+﻿[Serializable]
 public abstract class Asset<T> : AssetBase where T : Asset<T> //, new()
 {
     public void InitAssetRuntimeHandle(int id)

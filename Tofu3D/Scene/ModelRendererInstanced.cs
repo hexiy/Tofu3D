@@ -26,20 +26,20 @@
     {
         if (Material?.Path.Length == 0 || Material == null)
         {
-            Material = Tofu.AssetManager.Load<Material>("ModelRendererInstanced");
+            Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
         }
         else
         {
-            Material = Tofu.AssetManager.Load<Material>(Material.Path);
+            Material = Tofu.AssetManager.Load<Asset_Material>(Material.Path);
         }
 
-        if (Mesh?.Path.Length > 0)
+        if (AssetMesh?.Path.Length > 0)
         {
-            Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
+            AssetMesh = Tofu.AssetManager.Load<Asset_Mesh>(AssetMesh.Path);
         }
         else
         {
-            Mesh = null;
+            AssetMesh = null;
         }
     }
 
@@ -51,7 +51,7 @@
             return;
         }
 
-        if (Mesh == null)
+        if (AssetMesh == null)
         {
             return;
         }

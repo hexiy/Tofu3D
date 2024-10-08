@@ -10,9 +10,9 @@ public class InspectorFieldDrawerShader : InspectorFieldDrawable<Shader>
     {
         var shaderPath = "";
 
-        if (componentInspectorData.Inspectable is Material)
+        if (componentInspectorData.Inspectable is Asset_Material)
         {
-            shaderPath = Path.GetFileName((componentInspectorData.Inspectable as Material).Shader?.Path);
+            shaderPath = Path.GetFileName((componentInspectorData.Inspectable as Asset_Material).Shader?.Path);
         }
         else
         {
@@ -34,7 +34,7 @@ public class InspectorFieldDrawerShader : InspectorFieldDrawable<Shader>
                 var shaderName = Path.GetFileName(payload);
 
                 Shader shader = new Shader(payload);
-                (componentInspectorData.Inspectable as Material).SetShader(shader);
+                (componentInspectorData.Inspectable as Asset_Material).SetShader(shader);
                 // load new material
             }
 

@@ -2,7 +2,7 @@
 
 public static class BufferFactory
 {
-    public static void CreateBufferForShader(Material material)
+    public static void CreateBufferForShader(Asset_Material material)
     {
         if (material.Shader.BufferType == BufferType.Rendertexture)
         {

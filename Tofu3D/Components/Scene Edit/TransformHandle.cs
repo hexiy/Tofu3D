@@ -163,8 +163,8 @@ public class TransformHandle : Component, IComponentUpdateable
         ModelRendererZ = GameObject.AddComponent<ModelRendererInstanced>();
         ModelRendererXy = GameObject.AddComponent<ModelRendererInstanced>();
 
-        // Material unlitMaterial = Tofu.AssetManager.Load<Material>("ModelRendererUnlit");
-        var unlitMaterial = Tofu.AssetManager.Load<Material>("ModelRendererUnlit");
+        // Material unlitMaterial = Tofu.AssetManager.Load<Asset_Material>("ModelRendererUnlit");
+        var unlitMaterial = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/ModelRendererUnlit.mat");
         ModelRendererX.Material = unlitMaterial;
         ModelRendererY.Material = unlitMaterial;
         ModelRendererXy.Material = unlitMaterial;

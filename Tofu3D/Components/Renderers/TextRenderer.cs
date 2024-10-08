@@ -86,13 +86,13 @@ public class TextRenderer : SpriteRenderer
 
         if (Texture == null)
         {
-            Texture = new Texture();
+            Texture = new Asset_Texture();
         }
         else
         {
-            var textureLoadSettings = TextureLoadSettings.DefaultSettingsTexture2D;
+            // var textureLoadSettings = TextureLoadSettings.DefaultSettingsTexture2D;
             // TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
-            Texture = Tofu.AssetManager.Load<Texture>(Texture.Path, textureLoadSettings);
+            Texture = Tofu.AssetManager.Load<Asset_Texture>(Texture.Path);
         }
 
         base.Awake();
@@ -100,7 +100,7 @@ public class TextRenderer : SpriteRenderer
 
     public override void SetDefaultMaterial()
     {
-        Material = Tofu.AssetManager.Load<Material>("TextRenderer");
+        Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/TextRenderer.mat");
 
         Material.Additive = false;
     }
@@ -124,7 +124,7 @@ public class TextRenderer : SpriteRenderer
         }
 
 
-        Texture = Tofu.AssetManager.Load<Texture>(texturePath);
+        Texture = Tofu.AssetManager.Load<Asset_Texture>(texturePath);
     }
 
     public override void Render()

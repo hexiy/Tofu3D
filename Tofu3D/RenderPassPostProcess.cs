@@ -2,7 +2,7 @@
 
 public class RenderPassPostProcess : RenderPass
 {
-    private Material _postProcessMaterial;
+    private Asset_Material _postProcessMaterial;
 
     public RenderPassPostProcess() : base(RenderPassType.PostProcess)
     {
@@ -18,7 +18,7 @@ public class RenderPassPostProcess : RenderPass
     {
         SetupRenderTexture();
 
-        _postProcessMaterial = Tofu.AssetManager.Load<Material>("PostProcess");
+        _postProcessMaterial = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/PostProcess.mat");
         base.Initialize();
     }
 

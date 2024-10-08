@@ -1,6 +1,4 @@
-namespace Tofu3D;
-
-public class Asset_Model
+public class Asset_Model : Asset<Asset_Model>
 {
-    
+    public Asset_Mesh[] Meshes;
 }

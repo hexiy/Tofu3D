@@ -78,9 +78,9 @@ public class EditorPanelInspector : EditorPanel
             { typeof(Vector2), new InspectorFieldDrawerVector2() },
             { typeof(Vector3), new InspectorFieldDrawerVector3() },
             { typeof(GameObject), new InspectorFieldDrawerGameObject() },
-            { typeof(Material), new InspectorFieldDrawerMaterial() },
+            { typeof(Asset_Material), new InspectorFieldDrawerMaterial() },
             { typeof(Shader), new InspectorFieldDrawerShader() },
-            { typeof(Texture), new InspectorFieldDrawerTexture() },
+            { typeof(Asset_Texture), new InspectorFieldDrawerTexture() },
             { typeof(CubemapTexture), new InspectorFieldDrawerCubemapTexture() },
             { typeof(Color), new InspectorFieldDrawerColor() },
             { typeof(bool), new InspectorFieldDrawerBool() },
@@ -89,7 +89,7 @@ public class EditorPanelInspector : EditorPanel
             { typeof(string), new InspectorFieldDrawerString() },
             { typeof(Action), new InspectorFieldDrawerAction() },
             { typeof(AudioClip), new InspectorFieldDrawerAudioClip() },
-            { typeof(Mesh), new InspectorFieldDrawerMesh() },
+            { typeof(Asset_Mesh), new InspectorFieldDrawerMesh() },
             { typeof(Curve), new InspectorFieldDrawerCurve() },
             { typeof(Enum), new InspectorFieldDrawerEnum() }
         };
@@ -205,7 +205,7 @@ public class EditorPanelInspector : EditorPanel
 
     public void OnMaterialSelected(string materialPath)
     {
-        object materialInspectable = Tofu.AssetManager.Load<Material>(materialPath);
+        object materialInspectable = Tofu.AssetManager.Load<Asset_Material>(materialPath);
         SelectInspectable(materialInspectable);
     }
 
@@ -354,20 +354,20 @@ public class EditorPanelInspector : EditorPanel
                                   componentInspectorData.InspectableType.Name;
             }
 
-            if (componentInspectorData.InspectableType == typeof(Material))
+            if (componentInspectorData.InspectableType == typeof(Asset_Material))
             {
                 ImGui.PushStyleColor(ImGuiCol.Header, Color.Honeydew.ToVector4());
             }
 
             var headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);
-            if (componentInspectorData.InspectableType == typeof(Material))
+            if (componentInspectorData.InspectableType == typeof(Asset_Material))
             {
                 ImGui.PopStyleColor();
             }
 
             if (headerClicked)
             {
-                if (componentInspectorData.InspectableType == typeof(Material))
+                if (componentInspectorData.InspectableType == typeof(Asset_Material))
                 {
                     // DrawMaterialStuff(componentInspectorData);
                 }
