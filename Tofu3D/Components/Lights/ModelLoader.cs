@@ -4,12 +4,31 @@ namespace Tofu3D;
 
 public class ModelLoader : AssetLoader<Mesh>
 {
-    public override Mesh SaveAsset(ref Mesh asset, AssetLoadSettingsBase loadSettings) =>
-        throw new NotImplementedException();
+    private readonly XmlSerializer _xmlSerializer;
+
+    public ModelLoader()
+    {
+        _xmlSerializer = new XmlSerializer(typeof(Mesh),
+            new[] { typeof(AssetBase), typeof(Mesh) });
+    }
+    
+    public override Mesh SaveAsset(ref Mesh asset, AssetLoadSettingsBase loadSettings)
+    {
+        // make sure to use loadSettings.Path not asset.path
+        StreamWriter sw = new(loadSettings.Path);
+
+        _xmlSerializer.Serialize(sw, asset);
+
+        sw.Close();
+
+        Tofu.AssetManager.Unload(asset, loadSettings);
+        asset = Tofu.AssetManager.Load<Mesh>(loadSettings);
+        return asset;
+    }
 
     public override void UnloadAsset(Asset<Mesh> asset)
     {
-        GL.DeleteTexture(asset.Handle.Id);
+        throw new NotImplementedException();
     }
 
     public override Asset<Mesh> LoadAsset(AssetLoadSettingsBase assetLoadSettings)
@@ -26,9 +45,7 @@ public class ModelLoader : AssetLoader<Mesh>
         List<float> uvs = new();
         List<float> normals = new();
 
-        List<float> everything = new();
-        var numberOfIndicesPerLine = 0;
-        var totalVerticesCount = 0;
+
         foreach (var line in data)
         {
             var lineSplit = line.Split(' ');
@@ -58,7 +75,39 @@ public class ModelLoader : AssetLoader<Mesh>
                 normals.Add(y);
                 normals.Add(z);
             }
-            else if (line.StartsWith("f ")) // indices
+        }
+
+        Mesh mesh = new Mesh();
+        int lineStartIndex = 0;
+        while (lineStartIndex != -1)
+        {
+            int indxTemp = lineStartIndex;
+            mesh = vaaaaa(data: data, vertices: vertices, uvs: uvs, normals: normals,
+                lineStartIndex: ref lineStartIndex);
+            mesh.Path = loadSettings.Path;
+            // model.Meshes.Add(mesh);
+            if (indxTemp == lineStartIndex)
+            {
+                break; // final mesh
+            }
+        }
+
+        return mesh;
+    }
+
+    private Mesh vaaaaa(string[] data, List<float> vertices, List<float> uvs, List<float> normals,
+        ref int lineStartIndex)
+    {
+        List<float> everything = new();
+        var numberOfIndicesPerLine = 0;
+        var totalVerticesCount = 0;
+
+        for (int lineIndex = lineStartIndex; lineIndex < data.Length; lineIndex++)
+        {
+            var line = data[lineIndex];
+            var lineSplit = line.Split(' ');
+
+            if (line.StartsWith("f ")) // indices
             {
                 numberOfIndicesPerLine = lineSplit.Length - 1;
                 bool isQuad = numberOfIndicesPerLine == 4;
@@ -144,6 +193,12 @@ public class ModelLoader : AssetLoader<Mesh>
                     }
                 }
             }
+            else if (line.StartsWith("g") || line.StartsWith("usemtl"))
+            {
+                // new mesh
+                lineStartIndex = lineIndex + 1;
+                break;
+            }
         }
 
 
@@ -151,7 +206,7 @@ public class ModelLoader : AssetLoader<Mesh>
         // mesh.VertexBufferDataLength = everything.Count;
         mesh.VerticesCount = totalVerticesCount;
         int[] countsOfElements = { 3, 2, 3, 3, 3 }; // position, uv, normal, tangent, bitangent
-        
+
 
         // now we need to calculate tangents and bitangents per triangle
 
@@ -182,7 +237,7 @@ public class ModelLoader : AssetLoader<Mesh>
                 everything[indexOfVertex1Start + floatsPerVertex + floatsPerVertex + 0],
                 everything[indexOfVertex1Start + floatsPerVertex + floatsPerVertex + 1],
                 everything[indexOfVertex1Start + floatsPerVertex + floatsPerVertex + 2]);
-            
+
 
             int offset = 3; // pos.x,pos.y,pos.z
             Vector2 uv1 = new Vector2(
@@ -192,29 +247,29 @@ public class ModelLoader : AssetLoader<Mesh>
                 everything[indexOfVertex1Start + offset + floatsPerVertex + 0],
                 everything[indexOfVertex1Start + offset + floatsPerVertex + 1]);
             Vector2 uv3 = new Vector2(
-                everything[indexOfVertex1Start + offset + floatsPerVertex+ floatsPerVertex+ 0],
-                everything[indexOfVertex1Start + offset + floatsPerVertex+ floatsPerVertex+ 1]);
+                everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 0],
+                everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 1]);
 
 
             offset = 5; // pos.x,pos.y,pos.z, uv.x,uv.y
-            
+
             // average out normals
 
             Vector3 nm1 = new Vector3(
                 everything[indexOfVertex1Start + offset + 0],
                 everything[indexOfVertex1Start + offset + 1],
                 everything[indexOfVertex1Start + offset + 2]);
-               Vector3 nm2 = new Vector3(
+            Vector3 nm2 = new Vector3(
                 everything[indexOfVertex1Start + offset + floatsPerVertex + 0],
                 everything[indexOfVertex1Start + offset + floatsPerVertex + 1],
-                everything[indexOfVertex1Start + offset + floatsPerVertex + 2]); 
-               Vector3 nm3 = new Vector3(
+                everything[indexOfVertex1Start + offset + floatsPerVertex + 2]);
+            Vector3 nm3 = new Vector3(
                 everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 0],
                 everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 1],
                 everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 2]);
 
-               Vector3 nm = (nm1 + nm2 + nm3)/3f;
-               // Vector3 nm = nm1;
+            Vector3 nm = (nm1 + nm2 + nm3) / 3f;
+            // Vector3 nm = nm1;
             // Vector3 nm = new Vector3(
             //     everything[indexOfVertex1Start + offset + 0],
             //     everything[indexOfVertex1Start + offset + 1],
@@ -259,84 +314,24 @@ public class ModelLoader : AssetLoader<Mesh>
             bitangent2.Y = f * (-deltaUV2.X * edge1.Y + deltaUV1.X * edge2.Y);
             bitangent2.Z = f * (-deltaUV2.X * edge1.Z + deltaUV1.X * edge2.Z);
 
-            
+
             float[] triangleVertices =
             {
                 // positions                           // uvs        // normals        // tangent                          // bitangent
-                position1.X, position1.Y, position1.Z, uv1.X, uv1.Y, nm.X, nm.Y, nm.Z, tangent1.X, tangent1.Y, tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
-                position2.X, position2.Y, position2.Z, uv2.X, uv2.Y, nm.X, nm.Y, nm.Z, tangent1.X, tangent1.Y, tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
-                position3.X, position3.Y, position3.Z, uv3.X, uv3.Y, nm.X, nm.Y, nm.Z, tangent1.X, tangent1.Y, tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
+                position1.X, position1.Y, position1.Z, uv1.X, uv1.Y, nm.X, nm.Y, nm.Z, tangent1.X, tangent1.Y,
+                tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
+                position2.X, position2.Y, position2.Z, uv2.X, uv2.Y, nm.X, nm.Y, nm.Z, tangent1.X, tangent1.Y,
+                tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
+                position3.X, position3.Y, position3.Z, uv3.X, uv3.Y, nm.X, nm.Y, nm.Z, tangent1.X, tangent1.Y,
+                tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
             };
             newEverything.AddRange(triangleVertices);
         }
 
-        // ohh preto to nefunguje lebo uvs idu prve a tak normals v data, ale pri citani to je naopak
-
-        var oldCount = everything.Count;
-        var newCount = newEverything.Count;
-        // just to compare if we have correct amount of data
-
-
-        // example c code from learnopengl - https://learnopengl.com/code_viewer_gh.php?code=src/5.advanced_lighting/4.normal_mapping/normal_mapping.cpp
-
-
-        // // calculate tangent/bitangent vectors of both triangles
-        // glm::vec3 tangent1, bitangent1;
-        // glm::vec3 tangent2, bitangent2;
-        // // triangle 1
-        // // ----------
-        // glm::vec3 edge1 = pos2 - pos1;
-        // glm::vec3 edge2 = pos3 - pos1;
-        // glm::vec2 deltaUV1 = uv2 - uv1;
-        // glm::vec2 deltaUV2 = uv3 - uv1;
-        //
-        // float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
-        //
-        //
-        // tangent1.x = f * (deltaUV2.y * edge1.x - deltaUV1.y * edge2.x);
-        // tangent1.y = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
-        // tangent1.z = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
-        //
-        // bitangent1.x = f * (-deltaUV2.x * edge1.x + deltaUV1.x * edge2.x);
-        // bitangent1.y = f * (-deltaUV2.x * edge1.y + deltaUV1.x * edge2.y);
-        // bitangent1.z = f * (-deltaUV2.x * edge1.z + deltaUV1.x * edge2.z);
-        //
-        // // triangle 2
-        // // ----------
-        // edge1 = pos3 - pos1;
-        // edge2 = pos4 - pos1;
-        // deltaUV1 = uv3 - uv1;
-        // deltaUV2 = uv4 - uv1;
-        //
-        // f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
-        //
-        // tangent2.x = f * (deltaUV2.y * edge1.x - deltaUV1.y * edge2.x);
-        // tangent2.y = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
-        // tangent2.z = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
-        //
-        //
-        // bitangent2.x = f * (-deltaUV2.x * edge1.x + deltaUV1.x * edge2.x);
-        // bitangent2.y = f * (-deltaUV2.x * edge1.y + deltaUV1.x * edge2.y);
-        // bitangent2.z = f * (-deltaUV2.x * edge1.z + deltaUV1.x * edge2.z);
-        //
-        //
-        // float quadVertices[] = {
-        //     // positions            // normal         // texcoords  // tangent                          // bitangent
-        //     pos1.x, pos1.y, pos1.z, nm.x, nm.y, nm.z, uv1.x, uv1.y, tangent1.x, tangent1.y, tangent1.z, bitangent1.x, bitangent1.y, bitangent1.z,
-        //     pos2.x, pos2.y, pos2.z, nm.x, nm.y, nm.z, uv2.x, uv2.y, tangent1.x, tangent1.y, tangent1.z, bitangent1.x, bitangent1.y, bitangent1.z,
-        //     pos3.x, pos3.y, pos3.z, nm.x, nm.y, nm.z, uv3.x, uv3.y, tangent1.x, tangent1.y, tangent1.z, bitangent1.x, bitangent1.y, bitangent1.z,
-        //
-        //     pos1.x, pos1.y, pos1.z, nm.x, nm.y, nm.z, uv1.x, uv1.y, tangent2.x, tangent2.y, tangent2.z, bitangent2.x, bitangent2.y, bitangent2.z,
-        //     pos3.x, pos3.y, pos3.z, nm.x, nm.y, nm.z, uv3.x, uv3.y, tangent2.x, tangent2.y, tangent2.z, bitangent2.x, bitangent2.y, bitangent2.z,
-        //     pos4.x, pos4.y, pos4.z, nm.x, nm.y, nm.z, uv4.x, uv4.y, tangent2.x, tangent2.y, tangent2.z, bitangent2.x, bitangent2.y, bitangent2.z
-        // };
-
-        // newEverything = everything; //////// testing
-        // countsOfElements = new[] { 3, 2, 3 }; //////// testing
         BufferFactory.CreateGenericBuffer(ref mesh.Vao, newEverything.ToArray(), countsOfElements);
 
         mesh.InitAssetRuntimeHandle(mesh.Vao);
-        mesh.Path = loadSettings.Path;
+        // mesh.Path = loadSettings.Path;
 
         return mesh;
     }
