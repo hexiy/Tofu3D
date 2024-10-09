@@ -12,15 +12,15 @@ public class EditorPanelBrowser : EditorPanel
     private string[] _assets = Array.Empty<string>();
 
     private List<BrowserContextItem> _contextItems;
-    private Asset_Texture _directoryIcon;
+    private RuntimeTexture _directoryIcon;
 
-    private Asset_Texture _fileIcon;
+    private RuntimeTexture _fileIcon;
 
     private readonly Vector2 _iconSize = new(200, 180);
 
     // private readonly TextureLoadSettings _iconTextureLoadSettings = new(filterMode: TextureFilterMode.Point);
 
-    private Asset_Texture[] _textures = Array.Empty<Asset_Texture>();
+    private RuntimeTexture[] _textures = Array.Empty<RuntimeTexture>();
 
     public DirectoryInfo CurrentDirectory;
 
@@ -40,9 +40,9 @@ public class EditorPanelBrowser : EditorPanel
         Tofu.AssetsWatcher.RegisterFileChangedCallback(OnFileChanged, "*");
         CreateContextItems();
 
-        _fileIcon = Tofu.AssetManager.Load<Asset_Texture>("Resources/FileIcon.png");//, _iconTextureLoadSettings);
+        _fileIcon = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/FileIcon.png");//, _iconTextureLoadSettings);
 
-        _directoryIcon = Tofu.AssetManager.Load<Asset_Texture>("Resources/DirectoryIcon.png");//, _iconTextureLoadSettings);
+        _directoryIcon = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/DirectoryIcon.png");//, _iconTextureLoadSettings);
 
         CurrentDirectory = new DirectoryInfo("Assets");
 
@@ -61,7 +61,7 @@ public class EditorPanelBrowser : EditorPanel
             filePath =>
             {
                 Asset_Material createdMaterial = new();
-                createdMaterial.Path = filePath;
+                createdMaterial.PathToRawAsset = filePath;
                 // Tofu.AssetManager.Save<Material>(createdMaterial);
                 RefreshAssets();
             });
@@ -112,14 +112,14 @@ public class EditorPanelBrowser : EditorPanel
 
         for (var i = 0; i < _textures.Length; i++)
         {
-            if (_textures[i] != null && _textures[i].Loaded)
+            if (_textures[i] != null)// && _textures[i].Loaded)
             {
                 _textures[i].Delete();
                 _textures[i] = null;
             }
         }
 
-        _textures = new Asset_Texture[_assets.Length];
+        _textures = new RuntimeTexture[_assets.Length];
         for (var i = 0; i < _assets.Length; i++)
         {
             var assetExtension = Path.GetExtension(_assets[i]).ToLower();
@@ -130,7 +130,7 @@ public class EditorPanelBrowser : EditorPanel
                 // _textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
             {
                 
-                _textures[i] = Tofu.AssetManager.Load<Asset_Texture>(_assets[i]);//, _iconTextureLoadSettings);
+                _textures[i] = Tofu.AssetLoadManager.Load<RuntimeTexture>(_assets[i]);//, _iconTextureLoadSettings);
             }
         }
     }
@@ -240,7 +240,7 @@ public class EditorPanelBrowser : EditorPanel
             }
             else
             {
-                if (_textures[assetIndex] != null && _textures[assetIndex].Loaded)
+                if (_textures[assetIndex] != null)// && _textures[assetIndex].Loaded)
                 {
                     ImGui.ImageButton(_textures[assetIndex].TextureId, _iconSize);
                 }

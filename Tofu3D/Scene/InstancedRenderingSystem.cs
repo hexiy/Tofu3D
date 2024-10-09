@@ -92,14 +92,14 @@ public class InstancedRenderingSystem
         var definitionIndex = objectBufferPair.Key;
         var definition = _definitions[definitionIndex];
         var material = definition.Material;
-        material = Tofu.AssetManager.Load<Asset_Material>(material.Path);
+        material = Tofu.AssetLoadManager.Load<Asset_Material>(material.PathToRawAsset);
         var mesh = definition.AssetMesh;
         var bufferData = objectBufferPair.Value;
         // GL.Enable(EnableCap.DepthTest);
         if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
             or RenderPassType.ZPrePass)
         {
-            var depthMaterial = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstancedDepth.mat");
+            var depthMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstancedDepth.mat");
             Tofu.ShaderManager.UseShader(depthMaterial.Shader);
             depthMaterial.Shader.SetMatrix4X4("u_viewProjection",
                 Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
@@ -252,7 +252,7 @@ public class InstancedRenderingSystem
         VertexBufferStructureType vertexBufferStructureType,
         Matrix4x4? modelMatrix = null, bool isStatic = false, bool remove = false, Color? color = null)
     {
-        var mesh = renderer.AssetMesh;
+        var mesh = renderer.RuntimeMesh;
         var material = renderer.Material;
         if (mesh == null)
         {

@@ -11,6 +11,12 @@ public static class AssetDatabaseExtensions
     public static string FromRawAssetFileNameToPathOfAssetInLibrary(this string fileName)
     {
         fileName = Path.GetFileName(fileName);
-        return Path.Combine(Folders.Library,fileName + ".asset");
+        fileName = Path.Combine(Folders.Library, fileName);
+        if (fileName.EndsWith(".asset") == false)
+        {
+            fileName = fileName + ".asset";
+        }
+
+        return fileName;
     }
 }

@@ -18,7 +18,7 @@ public class RenderPassPostProcess : RenderPass
     {
         SetupRenderTexture();
 
-        _postProcessMaterial = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/PostProcess.mat");
+        _postProcessMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/PostProcess.mat");
         base.Initialize();
     }
 

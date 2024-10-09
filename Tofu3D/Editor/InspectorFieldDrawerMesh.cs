@@ -10,7 +10,7 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<Asset_Mesh>
     {
         var mesh = (Asset_Mesh)info.GetValue(componentInspectorData.Inspectable);
 
-        var assetName = Path.GetFileName(mesh?.Path) ?? "";
+        var assetName = Path.GetFileName(mesh?.PathToRawAsset) ?? "";
 
         var clicked = ImGui.Button(assetName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
@@ -23,7 +23,7 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<Asset_Mesh>
             {
                 // fileName = Path.GetRelativePath("Assets", fileName);
 
-                mesh = Tofu.AssetManager.Load<Asset_Mesh>(filePath);
+                mesh = Tofu.AssetLoadManager.Load<Asset_Mesh>(filePath);
                 // gameObject.GetComponent<Renderer>().Material.Vao = Mesh.Vao; // materials are shared
                 info.SetValue(componentInspectorData.Inspectable, mesh);
             }

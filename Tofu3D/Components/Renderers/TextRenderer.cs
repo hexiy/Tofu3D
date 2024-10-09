@@ -1,4 +1,4 @@
-using System.IO;
+/*using System.IO;
 
 namespace Scripts;
 
@@ -86,13 +86,13 @@ public class TextRenderer : SpriteRenderer
 
         if (Texture == null)
         {
-            Texture = new Asset_Texture();
+            Texture = new RuntimeTexture();
         }
         else
         {
             // var textureLoadSettings = TextureLoadSettings.DefaultSettingsTexture2D;
             // TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
-            Texture = Tofu.AssetManager.Load<Asset_Texture>(Texture.Path);
+            Texture = Tofu.AssetLoadManager.Load<RuntimeTexture>(Texture.PathToRawAsset);
         }
 
         base.Awake();
@@ -100,7 +100,7 @@ public class TextRenderer : SpriteRenderer
 
     public override void SetDefaultMaterial()
     {
-        Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/TextRenderer.mat");
+        Material = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/TextRenderer.mat");
 
         Material.Additive = false;
     }
@@ -124,7 +124,7 @@ public class TextRenderer : SpriteRenderer
         }
 
 
-        Texture = Tofu.AssetManager.Load<Asset_Texture>(texturePath);
+        Texture = Tofu.AssetLoadManager.Load<RuntimeTexture>(texturePath);
     }
 
     public override void Render()
@@ -261,4 +261,4 @@ public class TextRenderer : SpriteRenderer
         Transform.WorldPosition = originalPosition;
         Transform.LocalScale = originalScale;
     }
-}
+}*/

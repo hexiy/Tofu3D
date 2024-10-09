@@ -15,7 +15,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
 
     [Show] public Asset_Material Material;
     
-    public Asset_Mesh AssetMesh;
+    public RuntimeMesh RuntimeMesh;
 
     public RenderMode RenderMode = RenderMode.Opaque;
 

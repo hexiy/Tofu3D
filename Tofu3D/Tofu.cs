@@ -21,8 +21,8 @@ public static class Tofu
     public static InstancedRenderingSystem InstancedRenderingSystem;
 
     // ASSETS
-    public static AssetDatabase AssetDatabase;
-    public static AssetManager AssetManager;
+    public static AssetImportManager AssetImportManager;
+    public static AssetLoadManager AssetLoadManager;
     public static SceneSerializer SceneSerializer;
     public static AssetsWatcher AssetsWatcher;
 
@@ -41,8 +41,8 @@ public static class Tofu
         SystemConfig.Configure();
         Global.LoadSavedData();
 
-        AssetDatabase = new AssetDatabase();
-        AssetManager = new AssetManager(assetDatabase:AssetDatabase);
+        AssetImportManager = new AssetImportManager();
+        AssetLoadManager = new AssetLoadManager(assetImportManager:AssetImportManager);
         SceneManager = new SceneManager();
         SceneSerializer = new SceneSerializer();
         RenderSettings = new RenderSettings();
@@ -64,6 +64,8 @@ public static class Tofu
 
     private static void OnWindowLoad()
     {
+        AssetImportManager.ImportAllAssets();
+        
         InstancedRenderingSystem = new InstancedRenderingSystem();
 
         RenderPassSystem = new RenderPassSystem();

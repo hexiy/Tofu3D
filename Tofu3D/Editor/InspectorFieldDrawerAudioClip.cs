@@ -15,7 +15,7 @@ public class InspectorFieldDrawerAudioClip : InspectorFieldDrawable<AudioClip>
             info.SetValue(componentInspectorData.Inspectable, audioClip);
         }
 
-        var clipName = Path.GetFileName(audioClip?.Path);
+        var clipName = Path.GetFileName(audioClip?.PathToRawAsset);
 
         var clicked = ImGui.Button(clipName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
@@ -29,7 +29,7 @@ public class InspectorFieldDrawerAudioClip : InspectorFieldDrawable<AudioClip>
             {
                 // fileName = Path.GetRelativePath("Assets", fileName);
 
-                audioClip.Path = fileName;
+                audioClip.PathToRawAsset = fileName;
                 SetValue(info, componentInspectorData, audioClip);
             }
 

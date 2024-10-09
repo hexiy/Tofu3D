@@ -48,8 +48,8 @@ public class AudioSource : Component, IComponentUpdateable
     {
         _threadStart = () =>
         {
-            var bytes = File.ReadAllBytes(Clip.Path);
-            _loadedAudioFileName = Clip.Path;
+            var bytes = File.ReadAllBytes(Clip.PathToRawAsset);
+            _loadedAudioFileName = Clip.PathToRawAsset;
             if (_audioMemoryStream != null)
             {
                 _audioMemoryStream.Close();
@@ -78,7 +78,7 @@ public class AudioSource : Component, IComponentUpdateable
             return;
         }
 
-        if (Clip.Path != _loadedAudioFileName)
+        if (Clip.PathToRawAsset != _loadedAudioFileName)
         {
             LoadAudioToMemory(PlaySound);
             return;

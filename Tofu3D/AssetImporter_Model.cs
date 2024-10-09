@@ -7,12 +7,88 @@ using System.Xml.Serialization;
 
 namespace Tofu3D;
 
+// Imports .obj, creates .asset in /Library/ and
 public class AssetImporter_Model : AssetImporter<Asset_Model>
 {
     private readonly XmlSerializer _xmlSerializer;
 
 
-    private Asset_Mesh vaaaaa(string[] data, List<float> vertices, List<float> uvs, List<float> normals,
+    public override Asset_Model ImportAsset(AssetImportParameters<Asset_Model> assetImportParameters)
+    {
+        AssetImportParameters_Model importParameters = assetImportParameters as AssetImportParameters_Model;
+
+        string objPath = importParameters.PathToSourceAsset;
+        // string assetPath = Folders.Library
+
+        var data = File.ReadAllText(objPath).Split("\n");
+
+        List<float> vertices = new();
+        List<float> uvs = new();
+        List<float> normals = new();
+
+
+        foreach (var line in data)
+        {
+            var lineSplit = line.Split(' ');
+
+            if (line.StartsWith("v ")) // positions
+            {
+                var x = float.Parse(lineSplit[1]);
+                var y = float.Parse(lineSplit[2]);
+                var z = float.Parse(lineSplit[3]);
+                vertices.Add(x);
+                vertices.Add(y);
+                vertices.Add(z);
+            }
+            else if (line.StartsWith("vt ")) // UVs
+            {
+                var x = float.Parse(lineSplit[1]);
+                var y = float.Parse(lineSplit[2]);
+                uvs.Add(x);
+                uvs.Add(y);
+            }
+            else if (line.StartsWith("vn ")) // normals
+            {
+                var x = float.Parse(lineSplit[1]);
+                var y = float.Parse(lineSplit[2]);
+                var z = float.Parse(lineSplit[3]);
+                normals.Add(x);
+                normals.Add(y);
+                normals.Add(z);
+            }
+        }
+
+        Asset_Model model = new Asset_Model();
+
+        Asset_Mesh assetMesh = new Asset_Mesh();
+        int lineStartIndex = 0;
+        while (lineStartIndex != -1)
+        {
+            int indxTemp = lineStartIndex;
+
+            // save meshes too
+            assetMesh = LoadMeshFromData(data: data, vertices: vertices, uvs: uvs, normals: normals,
+                lineStartIndex: ref lineStartIndex);
+            string meshPath = (objPath + $"_mesh_{model.PathsToMeshAssets.Count}")
+                .FromRawAssetFileNameToPathOfAssetInLibrary();
+            QuickSerializer.SaveFileBinary<Asset_Mesh>(meshPath, assetMesh);
+            model.PathsToMeshAssets.Add(meshPath);
+            if (indxTemp == lineStartIndex)
+            {
+                break; // final mesh
+            }
+        }
+
+        model.PathToRawAsset = objPath;
+        string modelPath = objPath.FromRawAssetFileNameToPathOfAssetInLibrary();
+
+        QuickSerializer.SaveFileBinary<Asset_Model>(modelPath, model);
+        
+        return model;
+    }
+
+
+    private Asset_Mesh LoadMeshFromData(string[] data, List<float> vertices, List<float> uvs, List<float> normals,
         ref int lineStartIndex)
     {
         List<float> everything = new();
@@ -118,12 +194,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             }
         }
 
-
-        Asset_Mesh assetMesh = new();
-        // mesh.VertexBufferDataLength = everything.Count;
-        assetMesh.VerticesCount = totalVerticesCount;
         int[] countsOfElements = { 3, 2, 3, 3, 3 }; // position, uv, normal, tangent, bitangent
-
 
         // now we need to calculate tangents and bitangents per triangle
 
@@ -245,77 +316,14 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             newEverything.AddRange(triangleVertices);
         }
 
-        BufferFactory.CreateGenericBuffer(ref assetMesh.Vao, newEverything.ToArray(), countsOfElements);
+        Asset_Mesh mesh = new Asset_Mesh();
+        mesh.CountsOfElements = countsOfElements;
+        mesh.VertexBufferData = newEverything.ToArray();
 
-        assetMesh.InitAssetRuntimeHandle(assetMesh.Vao);
-        // mesh.Path = loadSettings.Path;
+        // BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, newEverything.ToArray(), countsOfElements);
+        //
+        // runtimeMesh.InitAssetRuntimeHandle(runtimeMesh.Vao);
 
-        return assetMesh;
-    }
-
-    public override Asset_Model ImportAsset(AssetImportParameters<Asset_Model> assetImportParameters)
-    {
-        AssetImportParameters_Model importParameters = assetImportParameters as AssetImportParameters_Model;
-        Asset_Model model = new Asset_Model();
-
-        string objPath = importParameters.PathToSourceAsset;
-        // string assetPath = Folders.Library
-        
-        var data = File.ReadAllText(objPath).Split("\n");
-
-        List<float> vertices = new();
-        List<float> uvs = new();
-        List<float> normals = new();
-
-
-        foreach (var line in data)
-        {
-            var lineSplit = line.Split(' ');
-
-            if (line.StartsWith("v ")) // positions
-            {
-                var x = float.Parse(lineSplit[1]);
-                var y = float.Parse(lineSplit[2]);
-                var z = float.Parse(lineSplit[3]);
-                vertices.Add(x);
-                vertices.Add(y);
-                vertices.Add(z);
-            }
-            else if (line.StartsWith("vt ")) // UVs
-            {
-                var x = float.Parse(lineSplit[1]);
-                var y = float.Parse(lineSplit[2]);
-                uvs.Add(x);
-                uvs.Add(y);
-            }
-            else if (line.StartsWith("vn ")) // normals
-            {
-                var x = float.Parse(lineSplit[1]);
-                var y = float.Parse(lineSplit[2]);
-                var z = float.Parse(lineSplit[3]);
-                normals.Add(x);
-                normals.Add(y);
-                normals.Add(z);
-            }
-        }
-
-        Asset_Mesh assetMesh = new Asset_Mesh();
-        int lineStartIndex = 0;
-        while (lineStartIndex != -1)
-        {
-            int indxTemp = lineStartIndex;
-            assetMesh = vaaaaa(data: data, vertices: vertices, uvs: uvs, normals: normals,
-                lineStartIndex: ref lineStartIndex);
-            assetMesh.Path = objPath.FromRawAssetFileNameToPathOfAssetInLibrary();
-
-            QuickSerializer.SaveFile<Asset_Mesh>(assetMesh.Path, assetMesh);
-            // model.Meshes.Add(mesh);
-            if (indxTemp == lineStartIndex)
-            {
-                break; // final mesh
-            }
-        }
-
-        return model;
+        return mesh;
     }
 }

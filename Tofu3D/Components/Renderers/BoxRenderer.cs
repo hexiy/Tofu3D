@@ -11,7 +11,7 @@ public class BoxRenderer : Renderer
     {
         if (Material == null)
         {
-            Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/BoxMaterial.mat");
+            Material = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/BoxMaterial.mat");
         }
 
         base.SetDefaultMaterial();

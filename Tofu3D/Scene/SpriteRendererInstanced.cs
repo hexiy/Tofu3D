@@ -1,4 +1,4 @@
-﻿namespace Tofu3D;
+﻿/*namespace Tofu3D;
 
 public class SpriteRendererInstanced : Renderer
 {
@@ -19,11 +19,11 @@ public class SpriteRendererInstanced : Renderer
         // }
         // if (Mesh)
         // {
-        AssetMesh = new Asset_Mesh();
-        AssetMesh.VertexBufferDataLength = 24;
-        AssetMesh.VerticesCount = 6;
+        RuntimeMesh = new Asset_Mesh();
+        RuntimeMesh.VertexBufferDataLength = 24;
+        RuntimeMesh.VerticesCount = 6;
 
-        BufferFactory.CreateSpriteRendererBuffer(ref AssetMesh.Vao);
+        BufferFactory.CreateSpriteRendererBuffer(ref RuntimeMesh.Vao);
 
 
         // Mesh = Tofu.AssetManager.Load<Mesh>(Mesh.Path);
@@ -51,7 +51,7 @@ public class SpriteRendererInstanced : Renderer
         material = new Material();
         Shader shader = new(Path.Combine(Folders.Shaders, "SpriteRenderer.glsl"));
         material.SetShader(shader);
-    }*/
+    }#1#
 
     // internal virtual void UpdateBoxShapeSize()
     // {
@@ -94,7 +94,7 @@ public class SpriteRendererInstanced : Renderer
             return;
         }
 
-        if (AssetMesh == null)
+        if (RuntimeMesh == null)
         {
             return;
         }
@@ -106,4 +106,4 @@ public class SpriteRendererInstanced : Renderer
             InstancingData.InstancingDataDirty = false;
         }
     }
-}
+}*/

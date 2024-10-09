@@ -1,4 +1,4 @@
-﻿public class Benchmark : Component, IComponentUpdateable
+﻿/*public class Benchmark : Component, IComponentUpdateable
 {
     public void Update()
     {
@@ -30,4 +30,4 @@
 
         base.Start();
     }
-}
+}*/

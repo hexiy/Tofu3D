@@ -4,12 +4,12 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Asset_Texture>
+public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
         var texture = GetValue(info, componentInspectorData);
-        var textureName = texture == null ? "" : Path.GetFileName(texture.Path);
+        var textureName = texture == null ? "" : Path.GetFileName(texture.PathToRawAsset);
 
         var posX = (int)ImGui.GetCursorPosX();
 
@@ -43,7 +43,7 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Asset_Texture>
 
         void NavigateToFileInBrowser()
         {
-            EditorPanelInspector.I.AddActionToActionQueue(() => { EditorPanelBrowser.I.GoToFile(texture.Path); });
+            EditorPanelInspector.I.AddActionToActionQueue(() => { EditorPanelBrowser.I.GoToFile(texture.PathToRawAsset); });
         }
 
         if (rightMouseClicked)
@@ -65,7 +65,7 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<Asset_Texture>
 
                     textureName = payload;
 
-                    var loadedTexture = Tofu.AssetManager.Load<Asset_Texture>(textureName);
+                    var loadedTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(textureName);
 
                     SetValue(info, componentInspectorData, loadedTexture);
 

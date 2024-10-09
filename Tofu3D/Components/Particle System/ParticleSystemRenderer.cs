@@ -1,4 +1,4 @@
-﻿public class ParticleSystemRenderer : Renderer
+﻿/*public class ParticleSystemRenderer : Renderer
 {
     private ParticleSystem _particleSystem;
 
@@ -42,22 +42,22 @@
 
     public override void SetDefaultMaterial()
     {
-        if (Material?.Path.Length == 0 || Material == null)
+        if (Material?.PathToRawAsset.Length == 0 || Material == null)
         {
             Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
         }
         else
         {
-            Material = Tofu.AssetManager.Load<Asset_Material>(Material.Path);
+            Material = Tofu.AssetManager.Load<Asset_Material>(Material.PathToRawAsset);
         }
 
-        if (AssetMesh?.Path.Length > 0)
+        if (RuntimeMesh?.PathToRawAsset.Length > 0)
         {
-            AssetMesh = Tofu.AssetManager.Load<Asset_Mesh>(AssetMesh.Path);
+            RuntimeMesh = Tofu.AssetManager.Load<Asset_Mesh>(RuntimeMesh.PathToRawAsset);
         }
         else
         {
-            AssetMesh = null;
+            RuntimeMesh = null;
         }
     }
 
@@ -69,7 +69,7 @@
             return;
         }
 
-        if (AssetMesh == null)
+        if (RuntimeMesh == null)
         {
             return;
         }
@@ -89,7 +89,7 @@
         if (Model == null)
         {
             return;
-        }*/
+        }#1#
 
 
         for (var i = 0; i < _particleSystem.Particles.Count; i++)
@@ -116,4 +116,4 @@
         // InstancingData.InstancingDataDirty = false;
         // }
     }
-}
+}*/

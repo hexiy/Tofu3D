@@ -17,15 +17,16 @@ public class AssetImporter_Material : AssetImporter<Asset_Material>
         AssetImportParameters_Material importParameters = assetImportParameters as AssetImportParameters_Material;
 
 
-        Asset_Material material = QuickSerializer.ReadFile<Asset_Material>(assetImportParameters.PathToSourceAsset);
+        Asset_Material material = QuickSerializer.ReadFileXML<Asset_Material>(assetImportParameters.PathToSourceAsset);
         material.LoadTextures();
         if (material.Shader != null)
         {
             material.InitShader();
         }
 
-        material.Path = assetImportParameters.PathToSourceAsset.FromRawAssetFileNameToPathOfAssetInLibrary();
-        QuickSerializer.SaveFile<Asset_Material>(material.Path, material);
+        material.PathToRawAsset = assetImportParameters.PathToSourceAsset;
+        string path = importParameters.PathToSourceAsset.FromRawAssetFileNameToPathOfAssetInLibrary();
+        QuickSerializer.SaveFileBinary<Asset_Material>(path, material);
 
         material.InitAssetRuntimeHandle(material.Vao);
         // material.IsValid = true;

@@ -9,7 +9,7 @@ public static class PremadeComponentSetupsHelper
         //modelRenderer.material.path
         // modelRenderer.Material= Tofu.AssetManager.Load<Asset_Material>("ModelSolid");adasdadasd
         // modelRenderer.Material.AlbedoTexture = Tofu.AssetManager.Load<Texture>(Path.Combine(Folders.Textures, "solidColor.png"));
-        modelRenderer.AssetMesh = Tofu.AssetManager.Load<Asset_Mesh>(Path.Combine(Folders.Models, "cube.obj"));
+        // modelRenderer.RuntimeMesh = Tofu.AssetManager.Load<RuntimeMesh>(Path.Combine(Folders.Models, "cube.obj"));
 
         return modelRenderer;
     }

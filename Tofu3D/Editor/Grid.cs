@@ -1,4 +1,4 @@
-using System.IO;
+/*using System.IO;
 
 [ExecuteInEditMode]
 public class Grid : Component, IComponentUpdateable
@@ -23,7 +23,7 @@ public class Grid : Component, IComponentUpdateable
         _spriteRenderer = GetComponent<SpriteRenderer>() ?? AddComponent<SpriteRenderer>();
 
 
-        _spriteRenderer.Texture = Tofu.AssetManager.Load<Asset_Texture>(Path.Combine(Folders.Textures, "gridX.png"));
+        _spriteRenderer.Texture = Tofu.AssetLoadManager.Load<RuntimeTexture>(Path.Combine(Folders.Textures, "gridX.png"));
             //,TextureLoadSettings.DefaultSettingsSpritePixelArt);
         _spriteRenderer.Color = new Color(255, 255, 255, 255);
         _spriteRenderer.Layer = -10;
@@ -36,4 +36,4 @@ public class Grid : Component, IComponentUpdateable
     {
         base.Start();
     }
-}
+}*/

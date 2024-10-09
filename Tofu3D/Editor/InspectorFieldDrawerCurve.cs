@@ -39,7 +39,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
                 pos.Y + (1 - curve.DefiningPoints[i].Y) * graphSize.Y);
 
 
-            var texture = Tofu.AssetManager.Load<Asset_Texture>("Resources/dot.png");
+            var texture = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/dot.png");
 
             var circleColor = Color.Purple;
 

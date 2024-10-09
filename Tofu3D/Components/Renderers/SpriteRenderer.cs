@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿/*using System.IO;
 
 namespace Tofu3D;
 
@@ -14,12 +14,12 @@ public class SpriteRenderer : TextureRenderer
         SetDefaultMaterial();
         if (Texture == null)
         {
-            Texture = new Asset_Texture();
+            Texture = new RuntimeTexture();
         }
         else
         {
             // var textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
-            Texture = Tofu.AssetManager.Load<Asset_Texture>(Texture.Path);
+            Texture = Tofu.AssetLoadManager.Load<Asset_Texture>(Texture.PathToRawAsset);
         }
 
         //BatchingManager.AddObjectToBatcher(Texture.Id, this);
@@ -31,7 +31,7 @@ public class SpriteRenderer : TextureRenderer
         material = new Material();
         Shader shader = new(Path.Combine(Folders.Shaders, "SpriteRenderer.glsl"));
         material.SetShader(shader);
-    }*/
+    }#1#
 
     internal virtual void UpdateBoxShapeSize()
     {
@@ -55,7 +55,7 @@ public class SpriteRenderer : TextureRenderer
         // 	Material = Tofu.AssetManager.Load<Asset_Material>("SpriteRenderer");
         // }
 
-        Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/SpriteRenderer.mat");
+        Material = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/SpriteRenderer.mat");
 
         // base.SetDefaultMaterial();
     }
@@ -207,4 +207,4 @@ public override void Render()
             GL.BindVertexArray(0);
             GL.Disable(EnableCap.Blend);
         }
-*/
+#1#*/

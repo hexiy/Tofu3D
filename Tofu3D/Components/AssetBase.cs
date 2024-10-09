@@ -1,9 +1,9 @@
 ﻿[Serializable]
 public abstract class AssetBase
 {
-    public string Path = "";
+    public string PathToRawAsset = "";
     [XmlIgnore]
-    public AssetHandle Handle { get; set; }
+    public RuntimeAssetHandle RuntimeAssetHandle { get; set; }
 
     // private Asset()
     // {

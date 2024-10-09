@@ -43,6 +43,10 @@
               "target": "Package",
               "version": "[1.87.3, )"
             },
+            "MessagePack": {
+              "target": "Package",
+              "version": "[3.0.134-beta, )"
+            },
             "Microsoft.CodeAnalysis.Workspaces.Common": {
               "target": "Package",
               "version": "[4.5.0-2.final, )"

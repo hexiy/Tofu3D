@@ -12,11 +12,11 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
 
         if (componentInspectorData.Inspectable is Renderer)
         {
-            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.Path);
+            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.PathToRawAsset);
         }
         else if (componentInspectorData.Inspectable is Asset_Material)
         {
-            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Asset_Material).Path);
+            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Asset_Material).PathToRawAsset);
         }
 
         materialPath = materialPath ?? "";
@@ -39,7 +39,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
                 payload = payload;
                 var materialName = Path.GetFileName(payload);
 
-                var draggedMaterial = Tofu.AssetManager.Load<Asset_Material>(payload);
+                var draggedMaterial = Tofu.AssetLoadManager.Load<Asset_Material>(payload);
                 if (draggedMaterial.Shader == null)
                 {
                     Debug.Log("No Shader attached to material.");

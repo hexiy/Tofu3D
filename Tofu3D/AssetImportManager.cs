@@ -8,33 +8,35 @@ using Tofu3D;
 
 namespace Tofu3D;
 
-public class AssetDatabase
+// Transforms .obj,.png files into .asset files in /Library/
+public class AssetImportManager
 {
-    public Dictionary<int, AssetBase> Assets { get; private set; } = new(); // int is id(path hashcode)
+    // public Dictionary<int, AssetBase> Assets { get; private set; } = new(); // int is id(path hashcode)
     // public Dictionary<int, AssetImportParametersBase> AssetImportParameters { get; private set; } = new();
     public Dictionary<Type, IAssetImporter> Importers { get; private set; } = new();
 
-    public AssetDatabase()
+    public AssetImportManager()
     {
         RegisterAssetImporter(new AssetImporter_Model());
         RegisterAssetImporter(new AssetImporter_Texture());
         RegisterAssetImporter(new AssetImporter_Material());
     }
 
-    private void RegisterAssetImporter(IAssetImporter assetLoader)
+    private void RegisterAssetImporter(IAssetImporter assetImporter)
     {
-        Importers.Add(assetLoader.GetType().BaseType.GenericTypeArguments[0], assetLoader);
+        Importers.Add(assetImporter.GetType().BaseType.GenericTypeArguments[0], assetImporter);
     }
 
-    public void RefreshDatabase()
+    public void ImportAllAssets()
     {
-        string[] rawAssetPaths = Directory.GetFiles(Folders.Assets, "", SearchOption.AllDirectories);
-
+        List<string> allPaths = new List<string>();
+        allPaths.AddRange(Directory.GetFiles(Folders.Assets, "", SearchOption.AllDirectories));
+        allPaths.AddRange(Directory.GetFiles(Folders.Resources, "", SearchOption.AllDirectories));
         // scan Assets folder
         // string[] rawAssetPaths = new[] { file };
 
         // create AssetCreationParams<Asset_Model> for car if it doesnt exist
-        foreach (string rawAssetPath in rawAssetPaths)
+        foreach (string rawAssetPath in allPaths)
         {
             int id = rawAssetPath.GetHashCode();
 
@@ -42,7 +44,12 @@ public class AssetDatabase
 
             string importParametersFilePath = rawAssetFileName.FromFileNameToPathToLibraryImportParameters();
             string assetFilePath = rawAssetFileName.FromRawAssetFileNameToPathOfAssetInLibrary();
-
+            bool assetExists = AssetFileExists(assetFilePath.FromRawAssetFileNameToPathOfAssetInLibrary());
+            if (assetExists)
+            {
+                continue;
+            
+            }
             bool assetImportParametersFileExistsForThisAsset = AssetImportParamsFileExists(rawAssetFileName);
 
 
@@ -66,13 +73,12 @@ public class AssetDatabase
                 //
                 // AssetImportParameters[id] = assetImportParametersModel;
 
-                bool assetExists = AssetFileExists(assetFilePath);
                 if (assetExists == false)
                 {
                     Asset_Model model = (Importers[typeof(Asset_Model)] as AssetImporter_Model)
                         .ImportAsset(assetImportParametersModel);
 
-                    Assets[id] = model;
+                    // Assets[id] = model;
                 }
             }
 
@@ -96,13 +102,13 @@ public class AssetDatabase
 
                 // AssetImportParameters[id] = assetImportParametersMaterial;
 
-                bool assetExists = AssetFileExists(assetFilePath);
+
                 if (assetExists == false)
                 {
                     Asset_Material material = (Importers[typeof(Asset_Material)] as AssetImporter_Material)
                         .ImportAsset(assetImportParametersMaterial);
 
-                    Assets[id] = material;
+                    // Assets[id] = material;
                 }
             }
 
@@ -126,13 +132,16 @@ public class AssetDatabase
                 //
                 // AssetImportParameters[id] = assetImportParametersTexture;
 
-                bool assetExists = AssetFileExists(assetFilePath);
+
                 // if (assetExists == false)
                 // {
-                Asset_Texture texture = (Importers[typeof(Asset_Texture)] as AssetImporter_Texture)
-                    .ImportAsset(assetImportParametersTexture);
 
-                Assets[id] = texture;
+                Asset_Texture assetTexture =
+                    (Importers[typeof(Asset_Texture)] as AssetImporter_Texture).ImportAsset(
+                        assetImportParametersTexture);
+
+
+                // Assets[id] = texture;
                 // }
             }
         }

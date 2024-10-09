@@ -1,4 +1,4 @@
-﻿namespace Scripts;
+﻿/*namespace Scripts;
 
 [ExecuteInEditMode]
 public class ParticleSystem : Component, IComponentUpdateable
@@ -213,7 +213,7 @@ public class ParticleSystem : Component, IComponentUpdateable
 //                {
 //                    particles.RemoveRange(0, particles.Count - MaxParticles);
 //                }
-//            }*/
+//            }#1#
 //Particle p = pool.GetObject();
 //p.lifetime = 0;
 //            //p.position = Tofu.MouseInput.Position;
@@ -267,7 +267,7 @@ public class ParticleSystem : Component, IComponentUpdateable
 //
 //                    particles[i].color = new Color((int) particles[i].color.R, particles[i].color.G, particles[i].color.B, (int)((0.1f / particles[i].lifetime) * 255));
 //                    /*particles[i].color = new Color((int)((0.1f / particles[i].lifetime) * 255),
-//                        20, 20, (int)((0.1f / particles[i].lifetime) * 255));*/
+//                        20, 20, (int)((0.1f / particles[i].lifetime) * 255));#1#
 //                    particles[i].color = new Color(particles[i].color.R, particles[i].color.G, particles[i].color.B,
 //                        ((int)((0.01f / particles[i].lifetime) * 255)));
 //                    particles[i].radius = Extensions.Clamp((1f / particles[i].lifetime* 3), 0, StartSize);
@@ -296,10 +296,10 @@ public class ParticleSystem : Component, IComponentUpdateable
 //    });
 //    if (ringOffset > 250) { ringOffset = 0; }
 //    ringOffset += Time.deltaTime * 200;
-//    hueOffset += Time.deltaTime * 400;*/
+//    hueOffset += Time.deltaTime * 400;#1#
 //            base.Update();
 //        }
 //    }
 //}
 
-#endregion
+#endregion*/

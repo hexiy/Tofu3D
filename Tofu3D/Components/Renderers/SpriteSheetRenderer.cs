@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿/*using System.IO;
 
 namespace Scripts;
 
@@ -29,7 +29,7 @@ public class SpriteSheetRenderer : SpriteRenderer
     {
         if (Material == null)
         {
-            Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/SpriteSheetRenderer.mat");
+            Material = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/SpriteSheetRenderer.mat");
         }
 
         base.SetDefaultMaterial();
@@ -60,7 +60,7 @@ public class SpriteSheetRenderer : SpriteRenderer
             return;
         }
 
-        Texture = Tofu.AssetManager.Load<Asset_Texture>(texturePath);
+        Texture = Tofu.AssetLoadManager.Load<RuntimeTexture>(texturePath);
 
         UpdateBoxShapeSize();
         if (Batched && false)
@@ -138,4 +138,4 @@ public class SpriteSheetRenderer : SpriteRenderer
     SpriteSize = new Vector2(_texture.Width / SpritesCount.X, _texture.Height / SpritesCount.Y);
 
     base.OnTextureLoaded(_texture, _path);
-}#1#*/
+}#2##1#*/

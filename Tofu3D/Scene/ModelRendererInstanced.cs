@@ -24,23 +24,23 @@
 
     public override void SetDefaultMaterial()
     {
-        if (Material?.Path.Length == 0 || Material == null)
+        if (Material?.PathToRawAsset.Length == 0 || Material == null)
         {
-            Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
+            Material = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
         }
         else
         {
-            Material = Tofu.AssetManager.Load<Asset_Material>(Material.Path);
+            Material = Tofu.AssetLoadManager.Load<Asset_Material>(Material.PathToRawAsset);
         }
 
-        if (AssetMesh?.Path.Length > 0)
-        {
-            AssetMesh = Tofu.AssetManager.Load<Asset_Mesh>(AssetMesh.Path);
-        }
-        else
-        {
-            AssetMesh = null;
-        }
+        // if (RuntimeMesh?.PathToRawAsset.Length > 0)
+        // {
+        //     RuntimeMesh = Tofu.AssetManager.Load<Asset_Mesh>(RuntimeMesh.PathToRawAsset);
+        // }
+        // else
+        // {
+        //     RuntimeMesh = null;
+        // }
     }
 
     public override void Render()
@@ -51,7 +51,7 @@
             return;
         }
 
-        if (AssetMesh == null)
+        if (RuntimeMesh == null)
         {
             return;
         }

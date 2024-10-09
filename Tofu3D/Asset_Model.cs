@@ -1,4 +1,4 @@
 public class Asset_Model : Asset<Asset_Model>
 {
-    public Asset_Mesh[] Meshes;
+    public List<string> PathsToMeshAssets = new List<string>();
 }

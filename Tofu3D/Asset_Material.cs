@@ -8,10 +8,10 @@ public class Asset_Material : Asset<Asset_Material>
     // public bool IsValid = true;
     [Hide] public bool Additive = false;
 
-    public Asset_Texture AlbedoTexture;
+    public RuntimeTexture AlbedoTexture;
     public Color AlbedoTint = Color.White;
-    public Asset_Texture AmbientOcclusionTexture;
-    public Asset_Texture NormalTexture;
+    public RuntimeTexture AmbientOcclusionTexture;
+    public RuntimeTexture NormalTexture;
     public Vector2 Offset;
 
     public RenderMode RenderMode = RenderMode.Opaque;
@@ -40,19 +40,19 @@ public class Asset_Material : Asset<Asset_Material>
 
     public void LoadTextures()
     {
-        if (AlbedoTexture?.Path.Length > 2)
+        if (AlbedoTexture?.PathToRawAsset.Length > 2)
         {
-            AlbedoTexture = Tofu.AssetManager.Load<Asset_Texture>(AlbedoTexture.Path);
+            AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(AlbedoTexture.PathToRawAsset);
         }
 
-        if (AmbientOcclusionTexture?.Path.Length > 2)
+        if (AmbientOcclusionTexture?.PathToRawAsset.Length > 2)
         {
-            AmbientOcclusionTexture = Tofu.AssetManager.Load<Asset_Texture>(AmbientOcclusionTexture.Path);
+            AmbientOcclusionTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(AmbientOcclusionTexture.PathToRawAsset);
         }
         
-        if (NormalTexture?.Path.Length > 2)
+        if (NormalTexture?.PathToRawAsset.Length > 2)
         {
-            NormalTexture = Tofu.AssetManager.Load<Asset_Texture>(NormalTexture.Path);
+            NormalTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(NormalTexture.PathToRawAsset);
         }
     }
 

@@ -109,13 +109,13 @@ public class Scene
     private void CreateGrid()
     {
         return;
-        var gridGameObject = GameObject.Create(silent: true);
-        gridGameObject.AddComponent<Grid>();
-        gridGameObject.DynamicallyCreated = true;
-        gridGameObject.AlwaysUpdate = true;
-        gridGameObject.Name = "Grid";
-        gridGameObject.Awake();
-        gridGameObject.Start();
+        // var gridGameObject = GameObject.Create(silent: true);
+        // gridGameObject.AddComponent<Grid>();
+        // gridGameObject.DynamicallyCreated = true;
+        // gridGameObject.AlwaysUpdate = true;
+        // gridGameObject.Name = "Grid";
+        // gridGameObject.Awake();
+        // gridGameObject.Start();
     }
 
     private void CreateTransformHandle()

@@ -9,7 +9,7 @@ public class CubemapTexture : Asset<CubemapTexture>
     // public CubemapTextureLoadSettings LoadSettings;
 
     public Vector2 Size;
-    public int TextureId => Handle.Id;
+    public int TextureId => RuntimeAssetHandle.Id;
 
     public void Delete()
     {

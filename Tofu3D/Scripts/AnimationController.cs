@@ -1,4 +1,4 @@
-﻿namespace Scripts;
+﻿/*namespace Scripts;
 
 public class AnimationController : Component, IComponentUpdateable
 {
@@ -117,4 +117,4 @@ public class AnimationController : Component, IComponentUpdateable
             ResetCurrentAnimation();
         }
     }
-}
+}*/

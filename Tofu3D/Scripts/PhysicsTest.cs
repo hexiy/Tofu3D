@@ -1,4 +1,4 @@
-using Tofu3D.Physics;
+/*using Tofu3D.Physics;
 
 public class PhysicsTest : Component, IComponentUpdateable
 {
@@ -42,4 +42,4 @@ public class PhysicsTest : Component, IComponentUpdateable
     {
         base.Start();
     }
-}
+}*/

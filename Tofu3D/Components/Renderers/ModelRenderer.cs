@@ -1,4 +1,4 @@
-public class ModelRenderer : TextureRenderer
+/*public class ModelRenderer : TextureRenderer
 {
     // public Mesh Mesh;
     public bool CastShadow = true;
@@ -20,7 +20,7 @@ public class ModelRenderer : TextureRenderer
         }
         else
         {
-            LoadTexture(Texture.Path);
+            LoadTexture(Texture.PathToRawAsset);
         }
 
         base.Awake();
@@ -28,22 +28,22 @@ public class ModelRenderer : TextureRenderer
 
     public override void SetDefaultMaterial()
     {
-        if (Material?.Path.Length == 0 || Material == null)
+        if (Material?.PathToRawAsset.Length == 0 || Material == null)
         {
             Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/ModelRenderer.mat");
         }
         else
         {
-            Material = Tofu.AssetManager.Load<Asset_Material>(Material.Path);
+            Material = Tofu.AssetManager.Load<Asset_Material>(Material.PathToRawAsset);
         }
 
-        if (AssetMesh?.Path.Length > 0)
+        if (RuntimeMesh?.PathToRawAsset.Length > 0)
         {
-            AssetMesh = Tofu.AssetManager.Load<Asset_Mesh>(AssetMesh.Path);
+            RuntimeMesh = Tofu.AssetManager.Load<Asset_Mesh>(RuntimeMesh.PathToRawAsset);
         }
         else
         {
-            AssetMesh = null;
+            RuntimeMesh = null;
         }
         // Material = Tofu.AssetManager.Load<Asset_Material>("ModelRenderer");
 
@@ -90,7 +90,7 @@ public class ModelRenderer : TextureRenderer
             return;
         }
 
-        if (AssetMesh == null)
+        if (RuntimeMesh == null)
         {
             return;
         }
@@ -116,8 +116,8 @@ public class ModelRenderer : TextureRenderer
             Material.Shader.SetMatrix4X4("u_mvp", LatestModelViewProjection);
 
 
-            Tofu.ShaderManager.BindVertexArray(AssetMesh.Vao);
-            GL_DrawArrays(PrimitiveType.Triangles, 0, AssetMesh.VerticesCount);
+            Tofu.ShaderManager.BindVertexArray(RuntimeMesh.Vao);
+            GL_DrawArrays(PrimitiveType.Triangles, 0, RuntimeMesh.VerticesCount);
         }
 
         if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
@@ -223,17 +223,17 @@ public class ModelRenderer : TextureRenderer
 
             // if (Model != null)
             // {
-            Tofu.ShaderManager.BindVertexArray(AssetMesh.Vao);
+            Tofu.ShaderManager.BindVertexArray(RuntimeMesh.Vao);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
             if (isTransformHandle == false)
             {
-                RenderWireframe(AssetMesh.VerticesCount);
+                RenderWireframe(RuntimeMesh.VerticesCount);
             }
 
             // GL_DrawArrays(PrimitiveType.Triangles, 0, Mesh.IndicesCount);
-            GL_DrawArrays(PrimitiveType.Triangles, 0, AssetMesh.VerticesCount);
+            GL_DrawArrays(PrimitiveType.Triangles, 0, RuntimeMesh.VerticesCount);
 
 
             // }
@@ -247,11 +247,11 @@ public class ModelRenderer : TextureRenderer
         }
         else
         {
-            if (AssetMesh != null)
+            if (RuntimeMesh != null)
             {
-                Tofu.ShaderManager.BindVertexArray(AssetMesh.Vao);
+                Tofu.ShaderManager.BindVertexArray(RuntimeMesh.Vao);
 
-                GL_DrawArrays(PrimitiveType.Triangles, 0, AssetMesh.VerticesCount);
+                GL_DrawArrays(PrimitiveType.Triangles, 0, RuntimeMesh.VerticesCount);
             }
             else
             {
@@ -284,10 +284,10 @@ public class ModelRenderer : TextureRenderer
             outlineMaterial.Shader.SetMatrix4X4("u_model", GetModelMatrix());
             outlineMaterial.Shader.SetColor("u_rendererColor", new Vector4(1, 1, 1, 1f));
 
-            Tofu.ShaderManager.BindVertexArray(AssetMesh.Vao);
+            Tofu.ShaderManager.BindVertexArray(RuntimeMesh.Vao);
             GL.ActiveTexture(TextureUnit.Texture0);
             TextureHelper.BindTexture(Tofu.AssetManager.Load<Asset_Texture>("Assets/2D/solidColor.png").TextureId);
-            GL_DrawArrays(PrimitiveType.Triangles, 0, AssetMesh.VerticesCount);
+            GL_DrawArrays(PrimitiveType.Triangles, 0, RuntimeMesh.VerticesCount);
 
 
             GL.StencilMask(0xFF);
@@ -320,7 +320,7 @@ public class ModelRenderer : TextureRenderer
             ShaderCache.BindVertexArray(Material.Vao);
 
             GL.DrawArrays(PrimitiveType.Triangles, 0, 6 * 2 * 3);
-        }*/
+        }#1#
 
         if (drawOutline)
         {
@@ -334,4 +334,4 @@ public class ModelRenderer : TextureRenderer
             // DebugHelper.LogDrawCall();
         }
     }
-}
+}*/
