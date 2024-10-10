@@ -1,5 +1,2 @@
-Tofu3D/obj/*
-Tofu3D/obj/
-Tofu3D/bin/Debug/net8.0/Library
-**/Library/
 /Tofu3D/bin/Debug/net8.0/Library
+/Tofu3D/obj
