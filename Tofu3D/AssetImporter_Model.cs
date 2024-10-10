@@ -319,6 +319,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         Asset_Mesh mesh = new Asset_Mesh();
         mesh.CountsOfElements = countsOfElements;
         mesh.VertexBufferData = newEverything.ToArray();
+        mesh.VerticesCount = totalVerticesCount;
 
         // BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, newEverything.ToArray(), countsOfElements);
         //

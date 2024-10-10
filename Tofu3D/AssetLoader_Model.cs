@@ -9,8 +9,6 @@ namespace Tofu3D;
 
 public class AssetLoader_Model : AssetLoader<Asset_Model, Asset_Model>
 {
-    private readonly XmlSerializer _xmlSerializer;
-
     public override Asset_Model LoadAsset(AssetLoadParameters<Asset_Model>? assetLoadParameters)
     {
         string modelAssetPath = assetLoadParameters.PathToAsset;

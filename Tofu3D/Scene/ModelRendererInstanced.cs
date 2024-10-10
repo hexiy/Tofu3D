@@ -33,14 +33,14 @@
             Material = Tofu.AssetLoadManager.Load<Asset_Material>(Material.PathToRawAsset);
         }
 
-        // if (RuntimeMesh?.PathToRawAsset.Length > 0)
-        // {
-        //     RuntimeMesh = Tofu.AssetManager.Load<Asset_Mesh>(RuntimeMesh.PathToRawAsset);
-        // }
-        // else
-        // {
-        //     RuntimeMesh = null;
-        // }
+        if (RuntimeMesh?.MeshAssetPath.Length > 0)
+        {
+            RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(RuntimeMesh.MeshAssetPath);
+        }
+        else
+        {
+            RuntimeMesh = null;
+        }
     }
 
     public override void Render()

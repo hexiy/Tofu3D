@@ -4,13 +4,13 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class InspectorFieldDrawerMesh : InspectorFieldDrawable<Asset_Mesh>
+public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        var mesh = (Asset_Mesh)info.GetValue(componentInspectorData.Inspectable);
+        var mesh = (RuntimeMesh)info.GetValue(componentInspectorData.Inspectable);
 
-        var assetName = Path.GetFileName(mesh?.PathToRawAsset) ?? "";
+        var assetName = Path.GetFileName(mesh?.MeshAssetPath) ?? "";
 
         var clicked = ImGui.Button(assetName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
@@ -23,7 +23,10 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<Asset_Mesh>
             {
                 // fileName = Path.GetRelativePath("Assets", fileName);
 
-                mesh = Tofu.AssetLoadManager.Load<Asset_Mesh>(filePath);
+                Debug.Log("todo after we have expandable .obj files in browser");
+                // once we have obj expander in browser we can drag individual meshes
+                Asset_Model modelAssetTemporary = Tofu.AssetLoadManager.Load<Asset_Model>(filePath);
+                mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(modelAssetTemporary.PathsToMeshAssets[0]);
                 // gameObject.GetComponent<Renderer>().Material.Vao = Mesh.Vao; // materials are shared
                 info.SetValue(componentInspectorData.Inspectable, mesh);
             }

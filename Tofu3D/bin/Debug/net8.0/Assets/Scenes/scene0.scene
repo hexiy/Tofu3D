@@ -11,7 +11,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -27,7 +27,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>GameObject</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -50,14 +50,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>164.63899</X>
-        <Y>50.259876</Y>
-        <Z>-102.70733</Z>
+        <X>0</X>
+        <Y>-3.0607563E-14</Y>
+        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>164.63899</X>
-        <Y>50.259876</Y>
-        <Z>-102.70733</Z>
+        <X>0</X>
+        <Y>-3.0607563E-14</Y>
+        <Z>0</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -70,8 +70,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>14.58209</X>
-        <Y>-58.018215</Y>
+        <X>-3.3302902E-10</X>
+        <Y>1.2792985E-08</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -121,14 +121,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>1.0252612</X>
-        <Y>0.57735026</Y>
-        <Z>0</Z>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>10</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1.0252612</X>
-        <Y>0.57735026</Y>
-        <Z>0</Z>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>10</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -174,10 +174,10 @@
         <AlbedoTexture>
           <PathToRawAsset />
           <Size>
-            <X>1500</X>
-            <Y>1500</Y>
+            <X>1</X>
+            <Y>1</Y>
           </Size>
-          <TextureId>0</TextureId>
+          <TextureId>40</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -192,7 +192,7 @@
             <X>1</X>
             <Y>1</Y>
           </Size>
-          <TextureId>0</TextureId>
+          <TextureId>38</TextureId>
         </AmbientOcclusionTexture>
         <NormalTexture>
           <PathToRawAsset />
@@ -200,7 +200,7 @@
             <X>1</X>
             <Y>1</Y>
           </Size>
-          <TextureId>0</TextureId>
+          <TextureId>39</TextureId>
         </NormalTexture>
         <Offset>
           <X>0</X>
@@ -214,9 +214,33 @@
           <Y>4</Y>
         </Tiling>
       </Material>
+      <RuntimeMesh>
+        <PathToRawAsset />
+        <MeshAssetPath>Library/sphere.obj_mesh_0.asset</MeshAssetPath>
+        <Vao>16</Vao>
+        <VerticesCount>0</VerticesCount>
+        <VertexBufferDataLength>40320</VertexBufferDataLength>
+      </RuntimeMesh>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
     </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>4</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>10</X>
+        <Y>10</Y>
+        <Z>10</Z>
+      </Size>
+    </Component>
   </Components>
-  <GameObjectNextId>13</GameObjectNextId>
+  <GameObjectNextId>27</GameObjectNextId>
 </SceneFile>

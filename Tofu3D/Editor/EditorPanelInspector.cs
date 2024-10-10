@@ -89,7 +89,7 @@ public class EditorPanelInspector : EditorPanel
             { typeof(string), new InspectorFieldDrawerString() },
             { typeof(Action), new InspectorFieldDrawerAction() },
             { typeof(AudioClip), new InspectorFieldDrawerAudioClip() },
-            { typeof(Asset_Mesh), new InspectorFieldDrawerMesh() },
+            { typeof(RuntimeMesh), new InspectorFieldDrawerMesh() },
             { typeof(Curve), new InspectorFieldDrawerCurve() },
             { typeof(Enum), new InspectorFieldDrawerEnum() }
         };

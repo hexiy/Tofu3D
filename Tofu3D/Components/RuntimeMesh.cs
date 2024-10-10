@@ -1,7 +1,7 @@
 
-public class RuntimeMesh
+public class RuntimeMesh : Asset<RuntimeMesh>
 {
-    public string RawMeshAssetPath;
+    public string MeshAssetPath;
     public int Vao;
     public int VerticesCount;
     public int VertexBufferDataLength;

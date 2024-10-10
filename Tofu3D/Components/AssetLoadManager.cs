@@ -21,6 +21,7 @@ public class AssetLoadManager
         RegisterAssetLoader(new AssetLoader_CubemapTexture(), new AssetLoadParameters_CubemapTexture());
         RegisterAssetLoader(new AssetLoader_Material(), new AssetLoadParameters_Material());
         RegisterAssetLoader(new AssetLoader_Model(), new AssetLoadParameters_Model());
+        RegisterAssetLoader(new AssetLoader_Mesh(), new AssetLoadParameters_Mesh());
     }
 
     private void RegisterAssetLoader(IAssetLoader assetLoader, AssetLoadParametersBase assetLoadParameters)

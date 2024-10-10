@@ -244,7 +244,6 @@ public class InstancedRenderingSystem
         GL.DrawArraysInstanced(primitiveType, first, verticesCount, instancesCount);
         DebugHelper.LogDrawCall();
         Debug.StatAddValue("Instanced objects drawn:", instancesCount);
-        // Debug.StatAddValue("Total vertices:", verticesCount * instancesCount);
         DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount * instancesCount);
     }
 
