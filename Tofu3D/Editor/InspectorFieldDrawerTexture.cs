@@ -72,7 +72,7 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
                     if (componentInspectorData.Inspectable is Asset_Material)
                     {
                         // EditorPanelInspector.I.AddActionToActionQueue(() =>
-                            // Tofu.AssetManager.Save<Asset_Material>(componentInspectorData.Inspectable as Asset_Material));
+                            // Tofu.AssetLoadManager.Save<Asset_Material>(componentInspectorData.Inspectable as Asset_Material));
                     }
                 }
 

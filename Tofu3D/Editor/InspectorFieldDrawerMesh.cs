@@ -18,16 +18,45 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
         if (ImGui.BeginDragDropTarget())
         {
             {
-                if (ImGui.AcceptDragDropPayload("MODEL", ImGuiDragDropFlags.None).DataSize > 0)
+                unsafe
+                {
+                    var a = ImGui.AcceptDragDropPayload("MODEL", ImGuiDragDropFlags.None);
+                    if (ImGui.AcceptDragDropPayload("MODEL", ImGuiDragDropFlags.None).NativePtr != (ImGuiPayloadPtr)0)
+                    {
+                        var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                        if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0)
+                        {
+                            try
+                            {
+                                Asset_Model modelAsset = Tofu.AssetLoadManager.Load<Asset_Model>(filePath);
+                                mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(modelAsset.PathsToMeshAssets[0]);
+                                info.SetValue(componentInspectorData.Inspectable, mesh);
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.LogError(ex.Message);
+                            }
+                        }
+                    }
+
+                    ImGui.EndDragDropTarget();
+                }
+            }
+        }
+
+        if (ImGui.BeginDragDropTarget())
+        {
+            unsafe
+            {
+                if (ImGui.AcceptDragDropPayload("MESH", ImGuiDragDropFlags.None).NativePtr != (ImGuiPayloadPtr)0)
                 {
                     var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                     if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0)
                     {
                         try
                         {
-                            Asset_Model modelAsset = Tofu.AssetLoadManager.Load<Asset_Model>(filePath);
-                            mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(modelAsset.PathsToMeshAssets[0]);
-                            info.SetValue(componentInspectorData.Inspectable, mesh);
+                            RuntimeMesh runtimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(filePath);
+                            info.SetValue(componentInspectorData.Inspectable, runtimeMesh);
                         }
                         catch (Exception ex)
                         {
@@ -38,29 +67,6 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
 
                 ImGui.EndDragDropTarget();
             }
-        }
-
-        if (ImGui.BeginDragDropTarget())
-        {
-            if (ImGui.AcceptDragDropPayload("MESH", ImGuiDragDropFlags.None).DataSize > 0)
-            {
-                var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0)
-                {
-                    try
-                    {
-                        Asset_Mesh assetMesh = Tofu.AssetLoadManager.Load<Asset_Mesh>(filePath);
-                        mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(assetMesh.PathToRawAsset);
-                        info.SetValue(componentInspectorData.Inspectable, mesh);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError(ex.Message);
-                    }
-                }
-            }
-
-            ImGui.EndDragDropTarget();
         }
     }
 }
