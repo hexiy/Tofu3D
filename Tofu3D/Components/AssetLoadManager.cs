@@ -8,7 +8,7 @@ public class AssetLoadManager
 {
     private AssetImportManager _assetImportManager;
 
-    public Dictionary<int, AssetBase> LoadedAssets { get; private set; } = new(); // int is (raw asset)path hashcode
+    private Dictionary<int, AssetBase> LoadedAssets { get; set; } = new(); // int is (raw asset)path hashcode
 
     public Dictionary<Type, Tuple<IAssetLoader, AssetLoadParametersBase>>
         LoadersAndLoadParameters { get; private set; } = new();

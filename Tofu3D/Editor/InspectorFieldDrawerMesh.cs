@@ -17,18 +17,47 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
 
         if (ImGui.BeginDragDropTarget())
         {
-            ImGui.AcceptDragDropPayload("CONTENT_BROWSER_MODEL", ImGuiDragDropFlags.None);
-            var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-            if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0)
             {
-                // fileName = Path.GetRelativePath("Assets", fileName);
+                if (ImGui.AcceptDragDropPayload("MODEL", ImGuiDragDropFlags.None).DataSize > 0)
+                {
+                    var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                    if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0)
+                    {
+                        try
+                        {
+                            Asset_Model modelAsset = Tofu.AssetLoadManager.Load<Asset_Model>(filePath);
+                            mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(modelAsset.PathsToMeshAssets[0]);
+                            info.SetValue(componentInspectorData.Inspectable, mesh);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.LogError(ex.Message);
+                        }
+                    }
+                }
 
-                Debug.Log("todo after we have expandable .obj files in browser");
-                // once we have obj expander in browser we can drag individual meshes
-                Asset_Model modelAssetTemporary = Tofu.AssetLoadManager.Load<Asset_Model>(filePath);
-                mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(modelAssetTemporary.PathsToMeshAssets[0]);
-                // gameObject.GetComponent<Renderer>().Material.Vao = Mesh.Vao; // materials are shared
-                info.SetValue(componentInspectorData.Inspectable, mesh);
+                ImGui.EndDragDropTarget();
+            }
+        }
+
+        if (ImGui.BeginDragDropTarget())
+        {
+            if (ImGui.AcceptDragDropPayload("MESH", ImGuiDragDropFlags.None).DataSize > 0)
+            {
+                var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0)
+                {
+                    try
+                    {
+                        Asset_Mesh assetMesh = Tofu.AssetLoadManager.Load<Asset_Mesh>(filePath);
+                        mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(assetMesh.PathToRawAsset);
+                        info.SetValue(componentInspectorData.Inspectable, mesh);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError(ex.Message);
+                    }
+                }
             }
 
             ImGui.EndDragDropTarget();

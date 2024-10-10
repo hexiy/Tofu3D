@@ -216,10 +216,10 @@
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
-        <MeshAssetPath>Library/Teapot.obj_mesh_0.asset</MeshAssetPath>
-        <Vao>70</Vao>
-        <VerticesCount>63264</VerticesCount>
-        <VertexBufferDataLength>885696</VertexBufferDataLength>
+        <MeshAssetPath>Library/sculpture.obj_mesh_0.asset</MeshAssetPath>
+        <Vao>17</Vao>
+        <VerticesCount>0</VerticesCount>
+        <VertexBufferDataLength>0</VertexBufferDataLength>
       </RuntimeMesh>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -242,5 +242,5 @@
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>29</GameObjectNextId>
+  <GameObjectNextId>31</GameObjectNextId>
 </SceneFile>
