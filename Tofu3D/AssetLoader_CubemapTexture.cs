@@ -22,7 +22,6 @@ public class AssetLoader_CubemapTexture : AssetLoader<Asset_Texture, RuntimeCube
 
         var textureId = GL.GenTexture();
         GL.ActiveTexture(TextureUnit.Texture0);
-
         TextureHelper.BindTexture(textureId, TextureType.Cubemap);
 
         for (var textureIndex = 0; textureIndex < pathsToSourceTextures.Length; textureIndex++)
@@ -33,7 +32,7 @@ public class AssetLoader_CubemapTexture : AssetLoader<Asset_Texture, RuntimeCube
 
             
             // path = loadSettings.Paths[textureIndex];
-            // var image = Image.Load<Rgba32>(assetTexture.PathToRawAssetZ);
+            // var image = Image.Load<Rgba32>(assetTexture.PathToRawAsset);
             //
             // var pixels = new byte[4 * image.Width * image.Height];
             // image.Frames[0].CopyPixelDataTo(pixels);
@@ -47,11 +46,11 @@ public class AssetLoader_CubemapTexture : AssetLoader<Asset_Texture, RuntimeCube
                 assetTexture.Pixels);
 
             var textureTarget = TextureTarget.TextureCubeMap;
-            // GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)loadParameters.WrapMode);
-            // GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)loadParameters.WrapMode);
-            // GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)loadParameters.WrapMode);
-            // GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode);
-            // GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)loadParameters.FilterMode);
+            GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)loadParameters.WrapMode);
+            GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)loadParameters.WrapMode);
+            GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)loadParameters.WrapMode);
+            GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode);
+            GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)loadParameters.FilterMode);
         }
 
         // crashes the engine on macos

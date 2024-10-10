@@ -31,8 +31,9 @@ public class Skybox : Component, IComponentUpdateable
             Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Back.bmp")
         };
 
-        AssetLoadParameters_CubemapTexture loadParameters = new(){PathsToSourceTextures = texturePaths};
-        _texture = Tofu.AssetLoadManager.Load<RuntimeCubemapTexture>(texturePaths[0], loadParameters); // texturePaths[0] because for now every Load call will have path
+        AssetLoadParameters_CubemapTexture loadParameters = new() { PathsToSourceTextures = texturePaths };
+        _texture = Tofu.AssetLoadManager.Load<RuntimeCubemapTexture>(texturePaths[0],
+            loadParameters); // texturePaths[0] because for now every Load call will have path
 
         base.Awake();
     }
@@ -58,9 +59,6 @@ public class Skybox : Component, IComponentUpdateable
             return;
         }
 
-        GL.DepthMask(false);
-
-        Tofu.ShaderManager.UseShader(_material.Shader);
 
         var forwardLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
         var upLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
@@ -71,6 +69,10 @@ public class Skybox : Component, IComponentUpdateable
         Fov = Mathf.Clamp(Fov, 0.000001f, 179);
         var projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Fov),
             Camera.MainCamera.Size.X / Camera.MainCamera.Size.Y, 0.01f, 1);
+
+
+        GL.DepthMask(false);
+        Tofu.ShaderManager.UseShader(_material.Shader);
 
         _material.Shader.SetMatrix4X4("u_view", viewMatrix);
         _material.Shader.SetMatrix4X4("u_projection", projectionMatrix);
