@@ -2,5 +2,5 @@ public class AssetLoadParameters_CubemapTexture :  AssetLoadParameters<RuntimeCu
 {
     public string[] PathsToSourceTextures;
     public TextureFilterMode FilterMode { get; } = TextureFilterMode.Bilinear;
-    public TextureWrapMode WrapMode { get; } = TextureWrapMode.Repeat;
+    public TextureWrapMode WrapMode { get; } = TextureWrapMode.ClampToEdge;
 }
