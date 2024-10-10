@@ -83,6 +83,7 @@ public class AssetLoadManager
 
             asset = (T)((dynamic)loaderAndLoadParameters.Item1).LoadAsset(loadParameters);
 
+            LoadedAssets[id] = asset;
             // (loaderAndLoadParameters.Item1 as AssetLoader<T?,T>).LoadAsset(newInstanceOfLoadParameters);
 
 

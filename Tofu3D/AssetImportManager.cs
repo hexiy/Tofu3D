@@ -112,7 +112,7 @@ public class AssetImportManager
                 }
             }
 
-            if (rawAssetPath.ToLower().Contains(".png") || rawAssetPath.ToLower().Contains(".jpg") || rawAssetPath.ToLower().Contains(".bmp"))
+            if (rawAssetPath.ToLower().Contains(".png") || rawAssetPath.ToLower().Contains(".jpg") || rawAssetPath.ToLower().Contains(".jpeg") || rawAssetPath.ToLower().Contains(".bmp"))
             {
                 AssetImportParameters_Texture assetImportParametersTexture = new AssetImportParameters_Texture();
                 // if (assetImportParametersFileExistsForThisAsset == false)

@@ -50,14 +50,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
+        <X>-3.3976137E-21</X>
         <Y>-3.0607563E-14</Y>
-        <Z>0</Z>
+        <Z>-2.9479618E-21</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
+        <X>-3.3976137E-21</X>
         <Y>-3.0607563E-14</Y>
-        <Z>0</Z>
+        <Z>-2.9479618E-21</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -70,8 +70,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-3.3302902E-10</X>
-        <Y>1.2792985E-08</Y>
+        <X>-12.677996</X>
+        <Y>27.009367</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -174,10 +174,10 @@
         <AlbedoTexture>
           <PathToRawAsset />
           <Size>
-            <X>1</X>
-            <Y>1</Y>
+            <X>1500</X>
+            <Y>1500</Y>
           </Size>
-          <TextureId>40</TextureId>
+          <TextureId>0</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -192,7 +192,7 @@
             <X>1</X>
             <Y>1</Y>
           </Size>
-          <TextureId>38</TextureId>
+          <TextureId>0</TextureId>
         </AmbientOcclusionTexture>
         <NormalTexture>
           <PathToRawAsset />
@@ -200,7 +200,7 @@
             <X>1</X>
             <Y>1</Y>
           </Size>
-          <TextureId>39</TextureId>
+          <TextureId>0</TextureId>
         </NormalTexture>
         <Offset>
           <X>0</X>
@@ -216,10 +216,10 @@
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
-        <MeshAssetPath>Library/sphere.obj_mesh_0.asset</MeshAssetPath>
-        <Vao>16</Vao>
-        <VerticesCount>0</VerticesCount>
-        <VertexBufferDataLength>40320</VertexBufferDataLength>
+        <MeshAssetPath>Library/Teapot.obj_mesh_0.asset</MeshAssetPath>
+        <Vao>70</Vao>
+        <VerticesCount>63264</VerticesCount>
+        <VertexBufferDataLength>885696</VertexBufferDataLength>
       </RuntimeMesh>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
@@ -242,5 +242,5 @@
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>27</GameObjectNextId>
+  <GameObjectNextId>29</GameObjectNextId>
 </SceneFile>
