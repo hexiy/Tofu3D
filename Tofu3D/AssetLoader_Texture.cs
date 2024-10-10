@@ -13,13 +13,13 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
 {
     public override RuntimeTexture LoadAsset(AssetLoadParameters<RuntimeTexture>? assetLoadParameters)
     {
-        var id = GL.GenTexture();
         AssetLoadParameters_Texture loadParameters = assetLoadParameters as AssetLoadParameters_Texture;
         string path = loadParameters.PathToAsset;
 
         Asset_Texture assetTexture = QuickSerializer.ReadFileBinary<Asset_Texture>(path);
-        TextureHelper.BindTexture(id);
-
+        
+        var textureId = GL.GenTexture();
+        TextureHelper.BindTexture(textureId);
         var textureTarget = TextureTarget.Texture2D;
 
         GL.TexImage2D(textureTarget, 0, PixelInternalFormat.Rgba, (int)assetTexture.TextureSize.X,
@@ -37,8 +37,8 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
         // crashes the engine on macos
         if (OperatingSystem.IsWindows)
         {
-            GL.TextureParameter(id, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode + 257);
-            GL.TextureParameter(id, TextureParameterName.TextureLodBias, -0.4f);
+            GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode + 257);
+            GL.TextureParameter(textureId, TextureParameterName.TextureLodBias, -0.4f);
         }
 
         ImGuiController.CheckGlError("texture load");
@@ -50,7 +50,7 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
             //     Loaded = true,
             //     PathToRawAsset = path.FromRawAssetFileNameToPathOfAssetInLibrary(),
         };
-        runtimeTexture.TextureId = id;
+        runtimeTexture.TextureId = textureId;
 
         return runtimeTexture;
     }

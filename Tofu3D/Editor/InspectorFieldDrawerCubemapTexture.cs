@@ -3,7 +3,7 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class InspectorFieldDrawerCubemapTexture : InspectorFieldDrawable<CubemapTexture>
+public class InspectorFieldDrawerCubemapTexture : InspectorFieldDrawable<RuntimeCubemapTexture>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {

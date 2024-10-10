@@ -18,6 +18,7 @@ public class AssetLoadManager
     {
         this._assetImportManager = assetImportManager;
         RegisterAssetLoader(new AssetLoader_Texture(), new AssetLoadParameters_Texture());
+        RegisterAssetLoader(new AssetLoader_CubemapTexture(), new AssetLoadParameters_CubemapTexture());
         RegisterAssetLoader(new AssetLoader_Material(), new AssetLoadParameters_Material());
         RegisterAssetLoader(new AssetLoader_Model(), new AssetLoadParameters_Model());
     }
@@ -46,7 +47,7 @@ public class AssetLoadManager
     }
 
     // path here will be Assets/xxxxx
-    public T? Load<T>(string sourcePath) where T : Asset<T>
+    public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters=null) where T : Asset<T>
     {
         int id = sourcePath.GetHashCode();
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
@@ -68,14 +69,18 @@ public class AssetLoadManager
 
             Tuple<IAssetLoader, AssetLoadParametersBase> loaderAndLoadParameters = LoadersAndLoadParameters[typeof(T)];
 
+            if (loadParameters == null)
+            {
+                loadParameters = (loaderAndLoadParameters.Item2 as AssetLoadParameters<T>);
+                
+                loadParameters =
+                    Activator.CreateInstance(loadParameters.GetType()) as AssetLoadParameters<T>;
+                
+                loadParameters.PathToAsset = sourcePath.FromRawAssetFileNameToPathOfAssetInLibrary();
+                
+            }
 
-            var loadParameters = (loaderAndLoadParameters.Item2 as AssetLoadParameters<T>);
-            
-            var newInstanceOfLoadParameters =
-                Activator.CreateInstance(loadParameters.GetType()) as AssetLoadParameters<T>;
-
-            newInstanceOfLoadParameters.PathToAsset = sourcePath.FromRawAssetFileNameToPathOfAssetInLibrary();
-            asset = (T)((dynamic)loaderAndLoadParameters.Item1).LoadAsset(newInstanceOfLoadParameters);
+            asset = (T)((dynamic)loaderAndLoadParameters.Item1).LoadAsset(loadParameters);
 
             // (loaderAndLoadParameters.Item1 as AssetLoader<T?,T>).LoadAsset(newInstanceOfLoadParameters);
 

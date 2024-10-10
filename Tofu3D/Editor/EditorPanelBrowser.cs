@@ -125,7 +125,8 @@ public class EditorPanelBrowser : EditorPanel
             var assetExtension = Path.GetExtension(_assets[i]).ToLower();
 
             if (assetExtension.ToLower().Contains(".jpg") || assetExtension.ToLower().Contains(".png") ||
-                assetExtension.ToLower().Contains(".jpeg"))
+                assetExtension.ToLower().Contains(".jpeg")||
+                assetExtension.ToLower().Contains(".bmp"))
                 // _textures[i] = new Texture();
                 // _textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
             {
@@ -254,7 +255,8 @@ public class EditorPanelBrowser : EditorPanel
 
 
             if (assetExtension.ToLower().Contains(".jpg") || assetExtension.ToLower().Contains(".png") ||
-                assetExtension.ToLower().Contains(".jpeg"))
+                assetExtension.ToLower().Contains(".jpeg")||
+                assetExtension.ToLower().Contains(".bmp"))
             {
                 if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
                 {

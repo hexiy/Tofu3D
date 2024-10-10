@@ -13,16 +13,13 @@ public class AssetImporter_Texture : AssetImporter<Asset_Texture>
 {
     public override Asset_Texture ImportAsset(AssetImportParameters<Asset_Texture> assetImportParameters)
     {
-        var id = GL.GenTexture();
         AssetImportParameters_Texture importParameters = assetImportParameters as AssetImportParameters_Texture;
         string path = assetImportParameters.PathToSourceAsset;
         if (File.Exists(path) == false)
         {
             path = Folders.GetResourcePath("purple.png");
         }
-
-        TextureHelper.BindTexture(id);
-
+        
         var imageSize = Vector2.Zero;
 
         var image = Image.Load<Rgba32>(path);

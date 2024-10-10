@@ -81,7 +81,7 @@ public class EditorPanelInspector : EditorPanel
             { typeof(Asset_Material), new InspectorFieldDrawerMaterial() },
             { typeof(Shader), new InspectorFieldDrawerShader() },
             { typeof(RuntimeTexture), new InspectorFieldDrawerTexture() },
-            { typeof(CubemapTexture), new InspectorFieldDrawerCubemapTexture() },
+            { typeof(RuntimeCubemapTexture), new InspectorFieldDrawerCubemapTexture() },
             { typeof(Color), new InspectorFieldDrawerColor() },
             { typeof(bool), new InspectorFieldDrawerBool() },
             { typeof(float), new InspectorFieldDrawerFloat() },

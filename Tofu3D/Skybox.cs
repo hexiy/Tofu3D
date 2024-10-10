@@ -6,7 +6,7 @@ namespace Tofu3D;
 public class Skybox : Component, IComponentUpdateable
 {
     private Asset_Material _material;
-    private CubemapTexture _texture;
+    private RuntimeCubemapTexture _texture;
     public float Fov = 60;
 
     public void Update()
@@ -18,10 +18,9 @@ public class Skybox : Component, IComponentUpdateable
 
     public override void Awake()
     {
-        /*
-        _material = Tofu.AssetManager.Load<Asset_Material>("Skybox");
+        _material = Tofu.AssetLoadManager.Load<Asset_Material>("/Assets/Materials/Skybox.mat");
 
-        _texture = new CubemapTexture();
+        _texture = new RuntimeCubemapTexture();
         string[] texturePaths =
         {
             Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Right.bmp"),
@@ -32,9 +31,8 @@ public class Skybox : Component, IComponentUpdateable
             Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Back.bmp")
         };
 
-        CubemapTextureLoadSettings cubemapTextureLoadSettings = new(texturePaths);
-        _texture = Tofu.AssetManager.Load<CubemapTexture>(cubemapTextureLoadSettings);
-        */
+        AssetLoadParameters_CubemapTexture loadParameters = new(){PathsToSourceTextures = texturePaths};
+        _texture = Tofu.AssetLoadManager.Load<RuntimeCubemapTexture>(texturePaths[0], loadParameters); // texturePaths[0] because for now every Load call will have path
 
         base.Awake();
     }
@@ -55,7 +53,6 @@ public class Skybox : Component, IComponentUpdateable
 
     private void RenderSkybox()
     {
-        return;
         if (Enabled == false || GameObject.ActiveInHierarchy == false)
         {
             return;

@@ -11,7 +11,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -27,7 +27,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>GameObject</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -50,14 +50,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>0.7999562</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>164.63899</X>
+        <Y>50.259876</Y>
+        <Z>-102.70733</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.7999562</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>164.63899</X>
+        <Y>50.259876</Y>
+        <Z>-102.70733</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -70,8 +70,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
-        <Y>0</Y>
+        <X>14.58209</X>
+        <Y>-58.018215</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -82,11 +82,11 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Color>
-        <B>34</B>
-        <G>34</G>
-        <R>34</R>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
         <A>255</A>
-        <PackedValue>4280427042</PackedValue>
+        <PackedValue>4294967295</PackedValue>
       </Color>
       <FarPlaneDistance>50</FarPlaneDistance>
       <FieldOfView>60</FieldOfView>
@@ -97,6 +97,14 @@
         <X>1600</X>
         <Y>901</Y>
       </Size>
+    </Component>
+    <Component xsi:type="Skybox">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>0</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Fov>60</Fov>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -153,7 +161,7 @@
         <PackedValue>4294967295</PackedValue>
       </Color>
       <Material>
-        <Path>Library/ModelRendererInstanced.mat.asset.asset</Path>
+        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
         <Shader>
           <AlbedoTextureLocation>27</AlbedoTextureLocation>
           <NormalTextureLocation>2</NormalTextureLocation>
@@ -164,11 +172,12 @@
         </Shader>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <Path />
+          <PathToRawAsset />
           <Size>
             <X>1500</X>
             <Y>1500</Y>
           </Size>
+          <TextureId>0</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -178,18 +187,20 @@
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <AmbientOcclusionTexture>
-          <Path />
+          <PathToRawAsset />
           <Size>
             <X>1</X>
             <Y>1</Y>
           </Size>
+          <TextureId>0</TextureId>
         </AmbientOcclusionTexture>
         <NormalTexture>
-          <Path />
+          <PathToRawAsset />
           <Size>
             <X>1</X>
             <Y>1</Y>
           </Size>
+          <TextureId>0</TextureId>
         </NormalTexture>
         <Offset>
           <X>0</X>
@@ -207,5 +218,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>7</GameObjectNextId>
+  <GameObjectNextId>13</GameObjectNextId>
 </SceneFile>
