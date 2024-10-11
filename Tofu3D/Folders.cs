@@ -17,6 +17,10 @@ public class Folders
 
     public static string Models => Path.Combine(Assets, "3D");
 
+    public static void CreateDefaultFolders()
+    {
+        Directory.CreateDirectory(Library);
+    }
     /// <summary>
     ///     From "Desktop/project/bin/Assets/2D/xx.png" to "Assets/2D/xx.png"
     /// </summary>

@@ -40,9 +40,10 @@ public static class Tofu
     {
         SystemConfig.Configure();
         Global.LoadSavedData();
-
+        Folders.CreateDefaultFolders();
+        
         AssetImportManager = new AssetImportManager();
-        AssetLoadManager = new AssetLoadManager(assetImportManager:AssetImportManager);
+        AssetLoadManager = new AssetLoadManager();
         SceneManager = new SceneManager();
         SceneSerializer = new SceneSerializer();
         RenderSettings = new RenderSettings();

@@ -6,17 +6,14 @@ using System.IO;
 // Loads .asset files into runtime
 public class AssetLoadManager
 {
-    private AssetImportManager _assetImportManager;
-
     private Dictionary<int, AssetBase> LoadedAssets { get; set; } = new(); // int is (raw asset)path hashcode
 
     public Dictionary<Type, Tuple<IAssetLoader, AssetLoadParametersBase>>
         LoadersAndLoadParameters { get; private set; } = new();
 
 
-    public AssetLoadManager(AssetImportManager assetImportManager)
+    public AssetLoadManager()
     {
-        this._assetImportManager = assetImportManager;
         RegisterAssetLoader(new AssetLoader_Texture(), new AssetLoadParameters_Texture());
         RegisterAssetLoader(new AssetLoader_CubemapTexture(), new AssetLoadParameters_CubemapTexture());
         RegisterAssetLoader(new AssetLoader_Material(), new AssetLoadParameters_Material());

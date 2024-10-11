@@ -18,17 +18,16 @@ public class AssetImporter_Material : AssetImporter<Asset_Material>
 
 
         Asset_Material material = QuickSerializer.ReadFileXML<Asset_Material>(assetImportParameters.PathToSourceAsset);
-        material.LoadTextures();
-        if (material.Shader != null)
-        {
-            material.InitShader();
-        }
-
+        // material.LoadTextures();
+        // if (material.Shader != null)
+        // {
+            // material.InitShader();
+        // }
         material.PathToRawAsset = assetImportParameters.PathToSourceAsset;
         string path = importParameters.PathToSourceAsset.FromRawAssetFileNameToPathOfAssetInLibrary();
         QuickSerializer.SaveFileJSON<Asset_Material>(path, material);
 
-        material.InitAssetRuntimeHandle(material.Vao);
+        // material.InitAssetRuntimeHandle(material.Vao);
         // material.IsValid = true;
         return material;
     }
