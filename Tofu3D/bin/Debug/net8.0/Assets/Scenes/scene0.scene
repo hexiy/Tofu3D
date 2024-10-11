@@ -11,6 +11,22 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Camera</Name>
       <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>6</Id>
+      <IndexInHierarchy>0</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>GameObject</Name>
+      <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
@@ -21,55 +37,7 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>4</Id>
-      <IndexInHierarchy>0</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>GameObject</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>37</Id>
-      <IndexInHierarchy>0</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>GameObject</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>48</Id>
-      <IndexInHierarchy>0</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>GameObject</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <Silent>false</Silent>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>53</Id>
+      <Id>9</Id>
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
@@ -98,14 +66,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>23.79455</X>
-        <Y>19.382591</Y>
-        <Z>-0.3218842</Z>
+        <X>0.45385534</X>
+        <Y>1.4706047</Y>
+        <Z>2.7674637</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>23.79455</X>
-        <Y>19.382591</Y>
-        <Z>-0.3218842</Z>
+        <X>0.45385534</X>
+        <Y>1.4706047</Y>
+        <Z>2.7674637</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -118,8 +86,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>19.556879</X>
-        <Y>-50.557884</Y>
+        <X>7.6014752</X>
+        <Y>131.57861</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -130,16 +98,16 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
+        <B>34</B>
+        <G>34</G>
+        <R>34</R>
         <A>255</A>
-        <PackedValue>4294967295</PackedValue>
+        <PackedValue>4280427042</PackedValue>
       </Color>
-      <FarPlaneDistance>10000</FarPlaneDistance>
+      <FarPlaneDistance>50</FarPlaneDistance>
       <FieldOfView>60</FieldOfView>
       <IsOrthographic>false</IsOrthographic>
-      <NearPlaneDistance>1</NearPlaneDistance>
+      <NearPlaneDistance>0.04001</NearPlaneDistance>
       <OrthographicSize>2</OrthographicSize>
       <Size>
         <X>1600</X>
@@ -156,7 +124,7 @@
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>4</GameObjectId>
+      <GameObjectId>6</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -170,282 +138,12 @@
       </Pivot>
       <WorldPosition>
         <X>0</X>
-        <Y>0</Y>
-        <Z>10</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>10</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="ModelRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>4</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <Material>
-        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
-        <Shader>
-          <AlbedoTextureLocation>27</AlbedoTextureLocation>
-          <NormalTextureLocation>2</NormalTextureLocation>
-          <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
-          <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/sculpture/sculpture.jpeg</PathToRawAsset>
-          <Size>
-            <X>4096</X>
-            <Y>4096</Y>
-          </Size>
-          <TextureId>61</TextureId>
-        </AlbedoTexture>
-        <AlbedoTint>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>255</A>
-          <PackedValue>4294967295</PackedValue>
-        </AlbedoTint>
-        <AmbientOcclusionTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/white.png</PathToRawAsset>
-          <Size>
-            <X>1</X>
-            <Y>1</Y>
-          </Size>
-          <TextureId>37</TextureId>
-        </AmbientOcclusionTexture>
-        <NormalTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/white.png</PathToRawAsset>
-          <Size>
-            <X>1</X>
-            <Y>1</Y>
-          </Size>
-          <TextureId>37</TextureId>
-        </NormalTexture>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <RenderMode>Opaque</RenderMode>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.44</SpecularSmoothness>
-        <Tiling>
-          <X>4</X>
-          <Y>4</Y>
-        </Tiling>
-      </Material>
-      <RuntimeMesh>
-        <PathToRawAsset />
-        <MeshAssetPath>Library/sculpture.obj_mesh_1.asset</MeshAssetPath>
-        <Vao>16</Vao>
-        <VerticesCount>149994</VerticesCount>
-        <VertexBufferDataLength>2099916</VertexBufferDataLength>
-      </RuntimeMesh>
-      <RenderMode>Opaque</RenderMode>
-      <Layer>0</Layer>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>4</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>10</X>
-        <Y>10</Y>
-        <Z>10</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>37</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>-20.2</X>
-        <Y>0</Y>
-        <Z>10</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>-20.2</X>
-        <Y>0</Y>
-        <Z>10</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="ModelRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>37</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <Material>
-        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
-        <Shader>
-          <AlbedoTextureLocation>27</AlbedoTextureLocation>
-          <NormalTextureLocation>2</NormalTextureLocation>
-          <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
-          <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/sculpture/sculpture.jpeg</PathToRawAsset>
-          <Size>
-            <X>4096</X>
-            <Y>4096</Y>
-          </Size>
-          <TextureId>61</TextureId>
-        </AlbedoTexture>
-        <AlbedoTint>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>255</A>
-          <PackedValue>4294967295</PackedValue>
-        </AlbedoTint>
-        <AmbientOcclusionTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/white.png</PathToRawAsset>
-          <Size>
-            <X>1</X>
-            <Y>1</Y>
-          </Size>
-          <TextureId>37</TextureId>
-        </AmbientOcclusionTexture>
-        <NormalTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/white.png</PathToRawAsset>
-          <Size>
-            <X>1</X>
-            <Y>1</Y>
-          </Size>
-          <TextureId>37</TextureId>
-        </NormalTexture>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <RenderMode>Opaque</RenderMode>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.44</SpecularSmoothness>
-        <Tiling>
-          <X>4</X>
-          <Y>4</Y>
-        </Tiling>
-      </Material>
-      <RuntimeMesh>
-        <PathToRawAsset />
-        <MeshAssetPath>Library/sculpture.obj_mesh_1.asset</MeshAssetPath>
-        <Vao>16</Vao>
-        <VerticesCount>149994</VerticesCount>
-        <VertexBufferDataLength>2099916</VertexBufferDataLength>
-      </RuntimeMesh>
-      <RenderMode>Opaque</RenderMode>
-      <Layer>0</Layer>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>37</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>10</X>
-        <Y>10</Y>
-        <Z>10</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>48</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>1.0252612</X>
-        <Y>0.57735026</Y>
+        <Y>9.6</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1.0252612</X>
-        <Y>0.57735026</Y>
+        <X>0</X>
+        <Y>9.6</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
@@ -460,68 +158,28 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>0</Y>
+        <Y>180</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
     <Component xsi:type="AmbientLight">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>48</GameObjectId>
+      <GameObjectId>6</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Color>
-        <B>97</B>
-        <G>97</G>
-        <R>109</R>
+        <B>137</B>
+        <G>137</G>
+        <R>137</R>
         <A>255</A>
-        <PackedValue>4284572013</PackedValue>
+        <PackedValue>4287203721</PackedValue>
       </Color>
-      <Intensity>0.46</Intensity>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>53</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>1.0252612</X>
-        <Y>13.977</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>1.0252612</X>
-        <Y>13.977</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
+      <Intensity>0.1</Intensity>
     </Component>
     <Component xsi:type="DirectionalLight">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>53</GameObjectId>
+      <GameObjectId>6</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -532,10 +190,10 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <Intensity>2.58</Intensity>
+      <Intensity>10.78</Intensity>
       <FarPlaneDistance>1000</FarPlaneDistance>
       <NearPlaneDistance>0.0001</NearPlaneDistance>
-      <OrthographicSize>24.8</OrthographicSize>
+      <OrthographicSize>2.6</OrthographicSize>
       <RefreshRate>60</RefreshRate>
       <Rotate>false</Rotate>
       <RotateOffset>0</RotateOffset>
@@ -545,6 +203,125 @@
       </Size>
       <Speed>100</Speed>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>9</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>9</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRendererInstanced">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>9</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <Material>
+        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
+        <Shader>
+          <AlbedoTextureLocation>27</AlbedoTextureLocation>
+          <NormalTextureLocation>2</NormalTextureLocation>
+          <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
+          <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+        </Shader>
+        <Additive>false</Additive>
+        <AlbedoTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/sculpture/sculpture.jpeg</PathToRawAsset>
+          <Size>
+            <X>4096</X>
+            <Y>4096</Y>
+          </Size>
+          <TextureId>21</TextureId>
+        </AlbedoTexture>
+        <AlbedoTint>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>255</A>
+          <PackedValue>4294967295</PackedValue>
+        </AlbedoTint>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+        <RenderMode>Opaque</RenderMode>
+        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0.2</SpecularSmoothness>
+        <Tiling>
+          <X>1</X>
+          <Y>1</Y>
+        </Tiling>
+      </Material>
+      <RuntimeMesh>
+        <PathToRawAsset />
+        <MeshAssetPath>Library/Meshes/sculpture.obj_1.tofumesh</MeshAssetPath>
+        <Vao>6</Vao>
+        <VerticesCount>149994</VerticesCount>
+        <VertexBufferDataLength>2099916</VertexBufferDataLength>
+      </RuntimeMesh>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>0</Layer>
+    </Component>
   </Components>
-  <GameObjectNextId>56</GameObjectNextId>
+  <GameObjectNextId>50</GameObjectNextId>
 </SceneFile>

@@ -127,7 +127,7 @@ vec3 texNormal = texture(textureNormal, uvCoords).rgb;
 texNormal = texNormal * 2.0 - 1.0; // Normalizing the normal values from the texture
 texNormal = normalize(TBN * -texNormal); // Transforming the normal values from the texture space to the world space
 //norm = normalize(TBN * norm);
- float blendFactor = 0.8 * u_hasNormalTexture;
+ float blendFactor = 0 * u_hasNormalTexture;
  vec3 finalNormal = normalize(mix(vertexNormalTBN, texNormal, blendFactor));
         
 

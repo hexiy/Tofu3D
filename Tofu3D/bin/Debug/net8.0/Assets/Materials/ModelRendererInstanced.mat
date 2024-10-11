@@ -16,7 +16,7 @@
       <X>4096</X>
       <Y>4096</Y>
     </Size>
-    <TextureId>61</TextureId>
+    <TextureId>21</TextureId>
   </AlbedoTexture>
   <AlbedoTint>
     <B>255</B>
@@ -25,22 +25,6 @@
     <A>255</A>
     <PackedValue>4294967295</PackedValue>
   </AlbedoTint>
-  <AmbientOcclusionTexture>
-    <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/white.png</PathToRawAsset>
-    <Size>
-      <X>1</X>
-      <Y>1</Y>
-    </Size>
-    <TextureId>37</TextureId>
-  </AmbientOcclusionTexture>
-  <NormalTexture>
-    <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/white.png</PathToRawAsset>
-    <Size>
-      <X>1</X>
-      <Y>1</Y>
-    </Size>
-    <TextureId>37</TextureId>
-  </NormalTexture>
   <Offset>
     <X>0</X>
     <Y>0</Y>
@@ -49,7 +33,7 @@
   <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
   <SpecularSmoothness>0.44</SpecularSmoothness>
   <Tiling>
-    <X>4</X>
-    <Y>4</Y>
+    <X>1</X>
+    <Y>1</Y>
   </Tiling>
 </Material>
