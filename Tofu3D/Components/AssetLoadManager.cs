@@ -49,7 +49,7 @@ public class AssetLoadManager
     {
         int id = sourcePath.GetHashCode();
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
-
+        
         // 
         T asset = null;
 

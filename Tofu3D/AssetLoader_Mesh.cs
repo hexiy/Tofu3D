@@ -10,11 +10,9 @@ namespace Tofu3D;
 
 public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
 {
-
     public override RuntimeMesh LoadAsset(AssetLoadParameters<RuntimeMesh>? assetLoadParameters)
     {
         string meshAssetPath = assetLoadParameters.PathToAsset;
-
         Asset_Mesh assetMesh = QuickSerializer.ReadFileJSON<Asset_Mesh>(meshAssetPath);
 
         RuntimeMesh runtimeMesh = new RuntimeMesh()
@@ -23,11 +21,11 @@ public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
             VertexBufferDataLength = assetMesh.VertexBufferData.Length,
             VerticesCount = assetMesh.VerticesCount
         };
-    
+
         BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, assetMesh.VertexBufferData, assetMesh.CountsOfElements);
-        
+
         runtimeMesh.InitAssetRuntimeHandle(runtimeMesh.Vao);
-        
+
         return runtimeMesh;
     }
 }

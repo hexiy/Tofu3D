@@ -69,8 +69,10 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             // save meshes too
             assetMesh = LoadMeshFromData(data: data, vertices: vertices, uvs: uvs, normals: normals,
                 lineStartIndex: ref lineStartIndex);
-            string meshPath = (objPath + $"_mesh_{model.PathsToMeshAssets.Count}")
-                .FromRawAssetFileNameToPathOfAssetInLibrary();
+
+            int meshIndex = model.PathsToMeshAssets.Count;
+
+            string meshPath = objPath.ToMeshAssetFileName(meshIndex).FromRawAssetFileNameToPathOfAssetInLibrary();
             QuickSerializer.SaveFileJSON<Asset_Mesh>(meshPath, assetMesh);
             model.PathsToMeshAssets.Add(meshPath);
             if (indxTemp == lineStartIndex)
@@ -83,7 +85,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         string modelPath = objPath.FromRawAssetFileNameToPathOfAssetInLibrary();
 
         QuickSerializer.SaveFileJSON<Asset_Model>(modelPath, model);
-        
+
         return model;
     }
 

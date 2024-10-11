@@ -130,11 +130,7 @@ public class EditorPanelBrowser : EditorPanel
         _textures = new Dictionary<string, RuntimeTexture>();
         for (var i = 0; i < _assets.Length; i++)
         {
-            var assetExtension = Path.GetExtension(_assets[i]).ToLower();
-
-            if (assetExtension.ToLower().Contains(".jpg") || assetExtension.ToLower().Contains(".png") ||
-                assetExtension.ToLower().Contains(".jpeg") ||
-                assetExtension.ToLower().Contains(".bmp"))
+            if (AssetFileExtensions.IsFileTexture(_assets[i]))
                 // _textures[i] = new Texture();
                 // _textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
             {
@@ -288,6 +284,14 @@ public class EditorPanelBrowser : EditorPanel
         var assetName = Path.GetFileNameWithoutExtension(assetPath);
         var assetExtension = Path.GetExtension(assetPath).ToLower();
 
+        
+        bool isMesh = AssetFileExtensions.IsFileMesh(assetPath);
+        var isModel = AssetFileExtensions.IsFileModel(assetPath);
+        var isMaterial = AssetFileExtensions.IsFileMaterial(assetPath);
+        var isShader =  AssetFileExtensions.IsFileShader(assetPath);
+        var isPrefab =  AssetFileExtensions.IsFilePrefab(assetPath);
+        var isTexture =  AssetFileExtensions.IsFileTexture(assetPath);
+        
         PushNextId();
 
         //ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0,0,0,0));
@@ -312,9 +316,7 @@ public class EditorPanelBrowser : EditorPanel
         //ImGui.PopStyleColor();
 
 
-        if (assetExtension.ToLower().Contains(".jpg") || assetExtension.ToLower().Contains(".png") ||
-            assetExtension.ToLower().Contains(".jpeg") ||
-            assetExtension.ToLower().Contains(".bmp"))
+        if (isTexture)
         {
             if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
             {
@@ -350,9 +352,8 @@ public class EditorPanelBrowser : EditorPanel
             }
         }
 
-        if (assetExtension.ToLower().Contains(".obj") || assetName.ToLower().Contains(".obj_mesh"))
+        if (isModel || isMesh)
         {
-            bool isMesh = assetName.ToLower().Contains(".obj_mesh");
             if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
             {
                 var stringPointer = Marshal.StringToHGlobalAnsi(assetPath);
@@ -371,9 +372,6 @@ public class EditorPanelBrowser : EditorPanel
             }
         }
 
-        var isMaterial = assetExtension.ToLower().Contains(".mat");
-        var isShader = assetExtension.ToLower().Contains(".glsl");
-        var isPrefab = assetExtension.ToLower().Contains(".prefab");
         if (isShader || isMaterial)
         {
             if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
@@ -435,12 +433,12 @@ public class EditorPanelBrowser : EditorPanel
 
         if (ImGui.IsItemHovered() && ImGui.IsMouseReleased(ImGuiMouseButton.Left))
         {
-            if (assetExtension.ToLower().Contains(".mat"))
+            if (isMaterial)
             {
                 EditorPanelInspector.I.OnMaterialSelected(assetPath);
             }
 
-            if (assetExtension.ToLower().Contains(".obj"))
+            if (isModel)
             {
                 if (_expandedAssets.Contains(assetPath) == false)
                 {
@@ -462,7 +460,7 @@ public class EditorPanelBrowser : EditorPanel
                 return;
             }
 
-            if (assetExtension == ".prefab")
+            if (isPrefab)
             {
                 var go = Tofu.SceneSerializer.LoadPrefab(assetPath);
                 // todo
@@ -487,7 +485,7 @@ public class EditorPanelBrowser : EditorPanel
         ImGui.EndGroup();
 
 
-        if (assetExtension.ToLower().Contains(".obj"))
+        if (isModel)
         {
             if (_expandedAssets.Contains(assetPath))
             {

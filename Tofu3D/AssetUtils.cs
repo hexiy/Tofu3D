@@ -5,9 +5,7 @@ namespace Tofu3D;
 public class AssetUtils
 {
     private static Dictionary<string, bool> ExistingAssets = new();
-
-    public static bool IsShader(string path) => path.Contains(".glsl");
-
+    
     public static bool Exists(string path) => File.Exists(path);
 
     // ExistingAssets.TryGetValue(path, out var existing);

@@ -53,7 +53,7 @@ public class AssetImportManager
             bool assetImportParametersFileExistsForThisAsset = AssetImportParamsFileExists(rawAssetFileName);
 
 
-            if (rawAssetPath.Contains(".obj"))
+            if (AssetFileExtensions.IsFileModel(rawAssetPath))
             {
                 AssetImportParameters_Model assetImportParametersModel = new AssetImportParameters_Model();
                 // if (assetImportParametersFileExistsForThisAsset == false)
@@ -82,7 +82,7 @@ public class AssetImportManager
                 }
             }
 
-            if (rawAssetPath.Contains(".mat"))
+            if (AssetFileExtensions.IsFileMaterial(rawAssetPath))
             {
                 AssetImportParameters_Material assetImportParametersMaterial = new AssetImportParameters_Material();
                 // if (assetImportParametersFileExistsForThisAsset == false)
@@ -112,7 +112,7 @@ public class AssetImportManager
                 }
             }
 
-            if (rawAssetPath.ToLower().Contains(".png") || rawAssetPath.ToLower().Contains(".jpg") || rawAssetPath.ToLower().Contains(".jpeg") || rawAssetPath.ToLower().Contains(".bmp"))
+            if (AssetFileExtensions.IsFileTexture(rawAssetPath))
             {
                 AssetImportParameters_Texture assetImportParametersTexture = new AssetImportParameters_Texture();
                 // if (assetImportParametersFileExistsForThisAsset == false)

@@ -23,12 +23,12 @@ public class Skybox : Component, IComponentUpdateable
         _texture = new RuntimeCubemapTexture();
         string[] texturePaths =
         {
-            Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Right.bmp"),
-            Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Left.bmp"),
-            Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Top.bmp"),
-            Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Bottom.bmp"),
-            Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Front.bmp"),
-            Path.Combine(Folders.Textures, "skybox2", "Daylight Box_Back.bmp")
+            Path.Combine(Folders.TexturesInAssets, "skybox2", "Daylight Box_Right.bmp"),
+            Path.Combine(Folders.TexturesInAssets, "skybox2", "Daylight Box_Left.bmp"),
+            Path.Combine(Folders.TexturesInAssets, "skybox2", "Daylight Box_Top.bmp"),
+            Path.Combine(Folders.TexturesInAssets, "skybox2", "Daylight Box_Bottom.bmp"),
+            Path.Combine(Folders.TexturesInAssets, "skybox2", "Daylight Box_Front.bmp"),
+            Path.Combine(Folders.TexturesInAssets, "skybox2", "Daylight Box_Back.bmp")
         };
 
         AssetLoadParameters_CubemapTexture loadParameters = new() { PathsToSourceTextures = texturePaths };
