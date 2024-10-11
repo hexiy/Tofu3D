@@ -16,7 +16,7 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
         AssetLoadParameters_Texture loadParameters = assetLoadParameters as AssetLoadParameters_Texture;
         string path = loadParameters.PathToAsset;
 
-        Asset_Texture assetTexture = QuickSerializer.ReadFileBinary<Asset_Texture>(path);
+        Asset_Texture assetTexture = QuickSerializer.ReadFileJSON<Asset_Texture>(path);
         
         var textureId = GL.GenTexture();
         TextureHelper.BindTexture(textureId);
@@ -45,7 +45,8 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
 
         RuntimeTexture runtimeTexture = new()
         {
-            Size = assetTexture.TextureSize
+            Size = assetTexture.TextureSize,
+            PathToRawAsset = assetTexture.PathToRawAsset
             //     Size = imageSize,
             //     Loaded = true,
             //     PathToRawAsset = path.FromRawAssetFileNameToPathOfAssetInLibrary(),

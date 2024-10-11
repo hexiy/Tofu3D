@@ -13,7 +13,7 @@ public class AssetLoader_Model : AssetLoader<Asset_Model, Asset_Model>
     {
         string modelAssetPath = assetLoadParameters.PathToAsset;
 
-        Asset_Model assetModel = QuickSerializer.ReadFileBinary<Asset_Model>(modelAssetPath);
+        Asset_Model assetModel = QuickSerializer.ReadFileJSON<Asset_Model>(modelAssetPath);
 
 
         return assetModel;

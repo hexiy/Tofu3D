@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <AssetPath>Assets\Materials\ModelRendererInstanced.mat</AssetPath>
+  <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
   <Shader>
-    <AlbedoTextureLocation>26</AlbedoTextureLocation>
+    <AlbedoTextureLocation>27</AlbedoTextureLocation>
     <NormalTextureLocation>2</NormalTextureLocation>
     <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
     <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
@@ -11,11 +11,12 @@
   </Shader>
   <Additive>false</Additive>
   <AlbedoTexture>
-    <AssetPath>Assets/2D/grass.jpg</AssetPath>
+    <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/sculpture/sculpture.jpeg</PathToRawAsset>
     <Size>
-      <X>1500</X>
-      <Y>1500</Y>
+      <X>4096</X>
+      <Y>4096</Y>
     </Size>
+    <TextureId>61</TextureId>
   </AlbedoTexture>
   <AlbedoTint>
     <B>255</B>
@@ -25,18 +26,20 @@
     <PackedValue>4294967295</PackedValue>
   </AlbedoTint>
   <AmbientOcclusionTexture>
-    <AssetPath>Assets/2D/white.png</AssetPath>
+    <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/white.png</PathToRawAsset>
     <Size>
       <X>1</X>
       <Y>1</Y>
     </Size>
+    <TextureId>37</TextureId>
   </AmbientOcclusionTexture>
   <NormalTexture>
-    <AssetPath>Assets/2D/white.png</AssetPath>
+    <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/white.png</PathToRawAsset>
     <Size>
       <X>1</X>
       <Y>1</Y>
     </Size>
+    <TextureId>37</TextureId>
   </NormalTexture>
   <Offset>
     <X>0</X>

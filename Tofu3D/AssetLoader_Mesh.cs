@@ -15,7 +15,7 @@ public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
     {
         string meshAssetPath = assetLoadParameters.PathToAsset;
 
-        Asset_Mesh assetMesh = QuickSerializer.ReadFileBinary<Asset_Mesh>(meshAssetPath);
+        Asset_Mesh assetMesh = QuickSerializer.ReadFileJSON<Asset_Mesh>(meshAssetPath);
 
         RuntimeMesh runtimeMesh = new RuntimeMesh()
         {

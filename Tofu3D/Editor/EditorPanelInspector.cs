@@ -383,12 +383,16 @@ public class EditorPanelInspector : EditorPanel
                     //ImGui.PopID();
                 }
 
-                /*if (componentInspectorData.InspectableType == typeof(Material) && (_editing ||
+                /*if (componentInspectorData.InspectableType == typeof(Asset_Material) && (_editing ||
                         ImGui.IsMouseReleased(ImGuiMouseButton.Left) || ImGui.IsMouseReleased(ImGuiMouseButton.Right)))
                     // detect drag and drop texture too....
                     _actionQueue += () =>
                     {
-                        Tofu.AssetManager.Save<Material>(componentInspectorData.Inspectable as Material);
+                        Debug.Log("wip try to save texture");
+                        Asset_Material assetMaterial = (componentInspectorData.Inspectable as Asset_Material);
+                        string assetPathInLibrary = assetMaterial.PathToRawAsset.FromRawAssetFileNameToPathOfAssetInLibrary();
+                        Tofu.AssetLoadManager.Save<Asset_Material>(assetPathInLibrary, assetMaterial);
+                        // Tofu.AssetLoadManager.Save<Material>();.Save<Material>(componentInspectorData.Inspectable as Material);
                     };*/
             }
 

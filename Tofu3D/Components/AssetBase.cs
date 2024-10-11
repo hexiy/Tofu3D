@@ -1,7 +1,10 @@
 ﻿[Serializable]
 public abstract class AssetBase
 {
+    [Hide]
     public string PathToRawAsset = "";
+    [Hide]
+    public string PathToAssetInLibrary=>PathToRawAsset.FromRawAssetFileNameToPathOfAssetInLibrary();
     [XmlIgnore]
     public RuntimeAssetHandle RuntimeAssetHandle { get; set; }
 

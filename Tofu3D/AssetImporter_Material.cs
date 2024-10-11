@@ -26,7 +26,7 @@ public class AssetImporter_Material : AssetImporter<Asset_Material>
 
         material.PathToRawAsset = assetImportParameters.PathToSourceAsset;
         string path = importParameters.PathToSourceAsset.FromRawAssetFileNameToPathOfAssetInLibrary();
-        QuickSerializer.SaveFileBinary<Asset_Material>(path, material);
+        QuickSerializer.SaveFileJSON<Asset_Material>(path, material);
 
         material.InitAssetRuntimeHandle(material.Vao);
         // material.IsValid = true;

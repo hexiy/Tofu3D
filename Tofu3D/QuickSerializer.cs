@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 public static class QuickSerializer
 {
-    public static void SaveFileBinary<T>(string path, object content)
+    public static void SaveFileJSON<T>(string path, object content)
     {
         using (var stream = new FileStream(path, FileMode.OpenOrCreate))
         {
@@ -23,7 +23,7 @@ public static class QuickSerializer
         // sw.Close();
     }
 
-    public static T? ReadFileBinary<T>(string path)
+    public static T? ReadFileJSON<T>(string path)
     {
         using (var stream = new FileStream(path, FileMode.Open))
         {

@@ -48,7 +48,7 @@ public class AssetLoadManager
     }
 
     // path here will be Assets/xxxxx
-    public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters=null) where T : Asset<T>
+    public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null) where T : Asset<T>
     {
         int id = sourcePath.GetHashCode();
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
@@ -73,12 +73,11 @@ public class AssetLoadManager
             if (loadParameters == null)
             {
                 loadParameters = (loaderAndLoadParameters.Item2 as AssetLoadParameters<T>);
-                
+
                 loadParameters =
                     Activator.CreateInstance(loadParameters.GetType()) as AssetLoadParameters<T>;
-                
+
                 loadParameters.PathToAsset = sourcePath.FromRawAssetFileNameToPathOfAssetInLibrary();
-                
             }
 
             asset = (T)((dynamic)loaderAndLoadParameters.Item1).LoadAsset(loadParameters);
@@ -95,6 +94,26 @@ public class AssetLoadManager
         return asset;
     }
 
+    public void Save<T>(string path, T asset, AssetLoadParameters<T>? loadParameters = null, bool json = true)
+        where T : Asset<T>
+    {
+        int id = path.GetHashCode();
+
+        // 
+        // T asset = null;
+
+        if (json)
+        {
+            QuickSerializer.SaveFileJSON<T>(path, asset);
+        }
+        else
+        {
+            QuickSerializer.SaveFileXML<T>(path, asset);
+        }
+
+        LoadedAssets[id] = asset;
+        Debug.Log($"Saved file {path}");
+    }
     // public T Save<T>(T asset) where T : Asset<T>, new()
     // {
     //     var hash = settings.GetHashCode();
