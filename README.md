@@ -1,4 +1,4 @@
-# <img src="/tofu3d.png" width="70px" align="center">   Tofu3D Game Engine
+# <img src="Tofu3D/tofu3d.png" width="70px" align="center">   Tofu3D Game Engine
 
 Simple .NET C# OpenTK game engine with editor.
 
