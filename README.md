@@ -1,4 +1,4 @@
-# <img src="https://github.com/hexiy/Tofu3D/blob/main/Tofu3D/tofu3d.png" width="70px" align="center">   Tofu3D Game Engine
+# <img src="https://github.com/hexiy/Tofu3D/blob/dev/Tofu3D/tofu3d.png" width="70px" align="center">   Tofu3D Game Engine
 
 Simple .NET C# OpenTK game engine with editor.
 
@@ -7,10 +7,10 @@ Heavily in progress so things will break :)
 
 <a href="https://youtu.be/9DruwMWLJRM">[5/4/2023] Video - OBJ Models and Shadows // Tofu3D C# OpenGL Game Engine</a><br>
 <a href="https://www.youtube.com/watch?v=fC4k5OtizUE">[3/4/2023] Video - Shadows and Skybox // Tofu3D C# OpenGL Game Engine preview</a><br><br>
-<a href="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/screen4.png"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/screen4.png" align="center" width="100%" ></a>
-<a href="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/screen3.png"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/screen3.png" align="center" width="100%" ></a>
-<a href="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/screen2.png"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/screen2.png" align="center" width="100%" ></a>
-<a href="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/screen1.png"><img src="https://github.com/hexiy/Tofu3D/blob/main/Github%20Resources/screen1.png" align="center" width="100%" ></a>
+<a href="https://github.com/hexiy/Tofu3D/blob/dev/Github%20Resources/screen4.png"><img src="https://github.com/hexiy/Tofu3D/blob/dev/Github%20Resources/screen4.png" align="center" width="100%" ></a>
+<a href="https://github.com/hexiy/Tofu3D/blob/dev/Github%20Resources/screen3.png"><img src="https://github.com/hexiy/Tofu3D/blob/dev/Github%20Resources/screen3.png" align="center" width="100%" ></a>
+<a href="https://github.com/hexiy/Tofu3D/blob/dev/Github%20Resources/screen2.png"><img src="https://github.com/hexiy/Tofu3D/blob/dev/Github%20Resources/screen2.png" align="center" width="100%" ></a>
+<a href="https://github.com/hexiy/Tofu3D/blob/dev/Github%20Resources/screen1.png"><img src="https://github.com/hexiy/Tofu3D/blob/dev/Github%20Resources/screen1.png" align="center" width="100%" ></a>
 
 On linux install glfw
 Fedora: dnf install glfw
