@@ -134,7 +134,6 @@ public class EditorPanelConsole : EditorPanel
 
         ImGui.SameLine();
         ImGui.InputTextWithHint("Search", "Search", ref _searchFilter, 100);
-        _searchFilter = _searchFilter.ToLower();
 
         ImGui.BeginChildFrame(2,
             ImGui.GetContentRegionAvail() * new System.Numerics.Vector2(1, _selectedMessageIndex == -1 ? 1 : 0.7f));
@@ -144,7 +143,7 @@ public class EditorPanelConsole : EditorPanel
         {
             var log = Debug.GetLogsRef()[i];
 
-            if (_searchFilter.Length > 0 && log.Message.ToLower().Contains(_searchFilter) == false)
+            if (_searchFilter.Length > 0 && log.Message.Contains(_searchFilter, StringComparison.OrdinalIgnoreCase) == false)
             {
                 continue;
             }

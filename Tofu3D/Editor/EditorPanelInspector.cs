@@ -428,7 +428,7 @@ public class EditorPanelInspector : EditorPanel
                 {
                     for (var i = 0; i < _componentTypes.Count; i++)
                     {
-                        if (_componentTypes[i].Name.ToLower().Contains(_addComponentPopupText.ToLower()))
+                        if (_componentTypes[i].Name.Contains(_addComponentPopupText, StringComparison.OrdinalIgnoreCase))
                         {
                             if (ImGui.Button(_componentTypes[i].Name) || enterPressed)
                             {

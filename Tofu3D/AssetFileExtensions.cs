@@ -33,8 +33,6 @@ public static class AssetFileExtensions
 
     private static string GetCorrectLibrarySubfolderPathForAssetType(this string fileName)
     {
-        fileName = fileName.ToLower();
-
         string path = "";
         if (IsFileModel(fileName))
         {
@@ -62,8 +60,6 @@ public static class AssetFileExtensions
 
     private static string GetTofuAssetExtensionForAsset(this string fileName)
     {
-        fileName = fileName.ToLower();
-
         string extension = "";
         if (IsFileModel(fileName))
         {

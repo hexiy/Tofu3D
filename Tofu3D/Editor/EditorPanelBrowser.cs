@@ -165,7 +165,7 @@ public class EditorPanelBrowser : EditorPanel
 
         if (ImGui.Button("<") || (IsPanelHovered && KeyboardInput.IsKeyDown(Keys.Backspace)))
         {
-            if (CurrentDirectory.Name.ToLower() != "assets")
+            if (CurrentDirectory.Name.Equals("assets", StringComparison.OrdinalIgnoreCase) == false)
             {
                 CurrentDirectory = CurrentDirectory.Parent;
                 RefreshAssets();
@@ -282,7 +282,7 @@ public class EditorPanelBrowser : EditorPanel
         var assetPathPointer = Marshal.StringToHGlobalAnsi(assetPath);
 
         var assetName = Path.GetFileNameWithoutExtension(assetPath);
-        var assetExtension = Path.GetExtension(assetPath).ToLower();
+        var assetExtension = Path.GetExtension(assetPath);
 
 
         bool isMesh = AssetFileExtensions.IsFileMesh(assetPath);
@@ -334,7 +334,8 @@ public class EditorPanelBrowser : EditorPanel
             }
         }
 
-        if (assetExtension.ToLower().Contains(".mp3") || assetExtension.ToLower().Contains(".wav"))
+        if (assetExtension.Contains(".mp3", StringComparison.OrdinalIgnoreCase) ||
+            assetExtension.Contains(".wav", StringComparison.OrdinalIgnoreCase))
         {
             if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
             {
