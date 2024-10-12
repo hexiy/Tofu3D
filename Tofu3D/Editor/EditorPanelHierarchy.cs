@@ -443,6 +443,7 @@ public class EditorPanelHierarchy : EditorPanel
                 Tofu.SceneManager.CurrentScene.GameObjects.Insert(currentGameObject.IndexInHierarchy + (after ? 1 : 0)-(x?1:0),
                     droppedGameObject);
 
+                Tofu.SceneManager.CurrentScene.UpdateGameobjectsIndexInHierarchy();
                 // droppedGameObject.Transform.SetParent(currentGameObject.Transform.Parent);
             }
 

@@ -142,10 +142,8 @@ public class Scene
 
         _updateableComponentQueue.UpdateComponents();
 
-        for (int i = 0; i < GameObjects.Count; i++)
-        {
-            GameObjects[i].IndexInHierarchy = i;
-        }
+        // for (int i = 0; i < GameObjects.Count; i++)
+        // {
 // 			/*if (GameObjects[i] == Camera.MainCamera.GameObject)
 // 			{
 // 				continue;
@@ -192,7 +190,7 @@ public class Scene
     {
         SetOpenGLState();
 
-        
+
         GL.ClearDepth(1000);
         GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
 
@@ -238,6 +236,8 @@ public class Scene
         sf.GameObjects = new List<GameObject>();
         for (var i = 0; i < GameObjects.Count; i++)
         {
+            GameObjects[i].IndexInHierarchy = i;
+
             if (GameObjects[i].DynamicallyCreated)
             {
                 continue;
@@ -329,14 +329,14 @@ public class Scene
     public void AddGameObjectToScene(GameObject gameObject)
     {
         GameObjects.Add(gameObject);
-
+        UpdateGameobjectsIndexInHierarchy();
         // _renderableComponentQueue.RenderQueueChanged();
     }
 
     public void AddGameObjectsToScene(IEnumerable<GameObject> gameObjects)
     {
         GameObjects.AddRange(gameObjects);
-
+        UpdateGameobjectsIndexInHierarchy();
         // _renderableComponentQueue.RenderQueueChanged();
     }
 
@@ -356,9 +356,17 @@ public class Scene
             GameObjects.Remove(gameObject);
         }
 
+        UpdateGameobjectsIndexInHierarchy();
         // SceneModified.Invoke();
     }
 
+    public void UpdateGameobjectsIndexInHierarchy()
+    {
+        for (var i = 0; i < GameObjects.Count; i++)
+        {
+            GameObjects[i].IndexInHierarchy = i;
+        }
+    }
     private void OnMouse3Clicked()
     {
     }
