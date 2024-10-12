@@ -47,9 +47,6 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
         {
             Size = assetTexture.TextureSize,
             PathToRawAsset = assetTexture.PathToRawAsset
-            //     Size = imageSize,
-            //     Loaded = true,
-            //     PathToRawAsset = path.FromRawAssetFileNameToPathOfAssetInLibrary(),
         };
         runtimeTexture.TextureId = textureId;
 

@@ -12,15 +12,11 @@ namespace Tofu3D;
 // Imports .obj, creates .asset in /Library/ and
 public class AssetImporter_Model : AssetImporter<Asset_Model>
 {
-    private readonly XmlSerializer _xmlSerializer;
-
-
     public override Asset_Model ImportAsset(AssetImportParameters<Asset_Model> assetImportParameters)
     {
         AssetImportParameters_Model importParameters = assetImportParameters as AssetImportParameters_Model;
 
         string objPath = importParameters.PathToSourceAsset;
-        // string assetPath = Folders.Library
 
         var data = File.ReadAllText(objPath).Split("\n");
 
@@ -356,7 +352,6 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
             offset = 5; // pos.x,pos.y,pos.z, uv.x,uv.y
 
-            // average out normals
 
             Vector3 nm1 = new Vector3(
                 everything[indexOfVertex1Start + offset + 0],
@@ -370,13 +365,6 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 0],
                 everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 1],
                 everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 2]);
-
-            Vector3 nm = (nm1 + nm2 + nm3) / 3f;
-            // Vector3 nm = nm1;
-            // Vector3 nm = new Vector3(
-            //     everything[indexOfVertex1Start + offset + 0],
-            //     everything[indexOfVertex1Start + offset + 1],
-            //     everything[indexOfVertex1Start + offset + 2]);
 
             Vector3 tangent1;
             Vector3 bitangent1;
@@ -435,10 +423,6 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         mesh.CountsOfElements = countsOfElements;
         mesh.VertexBufferData = newEverything.ToArray();
         mesh.VerticesCount = totalVerticesCount;
-
-        // BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, newEverything.ToArray(), countsOfElements);
-        //
-        // runtimeMesh.InitAssetRuntimeHandle(runtimeMesh.Vao);
 
         return mesh;
     }

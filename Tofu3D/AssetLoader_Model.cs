@@ -15,7 +15,6 @@ public class AssetLoader_Model : AssetLoader<Asset_Model, Asset_Model>
 
         Asset_Model assetModel = QuickSerializer.ReadFileJSON<Asset_Model>(modelAssetPath);
 
-
         return assetModel;
     }
 }
