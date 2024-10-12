@@ -13,6 +13,7 @@ public class EditorPanelBrowser : EditorPanel
 
     private List<BrowserContextItem> _contextItems;
     private RuntimeTexture _directoryIcon;
+    Dictionary<string, DirectoryInfo> directoryInfos = new();
 
     private RuntimeTexture _fileIcon;
     private readonly Vector2 _iconSize = new(200, 180);
@@ -140,6 +141,8 @@ public class EditorPanelBrowser : EditorPanel
         }
     }
 
+    private int hoveredAssetIndex = -1;
+
     public override void Draw()
     {
         if (Active == false)
@@ -148,10 +151,19 @@ public class EditorPanelBrowser : EditorPanel
         }
 
         SetWindow();
+        if (ImGui.BeginPopupContextWindow("yeh"))
+        {
+            for (var i = 0; i < _contextItems.Count; i++)
+            {
+                _contextItems[i].ShowContextItem();
+            }
+
+            ImGui.EndPopup();
+        }
 
         ResetId();
 
-        if (ImGui.Button("<"))
+        if (ImGui.Button("<") || (IsPanelHovered && KeyboardInput.IsKeyDown(Keys.Backspace)))
         {
             if (CurrentDirectory.Name.ToLower() != "assets")
             {
@@ -221,15 +233,11 @@ public class EditorPanelBrowser : EditorPanel
         //	ImGui.EndGroup();
         //}
         _subAssetsDrawnCount = 0;
-        int hoveredAssetIndex = -1;
+        hoveredAssetIndex = -1;
         for (var assetIndex = 0; assetIndex < _assets.Length; assetIndex++)
         {
             string assetPath = _assets[assetIndex];
             DrawAsset(assetIndex, assetPath);
-            if (ImGui.IsItemHovered() && hoveredAssetIndex != assetIndex)
-            {
-                hoveredAssetIndex = assetIndex;
-            }
 
 
             //ImGui.SetCursorPosY(ImGui.GetCursorPosY() - 25);
@@ -238,32 +246,10 @@ public class EditorPanelBrowser : EditorPanel
 
         Debug.StatSetValue("Browser hovered asset index", $"Browser hovered asset index {hoveredAssetIndex}");
 
-        // show prefabs as btns from array that updates in Update()
-        /*if (ImGui.BeginPopupContextWindow("BrowserPopup") && hoveredAssetIndex == -1)
-        {
-            for (var i = 0; i < _contextItems.Count; i++)
-            {
-                _contextItems[i].ShowContextItem();
-            }
-            /*if (ImGui.Button("New Scene"))
-            {
-                showCreateScenePopup = true;
-                ImGui.CloseCurrentPopup();
-            }
-
-            if (ImGui.Button("New Material"))
-            {
-                showCreateMaterialPopup = true;
-                ImGui.CloseCurrentPopup();
-            }#1#
-
-            ImGui.EndPopup();
-        }
-
         for (var i = 0; i < _contextItems.Count; i++)
         {
             _contextItems[i].ShowPopupIfOpen();
-        }*/
+        }
 
 
         ImGui.End();
@@ -271,7 +257,6 @@ public class EditorPanelBrowser : EditorPanel
         base.Draw();
     }
 
-    Dictionary<string, DirectoryInfo> directoryInfos = new();
 
     private void DrawAsset(int assetIndex, string assetPath)
     {
@@ -291,6 +276,7 @@ public class EditorPanelBrowser : EditorPanel
         }
 
         var isDirectory = directoryInfo.Exists;
+        ImGui.BeginGroup();
 
         ImGui.BeginGroup();
         var assetPathPointer = Marshal.StringToHGlobalAnsi(assetPath);
@@ -445,7 +431,8 @@ public class EditorPanelBrowser : EditorPanel
             }
         }
 
-        if (ImGui.IsItemHovered() && ImGui.IsMouseReleased(ImGuiMouseButton.Left)) // released in case we want to drag and drop somemthing
+        if (ImGui.IsItemHovered() &&
+            ImGui.IsMouseReleased(ImGuiMouseButton.Left)) // released in case we want to drag and drop somemthing
         {
             if (isMaterial)
             {
@@ -487,27 +474,6 @@ public class EditorPanelBrowser : EditorPanel
             }
         }
 
-        if (ImGui.BeginPopupContextItem("item_context"))
-        {
-            if (ImGui.MenuItem("Reimport"))
-            {
-                Tofu.AssetImportManager.ImportAsset(assetPath, reimportIfExists:true);
-                // Handle Option 1
-            }
-
-            if (ImGui.MenuItem("Option 2"))
-            {
-                // Handle Option 2
-            }
-
-            if (ImGui.MenuItem("Option 3"))
-            {
-                // Handle Option 3
-            }
-
-            ImGui.EndPopup();
-        }
-
 
         var maxCharsLimit = 15;
         var a = assetName.Substring(0, Math.Clamp(assetName.Length, 0, maxCharsLimit));
@@ -531,6 +497,30 @@ public class EditorPanelBrowser : EditorPanel
                     _subAssetsDrawnCount++;
                     DrawAsset(assetIndex, assetModel.PathsToMeshAssets[meshIndex]);
                 }
+            }
+        }
+
+        ImGui.EndGroup();
+        if (ImGui.IsItemHovered() && hoveredAssetIndex != assetIndex)
+        {
+            hoveredAssetIndex = assetIndex;
+        }
+
+        if (isMesh == false && isDirectory == false)
+        {
+            if (ImGui.BeginPopupContextItem("item_context", ImGuiPopupFlags.MouseButtonRight))
+            {
+                if (ImGui.MenuItem("Reimport this"))
+                {
+                    Tofu.AssetImportManager.ImportAsset(assetPath, reimportIfExists: true);
+                }
+
+                if (ImGui.MenuItem("Reimport all"))
+                {
+                    Tofu.AssetImportManager.ImportAllAssets(reimportIfExists: true);
+                }
+
+                ImGui.EndPopup();
             }
         }
     }

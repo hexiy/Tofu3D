@@ -37,7 +37,7 @@ public class AssetImportManager
         string assetFilePath = rawAssetFileName.FromRawAssetFileNameToPathOfAssetInLibrary();
         bool assetExists = AssetFileExists(assetFilePath.FromRawAssetFileNameToPathOfAssetInLibrary());
         bool canImport = assetExists == false || reimportIfExists == true;
-        if (canImport==false)
+        if (canImport == false)
         {
             return;
         }
@@ -138,7 +138,7 @@ public class AssetImportManager
         }
     }
 
-    public void ImportAllAssets()
+    public void ImportAllAssets(bool reimportIfExists = false)
     {
         List<string> allPaths = new List<string>();
         allPaths.AddRange(Directory.GetFiles(Folders.Assets, "", SearchOption.AllDirectories));
@@ -149,7 +149,7 @@ public class AssetImportManager
         // create AssetCreationParams<Asset_Model> for car if it doesnt exist
         foreach (string rawAssetPath in allPaths)
         {
-            ImportAsset(rawAssetPath);
+            ImportAsset(rawAssetPath, reimportIfExists);
         }
     }
 

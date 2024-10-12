@@ -22,11 +22,16 @@ public class BrowserContextItem
 
     public void ShowContextItem()
     {
-        if (ImGui.Button(_itemName))
+        if (ImGui.MenuItem(_itemName))
         {
             ShowPopup = true;
             ImGui.CloseCurrentPopup();
         }
+        // if (ImGui.Button(_itemName))
+        // {
+        //     ShowPopup = true;
+        //     ImGui.CloseCurrentPopup();
+        // }
     }
 
     public void ShowPopupIfOpen()

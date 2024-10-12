@@ -57,11 +57,13 @@ public class EditorPanel
         ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);
         ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
         ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | AdditionalWindowFlags);
+        IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
+
     }
 
     public void EndWindow()
     {
-        IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
+        // IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
 
         ImGui.End();
     }

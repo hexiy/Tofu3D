@@ -9,7 +9,7 @@
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>GameObject</Name>
+      <Name>Wood1</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -25,7 +25,10 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <ChildrenIDs />
+      <ChildrenIDs>
+        <int>107</int>
+        <int>107</int>
+      </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -131,7 +134,7 @@
       <RuntimeMesh>
         <PathToRawAsset />
         <MeshAssetPath>Library/Meshes/model.obj_2.tofumesh</MeshAssetPath>
-        <Vao>10</Vao>
+        <Vao>7</Vao>
         <VerticesCount>177522</VerticesCount>
         <VertexBufferDataLength>2485308</VertexBufferDataLength>
       </RuntimeMesh>

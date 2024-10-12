@@ -57,23 +57,23 @@
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>GameObject</Name>
+      <Name>Wood1</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>false</ActiveSelf>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>107</Id>
+      <Id>120</Id>
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>GameObject</Name>
+      <Name>Wood2</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -98,14 +98,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>0.48805344</X>
-        <Y>2.006476</Y>
-        <Z>3.9856646</Z>
+        <X>0.6225745</X>
+        <Y>2.1146824</Y>
+        <Z>3.903253</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.48805344</X>
-        <Y>2.006476</Y>
-        <Z>3.9856646</Z>
+        <X>0.6225745</X>
+        <Y>2.1146824</Y>
+        <Z>3.903253</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -118,8 +118,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>35.55207</X>
-        <Y>179.4551</Y>
+        <X>25.739262</X>
+        <Y>181.77568</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -360,7 +360,10 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <ChildrenIDs />
+      <ChildrenIDs>
+        <int>107</int>
+        <int>107</int>
+      </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -466,7 +469,7 @@
       <RuntimeMesh>
         <PathToRawAsset />
         <MeshAssetPath>Library/Meshes/model.obj_2.tofumesh</MeshAssetPath>
-        <Vao>10</Vao>
+        <Vao>7</Vao>
         <VerticesCount>177522</VerticesCount>
         <VertexBufferDataLength>2485308</VertexBufferDataLength>
       </RuntimeMesh>
@@ -475,11 +478,14 @@
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>107</GameObjectId>
+      <GameObjectId>120</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <ChildrenIDs />
+      <ChildrenIDs>
+        <int>107</int>
+        <int>107</int>
+      </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -515,7 +521,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>107</GameObjectId>
+      <GameObjectId>120</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -532,7 +538,7 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>107</GameObjectId>
+      <GameObjectId>120</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -584,14 +590,14 @@
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
-        <MeshAssetPath>Library/Meshes/model.obj_4.tofumesh</MeshAssetPath>
-        <Vao>12</Vao>
-        <VerticesCount>122196</VerticesCount>
-        <VertexBufferDataLength>1710744</VertexBufferDataLength>
+        <MeshAssetPath>Library/Meshes/model.obj_2.tofumesh</MeshAssetPath>
+        <Vao>7</Vao>
+        <VerticesCount>177522</VerticesCount>
+        <VertexBufferDataLength>2485308</VertexBufferDataLength>
       </RuntimeMesh>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>112</GameObjectNextId>
+  <GameObjectNextId>121</GameObjectNextId>
 </SceneFile>
