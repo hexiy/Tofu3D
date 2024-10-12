@@ -70,6 +70,7 @@ uniform float u_fogGradientSmoothness = 1;
 uniform float u_fogIntensity = 1;
 
 uniform float u_hasNormalTexture = 0;
+uniform float u_hasAOTexture = 0;
 
 uniform sampler2D textureAlbedo;
 uniform sampler2D textureNormal;
@@ -127,13 +128,15 @@ vec3 texNormal = texture(textureNormal, uvCoords).rgb;
 texNormal = texNormal * 2.0 - 1.0; // Normalizing the normal values from the texture
 texNormal = normalize(TBN * -texNormal); // Transforming the normal values from the texture space to the world space
 //norm = normalize(TBN * norm);
- float blendFactor = 0 * u_hasNormalTexture;
+ float blendFactor = 0.8 * u_hasNormalTexture;
+        blendFactor = 0;
  vec3 finalNormal = normalize(mix(vertexNormalTBN, texNormal, blendFactor));
         
 
 vec4 albedoColor = texture(textureAlbedo, uvCoords) * u_albedoTint*color;
 
 vec4 aoColor = texture(textureAo, uvCoords);
+aoColor = mix(vec4(1,1,1,1),aoColor, u_hasAOTexture);
 
 
 vec4 final_ambient = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
@@ -228,10 +231,10 @@ frag_color = result;
 if (u_renderMode == 1) // positions
 {
 //frag_color = vec4(normalize(- vertexPositionWorld) * result.rgb, result.a);
-frag_color = vec4(vertexPositionWorld / 100, result.a);
+frag_color = vec4(vertexPositionWorld, result.a);
 
 //vec3 roundedPos = round(vertexPositionWorld/5)*5;
-//frag_color = vec4(roundedPos/100, result.a);
+//frag_color = vec4(roundedPos, result.a);
 }
 if (u_renderMode == 2) // normals
 {

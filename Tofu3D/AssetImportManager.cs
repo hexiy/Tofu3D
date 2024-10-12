@@ -27,6 +27,117 @@ public class AssetImportManager
         Importers.Add(assetImporter.GetType().BaseType.GenericTypeArguments[0], assetImporter);
     }
 
+    public void ImportAsset(string rawAssetPath, bool reimportIfExists = false)
+    {
+        int id = rawAssetPath.GetHashCode();
+
+        string rawAssetFileName = Path.GetFileName(rawAssetPath); // with extension
+
+        string importParametersFilePath = rawAssetFileName.FromFileNameToPathToLibraryImportParameters();
+        string assetFilePath = rawAssetFileName.FromRawAssetFileNameToPathOfAssetInLibrary();
+        bool assetExists = AssetFileExists(assetFilePath.FromRawAssetFileNameToPathOfAssetInLibrary());
+        bool canImport = assetExists == false || reimportIfExists == true;
+        if (canImport==false)
+        {
+            return;
+        }
+
+        bool assetImportParametersFileExistsForThisAsset = AssetImportParamsFileExists(rawAssetFileName);
+
+
+        if (AssetFileExtensions.IsFileModel(rawAssetPath))
+        {
+            AssetImportParameters_Model assetImportParametersModel = new AssetImportParameters_Model();
+            // if (assetImportParametersFileExistsForThisAsset == false)
+            // {
+            assetImportParametersModel.PathToSourceAsset = rawAssetPath;
+            //
+            //     // we save this .importParameters file as /Library/car.obj.importParameters
+            //
+            //     QuickSerializer.SaveFile<AssetImportParameters_Model>(importParametersFilePath,
+            //         assetImportParametersModel);
+            // }
+            // else
+            // {
+            //     assetImportParametersModel =
+            //         QuickSerializer.ReadFile<AssetImportParameters_Model>(importParametersFilePath);
+            // }
+            //
+            // AssetImportParameters[id] = assetImportParametersModel;
+
+            if (canImport)
+            {
+                Asset_Model model = (Importers[typeof(Asset_Model)] as AssetImporter_Model)
+                    .ImportAsset(assetImportParametersModel);
+
+                // Assets[id] = model;
+            }
+        }
+
+        if (AssetFileExtensions.IsFileMaterial(rawAssetPath))
+        {
+            AssetImportParameters_Material assetImportParametersMaterial = new AssetImportParameters_Material();
+            // if (assetImportParametersFileExistsForThisAsset == false)
+            // {
+            assetImportParametersMaterial.PathToSourceAsset = rawAssetPath;
+            //
+            //     // we save this .importParameters file as /Library/car.obj.importParameters
+            //
+            //     QuickSerializer.SaveFile<AssetImportParameters_Material>(importParametersFilePath,
+            //         assetImportParametersMaterial);
+            // }
+            // else
+            // {
+            //     assetImportParametersMaterial =
+            //         QuickSerializer.ReadFile<AssetImportParameters_Material>(importParametersFilePath);
+            // }
+
+            // AssetImportParameters[id] = assetImportParametersMaterial;
+
+
+            if (canImport)
+            {
+                Asset_Material material = (Importers[typeof(Asset_Material)] as AssetImporter_Material)
+                    .ImportAsset(assetImportParametersMaterial);
+
+                // Assets[id] = material;
+            }
+        }
+
+        if (AssetFileExtensions.IsFileTexture(rawAssetPath))
+        {
+            AssetImportParameters_Texture assetImportParametersTexture = new AssetImportParameters_Texture();
+            // if (assetImportParametersFileExistsForThisAsset == false)
+            // {
+            assetImportParametersTexture.PathToSourceAsset = rawAssetPath;
+            //
+            //     // we save this .importParameters file as /Library/car.obj.importParameters
+            //
+            //     QuickSerializer.SaveFile<AssetImportParameters_Texture>(importParametersFilePath,
+            //         assetImportParametersTexture);
+            // }
+            // else
+            // {
+            //     assetImportParametersTexture =
+            //         QuickSerializer.ReadFile<AssetImportParameters_Texture>(importParametersFilePath);
+            // }
+            //
+            // AssetImportParameters[id] = assetImportParametersTexture;
+
+
+            // if (canImport == false)
+            // {
+
+            Asset_Texture assetTexture =
+                (Importers[typeof(Asset_Texture)] as AssetImporter_Texture).ImportAsset(
+                    assetImportParametersTexture);
+
+
+            // Assets[id] = texture;
+            // }
+        }
+    }
+
     public void ImportAllAssets()
     {
         List<string> allPaths = new List<string>();
@@ -38,112 +149,7 @@ public class AssetImportManager
         // create AssetCreationParams<Asset_Model> for car if it doesnt exist
         foreach (string rawAssetPath in allPaths)
         {
-            int id = rawAssetPath.GetHashCode();
-
-            string rawAssetFileName = Path.GetFileName(rawAssetPath); // with extension
-
-            string importParametersFilePath = rawAssetFileName.FromFileNameToPathToLibraryImportParameters();
-            string assetFilePath = rawAssetFileName.FromRawAssetFileNameToPathOfAssetInLibrary();
-            bool assetExists = AssetFileExists(assetFilePath.FromRawAssetFileNameToPathOfAssetInLibrary());
-            if (assetExists)
-            {
-                continue;
-            
-            }
-            bool assetImportParametersFileExistsForThisAsset = AssetImportParamsFileExists(rawAssetFileName);
-
-
-            if (AssetFileExtensions.IsFileModel(rawAssetPath))
-            {
-                AssetImportParameters_Model assetImportParametersModel = new AssetImportParameters_Model();
-                // if (assetImportParametersFileExistsForThisAsset == false)
-                // {
-                assetImportParametersModel.PathToSourceAsset = rawAssetPath;
-                //
-                //     // we save this .importParameters file as /Library/car.obj.importParameters
-                //
-                //     QuickSerializer.SaveFile<AssetImportParameters_Model>(importParametersFilePath,
-                //         assetImportParametersModel);
-                // }
-                // else
-                // {
-                //     assetImportParametersModel =
-                //         QuickSerializer.ReadFile<AssetImportParameters_Model>(importParametersFilePath);
-                // }
-                //
-                // AssetImportParameters[id] = assetImportParametersModel;
-
-                if (assetExists == false)
-                {
-                    Asset_Model model = (Importers[typeof(Asset_Model)] as AssetImporter_Model)
-                        .ImportAsset(assetImportParametersModel);
-
-                    // Assets[id] = model;
-                }
-            }
-
-            if (AssetFileExtensions.IsFileMaterial(rawAssetPath))
-            {
-                AssetImportParameters_Material assetImportParametersMaterial = new AssetImportParameters_Material();
-                // if (assetImportParametersFileExistsForThisAsset == false)
-                // {
-                assetImportParametersMaterial.PathToSourceAsset = rawAssetPath;
-                //
-                //     // we save this .importParameters file as /Library/car.obj.importParameters
-                //
-                //     QuickSerializer.SaveFile<AssetImportParameters_Material>(importParametersFilePath,
-                //         assetImportParametersMaterial);
-                // }
-                // else
-                // {
-                //     assetImportParametersMaterial =
-                //         QuickSerializer.ReadFile<AssetImportParameters_Material>(importParametersFilePath);
-                // }
-
-                // AssetImportParameters[id] = assetImportParametersMaterial;
-
-
-                if (assetExists == false)
-                {
-                    Asset_Material material = (Importers[typeof(Asset_Material)] as AssetImporter_Material)
-                        .ImportAsset(assetImportParametersMaterial);
-
-                    // Assets[id] = material;
-                }
-            }
-
-            if (AssetFileExtensions.IsFileTexture(rawAssetPath))
-            {
-                AssetImportParameters_Texture assetImportParametersTexture = new AssetImportParameters_Texture();
-                // if (assetImportParametersFileExistsForThisAsset == false)
-                // {
-                assetImportParametersTexture.PathToSourceAsset = rawAssetPath;
-                //
-                //     // we save this .importParameters file as /Library/car.obj.importParameters
-                //
-                //     QuickSerializer.SaveFile<AssetImportParameters_Texture>(importParametersFilePath,
-                //         assetImportParametersTexture);
-                // }
-                // else
-                // {
-                //     assetImportParametersTexture =
-                //         QuickSerializer.ReadFile<AssetImportParameters_Texture>(importParametersFilePath);
-                // }
-                //
-                // AssetImportParameters[id] = assetImportParametersTexture;
-
-
-                // if (assetExists == false)
-                // {
-
-                Asset_Texture assetTexture =
-                    (Importers[typeof(Asset_Texture)] as AssetImporter_Texture).ImportAsset(
-                        assetImportParametersTexture);
-
-
-                // Assets[id] = texture;
-                // }
-            }
+            ImportAsset(rawAssetPath);
         }
     }
 

@@ -221,19 +221,25 @@ public class EditorPanelBrowser : EditorPanel
         //	ImGui.EndGroup();
         //}
         _subAssetsDrawnCount = 0;
+        int hoveredAssetIndex = -1;
         for (var assetIndex = 0; assetIndex < _assets.Length; assetIndex++)
         {
             string assetPath = _assets[assetIndex];
             DrawAsset(assetIndex, assetPath);
+            if (ImGui.IsItemHovered() && hoveredAssetIndex != assetIndex)
+            {
+                hoveredAssetIndex = assetIndex;
+            }
 
 
             //ImGui.SetCursorPosY(ImGui.GetCursorPosY() - 25);
             //ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 5);
         }
 
+        Debug.StatSetValue("Browser hovered asset index", $"Browser hovered asset index {hoveredAssetIndex}");
 
         // show prefabs as btns from array that updates in Update()
-        if (ImGui.BeginPopupContextWindow("BrowserPopup"))
+        /*if (ImGui.BeginPopupContextWindow("BrowserPopup") && hoveredAssetIndex == -1)
         {
             for (var i = 0; i < _contextItems.Count; i++)
             {
@@ -249,7 +255,7 @@ public class EditorPanelBrowser : EditorPanel
             {
                 showCreateMaterialPopup = true;
                 ImGui.CloseCurrentPopup();
-            }*/
+            }#1#
 
             ImGui.EndPopup();
         }
@@ -257,13 +263,15 @@ public class EditorPanelBrowser : EditorPanel
         for (var i = 0; i < _contextItems.Count; i++)
         {
             _contextItems[i].ShowPopupIfOpen();
-        }
+        }*/
 
 
         ImGui.End();
 
         base.Draw();
     }
+
+    Dictionary<string, DirectoryInfo> directoryInfos = new();
 
     private void DrawAsset(int assetIndex, string assetPath)
     {
@@ -275,7 +283,13 @@ public class EditorPanelBrowser : EditorPanel
             ImGui.SameLine();
         }
 
-        DirectoryInfo directoryInfo = new(assetPath);
+        directoryInfos.TryGetValue(assetPath, out DirectoryInfo directoryInfo);
+        if (directoryInfo == null)
+        {
+            directoryInfo = new DirectoryInfo(assetPath);
+            directoryInfos.Add(assetPath, directoryInfo);
+        }
+
         var isDirectory = directoryInfo.Exists;
 
         ImGui.BeginGroup();
@@ -284,14 +298,14 @@ public class EditorPanelBrowser : EditorPanel
         var assetName = Path.GetFileNameWithoutExtension(assetPath);
         var assetExtension = Path.GetExtension(assetPath).ToLower();
 
-        
+
         bool isMesh = AssetFileExtensions.IsFileMesh(assetPath);
         var isModel = AssetFileExtensions.IsFileModel(assetPath);
         var isMaterial = AssetFileExtensions.IsFileMaterial(assetPath);
-        var isShader =  AssetFileExtensions.IsFileShader(assetPath);
-        var isPrefab =  AssetFileExtensions.IsFilePrefab(assetPath);
-        var isTexture =  AssetFileExtensions.IsFileTexture(assetPath);
-        
+        var isShader = AssetFileExtensions.IsFileShader(assetPath);
+        var isPrefab = AssetFileExtensions.IsFilePrefab(assetPath);
+        var isTexture = AssetFileExtensions.IsFileTexture(assetPath);
+
         PushNextId();
 
         //ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0,0,0,0));
@@ -431,7 +445,7 @@ public class EditorPanelBrowser : EditorPanel
             }
         }
 
-        if (ImGui.IsItemHovered() && ImGui.IsMouseReleased(ImGuiMouseButton.Left))
+        if (ImGui.IsItemHovered() && ImGui.IsMouseReleased(ImGuiMouseButton.Left)) // released in case we want to drag and drop somemthing
         {
             if (isMaterial)
             {
@@ -471,6 +485,27 @@ public class EditorPanelBrowser : EditorPanel
             {
                 Tofu.SceneManager.LoadScene(assetPath);
             }
+        }
+
+        if (ImGui.BeginPopupContextItem("item_context"))
+        {
+            if (ImGui.MenuItem("Reimport"))
+            {
+                Tofu.AssetImportManager.ImportAsset(assetPath, reimportIfExists:true);
+                // Handle Option 1
+            }
+
+            if (ImGui.MenuItem("Option 2"))
+            {
+                // Handle Option 2
+            }
+
+            if (ImGui.MenuItem("Option 3"))
+            {
+                // Handle Option 3
+            }
+
+            ImGui.EndPopup();
         }
 
 

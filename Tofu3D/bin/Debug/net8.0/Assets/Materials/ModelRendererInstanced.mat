@@ -2,7 +2,7 @@
 <Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
   <Shader>
-    <AlbedoTextureLocation>27</AlbedoTextureLocation>
+    <AlbedoTextureLocation>28</AlbedoTextureLocation>
     <NormalTextureLocation>2</NormalTextureLocation>
     <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
     <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
@@ -11,12 +11,12 @@
   </Shader>
   <Additive>false</Additive>
   <AlbedoTexture>
-    <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</PathToRawAsset>
+    <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/sculpture/sculpture.jpeg</PathToRawAsset>
     <Size>
-      <X>2048</X>
-      <Y>2048</Y>
+      <X>4096</X>
+      <Y>4096</Y>
     </Size>
-    <TextureId>92</TextureId>
+    <TextureId>21</TextureId>
   </AlbedoTexture>
   <AlbedoTint>
     <B>255</B>
@@ -25,29 +25,13 @@
     <A>255</A>
     <PackedValue>4294967295</PackedValue>
   </AlbedoTint>
-  <AmbientOcclusionTexture>
-    <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</PathToRawAsset>
-    <Size>
-      <X>2048</X>
-      <Y>2048</Y>
-    </Size>
-    <TextureId>97</TextureId>
-  </AmbientOcclusionTexture>
-  <NormalTexture>
-    <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</PathToRawAsset>
-    <Size>
-      <X>2048</X>
-      <Y>2048</Y>
-    </Size>
-    <TextureId>102</TextureId>
-  </NormalTexture>
   <Offset>
     <X>0</X>
     <Y>0</Y>
   </Offset>
   <RenderMode>Opaque</RenderMode>
-  <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-  <SpecularSmoothness>0.44</SpecularSmoothness>
+  <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+  <SpecularSmoothness>0.34</SpecularSmoothness>
   <Tiling>
     <X>1</X>
     <Y>1</Y>

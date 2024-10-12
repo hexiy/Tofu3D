@@ -85,39 +85,33 @@ public static class AssetFileExtensions
 
     public static bool IsFileModel(string fileName)
     {
-        fileName = fileName.ToLower();
-        return fileName.EndsWith(".tofumodel") || fileName.EndsWith(".obj");
+        return fileName.EndsWith(".tofumodel", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".obj", StringComparison.OrdinalIgnoreCase);
     }
 
     public static bool IsFileMesh(string fileName)
     {
-        fileName = fileName.ToLower();
-        return fileName.EndsWith(".tofumesh");
+        return fileName.EndsWith(".tofumesh", StringComparison.OrdinalIgnoreCase);
     }
 
     public static bool IsFileTexture(string fileName)
     {
-        fileName = fileName.ToLower();
-        return fileName.EndsWith(".tofutexture") ||
-               (fileName.EndsWith(".png") || fileName.EndsWith(".jpg") || fileName.EndsWith(".jpeg") ||
-                fileName.EndsWith(".bmp"));
+        return fileName.EndsWith(".tofutexture", StringComparison.OrdinalIgnoreCase) ||
+               (fileName.EndsWith(".png", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+                fileName.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase));
     }
 
     public static bool IsFileMaterial(string fileName)
     {
-        fileName = fileName.ToLower();
-        return fileName.EndsWith(".tofumaterial") || fileName.EndsWith(".mat");
+        return fileName.EndsWith(".tofumaterial", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".mat", StringComparison.OrdinalIgnoreCase);
     }
 
     public static bool IsFileShader(string fileName)
     {
-        fileName = fileName.ToLower();
-        return fileName.EndsWith(".glsl");
+        return fileName.EndsWith(".glsl", StringComparison.OrdinalIgnoreCase);
     }
 
     public static bool IsFilePrefab(string fileName)
     {
-        fileName = fileName.ToLower();
-        return fileName.EndsWith(".prefab");
+        return fileName.EndsWith(".prefab", StringComparison.OrdinalIgnoreCase);
     }
 }

@@ -38,7 +38,6 @@ public static class QuickSerializer
                 }
                 catch (Exception ex)
                 {
-                    var a = 0;
                 }
 
                 return JsonConvert.DeserializeObject<T>(json);
