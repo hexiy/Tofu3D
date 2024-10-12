@@ -27,7 +27,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>GameObject</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -43,7 +43,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>GameObject</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -66,14 +66,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>0.45385534</X>
-        <Y>1.4706047</Y>
-        <Z>2.7674637</Z>
+        <X>1.5019677</X>
+        <Y>9.907964</Y>
+        <Z>3.1960952</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.45385534</X>
-        <Y>1.4706047</Y>
-        <Z>2.7674637</Z>
+        <X>1.5019677</X>
+        <Y>9.907964</Y>
+        <Z>3.1960952</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -86,8 +86,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>7.6014752</X>
-        <Y>131.57861</Y>
+        <X>19.508808</X>
+        <Y>201.40758</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -167,7 +167,7 @@
       <GameObjectId>6</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
+      <Enabled>false</Enabled>
       <Color>
         <B>137</B>
         <G>137</G>
@@ -175,7 +175,7 @@
         <A>255</A>
         <PackedValue>4287203721</PackedValue>
       </Color>
-      <Intensity>0.1</Intensity>
+      <Intensity>0.78</Intensity>
     </Component>
     <Component xsi:type="DirectionalLight">
       <AllowMultiple>true</AllowMultiple>
@@ -190,7 +190,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <Intensity>10.78</Intensity>
+      <Intensity>8.8</Intensity>
       <FarPlaneDistance>1000</FarPlaneDistance>
       <NearPlaneDistance>0.0001</NearPlaneDistance>
       <OrthographicSize>2.6</OrthographicSize>
@@ -286,12 +286,12 @@
         </Shader>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/sculpture/sculpture.jpeg</PathToRawAsset>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</PathToRawAsset>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
-          <TextureId>21</TextureId>
+          <TextureId>92</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -300,13 +300,29 @@
           <A>255</A>
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
+        <AmbientOcclusionTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</PathToRawAsset>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+          <TextureId>97</TextureId>
+        </AmbientOcclusionTexture>
+        <NormalTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</PathToRawAsset>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+          <TextureId>102</TextureId>
+        </NormalTexture>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.2</SpecularSmoothness>
+        <SpecularSmoothness>0.44</SpecularSmoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -314,14 +330,14 @@
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
-        <MeshAssetPath>Library/Meshes/sculpture.obj_1.tofumesh</MeshAssetPath>
-        <Vao>6</Vao>
-        <VerticesCount>149994</VerticesCount>
-        <VertexBufferDataLength>2099916</VertexBufferDataLength>
+        <MeshAssetPath>Library/Meshes/1d7e925654624282a6a6409d5156d97b.obj_0.tofumesh</MeshAssetPath>
+        <Vao>7</Vao>
+        <VerticesCount>145668</VerticesCount>
+        <VertexBufferDataLength>2039352</VertexBufferDataLength>
       </RuntimeMesh>
       <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>50</GameObjectNextId>
+  <GameObjectNextId>82</GameObjectNextId>
 </SceneFile>

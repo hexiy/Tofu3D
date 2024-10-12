@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -214,7 +215,11 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
 
         // smooth normals
-        ParallelOptions opt = new() { MaxDegreeOfParallelism =1000 };
+        ConcurrentDictionary<Vector3, Vector3> smoothNormals = new ConcurrentDictionary<Vector3, Vector3>();
+        // Dictionary<vertexPosition, accumulatedNormals>
+        // and at the end we just find those vertex positions again, and assign them new normal, the accumulatedNormal but normalized
+
+        ParallelOptions opt = new() { MaxDegreeOfParallelism = Environment.ProcessorCount };
         Parallel.For(0, (int)MathF.Floor((float)everything.Count / (float)floatsPerTriangle), parallelOptions: opt, i =>
         {
             int triangle1StartIndex = i * floatsPerTriangle;
@@ -244,164 +249,42 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0],
                 everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1],
                 everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2]);
-            
-            Parallel.For(0, (int)MathF.Floor((float)everything.Count / (float)floatsPerTriangle), parallelOptions: opt, k =>
+
+            if (smoothNormals.ContainsKey(t1position1) == false)
             {
-                int triangle2StartIndex = k * floatsPerTriangle;
-                if (triangle1StartIndex == triangle2StartIndex)
-                {
-                    return;
-                }
+                smoothNormals.TryAdd(t1position1, t1nm1);
+            }
+            else
+            {
+                smoothNormals[t1position1] =smoothNormals[t1position1]+ t1nm1;
+            }
 
-                Vector3 t2position1 = new Vector3(
-                    everything[triangle2StartIndex + 0],
-                    everything[triangle2StartIndex + 1],
-                    everything[triangle2StartIndex + 2]);
-                Vector3 t2position2 = new Vector3(
-                    everything[triangle2StartIndex + floatsPerVertex + 0],
-                    everything[triangle2StartIndex + floatsPerVertex + 1],
-                    everything[triangle2StartIndex + floatsPerVertex + 2]);
-                Vector3 t2position3 = new Vector3(
-                    everything[triangle2StartIndex + floatsPerVertex + floatsPerVertex + 0],
-                    everything[triangle2StartIndex + floatsPerVertex + floatsPerVertex + 1],
-                    everything[triangle2StartIndex + floatsPerVertex + floatsPerVertex + 2]);
+            if (smoothNormals.ContainsKey(t1position2) == false)
+            {
+                smoothNormals.TryAdd(t1position2, t1nm2);
+            }
+            else
+            {
+                smoothNormals[t1position2] =smoothNormals[t1position2]+  t1nm2;
+            }
 
-                int offset = 5; // pos.x,pos.y,pos.z, uv.x,uv.y
-                Vector3 t2nm1 = new Vector3(
-                    everything[triangle2StartIndex + offset + 0],
-                    everything[triangle2StartIndex + offset + 1],
-                    everything[triangle2StartIndex + offset + 2]);
-                Vector3 t2nm2 = new Vector3(
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 0],
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 1],
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 2]);
-                Vector3 t2nm3 = new Vector3(
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 0],
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 1],
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 2]);
-
-                if (t1position1.Equals(t2position1))
-                {
-                    Vector3 averageNormal = (t1nm1 + t2nm1) / 2f;
-
-                    everything[triangle1StartIndex + offset + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + 2] = averageNormal.Z;
-                }
-
-                if (t1position1.Equals(t2position2))
-                {
-                    Vector3 averageNormal = (t1nm1 + t2nm2) / 2f;
-
-                    everything[triangle1StartIndex + offset + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 2] = averageNormal.Z;
-                }
-
-                if (t1position1.Equals(t2position3))
-                {
-                    Vector3 averageNormal = (t1nm1 + t2nm3) / 2f;
-
-                    everything[triangle1StartIndex + offset + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = averageNormal.Z;
-                }
-
-                if (t1position2.Equals(t2position1))
-                {
-                    Vector3 averageNormal = (t1nm2 + t2nm1) / 2f;
-
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + 2] = averageNormal.Z;
-                }
-
-                if (t1position2.Equals(t2position2))
-                {
-                    Vector3 averageNormal = (t1nm2 + t2nm2) / 2f;
-
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 2] = averageNormal.Z;
-                }
-
-                if (t1position2.Equals(t2position3))
-                {
-                    Vector3 averageNormal = (t1nm2 + t2nm3) / 2f;
-
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = averageNormal.Z;
-                }
-
-                if (t1position3.Equals(t2position1))
-                {
-                    Vector3 averageNormal = (t1nm3 + t2nm1) / 2f;
-
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + 2] = averageNormal.Z;
-                }
-
-                if (t1position3.Equals(t2position2))
-                {
-                    Vector3 averageNormal = (t1nm3 + t2nm2) / 2f;
-
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 2] = averageNormal.Z;
-                }
-
-                if (t1position3.Equals(t2position3))
-                {
-                    Vector3 averageNormal = (t1nm3 + t2nm3) / 2f;
-
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = averageNormal.Z;
-                }
-            });
+            if (smoothNormals.ContainsKey(t1position3) == false)
+            {
+                smoothNormals.TryAdd(t1position3, t1nm3);
+            }
+            else
+            {
+                smoothNormals[t1position3] = smoothNormals[t1position3]+ t1nm3;
+            }
         });
-        /*for (int triangle1StartIndex = 0;
-             triangle1StartIndex < everything.Count;
-             triangle1StartIndex += floatsPerTriangle)
+        foreach (KeyValuePair<Vector3, Vector3> pair in smoothNormals)
         {
+            smoothNormals[pair.Key] = pair.Value.Normalized();
+        }
+
+        Parallel.For(0, (int)MathF.Floor((float)everything.Count / (float)floatsPerTriangle), parallelOptions: opt, i =>
+        {
+            int triangle1StartIndex = i * floatsPerTriangle;
             Vector3 t1position1 = new Vector3(
                 everything[triangle1StartIndex + 0],
                 everything[triangle1StartIndex + 1],
@@ -416,173 +299,29 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 2]);
 
             int offset = 5; // pos.x,pos.y,pos.z, uv.x,uv.y
-            Vector3 t1nm1 = new Vector3(
-                everything[triangle1StartIndex + offset + 0],
-                everything[triangle1StartIndex + offset + 1],
-                everything[triangle1StartIndex + offset + 2]);
-            Vector3 t1nm2 = new Vector3(
-                everything[triangle1StartIndex + offset + floatsPerVertex + 0],
-                everything[triangle1StartIndex + offset + floatsPerVertex + 1],
-                everything[triangle1StartIndex + offset + floatsPerVertex + 2]);
-            Vector3 t1nm3 = new Vector3(
-                everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0],
-                everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1],
-                everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2]);
 
-            for (int triangle2StartIndex = 0;
-                 triangle2StartIndex < everything.Count;
-                 triangle2StartIndex += floatsPerTriangle)
+
+            if (smoothNormals.TryGetValue(t1position1, out var normal1))
             {
-                if (triangle1StartIndex == triangle2StartIndex)
-                {
-                    continue;
-                }
-
-                Vector3 t2position1 = new Vector3(
-                    everything[triangle2StartIndex + 0],
-                    everything[triangle2StartIndex + 1],
-                    everything[triangle2StartIndex + 2]);
-                Vector3 t2position2 = new Vector3(
-                    everything[triangle2StartIndex + floatsPerVertex + 0],
-                    everything[triangle2StartIndex + floatsPerVertex + 1],
-                    everything[triangle2StartIndex + floatsPerVertex + 2]);
-                Vector3 t2position3 = new Vector3(
-                    everything[triangle2StartIndex + floatsPerVertex + floatsPerVertex + 0],
-                    everything[triangle2StartIndex + floatsPerVertex + floatsPerVertex + 1],
-                    everything[triangle2StartIndex + floatsPerVertex + floatsPerVertex + 2]);
-
-                Vector3 t2nm1 = new Vector3(
-                    everything[triangle2StartIndex + offset + 0],
-                    everything[triangle2StartIndex + offset + 1],
-                    everything[triangle2StartIndex + offset + 2]);
-                Vector3 t2nm2 = new Vector3(
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 0],
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 1],
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 2]);
-                Vector3 t2nm3 = new Vector3(
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 0],
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 1],
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 2]);
-
-                if (t1position1.Equals(t2position1))
-                {
-                    Vector3 averageNormal = (t1nm1 + t2nm1) / 2f;
-
-                    everything[triangle1StartIndex + offset + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + 2] = averageNormal.Z;
-                }
-
-                if (t1position1.Equals(t2position2))
-                {
-                    Vector3 averageNormal = (t1nm1 + t2nm2) / 2f;
-
-                    everything[triangle1StartIndex + offset + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 2] = averageNormal.Z;
-                }
-
-                if (t1position1.Equals(t2position3))
-                {
-                    Vector3 averageNormal = (t1nm1 + t2nm3) / 2f;
-
-                    everything[triangle1StartIndex + offset + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = averageNormal.Z;
-                }
-
-                if (t1position2.Equals(t2position1))
-                {
-                    Vector3 averageNormal = (t1nm2 + t2nm1) / 2f;
-
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + 2] = averageNormal.Z;
-                }
-
-                if (t1position2.Equals(t2position2))
-                {
-                    Vector3 averageNormal = (t1nm2 + t2nm2) / 2f;
-
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 2] = averageNormal.Z;
-                }
-
-                if (t1position2.Equals(t2position3))
-                {
-                    Vector3 averageNormal = (t1nm2 + t2nm3) / 2f;
-
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = averageNormal.Z;
-                }
-
-                if (t1position3.Equals(t2position1))
-                {
-                    Vector3 averageNormal = (t1nm3 + t2nm1) / 2f;
-
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + 2] = averageNormal.Z;
-                }
-
-                if (t1position3.Equals(t2position2))
-                {
-                    Vector3 averageNormal = (t1nm3 + t2nm2) / 2f;
-
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + 2] = averageNormal.Z;
-                }
-
-                if (t1position3.Equals(t2position3))
-                {
-                    Vector3 averageNormal = (t1nm3 + t2nm3) / 2f;
-
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = averageNormal.Z;
-
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = averageNormal.X;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = averageNormal.Y;
-                    everything[triangle2StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = averageNormal.Z;
-                }
+                everything[triangle1StartIndex + offset + 0] = normal1.X;
+                everything[triangle1StartIndex + offset + 1] = normal1.Y;
+                everything[triangle1StartIndex + offset + 2] = normal1.Z;
             }
-        }*/
 
+            if (smoothNormals.TryGetValue(t1position2, out var normal2))
+            {
+                everything[triangle1StartIndex + offset + floatsPerVertex + 0] = normal2.X;
+                everything[triangle1StartIndex + offset + floatsPerVertex + 1] = normal2.Y;
+                everything[triangle1StartIndex + offset + floatsPerVertex + 2] = normal2.Z;
+            }
+
+            if (smoothNormals.TryGetValue(t1position3, out var normal3))
+            {
+                everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = normal3.X;
+                everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = normal3.Y;
+                everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = normal3.Z;
+            }
+        });
         List<float> newEverything = new List<float>();
 
         for (int indexOfVertex1Start = 0;
