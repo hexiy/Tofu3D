@@ -222,7 +222,6 @@ public class EditorPanelHierarchy : EditorPanel
 
         for (var goIndex = 0; goIndex < Tofu.SceneManager.CurrentScene.GameObjects.Count; goIndex++)
         {
-            var gameObjectID = Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Id;
             // PushNextId();
             if (Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Transform.Parent != null)
             {
@@ -240,7 +239,7 @@ public class EditorPanelHierarchy : EditorPanel
             }
             else
             {
-                DrawGameObjectRow(gameObjectID);
+                DrawGameObjectRow(goIndex);
             }
         }
 
@@ -248,8 +247,10 @@ public class EditorPanelHierarchy : EditorPanel
     }
 
 
-    private void DrawGameObjectRow(int gameObjectID, bool isChild = false)
+    private void DrawGameObjectRow(int goIndex, bool isChild = false)
     {
+        var gameObjectID = Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Id;
+
         // if (isChild == false)
         // PushNextId(Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Id.ToString());
         PushNextId();
@@ -268,7 +269,7 @@ public class EditorPanelHierarchy : EditorPanel
             return;
         }
 
-        if (gameObjectID == 0)
+        if (goIndex == 0)
         {
             DrawSpaceBetween(currentGameObject, false);
         }
@@ -437,11 +438,12 @@ public class EditorPanelHierarchy : EditorPanel
             if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
             {
                 var droppedGameObject = Tofu.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
+                bool x = droppedGameObject.IndexInHierarchy < currentGameObject.IndexInHierarchy;
                 Tofu.SceneManager.CurrentScene.GameObjects.RemoveAt(droppedGameObject.IndexInHierarchy);
-                Tofu.SceneManager.CurrentScene.GameObjects.Insert(currentGameObject.IndexInHierarchy + (after ? 1 : 0),
+                Tofu.SceneManager.CurrentScene.GameObjects.Insert(currentGameObject.IndexInHierarchy + (after ? 1 : 0)-(x?1:0),
                     droppedGameObject);
 
-                droppedGameObject.Transform.SetParent(currentGameObject.Transform.Parent);
+                // droppedGameObject.Transform.SetParent(currentGameObject.Transform.Parent);
             }
 
             ImGui.EndDragDropTarget();

@@ -142,9 +142,10 @@ public class Scene
 
         _updateableComponentQueue.UpdateComponents();
 
-// 		for (int i = 0; i < GameObjects.Count; i++)
-// 		{
-// 			GameObjects[i].IndexInHierarchy = i;
+        for (int i = 0; i < GameObjects.Count; i++)
+        {
+            GameObjects[i].IndexInHierarchy = i;
+        }
 // 			/*if (GameObjects[i] == Camera.MainCamera.GameObject)
 // 			{
 // 				continue;
