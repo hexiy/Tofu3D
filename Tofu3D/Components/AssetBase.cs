@@ -4,7 +4,7 @@ public abstract class AssetBase
     [Hide]
     public string PathToRawAsset = "";
     [Hide]
-    public string PathToAssetInLibrary=>PathToRawAsset.FromRawAssetFileNameToPathOfAssetInLibrary();
+    public string PathToAssetInLibrary=>PathToRawAsset.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
     [XmlIgnore]
     public RuntimeAssetHandle RuntimeAssetHandle { get; set; }
 

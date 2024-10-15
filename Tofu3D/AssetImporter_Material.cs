@@ -16,7 +16,7 @@ public class AssetImporter_Material : AssetImporter<Asset_Material>
         Asset_Material material = QuickSerializer.ReadFileXML<Asset_Material>(assetImportParameters.PathToSourceAsset);
 
         material.PathToRawAsset = assetImportParameters.PathToSourceAsset;
-        string path = importParameters.PathToSourceAsset.FromRawAssetFileNameToPathOfAssetInLibrary();
+        string path = importParameters.PathToSourceAsset.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
         QuickSerializer.SaveFileJSON<Asset_Material>(path, material);
 
         return material;

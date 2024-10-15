@@ -1070,6 +1070,8 @@ public struct Vector2 : IEquatable<Vector2>
         result.Y = value1.Y - value2.Y;
     }
 
+    static StringBuilder sbV2 = new(32);
+
     /// <summary>
     ///     Returns a <see cref="String" /> representation of this <see cref="Vector2" /> in the format:
     ///     {X:[<see cref="X" />] Y:[<see cref="Y" />]}
@@ -1077,13 +1079,13 @@ public struct Vector2 : IEquatable<Vector2>
     /// <returns>A <see cref="String" /> representation of this <see cref="Vector2" />.</returns>
     public override string ToString()
     {
-        StringBuilder sb = new(32);
-        sb.Append("[");
-        sb.Append(X.ToString("F1"));
-        sb.Append(" | ");
-        sb.Append(Y.ToString("F1"));
-        sb.Append("]");
-        return sb.ToString();
+        sbV2.Clear();
+        sbV2.Append("[");
+        sbV2.Append(X.ToString("F1"));
+        sbV2.Append(" | ");
+        sbV2.Append(Y.ToString("F1"));
+        sbV2.Append("]");
+        return sbV2.ToString();
     }
 
     /// <summary>

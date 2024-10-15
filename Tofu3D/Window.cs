@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Common.Input;
@@ -25,35 +26,42 @@ public class Window : GameWindow
             Profile = ContextProfile.Core /*NumberOfSamples = 8,*/
         })
     {
-        VSyncEnabled = VSyncEnabled;
+        // UpdateFrequency = 0;
+        // RenderFrequency = 120;
+        FrameLimiterEnabled = FrameLimiterEnabled;
+        this.VSync = VSyncMode.Off;
+        RenderFrequency = 120;
+        FrameLimiterEnabled = FrameLimiterEnabled;
+
         LoadIcon();
         Title = WindowTitleText;
         GLFW.WindowHint(WindowHintBool.Decorated, false);
         // GL.Disable(EnableCap.Multisample);
     }
 
-    public bool VSyncEnabled
+    public bool FrameLimiterEnabled
     {
         get
         {
-            var v = PersistentData.GetBool("VSync", false);
+            var v = PersistentData.GetBool("FrameLimiter", false);
             return v;
         }
         set
         {
-            VSync = value ? VSyncMode.On : VSyncMode.Off;
             if (value)
             {
-                UpdateFrequency = 120;
                 RenderFrequency = 120;
+                UpdateFrequency = 120;
+
             }
             else
             {
+                RenderFrequency = 120;
                 UpdateFrequency = 0;
-                RenderFrequency = 0;
+
             }
 
-            PersistentData.Set("VSync", value);
+            PersistentData.Set("FrameLimiter", value);
         }
     }
 
@@ -62,8 +70,25 @@ public class Window : GameWindow
     public Vector2 WindowPosition { get; private set; }
     public float MonitorScale => _monitorScale;
 
-    public string WindowTitleText =>
-        $"Tofu3D | {GL.GetString(StringName.Version)} | {Tofu.SceneManager.CurrentScene?.SceneName} | {WindowSize}";
+    // public string WindowTitleText =>
+    // $"Tofu3D | {GL.GetString(StringName.Version)} | {Tofu.SceneManager.CurrentScene?.SceneName} | {WindowSize}";
+    StringBuilder titleStringBuilder = new StringBuilder();
+
+    public string WindowTitleText
+    {
+        get
+        {
+            titleStringBuilder.Clear();
+            titleStringBuilder.Append("Tofu3D | ");
+            titleStringBuilder.Append(GL.GetString(StringName.Version));
+            titleStringBuilder.Append(" | ");
+            titleStringBuilder.Append(Tofu.SceneManager.CurrentScene?.SceneName ?? "No Scene");
+            titleStringBuilder.Append(" | ");
+            titleStringBuilder.Append(WindowSize);
+
+            return titleStringBuilder.ToString();
+        }
+    }
 
     private void LoadIcon()
     {
@@ -127,7 +152,7 @@ public class Window : GameWindow
             return;
         }
 
-        Title = WindowTitleText + $" FPS [{Time.MinFps} <-> {Time.MaxFps}]";
+        // Title = WindowTitleText;
         base.OnUpdateFrame(e);
     }
 

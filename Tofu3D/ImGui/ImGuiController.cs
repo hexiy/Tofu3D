@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Linq;
+using System.Runtime.CompilerServices;
 using ImGuiNET;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
@@ -33,6 +34,11 @@ public class ImGuiController : IDisposable
 
     private int _windowWidth;
     private Matrix4 mvp;
+    private int _updatesThisSecond;
+    private int _s;
+
+
+    private readonly Keys[] _keysArray;
 
     /// <summary>
     ///     Constructs a new ImGuiController.
@@ -63,6 +69,9 @@ public class ImGuiController : IDisposable
 
         io.BackendFlags = ImGuiBackendFlags.None; // ImGuiBackendFlags.RendererHasVtxOffset;
 
+        
+        _keysArray = (Keys[])Enum.GetValues(typeof(Keys)); 
+        
         CreateDeviceResources();
         SetKeyMappings();
 
@@ -221,19 +230,32 @@ void main()
     /// </summary>
     public void Update(GameWindow wnd, float deltaSeconds)
     {
+        if (DateTime.Now.Second == _s)
+        {
+            _updatesThisSecond++;
+        }
+        else
+        {
+            Debug.StatSetValue("imgui per second:", "imgui per second:" + _updatesThisSecond);
+            _s = DateTime.Now.Second;
+            _updatesThisSecond = 0;
+        }
+
+        SetPerFrameImGuiData(deltaSeconds);
+        UpdateImGuiInput(wnd);
+
+    }
+
+    public void X()
+    {
         // if (_frameBegun)
         // {
         //     ImGui.Render();
         // }
 
-        SetPerFrameImGuiData(deltaSeconds);
-        UpdateImGuiInput(wnd);
-
         _frameBegun = true;
-        ImGui.NewFrame();
-        // after this we render all parts of the editor
+        ImGui.NewFrame(); 
     }
-
     /// <summary>
     ///     Sets per-frame data based on the associated window.
     ///     This is called by Update(float).
@@ -258,7 +280,7 @@ void main()
         io.MouseDown[1] = mouseState[MouseButton.Right];
         io.MouseDown[2] = mouseState[MouseButton.Middle];
 
-        Vector2i screenPoint = new((int)mouseState.X, (int)mouseState.Y);
+        Vector2 screenPoint = new(mouseState.X, mouseState.Y);
         if (OperatingSystem.IsMacOS)
         {
             screenPoint *= 2;
@@ -266,14 +288,15 @@ void main()
 
         io.MousePos = new System.Numerics.Vector2(screenPoint.X, screenPoint.Y);
 
-        foreach (Keys key in Enum.GetValues(typeof(Keys)))
+        // ReadOnlySpan<Keys> keysSpan = _keysArray;
+        // foreach (Keys key in _keysArray)
+        for (int i = 0; i < _keysArray.Length; i++)
         {
-            if (key == Keys.Unknown)
+            if (_keysArray[i] == Keys.Unknown)
             {
                 continue;
             }
-
-            io.KeysDown[(int)key] = keyboardState.IsKeyDown(key);
+            io.KeysDown[(int)_keysArray[i]] = keyboardState.IsKeyDown(_keysArray[i]);
         }
 
         foreach (var c in _pressedChars)

@@ -5,11 +5,11 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>94</Id>
-      <IndexInHierarchy>0</IndexInHierarchy>
+      <Id>135</Id>
+      <IndexInHierarchy>16</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Wood1</Name>
+      <Name>Wood2</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -21,7 +21,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>94</GameObjectId>
+      <GameObjectId>135</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -64,7 +64,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>94</GameObjectId>
+      <GameObjectId>135</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -81,7 +81,7 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>94</GameObjectId>
+      <GameObjectId>135</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -134,7 +134,7 @@
       <RuntimeMesh>
         <PathToRawAsset />
         <MeshAssetPath>Library/Meshes/model.obj_2.tofumesh</MeshAssetPath>
-        <Vao>7</Vao>
+        <Vao>6</Vao>
         <VerticesCount>177522</VerticesCount>
         <VertexBufferDataLength>2485308</VertexBufferDataLength>
       </RuntimeMesh>

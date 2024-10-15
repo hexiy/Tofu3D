@@ -109,8 +109,9 @@ public class MouseInput
         // {
         // 	return false;
         // }
-        Tofu.Window.MouseState.WasButtonDown((MouseButton)mouseButton) &&
-        Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton) == false;
+        // Tofu.Window.MouseState.WasButtonDown((MouseButton)mouseButton) &&
+        // Tofu.Window.MouseState.IsButtonDown((MouseButton)mouseButton) == false;
+        Tofu.Window.MouseState.IsButtonReleased((MouseButton)mouseButton);
 
     public void Update()
     {
@@ -124,8 +125,22 @@ public class MouseInput
             EvaluateAllPassThroughEdgesConditions(); // uh so how does this work, do i get true when all of them are true or what
 
         // Debug.StatSetValue("MouseInput AllowPassthroughEdges", $"AllowPassthroughEdges {allowPassThroughEdges}");
-        var mouseState = Tofu.Window.MouseState;
-        Vector2 mousePosCorrected = new(mouseState.Position.X, Tofu.Window.Size.Y - mouseState.Position.Y);
+
+        Vector2 oldPosition = PositionInWindow;
+
+        Vector2 pos = new Vector2();
+        unsafe
+        {
+            // GLFW.PollEvents();
+            GLFW.GetCursorPos(Tofu.Window.WindowPtr, out double x, out double y);
+            pos = new Vector2((float)x, (float)y);
+        }
+
+        PositionInWindow = ImGuiHelper.FlipYToGoodSpace(pos);
+
+        ScreenDelta = PositionInWindow - oldPosition;
+
+        Vector2 mousePosCorrected = new(PositionInWindow.X, Tofu.Window.Size.Y - PositionInWindow.Y);
         // Debug.StatSetValue("mousePos", $"MousePos:{mousePosCorrected}");
         var passedThroughEdge = false;
         if (allowPassThroughEdges)
@@ -155,13 +170,12 @@ public class MouseInput
             }
 
 
-            if (passedThroughEdge)
-            {
-                mouseState = Tofu.Window.MouseState;
-            }
+            // if (passedThroughEdge)
+            // {
+            //     mouseState = Tofu.Window.MouseState;
+            // }
         }
 
-        ScreenDelta = new Vector2(mouseState.Delta.X, -mouseState.Delta.Y);
 
         if (passedThroughEdge || Math.Abs(ScreenDelta.X) > Tofu.Window.Size.X - 100 ||
             Math.Abs(ScreenDelta.Y) > Tofu.Window.Size.Y - 100)
@@ -178,13 +192,13 @@ public class MouseInput
         // }
 
 
-        PositionInWindow = ImGuiHelper.FlipYToGoodSpace(Tofu.Window.MousePosition);
         PositionInView = new Vector2(PositionInWindow.X - Tofu.Editor.SceneViewPosition.X,
             PositionInWindow.Y - Tofu.Editor.SceneViewPosition.Y);
 
         Debug.StatSetValue("MousePos", $"Mouse Position In Editor:{PositionInWindow}");
         Debug.StatSetValue("PositionInView", $"PositionInView:{PositionInView}");
         Debug.StatSetValue("SceneViewPos", $"SceneViewPos:{Tofu.Editor.SceneViewPosition}");
+        Debug.StatSetValue("SceneViewPos", $"SceneViewPos:{Tofu.Editor.SceneViewPosition.X},{Tofu.Editor.SceneViewPosition.Y}");
         // Debug.StatSetValue("MousePosFlipped",$"mouse pos flipped:{ImGuiHelper.FlipYToGoodSpace(Tofu.Window.MousePosition)}");
         // Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
         // Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using OpenTK.Windowing.Common;
 using Tofu3D.Rendering;
 using Tofu3D.Tweening;
@@ -7,6 +8,10 @@ namespace Tofu3D;
 // Main Application Context
 public static class Tofu
 {
+    private static int _updatesThisSecond;
+    private static int _s;
+    private static int _rendersThisSecond;
+    private static int _renderS;
     // public static Tofu I { get; private set; }
 
     // EDITOR
@@ -41,7 +46,7 @@ public static class Tofu
         SystemConfig.Configure();
         Global.LoadSavedData();
         Folders.CreateDefaultFolders();
-        
+
         AssetImportManager = new AssetImportManager();
         AssetLoadManager = new AssetLoadManager();
         SceneManager = new SceneManager();
@@ -66,7 +71,7 @@ public static class Tofu
     private static void OnWindowLoad()
     {
         AssetImportManager.ImportAllAssets();
-        
+
         InstancedRenderingSystem = new InstancedRenderingSystem();
 
         RenderPassSystem = new RenderPassSystem();
@@ -82,11 +87,32 @@ public static class Tofu
         SceneManager.LoadLastOpenedScene();
     }
 
+    static Stopwatch sw = new Stopwatch();
+
     private static void OnWindowUpdate(FrameEventArgs e)
     {
+
+        Time.EditorDeltaTime = (float)sw.Elapsed.TotalSeconds;
+        if (Time.EditorDeltaTime == 0)
+        {
+            Time.EditorDeltaTime = 1f / 60f;
+        }
+
+        sw.Restart();
         // Time.EditorDeltaTime = (float)e.Time;
+        if (DateTime.Now.Second == _s)
+        {
+            _updatesThisSecond++;
+        }
+        else
+        {
+            Debug.StatSetValue("Updates per second:", "Updates per second:" + _updatesThisSecond);
+            _s = DateTime.Now.Second;
+            _updatesThisSecond = 0;
+        }
 
         Debug.StartGraphTimer("Editor Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 120f));
+        ImGuiController.Update(Window, Time.EditorDeltaTime);
 
         Time.Update();
         MouseInput.Update();
@@ -102,11 +128,23 @@ public static class Tofu
 
     private static void OnWindowRender(FrameEventArgs e)
     {
-        Time.EditorDeltaTime = (float)e.Time;
+        if (DateTime.Now.Second == _renderS)
+        {
+            _rendersThisSecond++;
+        }
+        else
+        {
+            Debug.StatSetValue("Renders per second:", "Renders per second:" + _rendersThisSecond);
+            _renderS = DateTime.Now.Second;
+            _rendersThisSecond = 0;
+        }
+
+        // Time.EditorDeltaTime = (float)e.Time;
 
         Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 120f), -1);
 
         Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 120f));
+        Camera.MainCamera.UpdateMatrices();
 
         RenderPassSystem.RenderAllPasses();
 
@@ -115,7 +153,7 @@ public static class Tofu
 
         Debug.StartGraphTimer("ImGui", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromMilliseconds(2));
 
-        ImGuiController.Update(Window, (float)e.Time);
+        ImGuiController.X();
         GL.Viewport(0, 0, Window.ClientSize.X, Window.ClientSize.Y);
 
         ImGuiController.WindowResized(Window.ClientSize.X, Window.ClientSize.Y);

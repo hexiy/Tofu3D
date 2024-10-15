@@ -105,10 +105,10 @@ public class EditorPanelMenuBar : EditorPanel
                 ImGui.EndMenu();
             }
 
-            var vsyncButtonClicked = ImGui.BeginMenu($"VSync[{Tofu.Window.VSyncEnabled}]");
-            if (vsyncButtonClicked)
+            var fpsLimiterButtonClicked = ImGui.BeginMenu($"FPS Limiter [{Tofu.Window.FrameLimiterEnabled}]");
+            if (fpsLimiterButtonClicked)
             {
-                Tofu.Window.VSyncEnabled = !Tofu.Window.VSyncEnabled;
+                Tofu.Window.FrameLimiterEnabled = !Tofu.Window.FrameLimiterEnabled;
                 ImGui.CloseCurrentPopup();
 
 

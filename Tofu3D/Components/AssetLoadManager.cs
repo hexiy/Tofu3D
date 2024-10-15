@@ -74,7 +74,7 @@ public class AssetLoadManager
                 loadParameters =
                     Activator.CreateInstance(loadParameters.GetType()) as AssetLoadParameters<T>;
 
-                loadParameters.PathToAsset = sourcePath.FromRawAssetFileNameToPathOfAssetInLibrary();
+                loadParameters.PathToAsset = sourcePath.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
             }
 
             asset = (T)((dynamic)loaderAndLoadParameters.Item1).LoadAsset(loadParameters);

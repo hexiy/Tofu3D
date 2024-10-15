@@ -1,16 +1,14 @@
 using System.IO;
+using System.Text;
 
 public static class AssetFileExtensions
 {
-    public static string FromFileNameToPathToLibraryImportParameters(this string fileName)
+    public static string GetPathOfImportParametersOfSourceAssetFile(this string sourceFilePath)
     {
-        string librarySubFolder = GetCorrectLibrarySubfolderPathForAssetType(fileName);
-
-        return Path.Combine(librarySubFolder, fileName + ".importParameters");
+        return sourceFilePath + ".importparameters";
     }
-
     // from /Assets/car.obj to /Library/car.asset
-    public static string FromRawAssetFileNameToPathOfAssetInLibrary(this string fileName)
+    public static string GetPathOfAssetInLibrayFromSourceAssetPathOrName(this string fileName)
     {
         fileName = Path.GetFileName(fileName);
         string librarySubFolder = GetCorrectLibrarySubfolderPathForAssetType(fileName);

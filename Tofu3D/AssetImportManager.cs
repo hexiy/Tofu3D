@@ -12,7 +12,7 @@ namespace Tofu3D;
 public class AssetImportManager
 {
     // public Dictionary<int, AssetBase> Assets { get; private set; } = new(); // int is id(path hashcode)
-    // public Dictionary<int, AssetImportParametersBase> AssetImportParameters { get; private set; } = new();
+    public Dictionary<int, AssetImportParametersBase> AssetImportParameters { get; private set; } = new();
     public Dictionary<Type, IAssetImporter> Importers { get; private set; } = new();
 
     public AssetImportManager()
@@ -33,37 +33,32 @@ public class AssetImportManager
 
         string rawAssetFileName = Path.GetFileName(rawAssetPath); // with extension
 
-        string importParametersFilePath = rawAssetFileName.FromFileNameToPathToLibraryImportParameters();
-        string assetFilePath = rawAssetFileName.FromRawAssetFileNameToPathOfAssetInLibrary();
-        bool assetExists = AssetFileExists(assetFilePath.FromRawAssetFileNameToPathOfAssetInLibrary());
+        string importParametersFilePath = rawAssetFileName.GetPathOfImportParametersOfSourceAssetFile();
+        string assetFilePath = rawAssetFileName.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+        bool assetExists = AssetFileExists(assetFilePath.GetPathOfAssetInLibrayFromSourceAssetPathOrName());
         bool canImport = assetExists == false || reimportIfExists == true;
         if (canImport == false)
         {
             return;
         }
 
-        bool assetImportParametersFileExistsForThisAsset = AssetImportParamsFileExists(rawAssetFileName);
+        bool assetImportParametersFileExistsForThisAsset = File.Exists(importParametersFilePath);
 
 
         if (AssetFileExtensions.IsFileModel(rawAssetPath))
         {
-            AssetImportParameters_Model assetImportParametersModel = new AssetImportParameters_Model();
-            // if (assetImportParametersFileExistsForThisAsset == false)
-            // {
-            assetImportParametersModel.PathToSourceAsset = rawAssetPath;
-            //
-            //     // we save this .importParameters file as /Library/car.obj.importParameters
-            //
-            //     QuickSerializer.SaveFile<AssetImportParameters_Model>(importParametersFilePath,
-            //         assetImportParametersModel);
-            // }
-            // else
-            // {
-            //     assetImportParametersModel =
-            //         QuickSerializer.ReadFile<AssetImportParameters_Model>(importParametersFilePath);
-            // }
-            //
-            // AssetImportParameters[id] = assetImportParametersModel;
+            AssetImportParameters_Model assetImportParametersModel;
+            if (assetImportParametersFileExistsForThisAsset == false)
+            {
+                assetImportParametersModel = new AssetImportParameters_Model();
+                assetImportParametersModel.PathToSourceAsset = rawAssetPath;
+            }
+            else
+            {
+                assetImportParametersModel = QuickSerializer.ReadFileXML<AssetImportParameters_Model>(importParametersFilePath);
+            }
+
+            AssetImportParameters[id] = assetImportParametersModel;
 
             if (canImport)
             {
@@ -160,7 +155,6 @@ public class AssetImportManager
 
     private bool AssetImportParamsFileExists(string assetPath)
     {
-        assetPath = assetPath.FromRawAssetFileNameToPathOfAssetInLibrary();
-        return File.Exists(assetPath + ".importParameters");
+        return File.Exists(assetPath.GetPathOfImportParametersOfSourceAssetFile());
     }
 }

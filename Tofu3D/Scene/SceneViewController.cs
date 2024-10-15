@@ -118,6 +118,10 @@ public class SceneViewController
         CurrentProjectionMode.Value = newProjectionMode;
     }
 
+    private string isMouseOverSceneViewStringYes = $"isMouseOverSceneView:yes";
+    private string isMouseOverSceneViewStringNo = $"isMouseOverSceneView:no";
+    private float _mouseSensitivity = 0.2f;
+
     public void Update()
     {
         IsPanningCamera = false;
@@ -144,7 +148,8 @@ public class SceneViewController
 
         var isMouseOverSceneView = Tofu.MouseInput.IsMouseInSceneView;
 // Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
-        Debug.StatSetValue("isMouseOverSceneView", $"isMouseOverSceneView:{isMouseOverSceneView}");
+        Debug.StatSetValue("isMouseOverSceneView",
+            isMouseOverSceneView ? isMouseOverSceneViewStringYes : isMouseOverSceneViewStringNo);
         var justClicked = Tofu.MouseInput.ButtonPressed() |
                           Tofu.MouseInput.ButtonPressed(MouseButtons.Right);
         if (justClicked)
@@ -186,19 +191,25 @@ public class SceneViewController
 
             if (validInput && Tofu.MouseInput.IsButtonDown())
             {
-                _smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation,
-                    Tofu.MouseInput.ScreenDelta, Time.EditorDeltaTime * 30);
+                _smoothScreenDeltaVectorForRotation = Tofu.MouseInput.ScreenDelta * _mouseSensitivity; // instant
+
+                // _smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation,
+                    // Tofu.MouseInput.ScreenDelta * _mouseSensitivity, 0.1f);
             }
             else
             {
-                _smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation, Vector2.Zero,
-                    Time.EditorDeltaTime * 10);
+                _smoothScreenDeltaVectorForRotation = Vector3.Zero; // instant
+
+                // _smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation,
+                    // Vector2.Zero, 0.12f);
             }
 
             MoveCameraByLocalVector(_smoothScreenDeltaVectorForMovement * 30 / Tofu.Window.WindowSize);
-            Camera.MainCamera.Transform.Rotation += new Vector3(-_smoothScreenDeltaVectorForRotation.Y,
-                _smoothScreenDeltaVectorForRotation.X, 0) * 0.2f;
 
+            Camera.MainCamera.Transform.Rotation += new Vector3(-_smoothScreenDeltaVectorForRotation.Y,
+                _smoothScreenDeltaVectorForRotation.X, 0);
+            // Camera.MainCamera.Transform.Rotation += new Vector3(-_smoothScreenDeltaVectorForRotation.Y,
+            // _smoothScreenDeltaVectorForRotation.X, 0) * 1000 * Time.EditorDeltaTime;
 
             var keyboardMoveSpeed = _moveSpeed;
 
@@ -293,6 +304,6 @@ public class SceneViewController
         Camera.MainCamera.Transform.WorldPosition += delta;
         // Camera.I.Transform.LocalPosition += dir * moveSpeed;
 
-        Camera.MainCamera.UpdateMatrices();
+        // Camera.MainCamera.UpdateMatrices();
     }
 }

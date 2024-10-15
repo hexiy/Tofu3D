@@ -27,7 +27,7 @@ public class EditorPanelHierarchy : EditorPanel
 
     public override void Update()
     {
-        if (ImGui.IsMouseDragging(ImGuiMouseButton.Left) && IsPanelHovered)
+        if (IsPanelHovered && ImGui.IsMouseDragging(ImGuiMouseButton.Left))
         {
             _currentSpaceHeight = 5;
         }
@@ -36,7 +36,7 @@ public class EditorPanelHierarchy : EditorPanel
             _currentSpaceHeight = 0;
         }
 
-        if (KeyboardInput.IsKeyDown(Keys.Delete) && _canDelete)
+        if (_canDelete && KeyboardInput.IsKeyDown(Keys.Delete))
         {
             _canDelete = false;
             DestroySelectedGameObjects();
@@ -396,7 +396,8 @@ public class EditorPanelHierarchy : EditorPanel
         {
             AddGameObjectToSelection(currentGameObject.Id);
         }
-        else if (ImGui.IsItemHovered() && Tofu.MouseInput.ButtonReleased())
+        // else if (ImGui.IsItemHovered() && Tofu.MouseInput.ButtonReleased()) // doesnt work on very high fps since we update input 30k times per second but draw editor 120 times per second
+        else if (ImGui.IsItemHovered() && Tofu.MouseInput.IsButtonDown()) 
         {
             _gameObjectsIndexesSelectedBefore = _selectedGameObjectsIDs;
             SelectGameObject(currentGameObject.Id);

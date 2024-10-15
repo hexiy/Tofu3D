@@ -40,7 +40,7 @@ public class Camera : Component, IComponentUpdateable
             Transform.LocalScale = Vector3.One;
         }
 
-        UpdateMatrices();
+        // UpdateMatrices();
     }
 
     public override void Awake()
