@@ -17,7 +17,7 @@ out vec4 FragPosLightSpace;
 
 void main(void)
 {
-        vec3 newPos = a_pos.xyz;
+vec3 newPos = a_pos.xyz;
 gl_Position = u_mvp * vec4(newPos.xyz, 1.0);
 vertexPositionWorld = vec3(u_model * vec4(newPos.xyz, 1.0));
 normal = transpose(inverse(mat3(u_model))) * a_normal;
@@ -28,7 +28,7 @@ uv = a_uv;
 [FRAGMENT]
 #version 410 core 
 
- uniform vec4 u_rendererColor;
+uniform vec4 u_rendererColor;
 uniform vec2 u_tiling;
 uniform vec2 u_offset;
 
@@ -87,7 +87,7 @@ return shadow;
 }
 
 void main(void){
-        float directionalLightClampedIntensity = u_directionalLightIntensity /8;
+float directionalLightClampedIntensity = u_directionalLightIntensity / 8;
 vec3 norm = normalize(- normal);
 
 float directionalLightFactor = max(dot(norm, u_directionalLightDirection), 0.0);
@@ -108,15 +108,15 @@ vec3 directionalAndAmbientLighting = dirColor.rgb + ambColor.rgb;
 result *= vec4(directionalAndAmbientLighting.rgb, 1);
 
 
-if(u_specularHighlightsEnabled == 1){
-vec3 reflectedLightVectorWorld = reflect(-u_directionalLightDirection, norm);
-vec3 viewDir = -normalize(u_camPos - vertexPositionWorld);
+if (u_specularHighlightsEnabled == 1){
+vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, norm);
+vec3 viewDir = - normalize(u_camPos - vertexPositionWorld);
 //vec3 viewDir = -normalize(u_camPos - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
 //vec3 viewDir = normalize(u_camPos - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
 //vec3 viewDir = normalize(u_camPos - vertexPositionWorld)* vec3(- 1, 1, -1);
 
 float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32);
-vec3 specular = u_specularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity *10;
+vec3 specular = u_specularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 10;
 //vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
 
 result.rgb+= specular;

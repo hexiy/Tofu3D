@@ -1,4 +1,4 @@
-﻿[BUFFERTYPE:RenderTexture]
+﻿[BUFFERTYPE: RenderTexture]
 [VERTEX]
 #version 410 core
 
@@ -12,7 +12,7 @@ out vec2 texCoord;
 void main(void)
 {
 //texCoord = aTexCoord;
-texCoord = aTexCoord/2 + 0.5;
+texCoord = aTexCoord / 2 + 0.5;
 
 //gl_Position =u_mvp *  vec4(vec3(position.xy,1),1);
 
@@ -22,17 +22,16 @@ gl_Position = u_mvp * position;// * vec4(2,2,1,1);
 
 [FRAGMENT]
 #version 410 core
-in vec2 texCoord;
+ in vec2 texCoord;
 uniform float time;
 uniform sampler2D textureObject;
 layout (location = 0) out vec4 color;
 
 void main(void)
 {
-  //  color = vec4(0,1,1, 1);
+//  color = vec4(0,1,1, 1);
 
 float depthValue = texture(textureObject, texCoord).r; // why tf does it not render anything when i try to sample texture
-
-color =vec4(1 - depthValue,1 - depthValue, 1 - depthValue,1);
-//color += vec3(0,texCoord.x,texCoord.y);
+//color=vec4(1,1,1,1);
+color = vec4(1 - depthValue,1 - depthValue, 1 - depthValue, 1);
 }

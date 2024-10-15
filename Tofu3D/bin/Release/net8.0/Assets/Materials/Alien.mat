@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AssetPath>Assets\Materials\Alien.mat</AssetPath>
+  <Additive>false</Additive>
+  <Shader>
+    <BufferType>Model</BufferType>
+    <Path>Assets\Shaders\ModelRendererInstanced.glsl</Path>
+    <AlbedoTextureLocation>23</AlbedoTextureLocation>
+    <AmbientOcclusionTextureLocation>24</AmbientOcclusionTextureLocation>
+    <ShadowMapTextureLocation>25</ShadowMapTextureLocation>
+  </Shader>
+  <Vao>0</Vao>
+  <RenderMode>Opaque</RenderMode>
+  <AlbedoTexture>
+    <AssetPath>Assets\2D\solidColor.png</AssetPath>
+    <Size>
+      <X>256</X>
+      <Y>256</Y>
+    </Size>
+  </AlbedoTexture>
+  <AlbedoTint>
+    <B>165</B>
+    <G>109</G>
+    <R>115</R>
+    <A>255</A>
+    <PackedValue>4289031539</PackedValue>
+  </AlbedoTint>
+  <AoTexture>
+    <AssetPath>Assets\2D\solidColor.png</AssetPath>
+    <Size>
+      <X>256</X>
+      <Y>256</Y>
+    </Size>
+  </AoTexture>
+  <Tiling>
+    <X>55</X>
+    <Y>55</Y>
+  </Tiling>
+  <Offset>
+    <X>0</X>
+    <Y>0</Y>
+  </Offset>
+  <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+  <SpecularSmoothness>0.4</SpecularSmoothness>
+</Material>

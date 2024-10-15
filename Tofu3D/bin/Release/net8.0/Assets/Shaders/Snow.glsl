@@ -1,4 +1,4 @@
-﻿[BUFFERTYPE:RenderTexture]
+﻿[BUFFERTYPE: RenderTexture]
 [VERTEX]
 #version 410 core
 

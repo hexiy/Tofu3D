@@ -2,10 +2,43 @@
 <Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <AssetPath>Assets/Materials/ModelRenderer.mat</AssetPath>
   <Additive>false</Additive>
-  <Shader>
-    <BufferType>Model</BufferType>
-    <Path>Assets\Shaders\ModelRenderer.glsl</Path>
-  </Shader>
-  <Vao>8</Vao>
+  <AlbedoTexture>
+    <AssetPath>Assets/3D/grass block/Grass_Block_TEX.png</AssetPath>
+    <Size>
+      <X>1440</X>
+      <Y>1920</Y>
+    </Size>
+  </AlbedoTexture>
+  <AlbedoTint>
+    <B>255</B>
+    <G>255</G>
+    <R>255</R>
+    <A>255</A>
+    <PackedValue>4294967295</PackedValue>
+  </AlbedoTint>
+  <AoTexture>
+    <AssetPath>Assets/3D/grass block/Grass_Block_TEX.png</AssetPath>
+    <Size>
+      <X>1440</X>
+      <Y>1920</Y>
+    </Size>
+  </AoTexture>
+  <Offset>
+    <X>0</X>
+    <Y>0</Y>
+  </Offset>
   <RenderMode>Opaque</RenderMode>
+  <Shader>
+    <AlbedoTextureLocation>-1</AlbedoTextureLocation>
+    <AmbientOcclusionTextureLocation>-1</AmbientOcclusionTextureLocation>
+    <BufferType>Model</BufferType>
+    <Path>Assets/Shaders/ModelRenderer.glsl</Path>
+    <ShadowMapTextureLocation>0</ShadowMapTextureLocation>
+  </Shader>
+  <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+  <SpecularSmoothness>0</SpecularSmoothness>
+  <Tiling>
+    <X>0</X>
+    <Y>0</Y>
+  </Tiling>
 </Material>

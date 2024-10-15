@@ -26,7 +26,7 @@ uv = a_uv;
 [FRAGMENT]
 #version 410 core 
 
- uniform vec4 u_rendererColor;
+uniform vec4 u_rendererColor;
 uniform vec2 u_tiling;
 uniform vec2 u_offset;
 
@@ -48,7 +48,7 @@ in vec3 fragPos;
 in vec4 FragPosLightSpace;
 
 out vec4 frag_color;
-		
+
 void main(void)
 {
 vec4 texturePixelColor = texture(textureObject, (uv + u_offset) * u_tiling);
@@ -57,7 +57,7 @@ result *= texturePixelColor.rgba;
 result *=  u_rendererColor.rgba;
 
 result.a = (texturePixelColor.rgba * u_rendererColor.rgba).a;
-if(result.a == 0){
+if (result.a == 0){
 discard;
 }
 frag_color = result;
