@@ -129,6 +129,7 @@ public class MouseInput
         Vector2 oldPosition = PositionInWindow;
 
         Vector2 pos = new Vector2();
+        // Vector2 pos = Tofu.Window.MouseState.Position; //new Vector2();
         unsafe
         {
             // GLFW.PollEvents();

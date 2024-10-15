@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using OpenTK.Mathematics;
@@ -6,7 +8,10 @@ using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Common.Input;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 using Image = SixLabors.ImageSharp.Image;
 
 namespace Tofu3D;
@@ -34,8 +39,11 @@ public class Window : GameWindow
         FrameLimiterEnabled = FrameLimiterEnabled;
 
         LoadIcon();
+        // LoadAndSetCursor();
         Title = WindowTitleText;
         GLFW.WindowHint(WindowHintBool.Decorated, false);
+
+
         // GL.Disable(EnableCap.Multisample);
     }
 
@@ -52,13 +60,11 @@ public class Window : GameWindow
             {
                 RenderFrequency = 120;
                 UpdateFrequency = 120;
-
             }
             else
             {
                 RenderFrequency = 120;
                 UpdateFrequency = 0;
-
             }
 
             PersistentData.Set("FrameLimiter", value);
@@ -87,6 +93,33 @@ public class Window : GameWindow
             titleStringBuilder.Append(WindowSize);
 
             return titleStringBuilder.ToString();
+        }
+    }
+
+    private unsafe void LoadAndSetCursor()
+    {
+        using (Image<Rgba32> image = Image.Load<Rgba32>(Path.Combine("Resources", "icon.png")))
+        {
+            // image.Mutate(ctx =>
+            //     ctx.Flip(FlipMode
+            //         .Vertical));
+
+            byte[] pixels = new byte[image.Width * image.Height * 4];
+            image.CopyPixelDataTo(pixels);
+
+            fixed (byte* pixelPtr = pixels)
+            {
+                
+                OpenTK.Windowing.GraphicsLibraryFramework.Image glfwImage = new OpenTK.Windowing.GraphicsLibraryFramework.Image
+                {
+                    Width = image.Width,
+                    Height = image.Height,
+                    Pixels = pixelPtr
+                };
+
+                Cursor* cursor = GLFW.CreateCursor(ref glfwImage, 0, 0);
+                GLFW.SetCursor(this.WindowPtr, cursor);
+            }
         }
     }
 
