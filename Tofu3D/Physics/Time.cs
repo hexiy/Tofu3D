@@ -1,4 +1,6 @@
-﻿namespace Tofu3D;
+﻿using System.Text;
+
+namespace Tofu3D;
 
 public static class Time
 {
@@ -26,6 +28,7 @@ public static class Time
     // static Stopwatch _stopwatchUpdate = new Stopwatch();
     // static Stopwatch _stopwatch = new Stopwatch();
 
+    static StringBuilder _fpsRangeStringBuilder = new();
     public static void Update()
     {
         // _deltaTimeTotal = (float) Tofu.Window.RenderTime + (float) Tofu.Window.UpdateTime; //_stopwatch.ElapsedMilliseconds / 1000f;
@@ -75,7 +78,14 @@ public static class Time
             Debug.StatSetValue("FPS ", $"FPS[LIMITER {(Tofu.Window.FrameLimiterEnabled ? "ON" : "OFF ")}]:{fps}");
         }
 
-        Debug.StatSetValue("FPS Range", $"FPS Range(3s)              < {MinFpsDisplay} -- {MaxFpsDisplay} >");
+        _fpsRangeStringBuilder.Clear();
+        _fpsRangeStringBuilder.Append("FPS Range(3s)              < ");
+        _fpsRangeStringBuilder.Append(MinFpsDisplay);
+        _fpsRangeStringBuilder.Append(" -- ");
+        _fpsRangeStringBuilder.Append(MaxFpsDisplay);
+        _fpsRangeStringBuilder.Append(" >");
+
+        Debug.StatSetValue("FPS Range",_fpsRangeStringBuilder.ToString());
         // Debug.StatSetValue("Max FPS ", $"Max FPS(5s) {MaxFps}");
         if (updateSlowerDebugStats)
         {
