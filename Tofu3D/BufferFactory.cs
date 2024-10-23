@@ -66,7 +66,7 @@ public static class BufferFactory
         CreateGenericBuffer(ref vao, spriteVertexBufferData, countsOfElements);
     }
 
-    public static void CreateGenericBuffer(ref int vao, float[] vertexBufferData, int[] countsOfElements)
+    public static void CreateGenericBuffer(ref int vao, float[] vertexBufferData, int[] countsOfElements, bool isDynamic = false)
     {
         GL.Enable(EnableCap.DepthTest);
 
@@ -79,7 +79,7 @@ public static class BufferFactory
             elementsCountPerVertex += countsOfElements[i];
         }
 
-        var vertexBuffer = VertexBuffer.Create(BufferTarget.ArrayBuffer, vertexBufferData, elementsCountPerVertex);
+        var vertexBuffer = VertexBuffer.Create(BufferTarget.ArrayBuffer, vertexBufferData, elementsCountPerVertex, isDynamic);
         vertexBuffer.EnableAttribs(true, countsOfElements);
 
 

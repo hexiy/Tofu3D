@@ -11,7 +11,6 @@ layout (location = 5) in vec3 a_model_1;
 layout (location = 6) in vec3 a_model_2;
 layout (location = 7) in vec3 a_model_3;
 layout (location = 8) in vec3 a_model_4;
-layout (location = 9) in vec4 a_color;
 
 uniform mat4 u_viewProjection;
 uniform mat4 u_lightSpaceViewProjection;
@@ -19,7 +18,7 @@ uniform mat4 u_lightSpaceViewProjection;
 out vec3 vertexPositionWorld;
 out vec2 uv;
 out vec3 normal;
-out vec4 color;
+//out vec4 color;
 out vec4 fragPosLightSpace;
 out mat3 TBN;
 
@@ -29,7 +28,7 @@ mat4 a_model = mat4(vec4(a_model_1, 0), vec4(a_model_2, 0), vec4(a_model_3, 0), 
 mat4 mvp = u_viewProjection * a_model;
 gl_Position = mvp * vec4(a_pos.xyz, 1.0);
 uv = a_uv * vec2(1,-1);
-color = a_color;
+//color = a_color;
 
 
 vertexPositionWorld = vec3(a_model * vec4(a_pos.xyz, 1.0));
@@ -80,7 +79,7 @@ uniform sampler2D shadowMap;
 in vec3 normal;
 in vec2 uv;
 in vec3 vertexPositionWorld;
-in vec4 color;
+//in vec4 color;
 in vec4 fragPosLightSpace;
 in mat3 TBN;
 
@@ -133,7 +132,7 @@ texNormal = normalize(TBN * -texNormal); // Transforming the normal values from 
  vec3 finalNormal = normalize(mix(vertexNormalTBN, texNormal, blendFactor));
         
 
-vec4 albedoColor = texture(textureAlbedo, uvCoords) * u_albedoTint*color;
+vec4 albedoColor = texture(textureAlbedo, uvCoords) * u_albedoTint;//*color;
 
 vec4 aoColor = texture(textureAo, uvCoords);
 aoColor = mix(vec4(1,1,1,1),aoColor, u_hasAOTexture);
@@ -150,7 +149,7 @@ vec4 final_diffuse = vec4(directionalLightFactor * directionalLightClampedIntens
 //result *= ambient;
 
 vec4 result = albedoColor * aoColor * max(final_ambient, final_diffuse) + min(final_ambient, final_diffuse);
-result.a = albedoColor.a * color.a;
+result.a = albedoColor.a;// * color.a;
 
 
 if (result.a < 0.05) {

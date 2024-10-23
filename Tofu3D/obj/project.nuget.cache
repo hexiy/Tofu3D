@@ -1,15 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "SCLR5MsNYYw=",
+  "dgSpecHash": "yU6yC3l8vQA=",
   "success": true,
   "projectFilePath": "/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj",
   "expectedPackageFiles": [
     "/Users/hexiy/.nuget/packages/ffmpeg.autogen/4.4.1.1/ffmpeg.autogen.4.4.1.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/imgui.net/1.87.3/imgui.net.1.87.3.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/messagepack/3.0.134-beta/messagepack.3.0.134-beta.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/messagepack.annotations/3.0.134-beta/messagepack.annotations.3.0.134-beta.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/messagepackanalyzer/3.0.134-beta/messagepackanalyzer.3.0.134-beta.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.codeanalysis.analyzers/3.3.3/microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.codeanalysis.common/4.5.0-2.final/microsoft.codeanalysis.common.4.5.0-2.final.nupkg.sha512",
@@ -18,7 +15,6 @@
     "/Users/hexiy/.nuget/packages/microsoft.csharp/4.0.1/microsoft.csharp.4.0.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.dotnet.platformabstractions/2.0.3/microsoft.dotnet.platformabstractions.2.0.3.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.extensions.dependencymodel/2.0.3/microsoft.extensions.dependencymodel.2.0.3.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/microsoft.net.stringtools/17.10.4/microsoft.net.stringtools.17.10.4.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.netcore.platforms/1.0.1/microsoft.netcore.platforms.1.0.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.netcore.targets/1.0.1/microsoft.netcore.targets.1.0.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.win32.systemevents/8.0.0-preview.1.23110.8/microsoft.win32.systemevents.8.0.0-preview.1.23110.8.nupkg.sha512",
@@ -46,7 +42,6 @@
     "/Users/hexiy/.nuget/packages/sixlabors.imagesharp/2.1.3/sixlabors.imagesharp.2.1.3.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.appcontext/4.1.0/system.appcontext.4.1.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.buffers/4.4.0/system.buffers.4.4.0.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/system.codedom/8.0.0-preview.1.23110.8/system.codedom.8.0.0-preview.1.23110.8.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.collections/4.0.11/system.collections.4.0.11.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.collections.immutable/6.0.0/system.collections.immutable.6.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.composition/6.0.0/system.composition.6.0.0.nupkg.sha512",
@@ -105,6 +100,16 @@
     "/Users/hexiy/.nuget/packages/vortice.xaudio2/1.9.143/vortice.xaudio2.1.9.143.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Newtonsoft.Json' 9.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
     {
       "code": "NU1902",
       "level": "Warning",

@@ -28,7 +28,9 @@ public class Window : GameWindow
         {
             /*Size = new Vector2i(1, 1),*/
             APIVersion = new Version(4, 1), Flags = ContextFlags.ForwardCompatible,
-            Profile = ContextProfile.Core /*NumberOfSamples = 8,*/
+            Profile = ContextProfile.Core /*NumberOfSamples = 8,*/,
+            // WindowBorder = WindowBorder.Hidden,
+            // WindowState = WindowState.Normal,
         })
     {
         // UpdateFrequency = 0;
@@ -41,9 +43,6 @@ public class Window : GameWindow
         LoadIcon();
         // LoadAndSetCursor();
         Title = WindowTitleText;
-        GLFW.WindowHint(WindowHintBool.Decorated, false);
-
-
         // GL.Disable(EnableCap.Multisample);
     }
 

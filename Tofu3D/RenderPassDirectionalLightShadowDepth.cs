@@ -45,7 +45,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 
         // it would be nice to render the skybox to the light view preview textures
         // RenderPassSkybox.I.Render();
-        // RenderPassSkybox.I.RenderToFramebuffer(PassRenderTexture, FramebufferAttachment.Color);
+        // RenderPassSkybox.I.RenderToRenderTexture(PassRenderTexture, FramebufferAttachment.Color);
     }
 
     protected override void PostRender()

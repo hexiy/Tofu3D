@@ -73,16 +73,17 @@ public class InstancedRenderingSystem
 
     private void ResizeBufferData(InstancedRenderingObjectBufferData bufferData)
     {
-        bufferData.FutureMaxNumberOfObjects += 10; // 10 in the tank
+        bufferData.FutureMaxNumberOfObjects += 10;
         if (bufferData.FutureMaxNumberOfObjects > 1000)
         {
-            bufferData.FutureMaxNumberOfObjects += 500;
+            bufferData.FutureMaxNumberOfObjects += 20;
         }
 
         bufferData.MaxNumberOfObjects = bufferData.FutureMaxNumberOfObjects;
-        // Debug.Log($"Resizing buffer to new size:{bufferData.MaxNumberOfObjects}");
+        Debug.Log($"Resizing buffer to new size:{bufferData.MaxNumberOfObjects}");
 
         Array.Resize(ref bufferData.Buffer, bufferData.MaxNumberOfObjects * bufferData.InstancedVertexCountOfFloats);
+        GL.DeleteBuffer(bufferData.Vbo);
         bufferData.Vbo = -1;
         bufferData.NeedsUpload = true;
     }
@@ -240,7 +241,6 @@ public class InstancedRenderingSystem
         {
             UploadBufferData(objectBufferPair.Value);
             if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques)
-                // hmm i though this would fix the flicker
             {
                 objectBufferPair.Value.NeedsUpload = false;
             }
@@ -353,10 +353,10 @@ public class InstancedRenderingSystem
         buffer[startingIndex + 11] = modelMatrix.M43;
         // buffer[startingIndex + 15] = 1;//
 
-        buffer[startingIndex + 12] = color.R / 255f;
-        buffer[startingIndex + 13] = color.G / 255f;
-        buffer[startingIndex + 14] = color.B / 255f;
-        buffer[startingIndex + 15] = color.A / 255f;
+        // buffer[startingIndex + 12] = color.R / 255f;
+        // buffer[startingIndex + 13] = color.G / 255f;
+        // buffer[startingIndex + 14] = color.B / 255f;
+        // buffer[startingIndex + 15] = color.A / 255f;
     }
 
     private InstancedRenderingObjectBufferData InitializeBufferData(InstancedRenderingObjectDefinition objectDefinition)
@@ -405,32 +405,32 @@ public class InstancedRenderingSystem
                 GL.EnableVertexAttribArray(6);
                 GL.EnableVertexAttribArray(7);
                 GL.EnableVertexAttribArray(8);
-                GL.EnableVertexAttribArray(9);
+                // GL.EnableVertexAttribArray(9);
 
                 // https://stackoverflow.com/a/28597384
                 //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
-                GL.VertexAttribPointer(5, sizeof(float), VertexAttribPointerType.Float, false,
+                GL.VertexAttribPointer(5, 3, VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
                     0);
-                GL.VertexAttribPointer(6, sizeof(float), VertexAttribPointerType.Float, false,
+                GL.VertexAttribPointer(6, 3, VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
                     1 * 3 * sizeof(float));
-                GL.VertexAttribPointer(7, sizeof(float), VertexAttribPointerType.Float, false,
+                GL.VertexAttribPointer(7, 3, VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
                     2 * 3 * sizeof(float));
-                GL.VertexAttribPointer(8, sizeof(float), VertexAttribPointerType.Float, false,
+                GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
                     3 * 3 * sizeof(float));
-                GL.VertexAttribPointer(9, sizeof(float), VertexAttribPointerType.Float, false,
-                    bufferData._instancedVertexDataSizeInBytes,
-                    4 * 3 * sizeof(float));
+                // GL.VertexAttribPointer(9, sizeof(float), VertexAttribPointerType.Float, false,
+                //     bufferData._instancedVertexDataSizeInBytes,
+                //     4 * 3 * sizeof(float)); not using a_color anymore
 
 
                 GL.VertexAttribDivisor(5, 1);
                 GL.VertexAttribDivisor(6, 1);
                 GL.VertexAttribDivisor(7, 1);
                 GL.VertexAttribDivisor(8, 1);
-                GL.VertexAttribDivisor(9, 1);
+                // GL.VertexAttribDivisor(9, 1);  not using a_color anymore
             }
 
             if (bufferData.VertexBufferStructureType == VertexBufferStructureType.Quad)
@@ -440,32 +440,32 @@ public class InstancedRenderingSystem
                 GL.EnableVertexAttribArray(6);
                 GL.EnableVertexAttribArray(7);
                 GL.EnableVertexAttribArray(8);
-                GL.EnableVertexAttribArray(9);
+                // GL.EnableVertexAttribArray(9); not using a_color anymore
 
                 // https://stackoverflow.com/a/28597384
                 //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
-                GL.VertexAttribPointer(5, sizeof(float), VertexAttribPointerType.Float, false,
+                GL.VertexAttribPointer(5, 3, VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
                     0);
-                GL.VertexAttribPointer(6, sizeof(float), VertexAttribPointerType.Float, false,
+                GL.VertexAttribPointer(6, 3, VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
                     1 * 3 * sizeof(float));
-                GL.VertexAttribPointer(7, sizeof(float), VertexAttribPointerType.Float, false,
+                GL.VertexAttribPointer(7, 3, VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
                     2 * 3 * sizeof(float));
-                GL.VertexAttribPointer(8, sizeof(float), VertexAttribPointerType.Float, false,
+                GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
                     bufferData._instancedVertexDataSizeInBytes,
                     3 * 3 * sizeof(float));
-                GL.VertexAttribPointer(9, sizeof(float), VertexAttribPointerType.Float, false,
-                    bufferData._instancedVertexDataSizeInBytes,
-                    4 * 3 * sizeof(float));
+                // GL.VertexAttribPointer(9, sizeof(float), VertexAttribPointerType.Float, false,
+                //     bufferData._instancedVertexDataSizeInBytes,
+                //     4 * 3 * sizeof(float));  not using a_color anymore
 
 
                 GL.VertexAttribDivisor(5, 1);
                 GL.VertexAttribDivisor(6, 1);
                 GL.VertexAttribDivisor(7, 1);
                 GL.VertexAttribDivisor(8, 1);
-                GL.VertexAttribDivisor(9, 1);
+                // GL.VertexAttribDivisor(9, 1);
             }
         }
         else

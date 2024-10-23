@@ -5,4 +5,5 @@ public class RuntimeMesh : Asset<RuntimeMesh>
     public int Vao;
     public int VerticesCount;
     public int VertexBufferDataLength;
+    public int IsDynamic;
 }

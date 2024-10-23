@@ -19,7 +19,8 @@ public class VertexBuffer
     private int SizeOfElementInBytes { get; }
     private VertexAttribPointerType VertexAttribPointerType { get; }
 
-    public static VertexBuffer Create<T>(BufferTarget bufferTarget, T[] vertexData, int elementsPerVertex)
+    public static VertexBuffer Create<T>(BufferTarget bufferTarget, T[] vertexData, int elementsPerVertex,
+        bool isDynamic = false)
     {
         var vbo = GL.GenBuffer();
         GL.BindBuffer(bufferTarget, vbo);
@@ -37,7 +38,7 @@ public class VertexBuffer
             var vertexDataFloats = vertexData.Cast<float>().ToArray();
             vertexAttribPointerType = VertexAttribPointerType.Float;
             GL.BufferData(bufferTarget, sizeOfElementInBytes * vertexDataFloats.Length, vertexDataFloats,
-                BufferUsageHint.StaticDraw);
+                isDynamic ? BufferUsageHint.DynamicDraw : BufferUsageHint.StaticDraw);
         }
 
         if (bufferTarget == BufferTarget.ElementArrayBuffer)
@@ -46,7 +47,7 @@ public class VertexBuffer
             vertexAttribPointerType = VertexAttribPointerType.UnsignedInt;
 
             GL.BufferData(bufferTarget, sizeOfElementInBytes * vertexDataInts.Length, vertexDataInts,
-                BufferUsageHint.StaticDraw);
+                isDynamic ? BufferUsageHint.DynamicDraw : BufferUsageHint.StaticDraw);
         }
 
         VertexBuffer vertexBuffer = new(elementsPerVertex, sizeOfElementInBytes, vertexAttribPointerType);

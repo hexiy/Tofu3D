@@ -64,43 +64,6 @@
           }
         }
       },
-      "MessagePack/3.0.134-beta": {
-        "type": "package",
-        "dependencies": {
-          "MessagePack.Annotations": "3.0.134-beta",
-          "MessagePackAnalyzer": "3.0.134-beta",
-          "Microsoft.NET.StringTools": "17.10.4"
-        },
-        "compile": {
-          "lib/net8.0/MessagePack.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/MessagePack.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "MessagePack.Annotations/3.0.134-beta": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/MessagePack.Annotations.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/MessagePack.Annotations.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "MessagePackAnalyzer/3.0.134-beta": {
-        "type": "package",
-        "build": {
-          "build/MessagePackAnalyzer.targets": {}
-        }
-      },
       "Microsoft.Bcl.AsyncInterfaces/6.0.0": {
         "type": "package",
         "compile": {
@@ -323,19 +286,6 @@
         },
         "runtime": {
           "lib/netstandard1.6/Microsoft.Extensions.DependencyModel.dll": {}
-        }
-      },
-      "Microsoft.NET.StringTools/17.10.4": {
-        "type": "package",
-        "compile": {
-          "ref/net8.0/_._": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.NET.StringTools.dll": {
-            "related": ".pdb;.xml"
-          }
         }
       },
       "Microsoft.NETCore.Platforms/1.0.1": {
@@ -779,22 +729,6 @@
         },
         "runtime": {
           "lib/netcoreapp2.0/_._": {}
-        }
-      },
-      "System.CodeDom/8.0.0-preview.1.23110.8": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/System.CodeDom.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/System.CodeDom.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
         }
       },
       "System.Collections/4.0.11": {
@@ -1799,54 +1733,6 @@
         "runtimes/win-x86/native/cimgui.dll"
       ]
     },
-    "MessagePack/3.0.134-beta": {
-      "sha512": "73Qn5uksLd2BgvDQXxHNEmKCsv/4CohFYtVtRjX28+uVtMZAltvydVBmzwEa9qdLjT2GCDZwFfTgRcAsb7xbFA==",
-      "type": "package",
-      "path": "messagepack/3.0.134-beta",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net472/MessagePack.dll",
-        "lib/net472/MessagePack.xml",
-        "lib/net6.0/MessagePack.dll",
-        "lib/net6.0/MessagePack.xml",
-        "lib/net8.0/MessagePack.dll",
-        "lib/net8.0/MessagePack.xml",
-        "lib/netstandard2.0/MessagePack.dll",
-        "lib/netstandard2.0/MessagePack.xml",
-        "lib/netstandard2.1/MessagePack.dll",
-        "lib/netstandard2.1/MessagePack.xml",
-        "messagepack.3.0.134-beta.nupkg.sha512",
-        "messagepack.nuspec"
-      ]
-    },
-    "MessagePack.Annotations/3.0.134-beta": {
-      "sha512": "/h+11bLUthdKob0WEJCXLuqPHy7ndplPz99S97GHk+bW2ll9I8ptzC2cuRtbkOeJ16zBUSHveSRXRVeZoadwCg==",
-      "type": "package",
-      "path": "messagepack.annotations/3.0.134-beta",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/MessagePack.Annotations.dll",
-        "lib/netstandard2.0/MessagePack.Annotations.xml",
-        "messagepack.annotations.3.0.134-beta.nupkg.sha512",
-        "messagepack.annotations.nuspec"
-      ]
-    },
-    "MessagePackAnalyzer/3.0.134-beta": {
-      "sha512": "bWkN0Ro6aamLtby1leBBW3TOq9vKbUxfrcXYqmmefxzFHs/grF644avNtFbx+qtiMXH7xllta3S4ms8r6ktWCg==",
-      "type": "package",
-      "path": "messagepackanalyzer/3.0.134-beta",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "analyzers/roslyn4.3/cs/MessagePack.Analyzers.CodeFixes.dll",
-        "analyzers/roslyn4.3/cs/MessagePack.SourceGenerator.dll",
-        "build/MessagePackAnalyzer.targets",
-        "messagepackanalyzer.3.0.134-beta.nupkg.sha512",
-        "messagepackanalyzer.nuspec"
-      ]
-    },
     "Microsoft.Bcl.AsyncInterfaces/6.0.0": {
       "sha512": "UcSjPsst+DfAdJGVDsu346FX0ci0ah+lw3WRtn18NUwEqRt70HaOQ7lI72vy3+1LxtqI3T5GWwV39rQSrCzAeg==",
       "type": "package",
@@ -2346,35 +2232,6 @@
         "lib/netstandard1.6/Microsoft.Extensions.DependencyModel.dll",
         "microsoft.extensions.dependencymodel.2.0.3.nupkg.sha512",
         "microsoft.extensions.dependencymodel.nuspec"
-      ]
-    },
-    "Microsoft.NET.StringTools/17.10.4": {
-      "sha512": "wyABaqY+IHCMMSTQmcc3Ca6vbmg5BaEPgicnEgpll+4xyWZWlkQqUwafweUd9VAhBb4jqplMl6voUHQ6yfdUcg==",
-      "type": "package",
-      "path": "microsoft.net.stringtools/17.10.4",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "MSBuild-NuGet-Icon.png",
-        "README.md",
-        "lib/net472/Microsoft.NET.StringTools.dll",
-        "lib/net472/Microsoft.NET.StringTools.pdb",
-        "lib/net472/Microsoft.NET.StringTools.xml",
-        "lib/net8.0/Microsoft.NET.StringTools.dll",
-        "lib/net8.0/Microsoft.NET.StringTools.pdb",
-        "lib/net8.0/Microsoft.NET.StringTools.xml",
-        "lib/netstandard2.0/Microsoft.NET.StringTools.dll",
-        "lib/netstandard2.0/Microsoft.NET.StringTools.pdb",
-        "lib/netstandard2.0/Microsoft.NET.StringTools.xml",
-        "microsoft.net.stringtools.17.10.4.nupkg.sha512",
-        "microsoft.net.stringtools.nuspec",
-        "notices/THIRDPARTYNOTICES.txt",
-        "ref/net472/Microsoft.NET.StringTools.dll",
-        "ref/net472/Microsoft.NET.StringTools.xml",
-        "ref/net8.0/Microsoft.NET.StringTools.dll",
-        "ref/net8.0/Microsoft.NET.StringTools.xml",
-        "ref/netstandard2.0/Microsoft.NET.StringTools.dll",
-        "ref/netstandard2.0/Microsoft.NET.StringTools.xml"
       ]
     },
     "Microsoft.NETCore.Platforms/1.0.1": {
@@ -2879,35 +2736,6 @@
         "system.buffers.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
-      ]
-    },
-    "System.CodeDom/8.0.0-preview.1.23110.8": {
-      "sha512": "DB3BLewVWz4hGao3mO5kRUqhrrlCn4IE55kHNbv0w5OMaZrLJ4+0dRbnfARAP+DAc8DrSoUxh6L+g+J2rn4s8A==",
-      "type": "package",
-      "path": "system.codedom/8.0.0-preview.1.23110.8",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net461/System.CodeDom.targets",
-        "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
-        "buildTransitive/netcoreapp2.0/System.CodeDom.targets",
-        "lib/net462/System.CodeDom.dll",
-        "lib/net462/System.CodeDom.xml",
-        "lib/net6.0/System.CodeDom.dll",
-        "lib/net6.0/System.CodeDom.xml",
-        "lib/net7.0/System.CodeDom.dll",
-        "lib/net7.0/System.CodeDom.xml",
-        "lib/net8.0/System.CodeDom.dll",
-        "lib/net8.0/System.CodeDom.xml",
-        "lib/netstandard2.0/System.CodeDom.dll",
-        "lib/netstandard2.0/System.CodeDom.xml",
-        "system.codedom.8.0.0-preview.1.23110.8.nupkg.sha512",
-        "system.codedom.nuspec",
-        "useSharedDesignerContext.txt"
       ]
     },
     "System.Collections/4.0.11": {
@@ -5566,16 +5394,15 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "ImGui.NET >= 1.87.3",
-      "MessagePack >= 3.0.134-beta",
       "Microsoft.CodeAnalysis.Workspaces.Common >= 4.5.0-2.final",
       "Microsoft.CodeDom.Providers.DotNetCompilerPlatform >= 4.1.0-preview1",
+      "Microsoft.DotNet.PlatformAbstractions >= 2.0.3",
+      "Newtonsoft.Json >= 9.0.1",
       "OpenTK >= 4.7.4",
       "OpenTK.redist.glfw >= 3.3.7.27",
       "SharpAudio >= 1.0.65-beta",
-      "SharpAudio.ALBinding >= 1.0.65-beta",
       "SharpAudio.Codec >= 1.0.65-beta",
       "SixLabors.ImageSharp >= 2.1.3",
-      "System.CodeDom >= 8.0.0-preview.1.23110.8",
       "System.Drawing.Common >= 8.0.0-preview.1.23110.8",
       "System.Security.Permissions >= 8.0.0-preview.1.23110.8"
     ]
@@ -5627,10 +5454,6 @@
             "target": "Package",
             "version": "[1.87.3, )"
           },
-          "MessagePack": {
-            "target": "Package",
-            "version": "[3.0.134-beta, )"
-          },
           "Microsoft.CodeAnalysis.Workspaces.Common": {
             "target": "Package",
             "version": "[4.5.0-2.final, )"
@@ -5638,6 +5461,14 @@
           "Microsoft.CodeDom.Providers.DotNetCompilerPlatform": {
             "target": "Package",
             "version": "[4.1.0-preview1, )"
+          },
+          "Microsoft.DotNet.PlatformAbstractions": {
+            "target": "Package",
+            "version": "[2.0.3, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[9.0.1, )"
           },
           "OpenTK": {
             "target": "Package",
@@ -5651,10 +5482,6 @@
             "target": "Package",
             "version": "[1.0.65-beta, )"
           },
-          "SharpAudio.ALBinding": {
-            "target": "Package",
-            "version": "[1.0.65-beta, )"
-          },
           "SharpAudio.Codec": {
             "target": "Package",
             "version": "[1.0.65-beta, )"
@@ -5662,10 +5489,6 @@
           "SixLabors.ImageSharp": {
             "target": "Package",
             "version": "[2.1.3, )"
-          },
-          "System.CodeDom": {
-            "target": "Package",
-            "version": "[8.0.0-preview.1.23110.8, )"
           },
           "System.Drawing.Common": {
             "target": "Package",
@@ -5697,6 +5520,16 @@
     }
   },
   "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Newtonsoft.Json' 9.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
     {
       "code": "NU1902",
       "level": "Warning",
