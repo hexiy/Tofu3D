@@ -49,16 +49,14 @@ public class RenderPassBloomPostProcess : RenderPass
             return;
         }
 
-        for (int i = 0; i < 10; i++)
-        {
-            _blurOffset = i * 0.00006f;
-            BlurHorizontal();
-            BlurVertical();
-        }
-        // BlurHorizontal();
-        // BlurVertical();
-        // BlurHorizontal();
-        // BlurVertical();
+        // for (int i = 0; i < 10; i++)
+        // {
+        //     _blurOffset = i * 0.00006f;
+        //     BlurHorizontal();
+        //     BlurVertical();
+        // }
+        BlurHorizontal();
+        BlurVertical();
 
         target.Bind();
 

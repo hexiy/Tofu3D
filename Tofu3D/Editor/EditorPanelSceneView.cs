@@ -22,8 +22,8 @@ public class EditorPanelSceneView : EditorPanel
         if (Global.EditorAttached)
         {
             _renderCameraViews = true || /*Global.Debug &&*/
-                GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() !=
-                null;
+                                 GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() !=
+                                 null;
 
             // int tooltipsPanelHeight = 70;
             ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
@@ -34,11 +34,13 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.SetNextWindowSize(Tofu.RenderPassSystem.FinalRenderTexture.Size, ImGuiCond.FirstUseEver);
             ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
-ImGuiWindowFlags flags = Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse;
-if (IsFullscreen)
-{
-}
-            ImGui.Begin(Name,flags);
+            ImGuiWindowFlags flags = Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar |
+                                     ImGuiWindowFlags.NoScrollWithMouse;
+            if (IsFullscreen)
+            {
+            }
+
+            ImGui.Begin(Name, flags);
 
             if ((Vector2)ImGui.GetWindowSize() != Camera.MainCamera.Size)
             {
@@ -98,10 +100,17 @@ if (IsFullscreen)
 
                 ImGui.SetCursorPos(new Vector2(5, 75));
 
+                ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId,
+                    new Vector2(sizeX, sizeY),
+                    new Vector2(0, 1), new Vector2(1, 0), Color.Black.ToVector4(), Color.Red.ToVector4());
+
+                ImGui.SetCursorPos(new Vector2(5, 75));
+
                 ImGui.Image(RenderPassBloomThreshold.I.PassRenderTexture.ColorAttachmentID,
                     new Vector2(sizeX, sizeY),
                     new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
             }
+
             if (RenderPassBloomPostProcess.I?.PassRenderTexture != null)
             {
                 var ratio = RenderPassBloomPostProcess.I.PassRenderTexture.Size.Y /
@@ -114,7 +123,7 @@ if (IsFullscreen)
                 ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId,
                     new Vector2(sizeX, sizeY),
                     new Vector2(0, 1), new Vector2(1, 0), Color.Black.ToVector4(), Color.Red.ToVector4());
-                
+
                 ImGui.SetCursorPos(new Vector2(405, 75));
 
                 ImGui.Image(RenderPassBloomPostProcess.I.BloomRenderTextureVertical.ColorAttachmentID,

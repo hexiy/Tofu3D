@@ -25,23 +25,64 @@ uniform float texelHeight; // 1 / h
 uniform sampler2D textureObject;
 
 layout (location = 0) out vec4 color;
-
+const float gaussian_21[21] = float[](
+9.536743164e-7,
+0.00001907348633,
+0.0001811981201,
+0.001087188721,
+0.004620552063,
+0.01478576660,
+0.03696441650,
+0.07392883301,
+0.1201343536,
+0.1601791382,
+0.1761970520,
+0.1601791382,
+0.1201343536,
+0.07392883301,
+0.03696441650,
+0.01478576660,
+0.004620552063,
+0.001087188721,
+0.0001811981201,
+0.00001907348633,
+9.536743164e-7
+);
 void main(void)
 {
 vec2 offset = vec2(texelWidth, 0.0);
 
 
-float kernel[9] = float[](0.02414, 0.10798, 0.15, 0.20778, 0.32021, 0.20778, 0.15, 0.10798, 0.02414);
 
-vec4 result = texture(textureObject, texCoord) * kernel[4]; // Center pixel
-result += texture(textureObject, texCoord - offset * 4.0) * kernel[0]; // Left 4
-result += texture(textureObject, texCoord - offset * 3.0) * kernel[1]; // Left 3
-result += texture(textureObject, texCoord - offset * 2.0) * kernel[2]; // Left 2
-result += texture(textureObject, texCoord - offset * 1.0) * kernel[3]; // Left 1
-result += texture(textureObject, texCoord + offset * 1.0) * kernel[5]; // Right 1
-result += texture(textureObject, texCoord + offset * 2.0) * kernel[6]; // Right 2
-result += texture(textureObject, texCoord + offset * 3.0) * kernel[7]; // Right 3
-result += texture(textureObject, texCoord + offset * 4.0) * kernel[8]; // Right 4
+vec4 result = texture(textureObject, texCoord) * gaussian_21[10]; // Center pixel
+result += texture(textureObject, texCoord - offset * 10.0) * gaussian_21[0];
+result += texture(textureObject, texCoord - offset * 9.0) * gaussian_21[1];
+result += texture(textureObject, texCoord - offset * 8.0) * gaussian_21[2];
+result += texture(textureObject, texCoord - offset * 7.0) * gaussian_21[3];
+result += texture(textureObject, texCoord - offset * 6.0) * gaussian_21[4];
+result += texture(textureObject, texCoord - offset * 5.0) * gaussian_21[5];
+result += texture(textureObject, texCoord - offset * 4.0) * gaussian_21[6];
+result += texture(textureObject, texCoord - offset * 3.0) * gaussian_21[7];
+result += texture(textureObject, texCoord - offset * 2.0) * gaussian_21[8];
+result += texture(textureObject, texCoord - offset * 1.0) * gaussian_21[9];
+		
+		
+		
+		
+		
+		
+		
+result += texture(textureObject, texCoord + offset * 1.0) * gaussian_21[10];
+result += texture(textureObject, texCoord + offset * 2.0) * gaussian_21[11];
+result += texture(textureObject, texCoord + offset * 3.0) * gaussian_21[12];
+result += texture(textureObject, texCoord + offset * 4.0) * gaussian_21[13];
+result += texture(textureObject, texCoord + offset * 4.0) * gaussian_21[14];
+result += texture(textureObject, texCoord + offset * 5.0) * gaussian_21[15];
+result += texture(textureObject, texCoord + offset * 6.0) * gaussian_21[16];
+result += texture(textureObject, texCoord + offset * 7.0) * gaussian_21[17];
+result += texture(textureObject, texCoord + offset * 8.0) * gaussian_21[18];
+result += texture(textureObject, texCoord + offset * 9.0) * gaussian_21[19];
+result += texture(textureObject, texCoord + offset * 10.0) * gaussian_21[20];
 
 color = result;
 }

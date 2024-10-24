@@ -27,7 +27,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Directional Light</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -59,7 +59,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Sculpture</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -82,14 +82,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>0.32664502</X>
-        <Y>1.5793273</Y>
-        <Z>2.7713904</Z>
+        <X>0.8255377</X>
+        <Y>1.1419562</Y>
+        <Z>3.1581993</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.32664502</X>
-        <Y>1.5793273</Y>
-        <Z>2.7713904</Z>
+        <X>0.8255377</X>
+        <Y>1.1419562</Y>
+        <Z>3.1581993</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -102,8 +102,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-13.695947</X>
-        <Y>169.46251</Y>
+        <X>-11.451423</X>
+        <Y>172.88992</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -455,5 +455,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>272</GameObjectNextId>
+  <GameObjectNextId>278</GameObjectNextId>
 </SceneFile>
