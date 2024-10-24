@@ -299,6 +299,8 @@ public class EditorPanelBrowser : EditorPanel
 
         //ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0,0,0,0));
 
+        ImGui.PushStyleColor(ImGuiCol.Button, Color.Transparent.ToVector4());
+
         if (isDirectory)
         {
             ImGui.ImageButton(_directoryIcon.TextureId, _iconSize);
@@ -306,7 +308,6 @@ public class EditorPanelBrowser : EditorPanel
         }
         else
         {
-            ImGui.PushStyleColor(ImGuiCol.Button, Color.Transparent.ToVector4());
             if (_textures.ContainsKey(assetPath)) // && _textures[assetIndex].Loaded)
             {
                 ImGui.ImageButton(_textures[assetPath].TextureId, _iconSize);
@@ -319,7 +320,8 @@ public class EditorPanelBrowser : EditorPanel
                 // ImGui.ImageButton(_fileIcon.TextureId, _iconSize);
             }
         }
-        //ImGui.PopStyleColor();
+
+        ImGui.PopStyleColor();
 
 
         if (isTexture)
