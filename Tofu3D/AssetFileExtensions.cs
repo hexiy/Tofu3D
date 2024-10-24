@@ -77,6 +77,10 @@ public static class AssetFileExtensions
         return extension;
     }
 
+    public static bool IsAssetImportParametersFile(string fileName)
+    {
+        return fileName.EndsWith(".importparameters", StringComparison.OrdinalIgnoreCase);
+    }
     public static bool IsFileModel(string fileName)
     {
         return fileName.EndsWith(".tofumodel", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".obj", StringComparison.OrdinalIgnoreCase);

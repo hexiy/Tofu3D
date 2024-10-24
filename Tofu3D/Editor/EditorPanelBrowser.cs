@@ -49,10 +49,11 @@ public class EditorPanelBrowser : EditorPanel
         Tofu.AssetsWatcher.RegisterFileChangedCallback(OnFileChanged, "*");
         CreateContextItems();
 
-        _fileIcon = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/FileIcon.png"); //, _iconTextureLoadSettings);
+        _fileIcon =
+            Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/FileIcon_b.png"); //, _iconTextureLoadSettings);
 
         _directoryIcon =
-            Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/DirectoryIcon.png"); //, _iconTextureLoadSettings);
+            Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/DirectoryIcon_b.png"); //, _iconTextureLoadSettings);
 
         CurrentDirectory = new DirectoryInfo("Assets");
 
@@ -111,7 +112,8 @@ public class EditorPanelBrowser : EditorPanel
 
         for (var i = 0; i < allAssets.Count; i++)
         {
-            if (Path.GetFileName(allAssets[i]).StartsWith('.'))
+            string fileName = Path.GetFileName(allAssets[i]);
+            if (fileName.StartsWith('.') || AssetFileExtensions.IsAssetImportParametersFile(fileName))
             {
                 allAssets.RemoveAt(i);
                 i--;
@@ -501,7 +503,7 @@ public class EditorPanelBrowser : EditorPanel
         if (textSize.X < _iconSize.X)
         {
             float spaceLeft = textSize.X - _iconSize.X;
-            ImGui.SetCursorPosX(ImGui.GetCursorPosX()-spaceLeft/2f);
+            ImGui.SetCursorPosX(ImGui.GetCursorPosX() - spaceLeft / 2f);
         }
 
         ImGui.Text(a);
@@ -509,7 +511,6 @@ public class EditorPanelBrowser : EditorPanel
 
         if (assetName.Length > maxCharsLimit)
         {
-
             // ImGui.Text(assetName.Substring(maxCharsLimit, assetName.Length - maxCharsLimit));
         }
 
