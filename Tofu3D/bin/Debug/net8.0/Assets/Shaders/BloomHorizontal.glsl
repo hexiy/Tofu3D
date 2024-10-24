@@ -11,7 +11,7 @@ out vec2 texCoord;
 
 void main(void)
 {
-texCoord = aTexCoord * 0.5 + 0.5;
+texCoord = (aTexCoord * 0.5 + 0.5)*4;
 
 gl_Position = u_mvp * vec4(position.x, position.y, 0.0, 1.0);// * vec4(2,2,1,1);
 }

@@ -1,4 +1,5 @@
 ﻿using ImGuiNET;
+using Tofu3D.Rendering;
 
 namespace Tofu3D;
 
@@ -75,16 +76,48 @@ if (IsFullscreen)
             // 	ImGui.Image((IntPtr) RenderPassOpaques.I.PassRenderTexture.ColorAttachment, RenderPassOpaques.I.PassRenderTexture.Size,
             // 	           new Vector2(0, 1), new Vector2(1, 0));
             // }
-            if (_renderCameraViews && RenderPassDirectionalLightShadowDepth.I?.DebugDepthVisualisationTexture != null)
+            // if (_renderCameraViews && RenderPassDirectionalLightShadowDepth.I?.DebugDepthVisualisationTexture != null)
+            // {
+            //     var ratio = RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.Y /
+            //                 RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.X;
+            //     var sizeX = Mathf.ClampMax(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.X, 400);
+            //     var sizeY = sizeX * ratio;
+            //
+            //     ImGui.SetCursorPos(new Vector2(5, 75));
+            //
+            //     ImGui.Image(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.ColorAttachmentID,
+            //         new Vector2(sizeX, sizeY),
+            //         new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
+            // }
+            if (RenderPassBloomThreshold.I?.PassRenderTexture != null)
             {
-                var ratio = RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.Y /
-                            RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.X;
-                var sizeX = Mathf.ClampMax(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.X, 400);
+                var ratio = RenderPassBloomThreshold.I.PassRenderTexture.Size.Y /
+                            RenderPassBloomThreshold.I.PassRenderTexture.Size.X;
+                var sizeX = Mathf.ClampMax(RenderPassBloomThreshold.I.PassRenderTexture.Size.X, 400);
                 var sizeY = sizeX * ratio;
 
                 ImGui.SetCursorPos(new Vector2(5, 75));
 
-                ImGui.Image(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.ColorAttachmentID,
+                ImGui.Image(RenderPassBloomThreshold.I.PassRenderTexture.ColorAttachmentID,
+                    new Vector2(sizeX, sizeY),
+                    new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
+            }
+            if (RenderPassBloomPostProcess.I?.PassRenderTexture != null)
+            {
+                var ratio = RenderPassBloomPostProcess.I.PassRenderTexture.Size.Y /
+                            RenderPassBloomPostProcess.I.PassRenderTexture.Size.X;
+                var sizeX = Mathf.ClampMax(RenderPassBloomPostProcess.I.PassRenderTexture.Size.X, 400);
+                var sizeY = sizeX * ratio;
+
+                ImGui.SetCursorPos(new Vector2(405, 75));
+
+                ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId,
+                    new Vector2(sizeX, sizeY),
+                    new Vector2(0, 1), new Vector2(1, 0), Color.Black.ToVector4(), Color.Red.ToVector4());
+                
+                ImGui.SetCursorPos(new Vector2(405, 75));
+
+                ImGui.Image(RenderPassBloomPostProcess.I.BloomRenderTextureVertical.ColorAttachmentID,
                     new Vector2(sizeX, sizeY),
                     new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
             }

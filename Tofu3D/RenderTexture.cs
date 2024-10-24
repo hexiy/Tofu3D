@@ -17,14 +17,15 @@ public class RenderTexture
 
     // public Material RenderTextureMaterial;
     public Vector2 Size;
-    public int DownsampleFactor=1;
+    private int DownsampleFactor=1;
 
     public RenderTexture(Vector2 size, bool colorAttachment = false, bool depthAttachment = false,
-        bool hasStencil = false, bool isGrayscale = false)
+        bool hasStencil = false, bool isGrayscale = false, int downsampleFactor = 1)
     {
         _depthRenderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/DepthRenderTexture.mat");
         _renderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/RenderTexture.mat");
-        Size = size;
+        DownsampleFactor = downsampleFactor;
+        Size = size/downsampleFactor;
         _hasColorAttachment = colorAttachment;
         _hasDepthAttachment = depthAttachment;
         _hasStencil = hasStencil;
@@ -151,7 +152,7 @@ public class RenderTexture
     public void Clear()
     {
         Bind();
-        GL.Viewport(0, 0, (int)Size.X*DownsampleFactor, (int)Size.Y*DownsampleFactor);
+        GL.Viewport(0, 0, (int)Size.X, (int)Size.Y);
 
         // GL.ClearColor(ClearColor.ToOtherColor());
         // GL.StencilMask(0xFF);

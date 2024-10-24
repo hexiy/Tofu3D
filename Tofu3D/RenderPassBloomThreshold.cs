@@ -3,11 +3,11 @@ namespace Tofu3D.Rendering;
 public class RenderPassBloomThreshold : RenderPass
 {
     private Asset_Material _bloomThresholdMaterial;
-    
+    public static RenderPassBloomThreshold I;
     public RenderPassBloomThreshold() : base(RenderPassType.BloomThreshold)
     {
+        I = this;
     }
-
 
 
     public override bool CanRender() => Enabled;
@@ -20,7 +20,7 @@ public class RenderPassBloomThreshold : RenderPass
         base.Initialize();
     }
 
- // this will not render to target(final) render texture, but our own
+    // this will not render to target(final) render texture, but our own
     public override void RenderToRenderTexture(RenderTexture target, FramebufferAttachment attachment)
     {
         if (PassRenderTexture == null)
@@ -60,11 +60,11 @@ public class RenderPassBloomThreshold : RenderPass
     {
         if (PassRenderTexture != null)
         {
-            PassRenderTexture.Size = Tofu.RenderPassSystem.ViewSize;
+            PassRenderTexture.Size = Tofu.RenderPassSystem.ViewSize/4f;
             PassRenderTexture.Invalidate(false);
             return;
         }
 
-        PassRenderTexture = new RenderTexture(Tofu.RenderPassSystem.ViewSize, true, false);
+        PassRenderTexture = new RenderTexture(Tofu.RenderPassSystem.ViewSize, true, false, downsampleFactor: 4);
     }
 }

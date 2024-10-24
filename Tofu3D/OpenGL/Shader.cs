@@ -127,9 +127,15 @@ public class
         Tofu.ShaderManager.UseShader(this);
         List<int> textureLocations = new()
         {
-            GetUniformLocation("textureAlbedo"), GetUniformLocation("textureNormal"), GetUniformLocation("textureAo"),
+            GetUniformLocation("textureAlbedo"),
+            GetUniformLocation("textureNormal"),
+            GetUniformLocation("textureAo"),
             GetUniformLocation("shadowMap"),
-            GetUniformLocation("textureObject"), GetUniformLocation("bloomThresholdTexture")
+            GetUniformLocation("textureObject"),
+            GetUniformLocation("bloomThresholdTexture"),
+            GetUniformLocation("horizontalBlurTexture"),
+            GetUniformLocation("verticalBlurTexture"),
+
         };
         // AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
         // NormalTextureLocation = GetUniformLocation("textureNormal");
