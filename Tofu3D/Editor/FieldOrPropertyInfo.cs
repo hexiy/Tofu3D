@@ -247,6 +247,7 @@ public class FieldOrPropertyInfo
         if (_fieldInfo != null)
         {
             _fieldInfo.SetValue(obj, value);
+            EditorPanelInspector.I.OnAnyValueChanged();
         }
 
         if (_propertyInfo != null)
@@ -254,6 +255,7 @@ public class FieldOrPropertyInfo
             if (_propertyInfo.GetSetMethod() != null)
             {
                 _propertyInfo.SetValue(obj, value);
+                EditorPanelInspector.I.OnAnyValueChanged();
             }
         }
 

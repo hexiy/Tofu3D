@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using ImGuiNET;
+using ImGui = ImGuiNET.ImGui;
 
 namespace Tofu3D;
 
@@ -303,6 +304,7 @@ public class EditorPanelBrowser : EditorPanel
         }
         else
         {
+            ImGui.PushStyleColor(ImGuiCol.Button, Color.Transparent.ToVector4());
             if (_textures.ContainsKey(assetPath)) // && _textures[assetIndex].Loaded)
             {
                 ImGui.ImageButton(_textures[assetPath].TextureId, _iconSize);
@@ -311,6 +313,8 @@ public class EditorPanelBrowser : EditorPanel
                 //ImGui.ImageButton((IntPtr) fileIcon.id, new Vector2(100, 90));
             {
                 ImGui.ImageButton(_fileIcon.TextureId, _iconSize);
+
+                // ImGui.ImageButton(_fileIcon.TextureId, _iconSize);
             }
         }
         //ImGui.PopStyleColor();
@@ -442,14 +446,28 @@ public class EditorPanelBrowser : EditorPanel
 
             if (isModel)
             {
-                if (_expandedAssets.Contains(assetPath) == false)
+                var pathOfImportParametersOfSourceAssetFile = assetPath.GetPathOfImportParametersOfSourceAssetFile();
+                Object importParameters =
+                    QuickSerializer.ReadFileXML<AssetImportParameters_Model>(pathOfImportParametersOfSourceAssetFile);
+
+
+                if (importParameters != null)
                 {
-                    _expandedAssets.Add(assetPath);
+                    EditorPanelInspector.I.SelectInspectable(importParameters,
+                        anyValueChanged: () =>
+                        {
+                            QuickSerializer.SaveFileXML<AssetImportParameters_Model>(
+                                pathOfImportParametersOfSourceAssetFile, importParameters);
+                        });
                 }
-                else
-                {
-                    _expandedAssets.Remove(assetPath);
-                }
+                // if (_expandedAssets.Contains(assetPath) == false)
+                // {
+                //     _expandedAssets.Add(assetPath);
+                // }
+                // else
+                // {
+                //     _expandedAssets.Remove(assetPath);
+                // }
             }
         }
 
@@ -478,10 +496,21 @@ public class EditorPanelBrowser : EditorPanel
 
         var maxCharsLimit = 15;
         var a = assetName.Substring(0, Math.Clamp(assetName.Length, 0, maxCharsLimit));
+        Vector2 textSize = ImGui.CalcTextSize(a);
+
+        if (textSize.X < _iconSize.X)
+        {
+            float spaceLeft = textSize.X - _iconSize.X;
+            ImGui.SetCursorPosX(ImGui.GetCursorPosX()-spaceLeft/2f);
+        }
+
         ImGui.Text(a);
+
+
         if (assetName.Length > maxCharsLimit)
         {
-            ImGui.Text(assetName.Substring(maxCharsLimit, assetName.Length - maxCharsLimit));
+
+            // ImGui.Text(assetName.Substring(maxCharsLimit, assetName.Length - maxCharsLimit));
         }
 
         ImGui.EndGroup();

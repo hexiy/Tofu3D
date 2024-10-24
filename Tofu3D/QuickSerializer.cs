@@ -25,6 +25,11 @@ public static class QuickSerializer
 
     public static T? ReadFileJSON<T>(string path)
     {
+        
+        if (File.Exists(path) == false)
+        {
+            return default;
+        }
         using (var stream = new FileStream(path, FileMode.Open))
         {
             using (var reader = new BinaryReader(stream))
@@ -59,6 +64,11 @@ public static class QuickSerializer
 
     public static T? ReadFileXML<T>(string path)
     {
+        if (File.Exists(path) == false)
+        {
+            return default;
+        }
+
         XmlSerializer xmlSerializer = new XmlSerializer(typeof(T), new[] { typeof(RuntimeAssetHandle) });
 
         StreamReader sr = new(path);

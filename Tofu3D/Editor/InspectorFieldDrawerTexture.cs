@@ -52,7 +52,6 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
         if (rightMouseClicked)
         {
             SetValue(info, componentInspectorData, null);
-            SaveIfAssetMaterial(componentInspectorData);
         }
 
         ApplyDragAndDropToLastControl();
@@ -72,32 +71,10 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
                     var loadedTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(textureName);
 
                     SetValue(info, componentInspectorData, loadedTexture);
-
-                    SaveIfAssetMaterial(componentInspectorData);
                 }
             }
         }
 
         ImGui.EndDragDropTarget();
-    }
-
-    void SaveIfAssetMaterial(InspectableData componentInspectorData)
-    {
-        if (componentInspectorData.Inspectable is Asset_Material)
-        {
-            // EditorPanelInspector.I.AddActionToActionQueue(() =>
-            // Tofu.AssetLoadManager.Save<Asset_Material>(componentInspectorData.Inspectable as Asset_Material));
-            EditorPanelInspector.I.AddActionToActionQueue(() =>
-            {
-                Debug.Log("wip try to save texture");
-                Asset_Material assetMaterial = (componentInspectorData.Inspectable as Asset_Material);
-
-                // save materials in both Library/ and Assets/ 
-                Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.PathToAssetInLibrary, assetMaterial,
-                    json: true);
-                Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.PathToRawAsset, assetMaterial, json: false);
-                // Tofu.AssetLoadManager.Save<Material>();.Save<Material>(componentInspectorData.Inspectable as Material);
-            });
-        }
     }
 }

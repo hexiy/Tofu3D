@@ -26,6 +26,7 @@ public class EditorPanelInspector : EditorPanel
         typeof(Shader),
         typeof(Curve)
     };*/
+    private Action AnyValueChanged = () => { };
 
     private Action _actionQueue = () => { };
 
@@ -187,10 +188,12 @@ public class EditorPanelInspector : EditorPanel
         // 	_currentInspectableDatas.Add(data);
         // }
     }*/
-    public void SelectInspectable(object inspectable)
+    public void SelectInspectable(object inspectable, Action? anyValueChanged=null)
     {
+        AnyValueChanged = anyValueChanged;
         SelectInspectables(new List<object> { inspectable });
     }
+
 
     public void SelectInspectables(IList inspectables)
     {
@@ -604,5 +607,10 @@ public class EditorPanelInspector : EditorPanel
         }
 
         return true;
+    }
+
+    public void OnAnyValueChanged()
+    {
+        AnyValueChanged?.Invoke();
     }
 }

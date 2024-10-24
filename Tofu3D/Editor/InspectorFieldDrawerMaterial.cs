@@ -25,7 +25,17 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
         if (clicked)
         {
             EditorPanelInspector.I.AddActionToActionQueue(() =>
-                EditorPanelInspector.I.SelectInspectable((componentInspectorData.Inspectable as Renderer).Material)
+                EditorPanelInspector.I.SelectInspectable((componentInspectorData.Inspectable as Renderer).Material,
+                    () =>
+                    {
+                        Asset_Material assetMaterial = (componentInspectorData.Inspectable as Asset_Material);
+
+                        // save materials in both Library/ and Assets/ 
+                        Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.PathToAssetInLibrary, assetMaterial,
+                            json: true);
+                        Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.PathToRawAsset, assetMaterial,
+                            json: false);
+                    })
             );
         }
 

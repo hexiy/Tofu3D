@@ -33,9 +33,9 @@ public class AssetImportManager
 
         string rawAssetFileName = Path.GetFileName(rawAssetPath); // with extension
 
-        string importParametersFilePath = rawAssetFileName.GetPathOfImportParametersOfSourceAssetFile();
-        string assetFilePath = rawAssetFileName.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
-        bool assetExists = AssetFileExists(assetFilePath.GetPathOfAssetInLibrayFromSourceAssetPathOrName());
+        string importParametersFilePath = rawAssetPath.GetPathOfImportParametersOfSourceAssetFile();
+        string assetFileInLibraryPath = rawAssetFileName.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+        bool assetExists = AssetFileExists(assetFileInLibraryPath.GetPathOfAssetInLibrayFromSourceAssetPathOrName());
         bool canImport = assetExists == false || reimportIfExists == true;
         if (canImport == false)
         {
@@ -52,10 +52,14 @@ public class AssetImportManager
             {
                 assetImportParametersModel = new AssetImportParameters_Model();
                 assetImportParametersModel.PathToSourceAsset = rawAssetPath;
+
+                QuickSerializer.SaveFileXML<AssetImportParameters_Model>(importParametersFilePath,
+                    assetImportParametersModel);
             }
             else
             {
-                assetImportParametersModel = QuickSerializer.ReadFileXML<AssetImportParameters_Model>(importParametersFilePath);
+                assetImportParametersModel =
+                    QuickSerializer.ReadFileXML<AssetImportParameters_Model>(importParametersFilePath);
             }
 
             AssetImportParameters[id] = assetImportParametersModel;
@@ -101,23 +105,22 @@ public class AssetImportManager
 
         if (AssetFileExtensions.IsFileTexture(rawAssetPath))
         {
-            AssetImportParameters_Texture assetImportParametersTexture = new AssetImportParameters_Texture();
-            // if (assetImportParametersFileExistsForThisAsset == false)
-            // {
-            assetImportParametersTexture.PathToSourceAsset = rawAssetPath;
-            //
-            //     // we save this .importParameters file as /Library/car.obj.importParameters
-            //
-            //     QuickSerializer.SaveFile<AssetImportParameters_Texture>(importParametersFilePath,
-            //         assetImportParametersTexture);
-            // }
-            // else
-            // {
-            //     assetImportParametersTexture =
-            //         QuickSerializer.ReadFile<AssetImportParameters_Texture>(importParametersFilePath);
-            // }
-            //
-            // AssetImportParameters[id] = assetImportParametersTexture;
+            AssetImportParameters_Texture assetImportParametersTexture;
+            if (assetImportParametersFileExistsForThisAsset == false)
+            {
+                assetImportParametersTexture = new AssetImportParameters_Texture();
+                assetImportParametersTexture.PathToSourceAsset = rawAssetPath;
+
+                QuickSerializer.SaveFileXML<AssetImportParameters_Texture>(importParametersFilePath,
+                    assetImportParametersTexture);
+            }
+            else
+            {
+                assetImportParametersTexture =
+                    QuickSerializer.ReadFileXML<AssetImportParameters_Texture>(importParametersFilePath);
+            }
+
+            AssetImportParameters[id] = assetImportParametersTexture;
 
 
             // if (canImport == false)
