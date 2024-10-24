@@ -209,7 +209,13 @@ public class EditorPanelInspector : EditorPanel
     public void OnMaterialSelected(string materialPath)
     {
         object materialInspectable = Tofu.AssetLoadManager.Load<Asset_Material>(materialPath);
-        SelectInspectable(materialInspectable);
+    
+        EditorPanelInspector.I.SelectInspectable(materialInspectable,
+            anyValueChanged: () =>
+            {
+                QuickSerializer.SaveFileXML<Asset_Material>(
+                    materialPath, materialInspectable);
+            });
     }
 
     public override void Draw()

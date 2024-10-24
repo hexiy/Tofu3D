@@ -44,7 +44,7 @@ public class RenderPassPostProcess : RenderPass
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
         GL.ActiveTexture(TextureUnit.Texture0);
-        TextureHelper.BindTexture(target.ColorAttachment);
+        TextureHelper.BindTexture(target.ColorAttachmentID);
 
         GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

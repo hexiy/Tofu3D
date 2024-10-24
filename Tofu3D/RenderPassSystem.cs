@@ -49,8 +49,10 @@ public class RenderPassSystem
         RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new();
         RenderPassZPrePass renderPassZPrePass = new();
         RenderPassOpaques renderPassOpaques = new();
-        RenderPassPostProcess renderPassPostProcess = new();
-        RenderPassUI renderPassUI = new();
+        RenderPassBloomThreshold renderPassBloomThreshold = new();
+        RenderPassBloomPostProcess renderPassBloomPostProcess = new(renderPassBloomThreshold);
+        // RenderPassPostProcess renderPassPostProcess = new();
+        // RenderPassUI renderPassUI = new();
 
 
         // RenderPassTransparency renderPassTransparency = new RenderPassTransparency();

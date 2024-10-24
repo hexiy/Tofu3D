@@ -34,6 +34,12 @@ public class ShaderManager
 
     public void UseShader(Shader shader)
     {
+        if (shader == null)
+        {
+            Debug.Log("shader is null");
+            return;
+        }
+
         UseShader(shader.ProgramId);
     }
 

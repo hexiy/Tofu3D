@@ -11,6 +11,9 @@ public enum RenderPassType
     Opaques,
 
     // Transparency,
+    BloomThreshold,
+    BloomPostProcess,
+
     PostProcess,
     UI
 }

@@ -57,7 +57,7 @@ if (IsFullscreen)
 
             if (Tofu.RenderPassSystem.CanRender)
             {
-                ImGui.Image(Tofu.RenderPassSystem.FinalRenderTexture.ColorAttachment,
+                ImGui.Image(Tofu.RenderPassSystem.FinalRenderTexture.ColorAttachmentID,
                     Tofu.RenderPassSystem.FinalRenderTexture.Size,
                     new Vector2(0, 1), new Vector2(1, 0));
             }
@@ -84,7 +84,7 @@ if (IsFullscreen)
 
                 ImGui.SetCursorPos(new Vector2(5, 75));
 
-                ImGui.Image(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.ColorAttachment,
+                ImGui.Image(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.ColorAttachmentID,
                     new Vector2(sizeX, sizeY),
                     new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
             }
@@ -273,7 +273,7 @@ if (IsFullscreen)
 
             ImGui.SetCursorPosX(0);
             Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
-            ImGui.Image(Tofu.RenderPassSystem.FinalRenderTexture.ColorAttachment, Camera.MainCamera.Size,
+            ImGui.Image(Tofu.RenderPassSystem.FinalRenderTexture.ColorAttachmentID, Camera.MainCamera.Size,
                 new Vector2(0, 1), new Vector2(1, 0));
 
             ImGui.End();

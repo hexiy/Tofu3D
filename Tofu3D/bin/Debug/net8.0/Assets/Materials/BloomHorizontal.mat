@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/BloomHorizontal.mat</PathToRawAsset>
+  <Shader>
+    <BufferType>Rendertexture</BufferType>
+    <Path>Assets/Shaders/BloomHorizontal.glsl</Path>
+  </Shader>
+  <Additive>false</Additive>
+  <AlbedoTint>
+    <B>255</B>
+    <G>255</G>
+    <R>255</R>
+    <A>255</A>
+    <PackedValue>4294967295</PackedValue>
+  </AlbedoTint>
+  <Offset>
+    <X>0</X>
+    <Y>0</Y>
+  </Offset>
+  <RenderMode>Opaque</RenderMode>
+  <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+  <SpecularSmoothness>0</SpecularSmoothness>
+  <Tiling>
+    <X>0</X>
+    <Y>0</Y>
+  </Tiling>
+</Material>

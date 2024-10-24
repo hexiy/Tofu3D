@@ -214,7 +214,7 @@ public class InstancedRenderingSystem
             if (RenderPassDirectionalLightShadowDepth.I?.PassRenderTexture != null)
             {
                 GL.ActiveTexture(TextureUnit.Texture3);
-                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.DepthAttachment);
+                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.DepthAttachmentID);
             }
 
 

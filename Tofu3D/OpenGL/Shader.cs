@@ -17,11 +17,11 @@ public class
     private int _uLocationUColor = -1;
 
     private int _uLocationUMvp = -1;
-
-    public int AlbedoTextureLocation=-1;
-    public int NormalTextureLocation=-1;
-    public int AmbientOcclusionTextureLocation=-1;
-    public int ShadowMapTextureLocation=-1;
+    
+    // public int AlbedoTextureLocation = -1;
+    // public int NormalTextureLocation = -1;
+    // public int AmbientOcclusionTextureLocation = -1;
+    // public int ShadowMapTextureLocation = -1;
 
     public BufferType BufferType;
 
@@ -125,38 +125,66 @@ public class
 
 
         Tofu.ShaderManager.UseShader(this);
-
-        AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
-        NormalTextureLocation = GetUniformLocation("textureNormal");
-        AmbientOcclusionTextureLocation = GetUniformLocation("textureAo");
-        ShadowMapTextureLocation = GetUniformLocation("shadowMap");
+        List<int> textureLocations = new()
+        {
+            GetUniformLocation("textureAlbedo"), GetUniformLocation("textureNormal"), GetUniformLocation("textureAo"),
+            GetUniformLocation("shadowMap"),
+            GetUniformLocation("textureObject"), GetUniformLocation("bloomThresholdTexture")
+        };
+        // AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
+        // NormalTextureLocation = GetUniformLocation("textureNormal");
+        // AmbientOcclusionTextureLocation = GetUniformLocation("textureAo");
+        // ShadowMapTextureLocation = GetUniformLocation("shadowMap");
+        //
+        // int bloomTextureLocation = GetUniformLocation("textureObject");
+        // int bloomThresholdLocation = GetUniformLocation("bloomThresholdTexture");
 
         int indx = 0;
-        
+
         // GL.Uniform1 to bind the texture to the texture unit-Texture0, Texture1 etc
-        if (AlbedoTextureLocation != -1)
+        foreach (var textureLocation in textureLocations)
         {
-            GL.Uniform1(AlbedoTextureLocation, indx);
-            indx++;
+            if (textureLocation != -1)
+            {
+                GL.Uniform1(textureLocation, indx);
+                indx++;
+            }
         }
-
-        if (NormalTextureLocation != -1)
-        {
-            GL.Uniform1(NormalTextureLocation, indx);
-            indx++;
-        }
-
-        if (AmbientOcclusionTextureLocation != -1)
-        {
-            GL.Uniform1(AmbientOcclusionTextureLocation, indx);
-            indx++;
-        }
-        
-        if (ShadowMapTextureLocation != -1)
-        {
-            GL.Uniform1(ShadowMapTextureLocation, indx);
-            indx++;
-        }
+        // if (AlbedoTextureLocation != -1)
+        // {
+        //     GL.Uniform1(AlbedoTextureLocation, indx);
+        //     indx++;
+        // }
+        //
+        // if (NormalTextureLocation != -1)
+        // {
+        //     GL.Uniform1(NormalTextureLocation, indx);
+        //     indx++;
+        // }
+        //
+        // if (AmbientOcclusionTextureLocation != -1)
+        // {
+        //     GL.Uniform1(AmbientOcclusionTextureLocation, indx);
+        //     indx++;
+        // }
+        //
+        // if (ShadowMapTextureLocation != -1)
+        // {
+        //     GL.Uniform1(ShadowMapTextureLocation, indx);
+        //     indx++;
+        // }
+        //
+        // if (bloomTextureLocation != -1)
+        // {
+        //     GL.Uniform1(bloomTextureLocation, indx);
+        //     indx++;
+        // }
+        //
+        // if (bloomThresholdLocation != -1)
+        // {
+        //     GL.Uniform1(bloomThresholdLocation, indx);
+        //     indx++;
+        // }
 
         // int mainTextureLocation = GL.GetUniformLocation(ShaderCache.ShaderInUse, "textureObject");
         // int shadowMapTextureLocation = GL.GetUniformLocation(ShaderCache.ShaderInUse, "shadowMap");
