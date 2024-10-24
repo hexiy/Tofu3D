@@ -82,14 +82,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>0.58356416</X>
-        <Y>1.2442894</Y>
-        <Z>2.1627855</Z>
+        <X>0.32664502</X>
+        <Y>1.5793273</Y>
+        <Z>2.7713904</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.58356416</X>
-        <Y>1.2442894</Y>
-        <Z>2.1627855</Z>
+        <X>0.32664502</X>
+        <Y>1.5793273</Y>
+        <Z>2.7713904</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -102,8 +102,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-22.882654</X>
-        <Y>168.36015</Y>
+        <X>-13.695947</X>
+        <Y>169.46251</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -455,5 +455,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>268</GameObjectNextId>
+  <GameObjectNextId>272</GameObjectNextId>
 </SceneFile>

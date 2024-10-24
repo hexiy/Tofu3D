@@ -11,6 +11,7 @@ public class RenderPassBloomPostProcess : RenderPass
     public RenderTexture BloomRenderTextureVertical { get; protected set; }
 
     public static RenderPassBloomPostProcess I;
+
     public RenderPassBloomPostProcess(RenderPassBloomThreshold renderPassBloomThreshold) : base(RenderPassType
         .BloomPostProcess)
     {
@@ -31,6 +32,8 @@ public class RenderPassBloomPostProcess : RenderPass
         base.Initialize();
     }
 
+    private float _blurOffset = 0f;
+
     public override void RenderToRenderTexture(RenderTexture target, FramebufferAttachment attachment)
     {
         if (PassRenderTexture == null)
@@ -46,10 +49,16 @@ public class RenderPassBloomPostProcess : RenderPass
             return;
         }
 
-        BlurHorizontal();
-        BlurVertical();
-        BlurHorizontal();
-        BlurVertical();
+        for (int i = 0; i < 10; i++)
+        {
+            _blurOffset = i * 0.00006f;
+            BlurHorizontal();
+            BlurVertical();
+        }
+        // BlurHorizontal();
+        // BlurVertical();
+        // BlurHorizontal();
+        // BlurVertical();
 
         target.Bind();
 
@@ -60,8 +69,8 @@ public class RenderPassBloomPostProcess : RenderPass
         Tofu.ShaderManager.BindVertexArray(_bloomPostProcessMaterial.Vao);
 
         // GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-
         GL.Enable(EnableCap.Blend);
+
         // GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.BlendFunc(BlendingFactor.One, BlendingFactor.One); // Additive blending for bloom effect
         GL.ActiveTexture(TextureUnit.Texture0);
@@ -79,13 +88,6 @@ public class RenderPassBloomPostProcess : RenderPass
         target.Unbind();
     }
 
-    float[] kernel= new float[25]{
-        1f/273.0f,  4f/273.0f,  6f/273.0f,  4f/273.0f, 1f/273.0f,
-        4f/273.0f, 16f/273.0f, 24f/273.0f, 16f/273.0f, 4f/273.0f,
-        6f/273.0f, 24f/273.0f, 36f/273.0f, 24f/273.0f, 6f/273.0f,
-        4f/273.0f, 16f/273.0f, 24f/273.0f, 16f/273.0f, 4f/273.0f,
-        1f/273.0f,  4f/273.0f,  6f/273.0f,  4f/273.0f, 1f/273.0f
-    };
     private void BlurHorizontal()
     {
         BloomRenderTextureHorizontal.Bind();
@@ -93,16 +95,12 @@ public class RenderPassBloomPostProcess : RenderPass
 
         Tofu.ShaderManager.UseShader(_horizontalBlurMaterial.Shader);
         _horizontalBlurMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
-        _horizontalBlurMaterial.Shader.SetFloat("texelWidth", 1f / BloomRenderTextureHorizontal.Size.X);
-        _horizontalBlurMaterial.Shader.SetFloat("texelHeight", 1f / BloomRenderTextureHorizontal.Size.Y);
-        
-  
-        _horizontalBlurMaterial.Shader.SetFloatArray("kernel", kernel);
+        _horizontalBlurMaterial.Shader.SetFloat("texelWidth", 1f / BloomRenderTextureHorizontal.Size.X + _blurOffset);
+        _horizontalBlurMaterial.Shader.SetFloat("texelHeight", 1f / BloomRenderTextureHorizontal.Size.Y + _blurOffset);
 
         Tofu.ShaderManager.BindVertexArray(_horizontalBlurMaterial.Vao);
 
         GL.Disable(EnableCap.Blend);
-        GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
         GL.ActiveTexture(TextureUnit.Texture0);
         TextureHelper.BindTexture(_renderPassBloomThreshold.PassRenderTexture
@@ -123,14 +121,12 @@ public class RenderPassBloomPostProcess : RenderPass
 
         Tofu.ShaderManager.UseShader(_verticalBlurMaterial.Shader);
         _verticalBlurMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
-        _verticalBlurMaterial.Shader.SetFloat("texelWidth", 1f / BloomRenderTextureVertical.Size.X);
-        _verticalBlurMaterial.Shader.SetFloat("texelHeight", 1f / BloomRenderTextureVertical.Size.Y);
-        _verticalBlurMaterial.Shader.SetFloatArray("kernel", kernel);
+        _verticalBlurMaterial.Shader.SetFloat("texelWidth", 1f / BloomRenderTextureVertical.Size.X + _blurOffset);
+        _verticalBlurMaterial.Shader.SetFloat("texelHeight", 1f / BloomRenderTextureVertical.Size.Y + _blurOffset);
 
         Tofu.ShaderManager.BindVertexArray(_verticalBlurMaterial.Vao);
 
         GL.Disable(EnableCap.Blend);
-        GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
         GL.ActiveTexture(TextureUnit.Texture0);
         TextureHelper.BindTexture(BloomRenderTextureHorizontal
