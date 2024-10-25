@@ -66,7 +66,8 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
             // save meshes too
             assetMesh = LoadMeshFromData(data: data, vertices: vertices, uvs: uvs, normals: normals,
-                lineStartIndex: ref lineStartIndex);
+                lineStartIndex: ref lineStartIndex, singleMesh: importParameters.ImportAsSingleMesh,
+                smoothNormals: importParameters.SmoothNormals);
 
             int meshIndex = model.PathsToMeshAssets.Count;
 
@@ -89,7 +90,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
 
     private Asset_Mesh LoadMeshFromData(string[] data, List<float> vertices, List<float> uvs, List<float> normals,
-        ref int lineStartIndex)
+        ref int lineStartIndex, bool singleMesh = false, bool smoothNormals = true)
     {
         List<float> everything = new();
         var numberOfIndicesPerLine = 0;
@@ -187,7 +188,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                     }
                 }
             }
-            else if (line.StartsWith("g") || line.StartsWith("usemtl"))
+            else if ((line.StartsWith("g") || line.StartsWith("usemtl")) && singleMesh == false)
             {
                 // new mesh
                 lineStartIndex = lineIndex + 1;
@@ -209,115 +210,11 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             floatsOfPosition + floatsOfUv + floatsOfNormal; // (9+6+9) = 24
         int floatsPerVertex = floatsPerTriangle / 3; // 24/3 = 8 to get to another vertex
 
-
-        // smooth normals
-        ConcurrentDictionary<Vector3, Vector3> smoothNormals = new ConcurrentDictionary<Vector3, Vector3>();
-        // Dictionary<vertexPosition, accumulatedNormals>
-        // and at the end we just find those vertex positions again, and assign them new normal, the accumulatedNormal but normalized
-
-        ParallelOptions opt = new() { MaxDegreeOfParallelism = Environment.ProcessorCount };
-        Parallel.For(0, (int)MathF.Floor((float)everything.Count / (float)floatsPerTriangle), parallelOptions: opt, i =>
+        if (smoothNormals)
         {
-            int triangle1StartIndex = i * floatsPerTriangle;
-            Vector3 t1position1 = new Vector3(
-                everything[triangle1StartIndex + 0],
-                everything[triangle1StartIndex + 1],
-                everything[triangle1StartIndex + 2]);
-            Vector3 t1position2 = new Vector3(
-                everything[triangle1StartIndex + floatsPerVertex + 0],
-                everything[triangle1StartIndex + floatsPerVertex + 1],
-                everything[triangle1StartIndex + floatsPerVertex + 2]);
-            Vector3 t1position3 = new Vector3(
-                everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 0],
-                everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 1],
-                everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 2]);
-
-            int offset = 5; // pos.x,pos.y,pos.z, uv.x,uv.y
-            Vector3 t1nm1 = new Vector3(
-                everything[triangle1StartIndex + offset + 0],
-                everything[triangle1StartIndex + offset + 1],
-                everything[triangle1StartIndex + offset + 2]);
-            Vector3 t1nm2 = new Vector3(
-                everything[triangle1StartIndex + offset + floatsPerVertex + 0],
-                everything[triangle1StartIndex + offset + floatsPerVertex + 1],
-                everything[triangle1StartIndex + offset + floatsPerVertex + 2]);
-            Vector3 t1nm3 = new Vector3(
-                everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0],
-                everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1],
-                everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2]);
-
-            if (smoothNormals.ContainsKey(t1position1) == false)
-            {
-                smoothNormals.TryAdd(t1position1, t1nm1);
-            }
-            else
-            {
-                smoothNormals[t1position1] =smoothNormals[t1position1]+ t1nm1;
-            }
-
-            if (smoothNormals.ContainsKey(t1position2) == false)
-            {
-                smoothNormals.TryAdd(t1position2, t1nm2);
-            }
-            else
-            {
-                smoothNormals[t1position2] =smoothNormals[t1position2]+  t1nm2;
-            }
-
-            if (smoothNormals.ContainsKey(t1position3) == false)
-            {
-                smoothNormals.TryAdd(t1position3, t1nm3);
-            }
-            else
-            {
-                smoothNormals[t1position3] = smoothNormals[t1position3]+ t1nm3;
-            }
-        });
-        foreach (KeyValuePair<Vector3, Vector3> pair in smoothNormals)
-        {
-            smoothNormals[pair.Key] = pair.Value.Normalized();
+            SmoothNormals(everything, floatsPerTriangle, floatsPerVertex);
         }
 
-        Parallel.For(0, (int)MathF.Floor((float)everything.Count / (float)floatsPerTriangle), parallelOptions: opt, i =>
-        {
-            int triangle1StartIndex = i * floatsPerTriangle;
-            Vector3 t1position1 = new Vector3(
-                everything[triangle1StartIndex + 0],
-                everything[triangle1StartIndex + 1],
-                everything[triangle1StartIndex + 2]);
-            Vector3 t1position2 = new Vector3(
-                everything[triangle1StartIndex + floatsPerVertex + 0],
-                everything[triangle1StartIndex + floatsPerVertex + 1],
-                everything[triangle1StartIndex + floatsPerVertex + 2]);
-            Vector3 t1position3 = new Vector3(
-                everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 0],
-                everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 1],
-                everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 2]);
-
-            int offset = 5; // pos.x,pos.y,pos.z, uv.x,uv.y
-
-
-            if (smoothNormals.TryGetValue(t1position1, out var normal1))
-            {
-                everything[triangle1StartIndex + offset + 0] = normal1.X;
-                everything[triangle1StartIndex + offset + 1] = normal1.Y;
-                everything[triangle1StartIndex + offset + 2] = normal1.Z;
-            }
-
-            if (smoothNormals.TryGetValue(t1position2, out var normal2))
-            {
-                everything[triangle1StartIndex + offset + floatsPerVertex + 0] = normal2.X;
-                everything[triangle1StartIndex + offset + floatsPerVertex + 1] = normal2.Y;
-                everything[triangle1StartIndex + offset + floatsPerVertex + 2] = normal2.Z;
-            }
-
-            if (smoothNormals.TryGetValue(t1position3, out var normal3))
-            {
-                everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = normal3.X;
-                everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = normal3.Y;
-                everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = normal3.Z;
-            }
-        });
         List<float> newEverything = new List<float>();
 
         for (int indexOfVertex1Start = 0;
@@ -425,5 +322,119 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         mesh.VerticesCount = totalVerticesCount;
 
         return mesh;
+    }
+
+    private static void SmoothNormals(List<float> everything, int floatsPerTriangle, int floatsPerVertex)
+    {
+        // smooth normals
+        ConcurrentDictionary<Vector3, Vector3> smoothedNormals = new ConcurrentDictionary<Vector3, Vector3>();
+        // Dictionary<vertexPosition, accumulatedNormals>
+        // and at the end we just find those vertex positions again, and assign them new normal, the accumulatedNormal but normalized
+
+        ParallelOptions opt = new() { MaxDegreeOfParallelism = Environment.ProcessorCount };
+        Parallel.For(0, (int)MathF.Floor((float)everything.Count / (float)floatsPerTriangle), parallelOptions: opt,
+            i =>
+            {
+                int triangle1StartIndex = i * floatsPerTriangle;
+                Vector3 t1position1 = new Vector3(
+                    everything[triangle1StartIndex + 0],
+                    everything[triangle1StartIndex + 1],
+                    everything[triangle1StartIndex + 2]);
+                Vector3 t1position2 = new Vector3(
+                    everything[triangle1StartIndex + floatsPerVertex + 0],
+                    everything[triangle1StartIndex + floatsPerVertex + 1],
+                    everything[triangle1StartIndex + floatsPerVertex + 2]);
+                Vector3 t1position3 = new Vector3(
+                    everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 0],
+                    everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 1],
+                    everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 2]);
+
+                int offset = 5; // pos.x,pos.y,pos.z, uv.x,uv.y
+                Vector3 t1nm1 = new Vector3(
+                    everything[triangle1StartIndex + offset + 0],
+                    everything[triangle1StartIndex + offset + 1],
+                    everything[triangle1StartIndex + offset + 2]);
+                Vector3 t1nm2 = new Vector3(
+                    everything[triangle1StartIndex + offset + floatsPerVertex + 0],
+                    everything[triangle1StartIndex + offset + floatsPerVertex + 1],
+                    everything[triangle1StartIndex + offset + floatsPerVertex + 2]);
+                Vector3 t1nm3 = new Vector3(
+                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0],
+                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1],
+                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2]);
+
+                if (smoothedNormals.ContainsKey(t1position1) == false)
+                {
+                    smoothedNormals.TryAdd(t1position1, t1nm1);
+                }
+                else
+                {
+                    smoothedNormals[t1position1] = smoothedNormals[t1position1] + t1nm1;
+                }
+
+                if (smoothedNormals.ContainsKey(t1position2) == false)
+                {
+                    smoothedNormals.TryAdd(t1position2, t1nm2);
+                }
+                else
+                {
+                    smoothedNormals[t1position2] = smoothedNormals[t1position2] + t1nm2;
+                }
+
+                if (smoothedNormals.ContainsKey(t1position3) == false)
+                {
+                    smoothedNormals.TryAdd(t1position3, t1nm3);
+                }
+                else
+                {
+                    smoothedNormals[t1position3] = smoothedNormals[t1position3] + t1nm3;
+                }
+            });
+        foreach (KeyValuePair<Vector3, Vector3> pair in smoothedNormals)
+        {
+            smoothedNormals[pair.Key] = pair.Value.Normalized();
+        }
+
+        Parallel.For(0, (int)MathF.Floor((float)everything.Count / (float)floatsPerTriangle), parallelOptions: opt,
+            i =>
+            {
+                int triangle1StartIndex = i * floatsPerTriangle;
+                Vector3 t1position1 = new Vector3(
+                    everything[triangle1StartIndex + 0],
+                    everything[triangle1StartIndex + 1],
+                    everything[triangle1StartIndex + 2]);
+                Vector3 t1position2 = new Vector3(
+                    everything[triangle1StartIndex + floatsPerVertex + 0],
+                    everything[triangle1StartIndex + floatsPerVertex + 1],
+                    everything[triangle1StartIndex + floatsPerVertex + 2]);
+                Vector3 t1position3 = new Vector3(
+                    everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 0],
+                    everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 1],
+                    everything[triangle1StartIndex + floatsPerVertex + floatsPerVertex + 2]);
+
+                int offset = 5; // pos.x,pos.y,pos.z, uv.x,uv.y
+
+
+                if (smoothedNormals.TryGetValue(t1position1, out var normal1))
+                {
+                    everything[triangle1StartIndex + offset + 0] = normal1.X;
+                    everything[triangle1StartIndex + offset + 1] = normal1.Y;
+                    everything[triangle1StartIndex + offset + 2] = normal1.Z;
+                }
+
+                if (smoothedNormals.TryGetValue(t1position2, out var normal2))
+                {
+                    everything[triangle1StartIndex + offset + floatsPerVertex + 0] = normal2.X;
+                    everything[triangle1StartIndex + offset + floatsPerVertex + 1] = normal2.Y;
+                    everything[triangle1StartIndex + offset + floatsPerVertex + 2] = normal2.Z;
+                }
+
+                if (smoothedNormals.TryGetValue(t1position3, out var normal3))
+                {
+                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = normal3.X;
+                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = normal3.Y;
+                    everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 2] = normal3.Z;
+                }
+            });
     }
 }

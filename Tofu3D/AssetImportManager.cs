@@ -30,7 +30,7 @@ public class AssetImportManager
     public void ImportAsset(string rawAssetPath, bool reimportIfExists = false)
     {
         int id = rawAssetPath.GetHashCode();
-
+        Tofu.AssetLoadManager.Unload(rawAssetPath);
         string rawAssetFileName = Path.GetFileName(rawAssetPath); // with extension
 
         string importParametersFilePath = rawAssetPath.GetPathOfImportParametersOfSourceAssetFile();

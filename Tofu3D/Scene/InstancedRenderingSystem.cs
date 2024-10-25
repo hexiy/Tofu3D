@@ -211,10 +211,10 @@ public class InstancedRenderingSystem
 
             }
             
-            if (RenderPassDirectionalLightShadowDepth.I?.PassRenderTexture != null)
+            if (RenderPassDirectionalLightShadowDepth.I?.FinalFramebuffer != null)
             {
                 GL.ActiveTexture(TextureUnit.Texture3);
-                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.PassRenderTexture.DepthAttachmentID);
+                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.FinalFramebuffer.DepthAttachmentID);
             }
 
 

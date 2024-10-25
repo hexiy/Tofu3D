@@ -464,14 +464,14 @@ public class EditorPanelBrowser : EditorPanel
                                 pathOfImportParametersOfSourceAssetFile, importParameters);
                         });
                 }
-                // if (_expandedAssets.Contains(assetPath) == false)
-                // {
-                //     _expandedAssets.Add(assetPath);
-                // }
-                // else
-                // {
-                //     _expandedAssets.Remove(assetPath);
-                // }
+                if (_expandedAssets.Contains(assetPath) == false)
+                {
+                    _expandedAssets.Add(assetPath);
+                }
+                else
+                {
+                    _expandedAssets.Remove(assetPath);
+                }
             }
         }
 

@@ -23,9 +23,9 @@ public class RenderPassPostProcess : RenderPass
     }
 
 
-    public override void RenderToRenderTexture(RenderTexture target, FramebufferAttachment attachment)
+    public override void RenderThisAsFullscreenQuadToTargetFramebuffer(Framebuffer target, FramebufferAttachment attachment)
     {
-        if (PassRenderTexture == null)
+        if (FinalFramebuffer == null)
         {
             Debug.Log("PassRenderTexture == null");
             return;
@@ -56,13 +56,13 @@ public class RenderPassPostProcess : RenderPass
 
     protected override void SetupRenderTexture()
     {
-        if (PassRenderTexture != null)
+        if (FinalFramebuffer != null)
         {
-            PassRenderTexture.Size = Tofu.RenderPassSystem.ViewSize;
-            PassRenderTexture.Invalidate(false);
+            FinalFramebuffer.Size = Tofu.RenderPassSystem.ViewSize;
+            FinalFramebuffer.Invalidate(false);
             return;
         }
 
-        PassRenderTexture = new RenderTexture(Tofu.RenderPassSystem.ViewSize, true, true);
+        FinalFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, true);
     }
 }

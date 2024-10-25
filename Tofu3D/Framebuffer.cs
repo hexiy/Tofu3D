@@ -1,6 +1,6 @@
 ﻿namespace Tofu3D;
 
-public class RenderTexture
+public class Framebuffer
 {
     private readonly Asset_Material _depthRenderTextureMaterial;
 
@@ -19,7 +19,7 @@ public class RenderTexture
     public Vector2 Size;
     private int DownsampleFactor=1;
 
-    public RenderTexture(Vector2 size, bool colorAttachment = false, bool depthAttachment = false,
+    public Framebuffer(Vector2 size, bool colorAttachment = false, bool depthAttachment = false,
         bool hasStencil = false, bool isGrayscale = false, int downsampleFactor = 1)
     {
         _depthRenderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/DepthRenderTexture.mat");
@@ -75,6 +75,11 @@ public class RenderTexture
                 (int)TextureMinFilter.Linear);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter,
                 (int)TextureMagFilter.Linear);
+            
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS,
+                (int)TextureWrapMode.ClampToEdge);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT,
+                (int)TextureWrapMode.ClampToEdge);
 
             GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0,
                 TextureTarget.Texture2D, ColorAttachmentID, 0);
@@ -112,9 +117,9 @@ public class RenderTexture
             };
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureBorderColor, borderColor);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS,
-                (int)TextureWrapMode.ClampToBorder);
+                (int)TextureWrapMode.ClampToEdge);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT,
-                (int)TextureWrapMode.ClampToBorder);
+                (int)TextureWrapMode.ClampToEdge);
 
             GL.FramebufferTexture2D(FramebufferTarget.Framebuffer,
                 _hasStencil ? FramebufferAttachment.DepthStencilAttachment : FramebufferAttachment.DepthAttachment,
@@ -162,7 +167,7 @@ public class RenderTexture
         Unbind();
     }
 
-    public void RenderDepthAttachment(int texture)
+    public void RenderDepthAttachmentToThis(int texture)
     {
         Tofu.ShaderManager.UseShader(_depthRenderTextureMaterial.Shader);
         _depthRenderTextureMaterial.Shader.SetMatrix4X4("u_mvp",
@@ -181,7 +186,7 @@ public class RenderTexture
         Tofu.ShaderManager.BindVertexArray(0);
     }
 
-    public void RenderColorAttachment(int texture)
+    public void RenderColorAttachmentToThis(int texture)
     {
         // return;
         // GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);

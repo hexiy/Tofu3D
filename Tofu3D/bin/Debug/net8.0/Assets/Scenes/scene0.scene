@@ -27,7 +27,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Directional Light</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -43,7 +43,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Wood1</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -82,14 +82,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>0.8255377</X>
-        <Y>1.1419562</Y>
-        <Z>3.1581993</Z>
+        <X>0.2562081</X>
+        <Y>1.7654339</Y>
+        <Z>3.2489014</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.8255377</X>
-        <Y>1.1419562</Y>
-        <Z>3.1581993</Z>
+        <X>0.2562081</X>
+        <Y>1.7654339</Y>
+        <Z>3.2489014</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -102,8 +102,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>-11.451423</X>
-        <Y>172.88992</Y>
+        <X>19.337658</X>
+        <Y>163.27339</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -214,8 +214,8 @@
       <Rotate>false</Rotate>
       <RotateOffset>0</RotateOffset>
       <Size>
-        <X>500</X>
-        <Y>500</Y>
+        <X>1500</X>
+        <Y>1500</Y>
       </Size>
       <Speed>100</Speed>
     </Component>
@@ -306,7 +306,7 @@
             <X>4096</X>
             <Y>4096</Y>
           </Size>
-          <TextureId>21</TextureId>
+          <TextureId>17</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -329,10 +329,10 @@
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
-        <MeshAssetPath>Library/Meshes/1d7e925654624282a6a6409d5156d97b.obj_0.tofumesh</MeshAssetPath>
-        <Vao>9</Vao>
-        <VerticesCount>145668</VerticesCount>
-        <VertexBufferDataLength>2039352</VertexBufferDataLength>
+        <MeshAssetPath>Library/Meshes/model.obj_0.tofumesh</MeshAssetPath>
+        <Vao>5</Vao>
+        <VerticesCount>0</VerticesCount>
+        <VertexBufferDataLength>0</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
       </RuntimeMesh>
       <RenderMode>Opaque</RenderMode>
@@ -422,7 +422,7 @@
             <X>4096</X>
             <Y>4096</Y>
           </Size>
-          <TextureId>21</TextureId>
+          <TextureId>17</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -446,7 +446,7 @@
       <RuntimeMesh>
         <PathToRawAsset />
         <MeshAssetPath>Library/Meshes/sculpture.obj_1.tofumesh</MeshAssetPath>
-        <Vao>10</Vao>
+        <Vao>6</Vao>
         <VerticesCount>149994</VerticesCount>
         <VertexBufferDataLength>2099916</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -455,5 +455,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>278</GameObjectNextId>
+  <GameObjectNextId>290</GameObjectNextId>
 </SceneFile>

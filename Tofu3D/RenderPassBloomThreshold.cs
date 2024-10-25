@@ -4,6 +4,7 @@ public class RenderPassBloomThreshold : RenderPass
 {
     private Asset_Material _bloomThresholdMaterial;
     public static RenderPassBloomThreshold I;
+
     public RenderPassBloomThreshold() : base(RenderPassType.BloomThreshold)
     {
         I = this;
@@ -21,9 +22,10 @@ public class RenderPassBloomThreshold : RenderPass
     }
 
     // this will not render to target(final) render texture, but our own
-    public override void RenderToRenderTexture(RenderTexture target, FramebufferAttachment attachment)
+    public override void RenderThisAsFullscreenQuadToTargetFramebuffer(Framebuffer target,
+        FramebufferAttachment attachment)
     {
-        if (PassRenderTexture == null)
+        if (FinalFramebuffer == null)
         {
             Debug.Log("PassRenderTexture == null");
             return;
@@ -36,11 +38,11 @@ public class RenderPassBloomThreshold : RenderPass
         }
 
 
-        PassRenderTexture.Bind();
+        FinalFramebuffer.Bind();
 
         Tofu.ShaderManager.UseShader(_bloomThresholdMaterial.Shader);
         _bloomThresholdMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
-
+        _bloomThresholdMaterial.Shader.SetFloat("downsampleFactor", 4);
         Tofu.ShaderManager.BindVertexArray(_bloomThresholdMaterial.Vao);
 
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
@@ -53,18 +55,18 @@ public class RenderPassBloomThreshold : RenderPass
         DebugHelper.LogDrawCall();
         Tofu.ShaderManager.BindVertexArray(0);
 
-        PassRenderTexture.Unbind();
+        FinalFramebuffer.Unbind();
     }
 
     protected override void SetupRenderTexture()
     {
-        if (PassRenderTexture != null)
+        if (FinalFramebuffer != null)
         {
-            PassRenderTexture.Size = Tofu.RenderPassSystem.ViewSize/4f;
-            PassRenderTexture.Invalidate(false);
+            FinalFramebuffer.Size = Tofu.RenderPassSystem.ViewSize / 4f;
+            FinalFramebuffer.Invalidate(false);
             return;
         }
 
-        PassRenderTexture = new RenderTexture(Tofu.RenderPassSystem.ViewSize, true, false, downsampleFactor: 4);
+        FinalFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, downsampleFactor: 4);
     }
 }

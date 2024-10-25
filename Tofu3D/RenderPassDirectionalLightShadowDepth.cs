@@ -14,7 +14,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
     public static RenderPassDirectionalLightShadowDepth I { get; private set; }
 
     // shadows depth map
-    public RenderTexture DebugDepthVisualisationTexture { get; private set; }
+    public Framebuffer DebugDepthVisualisationTexture { get; private set; }
 
     public override bool CanRender() => _directionalLight?.IsActive == true && Enabled;
 
@@ -33,9 +33,9 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
     protected override void SetupRenderTexture()
     {
         // PassRenderTexture contains the depth, we render that depth with DeptRenderTexture.glsl shader to DepthMapRenderTexture and use that as a shadowmap
-        PassRenderTexture = new RenderTexture(_directionalLight.Size, false, true);
-        PassRenderTexture.ClearColor = new Color(0, 150, 0, 255);
-        DebugDepthVisualisationTexture = new RenderTexture(_directionalLight.Size, true);
+        FinalFramebuffer = new Framebuffer(_directionalLight.Size, false, true);
+        FinalFramebuffer.ClearColor = new Color(0, 150, 0, 255);
+        DebugDepthVisualisationTexture = new Framebuffer(_directionalLight.Size, true);
     }
 
     protected override void PreRender()
@@ -80,7 +80,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
         // GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         // GL.ClearColor(1,0,1,1);
 
-        DebugDepthVisualisationTexture.RenderDepthAttachment(PassRenderTexture.DepthAttachmentID);
+        DebugDepthVisualisationTexture.RenderDepthAttachmentToThis(FinalFramebuffer.DepthAttachmentID);
 
         DebugDepthVisualisationTexture.Unbind();
     }

@@ -24,12 +24,13 @@ gl_Position = u_mvp * vec4(position.x, position.y, 0.0, 1.0);// * vec4(2,2,1,1);
  in vec2 texCoord;
 uniform sampler2D textureObject;
 uniform float threshold = 0.8;
+        uniform float downsampleFactor = 4;
 
 layout (location = 0) out vec4 color;
 
 void main(void)
 {
-vec4 texColor = texture(textureObject, texCoord*4);
+vec4 texColor = texture(textureObject, texCoord*downsampleFactor);
 
 float brightness = dot(texColor.rgb, vec3(0.2126, 0.7152, 0.0722));  // Luminance calculation
 if (brightness > threshold)

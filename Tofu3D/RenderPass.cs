@@ -14,7 +14,7 @@ public abstract class RenderPass : IComparable<RenderPass>
     }
 
     public RenderPassType RenderPassType { get; }
-    public RenderTexture PassRenderTexture { get; protected set; }
+    public Framebuffer FinalFramebuffer { get; protected set; }
 
     public int CompareTo(RenderPass comparePart)
     {
@@ -41,7 +41,7 @@ public abstract class RenderPass : IComparable<RenderPass>
             return;
         }
 
-        PassRenderTexture.Clear();
+        FinalFramebuffer.Clear();
     }
 
     public void RegisterRender(Action render)
@@ -57,7 +57,7 @@ public abstract class RenderPass : IComparable<RenderPass>
         _renderAction = null;
     }
 
-    public void Render()
+    public void RenderThisAsFullscreenQuadToTargetFramebuffer()
     {
         // if (CanRender() == false)
         // {
@@ -77,9 +77,9 @@ public abstract class RenderPass : IComparable<RenderPass>
         PostUnbindFrameBuffer();
     }
 
-    public virtual void RenderToRenderTexture(RenderTexture target, FramebufferAttachment attachment)
+    public virtual void RenderThisAsFullscreenQuadToTargetFramebuffer(Framebuffer target, FramebufferAttachment attachment)
     {
-        if (PassRenderTexture == null)
+        if (FinalFramebuffer == null)
         {
             Debug.Log("PassRenderTexture == null");
             return;
@@ -93,15 +93,15 @@ public abstract class RenderPass : IComparable<RenderPass>
         // GL.Viewport(0, 0, (int) target.Size.X*2, (int) target.Size.Y*2);
         // wtf, why does the viewport need to be target.Size.X * 2 ??????
         // its 1380,
-        if (attachment == FramebufferAttachment.Color && PassRenderTexture.ColorAttachmentID != -1)
+        if (attachment == FramebufferAttachment.Color && FinalFramebuffer.ColorAttachmentID != -1)
         {
-            target.RenderColorAttachment(PassRenderTexture.ColorAttachmentID);
+            target.RenderColorAttachmentToThis(FinalFramebuffer.ColorAttachmentID);
         }
 
         if (attachment == FramebufferAttachment.Depth && target.DepthAttachmentID != -1 &&
-            PassRenderTexture.DepthAttachmentID != -1)
+            FinalFramebuffer.DepthAttachmentID != -1)
         {
-            target.RenderDepthAttachment(PassRenderTexture.DepthAttachmentID);
+            target.RenderDepthAttachmentToThis(FinalFramebuffer.DepthAttachmentID);
         }
 
         target.Unbind();
@@ -109,17 +109,17 @@ public abstract class RenderPass : IComparable<RenderPass>
 
     internal void BindFrameBuffer()
     {
-        PassRenderTexture?.Bind();
+        FinalFramebuffer?.Bind();
 
-        if (PassRenderTexture != null)
+        if (FinalFramebuffer != null)
         {
-            GL.Viewport(0, 0, (int)PassRenderTexture.Size.X, (int)PassRenderTexture.Size.Y);
+            GL.Viewport(0, 0, (int)FinalFramebuffer.Size.X, (int)FinalFramebuffer.Size.Y);
         }
     }
 
     internal void UnbindFrameBuffer()
     {
-        PassRenderTexture?.Unbind();
+        FinalFramebuffer?.Unbind();
     }
 
     protected virtual void PreBindFrameBuffer()

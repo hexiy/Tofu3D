@@ -91,6 +91,15 @@ public class AssetLoadManager
         return asset;
     }
 
+    public void Unload(string path)
+    {
+        int id = path.GetHashCode();
+        if (LoadedAssets.ContainsKey(id))
+        {
+            LoadedAssets.Remove(id);
+        }
+    }
+
     public void Save<T>(string path, T asset, AssetLoadParameters<T>? loadParameters = null, bool json = true)
         where T : Asset<T>
     {

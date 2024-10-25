@@ -15,7 +15,7 @@ public class RenderPassSystem
 
     public RenderPassType CurrentRenderPassType { get; private set; } = RenderPassType.DirectionalLightShadowDepth;
 
-    public RenderTexture FinalRenderTexture /*
+    public Framebuffer FinalFramebuffer /*
     {
         get { return _renderPasses[^1].PassRenderTexture; }
     } //*/ { get; private set; } //= new RenderTexture(new Vector2(100, 100), true, false);
@@ -33,7 +33,7 @@ public class RenderPassSystem
     public void RebuildRenderTextures(Vector2 viewSize)
     {
         ViewSize = viewSize;
-        FinalRenderTexture = new RenderTexture(ViewSize, true);
+        FinalFramebuffer = new Framebuffer(ViewSize, true);
 
         foreach (var renderPass in RenderPasses)
         {
@@ -49,8 +49,8 @@ public class RenderPassSystem
         RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new();
         RenderPassZPrePass renderPassZPrePass = new();
         RenderPassOpaques renderPassOpaques = new();
-        RenderPassBloomThreshold renderPassBloomThreshold = new();
-        RenderPassBloomPostProcess renderPassBloomPostProcess = new(renderPassBloomThreshold);
+        // RenderPassBloomThreshold renderPassBloomThreshold = new();
+        // RenderPassBloomPostProcess renderPassBloomPostProcess = new(renderPassBloomThreshold);
         // RenderPassPostProcess renderPassPostProcess = new();
         // RenderPassUI renderPassUI = new();
 
@@ -118,7 +118,7 @@ public class RenderPassSystem
             CurrentRenderPassType = renderPass.RenderPassType;
 
 
-            renderPass.Render();
+            renderPass.RenderThisAsFullscreenQuadToTargetFramebuffer();
         }
 
         RenderFinalRenderTexture();
@@ -126,7 +126,7 @@ public class RenderPassSystem
 
     private void RenderFinalRenderTexture()
     {
-        FinalRenderTexture.Clear();
+        FinalFramebuffer.Clear();
 
         if (CanRender == false)
         {
@@ -145,7 +145,7 @@ public class RenderPassSystem
                 continue;
             }
 
-            renderPass.RenderToRenderTexture(FinalRenderTexture, FramebufferAttachment.Color);
+            renderPass.RenderThisAsFullscreenQuadToTargetFramebuffer(FinalFramebuffer, FramebufferAttachment.Color);
         }
     }
 }

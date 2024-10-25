@@ -18,13 +18,13 @@ public class RenderPassUI : RenderPass
 
     protected override void SetupRenderTexture()
     {
-        if (PassRenderTexture != null)
+        if (FinalFramebuffer != null)
         {
-            PassRenderTexture.Size = Tofu.RenderPassSystem.ViewSize;
-            PassRenderTexture.Invalidate(false);
+            FinalFramebuffer.Size = Tofu.RenderPassSystem.ViewSize;
+            FinalFramebuffer.Invalidate(false);
             return;
         }
 
-        PassRenderTexture = new RenderTexture(Tofu.RenderPassSystem.ViewSize, true, true, true);
+        FinalFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, true, true);
     }
 }
