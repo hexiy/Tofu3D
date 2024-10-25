@@ -19,9 +19,17 @@ public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
         {
             MeshAssetPath = meshAssetPath,
             VertexBufferDataLength = assetMesh.VertexBufferData.Length,
-            VerticesCount = assetMesh.VerticesCount
+            VerticesCount = assetMesh.VerticesCount,
+            Vao = -1
         };
 
+        // if mesh is already loaded, we take its vao!! problem is on model import we unload the runtime meshes so we wont find anything here...
+        RuntimeMesh alreadyLoadedMesh = Tofu.AssetLoadManager.GetLoadedAsset<RuntimeMesh>(meshAssetPath);
+        if (alreadyLoadedMesh != null)
+        {
+            runtimeMesh.Vao = alreadyLoadedMesh.Vao;
+        }
+        
         BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, assetMesh.VertexBufferData, assetMesh.CountsOfElements);
 
         runtimeMesh.InitAssetRuntimeHandle(runtimeMesh.Vao);

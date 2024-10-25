@@ -44,8 +44,7 @@ public class AssetLoadManager
         return foundAssets;
     }
 
-    // path here will be Assets/xxxxx
-    public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null) where T : Asset<T>
+    public T? GetLoadedAsset<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null) where T : Asset<T>
     {
         int id = sourcePath.GetHashCode();
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
@@ -54,6 +53,29 @@ public class AssetLoadManager
         T asset = null;
 
         if (existsInDatabase)
+        {
+            asset = LoadedAssets[id] as T;
+        }
+
+        return asset;
+    }
+    public bool IsAssetLoaded(string sourcePath)
+    {
+        int id = sourcePath.GetHashCode();
+        bool existsInDatabase = LoadedAssets.ContainsKey(id);
+
+        return existsInDatabase;
+    }
+    // path here will be Assets/xxxxx
+    public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null, bool overwriteAlreadyLoadedAssets=false) where T : Asset<T>
+    {
+        int id = sourcePath.GetHashCode();
+        bool existsInDatabase = LoadedAssets.ContainsKey(id);
+        
+        // 
+        T asset = null;
+
+        if (existsInDatabase && overwriteAlreadyLoadedAssets==false)
         {
             asset = LoadedAssets[id] as T;
         }
@@ -96,6 +118,8 @@ public class AssetLoadManager
         int id = path.GetHashCode();
         if (LoadedAssets.ContainsKey(id))
         {
+            Debug.Log($"unloaded asset:{path}");
+            // LoadedAssets[id].IsLoaded = false;
             LoadedAssets.Remove(id);
         }
     }

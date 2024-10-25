@@ -43,11 +43,11 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Wood1</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>false</ActiveSelf>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -59,7 +59,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Sculpture</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -82,14 +82,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>0.2562081</X>
-        <Y>1.7654339</Y>
-        <Z>3.2489014</Z>
+        <X>-2.2002337</X>
+        <Y>3.5237622</Y>
+        <Z>10.930914</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.2562081</X>
-        <Y>1.7654339</Y>
-        <Z>3.2489014</Z>
+        <X>-2.2002337</X>
+        <Y>3.5237622</Y>
+        <Z>10.930914</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -102,8 +102,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>19.337658</X>
-        <Y>163.27339</Y>
+        <X>18.939213</X>
+        <Y>160.32422</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -329,10 +329,10 @@
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
-        <MeshAssetPath>Library/Meshes/model.obj_0.tofumesh</MeshAssetPath>
+        <MeshAssetPath>Library/Meshes/Teapot.obj_0.tofumesh</MeshAssetPath>
         <Vao>5</Vao>
-        <VerticesCount>0</VerticesCount>
-        <VertexBufferDataLength>0</VertexBufferDataLength>
+        <VerticesCount>63264</VerticesCount>
+        <VertexBufferDataLength>885696</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
       </RuntimeMesh>
       <RenderMode>Opaque</RenderMode>
@@ -455,5 +455,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>290</GameObjectNextId>
+  <GameObjectNextId>304</GameObjectNextId>
 </SceneFile>

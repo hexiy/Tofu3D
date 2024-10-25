@@ -70,7 +70,11 @@ public static class BufferFactory
     {
         GL.Enable(EnableCap.DepthTest);
 
-        vao = GL.GenVertexArray();
+        if (vao == -1)
+        {
+            vao = GL.GenVertexArray();
+        }
+
         GL.BindVertexArray(vao);
 
         var elementsCountPerVertex = 0;

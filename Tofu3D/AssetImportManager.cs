@@ -68,6 +68,17 @@ public class AssetImportManager
             {
                 Asset_Model model = (Importers[typeof(Asset_Model)] as AssetImporter_Model)
                     .ImportAsset(assetImportParametersModel);
+                
+                foreach (string meshAsset in model.PathsToMeshAssets)
+                {
+                    
+                    // if mesh was loaded, we load new mesh
+                    if (Tofu.AssetLoadManager.IsAssetLoaded(meshAsset))
+                    {
+                        // Tofu.AssetLoadManager.Unload(meshAsset);
+                        Tofu.AssetLoadManager.Load<RuntimeMesh>(meshAsset, overwriteAlreadyLoadedAssets: true);
+                    }
+                }
 
                 // Assets[id] = model;
             }
