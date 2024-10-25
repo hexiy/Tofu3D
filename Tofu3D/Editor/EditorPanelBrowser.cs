@@ -28,7 +28,7 @@ public class EditorPanelBrowser : EditorPanel
     /// <summary>
     /// Stores paths
     /// </summary>
-    private List<string> _expandedAssets = new List<string>();
+    private List<int> _expandedAssets = new List<int>();
 
     public DirectoryInfo CurrentDirectory;
 
@@ -300,7 +300,11 @@ public class EditorPanelBrowser : EditorPanel
         //ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0,0,0,0));
 
         ImGui.PushStyleColor(ImGuiCol.Button, Color.Transparent.ToVector4());
-
+        if (_expandedAssets.Contains(assetIndex))
+        {
+            ImGui.PushStyleColor(ImGuiCol.Button, Color.AntiqueWhite.ToVector4());
+            // ImGui.PushStyleColor(ImGuiCol.ButtonHovered, Color.MidnightBlue.ToVector4());
+        }
         if (isDirectory)
         {
             ImGui.ImageButton(_directoryIcon.TextureId, _iconSize);
@@ -322,7 +326,10 @@ public class EditorPanelBrowser : EditorPanel
         }
 
         ImGui.PopStyleColor();
-
+        if (_expandedAssets.Contains(assetIndex))
+        {
+            ImGui.PopStyleColor();
+        }
 
         if (isTexture)
         {
@@ -464,13 +471,13 @@ public class EditorPanelBrowser : EditorPanel
                                 pathOfImportParametersOfSourceAssetFile, importParameters);
                         });
                 }
-                if (_expandedAssets.Contains(assetPath) == false)
+                if (_expandedAssets.Contains(assetIndex) == false)
                 {
-                    _expandedAssets.Add(assetPath);
+                    _expandedAssets.Add(assetIndex);
                 }
                 else
                 {
-                    _expandedAssets.Remove(assetPath);
+                    _expandedAssets.Remove(assetIndex);
                 }
             }
         }
@@ -521,7 +528,7 @@ public class EditorPanelBrowser : EditorPanel
 
         if (isModel)
         {
-            if (_expandedAssets.Contains(assetPath))
+            if (_expandedAssets.Contains(assetIndex))
             {
                 Asset_Model assetModel = Tofu.AssetLoadManager.Load<Asset_Model>(assetPath);
                 for (int meshIndex = 0; meshIndex < assetModel.PathsToMeshAssets.Count; meshIndex++)
