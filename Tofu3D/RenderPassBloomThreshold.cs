@@ -25,7 +25,7 @@ public class RenderPassBloomThreshold : RenderPass
     public override void RenderThisAsFullscreenQuadToTargetFramebuffer(Framebuffer target,
         FramebufferAttachment attachment)
     {
-        if (FinalFramebuffer == null)
+        if (MainFramebuffer == null)
         {
             Debug.Log("PassRenderTexture == null");
             return;
@@ -38,7 +38,7 @@ public class RenderPassBloomThreshold : RenderPass
         }
 
 
-        FinalFramebuffer.Bind();
+        MainFramebuffer.Bind();
 
         Tofu.ShaderManager.UseShader(_bloomThresholdMaterial.Shader);
         _bloomThresholdMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
@@ -55,18 +55,18 @@ public class RenderPassBloomThreshold : RenderPass
         DebugHelper.LogDrawCall();
         Tofu.ShaderManager.BindVertexArray(0);
 
-        FinalFramebuffer.Unbind();
+        MainFramebuffer.Unbind();
     }
 
     protected override void SetupRenderTexture()
     {
-        if (FinalFramebuffer != null)
+        if (MainFramebuffer != null)
         {
-            FinalFramebuffer.Size = Tofu.RenderPassSystem.ViewSize / 4f;
-            FinalFramebuffer.Invalidate(false);
+            MainFramebuffer.Size = Tofu.RenderPassSystem.ViewSize / 4f;
+            MainFramebuffer.Invalidate(false);
             return;
         }
 
-        FinalFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, downsampleFactor: 4);
+        MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, downsampleFactor: 4);
     }
 }

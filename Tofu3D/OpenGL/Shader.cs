@@ -131,6 +131,7 @@ public class
             GetUniformLocation("textureNormal"),
             GetUniformLocation("textureAo"),
             GetUniformLocation("shadowMap"),
+            GetUniformLocation("environmentCubemap"),
             GetUniformLocation("textureObject"),
             GetUniformLocation("bloomThresholdTexture"),
             GetUniformLocation("horizontalBlurTexture"),

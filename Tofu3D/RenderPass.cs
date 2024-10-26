@@ -14,7 +14,7 @@ public abstract class RenderPass : IComparable<RenderPass>
     }
 
     public RenderPassType RenderPassType { get; }
-    public Framebuffer FinalFramebuffer { get; protected set; }
+    public Framebuffer MainFramebuffer { get; protected set; }
 
     public int CompareTo(RenderPass comparePart)
     {
@@ -41,7 +41,7 @@ public abstract class RenderPass : IComparable<RenderPass>
             return;
         }
 
-        FinalFramebuffer.Clear();
+        MainFramebuffer.Clear();
     }
 
     public void RegisterRender(Action render)
@@ -79,7 +79,7 @@ public abstract class RenderPass : IComparable<RenderPass>
 
     public virtual void RenderThisAsFullscreenQuadToTargetFramebuffer(Framebuffer target, FramebufferAttachment attachment)
     {
-        if (FinalFramebuffer == null)
+        if (MainFramebuffer == null)
         {
             Debug.Log("PassRenderTexture == null");
             return;
@@ -93,15 +93,15 @@ public abstract class RenderPass : IComparable<RenderPass>
         // GL.Viewport(0, 0, (int) target.Size.X*2, (int) target.Size.Y*2);
         // wtf, why does the viewport need to be target.Size.X * 2 ??????
         // its 1380,
-        if (attachment == FramebufferAttachment.Color && FinalFramebuffer.ColorAttachmentID != -1)
+        if (attachment == FramebufferAttachment.Color && MainFramebuffer.ColorAttachmentID != -1)
         {
-            target.RenderColorAttachmentToThis(FinalFramebuffer.ColorAttachmentID);
+            target.RenderColorAttachmentToThis(MainFramebuffer.ColorAttachmentID);
         }
 
         if (attachment == FramebufferAttachment.Depth && target.DepthAttachmentID != -1 &&
-            FinalFramebuffer.DepthAttachmentID != -1)
+            MainFramebuffer.DepthAttachmentID != -1)
         {
-            target.RenderDepthAttachmentToThis(FinalFramebuffer.DepthAttachmentID);
+            target.RenderDepthAttachmentToThis(MainFramebuffer.DepthAttachmentID);
         }
 
         target.Unbind();
@@ -109,17 +109,17 @@ public abstract class RenderPass : IComparable<RenderPass>
 
     internal void BindFrameBuffer()
     {
-        FinalFramebuffer?.Bind();
+        MainFramebuffer?.Bind();
 
-        if (FinalFramebuffer != null)
+        if (MainFramebuffer != null)
         {
-            GL.Viewport(0, 0, (int)FinalFramebuffer.Size.X, (int)FinalFramebuffer.Size.Y);
+            GL.Viewport(0, 0, (int)MainFramebuffer.Size.X, (int)MainFramebuffer.Size.Y);
         }
     }
 
     internal void UnbindFrameBuffer()
     {
-        FinalFramebuffer?.Unbind();
+        MainFramebuffer?.Unbind();
     }
 
     protected virtual void PreBindFrameBuffer()

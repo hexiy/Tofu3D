@@ -9,6 +9,7 @@ public class Skybox : Component, IComponentUpdateable
     private RuntimeCubemapTexture _texture;
     public float Fov = 60;
 
+    public RuntimeCubemapTexture GetCubemapTexture() => _texture;
     public void Update()
     {
         // Debug.StatSetValue("SkyboxList Textures", $"{Textures.Count}");

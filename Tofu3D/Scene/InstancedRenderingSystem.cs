@@ -211,12 +211,16 @@ public class InstancedRenderingSystem
 
             }
             
-            if (RenderPassDirectionalLightShadowDepth.I?.FinalFramebuffer != null)
+            if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null)
             {
                 GL.ActiveTexture(TextureUnit.Texture3);
-                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.FinalFramebuffer.DepthAttachmentID);
+                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthAttachmentID);
             }
-
+            if (Camera.MainCamera?.GetComponent<Skybox>()!=null)
+            {
+                GL.ActiveTexture(TextureUnit.Texture4);
+                TextureHelper.BindTexture(Camera.MainCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId, TextureType.Cubemap);
+            }
 
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
 

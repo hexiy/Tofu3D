@@ -91,11 +91,11 @@ public class EditorPanelSceneView : EditorPanel
             //         new Vector2(sizeX, sizeY),
             //         new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
             // }
-            if (RenderPassBloomThreshold.I?.FinalFramebuffer != null)
+            if (RenderPassBloomThreshold.I?.MainFramebuffer != null)
             {
-                var ratio = RenderPassBloomThreshold.I.FinalFramebuffer.Size.Y /
-                            RenderPassBloomThreshold.I.FinalFramebuffer.Size.X;
-                var sizeX = Mathf.ClampMax(RenderPassBloomThreshold.I.FinalFramebuffer.Size.X, 400);
+                var ratio = RenderPassBloomThreshold.I.MainFramebuffer.Size.Y /
+                            RenderPassBloomThreshold.I.MainFramebuffer.Size.X;
+                var sizeX = Mathf.ClampMax(RenderPassBloomThreshold.I.MainFramebuffer.Size.X, 400);
                 var sizeY = sizeX * ratio;
 
                 ImGui.SetCursorPos(new Vector2(5, 75));
@@ -106,16 +106,16 @@ public class EditorPanelSceneView : EditorPanel
 
                 ImGui.SetCursorPos(new Vector2(5, 75));
 
-                ImGui.Image(RenderPassBloomThreshold.I.FinalFramebuffer.ColorAttachmentID,
+                ImGui.Image(RenderPassBloomThreshold.I.MainFramebuffer.ColorAttachmentID,
                     new Vector2(sizeX, sizeY),
                     new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
             }
 
-            if (RenderPassBloomPostProcess.I?.FinalFramebuffer != null)
+            if (RenderPassBloomPostProcess.I?.MainFramebuffer != null)
             {
-                var ratio = RenderPassBloomPostProcess.I.FinalFramebuffer.Size.Y /
-                            RenderPassBloomPostProcess.I.FinalFramebuffer.Size.X;
-                var sizeX = Mathf.ClampMax(RenderPassBloomPostProcess.I.FinalFramebuffer.Size.X, 400);
+                var ratio = RenderPassBloomPostProcess.I.MainFramebuffer.Size.Y /
+                            RenderPassBloomPostProcess.I.MainFramebuffer.Size.X;
+                var sizeX = Mathf.ClampMax(RenderPassBloomPostProcess.I.MainFramebuffer.Size.X, 400);
                 var sizeY = sizeX * ratio;
 
                 ImGui.SetCursorPos(new Vector2(405, 75));

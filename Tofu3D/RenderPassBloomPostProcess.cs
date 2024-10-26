@@ -36,7 +36,7 @@ public class RenderPassBloomPostProcess : RenderPass
 
     public override void RenderThisAsFullscreenQuadToTargetFramebuffer(Framebuffer target, FramebufferAttachment attachment)
     {
-        if (FinalFramebuffer == null)
+        if (MainFramebuffer == null)
         {
             Debug.Log("PassRenderTexture == null");
             return;
@@ -101,7 +101,7 @@ public class RenderPassBloomPostProcess : RenderPass
         GL.Disable(EnableCap.Blend);
 
         GL.ActiveTexture(TextureUnit.Texture0);
-        TextureHelper.BindTexture(_renderPassBloomThreshold.FinalFramebuffer
+        TextureHelper.BindTexture(_renderPassBloomThreshold.MainFramebuffer
             .ColorAttachmentID); // bind our existing screen texture
 
         GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
@@ -140,14 +140,14 @@ public class RenderPassBloomPostProcess : RenderPass
 
     protected override void SetupRenderTexture()
     {
-        if (FinalFramebuffer != null)
+        if (MainFramebuffer != null)
         {
-            FinalFramebuffer.Size = Tofu.RenderPassSystem.ViewSize;
-            FinalFramebuffer.Invalidate(false);
+            MainFramebuffer.Size = Tofu.RenderPassSystem.ViewSize;
+            MainFramebuffer.Invalidate(false);
         }
         else
         {
-            FinalFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false);
+            MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false);
         }
 
         if (BloomFramebufferHorizontal != null)

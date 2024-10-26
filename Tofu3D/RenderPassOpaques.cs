@@ -20,10 +20,10 @@ public class RenderPassOpaques : RenderPass
     {
         GL.Enable(EnableCap.DepthTest);
         
-        GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassZPrePass.I.FinalFramebuffer.FrameBufferID);
-        GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, FinalFramebuffer.FrameBufferID);
-        var sizeX = (int)FinalFramebuffer.Size.X;
-        var sizeY = (int)FinalFramebuffer.Size.Y;
+        GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassZPrePass.I.MainFramebuffer.FrameBufferID);
+        GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, MainFramebuffer.FrameBufferID);
+        var sizeX = (int)MainFramebuffer.Size.X;
+        var sizeY = (int)MainFramebuffer.Size.Y;
         GL.BlitFramebuffer(0, 0, sizeX, sizeY, 0, 0, sizeX, sizeY, ClearBufferMask.DepthBufferBit,
             BlitFramebufferFilter.Nearest);
 
@@ -37,13 +37,13 @@ public class RenderPassOpaques : RenderPass
 
     protected override void SetupRenderTexture()
     {
-        if (FinalFramebuffer != null)
+        if (MainFramebuffer != null)
         {
-            FinalFramebuffer.Size = Tofu.RenderPassSystem.ViewSize;
-            FinalFramebuffer.Invalidate(false);
+            MainFramebuffer.Size = Tofu.RenderPassSystem.ViewSize;
+            MainFramebuffer.Invalidate(false);
             return;
         }
 
-        FinalFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, true);
+        MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, true);
     }
 }

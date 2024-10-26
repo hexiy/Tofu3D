@@ -73,7 +73,7 @@ public class EditorPanelBrowser : EditorPanel
             {
                 Asset_Material createdMaterial = new();
                 createdMaterial.PathToRawAsset = filePath;
-                Tofu.AssetLoadManager.Save<Asset_Material>(filePath, createdMaterial, json:false);
+                Tofu.AssetLoadManager.Save<Asset_Material>(filePath, createdMaterial, json: false);
                 RefreshAssets();
             });
         _contextItems = new List<BrowserContextItem> { createSceneContextItem, createMaterialContextItem };
@@ -113,7 +113,8 @@ public class EditorPanelBrowser : EditorPanel
         for (var i = 0; i < allAssets.Count; i++)
         {
             string fileName = Path.GetFileName(allAssets[i]);
-            if (fileName.StartsWith('.') || AssetFileExtensions.IsAssetImportParametersFile(fileName))
+            if (fileName.StartsWith('.') || AssetFileExtensions.IsAssetImportParametersFile(fileName) ||
+                fileName.EndsWith(".mtl", StringComparison.OrdinalIgnoreCase))
             {
                 allAssets.RemoveAt(i);
                 i--;
@@ -305,6 +306,7 @@ public class EditorPanelBrowser : EditorPanel
             ImGui.PushStyleColor(ImGuiCol.Button, Color.AntiqueWhite.ToVector4());
             // ImGui.PushStyleColor(ImGuiCol.ButtonHovered, Color.MidnightBlue.ToVector4());
         }
+
         if (isDirectory)
         {
             ImGui.ImageButton(_directoryIcon.TextureId, _iconSize);
@@ -471,6 +473,7 @@ public class EditorPanelBrowser : EditorPanel
                                 pathOfImportParametersOfSourceAssetFile, importParameters);
                         });
                 }
+
                 if (_expandedAssets.Contains(assetIndex) == false)
                 {
                     _expandedAssets.Add(assetIndex);
