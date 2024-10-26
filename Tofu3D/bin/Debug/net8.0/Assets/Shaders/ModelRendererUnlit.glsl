@@ -1,5 +1,5 @@
-﻿[BUFFERTYPE: Model]
-[VERTEX]
+﻿//[BUFFERTYPE: Model]
+//[VERTEX]
 #version 410 core
 
 layout (location = 0) in vec3 a_pos;
@@ -23,7 +23,7 @@ normal = transpose(inverse(mat3(u_model))) * a_normal;
 uv = a_uv;
 }
 
-[FRAGMENT]
+//[FRAGMENT]
 #version 410 core 
 
 uniform vec4 u_rendererColor;

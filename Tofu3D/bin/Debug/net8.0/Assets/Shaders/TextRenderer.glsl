@@ -1,5 +1,5 @@
-﻿[BUFFERTYPE: Sprite]
-[VERTEX]
+﻿//[BUFFERTYPE: Sprite]
+//[VERTEX]
 #version 410 core
 
 layout (location = 0) in vec2 a_pos;
@@ -16,7 +16,7 @@ uv = a_uv / zoomAmount;
 gl_Position = u_mvp * vec4(a_pos.xy, 1.0, 1.0);
 }
 
-[FRAGMENT]
+//[FRAGMENT]
 #version 410 core
 
 in vec2 uv;

@@ -17,7 +17,7 @@ public class
     private int _uLocationUColor = -1;
 
     private int _uLocationUMvp = -1;
-    
+
     // public int AlbedoTextureLocation = -1;
     // public int NormalTextureLocation = -1;
     // public int AmbientOcclusionTextureLocation = -1;
@@ -402,19 +402,25 @@ public class
     public static BufferType GetBufferTypeFromFileString(string shaderFile)
     {
         var typeString = shaderFile.Substring(shaderFile.IndexOf("["),
-            shaderFile.IndexOf("]")); //File.ReadA;
+            shaderFile.IndexOf("]") - 2); //File.ReadA;
 
-        typeString = typeString.Substring(12);
+        typeString = typeString.Substring(13);
         BufferType type;
         Enum.TryParse(typeString, out type);
 
         return type;
     }
 
-    public static string GetVertexShaderFromFileString(string shaderFile) =>
-        shaderFile.Substring(shaderFile.IndexOf("[VERTEX]") + 8,
-            shaderFile.IndexOf("[FRAGMENT]") - shaderFile.IndexOf("[VERTEX]") - 8); //File.ReadA;
+    public static string GetVertexShaderFromFileString(string shaderFile)
+    {
+        int vertexTagIndex = shaderFile.IndexOf("//[VERTEX]");
+        int fragmentTagIndex = shaderFile.IndexOf("//[FRAGMENT]");
+        int startIndex =vertexTagIndex + "//[VERTEX]".Length;
+        int length = fragmentTagIndex - vertexTagIndex - "//[VERTEX]".Length;
+       return  shaderFile.Substring(startIndex, length);
+    }
 
-    public static string GetFragmentShaderFromFileString(string shaderFile) =>
-        shaderFile.Substring(shaderFile.IndexOf("[FRAGMENT]") + 10); //File.ReadA;
+    public static string GetFragmentShaderFromFileString(string shaderFile) {
+       return shaderFile.Substring(shaderFile.LastIndexOf("//[FRAGMENT]") + "//[FRAGMENT]".Length);
+    }
 }

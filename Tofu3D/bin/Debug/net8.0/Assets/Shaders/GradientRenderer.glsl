@@ -1,5 +1,5 @@
-﻿[BUFFERTYPE: Box]
-[VERTEX]
+﻿//[BUFFERTYPE: Box]
+//[VERTEX]
 #version 410 core
 
 layout (location = 0) in vec4 position;
@@ -15,7 +15,7 @@ texCoord = position;
 gl_Position = u_mvp * position;
 }
 
-[FRAGMENT]
+//[FRAGMENT]
 #version 410 core 
  in vec4 texCoord;
 uniform vec2 u_resolution;

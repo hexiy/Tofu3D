@@ -1,6 +1,6 @@
 /**
-[BUFFERTYPE: Box]
-[VERTEX]
+//[BUFFERTYPE: Box]
+//[VERTEX]
 #version 410 core
 
 layout (location = 0) in vec4 position;
@@ -15,7 +15,7 @@ gl_Position = u_mvp * position;
 frag_color = vec4( u_color.r * u_tint.r, u_color.g * u_tint.g, u_color.b *u_tint.b, u_color.a * u_tint.a);
 }
 
-[FRAGMENT]
+//[FRAGMENT]
 #version 410 core
  in vec4 frag_color;
 out vec4 color;

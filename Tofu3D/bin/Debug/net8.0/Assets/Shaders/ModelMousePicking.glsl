@@ -1,5 +1,5 @@
-﻿[BUFFERTYPE: Model]
-[VERTEX]
+﻿//[BUFFERTYPE: Model]
+//[VERTEX]
 #version 410 core
 
 layout (location = 0) in vec3 a_pos;
@@ -32,7 +32,7 @@ FragPosLightSpace = u_lightSpaceMatrix * vec4(fragPos, 1.0);
 // NEW
 }
 
-[FRAGMENT]
+//[FRAGMENT]
 #version 410 core
  uniform vec4 u_rendererColor;
 out vec4 frag_color;

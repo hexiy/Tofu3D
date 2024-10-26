@@ -1,5 +1,5 @@
-﻿[BUFFERTYPE: Sprite]
-[VERTEX]
+﻿//[BUFFERTYPE: Sprite]
+//[VERTEX]
 #version 410 core
 
 layout (location = 0) in vec4 position;
@@ -17,7 +17,7 @@ texCoord = aTexCoord / vec4(zoomAmount.x,zoomAmount.y, 1, 1);
 gl_Position = (u_mvp * (position));
 }
 
-[FRAGMENT]
+//[FRAGMENT]
 #version 410 core
  in vec4 c;
 in vec4 texCoord;

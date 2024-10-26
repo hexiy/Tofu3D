@@ -1,5 +1,5 @@
-﻿[BUFFERTYPE: RenderTexture]
-[VERTEX]
+﻿//[BUFFERTYPE: RenderTexture]
+//[VERTEX]
 #version 410 core
 
 layout (location = 0) in vec4 position;
@@ -17,7 +17,7 @@ texCoord = aTexCoord;
 gl_Position = u_mvp * position;
 }
 
-[FRAGMENT]
+//[FRAGMENT]
 #version 410 core
  in vec4 texCoord;
 uniform sampler2D textureObject;

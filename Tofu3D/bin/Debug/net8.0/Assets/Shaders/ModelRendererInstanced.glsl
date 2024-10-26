@@ -1,5 +1,5 @@
-﻿[BUFFERTYPE: Model]
-[VERTEX]
+﻿//[BUFFERTYPE: Model]
+//[VERTEX]
 #version 410 core
 
 layout (location = 0) in vec3 a_pos;
@@ -44,7 +44,7 @@ vec3 N = normalize(vec3(a_model * vec4(a_normal,    0.0)));
 TBN = mat3(T, B, N);
 }
 
-[FRAGMENT]
+//[FRAGMENT]
 #version 410 core 
 
 uniform vec2 u_tiling;

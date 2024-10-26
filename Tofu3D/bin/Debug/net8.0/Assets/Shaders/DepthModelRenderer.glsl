@@ -1,5 +1,5 @@
-﻿[BUFFERTYPE: Model]
-[VERTEX]
+﻿//[BUFFERTYPE: Model]
+//[VERTEX]
 #version 410 core
 
 layout (location = 0) in vec3 a_pos;
@@ -16,7 +16,7 @@ gl_Position = u_mvp * vec4(a_pos.xyz, 1.0);
 
 }
 
-[FRAGMENT]
+//[FRAGMENT]
 #version 410 core
 
 void main(void)
