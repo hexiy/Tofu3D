@@ -32,18 +32,18 @@
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <WorldPosition>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>-1.1</X>
-        <Y>5.1</Y>
-        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-1.1</X>
-        <Y>5.1</Y>
+        <X>0</X>
+        <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
@@ -74,9 +74,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRendererInstanced">
@@ -96,18 +96,17 @@
       <Material>
         <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
         <Shader>
+          <AlbedoTextureIndexUnit>Texture0</AlbedoTextureIndexUnit>
+          <NormalTextureIndexUnit>Texture1</NormalTextureIndexUnit>
+          <AmbientOcclusionTextureUnit>Texture2</AmbientOcclusionTextureUnit>
+          <ShadowMapTextureUnit>Texture0</ShadowMapTextureUnit>
+          <RoughnessTextureUnit>Texture4</RoughnessTextureUnit>
+          <MetallicTextureUnit>Texture5</MetallicTextureUnit>
+          <EnvironmentTextureUnit>Texture3</EnvironmentTextureUnit>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
         <Additive>false</Additive>
-        <AlbedoTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/sculpture/sculpture.jpeg</PathToRawAsset>
-          <Size>
-            <X>4096</X>
-            <Y>4096</Y>
-          </Size>
-          <TextureId>17</TextureId>
-        </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
           <G>255</G>
@@ -120,8 +119,9 @@
           <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.34</SpecularSmoothness>
+        <MetallicTextureStrength>1.42</MetallicTextureStrength>
         <Tiling>
           <X>1</X>
           <Y>1</Y>

@@ -536,7 +536,7 @@ public class EditorPanelBrowser : EditorPanel
                 Asset_Model assetModel = Tofu.AssetLoadManager.Load<Asset_Model>(assetPath);
                 for (int meshIndex = 0; meshIndex < assetModel.PathsToMeshAssets.Count; meshIndex++)
                 {
-                    ImGui.SameLine();
+                    // ImGui.SameLine();
                     _subAssetsDrawnCount++;
                     DrawAsset(assetIndex, assetModel.PathsToMeshAssets[meshIndex]);
                 }

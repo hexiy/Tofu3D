@@ -71,7 +71,7 @@ uniform float u_fogIntensity = 1;
 uniform float u_hasNormalTexture = 0;
 uniform float u_hasAOTexture = 0;
 
-uniform float u_metallicTextureStrength=1;
+uniform float u_metallic =1;
 
 uniform sampler2D albedoTexture;
 uniform sampler2D normalTexture;
@@ -170,8 +170,8 @@ void main(void)
 
 	//result *= ambient;
 
-	vec4 result = albedoColor * aoColor * max(final_ambient, final_diffuse) + min(final_ambient, final_diffuse);
-	result.a = albedoColor.a;// * color.a;
+//	vec4 result = albedoColor * aoColor * max(final_ambient, final_diffuse) + min(final_ambient, final_diffuse);
+//	result.a = albedoColor.a;// * color.a;
 
 //	if (result.a < 0.05)
 //	{
@@ -179,41 +179,43 @@ void main(void)
 //	}
 
 
-	if (u_specularHighlightsEnabled == 1)
-	{
-		vec3 reflectedLightVectorWorld = reflect(correctedLightDir, finalNormal);
-		vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
-		////////// problem is below
-		float clampedSpecularSmoothness = max(u_specularSmoothness, 0);
-		float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32 * clampedSpecularSmoothness);
-		spec = max(spec, 0);
-		vec3 specular = clampedSpecularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 2;
+//	if (u_specularHighlightsEnabled == 1)
+//	{
+//		vec3 reflectedLightVectorWorld = reflect(correctedLightDir, finalNormal);
+//		vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
+//		////////// problem is below
+//		float clampedSpecularSmoothness = max(u_specularSmoothness, 0);
+//		float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32 * clampedSpecularSmoothness);
+//		spec = max(spec, 0);
+//		vec3 specular = clampedSpecularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 2;
+//
+//		//vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
+//
+//		//if (shadow == 0) {
+//		//specular /= 3;
+//		//}
+//
+//		result.rgb *= max(vec3(1), specular + 1);//*normalize(albedoColor.rgb+vec3(0.3));
+//
+//	}
 
-		//vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
+//	float shadow = ShadowCalculation(); // 1 if in shadow
+//	//        shadow
+//	if (shadow == 1) {
+//		//result.rgb = result.rgb * 0.1;
+//		//		result.rgb = vec3(1,0,0); // red
+//		result = albedoColor * aoColor * final_ambient;
+//
+//	}
+//	else {
+//		result.rgb = result.rgb;
+//		//result.rgb = vec3(0,1,0); // green
+//
+//	}
 
-		//if (shadow == 0) {
-		//specular /= 3;
-		//}
-
-		result.rgb *= max(vec3(1), specular + 1);//*normalize(albedoColor.rgb+vec3(0.3));
-
-	}
-
-	float shadow = ShadowCalculation(); // 1 if in shadow
-	//        shadow
-	if (shadow == 1) {
-		//result.rgb = result.rgb * 0.1;
-		//		result.rgb = vec3(1,0,0); // red
-		result = albedoColor * aoColor * final_ambient;
-
-	}
-	else {
-		result.rgb = result.rgb;
-		//result.rgb = vec3(0,1,0); // green
-
-	}
-
-	result.rgb = mix(result.rgb,environmentReflection,metallic*u_metallicTextureStrength);
+	vec4 result = vec4(0,0,0,1);
+//	result.rgb = mix(result.rgb,environmentReflection,metallic*u_metallicTextureStrength);
+	result.rgb = environmentReflection* u_metallic;
 //	result.rgb = environmentRefraction;
 
 	

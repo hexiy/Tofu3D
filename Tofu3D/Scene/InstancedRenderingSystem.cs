@@ -231,12 +231,13 @@ public class InstancedRenderingSystem
                 TextureHelper.BindTexture(material.RoughnessTexture.TextureId);
             }
             
+            material.Shader.SetFloat("u_metallic", Mathf.Clamp(material.MetallicTextureStrength,0,1));
+
             // Metallic Texture
             material.Shader.SetFloat("u_hasMetallicTexture", material.MetallicTexture!=null?1:0);
 
             if (material.MetallicTexture!=null)
             {
-                material.Shader.SetFloat("u_metallicTextureStrength", material.MetallicTextureStrength);
 
                 GL.ActiveTexture(material.Shader.MetallicTextureUnit);
                 TextureHelper.BindTexture(material.MetallicTexture.TextureId);
