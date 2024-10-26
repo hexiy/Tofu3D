@@ -4,14 +4,16 @@ using Microsoft.DotNet.PlatformAbstractions;
 [XmlRoot("Material")]
 public class Asset_Material : Asset<Asset_Material>
 {
-    public Shader Shader;
+    public Shader? Shader;
     // public bool IsValid = true;
     [Hide] public bool Additive = false;
 
-    public RuntimeTexture AlbedoTexture;
+    public RuntimeTexture? AlbedoTexture;
     public Color AlbedoTint = Color.White;
-    public RuntimeTexture AmbientOcclusionTexture;
-    public RuntimeTexture NormalTexture;
+    public RuntimeTexture? AmbientOcclusionTexture;
+    public RuntimeTexture? NormalTexture;
+    public RuntimeTexture? RoughnessTexture;
+    public RuntimeTexture? MetallicTexture;
     public Vector2 Offset;
 
     public RenderMode RenderMode = RenderMode.Opaque;
@@ -19,6 +21,7 @@ public class Asset_Material : Asset<Asset_Material>
 
     public bool SpecularHighlightsEnabled;
     public float SpecularSmoothness;
+    public float MetallicTextureStrength;
     public Vector2 Tiling;
 
     [XmlIgnore] [Hide] public int Vao;
@@ -53,6 +56,16 @@ public class Asset_Material : Asset<Asset_Material>
         if (NormalTexture?.PathToRawAsset.Length > 2)
         {
             NormalTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(NormalTexture.PathToRawAsset);
+        }
+        
+        if (RoughnessTexture?.PathToRawAsset.Length > 2)
+        {
+            RoughnessTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(RoughnessTexture.PathToRawAsset);
+        }
+        
+        if (MetallicTexture?.PathToRawAsset.Length > 2)
+        {
+            MetallicTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(MetallicTexture.PathToRawAsset);
         }
     }
 

@@ -47,7 +47,7 @@ in vec2 uv;
 in vec3 fragPos;
 in vec4 FragPosLightSpace;
 
-out vec4 frag_color;
+out vec4 fragColor;
 
 void main(void)
 {
@@ -60,6 +60,6 @@ result.a = (texturePixelColor.rgba * u_rendererColor.rgba).a;
 if (result.a == 0){
 discard;
 }
-frag_color = result;
+fragColor = result;
 //gl_FragDepth = gl_FragCoord.z;
 }

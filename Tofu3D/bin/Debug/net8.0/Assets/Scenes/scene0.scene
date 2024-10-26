@@ -43,7 +43,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Sculpture</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -73,9 +73,9 @@
       <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Sphere</Name>
+      <Name>Mask</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -98,14 +98,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-0.7596919</X>
-        <Y>5.7487607</Y>
-        <Z>3.0751665</Z>
+        <X>-0.7123157</X>
+        <Y>5.616259</Y>
+        <Z>2.9126196</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-0.7596919</X>
-        <Y>5.7487607</Y>
-        <Z>3.0751665</Z>
+        <X>-0.7123157</X>
+        <Y>5.616259</Y>
+        <Z>2.9126196</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -118,8 +118,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>1.2297194</X>
-        <Y>-208.68114</Y>
+        <X>-0.82888085</X>
+        <Y>-206.21783</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -199,13 +199,13 @@
       <GameObjectId>6</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
+      <Enabled>false</Enabled>
       <Color>
-        <B>137</B>
-        <G>137</G>
-        <R>137</R>
+        <B>79</B>
+        <G>79</G>
+        <R>126</R>
         <A>255</A>
-        <PackedValue>4287203721</PackedValue>
+        <PackedValue>4283387774</PackedValue>
       </Color>
       <Intensity>1</Intensity>
     </Component>
@@ -222,7 +222,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <Intensity>8.8</Intensity>
+      <Intensity>9.59</Intensity>
       <FarPlaneDistance>1000</FarPlaneDistance>
       <NearPlaneDistance>0.0001</NearPlaneDistance>
       <OrthographicSize>2.6</OrthographicSize>
@@ -309,17 +309,24 @@
       <Material>
         <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
         <Shader>
+          <AlbedoTextureIndexUnit>Texture0</AlbedoTextureIndexUnit>
+          <NormalTextureIndexUnit>Texture1</NormalTextureIndexUnit>
+          <AmbientOcclusionTextureUnit>Texture2</AmbientOcclusionTextureUnit>
+          <ShadowMapTextureUnit>Texture3</ShadowMapTextureUnit>
+          <RoughnessTextureUnit>Texture5</RoughnessTextureUnit>
+          <MetallicTextureUnit>Texture6</MetallicTextureUnit>
+          <EnvironmentTextureUnit>Texture4</EnvironmentTextureUnit>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/sculpture/sculpture.jpeg</PathToRawAsset>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</PathToRawAsset>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
-          <TextureId>17</TextureId>
+          <TextureId>31</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -328,13 +335,46 @@
           <A>255</A>
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
+        <AmbientOcclusionTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</PathToRawAsset>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+          <TextureId>36</TextureId>
+        </AmbientOcclusionTexture>
+        <NormalTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</PathToRawAsset>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+          <TextureId>30</TextureId>
+        </NormalTexture>
+        <RoughnessTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_01_roughness.png</PathToRawAsset>
+          <Size>
+            <X>4096</X>
+            <Y>4096</Y>
+          </Size>
+          <TextureId>38</TextureId>
+        </RoughnessTexture>
+        <MetallicTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_01_metallic.png</PathToRawAsset>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+          <TextureId>37</TextureId>
+        </MetallicTexture>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.34</SpecularSmoothness>
+        <SpecularSmoothness>0.25</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -428,17 +468,24 @@
       <Material>
         <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
         <Shader>
+          <AlbedoTextureIndexUnit>Texture0</AlbedoTextureIndexUnit>
+          <NormalTextureIndexUnit>Texture1</NormalTextureIndexUnit>
+          <AmbientOcclusionTextureUnit>Texture2</AmbientOcclusionTextureUnit>
+          <ShadowMapTextureUnit>Texture3</ShadowMapTextureUnit>
+          <RoughnessTextureUnit>Texture5</RoughnessTextureUnit>
+          <MetallicTextureUnit>Texture6</MetallicTextureUnit>
+          <EnvironmentTextureUnit>Texture4</EnvironmentTextureUnit>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/sculpture/sculpture.jpeg</PathToRawAsset>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</PathToRawAsset>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
-          <TextureId>17</TextureId>
+          <TextureId>31</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -447,13 +494,46 @@
           <A>255</A>
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
+        <AmbientOcclusionTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</PathToRawAsset>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+          <TextureId>36</TextureId>
+        </AmbientOcclusionTexture>
+        <NormalTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</PathToRawAsset>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+          <TextureId>30</TextureId>
+        </NormalTexture>
+        <RoughnessTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_01_roughness.png</PathToRawAsset>
+          <Size>
+            <X>4096</X>
+            <Y>4096</Y>
+          </Size>
+          <TextureId>38</TextureId>
+        </RoughnessTexture>
+        <MetallicTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_01_metallic.png</PathToRawAsset>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+          <TextureId>37</TextureId>
+        </MetallicTexture>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.34</SpecularSmoothness>
+        <SpecularSmoothness>0.25</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -547,17 +627,24 @@
       <Material>
         <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
         <Shader>
+          <AlbedoTextureIndexUnit>Texture0</AlbedoTextureIndexUnit>
+          <NormalTextureIndexUnit>Texture1</NormalTextureIndexUnit>
+          <AmbientOcclusionTextureUnit>Texture2</AmbientOcclusionTextureUnit>
+          <ShadowMapTextureUnit>Texture3</ShadowMapTextureUnit>
+          <RoughnessTextureUnit>Texture5</RoughnessTextureUnit>
+          <MetallicTextureUnit>Texture6</MetallicTextureUnit>
+          <EnvironmentTextureUnit>Texture4</EnvironmentTextureUnit>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/sculpture/sculpture.jpeg</PathToRawAsset>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</PathToRawAsset>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>2048</X>
+            <Y>2048</Y>
           </Size>
-          <TextureId>17</TextureId>
+          <TextureId>31</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -566,13 +653,46 @@
           <A>255</A>
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
+        <AmbientOcclusionTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</PathToRawAsset>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+          <TextureId>36</TextureId>
+        </AmbientOcclusionTexture>
+        <NormalTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</PathToRawAsset>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+          <TextureId>30</TextureId>
+        </NormalTexture>
+        <RoughnessTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_01_roughness.png</PathToRawAsset>
+          <Size>
+            <X>4096</X>
+            <Y>4096</Y>
+          </Size>
+          <TextureId>38</TextureId>
+        </RoughnessTexture>
+        <MetallicTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/3D/chaos-belly-plate/textures/Aged_Bronze_01_metallic.png</PathToRawAsset>
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+          <TextureId>37</TextureId>
+        </MetallicTexture>
         <Offset>
           <X>0</X>
           <Y>0</Y>
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.34</SpecularSmoothness>
+        <SpecularSmoothness>0.25</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -590,5 +710,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>366</GameObjectNextId>
+  <GameObjectNextId>394</GameObjectNextId>
 </SceneFile>

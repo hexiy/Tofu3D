@@ -6,7 +6,7 @@ layout (location = 0) in vec4 position;
 layout (location = 1) in vec4 aTexCoord;
 
 out vec4 texCoord;
-out vec4 frag_color;
+out vec4 fragColor;
 uniform mat4 u_mvp = mat4(1.0);
 uniform vec2 zoomAmount = vec2(1);
 uniform mat4 u_unitScaleMatrix = mat4(1.0);

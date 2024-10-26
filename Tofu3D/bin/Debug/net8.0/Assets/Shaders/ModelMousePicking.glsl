@@ -35,7 +35,7 @@ FragPosLightSpace = u_lightSpaceMatrix * vec4(fragPos, 1.0);
 //[FRAGMENT]
 #version 410 core
  uniform vec4 u_rendererColor;
-out vec4 frag_color;
+out vec4 fragColor;
 
 in vec3 normal;
 in vec3 fragPos;
@@ -43,5 +43,5 @@ in vec4 FragPosLightSpace;
 
 void main(void)
 {
-frag_color = u_rendererColor;
+fragColor = u_rendererColor;
 }

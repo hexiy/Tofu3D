@@ -64,7 +64,7 @@ in vec2 uv;
 in vec3 vertexPositionWorld;
 in vec4 FragPosLightSpace;
 
-out vec4 frag_color;
+out vec4 fragColor;
 
 float ShadowCalculation(vec4 _fragPosLightSpace)
 {
@@ -155,21 +155,21 @@ result.rgb = mix(result.rgb, finalFogColor.rgb, fogFactor);
 
 if (u_renderMode == 0) // regular
 {
-frag_color = result;
+fragColor = result;
 }
 if (u_renderMode == 1) // positions
 {
-//frag_color = vec4(normalize(- vertexPositionWorld) * result.rgb, result.a);
-frag_color = vec4(vertexPositionWorld / 100, result.a);
+//fragColor = vec4(normalize(- vertexPositionWorld) * result.rgb, result.a);
+fragColor = vec4(vertexPositionWorld / 100, result.a);
 
 //vec3 roundedPos = round(vertexPositionWorld/5)*5;
-//frag_color = vec4(roundedPos/100, result.a);
+//fragColor = vec4(roundedPos/100, result.a);
 }
 if (u_renderMode == 2) // normals
 {
-//frag_color = vec4(normalize(- normal) * result.rgb, result.a);
-//frag_color = vec4(normalize(- normal), result.a);
-frag_color = vec4(normalize(normal), result.a);
+//fragColor = vec4(normalize(- normal) * result.rgb, result.a);
+//fragColor = vec4(normalize(- normal), result.a);
+fragColor = vec4(normalize(normal), result.a);
 }
 //gl_FragDepth = gl_FragCoord.z;
 }

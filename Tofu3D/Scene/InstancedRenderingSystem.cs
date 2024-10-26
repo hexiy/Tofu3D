@@ -180,7 +180,7 @@ public class InstancedRenderingSystem
             // Albedo Texture
             if (material.AlbedoTexture)
             {
-                GL.ActiveTexture(TextureUnit.Texture0);
+                GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit);
                 TextureHelper.BindTexture(material.AlbedoTexture.TextureId);
             }
 
@@ -188,7 +188,7 @@ public class InstancedRenderingSystem
             if (material.NormalTexture)
             {
                 material.Shader.SetFloat("u_hasNormalTexture", 1);
-                GL.ActiveTexture(TextureUnit.Texture1);
+                GL.ActiveTexture(material.Shader.NormalTextureIndexUnit);
                 TextureHelper.BindTexture(material.NormalTexture.TextureId);
             }
             else
@@ -202,7 +202,7 @@ public class InstancedRenderingSystem
                 
                 material.Shader.SetFloat("u_hasAOTexture", 1);
 
-                GL.ActiveTexture(TextureUnit.Texture2);
+                GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit);
                 TextureHelper.BindTexture(material.AmbientOcclusionTexture.TextureId);
             }
             else
@@ -213,15 +213,35 @@ public class InstancedRenderingSystem
             
             if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null)
             {
-                GL.ActiveTexture(TextureUnit.Texture3);
+                GL.ActiveTexture(material.Shader.ShadowMapTextureUnit);
                 TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthAttachmentID);
             }
             if (Camera.MainCamera?.GetComponent<Skybox>()!=null)
             {
-                GL.ActiveTexture(TextureUnit.Texture4);
+                GL.ActiveTexture(material.Shader.EnvironmentTextureUnit);
                 TextureHelper.BindTexture(Camera.MainCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId, TextureType.Cubemap);
             }
+            
+            // Roughness Texture
+            material.Shader.SetFloat("u_hasRoughnessTexture", material.RoughnessTexture!=null?1:0);
 
+            if (material.RoughnessTexture!=null)
+            {
+                GL.ActiveTexture(material.Shader.RoughnessTextureUnit);
+                TextureHelper.BindTexture(material.RoughnessTexture.TextureId);
+            }
+            
+            // Metallic Texture
+            material.Shader.SetFloat("u_hasMetallicTexture", material.MetallicTexture!=null?1:0);
+
+            if (material.MetallicTexture!=null)
+            {
+                material.Shader.SetFloat("u_metallicTextureStrength", material.MetallicTextureStrength);
+
+                GL.ActiveTexture(material.Shader.MetallicTextureUnit);
+                TextureHelper.BindTexture(material.MetallicTexture.TextureId);
+            }
+            
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
 
             GL.Enable(EnableCap.Blend);

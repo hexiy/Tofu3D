@@ -6,6 +6,18 @@ namespace Tofu3D;
 public class
     Shader : IDisposable
 {
+    private const string UniformName_TextureAlbedo = "albedoTexture";
+    private const string UniformName_TextureNormal = "normalTexture";
+    private const string UniformName_TextureAo = "ambientOcclusionTexture";
+    private const string UniformName_ShadowMap = "shadowmapTexture";
+    private const string UniformName_EnvironmentCubemap = "environmentCubemap";
+    private const string UniformName_TextureObject = "textureObject";
+    private const string UniformName_BloomThresholdTexture = "bloomThresholdTexture";
+    private const string UniformName_HorizontalBlurTexture = "horizontalBlurTexture";
+    private const string UniformName_VerticalBlurTexture = "verticalBlurTexture";
+    private const string UniformName_TextureRoughness = "roughnessTexture";
+    private const string UniformName_TextureMetallic = "metallicTexture";
+
     private float[] _getMatrix4X4ValuesArray =
     {
         0, 0, 0, 0,
@@ -18,10 +30,13 @@ public class
 
     private int _uLocationUMvp = -1;
 
-    // public int AlbedoTextureLocation = -1;
-    // public int NormalTextureLocation = -1;
-    // public int AmbientOcclusionTextureLocation = -1;
-    // public int ShadowMapTextureLocation = -1;
+    public TextureUnit AlbedoTextureIndexUnit= TextureUnit.Texture0;
+    public TextureUnit NormalTextureIndexUnit= TextureUnit.Texture0;
+    public TextureUnit AmbientOcclusionTextureUnit= TextureUnit.Texture0;
+    public TextureUnit ShadowMapTextureUnit= TextureUnit.Texture0;
+    public TextureUnit RoughnessTextureUnit= TextureUnit.Texture0;
+    public TextureUnit MetallicTextureUnit= TextureUnit.Texture0;
+    public TextureUnit EnvironmentTextureUnit= TextureUnit.Texture0;
 
     public BufferType BufferType;
 
@@ -125,18 +140,20 @@ public class
 
 
         Tofu.ShaderManager.UseShader(this);
-        List<int> textureLocations = new()
-        {
-            GetUniformLocation("textureAlbedo"),
-            GetUniformLocation("textureNormal"),
-            GetUniformLocation("textureAo"),
-            GetUniformLocation("shadowMap"),
-            GetUniformLocation("environmentCubemap"),
-            GetUniformLocation("textureObject"),
-            GetUniformLocation("bloomThresholdTexture"),
-            GetUniformLocation("horizontalBlurTexture"),
-            GetUniformLocation("verticalBlurTexture"),
 
+        List<string> textureUniformsNames = new()
+        {
+            UniformName_TextureAlbedo,
+            UniformName_TextureNormal,
+            UniformName_TextureAo,
+            UniformName_ShadowMap,
+            UniformName_EnvironmentCubemap,
+            UniformName_TextureObject,
+            UniformName_BloomThresholdTexture,
+            UniformName_HorizontalBlurTexture,
+            UniformName_VerticalBlurTexture,
+            UniformName_TextureRoughness,
+            UniformName_TextureMetallic,
         };
         // AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
         // NormalTextureLocation = GetUniformLocation("textureNormal");
@@ -146,15 +163,51 @@ public class
         // int bloomTextureLocation = GetUniformLocation("textureObject");
         // int bloomThresholdLocation = GetUniformLocation("bloomThresholdTexture");
 
-        int indx = 0;
-
         // GL.Uniform1 to bind the texture to the texture unit-Texture0, Texture1 etc
-        foreach (var textureLocation in textureLocations)
+        int textureUnitsCount = 0;
+        for (var index = 0; index < textureUniformsNames.Count; index++)
         {
-            if (textureLocation != -1)
+            var textureUniformName = textureUniformsNames[index];
+            int location = GetUniformLocation(textureUniformName);
+            if (location != -1)
             {
-                GL.Uniform1(textureLocation, indx);
-                indx++;
+                TextureUnit textureUnit = TextureUnit.Texture0 + textureUnitsCount;
+
+                switch (textureUniformName)
+                {
+                    case UniformName_TextureAlbedo:
+                        AlbedoTextureIndexUnit = textureUnit;
+                        break;
+                    case UniformName_TextureNormal:
+                        NormalTextureIndexUnit = textureUnit;
+                        break;
+                    case UniformName_TextureAo:
+                        AmbientOcclusionTextureUnit = textureUnit;
+                        break;
+                    case UniformName_ShadowMap:
+                        ShadowMapTextureUnit = textureUnit;
+                        break;
+                    case UniformName_EnvironmentCubemap:
+                        EnvironmentTextureUnit = textureUnit;
+                        break;
+                    case UniformName_TextureObject:
+                        break;
+                    case UniformName_BloomThresholdTexture:
+                        break;
+                    case UniformName_HorizontalBlurTexture:
+                        break;
+                    case UniformName_VerticalBlurTexture:
+                        break;
+                    case UniformName_TextureRoughness:
+                        RoughnessTextureUnit = textureUnit;
+                        break;
+                    case UniformName_TextureMetallic:
+                        MetallicTextureUnit = textureUnit;
+                        break;
+                }
+
+                GL.Uniform1(location, textureUnitsCount);
+                textureUnitsCount++;
             }
         }
         // if (AlbedoTextureLocation != -1)
@@ -416,12 +469,13 @@ public class
     {
         int vertexTagIndex = shaderFile.IndexOf("//[VERTEX]");
         int fragmentTagIndex = shaderFile.IndexOf("//[FRAGMENT]");
-        int startIndex =vertexTagIndex + "//[VERTEX]".Length;
+        int startIndex = vertexTagIndex + "//[VERTEX]".Length;
         int length = fragmentTagIndex - vertexTagIndex - "//[VERTEX]".Length;
-       return  shaderFile.Substring(startIndex, length);
+        return shaderFile.Substring(startIndex, length);
     }
 
-    public static string GetFragmentShaderFromFileString(string shaderFile) {
-       return shaderFile.Substring(shaderFile.LastIndexOf("//[FRAGMENT]") + "//[FRAGMENT]".Length);
+    public static string GetFragmentShaderFromFileString(string shaderFile)
+    {
+        return shaderFile.Substring(shaderFile.LastIndexOf("//[FRAGMENT]") + "//[FRAGMENT]".Length);
     }
 }

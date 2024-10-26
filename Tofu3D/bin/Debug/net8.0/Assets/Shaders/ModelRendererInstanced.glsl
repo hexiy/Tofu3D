@@ -71,11 +71,15 @@ uniform float u_fogIntensity = 1;
 uniform float u_hasNormalTexture = 0;
 uniform float u_hasAOTexture = 0;
 
-uniform sampler2D textureAlbedo;
-uniform sampler2D textureNormal;
-uniform sampler2D textureAo;
-uniform sampler2D shadowMap;
+uniform float u_metallicTextureStrength=1;
+
+uniform sampler2D albedoTexture;
+uniform sampler2D normalTexture;
+uniform sampler2D ambientOcclusionTexture;
+uniform sampler2D shadowmapTexture;
 uniform samplerCube environmentCubemap;
+uniform sampler2D metallicTexture;
+uniform sampler2D roughnessTexture;
 
 
 in vec3 normal;
@@ -85,7 +89,7 @@ in vec3 vertexPositionWorld;
 in vec4 fragPosLightSpace;
 in mat3 TBN;
 
-out vec4 frag_color;
+out vec4 fragColor;
 
 
 // 1 if in shadow-black, 0 if in light
@@ -96,7 +100,7 @@ float ShadowCalculation()
 	// transform to [0,1] range
 	projCoords = projCoords * 0.5 + 0.5;
 	// get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
-	float closestDepth = texture(shadowMap, projCoords.xy).r;
+	float closestDepth = texture(shadowmapTexture, projCoords.xy).r;
 	// get depth of current fragment from light's perspective
 	float currentDepth = projCoords.z;
 	// check whether current frag pos is in shadow
@@ -116,16 +120,17 @@ float ShadowCalculation()
 void main(void)
 {
 	vec2 uvCoords = (uv + u_offset) * u_tiling;
+	float metallic = texture(metallicTexture, uvCoords).r;
+	float roughness = texture(roughnessTexture, uvCoords).r;
 
-
-	vec3 variableJustSoTextureNormalIsUsedByCompiler = texture(textureNormal, uvCoords).rgb;
+	vec3 variableJustSoTextureNormalIsUsedByCompiler = texture(normalTexture, uvCoords).rgb;
 
 
 	vec3 vertexNormalTBNed = normalize(TBN * normal);
 
 
 
-	vec3 texNormal = texture(textureNormal, uvCoords).rgb;
+	vec3 texNormal = texture(normalTexture, uvCoords).rgb;
 	texNormal = texNormal * 2.0 - 1.0; // Normalizing the normal values from the texture
 	texNormal = normalize(TBN * -texNormal); // Transforming the normal values from the texture space to the world space
 	//norm = normalize(TBN * norm);
@@ -134,24 +139,24 @@ void main(void)
 	vec3 finalNormal = normalize(mix(vertexNormalTBNed, texNormal, blendFactor));
 
 
-	vec4 albedoColor = texture(textureAlbedo, uvCoords) * u_albedoTint;//*color;
+	vec4 albedoColor = texture(albedoTexture, uvCoords) * u_albedoTint;//*color;
 
 	vec3 reflectionI = normalize(vertexPositionWorld - u_camPos);
 	vec3 reflectionR = reflect(reflectionI, normalize(normal));
 	vec3 environmentReflection = texture(environmentCubemap, reflectionR).rgb;
 
 
-//	float ratio = 1.00 / 1.15;
+	//	float ratio = 1.00 / 1.15;
 	float ratio = 1.00 / 1.309; // Water
-//	float ratio = 1.00 / 1.309; // Ice
-//	float ratio = 1.00 / 1.52; // Glass
-//	float ratio = 1.00 / 2.42; // Diamond
+	//	float ratio = 1.00 / 1.309; // Ice
+	//	float ratio = 1.00 / 1.52; // Glass
+	//	float ratio = 1.00 / 2.42; // Diamond
 	vec3 refractionI = normalize(vertexPositionWorld - u_camPos);
 	vec3 refractionR = refract(refractionI, normalize(normal), ratio);
 
 	vec3 environmentRefraction = texture(environmentCubemap, refractionR).rgb;
 
-	vec4 aoColor = texture(textureAo, uvCoords);
+	vec4 aoColor = texture(ambientOcclusionTexture, uvCoords);
 	aoColor = mix(vec4(1, 1, 1, 1), aoColor, u_hasAOTexture);
 
 
@@ -168,10 +173,10 @@ void main(void)
 	vec4 result = albedoColor * aoColor * max(final_ambient, final_diffuse) + min(final_ambient, final_diffuse);
 	result.a = albedoColor.a;// * color.a;
 
-	if (result.a < 0.05)
-	{
-		discard; // having this fixes transparency sorting but breaks debug depthmap
-	}
+//	if (result.a < 0.05)
+//	{
+//		discard; // having this fixes transparency sorting but breaks debug depthmap
+//	}
 
 
 	if (u_specularHighlightsEnabled == 1)
@@ -208,21 +213,20 @@ void main(void)
 
 	}
 
-		result.rgb = environmentReflection;
-	result.rgb = environmentRefraction;
+	result.rgb = mix(result.rgb,environmentReflection,metallic*u_metallicTextureStrength);
+//	result.rgb = environmentRefraction;
 
 	
-	vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
 
-	// Compute the Fresnel factor using the Schlick approximation
-	float fresnelFactor = pow(1.0 - max(dot(viewDir, normalize(normal)), 0.0), 5.0) * 0.9 + 0.1;
-	// Combine reflection and refraction using Fresnel blending
+//	vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
+//	// Compute the Fresnel factor using the Schlick approximation
+//	float fresnelFactor = pow(1.0 - max(dot(viewDir, normalize(normal)), 0.0), 5.0) * 0.9 + 0.1;
+//	// Combine reflection and refraction using Fresnel blending
+//	result.rgb = mix(result.rgb,mix(environmentRefraction, environmentReflection, fresnelFactor), 1-u_albedoTint.a);
+//result.a = 1;
 
-	result.rgb = mix(environmentRefraction, environmentReflection, fresnelFactor);
-	
-//	result.rgb = vec3(fresnelFactor,0,0); // debug fresnel
+//		result.rgb = vec3(fresnelFactor,0,0); // debug fresnel
 
-	
 	if (u_fogEnabled == 1 && u_renderMode == 0)
 	{
 		float distanceToVertex = distance(u_camPos.xz, vertexPositionWorld.xz);
@@ -254,21 +258,22 @@ void main(void)
 
 	if (u_renderMode == 0) // regular
 	{
-		frag_color = result;
+		fragColor = result;
 	}
 	if (u_renderMode == 1) // positions
 	{
-		//frag_color = vec4(normalize(- vertexPositionWorld) * result.rgb, result.a);
-		frag_color = vec4(vertexPositionWorld, result.a);
+		//fragColor = vec4(normalize(- vertexPositionWorld) * result.rgb, result.a);
+		fragColor = vec4(vertexPositionWorld, result.a);
 
 		//vec3 roundedPos = round(vertexPositionWorld/5)*5;
-		//frag_color = vec4(roundedPos, result.a);
+		//fragColor = vec4(roundedPos, result.a);
 	}
 	if (u_renderMode == 2) // normals
 	{
-		//frag_color = vec4(normalize(- normal) * result.rgb, result.a);
-		//frag_color = vec4(normalize(- normal), result.a);
-		frag_color = vec4(finalNormal, result.a);
+		//fragColor = vec4(normalize(- normal) * result.rgb, result.a);
+		//fragColor = vec4(normalize(- normal), result.a);
+		fragColor = vec4(finalNormal, result.a);
 	}
 	//	gl_FragDepth = gl_FragCoord.z;
 }
+
