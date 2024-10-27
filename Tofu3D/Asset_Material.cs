@@ -21,6 +21,7 @@ public class Asset_Material : Asset<Asset_Material>
 
     public bool SpecularHighlightsEnabled;
     public float SpecularSmoothness;
+    [SliderF(0,1)]
     public float MetallicTextureStrength;
     public Vector2 Tiling;
 

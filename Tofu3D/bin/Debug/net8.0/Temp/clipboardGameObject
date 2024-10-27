@@ -5,11 +5,11 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>332</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
+      <Id>471</Id>
+      <IndexInHierarchy>2</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Sphere</Name>
+      <Name>Sphere2</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -21,7 +21,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>332</GameObjectId>
+      <GameObjectId>471</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -37,12 +37,12 @@
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
+        <X>3</X>
         <Y>0</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
+        <X>3</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
@@ -64,7 +64,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>332</GameObjectId>
+      <GameObjectId>471</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -81,7 +81,7 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>332</GameObjectId>
+      <GameObjectId>471</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -94,7 +94,7 @@
         <PackedValue>4294967295</PackedValue>
       </Color>
       <Material>
-        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
+        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/sphere2.mat</PathToRawAsset>
         <Shader>
           <AlbedoTextureIndexUnit>Texture0</AlbedoTextureIndexUnit>
           <NormalTextureIndexUnit>Texture1</NormalTextureIndexUnit>
@@ -121,7 +121,7 @@
         <RenderMode>Opaque</RenderMode>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.34</SpecularSmoothness>
-        <MetallicTextureStrength>1.42</MetallicTextureStrength>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -129,10 +129,10 @@
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
-        <MeshAssetPath>Library/Meshes/smoothCube.obj_0.tofumesh</MeshAssetPath>
+        <MeshAssetPath>Library/Meshes/sphere.obj_0.tofumesh</MeshAssetPath>
         <Vao>6</Vao>
-        <VerticesCount>761856</VerticesCount>
-        <VertexBufferDataLength>10665984</VertexBufferDataLength>
+        <VerticesCount>2880</VerticesCount>
+        <VertexBufferDataLength>40320</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
       </RuntimeMesh>
       <RenderMode>Opaque</RenderMode>

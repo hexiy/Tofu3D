@@ -214,17 +214,18 @@ void main(void)
 //	}
 
 	vec4 result = vec4(0,0,0,1);
-//	result.rgb = mix(result.rgb,environmentReflection,metallic*u_metallicTextureStrength);
-	result.rgb = environmentReflection* u_metallic;
+//	result.rgb = environmentReflection* u_metallic;
 //	result.rgb = environmentRefraction;
 
 	
 
-//	vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
+	vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
 //	// Compute the Fresnel factor using the Schlick approximation
-//	float fresnelFactor = pow(1.0 - max(dot(viewDir, normalize(normal)), 0.0), 5.0) * 0.9 + 0.1;
+	float fresnelFactor = pow(1.0 - max(dot(viewDir, normalize(normal)), 0.0), 5.0) * 0.9 + 0.1;
 //	// Combine reflection and refraction using Fresnel blending
-//	result.rgb = mix(result.rgb,mix(environmentRefraction, environmentReflection, fresnelFactor), 1-u_albedoTint.a);
+	float metallicCapped = max(u_metallic,0.2);
+	result.rgb = mix(result.rgb,mix(environmentRefraction, environmentReflection, 1-fresnelFactor), metallicCapped+(fresnelFactor*(1-metallicCapped)));
+//	result.rgb = mix(environmentRefraction, environmentReflection, 1-fresnelFactor);
 //result.a = 1;
 
 //		result.rgb = vec3(fresnelFactor,0,0); // debug fresnel
