@@ -18,6 +18,7 @@ public class InstancedRenderingObjectBufferData
     public bool NeedsUpload = true;
     public int NumberOfObjects;
     public int Vbo;
+    public int Vao;
 
     public required VertexBufferStructureType VertexBufferStructureType { init; get; }
 

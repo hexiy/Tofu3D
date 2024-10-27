@@ -1,4 +1,4 @@
-﻿namespace Scripts;
+﻿/*namespace Scripts;
 
 public class InspectorObjectReferencesTest : Component
 {
@@ -33,4 +33,4 @@ public class InspectorObjectReferencesTest : Component
     public void Update()
     {
     }
-}
+}*/

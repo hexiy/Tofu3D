@@ -30,13 +30,13 @@ public class
 
     private int _uLocationUMvp = -1;
 
-    public TextureUnit AlbedoTextureIndexUnit= TextureUnit.Texture0;
-    public TextureUnit NormalTextureIndexUnit= TextureUnit.Texture0;
-    public TextureUnit AmbientOcclusionTextureUnit= TextureUnit.Texture0;
-    public TextureUnit ShadowMapTextureUnit= TextureUnit.Texture0;
-    public TextureUnit RoughnessTextureUnit= TextureUnit.Texture0;
-    public TextureUnit MetallicTextureUnit= TextureUnit.Texture0;
-    public TextureUnit EnvironmentTextureUnit= TextureUnit.Texture0;
+    public TextureUnit AlbedoTextureIndexUnit = TextureUnit.Texture0;
+    public TextureUnit NormalTextureIndexUnit = TextureUnit.Texture0;
+    public TextureUnit AmbientOcclusionTextureUnit = TextureUnit.Texture0;
+    public TextureUnit ShadowMapTextureUnit = TextureUnit.Texture0;
+    public TextureUnit RoughnessTextureUnit = TextureUnit.Texture0;
+    public TextureUnit MetallicTextureUnit = TextureUnit.Texture0;
+    public TextureUnit EnvironmentTextureUnit = TextureUnit.Texture0;
 
     public BufferType BufferType;
 
@@ -471,6 +471,11 @@ public class
         int fragmentTagIndex = shaderFile.IndexOf("//[FRAGMENT]");
         int startIndex = vertexTagIndex + "//[VERTEX]".Length;
         int length = fragmentTagIndex - vertexTagIndex - "//[VERTEX]".Length;
+        if (length < 0)
+        {
+            return string.Empty;
+        }
+
         return shaderFile.Substring(startIndex, length);
     }
 

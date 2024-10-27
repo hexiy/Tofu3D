@@ -23,6 +23,7 @@ public static class Tofu
     public static RenderSettings RenderSettings;
     public static RenderPassSystem RenderPassSystem;
     public static ShaderManager ShaderManager;
+    public static BasicMeshesCollection BasicMeshesCollection;
     public static InstancedRenderingSystem InstancedRenderingSystem;
 
     // ASSETS
@@ -70,6 +71,8 @@ public static class Tofu
 
     private static void OnWindowLoad()
     {
+        BasicMeshesCollection = new BasicMeshesCollection();
+        
         AssetImportManager.ImportAllAssets();
 
         InstancedRenderingSystem = new InstancedRenderingSystem();

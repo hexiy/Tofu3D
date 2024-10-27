@@ -2,29 +2,28 @@
 
 public static class BufferFactory
 {
-    public static void CreateBufferForShader(Asset_Material material)
-    {
-        if (material.Shader.BufferType == BufferType.Rendertexture)
-        {
-            CreateRenderTextureBuffers(ref material.Vao);
-        }
-
-        if (material.Shader.BufferType == BufferType.Sprite)
-        {
-            CreateRenderTextureBuffers(ref material.Vao);
-        }
-
-        if (material.Shader.BufferType == BufferType.Model)
-        {
-            // CreateModelBuffers(ref material.Vao);
-        }
-
-        if (material.Shader.BufferType == BufferType.Cubemap)
-        {
-            CreateCubemapBuffers(ref material.Vao);
-        }
-    }
-
+    // public static void CreateBufferForShader(Asset_Material material)
+    // {
+    //     if (material.Shader.BufferType == BufferType.Rendertexture)
+    //     {
+    //         CreateRenderTextureBuffers(ref material.Vao);
+    //     }
+    //
+    //     if (material.Shader.BufferType == BufferType.Sprite)
+    //     {
+    //         CreateRenderTextureBuffers(ref material.Vao);
+    //     }
+    //
+    //     if (material.Shader.BufferType == BufferType.Model)
+    //     {
+    //         // CreateModelBuffers(ref material.Vao);
+    //     }
+    //
+    //     if (material.Shader.BufferType == BufferType.Cubemap)
+    //     {
+    //         CreateCubemapBuffers(ref material.Vao);
+    //     }
+    // }
     public static void CreateRenderTextureBuffers(ref int vao)
     {
         float[] vertices =
@@ -40,7 +39,6 @@ public static class BufferFactory
 
         vao = GL.GenVertexArray();
         Tofu.ShaderManager.BindVertexArray(vao);
-
 
         var vertexBuffer = VertexBuffer.Create(BufferTarget.ArrayBuffer, vertices, 4);
         vertexBuffer.EnableAttribs(false, 2, 2);
@@ -92,8 +90,8 @@ public static class BufferFactory
 //         GL.EnableVertexAttribArray(2);
 //         vertexBuffer.EnableAttribs(sequential: true, countsOfElements);*/
 
-        GL.BindVertexArray(0);
-        GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+        // GL.BindVertexArray(0);
+        // GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
     }
 
     public static void CreateCubemapBuffers(ref int vao)

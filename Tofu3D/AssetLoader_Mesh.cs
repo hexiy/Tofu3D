@@ -29,7 +29,7 @@ public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
         {
             runtimeMesh.Vao = alreadyLoadedMesh.Vao;
         }
-        
+
         BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, assetMesh.VertexBufferData, assetMesh.CountsOfElements);
 
         runtimeMesh.InitAssetRuntimeHandle(runtimeMesh.Vao);

@@ -39,7 +39,7 @@ public class RenderPassPostProcess : RenderPass
         _postProcessMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
         _postProcessMaterial.Shader.SetFloat("u_time", Time.EditorElapsedTime);
 
-        Tofu.ShaderManager.BindVertexArray(_postProcessMaterial.Vao);
+        Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 

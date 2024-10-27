@@ -1,4 +1,4 @@
-﻿namespace Tofu3D;
+﻿/*namespace Tofu3D;
 
 public class GradientRenderer : Renderer
 {
@@ -53,4 +53,4 @@ public class GradientRenderer : Renderer
 
         DebugHelper.LogDrawCall();
     }
-}
+}*/

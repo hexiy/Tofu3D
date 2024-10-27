@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/sphere3.mat</PathToRawAsset>
+  <Shader>
+    <AlbedoTextureIndexUnit>Texture0</AlbedoTextureIndexUnit>
+    <NormalTextureIndexUnit>Texture1</NormalTextureIndexUnit>
+    <AmbientOcclusionTextureUnit>Texture2</AmbientOcclusionTextureUnit>
+    <ShadowMapTextureUnit>Texture0</ShadowMapTextureUnit>
+    <RoughnessTextureUnit>Texture4</RoughnessTextureUnit>
+    <MetallicTextureUnit>Texture5</MetallicTextureUnit>
+    <EnvironmentTextureUnit>Texture3</EnvironmentTextureUnit>
+    <BufferType>Model</BufferType>
+    <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+  </Shader>
+  <Additive>false</Additive>
+  <AlbedoTint>
+    <B>255</B>
+    <G>255</G>
+    <R>254</R>
+    <A>255</A>
+    <PackedValue>4294967294</PackedValue>
+  </AlbedoTint>
+  <Offset>
+    <X>0</X>
+    <Y>0</Y>
+  </Offset>
+  <RenderMode>Opaque</RenderMode>
+  <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+  <SpecularSmoothness>0.34</SpecularSmoothness>
+  <MetallicTextureStrength>0</MetallicTextureStrength>
+  <Tiling>
+    <X>1</X>
+    <Y>1</Y>
+  </Tiling>
+</Material>

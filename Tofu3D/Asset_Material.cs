@@ -25,14 +25,13 @@ public class Asset_Material : Asset<Asset_Material>
     public float MetallicTextureStrength;
     public Vector2 Tiling;
 
-    [XmlIgnore] [Hide] public int Vao;
-
     public override int GetHashCode()
     {
         var hashCodeCombiner = HashCodeCombiner.Start();
         hashCodeCombiner.Add(base.GetHashCode());
         hashCodeCombiner.Add(Additive.GetHashCode());
         hashCodeCombiner.Add(Shader?.GetHashCode());
+        hashCodeCombiner.Add(PathToRawAsset.GetHashCode());
         hashCodeCombiner.Add(AlbedoTexture?.GetHashCode());
         hashCodeCombiner.Add(AlbedoTint.GetHashCode());
         hashCodeCombiner.Add(AmbientOcclusionTexture?.GetHashCode());
@@ -77,7 +76,7 @@ public class Asset_Material : Asset<Asset_Material>
         if (Shader.IsLoaded == false)
         {
             Shader.Load();
-            BufferFactory.CreateBufferForShader(this);
+            // BufferFactory.CreateBufferForShader(this);
         }
     }
 

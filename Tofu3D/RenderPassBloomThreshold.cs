@@ -43,7 +43,7 @@ public class RenderPassBloomThreshold : RenderPass
         Tofu.ShaderManager.UseShader(_bloomThresholdMaterial.Shader);
         _bloomThresholdMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
         _bloomThresholdMaterial.Shader.SetFloat("downsampleFactor", 4);
-        Tofu.ShaderManager.BindVertexArray(_bloomThresholdMaterial.Vao);
+        Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 

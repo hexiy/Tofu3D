@@ -224,7 +224,9 @@ void main(void)
 	float fresnelFactor = pow(1.0 - max(dot(viewDir, normalize(normal)), 0.0), 5.0) * 0.9 + 0.1;
 //	// Combine reflection and refraction using Fresnel blending
 	float metallicCapped = max(u_metallic,0.2);
-	result.rgb = mix(result.rgb,mix(environmentRefraction, environmentReflection, 1-fresnelFactor), metallicCapped+(fresnelFactor*(1-metallicCapped)));
+	vec3 albedoAndMetallicMix = mix(result.rgb ,mix(environmentRefraction, environmentReflection, 1-fresnelFactor), metallicCapped+(fresnelFactor*(1-metallicCapped)));
+
+	result.rgb = albedoAndMetallicMix;
 //	result.rgb = mix(environmentRefraction, environmentReflection, 1-fresnelFactor);
 //result.a = 1;
 

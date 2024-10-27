@@ -25,7 +25,8 @@ public class AssetLoader_Material : AssetLoader<Asset_Material, Asset_Material>
             assetMaterial.InitShader();
         }
 
-        assetMaterial.InitAssetRuntimeHandle(assetMaterial.Vao);
+        // assetMaterial.InitAssetRuntimeHandle(assetMaterial.Vao);
+        assetMaterial.InitAssetRuntimeHandle(-1);
         return assetMaterial;
     }
 }

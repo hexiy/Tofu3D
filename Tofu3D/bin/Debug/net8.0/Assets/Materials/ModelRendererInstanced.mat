@@ -17,8 +17,8 @@
     <B>255</B>
     <G>255</G>
     <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
+    <A>244</A>
+    <PackedValue>4110417919</PackedValue>
   </AlbedoTint>
   <Offset>
     <X>0</X>
@@ -26,8 +26,8 @@
   </Offset>
   <RenderMode>Opaque</RenderMode>
   <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-  <SpecularSmoothness>0.34</SpecularSmoothness>
-  <MetallicTextureStrength>1</MetallicTextureStrength>
+  <SpecularSmoothness>0.99</SpecularSmoothness>
+  <MetallicTextureStrength>0.953</MetallicTextureStrength>
   <Tiling>
     <X>1</X>
     <Y>1</Y>

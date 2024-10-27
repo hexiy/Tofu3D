@@ -78,7 +78,7 @@ public class Skybox : Component, IComponentUpdateable
         _material.Shader.SetMatrix4X4("u_view", viewMatrix);
         _material.Shader.SetMatrix4X4("u_projection", projectionMatrix);
 
-        Tofu.ShaderManager.BindVertexArray(_material.Vao);
+        Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.CubemapMesh.Vao);
 
         GL.ActiveTexture(TextureUnit.Texture0);
         TextureHelper.BindTexture(_texture.TextureId, TextureType.Cubemap);

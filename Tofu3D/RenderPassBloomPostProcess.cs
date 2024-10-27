@@ -64,7 +64,7 @@ public class RenderPassBloomPostProcess : RenderPass
         Tofu.ShaderManager.UseShader(_bloomPostProcessMaterial.Shader);
         _bloomPostProcessMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
 
-        Tofu.ShaderManager.BindVertexArray(_bloomPostProcessMaterial.Vao);
+        Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
         // GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.Enable(EnableCap.Blend);
@@ -96,7 +96,7 @@ public class RenderPassBloomPostProcess : RenderPass
         _horizontalBlurMaterial.Shader.SetFloat("texelWidth", 1f / BloomFramebufferHorizontal.Size.X + _blurOffset);
         _horizontalBlurMaterial.Shader.SetFloat("texelHeight", 1f / BloomFramebufferHorizontal.Size.Y + _blurOffset);
 
-        Tofu.ShaderManager.BindVertexArray(_horizontalBlurMaterial.Vao);
+        Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
         GL.Disable(EnableCap.Blend);
 
@@ -122,7 +122,7 @@ public class RenderPassBloomPostProcess : RenderPass
         _verticalBlurMaterial.Shader.SetFloat("texelWidth", 1f / BloomFramebufferVertical.Size.X + _blurOffset);
         _verticalBlurMaterial.Shader.SetFloat("texelHeight", 1f / BloomFramebufferVertical.Size.Y + _blurOffset);
 
-        Tofu.ShaderManager.BindVertexArray(_verticalBlurMaterial.Vao);
+        Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
         GL.Disable(EnableCap.Blend);
 

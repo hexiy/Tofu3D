@@ -22,7 +22,7 @@ public class VertexBuffer
     public static VertexBuffer Create<T>(BufferTarget bufferTarget, T[] vertexData, int elementsPerVertex,
         bool isDynamic = false)
     {
-        var vbo = GL.GenBuffer();
+        int vbo = GL.GenBuffer();
         GL.BindBuffer(bufferTarget, vbo);
         var sizeOfElementInBytes = Unsafe.SizeOf<T>();
         if (sizeOfElementInBytes == 0)

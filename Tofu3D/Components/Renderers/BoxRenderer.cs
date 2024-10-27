@@ -1,4 +1,4 @@
-﻿namespace Tofu3D;
+﻿/*namespace Tofu3D;
 
 public class BoxRenderer : Renderer
 {
@@ -43,4 +43,4 @@ public class BoxRenderer : Renderer
         //GL.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, 0);
         DebugHelper.LogDrawCall();
     }
-}
+}*/

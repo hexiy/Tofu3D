@@ -23,10 +23,10 @@ public class ShaderManager
 
     public void BindVertexArray(int vao)
     {
-        if (vao == VaoInUse)
-        {
-            return;
-        }
+        // if (vao == VaoInUse)
+        // {
+            // return;
+        // }
 
         VaoInUse = vao;
         GL.BindVertexArray(vao);
@@ -45,10 +45,10 @@ public class ShaderManager
 
     public void UseShader(int programId)
     {
-        if (programId == ShaderInUse)
-        {
-            return;
-        }
+        // if (programId == ShaderInUse)
+        // {
+        //     return;
+        // }
 
         ShaderInUse = programId;
         GL.UseProgram(programId);

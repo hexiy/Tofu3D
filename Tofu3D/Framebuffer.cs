@@ -173,7 +173,7 @@ public class Framebuffer
         _depthRenderTextureMaterial.Shader.SetMatrix4X4("u_mvp",
             Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
-        Tofu.ShaderManager.BindVertexArray(_depthRenderTextureMaterial.Vao);
+        Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.ActiveTexture(TextureUnit.Texture0);
@@ -195,7 +195,7 @@ public class Framebuffer
         _renderTextureMaterial.Shader.SetMatrix4X4("u_mvp",
             Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
-        Tofu.ShaderManager.BindVertexArray(_renderTextureMaterial.Vao);
+        Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
