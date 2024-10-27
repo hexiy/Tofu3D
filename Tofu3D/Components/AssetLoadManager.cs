@@ -118,7 +118,7 @@ public class AssetLoadManager
         int id = path.GetHashCode();
         if (LoadedAssets.ContainsKey(id))
         {
-            Debug.Log($"unloaded asset:{path}");
+            // Debug.Log($"unloaded asset:{path}");
             // LoadedAssets[id].IsLoaded = false;
             LoadedAssets.Remove(id);
         }

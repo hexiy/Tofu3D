@@ -27,7 +27,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Sphere</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -43,7 +43,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Sphere</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -87,7 +87,7 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>-0.06328125</Y>
+        <Y>3.1703126</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -361,5 +361,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>520</GameObjectNextId>
+  <GameObjectNextId>532</GameObjectNextId>
 </SceneFile>

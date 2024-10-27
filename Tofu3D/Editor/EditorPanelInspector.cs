@@ -26,7 +26,8 @@ public class EditorPanelInspector : EditorPanel
         typeof(Shader),
         typeof(Curve)
     };*/
-    private Action AnyValueChanged = () => { };
+
+    public Action AnyValueChanged = () => { };
 
     private Action _actionQueue = () => { };
 
@@ -43,6 +44,7 @@ public class EditorPanelInspector : EditorPanel
 
     private bool _refreshQueued;
     private int _refreshQueuedInspectableIndex = -1; // -1 = all
+    private InspectableData _materialToShowAtTheBottom=null;
     public override Vector2 Size => new(700, Tofu.Editor.SceneViewSize.Y);
     public override Vector2 Position => new(Tofu.Window.ClientSize.X - I.WindowWidth, 0);
     public override Vector2 Pivot => new(1, 0);
@@ -188,7 +190,7 @@ public class EditorPanelInspector : EditorPanel
         // 	_currentInspectableDatas.Add(data);
         // }
     }*/
-    public void SelectInspectable(object inspectable, Action? anyValueChanged=null)
+    public void SelectInspectable(object inspectable, Action? anyValueChanged = null)
     {
         AnyValueChanged = anyValueChanged;
         SelectInspectables(new List<object> { inspectable });
@@ -209,7 +211,7 @@ public class EditorPanelInspector : EditorPanel
     public void OnMaterialSelected(string materialPath)
     {
         object materialInspectable = Tofu.AssetLoadManager.Load<Asset_Material>(materialPath);
-    
+
         EditorPanelInspector.I.SelectInspectable(materialInspectable,
             anyValueChanged: () =>
             {
@@ -325,7 +327,7 @@ public class EditorPanelInspector : EditorPanel
             }
         }
 
-        InspectableData materialToShowAtTheBottom = null;
+        // _materialToShowAtTheBottom = null;
         foreach (var componentInspectorData in inspectableDatas)
         {
             var component = componentInspectorData.Inspectable as Component;
@@ -407,7 +409,7 @@ public class EditorPanelInspector : EditorPanel
 
             if (componentInspectorData.InspectableType.IsSubclassOf(typeof(Renderer)))
             {
-                materialToShowAtTheBottom =
+                _materialToShowAtTheBottom =
                     new InspectableData((componentInspectorData.Inspectable as Renderer).Material);
             }
         }
@@ -437,7 +439,8 @@ public class EditorPanelInspector : EditorPanel
                 {
                     for (var i = 0; i < _componentTypes.Count; i++)
                     {
-                        if (_componentTypes[i].Name.Contains(_addComponentPopupText, StringComparison.OrdinalIgnoreCase))
+                        if (_componentTypes[i].Name
+                            .Contains(_addComponentPopupText, StringComparison.OrdinalIgnoreCase))
                         {
                             if (ImGui.Button(_componentTypes[i].Name) || enterPressed)
                             {
@@ -464,12 +467,12 @@ public class EditorPanelInspector : EditorPanel
             }
         }
 
-        if (materialToShowAtTheBottom != null)
+        if (_materialToShowAtTheBottom != null && inspectableDatas.Contains(_materialToShowAtTheBottom)==false)
         {
             ImGui.Dummy(new Vector2(0, 50));
             DrawInspectables(new List<InspectableData>
             {
-                materialToShowAtTheBottom
+                _materialToShowAtTheBottom
             });
         }
     }
@@ -618,5 +621,12 @@ public class EditorPanelInspector : EditorPanel
     public void OnAnyValueChanged()
     {
         AnyValueChanged?.Invoke();
+
+        if (_materialToShowAtTheBottom != null)
+        {
+            Asset_Material material = (_materialToShowAtTheBottom.Inspectable as Asset_Material);
+            QuickSerializer.SaveFileXML<Asset_Material>(material.PathToRawAsset, material);
+            Tofu.AssetImportManager.ImportAsset(material.PathToRawAsset, reimportIfExists:true);
+        }
     }
 }

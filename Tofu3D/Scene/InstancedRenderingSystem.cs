@@ -178,6 +178,8 @@ public class InstancedRenderingSystem
             // material.Shader.SetFloat("u_aoStrength", _normalDisabled ? 0 : 1);
 
             // Albedo Texture
+            material.Shader.SetFloat("u_hasAlbedoTexture", material.AlbedoTexture!=null?1:0);
+
             if (material.AlbedoTexture)
             {
                 GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit);

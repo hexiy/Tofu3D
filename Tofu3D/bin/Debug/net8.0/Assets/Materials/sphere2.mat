@@ -2,10 +2,13 @@
 <Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/sphere2.mat</PathToRawAsset>
   <Shader>
-    <AlbedoTextureLocation>28</AlbedoTextureLocation>
-    <NormalTextureLocation>2</NormalTextureLocation>
-    <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
-    <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
+    <AlbedoTextureIndexUnit>Texture0</AlbedoTextureIndexUnit>
+    <NormalTextureIndexUnit>Texture1</NormalTextureIndexUnit>
+    <AmbientOcclusionTextureUnit>Texture2</AmbientOcclusionTextureUnit>
+    <ShadowMapTextureUnit>Texture0</ShadowMapTextureUnit>
+    <RoughnessTextureUnit>Texture4</RoughnessTextureUnit>
+    <MetallicTextureUnit>Texture5</MetallicTextureUnit>
+    <EnvironmentTextureUnit>Texture3</EnvironmentTextureUnit>
     <BufferType>Model</BufferType>
     <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
   </Shader>
@@ -24,6 +27,7 @@
   <RenderMode>Opaque</RenderMode>
   <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
   <SpecularSmoothness>0.34</SpecularSmoothness>
+  <MetallicTextureStrength>0</MetallicTextureStrength>
   <Tiling>
     <X>1</X>
     <Y>1</Y>
