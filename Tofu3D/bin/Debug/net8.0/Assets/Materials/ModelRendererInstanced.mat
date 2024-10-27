@@ -27,7 +27,7 @@
   <RenderMode>Opaque</RenderMode>
   <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
   <SpecularSmoothness>0.99</SpecularSmoothness>
-  <MetallicTextureStrength>0.953</MetallicTextureStrength>
+  <MetallicTextureStrength>1</MetallicTextureStrength>
   <Tiling>
     <X>1</X>
     <Y>1</Y>

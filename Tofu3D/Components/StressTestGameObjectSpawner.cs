@@ -13,6 +13,8 @@ public class StressTestGameObjectSpawner : Component
 
     public int SpawnCount = 1000;
 
+    public float Radius=100;
+
     public override void Awake()
     {
         Spawn += () =>
@@ -31,7 +33,7 @@ public class StressTestGameObjectSpawner : Component
                 // GameObject go = SceneSerializer.Experimental_LoadClipboardGameObject();
                 var go = Tofu.SceneSerializer.LoadClipboardGameObject();
                 go.Transform.LocalPosition +=
-                    new Vector3(Random.Range(-10f, 10f), Random.Range(0, 10), Random.Range(0, 10));
+                    new Vector3(Random.Range(-1f, 1f)*Radius, Random.Range(-1f, 1f)*Radius, Random.Range(-1f, 1f)*Radius);
                 go.Transform.Rotation += new Vector3(0, Random.Range(0, 360), 0);
                 go.GetComponent<Renderer>().Color = Random.RandomColor();
             }

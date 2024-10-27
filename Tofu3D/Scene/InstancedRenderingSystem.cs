@@ -505,5 +505,6 @@ public class InstancedRenderingSystem
 
         // GL.BufferData(BufferTarget.ArrayBuffer, bufferData._instancedVertexDataSizeInBytes * bufferData.MaxNumberOfObjects, bufferData.Buffer, BufferUsageHint.StaticDraw);
         // GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+        GL.BindVertexArray(0);
     }
 }
