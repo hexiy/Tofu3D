@@ -37,6 +37,21 @@ public class FieldOrPropertyInfo
 
     public object ListElement => _list[_index];
 
+    public T GetCustomAttribute<T>() where T : Attribute
+    {
+        if (_fieldInfo != null)
+        {
+            return _fieldInfo.GetCustomAttribute<T>();
+        }
+
+        if (_propertyInfo != null)
+        {
+            return _propertyInfo.GetCustomAttribute<T>();
+        }
+
+        return null;
+    }
+
     public IEnumerable<CustomAttributeData> CustomAttributes
     {
         get

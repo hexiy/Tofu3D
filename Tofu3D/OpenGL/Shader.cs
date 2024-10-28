@@ -17,6 +17,7 @@ public class
     private const string UniformName_VerticalBlurTexture = "verticalBlurTexture";
     private const string UniformName_TextureRoughness = "roughnessTexture";
     private const string UniformName_TextureMetallic = "metallicTexture";
+    private const string UniformName_TextureEmissive = "emissiveTexture";
 
     private float[] _getMatrix4X4ValuesArray =
     {
@@ -37,6 +38,7 @@ public class
     [XmlIgnore] public TextureUnit? RoughnessTextureUnit = null;
     [XmlIgnore] public TextureUnit? MetallicTextureUnit = null;
     [XmlIgnore] public TextureUnit? EnvironmentTextureUnit = null;
+    [XmlIgnore] public TextureUnit? EmissiveTextureUnit = null;
 
     public BufferType BufferType;
 
@@ -154,6 +156,7 @@ public class
             UniformName_VerticalBlurTexture,
             UniformName_TextureRoughness,
             UniformName_TextureMetallic,
+            UniformName_TextureEmissive
         };
         // AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
         // NormalTextureLocation = GetUniformLocation("textureNormal");
@@ -203,6 +206,9 @@ public class
                         break;
                     case UniformName_TextureMetallic:
                         MetallicTextureUnit = textureUnit;
+                        break;
+                    case UniformName_TextureEmissive:
+                        EmissiveTextureUnit = textureUnit;
                         break;
                 }
 

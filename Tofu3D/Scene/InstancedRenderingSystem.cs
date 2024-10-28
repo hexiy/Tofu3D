@@ -229,7 +229,8 @@ public class InstancedRenderingSystem
                 material.Shader.SetFloat("u_hasAOTexture", 0);
             }
 
-            if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null && material.Shader.ShadowMapTextureUnit!=null)
+            if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
+                material.Shader.ShadowMapTextureUnit != null)
             {
                 GL.ActiveTexture(material.Shader.ShadowMapTextureUnit.Value);
                 TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthAttachmentID);
@@ -263,6 +264,12 @@ public class InstancedRenderingSystem
                 TextureHelper.BindTexture(material.MetallicTexture.TextureId);
             }
 
+            material.Shader.SetVector4("u_emissiveColor", material.EmissiveColor);
+            if (material.EmissiveTexture != null)
+            {
+                GL.ActiveTexture(material.Shader.EmissiveTextureUnit.Value);
+                TextureHelper.BindTexture(material.EmissiveTexture.TextureId);
+            }
 
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);

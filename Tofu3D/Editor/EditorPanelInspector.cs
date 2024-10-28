@@ -80,6 +80,7 @@ public class EditorPanelInspector : EditorPanel
         {
             { typeof(Vector2), new InspectorFieldDrawerVector2() },
             { typeof(Vector3), new InspectorFieldDrawerVector3() },
+            { typeof(Vector4), new InspectorFieldDrawerVector4() },
             { typeof(GameObject), new InspectorFieldDrawerGameObject() },
             { typeof(Asset_Material), new InspectorFieldDrawerMaterial() },
             { typeof(Shader), new InspectorFieldDrawerShader() },
@@ -369,7 +370,7 @@ public class EditorPanelInspector : EditorPanel
             {
                 ImGui.PushStyleColor(ImGuiCol.Header, Color.Honeydew.ToVector4());
             }
-
+            
             var headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);
             if (componentInspectorData.InspectableType == typeof(Asset_Material))
             {
@@ -528,7 +529,7 @@ public class EditorPanelInspector : EditorPanel
 
         float itemWidth1 = 400;
         ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth1);
-        ImGui.SetNextItemWidth(itemWidth1);
+        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
 
         if (info.IsGenericList)
         {

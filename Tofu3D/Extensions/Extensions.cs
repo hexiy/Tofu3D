@@ -127,6 +127,7 @@ public static class Extensions
     public static Vector3 VectorZ(this Vector3 vector) => new(0, 0, vector.Z);
 
     public static Color ToColor(this System.Numerics.Vector4 vector) => new(vector.X, vector.Y, vector.Z, vector.W);
+    public static Tofu3D.Vector4 ToVector4(this System.Numerics.Vector4 vector) => new(vector.X, vector.Y, vector.Z, vector.W);
 
     public static Color ToColor(this Vector3 vector) => new(vector.X, vector.Y, vector.Z);
 

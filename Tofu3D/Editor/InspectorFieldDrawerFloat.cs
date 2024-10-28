@@ -11,7 +11,6 @@ public class InspectorFieldDrawerFloat : InspectorFieldDrawable<float>
         var fieldValue = GetValue(info, componentInspectorData);
 
         SliderF sliderAttrib = null;
-        var a = info.FieldOrPropertyType.CustomAttributes.ToList();
         for (var i = 0; i < info.CustomAttributes.Count(); i++)
         {
             if (info.CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(SliderF))

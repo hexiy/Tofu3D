@@ -74,6 +74,8 @@ uniform float u_hasAOTexture = 0;
 uniform float u_metallic = 1;
 uniform float u_smoothness = 1;
 
+uniform vec4 u_emissiveColor = vec4(0,0,0,0); // could be vec3, whatever
+
 uniform sampler2D albedoTexture;
 uniform sampler2D normalTexture;
 uniform sampler2D ambientOcclusionTexture;
@@ -81,6 +83,7 @@ uniform sampler2D shadowmapTexture;
 uniform samplerCube environmentCubemap;
 uniform sampler2D metallicTexture;
 uniform sampler2D roughnessTexture;
+uniform sampler2D emissiveTexture;
 
 
 in vec3 normal;
@@ -327,9 +330,21 @@ void main(void)
 
 
 	result.rgb = LinearToSRGB(result.rgb);
+	
+	// u_emissiveColor.a  == 0 -> 
+	float emissiveIntensity= u_emissiveColor.a/10.0 + 1.0;
+
+	vec3 emissiveColor = texture(emissiveTexture, uvCoords).rgb * u_emissiveColor.rgb * emissiveIntensity;
+
+//	float emissiveIntensity= u_emissiveColor.a + (-10.0/255.0) + 1;
+	result.rgb +=emissiveColor;
+//	result.rgb = u_emissiveColor.rgb;
 	if (u_renderMode == 0) // regular
 	{
+//		result.rgb = vec3(emissiveIntensity,0,0); dbg
+
 		fragColor = result;
+
 	}
 	if (u_renderMode == 1) // positions
 	{

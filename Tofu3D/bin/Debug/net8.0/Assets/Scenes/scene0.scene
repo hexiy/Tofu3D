@@ -114,14 +114,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>1.0498732E-05</X>
-        <Y>1.10958425E-08</Y>
-        <Z>-5.000025</Z>
+        <X>-2.6983948</X>
+        <Y>0.6570791</Y>
+        <Z>-2.8713756</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1.0498732E-05</X>
-        <Y>1.10958425E-08</Y>
-        <Z>-5.000025</Z>
+        <X>-2.6983948</X>
+        <Y>0.6570791</Y>
+        <Z>-2.8713756</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -134,8 +134,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0.024218751</X>
-        <Y>0</Y>
+        <X>10.368758</X>
+        <Y>14.51484</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -266,6 +266,20 @@
           <A>255</A>
           <PackedValue>4278190335</PackedValue>
         </AlbedoTint>
+        <EmissiveTexture>
+          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
+          <Size>
+            <X>1</X>
+            <Y>1</Y>
+          </Size>
+          <TextureId>1</TextureId>
+        </EmissiveTexture>
+        <EmissiveColor>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+          <W>0</W>
+        </EmissiveColor>
         <Offset>
           <X>0</X>
           <Y>0</Y>
@@ -387,6 +401,20 @@
           <A>255</A>
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
+        <EmissiveTexture>
+          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
+          <Size>
+            <X>1</X>
+            <Y>1</Y>
+          </Size>
+          <TextureId>1</TextureId>
+        </EmissiveTexture>
+        <EmissiveColor>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+          <W>0</W>
+        </EmissiveColor>
         <Offset>
           <X>0</X>
           <Y>0</Y>
@@ -505,9 +533,23 @@
           <B>255</B>
           <G>255</G>
           <R>255</R>
-          <A>255</A>
-          <PackedValue>4294967295</PackedValue>
+          <A>201</A>
+          <PackedValue>3388997631</PackedValue>
         </AlbedoTint>
+        <EmissiveTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/space.PNG</PathToRawAsset>
+          <Size>
+            <X>1024</X>
+            <Y>1024</Y>
+          </Size>
+          <TextureId>25</TextureId>
+        </EmissiveTexture>
+        <EmissiveColor>
+          <X>1</X>
+          <Y>0</Y>
+          <Z>0</Z>
+          <W>10</W>
+        </EmissiveColor>
         <Offset>
           <X>0</X>
           <Y>0</Y>
@@ -692,9 +734,23 @@
           <B>255</B>
           <G>255</G>
           <R>255</R>
-          <A>255</A>
-          <PackedValue>4294967295</PackedValue>
+          <A>201</A>
+          <PackedValue>3388997631</PackedValue>
         </AlbedoTint>
+        <EmissiveTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/space.PNG</PathToRawAsset>
+          <Size>
+            <X>1024</X>
+            <Y>1024</Y>
+          </Size>
+          <TextureId>25</TextureId>
+        </EmissiveTexture>
+        <EmissiveColor>
+          <X>1</X>
+          <Y>0</Y>
+          <Z>0</Z>
+          <W>10</W>
+        </EmissiveColor>
         <Offset>
           <X>0</X>
           <Y>0</Y>
@@ -721,5 +777,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>1087</GameObjectNextId>
+  <GameObjectNextId>1109</GameObjectNextId>
 </SceneFile>

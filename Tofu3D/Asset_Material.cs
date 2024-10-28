@@ -1,4 +1,5 @@
 using Microsoft.DotNet.PlatformAbstractions;
+using OpenTK.Mathematics;
 
 [Serializable]
 [XmlRoot("Material")]
@@ -15,6 +16,9 @@ public class Asset_Material : Asset<Asset_Material>
     public RuntimeTexture? NormalTexture;
     public RuntimeTexture? RoughnessTexture;
     public RuntimeTexture? MetallicTexture;
+    public RuntimeTexture? EmissiveTexture;
+    [ColorHDR]
+    public Vector4 EmissiveColor;
     public Vector2 Offset;
 
     public RenderMode RenderMode = RenderMode.Opaque;
@@ -74,6 +78,16 @@ public class Asset_Material : Asset<Asset_Material>
         if (MetallicTexture?.PathToRawAsset.Length > 2)
         {
             MetallicTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(MetallicTexture.PathToRawAsset);
+        }
+        if (EmissiveTexture?.PathToRawAsset.Length > 2)
+        {
+            EmissiveTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
+                { IsSrgb = true, PathToAsset = EmissiveTexture.PathToRawAsset });
+        }
+        else
+        {
+            EmissiveTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
+                { IsSrgb = true, PathToAsset = "Resources/whitePixel.png" });
         }
     }
 
