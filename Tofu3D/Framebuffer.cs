@@ -67,7 +67,7 @@ public class Framebuffer
             // }
             // else
             // {
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16, (int)Size.X, (int)Size.Y, 0,
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16f, (int)Size.X, (int)Size.Y, 0,
                 PixelFormat.Rgba, PixelType.UnsignedByte, (IntPtr)null);
             // }
 

@@ -157,6 +157,10 @@
         <Content Include="bin\Debug\net8.0\Assets\Scenes\old scenes\sponzaInstanced.scene"/>
         <Content Include="bin\Debug\net8.0\Assets\Scenes\particles.scene"/>
         <Content Include="bin\Debug\net8.0\Assets\Scenes\scene0.scene"/>
+        <Content Include="bin\Debug\net8.0\Assets\Shaders\BloomHorizontal.glsl" />
+        <Content Include="bin\Debug\net8.0\Assets\Shaders\BloomPostProcess.glsl" />
+        <Content Include="bin\Debug\net8.0\Assets\Shaders\BloomThreshold.glsl" />
+        <Content Include="bin\Debug\net8.0\Assets\Shaders\BloomVertical.glsl" />
         <Content Include="bin\Debug\net8.0\Assets\Shaders\BoxRenderer.glsl"/>
         <Content Include="bin\Debug\net8.0\Assets\Shaders\DepthModelRenderer.glsl"/>
         <Content Include="bin\Debug\net8.0\Assets\Shaders\DepthRenderTexture.glsl"/>
@@ -172,6 +176,7 @@
         <Content Include="bin\Debug\net8.0\Assets\Shaders\Skybox.glsl"/>
         <Content Include="bin\Debug\net8.0\Assets\Shaders\Snow.glsl"/>
         <Content Include="bin\Debug\net8.0\Assets\Shaders\SpriteRenderer.glsl"/>
+        <Content Include="bin\Debug\net8.0\Assets\Shaders\SpriteRendererInstanced.glsl" />
         <Content Include="bin\Debug\net8.0\Assets\Shaders\SpriteRendererOldBatched.glsl"/>
         <Content Include="bin\Debug\net8.0\Assets\Shaders\SpriteSheetRenderer.glsl"/>
         <Content Include="bin\Debug\net8.0\Assets\Shaders\TextRenderer.glsl"/>

@@ -114,14 +114,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-2.6983948</X>
-        <Y>0.6570791</Y>
-        <Z>-2.8713756</Z>
+        <X>-2.834529</X>
+        <Y>0.3314424</Y>
+        <Z>-2.8388977</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-2.6983948</X>
-        <Y>0.6570791</Y>
-        <Z>-2.8713756</Z>
+        <X>-2.834529</X>
+        <Y>0.3314424</Y>
+        <Z>-2.8388977</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -134,8 +134,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>10.368758</X>
-        <Y>14.51484</Y>
+        <X>0.32578784</X>
+        <Y>23.047636</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -257,7 +257,7 @@
             <X>1</X>
             <Y>1</Y>
           </Size>
-          <TextureId>15</TextureId>
+          <TextureId>19</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>0</B>
@@ -522,12 +522,12 @@
         </Shader>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/stone.png</PathToRawAsset>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/space.PNG</PathToRawAsset>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>1024</X>
+            <Y>1024</Y>
           </Size>
-          <TextureId>16</TextureId>
+          <TextureId>20</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -537,18 +537,18 @@
           <PackedValue>3388997631</PackedValue>
         </AlbedoTint>
         <EmissiveTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/space.PNG</PathToRawAsset>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/spaceBrighter.PNG</PathToRawAsset>
           <Size>
             <X>1024</X>
             <Y>1024</Y>
           </Size>
-          <TextureId>25</TextureId>
+          <TextureId>21</TextureId>
         </EmissiveTexture>
         <EmissiveColor>
           <X>1</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>10</W>
+          <Y>1</Y>
+          <Z>1</Z>
+          <W>2.646</W>
         </EmissiveColor>
         <Offset>
           <X>0</X>
@@ -723,12 +723,12 @@
         </Shader>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/stone.png</PathToRawAsset>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/space.PNG</PathToRawAsset>
           <Size>
-            <X>397</X>
-            <Y>397</Y>
+            <X>1024</X>
+            <Y>1024</Y>
           </Size>
-          <TextureId>16</TextureId>
+          <TextureId>20</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -738,18 +738,18 @@
           <PackedValue>3388997631</PackedValue>
         </AlbedoTint>
         <EmissiveTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/space.PNG</PathToRawAsset>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/spaceBrighter.PNG</PathToRawAsset>
           <Size>
             <X>1024</X>
             <Y>1024</Y>
           </Size>
-          <TextureId>25</TextureId>
+          <TextureId>21</TextureId>
         </EmissiveTexture>
         <EmissiveColor>
           <X>1</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>10</W>
+          <Y>1</Y>
+          <Z>1</Z>
+          <W>2.646</W>
         </EmissiveColor>
         <Offset>
           <X>0</X>
@@ -777,5 +777,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>1109</GameObjectNextId>
+  <GameObjectNextId>1117</GameObjectNextId>
 </SceneFile>

@@ -1,5 +1,5 @@
-[BUFFERTYPE: RenderTexture]
-[VERTEX]
+//[BUFFERTYPE: RenderTexture]
+//[VERTEX]
 #version 410 core
 
 layout (location = 0) in vec2 position;
@@ -15,7 +15,7 @@ texCoord = aTexCoord * 0.5 + 0.5;
 gl_Position = vec4(position, 0.0, 1.0);
 }
 
-[FRAGMENT]
+//[FRAGMENT]
 #version 410 core 
 
 in vec2 texCoord;

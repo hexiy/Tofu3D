@@ -45,12 +45,13 @@ public class RenderPassSystem
 
     private void CreatePasses()
     {
+        // GL.Disable(EnableCap.FramebufferSrgb);
         RenderPassSkybox renderPassSkybox = new();
         RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new();
         RenderPassZPrePass renderPassZPrePass = new();
         RenderPassOpaques renderPassOpaques = new();
-        // RenderPassBloomThreshold renderPassBloomThreshold = new();
-        // RenderPassBloomPostProcess renderPassBloomPostProcess = new(renderPassBloomThreshold);
+        RenderPassBloomThreshold renderPassBloomThreshold = new();
+        RenderPassBloomPostProcess renderPassBloomPostProcess = new(renderPassBloomThreshold);
         // RenderPassPostProcess renderPassPostProcess = new();
         // RenderPassUI renderPassUI = new();
 
@@ -147,5 +148,6 @@ public class RenderPassSystem
 
             renderPass.RenderThisAsFullscreenQuadToTargetFramebuffer(FinalFramebuffer, FramebufferAttachment.Color);
         }
+
     }
 }

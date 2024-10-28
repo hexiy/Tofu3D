@@ -23,7 +23,7 @@ void main(void)
 #version 410 core 
 in vec2 texCoord;
 uniform sampler2D textureObject;
-uniform float threshold = 0.8;
+uniform float threshold = 1;
 uniform float downsampleFactor = 4;
 
 layout (location = 0) out vec4 color;
@@ -35,7 +35,10 @@ void main(void)
 	float brightness = dot(texColor.rgb, vec3(0.2126, 0.7152, 0.0722));  // Luminance calculation
 	if (brightness > threshold)
 	{
-		color = texColor;  // Keep bright parts
+		color = texColor*10;  // Keep bright parts
+		color.a = 1;
+//		color = vec4(10,0,0,1);  // Discard dark parts
+
 	}
 	else
 	{
