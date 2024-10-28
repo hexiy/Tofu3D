@@ -150,7 +150,7 @@ void main(void)
 
 
 	vec4 albedoColor = texture(albedoTexture, uvCoords) * u_albedoTint;//*color;
-	albedoColor.rgb = sRGBToLinear(albedoColor.rgb);
+//	albedoColor.rgb = sRGBToLinear(albedoColor.rgb);
 
 
 
@@ -166,7 +166,9 @@ void main(void)
 	vec3 reflectionI = normalize(vertexPositionWorld - u_camPos);
 	vec3 reflectionR = reflect(reflectionI, normalize(normal));
 	vec3 environmentReflection = texture(environmentCubemap, reflectionR).rgb;
-	vec3 environmentReflectionT = texture(environmentCubemap, reflectionR).rgb;
+
+	vec3 environmentReflectionT = texture(environmentCubemap, vec3(10,10,10)).rgb;
+	environmentReflectionT.rgb = sRGBToLinear(environmentReflectionT.rgb);
 
 //	float a = fresnelFactor*1.5;
 	
@@ -178,7 +180,7 @@ void main(void)
 	vec3 environmentReflectionTinted = environmentReflection* (mix(vec3(1,1,1), u_albedoTint.rgb, 1-fresnelFactor));
 	vec3 environmentReflectionSkyboxFresnel = fresnelFactor2*environmentReflection;
 
-	environmentReflection.rgb = environmentReflectionTinted;// + environmentReflectionSkyboxFresnel;
+	environmentReflection.rgb = environmentReflectionTinted * 0.6;// + environmentReflectionSkyboxFresnel;
 	environmentReflection.rgb = sRGBToLinear(environmentReflection.rgb);
 
 
@@ -263,10 +265,11 @@ void main(void)
 
 
 	vec4 albedoColorLit = albedoColor * diffuse;
-
+	albedoColorLit.rgb+= environmentReflectionT*0.01;
 	float reflectivity = (metallicCapped + (fresnelFactor * (1 - metallicCapped))) * newSmoothness;
-	result.rgb = albedoColorLit.rgb;
-
+	
+	result.rgb = albedoColorLit.rgb;//+ environmentReflectionT*0.01;
+	
 //	vec3 environmentRefractionAndReflectionMix = mix(environmentRefraction, environmentReflection, 1 - fresnelFactor) * metallicCapped;
 	// disable refraction for now
 	vec3 environmentRefractionAndReflectionMix = environmentReflection;

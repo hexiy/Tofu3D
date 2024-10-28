@@ -24,8 +24,16 @@ uniform samplerCube skybox;
 void main(void)
 {
 vec4 col = texture(skybox, TexCoords);
+float desaturationFactor = 0.2;
+// Calculate the grayscale intensity (luminance) of the color
+float gray = dot(col.rgb, vec3(0.3, 0.59, 0.11));
 
-FragColor = col;
+// Linearly interpolate between the grayscale color and the original color
+vec3 desaturatedColor = mix(col.rgb, vec3(gray), desaturationFactor);
+
+// Set the final output color with the modified saturation
+FragColor = vec4(desaturatedColor, col.a);
+//FragColor = col;
 
 //if (col.a < 0.1){
 //discard;

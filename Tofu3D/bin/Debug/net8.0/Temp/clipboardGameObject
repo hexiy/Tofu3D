@@ -5,12 +5,12 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>969</Id>
+      <Id>332</Id>
       <IndexInHierarchy>1</IndexInHierarchy>
-      <IsPrefab>true</IsPrefab>
+      <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Sphere1-mat1</Name>
-      <PrefabPath>Assets/Prefabs/Sphere1-mat1.prefab</PrefabPath>
+      <Name>Sphere_FullReflective</Name>
+      <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
@@ -21,7 +21,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>969</GameObjectId>
+      <GameObjectId>332</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -64,7 +64,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>969</GameObjectId>
+      <GameObjectId>332</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -81,7 +81,7 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>969</GameObjectId>
+      <GameObjectId>332</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -96,23 +96,24 @@
       <Material>
         <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
         <Shader>
-          <AlbedoTextureIndexUnit>Texture0</AlbedoTextureIndexUnit>
-          <NormalTextureIndexUnit>Texture1</NormalTextureIndexUnit>
-          <AmbientOcclusionTextureUnit>Texture2</AmbientOcclusionTextureUnit>
-          <ShadowMapTextureUnit>Texture0</ShadowMapTextureUnit>
-          <RoughnessTextureUnit>Texture4</RoughnessTextureUnit>
-          <MetallicTextureUnit>Texture5</MetallicTextureUnit>
-          <EnvironmentTextureUnit>Texture3</EnvironmentTextureUnit>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
         <Additive>false</Additive>
+        <AlbedoTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/white.png</PathToRawAsset>
+          <Size>
+            <X>1</X>
+            <Y>1</Y>
+          </Size>
+          <TextureId>15</TextureId>
+        </AlbedoTexture>
         <AlbedoTint>
-          <B>255</B>
-          <G>255</G>
+          <B>0</B>
+          <G>0</G>
           <R>255</R>
-          <A>244</A>
-          <PackedValue>4110417919</PackedValue>
+          <A>255</A>
+          <PackedValue>4278190335</PackedValue>
         </AlbedoTint>
         <Offset>
           <X>0</X>
@@ -122,6 +123,7 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.99</SpecularSmoothness>
         <MetallicTextureStrength>1</MetallicTextureStrength>
+        <Smoothness>1</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -129,10 +131,10 @@
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
-        <MeshAssetPath>Library/Meshes/sphere.obj_0.tofumesh</MeshAssetPath>
+        <MeshAssetPath>Library/Meshes/smoothCube.obj_0.tofumesh</MeshAssetPath>
         <Vao>4</Vao>
-        <VerticesCount>2880</VerticesCount>
-        <VertexBufferDataLength>40320</VertexBufferDataLength>
+        <VerticesCount>761856</VerticesCount>
+        <VertexBufferDataLength>10665984</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
       </RuntimeMesh>
       <RenderMode>Opaque</RenderMode>
