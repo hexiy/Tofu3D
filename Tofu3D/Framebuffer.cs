@@ -70,7 +70,6 @@ public class Framebuffer
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16f, (int)Size.X, (int)Size.Y, 0,
                 PixelFormat.Rgba, PixelType.UnsignedByte, (IntPtr)null);
             // }
-
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter,
                 (int)TextureMinFilter.Linear);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter,

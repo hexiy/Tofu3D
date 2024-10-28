@@ -42,11 +42,12 @@ public class RenderPassBloomThreshold : RenderPass
 
         Tofu.ShaderManager.UseShader(_bloomThresholdMaterial.Shader);
         _bloomThresholdMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
-        _bloomThresholdMaterial.Shader.SetFloat("downsampleFactor", 4);
         Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
-        GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-
+        // GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+        GL.Enable(EnableCap.Blend);
+        GL.BlendFunc(BlendingFactor.One, BlendingFactor.One);
+        GL.Viewport(0,0, (int)MainFramebuffer.Size.X,(int)MainFramebuffer.Size.Y);
         GL.ActiveTexture(TextureUnit.Texture0);
         TextureHelper.BindTexture(target.ColorAttachmentID); // bind our final texture(opaques)
 
@@ -62,11 +63,11 @@ public class RenderPassBloomThreshold : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = Tofu.RenderPassSystem.ViewSize / 4f;
+            MainFramebuffer.Size = Tofu.RenderPassSystem.ViewSize/3;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, downsampleFactor: 4);
+        MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize/3, true, false, downsampleFactor: 1);
     }
 }

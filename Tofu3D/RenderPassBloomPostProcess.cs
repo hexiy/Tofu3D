@@ -32,9 +32,9 @@ public class RenderPassBloomPostProcess : RenderPass
         base.Initialize();
     }
 
-    private float _blurOffset = 0f;
 
-    public override void RenderThisAsFullscreenQuadToTargetFramebuffer(Framebuffer target, FramebufferAttachment attachment)
+    public override void RenderThisAsFullscreenQuadToTargetFramebuffer(Framebuffer target,
+        FramebufferAttachment attachment)
     {
         if (MainFramebuffer == null)
         {
@@ -66,11 +66,10 @@ public class RenderPassBloomPostProcess : RenderPass
 
         Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
-        // GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.Enable(EnableCap.Blend);
-
-        // GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.BlendFunc(BlendingFactor.One, BlendingFactor.One); // Additive blending for bloom effect
+        GL.Viewport(0,0, (int)target.Size.X,(int)target.Size.Y);
+
         GL.ActiveTexture(TextureUnit.Texture0);
         TextureHelper.BindTexture(BloomFramebufferHorizontal.ColorAttachmentID);
 
@@ -93,8 +92,9 @@ public class RenderPassBloomPostProcess : RenderPass
 
         Tofu.ShaderManager.UseShader(_horizontalBlurMaterial.Shader);
         _horizontalBlurMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
-        _horizontalBlurMaterial.Shader.SetFloat("texelWidth", 1f / BloomFramebufferHorizontal.Size.X + _blurOffset);
-        _horizontalBlurMaterial.Shader.SetFloat("texelHeight", 1f / BloomFramebufferHorizontal.Size.Y + _blurOffset);
+        _horizontalBlurMaterial.Shader.SetFloat("texelWidth", 1f / BloomFramebufferHorizontal.Size.X);
+        _horizontalBlurMaterial.Shader.SetFloat("texelHeight", 1f / BloomFramebufferHorizontal.Size.Y);
+        GL.Viewport(0,0, (int)BloomFramebufferHorizontal.Size.X,(int)BloomFramebufferHorizontal.Size.Y);
 
         Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
@@ -119,16 +119,16 @@ public class RenderPassBloomPostProcess : RenderPass
 
         Tofu.ShaderManager.UseShader(_verticalBlurMaterial.Shader);
         _verticalBlurMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
-        _verticalBlurMaterial.Shader.SetFloat("texelWidth", 1f / BloomFramebufferVertical.Size.X + _blurOffset);
-        _verticalBlurMaterial.Shader.SetFloat("texelHeight", 1f / BloomFramebufferVertical.Size.Y + _blurOffset);
+        _verticalBlurMaterial.Shader.SetFloat("texelWidth", 1f / BloomFramebufferVertical.Size.X);
+        _verticalBlurMaterial.Shader.SetFloat("texelHeight", 1f / BloomFramebufferVertical.Size.Y);
+        GL.Viewport(0,0, (int)BloomFramebufferVertical.Size.X,(int)BloomFramebufferVertical.Size.Y);
 
         Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
         GL.Disable(EnableCap.Blend);
 
         GL.ActiveTexture(TextureUnit.Texture0);
-        TextureHelper.BindTexture(BloomFramebufferHorizontal
-            .ColorAttachmentID); // bind our existing screen texture
+        TextureHelper.BindTexture(BloomFramebufferHorizontal.ColorAttachmentID); // bind our existing screen texture
 
         GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
@@ -152,17 +152,17 @@ public class RenderPassBloomPostProcess : RenderPass
 
         if (BloomFramebufferHorizontal != null)
         {
-            BloomFramebufferHorizontal.Size = Tofu.RenderPassSystem.ViewSize / 4f;
+            BloomFramebufferHorizontal.Size = Tofu.RenderPassSystem.ViewSize / 3f;
             BloomFramebufferHorizontal.Invalidate(false);
-            BloomFramebufferVertical.Size = Tofu.RenderPassSystem.ViewSize / 4f;
+            BloomFramebufferVertical.Size = Tofu.RenderPassSystem.ViewSize / 3f;
             BloomFramebufferVertical.Invalidate(false);
         }
         else
         {
             BloomFramebufferHorizontal =
-                new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, downsampleFactor: 4);
+                new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, downsampleFactor: 3);
             BloomFramebufferVertical =
-                new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, downsampleFactor: 4);
+                new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, downsampleFactor: 3);
         }
     }
 }

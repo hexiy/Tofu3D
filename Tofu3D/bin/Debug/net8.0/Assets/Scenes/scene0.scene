@@ -75,7 +75,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Directional Light</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -91,7 +91,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Block_FullReflective</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -114,14 +114,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-2.834529</X>
-        <Y>0.3314424</Y>
-        <Z>-2.8388977</Z>
+        <X>-3.0774755</X>
+        <Y>0.11911824</Y>
+        <Z>-4.0453844</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-2.834529</X>
-        <Y>0.3314424</Y>
-        <Z>-2.8388977</Z>
+        <X>-3.0774755</X>
+        <Y>0.11911824</Y>
+        <Z>-4.0453844</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -134,8 +134,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0.32578784</X>
-        <Y>23.047636</Y>
+        <X>-5.380469</X>
+        <Y>25.421871</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -537,18 +537,18 @@
           <PackedValue>3388997631</PackedValue>
         </AlbedoTint>
         <EmissiveTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/spaceBrighter.PNG</PathToRawAsset>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/gridX.png</PathToRawAsset>
           <Size>
-            <X>1024</X>
-            <Y>1024</Y>
+            <X>101</X>
+            <Y>101</Y>
           </Size>
           <TextureId>21</TextureId>
         </EmissiveTexture>
         <EmissiveColor>
-          <X>1</X>
+          <X>0</X>
           <Y>1</Y>
-          <Z>1</Z>
-          <W>2.646</W>
+          <Z>0.58461523</Z>
+          <W>10</W>
         </EmissiveColor>
         <Offset>
           <X>0</X>
@@ -738,18 +738,18 @@
           <PackedValue>3388997631</PackedValue>
         </AlbedoTint>
         <EmissiveTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/spaceBrighter.PNG</PathToRawAsset>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/gridX.png</PathToRawAsset>
           <Size>
-            <X>1024</X>
-            <Y>1024</Y>
+            <X>101</X>
+            <Y>101</Y>
           </Size>
           <TextureId>21</TextureId>
         </EmissiveTexture>
         <EmissiveColor>
-          <X>1</X>
+          <X>0</X>
           <Y>1</Y>
-          <Z>1</Z>
-          <W>2.646</W>
+          <Z>0.58461523</Z>
+          <W>10</W>
         </EmissiveColor>
         <Offset>
           <X>0</X>
@@ -777,5 +777,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>1117</GameObjectNextId>
+  <GameObjectNextId>1131</GameObjectNextId>
 </SceneFile>
