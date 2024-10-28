@@ -27,7 +27,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Sphere_FullReflective</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -43,7 +43,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Sphere_BlackReflective</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -98,14 +98,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-0.25341687</X>
-        <Y>0.0074325814</Y>
-        <Z>-5.5993176</Z>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>-5</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-0.25341687</X>
-        <Y>0.0074325814</Y>
-        <Z>-5.5993176</Z>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>-5</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -584,5 +584,5 @@
       <Speed>100</Speed>
     </Component>
   </Components>
-  <GameObjectNextId>1062</GameObjectNextId>
+  <GameObjectNextId>1064</GameObjectNextId>
 </SceneFile>

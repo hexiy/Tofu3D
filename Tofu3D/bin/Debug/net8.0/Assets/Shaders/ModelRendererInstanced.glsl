@@ -158,12 +158,15 @@ void main(void)
 	//	// Compute the Fresnel factor using the Schlick approximation
 	float fresnelEdgeWidth = 3.4;
 	float fresnelFactor = pow(1.0 - max(dot(viewDir, normalize(normal)), 0.0), 10 / fresnelEdgeWidth) * 0.9 + 0.1;
+	float fresnelFactor2 = pow(1.0 - max(dot(viewDir, normalize(normal)), 0.0), 10 / 5) * 0.9 + 0.1;
+	fresnelFactor2 =pow(fresnelFactor2, 3);
 
 	
 	
 	vec3 reflectionI = normalize(vertexPositionWorld - u_camPos);
 	vec3 reflectionR = reflect(reflectionI, normalize(normal));
 	vec3 environmentReflection = texture(environmentCubemap, reflectionR).rgb;
+	vec3 environmentReflectionT = texture(environmentCubemap, reflectionR).rgb;
 
 //	float a = fresnelFactor*1.5;
 	
@@ -172,10 +175,10 @@ void main(void)
 //		and we can tame the skybox reflection it isnt gonna be at full blast obviously
 //
 
-	vec3 environmentReflectionTinted = environmentReflection* (mix(vec3(1,1,1), u_albedoTint.rgb, 1-fresnelFactor)) * (1-fresnelFactor);
-	vec3 environmentReflectionSkyboxFresnel = fresnelFactor*environmentReflection;
+	vec3 environmentReflectionTinted = environmentReflection* (mix(vec3(1,1,1), u_albedoTint.rgb, 1-fresnelFactor));
+	vec3 environmentReflectionSkyboxFresnel = fresnelFactor2*environmentReflection;
 
-	environmentReflection.rgb = environmentReflectionTinted + environmentReflectionSkyboxFresnel;
+	environmentReflection.rgb = environmentReflectionTinted;// + environmentReflectionSkyboxFresnel;
 	environmentReflection.rgb = sRGBToLinear(environmentReflection.rgb);
 
 
@@ -269,8 +272,12 @@ void main(void)
 	vec3 environmentRefractionAndReflectionMix = environmentReflection;
 	vec3 albedoAndMetallicMix = mix(result.rgb,environmentRefractionAndReflectionMix*metallicCapped, reflectivity);
 	
+	float aaa = max(u_smoothness - u_metallic,0);
+//	aaa is strength of the fresnel halo
 
-	result.rgb = albedoAndMetallicMix;
+	result.rgb = albedoAndMetallicMix+(aaa*environmentReflectionSkyboxFresnel * 0.4);
+//	result.rgb = environmentReflectionSkyboxFresnel;
+//	result.rgb = environmentReflectionT*fresnelFactor*2;
 //	result.rgb = vec3(directionalLightFactor,0,0);
 //	result.rgb = vec3(directionalLightFactor*reflectivity,0,0);
 //	result.rgb = vec3(metallicCapped,0,0);
