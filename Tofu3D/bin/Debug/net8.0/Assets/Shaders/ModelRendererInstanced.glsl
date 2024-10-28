@@ -71,8 +71,8 @@ uniform float u_fogIntensity = 1;
 uniform float u_hasNormalTexture = 0;
 uniform float u_hasAOTexture = 0;
 
-uniform float u_metallic =1;
-uniform float u_smoothness =1;
+uniform float u_metallic = 1;
+uniform float u_smoothness = 1;
 
 uniform sampler2D albedoTexture;
 uniform sampler2D normalTexture;
@@ -152,21 +152,42 @@ void main(void)
 	vec4 albedoColor = texture(albedoTexture, uvCoords) * u_albedoTint;//*color;
 	albedoColor.rgb = sRGBToLinear(albedoColor.rgb);
 
+
+
+	vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
+	//	// Compute the Fresnel factor using the Schlick approximation
+	float fresnelEdgeWidth = 3.4;
+	float fresnelFactor = pow(1.0 - max(dot(viewDir, normalize(normal)), 0.0), 10 / fresnelEdgeWidth) * 0.9 + 0.1;
+
+	
+	
 	vec3 reflectionI = normalize(vertexPositionWorld - u_camPos);
 	vec3 reflectionR = reflect(reflectionI, normalize(normal));
-	vec3 environmentReflection = texture(environmentCubemap, reflectionR).rgb* u_albedoTint.rgb;
+	vec3 environmentReflection = texture(environmentCubemap, reflectionR).rgb;
+
+//	float a = fresnelFactor*1.5;
+	
+//	 at the edge fresnel is 1, so basically i just want to add skybox color the more 1 it is, literally should be just + fresnel*skyboxcolor
+//		AFTER the tint, and then just add tint and that together
+//		and we can tame the skybox reflection it isnt gonna be at full blast obviously
+//
+
+	vec3 environmentReflectionTinted = environmentReflection* (mix(vec3(1,1,1), u_albedoTint.rgb, 1-fresnelFactor)) * (1-fresnelFactor);
+	vec3 environmentReflectionSkyboxFresnel = fresnelFactor*environmentReflection;
+
+	environmentReflection.rgb = environmentReflectionTinted + environmentReflectionSkyboxFresnel;
 	environmentReflection.rgb = sRGBToLinear(environmentReflection.rgb);
 
 
-	//	float ratio = 1.00 / 1.15;
+//		float ratio = 1.00 / 1.1;
 	float ratio = 1.00 / 1.309; // Water
 	//	float ratio = 1.00 / 1.309; // Ice
-	//	float ratio = 1.00 / 1.52; // Glass
-	//	float ratio = 1.00 / 2.42; // Diamond
+//		float ratio = 1.00 / 1.52; // Glass
+//		float ratio = 1.00 / 2.42; // Diamond
 	vec3 refractionI = normalize(vertexPositionWorld - u_camPos);
 	vec3 refractionR = refract(refractionI, normalize(normal), ratio);
-
-	vec3 environmentRefraction = texture(environmentCubemap, refractionR).rgb * u_albedoTint.rgb;
+	
+	vec3 environmentRefraction = texture(environmentCubemap, refractionR).rgb;
 	environmentRefraction.rgb = sRGBToLinear(environmentRefraction.rgb);
 
 	vec4 aoColor = texture(ambientOcclusionTexture, uvCoords);
@@ -182,82 +203,91 @@ void main(void)
 	vec4 diffuse = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
 	//result *= ambient;
 
-//	vec4 result = albedoColor * aoColor * max(final_ambient, final_diffuse) + min(final_ambient, final_diffuse);
-//	result.a = albedoColor.a;// * color.a;
+	//	vec4 result = albedoColor * aoColor * max(final_ambient, final_diffuse) + min(final_ambient, final_diffuse);
+	//	result.a = albedoColor.a;// * color.a;
 
-//	if (result.a < 0.05)
-//	{
-//		discard; // having this fixes transparency sorting but breaks debug depthmap
-//	}
+	//	if (result.a < 0.05)
+	//	{
+	//		discard; // having this fixes transparency sorting but breaks debug depthmap
+	//	}
 
 
-//	if (u_specularHighlightsEnabled == 1)
-//	{
-//		vec3 reflectedLightVectorWorld = reflect(correctedLightDir, finalNormal);
-//		vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
-//		////////// problem is below
-//		float clampedSpecularSmoothness = max(u_specularSmoothness, 0);
-//		float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32 * clampedSpecularSmoothness);
-//		spec = max(spec, 0);
-//		vec3 specular = clampedSpecularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 2;
-//
-//		//vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
-//
-//		//if (shadow == 0) {
-//		//specular /= 3;
-//		//}
-//
-//		result.rgb *= max(vec3(1), specular + 1);//*normalize(albedoColor.rgb+vec3(0.3));
-//
-//	}
+	//	if (u_specularHighlightsEnabled == 1)
+	//	{
+	//		vec3 reflectedLightVectorWorld = reflect(correctedLightDir, finalNormal);
+	//		vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
+	//		////////// problem is below
+	//		float clampedSpecularSmoothness = max(u_specularSmoothness, 0);
+	//		float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32 * clampedSpecularSmoothness);
+	//		spec = max(spec, 0);
+	//		vec3 specular = clampedSpecularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 2;
+	//
+	//		//vec4 specular = vec4(u_directionalLightColor.rgb * s, 1);
+	//
+	//		//if (shadow == 0) {
+	//		//specular /= 3;
+	//		//}
+	//
+	//		result.rgb *= max(vec3(1), specular + 1);//*normalize(albedoColor.rgb+vec3(0.3));
+	//
+	//	}
 
-//	float shadow = ShadowCalculation(); // 1 if in shadow
-//	//        shadow
-//	if (shadow == 1) {
-//		//result.rgb = result.rgb * 0.1;
-//		//		result.rgb = vec3(1,0,0); // red
-//		result = albedoColor * aoColor * final_ambient;
-//
-//	}
-//	else {
-//		result.rgb = result.rgb;
-//		//result.rgb = vec3(0,1,0); // green
-//
-//	}
+	//	float shadow = ShadowCalculation(); // 1 if in shadow
+	//	//        shadow
+	//	if (shadow == 1) {
+	//		//result.rgb = result.rgb * 0.1;
+	//		//		result.rgb = vec3(1,0,0); // red
+	//		result = albedoColor * aoColor * final_ambient;
+	//
+	//	}
+	//	else {
+	//		result.rgb = result.rgb;
+	//		//result.rgb = vec3(0,1,0); // green
+	//
+	//	}
 
-	vec4 result = vec4(0,0,0,1);
-//	result.rgb = environmentReflection* u_metallic;
-//	result.rgb = environmentRefraction;
+	vec4 result = vec4(0, 0, 0, 1);
+	//	result.rgb = environmentReflection* u_metallic;
+	//	result.rgb = environmentRefraction;
+
+
 
 	
-
-	vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
-//	// Compute the Fresnel factor using the Schlick approximation
-	float fresnelEdgeWidth = 5;
-	float fresnelFactor = pow(1.0 - max(dot(viewDir, normalize(normal)), 0.0), 10/fresnelEdgeWidth) * 0.9 + 0.1;
-//	// Combine reflection and refraction using Fresnel blending
-	float newSmoothness = (u_smoothness/2.0 * u_metallic)+ (u_smoothness/2.0);
-	float metallicCapped = max(u_metallic,0.2*newSmoothness); // u_smoothness 0 everything will be black, 1 the metallic will get clamped to 0.2, we dont have blurry reflections yet so this is just to somewhat match what unity is doing temporarily
+	//	// Combine reflection and refraction using Fresnel blending
+	float newSmoothness = (u_smoothness / 2.0 * u_metallic) + (u_smoothness / 2.0);
+	float metallicCapped = max(u_metallic, 0.3 * newSmoothness); // u_smoothness 0 everything will be black, 1 the metallic will get clamped to 0.2, we dont have blurry reflections yet so this is just to somewhat match what unity is doing temporarily
 
 
 
-	vec4 albedoColorLit=albedoColor * diffuse;
+	vec4 albedoColorLit = albedoColor * diffuse;
 
-	float x = (metallicCapped+(fresnelFactor*(1-metallicCapped)))*newSmoothness;
-	result.rgb= albedoColorLit.rgb;
+	float reflectivity = (metallicCapped + (fresnelFactor * (1 - metallicCapped))) * newSmoothness;
+	result.rgb = albedoColorLit.rgb;
+
+//	vec3 environmentRefractionAndReflectionMix = mix(environmentRefraction, environmentReflection, 1 - fresnelFactor) * metallicCapped;
+	// disable refraction for now
+	vec3 environmentRefractionAndReflectionMix = environmentReflection;
+	vec3 albedoAndMetallicMix = mix(result.rgb,environmentRefractionAndReflectionMix*metallicCapped, reflectivity);
 	
-	vec3 environmentRefractionAndReflectionMix = mix(environmentRefraction, environmentReflection, 1-fresnelFactor);
-	vec3 albedoAndMetallicMix = mix(result.rgb ,environmentRefractionAndReflectionMix, x);
 
 	result.rgb = albedoAndMetallicMix;
-//	result.rgb = mix(environmentRefraction, environmentReflection, 1-fresnelFactor);
-//result.a = 1;
+//	result.rgb = vec3(directionalLightFactor,0,0);
+//	result.rgb = vec3(directionalLightFactor*reflectivity,0,0);
+//	result.rgb = vec3(metallicCapped,0,0);
+//	result.rgb = vec3(reflectivity,0,0);
+//	result.rgb = environmentRefractionAndReflectionMix;
+	
+	
+	
+	
+	//	result.rgb = mix(environmentRefraction, environmentReflection, 1-fresnelFactor);
+	//result.a = 1;
 
-//		result.rgb = vec3(fresnelFactor,0,0); // debug fresnel
-//if(fresnelFactor>1){
-//	result.rgb = vec3(0,fresnelFactor,0); // debug fresnel
-//
-//}
+	//		result.rgb = vec3(fresnelFactor,0,0); // debug fresnel
+	//if(fresnelFactor>1){
+	//	result.rgb = vec3(0,fresnelFactor,0); // debug fresnel
+	//
+	//}
 	if (u_fogEnabled == 1 && u_renderMode == 0)
 	{
 		float distanceToVertex = distance(u_camPos.xz, vertexPositionWorld.xz);
