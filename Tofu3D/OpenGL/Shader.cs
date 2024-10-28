@@ -30,13 +30,13 @@ public class
 
     private int _uLocationUMvp = -1;
 
-    public TextureUnit AlbedoTextureIndexUnit = TextureUnit.Texture0;
-    public TextureUnit NormalTextureIndexUnit = TextureUnit.Texture0;
-    public TextureUnit AmbientOcclusionTextureUnit = TextureUnit.Texture0;
-    public TextureUnit ShadowMapTextureUnit = TextureUnit.Texture0;
-    public TextureUnit RoughnessTextureUnit = TextureUnit.Texture0;
-    public TextureUnit MetallicTextureUnit = TextureUnit.Texture0;
-    public TextureUnit EnvironmentTextureUnit = TextureUnit.Texture0;
+    [XmlIgnore] public TextureUnit? AlbedoTextureIndexUnit = null;
+    [XmlIgnore] public TextureUnit? NormalTextureIndexUnit = null;
+    [XmlIgnore] public TextureUnit? AmbientOcclusionTextureUnit = null;
+    [XmlIgnore] public TextureUnit? ShadowMapTextureUnit = null;
+    [XmlIgnore] public TextureUnit? RoughnessTextureUnit = null;
+    [XmlIgnore] public TextureUnit? MetallicTextureUnit = null;
+    [XmlIgnore] public TextureUnit? EnvironmentTextureUnit = null;
 
     public BufferType BufferType;
 

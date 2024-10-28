@@ -72,6 +72,7 @@ uniform float u_hasNormalTexture = 0;
 uniform float u_hasAOTexture = 0;
 
 uniform float u_metallic =1;
+uniform float u_smoothness =1;
 
 uniform sampler2D albedoTexture;
 uniform sampler2D normalTexture;
@@ -116,6 +117,15 @@ float ShadowCalculation()
 	}
 	return shadow;
 }
+// Helper function to convert from sRGB to linear space
+vec3 sRGBToLinear(vec3 color) {
+	return pow(color, vec3(2.2));
+}
+
+// Helper function to convert from linear space to sRGB
+vec3 LinearToSRGB(vec3 color) {
+	return pow(color, vec3(1.0 / 2.2));
+}
 
 void main(void)
 {
@@ -140,10 +150,12 @@ void main(void)
 
 
 	vec4 albedoColor = texture(albedoTexture, uvCoords) * u_albedoTint;//*color;
+	albedoColor.rgb = sRGBToLinear(albedoColor.rgb);
 
 	vec3 reflectionI = normalize(vertexPositionWorld - u_camPos);
 	vec3 reflectionR = reflect(reflectionI, normalize(normal));
-	vec3 environmentReflection = texture(environmentCubemap, reflectionR).rgb;
+	vec3 environmentReflection = texture(environmentCubemap, reflectionR).rgb* u_albedoTint.rgb;
+	environmentReflection.rgb = sRGBToLinear(environmentReflection.rgb);
 
 
 	//	float ratio = 1.00 / 1.15;
@@ -154,7 +166,8 @@ void main(void)
 	vec3 refractionI = normalize(vertexPositionWorld - u_camPos);
 	vec3 refractionR = refract(refractionI, normalize(normal), ratio);
 
-	vec3 environmentRefraction = texture(environmentCubemap, refractionR).rgb;
+	vec3 environmentRefraction = texture(environmentCubemap, refractionR).rgb * u_albedoTint.rgb;
+	environmentRefraction.rgb = sRGBToLinear(environmentRefraction.rgb);
 
 	vec4 aoColor = texture(ambientOcclusionTexture, uvCoords);
 	aoColor = mix(vec4(1, 1, 1, 1), aoColor, u_hasAOTexture);
@@ -165,9 +178,8 @@ void main(void)
 	vec3 correctedLightDir = u_directionalLightDirection * vec3(1, -1, 1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
 	vec3 lightDirTangent = normalize(TBN * -correctedLightDir.rgb);
 	float directionalLightFactor = max(dot(finalNormal, lightDirTangent), 0.0);
-	float directionalLightClampedIntensity = u_directionalLightColor.a / 8;
-	vec4 final_diffuse = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
-
+	float directionalLightClampedIntensity = u_directionalLightColor.a;
+	vec4 diffuse = vec4(directionalLightFactor * directionalLightClampedIntensity * u_directionalLightColor.rgb, 1);
 	//result *= ambient;
 
 //	vec4 result = albedoColor * aoColor * max(final_ambient, final_diffuse) + min(final_ambient, final_diffuse);
@@ -221,17 +233,31 @@ void main(void)
 
 	vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
 //	// Compute the Fresnel factor using the Schlick approximation
-	float fresnelFactor = pow(1.0 - max(dot(viewDir, normalize(normal)), 0.0), 5.0) * 0.9 + 0.1;
+	float fresnelEdgeWidth = 5;
+	float fresnelFactor = pow(1.0 - max(dot(viewDir, normalize(normal)), 0.0), 10/fresnelEdgeWidth) * 0.9 + 0.1;
 //	// Combine reflection and refraction using Fresnel blending
-	float metallicCapped = max(u_metallic,0.2);
-	vec3 albedoAndMetallicMix = mix(result.rgb ,mix(environmentRefraction, environmentReflection, 1-fresnelFactor), metallicCapped+(fresnelFactor*(1-metallicCapped)));
+	float newSmoothness = (u_smoothness/2.0 * u_metallic)+ (u_smoothness/2.0);
+	float metallicCapped = max(u_metallic,0.2*newSmoothness); // u_smoothness 0 everything will be black, 1 the metallic will get clamped to 0.2, we dont have blurry reflections yet so this is just to somewhat match what unity is doing temporarily
+
+
+
+	vec4 albedoColorLit=albedoColor * diffuse;
+
+	float x = (metallicCapped+(fresnelFactor*(1-metallicCapped)))*newSmoothness;
+	result.rgb= albedoColorLit.rgb;
+	
+	vec3 environmentRefractionAndReflectionMix = mix(environmentRefraction, environmentReflection, 1-fresnelFactor);
+	vec3 albedoAndMetallicMix = mix(result.rgb ,environmentRefractionAndReflectionMix, x);
 
 	result.rgb = albedoAndMetallicMix;
 //	result.rgb = mix(environmentRefraction, environmentReflection, 1-fresnelFactor);
 //result.a = 1;
 
 //		result.rgb = vec3(fresnelFactor,0,0); // debug fresnel
-
+//if(fresnelFactor>1){
+//	result.rgb = vec3(0,fresnelFactor,0); // debug fresnel
+//
+//}
 	if (u_fogEnabled == 1 && u_renderMode == 0)
 	{
 		float distanceToVertex = distance(u_camPos.xz, vertexPositionWorld.xz);
@@ -260,7 +286,7 @@ void main(void)
 	}
 
 
-
+	result.rgb = LinearToSRGB(result.rgb);
 	if (u_renderMode == 0) // regular
 	{
 		fragColor = result;

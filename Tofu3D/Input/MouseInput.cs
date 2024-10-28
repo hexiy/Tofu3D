@@ -68,6 +68,7 @@ public class MouseInput
     /// <returns></returns>
     private bool EvaluateAllPassThroughEdgesConditions()
     {
+        return false;
         foreach (var condition in _passThroughEdgesConditions)
         {
             if (condition.Invoke())

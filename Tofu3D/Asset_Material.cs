@@ -5,6 +5,7 @@ using Microsoft.DotNet.PlatformAbstractions;
 public class Asset_Material : Asset<Asset_Material>
 {
     public Shader? Shader;
+
     // public bool IsValid = true;
     [Hide] public bool Additive = false;
 
@@ -21,8 +22,8 @@ public class Asset_Material : Asset<Asset_Material>
 
     public bool SpecularHighlightsEnabled;
     public float SpecularSmoothness;
-    [SliderF(0,1)]
-    public float MetallicTextureStrength;
+    [SliderF(0, 1)] public float MetallicTextureStrength;
+    [SliderF(0, 1)] public float Smoothness;
     public Vector2 Tiling;
 
     public override int GetHashCode()
@@ -45,24 +46,31 @@ public class Asset_Material : Asset<Asset_Material>
     {
         if (AlbedoTexture?.PathToRawAsset.Length > 2)
         {
-            AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(AlbedoTexture.PathToRawAsset);
+            AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
+                { IsSrgb = true, PathToAsset = AlbedoTexture.PathToRawAsset });
+        }
+        else
+        {
+            AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
+                { IsSrgb = true, PathToAsset = "Resources/whitePixel.png" });
         }
 
         if (AmbientOcclusionTexture?.PathToRawAsset.Length > 2)
         {
-            AmbientOcclusionTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(AmbientOcclusionTexture.PathToRawAsset);
+            AmbientOcclusionTexture =
+                Tofu.AssetLoadManager.Load<RuntimeTexture>(AmbientOcclusionTexture.PathToRawAsset);
         }
-        
+
         if (NormalTexture?.PathToRawAsset.Length > 2)
         {
             NormalTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(NormalTexture.PathToRawAsset);
         }
-        
+
         if (RoughnessTexture?.PathToRawAsset.Length > 2)
         {
             RoughnessTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(RoughnessTexture.PathToRawAsset);
         }
-        
+
         if (MetallicTexture?.PathToRawAsset.Length > 2)
         {
             MetallicTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(MetallicTexture.PathToRawAsset);

@@ -1,43 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <AssetPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/MaskMaterial.mat</AssetPath>
-  <Shader>
-    <AlbedoTextureLocation>26</AlbedoTextureLocation>
-    <NormalTextureLocation>2</NormalTextureLocation>
-    <AmbientOcclusionTextureLocation>0</AmbientOcclusionTextureLocation>
-    <ShadowMapTextureLocation>1</ShadowMapTextureLocation>
-    <BufferType>Model</BufferType>
-    <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-  </Shader>
-  <Additive>false</Additive>
-  <AlbedoTexture>
-    <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png</AssetPath>
-    <Size>
-      <X>2048</X>
-      <Y>2048</Y>
-    </Size>
-  </AlbedoTexture>
-  <AlbedoTint>
-    <B>255</B>
-    <G>255</G>
-    <R>255</R>
-    <A>255</A>
-    <PackedValue>4294967295</PackedValue>
-  </AlbedoTint>
-  <AmbientOcclusionTexture>
-    <AssetPath>Assets/3D/chaos-belly-plate/textures/belt_low_ambient_occlusion_02.png</AssetPath>
-    <Size>
-      <X>2048</X>
-      <Y>2048</Y>
-    </Size>
-  </AmbientOcclusionTexture>
-  <NormalTexture>
-    <AssetPath>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</AssetPath>
-    <Size>
-      <X>2048</X>
-      <Y>2048</Y>
-    </Size>
-  </NormalTexture>
+í
+{"Shader":{"AlbedoTextureIndexUnit":null,"NormalTextureIndexUnit":null,"AmbientOcclusionTextureUnit":null,"ShadowMapTextureUnit":null,"RoughnessTextureUnit":null,"MetallicTextureUnit":null,"EnvironmentTextureUnit":null,"BufferType":2,"Path":"Assets/Shaders/ModelRendererInstanced.glsl","Uniforms":{"u_tint":{"X":1.0,"Y":1.0,"Z":1.0,"W":1.0}},"IsLoaded":false,"ProgramId":0},"Additive":false,"AlbedoTexture":{"Size":{"X":2048.0,"Y":2048.0},"TextureId":0,"PathToRawAsset":"","PathToAssetInLibrary":"","RuntimeAssetHandle":{"Id":0,"AssetType":null}},"AlbedoTint":{"B":255,"G":255,"R":255,"A":255},"AmbientOcclusionTexture":{"Size":{"X":2048.0,"Y":2048.0},"TextureId":0,"PathToRawAsset":"","PathToAssetInLibrary":"","RuntimeAssetHandle":{"Id":0,"AssetType":null}},"NormalTexture":{"Size":{"X":2048.0,"Y":2048.0},"TextureId":0,"PathToRawAsset":"","PathToAssetInLibrary":"","RuntimeAssetHandle":{"Id":0,"AssetType":null}},"RoughnessTexture":null,"MetallicTexture":null,"Offset":{"X":0.0,"Y":0.0},"RenderMode":0,"SpecularHighlightsEnabled":false,"SpecularSmoothness":0.0,"MetallicTextureStrength":0.0,"Smoothness":0.0,"Tiling":{"X":1.0,"Y":1.0},"PathToRawAsset":"/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/MaskMaterial.mat","PathToAssetInLibrary":"Library/Materials/MaskMaterial.mat.tofumaterial","RuntimeAssetHandle":{"Id":0,"AssetType":null}}e>
   <Offset>
     <X>0</X>
     <Y>0</Y>

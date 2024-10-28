@@ -200,7 +200,7 @@ public class InstancedRenderingSystem
 
             if (material.AlbedoTexture)
             {
-                GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit);
+                GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit.Value);
                 TextureHelper.BindTexture(material.AlbedoTexture.TextureId);
             }
 
@@ -208,7 +208,7 @@ public class InstancedRenderingSystem
             if (material.NormalTexture)
             {
                 material.Shader.SetFloat("u_hasNormalTexture", 1);
-                GL.ActiveTexture(material.Shader.NormalTextureIndexUnit);
+                GL.ActiveTexture(material.Shader.NormalTextureIndexUnit.Value);
                 TextureHelper.BindTexture(material.NormalTexture.TextureId);
             }
             else
@@ -221,7 +221,7 @@ public class InstancedRenderingSystem
             {
                 material.Shader.SetFloat("u_hasAOTexture", 1);
 
-                GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit);
+                GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit.Value);
                 TextureHelper.BindTexture(material.AmbientOcclusionTexture.TextureId);
             }
             else
@@ -229,15 +229,15 @@ public class InstancedRenderingSystem
                 material.Shader.SetFloat("u_hasAOTexture", 0);
             }
 
-            if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null)
+            if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null && material.Shader.ShadowMapTextureUnit!=null)
             {
-                GL.ActiveTexture(material.Shader.ShadowMapTextureUnit);
+                GL.ActiveTexture(material.Shader.ShadowMapTextureUnit.Value);
                 TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthAttachmentID);
             }
 
             if (Camera.MainCamera?.GetComponent<Skybox>() != null)
             {
-                GL.ActiveTexture(material.Shader.EnvironmentTextureUnit);
+                GL.ActiveTexture(material.Shader.EnvironmentTextureUnit.Value);
                 TextureHelper.BindTexture(Camera.MainCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
                     TextureType.Cubemap);
             }
@@ -247,18 +247,19 @@ public class InstancedRenderingSystem
 
             if (material.RoughnessTexture != null)
             {
-                GL.ActiveTexture(material.Shader.RoughnessTextureUnit);
+                GL.ActiveTexture(material.Shader.RoughnessTextureUnit.Value);
                 TextureHelper.BindTexture(material.RoughnessTexture.TextureId);
             }
 
-            material.Shader.SetFloat("u_metallic", Mathf.Clamp(material.MetallicTextureStrength, 0, 1));
+            material.Shader.SetFloat("u_metallic", material.MetallicTextureStrength);
+            material.Shader.SetFloat("u_smoothness", material.Smoothness);
 
             // Metallic Texture
             material.Shader.SetFloat("u_hasMetallicTexture", material.MetallicTexture != null ? 1 : 0);
 
             if (material.MetallicTexture != null)
             {
-                GL.ActiveTexture(material.Shader.MetallicTextureUnit);
+                GL.ActiveTexture(material.Shader.MetallicTextureUnit.Value);
                 TextureHelper.BindTexture(material.MetallicTexture.TextureId);
             }
 

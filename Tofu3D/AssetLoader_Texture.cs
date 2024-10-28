@@ -16,13 +16,17 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
         AssetLoadParameters_Texture loadParameters = assetLoadParameters as AssetLoadParameters_Texture;
         string path = loadParameters.PathToAsset;
 
+        path = path.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+        
         Asset_Texture assetTexture = QuickSerializer.ReadFileJSON<Asset_Texture>(path);
         
         var textureId = GL.GenTexture();
         TextureHelper.BindTexture(textureId);
         var textureTarget = TextureTarget.Texture2D;
 
-        GL.TexImage2D(textureTarget, 0, PixelInternalFormat.Rgba, (int)assetTexture.TextureSize.X,
+        var internalFormat = loadParameters.IsSrgb ? PixelInternalFormat.SrgbAlpha : PixelInternalFormat.Rgba;
+
+        GL.TexImage2D(textureTarget, 0, internalFormat, (int)assetTexture.TextureSize.X,
             (int)assetTexture.TextureSize.Y, 0, PixelFormat.Rgba,
             PixelType.UnsignedByte, assetTexture.Pixels);
 

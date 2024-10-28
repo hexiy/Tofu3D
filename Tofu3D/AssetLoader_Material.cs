@@ -27,6 +27,11 @@ public class AssetLoader_Material : AssetLoader<Asset_Material, Asset_Material>
 
         // assetMaterial.InitAssetRuntimeHandle(assetMaterial.Vao);
         assetMaterial.InitAssetRuntimeHandle(-1);
+        
+        // save the material back, i had a problem where i changed default value for shadwomap texture unity but the /assets/material was unchanged so shadowmap kept textureunit0...
+        // QuickSerializer.SaveFileJSON<Asset_Material>(path, assetMaterial);
+        // this ^ is now in assetimporter_material
+        
         return assetMaterial;
     }
 }

@@ -48,7 +48,7 @@ public class AssetLoadManager
     {
         int id = sourcePath.GetHashCode();
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
-        
+
         // 
         T asset = null;
 
@@ -59,6 +59,7 @@ public class AssetLoadManager
 
         return asset;
     }
+
     public bool IsAssetLoaded(string sourcePath)
     {
         int id = sourcePath.GetHashCode();
@@ -66,16 +67,24 @@ public class AssetLoadManager
 
         return existsInDatabase;
     }
+
+    public T? Load<T>(AssetLoadParameters<T> loadParameters = null,
+        bool overwriteAlreadyLoadedAssets = false) where T : Asset<T>
+    {
+        return Load<T>(loadParameters.PathToAsset, loadParameters, overwriteAlreadyLoadedAssets);
+    }
+
     // path here will be Assets/xxxxx
-    public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null, bool overwriteAlreadyLoadedAssets=false) where T : Asset<T>
+    public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null,
+        bool overwriteAlreadyLoadedAssets = false) where T : Asset<T>
     {
         int id = sourcePath.GetHashCode();
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
-        
+
         // 
         T asset = null;
 
-        if (existsInDatabase && overwriteAlreadyLoadedAssets==false)
+        if (existsInDatabase && overwriteAlreadyLoadedAssets == false)
         {
             asset = LoadedAssets[id] as T;
         }
