@@ -6,18 +6,18 @@ namespace Tofu3D;
 public class
     Shader : IDisposable
 {
-    private const string UniformName_TextureAlbedo = "albedoTexture";
-    private const string UniformName_TextureNormal = "normalTexture";
-    private const string UniformName_TextureAo = "ambientOcclusionTexture";
-    private const string UniformName_ShadowMap = "shadowmapTexture";
-    private const string UniformName_EnvironmentCubemap = "environmentCubemap";
-    private const string UniformName_TextureObject = "textureObject";
-    private const string UniformName_BloomThresholdTexture = "bloomThresholdTexture";
-    private const string UniformName_HorizontalBlurTexture = "horizontalBlurTexture";
-    private const string UniformName_VerticalBlurTexture = "verticalBlurTexture";
-    private const string UniformName_TextureRoughness = "roughnessTexture";
-    private const string UniformName_TextureMetallic = "metallicTexture";
-    private const string UniformName_TextureEmissive = "emissiveTexture";
+    private const string UniformName_TextureAlbedo = "u_albedoTexture";
+    private const string UniformName_TextureNormal = "u_normalTexture";
+    private const string UniformName_TextureAo = "u_ambientOcclusionTexture";
+    private const string UniformName_ShadowMap = "u_shadowmapTexture";
+    private const string UniformName_EnvironmentCubemap = "u_environmentCubemap";
+    private const string UniformName_TextureObject = "u_textureObject";
+    private const string UniformName_BloomThresholdTexture = "u_bloomThresholdTexture";
+    private const string UniformName_HorizontalBlurTexture = "u_horizontalBlurTexture";
+    private const string UniformName_VerticalBlurTexture = "u_verticalBlurTexture";
+    private const string UniformName_TextureRoughness = "u_roughnessTexture";
+    private const string UniformName_TextureMetallic = "u_metallicTexture";
+    private const string UniformName_TextureEmissive = "u_emissiveTexture";
 
     private float[] _getMatrix4X4ValuesArray =
     {

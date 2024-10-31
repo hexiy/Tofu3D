@@ -38,12 +38,12 @@
       </Pivot>
       <WorldPosition>
         <X>0</X>
-        <Y>0</Y>
+        <Y>1</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
-        <Y>0</Y>
+        <Y>1</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
@@ -96,7 +96,7 @@
       <Material>
         <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
         <Shader>
-          <BufferType>Model</BufferType>
+          <BufferType>Rendertexture</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
         <Additive>false</Additive>
@@ -106,7 +106,7 @@
             <X>1</X>
             <Y>1</Y>
           </Size>
-          <TextureId>15</TextureId>
+          <TextureId>19</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>0</B>
@@ -115,6 +115,20 @@
           <A>255</A>
           <PackedValue>4278190335</PackedValue>
         </AlbedoTint>
+        <EmissiveTexture>
+          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
+          <Size>
+            <X>1</X>
+            <Y>1</Y>
+          </Size>
+          <TextureId>1</TextureId>
+        </EmissiveTexture>
+        <EmissiveColor>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+          <W>-10</W>
+        </EmissiveColor>
         <Offset>
           <X>0</X>
           <Y>0</Y>

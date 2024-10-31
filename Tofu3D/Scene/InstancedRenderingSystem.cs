@@ -219,14 +219,14 @@ public class InstancedRenderingSystem
             // Ambient Occlusion Texture
             if (material.AmbientOcclusionTexture)
             {
-                material.Shader.SetFloat("u_hasAOTexture", 1);
+                material.Shader.SetFloat("u_hasAmbientOcclusionTexture", 1);
 
                 GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit.Value);
                 TextureHelper.BindTexture(material.AmbientOcclusionTexture.TextureId);
             }
             else
             {
-                material.Shader.SetFloat("u_hasAOTexture", 0);
+                material.Shader.SetFloat("u_hasAmbientOcclusionTexture", 0);
             }
 
             if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&

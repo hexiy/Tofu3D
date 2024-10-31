@@ -19,16 +19,16 @@ gl_Position = vec4(position, 0.0, 1.0);
 #version 410 core 
 
 in vec2 texCoord;
-uniform sampler2D horizontalBlurTexture;
-uniform sampler2D verticalBlurTexture;
+uniform sampler2D u_horizontalBlurTexture;
+uniform sampler2D u_verticalBlurTexture;
 
 layout (location = 0) out vec4 color;
 
 void main(void)
 {
 
-vec4 horizontalBlur = texture(horizontalBlurTexture, texCoord);
-vec4 verticalBlur = texture(verticalBlurTexture, texCoord);
+vec4 horizontalBlur = texture(u_horizontalBlurTexture, texCoord);
+vec4 verticalBlur = texture(u_verticalBlurTexture, texCoord);
 
 color = (horizontalBlur + verticalBlur) * 0.5;
 }
