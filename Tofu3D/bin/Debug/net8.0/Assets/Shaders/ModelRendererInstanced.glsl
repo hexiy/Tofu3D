@@ -72,26 +72,26 @@ uniform float u_smoothness = 1;
 
 uniform vec4 u_emissiveColor = vec4(0, 0, 0, 0); // could be vec3, whatever
 
-uniform int u_hasAlbedoTexture;
+uniform int u_hasAlbedoTexture = 0;
 uniform sampler2D u_albedoTexture;
-uniform int u_hasNormalTexture;
+uniform int u_hasNormalTexture = 0;
 uniform sampler2D u_normalTexture;
-uniform int u_hasAmbientOcclusionTexture;
+uniform int u_hasAmbientOcclusionTexture = 0;
 
 uniform sampler2D u_ambientOcclusionTexture;
-uniform int u_hasShadowmapTexture;
+uniform int u_hasShadowmapTexture = 0;
 
 uniform sampler2D u_shadowmapTexture;
-uniform int u_hasEnvironmentCubemap;
+uniform int u_hasEnvironmentCubemap = 0;
 
 uniform samplerCube u_environmentCubemap;
-uniform int u_hasMetallicTexture;
+uniform int u_hasMetallicTexture = 0;
 
 uniform sampler2D u_metallicTexture;
-uniform int u_hasRoughnessTexture;
+uniform int u_hasRoughnessTexture = 0;
 
 uniform sampler2D u_roughnessTexture;
-uniform int u_hasEmissiveTexture;
+uniform int u_hasEmissiveTexture = 0;
 
 uniform sampler2D u_emissiveTexture;
 
@@ -142,13 +142,13 @@ float roughness = 1;
 void main(void)
 {
     vec2 uvCoords = (uv + u_offset) * u_tiling;
-    
-    if(u_hasMetallicTexture == 1){
-     metallic = texture(u_metallicTexture, uvCoords).r;
-     }
-     if(u_hasRoughnessTexture==1){
-     roughness = texture(u_roughnessTexture, uvCoords).r;
-}
+
+    if (u_hasMetallicTexture == 1) {
+        metallic = texture(u_metallicTexture, uvCoords).r;
+    }
+    if (u_hasRoughnessTexture == 1) {
+        roughness = texture(u_roughnessTexture, uvCoords).r;
+    }
 
     vec3 vertexNormalTBNed = normalize(TBN * normal);
 
@@ -161,10 +161,10 @@ void main(void)
     //  vec3 finalNormal = normalize(mix(vertexNormalTBNed, texNormal, blendFactor));
     vec3 finalNormal = vertexNormalTBNed;
 
-    vec4 albedoColor =vec4(1,1,1,1);
-     if(u_hasAlbedoTexture==1){
-     albedoColor=texture(u_albedoTexture, uvCoords) * u_albedoTint; //*color;
-     }
+    vec4 albedoColor = vec4(1, 1, 1, 1);
+    if (u_hasAlbedoTexture == 1) {
+        albedoColor = texture(u_albedoTexture, uvCoords) * u_albedoTint; //*color;
+    }
     //	albedoColor.rgb = sRGBToLinear(albedoColor.rgb);
 
     vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
@@ -176,28 +176,27 @@ void main(void)
 
     vec3 reflectionI = normalize(vertexPositionWorld - u_camPos);
     vec3 reflectionR = reflect(reflectionI, normalize(normal));
-    
-    
-        //		float ratio = 1.00 / 1.1;
-        float ratio = 1.00 / 1.309; // Water
-        //	float ratio = 1.00 / 1.309; // Ice
-        //		float ratio = 1.00 / 1.52; // Glass
-        //		float ratio = 1.00 / 2.42; // Diamond
-        
-        vec3 refractionR = refract(reflectionI, normalize(normal), ratio);
-        
-    vec3 environmentReflection= vec3(1,1,1);
-    vec3 environmentReflectionT= vec3(1,1,1);
-        vec3 environmentRefraction=vec3(1,1,1);
-        
-    if(u_hasEnvironmentCubemap==1){
-    environmentReflection = texture(u_environmentCubemap, reflectionR).rgb;
- environmentRefraction= texture(u_environmentCubemap, refractionR).rgb;
-     environmentReflectionT = texture(u_environmentCubemap, vec3(10, 10, 10)).rgb;
-        }
+
+    //		float ratio = 1.00 / 1.1;
+    float ratio = 1.00 / 1.309; // Water
+    //	float ratio = 1.00 / 1.309; // Ice
+    //		float ratio = 1.00 / 1.52; // Glass
+    //		float ratio = 1.00 / 2.42; // Diamond
+
+    vec3 refractionR = refract(reflectionI, normalize(normal), ratio);
+
+    vec3 environmentReflection = vec3(1, 1, 1);
+    vec3 environmentReflectionT = vec3(1, 1, 1);
+    vec3 environmentRefraction = vec3(1, 1, 1);
+
+    if (u_hasEnvironmentCubemap == 1) {
+        environmentReflection = texture(u_environmentCubemap, reflectionR).rgb;
+        environmentRefraction = texture(u_environmentCubemap, refractionR).rgb;
+        environmentReflectionT = texture(u_environmentCubemap, vec3(10, 10, 10)).rgb;
+    }
 
     environmentReflectionT.rgb = sRGBToLinear(environmentReflectionT.rgb);
-        environmentRefraction.rgb = sRGBToLinear(environmentRefraction.rgb);
+    environmentRefraction.rgb = sRGBToLinear(environmentRefraction.rgb);
 
     //	float a = fresnelFactor*1.5;
 
@@ -212,14 +211,9 @@ void main(void)
     environmentReflection.rgb = environmentReflectionTinted * 0.6; // + environmentReflectionSkyboxFresnel;
     environmentReflection.rgb = sRGBToLinear(environmentReflection.rgb);
 
-
-
-
-
-
-    vec4 aoColor = vec4(1,1,1,1);
-    if(u_hasAmbientOcclusionTexture==1){
-    aoColor = texture(u_ambientOcclusionTexture, uvCoords);
+    vec4 aoColor = vec4(1, 1, 1, 1);
+    if (u_hasAmbientOcclusionTexture == 1) {
+        aoColor = texture(u_ambientOcclusionTexture, uvCoords);
     }
 
     vec4 final_ambient = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
@@ -344,10 +338,10 @@ void main(void)
     // u_emissiveColor.a  == 0 ->
     float emissiveIntensity = u_emissiveColor.a / 10.0 + 1.0;
 
-    vec3 emissiveColor = vec3(0,0,0);
-    if(u_hasEmissiveTexture==1){
-    emissiveColor = texture(u_emissiveTexture, uvCoords).rgb * u_emissiveColor.rgb * emissiveIntensity;
-}
+    vec3 emissiveColor = vec3(0, 0, 0);
+    if (u_hasEmissiveTexture == 1) {
+        emissiveColor = texture(u_emissiveTexture, uvCoords).rgb * u_emissiveColor.rgb * emissiveIntensity;
+    }
     //	float emissiveIntensity= u_emissiveColor.a + (-10.0/255.0) + 1;
     result.rgb += emissiveColor;
     //	result.rgb = u_emissiveColor.rgb;

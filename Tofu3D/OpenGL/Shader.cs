@@ -287,6 +287,12 @@ public class
         GL.Uniform1(location, fl);
         Uniforms[uniformName] = fl;
     }
+    public void SetInt(string uniformName, int num)
+    {
+        var location = GL.GetUniformLocation(ProgramId, uniformName);
+        GL.Uniform1(location, num);
+        Uniforms[uniformName] = num;
+    }
 
     public void SetVector2(string uniformName, Vector2 vec)
     {

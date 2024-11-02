@@ -196,7 +196,7 @@ public class InstancedRenderingSystem
             // material.Shader.SetFloat("u_aoStrength", _normalDisabled ? 0 : 1);
 
             // Albedo Texture
-            material.Shader.SetFloat("u_hasAlbedoTexture", material.AlbedoTexture != null ? 1 : 0);
+            material.Shader.SetInt("u_hasAlbedoTexture", material.AlbedoTexture != null ? 1 : 0);
 
             if (material.AlbedoTexture)
             {
@@ -204,30 +204,28 @@ public class InstancedRenderingSystem
                 TextureHelper.BindTexture(material.AlbedoTexture.TextureId);
             }
 
+            material.Shader.SetInt("u_hasNormalTexture", material.NormalTexture != null ? 1 : 0);
+
             // Normal Texture
             if (material.NormalTexture)
             {
-                material.Shader.SetFloat("u_hasNormalTexture", 1);
                 GL.ActiveTexture(material.Shader.NormalTextureIndexUnit.Value);
                 TextureHelper.BindTexture(material.NormalTexture.TextureId);
             }
-            else
-            {
-                material.Shader.SetFloat("u_hasNormalTexture", 0);
-            }
 
             // Ambient Occlusion Texture
+            material.Shader.SetInt("u_hasAmbientOcclusionTexture", material.AmbientOcclusionTexture != null ? 1 : 0);
             if (material.AmbientOcclusionTexture)
             {
-                material.Shader.SetFloat("u_hasAmbientOcclusionTexture", 1);
-
                 GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit.Value);
                 TextureHelper.BindTexture(material.AmbientOcclusionTexture.TextureId);
             }
-            else
-            {
-                material.Shader.SetFloat("u_hasAmbientOcclusionTexture", 0);
-            }
+
+            material.Shader.SetInt("u_hasShadowmapTexture",
+                RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
+                material.Shader.ShadowMapTextureUnit != null
+                    ? 1
+                    : 0);
 
             if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
                 material.Shader.ShadowMapTextureUnit != null)
@@ -236,6 +234,9 @@ public class InstancedRenderingSystem
                 TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthAttachmentID);
             }
 
+
+            material.Shader.SetInt("u_hasEnvironmentCubemap",
+                Camera.MainCamera?.GetComponent<Skybox>() != null ? 1 : 0);
             if (Camera.MainCamera?.GetComponent<Skybox>() != null)
             {
                 GL.ActiveTexture(material.Shader.EnvironmentTextureUnit.Value);
@@ -244,7 +245,7 @@ public class InstancedRenderingSystem
             }
 
             // Roughness Texture
-            material.Shader.SetFloat("u_hasRoughnessTexture", material.RoughnessTexture != null ? 1 : 0);
+            material.Shader.SetInt("u_hasRoughnessTexture", material.RoughnessTexture != null ? 1 : 0);
 
             if (material.RoughnessTexture != null)
             {
@@ -256,7 +257,7 @@ public class InstancedRenderingSystem
             material.Shader.SetFloat("u_smoothness", material.Smoothness);
 
             // Metallic Texture
-            material.Shader.SetFloat("u_hasMetallicTexture", material.MetallicTexture != null ? 1 : 0);
+            material.Shader.SetInt("u_hasMetallicTexture", material.MetallicTexture != null ? 1 : 0);
 
             if (material.MetallicTexture != null)
             {
@@ -286,8 +287,16 @@ public class InstancedRenderingSystem
     {
         GL.DrawArraysInstanced(primitiveType, first, verticesCount, instancesCount);
         DebugHelper.LogDrawCall();
-        Debug.StatAddValue("Instanced objects drawn:", instancesCount);
+        Debug.StatAddValue("Instanced objects drawn(arrays):", instancesCount);
         DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount * instancesCount);
+    }
+
+    private void GL_DrawElementsInstanced(PrimitiveType primitiveType, int indicesCount, int instancesCount,
+        uint[] indices)
+    {
+        GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, indices, instancesCount);
+        DebugHelper.LogDrawCall();
+        Debug.StatAddValue("Instanced objects drawn(elements):", instancesCount);
     }
 
     public bool UpdateObjectData(Renderer renderer, ref RendererInstancingData instancingData,

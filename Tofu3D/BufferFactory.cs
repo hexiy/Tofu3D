@@ -84,6 +84,7 @@ public static class BufferFactory
         var vertexBuffer = VertexBuffer.Create(BufferTarget.ArrayBuffer, vertexBufferData, elementsCountPerVertex, isDynamic);
         vertexBuffer.EnableAttribs(true, countsOfElements);
 
+        // VertexBuffer instanceBuffer = VertexBuffer.Create(BufferTarget.ElementArrayBuffer, vertexBufferData, elementsCountPerVertex, isDynamic);
 
 //         /*VertexBuffer instanceBuffer = VertexBuffer.Create<float>(BufferTarget.ArrayBuffer, vertexData: translations, elementsPerVertex: 8);
 //
