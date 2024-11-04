@@ -625,9 +625,10 @@ public class EditorPanelInspector : EditorPanel
 
         if (_materialToShowAtTheBottom != null)
         {
-            Asset_Material material = (_materialToShowAtTheBottom.Inspectable as Asset_Material);
-            QuickSerializer.SaveFileXML<Asset_Material>(material.PathToRawAsset, material);
-            Tofu.AssetImportManager.ImportAsset(material.PathToRawAsset, reimportIfExists:true);
+            // crashed when dragged mesh
+            // Asset_Material material = (_materialToShowAtTheBottom.Inspectable as Asset_Material);
+            // QuickSerializer.SaveFileXML<Asset_Material>(material.PathToRawAsset, material);
+            // Tofu.AssetImportManager.ImportAsset(material.PathToRawAsset, reimportIfExists:true);
         }
     }
 }

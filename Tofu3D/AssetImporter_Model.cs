@@ -24,7 +24,6 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         List<float> uvs = new();
         List<float> normals = new();
 
-
         foreach (var line in data)
         {
             var lineSplit = line.Split(' ');
@@ -92,6 +91,10 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
     private Asset_Mesh LoadMeshFromData(string[] data, List<float> vertices, List<float> uvs, List<float> normals,
         ref int lineStartIndex, bool singleMesh = false, bool smoothNormals = true)
     {
+        List<uint> indices = new();
+
+        Dictionary<Vector3, uint> uniqueVertices = new Dictionary<Vector3, uint>();
+        uint currentUniqueVertexIndex = 0;
         List<float> everything = new();
         var numberOfIndicesPerLine = 0;
         var totalVerticesCount = 0;
@@ -215,7 +218,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             SmoothNormals(everything, floatsPerTriangle, floatsPerVertex);
         }
 
-        List<float> newEverything = new List<float>();
+        List<float> vertexBufferData = new List<float>();
 
         for (int indexOfVertex1Start = 0;
              indexOfVertex1Start < everything.Count;
@@ -303,23 +306,86 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             bitangent2.Z = f * (-deltaUV2.X * edge1.Z + deltaUV1.X * edge2.Z);
 
 
-            float[] triangleVertices =
+            float[] vertex1 =
             {
-                // positions                           // uvs        // normals        // tangent                          // bitangent
                 position1.X, position1.Y, position1.Z, uv1.X, uv1.Y, nm1.X, nm1.Y, nm1.Z, tangent1.X, tangent1.Y,
-                tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
+                tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z
+            };
+            float[] vertex2 =
+            {
                 position2.X, position2.Y, position2.Z, uv2.X, uv2.Y, nm2.X, nm2.Y, nm2.Z, tangent1.X, tangent1.Y,
                 tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
+            };
+            float[] vertex3 =
+            {
                 position3.X, position3.Y, position3.Z, uv3.X, uv3.Y, nm3.X, nm3.Y, nm3.Z, tangent1.X, tangent1.Y,
                 tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
             };
-            newEverything.AddRange(triangleVertices);
+            // float[] triangleVertices =
+            // {
+            //     // positions                           // uvs        // normals        // tangent                          // bitangent
+            //     position1.X, position1.Y, position1.Z, uv1.X, uv1.Y, nm1.X, nm1.Y, nm1.Z, tangent1.X, tangent1.Y,
+            //     tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
+            //     position2.X, position2.Y, position2.Z, uv2.X, uv2.Y, nm2.X, nm2.Y, nm2.Z, tangent1.X, tangent1.Y,
+            //     tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
+            //     position3.X, position3.Y, position3.Z, uv3.X, uv3.Y, nm3.X, nm3.Y, nm3.Z, tangent1.X, tangent1.Y,
+            //     tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
+            // };
+
+            if (uniqueVertices.ContainsKey(position1))
+            {
+                uint index = uniqueVertices[position1];
+                indices.Add(index);
+            }
+            else
+            {
+                vertexBufferData.AddRange(vertex1);
+                uint index = (uint)currentUniqueVertexIndex;
+                indices.Add(index);
+                currentUniqueVertexIndex++;
+                uniqueVertices.Add(position1, index);
+            }
+
+            if (uniqueVertices.ContainsKey(position2))
+            {
+                uint index = uniqueVertices[position2];
+                indices.Add(index);
+            }
+            else
+            {
+                vertexBufferData.AddRange(vertex2);
+                uint index = (uint)currentUniqueVertexIndex;
+                indices.Add(index);
+                currentUniqueVertexIndex++;
+                uniqueVertices.Add(position2, index);
+            }
+            
+            if (uniqueVertices.ContainsKey(position3))
+            {
+                uint index = uniqueVertices[position3];
+                indices.Add(index);
+            }
+            else
+            {
+                vertexBufferData.AddRange(vertex3);
+                uint index = (uint)currentUniqueVertexIndex;
+                indices.Add(index);
+                currentUniqueVertexIndex++;
+                uniqueVertices.Add(position3, index);
+            }
         }
+
+        // unique vertex list
+        // once we have unique vertices in an array, thats our new vertex data, and indices we just find indexes of
+        //     them there
+        //     because right now we have all vertices in the array wasting time and its wrong too.
+            // so our indice will be pointing to [vertex1, vertex2, vertex3]
 
         Asset_Mesh mesh = new Asset_Mesh();
         mesh.CountsOfElements = countsOfElements;
-        mesh.VertexBufferData = newEverything.ToArray();
-        mesh.VerticesCount = totalVerticesCount;
+        mesh.VertexBufferData = vertexBufferData.ToArray();
+        mesh.VerticesCount =(int) (vertexBufferData.Count / 14);
+        mesh.Indices = indices.ToArray();
 
         return mesh;
     }

@@ -277,9 +277,13 @@ public class InstancedRenderingSystem
 
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
             GL.BindBuffer(BufferTarget.ArrayBuffer, bufferData.Vbo);
-            GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount,
-                objectBufferPair.Value.NumberOfObjects);
-            // GL.ActiveTexture(TextureUnit.Texture0); // DOESNT WORK
+            if (mesh.Indices?.Length > 0)
+            {
+                GL_DrawElementsInstanced(PrimitiveType.Triangles, mesh.Indices.Length,
+                    objectBufferPair.Value.NumberOfObjects, mesh.Indices);
+            }
+            // GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount,
+            //     objectBufferPair.Value.NumberOfObjects);
         }
     }
 
@@ -294,7 +298,8 @@ public class InstancedRenderingSystem
     private void GL_DrawElementsInstanced(PrimitiveType primitiveType, int indicesCount, int instancesCount,
         uint[] indices)
     {
-        GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, indices, instancesCount);
+        GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, IntPtr.Zero, instancesCount);
+        // GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, indices, instancesCount);
         DebugHelper.LogDrawCall();
         Debug.StatAddValue("Instanced objects drawn(elements):", instancesCount);
     }
