@@ -125,9 +125,11 @@ public class InstancedRenderingSystem
 
 
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
-
-            GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount,
+            
+            GL_DrawElementsInstanced(PrimitiveType.Triangles, mesh.Indices.Length,
                 objectBufferPair.Value.NumberOfObjects);
+            // GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount,
+                // objectBufferPair.Value.NumberOfObjects);
         }
 
         else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
@@ -280,7 +282,7 @@ public class InstancedRenderingSystem
             if (mesh.Indices?.Length > 0)
             {
                 GL_DrawElementsInstanced(PrimitiveType.Triangles, mesh.Indices.Length,
-                    objectBufferPair.Value.NumberOfObjects, mesh.Indices);
+                    objectBufferPair.Value.NumberOfObjects);
             }
             // GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount,
             //     objectBufferPair.Value.NumberOfObjects);
@@ -295,8 +297,7 @@ public class InstancedRenderingSystem
         DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount * instancesCount);
     }
 
-    private void GL_DrawElementsInstanced(PrimitiveType primitiveType, int indicesCount, int instancesCount,
-        uint[] indices)
+    private void GL_DrawElementsInstanced(PrimitiveType primitiveType, int indicesCount, int instancesCount)
     {
         GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, IntPtr.Zero, instancesCount);
         // GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, indices, instancesCount);
