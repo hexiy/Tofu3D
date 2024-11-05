@@ -18,7 +18,7 @@ public class RenderPassZPrePass : RenderPass
 
     protected override void PreRender()
     {
-        GL.Enable(EnableCap.DepthTest);
+        // GL.Enable(EnableCap.DepthTest);
 
         GL.DepthMask(true);
 

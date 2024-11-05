@@ -40,7 +40,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 
     protected override void PreRender()
     {
-        GL.Enable(EnableCap.DepthTest);
+        // GL.Enable(EnableCap.DepthTest);
         GL.DepthMask(true);
 
         // it would be nice to render the skybox to the light view preview textures
@@ -59,7 +59,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
             RenderToDebugDepthVisualisationTexture();
         }
 
-        GL.Disable(EnableCap.DepthTest);
+        // GL.Disable(EnableCap.DepthTest);
     }
 
     private void RenderToDebugDepthVisualisationTexture()

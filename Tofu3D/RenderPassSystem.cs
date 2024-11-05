@@ -98,6 +98,7 @@ public class RenderPassSystem
         }
 
         // GL.Enable(EnableCap.Blend);
+        GL.Enable(EnableCap.DepthTest);
 
         foreach (var renderPass in RenderPasses)
         {

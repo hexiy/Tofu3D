@@ -18,7 +18,7 @@ public class RenderPassOpaques : RenderPass
 
     protected override void PreBindFrameBuffer()
     {
-        GL.Enable(EnableCap.DepthTest);
+        // GL.Enable(EnableCap.DepthTest);
         
         GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassZPrePass.I.MainFramebuffer.FrameBufferID);
         GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, MainFramebuffer.FrameBufferID);
