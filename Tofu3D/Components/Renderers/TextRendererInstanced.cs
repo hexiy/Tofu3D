@@ -44,6 +44,20 @@ public class TextRendererInstanced : ModelRendererInstanced
 
     private Vector2 _spritesCountInSpritesheet = new(16, 8);
 
+    [XmlIgnore]
+    public RendererInstancingData[] RendererInstancingDatas;
+
+    public override void Awake()
+    {
+        RendererInstancingDatas = new[]
+        {
+            new RendererInstancingData() { InstancingDataDirty = true, MatrixDirty = true },
+            new RendererInstancingData() { InstancingDataDirty = true, MatrixDirty = true },
+            new RendererInstancingData() { InstancingDataDirty = true, MatrixDirty = true },
+        };
+
+        base.Awake();
+    }
 
     public override void Render()
     {
@@ -63,31 +77,40 @@ public class TextRendererInstanced : ModelRendererInstanced
             return;
         }
 
-
-        char ch = textComponent.Value.Length > 0 ? textComponent.Value[0] : 'a';
-        var glyphMappingIndex = 0;
-
-        if (_fontMappings.TryGetValue(ch.ToString().ToUpper()[0], out var mapping))
+        for (var i = 0; i < RendererInstancingDatas.Length; i++)
         {
-            glyphMappingIndex = mapping;
-        }
+            // var instancingData = RendererInstancingDatas[i];
+            char ch = textComponent.Value.Length > i ? textComponent.Value[i] : ' ';
+            var glyphMappingIndex = 0;
 
-        var columnIndex = glyphMappingIndex % (int)_spritesCountInSpritesheet.X;
-        var rowIndex = (int)Math.Floor(glyphMappingIndex / _spritesCountInSpritesheet.X);
+            if (_fontMappings.TryGetValue(ch.ToString().ToUpper()[0], out var mapping))
+            {
+                glyphMappingIndex = mapping;
+            }
+
+            var columnIndex = glyphMappingIndex % (int)_spritesCountInSpritesheet.X;
+            var rowIndex = (int)Math.Floor(glyphMappingIndex / _spritesCountInSpritesheet.X);
 
 
-        Material.Tiling = new Vector2(1f / _spritesCountInSpritesheet.X, 1f / _spritesCountInSpritesheet.Y);
+            Material.Tiling = new Vector2(1f / _spritesCountInSpritesheet.X, 1f / _spritesCountInSpritesheet.Y);
 
-        Material.Offset =
-            new Vector2(1f / _spritesCountInSpritesheet.X,
-                1f / _spritesCountInSpritesheet.Y) +
-            new Vector2(1f / _spritesCountInSpritesheet.X * columnIndex,
-                1f- 1f / -_spritesCountInSpritesheet.Y * rowIndex);
-        var updatedData =
-            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, VertexBufferStructureType.Model);
-        if (updatedData)
-        {
-            InstancingData.InstancingDataDirty = false;
+            Material.Offset =
+                new Vector2(1f / _spritesCountInSpritesheet.X,
+                    1f / _spritesCountInSpritesheet.Y) +
+                new Vector2(1f / _spritesCountInSpritesheet.X * columnIndex,
+                    1f - 1f / -_spritesCountInSpritesheet.Y * rowIndex);
+
+            var offsetTranslation =
+                Matrix4x4.CreateTranslation(new Vector3(Mathf.Sin(Time.EditorElapsedTime)*10 + i*10, 0, 0));
+            Matrix4x4 modelMatrix = GetModelMatrix() * offsetTranslation;
+            
+            var updatedData =
+                Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref RendererInstancingDatas[i],
+                    VertexBufferStructureType.Model, modelMatrix: modelMatrix);
+            if (updatedData)
+            {
+                RendererInstancingDatas[i].InstancingDataDirty = false;
+            }
         }
     }
 }

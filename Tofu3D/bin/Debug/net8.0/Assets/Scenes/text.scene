@@ -98,14 +98,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>4.193456</X>
-        <Y>13.829018</Y>
-        <Z>-4.1099987</Z>
+        <X>4.650951</X>
+        <Y>19.07853</Y>
+        <Z>-3.13145</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>4.193456</X>
-        <Y>13.829018</Y>
-        <Z>-4.1099987</Z>
+        <X>4.650951</X>
+        <Y>19.07853</Y>
+        <Z>-3.13145</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -118,8 +118,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>49.07817</X>
-        <Y>-0.9836204</Y>
+        <X>55.61878</X>
+        <Y>23.606237</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -227,6 +227,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>1160</int>
         <int>1160</int>
         <int>1160</int>
         <int>1160</int>
@@ -418,8 +419,8 @@
           <Y>0.125</Y>
         </Tiling>
         <Offset>
-          <X>0.8125</X>
-          <Y>1.625</Y>
+          <X>0.3125</X>
+          <Y>1.5</Y>
         </Offset>
       </Material>
       <RuntimeMesh>
@@ -448,7 +449,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Size>12</Size>
-      <Value>l</Value>
+      <Value>124</Value>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
@@ -523,5 +524,5 @@
       <Intensity>1</Intensity>
     </Component>
   </Components>
-  <GameObjectNextId>1260</GameObjectNextId>
+  <GameObjectNextId>1262</GameObjectNextId>
 </SceneFile>

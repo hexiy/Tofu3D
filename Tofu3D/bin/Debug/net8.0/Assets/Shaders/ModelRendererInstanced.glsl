@@ -230,10 +230,11 @@ void main(void)
 	//	vec4 result = albedoColor * aoColor * max(final_ambient, final_diffuse) + min(final_ambient, final_diffuse);
 	//	result.a = albedoColor.a;// * color.a;
 
-	//	if (result.a < 0.05)
-	//	{
-	//		discard; // having this fixes transparency sorting but breaks debug depthmap
-	//	}
+//		if (result.a < 0.05)
+		if (albedoColor.a < 0.05)
+		{
+			discard; // having this fixes transparency sorting but breaks debug depthmap
+		}
 
 	//	if (u_specularHighlightsEnabled == 1)
 	//	{
