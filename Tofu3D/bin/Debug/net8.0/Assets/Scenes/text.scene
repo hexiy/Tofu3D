@@ -59,7 +59,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Child</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -75,7 +75,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Ambient Light</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -98,14 +98,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-1.5586834</X>
-        <Y>2.9198217</Y>
-        <Z>1.4360442</Z>
+        <X>9.568672</X>
+        <Y>6.7084804</Y>
+        <Z>-4.182518</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-1.5586834</X>
-        <Y>2.9198217</Y>
-        <Z>1.4360442</Z>
+        <X>9.568672</X>
+        <Y>6.7084804</Y>
+        <Z>-4.182518</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -118,8 +118,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>21.17505</X>
-        <Y>60.200672</Y>
+        <X>36.775837</X>
+        <Y>-28.985964</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -243,6 +243,36 @@
         <int>1160</int>
         <int>1160</int>
         <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
       </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
@@ -339,26 +369,26 @@
         <PackedValue>4294967295</PackedValue>
       </Color>
       <Material>
-        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
+        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/TextMaterial.mat</PathToRawAsset>
         <Shader>
-          <BufferType>Rendertexture</BufferType>
+          <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/white.png</PathToRawAsset>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/font.png</PathToRawAsset>
           <Size>
-            <X>1</X>
-            <Y>1</Y>
+            <X>112</X>
+            <Y>72</Y>
           </Size>
-          <TextureId>19</TextureId>
+          <TextureId>33</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
-          <B>0</B>
-          <G>0</G>
+          <B>255</B>
+          <G>255</G>
           <R>255</R>
           <A>255</A>
-          <PackedValue>4278190335</PackedValue>
+          <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <EmissiveTexture>
           <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
@@ -372,7 +402,7 @@
           <X>0</X>
           <Y>0</Y>
           <Z>0</Z>
-          <W>-10</W>
+          <W>0</W>
         </EmissiveColor>
         <Offset>
           <X>0</X>
@@ -380,9 +410,9 @@
         </Offset>
         <RenderMode>Opaque</RenderMode>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.99</SpecularSmoothness>
-        <MetallicTextureStrength>1</MetallicTextureStrength>
-        <Smoothness>1</Smoothness>
+        <SpecularSmoothness>0</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -486,8 +516,8 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <Intensity>10.7</Intensity>
+      <Intensity>1</Intensity>
     </Component>
   </Components>
-  <GameObjectNextId>1192</GameObjectNextId>
+  <GameObjectNextId>1252</GameObjectNextId>
 </SceneFile>

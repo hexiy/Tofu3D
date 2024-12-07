@@ -8,7 +8,8 @@ public class Asset_Material : Asset<Asset_Material>
     public Shader? Shader;
 
     // public bool IsValid = true;
-    [Hide] public bool Additive = false;
+    [Hide]
+    public bool Additive = false;
 
     public RuntimeTexture? AlbedoTexture;
     public Color AlbedoTint = Color.White;
@@ -17,18 +18,24 @@ public class Asset_Material : Asset<Asset_Material>
     public RuntimeTexture? RoughnessTexture;
     public RuntimeTexture? MetallicTexture;
     public RuntimeTexture? EmissiveTexture;
+
     [ColorHDR]
     public Vector4 EmissiveColor;
-    public Vector2 Offset;
 
     public RenderMode RenderMode = RenderMode.Opaque;
 
 
     public bool SpecularHighlightsEnabled;
     public float SpecularSmoothness;
-    [SliderF(0, 1)] public float MetallicTextureStrength;
-    [SliderF(0, 1)] public float Smoothness;
-    public Vector2 Tiling;
+
+    [SliderF(0, 1)]
+    public float MetallicTextureStrength;
+
+    [SliderF(0, 1)]
+    public float Smoothness;
+
+    public Vector2 Tiling = new Vector2(1, 1);
+    public Vector2 Offset = new Vector2(0, 0);
 
     public override int GetHashCode()
     {
@@ -79,6 +86,7 @@ public class Asset_Material : Asset<Asset_Material>
         {
             MetallicTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(MetallicTexture.PathToRawAsset);
         }
+
         if (EmissiveTexture?.PathToRawAsset.Length > 2)
         {
             EmissiveTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()

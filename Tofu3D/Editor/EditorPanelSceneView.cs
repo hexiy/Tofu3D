@@ -91,44 +91,49 @@ public class EditorPanelSceneView : EditorPanel
             //         new Vector2(sizeX, sizeY),
             //         new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
             // }
-            if (RenderPassBloomThreshold.I?.MainFramebuffer != null)
+
+            bool showBloomTextures = false;
+            if (showBloomTextures)
             {
-                var ratio = RenderPassBloomThreshold.I.MainFramebuffer.Size.Y /
-                            RenderPassBloomThreshold.I.MainFramebuffer.Size.X;
-                var sizeX = Mathf.ClampMax(RenderPassBloomThreshold.I.MainFramebuffer.Size.X, 400);
-                var sizeY = sizeX * ratio;
+                if (RenderPassBloomThreshold.I?.MainFramebuffer != null)
+                {
+                    var ratio = RenderPassBloomThreshold.I.MainFramebuffer.Size.Y /
+                                RenderPassBloomThreshold.I.MainFramebuffer.Size.X;
+                    var sizeX = Mathf.ClampMax(RenderPassBloomThreshold.I.MainFramebuffer.Size.X, 400);
+                    var sizeY = sizeX * ratio;
 
-                ImGui.SetCursorPos(new Vector2(5, 75));
+                    ImGui.SetCursorPos(new Vector2(5, 75));
 
-                ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId,
-                    new Vector2(sizeX, sizeY),
-                    new Vector2(0, 1), new Vector2(1, 0), Color.Black.ToVector4(), Color.Red.ToVector4());
+                    ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId,
+                        new Vector2(sizeX, sizeY),
+                        new Vector2(0, 1), new Vector2(1, 0), Color.Black.ToVector4(), Color.Red.ToVector4());
 
-                ImGui.SetCursorPos(new Vector2(5, 75));
+                    ImGui.SetCursorPos(new Vector2(5, 75));
 
-                ImGui.Image(RenderPassBloomThreshold.I.MainFramebuffer.ColorAttachmentID,
-                    new Vector2(sizeX, sizeY),
-                    new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
-            }
+                    ImGui.Image(RenderPassBloomThreshold.I.MainFramebuffer.ColorAttachmentID,
+                        new Vector2(sizeX, sizeY),
+                        new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
+                }
 
-            if (RenderPassBloomPostProcess.I?.MainFramebuffer != null)
-            {
-                var ratio = RenderPassBloomPostProcess.I.MainFramebuffer.Size.Y /
-                            RenderPassBloomPostProcess.I.MainFramebuffer.Size.X;
-                var sizeX = Mathf.ClampMax(RenderPassBloomPostProcess.I.MainFramebuffer.Size.X, 400);
-                var sizeY = sizeX * ratio;
+                if (RenderPassBloomPostProcess.I?.MainFramebuffer != null)
+                {
+                    var ratio = RenderPassBloomPostProcess.I.MainFramebuffer.Size.Y /
+                                RenderPassBloomPostProcess.I.MainFramebuffer.Size.X;
+                    var sizeX = Mathf.ClampMax(RenderPassBloomPostProcess.I.MainFramebuffer.Size.X, 400);
+                    var sizeY = sizeX * ratio;
 
-                ImGui.SetCursorPos(new Vector2(405, 75));
+                    ImGui.SetCursorPos(new Vector2(405, 75));
 
-                ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId,
-                    new Vector2(sizeX, sizeY),
-                    new Vector2(0, 1), new Vector2(1, 0), Color.Black.ToVector4(), Color.Red.ToVector4());
+                    ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId,
+                        new Vector2(sizeX, sizeY),
+                        new Vector2(0, 1), new Vector2(1, 0), Color.Black.ToVector4(), Color.Red.ToVector4());
 
-                ImGui.SetCursorPos(new Vector2(405, 75));
+                    ImGui.SetCursorPos(new Vector2(405, 75));
 
-                ImGui.Image(RenderPassBloomPostProcess.I.BloomFramebufferVertical.ColorAttachmentID,
-                    new Vector2(sizeX, sizeY),
-                    new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
+                    ImGui.Image(RenderPassBloomPostProcess.I.BloomFramebufferVertical.ColorAttachmentID,
+                        new Vector2(sizeX, sizeY),
+                        new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
+                }
             }
 
             ImGui.SetCursorPos(System.Numerics.Vector2.Zero);

@@ -37,7 +37,7 @@ public static class QuickSerializer
             {
                 // Read the serialized JSON string from the binary file
                 string json = reader.ReadString();
-                if (json.Contains("xml"))
+                if (json.Substring(0,20).Contains("xml"))
                 {
                     return ReadFileXML<T>(path);
                 }
