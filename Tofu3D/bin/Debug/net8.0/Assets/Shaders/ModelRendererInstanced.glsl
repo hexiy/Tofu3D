@@ -216,7 +216,7 @@ void main(void)
         aoColor = texture(u_ambientOcclusionTexture, uvCoords);
     }
 
-    vec4 final_ambient = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 1);
+    vec4 final_ambient = vec4(u_ambientLightColor.rgb * u_ambientLightColor.a, 0);
 
     vec3 correctedLightDir = u_directionalLightDirection * vec3(1, -1, 1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
     vec3 lightDirTangent = normalize(TBN * -correctedLightDir.rgb);
@@ -267,7 +267,7 @@ void main(void)
     //
     //	}
 
-    vec4 result = vec4(0, 0, 0, 1);
+    vec4 result = vec4(0, 0, 0, 1) + final_ambient;
     //	result.rgb = environmentReflection* u_metallic;
     //	result.rgb = environmentRefraction;
 
@@ -281,7 +281,7 @@ void main(void)
 
     result.rgb = albedoColorLit.rgb; //+ environmentReflectionT*0.01;
 
-    //	vec3 environmentRefractionAndReflectionMix = mix(environmentRefraction, environmentReflection, 1 - fresnelFactor) * metallicCapped;
+//    	vec3 environmentRefractionAndReflectionMix = mix(environmentRefraction, environmentReflection, 1 - fresnelFactor) * metallicCapped;
     // disable refraction for now
     vec3 environmentRefractionAndReflectionMix = environmentReflection;
     vec3 albedoAndMetallicMix = mix(result.rgb, environmentRefractionAndReflectionMix * metallicCapped, reflectivity);

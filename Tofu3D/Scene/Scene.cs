@@ -299,7 +299,7 @@ public class Scene
         return components;
     }
 
-    public GameObject GetGameObject(int id)
+    public GameObject GetGameObjectByID(int id)
     {
         for (var i = 0; i < GameObjects.Count; i++)
         {
@@ -312,7 +312,7 @@ public class Scene
         return null;
     }
 
-    public List<GameObject> GetGameObjects(List<int> ids)
+    public List<GameObject> GetGameObjectsByIDs(List<int> ids)
     {
         List<GameObject> foundGameObjects = new();
         for (var i = 0; i < GameObjects.Count; i++)

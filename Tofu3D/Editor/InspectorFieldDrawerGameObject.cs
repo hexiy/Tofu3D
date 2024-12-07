@@ -48,7 +48,7 @@ public class InspectorFieldDrawerGameObject : InspectorFieldDrawable<GameObject>
             {
                 if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
                 {
-                    var foundGo = Tofu.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
+                    var foundGo = Tofu.SceneManager.CurrentScene.GetGameObjectByID(int.Parse(payload));
                     info.SetValue(componentInspectorData.Inspectable, foundGo);
                 }
             }

@@ -173,7 +173,7 @@ public class EditorPanelInspector : EditorPanel
         }
 
 
-        var go = Tofu.SceneManager.CurrentScene.GetGameObject(ids[0]);
+        var go = Tofu.SceneManager.CurrentScene.GetGameObjectByID(ids[0]);
         SelectInspectables(go.Components);
     }
 

@@ -23,7 +23,7 @@ public static class GameObjectSelectionManager
 
             for (var i = 0; i < goIds.Count; i++)
             {
-                var go = Tofu.SceneManager.CurrentScene.GetGameObject(goIds[i]);
+                var go = Tofu.SceneManager.CurrentScene.GetGameObjectByID(goIds[i]);
                 if (go != null)
                 {
                     go.Selected = true;

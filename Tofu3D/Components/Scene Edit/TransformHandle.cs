@@ -299,7 +299,7 @@ public class TransformHandle : Component, IComponentUpdateable
         _selectedTransforms = new List<Transform>();
         for (var i = 0; i < selection.Count; i++)
         {
-            var go = Tofu.SceneManager.CurrentScene.GetGameObject(selection[i]);
+            var go = Tofu.SceneManager.CurrentScene.GetGameObjectByID(selection[i]);
 
             if (go != null)
             {

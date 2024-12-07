@@ -1,142 +1,28 @@
-/*using System.IO;
-
-namespace Scripts;
-
-public class TextRenderer : SpriteRenderer
+public class TextRendererInstanced : ModelRendererInstanced
 {
-    private readonly Dictionary<char, int> _fontMappings = new()
-    {
-        { ' ', 0 },
-        { '0', 16 },
-        { '1', 17 },
-        { '2', 18 },
-        { '3', 19 },
-        { '4', 20 },
-        { '5', 21 },
-        { '6', 22 },
-        { '7', 23 },
-        { '8', 24 },
-        { '9', 25 },
-
-        { 'A', 33 },
-        { 'B', 34 },
-        { 'C', 35 },
-        { 'D', 36 },
-        { 'E', 37 },
-        { 'F', 38 },
-        { 'G', 39 },
-        { 'H', 40 },
-        { 'I', 41 },
-        { 'J', 42 },
-        { 'K', 43 },
-        { 'L', 44 },
-        { 'M', 45 },
-        { 'N', 46 },
-        { 'O', 47 },
-        { 'P', 48 },
-        { 'Q', 49 },
-        { 'R', 50 },
-        { 'S', 51 },
-        { 'T', 52 },
-        { 'U', 53 },
-        { 'V', 54 },
-        { 'W', 55 },
-        { 'X', 56 },
-        { 'Y', 57 },
-        { 'Z', 58 }
-    };
-
-    private Vector2 _spritesCount = new(16, 8);
-
-    public float CharSpacing = 0;
-
-    [ShowIf(nameof(IsGradient))] public Color GradientColor1 = Color.White;
-
-    [ShowIf(nameof(IsGradient))] public Color GradientColor2 = Color.White;
-    // texture will be font signed distance field texture,
-    // render will be basically going through all the characters in Text component and rendering each symbol
-
-    public bool IsGradient = false;
-
-    [Hide] public Vector2 SpriteSize;
-
-    // //[LinkableComponent]
-    public Text Text;
-
-    public Vector2 SpritesCount
-    {
-        get => _spritesCount;
-        set
-        {
-            _spritesCount = value;
-            if (Texture != null)
-            {
-                SpriteSize = new Vector2(Texture.Size.X / SpritesCount.X, Texture.Size.Y / SpritesCount.Y);
-            }
-        }
-    }
-
-    public override void Awake()
-    {
-        SpritesCount = SpritesCount;
-        SetDefaultTexture(Path.Combine(Folders.Textures, "font.png"));
-        Text = GetComponent<Text>();
-        BoxShape = GetComponent<BoxShape>();
-
-
-        if (Texture == null)
-        {
-            Texture = new RuntimeTexture();
-        }
-        else
-        {
-            // var textureLoadSettings = TextureLoadSettings.DefaultSettingsTexture2D;
-            // TextureLoadSettings textureLoadSettings = TextureLoadSettings.DefaultSettingsSpritePixelArt;
-            Texture = Tofu.AssetLoadManager.Load<RuntimeTexture>(Texture.PathToRawAsset);
-        }
-
-        base.Awake();
-    }
-
-    public override void SetDefaultMaterial()
-    {
-        Material = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/TextRenderer.mat");
-
-        Material.Additive = false;
-    }
-
-    public override void OnNewComponentAdded(Component comp)
-    {
-        Text = GetComponent<Text>();
-        BoxShape = GetComponent<BoxShape>();
-    }
-
-    public override void LoadTexture(string texturePath)
-    {
-        if (texturePath.Contains("Assets") == false)
-        {
-            texturePath = Path.Combine("Assets", texturePath);
-        }
-
-        if (File.Exists(texturePath) == false)
-        {
-            return;
-        }
-
-
-        Texture = Tofu.AssetLoadManager.Load<RuntimeTexture>(texturePath);
-    }
-
     public override void Render()
     {
-        if (BoxShape == null || Texture.Loaded == false || Text == null)
+        if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
+            InstancingData.MatrixDirty == false)
         {
             return;
         }
 
-        //Debug.Log("Draw text:" + text?.text);
-
-        Tofu.ShaderManager.UseShader(Material.Shader);
+        if (RuntimeMesh == null)
+        {
+            return;
+        }
+        
+        var updatedData =
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, VertexBufferStructureType.Model);
+        if (updatedData)
+        {
+            InstancingData.InstancingDataDirty = false;
+        }
+    }
+}      
+  
+/*Tofu.ShaderManager.UseShader(Material.Shader);
         Material.Shader.SetVector2("u_resolution", Texture.Size);
 
         if (Transform.IsInCanvas)
@@ -232,33 +118,4 @@ public class TextRenderer : SpriteRenderer
             Vector2 drawOffset = new(columnIndex * SpriteSize.X + SpriteSize.X / 2,
                 -rowIndex * SpriteSize.Y - SpriteSize.Y / 2);
 
-            Material.Shader.SetVector2("offset", drawOffset);
-
-            Tofu.ShaderManager.BindVertexArray(Material.Vao);
-
-            if (Material.Additive)
-            {
-                GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusConstantColor);
-            }
-            else
-            {
-                GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-            }
-
-            // GL.Disable(EnableCap.Blend);
-            // GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusConstantColor);
-            GL.BlendFunc(BlendingFactor.One, BlendingFactor.OneMinusSrcAlpha);
-
-            GL.ActiveTexture(TextureUnit.Texture0);
-            TextureHelper.BindTexture(Texture.TextureId);
-
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
-
-            DebugHelper.LogDrawCall();
-        }
-
-        Transform.Pivot = originalPivot;
-        Transform.WorldPosition = originalPosition;
-        Transform.LocalScale = originalScale;
-    }
-}*/
+            Material.Shader.SetVector2("offset", drawOffset);*/
