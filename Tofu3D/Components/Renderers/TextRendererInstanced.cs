@@ -1,5 +1,50 @@
 public class TextRendererInstanced : ModelRendererInstanced
 {
+    private readonly Dictionary<char, int> _fontMappings = new()
+    {
+        { ' ', 0 },
+        { '0', 48 },
+        { '1', 49 },
+        { '2', 50 },
+        { '3', 51 },
+        { '4', 52 },
+        { '5', 53 },
+        { '6', 54 },
+        { '7', 55 },
+        { '8', 56 },
+        { '9', 57 },
+
+        { 'A', 65 },
+        { 'B', 66 },
+        { 'C', 67 },
+        { 'D', 68 },
+        { 'E', 69 },
+        { 'F', 70 },
+        { 'G', 71 },
+        { 'H', 72 },
+        { 'I', 73 },
+        { 'J', 74 },
+        { 'K', 75 },
+        { 'L', 76 },
+        { 'M', 77 },
+        { 'N', 78 },
+        { 'O', 79 },
+        { 'P', 80 },
+        { 'Q', 81 },
+        { 'R', 82 },
+        { 'S', 83 },
+        { 'T', 84 },
+        { 'U', 85 },
+        { 'V', 86 },
+        { 'W', 87 },
+        { 'X', 88 },
+        { 'Y', 89 },
+        { 'Z', 90 }
+    };
+
+    private Vector2 _spritesCountInSpritesheet = new(16, 8);
+
+
     public override void Render()
     {
         if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
@@ -12,7 +57,32 @@ public class TextRendererInstanced : ModelRendererInstanced
         {
             return;
         }
-        
+
+        if (GetComponent<Text>(out Text textComponent) == false)
+        {
+            return;
+        }
+
+
+        char ch = textComponent.Value.Length > 0 ? textComponent.Value[0] : 'a';
+        var glyphMappingIndex = 0;
+
+        if (_fontMappings.TryGetValue(ch.ToString().ToUpper()[0], out var mapping))
+        {
+            glyphMappingIndex = mapping;
+        }
+
+        var columnIndex = glyphMappingIndex % (int)_spritesCountInSpritesheet.X;
+        var rowIndex = (int)Math.Floor(glyphMappingIndex / _spritesCountInSpritesheet.X);
+
+
+        Material.Tiling = new Vector2(1f / _spritesCountInSpritesheet.X, 1f / _spritesCountInSpritesheet.Y);
+
+        Material.Offset =
+            new Vector2(1f / _spritesCountInSpritesheet.X,
+                1f / _spritesCountInSpritesheet.Y) +
+            new Vector2(1f / _spritesCountInSpritesheet.X * columnIndex,
+                1f- 1f / -_spritesCountInSpritesheet.Y * rowIndex);
         var updatedData =
             Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, VertexBufferStructureType.Model);
         if (updatedData)
@@ -20,8 +90,8 @@ public class TextRendererInstanced : ModelRendererInstanced
             InstancingData.InstancingDataDirty = false;
         }
     }
-}      
-  
+}
+
 /*Tofu.ShaderManager.UseShader(Material.Shader);
         Material.Shader.SetVector2("u_resolution", Texture.Size);
 

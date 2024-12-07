@@ -677,7 +677,26 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
         return null;
     }
+    public T GetComponent<T>(out T component,int? index = null) where T : Component
+    {
+        var k = index == null ? 0 : (int)index;
+        for (var i = 0; i < Components.Count; i++)
+        {
+            if (Components[i] is T)
+            {
+                if (k == 0)
+                {
+                    component = (T)Components[i];
+                    return (T)Components[i];
+                }
 
+                k--;
+            }
+        }
+
+        component = null;
+        return null;
+    }
     public bool HasComponent<T>() where T : Component
     {
         for (var i = 0; i < Components.Count; i++)

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Data.SqlTypes;
 using System.Reflection;
 
 namespace Scripts;
@@ -9,11 +10,15 @@ public class Component : IDestroyable, ICloneable
 
     private readonly Dictionary<string, MethodInfo> _executeInEditModeMethods = new();
 
-    [Hide] public bool AllowMultiple = true;
+    [Hide]
+    public bool AllowMultiple = true;
 
-    [XmlIgnore] [DefaultValue(false)] public bool Awoken;
+    [XmlIgnore]
+    [DefaultValue(false)]
+    public bool Awoken;
 
-    [XmlIgnore] public GameObject GameObject;
+    [XmlIgnore]
+    public GameObject GameObject;
 
     public int GameObjectId;
     public bool Started;
@@ -34,7 +39,8 @@ public class Component : IDestroyable, ICloneable
     public float UpdateTime { get; set; } // how long in ms it took to update this gameobject
 #endif
 
-    [XmlIgnore] public bool CanExecuteUpdateInEditMode { get; }
+    [XmlIgnore]
+    public bool CanExecuteUpdateInEditMode { get; }
 
     public bool Enabled
     {
@@ -140,6 +146,7 @@ public class Component : IDestroyable, ICloneable
     }
 
     public T GetComponent<T>(int? index = null) where T : Component => GameObject.GetComponent<T>(index);
+    public T GetComponent<T>(out T component,int? index = null) where T : Component => GameObject.GetComponent<T>(out component,index);
 
     public TComponent AddComponent<TComponent>() where TComponent : Component, new()
     {
@@ -220,7 +227,7 @@ public class Component : IDestroyable, ICloneable
 
     public int CompareTo(bool other)
     {
-        if (this == null)
+        if (ReferenceEquals(this, null))
         {
             return 0;
         }
@@ -228,13 +235,28 @@ public class Component : IDestroyable, ICloneable
         return 1;
     }
 
-    public static implicit operator bool(Component instance)
+    public static implicit operator bool(Component? instance)
     {
-        if (instance == null)
+        if (ReferenceEquals(instance, null))
         {
             return false;
         }
-
+    
         return true;
+    }
+
+    public static bool operator ==(Component? left, Component? right)
+    {
+        if (ReferenceEquals(left, null))
+        {
+            return ReferenceEquals(right, null);
+        }
+
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(Component? left, Component? right)
+    {
+        return !(left == right);
     }
 }

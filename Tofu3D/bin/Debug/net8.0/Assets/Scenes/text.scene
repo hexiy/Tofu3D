@@ -98,14 +98,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>9.568672</X>
-        <Y>6.7084804</Y>
-        <Z>-4.182518</Z>
+        <X>4.193456</X>
+        <Y>13.829018</Y>
+        <Z>-4.1099987</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>9.568672</X>
-        <Y>6.7084804</Y>
-        <Z>-4.182518</Z>
+        <X>4.193456</X>
+        <Y>13.829018</Y>
+        <Z>-4.1099987</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -118,8 +118,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>36.775837</X>
-        <Y>-28.985964</Y>
+        <X>49.07817</X>
+        <Y>-0.9836204</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -227,6 +227,10 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
         <int>1160</int>
         <int>1160</int>
         <int>1160</int>
@@ -381,7 +385,7 @@
             <X>112</X>
             <Y>72</Y>
           </Size>
-          <TextureId>33</TextureId>
+          <TextureId>21</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -404,19 +408,19 @@
           <Z>0</Z>
           <W>0</W>
         </EmissiveColor>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
         <RenderMode>Opaque</RenderMode>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0</SpecularSmoothness>
         <MetallicTextureStrength>0</MetallicTextureStrength>
         <Smoothness>0</Smoothness>
         <Tiling>
-          <X>1</X>
-          <Y>1</Y>
+          <X>0.0625</X>
+          <Y>0.125</Y>
         </Tiling>
+        <Offset>
+          <X>0.8125</X>
+          <Y>1.625</Y>
+        </Offset>
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
@@ -444,7 +448,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Size>12</Size>
-      <Value>test</Value>
+      <Value>l</Value>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
@@ -519,5 +523,5 @@
       <Intensity>1</Intensity>
     </Component>
   </Components>
-  <GameObjectNextId>1252</GameObjectNextId>
+  <GameObjectNextId>1260</GameObjectNextId>
 </SceneFile>
