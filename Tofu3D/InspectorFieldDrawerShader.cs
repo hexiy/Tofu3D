@@ -34,7 +34,7 @@ public class InspectorFieldDrawerShader : InspectorFieldDrawable<Shader>
                 var shaderName = Path.GetFileName(payload);
 
                 Shader shader = new Shader(payload);
-                (componentInspectorData.Inspectable as Asset_Material).SetShader(shader);
+                (componentInspectorData.Inspectable as Asset_Material).SetAndLoadShader(shader);
                 info.SetValue(componentInspectorData.Inspectable, shader);
                 // load new material
             }

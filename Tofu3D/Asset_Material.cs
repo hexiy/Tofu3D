@@ -36,6 +36,7 @@ public class Asset_Material : Asset<Asset_Material>
 
     public Vector2 Tiling = new Vector2(1, 1);
     public Vector2 Offset = new Vector2(0, 0);
+    public bool UVOffsetIsInstanced = false;
 
     public override int GetHashCode()
     {
@@ -99,20 +100,21 @@ public class Asset_Material : Asset<Asset_Material>
         }
     }
 
-    public void SetShader(Shader shader)
+    public void SetAndLoadShader(Shader shader)
     {
         Shader = shader;
 
         if (Shader.IsLoaded == false)
         {
-            Shader.Load();
+            LoadShader();
             // BufferFactory.CreateBufferForShader(this);
         }
     }
 
-    public void InitShader()
+    public void LoadShader()
     {
-        SetShader(Shader);
+        
+        Shader.Load(this);
     }
 
     public void Dispose()

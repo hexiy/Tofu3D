@@ -45,18 +45,18 @@ public class TextRendererInstanced : ModelRendererInstanced
     private Vector2 _spritesCountInSpritesheet = new(16, 8);
 
     [XmlIgnore]
-    public RendererInstancingData[] RendererInstancingDatas;
+    public List<RendererInstancingData> RendererInstancingDatas = new List<RendererInstancingData>();
 
     public override void Awake()
     {
-        RendererInstancingDatas = new[]
-        {
-            new RendererInstancingData() { InstancingDataDirty = true, MatrixDirty = true },
-            new RendererInstancingData() { InstancingDataDirty = true, MatrixDirty = true },
-            new RendererInstancingData() { InstancingDataDirty = true, MatrixDirty = true },
-        };
-
         base.Awake();
+    }
+
+    public override void SetDefaultMaterial()
+    {
+        base.SetDefaultMaterial();
+        Material.UVOffsetIsInstanced = true;
+        Material.LoadShader();
     }
 
     public override void Render()
@@ -77,10 +77,15 @@ public class TextRendererInstanced : ModelRendererInstanced
             return;
         }
 
-        for (var i = 0; i < RendererInstancingDatas.Length; i++)
+        for (var i = 0; i < textComponent.Value.Length; i++)
         {
+            if (RendererInstancingDatas.Count <= i)
+            {
+                RendererInstancingDatas.Add(new RendererInstancingData());
+            }
+
             // var instancingData = RendererInstancingDatas[i];
-            char ch = textComponent.Value.Length > i ? textComponent.Value[i] : ' ';
+            char ch = textComponent.Value[i];
             var glyphMappingIndex = 0;
 
             if (_fontMappings.TryGetValue(ch.ToString().ToUpper()[0], out var mapping))
@@ -104,13 +109,16 @@ public class TextRendererInstanced : ModelRendererInstanced
                 Matrix4x4.CreateTranslation(new Vector3(Mathf.Sin(Time.EditorElapsedTime) * 10 + i * 10, 0, 0));
             Matrix4x4 modelMatrix = GetModelMatrix() * offsetTranslation;
 
+            RendererInstancingData data = RendererInstancingDatas[i];
             var updatedData =
-                Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref RendererInstancingDatas[i],
+                Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref data,
                     VertexBufferStructureType.Model, modelMatrix: modelMatrix, uvOffset: offset);
             if (updatedData)
             {
-                RendererInstancingDatas[i].InstancingDataDirty = false;
+                data.InstancingDataDirty = false;
             }
+
+            RendererInstancingDatas[i] = data;
         }
     }
 }

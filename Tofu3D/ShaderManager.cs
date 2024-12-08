@@ -73,9 +73,9 @@ public class ShaderManager
             {
                 Shader shader = new(shaderPath);
 
-                shader.Load();
+                // shader.Load();
 
-                loadedMaterial.SetShader(shader);
+                loadedMaterial.SetAndLoadShader(shader);
             }
         }
         /*// find all Renderer components, and check if the material has the changed shader and reload it, ehh this doesnt work with renderpass shaders for example

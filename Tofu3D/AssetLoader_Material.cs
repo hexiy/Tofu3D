@@ -22,7 +22,7 @@ public class AssetLoader_Material : AssetLoader<Asset_Material, Asset_Material>
         assetMaterial.LoadTextures();
         if (assetMaterial.Shader != null)
         {
-            assetMaterial.InitShader();
+            assetMaterial.LoadShader();
         }
 
         // assetMaterial.InitAssetRuntimeHandle(assetMaterial.Vao);

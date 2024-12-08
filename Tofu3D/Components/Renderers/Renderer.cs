@@ -133,7 +133,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
 
     public virtual void SetDefaultMaterial()
     {
-        Material.InitShader();
+        Material.LoadShader();
     }
 
     // private Matrix4x4 GetModelViewProjectionOld()

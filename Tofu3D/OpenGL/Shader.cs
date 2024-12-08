@@ -27,26 +27,37 @@ public class
         0, 0, 0, 0
     };
 
-    private int _uLocationUColor = -1;
+    [XmlIgnore]
+    public TextureUnit? AlbedoTextureIndexUnit = null;
 
-    private int _uLocationUMvp = -1;
+    [XmlIgnore]
+    public TextureUnit? NormalTextureIndexUnit = null;
 
-    [XmlIgnore] public TextureUnit? AlbedoTextureIndexUnit = null;
-    [XmlIgnore] public TextureUnit? NormalTextureIndexUnit = null;
-    [XmlIgnore] public TextureUnit? AmbientOcclusionTextureUnit = null;
-    [XmlIgnore] public TextureUnit? ShadowMapTextureUnit = null;
-    [XmlIgnore] public TextureUnit? RoughnessTextureUnit = null;
-    [XmlIgnore] public TextureUnit? MetallicTextureUnit = null;
-    [XmlIgnore] public TextureUnit? EnvironmentTextureUnit = null;
-    [XmlIgnore] public TextureUnit? EmissiveTextureUnit = null;
+    [XmlIgnore]
+    public TextureUnit? AmbientOcclusionTextureUnit = null;
+
+    [XmlIgnore]
+    public TextureUnit? ShadowMapTextureUnit = null;
+
+    [XmlIgnore]
+    public TextureUnit? RoughnessTextureUnit = null;
+
+    [XmlIgnore]
+    public TextureUnit? MetallicTextureUnit = null;
+
+    [XmlIgnore]
+    public TextureUnit? EnvironmentTextureUnit = null;
+
+    [XmlIgnore]
+    public TextureUnit? EmissiveTextureUnit = null;
 
     public BufferType BufferType;
 
     public string Path;
 
-    [XmlIgnore] public Dictionary<string, object> Uniforms = new()
+    [XmlIgnore]
+    public Dictionary<string, object> Uniforms = new()
     {
-        { "u_tint", new Vector4(1, 1, 1, 1) }
     };
 
     public Shader()
@@ -58,9 +69,11 @@ public class
         Path = filePath;
     }
 
-    [XmlIgnore] public bool IsLoaded { get; private set; }
+    [XmlIgnore]
+    public bool IsLoaded { get; private set; }
 
-    [XmlIgnore] public int ProgramId { get; set; }
+    [XmlIgnore]
+    public int ProgramId { get; set; }
 
     public void Dispose()
     {
@@ -70,7 +83,7 @@ public class
     // make Uniforms List<ShaderUniform> and get index from that
     public int GetUniformLocation(string uniformName) => GL.GetUniformLocation(ProgramId, uniformName);
 
-    public void Load()
+    public void Load(Asset_Material material)
     {
         AssetUtils.ValidateAssetPath(ref Path);
 
@@ -99,8 +112,13 @@ public class
         // GetAllUniforms();
         var shaderFile = File.ReadAllText(Path);
 
+        // set defines here 
+
         var vertexCode = GetVertexShaderFromFileString(shaderFile);
         var fragmentCode = GetFragmentShaderFromFileString(shaderFile);
+
+        ProcessShader(material, ref vertexCode, ref fragmentCode);
+
         BufferType = GetBufferTypeFromFileString(shaderFile);
 
 
@@ -266,6 +284,19 @@ public class
         IsLoaded = true;
     }
 
+    private void ProcessShader(Asset_Material material, ref string vertexShader, ref string fragmentShader)
+    {
+        // return;
+        string uvOffsetIsInstancedDefine =
+            $"\n#define UV_OFFSET_IS_INSTANCED {(material.UVOffsetIsInstanced ? "1" : "0")}";
+
+        int newLineIndexInVertex = vertexShader.IndexOf("#version 410 core") + "#version 410 core".Length;
+        vertexShader = vertexShader.Insert(newLineIndexInVertex, uvOffsetIsInstancedDefine);
+
+        int newLineIndexInFragment = fragmentShader.IndexOf("#version 410 core") + "#version 410 core".Length;
+        fragmentShader = fragmentShader.Insert(newLineIndexInFragment, uvOffsetIsInstancedDefine);
+    }
+
     public void SetMatrix4X4(string uniformName, Matrix4x4 mat)
     {
         // if (_uLocationUMvp == -1)
@@ -287,6 +318,7 @@ public class
         GL.Uniform1(location, fl);
         Uniforms[uniformName] = fl;
     }
+
     public void SetInt(string uniformName, int num)
     {
         var location = GL.GetUniformLocation(ProgramId, uniformName);
