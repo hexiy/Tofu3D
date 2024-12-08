@@ -43,6 +43,7 @@ public class TextRendererInstanced : ModelRendererInstanced
     };
 
     private Vector2 _spritesCountInSpritesheet = new(16, 8);
+    private Vector2 _characterSpacing = new Vector2(10, 10);
 
     [XmlIgnore]
     public List<RendererInstancingData> RendererInstancingDatas = new List<RendererInstancingData>();
@@ -93,48 +94,74 @@ public class TextRendererInstanced : ModelRendererInstanced
                 instancingDatasToRemove);
         }
 
+        const int maxCharactersPerLine = 10;
+        int charactersInCurrentLine = 0;
+        float currentX = 0;
+        float currentY = 0;
         for (var i = 0; i < textComponent.Value.Length; i++)
         {
-            if (RendererInstancingDatas.Count <= i)
+            while (RendererInstancingDatas.Count <= i)
             {
                 RendererInstancingDatas.Add(new RendererInstancingData());
             }
 
             // var instancingData = RendererInstancingDatas[i];
             char ch = textComponent.Value[i];
-            var glyphMappingIndex = 0;
+            bool isNewlineCharacter = ch.ToString() == Environment.NewLine;
 
-            if (_fontMappings.TryGetValue(ch.ToString().ToUpper()[0], out var mapping))
+            if (isNewlineCharacter == false)
             {
-                glyphMappingIndex = mapping;
+                var glyphMappingIndex = 0;
+
+                if (_fontMappings.TryGetValue(ch.ToString().ToUpper()[0], out var mapping))
+                {
+                    glyphMappingIndex = mapping;
+                }
+
+                var columnIndex = glyphMappingIndex % (int)_spritesCountInSpritesheet.X;
+                var rowIndex = (int)Math.Floor(glyphMappingIndex / _spritesCountInSpritesheet.X);
+
+
+                Material.Tiling = new Vector2(1f / _spritesCountInSpritesheet.X, 1f / _spritesCountInSpritesheet.Y);
+
+                Vector2 offset =
+                    new Vector2(1f / _spritesCountInSpritesheet.X,
+                        1f / _spritesCountInSpritesheet.Y) +
+                    new Vector2(1f / _spritesCountInSpritesheet.X * columnIndex,
+                        1f - 1f / -_spritesCountInSpritesheet.Y * rowIndex);
+
+                var offsetTranslation =
+                    Matrix4x4.CreateTranslation(currentX, 0, currentY);
+                Matrix4x4 modelMatrix = GetModelMatrix() * offsetTranslation;
+
+                RendererInstancingData data = RendererInstancingDatas[i];
+                var updatedData =
+                    Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref data,
+                        VertexBufferStructureType.Model, modelMatrix: modelMatrix, uvOffset: offset, indexForMultipleObjectsPerRenderer: i);
+
+                if (updatedData)
+                {
+                    data.InstancingDataDirty = false;
+                }
+
+                RendererInstancingDatas[i] = data;
             }
 
-            var columnIndex = glyphMappingIndex % (int)_spritesCountInSpritesheet.X;
-            var rowIndex = (int)Math.Floor(glyphMappingIndex / _spritesCountInSpritesheet.X);
 
+            charactersInCurrentLine++;
+            bool hitMaxCharactersPerLine = charactersInCurrentLine > maxCharactersPerLine;
 
-            Material.Tiling = new Vector2(1f / _spritesCountInSpritesheet.X, 1f / _spritesCountInSpritesheet.Y);
-
-            Vector2 offset =
-                new Vector2(1f / _spritesCountInSpritesheet.X,
-                    1f / _spritesCountInSpritesheet.Y) +
-                new Vector2(1f / _spritesCountInSpritesheet.X * columnIndex,
-                    1f - 1f / -_spritesCountInSpritesheet.Y * rowIndex);
-
-            var offsetTranslation =
-                Matrix4x4.CreateTranslation(new Vector3(Mathf.Sin(Time.EditorElapsedTime) * 10 + i * 10, 0, 0));
-            Matrix4x4 modelMatrix = GetModelMatrix() * offsetTranslation;
-
-            RendererInstancingData data = RendererInstancingDatas[i];
-            var updatedData =
-                Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref data,
-                    VertexBufferStructureType.Model, modelMatrix: modelMatrix, uvOffset: offset);
-            if (updatedData)
+            bool newLine = hitMaxCharactersPerLine || isNewlineCharacter;
+            if (newLine)
             {
-                data.InstancingDataDirty = false;
+                currentX = 0;
+                charactersInCurrentLine = 0;
+                currentY -= _characterSpacing.Y;
             }
-
-            RendererInstancingDatas[i] = data;
+            else
+            {
+                currentX += _characterSpacing.X;
+            }
         }
     }
 }

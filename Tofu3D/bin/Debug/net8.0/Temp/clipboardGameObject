@@ -5,29 +5,29 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>987</Id>
-      <IndexInHierarchy>4</IndexInHierarchy>
+      <Id>1160</Id>
+      <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Directional Light</Name>
+      <Name>Child</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>false</ActiveSelf>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
   </GameObjects>
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>987</GameObjectId>
+      <GameObjectId>1160</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
+      <ParentId>1157</ParentId>
       <Pivot>
         <X>0</X>
         <Y>0</Y>
@@ -55,16 +55,17 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>-90</Y>
+        <Y>0</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="DirectionalLight">
+    <Component xsi:type="TextRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>987</GameObjectId>
+      <GameObjectId>1160</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -72,18 +73,101 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <Intensity>1</Intensity>
-      <FarPlaneDistance>1000</FarPlaneDistance>
-      <NearPlaneDistance>0.0001</NearPlaneDistance>
-      <OrthographicSize>15</OrthographicSize>
-      <RefreshRate>60</RefreshRate>
-      <Rotate>false</Rotate>
-      <RotateOffset>0</RotateOffset>
+      <Material>
+        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/TextMaterial.mat</PathToRawAsset>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+        </Shader>
+        <Additive>false</Additive>
+        <AlbedoTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/font.png</PathToRawAsset>
+          <Size>
+            <X>112</X>
+            <Y>72</Y>
+          </Size>
+          <TextureId>21</TextureId>
+        </AlbedoTexture>
+        <AlbedoTint>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>255</A>
+          <PackedValue>4294967295</PackedValue>
+        </AlbedoTint>
+        <EmissiveTexture>
+          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
+          <Size>
+            <X>1</X>
+            <Y>1</Y>
+          </Size>
+          <TextureId>1</TextureId>
+        </EmissiveTexture>
+        <EmissiveColor>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+          <W>0</W>
+        </EmissiveColor>
+        <RenderMode>Opaque</RenderMode>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0.717</Smoothness>
+        <Tiling>
+          <X>0.0625</X>
+          <Y>0.125</Y>
+        </Tiling>
+        <Offset>
+          <X>0.3125</X>
+          <Y>1.5</Y>
+        </Offset>
+        <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
+      </Material>
+      <RuntimeMesh>
+        <PathToRawAsset />
+        <MeshAssetPath>Library/Meshes/plane.obj_0.tofumesh</MeshAssetPath>
+        <Vao>4</Vao>
+        <VerticesCount>4</VerticesCount>
+        <VertexBufferDataLength>56</VertexBufferDataLength>
+        <IsDynamic>0</IsDynamic>
+        <Indices>
+          <unsignedInt>0</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+          <unsignedInt>2</unsignedInt>
+          <unsignedInt>0</unsignedInt>
+          <unsignedInt>3</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+        </Indices>
+      </RuntimeMesh>
+      <RenderMode>Opaque</RenderMode>
+      <Layer>0</Layer>
+    </Component>
+    <Component xsi:type="Text">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1160</GameObjectId>
+      <Started>false</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Size>12</Size>
+      <Value>abc</Value>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1160</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
       <Size>
-        <X>1000</X>
-        <Y>1000</Y>
+        <X>5</X>
+        <Y>1</Y>
+        <Z>5</Z>
       </Size>
-      <Speed>100</Speed>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

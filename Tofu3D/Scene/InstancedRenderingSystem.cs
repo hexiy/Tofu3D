@@ -309,7 +309,7 @@ public class InstancedRenderingSystem
     public bool UpdateObjectData(Renderer renderer, ref RendererInstancingData instancingData,
         VertexBufferStructureType vertexBufferStructureType,
         Matrix4x4? modelMatrix = null, bool isStatic = false, bool remove = false, Color? color = null,
-        Vector2? uvOffset = null)
+        Vector2? uvOffset = null, int indexForMultipleObjectsPerRenderer=0)
     {
         var mesh = renderer.RuntimeMesh;
         var material = renderer.Material;
@@ -322,7 +322,7 @@ public class InstancedRenderingSystem
         if (instancingData.InstancedRenderingDefinitionIndex == -1)
         {
             // no buffer exists for this combination-create one
-            InstancedRenderingObjectDefinition definition = new(mesh, material, isStatic, vertexBufferStructureType);
+            InstancedRenderingObjectDefinition definition = new(mesh, material, isStatic, vertexBufferStructureType,indexForMultipleObjectsPerRenderer);
             var definitionIndex = _definitions.Contains(definition)
                 ? _definitions.IndexOf(definition)
                 : _definitions.Count;

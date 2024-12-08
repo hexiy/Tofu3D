@@ -4,4 +4,5 @@ public record InstancedRenderingObjectDefinition(
     RuntimeMesh RuntimeMesh,
     Asset_Material Material,
     bool IsStatic,
-    VertexBufferStructureType vertexBufferStructureType);
+    VertexBufferStructureType vertexBufferStructureType,
+    int index);
