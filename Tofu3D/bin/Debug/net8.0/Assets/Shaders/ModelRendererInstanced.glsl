@@ -11,6 +11,7 @@ layout (location = 5) in vec3 a_model_1;
 layout (location = 6) in vec3 a_model_2;
 layout (location = 7) in vec3 a_model_3;
 layout (location = 8) in vec3 a_model_4;
+layout (location = 9) in vec2 a_uv_offset;
 
 uniform mat4 u_viewProjection;
 uniform mat4 u_lightSpaceViewProjection;
@@ -21,13 +22,14 @@ out vec3 normal;
 //out vec4 color;
 out vec4 fragPosLightSpace;
 out mat3 TBN;
-
+out vec2 uvOffset;
 void main(void)
 {
 	mat4 a_model = mat4(vec4(a_model_1, 0), vec4(a_model_2, 0), vec4(a_model_3, 0), vec4(a_model_4, 1));
 	mat4 mvp = u_viewProjection * a_model;
 	gl_Position = mvp * vec4(a_pos.xyz, 1.0);
 	uv = a_uv * vec2(-1, -1);
+	uvOffset = a_uv_offset;
 	//color = a_color;
 
 	vertexPositionWorld = vec3(a_model * vec4(a_pos.xyz, 1.0));
@@ -101,7 +103,7 @@ in vec3 vertexPositionWorld;
 //in vec4 color;
 in vec4 fragPosLightSpace;
 in mat3 TBN;
-
+in vec2 uvOffset;
 out vec4 fragColor;
 
 // 1 if in shadow-black, 0 if in light
@@ -141,7 +143,7 @@ float metallic = 0;
 float roughness = 1;
 void main(void)
 {
-	vec2 uvCoords = (uv) * u_tiling + u_offset;
+	vec2 uvCoords = (uv) * u_tiling + uvOffset;
 
 	if (u_hasMetallicTexture == 1) {
 		metallic = texture(u_metallicTexture, uvCoords).r;
@@ -231,10 +233,10 @@ void main(void)
 	//	result.a = albedoColor.a;// * color.a;
 
 //		if (result.a < 0.05)
-		if (albedoColor.a < 0.05)
-		{
-			discard; // having this fixes transparency sorting but breaks debug depthmap
-		}
+//		if (albedoColor.a < 0.05)
+//		{
+//			discard; // having this fixes transparency sorting but breaks debug depthmap
+//		}
 
 	//	if (u_specularHighlightsEnabled == 1)
 	//	{

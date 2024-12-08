@@ -5,7 +5,8 @@ public class InstancedRenderingObjectBufferData
     public readonly int
         _instancedVertexDataSizeInBytes =
             // sizeof(float) * 3 * 4 + sizeof(float) * 4; // 4x vec 3's for matrix+vec4 color;
-            sizeof(float) * 3 * 4; // 4x vec 3's for model_1 model_2 model_3 model_4
+            sizeof(float) * 3 * 4 // 4x vec 3's for model_1 model_2 model_3 model_4
+            + sizeof(float) * 2; // 1x vector2 for uv offset
 
 
     public float[] Buffer;

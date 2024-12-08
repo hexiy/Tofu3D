@@ -94,19 +94,19 @@ public class TextRendererInstanced : ModelRendererInstanced
 
             Material.Tiling = new Vector2(1f / _spritesCountInSpritesheet.X, 1f / _spritesCountInSpritesheet.Y);
 
-            Material.Offset =
+            Vector2 offset =
                 new Vector2(1f / _spritesCountInSpritesheet.X,
                     1f / _spritesCountInSpritesheet.Y) +
                 new Vector2(1f / _spritesCountInSpritesheet.X * columnIndex,
                     1f - 1f / -_spritesCountInSpritesheet.Y * rowIndex);
 
             var offsetTranslation =
-                Matrix4x4.CreateTranslation(new Vector3(Mathf.Sin(Time.EditorElapsedTime)*10 + i*10, 0, 0));
+                Matrix4x4.CreateTranslation(new Vector3(Mathf.Sin(Time.EditorElapsedTime) * 10 + i * 10, 0, 0));
             Matrix4x4 modelMatrix = GetModelMatrix() * offsetTranslation;
-            
+
             var updatedData =
                 Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref RendererInstancingDatas[i],
-                    VertexBufferStructureType.Model, modelMatrix: modelMatrix);
+                    VertexBufferStructureType.Model, modelMatrix: modelMatrix, uvOffset: offset);
             if (updatedData)
             {
                 RendererInstancingDatas[i].InstancingDataDirty = false;

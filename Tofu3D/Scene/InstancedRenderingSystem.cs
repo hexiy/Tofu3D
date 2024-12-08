@@ -125,11 +125,11 @@ public class InstancedRenderingSystem
 
 
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
-            
+
             GL_DrawElementsInstanced(PrimitiveType.Triangles, mesh.Indices.Length,
                 objectBufferPair.Value.NumberOfObjects);
             // GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount,
-                // objectBufferPair.Value.NumberOfObjects);
+            // objectBufferPair.Value.NumberOfObjects);
         }
 
         else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
@@ -299,7 +299,8 @@ public class InstancedRenderingSystem
 
     private void GL_DrawElementsInstanced(PrimitiveType primitiveType, int indicesCount, int instancesCount)
     {
-        GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, IntPtr.Zero, instancesCount);
+        GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, IntPtr.Zero,
+            instancesCount);
         // GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, indices, instancesCount);
         DebugHelper.LogDrawCall();
         Debug.StatAddValue("Instanced objects drawn(elements):", instancesCount);
@@ -307,7 +308,8 @@ public class InstancedRenderingSystem
 
     public bool UpdateObjectData(Renderer renderer, ref RendererInstancingData instancingData,
         VertexBufferStructureType vertexBufferStructureType,
-        Matrix4x4? modelMatrix = null, bool isStatic = false, bool remove = false, Color? color = null)
+        Matrix4x4? modelMatrix = null, bool isStatic = false, bool remove = false, Color? color = null,
+        Vector2? uvOffset = null)
     {
         var mesh = renderer.RuntimeMesh;
         var material = renderer.Material;
@@ -376,7 +378,7 @@ public class InstancedRenderingSystem
         {
             CopyObjectDataToBuffer(color ?? renderer.Color, modelMatrix ?? renderer.GetModelMatrix(),
                 ref bufferData.Buffer,
-                instancingData.InstancedRenderingStartingIndexInBuffer);
+                instancingData.InstancedRenderingStartingIndexInBuffer, uvOffset: uvOffset ?? renderer.Material.Offset);
         }
 
 
@@ -385,7 +387,8 @@ public class InstancedRenderingSystem
         return true;
     }
 
-    private void CopyObjectDataToBuffer(Color color, Matrix4x4 modelMatrix, ref float[] buffer, int startingIndex)
+    private void CopyObjectDataToBuffer(Color color, Matrix4x4 modelMatrix, ref float[] buffer, int startingIndex,
+        Vector2 uvOffset)
     {
         buffer[startingIndex + 0] = modelMatrix.M11;
         buffer[startingIndex + 1] = modelMatrix.M12;
@@ -402,6 +405,9 @@ public class InstancedRenderingSystem
         buffer[startingIndex + 9] = modelMatrix.M41;
         buffer[startingIndex + 10] = modelMatrix.M42;
         buffer[startingIndex + 11] = modelMatrix.M43;
+
+        buffer[startingIndex + 12] = uvOffset.X;
+        buffer[startingIndex + 13] = uvOffset.Y;
     }
 
     private InstancedRenderingObjectBufferData InitializeBufferData(InstancedRenderingObjectDefinition objectDefinition)
@@ -448,7 +454,7 @@ public class InstancedRenderingSystem
             GL.EnableVertexAttribArray(6);
             GL.EnableVertexAttribArray(7);
             GL.EnableVertexAttribArray(8);
-            // GL.EnableVertexAttribArray(9);
+            GL.EnableVertexAttribArray(9);
 
             // https://stackoverflow.com/a/28597384
             //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
@@ -464,16 +470,16 @@ public class InstancedRenderingSystem
             GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
                 bufferData._instancedVertexDataSizeInBytes,
                 3 * 3 * sizeof(float));
-            // GL.VertexAttribPointer(9, sizeof(float), VertexAttribPointerType.Float, false,
-            //     bufferData._instancedVertexDataSizeInBytes,
-            //     4 * 3 * sizeof(float)); not using a_color anymore
+            GL.VertexAttribPointer(9, 2, VertexAttribPointerType.Float, false,
+                bufferData._instancedVertexDataSizeInBytes,
+                4 * 3 * sizeof(float));
 
 
             GL.VertexAttribDivisor(5, 1);
             GL.VertexAttribDivisor(6, 1);
             GL.VertexAttribDivisor(7, 1);
             GL.VertexAttribDivisor(8, 1);
-            // GL.VertexAttribDivisor(9, 1);  not using a_color anymore
+            GL.VertexAttribDivisor(9, 1);
         }
 
         if (bufferData.VertexBufferStructureType == VertexBufferStructureType.Quad)
@@ -483,7 +489,7 @@ public class InstancedRenderingSystem
             GL.EnableVertexAttribArray(6);
             GL.EnableVertexAttribArray(7);
             GL.EnableVertexAttribArray(8);
-            // GL.EnableVertexAttribArray(9); not using a_color anymore
+            GL.EnableVertexAttribArray(9);
 
             // https://stackoverflow.com/a/28597384
             //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
@@ -499,16 +505,16 @@ public class InstancedRenderingSystem
             GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
                 bufferData._instancedVertexDataSizeInBytes,
                 3 * 3 * sizeof(float));
-            // GL.VertexAttribPointer(9, sizeof(float), VertexAttribPointerType.Float, false,
-            //     bufferData._instancedVertexDataSizeInBytes,
-            //     4 * 3 * sizeof(float));  not using a_color anymore
+            GL.VertexAttribPointer(9, 2, VertexAttribPointerType.Float, false,
+                bufferData._instancedVertexDataSizeInBytes,
+                4 * 3 * sizeof(float));
 
 
             GL.VertexAttribDivisor(5, 1);
             GL.VertexAttribDivisor(6, 1);
             GL.VertexAttribDivisor(7, 1);
             GL.VertexAttribDivisor(8, 1);
-            // GL.VertexAttribDivisor(9, 1);
+            GL.VertexAttribDivisor(9, 1);
         }
 
         if (newBuffer)

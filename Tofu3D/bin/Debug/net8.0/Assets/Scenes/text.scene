@@ -98,14 +98,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>4.650951</X>
-        <Y>19.07853</Y>
-        <Z>-3.13145</Z>
+        <X>2.9755728</X>
+        <Y>19.423763</Y>
+        <Z>-2.668104</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>4.650951</X>
-        <Y>19.07853</Y>
-        <Z>-3.13145</Z>
+        <X>2.9755728</X>
+        <Y>19.423763</Y>
+        <Z>-2.668104</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -227,6 +227,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>1160</int>
         <int>1160</int>
         <int>1160</int>
         <int>1160</int>
@@ -413,7 +414,7 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0</SpecularSmoothness>
         <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
+        <Smoothness>0.717</Smoothness>
         <Tiling>
           <X>0.0625</X>
           <Y>0.125</Y>
@@ -449,7 +450,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Size>12</Size>
-      <Value>124</Value>
+      <Value>abc</Value>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
@@ -524,5 +525,5 @@
       <Intensity>1</Intensity>
     </Component>
   </Components>
-  <GameObjectNextId>1262</GameObjectNextId>
+  <GameObjectNextId>1264</GameObjectNextId>
 </SceneFile>
