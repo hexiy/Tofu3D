@@ -159,6 +159,7 @@ public class Framebuffer
         GL.Viewport(0, 0, (int)Size.X, (int)Size.Y);
 
         // GL.ClearColor(ClearColor.ToOtherColor());
+        GL.ClearColor(new Vector4(0,0,0,0).ToColor().ToOtherColor());
         // GL.StencilMask(0xFF);
         // GL.Enable(EnableCap.StencilTest);
 
@@ -173,7 +174,8 @@ public class Framebuffer
             Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
         Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
-
+        
+        GL.Enable(EnableCap.Blend);
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.ActiveTexture(TextureUnit.Texture0);
 
@@ -196,7 +198,9 @@ public class Framebuffer
 
         Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
-        GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+        // GL.Enable(EnableCap.Blend);
+        // GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+        RenderingBlendingHelper.SetBlendMode(BlendMode.Fade);
 
         GL.ActiveTexture(TextureUnit.Texture0);
         TextureHelper.BindTexture(texture);

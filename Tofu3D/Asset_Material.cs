@@ -22,7 +22,6 @@ public class Asset_Material : Asset<Asset_Material>
     [ColorHDR]
     public Vector4 EmissiveColor;
 
-    public RenderMode RenderMode = RenderMode.Opaque;
 
 
     public bool SpecularHighlightsEnabled;
@@ -37,6 +36,9 @@ public class Asset_Material : Asset<Asset_Material>
     public Vector2 Tiling = new Vector2(1, 1);
     public Vector2 Offset = new Vector2(0, 0);
     public bool UVOffsetIsInstanced = false;
+    
+    public RenderMode RenderMode = RenderMode.Opaque;
+    public BlendMode BlendMode = BlendMode.Opaque;
 
     public override int GetHashCode()
     {
@@ -59,12 +61,12 @@ public class Asset_Material : Asset<Asset_Material>
         if (AlbedoTexture?.PathToRawAsset.Length > 2)
         {
             AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
-                { IsSrgb = true, PathToAsset = AlbedoTexture.PathToRawAsset });
+                { PathToAsset = AlbedoTexture.PathToRawAsset });
         }
         else
         {
             AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
-                { IsSrgb = true, PathToAsset = "Resources/whitePixel.png" });
+                { PathToAsset = "Resources/whitePixel.png" });
         }
 
         if (AmbientOcclusionTexture?.PathToRawAsset.Length > 2)
@@ -91,12 +93,12 @@ public class Asset_Material : Asset<Asset_Material>
         if (EmissiveTexture?.PathToRawAsset.Length > 2)
         {
             EmissiveTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
-                { IsSrgb = true, PathToAsset = EmissiveTexture.PathToRawAsset });
+                { PathToAsset = EmissiveTexture.PathToRawAsset });
         }
         else
         {
             EmissiveTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
-                { IsSrgb = true, PathToAsset = "Resources/whitePixel.png" });
+                { PathToAsset = "Resources/whitePixel.png" });
         }
     }
 

@@ -77,7 +77,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         {
             return;
         }
-
+        // we dont need data instances for line break characters...
         int instancingDatasToRemove = RendererInstancingDatas.Count - textComponent.Value.Length;
         if (instancingDatasToRemove > 0)
         {
@@ -98,6 +98,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         int charactersInCurrentLine = 0;
         float currentX = 0;
         float currentY = 0;
+        
         for (var i = 0; i < textComponent.Value.Length; i++)
         {
             while (RendererInstancingDatas.Count <= i)

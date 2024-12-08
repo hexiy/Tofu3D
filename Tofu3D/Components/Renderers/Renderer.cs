@@ -3,28 +3,33 @@
 [ExecuteInEditMode]
 public abstract class Renderer : Component, IComparable<Renderer>, IComponentRenderable, IComponentUpdateable
 {
-    [Hide] public bool AutomaticallyFindBoxShape = true;
+    [Hide]
+    public bool AutomaticallyFindBoxShape = true;
 
     //[LinkableComponent]
-    [XmlIgnore] public BoxShape BoxShape;
+    [XmlIgnore]
+    public BoxShape BoxShape;
 
     public Color Color = Color.White;
 
-    [XmlIgnore] public RendererInstancingData InstancingData;
+    [XmlIgnore]
+    public RendererInstancingData InstancingData;
     // public float DistanceFromCamera;
 
-    [Show] public Asset_Material Material;
-    
-    [Show] public RuntimeMesh RuntimeMesh;
+    [Show]
+    public Asset_Material Material;
 
-    public RenderMode RenderMode = RenderMode.Opaque;
+    [Show]
+    public RuntimeMesh RuntimeMesh;
 
     // internal bool OnScreen = true;
     public float Layer { get; set; }
 
-    [XmlIgnore] public Matrix4x4 LatestModelViewProjection { get; private set; }
+    [XmlIgnore]
+    public Matrix4x4 LatestModelViewProjection { get; private set; }
 
-    [Hide] public virtual bool CanRender => true; // && Enabled && GameObject.Awoken && GameObject.ActiveInHierarchy;
+    [Hide]
+    public virtual bool CanRender => true; // && Enabled && GameObject.Awoken && GameObject.ActiveInHierarchy;
 
     private Matrix4x4 ScalePivotRotationMatrix
     {
@@ -82,20 +87,20 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
         UpdateMvp();
 
         // DistanceFromCamera = CalculateDistanceFromCamera();
-        if (Color.A != 255)
-        {
-            if (RenderMode != RenderMode.Transparent)
-            {
-                RenderMode = RenderMode.Transparent;
-            }
-        }
-        else
-        {
-            if (RenderMode != RenderMode.Opaque)
-            {
-                RenderMode = RenderMode.Opaque;
-            }
-        }
+        // if (Color.A != 255)
+        // {
+        //     if (RenderMode != RenderMode.Transparent)
+        //     {
+        //         RenderMode = RenderMode.Transparent;
+        //     }
+        // }
+        // else
+        // {
+        //     if (RenderMode != RenderMode.Opaque)
+        //     {
+        //         RenderMode = RenderMode.Opaque;
+        //     }
+        // }
 
         if (BoxShape == null)
         {
@@ -176,20 +181,21 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
 
     public Matrix4x4 GetModelMatrix()
     {
+        // if (Transform.IsInCanvas)
+        // {
+        //     return GetModelMatrixForCanvasObject();
+        // }
+
         // Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
         var translation =
             Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale);
         return ScalePivotRotationMatrix * translation;
     }
 
-    public Matrix4x4 GetModelMatrixForCanvasObject()
-    {
-        var translation = Matrix4x4.CreateTranslation(Transform.WorldPosition - Camera.MainCamera.Size / 2 +
-                                                      BoxShape.Offset * Transform.WorldScale +
-                                                      GameObject.IndexInHierarchy * Vector3.One * 0.0001f);
-        return ScalePivotRotationMatrix * translation *
-               Matrix4x4.CreateScale(2f / Camera.MainCamera.Size.X, 2f / Camera.MainCamera.Size.Y, 0);
-    }
+    // public Matrix4x4 GetModelMatrixForCanvasObject()
+    // {
+    //
+    // }
 
     // public Matrix4x4 GetModelMatrixForLight()
     // {

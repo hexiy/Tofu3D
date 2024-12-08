@@ -274,8 +274,11 @@ public class InstancedRenderingSystem
                 TextureHelper.BindTexture(material.EmissiveTexture.TextureId);
             }
 
-            GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+            RenderingBlendingHelper.SetBlendMode(material.BlendMode);
+
+            // GL.Enable(EnableCap.Blend);
+            //
+            // GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
             GL.BindBuffer(BufferTarget.ArrayBuffer, bufferData.Vbo);
@@ -309,7 +312,7 @@ public class InstancedRenderingSystem
     public bool UpdateObjectData(Renderer renderer, ref RendererInstancingData instancingData,
         VertexBufferStructureType vertexBufferStructureType,
         Matrix4x4? modelMatrix = null, bool isStatic = false, bool remove = false, Color? color = null,
-        Vector2? uvOffset = null, int indexForMultipleObjectsPerRenderer=0)
+        Vector2? uvOffset = null, int indexForMultipleObjectsPerRenderer = 0)
     {
         var mesh = renderer.RuntimeMesh;
         var material = renderer.Material;
@@ -322,7 +325,8 @@ public class InstancedRenderingSystem
         if (instancingData.InstancedRenderingDefinitionIndex == -1)
         {
             // no buffer exists for this combination-create one
-            InstancedRenderingObjectDefinition definition = new(mesh, material, isStatic, vertexBufferStructureType,indexForMultipleObjectsPerRenderer);
+            InstancedRenderingObjectDefinition definition = new(mesh, material, isStatic, vertexBufferStructureType,
+                indexForMultipleObjectsPerRenderer);
             var definitionIndex = _definitions.Contains(definition)
                 ? _definitions.IndexOf(definition)
                 : _definitions.Count;
@@ -388,7 +392,7 @@ public class InstancedRenderingSystem
     }
 
     private void CopyObjectDataToBuffer(Color color, Matrix4x4 modelMatrix, ref float[] buffer, int startingIndex,
-        Vector2? uvOffset=null)
+        Vector2? uvOffset = null)
     {
         buffer[startingIndex + 0] = modelMatrix.M11;
         buffer[startingIndex + 1] = modelMatrix.M12;
@@ -482,7 +486,6 @@ public class InstancedRenderingSystem
                     bufferData.InstancedVertexDataSizeInBytes,
                     4 * 3 * sizeof(float));
                 GL.VertexAttribDivisor(9, 1);
-
             }
 
 
@@ -514,7 +517,7 @@ public class InstancedRenderingSystem
             GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
                 bufferData.InstancedVertexDataSizeInBytes,
                 3 * 3 * sizeof(float));
-          
+
             if (bufferData.UVOffsetIsInstanced)
             {
                 GL.EnableVertexAttribArray(9);

@@ -8,7 +8,7 @@ public class InspectorFieldDrawerString : InspectorFieldDrawable<string>
     {
         var fieldValue = GetValue(info, componentInspectorData);
 
-        if (ImGui.InputTextMultiline("", ref fieldValue, 100,
+        if (ImGui.InputTextMultiline("", ref fieldValue, 10_000,
                 new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, 200)))
         {
             SetValue(info, componentInspectorData, fieldValue);

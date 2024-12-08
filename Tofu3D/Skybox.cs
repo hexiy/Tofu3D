@@ -82,7 +82,6 @@ public class Skybox : Component, IComponentUpdateable
 
         GL.ActiveTexture(TextureUnit.Texture0);
         TextureHelper.BindTexture(_texture.TextureId, TextureType.Cubemap);
-
         GL.DrawElements(PrimitiveType.Triangles, 36, DrawElementsType.UnsignedInt, 0);
 
         DebugHelper.LogDrawCall();

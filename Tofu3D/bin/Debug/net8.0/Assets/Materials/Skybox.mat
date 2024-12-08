@@ -1,9 +1,53 @@
-’{"Shader":{"AlbedoTextureIndexUnit":null,"NormalTextureIndexUnit":null,"AmbientOcclusionTextureUnit":null,"ShadowMapTextureUnit":null,"RoughnessTextureUnit":null,"MetallicTextureUnit":null,"EnvironmentTextureUnit":null,"EmissiveTextureUnit":null,"BufferType":3,"Path":"Assets/Shaders/Skybox.glsl","Uniforms":{"u_tint":{"X":1.0,"Y":1.0,"Z":1.0,"W":1.0}},"IsLoaded":false,"ProgramId":0},"Additive":false,"AlbedoTexture":null,"AlbedoTint":{"B":255,"G":255,"R":255,"A":255},"AmbientOcclusionTexture":null,"NormalTexture":null,"RoughnessTexture":null,"MetallicTexture":null,"EmissiveTexture":null,"EmissiveColor":{"X":0.0,"Y":0.0,"Z":0.0,"W":0.0},"Offset":{"X":0.0,"Y":0.0},"RenderMode":0,"SpecularHighlightsEnabled":false,"SpecularSmoothness":0.0,"MetallicTextureStrength":0.0,"Smoothness":0.0,"Tiling":{"X":0.0,"Y":0.0},"PathToRawAsset":"/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Skybox.mat","PathToAssetInLibrary":"Library/Materials/Skybox.mat.tofumaterial","RuntimeAssetHandle":{"Id":0,"AssetType":null}}enderMode>
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Skybox.mat</PathToRawAsset>
+  <Shader>
+    <BufferType>Cubemap</BufferType>
+    <Path>Assets/Shaders/Skybox.glsl</Path>
+  </Shader>
+  <Additive>false</Additive>
+  <AlbedoTexture>
+    <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
+    <Size>
+      <X>1</X>
+      <Y>1</Y>
+    </Size>
+    <TextureId>1</TextureId>
+  </AlbedoTexture>
+  <AlbedoTint>
+    <B>255</B>
+    <G>255</G>
+    <R>255</R>
+    <A>255</A>
+    <PackedValue>4294967295</PackedValue>
+  </AlbedoTint>
+  <EmissiveTexture>
+    <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
+    <Size>
+      <X>1</X>
+      <Y>1</Y>
+    </Size>
+    <TextureId>1</TextureId>
+  </EmissiveTexture>
+  <EmissiveColor>
+    <X>0</X>
+    <Y>0</Y>
+    <Z>0</Z>
+    <W>0</W>
+  </EmissiveColor>
   <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
   <SpecularSmoothness>0</SpecularSmoothness>
   <MetallicTextureStrength>0</MetallicTextureStrength>
+  <Smoothness>0</Smoothness>
   <Tiling>
     <X>0</X>
     <Y>0</Y>
   </Tiling>
+  <Offset>
+    <X>0</X>
+    <Y>0</Y>
+  </Offset>
+  <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
+  <RenderMode>Opaque</RenderMode>
+  <BlendMode>Opaque</BlendMode>
 </Material>

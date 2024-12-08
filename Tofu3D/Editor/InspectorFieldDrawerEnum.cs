@@ -1,3 +1,4 @@
+using System.Linq;
 using ImGuiNET;
 
 namespace Tofu3D;
@@ -12,12 +13,17 @@ public class InspectorFieldDrawerEnum : InspectorFieldDrawable<Enum>
         var fieldValue = GetValue(info, componentInspectorData);
 
         var enumValuesNames = Enum.GetNames(info.FieldOrPropertyType);
+        var enumValues = Enum.GetValues(info.FieldOrPropertyType).Cast<int>().ToArray();
+
+        _selectedEnumValueIndex = Array.IndexOf(enumValues, Convert.ToInt32(fieldValue));
+
         var clicked = ImGui.Combo(fieldValue.ToString(), ref _selectedEnumValueIndex, enumValuesNames,
             enumValuesNames.Length);
         if (clicked)
         {
+            var selectedEnumValue = Enum.ToObject(info.FieldOrPropertyType, enumValues[_selectedEnumValueIndex]);
             SetValue(info, componentInspectorData,
-                (Enum)Enum.ToObject(info.FieldOrPropertyType, _selectedEnumValueIndex));
+                (Enum)Enum.ToObject(info.FieldOrPropertyType, (Enum)selectedEnumValue));
             // info.SetValue(componentInspectorData.Inspectable, Enum.ToObject(info.FieldOrPropertyType, _selectedEnumValueIndex));
             EditorPanelInspector.I.QueueInspectorRefresh();
         }

@@ -241,10 +241,10 @@ void main(void)
 	//	result.a = albedoColor.a;// * color.a;
 
 //		if (result.a < 0.05)
-//		if (albedoColor.a < 0.05)
-//		{
-//			discard; // having this fixes transparency sorting but breaks debug depthmap
-//		}
+		if (albedoColor.a < 0.05)
+		{
+			discard; // having this fixes transparency sorting but breaks debug depthmap
+		}
 
 	//	if (u_specularHighlightsEnabled == 1)
 	//	{

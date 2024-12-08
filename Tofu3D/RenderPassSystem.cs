@@ -50,8 +50,8 @@ public class RenderPassSystem
         RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new();
         RenderPassZPrePass renderPassZPrePass = new();
         RenderPassOpaques renderPassOpaques = new();
-        RenderPassBloomThreshold renderPassBloomThreshold = new();
-        RenderPassBloomPostProcess renderPassBloomPostProcess = new(renderPassBloomThreshold);
+        // RenderPassBloomThreshold renderPassBloomThreshold = new();
+        // RenderPassBloomPostProcess renderPassBloomPostProcess = new(renderPassBloomThreshold);
         // RenderPassPostProcess renderPassPostProcess = new();
         // RenderPassUI renderPassUI = new();
 
@@ -99,6 +99,7 @@ public class RenderPassSystem
 
         // GL.Enable(EnableCap.Blend);
         GL.Enable(EnableCap.DepthTest);
+        
 
         foreach (var renderPass in RenderPasses)
         {

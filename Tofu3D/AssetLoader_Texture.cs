@@ -20,11 +20,15 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
         
         Asset_Texture assetTexture = QuickSerializer.ReadFileJSON<Asset_Texture>(path);
         
+        var pathOfImportParametersOfSourceAssetFile = assetTexture.PathToRawAsset.GetPathOfImportParametersOfSourceAssetFile();
+        AssetImportParameters_Texture importParameters =
+            QuickSerializer.ReadFileXML<AssetImportParameters_Texture>(pathOfImportParametersOfSourceAssetFile);
+
         var textureId = GL.GenTexture();
         TextureHelper.BindTexture(textureId);
         var textureTarget = TextureTarget.Texture2D;
 
-        var internalFormat = loadParameters.IsSrgb ? PixelInternalFormat.SrgbAlpha : PixelInternalFormat.Rgba;
+        var internalFormat = importParameters.IsSrgb ? PixelInternalFormat.SrgbAlpha : PixelInternalFormat.Rgba;
 
         GL.TexImage2D(textureTarget, 0, internalFormat, (int)assetTexture.TextureSize.X,
             (int)assetTexture.TextureSize.Y, 0, PixelFormat.Rgba,
@@ -32,16 +36,17 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
 
         GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 
-        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)loadParameters.WrapMode);
-        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)loadParameters.WrapMode);
-        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)loadParameters.WrapMode);
-        // GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)loadSettings.FilterMode);
-        // GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)loadSettings.FilterMode);
+        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)importParameters.WrapMode);
+        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)importParameters.WrapMode);
+        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)importParameters.WrapMode);
+        GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)importParameters.FilterMode);
+        GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)importParameters.FilterMode);
 
         // crashes the engine on macos
         if (OperatingSystem.IsWindows)
         {
-            GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode + 257);
+            // GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode + 257);
+            GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter, (int)importParameters.FilterMode + 257);
             GL.TextureParameter(textureId, TextureParameterName.TextureLodBias, -0.4f);
         }
 

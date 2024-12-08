@@ -57,7 +57,7 @@
       <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Child</Name>
+      <Name>Text</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -98,14 +98,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>2.9755728</X>
-        <Y>19.423763</Y>
-        <Z>-2.668104</Z>
+        <X>3.5588415</X>
+        <Y>28.04911</Y>
+        <Z>-19.717752</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>2.9755728</X>
-        <Y>19.423763</Y>
-        <Z>-2.668104</Z>
+        <X>3.5588415</X>
+        <Y>28.04911</Y>
+        <Z>-19.717752</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -118,8 +118,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>55.61878</X>
-        <Y>23.606237</Y>
+        <X>54.103924</X>
+        <Y>33.985935</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -279,6 +279,26 @@
         <int>1160</int>
         <int>1160</int>
         <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1160</int>
+        <int>1298</int>
+        <int>1160</int>
       </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
@@ -327,7 +347,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
+      <MockIsInCanvas>true</MockIsInCanvas>
       <ParentId>1157</ParentId>
       <Pivot>
         <X>0</X>
@@ -387,7 +407,7 @@
             <X>112</X>
             <Y>72</Y>
           </Size>
-          <TextureId>21</TextureId>
+          <TextureId>17</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -405,24 +425,26 @@
           <TextureId>1</TextureId>
         </EmissiveTexture>
         <EmissiveColor>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>0</W>
+          <X>1</X>
+          <Y>1</Y>
+          <Z>1</Z>
+          <W>3.81</W>
         </EmissiveColor>
-        <RenderMode>Opaque</RenderMode>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
+        <SpecularSmoothness>0.13</SpecularSmoothness>
         <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0.717</Smoothness>
+        <Smoothness>0</Smoothness>
         <Tiling>
           <X>0.0625</X>
           <Y>0.125</Y>
         </Tiling>
         <Offset>
-          <X>0.3125</X>
+          <X>-66.277</X>
           <Y>1.5</Y>
         </Offset>
+        <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
+        <RenderMode>Opaque</RenderMode>
+        <BlendMode>Fade</BlendMode>
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
@@ -440,7 +462,6 @@
           <unsignedInt>1</unsignedInt>
         </Indices>
       </RuntimeMesh>
-      <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
     </Component>
     <Component xsi:type="Text">
@@ -450,7 +471,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Size>12</Size>
-      <Value>abc</Value>
+      <Value>12345678</Value>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
@@ -525,5 +546,5 @@
       <Intensity>1</Intensity>
     </Component>
   </Components>
-  <GameObjectNextId>1264</GameObjectNextId>
+  <GameObjectNextId>1303</GameObjectNextId>
 </SceneFile>

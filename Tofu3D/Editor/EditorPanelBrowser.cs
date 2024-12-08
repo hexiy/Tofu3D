@@ -483,6 +483,24 @@ public class EditorPanelBrowser : EditorPanel
                     _expandedAssets.Remove(assetIndex);
                 }
             }
+
+            if (isTexture)
+            {
+                var pathOfImportParametersOfSourceAssetFile = assetPath.GetPathOfImportParametersOfSourceAssetFile();
+                Object importParameters =
+                    QuickSerializer.ReadFileXML<AssetImportParameters_Texture>(pathOfImportParametersOfSourceAssetFile);
+
+
+                if (importParameters != null)
+                {
+                    EditorPanelInspector.I.SelectInspectable(importParameters,
+                        anyValueChanged: () =>
+                        {
+                            QuickSerializer.SaveFileXML<AssetImportParameters_Texture>(
+                                pathOfImportParametersOfSourceAssetFile, importParameters);
+                        });
+                }
+            }
         }
 
         if (ImGui.IsItemHovered() && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left))
