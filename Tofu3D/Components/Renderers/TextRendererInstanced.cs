@@ -77,6 +77,22 @@ public class TextRendererInstanced : ModelRendererInstanced
             return;
         }
 
+        int instancingDatasToRemove = RendererInstancingDatas.Count - textComponent.Value.Length;
+        if (instancingDatasToRemove > 0)
+        {
+            for (int i = RendererInstancingDatas.Count - instancingDatasToRemove;
+                 i < RendererInstancingDatas.Count;
+                 i++)
+            {
+                RendererInstancingData instancingData = RendererInstancingDatas[i];
+                Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref instancingData, remove: true,
+                    vertexBufferStructureType: VertexBufferStructureType.Model);
+            }
+
+            RendererInstancingDatas.RemoveRange(RendererInstancingDatas.Count - instancingDatasToRemove,
+                instancingDatasToRemove);
+        }
+
         for (var i = 0; i < textComponent.Value.Length; i++)
         {
             if (RendererInstancingDatas.Count <= i)
