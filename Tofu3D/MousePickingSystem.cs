@@ -114,7 +114,7 @@ public static class MousePickingSystem
             _lastPixel = _currentPixel;
             HoveredRenderer = GetRenderer(_currentPixel); // only find renderer if we're hovering a different color
             // Color color = new Color(_pixels);
-            Debug.Log($"picking pixel changed to {_currentPixel}");
+            // Debug.Log($"picking pixel changed to {_currentPixel}");
 
 
             if (HoveredRenderer != null)
@@ -128,7 +128,10 @@ public static class MousePickingSystem
             if (Tofu.MouseInput.ButtonPressed())
             {
                 Debug.Log($"selected:{HoveredRenderer.GameObject.Name}");
-                GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObjectId);
+                if (HoveredRenderer.GameObjectId != TransformHandle.I.GameObjectId) // dont detect clicks on the transformhandle itself
+                {
+                    GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObjectId);
+                }
             }
         }
         // Color color = new Color(_pixels);

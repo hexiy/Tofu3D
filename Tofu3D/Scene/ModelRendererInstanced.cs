@@ -26,13 +26,16 @@
 
     public override void SetDefaultMaterial()
     {
-        if (Material?.PathToRawAsset.Length == 0 || Material == null)
+        if (Material?.IsRuntimeCopy == false)
         {
-            Material = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
-        }
-        else
-        {
-            Material = Tofu.AssetLoadManager.Load<Asset_Material>(Material.PathToRawAsset);
+            if (Material?.PathToRawAsset.Length == 0 || Material == null)
+            {
+                Material = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
+            }
+            else
+            {
+                Material = Tofu.AssetLoadManager.Load<Asset_Material>(Material.PathToRawAsset);
+            }
         }
 
         if (RuntimeMesh?.MeshAssetPath.Length > 0)

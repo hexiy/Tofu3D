@@ -174,7 +174,7 @@ void main(void)
 	//  vec3 finalNormal = normalize(mix(vertexNormalTBNed, texNormal, blendFactor));
 	vec3 finalNormal = vertexNormalTBNed;
 
-	vec4 albedoColor = vec4(1, 1, 1, 1);
+	vec4 albedoColor = u_albedoTint;
 	if (u_hasAlbedoTexture == 1) {
 		albedoColor = texture(u_albedoTexture, uvCoords) * u_albedoTint; //*color;
 	}

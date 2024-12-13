@@ -130,9 +130,9 @@ public class SceneViewController
             _targetOrthoSize = Camera.MainCamera.OrthographicSize;
         }
 
-        if (TransformHandle.I.Clicked)
+        if (TransformHandle.I.Interacting)
         {
-            //return;
+            return;
         }
 
         if (Global.EditorAttached == false)

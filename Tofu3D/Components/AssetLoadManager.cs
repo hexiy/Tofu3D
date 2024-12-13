@@ -86,7 +86,7 @@ public class AssetLoadManager
             bool exists = LoadedAssets.ContainsKey(id);
             if (exists)
             {
-                id = id - Random.Range(0, 100000000);
+                id = id - Random.Range(0, 1000000);
             }
 
         }
