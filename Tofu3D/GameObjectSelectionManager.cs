@@ -4,6 +4,14 @@ public static class GameObjectSelectionManager
 {
     public static Action<List<int>> GameObjectsSelected;
 
+    private static readonly List<int> _singleGameObjectList = new List<int>(1) { -1 };
+
+    public static void SelectGameObject(int goId)
+    {
+        _singleGameObjectList[0] = goId;
+        SelectGameObjects(_singleGameObjectList);
+    }
+
     public static void SelectGameObjects(List<int> goIds)
     {
         if (goIds == null)

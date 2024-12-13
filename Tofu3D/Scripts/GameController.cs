@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
-namespace Engine;
+namespace Tofu3D;
 
 public class GameController : Component
 {

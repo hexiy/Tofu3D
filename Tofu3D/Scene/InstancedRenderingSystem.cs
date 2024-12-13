@@ -114,8 +114,31 @@ public class InstancedRenderingSystem
         }
 
         // GL.Enable(EnableCap.DepthTest);
-        if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
-            or RenderPassType.ZPrePass)
+        if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
+        {
+            // if (GameObject == TransformHandle.I?.GameObject)
+            // {
+            // GL.Disable(EnableCap.DepthTest);
+            // }
+            // else
+            // {
+            // GL.Enable(EnableCap.DepthTest);
+            // }
+
+            Asset_Material mousePickingMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("ModelMousePicking.mat");
+            Tofu.ShaderManager.UseShader(mousePickingMaterial.Shader);
+
+            mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
+                Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
+
+            Tofu.ShaderManager.BindVertexArray(mesh.Vao);
+
+            GL_DrawElementsInstanced(PrimitiveType.Triangles, mesh.Indices.Length,
+                objectBufferPair.Value.NumberOfObjects);
+        }
+
+        else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
+                 or RenderPassType.ZPrePass)
         {
             var depthMaterial =
                 Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstancedDepth.mat");
@@ -233,7 +256,7 @@ public class InstancedRenderingSystem
                 material.Shader.ShadowMapTextureUnit != null)
             {
                 GL.ActiveTexture(material.Shader.ShadowMapTextureUnit.Value);
-                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthAttachmentID);
+                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthTextureId);
             }
 
 
@@ -380,9 +403,10 @@ public class InstancedRenderingSystem
         }
         else if (instancingData.InstancedRenderingStartingIndexInBuffer != -1)
         {
-            CopyObjectDataToBuffer(color ?? renderer.Color, modelMatrix ?? renderer.GetModelMatrix(),
+            CopyObjectDataToBuffer(modelMatrix ?? renderer.GetModelMatrix(),
                 ref bufferData.Buffer,
-                instancingData.InstancedRenderingStartingIndexInBuffer, uvOffset: uvOffset);
+                instancingData.InstancedRenderingStartingIndexInBuffer, uvOffset: uvOffset,
+                mousePickingId: renderer.MousePickingId);
         }
 
 
@@ -391,29 +415,33 @@ public class InstancedRenderingSystem
         return true;
     }
 
-    private void CopyObjectDataToBuffer(Color color, Matrix4x4 modelMatrix, ref float[] buffer, int startingIndex,
-        Vector2? uvOffset = null)
+    private void CopyObjectDataToBuffer(Matrix4x4 modelMatrix, ref float[] buffer,
+        int startingIndex,
+        Vector2? uvOffset = null, uint mousePickingId = 0)
     {
-        buffer[startingIndex + 0] = modelMatrix.M11;
-        buffer[startingIndex + 1] = modelMatrix.M12;
-        buffer[startingIndex + 2] = modelMatrix.M13;
+        int bufferIndex = startingIndex;
+        buffer[bufferIndex++] = modelMatrix.M11;
+        buffer[bufferIndex++] = modelMatrix.M12;
+        buffer[bufferIndex++] = modelMatrix.M13;
 
-        buffer[startingIndex + 3] = modelMatrix.M21;
-        buffer[startingIndex + 4] = modelMatrix.M22;
-        buffer[startingIndex + 5] = modelMatrix.M23;
+        buffer[bufferIndex++] = modelMatrix.M21;
+        buffer[bufferIndex++] = modelMatrix.M22;
+        buffer[bufferIndex++] = modelMatrix.M23;
 
-        buffer[startingIndex + 6] = modelMatrix.M31;
-        buffer[startingIndex + 7] = modelMatrix.M32;
-        buffer[startingIndex + 8] = modelMatrix.M33;
+        buffer[bufferIndex++] = modelMatrix.M31;
+        buffer[bufferIndex++] = modelMatrix.M32;
+        buffer[bufferIndex++] = modelMatrix.M33;
 
-        buffer[startingIndex + 9] = modelMatrix.M41;
-        buffer[startingIndex + 10] = modelMatrix.M42;
-        buffer[startingIndex + 11] = modelMatrix.M43;
+        buffer[bufferIndex++] = modelMatrix.M41;
+        buffer[bufferIndex++] = modelMatrix.M42;
+        buffer[bufferIndex++] = modelMatrix.M43;
+
+        buffer[bufferIndex++] = mousePickingId;
 
         if (uvOffset != null)
         {
-            buffer[startingIndex + 12] = uvOffset.Value.X;
-            buffer[startingIndex + 13] = uvOffset.Value.Y;
+            buffer[bufferIndex++] = uvOffset.Value.X;
+            buffer[bufferIndex++] = uvOffset.Value.Y;
         }
     }
 
@@ -454,84 +482,58 @@ public class InstancedRenderingSystem
         }
 
         GL.BindBuffer(BufferTarget.ArrayBuffer, bufferData.Vbo);
-// newBuffer = true;
 
-        if (bufferData.VertexBufferStructureType == VertexBufferStructureType.Model)
+        // unique attribs for each instance
+        GL.EnableVertexAttribArray(5);
+        GL.EnableVertexAttribArray(6);
+        GL.EnableVertexAttribArray(7);
+        GL.EnableVertexAttribArray(8);
+        GL.EnableVertexAttribArray(9);
+
+        // https://stackoverflow.com/a/28597384
+        //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
+        int offset = 0;
+        GL.VertexAttribPointer(5, 3, VertexAttribPointerType.Float, false,
+            bufferData.InstancedVertexDataSizeInBytes,
+            offset);
+        offset += 3 * sizeof(float);
+        GL.VertexAttribPointer(6, 3, VertexAttribPointerType.Float, false,
+            bufferData.InstancedVertexDataSizeInBytes,
+            offset);
+        offset += 3 * sizeof(float);
+
+        GL.VertexAttribPointer(7, 3, VertexAttribPointerType.Float, false,
+            bufferData.InstancedVertexDataSizeInBytes,
+            offset);
+        offset += 3 * sizeof(float);
+
+        GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
+            bufferData.InstancedVertexDataSizeInBytes,
+            offset);
+        offset += 3 * sizeof(float);
+
+        GL.VertexAttribPointer(9, 1, VertexAttribPointerType.Float, false,
+            bufferData.InstancedVertexDataSizeInBytes,
+            offset);
+        offset += sizeof(float);
+
+        if (bufferData.UVOffsetIsInstanced)
         {
-            // unique attribs for each instance
-            GL.EnableVertexAttribArray(5);
-            GL.EnableVertexAttribArray(6);
-            GL.EnableVertexAttribArray(7);
-            GL.EnableVertexAttribArray(8);
-
-            // https://stackoverflow.com/a/28597384
-            //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
-            GL.VertexAttribPointer(5, 3, VertexAttribPointerType.Float, false,
+            GL.EnableVertexAttribArray(10);
+            GL.VertexAttribPointer(10, 2, VertexAttribPointerType.Float, false,
                 bufferData.InstancedVertexDataSizeInBytes,
-                0);
-            GL.VertexAttribPointer(6, 3, VertexAttribPointerType.Float, false,
-                bufferData.InstancedVertexDataSizeInBytes,
-                1 * 3 * sizeof(float));
-            GL.VertexAttribPointer(7, 3, VertexAttribPointerType.Float, false,
-                bufferData.InstancedVertexDataSizeInBytes,
-                2 * 3 * sizeof(float));
-            GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
-                bufferData.InstancedVertexDataSizeInBytes,
-                3 * 3 * sizeof(float));
+                offset);
+            offset += 2 * sizeof(float);
 
-            if (bufferData.UVOffsetIsInstanced)
-            {
-                GL.EnableVertexAttribArray(9);
-                GL.VertexAttribPointer(9, 2, VertexAttribPointerType.Float, false,
-                    bufferData.InstancedVertexDataSizeInBytes,
-                    4 * 3 * sizeof(float));
-                GL.VertexAttribDivisor(9, 1);
-            }
-
-
-            GL.VertexAttribDivisor(5, 1);
-            GL.VertexAttribDivisor(6, 1);
-            GL.VertexAttribDivisor(7, 1);
-            GL.VertexAttribDivisor(8, 1);
+            GL.VertexAttribDivisor(10, 1);
         }
 
-        if (bufferData.VertexBufferStructureType == VertexBufferStructureType.Quad)
-        {
-            // unique attribs for each instance
-            GL.EnableVertexAttribArray(5);
-            GL.EnableVertexAttribArray(6);
-            GL.EnableVertexAttribArray(7);
-            GL.EnableVertexAttribArray(8);
+        GL.VertexAttribDivisor(5, 1);
+        GL.VertexAttribDivisor(6, 1);
+        GL.VertexAttribDivisor(7, 1);
+        GL.VertexAttribDivisor(8, 1);
+        GL.VertexAttribDivisor(9, 1);
 
-            // https://stackoverflow.com/a/28597384
-            //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
-            GL.VertexAttribPointer(5, 3, VertexAttribPointerType.Float, false,
-                bufferData.InstancedVertexDataSizeInBytes,
-                0);
-            GL.VertexAttribPointer(6, 3, VertexAttribPointerType.Float, false,
-                bufferData.InstancedVertexDataSizeInBytes,
-                1 * 3 * sizeof(float));
-            GL.VertexAttribPointer(7, 3, VertexAttribPointerType.Float, false,
-                bufferData.InstancedVertexDataSizeInBytes,
-                2 * 3 * sizeof(float));
-            GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
-                bufferData.InstancedVertexDataSizeInBytes,
-                3 * 3 * sizeof(float));
-
-            if (bufferData.UVOffsetIsInstanced)
-            {
-                GL.EnableVertexAttribArray(9);
-                GL.VertexAttribPointer(9, 2, VertexAttribPointerType.Float, false,
-                    bufferData.InstancedVertexDataSizeInBytes,
-                    4 * 3 * sizeof(float));
-                GL.VertexAttribDivisor(9, 1);
-            }
-
-            GL.VertexAttribDivisor(5, 1);
-            GL.VertexAttribDivisor(6, 1);
-            GL.VertexAttribDivisor(7, 1);
-            GL.VertexAttribDivisor(8, 1);
-        }
 
         if (newBuffer)
         {

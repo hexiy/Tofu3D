@@ -1,6 +1,6 @@
-/*namespace Engine;
+namespace Tofu3D;
 
-public class MousePickingSensor : Component
+public class MousePickingSensor : Component, IComponentUpdateable
 {
     Renderer _renderer;
 
@@ -14,9 +14,7 @@ public class MousePickingSensor : Component
     {
         if (_renderer == MousePickingSystem.HoveredRenderer)
         {
-            Transform.Rotation = new Vector3(Rendom.Range(-100, 100), Rendom.Range(-100, 100), Rendom.Range(-100, 100));
+            Transform.Rotation = new Vector3(Random.Range(-100, 100), Random.Range(-100, 100), Random.Range(-100, 100));
         }
-        base.Update();
     }
-}*/
-
+}

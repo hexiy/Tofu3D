@@ -1,7 +1,7 @@
 /*using System.Collections.Generic;
 using System.Numerics;
 
-namespace Engine;
+namespace Tofu3D;
 
 public class SpriteSheetBatcher : Batcher
 {

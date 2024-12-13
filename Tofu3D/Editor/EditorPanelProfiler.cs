@@ -22,7 +22,7 @@ public class EditorPanelProfiler : EditorPanel
             return;
         }
 
-        SetWindow();
+        BeginWindowDefault();
 
         ImGui.Text($"GameObjects in scene: {Tofu.SceneManager.CurrentScene.GameObjects.Count}");
 

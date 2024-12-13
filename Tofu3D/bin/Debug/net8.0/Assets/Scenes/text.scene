@@ -37,11 +37,11 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>1157</Id>
+      <Id>1185</Id>
       <IndexInHierarchy>2</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Canvas</Name>
+      <Name>Ambient Light</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -53,7 +53,7 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>1160</Id>
+      <Id>1307</Id>
       <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
@@ -69,11 +69,27 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>1185</Id>
+      <Id>1316</Id>
       <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Ambient Light</Name>
+      <Name>Text</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <Silent>false</Silent>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <DynamicallyCreated>false</DynamicallyCreated>
+      <Id>1317</Id>
+      <IndexInHierarchy>5</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>Text</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <Silent>false</Silent>
@@ -118,8 +134,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>54.103924</X>
-        <Y>33.985935</Y>
+        <X>41.634388</X>
+        <Y>41.660927</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -222,276 +238,6 @@
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1157</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <ChildrenIDs>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1160</int>
-        <int>1298</int>
-        <int>1160</int>
-      </ChildrenIDs>
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="Canvas">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1157</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1160</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <MockIsInCanvas>true</MockIsInCanvas>
-      <ParentId>1157</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="TextRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1160</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <Material>
-        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/TextMaterial.mat</PathToRawAsset>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/font.png</PathToRawAsset>
-          <Size>
-            <X>112</X>
-            <Y>72</Y>
-          </Size>
-          <TextureId>17</TextureId>
-        </AlbedoTexture>
-        <AlbedoTint>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>255</A>
-          <PackedValue>4294967295</PackedValue>
-        </AlbedoTint>
-        <EmissiveTexture>
-          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
-          <Size>
-            <X>1</X>
-            <Y>1</Y>
-          </Size>
-          <TextureId>1</TextureId>
-        </EmissiveTexture>
-        <EmissiveColor>
-          <X>1</X>
-          <Y>1</Y>
-          <Z>1</Z>
-          <W>3.81</W>
-        </EmissiveColor>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.13</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
-        <Tiling>
-          <X>0.0625</X>
-          <Y>0.125</Y>
-        </Tiling>
-        <Offset>
-          <X>-66.277</X>
-          <Y>1.5</Y>
-        </Offset>
-        <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
-        <RenderMode>Opaque</RenderMode>
-        <BlendMode>Fade</BlendMode>
-      </Material>
-      <RuntimeMesh>
-        <PathToRawAsset />
-        <MeshAssetPath>Library/Meshes/plane.obj_0.tofumesh</MeshAssetPath>
-        <Vao>4</Vao>
-        <VerticesCount>4</VerticesCount>
-        <VertexBufferDataLength>56</VertexBufferDataLength>
-        <IsDynamic>0</IsDynamic>
-        <Indices>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>1</unsignedInt>
-          <unsignedInt>2</unsignedInt>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>3</unsignedInt>
-          <unsignedInt>1</unsignedInt>
-        </Indices>
-      </RuntimeMesh>
-      <Layer>0</Layer>
-    </Component>
-    <Component xsi:type="Text">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1160</GameObjectId>
-      <Started>false</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Size>12</Size>
-      <Value>12345678</Value>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1160</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>5</X>
-        <Y>1</Y>
-        <Z>5</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
       <GameObjectId>1185</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
@@ -545,6 +291,459 @@
       </Color>
       <Intensity>1</Intensity>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1307</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <MockIsInCanvas>true</MockIsInCanvas>
+      <ParentId>1157</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="TextRendererInstanced">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1307</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <MousePickingId>1</MousePickingId>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <Material>
+        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/TextMaterial.mat</PathToRawAsset>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+        </Shader>
+        <Additive>false</Additive>
+        <AlbedoTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/font.png</PathToRawAsset>
+          <Size>
+            <X>112</X>
+            <Y>72</Y>
+          </Size>
+          <TextureId>18</TextureId>
+        </AlbedoTexture>
+        <AlbedoTint>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>255</A>
+          <PackedValue>4294967295</PackedValue>
+        </AlbedoTint>
+        <EmissiveTexture>
+          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
+          <Size>
+            <X>1</X>
+            <Y>1</Y>
+          </Size>
+          <TextureId>1</TextureId>
+        </EmissiveTexture>
+        <EmissiveColor>
+          <X>1</X>
+          <Y>1</Y>
+          <Z>1</Z>
+          <W>0.899</W>
+        </EmissiveColor>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0.13</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0</Smoothness>
+        <Tiling>
+          <X>0.0625</X>
+          <Y>0.125</Y>
+        </Tiling>
+        <Offset>
+          <X>-66.277</X>
+          <Y>1.5</Y>
+        </Offset>
+        <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
+        <RenderMode>Opaque</RenderMode>
+        <BlendMode>Fade</BlendMode>
+      </Material>
+      <RuntimeMesh>
+        <PathToRawAsset />
+        <MeshAssetPath>Library/Meshes/plane.obj_0.tofumesh</MeshAssetPath>
+        <Vao>4</Vao>
+        <VerticesCount>4</VerticesCount>
+        <VertexBufferDataLength>56</VertexBufferDataLength>
+        <IsDynamic>0</IsDynamic>
+        <Indices>
+          <unsignedInt>0</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+          <unsignedInt>2</unsignedInt>
+          <unsignedInt>0</unsignedInt>
+          <unsignedInt>3</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+        </Indices>
+      </RuntimeMesh>
+      <Layer>0</Layer>
+    </Component>
+    <Component xsi:type="Text">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1307</GameObjectId>
+      <Started>false</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Size>12</Size>
+      <Value>12345678</Value>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1307</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>5</X>
+        <Y>1</Y>
+        <Z>5</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1316</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <MockIsInCanvas>true</MockIsInCanvas>
+      <ParentId>1157</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>12.97</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>12.97</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="TextRendererInstanced">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1316</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <MousePickingId>2</MousePickingId>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <Material>
+        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/TextMaterial.mat</PathToRawAsset>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+        </Shader>
+        <Additive>false</Additive>
+        <AlbedoTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/font.png</PathToRawAsset>
+          <Size>
+            <X>112</X>
+            <Y>72</Y>
+          </Size>
+          <TextureId>18</TextureId>
+        </AlbedoTexture>
+        <AlbedoTint>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>255</A>
+          <PackedValue>4294967295</PackedValue>
+        </AlbedoTint>
+        <EmissiveTexture>
+          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
+          <Size>
+            <X>1</X>
+            <Y>1</Y>
+          </Size>
+          <TextureId>1</TextureId>
+        </EmissiveTexture>
+        <EmissiveColor>
+          <X>1</X>
+          <Y>1</Y>
+          <Z>1</Z>
+          <W>0.899</W>
+        </EmissiveColor>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0.13</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0</Smoothness>
+        <Tiling>
+          <X>0.0625</X>
+          <Y>0.125</Y>
+        </Tiling>
+        <Offset>
+          <X>-66.277</X>
+          <Y>1.5</Y>
+        </Offset>
+        <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
+        <RenderMode>Opaque</RenderMode>
+        <BlendMode>Fade</BlendMode>
+      </Material>
+      <RuntimeMesh>
+        <PathToRawAsset />
+        <MeshAssetPath>Library/Meshes/plane.obj_0.tofumesh</MeshAssetPath>
+        <Vao>4</Vao>
+        <VerticesCount>4</VerticesCount>
+        <VertexBufferDataLength>56</VertexBufferDataLength>
+        <IsDynamic>0</IsDynamic>
+        <Indices>
+          <unsignedInt>0</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+          <unsignedInt>2</unsignedInt>
+          <unsignedInt>0</unsignedInt>
+          <unsignedInt>3</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+        </Indices>
+      </RuntimeMesh>
+      <Layer>0</Layer>
+    </Component>
+    <Component xsi:type="Text">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1316</GameObjectId>
+      <Started>false</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Size>12</Size>
+      <Value>12345678</Value>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1316</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>5</X>
+        <Y>1</Y>
+        <Z>5</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1317</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <MockIsInCanvas>true</MockIsInCanvas>
+      <ParentId>1157</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>28.37</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>28.37</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="TextRendererInstanced">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1317</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <MousePickingId>3</MousePickingId>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <Material>
+        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/TextMaterial.mat</PathToRawAsset>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+        </Shader>
+        <Additive>false</Additive>
+        <AlbedoTexture>
+          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/font.png</PathToRawAsset>
+          <Size>
+            <X>112</X>
+            <Y>72</Y>
+          </Size>
+          <TextureId>18</TextureId>
+        </AlbedoTexture>
+        <AlbedoTint>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>255</A>
+          <PackedValue>4294967295</PackedValue>
+        </AlbedoTint>
+        <EmissiveTexture>
+          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
+          <Size>
+            <X>1</X>
+            <Y>1</Y>
+          </Size>
+          <TextureId>1</TextureId>
+        </EmissiveTexture>
+        <EmissiveColor>
+          <X>1</X>
+          <Y>1</Y>
+          <Z>1</Z>
+          <W>0.899</W>
+        </EmissiveColor>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0.13</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0</Smoothness>
+        <Tiling>
+          <X>0.0625</X>
+          <Y>0.125</Y>
+        </Tiling>
+        <Offset>
+          <X>-66.277</X>
+          <Y>1.5</Y>
+        </Offset>
+        <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
+        <RenderMode>Opaque</RenderMode>
+        <BlendMode>Fade</BlendMode>
+      </Material>
+      <RuntimeMesh>
+        <PathToRawAsset />
+        <MeshAssetPath>Library/Meshes/plane.obj_0.tofumesh</MeshAssetPath>
+        <Vao>4</Vao>
+        <VerticesCount>4</VerticesCount>
+        <VertexBufferDataLength>56</VertexBufferDataLength>
+        <IsDynamic>0</IsDynamic>
+        <Indices>
+          <unsignedInt>0</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+          <unsignedInt>2</unsignedInt>
+          <unsignedInt>0</unsignedInt>
+          <unsignedInt>3</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+        </Indices>
+      </RuntimeMesh>
+      <Layer>0</Layer>
+    </Component>
+    <Component xsi:type="Text">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1317</GameObjectId>
+      <Started>false</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Size>12</Size>
+      <Value>12345678</Value>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1317</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>5</X>
+        <Y>1</Y>
+        <Z>5</Z>
+      </Size>
+    </Component>
   </Components>
-  <GameObjectNextId>1303</GameObjectNextId>
+  <GameObjectNextId>1320</GameObjectNextId>
 </SceneFile>

@@ -49,7 +49,7 @@ public class RenderPassBloomThreshold : RenderPass
         GL.BlendFunc(BlendingFactor.One, BlendingFactor.One);
         GL.Viewport(0,0, (int)MainFramebuffer.Size.X,(int)MainFramebuffer.Size.Y);
         GL.ActiveTexture(TextureUnit.Texture0);
-        TextureHelper.BindTexture(target.ColorAttachmentID); // bind our final texture(opaques)
+        TextureHelper.BindTexture(target.TextureId); // bind our final texture(opaques)
 
         GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

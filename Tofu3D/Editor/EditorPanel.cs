@@ -52,7 +52,7 @@ public class EditorPanel
     {
     }
 
-    public void SetWindow()
+    public void BeginWindowDefault()
     {
         ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);
         ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);

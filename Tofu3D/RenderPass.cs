@@ -93,15 +93,15 @@ public abstract class RenderPass : IComparable<RenderPass>
         // GL.Viewport(0, 0, (int) target.Size.X*2, (int) target.Size.Y*2);
         // wtf, why does the viewport need to be target.Size.X * 2 ??????
         // its 1380,
-        if (attachment == FramebufferAttachment.Color && MainFramebuffer.ColorAttachmentID != -1)
+        if (attachment == FramebufferAttachment.Color && MainFramebuffer.TextureId != -1)
         {
-            target.RenderColorAttachmentToThis(MainFramebuffer.ColorAttachmentID);
+            target.RenderColorAttachmentToThis(MainFramebuffer.TextureId);
         }
 
-        if (attachment == FramebufferAttachment.Depth && target.DepthAttachmentID != -1 &&
-            MainFramebuffer.DepthAttachmentID != -1)
+        if (attachment == FramebufferAttachment.Depth && target.DepthTextureId != -1 &&
+            MainFramebuffer.DepthTextureId != -1)
         {
-            target.RenderDepthAttachmentToThis(MainFramebuffer.DepthAttachmentID);
+            target.RenderDepthAttachmentToThis(MainFramebuffer.DepthTextureId);
         }
 
         target.Unbind();

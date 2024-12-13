@@ -1,8 +1,10 @@
 ﻿public class ModelRendererInstanced : Renderer
 {
+
     public override void Awake()
     {
         InstancingData = new RendererInstancingData();
+
         base.Awake();
     }
 

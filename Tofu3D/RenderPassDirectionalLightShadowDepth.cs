@@ -80,7 +80,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
         // GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         // GL.ClearColor(1,0,1,1);
 
-        DebugDepthVisualisationTexture.RenderDepthAttachmentToThis(MainFramebuffer.DepthAttachmentID);
+        DebugDepthVisualisationTexture.RenderDepthAttachmentToThis(MainFramebuffer.DepthTextureId);
 
         DebugDepthVisualisationTexture.Unbind();
     }

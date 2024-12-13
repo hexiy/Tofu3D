@@ -36,7 +36,7 @@ public class EditorPanelConsole : EditorPanel
             return;
         }
 
-        SetWindow();
+        BeginWindowDefault();
 
         if (ImGui.Button("Clear"))
         {

@@ -71,11 +71,11 @@ public class RenderPassBloomPostProcess : RenderPass
         GL.Viewport(0,0, (int)target.Size.X,(int)target.Size.Y);
 
         GL.ActiveTexture(TextureUnit.Texture0);
-        TextureHelper.BindTexture(BloomFramebufferHorizontal.ColorAttachmentID);
+        TextureHelper.BindTexture(BloomFramebufferHorizontal.TextureId);
 
         GL.ActiveTexture(TextureUnit.Texture1);
         TextureHelper.BindTexture(BloomFramebufferVertical
-            .ColorAttachmentID); // bind our threshold texture so we can combine them
+            .TextureId); // bind our threshold texture so we can combine them
 
         GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
@@ -102,7 +102,7 @@ public class RenderPassBloomPostProcess : RenderPass
 
         GL.ActiveTexture(TextureUnit.Texture0);
         TextureHelper.BindTexture(_renderPassBloomThreshold.MainFramebuffer
-            .ColorAttachmentID); // bind our existing screen texture
+            .TextureId); // bind our existing screen texture
 
         GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 
@@ -128,7 +128,7 @@ public class RenderPassBloomPostProcess : RenderPass
         GL.Disable(EnableCap.Blend);
 
         GL.ActiveTexture(TextureUnit.Texture0);
-        TextureHelper.BindTexture(BloomFramebufferHorizontal.ColorAttachmentID); // bind our existing screen texture
+        TextureHelper.BindTexture(BloomFramebufferHorizontal.TextureId); // bind our existing screen texture
 
         GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
 

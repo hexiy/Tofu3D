@@ -79,6 +79,7 @@ public static class Tofu
 
         RenderPassSystem = new RenderPassSystem();
         RenderPassSystem.Initialize();
+        
 
         ImGuiController = new ImGuiController();
 
@@ -88,6 +89,8 @@ public static class Tofu
         SceneViewController = new SceneViewController();
 
         SceneManager.LoadLastOpenedScene();
+        
+        MousePickingSystem.Initialize();
     }
 
     static Stopwatch sw = new Stopwatch();
@@ -121,6 +124,7 @@ public static class Tofu
         MouseInput.Update();
         TweenManager.Update();
         SceneViewController.Update();
+        MousePickingSystem.Update();
         AssetsWatcher.ProcessChangedFilesQueue();
         ShaderManager.ReloadQueuedShaders();
 

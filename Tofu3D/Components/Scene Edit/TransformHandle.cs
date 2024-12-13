@@ -94,41 +94,41 @@ public class TransformHandle : Component, IComponentUpdateable
 
         Transform.WorldPosition = GetCenterOfSelection();
         Transform.Rotation = GetRotationOfSelection();
-        // if (MousePickingSystem.HoveredRenderer == ModelRendererX || CurrentAxisSelected == Axis.X)
-        // {
-        // 	ModelRendererX.Color = Color.WhiteSmoke;
-        // }
-        // else
-        // {
-        // 	ModelRendererX.Color = Color.Red;
-        // }
-        //
-        // if (MousePickingSystem.HoveredRenderer == ModelRendererY || CurrentAxisSelected == Axis.Y)
-        // {
-        // 	ModelRendererY.Color = Color.WhiteSmoke;
-        // }
-        // else
-        // {
-        // 	ModelRendererY.Color = Color.YellowGreen;
-        // }
-        //
-        // if (MousePickingSystem.HoveredRenderer == ModelRendererXy || CurrentAxisSelected == Axis.Xy)
-        // {
-        // 	ModelRendererXy.Color = Color.WhiteSmoke;
-        // }
-        // else
-        // {
-        // 	ModelRendererXy.Color = Color.Gold;
-        // }
-        //
-        // if (MousePickingSystem.HoveredRenderer == ModelRendererZ || CurrentAxisSelected == Axis.Z)
-        // {
-        // 	ModelRendererZ.Color = Color.WhiteSmoke;
-        // }
-        // else
-        // {
-        // 	ModelRendererZ.Color = Color.Cyan;
-        // }
+        if (MousePickingSystem.HoveredRenderer == ModelRendererX || CurrentAxisSelected == Axis.X)
+        {
+        	ModelRendererX.Color = Color.WhiteSmoke;
+        }
+        else
+        {
+        	ModelRendererX.Color = Color.Red;
+        }
+        
+        if (MousePickingSystem.HoveredRenderer == ModelRendererY || CurrentAxisSelected == Axis.Y)
+        {
+        	ModelRendererY.Color = Color.WhiteSmoke;
+        }
+        else
+        {
+        	ModelRendererY.Color = Color.YellowGreen;
+        }
+        
+        if (MousePickingSystem.HoveredRenderer == ModelRendererXy || CurrentAxisSelected == Axis.Xy)
+        {
+        	ModelRendererXy.Color = Color.WhiteSmoke;
+        }
+        else
+        {
+        	ModelRendererXy.Color = Color.Gold;
+        }
+        
+        if (MousePickingSystem.HoveredRenderer == ModelRendererZ || CurrentAxisSelected == Axis.Z)
+        {
+        	ModelRendererZ.Color = Color.WhiteSmoke;
+        }
+        else
+        {
+        	ModelRendererZ.Color = Color.Cyan;
+        }
     }
 
     public override void Awake()
@@ -164,11 +164,13 @@ public class TransformHandle : Component, IComponentUpdateable
         ModelRendererXy = GameObject.AddComponent<ModelRendererInstanced>();
 
         // Material unlitMaterial = Tofu.AssetManager.Load<Asset_Material>("ModelRendererUnlit");
-        var unlitMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererUnlit.mat");
-        ModelRendererX.Material = unlitMaterial;
-        ModelRendererY.Material = unlitMaterial;
-        ModelRendererXy.Material = unlitMaterial;
-        ModelRendererZ.Material = unlitMaterial;
+        Asset_Material material =
+            Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
+
+        ModelRendererX.Material = material;
+        ModelRendererY.Material = material;
+        ModelRendererXy.Material = material;
+        ModelRendererZ.Material = material;
 
         PremadeComponentSetupsHelper.PrepareCube(ModelRendererX);
         PremadeComponentSetupsHelper.PrepareCube(ModelRendererY);
@@ -281,7 +283,7 @@ public class TransformHandle : Component, IComponentUpdateable
     public void SelectObjects(List<int> selection)
     {
         // GameObject.SetActive(selection != null);
-        GameObject.SetActive(false);
+        // GameObject.SetActive(false);
         Transform.MockIsInCanvas = false;
 
         if (selection == null)

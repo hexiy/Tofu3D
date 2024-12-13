@@ -13,7 +13,6 @@
         "packagesPath": "/Users/hexiy/.nuget/packages/",
         "outputPath": "/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/obj/",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/Users/hexiy/.nuget/NuGet/NuGet.Config"
         ],

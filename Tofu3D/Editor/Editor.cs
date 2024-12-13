@@ -57,7 +57,8 @@ public class Editor
                 new EditorPanelBrowser(),
                 new EditorPanelConsole(),
                 new EditorPanelProfiler(),
-                new EditorPanelSceneView()
+                new EditorPanelSceneView(),
+                new EditorPanelTextureViewer(),
             };
         }
         else

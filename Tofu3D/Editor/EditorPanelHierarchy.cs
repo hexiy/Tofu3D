@@ -6,6 +6,7 @@ namespace Tofu3D;
 
 public class EditorPanelHierarchy : EditorPanel
 {
+    public static EditorPanelHierarchy I { get; private set; }
     private bool _canDelete = true;
 
     private GameObject _clipboardGameObject;
@@ -22,6 +23,7 @@ public class EditorPanelHierarchy : EditorPanel
 
     public override void Init()
     {
+        I = this;
         Scene.AnySceneLoaded += ResetGameObjectSelection;
     }
 
@@ -163,7 +165,7 @@ public class EditorPanelHierarchy : EditorPanel
 
         ResetId();
 
-        SetWindow();
+        BeginWindowDefault();
 
         if (ImGui.Button("+"))
         {

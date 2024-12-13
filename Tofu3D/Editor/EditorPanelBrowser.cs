@@ -154,7 +154,7 @@ public class EditorPanelBrowser : EditorPanel
             return;
         }
 
-        SetWindow();
+        BeginWindowDefault();
         if (ImGui.BeginPopupContextWindow("yeh"))
         {
             for (var i = 0; i < _contextItems.Count; i++)

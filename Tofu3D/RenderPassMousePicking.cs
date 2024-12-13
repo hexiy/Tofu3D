@@ -1,4 +1,4 @@
-/*using Engine;
+using Tofu3D;
 
 namespace Tofu3D.Rendering;
 
@@ -11,6 +11,7 @@ public class RenderPassMousePicking : RenderPass
         I = this;
     }
 
+
     public override void Initialize()
     {
         SetupRenderTexture();
@@ -18,11 +19,17 @@ public class RenderPassMousePicking : RenderPass
         base.Initialize();
     }
 
+
     protected override void SetupRenderTexture()
     {
-        PassRenderTexture = new RenderTexture(size: Camera.I.Size, colorAttachment: true, depthAttachment: true);
+        if (MainFramebuffer != null)
+        {
+            MainFramebuffer.Size = Tofu.RenderPassSystem.ViewSize;
+            MainFramebuffer.Invalidate(false);
+            return;
+        }
 
-        base.SetupRenderTexture();
+        MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, isIntegerFramebuffer:false);
     }
 
     protected override void PostRender()
@@ -33,5 +40,4 @@ public class RenderPassMousePicking : RenderPass
         Debug.EndAndStatTimer("Mouse picking");
         base.PostRender();
     }
-}*/
-
+}

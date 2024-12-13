@@ -21,7 +21,7 @@ public class EditorPanelFloating : EditorPanel
         //ImGui.SetNextWindowBgAlpha (0);
         ImGui.Begin("Floating", ImGuiWindowFlags.NoCollapse);
 
-        ImGui.Image(Tofu.RenderPassSystem.FinalFramebuffer.ColorAttachmentID, new Vector2(300, 300));
+        // ImGui.Image(Tofu.RenderPassSystem.FinalFramebuffer.TextureId, new Vector2(300, 300));
 
         ImGui.End();
     }

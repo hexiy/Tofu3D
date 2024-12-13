@@ -1,23 +1,29 @@
-/*using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using Tofu3D.Rendering;
 
-namespace Engine;
+namespace Tofu3D;
 
 public static class MousePickingSystem
 {
     static Dictionary<uint, Renderer> _renderers = new Dictionary<uint, Renderer>();
-    static uint _pixels;
-    static uint _tempPixels;
+
+    static uint _lastPixel;
+
+    // static uint _tempPixels;
+    private static uint _currentPixel;
+
     public static Renderer HoveredRenderer { get; private set; }
 
-    public static Color RegisterObject(ModelRenderer renderer)
+    public static uint RegisterObject(Renderer renderer)
     {
         // MousePickingObject mousePickingObject = new MousePickingObject() {Renderer = renderer, Color = GetFreeColor()};
         uint col = GetFreeColor();
+        Debug.Log($"registered mouse picking object with color {col}:rgba:{new Color(col)}");
         _renderers[col] = renderer;
         // _renderers.Add(mousePickingObject);
-        return new Color(col);
+        return col;
     }
 
     // public static uint GetColor(Renderer renderer)
@@ -58,7 +64,7 @@ public static class MousePickingSystem
 
     private static uint GetFreeColor()
     {
-        return (uint) _renderers.Count;
+        return (uint)_renderers.Count + 1;
         // int r = (int) Mathf.ClampMax(_renderers.Count, 255);
         // int g = (int) Mathf.ClampMax(_renderers.Count % 255 - r, 255);
         // int b = (int) Mathf.ClampMax((_renderers.Count % 255) % 255 - r - g, 255);
@@ -68,46 +74,64 @@ public static class MousePickingSystem
     public static void Initialize()
     {
         //_renderers = new HashSet<MousePickingObject>();
-        RenderPassSystem.RegisterRender(RenderPassType.MousePicking, RenderPassMousePicking);
+        Tofu.RenderPassSystem.RegisterRender(RenderPassType.MousePicking, RenderPassMousePicking);
+        EditorPanelTextureViewer.AddTexture(new TextureViewerTextureData()
+        {
+            Name = "Mouse Picking",
+            Texture = Tofu3D.Rendering.RenderPassMousePicking.I.MainFramebuffer
+        });
     }
 
     static void RenderPassMousePicking()
     {
-        Tofu.SceneManager.CurrentScene.RenderScene();
+        Tofu.SceneManager.CurrentScene.RenderWorld();
     }
 
-    public static void ReadPixelAtMousePos()
+    public static unsafe void ReadPixelAtMousePos()
     {
-        // MousePickingSystem.Update();
-
         // GL.ReadPixels(0,0,1,1,PixelFormat.Rgb, PixelType.UnsignedByte, ref pixels);
 
-        // need to update even when not moving mouse because objects can move in the scene
-        // if (Tofu.MouseInput.ScreenDelta == Vector2.Zero || SceneNavigation.I.IsPanningCamera)
-        // {
-        // 	return;
-        // }
         if (_renderers.Count == 0)
         {
             return;
         }
 
-        GL.ReadPixels((int) Tofu.MouseInput.ScreenPosition.X, (int) Tofu.MouseInput.ScreenPosition.Y, 1, 1, PixelFormat.Rgb, PixelType.UnsignedByte, ref _tempPixels);
 
-        //Color color = new Color(_pixels);
+        GL.ReadPixels((int)Tofu.MouseInput.PositionInView.X * Screen.ScaleI,
+            (int)Tofu.MouseInput.PositionInView.Y * Screen.ScaleI, 1, 1,
+            PixelFormat.Rgba, PixelType.UnsignedByte, ref _currentPixel);
 
-
-        // Debug.Log($"HoveredRenderer:{HoveredRenderer?.GameObject.Name}");
+        // GL.Viewport();
+        // GL.ReadPixels(idk, idk, 1, 1,
+        // PixelFormat.Rgba, PixelType.UnsignedByte, ref _tempPixels);
     }
 
     // find renderer in Update, so we're not slowing down rendering/inflating the numbers
     public static void Update()
     {
-        if (_tempPixels != _pixels)
+        if (_currentPixel != _lastPixel)
         {
-            _pixels = _tempPixels;
-            HoveredRenderer = GetRenderer(_pixels); // only find renderer if we're hovering a different color
-        }
-    }
-}*/
+            _lastPixel = _currentPixel;
+            HoveredRenderer = GetRenderer(_currentPixel); // only find renderer if we're hovering a different color
+            // Color color = new Color(_pixels);
+            Debug.Log($"picking pixel changed to {_currentPixel}");
 
+
+            if (HoveredRenderer != null)
+            {
+                Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
+            }
+        }
+
+        if (HoveredRenderer != null)
+        {
+            if (Tofu.MouseInput.ButtonPressed())
+            {
+                Debug.Log($"selected:{HoveredRenderer.GameObject.Name}");
+                EditorPanelHierarchy.I.SelectGameObject(HoveredRenderer.GameObjectId);
+            }
+        }
+        // Color color = new Color(_pixels);
+        // Debug.StatSetValue("picking color", $"Picking hovered color:{color.ToString()}");
+    }
+}

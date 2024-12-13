@@ -3,6 +3,8 @@
 [ExecuteInEditMode]
 public abstract class Renderer : Component, IComparable<Renderer>, IComponentRenderable, IComponentUpdateable
 {
+    public uint MousePickingId; // => (uint)this.GameObjectId;
+
     [Hide]
     public bool AutomaticallyFindBoxShape = true;
 
@@ -126,6 +128,8 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
 
     public override void Awake()
     {
+        MousePickingId = MousePickingSystem.RegisterObject(this);
+
         if (AutomaticallyFindBoxShape)
         {
             BoxShape = GetComponent<BoxShape>();

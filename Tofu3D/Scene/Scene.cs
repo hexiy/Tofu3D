@@ -128,6 +128,10 @@ public class Scene
         transformHandleGameObject.SetActive(false);
         transformHandleGameObject.Awake();
         transformHandleGameObject.Start();
+        
+        
+        transformHandleGameObject.SetActive(true);
+
     }
 
     public void Update()

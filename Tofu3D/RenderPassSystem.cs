@@ -57,7 +57,7 @@ public class RenderPassSystem
 
 
         // RenderPassTransparency renderPassTransparency = new RenderPassTransparency();
-        // RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
+        RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
     }
 
     public void RegisterRenderPass(RenderPass renderPass)
@@ -99,7 +99,7 @@ public class RenderPassSystem
 
         // GL.Enable(EnableCap.Blend);
         GL.Enable(EnableCap.DepthTest);
-        
+
 
         foreach (var renderPass in RenderPasses)
         {
@@ -143,6 +143,16 @@ public class RenderPassSystem
                 continue;
             }
 
+            if (renderPass.RenderPassType == RenderPassType.ZPrePass)
+            {
+                continue;
+            }
+
+            if (renderPass.RenderPassType == RenderPassType.MousePicking)
+            {
+                continue;
+            }
+
             if (renderPass.CanRender() == false)
             {
                 continue;
@@ -150,6 +160,5 @@ public class RenderPassSystem
 
             renderPass.RenderThisAsFullscreenQuadToTargetFramebuffer(FinalFramebuffer, FramebufferAttachment.Color);
         }
-
     }
 }

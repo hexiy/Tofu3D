@@ -5,11 +5,11 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>1160</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
+      <Id>1317</Id>
+      <IndexInHierarchy>5</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Child</Name>
+      <Name>Text</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <Silent>false</Silent>
@@ -21,12 +21,12 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1160</GameObjectId>
+      <GameObjectId>1317</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
+      <MockIsInCanvas>true</MockIsInCanvas>
       <ParentId>1157</ParentId>
       <Pivot>
         <X>0</X>
@@ -36,12 +36,12 @@
       <WorldPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>28.37</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>28.37</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -61,10 +61,11 @@
     </Component>
     <Component xsi:type="TextRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1160</GameObjectId>
+      <GameObjectId>1317</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
+      <MousePickingId>49</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -86,7 +87,7 @@
             <X>112</X>
             <Y>72</Y>
           </Size>
-          <TextureId>21</TextureId>
+          <TextureId>18</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -104,25 +105,26 @@
           <TextureId>1</TextureId>
         </EmissiveTexture>
         <EmissiveColor>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>0</W>
+          <X>1</X>
+          <Y>1</Y>
+          <Z>1</Z>
+          <W>0.899</W>
         </EmissiveColor>
-        <RenderMode>Opaque</RenderMode>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
+        <SpecularSmoothness>0.13</SpecularSmoothness>
         <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0.717</Smoothness>
+        <Smoothness>0</Smoothness>
         <Tiling>
           <X>0.0625</X>
           <Y>0.125</Y>
         </Tiling>
         <Offset>
-          <X>0.3125</X>
+          <X>-66.277</X>
           <Y>1.5</Y>
         </Offset>
         <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
+        <RenderMode>Opaque</RenderMode>
+        <BlendMode>Fade</BlendMode>
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
@@ -140,21 +142,20 @@
           <unsignedInt>1</unsignedInt>
         </Indices>
       </RuntimeMesh>
-      <RenderMode>Opaque</RenderMode>
       <Layer>0</Layer>
     </Component>
     <Component xsi:type="Text">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1160</GameObjectId>
+      <GameObjectId>1317</GameObjectId>
       <Started>false</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Size>12</Size>
-      <Value>abc</Value>
+      <Value>12345678</Value>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1160</GameObjectId>
+      <GameObjectId>1317</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
