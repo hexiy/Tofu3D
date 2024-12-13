@@ -8,6 +8,14 @@ public abstract class AssetBase
     [XmlIgnore]
     public RuntimeAssetHandle RuntimeAssetHandle { get; set; }
 
+    [XmlIgnore]
+    public bool IsRuntimeCopy { get; private set; } = false;
+
+    public void SetAsRuntimeAsset()
+    {
+        IsRuntimeCopy = true;
+        PathToRawAsset = string.Empty;
+    }
     // private Asset()
     // {
     // }

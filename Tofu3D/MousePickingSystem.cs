@@ -128,7 +128,7 @@ public static class MousePickingSystem
             if (Tofu.MouseInput.ButtonPressed())
             {
                 Debug.Log($"selected:{HoveredRenderer.GameObject.Name}");
-                EditorPanelHierarchy.I.SelectGameObject(HoveredRenderer.GameObjectId);
+                GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObjectId);
             }
         }
         // Color color = new Color(_pixels);

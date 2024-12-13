@@ -18,8 +18,10 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
         {
             materialPath = Path.GetFileName((componentInspectorData.Inspectable as Asset_Material).PathToRawAsset);
         }
-
+        
         materialPath = materialPath ?? "";
+
+
         var clicked = ImGui.Button(materialPath,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
         if (clicked)

@@ -113,18 +113,18 @@ public class InstancedRenderingSystem
             }
         }
 
+        if (TransformHandle.I.ModelRendererX.Material == material)
+        {
+            GL.Disable(EnableCap.DepthTest);
+        }
+        else
+        {
+            GL.Enable(EnableCap.DepthTest);
+        }
+
         // GL.Enable(EnableCap.DepthTest);
         if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
         {
-            // if (GameObject == TransformHandle.I?.GameObject)
-            // {
-            // GL.Disable(EnableCap.DepthTest);
-            // }
-            // else
-            // {
-            // GL.Enable(EnableCap.DepthTest);
-            // }
-
             Asset_Material mousePickingMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("ModelMousePicking.mat");
             Tofu.ShaderManager.UseShader(mousePickingMaterial.Shader);
 

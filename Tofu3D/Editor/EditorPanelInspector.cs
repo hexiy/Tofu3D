@@ -44,7 +44,7 @@ public class EditorPanelInspector : EditorPanel
 
     private bool _refreshQueued;
     private int _refreshQueuedInspectableIndex = -1; // -1 = all
-    private InspectableData _materialToShowAtTheBottom=null;
+    private InspectableData _materialToShowAtTheBottom = null;
     public override Vector2 Size => new(700, Tofu.Editor.SceneViewSize.Y);
     public override Vector2 Position => new(Tofu.Window.ClientSize.X - I.WindowWidth, 0);
     public override Vector2 Pivot => new(1, 0);
@@ -369,8 +369,14 @@ public class EditorPanelInspector : EditorPanel
             if (componentInspectorData.InspectableType == typeof(Asset_Material))
             {
                 ImGui.PushStyleColor(ImGuiCol.Header, Color.Honeydew.ToVector4());
+
+                Asset_Material material = componentInspectorData.Inspectable as Asset_Material;
+                if (material is { IsRuntimeCopy: true })
+                {
+                    inspectableName += " | RUNTIME COPY";
+                }
             }
-            
+
             var headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);
             if (componentInspectorData.InspectableType == typeof(Asset_Material))
             {
@@ -468,7 +474,7 @@ public class EditorPanelInspector : EditorPanel
             }
         }
 
-        if (_materialToShowAtTheBottom != null && inspectableDatas.Contains(_materialToShowAtTheBottom)==false)
+        if (_materialToShowAtTheBottom != null && inspectableDatas.Contains(_materialToShowAtTheBottom) == false)
         {
             ImGui.Dummy(new Vector2(0, 50));
             DrawInspectables(new List<InspectableData>
@@ -627,8 +633,13 @@ public class EditorPanelInspector : EditorPanel
         {
             // crashed when dragged mesh
             Asset_Material material = (_materialToShowAtTheBottom.Inspectable as Asset_Material);
+            if (material.IsRuntimeCopy)
+            {
+                return;
+            }
+
             QuickSerializer.SaveFileXML<Asset_Material>(material.PathToRawAsset, material);
-            Tofu.AssetImportManager.ImportAsset(material.PathToRawAsset, reimportIfExists:true);
+            Tofu.AssetImportManager.ImportAsset(material.PathToRawAsset, reimportIfExists: true);
         }
     }
 }

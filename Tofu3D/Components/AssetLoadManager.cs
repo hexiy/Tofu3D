@@ -69,16 +69,20 @@ public class AssetLoadManager
     }
 
     public T? Load<T>(AssetLoadParameters<T> loadParameters = null,
-        bool overwriteAlreadyLoadedAssets = false) where T : Asset<T>
+        bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy=false) where T : Asset<T>
     {
-        return Load<T>(loadParameters.PathToAsset, loadParameters, overwriteAlreadyLoadedAssets);
+        return Load<T>(loadParameters.PathToAsset, loadParameters, overwriteAlreadyLoadedAssets, isRuntimeCopy:isRuntimeCopy);
     }
 
     // path here will be Assets/xxxxx
     public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null,
-        bool overwriteAlreadyLoadedAssets = false) where T : Asset<T>
+        bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy=false) where T : Asset<T>
     {
         int id = sourcePath.GetHashCode();
+        if (isRuntimeCopy)
+        {
+            id = -id; // temp only
+        }
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
 
         // 
@@ -136,6 +140,11 @@ public class AssetLoadManager
     public void Save<T>(string path, T asset, AssetLoadParameters<T>? loadParameters = null, bool json = true)
         where T : Asset<T>
     {
+        if (asset.IsRuntimeCopy)
+        {
+            Debug.Log("Not saving runtime copy of asset");
+            return;
+        }
         int id = path.GetHashCode();
 
         // 

@@ -24,7 +24,18 @@ public class EditorPanelHierarchy : EditorPanel
     public override void Init()
     {
         I = this;
-        Scene.AnySceneLoaded += ResetGameObjectSelection;
+        // Scene.AnySceneLoaded += ResetGameObjectSelection;
+        GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
+    }
+
+    private void OnGameObjectsSelected(List<int> gameObjectIds)
+    {
+        _selectedGameObjectsIDs.Clear();
+
+        for (int i = 0; i < gameObjectIds.Count; i++)
+        {
+            AddGameObjectToSelection(gameObjectIds[i]);
+        }
     }
 
     public override void Update()
@@ -63,7 +74,8 @@ public class EditorPanelHierarchy : EditorPanel
             if (_clipboardGameObject != null)
             {
                 var loadedGo = Tofu.SceneSerializer.LoadClipboardGameObject();
-                SelectGameObject(loadedGo.Id);
+                
+                GameObjectSelectionManager.SelectGameObject(loadedGo.Id);
             }
         }
     }
@@ -99,7 +111,7 @@ public class EditorPanelHierarchy : EditorPanel
 
         if (closestGameObjectId != -1)
         {
-            SelectGameObject(closestGameObjectId);
+            GameObjectSelectionManager.SelectGameObject(closestGameObjectId);
         }
     }
 
@@ -133,19 +145,7 @@ public class EditorPanelHierarchy : EditorPanel
         //GameObjectsSelected.Invoke(Tofu.SceneManager.CurrentScene.GameObjects[oldIndex + direction].Id);
     }
 
-    public void ResetGameObjectSelection()
-    {
-        _selectedGameObjectsIDs.Clear();
-        GameObjectSelectionManager.SelectGameObjects(null);
-    }
-
-    public void SelectGameObject(int id)
-    {
-        ResetGameObjectSelection();
-        AddGameObjectToSelection(id);
-    }
-
-    public void AddGameObjectToSelection(int id)
+    private void AddGameObjectToSelection(int id)
     {
         if (_selectedGameObjectsIDs.Contains(id))
         {
@@ -153,7 +153,6 @@ public class EditorPanelHierarchy : EditorPanel
         }
 
         _selectedGameObjectsIDs.Add(id);
-        GameObjectSelectionManager.SelectGameObjects(_selectedGameObjectsIDs);
     }
 
     public override void Draw()
@@ -280,12 +279,13 @@ public class EditorPanelHierarchy : EditorPanel
 
         //bool hasAnyChildren = false;
         var hasAnyChildren = currentGameObject.Transform.Children?.Count > 0;
+        bool isSelected = _selectedGameObjectsIDs.Contains(currentGameObject.Id);
         var flags =
-            (_selectedGameObjectsIDs.Contains(currentGameObject.Id) ? ImGuiTreeNodeFlags.Selected : 0) |
+            (isSelected ? ImGuiTreeNodeFlags.Selected : 0) |
             ImGuiTreeNodeFlags.OpenOnArrow;
         if (hasAnyChildren == false)
         {
-            flags = (_selectedGameObjectsIDs.Contains(currentGameObject.Id) ? ImGuiTreeNodeFlags.Selected : 0) |
+            flags = (isSelected ? ImGuiTreeNodeFlags.Selected : 0) |
                     ImGuiTreeNodeFlags.Leaf;
         }
 
@@ -404,7 +404,7 @@ public class EditorPanelHierarchy : EditorPanel
         else if (ImGui.IsItemHovered() && Tofu.MouseInput.IsButtonDown())
         {
             _gameObjectsIndexesSelectedBefore = _selectedGameObjectsIDs;
-            SelectGameObject(currentGameObject.Id);
+            GameObjectSelectionManager.SelectGameObject(currentGameObject.Id);
         }
 
         if (opened)

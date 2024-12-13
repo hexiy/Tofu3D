@@ -23,7 +23,6 @@ public class Asset_Material : Asset<Asset_Material>
     public Vector4 EmissiveColor;
 
 
-
     public bool SpecularHighlightsEnabled;
     public float SpecularSmoothness;
 
@@ -36,7 +35,7 @@ public class Asset_Material : Asset<Asset_Material>
     public Vector2 Tiling = new Vector2(1, 1);
     public Vector2 Offset = new Vector2(0, 0);
     public bool UVOffsetIsInstanced = false;
-    
+
     public RenderMode RenderMode = RenderMode.Opaque;
     public BlendMode BlendMode = BlendMode.Opaque;
 
@@ -115,12 +114,21 @@ public class Asset_Material : Asset<Asset_Material>
 
     public void LoadShader()
     {
-        
         Shader.Load(this);
     }
 
     public void Dispose()
     {
         Shader.Dispose();
+    }
+
+    public Asset_Material CreateRuntimeCopy()
+    {
+        Asset_Material newMaterial =
+            Tofu.AssetLoadManager.Load<Asset_Material>(this.PathToRawAsset, null, false, isRuntimeCopy: true);
+        newMaterial.SetAsRuntimeAsset();
+        Debug.Log("Created new copy of material");
+
+        return newMaterial;
     }
 }
