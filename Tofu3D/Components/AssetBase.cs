@@ -14,7 +14,7 @@ public abstract class AssetBase
     public void SetAsRuntimeAsset()
     {
         IsRuntimeCopy = true;
-        PathToRawAsset = string.Empty;
+        // PathToRawAsset = string.Empty;
     }
     // private Asset()
     // {

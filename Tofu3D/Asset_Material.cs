@@ -121,14 +121,4 @@ public class Asset_Material : Asset<Asset_Material>
     {
         Shader.Dispose();
     }
-
-    public Asset_Material CreateRuntimeCopy()
-    {
-        Asset_Material newMaterial =
-            Tofu.AssetLoadManager.Load<Asset_Material>(this.PathToRawAsset, null, false, isRuntimeCopy: true);
-        newMaterial.SetAsRuntimeAsset();
-        Debug.Log("Created new copy of material");
-
-        return newMaterial;
-    }
 }
