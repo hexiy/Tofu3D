@@ -69,19 +69,26 @@ public class AssetLoadManager
     }
 
     public T? Load<T>(AssetLoadParameters<T> loadParameters = null,
-        bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy=false) where T : Asset<T>
+        bool overwriteAlreadyLoadedAssets = false, bool creatingRuntimeCopy=false) where T : Asset<T>
     {
-        return Load<T>(loadParameters.PathToAsset, loadParameters, overwriteAlreadyLoadedAssets, isRuntimeCopy:isRuntimeCopy);
+        return Load<T>(loadParameters.PathToAsset, loadParameters, overwriteAlreadyLoadedAssets, creatingRuntimeCopy:creatingRuntimeCopy);
     }
-
+    
     // path here will be Assets/xxxxx
     public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null,
-        bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy=false) where T : Asset<T>
+        bool overwriteAlreadyLoadedAssets = false, bool creatingRuntimeCopy=false) where T : Asset<T>
     {
         int id = sourcePath.GetHashCode();
-        if (isRuntimeCopy)
+        
+        if (creatingRuntimeCopy)
         {
             id = -id; // temp only
+            bool exists = LoadedAssets.ContainsKey(id);
+            if (exists)
+            {
+                id = id - Random.Range(0, 100000000);
+            }
+
         }
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
 

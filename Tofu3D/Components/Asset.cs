@@ -9,7 +9,7 @@ public abstract class Asset<T> : AssetBase where T : Asset<T> //, new()
     public T CreateRuntimeCopy()
     {
         T runtimeCopy =
-            Tofu.AssetLoadManager.Load<T>(this.PathToRawAsset, null, false, isRuntimeCopy: true);
+            Tofu.AssetLoadManager.Load<T>(this.PathToRawAsset, null, false, creatingRuntimeCopy: true);
         runtimeCopy.SetAsRuntimeAsset();
         Debug.Log("Created new copy of material");
 
