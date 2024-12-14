@@ -11,7 +11,7 @@ public class TransformHandle : Component, IComponentUpdateable
         Xy
     }
 
-    private List<Transform> _selectedTransforms;
+    private List<Transform> _selectedTransforms = new List<Transform>();
     public BoxShape BoxColliderX;
     public BoxShape BoxColliderXy;
     public BoxShape BoxColliderY;
@@ -19,6 +19,7 @@ public class TransformHandle : Component, IComponentUpdateable
 
     [XmlIgnore]
     public bool Interacting { get; private set; }
+
     public Axis? CurrentAxisSelected;
     public ModelRendererInstanced ModelRendererX;
     public ModelRendererInstanced ModelRendererXy;
@@ -104,6 +105,11 @@ public class TransformHandle : Component, IComponentUpdateable
 
         Transform.WorldPosition = GetCenterOfSelection();
         Transform.Rotation = GetRotationOfSelection();
+        if (Interacting)
+        {
+            return;
+        }
+
         if (MousePickingSystem.HoveredRenderer == ModelRendererX || CurrentAxisSelected == Axis.X)
         {
             ModelRendererX.Material.AlbedoTint = Color.WhiteSmoke;
@@ -177,10 +183,14 @@ public class TransformHandle : Component, IComponentUpdateable
         Asset_Material material =
             Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
 
-        ModelRendererX.Material = material.CreateRuntimeCopy();
-        ModelRendererY.Material = material.CreateRuntimeCopy();
-        ModelRendererXy.Material = material.CreateRuntimeCopy();
-        ModelRendererZ.Material = material.CreateRuntimeCopy();
+        Asset_Material materialCopy = material.CreateRuntimeCopy();
+        materialCopy.SpecularSmoothness = 0;
+        materialCopy.MetallicTextureStrength = 0;
+        materialCopy.Smoothness = 0;
+        ModelRendererX.Material = materialCopy.CreateRuntimeCopy();
+        ModelRendererY.Material = materialCopy.CreateRuntimeCopy();
+        ModelRendererXy.Material = materialCopy.CreateRuntimeCopy();
+        ModelRendererZ.Material = materialCopy.CreateRuntimeCopy();
 
         PremadeComponentSetupsHelper.PrepareCube(ModelRendererX);
         PremadeComponentSetupsHelper.PrepareCube(ModelRendererY);

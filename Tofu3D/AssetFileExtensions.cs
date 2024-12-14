@@ -52,6 +52,10 @@ public static class AssetFileExtensions
             path = Folders.MaterialsInLibrary;
         }
 
+        if (IsFileTemporaryMisc(fileName))
+        {
+            path = Folders.TempInLibrary;
+        }
 
         return path;
     }
@@ -97,7 +101,10 @@ public static class AssetFileExtensions
                (fileName.EndsWith(".png", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
                 fileName.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase));
     }
-
+    public static bool IsFileTemporaryMisc(string fileName)
+    {
+        return fileName.EndsWith(".temp", StringComparison.OrdinalIgnoreCase);
+    }
     public static bool IsFileMaterial(string fileName)
     {
         return fileName.EndsWith(".tofumaterial", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".mat", StringComparison.OrdinalIgnoreCase);

@@ -147,11 +147,11 @@ public class AssetLoadManager
     public void Save<T>(string path, T asset, AssetLoadParameters<T>? loadParameters = null, bool json = true)
         where T : Asset<T>
     {
-        if (asset.IsRuntimeCopy)
-        {
-            Debug.Log("Not saving runtime copy of asset");
-            return;
-        }
+        // if (asset.IsRuntimeCopy)
+        // {
+        //     Debug.Log("Not saving runtime copy of asset");
+        //     return;
+        // }
         int id = path.GetHashCode();
 
         // 

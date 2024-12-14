@@ -11,6 +11,7 @@ public class Folders
     public static string TexturesInLibrary => Path.Combine(Library, "Textures");
     public static string MaterialsInLibrary => Path.Combine(Library, "Materials");
     public static string MeshesInLibrary => Path.Combine(Library, "Meshes");
+    public static string TempInLibrary => Path.Combine(Library, "Temp");
 
     public static string Assets => Path.Combine(Environment.CurrentDirectory, "Assets");
     public static string TexturesInAssets => Path.Combine(Assets, "2D");
@@ -28,6 +29,7 @@ public class Folders
         Directory.CreateDirectory(TexturesInLibrary);
         Directory.CreateDirectory(MaterialsInLibrary);
         Directory.CreateDirectory(MeshesInLibrary);
+        Directory.CreateDirectory(TempInLibrary);
     }
     /// <summary>
     ///     From "Desktop/project/bin/Assets/2D/xx.png" to "Assets/2D/xx.png"
