@@ -12,7 +12,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
 
         if (componentInspectorData.Inspectable is Renderer)
         {
-            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material.PathToRawAsset);
+            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material?.PathToRawAsset)??materialPath;
         }
         else if (componentInspectorData.Inspectable is Asset_Material)
         {

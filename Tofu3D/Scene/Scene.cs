@@ -52,9 +52,9 @@ public class Scene
         _renderableComponentQueue = new RenderableComponentQueue();
         _updateableComponentQueue = new UpdateableComponentQueue();
 
-        Tofu.RenderPassSystem.RegisterRender(RenderPassType.ZPrePass, RenderWorld);
-        Tofu.RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderWorld);
-        // RenderPassSystem.RegisterRender(RenderPassType.Transparency, RenderTransparent);
+        Tofu.RenderPassSystem.RegisterRender(RenderPassType.ZPrePass, RenderOpaques);
+        Tofu.RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderOpaques);
+        Tofu.RenderPassSystem.RegisterRender(RenderPassType.Transparency, RenderTransparency);
     }
 
     public void DisposeScene()
@@ -76,8 +76,10 @@ public class Scene
 
         // GameObjects.Clear();
         // GameObjects = new List<GameObject>();
-        Tofu.RenderPassSystem.RemoveRender(RenderPassType.ZPrePass, RenderWorld);
-        Tofu.RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderWorld);
+        Tofu.RenderPassSystem.RemoveRender(RenderPassType.ZPrePass, RenderOpaques);
+        Tofu.RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderAll);
+        Tofu.RenderPassSystem.RemoveRender(RenderPassType.Transparency, RenderTransparency);
+
         // RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
         Tofu.InstancedRenderingSystem.ClearBuffers();
 
@@ -128,10 +130,9 @@ public class Scene
         transformHandleGameObject.SetActive(false);
         transformHandleGameObject.Awake();
         transformHandleGameObject.Start();
-        
-        
-        transformHandleGameObject.SetActive(true);
 
+
+        transformHandleGameObject.SetActive(true);
     }
 
     public void Update()
@@ -190,30 +191,41 @@ public class Scene
         GL.Disable(EnableCap.CullFace);
     }
 
-    public void RenderWorld()
+    public void RenderAll()
     {
         SetOpenGLState();
 
-
         GL.ClearDepth(1000);
         GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
-
-        // //
-        // //
-        // GL.Viewport(0, 0, (int) Camera.MainCamera.Size.X, (int) Camera.MainCamera.Size.Y);
-
-        _renderableComponentQueue.RenderWorld();
-        Tofu.InstancedRenderingSystem.RenderInstances();
-
-        // if (TransformHandle.Transform.IsInCanvas == false)
-        // {
-        // 	TransformHandle.I.GameObject.Render();
-        // }
-
+        _renderableComponentQueue.RenderAll();
+        Tofu.InstancedRenderingSystem.RenderInstances(InstancingRenderMode.All);
 
         RestoreOpenGLState();
     }
 
+    public void RenderOpaques()
+    {
+        SetOpenGLState();
+
+        GL.ClearDepth(1000);
+        GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+        _renderableComponentQueue.RenderOpaques();
+        Tofu.InstancedRenderingSystem.RenderInstances(InstancingRenderMode.Opaque);
+
+        RestoreOpenGLState();
+    }
+
+    public void RenderTransparency()
+    {
+        SetOpenGLState();
+
+        GL.ClearDepth(1000);
+        GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+        _renderableComponentQueue.RenderTransparency();
+        Tofu.InstancedRenderingSystem.RenderInstances(InstancingRenderMode.Transparent);
+
+        RestoreOpenGLState();
+    }
     // public void RenderUI()
     // {
     // 	// GL.Enable(EnableCap.DepthTest);
@@ -371,6 +383,7 @@ public class Scene
             GameObjects[i].IndexInHierarchy = i;
         }
     }
+
     private void OnMouse3Clicked()
     {
     }

@@ -50,6 +50,10 @@ public class RenderPassSystem
         RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new();
         RenderPassZPrePass renderPassZPrePass = new();
         RenderPassOpaques renderPassOpaques = new();
+        RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
+        // mouse picking for now must come before transparency pass for it to work
+
+        RenderPassTransparency renderPassTransparency = new();
         // RenderPassBloomThreshold renderPassBloomThreshold = new();
         // RenderPassBloomPostProcess renderPassBloomPostProcess = new(renderPassBloomThreshold);
         // RenderPassPostProcess renderPassPostProcess = new();
@@ -57,7 +61,6 @@ public class RenderPassSystem
 
 
         // RenderPassTransparency renderPassTransparency = new RenderPassTransparency();
-        RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
     }
 
     public void RegisterRenderPass(RenderPass renderPass)

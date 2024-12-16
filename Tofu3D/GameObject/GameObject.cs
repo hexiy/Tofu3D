@@ -428,6 +428,10 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public virtual void Start()
     {
+        if (Awoken == false)
+        {
+            Awake();
+        }
         for (var i = 0; i < Components.Count; i++)
         {
             if (Components[i].Enabled)

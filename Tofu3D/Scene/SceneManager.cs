@@ -25,7 +25,6 @@ public class SceneManager
         Debug.StartTimer("LoadScene");
 
 
-        LastOpenedScene = path;
         // Tofu.Window.Title = Tofu.Window.WindowTitleText + " | " + Path.GetFileNameWithoutExtension(path);
 
 
@@ -83,6 +82,8 @@ public class SceneManager
         Scene.AnySceneLoaded.Invoke();
         Debug.EndAndLogTimer("LoadScene");
 
+        LastOpenedScene = path;
+        
         return true;
     }
 
@@ -94,7 +95,8 @@ public class SceneManager
             path = Path.Combine("Assets", "scene1.scene");
         }
 
-        LastOpenedScene = path;
         Tofu.SceneSerializer.SaveGameObjects(CurrentScene.GetSceneFile(), path);
+        
+        LastOpenedScene = path;
     }
 }

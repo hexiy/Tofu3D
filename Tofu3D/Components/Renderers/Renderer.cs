@@ -89,7 +89,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
         UpdateMvp();
 
         // DistanceFromCamera = CalculateDistanceFromCamera();
-        // if (Color.A != 255)
+        // if (Material.RenderMode)
         // {
         //     if (RenderMode != RenderMode.Transparent)
         //     {

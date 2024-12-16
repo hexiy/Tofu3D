@@ -166,11 +166,13 @@ public class Component : IDestroyable, ICloneable
     {
         Awoken = true;
         Scene.ComponentAwoken(this);
+        // OnEnabled();
     }
 
     public virtual void Start()
     {
         Started = true;
+        OnEnabled();
     }
 
     /// <summary>

@@ -3,7 +3,8 @@ namespace Tofu3D;
 public class RenderableComponentQueue : IComponentQueue
 {
     // bool _renderQueueChanged;
-    private readonly List<IComponentRenderable> _components = new();
+    private readonly List<IComponentRenderable> _opaqueRenderables = new();
+    private readonly List<IComponentRenderable> _transparentRenderables = new();
 
     // public List<Renderer> RenderQueueWorld { get; private set; } = new();
     // public List<Renderer> RenderQueueUI { get; private set; } = new();
@@ -21,7 +22,7 @@ public class RenderableComponentQueue : IComponentQueue
     {
         if (component is IComponentRenderable componentRenderable)
         {
-            _components.Add(componentRenderable);
+            _opaqueRenderables.Add(componentRenderable);
         }
     }
 
@@ -29,7 +30,7 @@ public class RenderableComponentQueue : IComponentQueue
     {
         if (component is IComponentRenderable componentRenderable)
         {
-            _components.Remove(componentRenderable);
+            _opaqueRenderables.Remove(componentRenderable);
         }
     }
 
@@ -48,25 +49,38 @@ public class RenderableComponentQueue : IComponentQueue
 
     private void ClearList()
     {
-        _components.Clear();
+        _opaqueRenderables.Clear();
     }
 
     public void AddComponent(IComponentRenderable component)
     {
-        _components.Add(component);
+        _opaqueRenderables.Add(component);
     }
 
     public void RemoveComponent(IComponentRenderable component)
     {
-        _components.Remove(component);
+        _opaqueRenderables.Remove(component);
     }
 
-    public void RenderWorld()
+    public void RenderAll()
     {
-        for (var i = 0; i < _components.Count; i++)
-            // RenderQueueWorld[i].UpdateMvp();
+        RenderOpaques();
+        RenderTransparency();
+    }
+
+    public void RenderOpaques()
+    {
+        for (var i = 0; i < _opaqueRenderables.Count; i++)
         {
-            _components[i].Render();
+            _opaqueRenderables[i].Render();
+        }
+    }
+
+    public void RenderTransparency()
+    {
+        for (var i = 0; i < _transparentRenderables.Count; i++)
+        {
+            _transparentRenderables[i].Render();
         }
     }
 // public void Update()

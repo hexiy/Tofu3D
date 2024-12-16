@@ -42,6 +42,8 @@ public static class Tofu
     // INPUT
     public static MouseInput MouseInput;
 
+    public static SceneSelectionHighlighter SceneSelectionHighlighter;
+
     public static void Launch()
     {
         SystemConfig.Configure();
@@ -87,10 +89,13 @@ public static class Tofu
         Editor.Initialize();
 
         SceneViewController = new SceneViewController();
-
+        
         SceneManager.LoadLastOpenedScene();
         
         MousePickingSystem.Initialize();
+        
+        SceneSelectionHighlighter = new SceneSelectionHighlighter();
+        SceneSelectionHighlighter.Init();
     }
 
     static Stopwatch sw = new Stopwatch();
@@ -124,6 +129,7 @@ public static class Tofu
         MouseInput.Update();
         TweenManager.Update();
         SceneViewController.Update();
+        SceneSelectionHighlighter.Update();
         MousePickingSystem.Update();
         AssetsWatcher.ProcessChangedFilesQueue();
         ShaderManager.ReloadQueuedShaders();

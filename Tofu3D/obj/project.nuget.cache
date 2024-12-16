@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "yU6yC3l8vQA=",
+  "dgSpecHash": "LZzbOnzOld0=",
   "success": true,
   "projectFilePath": "/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj",
   "expectedPackageFiles": [
@@ -97,7 +97,10 @@
     "/Users/hexiy/.nuget/packages/vortice.mathematics/1.3.21/vortice.mathematics.1.3.21.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/vortice.mediafoundation/1.9.143/vortice.mediafoundation.1.9.143.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/vortice.multimedia/1.9.143/vortice.multimedia.1.9.143.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/vortice.xaudio2/1.9.143/vortice.xaudio2.1.9.143.nupkg.sha512"
+    "/Users/hexiy/.nuget/packages/vortice.xaudio2/1.9.143/vortice.xaudio2.1.9.143.nupkg.sha512",
+    "/Users/hexiy/.nuget/packages/microsoft.netcore.app.ref/8.0.11/microsoft.netcore.app.ref.8.0.11.nupkg.sha512",
+    "/Users/hexiy/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.11/microsoft.aspnetcore.app.ref.8.0.11.nupkg.sha512",
+    "/Users/hexiy/.nuget/packages/microsoft.netcore.app.host.osx-arm64/8.0.11/microsoft.netcore.app.host.osx-arm64.8.0.11.nupkg.sha512"
   ],
   "logs": [
     {

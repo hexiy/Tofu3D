@@ -18,6 +18,7 @@ public class InstancedRenderingObjectBufferData
     public int Vbo;
     public int Vao;
     public bool UVOffsetIsInstanced = false;
+    public RenderMode RenderMode;
 
     public required VertexBufferStructureType VertexBufferStructureType { init; get; }
 

@@ -152,7 +152,7 @@ public class EditorPanelInspector : EditorPanel
         _currentInspectableDatas.FirstOrDefault(data => data.Inspectable == inspectable, null)?.InitInfos();
     }
 
-    private void OnGameObjectsSelected(List<int> ids)
+    private void OnGameObjectsSelected(List<GameObject> gameObjects)
     {
         // if (ids.Count != 1)
         // {
@@ -165,7 +165,7 @@ public class EditorPanelInspector : EditorPanel
         // 	_selectedMaterial = null;
         // }
 
-        if (ids.Count == 0 || ids.FirstOrDefault(-1) == -1)
+        if (gameObjects.Count == 0 || gameObjects.FirstOrDefault() == null)
         {
             ClearInspectableDatas();
 
@@ -173,8 +173,7 @@ public class EditorPanelInspector : EditorPanel
         }
 
 
-        var go = Tofu.SceneManager.CurrentScene.GetGameObjectByID(ids[0]);
-        SelectInspectables(go.Components);
+        SelectInspectables(gameObjects[0].Components);
     }
 
     /*private void UpdateCurrentComponentsCache()
@@ -416,8 +415,11 @@ public class EditorPanelInspector : EditorPanel
 
             if (componentInspectorData.InspectableType.IsSubclassOf(typeof(Renderer)))
             {
-                _materialToShowAtTheBottom =
-                    new InspectableData((componentInspectorData.Inspectable as Renderer).Material);
+                Asset_Material material = (componentInspectorData.Inspectable as Renderer).Material;
+                if (material != null)
+                {
+                    _materialToShowAtTheBottom = new InspectableData(material);
+                }
             }
         }
 

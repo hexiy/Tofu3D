@@ -1,13 +1,13 @@
-﻿/*namespace Tofu3D.Rendering;
+﻿namespace Tofu3D.Rendering;
 
 public class RenderPassTransparency : RenderPass
 {
-    public static RenderPassTransparency I { get; private set; }
-
     public RenderPassTransparency() : base(RenderPassType.Transparency)
     {
         I = this;
     }
+
+    public static RenderPassTransparency I { get; private set; }
 
     public override void Initialize()
     {
@@ -16,18 +16,42 @@ public class RenderPassTransparency : RenderPass
         base.Initialize();
     }
 
+    protected override void PreBindFrameBuffer()
+    {
+        // GL.Enable(EnableCap.DepthTest);
+     
+        GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassZPrePass.I.MainFramebuffer.FrameBufferID);
+        GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, MainFramebuffer.FrameBufferID);
+        var sizeX = (int)MainFramebuffer.Size.X;
+        var sizeY = (int)MainFramebuffer.Size.Y;
+        GL.BlitFramebuffer(0, 0, sizeX, sizeY, 0, 0, sizeX, sizeY, ClearBufferMask.DepthBufferBit,
+            BlitFramebufferFilter.Nearest);
+
+        
+        // blit skybox to this
+        // GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassSkybox.I.MainFramebuffer.FrameBufferID);
+        // GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, MainFramebuffer.FrameBufferID);
+        // GL.BlitFramebuffer(0, 0, sizeX, sizeY, 0, 0, sizeX, sizeY, ClearBufferMask.ColorBufferBit,
+        //     BlitFramebufferFilter.Nearest);
+
+
+        base.PreBindFrameBuffer();
+    }
+
+    protected override void PreRender()
+    {
+        GL.DepthMask(false);
+    }
+
     protected override void SetupRenderTexture()
     {
-        if (PassRenderTexture != null)
+        if (MainFramebuffer != null)
         {
-            PassRenderTexture.Size = Camera.I.Size;
-            PassRenderTexture.Invalidate(generateBrandNewTextures: false);
+            MainFramebuffer.Size = Tofu.RenderPassSystem.ViewSize;
+            MainFramebuffer.Invalidate(false);
             return;
         }
 
-        PassRenderTexture = new RenderTexture(size: Camera.I.Size, colorAttachment: true, depthAttachment: true);
-
-        base.SetupRenderTexture();
+        MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, true);
     }
-}*/
-
+}

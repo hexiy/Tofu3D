@@ -84,7 +84,7 @@ public static class MousePickingSystem
 
     static void RenderPassMousePicking()
     {
-        Tofu.SceneManager.CurrentScene.RenderWorld();
+        Tofu.SceneManager.CurrentScene.RenderAll();
     }
 
     public static unsafe void ReadPixelAtMousePos()
@@ -130,7 +130,7 @@ public static class MousePickingSystem
                 Debug.Log($"selected:{HoveredRenderer.GameObject.Name}");
                 if (HoveredRenderer.GameObjectId != TransformHandle.I.GameObjectId) // dont detect clicks on the transformhandle itself
                 {
-                    GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObjectId);
+                    GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObject);
                 }
             }
         }

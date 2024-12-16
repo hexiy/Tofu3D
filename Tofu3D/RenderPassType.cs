@@ -9,9 +9,9 @@ public enum RenderPassType
     //GeometryDepth,
     ZPrePass,
     Opaques,
+    Transparency,
     MousePicking,
 
-    // Transparency,
     BloomThreshold,
     BloomPostProcess,
 

@@ -13,6 +13,11 @@ public class InspectableData
 
     public InspectableData(object inspectable)
     {
+        if (inspectable == null)
+        {
+            throw new ArgumentNullException(nameof(inspectable));
+        }
+
         Inspectable = inspectable;
         InspectableType = inspectable.GetType();
         // Fields = ComponentType.GetFields();

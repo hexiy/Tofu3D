@@ -59,7 +59,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         Material.UVOffsetIsInstanced = true;
         Material.LoadShader();
 
-        Material = Material.CreateRuntimeCopy();
+       Material = Material.CreateRuntimeCopy();
     }
 
     public override void Render()

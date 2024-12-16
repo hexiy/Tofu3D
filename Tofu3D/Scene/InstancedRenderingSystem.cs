@@ -20,7 +20,7 @@ public class InstancedRenderingSystem
         _definitions = new List<InstancedRenderingObjectDefinition>();
     }
 
-    public void RenderInstances()
+    public void RenderInstances(InstancingRenderMode renderMode)
     {
         // GL.Enable(EnableCap.DepthTest);
         foreach (var objectDefinitionBufferPair in _objectBufferDatas)
@@ -28,6 +28,21 @@ public class InstancedRenderingSystem
             if (objectDefinitionBufferPair.Value.NumberOfObjects == 0)
             {
                 continue;
+            }
+
+            if (renderMode != InstancingRenderMode.All)
+            {
+                if (objectDefinitionBufferPair.Value.RenderMode == RenderMode.Opaque &&
+                    renderMode != InstancingRenderMode.Opaque)
+                {
+                    continue;
+                }
+
+                if (objectDefinitionBufferPair.Value.RenderMode == RenderMode.Transparent &&
+                    renderMode != InstancingRenderMode.Transparent)
+                {
+                    continue;
+                }
             }
 
             RenderSpecific(objectDefinitionBufferPair);
@@ -107,7 +122,7 @@ public class InstancedRenderingSystem
         if (objectBufferPair.Value.NeedsUpload)
         {
             UploadBufferData(objectBufferPair.Value);
-            if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.Opaques)
+            if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.Transparency)
             {
                 objectBufferPair.Value.NeedsUpload = false;
             }
@@ -155,7 +170,7 @@ public class InstancedRenderingSystem
             // objectBufferPair.Value.NumberOfObjects);
         }
 
-        else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI)
+        else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI or RenderPassType.Transparency)
         {
             Tofu.ShaderManager.UseShader(material.Shader);
 
@@ -458,7 +473,8 @@ public class InstancedRenderingSystem
             Vbo = -1,
             Vao = objectDefinition.RuntimeMesh.Vao,
             NumberOfObjects = 0,
-            UVOffsetIsInstanced = objectDefinition.Material.UVOffsetIsInstanced
+            UVOffsetIsInstanced = objectDefinition.Material.UVOffsetIsInstanced,
+            RenderMode = objectDefinition.Material.RenderMode,
         };
         bufferData.Init();
 

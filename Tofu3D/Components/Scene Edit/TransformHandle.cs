@@ -305,7 +305,7 @@ public class TransformHandle : Component, IComponentUpdateable
         }
     }
 
-    public void SelectObjects(List<int> selection)
+    public void SelectObjects(List<GameObject> selection)
     {
         // GameObject.SetActive(selection != null);
         // GameObject.SetActive(false);
@@ -317,16 +317,17 @@ public class TransformHandle : Component, IComponentUpdateable
             return;
         }
 
-        if (selection.Exists(i => i == -1))
-        {
-            ObjectSelected = false;
-            return;
-        }
+        // if (selection.Exists(i => i == -1))
+        // {
+            // ObjectSelected = false;
+            // return;
+        // }
 
         _selectedTransforms = new List<Transform>();
         for (var i = 0; i < selection.Count; i++)
         {
-            var go = Tofu.SceneManager.CurrentScene.GetGameObjectByID(selection[i]);
+            // var go = Tofu.SceneManager.CurrentScene.GetGameObjectByID(selection[i]);
+            var go = selection[i];
 
             if (go != null)
             {

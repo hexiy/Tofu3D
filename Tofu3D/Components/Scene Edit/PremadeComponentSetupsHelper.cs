@@ -7,6 +7,12 @@ public static class PremadeComponentSetupsHelper
 {
     public static ModelRendererInstanced PrepareCube(ModelRendererInstanced modelRenderer)
     {
+        if (modelRenderer.Material == null)
+        {
+            modelRenderer.Material =
+                Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
+        }
+
         modelRenderer.Material.AlbedoTexture = Tofu.Editor.EditorTextures.WhitePixel;
         Asset_Model model =
             Tofu.AssetLoadManager.Load<Asset_Model>(Path.Combine(Folders.ModelsInAssets, "defaultCube.obj"));
