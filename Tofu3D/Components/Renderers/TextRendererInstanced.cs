@@ -43,7 +43,7 @@ public class TextRendererInstanced : ModelRendererInstanced
     };
 
     private Vector2 _spritesCountInSpritesheet = new(16, 8);
-    private Vector2 _characterSpacing = new Vector2(10, 10);
+    private Vector2 _characterSpacing = new Vector2(2, 2);
 
     [XmlIgnore]
     public List<RendererInstancingData> RendererInstancingDatas = new List<RendererInstancingData>();
@@ -59,7 +59,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         Material.UVOffsetIsInstanced = true;
         Material.LoadShader();
 
-       Material = Material.CreateRuntimeCopy();
+        Material = Material.CreateRuntimeCopy();
     }
 
     public override void Render()
@@ -79,6 +79,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         {
             return;
         }
+
         // we dont need data instances for line break characters...
         int instancingDatasToRemove = RendererInstancingDatas.Count - textComponent.Value.Length;
         if (instancingDatasToRemove > 0)
@@ -100,7 +101,8 @@ public class TextRendererInstanced : ModelRendererInstanced
         int charactersInCurrentLine = 0;
         float currentX = 0;
         float currentY = 0;
-        
+        float maxX = 0;
+        float maxY = 0;
         for (var i = 0; i < textComponent.Value.Length; i++)
         {
             while (RendererInstancingDatas.Count <= i)
@@ -135,12 +137,13 @@ public class TextRendererInstanced : ModelRendererInstanced
 
                 var offsetTranslation =
                     Matrix4x4.CreateTranslation(currentX, 0, currentY);
-                Matrix4x4 modelMatrix = GetModelMatrix() * offsetTranslation;
+                Matrix4x4 modelMatrix = GetModelMatrixWithoutBoxShape() * offsetTranslation;
 
                 RendererInstancingData data = RendererInstancingDatas[i];
                 var updatedData =
                     Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref data,
-                        VertexBufferStructureType.Model, modelMatrix: modelMatrix, uvOffset: offset, indexForMultipleObjectsPerRenderer: i);
+                        VertexBufferStructureType.Model, modelMatrix: modelMatrix, uvOffset: offset,
+                        indexForMultipleObjectsPerRenderer: i);
 
                 if (updatedData)
                 {
@@ -165,7 +168,12 @@ public class TextRendererInstanced : ModelRendererInstanced
             {
                 currentX += _characterSpacing.X;
             }
+
+            maxX = Mathf.Max(maxX, currentX);
+            maxY = Mathf.Min(maxY, currentY);
         }
+
+        BoxShape.Size = new Vector3(maxX, 1, 1 + maxY/2f);
     }
 }
 

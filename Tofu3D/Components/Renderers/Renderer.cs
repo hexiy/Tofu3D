@@ -41,6 +41,14 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
             return scale * IdentityPivotRotationMatrix;
         }
     }
+    private Matrix4x4 ScalePivotRotationMatrixWithoutBoxShape
+    {
+        get
+        {
+            var scale = Matrix4x4.CreateScale(Transform.WorldScale);
+            return scale * IdentityPivotRotationMatrixWithoutBoxShape;
+        }
+    }
 
     private Matrix4x4 IdentityPivotRotationMatrix
     {
@@ -58,7 +66,22 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
             return Matrix4x4.Identity * pivot * rotation;
         }
     }
+    private Matrix4x4 IdentityPivotRotationMatrixWithoutBoxShape
+    {
+        get
+        {
+            var worldPositionPivotOffset =
+                Transform.WorldScale * (Vector3.One - Transform.Pivot * 2);
 
+            var pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
+
+            var rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
+                Transform.WorldRotation.X / 180 * Mathf.Pi,
+                Transform.WorldRotation.Z / 180 * Mathf.Pi);
+
+            return Matrix4x4.Identity * pivot * rotation;
+        }
+    }
     public int CompareTo(Renderer comparePart)
     {
         // A null value means that this object is greater.
@@ -194,6 +217,18 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
         var translation =
             Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale);
         return ScalePivotRotationMatrix * translation;
+    }
+    public Matrix4x4 GetModelMatrixWithoutBoxShape()
+    {
+        // if (Transform.IsInCanvas)
+        // {
+        //     return GetModelMatrixForCanvasObject();
+        // }
+
+        // Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
+        var translation =
+            Matrix4x4.CreateTranslation(Transform.WorldPosition * Transform.WorldScale);
+        return ScalePivotRotationMatrixWithoutBoxShape * translation;
     }
 
     // public Matrix4x4 GetModelMatrixForCanvasObject()

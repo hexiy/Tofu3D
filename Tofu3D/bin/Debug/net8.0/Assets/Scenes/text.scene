@@ -74,7 +74,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Text</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
@@ -337,7 +337,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>9</MousePickingId>
+      <MousePickingId>1</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -437,9 +437,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>5</X>
+        <X>16</X>
         <Y>1</Y>
-        <Z>5</Z>
+        <Z>2</Z>
       </Size>
     </Component>
     <Component xsi:type="Transform">
@@ -453,7 +453,7 @@
       <ParentId>1157</ParentId>
       <Pivot>
         <X>0</X>
-        <Y>0</Y>
+        <Y>0.5</Y>
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
@@ -488,7 +488,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>10</MousePickingId>
+      <MousePickingId>2</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -588,9 +588,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>5</X>
+        <X>16</X>
         <Y>1</Y>
-        <Z>5</Z>
+        <Z>2</Z>
       </Size>
     </Component>
     <Component xsi:type="Transform">
@@ -639,7 +639,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>11</MousePickingId>
+      <MousePickingId>3</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -739,11 +739,11 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>5</X>
+        <X>16</X>
         <Y>1</Y>
-        <Z>5</Z>
+        <Z>2</Z>
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>1342</GameObjectNextId>
+  <GameObjectNextId>1345</GameObjectNextId>
 </SceneFile>

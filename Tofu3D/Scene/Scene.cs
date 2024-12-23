@@ -217,14 +217,12 @@ public class Scene
 
     public void RenderTransparency()
     {
-        SetOpenGLState();
-
+        // GL.Disable(EnableCap.CullFace);
+        
         GL.ClearDepth(1000);
         GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
         _renderableComponentQueue.RenderTransparency();
         Tofu.InstancedRenderingSystem.RenderInstances(InstancingRenderMode.Transparent);
-
-        RestoreOpenGLState();
     }
     // public void RenderUI()
     // {
