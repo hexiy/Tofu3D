@@ -20,7 +20,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     [XmlIgnore] public List<Component> Components = new();
 
     public float DestroyTimer = 2;
-    public bool DynamicallyCreated = false;
     public int Id = -1;
 
     [Hide] public int IndexInHierarchy = 0;
@@ -30,7 +29,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public string Name = "";
     public string PrefabPath = "";
     public bool Selected = false;
-    public bool Silent;
+    public bool VisibleInHierarchy=true;
+    public bool RuntimeOnly = false;
     public bool Started;
 
     /*		[XmlIgnore]
@@ -140,12 +140,13 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     //private List<Component> ComponentsWaitingToBePaired = new List<Component>();
 
     public static GameObject Create(Vector3? position = null, Vector3? scale = null, string name = "",
-        bool linkComponents = true, bool silent = false, bool addToScene = true)
+        bool linkComponents = true, bool visibleInHierarchy = true, bool addToScene = true, bool runtimeOnly=false)
     {
         GameObject go = new();
 
         go.Name = name;
-        go.Silent = silent;
+        go.VisibleInHierarchy = visibleInHierarchy;
+        go.RuntimeOnly = runtimeOnly;
 
 
         if (go.Id == -1)

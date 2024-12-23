@@ -122,9 +122,9 @@ public class Scene
 
     private void CreateTransformHandle()
     {
-        var transformHandleGameObject = GameObject.Create(silent: true);
+        var transformHandleGameObject = GameObject.Create(visibleInHierarchy: false, runtimeOnly:true);
         TransformHandle = transformHandleGameObject.AddComponent<TransformHandle>();
-        transformHandleGameObject.DynamicallyCreated = true;
+        transformHandleGameObject.RuntimeOnly = true;
         transformHandleGameObject.AlwaysUpdate = true;
         transformHandleGameObject.Name = "Transform Handle";
         transformHandleGameObject.SetActive(false);
@@ -254,7 +254,7 @@ public class Scene
         {
             GameObjects[i].IndexInHierarchy = i;
 
-            if (GameObjects[i].DynamicallyCreated)
+            if (GameObjects[i].RuntimeOnly)
             {
                 continue;
             }

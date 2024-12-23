@@ -20,7 +20,7 @@ public class SceneSelectionHighlighter
 
     private void SpawnSelectionBoxGameobjects()
     {
-        _selectionBoxGameObject = GameObject.Create(name: "Selection Box");
+        _selectionBoxGameObject = GameObject.Create(name: "Selection Box", visibleInHierarchy:false,runtimeOnly:true);
 
 
         BoxShape boxShape = _selectionBoxGameObject.AddComponent<BoxShape>();

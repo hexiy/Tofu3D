@@ -74,7 +74,7 @@ public class EditorPanelHierarchy : EditorPanel
             if (_clipboardGameObject != null)
             {
                 var loadedGo = Tofu.SceneSerializer.LoadClipboardGameObject();
-                
+
                 GameObjectSelectionManager.SelectGameObject(loadedGo);
             }
         }
@@ -96,7 +96,7 @@ public class EditorPanelHierarchy : EditorPanel
         GameObject closestGameObject = null;
         foreach (var gameObject in Tofu.SceneManager.CurrentScene.GameObjects)
         {
-            if (gameObject.Silent)
+            if (gameObject.VisibleInHierarchy==false)
             {
                 continue;
             }
@@ -211,7 +211,7 @@ public class EditorPanelHierarchy : EditorPanel
             List<GameObject> toDestroy = new();
             foreach (var go in Tofu.SceneManager.CurrentScene.GameObjects)
             {
-                if (go != Camera.MainCamera.GameObject && go.Silent == false)
+                if (go != Camera.MainCamera.GameObject && go.VisibleInHierarchy)
                 {
                     toDestroy.Add(go);
                 }
@@ -267,7 +267,7 @@ public class EditorPanelHierarchy : EditorPanel
             return;
         }
 
-        if (currentGameObject.Silent && Global.Debug == false)
+        if (currentGameObject.VisibleInHierarchy == false && Global.Debug == false)
         {
             return;
         }
@@ -301,7 +301,7 @@ public class EditorPanelHierarchy : EditorPanel
                 : new Color(135, 206, 235, 130).ToVector4();
         }
 
-        if (currentGameObject.Silent)
+        if (currentGameObject.VisibleInHierarchy==false)
         {
             nameColor = currentGameObject.ActiveInHierarchy
                 ? Color.Purple.ToVector4()

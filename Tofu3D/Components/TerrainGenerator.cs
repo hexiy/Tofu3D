@@ -121,7 +121,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
             // Debug.Log(i);
             var go = (GameObject)referenceGameObject.Clone(false);
             go.Name = $"Thread:{threadIndex} go {i}";
-            go.DynamicallyCreated = true;
+            go.RuntimeOnly = true;
 
             _concurrentBag.Enqueue(go);
         }
