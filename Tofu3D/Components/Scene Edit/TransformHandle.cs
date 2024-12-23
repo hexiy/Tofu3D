@@ -341,6 +341,7 @@ public class TransformHandle : Component, IComponentUpdateable
         }
 
         Transform.WorldPosition = GetCenterOfSelection();
+
         ObjectSelected = _selectedTransforms.Count > 0;
     }
 

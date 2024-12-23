@@ -27,10 +27,11 @@ public class SceneSelectionHighlighter
         BoxShape boxShape = _selectionBoxGameObject.AddComponent<BoxShape>();
         ModelRendererInstanced modelRenderer = _selectionBoxGameObject.AddComponent<ModelRendererInstanced>();
 
-        Asset_Material material = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat").CreateRuntimeCopy();
+        Asset_Material material = Tofu.AssetLoadManager
+            .Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat").CreateRuntimeCopy();
 
         modelRenderer.Material = material;
-            
+
         PremadeComponentSetupsHelper.PrepareCube(modelRenderer);
 
         material.AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
@@ -60,7 +61,7 @@ public class SceneSelectionHighlighter
         }
 
         _selectionBoxGameObject.Transform.WorldPosition = go.Transform.WorldPosition;
-        _selectionBoxGameObject.Transform.WorldScale = go.Transform.WorldScale;
+        _selectionBoxGameObject.Transform.WorldScale = go.Transform.WorldScale + new Vector3(0.1f);
         _selectionBoxGameObject.Transform.Rotation = go.Transform.Rotation;
     }
 

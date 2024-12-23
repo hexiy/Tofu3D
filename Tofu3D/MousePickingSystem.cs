@@ -109,6 +109,11 @@ public static class MousePickingSystem
     // find renderer in Update, so we're not slowing down rendering/inflating the numbers
     public static void Update()
     {
+        if (Tofu.MouseInput.IsMouseInSceneView == false)
+        {
+            return;
+        }
+
         if (_currentPixel != _lastPixel)
         {
             _lastPixel = _currentPixel;
@@ -128,7 +133,8 @@ public static class MousePickingSystem
             if (Tofu.MouseInput.ButtonPressed())
             {
                 Debug.Log($"selected:{HoveredRenderer.GameObject.Name}");
-                if (HoveredRenderer.GameObjectId != TransformHandle.I.GameObjectId) // dont detect clicks on the transformhandle itself
+                if (HoveredRenderer.GameObjectId !=
+                    TransformHandle.I.GameObjectId) // dont detect clicks on the transformhandle itself
                 {
                     GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObject);
                 }

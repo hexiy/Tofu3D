@@ -58,22 +58,6 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Text</Name>
       <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>false</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>1316</Id>
-      <IndexInHierarchy>4</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>Text</Name>
-      <PrefabPath />
       <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
@@ -84,8 +68,8 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>1317</Id>
-      <IndexInHierarchy>5</IndexInHierarchy>
+      <Id>1316</Id>
+      <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Text</Name>
@@ -95,7 +79,23 @@
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>false</ActiveSelf>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <Id>1355</Id>
+      <IndexInHierarchy>5</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>cube</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
   </GameObjects>
   <Components>
@@ -114,14 +114,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-6.4602084</X>
-        <Y>4.096809</Y>
-        <Z>16.467794</Z>
+        <X>0.85016954</X>
+        <Y>11.459038</Y>
+        <Z>-5.8293633</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-6.4602084</X>
-        <Y>4.096809</Y>
-        <Z>16.467794</Z>
+        <X>0.85016954</X>
+        <Y>11.459038</Y>
+        <Z>-5.8293633</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -134,8 +134,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>20.099209</X>
-        <Y>-273.65323</Y>
+        <X>67.38275</X>
+        <Y>-4.4116654</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -298,22 +298,22 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
-      <MockIsInCanvas>true</MockIsInCanvas>
+      <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>1157</ParentId>
       <Pivot>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>1</Z>
       </Pivot>
       <WorldPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>11.457594</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>11.457594</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -423,7 +423,11 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Size>12</Size>
-      <Value>12345678</Value>
+      <Value>1
+12
+12345678
+abcd
+</Value>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
@@ -437,9 +441,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>16</X>
-        <Y>1</Y>
-        <Z>2</Z>
+        <X>8</X>
+        <Y>0.1</Y>
+        <Z>-3</Z>
       </Size>
     </Component>
     <Component xsi:type="Transform">
@@ -449,22 +453,22 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
-      <MockIsInCanvas>true</MockIsInCanvas>
+      <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>1157</ParentId>
       <Pivot>
         <X>0</X>
-        <Y>0.5</Y>
-        <Z>0</Z>
+        <Y>0</Y>
+        <Z>1</Z>
       </Pivot>
       <WorldPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>12.97</Z>
+        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>12.97</Z>
+        <Z>0</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -574,7 +578,11 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Size>12</Size>
-      <Value>12345678</Value>
+      <Value>c
+s
+ww
+ww
+ewtgrge</Value>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
@@ -588,34 +596,34 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>16</X>
-        <Y>1</Y>
-        <Z>2</Z>
+        <X>7</X>
+        <Y>0.1</Y>
+        <Z>-3</Z>
       </Size>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1317</GameObjectId>
+      <GameObjectId>1355</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
-      <MockIsInCanvas>true</MockIsInCanvas>
-      <ParentId>1157</ParentId>
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <ParentId>-1</ParentId>
       <Pivot>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>1</Z>
       </Pivot>
       <WorldPosition>
         <X>0</X>
-        <Y>-2.5025797</Y>
-        <Z>28.37</Z>
+        <Y>0</Y>
+        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
-        <Y>-2.5025797</Y>
-        <Z>28.37</Z>
+        <Y>0</Y>
+        <Z>0</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -633,9 +641,26 @@
         <Z>0</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="TextRendererInstanced">
+    <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1317</GameObjectId>
+      <GameObjectId>1355</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>0.4</X>
+        <Y>0.4</Y>
+        <Z>0.4</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRendererInstanced">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1355</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -649,19 +674,19 @@
         <PackedValue>4294967295</PackedValue>
       </Color>
       <Material>
-        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/TextMaterial.mat</PathToRawAsset>
+        <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/BallMaterial.mat</PathToRawAsset>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/font.png</PathToRawAsset>
+          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
           <Size>
-            <X>112</X>
-            <Y>72</Y>
+            <X>1</X>
+            <Y>1</Y>
           </Size>
-          <TextureId>20</TextureId>
+          <TextureId>1</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -670,6 +695,22 @@
           <A>255</A>
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
+        <AmbientOcclusionTexture>
+          <PathToRawAsset />
+          <Size>
+            <X>1</X>
+            <Y>1</Y>
+          </Size>
+          <TextureId>0</TextureId>
+        </AmbientOcclusionTexture>
+        <NormalTexture>
+          <PathToRawAsset />
+          <Size>
+            <X>2048</X>
+            <Y>2048</Y>
+          </Size>
+          <TextureId>0</TextureId>
+        </NormalTexture>
         <EmissiveTexture>
           <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
           <Size>
@@ -679,71 +720,75 @@
           <TextureId>1</TextureId>
         </EmissiveTexture>
         <EmissiveColor>
-          <X>1</X>
-          <Y>1</Y>
-          <Z>1</Z>
-          <W>0.899</W>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+          <W>0</W>
         </EmissiveColor>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0.13</SpecularSmoothness>
+        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0.08</SpecularSmoothness>
         <MetallicTextureStrength>0</MetallicTextureStrength>
         <Smoothness>0</Smoothness>
         <Tiling>
-          <X>0.0625</X>
-          <Y>0.125</Y>
+          <X>1</X>
+          <Y>1</Y>
         </Tiling>
         <Offset>
-          <X>-66.277</X>
-          <Y>1.5</Y>
+          <X>0</X>
+          <Y>0</Y>
         </Offset>
-        <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
-        <RenderMode>Transparent</RenderMode>
-        <BlendMode>Fade</BlendMode>
+        <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
+        <RenderMode>Opaque</RenderMode>
+        <BlendMode>Opaque</BlendMode>
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
-        <MeshAssetPath>Library/Meshes/plane.obj_0.tofumesh</MeshAssetPath>
-        <Vao>4</Vao>
-        <VerticesCount>4</VerticesCount>
-        <VertexBufferDataLength>56</VertexBufferDataLength>
+        <MeshAssetPath>Library/Meshes/defaultCube.obj_0.tofumesh</MeshAssetPath>
+        <Vao>5</Vao>
+        <VerticesCount>8</VerticesCount>
+        <VertexBufferDataLength>112</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
         <Indices>
           <unsignedInt>0</unsignedInt>
           <unsignedInt>1</unsignedInt>
           <unsignedInt>2</unsignedInt>
           <unsignedInt>0</unsignedInt>
+          <unsignedInt>2</unsignedInt>
           <unsignedInt>3</unsignedInt>
+          <unsignedInt>4</unsignedInt>
+          <unsignedInt>3</unsignedInt>
+          <unsignedInt>2</unsignedInt>
+          <unsignedInt>4</unsignedInt>
+          <unsignedInt>2</unsignedInt>
+          <unsignedInt>5</unsignedInt>
+          <unsignedInt>5</unsignedInt>
+          <unsignedInt>2</unsignedInt>
           <unsignedInt>1</unsignedInt>
+          <unsignedInt>5</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+          <unsignedInt>6</unsignedInt>
+          <unsignedInt>6</unsignedInt>
+          <unsignedInt>7</unsignedInt>
+          <unsignedInt>4</unsignedInt>
+          <unsignedInt>6</unsignedInt>
+          <unsignedInt>4</unsignedInt>
+          <unsignedInt>5</unsignedInt>
+          <unsignedInt>7</unsignedInt>
+          <unsignedInt>0</unsignedInt>
+          <unsignedInt>3</unsignedInt>
+          <unsignedInt>7</unsignedInt>
+          <unsignedInt>3</unsignedInt>
+          <unsignedInt>4</unsignedInt>
+          <unsignedInt>6</unsignedInt>
+          <unsignedInt>1</unsignedInt>
+          <unsignedInt>0</unsignedInt>
+          <unsignedInt>6</unsignedInt>
+          <unsignedInt>0</unsignedInt>
+          <unsignedInt>7</unsignedInt>
         </Indices>
       </RuntimeMesh>
       <Layer>0</Layer>
     </Component>
-    <Component xsi:type="Text">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1317</GameObjectId>
-      <Started>false</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Size>12</Size>
-      <Value>12345678</Value>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1317</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>16</X>
-        <Y>1</Y>
-        <Z>2</Z>
-      </Size>
-    </Component>
   </Components>
-  <GameObjectNextId>1345</GameObjectNextId>
+  <GameObjectNextId>1366</GameObjectNextId>
 </SceneFile>

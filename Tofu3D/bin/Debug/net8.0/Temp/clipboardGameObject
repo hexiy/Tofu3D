@@ -4,15 +4,15 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
-      <Id>1317</Id>
-      <IndexInHierarchy>5</IndexInHierarchy>
+      <Id>1307</Id>
+      <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Text</Name>
       <PrefabPath />
       <Selected>true</Selected>
-      <Silent>false</Silent>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>true</ActiveSelf>
@@ -21,7 +21,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1317</GameObjectId>
+      <GameObjectId>1307</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -36,12 +36,12 @@
       <WorldPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>28.37</Z>
+        <Z>11.457594</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>28.37</Z>
+        <Z>11.457594</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -61,11 +61,11 @@
     </Component>
     <Component xsi:type="TextRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1317</GameObjectId>
+      <GameObjectId>1307</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>49</MousePickingId>
+      <MousePickingId>37</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -87,7 +87,7 @@
             <X>112</X>
             <Y>72</Y>
           </Size>
-          <TextureId>18</TextureId>
+          <TextureId>20</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -123,7 +123,7 @@
           <Y>1.5</Y>
         </Offset>
         <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
-        <RenderMode>Opaque</RenderMode>
+        <RenderMode>Transparent</RenderMode>
         <BlendMode>Fade</BlendMode>
       </Material>
       <RuntimeMesh>
@@ -146,16 +146,20 @@
     </Component>
     <Component xsi:type="Text">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1317</GameObjectId>
+      <GameObjectId>1307</GameObjectId>
       <Started>false</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Size>12</Size>
-      <Value>12345678</Value>
+      <Value>1
+12
+12345678
+abcd
+</Value>
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1317</GameObjectId>
+      <GameObjectId>1307</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -165,9 +169,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>5</X>
-        <Y>1</Y>
-        <Z>5</Z>
+        <X>8</X>
+        <Y>0.1</Y>
+        <Z>-3</Z>
       </Size>
     </Component>
   </Components>
