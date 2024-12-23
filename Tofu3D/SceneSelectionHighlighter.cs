@@ -26,9 +26,8 @@ public class SceneSelectionHighlighter
 
         BoxShape boxShape = _selectionBoxGameObject.AddComponent<BoxShape>();
         ModelRendererInstanced modelRenderer = _selectionBoxGameObject.AddComponent<ModelRendererInstanced>();
-        
-        
-        
+
+
         modelRenderer.Material =
             Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
         PremadeComponentSetupsHelper.PrepareCube(modelRenderer);
@@ -38,6 +37,10 @@ public class SceneSelectionHighlighter
         material.AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
             { PathToAsset = "Resources/whitePixel.png" });
         material.Smoothness = 0;
+        material.AlbedoTint = new Color(1, 1, 1, 0.75f);
+        material.RenderMode = RenderMode.Transparent;
+        material.BlendMode = BlendMode.Fade;
+
         _selectionBoxGameObject.Start();
     }
 

@@ -4,7 +4,6 @@
     <GameObject>
       <AlwaysUpdate>true</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
       <Id>0</Id>
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
@@ -12,7 +11,8 @@
       <Name>Camera</Name>
       <PrefabPath />
       <Selected>false</Selected>
-      <Silent>false</Silent>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>true</ActiveSelf>
@@ -20,7 +20,6 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
       <Id>987</Id>
       <IndexInHierarchy>1</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
@@ -28,7 +27,8 @@
       <Name>Directional Light</Name>
       <PrefabPath />
       <Selected>false</Selected>
-      <Silent>false</Silent>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>false</ActiveSelf>
@@ -36,7 +36,6 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
       <Id>1185</Id>
       <IndexInHierarchy>2</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
@@ -44,7 +43,8 @@
       <Name>Ambient Light</Name>
       <PrefabPath />
       <Selected>false</Selected>
-      <Silent>false</Silent>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>true</ActiveSelf>
@@ -52,7 +52,6 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
       <Id>1307</Id>
       <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
@@ -60,15 +59,15 @@
       <Name>Text</Name>
       <PrefabPath />
       <Selected>false</Selected>
-      <Silent>false</Silent>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
       <Id>1316</Id>
       <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
@@ -76,7 +75,8 @@
       <Name>Text</Name>
       <PrefabPath />
       <Selected>false</Selected>
-      <Silent>false</Silent>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>true</ActiveSelf>
@@ -84,18 +84,18 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <DynamicallyCreated>false</DynamicallyCreated>
       <Id>1317</Id>
       <IndexInHierarchy>5</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Text</Name>
       <PrefabPath />
-      <Selected>true</Selected>
-      <Silent>false</Silent>
+      <Selected>false</Selected>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
   </GameObjects>
   <Components>
@@ -114,14 +114,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-1.5341558</X>
-        <Y>18.274517</Y>
-        <Z>21.205416</Z>
+        <X>-6.4602084</X>
+        <Y>4.096809</Y>
+        <Z>16.467794</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-1.5341558</X>
-        <Y>18.274517</Y>
-        <Z>21.205416</Z>
+        <X>-6.4602084</X>
+        <Y>4.096809</Y>
+        <Z>16.467794</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -134,8 +134,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>58.935158</X>
-        <Y>-250.57185</Y>
+        <X>20.099209</X>
+        <Y>-273.65323</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -337,7 +337,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>1</MousePickingId>
+      <MousePickingId>9</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -488,7 +488,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>2</MousePickingId>
+      <MousePickingId>10</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -639,7 +639,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>3</MousePickingId>
+      <MousePickingId>11</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -745,5 +745,5 @@
       </Size>
     </Component>
   </Components>
-  <GameObjectNextId>1334</GameObjectNextId>
+  <GameObjectNextId>1342</GameObjectNextId>
 </SceneFile>

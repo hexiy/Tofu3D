@@ -155,6 +155,12 @@ public class InstancedRenderingSystem
         else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
                  or RenderPassType.ZPrePass)
         {
+            if (material.RenderMode == RenderMode.Transparent)
+            {
+                // dont render depth for transparent objects
+                return;
+            }
+
             var depthMaterial =
                 Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstancedDepth.mat");
             Tofu.ShaderManager.UseShader(depthMaterial.Shader);
@@ -170,7 +176,8 @@ public class InstancedRenderingSystem
             // objectBufferPair.Value.NumberOfObjects);
         }
 
-        else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI or RenderPassType.Transparency)
+        else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
+                 or RenderPassType.Transparency)
         {
             Tofu.ShaderManager.UseShader(material.Shader);
 
@@ -313,10 +320,6 @@ public class InstancedRenderingSystem
             }
 
             RenderingBlendingHelper.SetBlendMode(material.BlendMode);
-
-            // GL.Enable(EnableCap.Blend);
-            //
-            // GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
             GL.BindBuffer(BufferTarget.ArrayBuffer, bufferData.Vbo);
