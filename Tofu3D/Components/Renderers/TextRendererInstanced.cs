@@ -43,7 +43,7 @@ public class TextRendererInstanced : ModelRendererInstanced
     };
 
     private Vector2 _spritesCountInSpritesheet = new(16, 8);
-    private Vector2 _characterSpacing = new Vector2(0, 0);
+    private Vector2 _characterSpacing = new Vector2(1, 2); // 1,2 because font w:h ratio is 1:2
 
     [XmlIgnore]
     public List<RendererInstancingData> RendererInstancingDatas = new List<RendererInstancingData>();
@@ -55,7 +55,7 @@ public class TextRendererInstanced : ModelRendererInstanced
 
     public override void Start()
     {
-        Transform.Pivot = new Vector3(0, 0, 1);
+        Transform.Pivot = new Vector3(0, 0.5f, 1f);
         base.Start();
     }
 
@@ -109,9 +109,14 @@ public class TextRendererInstanced : ModelRendererInstanced
         float currentY = 0;
         float maxX = 0;
         float maxY = 0;
+
+        Vector3 scaleBefore = Transform.LocalScale;
+        Transform.LocalScale = new Vector3(textComponent.Size / 2f, textComponent.Size, textComponent.Size);
+
+
         if (textComponent.Value.Length > 0)
         {
-            maxY = textComponent.Size; // base size
+            maxY = -textComponent.Size; // base size
         }
 
         for (var i = 0; i < textComponent.Value.Length; i++)
@@ -146,11 +151,9 @@ public class TextRendererInstanced : ModelRendererInstanced
                     new Vector2(1f / _spritesCountInSpritesheet.X * columnIndex,
                         1f - 1f / -_spritesCountInSpritesheet.Y * rowIndex);
 
-                var scale = Matrix4x4.CreateScale(textComponent.Size/2f); // whyyyyyyyy does this have to be /2f wth
                 var offsetTranslation =
-                    Matrix4x4.CreateTranslation(currentX, -1, currentY);
-                // Matrix4x4.CreateTranslation(0,0,0);
-                Matrix4x4 modelMatrix = scale * GetModelMatrixWithoutBoxShape() * offsetTranslation;
+                    Matrix4x4.CreateTranslation(currentX, 0, currentY);
+                Matrix4x4 modelMatrix = GetModelMatrixWithoutBoxShape() * offsetTranslation;
 
                 RendererInstancingData data = RendererInstancingDatas[i];
                 var updatedData =
@@ -175,19 +178,25 @@ public class TextRendererInstanced : ModelRendererInstanced
             {
                 currentX = 0;
                 charactersInCurrentLine = 0;
-                currentY -= textComponent.Size;
+                currentY -= textComponent.Size * _characterSpacing.Y;
             }
             else
             {
-                currentX += textComponent.Size;
+                currentX += textComponent.Size * _characterSpacing.X;
             }
 
             maxX = Mathf.Max(maxX, currentX);
             maxY = Mathf.Min(maxY, currentY);
         }
+        
+        
+        
+        currentY -= textComponent.Size * _characterSpacing.Y;
+        maxY = Mathf.Min(maxY, currentY);
 
         // BoxShape.Size = new Vector3(maxX / _characterSpacing.X, 0.1f, 1 + maxY / _characterSpacing.Y);
-        BoxShape.Size = new Vector3(maxX, 0.1f, maxY);
+        BoxShape.Size = new Vector3(maxX, 0.1f, maxY/2f);
+        Transform.LocalScale = scaleBefore;
     }
 }
 
