@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Reflection;
 using ImGuiNET;
 
 namespace Tofu3D;
@@ -8,10 +10,41 @@ public class InspectorFieldDrawerInt : InspectorFieldDrawable<int>
     {
         var fieldValue = GetValue(info, componentInspectorData);
 
-
-        if (ImGui.DragInt("", ref fieldValue))
+        Slider? sliderAttrib = null;
+        for (var i = 0; i < info.CustomAttributes.Count(); i++)
         {
-            SetValue(info, componentInspectorData, fieldValue);
+            if (info.CustomAttributes.ElementAtOrDefault(i)?.AttributeType == typeof(Slider))
+            {
+                var fieldType = componentInspectorData.Inspectable.GetType().GetField(info.Name);
+                if (fieldType != null)
+                {
+                    sliderAttrib = fieldType.GetCustomAttribute<Slider>();
+                }
+                else
+                {
+                    var propertyType =
+                        componentInspectorData.Inspectable.GetType().GetProperty(info.Name);
+                    if (propertyType != null)
+                    {
+                        sliderAttrib = propertyType.GetCustomAttribute<Slider>();
+                    }
+                }
+            }
+        }
+
+        if (sliderAttrib != null)
+        {
+            if (ImGui.SliderInt("", ref fieldValue, sliderAttrib.MinValue, sliderAttrib.MaxValue))
+            {
+                SetValue(info, componentInspectorData, fieldValue);
+            }
+        }
+        else
+        {
+            if (ImGui.DragInt("", ref fieldValue))
+            {
+                SetValue(info, componentInspectorData, fieldValue);
+            }
         }
     }
 }
