@@ -1,1 +1,53 @@
-É{"Shader":{"AlbedoTextureIndexUnit":null,"NormalTextureIndexUnit":null,"AmbientOcclusionTextureUnit":null,"ShadowMapTextureUnit":null,"RoughnessTextureUnit":null,"MetallicTextureUnit":null,"EnvironmentTextureUnit":null,"EmissiveTextureUnit":null,"BufferType":2,"Path":"Assets/Shaders/ModelRendererInstanced.glsl","Uniforms":{},"IsLoaded":false,"ProgramId":0},"Additive":false,"AlbedoTexture":{"PathToRawAsset":"/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/font.png","Size":{"X":112.0,"Y":72.0},"TextureId":20,"PathToAssetInLibrary":"Library/Textures/font.png.tofutexture","RuntimeAssetHandle":{"Id":0,"AssetType":null},"IsRuntimeCopy":false},"AlbedoTint":{"B":255,"G":255,"R":255,"A":255},"AmbientOcclusionTexture":null,"NormalTexture":null,"RoughnessTexture":null,"MetallicTexture":null,"EmissiveTexture":{"PathToRawAsset":"Resources/whitePixel.png","Size":{"X":1.0,"Y":1.0},"TextureId":1,"PathToAssetInLibrary":"Library/Textures/whitePixel.png.tofutexture","RuntimeAssetHandle":{"Id":0,"AssetType":null},"IsRuntimeCopy":false},"EmissiveColor":{"X":1.0,"Y":1.0,"Z":1.0,"W":0.899},"SpecularHighlightsEnabled":false,"SpecularSmoothness":0.13,"MetallicTextureStrength":0.0,"Smoothness":0.0,"Tiling":{"X":0.0625,"Y":0.125},"Offset":{"X":-66.277,"Y":1.5},"UVOffsetIsInstanced":true,"RenderMode":1,"BlendMode":2,"PathToRawAsset":"/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/TextMaterial.mat","PathToAssetInLibrary":"Library/Materials/TextMaterial.mat.tofumaterial","RuntimeAssetHandle":{"Id":0,"AssetType":null},"IsRuntimeCopy":false}
+<?xml version="1.0" encoding="utf-8"?>
+<Material xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/Materials/Testing scene/TextMaterial.mat</PathToRawAsset>
+  <Shader>
+    <BufferType>Model</BufferType>
+    <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+  </Shader>
+  <Additive>false</Additive>
+  <AlbedoTexture>
+    <PathToRawAsset>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Assets/2D/font.png</PathToRawAsset>
+    <Size>
+      <X>112</X>
+      <Y>72</Y>
+    </Size>
+    <TextureId>20</TextureId>
+  </AlbedoTexture>
+  <AlbedoTint>
+    <B>255</B>
+    <G>255</G>
+    <R>255</R>
+    <A>255</A>
+    <PackedValue>4294967295</PackedValue>
+  </AlbedoTint>
+  <EmissiveTexture>
+    <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
+    <Size>
+      <X>1</X>
+      <Y>1</Y>
+    </Size>
+    <TextureId>1</TextureId>
+  </EmissiveTexture>
+  <EmissiveColor>
+    <X>1</X>
+    <Y>1</Y>
+    <Z>1</Z>
+    <W>0.899</W>
+  </EmissiveColor>
+  <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+  <SpecularSmoothness>0.13</SpecularSmoothness>
+  <MetallicTextureStrength>0</MetallicTextureStrength>
+  <Smoothness>0</Smoothness>
+  <Tiling>
+    <X>0.0625</X>
+    <Y>0.125</Y>
+  </Tiling>
+  <Offset>
+    <X>-66.277</X>
+    <Y>1.5</Y>
+  </Offset>
+  <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
+  <RenderMode>Transparent</RenderMode>
+  <BlendMode>Fade</BlendMode>
+</Material>

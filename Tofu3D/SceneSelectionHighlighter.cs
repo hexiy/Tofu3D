@@ -20,13 +20,24 @@ public class SceneSelectionHighlighter
 
     private void SpawnSelectionBoxGameobjects()
     {
-        _selectionBoxGameObject = GameObject.Create(name: "Selection Box", visibleInHierarchy:false,runtimeOnly:true);
+        _selectionBoxGameObject =
+            GameObject.Create(name: "Selection Box", visibleInHierarchy: false, runtimeOnly: true);
 
 
         BoxShape boxShape = _selectionBoxGameObject.AddComponent<BoxShape>();
         ModelRendererInstanced modelRenderer = _selectionBoxGameObject.AddComponent<ModelRendererInstanced>();
+        
+        
+        
+        modelRenderer.Material =
+            Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
         PremadeComponentSetupsHelper.PrepareCube(modelRenderer);
 
+        modelRenderer.Material = modelRenderer.Material.CreateRuntimeCopy();
+        Asset_Material material = modelRenderer.Material;
+        material.AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
+            { PathToAsset = "Resources/whitePixel.png" });
+        material.Smoothness = 0;
         _selectionBoxGameObject.Start();
     }
 

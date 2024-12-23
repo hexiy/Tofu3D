@@ -363,6 +363,8 @@ void main(void)
 	}
 	//	float emissiveIntensity= u_emissiveColor.a + (-10.0/255.0) + 1;
 	result.rgb += emissiveColor;
+	
+	result.a = albedoColor.a;
 	//	result.rgb = u_emissiveColor.rgb;
 	if (u_renderMode == 0) // regular
 	{
