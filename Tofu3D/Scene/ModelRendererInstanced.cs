@@ -1,6 +1,5 @@
 ﻿public class ModelRendererInstanced : Renderer
 {
-
     public override void Awake()
     {
         InstancingData = new RendererInstancingData();
@@ -35,6 +34,13 @@
             else
             {
                 Material = Tofu.AssetLoadManager.Load<Asset_Material>(Material.PathToRawAsset);
+            }
+        }
+        else
+        {
+            if (Material != null)
+            {
+                Material = Material.CreateRuntimeCopy();
             }
         }
 

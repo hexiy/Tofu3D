@@ -33,6 +33,23 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
     [Hide]
     public virtual bool CanRender => true; // && Enabled && GameObject.Awoken && GameObject.ActiveInHierarchy;
 
+    [XmlIgnore]
+    public Action CreateInstanceOfMaterial
+    {
+        get
+        {
+            return () =>
+            {
+                if (Material == null)
+                {
+                    return;
+                }
+
+                Material = Material.CreateRuntimeCopy();
+            };
+        }
+    }
+
     private Matrix4x4 ScalePivotRotationMatrix
     {
         get
@@ -41,6 +58,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
             return scale * IdentityPivotRotationMatrix;
         }
     }
+
     private Matrix4x4 ScalePivotRotationMatrixWithoutBoxShape
     {
         get
@@ -66,6 +84,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
             return Matrix4x4.Identity * pivot * rotation;
         }
     }
+
     private Matrix4x4 IdentityPivotRotationMatrixWithoutBoxShape
     {
         get
@@ -82,6 +101,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
             return Matrix4x4.Identity * pivot * rotation;
         }
     }
+
     public int CompareTo(Renderer comparePart)
     {
         // A null value means that this object is greater.
@@ -138,17 +158,16 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
         // }
     }
 
-    // public int CompareTo(Renderer comparePart)
-    // {
-    // 	// A null value means that this object is greater.
-    // 	if (comparePart == null)
-    // 	{
-    // 		return 1;
-    // 	}
-    //
-    // 	return comparePart.distanceFromCamera.CompareTo(distanceFromCamera);
-    // }
-
+// public int CompareTo(Renderer comparePart)
+// {
+// 	// A null value means that this object is greater.
+// 	if (comparePart == null)
+// 	{
+// 		return 1;
+// 	}
+//
+// 	return comparePart.distanceFromCamera.CompareTo(distanceFromCamera);
+// }
     public override void Awake()
     {
         MousePickingId = MousePickingSystem.RegisterObject(this);
@@ -168,19 +187,18 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
         Material.LoadShader();
     }
 
-    // private Matrix4x4 GetModelViewProjectionOld()
-    // {
-    // 	Vector2 pivotOffset = -(boxShape.size * transform.scale) / 2 + new Vector2(boxShape.size.X * transform.scale.X * transform.pivot.X, boxShape.size.Y * transform.scale.Y * transform.pivot.Y);
-    // 	Matrix4x4 _translation = Matrix4x4.CreateTranslation(transform.position + boxShape.offset * transform.scale - pivotOffset);
-    //
-    // 	Matrix4x4 _rotation = Matrix4x4.CreateFromYawPitchRoll(transform.rotation.Y / 180 * Mathf.Pi,
-    // 	                                                       transform.rotation.X / 180 * Mathf.Pi,
-    // 	                                                       transform.rotation.Z / 180 * Mathf.Pi);
-    // 	Matrix4x4 _scale = Matrix4x4.CreateScale(boxShape.size.X * transform.scale.X, boxShape.size.Y * transform.scale.Y, 1);
-    //
-    // 	return _scale * Matrix4x4.Identity * _rotation * _translation * Camera.I.viewMatrix * Camera.I.projectionMatrix;
-    // }
-
+// private Matrix4x4 GetModelViewProjectionOld()
+// {
+// 	Vector2 pivotOffset = -(boxShape.size * transform.scale) / 2 + new Vector2(boxShape.size.X * transform.scale.X * transform.pivot.X, boxShape.size.Y * transform.scale.Y * transform.pivot.Y);
+// 	Matrix4x4 _translation = Matrix4x4.CreateTranslation(transform.position + boxShape.offset * transform.scale - pivotOffset);
+//
+// 	Matrix4x4 _rotation = Matrix4x4.CreateFromYawPitchRoll(transform.rotation.Y / 180 * Mathf.Pi,
+// 	                                                       transform.rotation.X / 180 * Mathf.Pi,
+// 	                                                       transform.rotation.Z / 180 * Mathf.Pi);
+// 	Matrix4x4 _scale = Matrix4x4.CreateScale(boxShape.size.X * transform.scale.X, boxShape.size.Y * transform.scale.Y, 1);
+//
+// 	return _scale * Matrix4x4.Identity * _rotation * _translation * Camera.I.viewMatrix * Camera.I.projectionMatrix;
+// }
     public virtual Matrix4x4 GetModelViewProjectionFromBoxShape() =>
         GetModelMatrix() * Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
 
@@ -218,6 +236,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
             Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale);
         return ScalePivotRotationMatrix * translation;
     }
+
     public Matrix4x4 GetModelMatrixWithoutBoxShape()
     {
         // if (Transform.IsInCanvas)
@@ -231,27 +250,27 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
         return ScalePivotRotationMatrixWithoutBoxShape * translation;
     }
 
-    // public Matrix4x4 GetModelMatrixForCanvasObject()
-    // {
-    //
-    // }
+// public Matrix4x4 GetModelMatrixForCanvasObject()
+// {
+//
+// }
 
-    // public Matrix4x4 GetModelMatrixForLight()
-    // {
-    // 	Vector3 pivotOffset = -(BoxShape.Size * Transform.WorldScale) / 2
-    // 	                    + new Vector3(BoxShape.Size.X * Transform.WorldScale.X * Transform.Pivot.X,
-    // 	                                  BoxShape.Size.Y * Transform.WorldScale.Y * Transform.Pivot.Y,
-    // 	                                  BoxShape.Size.Z * Transform.WorldScale.Z * Transform.Pivot.Z);
-    //
-    // 	Matrix4x4 pivot = Matrix4x4.CreateTranslation(-pivotOffset.X, -pivotOffset.Y, -pivotOffset.Z);
-    // 	Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f)) * Matrix4x4.CreateScale(1, -1, -1);
-    //
-    // 	Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.Rotation.Y / 180 * Mathf.Pi,
-    // 	                                                      -Transform.Rotation.X / 180 * Mathf.Pi,
-    // 	                                                      -Transform.Rotation.Z / 180 * Mathf.Pi);
-    // 	Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size.X * Transform.WorldScale.X, BoxShape.Size.Y * Transform.WorldScale.Y, Transform.WorldScale.Z * BoxShape.Size.Z);
-    // 	return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit);
-    // }
+// public Matrix4x4 GetModelMatrixForLight()
+// {
+// 	Vector3 pivotOffset = -(BoxShape.Size * Transform.WorldScale) / 2
+// 	                    + new Vector3(BoxShape.Size.X * Transform.WorldScale.X * Transform.Pivot.X,
+// 	                                  BoxShape.Size.Y * Transform.WorldScale.Y * Transform.Pivot.Y,
+// 	                                  BoxShape.Size.Z * Transform.WorldScale.Z * Transform.Pivot.Z);
+//
+// 	Matrix4x4 pivot = Matrix4x4.CreateTranslation(-pivotOffset.X, -pivotOffset.Y, -pivotOffset.Z);
+// 	Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f)) * Matrix4x4.CreateScale(1, -1, -1);
+//
+// 	Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.Rotation.Y / 180 * Mathf.Pi,
+// 	                                                      -Transform.Rotation.X / 180 * Mathf.Pi,
+// 	                                                      -Transform.Rotation.Z / 180 * Mathf.Pi);
+// 	Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size.X * Transform.WorldScale.X, BoxShape.Size.Y * Transform.WorldScale.Y, Transform.WorldScale.Z * BoxShape.Size.Z);
+// 	return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit);
+// }
 
     public Matrix4x4 GetMvpForOutline()
     {

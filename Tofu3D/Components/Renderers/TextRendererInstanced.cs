@@ -195,7 +195,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         maxY = Mathf.Min(maxY, currentY);
 
         // BoxShape.Size = new Vector3(maxX / _characterSpacing.X, 0.1f, 1 + maxY / _characterSpacing.Y);
-        BoxShape.Size = new Vector3(maxX, 0.1f, maxY/2f);
+        BoxShape.Size = new Vector3(maxX/2f, 0.1f, maxY/2f);
         Transform.LocalScale = scaleBefore;
     }
 }
