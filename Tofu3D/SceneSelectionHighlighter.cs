@@ -1,3 +1,5 @@
+using Tofu3D.Tweening;
+
 namespace Tofu3D;
 
 public class SceneSelectionHighlighter
@@ -28,19 +30,30 @@ public class SceneSelectionHighlighter
         BoxShape boxShape = _selectionBoxGameObject.AddComponent<BoxShape>();
         ModelRendererInstanced modelRenderer = _selectionBoxGameObject.AddComponent<ModelRendererInstanced>();
 
-        Asset_Material material = Tofu.AssetLoadManager
+        Asset_Material runtimeMaterial = Tofu.AssetLoadManager
             .Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat").CreateRuntimeCopy();
 
-        modelRenderer.Material = material;
+        modelRenderer.Material = runtimeMaterial;
 
         PremadeComponentSetupsHelper.PrepareCube(modelRenderer);
 
-        material.AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
+        runtimeMaterial.AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
             { PathToAsset = "Resources/whitePixel.png" });
-        material.Smoothness = 0;
-        material.AlbedoTint = new Color(1, 1, 1, 0.75f);
-        material.RenderMode = RenderMode.Transparent;
-        material.BlendMode = BlendMode.Fade;
+        runtimeMaterial.Smoothness = 0;
+        runtimeMaterial.AlbedoTint = new Color(1, 1, 1, 0.45f);
+        runtimeMaterial.RenderMode = RenderMode.Transparent;
+        runtimeMaterial.BlendMode = BlendMode.Fade;
+
+        Tweener.Kill(this);
+        Asset_Material capturedMaterial = runtimeMaterial;
+        Tweener.Tween(0.45f, 0.3f, 1.8f, (f) =>
+            {
+                // runtimeMaterial.AlbedoTint doesnt do anything... this only works when referencing material like this "modelRenderer.Material"
+                // because in SetDefaultMaterial in renderer we created runtime copy, i'll keep this directly referencing modelRednerer.material so it doesnt break in future...
+                modelRenderer.Material.AlbedoTint = runtimeMaterial.AlbedoTint.SetA(f);
+                Debug.Log(modelRenderer.Material.AlbedoTint.A);
+            }).SetTarget(this)
+            .SetLoop(Tween.LoopType.Yoyo);
 
         _selectionBoxGameObject.Start();
     }

@@ -47,11 +47,11 @@ public class Asset_Material : Asset<Asset_Material>
         hashCodeCombiner.Add(Shader?.GetHashCode());
         hashCodeCombiner.Add(PathToRawAsset.GetHashCode());
         hashCodeCombiner.Add(AlbedoTexture?.GetHashCode());
-        hashCodeCombiner.Add(AlbedoTint.GetHashCode());
+        // hashCodeCombiner.Add(AlbedoTint.GetHashCode());
         hashCodeCombiner.Add(AmbientOcclusionTexture?.GetHashCode());
         hashCodeCombiner.Add(NormalTexture?.GetHashCode());
-        hashCodeCombiner.Add(Tiling.GetHashCode());
-        hashCodeCombiner.Add(Offset.GetHashCode());
+        // hashCodeCombiner.Add(Tiling.GetHashCode());
+        // hashCodeCombiner.Add(Offset.GetHashCode());
         return hashCodeCombiner.CombinedHash;
     }
 

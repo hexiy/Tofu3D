@@ -1,4 +1,7 @@
-﻿public class ModelRendererInstanced : Renderer
+﻿using System.IO;
+using System.Linq;
+
+public class ModelRendererInstanced : Renderer
 {
     public override void Awake()
     {
@@ -25,7 +28,7 @@
 
     public override void SetDefaultMaterial()
     {
-        if (Material?.IsRuntimeCopy == false)
+        if (Material==null || Material?.IsRuntimeCopy == false)
         {
             if (Material?.PathToRawAsset.Length == 0 || Material == null)
             {
@@ -40,7 +43,8 @@
         {
             if (Material != null)
             {
-                Material = Material.CreateRuntimeCopy();
+                Debug.Log("Not automatically creating material instances, because when tweening higlight box it was losing the reference...");
+                // Material = Material.CreateRuntimeCopy();
             }
         }
 
@@ -50,7 +54,11 @@
         }
         else
         {
-            RuntimeMesh = null;
+            Asset_Model model =
+                Tofu.AssetLoadManager.Load<Asset_Model>(Path.Combine(Folders.ModelsInAssets, "defaultCube.obj"));
+            RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets.First());
+
+            // RuntimeMesh = null;
         }
     }
 
