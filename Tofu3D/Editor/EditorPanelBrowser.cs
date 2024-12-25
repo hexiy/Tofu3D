@@ -189,7 +189,7 @@ public class EditorPanelBrowser : EditorPanel
         }
 
 
-        if (GameObjectSelectionManager.GetSelectedGameObject() != null)
+        if (Tofu.GameObjectSelectionManager.GetSelectedGameObject() != null)
         {
             ImGui.SameLine();
 
@@ -199,9 +199,9 @@ public class EditorPanelBrowser : EditorPanel
             var saveBtnPressed = ImGui.Button("Save Prefab");
             if (saveBtnPressed)
             {
-                Tofu.SceneSerializer.SaveGameObject(GameObjectSelectionManager.GetSelectedGameObject(),
+                Tofu.SceneSerializer.SaveGameObject(Tofu.GameObjectSelectionManager.GetSelectedGameObject(),
                     Path.Combine("Assets", CurrentDirectory.Name,
-                        GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
+                        Tofu.GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
             }
         }
 

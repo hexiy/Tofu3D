@@ -62,9 +62,9 @@ public class EditorPanelHierarchy : EditorPanel
 
         if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.WasKeyJustReleased(Keys.C))
         {
-            if (GameObjectSelectionManager.GetSelectedGameObject() != null)
+            if (Tofu.GameObjectSelectionManager.GetSelectedGameObject() != null)
             {
-                _clipboardGameObject = GameObjectSelectionManager.GetSelectedGameObject();
+                _clipboardGameObject = Tofu.GameObjectSelectionManager.GetSelectedGameObject();
                 Tofu.SceneSerializer.SaveClipboardGameObject(_clipboardGameObject);
             }
         }
@@ -75,7 +75,7 @@ public class EditorPanelHierarchy : EditorPanel
             {
                 var loadedGo = Tofu.SceneSerializer.LoadClipboardGameObject();
 
-                GameObjectSelectionManager.SelectGameObject(loadedGo);
+                Tofu.GameObjectSelectionManager.SelectGameObject(loadedGo);
             }
         }
     }
@@ -84,12 +84,12 @@ public class EditorPanelHierarchy : EditorPanel
     {
         var firstSelectedGameObjectIndex =
             Tofu.SceneManager.CurrentScene.GetGameObjectByID(_selectedGameObjects[0].Id).IndexInHierarchy;
-        foreach (var selectedGameObject in GameObjectSelectionManager.GetSelectedGameObjects())
+        foreach (var selectedGameObject in Tofu.GameObjectSelectionManager.GetSelectedGameObjects())
         {
             _selectedGameObjects.Remove(selectedGameObject);
             selectedGameObject.Destroy();
 
-            GameObjectSelectionManager.SelectGameObjects(_selectedGameObjects);
+            Tofu.GameObjectSelectionManager.SelectGameObjects(_selectedGameObjects);
         }
 
         int distance = int.MaxValue;
@@ -111,19 +111,19 @@ public class EditorPanelHierarchy : EditorPanel
 
         if (closestGameObject != null)
         {
-            GameObjectSelectionManager.SelectGameObject(closestGameObject);
+            Tofu.GameObjectSelectionManager.SelectGameObject(closestGameObject);
         }
     }
 
     private void MoveSelectedGameObject(int addToIndex = 1)
     {
         var direction = addToIndex;
-        if (GameObjectSelectionManager.GetSelectedGameObjects().Count == 0)
+        if (Tofu.GameObjectSelectionManager.GetSelectedGameObjects().Count == 0)
         {
             return;
         }
 
-        var go = GameObjectSelectionManager.GetSelectedGameObjects()[0];
+        var go = Tofu.GameObjectSelectionManager.GetSelectedGameObjects()[0];
         var oldIndex = go.IndexInHierarchy;
 
         if (oldIndex + direction >= Tofu.SceneManager.CurrentScene.GameObjects.Count ||
@@ -322,7 +322,7 @@ public class EditorPanelHierarchy : EditorPanel
 
         if (ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left) && false) // todo remove false
         {
-            Tofu.SceneViewController.MoveToGameObject(GameObjectSelectionManager.GetSelectedGameObject());
+            Tofu.SceneViewController.MoveToGameObject(Tofu.GameObjectSelectionManager.GetSelectedGameObject());
         }
 
 
@@ -331,7 +331,7 @@ public class EditorPanelHierarchy : EditorPanel
             if (_selectedGameObjects != _gameObjectsIndexesSelectedBefore)
             {
                 _selectedGameObjects = _gameObjectsIndexesSelectedBefore;
-                GameObjectSelectionManager.SelectGameObjects(_selectedGameObjects);
+                Tofu.GameObjectSelectionManager.SelectGameObjects(_selectedGameObjects);
             }
 
             // select gameobject selected before
@@ -403,7 +403,7 @@ public class EditorPanelHierarchy : EditorPanel
         else if (ImGui.IsItemHovered() && Tofu.MouseInput.IsButtonDown())
         {
             _gameObjectsIndexesSelectedBefore = _selectedGameObjects;
-            GameObjectSelectionManager.SelectGameObject(currentGameObject);
+            Tofu.GameObjectSelectionManager.SelectGameObject(currentGameObject);
         }
 
         if (opened)

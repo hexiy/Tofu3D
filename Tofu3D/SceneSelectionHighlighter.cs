@@ -8,7 +8,7 @@ public class SceneSelectionHighlighter
     public void Init()
     {
         GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
-        Scene.AnySceneLoaded += SpawnSelectionBoxGameobjects;
+        SceneManager.SceneLoaded += SpawnSelectionBoxGameobjects;
         SpawnSelectionBoxGameobjects();
     }
 

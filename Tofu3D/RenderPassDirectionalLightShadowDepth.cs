@@ -52,7 +52,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
     {
         base.PostRender();
         var renderToDebugTexture =
-            GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
+            Tofu.GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
         if (renderToDebugTexture || true)
         {

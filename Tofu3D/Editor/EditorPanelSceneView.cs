@@ -22,7 +22,7 @@ public class EditorPanelSceneView : EditorPanel
         if (Global.EditorAttached)
         {
             _renderCameraViews = true || /*Global.Debug &&*/
-                                 GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() !=
+                                 Tofu.GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() !=
                                  null;
 
             // int tooltipsPanelHeight = 70;

@@ -1,18 +1,50 @@
 namespace Tofu3D;
 
-public static class GameObjectSelectionManager
+public class GameObjectSelectionManager
 {
     public static Action<List<GameObject>> GameObjectsSelected;
 
-    private static readonly List<GameObject> _singleGameObjectList = new List<GameObject>(1) { null };
+    private int LastSelectedGameObjectId
+    {
+        get { return PersistentData.GetInt("LastSelectedGameObjectId", -1); }
+        set { PersistentData.Set("LastSelectedGameObjectId", value); }
+    }
 
-    public static void SelectGameObject(GameObject go)
+    private readonly List<GameObject> _singleGameObjectList = new List<GameObject>(1) { null };
+
+    public GameObjectSelectionManager()
+    {
+        SceneManager.SceneLoaded += SelectLastSelectedGameObject;
+    }
+
+    ~GameObjectSelectionManager()
+    {
+        SceneManager.SceneLoaded -= SelectLastSelectedGameObject;
+    }
+
+    public void SelectGameObject(GameObject go)
     {
         _singleGameObjectList[0] = go;
         SelectGameObjects(_singleGameObjectList);
     }
 
-    public static void SelectGameObjects(List<GameObject> gameObjects)
+    public void SelectLastSelectedGameObject()
+    {
+        if (LastSelectedGameObjectId == -1)
+        {
+            return;
+        }
+
+        GameObject go = Tofu.SceneManager.CurrentScene.GetGameObjectByID(LastSelectedGameObjectId);
+        if (go == null)
+        {
+            return;
+        }
+
+        SelectGameObject(go);
+    }
+
+    public void SelectGameObjects(List<GameObject> gameObjects)
     {
         if (gameObjects == null)
         {
@@ -50,7 +82,7 @@ public static class GameObjectSelectionManager
         if (isCameraOrTransformHandle == false && gameObjects.Count != 0)
         {
             TransformHandle.I.SelectObjects(gameObjects);
-            PersistentData.Set("lastSelectedGameObjectId", gameObjects[0].Id);
+            LastSelectedGameObjectId = gameObjects[0].Id;
         }
 
         // TransformHandle.I.SelectObjects(null);
@@ -79,7 +111,7 @@ public static class GameObjectSelectionManager
     // 	}
     // }
 
-    public static int GetGameObjectIndexInHierarchy(int id)
+    public int GetGameObjectIndexInHierarchy(int id)
     {
         for (var i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
         {
@@ -92,7 +124,7 @@ public static class GameObjectSelectionManager
         return -1;
     }
 
-    public static List<GameObject> GetSelectedGameObjects()
+    public List<GameObject> GetSelectedGameObjects()
     {
         List<GameObject> selectedGameObjects = new();
         for (var i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
@@ -106,7 +138,7 @@ public static class GameObjectSelectionManager
         return selectedGameObjects;
     }
 
-    public static GameObject GetSelectedGameObject()
+    public GameObject GetSelectedGameObject()
     {
         for (var i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
         {

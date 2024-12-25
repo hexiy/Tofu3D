@@ -13,7 +13,6 @@ public class Scene
     public static Action<Component> ComponentDisabled = component => { };
 
     // public static Action SceneModified = () => { };
-    public static Action AnySceneLoaded = () => { };
 
     private RenderableComponentQueue _renderableComponentQueue;
     private SceneLightingManager _sceneLightingManager;

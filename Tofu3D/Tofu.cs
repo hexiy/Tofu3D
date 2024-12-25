@@ -43,6 +43,7 @@ public static class Tofu
     public static MouseInput MouseInput;
 
     public static SceneSelectionHighlighter SceneSelectionHighlighter;
+    public static GameObjectSelectionManager GameObjectSelectionManager;
 
     public static void Launch()
     {
@@ -96,6 +97,10 @@ public static class Tofu
         
         SceneSelectionHighlighter = new SceneSelectionHighlighter();
         SceneSelectionHighlighter.Init();
+
+        GameObjectSelectionManager = new GameObjectSelectionManager();
+        
+
     }
 
     static Stopwatch sw = new Stopwatch();
