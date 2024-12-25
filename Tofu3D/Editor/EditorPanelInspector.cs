@@ -172,7 +172,6 @@ public class EditorPanelInspector : EditorPanel
             return;
         }
 
-
         SelectInspectables(gameObjects[0].Components);
     }
 

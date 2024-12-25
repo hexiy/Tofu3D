@@ -11,6 +11,7 @@ public class GameObjectSelectionManager
     }
 
     private readonly List<GameObject> _singleGameObjectList = new List<GameObject>(1) { null };
+    private readonly List<GameObject> _emptyGameObjectList = new List<GameObject>(0) { };
 
     public GameObjectSelectionManager()
     {
@@ -24,6 +25,12 @@ public class GameObjectSelectionManager
 
     public void SelectGameObject(GameObject go)
     {
+        if (go == null)
+        {
+            Deselect();
+            return;
+        }
+
         _singleGameObjectList[0] = go;
         SelectGameObjects(_singleGameObjectList);
     }
@@ -89,6 +96,11 @@ public class GameObjectSelectionManager
         GameObjectsSelected?.Invoke(gameObjects);
     }
 
+    public void Deselect()
+    {
+        LastSelectedGameObjectId = -1;
+        GameObjectsSelected?.Invoke(_emptyGameObjectList);
+    }
     // static void OnGameObjectSelected(List<int> ids)
     // {
     // 	if (Global.EditorAttached == false)

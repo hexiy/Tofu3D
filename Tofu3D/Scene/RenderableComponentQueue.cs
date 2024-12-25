@@ -23,6 +23,7 @@ public class RenderableComponentQueue : IComponentQueue
         if (component is IComponentRenderable componentRenderable)
         {
             _opaqueRenderables.Add(componentRenderable);
+            // _transparentRenderables.Add(componentRenderable);
         }
     }
 
@@ -31,6 +32,7 @@ public class RenderableComponentQueue : IComponentQueue
         if (component is IComponentRenderable componentRenderable)
         {
             _opaqueRenderables.Remove(componentRenderable);
+            // _transparentRenderables.Remove(componentRenderable);
         }
     }
 

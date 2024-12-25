@@ -48,6 +48,20 @@ public class TextRendererInstanced : ModelRendererInstanced
     [XmlIgnore]
     public List<RendererInstancingData> RendererInstancingDatas = new List<RendererInstancingData>();
 
+    public override void OnDisabled()
+    {
+        for (int i = 0;
+             i < RendererInstancingDatas.Count;
+             i++)
+        {
+            RendererInstancingData instancingData = RendererInstancingDatas[i];
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref instancingData, remove: true,
+                vertexBufferStructureType: VertexBufferStructureType.Model);
+        }
+
+        base.OnDisabled();
+    }
+
     public override void Awake()
     {
         base.Awake();
@@ -70,6 +84,10 @@ public class TextRendererInstanced : ModelRendererInstanced
 
     public override void Render()
     {
+        if (this.GameObject.ActiveInHierarchy == false)
+        {
+            return;
+        }
         if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
             InstancingData.MatrixDirty == false)
         {
@@ -188,14 +206,13 @@ public class TextRendererInstanced : ModelRendererInstanced
             maxX = Mathf.Max(maxX, currentX);
             maxY = Mathf.Min(maxY, currentY);
         }
-        
-        
-        
+
+
         currentY -= textComponent.Size * _characterSpacing.Y;
         maxY = Mathf.Min(maxY, currentY);
 
         // BoxShape.Size = new Vector3(maxX / _characterSpacing.X, 0.1f, 1 + maxY / _characterSpacing.Y);
-        BoxShape.Size = new Vector3(maxX/2f, 0.1f, maxY/2f);
+        BoxShape.Size = new Vector3(maxX / 2f, 0.1f, maxY / 2f);
         Transform.LocalScale = scaleBefore;
     }
 }

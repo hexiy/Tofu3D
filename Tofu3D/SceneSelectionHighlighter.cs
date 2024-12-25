@@ -45,13 +45,12 @@ public class SceneSelectionHighlighter
         runtimeMaterial.BlendMode = BlendMode.Fade;
 
         Tweener.Kill(this);
-        Asset_Material capturedMaterial = runtimeMaterial;
         Tweener.Tween(0.45f, 0.3f, 1.8f, (f) =>
             {
                 // runtimeMaterial.AlbedoTint doesnt do anything... this only works when referencing material like this "modelRenderer.Material"
                 // because in SetDefaultMaterial in renderer we created runtime copy, i'll keep this directly referencing modelRednerer.material so it doesnt break in future...
-                modelRenderer.Material.AlbedoTint = runtimeMaterial.AlbedoTint.SetA(f);
-                Debug.Log(modelRenderer.Material.AlbedoTint.A);
+                modelRenderer.Material.AlbedoTint = modelRenderer.Material.AlbedoTint.SetA(f);
+                // Debug.Log(modelRenderer.Material.AlbedoTint.A);
             }).SetTarget(this)
             .SetLoop(Tween.LoopType.Yoyo);
 
@@ -62,11 +61,19 @@ public class SceneSelectionHighlighter
     {
         if (_selectedGameObjects.Count == 0)
         {
+            _selectionBoxGameObject.SetActive(false);
             return;
         }
 
+        _selectionBoxGameObject.SetActive(true);
+
         GameObject go = _selectedGameObjects[0];
 
+        if (go.ActiveInHierarchy == false)
+        {
+            // _selectionBoxGameObject.SetActive(false);
+            // return;
+        }
 
         go.GetComponent<BoxShape>(out BoxShape boxShape);
         if (boxShape != null)

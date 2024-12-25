@@ -128,15 +128,18 @@ public static class MousePickingSystem
             }
         }
 
-        if (HoveredRenderer != null)
+        if (Tofu.MouseInput.ButtonPressed())
         {
-            if (Tofu.MouseInput.ButtonPressed())
+            Debug.Log($"selected:{HoveredRenderer?.GameObject.Name ?? "none"}");
+
+            // dont detect clicks on the transformhandle/selection highlighter box
+            if (HoveredRenderer?.GameObject.VisibleInHierarchy == true)
             {
-                Debug.Log($"selected:{HoveredRenderer.GameObject.Name}");
-                if (HoveredRenderer.GameObject.VisibleInHierarchy) // dont detect clicks on the transformhandle/selection highlighter box
-                {
-                    Tofu.GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObject);
-                }
+                Tofu.GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObject);
+            }
+            else if(HoveredRenderer?.GameObjectId!=TransformHandle.I.GameObjectId) // if we're dragging transformhandle we dont want to deselect anything
+            {
+                Tofu.GameObjectSelectionManager.Deselect();
             }
         }
         // Color color = new Color(_pixels);

@@ -28,7 +28,7 @@ public class ModelRendererInstanced : Renderer
 
     public override void SetDefaultMaterial()
     {
-        if (Material==null || Material?.IsRuntimeCopy == false)
+        if (Material == null || Material?.IsRuntimeCopy == false)
         {
             if (Material?.PathToRawAsset.Length == 0 || Material == null)
             {
@@ -43,7 +43,8 @@ public class ModelRendererInstanced : Renderer
         {
             if (Material != null)
             {
-                Debug.Log("Not automatically creating material instances, because when tweening higlight box it was losing the reference...");
+                Debug.Log(
+                    "Not automatically creating material instances, because when tweening higlight box it was losing the reference...");
                 // Material = Material.CreateRuntimeCopy();
             }
         }
@@ -64,6 +65,11 @@ public class ModelRendererInstanced : Renderer
 
     public override void Render()
     {
+        if (this.GameObject.ActiveInHierarchy == false)
+        {
+            return;
+        }
+
         if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
             InstancingData.MatrixDirty == false)
         {
@@ -92,9 +98,9 @@ public class ModelRendererInstanced : Renderer
             return;
         }*/
 
-
         var updatedData =
-            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, VertexBufferStructureType.Model);
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData,
+                VertexBufferStructureType.Model);
         if (updatedData)
         {
             InstancingData.InstancingDataDirty = false;

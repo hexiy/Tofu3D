@@ -415,21 +415,29 @@ public class InstancedRenderingSystem
 
         bufferData.NeedsUpload = true;
 
-        if (instancingData.InstancedRenderingStartingIndexInBuffer != -1 && remove)
+        if (instancingData.InstancedRenderingStartingIndexInBuffer != -1)
         {
-            RemoveObjectFromBuffer(bufferData, instancingData);
-        }
-        else if (instancingData.InstancedRenderingStartingIndexInBuffer != -1)
-        {
-            CopyObjectDataToBuffer(modelMatrix ?? renderer.GetModelMatrix(),
-                ref bufferData.Buffer,
-                instancingData.InstancedRenderingStartingIndexInBuffer, uvOffset: uvOffset,
-                mousePickingId: renderer.MousePickingId);
+            if (remove)
+            {
+                CopyObjectDataToBuffer(Matrix4x4.CreateScale(0,0,0),
+                    ref bufferData.Buffer,
+                    instancingData.InstancedRenderingStartingIndexInBuffer, uvOffset: uvOffset,
+                    mousePickingId: renderer.MousePickingId);
+                UploadBufferData(bufferData);
+                // RemoveObjectFromBuffer(bufferData, instancingData);
+            }
+
+            else
+            {
+                CopyObjectDataToBuffer(modelMatrix ?? renderer.GetModelMatrix(),
+                    ref bufferData.Buffer,
+                    instancingData.InstancedRenderingStartingIndexInBuffer, uvOffset: uvOffset,
+                    mousePickingId: renderer.MousePickingId);
+            }
         }
 
 
         _objectBufferDatas[instancingData.InstancedRenderingDefinitionIndex] = bufferData;
-
         return true;
     }
 
