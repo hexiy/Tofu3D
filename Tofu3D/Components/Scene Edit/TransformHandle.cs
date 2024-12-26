@@ -1,16 +1,8 @@
 ﻿namespace Tofu3D;
 
 [ExecuteInEditMode]
-public class TransformHandle : Component, IComponentUpdateable
+public partial class TransformHandle : Component, IComponentUpdateable
 {
-    public enum Axis
-    {
-        X,
-        Y,
-        Z,
-        Xy
-    }
-
     private List<Transform> _selectedTransforms = new List<Transform>();
     public BoxShape BoxColliderX;
     public BoxShape BoxColliderXy;
@@ -20,17 +12,24 @@ public class TransformHandle : Component, IComponentUpdateable
     [XmlIgnore]
     public bool Interacting { get; private set; }
 
-    public Axis? CurrentAxisSelected;
+    private TransformHandleMode _mode= TransformHandleMode.Position;
+
+    public TransformHandleAxis? CurrentAxisSelected;
     public ModelRendererInstanced ModelRendererX;
     public ModelRendererInstanced ModelRendererXy;
     public ModelRendererInstanced ModelRendererY;
     public ModelRendererInstanced ModelRendererZ;
-
+// create children gameobjects for position handle, rotation handle and scale handle
     public bool ObjectSelected;
     public static TransformHandle I { get; private set; }
 
     public void Update()
     {
+        if (Tofu.MouseInput.IsMouseInSceneView)
+        {
+            HandleModeChanges();
+        }
+
         if (Camera.MainCamera.IsOrthographic)
         {
             Transform.LocalScale = Vector3.One * Camera.MainCamera.OrthographicSize * 1.5f;
@@ -52,25 +51,25 @@ public class TransformHandle : Component, IComponentUpdateable
         {
             if (MousePickingSystem.HoveredRenderer == ModelRendererX)
             {
-                CurrentAxisSelected = Axis.X;
+                CurrentAxisSelected = TransformHandleAxis.X;
                 hoveringAny = true;
             }
 
             if (MousePickingSystem.HoveredRenderer == ModelRendererY)
             {
-                CurrentAxisSelected = Axis.Y;
+                CurrentAxisSelected = TransformHandleAxis.Y;
                 hoveringAny = true;
             }
 
             if (MousePickingSystem.HoveredRenderer == ModelRendererZ)
             {
-                CurrentAxisSelected = Axis.Z;
+                CurrentAxisSelected = TransformHandleAxis.Z;
                 hoveringAny = true;
             }
 
             if (MousePickingSystem.HoveredRenderer == ModelRendererXy)
             {
-                CurrentAxisSelected = Axis.Xy;
+                CurrentAxisSelected = TransformHandleAxis.Xy;
                 hoveringAny = true;
             }
         }
@@ -110,7 +109,7 @@ public class TransformHandle : Component, IComponentUpdateable
             return;
         }
 
-        if (MousePickingSystem.HoveredRenderer == ModelRendererX || CurrentAxisSelected == Axis.X)
+        if (MousePickingSystem.HoveredRenderer == ModelRendererX || CurrentAxisSelected == TransformHandleAxis.X)
         {
             ModelRendererX.Material.AlbedoTint = Color.WhiteSmoke;
         }
@@ -119,7 +118,7 @@ public class TransformHandle : Component, IComponentUpdateable
             ModelRendererX.Material.AlbedoTint = Color.Red;
         }
 
-        if (MousePickingSystem.HoveredRenderer == ModelRendererY || CurrentAxisSelected == Axis.Y)
+        if (MousePickingSystem.HoveredRenderer == ModelRendererY || CurrentAxisSelected == TransformHandleAxis.Y)
         {
             ModelRendererY.Material.AlbedoTint = Color.WhiteSmoke;
         }
@@ -128,7 +127,7 @@ public class TransformHandle : Component, IComponentUpdateable
             ModelRendererY.Material.AlbedoTint = Color.YellowGreen;
         }
 
-        if (MousePickingSystem.HoveredRenderer == ModelRendererXy || CurrentAxisSelected == Axis.Xy)
+        if (MousePickingSystem.HoveredRenderer == ModelRendererXy || CurrentAxisSelected == TransformHandleAxis.Xy)
         {
             ModelRendererXy.Material.AlbedoTint = Color.WhiteSmoke;
         }
@@ -137,13 +136,31 @@ public class TransformHandle : Component, IComponentUpdateable
             ModelRendererXy.Material.AlbedoTint = Color.Gold;
         }
 
-        if (MousePickingSystem.HoveredRenderer == ModelRendererZ || CurrentAxisSelected == Axis.Z)
+        if (MousePickingSystem.HoveredRenderer == ModelRendererZ || CurrentAxisSelected == TransformHandleAxis.Z)
         {
             ModelRendererZ.Material.AlbedoTint = Color.WhiteSmoke;
         }
         else
         {
             ModelRendererZ.Material.AlbedoTint = Color.Cyan;
+        }
+    }
+
+    private void HandleModeChanges()
+    {
+        if (KeyboardInput.IsKeyDown(Keys.W))
+        {
+            _mode = TransformHandleMode.Position;
+        }
+
+        if (KeyboardInput.IsKeyDown(Keys.E))
+        {
+            _mode = TransformHandleMode.Rotation;
+        }
+
+        if (KeyboardInput.IsKeyDown(Keys.R))
+        {
+            _mode = TransformHandleMode.Scale;
         }
     }
 
@@ -234,19 +251,43 @@ public class TransformHandle : Component, IComponentUpdateable
         // return;
         deltaVector = Camera.MainCamera.ScreenToWorld(deltaVector) * 100;
 
+        Vector3 axisDirection = Vector3.Zero;
         var moveVector = Vector3.Zero;
+        
         switch (CurrentAxisSelected)
         {
-            case Axis.X:
-                moveVector += deltaVector.VectorX();
+            case TransformHandleAxis.X:
+                axisDirection = Transform.TransformVectorToWorldSpaceVector(Vector3.Right);
                 break;
-            case Axis.Y:
-                moveVector += deltaVector.VectorY();
+            case TransformHandleAxis.Y:
+                axisDirection = Transform.TransformVectorToWorldSpaceVector(Vector3.Up);
                 break;
-            case Axis.Z:
+            case TransformHandleAxis.Z:
+                axisDirection = Transform.TransformVectorToWorldSpaceVector(Vector3.Forward);
+                break;
+        }
+        
+        // Vector3 deltaVectorInWorld
+        float similarityInDirection = Vector3.Dot(deltaVector.Normalized(), axisDirection);
+
+        // todo,
+        if (deltaVector.MaxVectorMember() > 0.01f)
+        {
+            // Debug.Log("similarityInDirection:" + similarityInDirection);
+        }
+
+        switch (CurrentAxisSelected)
+        {
+            case TransformHandleAxis.X:
+                moveVector += deltaVector.VectorX().Abs()*similarityInDirection;
+                break;
+            case TransformHandleAxis.Y:
+                moveVector += deltaVector.VectorY().Abs()*similarityInDirection;
+                break;
+            case TransformHandleAxis.Z:
                 moveVector -= new Vector3(deltaVector.Z, 0, deltaVector.X);
                 break;
-            case Axis.Xy:
+            case TransformHandleAxis.Xy:
                 moveVector += Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(deltaVector);
                 break;
         }
@@ -265,7 +306,7 @@ public class TransformHandle : Component, IComponentUpdateable
                 moveVector;
         }
 
-        Debug.Log($"Moving by:{moveVector}");
+        // Debug.Log($"Moving by:{moveVector}");
 
         // todo just do the position delta move in transform component for (int i = 0; i < selectedTransform.children.Count; i++) selectedTransform.children[i].position += moveVector;
 
@@ -288,16 +329,16 @@ public class TransformHandle : Component, IComponentUpdateable
             {
                 switch (CurrentAxisSelected)
                 {
-                    case Axis.X:
+                    case TransformHandleAxis.X:
                         _selectedTransforms[i].LocalPosition = new Vector3(
                             Tofu.MouseInput.WorldPosition.TranslateToGrid().X, _selectedTransforms[i].LocalPosition.Y,
                             0);
                         break;
-                    case Axis.Y:
+                    case TransformHandleAxis.Y:
                         _selectedTransforms[i].LocalPosition = new Vector3(_selectedTransforms[i].LocalPosition.X,
                             Tofu.MouseInput.WorldPosition.TranslateToGrid().Y, 0);
                         break;
-                    case Axis.Xy:
+                    case TransformHandleAxis.Xy:
                         _selectedTransforms[i].LocalPosition = Tofu.MouseInput.WorldPosition.TranslateToGrid(50);
                         break;
                 }
@@ -319,8 +360,8 @@ public class TransformHandle : Component, IComponentUpdateable
 
         // if (selection.Exists(i => i == -1))
         // {
-            // ObjectSelected = false;
-            // return;
+        // ObjectSelected = false;
+        // return;
         // }
 
         _selectedTransforms = new List<Transform>();

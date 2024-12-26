@@ -11,6 +11,7 @@ public class Folders
     public static string TexturesInLibrary => Path.Combine(Library, "Textures");
     public static string MaterialsInLibrary => Path.Combine(Library, "Materials");
     public static string MeshesInLibrary => Path.Combine(Library, "Meshes");
+    public static string ThumbnailsInLibrary => Path.Combine(Library, "Thumbnails");
     public static string TempInLibrary => Path.Combine(Library, "Temp");
 
     public static string Assets => Path.Combine(Environment.CurrentDirectory, "Assets");
