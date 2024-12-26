@@ -33,9 +33,9 @@ void main(void)
 	gl_Position = mvp * vec4(a_pos.xyz, 1.0);
 	uv = a_uv * vec2(-1, -1);
 	#if UV_OFFSET_IS_INSTANCED == 1
-	uvOffset = a_uv_offset;
+    uvOffset = a_uv_offset;
 	#endif
-	//color = a_color;
+    //color = a_color;
 
 	vertexPositionWorld = vec3(a_model * vec4(a_pos.xyz, 1.0));
 	normal = transpose(inverse(mat3(a_model))) * a_normal;
@@ -102,6 +102,9 @@ uniform int u_hasEmissiveTexture = 0;
 
 uniform sampler2D u_emissiveTexture;
 
+uniform int u_refractionEnabled;
+uniform float u_refractiveIndex;
+
 in vec3 normal;
 in vec2 uv;
 in vec3 vertexPositionWorld;
@@ -152,11 +155,11 @@ void main(void)
 {
 	vec2 uvCoords = (uv) * u_tiling;
 	#if UV_OFFSET_IS_INSTANCED == 1
-	uvCoords += uvOffset;
+    uvCoords += uvOffset;
 	#endif
-	if (u_hasMetallicTexture == 1) {
-		metallic = texture(u_metallicTexture, uvCoords).r;
-	}
+    if (u_hasMetallicTexture == 1) {
+	metallic = texture(u_metallicTexture, uvCoords).r;
+}
 	if (u_hasRoughnessTexture == 1) {
 		roughness = texture(u_roughnessTexture, uvCoords).r;
 	}
@@ -191,12 +194,11 @@ void main(void)
 	vec3 reflectionR = reflect(reflectionI, normalize(normal));
 
 	//		float ratio = 1.00 / 1.1;
-	float ratio = 1.00 / 1.309; // Water
+	//	float ratio = 1.00 / 1.309; // Water
 	//	float ratio = 1.00 / 1.309; // Ice
 	//		float ratio = 1.00 / 1.52; // Glass
 	//		float ratio = 1.00 / 2.42; // Diamond
 
-	vec3 refractionR = refract(reflectionI, normalize(normal), ratio);
 
 	vec3 environmentReflection = vec3(1, 1, 1);
 	vec3 environmentReflectionT = vec3(1, 1, 1);
@@ -204,12 +206,19 @@ void main(void)
 
 	if (u_hasEnvironmentCubemap == 1) {
 		environmentReflection = texture(u_environmentCubemap, reflectionR).rgb;
-		environmentRefraction = texture(u_environmentCubemap, refractionR).rgb;
 		environmentReflectionT = texture(u_environmentCubemap, vec3(10, 10, 10)).rgb;
+
+		environmentReflectionT.rgb = sRGBToLinear(environmentReflectionT.rgb);
+
+		if (u_refractionEnabled == 1)
+		{
+			vec3 refractionR = refract(reflectionI, normalize(normal), u_refractiveIndex);
+			environmentRefraction = texture(u_environmentCubemap, refractionR).rgb;
+			environmentRefraction.rgb = sRGBToLinear(environmentRefraction.rgb);
+		}
 	}
 
-	environmentReflectionT.rgb = sRGBToLinear(environmentReflectionT.rgb);
-	environmentRefraction.rgb = sRGBToLinear(environmentRefraction.rgb);
+
 
 	//	float a = fresnelFactor*1.5;
 
@@ -241,11 +250,11 @@ void main(void)
 	//	vec4 result = albedoColor * aoColor * max(final_ambient, final_diffuse) + min(final_ambient, final_diffuse);
 	//	result.a = albedoColor.a;// * color.a;
 
-//		if (result.a < 0.05)
-		if (albedoColor.a < 0.05)
-		{
-			discard; // having this fixes transparency sorting but breaks debug depthmap
-		}
+	//		if (result.a < 0.05)
+	if (albedoColor.a < 0.05)
+	{
+		discard; // having this fixes transparency sorting but breaks debug depthmap
+	}
 
 	//	if (u_specularHighlightsEnabled == 1)
 	//	{
@@ -296,12 +305,16 @@ void main(void)
 	albedoColorLit.rgb += environmentReflectionT * 0.01;
 	float reflectivity = (metallicCapped + (fresnelFactor * (1 - metallicCapped))) * newSmoothness;
 
-//	result.rgb = albedoColorLit.rgb + final_ambient.rgb; //+ environmentReflectionT*0.01;
+	//	result.rgb = albedoColorLit.rgb + final_ambient.rgb; //+ environmentReflectionT*0.01;
 	result.rgb = albedoColorLit.rgb; //+ environmentReflectionT*0.01;
 
-	//    	vec3 environmentRefractionAndReflectionMix = mix(environmentRefraction, environmentReflection, 1 - fresnelFactor) * metallicCapped;
-	// disable refraction for now
 	vec3 environmentRefractionAndReflectionMix = environmentReflection;
+
+	if (u_refractionEnabled == 1)
+	{
+		environmentRefractionAndReflectionMix = mix(environmentRefraction, environmentReflection, 1 - fresnelFactor) * metallicCapped;
+	}
+	// disable refraction for now
 	vec3 albedoAndMetallicMix = mix(result.rgb, environmentRefractionAndReflectionMix * metallicCapped, reflectivity);
 
 	float aaa = max(u_smoothness - u_metallic, 0);
@@ -363,7 +376,7 @@ void main(void)
 	}
 	//	float emissiveIntensity= u_emissiveColor.a + (-10.0/255.0) + 1;
 	result.rgb += emissiveColor;
-	
+
 	result.a = albedoColor.a;
 	//	result.rgb = u_emissiveColor.rgb;
 	if (u_renderMode == 0) // regular

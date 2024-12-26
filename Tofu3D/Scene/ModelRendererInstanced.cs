@@ -44,8 +44,12 @@ public class ModelRendererInstanced : Renderer
             if (Material != null)
             {
                 Debug.Log(
-                    "Not automatically creating material instances, because when tweening higlight box it was losing the reference...");
-                // Material = Material.CreateRuntimeCopy();
+                    "Not automatically creating material instances, because when tweening higlight box it was losing the reference... only create runtime copy if it was serialized as runtime copy");
+
+                if (Material.IsRuntimeCopy)
+                {
+                    Material = Material.CreateRuntimeCopy();
+                }
             }
         }
 

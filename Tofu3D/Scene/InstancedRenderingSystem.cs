@@ -214,6 +214,9 @@ public class InstancedRenderingSystem
             material.Shader.SetFloat("u_specularSmoothness", material.SpecularSmoothness);
             material.Shader.SetFloat("u_specularHighlightsEnabled", material.SpecularHighlightsEnabled ? 1 : 0);
 
+            material.Shader.SetInt("u_refractionEnabled", material.RefractionEnabled ? 1 : 0);
+            material.Shader.SetFloat("u_refractiveIndex", material.RefractiveIndex);
+
             //FOG
             var fogEnabled = Tofu.SceneManager.CurrentScene.SceneFogManager.FogEnabled;
             material.Shader.SetFloat("u_fogEnabled", fogEnabled ? 1 : 0);
@@ -419,7 +422,7 @@ public class InstancedRenderingSystem
         {
             if (remove)
             {
-                CopyObjectDataToBuffer(Matrix4x4.CreateScale(0,0,0),
+                CopyObjectDataToBuffer(Matrix4x4.CreateScale(0, 0, 0),
                     ref bufferData.Buffer,
                     instancingData.InstancedRenderingStartingIndexInBuffer, uvOffset: uvOffset,
                     mousePickingId: renderer.MousePickingId);
