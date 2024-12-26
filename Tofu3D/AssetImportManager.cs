@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Threading;
 using Scripts;
 using Tofu3D;
 
@@ -27,7 +28,7 @@ public class AssetImportManager
         Importers.Add(assetImporter.GetType().BaseType.GenericTypeArguments[0], assetImporter);
     }
 
-    public void ImportAsset(string rawAssetPath, bool reimportIfExists = false)
+    private void ImportAssetInNewThread(string rawAssetPath, bool reimportIfExists = false)
     {
         int id = rawAssetPath.GetHashCode();
         Tofu.AssetLoadManager.Unload(rawAssetPath);
@@ -68,10 +69,9 @@ public class AssetImportManager
             {
                 Asset_Model model = (Importers[typeof(Asset_Model)] as AssetImporter_Model)
                     .ImportAsset(assetImportParametersModel);
-                
+
                 foreach (string meshAsset in model.PathsToMeshAssets)
                 {
-                    
                     // if mesh was loaded, we load new mesh
                     if (Tofu.AssetLoadManager.IsAssetLoaded(meshAsset))
                     {
@@ -145,6 +145,15 @@ public class AssetImportManager
             // Assets[id] = texture;
             // }
         }
+        // Debug.Log("Asset import finished");
+    }
+
+    public void ImportAsset(string rawAssetPath, bool reimportIfExists = false)
+    {
+        Thread importThread = new Thread(() => { ImportAssetInNewThread(rawAssetPath, reimportIfExists); });
+        importThread.Name = "Asset import thread";
+        importThread.IsBackground = true;
+        importThread.Start();
     }
 
     public void ImportAllAssets(bool reimportIfExists = false)

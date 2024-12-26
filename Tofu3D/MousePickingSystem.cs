@@ -124,13 +124,13 @@ public static class MousePickingSystem
 
             if (HoveredRenderer != null)
             {
-                Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
+                // Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
             }
         }
 
         if (Tofu.MouseInput.ButtonPressed())
         {
-            Debug.Log($"selected:{HoveredRenderer?.GameObject.Name ?? "none"}");
+            // Debug.Log($"selected:{HoveredRenderer?.GameObject.Name ?? "none"}");
 
             // dont detect clicks on the transformhandle/selection highlighter box
             if (HoveredRenderer?.GameObject.VisibleInHierarchy == true)
