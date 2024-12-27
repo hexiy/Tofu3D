@@ -32,6 +32,7 @@ public class StressTestGameObjectSpawner : Component
             {
                 // GameObject go = SceneSerializer.Experimental_LoadClipboardGameObject();
                 var go = Tofu.SceneSerializer.LoadClipboardGameObject();
+                go.Transform.SetParent(Transform);
                 go.Transform.LocalPosition +=
                     new Vector3(Random.Range(-1f, 1f)*Radius, Random.Range(-1f, 1f)*Radius, Random.Range(-1f, 1f)*Radius);
                 go.Transform.Rotation += new Vector3(0, Random.Range(0, 360), 0);

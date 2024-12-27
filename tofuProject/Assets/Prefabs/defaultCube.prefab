@@ -4,7 +4,7 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>149</Id>
+      <Id>150</Id>
       <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>true</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
@@ -21,7 +21,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>149</GameObjectId>
+      <GameObjectId>150</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -61,7 +61,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>149</GameObjectId>
+      <GameObjectId>150</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -78,7 +78,7 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>149</GameObjectId>
+      <GameObjectId>150</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
