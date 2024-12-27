@@ -52,6 +52,11 @@ public struct Vector3 : IEquatable<Vector3>
     ///     Returns a <see cref="Vector3" /> with components 1, 1, 1.
     /// </summary>
     public static Vector3 One { get; } = new(1f, 1f, 1f);
+    
+    /// <summary>
+    ///     Returns a <see cref="Vector3" /> with components 0.5f, 0.5f, 0.5f.
+    /// </summary>
+    public static Vector3 Half { get; } = new(0.5f,0.5f,0.5f);
 
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components 1, 0, 0.

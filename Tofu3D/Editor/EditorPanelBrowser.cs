@@ -202,6 +202,8 @@ public class EditorPanelBrowser : EditorPanel
                 Tofu.SceneSerializer.SaveGameObject(Tofu.GameObjectSelectionManager.GetSelectedGameObject(),
                     Path.Combine("Assets", CurrentDirectory.Name,
                         Tofu.GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
+                
+                EditorPanelBrowser.I.RefreshAssets();
             }
         }
 
@@ -376,11 +378,11 @@ public class EditorPanelBrowser : EditorPanel
             {
                 var stringPointer = Marshal.StringToHGlobalAnsi(assetPath);
 
-                string payloadType = isMesh ? "MESH" : "MODEL";
+                string payloadType = isMesh ? DragDropPayloadTypes.Mesh : DragDropPayloadTypes.Model;
                 ImGui.SetDragDropPayload(payloadType, stringPointer,
                     (uint)(sizeof(char) * assetPath.Length));
 
-                var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                // var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
                 ImGui.Image(_fileIcon.TextureId, _iconSize);
 

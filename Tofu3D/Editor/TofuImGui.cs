@@ -9,11 +9,16 @@ public static class TofuImGui
             Tofu.Window.WindowSize.Y -
             ImGui.GetCursorScreenPos().Y / Tofu.Window.MonitorScale); // * new Vector2(-1, 1);
 
-    public static bool AcceptDragDropPayload(string payloadTag)
+    /// <summary>
+    /// Returns true only on mouse released
+    /// </summary>
+    /// <param name="payloadTag"></param>
+    /// <returns></returns>
+    public static bool PayloadHasBeenDropped(string payloadTag)
     {
         unsafe
         {
-            if (ImGui.AcceptDragDropPayload("MESH", ImGuiDragDropFlags.None).NativePtr != (ImGuiPayloadPtr)0)
+            if (ImGui.AcceptDragDropPayload(payloadTag, ImGuiDragDropFlags.None).NativePtr != (ImGuiPayloadPtr)0)
             {
                 return true;
             }

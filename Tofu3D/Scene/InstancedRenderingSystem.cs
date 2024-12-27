@@ -496,7 +496,7 @@ public class InstancedRenderingSystem
 
     private InstancedRenderingObjectBufferData InitializeBufferData(InstancedRenderingObjectDefinition objectDefinition)
     {
-        Debug.Log("Initializing Instanced Buffer Data");
+        // Debug.Log("Initializing Instanced Buffer Data");
         GL.BindVertexArray(objectDefinition.RuntimeMesh.Vao);
 
         InstancedRenderingObjectBufferData bufferData = new()

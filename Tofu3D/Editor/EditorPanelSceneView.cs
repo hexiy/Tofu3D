@@ -1,4 +1,5 @@
-﻿using ImGuiNET;
+﻿using System.Runtime.InteropServices;
+using ImGuiNET;
 using Tofu3D.Rendering;
 
 namespace Tofu3D;
@@ -22,7 +23,8 @@ public class EditorPanelSceneView : EditorPanel
         if (Global.EditorAttached)
         {
             _renderCameraViews = true || /*Global.Debug &&*/
-                                 Tofu.GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() !=
+                                 Tofu.GameObjectSelectionManager.GetSelectedGameObject()
+                                     ?.GetComponent<DirectionalLight>() !=
                                  null;
 
             // int tooltipsPanelHeight = 70;
@@ -68,6 +70,9 @@ public class EditorPanelSceneView : EditorPanel
             {
                 ImGui.Dummy(Tofu.RenderPassSystem.FinalFramebuffer.Size);
             }
+
+            HandleModelDragDrop();
+
 
             Tofu.MouseInput.IsMouseInSceneView = ImGui.IsItemHovered();
 
@@ -301,7 +306,6 @@ public class EditorPanelSceneView : EditorPanel
                 }
             }
 
-
             ImGui.End();
 
             ImGui.PopStyleVar();
@@ -325,6 +329,59 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.End();
         }
+    }
+
+    private bool _droppedModel = false;
+
+    private void HandleModelDragDrop()
+    {
+        if (ImGui.BeginDragDropTarget())
+        {
+            var path = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+
+            if (TofuImGui.PayloadHasBeenDropped(DragDropPayloadTypes.Model))
+            {
+                if (path.Length > 0 &&
+                    AssetFileExtensions.IsFileModel(path))
+                {
+                    Asset_Model modelAsset = Tofu.AssetLoadManager.Load<Asset_Model>(path);
+                    if (_droppedModel == false)
+                    {
+                        PutDraggedModelIntoScene(modelAsset);
+                        _droppedModel = true;
+                        Debug.Log("_droppedModel=true");
+                    }
+                }
+            }
+
+            if (Tofu.MouseInput.ButtonReleased(MouseButtons.Button1))
+            {
+                _droppedModel = false;
+                Debug.Log("_droppedModel=false");
+            }
+
+            ImGui.EndDragDropTarget();
+        }
+    }
+
+    private void PutDraggedModelIntoScene(Asset_Model modelAsset)
+    {
+        RuntimeMesh mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(modelAsset.PathsToMeshAssets[0]);
+
+        Vector3 worldPosition = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
+        Debug.Log($"Spawned at {worldPosition}");
+        GameObject go = GameObject.Create(name: "gameobject", position: worldPosition);
+        go.Transform.Pivot = Vector3.Half;
+        BoxShape boxShape = go.AddComponent<BoxShape>();
+        boxShape.Size = new Vector3(3, 3, 3);
+        ModelRendererInstanced modelRendererInstanced = go.AddComponent<ModelRendererInstanced>();
+
+        modelRendererInstanced.RuntimeMesh = mesh;
+
+        go.Awake();
+
+
+        Tofu.GameObjectSelectionManager.SelectGameObject(go);
     }
 
     public override void Update()

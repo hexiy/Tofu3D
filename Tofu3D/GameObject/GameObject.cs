@@ -414,6 +414,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         }
 
         Awoken = true;
+        
+        Start();
     }
 
     public bool CallComponentExecuteInEditModeMethod(Component component, string methodName) =>

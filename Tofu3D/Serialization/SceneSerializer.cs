@@ -111,7 +111,7 @@ public class SceneSerializer
             {
                 Tofu.SceneManager.CurrentScene.AddGameObjectToScene(go);
                 go.Awake();
-                go.Start();
+                // go.Start();
             }
         }
 

@@ -10,7 +10,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
@@ -42,7 +42,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Text</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
@@ -66,14 +66,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>4.6008544</X>
-        <Y>11.516041</Y>
-        <Z>-12.118143</Z>
+        <X>9.6946146E-32</X>
+        <Y>5.3232706E-33</Y>
+        <Z>-1.9711247E-38</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>4.6008544</X>
-        <Y>11.516041</Y>
-        <Z>-12.118143</Z>
+        <X>9.6946146E-32</X>
+        <Y>5.3232706E-33</Y>
+        <Z>-1.9711247E-38</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -86,8 +86,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>47.67265</X>
-        <Y>0.057815403</Y>
+        <X>0</X>
+        <Y>0</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -252,7 +252,7 @@ fsdfsdeq</Value>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>1</MousePickingId>
+      <MousePickingId>13</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -276,7 +276,7 @@ fsdfsdeq</Value>
             <X>112</X>
             <Y>72</Y>
           </Size>
-          <TextureId>19</TextureId>
+          <TextureId>21</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -338,5 +338,5 @@ fsdfsdeq</Value>
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>64</GameObjectNextId>
+  <GameObjectNextId>67</GameObjectNextId>
 </SceneFile>

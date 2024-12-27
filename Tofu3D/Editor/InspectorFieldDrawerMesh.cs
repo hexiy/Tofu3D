@@ -17,7 +17,7 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
 
         if (ImGui.BeginDragDropTarget())
         {
-            if (TofuImGui.AcceptDragDropPayload("MODEL"))
+            if (TofuImGui.PayloadHasBeenDropped("MODEL"))
             {
                 var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                 if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0 &&
@@ -41,7 +41,7 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
 
         if (ImGui.BeginDragDropTarget())
         {
-            if (TofuImGui.AcceptDragDropPayload("MESH"))
+            if (TofuImGui.PayloadHasBeenDropped("MESH"))
             {
                 var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                 if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0 &&
