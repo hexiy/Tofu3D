@@ -123,26 +123,14 @@ public class AssetLoadManager
             if (File.Exists(sourcePath) == false)
             {
                 Debug.LogError("not found asset " + loadParameters.PathToAsset);
+                
                 if (typeof(T) == typeof(Asset_Material))
                 {
-                    var mat = new Asset_Material()
-                        { Shader = new Shader("Assets/Shaders/ModelRendererInstanced.glsl") };
-                    mat.LoadShader();
-                    mat.PathToRawAsset = sourcePath;
-                    
-                    
-                    mat.LoadTextures();
-                    
-                    QuickSerializer.SaveFileJSON<Asset_Material>(path: sourcePath, mat);
-                    // return mat as T;
-                    asset = mat as T;
+                    asset = CreateDefaultMaterialAssetFile(sourcePath) as T;
                 }
-
-                // return asset;
             }
             else
             {
-
                 asset = (T)((dynamic)loaderAndLoadParameters.Item1).LoadAsset(loadParameters);
             }
 
@@ -156,6 +144,21 @@ public class AssetLoadManager
         }
 
         return asset;
+    }
+
+    private Asset_Material CreateDefaultMaterialAssetFile(string sourcePath)
+    {
+        var mat = new Asset_Material()
+            { Shader = new Shader("Assets/Shaders/ModelRendererInstanced.glsl") }; // default shader for now
+        mat.LoadShader();
+        mat.PathToRawAsset = sourcePath;
+        mat.LoadTextures();
+        QuickSerializer.SaveFileJSON<Asset_Material>(path: sourcePath, mat); // this needs to be here, otherwise there will be no .tofumaterial file in library if we're creating material ono the fly
+
+        Tofu.AssetImportManager.ImportAsset(sourcePath,reimportIfExists:true);
+        // QuickSerializer.SaveFileJSON<Asset_Material>(path: sourcePath, mat);
+        // return mat as T;
+        return mat;
     }
 
     public void Unload(string path)
