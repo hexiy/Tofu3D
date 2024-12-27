@@ -46,7 +46,7 @@ public class TextRendererInstanced : ModelRendererInstanced
     };
 
     private Vector2 _spritesCountInSpritesheet = new(16, 8);
-    private Vector2 _characterSpacing = new Vector2(1, 2); // 1,2 because font w:h ratio is 1:2
+    private Vector2 _characterSize = new Vector2(1, 2); // 1,2 because font w:h ratio is 1:2
 
     [XmlIgnore]
     public List<RendererInstancingData> RendererInstancingDatas = new List<RendererInstancingData>();
@@ -140,8 +140,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         float currentY = 0;
         float maxX = 0;
         float maxY = 0;
-
-        float xOffset = textComponent.Size * _characterSpacing.X / 2f;
+        float xOffset = 0;
 
         Vector3 scaleBefore = Transform.LocalScale;
         Transform.LocalScale = new Vector3(textComponent.Size / 2f, textComponent.Size, textComponent.Size);
@@ -185,10 +184,10 @@ public class TextRendererInstanced : ModelRendererInstanced
                         1f - 1f / -_spritesCountInSpritesheet.Y * rowIndex);
 
                 
-                Transform.Pivot = new Vector3(0, 0.5f, 1f);
 
                 var offsetTranslation =
                     Matrix4x4.CreateTranslation(currentX+xOffset, 0, currentY);
+                Transform.Pivot = new Vector3(0, 0.5f, 1f);
                 Matrix4x4 modelMatrix = GetModelMatrixWithoutBoxShape() * offsetTranslation;
                 Transform.Pivot = new Vector3(0, 0.5f, 0f);
 
@@ -206,20 +205,28 @@ public class TextRendererInstanced : ModelRendererInstanced
                 RendererInstancingDatas[i] = data;
             }
 
+            // currentX += textComponent.Size * _characterSize.X;
 
             charactersInCurrentLine++;
-            bool hitMaxCharactersPerLine = charactersInCurrentLine > maxCharactersPerLine;
+            bool hitMaxCharactersPerLine = charactersInCurrentLine >= maxCharactersPerLine;
 
-            bool newLine = hitMaxCharactersPerLine || isNewlineCharacter;
-            if (newLine)
+            bool nextCharacterWillBeNewLine = hitMaxCharactersPerLine || isNewlineCharacter;
+            maxX = Mathf.Max(maxX, currentX);
+            maxY = Mathf.Min(maxY, currentY);
+            if (nextCharacterWillBeNewLine)
             {
+                if (isNewlineCharacter == false)
+                {
+                    maxX = Mathf.Max(maxX, currentX + textComponent.Size * _characterSize.X);
+                }
+
                 currentX = 0;
                 charactersInCurrentLine = 0;
-                currentY -= textComponent.Size * _characterSpacing.Y;
+                currentY -= textComponent.Size * _characterSize.Y;
             }
             else
             {
-                currentX += textComponent.Size * _characterSpacing.X;
+                currentX += textComponent.Size * _characterSize.X;
             }
 
             maxX = Mathf.Max(maxX, currentX);
@@ -227,7 +234,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         }
 
 
-        currentY -= textComponent.Size * _characterSpacing.Y;
+        currentY -= textComponent.Size * _characterSize.Y;
         maxY = Mathf.Min(maxY, currentY);
 
         // BoxShape.Size = new Vector3(maxX / _characterSpacing.X, 0.1f, 1 + maxY / _characterSpacing.Y);

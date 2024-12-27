@@ -10,7 +10,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Camera</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
@@ -42,7 +42,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Text</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
@@ -66,14 +66,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>3.8156245</X>
-        <Y>11.348354</Y>
-        <Z>-13.240581</Z>
+        <X>0.7296322</X>
+        <Y>10.033815</Y>
+        <Z>-4.7674017</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>3.8156245</X>
-        <Y>11.348354</Y>
-        <Z>-13.240581</Z>
+        <X>0.7296322</X>
+        <Y>10.033815</Y>
+        <Z>-4.7674017</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -86,8 +86,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>52.08048</X>
-        <Y>0.18983555</Y>
+        <X>71.01406</X>
+        <Y>-11.698435</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -139,12 +139,12 @@
       <WorldPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>5</Z>
+        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>5</Z>
+        <Z>0</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -189,16 +189,16 @@
       <Pivot>
         <X>0</X>
         <Y>0.5</Y>
-        <Z>1</Z>
+        <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>1.0252612</X>
-        <Y>0.57735026</Y>
+        <X>0</X>
+        <Y>0</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1.0252612</X>
-        <Y>0.57735026</Y>
+        <X>0</X>
+        <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
       <LocalScale>
@@ -229,9 +229,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>4</X>
+        <X>1</X>
         <Y>0.1</Y>
-        <Z>-4</Z>
+        <Z>-2</Z>
       </Size>
     </Component>
     <Component xsi:type="Text">
@@ -241,10 +241,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Size>1</Size>
-      <Value>aasdwwww
-asd
-w
-fsdfsdeq</Value>
+      <Value>123</Value>
     </Component>
     <Component xsi:type="TextRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
@@ -338,5 +335,5 @@ fsdfsdeq</Value>
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>70</GameObjectNextId>
+  <GameObjectNextId>82</GameObjectNextId>
 </SceneFile>
