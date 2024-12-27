@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.IO;
+using System.Runtime.InteropServices;
 using ImGuiNET;
 using Tofu3D.Rendering;
 
@@ -331,46 +332,88 @@ public class EditorPanelSceneView : EditorPanel
         }
     }
 
-    private bool _droppedModel = false;
-
     private void HandleModelDragDrop()
     {
         if (ImGui.BeginDragDropTarget())
         {
             var path = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-            if (TofuImGui.PayloadHasBeenDropped(DragDropPayloadTypes.Model))
+            if (TofuImGui.PayloadHasBeenDropped(DragDropPayloadTypes.Model) ||
+                TofuImGui.PayloadHasBeenDropped(DragDropPayloadTypes.Mesh))
             {
-                if (path.Length > 0 &&
-                    AssetFileExtensions.IsFileModel(path))
+                if (path.Length > 0 && AssetFileExtensions.IsFileModel(path))
                 {
                     Asset_Model modelAsset = Tofu.AssetLoadManager.Load<Asset_Model>(path);
-                    if (_droppedModel == false)
-                    {
-                        PutDraggedModelIntoScene(modelAsset);
-                        _droppedModel = true;
-                        Debug.Log("_droppedModel=true");
-                    }
+                    SpawnModelIntoScene(model: modelAsset);
                 }
-            }
-
-            if (Tofu.MouseInput.ButtonReleased(MouseButtons.Button1))
-            {
-                _droppedModel = false;
-                Debug.Log("_droppedModel=false");
+                else if (path.Length > 0 && AssetFileExtensions.IsFileMesh(path))
+                {
+                    RuntimeMesh mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(path);
+                    SpawnMeshIntoScene(mesh: mesh, 0, true);
+                }
             }
 
             ImGui.EndDragDropTarget();
         }
     }
 
-    private void PutDraggedModelIntoScene(Asset_Model modelAsset)
+    private GameObject SpawnModelIntoScene(Asset_Model model)
     {
-        RuntimeMesh mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(modelAsset.PathsToMeshAssets[0]);
+        string importParametersPath = model.PathToRawAsset.GetPathOfImportParametersOfSourceAssetFile();
 
+        AssetImportParameters_Model importParameters =
+            QuickSerializer.ReadFileXML<AssetImportParameters_Model>(importParametersPath);
+
+        int countOfMeshes = importParameters.ImportAsSingleMesh ? 1 : model.PathsToMeshAssets.Count;
+        GameObject[] meshGameObjects =
+            new GameObject[countOfMeshes];
+
+        GameObject parent = null;
+
+        for (int i = 0; i < meshGameObjects.Length; i++)
+        {
+            RuntimeMesh mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets[i]);
+
+            GameObject meshGameObject =
+                SpawnMeshIntoScene(mesh, indexOfMesh: i, isSingleMeshInModel: countOfMeshes == 1);
+
+            if (countOfMeshes == 1)
+            {
+                parent = meshGameObject; // so we can return just parent and be done
+            }
+            else
+            {
+                if (parent == null)
+                {
+                    Vector3 worldPosition =
+                        Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
+
+                    string modelName =
+                        AssetFileExtensions.GetFileNameFromPathWithoutExtensions(model.PathToAssetInLibrary);
+
+                    parent = GameObject.Create(position: worldPosition, name: modelName);
+                }
+
+                meshGameObject.Transform.SetParent(parent.Transform);
+                meshGameObject.Transform.LocalPosition = Vector3.Zero;
+            }
+        }
+
+        return parent;
+    }
+
+    private GameObject SpawnMeshIntoScene(RuntimeMesh mesh, int indexOfMesh, bool isSingleMeshInModel)
+    {
         Vector3 worldPosition = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
-        Debug.Log($"Spawned at {worldPosition}");
-        GameObject go = GameObject.Create(name: "gameobject", position: worldPosition);
+
+        string name =
+            AssetFileExtensions.GetFileNameFromPathWithoutExtensions(mesh.MeshAssetPath);
+        if (isSingleMeshInModel == false)
+        {
+            name = name + "_" + indexOfMesh;
+        }
+
+        GameObject go = GameObject.Create(name: name, position: worldPosition);
         go.Transform.Pivot = Vector3.Half;
         BoxShape boxShape = go.AddComponent<BoxShape>();
         boxShape.Size = new Vector3(3, 3, 3);
@@ -382,6 +425,8 @@ public class EditorPanelSceneView : EditorPanel
 
 
         Tofu.GameObjectSelectionManager.SelectGameObject(go);
+
+        return go;
     }
 
     public override void Update()

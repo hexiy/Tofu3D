@@ -3,6 +3,21 @@ using System.Text;
 
 public static class AssetFileExtensions
 {
+    
+    public static string GetFileNameFromPathWithoutExtensions(string str)
+    {
+        return Path.GetFileNameWithoutExtension(str).TrimAfter('.');
+    }
+    public static string TrimAfter(this string str, char character)
+    {
+        if (str.Contains(character) == false)
+        {
+            return str;
+        }
+
+        return str.Remove(str.IndexOf(character));
+    }
+
     public static string GetPathOfImportParametersOfSourceAssetFile(this string sourceFilePath)
     {
         return sourceFilePath + ".importparameters";
@@ -21,7 +36,7 @@ public static class AssetFileExtensions
             fileName = fileName + extension;
         }
 
-            fileName = AssetPathConverter.ToProjectRelativePath(fileName);
+        fileName = AssetPathConverter.ToProjectRelativePath(fileName);
 
         return fileName;
     }
