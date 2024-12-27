@@ -30,6 +30,7 @@ public class AssetImportManager
 
     private void ImportAssetInNewThread(string rawAssetPath, bool reimportIfExists = false)
     {
+        rawAssetPath = AssetPathConverter.ToProjectRelativePath(rawAssetPath);
         int id = rawAssetPath.GetHashCode();
         Tofu.AssetLoadManager.Unload(rawAssetPath);
         string rawAssetFileName = Path.GetFileName(rawAssetPath); // with extension
@@ -43,8 +44,13 @@ public class AssetImportManager
             return;
         }
 
-        bool assetImportParametersFileExistsForThisAsset = File.Exists(importParametersFilePath);
 
+        bool assetImportParametersFileExistsForThisAsset = File.Exists(importParametersFilePath);
+        const bool FORCE_NEW_IMPORT_PARAMETERS = false;
+        if (FORCE_NEW_IMPORT_PARAMETERS)
+        {
+            assetImportParametersFileExistsForThisAsset = false;
+        }
 
         if (AssetFileExtensions.IsFileModel(rawAssetPath))
         {
@@ -150,10 +156,18 @@ public class AssetImportManager
 
     public void ImportAsset(string rawAssetPath, bool reimportIfExists = false)
     {
-        Thread importThread = new Thread(() => { ImportAssetInNewThread(rawAssetPath, reimportIfExists); });
-        importThread.Name = "Asset import thread";
-        importThread.IsBackground = true;
-        importThread.Start();
+        const bool IMPORT_ON_NEW_THREAD = false;
+        if (IMPORT_ON_NEW_THREAD)
+        {
+            Thread importThread = new Thread(() => { ImportAssetInNewThread(rawAssetPath, reimportIfExists); });
+            importThread.Name = "Asset import thread";
+            importThread.IsBackground = true;
+            importThread.Start();
+        }
+        else
+        {
+            ImportAssetInNewThread(rawAssetPath, reimportIfExists); 
+        }
     }
 
     public void ImportAllAssets(bool reimportIfExists = false)

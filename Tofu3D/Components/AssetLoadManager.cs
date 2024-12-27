@@ -69,17 +69,18 @@ public class AssetLoadManager
     }
 
     public T? Load<T>(AssetLoadParameters<T> loadParameters = null,
-        bool overwriteAlreadyLoadedAssets = false, bool creatingRuntimeCopy=false) where T : Asset<T>
+        bool overwriteAlreadyLoadedAssets = false, bool creatingRuntimeCopy = false) where T : Asset<T>
     {
-        return Load<T>(loadParameters.PathToAsset, loadParameters, overwriteAlreadyLoadedAssets, creatingRuntimeCopy:creatingRuntimeCopy);
+        return Load<T>(loadParameters.PathToAsset, loadParameters, overwriteAlreadyLoadedAssets,
+            creatingRuntimeCopy: creatingRuntimeCopy);
     }
-    
+
     // path here will be Assets/xxxxx
     public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null,
-        bool overwriteAlreadyLoadedAssets = false, bool creatingRuntimeCopy=false) where T : Asset<T>
+        bool overwriteAlreadyLoadedAssets = false, bool creatingRuntimeCopy = false) where T : Asset<T>
     {
         int id = sourcePath.GetHashCode();
-        
+
         if (creatingRuntimeCopy)
         {
             id = -id; // temp only
@@ -88,8 +89,8 @@ public class AssetLoadManager
             {
                 id = id - Random.Range(0, 1000000);
             }
-
         }
+
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
 
         // 
@@ -119,7 +120,31 @@ public class AssetLoadManager
                 loadParameters.PathToAsset = sourcePath.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
             }
 
-            asset = (T)((dynamic)loaderAndLoadParameters.Item1).LoadAsset(loadParameters);
+            if (File.Exists(sourcePath) == false)
+            {
+                Debug.LogError("not found asset " + loadParameters.PathToAsset);
+                if (typeof(T) == typeof(Asset_Material))
+                {
+                    var mat = new Asset_Material()
+                        { Shader = new Shader("Assets/Shaders/ModelRendererInstanced.glsl") };
+                    mat.LoadShader();
+                    mat.PathToRawAsset = sourcePath;
+                    
+                    
+                    mat.LoadTextures();
+                    
+                    QuickSerializer.SaveFileJSON<Asset_Material>(path: sourcePath, mat);
+                    // return mat as T;
+                    asset = mat as T;
+                }
+
+                // return asset;
+            }
+            else
+            {
+
+                asset = (T)((dynamic)loaderAndLoadParameters.Item1).LoadAsset(loadParameters);
+            }
 
             LoadedAssets[id] = asset;
             // (loaderAndLoadParameters.Item1 as AssetLoader<T?,T>).LoadAsset(newInstanceOfLoadParameters);

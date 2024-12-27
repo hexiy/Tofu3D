@@ -159,7 +159,7 @@ public class
         GL.DeleteShader(fs);
 
 
-        Tofu.ShaderManager.UseShader(this);
+        Tofu.ShaderManager.UseShader(this, forceUse: true);
 
         List<string> textureUniformsNames = new()
         {

@@ -7,6 +7,7 @@ public static class AssetFileExtensions
     {
         return sourceFilePath + ".importparameters";
     }
+
     // from /Assets/car.obj to /Library/car.asset
     public static string GetPathOfAssetInLibrayFromSourceAssetPathOrName(this string fileName)
     {
@@ -19,6 +20,8 @@ public static class AssetFileExtensions
         {
             fileName = fileName + extension;
         }
+
+            fileName = AssetPathConverter.ToProjectRelativePath(fileName);
 
         return fileName;
     }
@@ -85,9 +88,11 @@ public static class AssetFileExtensions
     {
         return fileName.EndsWith(".importparameters", StringComparison.OrdinalIgnoreCase);
     }
+
     public static bool IsFileModel(string fileName)
     {
-        return fileName.EndsWith(".tofumodel", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".obj", StringComparison.OrdinalIgnoreCase);
+        return fileName.EndsWith(".tofumodel", StringComparison.OrdinalIgnoreCase) ||
+               fileName.EndsWith(".obj", StringComparison.OrdinalIgnoreCase);
     }
 
     public static bool IsFileMesh(string fileName)
@@ -98,16 +103,21 @@ public static class AssetFileExtensions
     public static bool IsFileTexture(string fileName)
     {
         return fileName.EndsWith(".tofutexture", StringComparison.OrdinalIgnoreCase) ||
-               (fileName.EndsWith(".png", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+               (fileName.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+                fileName.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                fileName.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
                 fileName.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase));
     }
+
     public static bool IsFileTemporaryMisc(string fileName)
     {
         return fileName.EndsWith(".temp", StringComparison.OrdinalIgnoreCase);
     }
+
     public static bool IsFileMaterial(string fileName)
     {
-        return fileName.EndsWith(".tofumaterial", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".mat", StringComparison.OrdinalIgnoreCase);
+        return fileName.EndsWith(".tofumaterial", StringComparison.OrdinalIgnoreCase) ||
+               fileName.EndsWith(".mat", StringComparison.OrdinalIgnoreCase);
     }
 
     public static bool IsFileShader(string fileName)

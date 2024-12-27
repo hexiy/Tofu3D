@@ -1,3 +1,6 @@
+using System.IO;
+using System.Linq;
+
 public class TextRendererInstanced : ModelRendererInstanced
 {
     private readonly Dictionary<char, int> _fontMappings = new()
@@ -76,10 +79,19 @@ public class TextRendererInstanced : ModelRendererInstanced
     public override void SetDefaultMaterial()
     {
         base.SetDefaultMaterial();
-        Material.UVOffsetIsInstanced = true;
-        Material.LoadShader();
+
+        Asset_Model model =
+            Tofu.AssetLoadManager.Load<Asset_Model>(Path.Combine(Folders.ModelsInAssets, "plane.obj"));
+        RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets.First());
+
 
         Material = Material.CreateRuntimeCopy();
+        Material.AlbedoTexture =
+            Tofu.AssetLoadManager.Load<RuntimeTexture>(Path.Combine(Folders.TexturesInAssets, "font.png"));
+
+        Material.RenderMode = RenderMode.Transparent;
+        Material.UVOffsetIsInstanced = true;
+        Material.LoadShader();
     }
 
     public override void Render()
@@ -88,6 +100,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         {
             return;
         }
+
         if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
             InstancingData.MatrixDirty == false)
         {

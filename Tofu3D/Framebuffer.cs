@@ -1,8 +1,10 @@
-﻿namespace Tofu3D;
+﻿using System.IO;
+
+namespace Tofu3D;
 
 public class Framebuffer : ITexture
 {
-    private readonly Asset_Material _depthRenderTextureMaterial;
+    // private readonly Asset_Material _depthRenderTextureMaterial;
 
     private readonly bool _hasColorAttachment;
     private readonly bool _hasDepthAttachment;
@@ -17,16 +19,28 @@ public class Framebuffer : ITexture
     public int FrameBufferID;
 
     // public Material RenderTextureMaterial;
-    private int DownsampleFactor=1;
+    private int DownsampleFactor = 1;
     private readonly bool _isIntegerFramebuffer;
 
     public Framebuffer(Vector2 size, bool colorAttachment = false, bool depthAttachment = false,
-        bool hasStencil = false, bool isGrayscale = false, int downsampleFactor = 1, bool isIntegerFramebuffer=false)
+        bool hasStencil = false, bool isGrayscale = false, int downsampleFactor = 1, bool isIntegerFramebuffer = false)
     {
-        _depthRenderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/DepthRenderTexture.mat");
-        _renderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/RenderTexture.mat");
+        // _depthRenderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/DepthRenderTexture.mat");
+        // _renderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/RenderTexture.mat");
+
+        
+        // creating this in the library not assets, we need it as asset to reuse across other framebuffers and the asset system, but dont need to expose it to the user
+        _renderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>(Path.Combine(Folders.MaterialsInLibrary, "RenderTexture.mat"));
+        _renderTextureMaterial.Shader = new Shader("Assets/Shaders/RenderTexture.glsl");
+        // _renderTextureMaterial = new Asset_Material()
+        // { Shader = new Shader("Assets/Shaders/RenderTexture.glsl") };
+        _renderTextureMaterial.LoadShader();
+
+        // _depthRenderTextureMaterial = new Asset_Material()
+        // { Shader = new Shader("Assets/Shaders/RenderTexture.glsl") };
+        // _depthRenderTextureMaterial.LoadShader();
         DownsampleFactor = downsampleFactor;
-        Size = size/downsampleFactor;
+        Size = size / downsampleFactor;
         _hasColorAttachment = colorAttachment;
         _hasDepthAttachment = depthAttachment;
         _hasStencil = hasStencil;
@@ -85,7 +99,7 @@ public class Framebuffer : ITexture
                 (int)TextureMinFilter.Linear);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter,
                 (int)TextureMagFilter.Linear);
-            
+
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS,
                 (int)TextureWrapMode.ClampToEdge);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT,
@@ -170,7 +184,7 @@ public class Framebuffer : ITexture
         GL.Viewport(0, 0, (int)Size.X, (int)Size.Y);
 
         // GL.ClearColor(ClearColor.ToOtherColor());
-        GL.ClearColor(new Vector4(0,0,0,0).ToColor().ToOtherColor());
+        GL.ClearColor(new Vector4(0, 0, 0, 0).ToColor().ToOtherColor());
         // GL.StencilMask(0xFF);
         // GL.Enable(EnableCap.StencilTest);
 
@@ -180,12 +194,12 @@ public class Framebuffer : ITexture
 
     public void RenderDepthAttachmentToThis(int texture)
     {
-        Tofu.ShaderManager.UseShader(_depthRenderTextureMaterial.Shader);
-        _depthRenderTextureMaterial.Shader.SetMatrix4X4("u_mvp",
+        Tofu.ShaderManager.UseShader(_renderTextureMaterial.Shader);
+        _renderTextureMaterial.Shader.SetMatrix4X4("u_mvp",
             Matrix4x4.Identity); //Camera.I.ViewMatrix * Camera.I.ProjectionMatrix);
 
         Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
-        
+
         GL.Enable(EnableCap.Blend);
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.ActiveTexture(TextureUnit.Texture0);

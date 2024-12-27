@@ -32,11 +32,17 @@ public class ShaderManager
         GL.BindVertexArray(vao);
     }
 
-    public void UseShader(Shader shader)
+    public void UseShader(Shader shader, bool forceUse=false)
     {
         if (shader == null)
         {
             Debug.Log("shader is null");
+            return;
+        }
+
+        if (shader.IsLoaded == false && forceUse==false)
+        {
+            Debug.LogError("trying to use not loaded shader!!!!!");
             return;
         }
 

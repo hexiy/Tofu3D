@@ -366,13 +366,16 @@ public class EditorPanelInspector : EditorPanel
 
             if (componentInspectorData.InspectableType == typeof(Asset_Material))
             {
-                ImGui.PushStyleColor(ImGuiCol.Header, Color.Honeydew.ToVector4());
+                Vector4 headerColor = Color.Honeydew.ToVector4();
 
                 Asset_Material material = componentInspectorData.Inspectable as Asset_Material;
                 if (material is { IsRuntimeCopy: true })
                 {
                     inspectableName += " | RUNTIME COPY";
+                    headerColor = Color.Gold.ToVector4();
                 }
+                ImGui.PushStyleColor(ImGuiCol.Header, headerColor);
+
             }
 
             var headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);

@@ -9,17 +9,29 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
         var materialPath = "";
-
+        Asset_Material material=null;
         if (componentInspectorData.Inspectable is Renderer)
         {
-            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material?.PathToRawAsset)??materialPath;
+            materialPath =
+                Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material?.PathToRawAsset) ??
+                materialPath;
+
+            material = (componentInspectorData.Inspectable as Renderer).Material;
         }
         else if (componentInspectorData.Inspectable is Asset_Material)
         {
             materialPath = Path.GetFileName((componentInspectorData.Inspectable as Asset_Material).PathToRawAsset);
+            material = (componentInspectorData.Inspectable as Asset_Material);
+
         }
-        
+
         materialPath = materialPath ?? "";
+
+        if (material?.IsRuntimeCopy == true)
+        {
+            Vector4 headerColor = Color.DarkGoldenrod.ToVector4();
+            ImGui.PushStyleColor(ImGuiCol.Text, headerColor);
+        }
 
 
         var clicked = ImGui.Button(materialPath,
@@ -64,6 +76,11 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
             }
 
             ImGui.EndDragDropTarget();
+        }
+
+        if (material?.IsRuntimeCopy == true)
+        {
+            ImGui.PopStyleColor();
         }
     }
 }

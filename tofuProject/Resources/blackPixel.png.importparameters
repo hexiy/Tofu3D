@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetImportParameters_Texture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PathToSourceAsset>Resources/blackPixel.png</PathToSourceAsset>
+  <FilterMode>Bilinear</FilterMode>
+  <WrapMode>Repeat</WrapMode>
+  <IsSrgb>false</IsSrgb>
+  <BlackIsTransparency>false</BlackIsTransparency>
+</AssetImportParameters_Texture>

@@ -8,6 +8,8 @@ public class InstancedRenderingSystem
 
     // index in _definitions
     private Dictionary<int, InstancedRenderingObjectBufferData> _objectBufferDatas = new();
+    private Asset_Material _mousePickingMaterial;
+    private Asset_Material _depthMaterial;
 
     public void ClearBuffers()
     {
@@ -140,10 +142,17 @@ public class InstancedRenderingSystem
         // GL.Enable(EnableCap.DepthTest);
         if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
         {
-            Asset_Material mousePickingMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("ModelMousePicking.mat");
-            Tofu.ShaderManager.UseShader(mousePickingMaterial.Shader);
+            if (_mousePickingMaterial == null)
+            {
+                _mousePickingMaterial = new Asset_Material()
+                    { Shader = new Shader("Assets/Shaders/ModelMousePicking.glsl") };
+                _mousePickingMaterial.LoadShader();
+            }
 
-            mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
+            // _mousePickingMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("ModelMousePicking.mat");
+            Tofu.ShaderManager.UseShader(_mousePickingMaterial.Shader);
+
+            _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
                 Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
@@ -161,10 +170,19 @@ public class InstancedRenderingSystem
                 return;
             }
 
-            var depthMaterial =
-                Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstancedDepth.mat");
-            Tofu.ShaderManager.UseShader(depthMaterial.Shader);
-            depthMaterial.Shader.SetMatrix4X4("u_viewProjection",
+            // var depthMaterial =
+            // Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstancedDepth.mat");
+
+            if (_depthMaterial == null)
+            {
+                _depthMaterial = new Asset_Material()
+                    { Shader = new Shader("Assets/Shaders/ModelRendererInstancedDepth.glsl") };
+                _depthMaterial.LoadShader();
+            }
+
+
+            Tofu.ShaderManager.UseShader(_depthMaterial.Shader);
+            _depthMaterial.Shader.SetMatrix4X4("u_viewProjection",
                 Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
 
@@ -334,6 +352,8 @@ public class InstancedRenderingSystem
             // GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount,
             //     objectBufferPair.Value.NumberOfObjects);
         }
+
+        ImGuiController.CheckGlError("instanced rendering error");
     }
 
     private void GL_DrawArraysInstanced(PrimitiveType primitiveType, int first, int verticesCount, int instancesCount)
