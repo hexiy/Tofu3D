@@ -124,7 +124,7 @@ public static class MousePickingSystem
 
             if (HoveredRenderer != null)
             {
-                // Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
+                Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
             }
         }
 

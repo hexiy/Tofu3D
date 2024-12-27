@@ -68,6 +68,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="..\tofuProject\Library\Temp\">
+          <Link>tofuProject\Library\Temp</Link>
+        </Folder>
         <Folder Include="Audio"/>
     </ItemGroup>
 
@@ -84,6 +87,702 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Content Include="..\tofuProject\.DS_Store">
+          <Link>tofuProject\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\.DS_Store">
+          <Link>tofuProject\Assets\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\.DS_Store">
+          <Link>tofuProject\Assets\2D\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\11_fire_spritesheet.png">
+          <Link>tofuProject\Assets\2D\11_fire_spritesheet.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\11_fire_spritesheet.png.importparameters">
+          <Link>tofuProject\Assets\2D\11_fire_spritesheet.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\adventurer.png">
+          <Link>tofuProject\Assets\2D\adventurer.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\adventurer.png.importparameters">
+          <Link>tofuProject\Assets\2D\adventurer.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\font.png">
+          <Link>tofuProject\Assets\2D\font.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\font.png.importparameters">
+          <Link>tofuProject\Assets\2D\font.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\grass.jpg">
+          <Link>tofuProject\Assets\2D\grass.jpg</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\grass.jpg.importparameters">
+          <Link>tofuProject\Assets\2D\grass.jpg.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\grid.png">
+          <Link>tofuProject\Assets\2D\grid.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\grid.png.importparameters">
+          <Link>tofuProject\Assets\2D\grid.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\gridX.png">
+          <Link>tofuProject\Assets\2D\gridX.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\gridX.png.importparameters">
+          <Link>tofuProject\Assets\2D\gridX.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\particle.png">
+          <Link>tofuProject\Assets\2D\particle.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\particle.png.importparameters">
+          <Link>tofuProject\Assets\2D\particle.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\purple.png">
+          <Link>tofuProject\Assets\2D\purple.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\purple.png.importparameters">
+          <Link>tofuProject\Assets\2D\purple.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\.DS_Store">
+          <Link>tofuProject\Assets\2D\skybox2\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\Daylight Box_Back.bmp">
+          <Link>tofuProject\Assets\2D\skybox2\Daylight Box_Back.bmp</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\Daylight Box_Back.bmp.importparameters">
+          <Link>tofuProject\Assets\2D\skybox2\Daylight Box_Back.bmp.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\Daylight Box_Bottom.bmp">
+          <Link>tofuProject\Assets\2D\skybox2\Daylight Box_Bottom.bmp</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\Daylight Box_Bottom.bmp.importparameters">
+          <Link>tofuProject\Assets\2D\skybox2\Daylight Box_Bottom.bmp.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\Daylight Box_Front.bmp">
+          <Link>tofuProject\Assets\2D\skybox2\Daylight Box_Front.bmp</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\Daylight Box_Front.bmp.importparameters">
+          <Link>tofuProject\Assets\2D\skybox2\Daylight Box_Front.bmp.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\Daylight Box_Left.bmp">
+          <Link>tofuProject\Assets\2D\skybox2\Daylight Box_Left.bmp</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\Daylight Box_Left.bmp.importparameters">
+          <Link>tofuProject\Assets\2D\skybox2\Daylight Box_Left.bmp.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\Daylight Box_Right.bmp">
+          <Link>tofuProject\Assets\2D\skybox2\Daylight Box_Right.bmp</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\Daylight Box_Right.bmp.importparameters">
+          <Link>tofuProject\Assets\2D\skybox2\Daylight Box_Right.bmp.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\Daylight Box_Top.bmp">
+          <Link>tofuProject\Assets\2D\skybox2\Daylight Box_Top.bmp</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\skybox2\Daylight Box_Top.bmp.importparameters">
+          <Link>tofuProject\Assets\2D\skybox2\Daylight Box_Top.bmp.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\space.PNG">
+          <Link>tofuProject\Assets\2D\space.PNG</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\space.PNG.importparameters">
+          <Link>tofuProject\Assets\2D\space.PNG.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\spaceBrighter.PNG">
+          <Link>tofuProject\Assets\2D\spaceBrighter.PNG</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\spaceBrighter.PNG.importparameters">
+          <Link>tofuProject\Assets\2D\spaceBrighter.PNG.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\stone.png">
+          <Link>tofuProject\Assets\2D\stone.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\stone.png.importparameters">
+          <Link>tofuProject\Assets\2D\stone.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\tofu3d.png">
+          <Link>tofuProject\Assets\2D\tofu3d.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\tofu3d.png.importparameters">
+          <Link>tofuProject\Assets\2D\tofu3d.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\white.png">
+          <Link>tofuProject\Assets\2D\white.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\2D\white.png.importparameters">
+          <Link>tofuProject\Assets\2D\white.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\.DS_Store">
+          <Link>tofuProject\Assets\3D\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\.DS_Store">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\source\.DS_Store">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\source\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\source\1d7e925654624282a6a6409d5156d97b.obj">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\source\1d7e925654624282a6a6409d5156d97b.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\source\1d7e925654624282a6a6409d5156d97b.obj.importparameters">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\source\1d7e925654624282a6a6409d5156d97b.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\.DS_Store">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_01_metallic.png">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_01_metallic.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_01_metallic.png.importparameters">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_01_metallic.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_01_roughness.png">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_01_roughness.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_01_roughness.png.importparameters">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_01_roughness.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_02_basecolor.png">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_02_basecolor.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_02_basecolor.png.importparameters">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_02_basecolor.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_03_normal.png">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_03_normal.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_03_normal.png.importparameters">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\Aged_Bronze_03_normal.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\belt_low_ambient_occlusion_02.png">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\belt_low_ambient_occlusion_02.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\belt_low_ambient_occlusion_02.png.importparameters">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\belt_low_ambient_occlusion_02.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\belt_low_curvature.png">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\belt_low_curvature.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\chaos-belly-plate\textures\belt_low_curvature.png.importparameters">
+          <Link>tofuProject\Assets\3D\chaos-belly-plate\textures\belt_low_curvature.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\cone.obj">
+          <Link>tofuProject\Assets\3D\cone.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\cone.obj.importparameters">
+          <Link>tofuProject\Assets\3D\cone.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\defaultCube.obj">
+          <Link>tofuProject\Assets\3D\defaultCube.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\defaultCube.obj.importparameters">
+          <Link>tofuProject\Assets\3D\defaultCube.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\grass block\.DS_Store">
+          <Link>tofuProject\Assets\3D\grass block\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\grass block\blockExportedNonTriangulated.obj">
+          <Link>tofuProject\Assets\3D\grass block\blockExportedNonTriangulated.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\grass block\blockExportedNonTriangulated.obj.importparameters">
+          <Link>tofuProject\Assets\3D\grass block\blockExportedNonTriangulated.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\grass block\blockExportedTriangulated.obj">
+          <Link>tofuProject\Assets\3D\grass block\blockExportedTriangulated.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\grass block\blockExportedTriangulated.obj.importparameters">
+          <Link>tofuProject\Assets\3D\grass block\blockExportedTriangulated.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\grass block\Grass_Block.obj">
+          <Link>tofuProject\Assets\3D\grass block\Grass_Block.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\grass block\Grass_Block.obj.importparameters">
+          <Link>tofuProject\Assets\3D\grass block\Grass_Block.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\grass block\Grass_Block_TEX.png">
+          <Link>tofuProject\Assets\3D\grass block\Grass_Block_TEX.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\grass block\Grass_Block_TEX.png.importparameters">
+          <Link>tofuProject\Assets\3D\grass block\Grass_Block_TEX.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\plane.obj">
+          <Link>tofuProject\Assets\3D\plane.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\plane.obj.importparameters">
+          <Link>tofuProject\Assets\3D\plane.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\sculpture\.DS_Store">
+          <Link>tofuProject\Assets\3D\sculpture\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\sculpture\sculpture.jpeg">
+          <Link>tofuProject\Assets\3D\sculpture\sculpture.jpeg</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\sculpture\sculpture.jpeg.importparameters">
+          <Link>tofuProject\Assets\3D\sculpture\sculpture.jpeg.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\sculpture\sculpture.obj">
+          <Link>tofuProject\Assets\3D\sculpture\sculpture.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\sculpture\sculpture.obj.importparameters">
+          <Link>tofuProject\Assets\3D\sculpture\sculpture.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\sculpture\sculpture_fwdAxisPositiveZ.obj">
+          <Link>tofuProject\Assets\3D\sculpture\sculpture_fwdAxisPositiveZ.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\sculpture\sculpture_fwdAxisPositiveZ.obj.importparameters">
+          <Link>tofuProject\Assets\3D\sculpture\sculpture_fwdAxisPositiveZ.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\smoothCube.obj">
+          <Link>tofuProject\Assets\3D\smoothCube.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\smoothCube.obj.importparameters">
+          <Link>tofuProject\Assets\3D\smoothCube.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\sphere.obj">
+          <Link>tofuProject\Assets\3D\sphere.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\sphere.obj.importparameters">
+          <Link>tofuProject\Assets\3D\sphere.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\sponza.obj">
+          <Link>tofuProject\Assets\3D\sponza.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\sponza.obj.importparameters">
+          <Link>tofuProject\Assets\3D\sponza.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\Teapot.obj">
+          <Link>tofuProject\Assets\3D\Teapot.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\Teapot.obj.importparameters">
+          <Link>tofuProject\Assets\3D\Teapot.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\torus.obj">
+          <Link>tofuProject\Assets\3D\torus.obj</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\3D\torus.obj.importparameters">
+          <Link>tofuProject\Assets\3D\torus.obj.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Audio\dumdumduim.mp3">
+          <Link>tofuProject\Assets\Audio\dumdumduim.mp3</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Audio\oriental.mp3">
+          <Link>tofuProject\Assets\Audio\oriental.mp3</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Materials\.DS_Store">
+          <Link>tofuProject\Assets\Materials\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Materials\ModelRendererInstanced.mat">
+          <Link>tofuProject\Assets\Materials\ModelRendererInstanced.mat</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Prefabs\.DS_Store">
+          <Link>tofuProject\Assets\Prefabs\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Prefabs\defaultCube.prefab">
+          <Link>tofuProject\Assets\Prefabs\defaultCube.prefab</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Scenes\.DS_Store">
+          <Link>tofuProject\Assets\Scenes\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Scenes\scene0.scene">
+          <Link>tofuProject\Assets\Scenes\scene0.scene</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\BloomHorizontal.glsl">
+          <Link>tofuProject\Assets\Shaders\BloomHorizontal.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\BloomPostProcess.glsl">
+          <Link>tofuProject\Assets\Shaders\BloomPostProcess.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\BloomThreshold.glsl">
+          <Link>tofuProject\Assets\Shaders\BloomThreshold.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\BloomVertical.glsl">
+          <Link>tofuProject\Assets\Shaders\BloomVertical.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\BoxRenderer.glsl">
+          <Link>tofuProject\Assets\Shaders\BoxRenderer.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\DepthModelRenderer.glsl">
+          <Link>tofuProject\Assets\Shaders\DepthModelRenderer.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\DepthRenderTexture.glsl">
+          <Link>tofuProject\Assets\Shaders\DepthRenderTexture.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\GradientRenderer.glsl">
+          <Link>tofuProject\Assets\Shaders\GradientRenderer.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\ModelMousePicking.glsl">
+          <Link>tofuProject\Assets\Shaders\ModelMousePicking.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\ModelRenderer.glsl">
+          <Link>tofuProject\Assets\Shaders\ModelRenderer.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\ModelRendererInstanced.glsl">
+          <Link>tofuProject\Assets\Shaders\ModelRendererInstanced.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\ModelRendererInstancedDepth.glsl">
+          <Link>tofuProject\Assets\Shaders\ModelRendererInstancedDepth.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\ModelRendererUnlit.glsl">
+          <Link>tofuProject\Assets\Shaders\ModelRendererUnlit.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\RenderTexture.glsl">
+          <Link>tofuProject\Assets\Shaders\RenderTexture.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\RenderTextureBloom.glsl">
+          <Link>tofuProject\Assets\Shaders\RenderTextureBloom.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\RenderTexturePostProcess.glsl">
+          <Link>tofuProject\Assets\Shaders\RenderTexturePostProcess.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\Skybox.glsl">
+          <Link>tofuProject\Assets\Shaders\Skybox.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\Snow.glsl">
+          <Link>tofuProject\Assets\Shaders\Snow.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\SpriteRenderer.glsl">
+          <Link>tofuProject\Assets\Shaders\SpriteRenderer.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\SpriteRendererInstanced.glsl">
+          <Link>tofuProject\Assets\Shaders\SpriteRendererInstanced.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\SpriteRendererOldBatched.glsl">
+          <Link>tofuProject\Assets\Shaders\SpriteRendererOldBatched.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\SpriteSheetRenderer.glsl">
+          <Link>tofuProject\Assets\Shaders\SpriteSheetRenderer.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\Assets\Shaders\TextRenderer.glsl">
+          <Link>tofuProject\Assets\Shaders\TextRenderer.glsl</Link>
+        </Content>
+        <Content Include="..\tofuProject\defaultSettings.ini">
+          <Link>tofuProject\defaultSettings.ini</Link>
+        </Content>
+        <Content Include="..\tofuProject\editor.ini">
+          <Link>tofuProject\editor.ini</Link>
+        </Content>
+        <Content Include="..\tofuProject\imgui.ini">
+          <Link>tofuProject\imgui.ini</Link>
+        </Content>
+        <Content Include="..\tofuProject\inconsolata.ttf">
+          <Link>tofuProject\inconsolata.ttf</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\.DS_Store">
+          <Link>tofuProject\Library\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Materials\.DS_Store">
+          <Link>tofuProject\Library\Materials\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Materials\ModelRendererInstanced.mat.tofumaterial">
+          <Link>tofuProject\Library\Materials\ModelRendererInstanced.mat.tofumaterial</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Materials\RenderTexture.mat.tofumaterial">
+          <Link>tofuProject\Library\Materials\RenderTexture.mat.tofumaterial</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\1d7e925654624282a6a6409d5156d97b.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\1d7e925654624282a6a6409d5156d97b.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\blockExportedNonTriangulated.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\blockExportedNonTriangulated.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\blockExportedTriangulated.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\blockExportedTriangulated.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\cone.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\cone.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\defaultCube.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\defaultCube.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\defaultCube.obj_1.tofumesh">
+          <Link>tofuProject\Library\Meshes\defaultCube.obj_1.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\Grass_Block.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\Grass_Block.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\model.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\model.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\plane.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\plane.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\sculpture.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\sculpture.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\sculpture.obj_1.tofumesh">
+          <Link>tofuProject\Library\Meshes\sculpture.obj_1.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\sculpture_fwdAxisPositiveZ.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\sculpture_fwdAxisPositiveZ.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\smoothCube.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\smoothCube.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\sphere.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\sphere.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\sponza.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\sponza.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\Teapot.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\Teapot.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Meshes\torus.obj_0.tofumesh">
+          <Link>tofuProject\Library\Meshes\torus.obj_0.tofumesh</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\1d7e925654624282a6a6409d5156d97b.obj.tofumodel">
+          <Link>tofuProject\Library\Models\1d7e925654624282a6a6409d5156d97b.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\blockExportedNonTriangulated.obj.tofumodel">
+          <Link>tofuProject\Library\Models\blockExportedNonTriangulated.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\blockExportedTriangulated.obj.tofumodel">
+          <Link>tofuProject\Library\Models\blockExportedTriangulated.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\cone.obj.tofumodel">
+          <Link>tofuProject\Library\Models\cone.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\defaultCube.obj.tofumodel">
+          <Link>tofuProject\Library\Models\defaultCube.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\Grass_Block.obj.tofumodel">
+          <Link>tofuProject\Library\Models\Grass_Block.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\model.obj.tofumodel">
+          <Link>tofuProject\Library\Models\model.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\plane.obj.tofumodel">
+          <Link>tofuProject\Library\Models\plane.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\sculpture.obj.tofumodel">
+          <Link>tofuProject\Library\Models\sculpture.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\sculpture_fwdAxisPositiveZ.obj.tofumodel">
+          <Link>tofuProject\Library\Models\sculpture_fwdAxisPositiveZ.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\smoothCube.obj.tofumodel">
+          <Link>tofuProject\Library\Models\smoothCube.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\sphere.obj.tofumodel">
+          <Link>tofuProject\Library\Models\sphere.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\sponza.obj.tofumodel">
+          <Link>tofuProject\Library\Models\sponza.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\Teapot.obj.tofumodel">
+          <Link>tofuProject\Library\Models\Teapot.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Models\torus.obj.tofumodel">
+          <Link>tofuProject\Library\Models\torus.obj.tofumodel</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\.DS_Store">
+          <Link>tofuProject\Library\Textures\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\11_fire_spritesheet.png.tofutexture">
+          <Link>tofuProject\Library\Textures\11_fire_spritesheet.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\adventurer.png.tofutexture">
+          <Link>tofuProject\Library\Textures\adventurer.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\Aged_Bronze_01_metallic.png.tofutexture">
+          <Link>tofuProject\Library\Textures\Aged_Bronze_01_metallic.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\Aged_Bronze_01_roughness.png.tofutexture">
+          <Link>tofuProject\Library\Textures\Aged_Bronze_01_roughness.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\Aged_Bronze_02_basecolor.png.tofutexture">
+          <Link>tofuProject\Library\Textures\Aged_Bronze_02_basecolor.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\Aged_Bronze_03_normal.png.tofutexture">
+          <Link>tofuProject\Library\Textures\Aged_Bronze_03_normal.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\belt_low_ambient_occlusion_02.png.tofutexture">
+          <Link>tofuProject\Library\Textures\belt_low_ambient_occlusion_02.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\belt_low_curvature.png.tofutexture">
+          <Link>tofuProject\Library\Textures\belt_low_curvature.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\blackPixel.png.tofutexture">
+          <Link>tofuProject\Library\Textures\blackPixel.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\Daylight Box_Back.bmp.tofutexture">
+          <Link>tofuProject\Library\Textures\Daylight Box_Back.bmp.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\Daylight Box_Bottom.bmp.tofutexture">
+          <Link>tofuProject\Library\Textures\Daylight Box_Bottom.bmp.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\Daylight Box_Front.bmp.tofutexture">
+          <Link>tofuProject\Library\Textures\Daylight Box_Front.bmp.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\Daylight Box_Left.bmp.tofutexture">
+          <Link>tofuProject\Library\Textures\Daylight Box_Left.bmp.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\Daylight Box_Right.bmp.tofutexture">
+          <Link>tofuProject\Library\Textures\Daylight Box_Right.bmp.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\Daylight Box_Top.bmp.tofutexture">
+          <Link>tofuProject\Library\Textures\Daylight Box_Top.bmp.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\DirectoryIcon.png.tofutexture">
+          <Link>tofuProject\Library\Textures\DirectoryIcon.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\DirectoryIcon_b.png.tofutexture">
+          <Link>tofuProject\Library\Textures\DirectoryIcon_b.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\dot.png.tofutexture">
+          <Link>tofuProject\Library\Textures\dot.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\error.png.tofutexture">
+          <Link>tofuProject\Library\Textures\error.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\FileIcon.png.tofutexture">
+          <Link>tofuProject\Library\Textures\FileIcon.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\FileIcon_b.png.tofutexture">
+          <Link>tofuProject\Library\Textures\FileIcon_b.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\font.png.tofutexture">
+          <Link>tofuProject\Library\Textures\font.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\grass.jpg.tofutexture">
+          <Link>tofuProject\Library\Textures\grass.jpg.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\Grass_Block_TEX.png.tofutexture">
+          <Link>tofuProject\Library\Textures\Grass_Block_TEX.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\grid.png.tofutexture">
+          <Link>tofuProject\Library\Textures\grid.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\gridX.png.tofutexture">
+          <Link>tofuProject\Library\Textures\gridX.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\icon.png.tofutexture">
+          <Link>tofuProject\Library\Textures\icon.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\info.png.tofutexture">
+          <Link>tofuProject\Library\Textures\info.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\particle.png.tofutexture">
+          <Link>tofuProject\Library\Textures\particle.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\purple.png.tofutexture">
+          <Link>tofuProject\Library\Textures\purple.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\sculpture.jpeg.tofutexture">
+          <Link>tofuProject\Library\Textures\sculpture.jpeg.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\space.PNG.tofutexture">
+          <Link>tofuProject\Library\Textures\space.PNG.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\spaceBrighter.PNG.tofutexture">
+          <Link>tofuProject\Library\Textures\spaceBrighter.PNG.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\stone.png.tofutexture">
+          <Link>tofuProject\Library\Textures\stone.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\timer.png.tofutexture">
+          <Link>tofuProject\Library\Textures\timer.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\tofu3d.png.tofutexture">
+          <Link>tofuProject\Library\Textures\tofu3d.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\warning.png.tofutexture">
+          <Link>tofuProject\Library\Textures\warning.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\white.png.tofutexture">
+          <Link>tofuProject\Library\Textures\white.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\Library\Textures\whitePixel.png.tofutexture">
+          <Link>tofuProject\Library\Textures\whitePixel.png.tofutexture</Link>
+        </Content>
+        <Content Include="..\tofuProject\persistentData.json">
+          <Link>tofuProject\persistentData.json</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\.DS_Store">
+          <Link>tofuProject\Resources\.DS_Store</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\blackPixel.png">
+          <Link>tofuProject\Resources\blackPixel.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\blackPixel.png.importparameters">
+          <Link>tofuProject\Resources\blackPixel.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\Console\error.png">
+          <Link>tofuProject\Resources\Console\error.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\Console\error.png.importparameters">
+          <Link>tofuProject\Resources\Console\error.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\Console\info.png">
+          <Link>tofuProject\Resources\Console\info.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\Console\info.png.importparameters">
+          <Link>tofuProject\Resources\Console\info.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\Console\timer.png">
+          <Link>tofuProject\Resources\Console\timer.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\Console\timer.png.importparameters">
+          <Link>tofuProject\Resources\Console\timer.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\Console\warning.png">
+          <Link>tofuProject\Resources\Console\warning.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\Console\warning.png.importparameters">
+          <Link>tofuProject\Resources\Console\warning.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\DirectoryIcon.png">
+          <Link>tofuProject\Resources\DirectoryIcon.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\DirectoryIcon.png.importparameters">
+          <Link>tofuProject\Resources\DirectoryIcon.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\DirectoryIcon_b.png">
+          <Link>tofuProject\Resources\DirectoryIcon_b.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\DirectoryIcon_b.png.importparameters">
+          <Link>tofuProject\Resources\DirectoryIcon_b.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\dot.png">
+          <Link>tofuProject\Resources\dot.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\dot.png.importparameters">
+          <Link>tofuProject\Resources\dot.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\FileIcon.png">
+          <Link>tofuProject\Resources\FileIcon.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\FileIcon.png.importparameters">
+          <Link>tofuProject\Resources\FileIcon.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\FileIcon_b.png">
+          <Link>tofuProject\Resources\FileIcon_b.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\FileIcon_b.png.importparameters">
+          <Link>tofuProject\Resources\FileIcon_b.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\icon.png">
+          <Link>tofuProject\Resources\icon.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\icon.png.importparameters">
+          <Link>tofuProject\Resources\icon.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\purple.png">
+          <Link>tofuProject\Resources\purple.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\purple.png.importparameters">
+          <Link>tofuProject\Resources\purple.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\whitePixel.png">
+          <Link>tofuProject\Resources\whitePixel.png</Link>
+        </Content>
+        <Content Include="..\tofuProject\Resources\whitePixel.png.importparameters">
+          <Link>tofuProject\Resources\whitePixel.png.importparameters</Link>
+        </Content>
+        <Content Include="..\tofuProject\Temp\clipboardGameObject">
+          <Link>tofuProject\Temp\clipboardGameObject</Link>
+        </Content>
         <Content Include="bin\Debug\net8.0\.DS_Store"/>
         <Content Include="bin\Debug\net8.0\Assets\.DS_Store"/>
         <Content Include="bin\Debug\net8.0\Assets\2D\.DS_Store"/>

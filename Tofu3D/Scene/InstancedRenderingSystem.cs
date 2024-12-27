@@ -157,7 +157,7 @@ public class InstancedRenderingSystem
 
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
 
-            GL_DrawElementsInstanced(PrimitiveType.Triangles, mesh.Indices.Length,
+            GL_DrawElementsInstanced(PrimitiveType.Triangles,mesh,
                 objectBufferPair.Value.NumberOfObjects);
         }
 
@@ -187,9 +187,11 @@ public class InstancedRenderingSystem
 
 
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
+            // GL.BindBuffer(BufferTarget.ElementArrayBuffer, mesh.Ebo); // ebo should be already linked with vao on initialization
 
-            GL_DrawElementsInstanced(PrimitiveType.Triangles, mesh.Indices.Length,
+            GL_DrawElementsInstanced(PrimitiveType.Triangles,mesh,
                 objectBufferPair.Value.NumberOfObjects);
+           
             // GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount,
             // objectBufferPair.Value.NumberOfObjects);
         }
@@ -343,10 +345,11 @@ public class InstancedRenderingSystem
             RenderingBlendingHelper.SetBlendMode(material.BlendMode);
 
             Tofu.ShaderManager.BindVertexArray(mesh.Vao);
+            // GL.BindBuffer(BufferTarget.ElementArrayBuffer, mesh.Ebo); // ebo should be already linked with vao on initialization
             GL.BindBuffer(BufferTarget.ArrayBuffer, bufferData.Vbo);
             if (mesh.Indices?.Length > 0)
             {
-                GL_DrawElementsInstanced(PrimitiveType.Triangles, mesh.Indices.Length,
+                GL_DrawElementsInstanced(PrimitiveType.Triangles, mesh,
                     objectBufferPair.Value.NumberOfObjects);
             }
             // GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount,
@@ -364,9 +367,9 @@ public class InstancedRenderingSystem
         DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount * instancesCount);
     }
 
-    private void GL_DrawElementsInstanced(PrimitiveType primitiveType, int indicesCount, int instancesCount)
+    private void GL_DrawElementsInstanced(PrimitiveType primitiveType,RuntimeMesh mesh, int instancesCount)
     {
-        GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, IntPtr.Zero,
+        GL.DrawElementsInstanced(primitiveType, mesh.Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero, 
             instancesCount);
         // GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, indices, instancesCount);
         DebugHelper.LogDrawCall();
@@ -389,8 +392,12 @@ public class InstancedRenderingSystem
         if (instancingData.InstancedRenderingDefinitionIndex == -1)
         {
             // no buffer exists for this combination-create one
-            InstancedRenderingObjectDefinition definition = new(mesh, material, isStatic, vertexBufferStructureType,
-                indexForMultipleObjectsPerRenderer);
+            InstancedRenderingObjectDefinition definition = new(RuntimeMesh: mesh,
+                Material: material,
+                IsStatic: isStatic,
+                vertexBufferStructureType: vertexBufferStructureType);
+                // index: indexForMultipleObjectsPerRenderer);
+
             var definitionIndex = _definitions.Contains(definition)
                 ? _definitions.IndexOf(definition)
                 : _definitions.Count;
@@ -498,6 +505,8 @@ public class InstancedRenderingSystem
     {
         // Debug.Log("Initializing Instanced Buffer Data");
         GL.BindVertexArray(objectDefinition.RuntimeMesh.Vao);
+        // GL.BindBuffer(BufferTarget.ElementArrayBuffer, objectDefinition.RuntimeMesh.Ebo); // ebo should be already linked with vao on initialization
+
 
         InstancedRenderingObjectBufferData bufferData = new()
         {

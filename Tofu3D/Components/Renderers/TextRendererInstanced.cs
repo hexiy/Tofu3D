@@ -51,6 +51,8 @@ public class TextRendererInstanced : ModelRendererInstanced
     [XmlIgnore]
     public List<RendererInstancingData> RendererInstancingDatas = new List<RendererInstancingData>();
 
+    private int _oldLength = -1;
+
     public override void OnDisabled()
     {
         for (int i = 0;
@@ -59,7 +61,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         {
             RendererInstancingData instancingData = RendererInstancingDatas[i];
             Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref instancingData, remove: true,
-                vertexBufferStructureType: VertexBufferStructureType.Model);
+                vertexBufferStructureType: VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
         }
 
         base.OnDisabled();
@@ -117,6 +119,16 @@ public class TextRendererInstanced : ModelRendererInstanced
             return;
         }
 
+        if (textComponent.Value.Length != _oldLength)
+        {
+            for (int i = 0; i < RendererInstancingDatas.Count; i++)
+            {
+                var x = RendererInstancingDatas[i];
+                x.InstancingDataDirty = true;
+                RendererInstancingDatas[i] = x;
+            }
+        }
+
         // we dont need data instances for line break characters...
         int instancingDatasToRemove = RendererInstancingDatas.Count - textComponent.Value.Length;
         if (instancingDatasToRemove > 0)
@@ -126,8 +138,9 @@ public class TextRendererInstanced : ModelRendererInstanced
                  i++)
             {
                 RendererInstancingData instancingData = RendererInstancingDatas[i];
+
                 Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref instancingData, remove: true,
-                    vertexBufferStructureType: VertexBufferStructureType.Model);
+                    vertexBufferStructureType: VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
             }
 
             RendererInstancingDatas.RemoveRange(RendererInstancingDatas.Count - instancingDatasToRemove,
@@ -183,26 +196,29 @@ public class TextRendererInstanced : ModelRendererInstanced
                     new Vector2(1f / _spritesCountInSpritesheet.X * columnIndex,
                         1f - 1f / -_spritesCountInSpritesheet.Y * rowIndex);
 
-                
 
                 var offsetTranslation =
-                    Matrix4x4.CreateTranslation(currentX+xOffset, 0, currentY);
+                    Matrix4x4.CreateTranslation(currentX + xOffset, 0, currentY);
                 Transform.Pivot = new Vector3(0, 0.5f, 1f);
                 Matrix4x4 modelMatrix = GetModelMatrixWithoutBoxShape() * offsetTranslation;
                 Transform.Pivot = new Vector3(0, 0.5f, 0f);
 
-                RendererInstancingData data = RendererInstancingDatas[i];
-                var updatedData =
-                    Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref data,
-                        VertexBufferStructureType.Model, modelMatrix: modelMatrix, uvOffset: offset,
-                        indexForMultipleObjectsPerRenderer: i);
-
-                if (updatedData)
+                RendererInstancingData instancingData = RendererInstancingDatas[i];
+                if (GameObject.IsStatic == false || instancingData.InstancingDataDirty ||
+                    instancingData.MatrixDirty)
                 {
-                    data.InstancingDataDirty = false;
+                    var updatedData =
+                        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref instancingData,
+                            VertexBufferStructureType.Model, modelMatrix: modelMatrix, uvOffset: offset,
+                            indexForMultipleObjectsPerRenderer: i, isStatic: GameObject.IsStatic);
+
+                    if (updatedData)
+                    {
+                        instancingData.InstancingDataDirty = false;
+                    }
                 }
 
-                RendererInstancingDatas[i] = data;
+                RendererInstancingDatas[i] = instancingData;
             }
 
             // currentX += textComponent.Size * _characterSize.X;

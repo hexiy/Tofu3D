@@ -36,7 +36,8 @@ public class StressTestGameObjectSpawner : Component
                 go.Transform.LocalPosition +=
                     new Vector3(Random.Range(-1f, 1f)*Radius, Random.Range(-1f, 1f)*Radius, Random.Range(-1f, 1f)*Radius);
                 go.Transform.Rotation += new Vector3(0, Random.Range(0, 360), 0);
-                go.GetComponent<Renderer>().Color = Random.RandomColor();
+                
+                // go.GetComponent<Renderer>().Color = Random.RandomColor();
             }
 
             var duration = Debug.EndTimer(timerName);

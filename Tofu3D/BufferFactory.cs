@@ -61,10 +61,10 @@ public static class BufferFactory
             2, // Positions
             2 // UVs
         };
-        CreateGenericBuffer(ref vao, spriteVertexBufferData, countsOfElements);
+        // CreateGenericBuffer(ref vao, spriteVertexBufferData, countsOfElements);
     }
 
-    public static void CreateGenericBuffer(ref int vao, float[] vertexBufferData, int[] countsOfElements, bool isDynamic = false, uint[]? indices=null)
+    public static void CreateGenericBuffer(ref int vao, ref int ebo, float[] vertexBufferData, int[] countsOfElements, bool isDynamic = false, uint[]? indices=null)
     {
         GL.Enable(EnableCap.DepthTest);
 
@@ -92,6 +92,12 @@ public static class BufferFactory
         
         vertexBuffer.EnableAttribs(true, countsOfElements);
 
+        
+        // ebo
+        ebo = GL.GenBuffer();
+        GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
+        GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices,
+            BufferUsageHint.StaticDraw);
 
         // GL.BindVertexArray(0);
         // GL.BindBuffer(BufferTarget.ArrayBuffer, 0);

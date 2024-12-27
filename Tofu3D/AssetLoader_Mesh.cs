@@ -15,6 +15,7 @@ public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
         string meshAssetPath = assetLoadParameters.PathToAsset;
         Asset_Mesh assetMesh = QuickSerializer.ReadFileJSON<Asset_Mesh>(meshAssetPath);
 
+
         RuntimeMesh runtimeMesh = new RuntimeMesh()
         {
             MeshAssetPath = meshAssetPath,
@@ -31,10 +32,11 @@ public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
             runtimeMesh.Vao = alreadyLoadedMesh.Vao;
         }
 
-        BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, assetMesh.VertexBufferData, assetMesh.CountsOfElements,
+        BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, ref runtimeMesh.Ebo, assetMesh.VertexBufferData, assetMesh.CountsOfElements,
             indices: assetMesh.Indices);
 
         runtimeMesh.InitAssetRuntimeHandle(runtimeMesh.Vao);
+        
 
         return runtimeMesh;
     }

@@ -2,89 +2,25 @@
 <SceneFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GameObjects>
     <GameObject>
-      <AlwaysUpdate>true</AlwaysUpdate>
+      <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>0</Id>
-      <IndexInHierarchy>0</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
+      <Id>256</Id>
+      <IndexInHierarchy>6</IndexInHierarchy>
+      <IsPrefab>true</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Camera</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>14</Id>
-      <IndexInHierarchy>1</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>Ambient Light</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>30</Id>
-      <IndexInHierarchy>2</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>true</IsStaticSelf>
-      <Name>Text</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>165</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>true</IsStaticSelf>
-      <Name>Text</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>169</Id>
-      <IndexInHierarchy>4</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>true</IsStaticSelf>
-      <Name>LongText</Name>
-      <PrefabPath />
+      <Name>sculpture</Name>
+      <PrefabPath>Assets/Prefabs/sculpture.prefab</PrefabPath>
       <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>false</ActiveSelf>
+      <ActiveSelf>true</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>191</Id>
+      <Id>257</Id>
       <IndexInHierarchy>5</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
@@ -100,23 +36,7 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>192</Id>
-      <IndexInHierarchy>6</IndexInHierarchy>
-      <IsPrefab>true</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>sculpture</Name>
-      <PrefabPath>Assets/Prefabs/sculpture.prefab</PrefabPath>
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>193</Id>
+      <Id>259</Id>
       <IndexInHierarchy>7</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
@@ -129,31 +49,28 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>206</Id>
-      <IndexInHierarchy>8</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>StressTester</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <Started>true</Started>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
   </GameObjects>
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>0</GameObjectId>
+      <GameObjectId>256</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <ChildrenIDs />
+      <ChildrenIDs>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+      </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <Pivot>
@@ -162,85 +79,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-8.15449</X>
-        <Y>5.83799</Y>
-        <Z>7.251858</Z>
+        <X>-1.5638832</X>
+        <Y>-9.265541</Y>
+        <Z>3.4211142</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-8.15449</X>
-        <Y>5.83799</Y>
-        <Z>7.251858</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>39.360867</X>
-        <Y>102.11758</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="Camera">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>0</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Color>
-        <B>34</B>
-        <G>34</G>
-        <R>34</R>
-        <A>255</A>
-        <PackedValue>4280427042</PackedValue>
-      </Color>
-      <FarPlaneDistance>500</FarPlaneDistance>
-      <FieldOfView>60</FieldOfView>
-      <IsOrthographic>false</IsOrthographic>
-      <NearPlaneDistance>1</NearPlaneDistance>
-      <OrthographicSize>2</OrthographicSize>
-      <Size>
-        <X>1600</X>
-        <Y>901</Y>
-      </Size>
-    </Component>
-    <Component xsi:type="Skybox">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>0</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Fov>60</Fov>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>14</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>-1.5638832</X>
+        <Y>-9.265541</Y>
+        <Z>3.4211142</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -258,504 +104,15 @@
         <Z>0</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="AmbientLight">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>14</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <Intensity>1</Intensity>
-    </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>30</GameObjectId>
+      <GameObjectId>257</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0.5</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>30</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>1.5</X>
-        <Y>0.1</Y>
-        <Z>-1</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="Text">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>30</GameObjectId>
-      <Started>false</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Size>1</Size>
-      <Value>123</Value>
-    </Component>
-    <Component xsi:type="TextRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>30</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <MousePickingId>1</MousePickingId>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <Material>
-        <PathToRawAsset>Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
-        <IsRuntimeCopy>true</IsRuntimeCopy>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <PathToRawAsset>Assets/2D/font.png</PathToRawAsset>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <Size>
-            <X>112</X>
-            <Y>72</Y>
-          </Size>
-          <TextureId>19</TextureId>
-        </AlbedoTexture>
-        <AlbedoTint>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>255</A>
-          <PackedValue>4294967295</PackedValue>
-        </AlbedoTint>
-        <EmissiveTexture>
-          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <Size>
-            <X>1</X>
-            <Y>1</Y>
-          </Size>
-          <TextureId>1</TextureId>
-        </EmissiveTexture>
-        <EmissiveColor>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>0</W>
-        </EmissiveColor>
-        <RefractionEnabled>false</RefractionEnabled>
-        <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
-        <Tiling>
-          <X>0.0625</X>
-          <Y>0.125</Y>
-        </Tiling>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
-        <RenderMode>Transparent</RenderMode>
-        <BlendMode>Opaque</BlendMode>
-      </Material>
-      <RuntimeMesh>
-        <PathToRawAsset />
-        <IsRuntimeCopy>false</IsRuntimeCopy>
-        <MeshAssetPath>Library/Meshes/plane.obj_0.tofumesh</MeshAssetPath>
-        <Vao>4</Vao>
-        <Ebo>8</Ebo>
-        <VerticesCount>4</VerticesCount>
-        <VertexBufferDataLength>56</VertexBufferDataLength>
-        <IsDynamic>0</IsDynamic>
-        <Indices>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>1</unsignedInt>
-          <unsignedInt>2</unsignedInt>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>3</unsignedInt>
-          <unsignedInt>1</unsignedInt>
-        </Indices>
-      </RuntimeMesh>
-      <Layer>0</Layer>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>165</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0.5</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>2.46</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>2.46</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>165</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>1.5</X>
-        <Y>0.1</Y>
-        <Z>-1</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="Text">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>165</GameObjectId>
-      <Started>false</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Size>1</Size>
-      <Value>123</Value>
-    </Component>
-    <Component xsi:type="TextRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>165</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <MousePickingId>2</MousePickingId>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <Material>
-        <PathToRawAsset>Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
-        <IsRuntimeCopy>true</IsRuntimeCopy>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <PathToRawAsset>Assets/2D/font.png</PathToRawAsset>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <Size>
-            <X>112</X>
-            <Y>72</Y>
-          </Size>
-          <TextureId>19</TextureId>
-        </AlbedoTexture>
-        <AlbedoTint>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>255</A>
-          <PackedValue>4294967295</PackedValue>
-        </AlbedoTint>
-        <EmissiveTexture>
-          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <Size>
-            <X>1</X>
-            <Y>1</Y>
-          </Size>
-          <TextureId>1</TextureId>
-        </EmissiveTexture>
-        <EmissiveColor>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>0</W>
-        </EmissiveColor>
-        <RefractionEnabled>false</RefractionEnabled>
-        <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
-        <Tiling>
-          <X>0.0625</X>
-          <Y>0.125</Y>
-        </Tiling>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
-        <RenderMode>Transparent</RenderMode>
-        <BlendMode>Opaque</BlendMode>
-      </Material>
-      <RuntimeMesh>
-        <PathToRawAsset />
-        <IsRuntimeCopy>false</IsRuntimeCopy>
-        <MeshAssetPath>Library/Meshes/plane.obj_0.tofumesh</MeshAssetPath>
-        <Vao>4</Vao>
-        <Ebo>8</Ebo>
-        <VerticesCount>4</VerticesCount>
-        <VertexBufferDataLength>56</VertexBufferDataLength>
-        <IsDynamic>0</IsDynamic>
-        <Indices>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>1</unsignedInt>
-          <unsignedInt>2</unsignedInt>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>3</unsignedInt>
-          <unsignedInt>1</unsignedInt>
-        </Indices>
-      </RuntimeMesh>
-      <Layer>0</Layer>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>169</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0.5</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>10</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>10</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>169</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>5</X>
-        <Y>0.1</Y>
-        <Z>-257</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="Text">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>169</GameObjectId>
-      <Started>false</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Size>1</Size>
-      <Value>112312312312312399999999999sdfsdfsdfsdfddfsdss1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333395555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555559999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999</Value>
-    </Component>
-    <Component xsi:type="TextRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>169</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <MousePickingId>3</MousePickingId>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
-      <Material>
-        <PathToRawAsset>Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
-        <IsRuntimeCopy>true</IsRuntimeCopy>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <PathToRawAsset>Assets/2D/font.png</PathToRawAsset>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <Size>
-            <X>112</X>
-            <Y>72</Y>
-          </Size>
-          <TextureId>19</TextureId>
-        </AlbedoTexture>
-        <AlbedoTint>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>255</A>
-          <PackedValue>4294967295</PackedValue>
-        </AlbedoTint>
-        <EmissiveTexture>
-          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <Size>
-            <X>1</X>
-            <Y>1</Y>
-          </Size>
-          <TextureId>1</TextureId>
-        </EmissiveTexture>
-        <EmissiveColor>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>0</W>
-        </EmissiveColor>
-        <RefractionEnabled>false</RefractionEnabled>
-        <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
-        <Tiling>
-          <X>0.0625</X>
-          <Y>0.125</Y>
-        </Tiling>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <UVOffsetIsInstanced>true</UVOffsetIsInstanced>
-        <RenderMode>Transparent</RenderMode>
-        <BlendMode>Opaque</BlendMode>
-      </Material>
-      <RuntimeMesh>
-        <PathToRawAsset />
-        <IsRuntimeCopy>false</IsRuntimeCopy>
-        <MeshAssetPath>Library/Meshes/plane.obj_0.tofumesh</MeshAssetPath>
-        <Vao>4</Vao>
-        <Ebo>8</Ebo>
-        <VerticesCount>4</VerticesCount>
-        <VertexBufferDataLength>56</VertexBufferDataLength>
-        <IsDynamic>0</IsDynamic>
-        <Indices>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>1</unsignedInt>
-          <unsignedInt>2</unsignedInt>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>3</unsignedInt>
-          <unsignedInt>1</unsignedInt>
-        </Indices>
-      </RuntimeMesh>
-      <Layer>0</Layer>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>191</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>192</ParentId>
+      <ParentId>256</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
@@ -763,7 +120,7 @@
       </Pivot>
       <WorldPosition>
         <X>-1.5638832</X>
-        <Y>-1.4150976</Y>
+        <Y>-9.265541</Y>
         <Z>3.4211142</Z>
       </WorldPosition>
       <LocalPosition>
@@ -789,7 +146,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>191</GameObjectId>
+      <GameObjectId>257</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -806,11 +163,11 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>191</GameObjectId>
+      <GameObjectId>257</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>4</MousePickingId>
+      <MousePickingId>82</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -880,8 +237,8 @@
         <PathToRawAsset />
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <MeshAssetPath>Library/Meshes/sculpture.obj_0.tofumesh</MeshAssetPath>
-        <Vao>5</Vao>
-        <Ebo>11</Ebo>
+        <Vao>6</Vao>
+        <Ebo>21</Ebo>
         <VerticesCount>0</VerticesCount>
         <VertexBufferDataLength>0</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -891,82 +248,13 @@
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>192</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <ChildrenIDs>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-        <int>191</int>
-        <int>193</int>
-      </ChildrenIDs>
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>-1.5638832</X>
-        <Y>-1.4150976</Y>
-        <Z>3.4211142</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>-1.5638832</X>
-        <Y>-1.4150976</Y>
-        <Z>3.4211142</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>193</GameObjectId>
+      <GameObjectId>259</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>192</ParentId>
+      <ParentId>256</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
@@ -974,11 +262,11 @@
       </Pivot>
       <WorldPosition>
         <X>-2.0243025</X>
-        <Y>-1.4150976</Y>
+        <Y>-9.265541</Y>
         <Z>3.4211142</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-0.4604193</X>
+        <X>-0.46041927</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
@@ -1000,7 +288,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>193</GameObjectId>
+      <GameObjectId>259</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -1017,11 +305,11 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>193</GameObjectId>
+      <GameObjectId>259</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>5</MousePickingId>
+      <MousePickingId>83</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -1039,13 +327,13 @@
         </Shader>
         <Additive>false</Additive>
         <AlbedoTexture>
-          <PathToRawAsset>Assets/3D/sculpture/sculpture.jpeg</PathToRawAsset>
+          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
           <IsRuntimeCopy>false</IsRuntimeCopy>
           <Size>
-            <X>4096</X>
-            <Y>4096</Y>
+            <X>1</X>
+            <Y>1</Y>
           </Size>
-          <TextureId>20</TextureId>
+          <TextureId>1</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -1070,7 +358,7 @@
           <W>0</W>
         </EmissiveColor>
         <RefractionEnabled>true</RefractionEnabled>
-        <RefractiveIndex>1.049</RefractiveIndex>
+        <RefractiveIndex>2.219</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0.32</SpecularSmoothness>
         <MetallicTextureStrength>1</MetallicTextureStrength>
@@ -1091,8 +379,8 @@
         <PathToRawAsset />
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <MeshAssetPath>Library/Meshes/sculpture.obj_1.tofumesh</MeshAssetPath>
-        <Vao>6</Vao>
-        <Ebo>14</Ebo>
+        <Vao>7</Vao>
+        <Ebo>24</Ebo>
         <VerticesCount>25611</VerticesCount>
         <VertexBufferDataLength>358554</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -151095,71 +150383,6 @@
       </RuntimeMesh>
       <Layer>0</Layer>
     </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>206</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>1.0252613</X>
-        <Y>0.57735026</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>1.0252613</X>
-        <Y>0.57735026</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="StressTestGameObjectSpawner">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>206</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <Go>
-        <AlwaysUpdate>false</AlwaysUpdate>
-        <DestroyTimer>2</DestroyTimer>
-        <Id>304</Id>
-        <IndexInHierarchy>6</IndexInHierarchy>
-        <IsPrefab>true</IsPrefab>
-        <IsStaticSelf>false</IsStaticSelf>
-        <Name>sculpture</Name>
-        <PrefabPath>Assets/Prefabs/sculpture.prefab</PrefabPath>
-        <Selected>true</Selected>
-        <VisibleInHierarchy>true</VisibleInHierarchy>
-        <RuntimeOnly>false</RuntimeOnly>
-        <Started>true</Started>
-        <UpdateWhenDisabled>false</UpdateWhenDisabled>
-        <ActiveSelf>true</ActiveSelf>
-      </Go>
-      <SpawnCount>700</SpawnCount>
-      <Radius>35</Radius>
-    </Component>
   </Components>
-  <GameObjectNextId>310</GameObjectNextId>
+  <GameObjectNextId>0</GameObjectNextId>
 </SceneFile>
