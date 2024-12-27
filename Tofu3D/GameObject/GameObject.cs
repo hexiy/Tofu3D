@@ -14,22 +14,25 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public bool AlwaysUpdate = false;
 
-    [DefaultValue(false)] public bool Awoken;
+    [DefaultValue(false)]
+    public bool Awoken;
 
     //[System.Xml.Serialization.XmlArrayItem(type: typeof(Component))]
-    [XmlIgnore] public List<Component> Components = new();
+    [XmlIgnore]
+    public List<Component> Components = new();
 
     public float DestroyTimer = 2;
     public int Id = -1;
 
-    [Hide] public int IndexInHierarchy = 0;
+    [Hide]
+    public int IndexInHierarchy = 0;
 
     public bool IsPrefab = false;
     public bool IsStaticSelf = false;
     public string Name = "";
     public string PrefabPath = "";
     public bool Selected = false;
-    public bool VisibleInHierarchy=true;
+    public bool VisibleInHierarchy = true;
     public bool RuntimeOnly = false;
     public bool Started;
 
@@ -87,7 +90,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         }
     }
 
-    [XmlIgnore] public Transform Transform { get; set; }
+    [XmlIgnore]
+    public Transform Transform { get; set; }
 
     public int CompareTo(bool other)
     {
@@ -140,7 +144,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     //private List<Component> ComponentsWaitingToBePaired = new List<Component>();
 
     public static GameObject Create(Vector3? position = null, Vector3? scale = null, string name = "",
-        bool linkComponents = true, bool visibleInHierarchy = true, bool addToScene = true, bool runtimeOnly=false)
+        bool linkComponents = true, bool visibleInHierarchy = true, bool addToScene = true, bool runtimeOnly = false)
     {
         GameObject go = new();
 
@@ -392,7 +396,11 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         }
     }
 
-    public virtual void Awake()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="alsoCallStartcallStartAfterAwake">when the game is running we can call Start right after Awake</param>
+    public virtual void Awake(bool callStartAfterAwake = true)
     {
         for (var i = 0; i < Components.Count; i++)
         {
@@ -414,8 +422,11 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         }
 
         Awoken = true;
-        
-        Start();
+
+        if (callStartAfterAwake)
+        {
+            Start();
+        }
     }
 
     public bool CallComponentExecuteInEditModeMethod(Component component, string methodName) =>
@@ -435,6 +446,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         {
             Awake();
         }
+
         for (var i = 0; i < Components.Count; i++)
         {
             if (Components[i].Enabled)
@@ -684,7 +696,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
         return null;
     }
-    public T GetComponent<T>(out T component,int? index = null) where T : Component
+
+    public T GetComponent<T>(out T component, int? index = null) where T : Component
     {
         var k = index == null ? 0 : (int)index;
         for (var i = 0; i < Components.Count; i++)
@@ -704,6 +717,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         component = null;
         return null;
     }
+
     public bool HasComponent<T>() where T : Component
     {
         for (var i = 0; i < Components.Count; i++)
@@ -909,7 +923,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
         clone._activeSelf = active;
         clone.Awake();
-        clone.Start();
 
         return clone;
     }

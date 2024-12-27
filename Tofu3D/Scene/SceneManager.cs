@@ -67,7 +67,7 @@ public class SceneManager
         for (var i = 0; i < sceneFile.GameObjects.Count; i++)
         {
             sceneFile.GameObjects[i].LinkGameObjectFieldsInComponents();
-            sceneFile.GameObjects[i].Awake();
+            sceneFile.GameObjects[i].Awake(callStartAfterAwake:false);
         }
 
         Debug.EndAndLogTimer("Awake");

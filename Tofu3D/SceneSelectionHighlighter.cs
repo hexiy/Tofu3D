@@ -54,7 +54,7 @@ public class SceneSelectionHighlighter
             }).SetTarget(this)
             .SetLoop(Tween.LoopType.Yoyo);
 
-        _selectionBoxGameObject.Start();
+        _selectionBoxGameObject.Awake();
     }
 
     private void SetTransform()
@@ -80,7 +80,7 @@ public class SceneSelectionHighlighter
         {
             _selectionBoxGameObject.GetComponent<BoxShape>().Size = boxShape.Size;
         }
-
+        _selectionBoxGameObject.Transform.Pivot = go.Transform.Pivot;
         _selectionBoxGameObject.Transform.WorldPosition = go.Transform.WorldPosition;
         _selectionBoxGameObject.Transform.WorldScale = go.Transform.WorldScale + new Vector3(0.1f);
         _selectionBoxGameObject.Transform.Rotation = go.Transform.Rotation;

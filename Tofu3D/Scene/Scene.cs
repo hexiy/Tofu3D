@@ -128,8 +128,6 @@ public class Scene
         transformHandleGameObject.Name = "Transform Handle";
         transformHandleGameObject.SetActive(false);
         transformHandleGameObject.Awake();
-        transformHandleGameObject.Start();
-
 
         transformHandleGameObject.SetActive(true);
     }
