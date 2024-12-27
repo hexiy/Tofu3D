@@ -559,17 +559,19 @@ public enum Keys
 
     //
     // Summary:
-    //     The left control key.
+    //     The left control key. CMD on macos
     LeftControl = 341,
+    LeftCmd = LeftControl,
 
     //
     // Summary:
-    //     The left alt key.
+    //     The left alt key. Option on macos
     LeftAlt = 342,
+    LeftOption = LeftAlt,
 
     //
     // Summary:
-    //     The left super key.
+    //     The left super(win) key.
     LeftSuper = 343,
 
     //

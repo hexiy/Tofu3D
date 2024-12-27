@@ -30,7 +30,13 @@ public class EditorPanelBrowser : EditorPanel
     /// </summary>
     private List<int> _expandedAssets = new List<int>();
 
-    public DirectoryInfo CurrentDirectory;
+    public DirectoryInfo CurrentDirectoryInfo;
+
+    private string CurrentDirectoryPath
+    {
+        get { return PersistentData.GetString("CurrentDirectoryPath", "Assets"); }
+        set { PersistentData.Set("CurrentDirectoryPath", value); }
+    }
 
     public override Vector2 Size => new(Tofu.Window.ClientSize.X - 1600,
         Tofu.Window.ClientSize.Y - Tofu.Editor.SceneViewSize.Y + 1);
@@ -55,9 +61,20 @@ public class EditorPanelBrowser : EditorPanel
         _directoryIcon =
             Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/DirectoryIcon_b.png"); //, _iconTextureLoadSettings);
 
-        CurrentDirectory = new DirectoryInfo("Assets");
+        SetCurrentDirectory(CurrentDirectoryPath);
 
         RefreshAssets();
+    }
+
+    private void SetCurrentDirectory(string path)
+    {
+        SetCurrentDirectory(new DirectoryInfo(path));
+    }
+
+    private void SetCurrentDirectory(DirectoryInfo directoryInfo)
+    {
+        CurrentDirectoryPath = directoryInfo.FullName;
+        CurrentDirectoryInfo = directoryInfo;
     }
 
     private void CreateContextItems()
@@ -81,12 +98,18 @@ public class EditorPanelBrowser : EditorPanel
 
     public override void Update()
     {
+        if (this.IsPanelHovered)
+        {
+            if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.WasKeyJustPressed(Keys.Up))
+            {
+            }
+        }
     }
 
     private void OnFileChanged(FileChangedInfo fileChangedInfo)
     {
         var directoryName = Path.GetDirectoryName(fileChangedInfo.Path);
-        var currentDirectoryAssetsRelativePath = Folders.GetPathRelativeToAssetsFolder(CurrentDirectory.FullName);
+        var currentDirectoryAssetsRelativePath = Folders.GetPathRelativeToAssetsFolder(CurrentDirectoryInfo.FullName);
         var fileGotDeletedInCurrentDirectory =
             fileChangedInfo.Path ==
             currentDirectoryAssetsRelativePath; // when file is deleted, we only get the directory
@@ -101,14 +124,14 @@ public class EditorPanelBrowser : EditorPanel
 
     private void RefreshAssets()
     {
-        if (Directory.Exists(CurrentDirectory.FullName) == false)
+        if (Directory.Exists(CurrentDirectoryInfo.FullName) == false)
         {
             return;
         }
 
-        var tmpAssets = Directory.GetDirectories(CurrentDirectory.FullName);
+        var tmpAssets = Directory.GetDirectories(CurrentDirectoryInfo.FullName);
         var allAssets = tmpAssets
-            .Concat(Directory.GetFiles(CurrentDirectory.FullName, "", SearchOption.TopDirectoryOnly)).ToList();
+            .Concat(Directory.GetFiles(CurrentDirectoryInfo.FullName, "", SearchOption.TopDirectoryOnly)).ToList();
 
         for (var i = 0; i < allAssets.Count; i++)
         {
@@ -167,11 +190,13 @@ public class EditorPanelBrowser : EditorPanel
 
         ResetId();
 
-        if (ImGui.Button("<") || (IsPanelHovered && KeyboardInput.IsKeyDown(Keys.Backspace)))
+        if (ImGui.Button("<")
+            || (IsPanelHovered && KeyboardInput.IsKeyDown(Keys.Backspace))
+            || (KeyboardInput.IsKeyDown(Keys.LeftCmd) && KeyboardInput.WasKeyJustPressed(Keys.Up)))
         {
-            if (CurrentDirectory.Name.Equals("assets", StringComparison.OrdinalIgnoreCase) == false)
+            if (CurrentDirectoryInfo.Name.Equals("assets", StringComparison.OrdinalIgnoreCase) == false && IsPanelHovered)
             {
-                CurrentDirectory = CurrentDirectory.Parent;
+                SetCurrentDirectory(CurrentDirectoryInfo.Parent);
                 RefreshAssets();
             }
         }
@@ -182,7 +207,7 @@ public class EditorPanelBrowser : EditorPanel
         {
             Process.Start(new ProcessStartInfo
             {
-                FileName = CurrentDirectory.FullName,
+                FileName = CurrentDirectoryInfo.FullName,
                 UseShellExecute = true,
                 Verb = "open"
             });
@@ -200,9 +225,9 @@ public class EditorPanelBrowser : EditorPanel
             if (saveBtnPressed)
             {
                 Tofu.SceneSerializer.SaveGameObject(Tofu.GameObjectSelectionManager.GetSelectedGameObject(),
-                    Path.Combine("Assets", CurrentDirectory.Name,
+                    Path.Combine("Assets", CurrentDirectoryInfo.Name,
                         Tofu.GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
-                
+
                 EditorPanelBrowser.I.RefreshAssets();
             }
         }
@@ -509,7 +534,8 @@ public class EditorPanelBrowser : EditorPanel
         {
             if (isDirectory)
             {
-                CurrentDirectory = directoryInfo;
+                SetCurrentDirectory(directoryInfo);
+
                 RefreshAssets();
                 return;
             }
@@ -595,7 +621,7 @@ public class EditorPanelBrowser : EditorPanel
             return;
         }
 
-        CurrentDirectory = Directory.GetParent(directory);
+        SetCurrentDirectory(directoryInfo: Directory.GetParent(directory));
         RefreshAssets();
     }
 }
