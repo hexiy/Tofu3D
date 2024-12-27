@@ -141,6 +141,8 @@ public class TextRendererInstanced : ModelRendererInstanced
         float maxX = 0;
         float maxY = 0;
 
+        float xOffset = textComponent.Size * _characterSpacing.X / 2f;
+
         Vector3 scaleBefore = Transform.LocalScale;
         Transform.LocalScale = new Vector3(textComponent.Size / 2f, textComponent.Size, textComponent.Size);
 
@@ -182,9 +184,13 @@ public class TextRendererInstanced : ModelRendererInstanced
                     new Vector2(1f / _spritesCountInSpritesheet.X * columnIndex,
                         1f - 1f / -_spritesCountInSpritesheet.Y * rowIndex);
 
+                
+                Transform.Pivot = new Vector3(0, 0.5f, 1f);
+
                 var offsetTranslation =
-                    Matrix4x4.CreateTranslation(currentX, 0, currentY);
+                    Matrix4x4.CreateTranslation(currentX+xOffset, 0, currentY);
                 Matrix4x4 modelMatrix = GetModelMatrixWithoutBoxShape() * offsetTranslation;
+                Transform.Pivot = new Vector3(0, 0.5f, 0f);
 
                 RendererInstancingData data = RendererInstancingDatas[i];
                 var updatedData =
