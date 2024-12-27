@@ -52,5 +52,7 @@ public class StressTestGameObjectSpawner : Component
                 }
             }
         };
+        
+        base.Awake();
     }
 }

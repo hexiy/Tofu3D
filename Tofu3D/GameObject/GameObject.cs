@@ -616,7 +616,9 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         {
             if (Global.GameRunning == false)
             {
-                var foundMethod = CallComponentExecuteInEditModeMethod(component, nameof(Awake));
+                // var foundMethod = CallComponentExecuteInEditModeMethod(component, nameof(Awake));
+                component.Awake();
+
             }
             else
             {
@@ -628,7 +630,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         {
             if (Global.GameRunning == false)
             {
-                var foundMethod = CallComponentExecuteInEditModeMethod(component, nameof(Start));
+                component.Start();
+                // var foundMethod = CallComponentExecuteInEditModeMethod(component, nameof(Start));
             }
             else
             {

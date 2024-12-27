@@ -456,6 +456,8 @@ public class EditorPanelInspector : EditorPanel
                             if (ImGui.Button(_componentTypes[i].Name) || enterPressed)
                             {
                                 gameObject.AddComponent(_componentTypes[i]);
+                                // this.RefreshInspector();
+                                // this.QueueInspectorRefresh();
                                 ImGui.CloseCurrentPopup();
                                 break;
                             }
@@ -469,6 +471,9 @@ public class EditorPanelInspector : EditorPanel
                         if (ImGui.Button(_componentTypes[i].Name))
                         {
                             gameObject.AddComponent(_componentTypes[i]);
+                            // this.RefreshInspector();
+                            // this.QueueInspectorRefresh();
+
                             ImGui.CloseCurrentPopup();
                         }
                     }
