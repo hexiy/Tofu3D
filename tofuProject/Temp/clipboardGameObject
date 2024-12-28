@@ -4,11 +4,11 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>377</Id>
-      <IndexInHierarchy>10</IndexInHierarchy>
+      <Id>14</Id>
+      <IndexInHierarchy>1</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Cube 2</Name>
+      <Name>Ambient Light</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
@@ -21,25 +21,25 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>377</GameObjectId>
+      <GameObjectId>14</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>365</ParentId>
+      <ParentId>-1</ParentId>
       <Pivot>
         <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-1.0926145</X>
-        <Y>-0.47755396</Y>
-        <Z>-0.41977215</Z>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>5</X>
+        <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
@@ -59,31 +59,12 @@
         <Z>0</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="BoxShape">
+    <Component xsi:type="AmbientLight">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>377</GameObjectId>
+      <GameObjectId>14</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>377</GameObjectId>
-      <Started>true</Started>
-      <UpdateTime>0</UpdateTime>
-      <Enabled>true</Enabled>
-      <MousePickingId>7</MousePickingId>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -91,112 +72,7 @@
         <A>255</A>
         <PackedValue>4294967295</PackedValue>
       </Color>
-      <Material>
-        <PathToRawAsset>Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
-        <IsRuntimeCopy>true</IsRuntimeCopy>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <Size>
-            <X>1</X>
-            <Y>1</Y>
-          </Size>
-          <TextureId>1</TextureId>
-        </AlbedoTexture>
-        <AlbedoTint>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>255</A>
-          <PackedValue>4294967295</PackedValue>
-        </AlbedoTint>
-        <EmissiveTexture>
-          <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <Size>
-            <X>1</X>
-            <Y>1</Y>
-          </Size>
-          <TextureId>1</TextureId>
-        </EmissiveTexture>
-        <EmissiveColor>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>0</W>
-        </EmissiveColor>
-        <RefractionEnabled>false</RefractionEnabled>
-        <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
-        <Tiling>
-          <X>1</X>
-          <Y>1</Y>
-        </Tiling>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
-        <RenderMode>Opaque</RenderMode>
-        <BlendMode>Opaque</BlendMode>
-      </Material>
-      <RuntimeMesh>
-        <PathToRawAsset />
-        <IsRuntimeCopy>false</IsRuntimeCopy>
-        <MeshAssetPath>Library/Meshes/defaultCube.obj_0.tofumesh</MeshAssetPath>
-        <Vao>7</Vao>
-        <Ebo>17</Ebo>
-        <VerticesCount>8</VerticesCount>
-        <VertexBufferDataLength>112</VertexBufferDataLength>
-        <IsDynamic>0</IsDynamic>
-        <Indices>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>1</unsignedInt>
-          <unsignedInt>2</unsignedInt>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>2</unsignedInt>
-          <unsignedInt>3</unsignedInt>
-          <unsignedInt>4</unsignedInt>
-          <unsignedInt>3</unsignedInt>
-          <unsignedInt>2</unsignedInt>
-          <unsignedInt>4</unsignedInt>
-          <unsignedInt>2</unsignedInt>
-          <unsignedInt>5</unsignedInt>
-          <unsignedInt>5</unsignedInt>
-          <unsignedInt>2</unsignedInt>
-          <unsignedInt>1</unsignedInt>
-          <unsignedInt>5</unsignedInt>
-          <unsignedInt>1</unsignedInt>
-          <unsignedInt>6</unsignedInt>
-          <unsignedInt>6</unsignedInt>
-          <unsignedInt>7</unsignedInt>
-          <unsignedInt>4</unsignedInt>
-          <unsignedInt>6</unsignedInt>
-          <unsignedInt>4</unsignedInt>
-          <unsignedInt>5</unsignedInt>
-          <unsignedInt>7</unsignedInt>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>3</unsignedInt>
-          <unsignedInt>7</unsignedInt>
-          <unsignedInt>3</unsignedInt>
-          <unsignedInt>4</unsignedInt>
-          <unsignedInt>6</unsignedInt>
-          <unsignedInt>1</unsignedInt>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>6</unsignedInt>
-          <unsignedInt>0</unsignedInt>
-          <unsignedInt>7</unsignedInt>
-        </Indices>
-      </RuntimeMesh>
-      <Layer>0</Layer>
+      <Intensity>1</Intensity>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

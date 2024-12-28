@@ -54,20 +54,25 @@ public class Transform : Component
         {
             var parent = Parent;
             _worldPosition = LocalPosition; // Start with local position
-
-            while (parent != null)
+            if (parent != null)
             {
+                Matrix4x4 allParentsMatrix = Matrix4x4.Identity;
+                while (parent != null)
+                {
+                    allParentsMatrix = Matrix4x4.Multiply(allParentsMatrix, parent.Matrix);
+                    parent = parent.Parent;
+                }
+
                 // Create a local transformation matrix for this transform
-                var localMatrix = Matrix4x4.CreateTranslation(_worldPosition);
+                var localMatrix = this.MatrixLocalPosition;
 
                 // Combine the parent's matrix with the local matrix to transform to world space
-                var combinedMatrix = Matrix4x4.Multiply(localMatrix, parent.Matrix);
+                var combinedMatrix = Matrix4x4.Multiply(localMatrix, allParentsMatrix);
 
                 // Extract the world position from the combined matrix
                 _worldPosition = new Vector3(combinedMatrix.M41, combinedMatrix.M42, combinedMatrix.M43);
-
-                parent = parent.Parent;
             }
+
 
             return _worldPosition;
         }

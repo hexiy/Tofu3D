@@ -24,7 +24,7 @@
       <IndexInHierarchy>1</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Ambient Light</Name>
+      <Name>Light</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
@@ -154,7 +154,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Cube 1</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
@@ -186,7 +186,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Cube 3</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
@@ -210,14 +210,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>9.027395</X>
-        <Y>5.9906178</Y>
-        <Z>-8.462921</Z>
+        <X>2.5614264</X>
+        <Y>7.52742</Y>
+        <Z>-10.30078</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>9.027395</X>
-        <Y>5.9906178</Y>
-        <Z>-8.462921</Z>
+        <X>2.5614264</X>
+        <Y>7.52742</Y>
+        <Z>-10.30078</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -230,8 +230,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>26.6249</X>
-        <Y>-39.14099</Y>
+        <X>23.405361</X>
+        <Y>-2.1956742</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -301,8 +301,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
-        <Y>0</Y>
+        <X>25.1</X>
+        <Y>40.12</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -320,6 +320,32 @@
         <PackedValue>4294967295</PackedValue>
       </Color>
       <Intensity>1</Intensity>
+    </Component>
+    <Component xsi:type="DirectionalLight">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>14</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+      <Color>
+        <B>108</B>
+        <G>160</G>
+        <R>81</R>
+        <A>255</A>
+        <PackedValue>4285309009</PackedValue>
+      </Color>
+      <Intensity>1</Intensity>
+      <FarPlaneDistance>1000</FarPlaneDistance>
+      <NearPlaneDistance>0.0001</NearPlaneDistance>
+      <OrthographicSize>15</OrthographicSize>
+      <RefreshRate>60</RefreshRate>
+      <Rotate>false</Rotate>
+      <RotateOffset>0</RotateOffset>
+      <Size>
+        <X>1000</X>
+        <Y>1000</Y>
+      </Size>
+      <Speed>100</Speed>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -393,7 +419,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>14</MousePickingId>
+      <MousePickingId>209</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -551,7 +577,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>15</MousePickingId>
+      <MousePickingId>210</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -709,7 +735,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>16</MousePickingId>
+      <MousePickingId>211</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -858,7 +884,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>17</MousePickingId>
+      <MousePickingId>212</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -910,8 +936,8 @@
         <RefractiveIndex>1.309</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>1</MetallicTextureStrength>
-        <Smoothness>1</Smoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -921,7 +947,7 @@
           <Y>0</Y>
         </Offset>
         <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
-        <RenderMode>Transparent</RenderMode>
+        <RenderMode>Opaque</RenderMode>
         <BlendMode>Opaque</BlendMode>
       </Material>
       <RuntimeMesh>
@@ -944,6 +970,26 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
+        <int>191</int>
+        <int>193</int>
         <int>191</int>
         <int>193</int>
         <int>191</int>
@@ -1087,7 +1133,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>18</MousePickingId>
+      <MousePickingId>213</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -151210,7 +151256,7 @@
       <Go>
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
-        <Id>406</Id>
+        <Id>516</Id>
         <IndexInHierarchy>6</IndexInHierarchy>
         <IsPrefab>true</IsPrefab>
         <IsStaticSelf>false</IsStaticSelf>
@@ -151233,6 +151279,16 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
         <int>377</int>
         <int>377</int>
         <int>377</int>
@@ -151293,7 +151349,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>19</MousePickingId>
+      <MousePickingId>214</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -151304,7 +151360,7 @@
       </Color>
       <Material>
         <PathToRawAsset>Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
-        <IsRuntimeCopy>true</IsRuntimeCopy>
+        <IsRuntimeCopy>false</IsRuntimeCopy>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
@@ -151341,7 +151397,7 @@
           <Z>0</Z>
           <W>0</W>
         </EmissiveColor>
-        <RefractionEnabled>false</RefractionEnabled>
+        <RefractionEnabled>true</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0</SpecularSmoothness>
@@ -151364,7 +151420,7 @@
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <MeshAssetPath>Library/Meshes/defaultCube.obj_0.tofumesh</MeshAssetPath>
         <Vao>7</Vao>
-        <Ebo>17</Ebo>
+        <Ebo>29</Ebo>
         <VerticesCount>8</VerticesCount>
         <VertexBufferDataLength>112</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -151416,6 +151472,16 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
         <int>400</int>
         <int>400</int>
       </ChildrenIDs>
@@ -151475,7 +151541,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>20</MousePickingId>
+      <MousePickingId>215</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -151486,7 +151552,7 @@
       </Color>
       <Material>
         <PathToRawAsset>Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
-        <IsRuntimeCopy>true</IsRuntimeCopy>
+        <IsRuntimeCopy>false</IsRuntimeCopy>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
@@ -151523,7 +151589,7 @@
           <Z>0</Z>
           <W>0</W>
         </EmissiveColor>
-        <RefractionEnabled>false</RefractionEnabled>
+        <RefractionEnabled>true</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0</SpecularSmoothness>
@@ -151546,7 +151612,7 @@
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <MeshAssetPath>Library/Meshes/defaultCube.obj_0.tofumesh</MeshAssetPath>
         <Vao>7</Vao>
-        <Ebo>17</Ebo>
+        <Ebo>29</Ebo>
         <VerticesCount>8</VerticesCount>
         <VertexBufferDataLength>112</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -151654,7 +151720,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>21</MousePickingId>
+      <MousePickingId>216</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -151665,7 +151731,7 @@
       </Color>
       <Material>
         <PathToRawAsset>Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
-        <IsRuntimeCopy>true</IsRuntimeCopy>
+        <IsRuntimeCopy>false</IsRuntimeCopy>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
@@ -151702,7 +151768,7 @@
           <Z>0</Z>
           <W>0</W>
         </EmissiveColor>
-        <RefractionEnabled>false</RefractionEnabled>
+        <RefractionEnabled>true</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0</SpecularSmoothness>
@@ -151725,7 +151791,7 @@
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <MeshAssetPath>Library/Meshes/defaultCube.obj_0.tofumesh</MeshAssetPath>
         <Vao>7</Vao>
-        <Ebo>17</Ebo>
+        <Ebo>29</Ebo>
         <VerticesCount>8</VerticesCount>
         <VertexBufferDataLength>112</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -151771,5 +151837,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>412</GameObjectNextId>
+  <GameObjectNextId>522</GameObjectNextId>
 </SceneFile>

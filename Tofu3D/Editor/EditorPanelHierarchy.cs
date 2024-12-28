@@ -40,14 +40,7 @@ public class EditorPanelHierarchy : EditorPanel
 
     public override void Update()
     {
-        if (IsPanelHovered && ImGui.IsMouseDragging(ImGuiMouseButton.Left))
-        {
-            _currentSpaceHeight = 5;
-        }
-        else
-        {
-            _currentSpaceHeight = 0;
-        }
+
 
         if (_canDelete && KeyboardInput.IsKeyDown(Keys.Delete))
         {
@@ -77,6 +70,16 @@ public class EditorPanelHierarchy : EditorPanel
 
                 Tofu.GameObjectSelectionManager.SelectGameObject(loadedGo);
             }
+        }
+        
+        
+        if (IsPanelHovered && ImGui.IsMouseDragging(ImGuiMouseButton.Left))
+        {
+            _currentSpaceHeight = 4;
+        }
+        else
+        {
+            _currentSpaceHeight = 4;
         }
     }
 
@@ -338,7 +341,7 @@ public class EditorPanelHierarchy : EditorPanel
             var gameObjectId = currentGameObject.Id.ToString();
             var stringPointer = Marshal.StringToHGlobalAnsi(gameObjectId);
 
-            ImGui.SetDragDropPayload("GAMEOBJECT", stringPointer, (uint)(sizeof(char) * gameObjectId.Length));
+            ImGui.SetDragDropPayload(DragDropPayloadTypes.GameObject, stringPointer, (uint)(sizeof(char) * gameObjectId.Length));
 
             var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
@@ -350,7 +353,7 @@ public class EditorPanelHierarchy : EditorPanel
 
         if (ImGui.BeginDragDropTarget())
         {
-            ImGui.AcceptDragDropPayload("GAMEOBJECT", ImGuiDragDropFlags.None);
+            ImGui.AcceptDragDropPayload(DragDropPayloadTypes.GameObject, ImGuiDragDropFlags.None);
 
             var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
             if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
@@ -424,32 +427,33 @@ public class EditorPanelHierarchy : EditorPanel
 
     private void DrawSpaceBetween(GameObject currentGameObject, bool after = true)
     {
-        float height = 0;
-        if (Mathf.Distance(ImGui.GetCursorPosY(), ImGui.GetMousePos().Y) < 50 &&
-            ImGui.GetCursorPosY() - ImGui.GetMousePos().Y < 50)
-        {
-            height = _currentSpaceHeight;
-        }
+        float height = _currentSpaceHeight;
+        // if (Mathf.Distance(ImGui.GetCursorPosY(), ImGui.GetMousePos().Y) < 50 &&
+        //     ImGui.GetCursorPosY() - ImGui.GetMousePos().Y < 50)
+        // {
+        //     height = _currentSpaceHeight;
+        // }
+        // height = 40;
+
 
         ImGui.Dummy(new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, height));
         if (ImGui.BeginDragDropTarget())
         {
             ImGui.PushStyleColor(ImGuiCol.DragDropTarget, Color.MediumPurple.ToVector4());
 
-            ImGui.AcceptDragDropPayload("GAMEOBJECT", ImGuiDragDropFlags.None);
+            ImGui.AcceptDragDropPayload(DragDropPayloadTypes.GameObject, ImGuiDragDropFlags.None);
 
             var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
             if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
             {
                 var droppedGameObject = Tofu.SceneManager.CurrentScene.GetGameObjectByID(int.Parse(payload));
                 bool x = droppedGameObject.IndexInHierarchy < currentGameObject.IndexInHierarchy;
-                Tofu.SceneManager.CurrentScene.GameObjects.RemoveAt(droppedGameObject.IndexInHierarchy);
+                Tofu.SceneManager.CurrentScene.GameObjects.Remove(droppedGameObject);
                 Tofu.SceneManager.CurrentScene.GameObjects.Insert(
                     currentGameObject.IndexInHierarchy + (after ? 1 : 0) - (x ? 1 : 0),
                     droppedGameObject);
 
                 Tofu.SceneManager.CurrentScene.UpdateGameobjectsIndexInHierarchy();
-                // droppedGameObject.Transform.SetParent(currentGameObject.Transform.Parent);
             }
 
             ImGui.EndDragDropTarget();
