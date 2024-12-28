@@ -4,7 +4,7 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>256</Id>
+      <Id>333</Id>
       <IndexInHierarchy>6</IndexInHierarchy>
       <IsPrefab>true</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
@@ -15,12 +15,12 @@
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>257</Id>
+      <Id>334</Id>
       <IndexInHierarchy>5</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
@@ -36,7 +36,7 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>259</Id>
+      <Id>336</Id>
       <IndexInHierarchy>7</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
@@ -53,7 +53,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>256</GameObjectId>
+      <GameObjectId>333</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -70,6 +70,8 @@
         <int>193</int>
         <int>191</int>
         <int>193</int>
+        <int>257</int>
+        <int>259</int>
       </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
@@ -106,13 +108,13 @@
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>257</GameObjectId>
+      <GameObjectId>334</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>256</ParentId>
+      <ParentId>333</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
@@ -146,7 +148,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>257</GameObjectId>
+      <GameObjectId>334</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -163,7 +165,7 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>257</GameObjectId>
+      <GameObjectId>334</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -248,13 +250,13 @@
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>259</GameObjectId>
+      <GameObjectId>336</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>256</ParentId>
+      <ParentId>333</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
@@ -288,7 +290,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>259</GameObjectId>
+      <GameObjectId>336</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
@@ -305,7 +307,7 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>259</GameObjectId>
+      <GameObjectId>336</GameObjectId>
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>

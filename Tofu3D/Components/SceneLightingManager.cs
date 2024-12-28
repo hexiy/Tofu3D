@@ -114,7 +114,7 @@ public class SceneLightingManager
     /// Normalized direction vector
     /// </summary>
     /// <returns></returns>
-    public Vector3 GetDirectionalLightDirection() => _directionalLight?.Transform.Forward ?? Vector3.Zero;
+    public Vector3 GetDirectionalLightDirection() => _directionalLight?.Transform.ForwardWorldDirection ?? Vector3.Zero;
 
     public Vector3 GetDirectionalLightPosition() => _directionalLight?.Transform.WorldPosition ?? Vector3.Zero;
 
