@@ -24,7 +24,6 @@ public class AssetImporter_Texture : AssetImporter<Asset_Texture>
 
         var image = Image.Load<Rgba32>(path);
 
-
         imageSize = new Vector2(image.Width, image.Height);
 
         byte[] pixels = new byte[4 * image.Width * image.Height];

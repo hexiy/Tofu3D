@@ -30,10 +30,12 @@ public struct Vector2 : IEquatable<Vector2>
     /// </summary>
     [DataMember] public float X;
 
+    public int Xi => (int)X;
     /// <summary>
     ///     The y coordinate of this <see cref="Vector2" />.
     /// </summary>
     [DataMember] public float Y;
+    public int Yi => (int)Y;
 
     #endregion
 

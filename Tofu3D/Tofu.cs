@@ -142,6 +142,12 @@ public static class Tofu
         SceneManager.CurrentScene.Update();
         Editor.Update();
         Debug.EndGraphTimer("Editor Update");
+
+
+        if (KeyboardInput.WasKeyJustPressed(Keys.Enter))
+        {
+            FramebufferScreenshotGenerator.TakeScreenshot(RenderPassSystem.FinalFramebuffer);
+        }
     }
 
     private static void OnWindowRender(FrameEventArgs e)
