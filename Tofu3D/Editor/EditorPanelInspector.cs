@@ -214,7 +214,7 @@ public class EditorPanelInspector : EditorPanel
         EditorPanelInspector.I.SelectInspectable(materialInspectable,
             anyValueChanged: () =>
             {
-                QuickSerializer.SaveFileXML<Asset_Material>(
+                Serializer.SaveFileJSON<Asset_Material>(
                     materialPath, materialInspectable);
             });
     }
@@ -647,7 +647,7 @@ public class EditorPanelInspector : EditorPanel
                 return;
             }
 
-            QuickSerializer.SaveFileXML<Asset_Material>(material.PathToRawAsset, material);
+            Serializer.SaveFileJSON<Asset_Material>(material.PathToRawAsset, material);
             Tofu.AssetImportManager.ImportAsset(material.PathToRawAsset, reimportIfExists: true);
         }
     }

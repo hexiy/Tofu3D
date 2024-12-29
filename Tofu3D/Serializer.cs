@@ -4,19 +4,17 @@ using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
-public static class QuickSerializer
+public static class Serializer
 {
     public static void SaveAssetJSON<T>(string path, AssetBase asset)
     {
         asset.BeforeSerialized();
         SaveFileJSON<T>(path, asset);
     }
-
     public static T? ReadAssetJSON<T>(string path) where T : AssetBase
     {
         T asset = ReadFileJSON<T>(path);
         asset.OnDeserialized();
-
 
         return asset;
     }
@@ -30,13 +28,6 @@ public static class QuickSerializer
                 writer.Write(JsonConvert.SerializeObject(content));
             }
         }
-        // XmlSerializer xmlSerializer = new XmlSerializer( typeof(T), new[]{typeof(RuntimeAssetHandle), typeof(Asset_Texture), typeof(AssetImportParameters_Texture)});
-        //
-        // StreamWriter sw = new(path);
-        //
-        // xmlSerializer.Serialize(sw, content);
-        //
-        // sw.Close();
     }
 
     public static T? ReadFileJSON<T>(string path)
@@ -52,43 +43,9 @@ public static class QuickSerializer
             {
                 // Read the serialized JSON string from the binary file
                 string json = reader.ReadString();
-                if (json.Substring(0, 20).Contains("xml"))
-                {
-                    return ReadFileXML<T>(path);
-                }
 
                 return JsonConvert.DeserializeObject<T>(json);
             }
         }
-    }
-
-    public static void SaveFileXML<T>(string path, object content)
-    {
-        XmlSerializer xmlSerializer = new XmlSerializer(typeof(T),
-            new[] { typeof(RuntimeAssetHandle), typeof(RuntimeTexture), typeof(AssetImportParameters_Texture) });
-
-        StreamWriter sw = new(path);
-
-        xmlSerializer.Serialize(sw, content);
-
-        sw.Close();
-    }
-
-    public static T? ReadFileXML<T>(string path)
-    {
-        if (File.Exists(path) == false)
-        {
-            return default;
-        }
-
-        XmlSerializer xmlSerializer = new XmlSerializer(typeof(T), new[] { typeof(RuntimeAssetHandle) });
-
-        StreamReader sr = new(path);
-
-        object? content = xmlSerializer.Deserialize(sr);
-
-        sr.Close();
-
-        return (T)content;
     }
 }

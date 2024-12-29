@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<AssetImportParameters_Texture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+{"PathToSourceAsset":"Assets/2D/white.png","FilterMode":9729,"WrapMode":10497,"IsSrgb":false,"BlackIsTransparency":false,"AssetID":-1535593924}.w3.org/2001/XMLSchema">
   <PathToSourceAsset>Assets/2D/white.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>

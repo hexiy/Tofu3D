@@ -17,7 +17,7 @@ public class AssetLoader_Material : AssetLoader<Asset_Material, Asset_Material>
             return null;
         }
 
-        Asset_Material assetMaterial = QuickSerializer.ReadFileJSON<Asset_Material>(path);
+        Asset_Material assetMaterial = Serializer.ReadFileJSON<Asset_Material>(path);
 
         assetMaterial.LoadTextures();
         if (assetMaterial.Shader != null)

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<AssetImportParameters_Texture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+¤{"PathToSourceAsset":"Assets/2D/skybox2/Daylight Box_Right.bmp","FilterMode":9729,"WrapMode":10497,"IsSrgb":false,"BlackIsTransparency":false,"AssetID":-1201848014}a">
   <PathToSourceAsset>Assets/2D/skybox2/Daylight Box_Right.bmp</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<AssetImportParameters_Model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+s{"ImportAsSingleMesh":true,"SmoothNormals":true,"PathToSourceAsset":"Assets/3D/defaultCube.obj","AssetID":22190957}ance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <PathToSourceAsset>Assets/3D/defaultCube.obj</PathToSourceAsset>
   <ImportAsSingleMesh>true</ImportAsSingleMesh>
   <SmoothNormals>false</SmoothNormals>

@@ -123,7 +123,7 @@ public class AssetLoadManager
             if (File.Exists(sourcePath) == false)
             {
                 Debug.LogError("not found asset " + loadParameters.PathToAsset);
-                
+
                 if (typeof(T) == typeof(Asset_Material))
                 {
                     asset = CreateDefaultMaterialAssetFile(sourcePath) as T;
@@ -153,9 +153,10 @@ public class AssetLoadManager
         mat.LoadShader();
         mat.PathToRawAsset = sourcePath;
         mat.LoadTextures();
-        QuickSerializer.SaveFileJSON<Asset_Material>(path: sourcePath, mat); // this needs to be here, otherwise there will be no .tofumaterial file in library if we're creating material ono the fly
+        Serializer.SaveAssetJSON<Asset_Material>(path: sourcePath,
+            mat); // this needs to be here, otherwise there will be no .tofumaterial file in library if we're creating material ono the fly
 
-        Tofu.AssetImportManager.ImportAsset(sourcePath,reimportIfExists:true);
+        Tofu.AssetImportManager.ImportAsset(sourcePath, reimportIfExists: true);
         // QuickSerializer.SaveFileJSON<Asset_Material>(path: sourcePath, mat);
         // return mat as T;
         return mat;
@@ -172,7 +173,7 @@ public class AssetLoadManager
         }
     }
 
-    public void Save<T>(string path, T asset, AssetLoadParameters<T>? loadParameters = null, bool json = true)
+    public void Save<T>(string path, T asset, AssetLoadParameters<T>? loadParameters = null)
         where T : Asset<T>
     {
         // if (asset.IsRuntimeCopy)
@@ -185,14 +186,7 @@ public class AssetLoadManager
         // 
         // T asset = null;
 
-        if (json)
-        {
-            QuickSerializer.SaveFileJSON<T>(path, asset);
-        }
-        else
-        {
-            QuickSerializer.SaveFileXML<T>(path, asset);
-        }
+        Serializer.SaveAssetJSON<T>(path, asset);
 
         LoadedAssets[id] = asset;
         Debug.Log($"Saved file {path}");

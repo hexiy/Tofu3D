@@ -90,7 +90,7 @@ public class EditorPanelBrowser : EditorPanel
             {
                 Asset_Material createdMaterial = new();
                 createdMaterial.PathToRawAsset = filePath;
-                Tofu.AssetLoadManager.Save<Asset_Material>(filePath, createdMaterial, json: true);
+                Tofu.AssetLoadManager.Save<Asset_Material>(filePath, createdMaterial);
                 RefreshAssets();
             });
         _contextItems = new List<BrowserContextItem> { createSceneContextItem, createMaterialContextItem };
@@ -488,7 +488,7 @@ public class EditorPanelBrowser : EditorPanel
             {
                 var pathOfImportParametersOfSourceAssetFile = assetPath.GetPathOfImportParametersOfSourceAssetFile();
                 Object importParameters =
-                    QuickSerializer.ReadFileXML<AssetImportParameters_Model>(pathOfImportParametersOfSourceAssetFile);
+                    Serializer.ReadFileJSON<AssetImportParameters_Model>(pathOfImportParametersOfSourceAssetFile);
 
 
                 if (importParameters != null)
@@ -496,7 +496,7 @@ public class EditorPanelBrowser : EditorPanel
                     EditorPanelInspector.I.SelectInspectable(importParameters,
                         anyValueChanged: () =>
                         {
-                            QuickSerializer.SaveFileXML<AssetImportParameters_Model>(
+                            Serializer.SaveFileJSON<AssetImportParameters_Model>(
                                 pathOfImportParametersOfSourceAssetFile, importParameters);
                         });
                 }
@@ -515,7 +515,7 @@ public class EditorPanelBrowser : EditorPanel
             {
                 var pathOfImportParametersOfSourceAssetFile = assetPath.GetPathOfImportParametersOfSourceAssetFile();
                 Object importParameters =
-                    QuickSerializer.ReadFileXML<AssetImportParameters_Texture>(pathOfImportParametersOfSourceAssetFile);
+                    Serializer.ReadFileJSON<AssetImportParameters_Texture>(pathOfImportParametersOfSourceAssetFile);
 
 
                 if (importParameters != null)
@@ -523,7 +523,7 @@ public class EditorPanelBrowser : EditorPanel
                     EditorPanelInspector.I.SelectInspectable(importParameters,
                         anyValueChanged: () =>
                         {
-                            QuickSerializer.SaveFileXML<AssetImportParameters_Texture>(
+                            Serializer.SaveFileJSON<AssetImportParameters_Texture>(
                                 pathOfImportParametersOfSourceAssetFile, importParameters);
                         });
                 }

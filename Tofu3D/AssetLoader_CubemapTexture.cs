@@ -28,7 +28,7 @@ public class AssetLoader_CubemapTexture : AssetLoader<Asset_Texture, RuntimeCube
         {
             var path = pathsToSourceTextures[textureIndex].GetPathOfAssetInLibrayFromSourceAssetPathOrName();
             // Asset_Texture assetTexture = Tofu.AssetLoadManager.Load<Asset_Texture>(path);
-            Asset_Texture assetTexture = QuickSerializer.ReadAssetJSON<Asset_Texture>(path);
+            Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(path);
 
             
             // path = loadSettings.Paths[textureIndex];

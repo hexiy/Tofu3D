@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<AssetImportParameters_Texture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+™{"PathToSourceAsset":"Resources/Console/warning.png","FilterMode":9729,"WrapMode":10497,"IsSrgb":false,"BlackIsTransparency":false,"AssetID":-1835386422}01/XMLSchema">
   <PathToSourceAsset>Resources/Console/warning.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>

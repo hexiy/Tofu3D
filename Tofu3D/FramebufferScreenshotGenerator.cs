@@ -24,7 +24,7 @@ public static class FramebufferScreenshotGenerator
             string path = Path.Combine(Folders.ThumbnailsInLibrary,
                 "framebufferCapture" + Random.Range(0, 100) + ".png");
             string tofuTexturePath = path + ".tofutexture";
-            QuickSerializer.SaveAssetJSON<Asset_Texture>(tofuTexturePath, texture);
+            Serializer.SaveAssetJSON<Asset_Texture>(tofuTexturePath, texture);
             image.SaveAsPng(Path.Combine(Folders.ThumbnailsInLibrary,
                 "framebufferCapture" + Random.Range(0, 100) + ".png"));
         }

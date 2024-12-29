@@ -46,7 +46,7 @@ public class AssetImportManager
 
 
         bool assetImportParametersFileExistsForThisAsset = File.Exists(importParametersFilePath);
-        const bool FORCE_NEW_IMPORT_PARAMETERS = false;
+        const bool FORCE_NEW_IMPORT_PARAMETERS = true;
         if (FORCE_NEW_IMPORT_PARAMETERS)
         {
             assetImportParametersFileExistsForThisAsset = false;
@@ -60,13 +60,13 @@ public class AssetImportManager
                 assetImportParametersModel = new AssetImportParameters_Model();
                 assetImportParametersModel.PathToSourceAsset = rawAssetPath;
 
-                QuickSerializer.SaveFileXML<AssetImportParameters_Model>(importParametersFilePath,
+                Serializer.SaveFileJSON<AssetImportParameters_Model>(importParametersFilePath,
                     assetImportParametersModel);
             }
             else
             {
                 assetImportParametersModel =
-                    QuickSerializer.ReadFileXML<AssetImportParameters_Model>(importParametersFilePath);
+                    Serializer.ReadFileJSON<AssetImportParameters_Model>(importParametersFilePath);
             }
 
             AssetImportParameters[id] = assetImportParametersModel;
@@ -128,13 +128,13 @@ public class AssetImportManager
                 assetImportParametersTexture = new AssetImportParameters_Texture();
                 assetImportParametersTexture.PathToSourceAsset = rawAssetPath;
 
-                QuickSerializer.SaveFileXML<AssetImportParameters_Texture>(importParametersFilePath,
+                Serializer.SaveFileJSON<AssetImportParameters_Texture>(importParametersFilePath,
                     assetImportParametersTexture);
             }
             else
             {
                 assetImportParametersTexture =
-                    QuickSerializer.ReadFileXML<AssetImportParameters_Texture>(importParametersFilePath);
+                    Serializer.ReadFileJSON<AssetImportParameters_Texture>(importParametersFilePath);
             }
 
             AssetImportParameters[id] = assetImportParametersTexture;

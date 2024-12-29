@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<AssetImportParameters_Model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+{"ImportAsSingleMesh":true,"SmoothNormals":true,"PathToSourceAsset":"Assets/3D/grass block/blockExportedTriangulated.obj","AssetID":-1197100362}.org/2001/XMLSchema">
   <PathToSourceAsset>Assets/3D/grass block/blockExportedTriangulated.obj</PathToSourceAsset>
   <ImportAsSingleMesh>true</ImportAsSingleMesh>
   <SmoothNormals>true</SmoothNormals>

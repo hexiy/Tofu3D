@@ -13,7 +13,7 @@ public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
     public override RuntimeMesh LoadAsset(AssetLoadParameters<RuntimeMesh>? assetLoadParameters)
     {
         string meshAssetPath = assetLoadParameters.PathToAsset;
-        Asset_Mesh assetMesh = QuickSerializer.ReadAssetJSON<Asset_Mesh>(meshAssetPath);
+        Asset_Mesh assetMesh = Serializer.ReadAssetJSON<Asset_Mesh>(meshAssetPath);
 
 
         RuntimeMesh runtimeMesh = new RuntimeMesh()

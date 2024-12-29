@@ -362,7 +362,7 @@ public class EditorPanelSceneView : EditorPanel
         string importParametersPath = model.PathToRawAsset.GetPathOfImportParametersOfSourceAssetFile();
 
         AssetImportParameters_Model importParameters =
-            QuickSerializer.ReadFileXML<AssetImportParameters_Model>(importParametersPath);
+            Serializer.ReadFileJSON<AssetImportParameters_Model>(importParametersPath);
 
         int countOfMeshes = importParameters.ImportAsSingleMesh ? 1 : model.PathsToMeshAssets.Count;
         GameObject[] meshGameObjects =

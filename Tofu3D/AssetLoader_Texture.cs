@@ -18,11 +18,11 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
 
         path = path.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
         
-        Asset_Texture assetTexture = QuickSerializer.ReadAssetJSON<Asset_Texture>(path);
+        Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(path);
         
         var pathOfImportParametersOfSourceAssetFile = assetTexture.PathToRawAsset.GetPathOfImportParametersOfSourceAssetFile();
         AssetImportParameters_Texture importParameters =
-            QuickSerializer.ReadFileXML<AssetImportParameters_Texture>(pathOfImportParametersOfSourceAssetFile);
+            Serializer.ReadFileJSON<AssetImportParameters_Texture>(pathOfImportParametersOfSourceAssetFile);
 
         var textureId = GL.GenTexture();
         TextureHelper.BindTexture(textureId);
