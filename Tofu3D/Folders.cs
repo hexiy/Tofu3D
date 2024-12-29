@@ -4,9 +4,12 @@ namespace Tofu3D;
 
 public class Folders
 {
-    public static string EngineFolderPath => Environment.CurrentDirectory;
-    public static string Resources => "Resources";
-    public static string Library => "Library";
+    public static string EngineFullPath;
+    public static string ProjectFullPath;
+    public static string Resources => Path.Combine(ProjectFullPath, "Resources");
+    public static string FontsInResources => Path.Combine(Resources, "Fonts");
+    public static string Library => Path.Combine(ProjectFullPath, "Library");
+    public static string Data => Path.Combine(ProjectFullPath, "Data");
     public static string ModelsInLibrary => Path.Combine(Library, "Models");
     public static string TexturesInLibrary => Path.Combine(Library, "Textures");
     public static string MaterialsInLibrary => Path.Combine(Library, "Materials");
@@ -14,7 +17,7 @@ public class Folders
     public static string ThumbnailsInLibrary => Path.Combine(Library, "Thumbnails");
     public static string TempInLibrary => Path.Combine(Library, "Temp");
 
-    public static string Assets => Path.Combine(Environment.CurrentDirectory, "Assets");
+    public static string Assets => Path.Combine(ProjectFullPath, "Assets");
     public static string TexturesInAssets => Path.Combine(Assets, "2D");
 
     public static string ShadersInAssets => Path.Combine(Assets, "Shaders");
@@ -26,6 +29,7 @@ public class Folders
     public static void CreateDefaultFolders()
     {
         Directory.CreateDirectory(Library);
+        Directory.CreateDirectory(Data);
         Directory.CreateDirectory(ModelsInLibrary);
         Directory.CreateDirectory(TexturesInLibrary);
         Directory.CreateDirectory(MaterialsInLibrary);
@@ -33,6 +37,7 @@ public class Folders
         Directory.CreateDirectory(TempInLibrary);
         Directory.CreateDirectory(ThumbnailsInLibrary);
     }
+
     /// <summary>
     ///     From "Desktop/project/bin/Assets/2D/xx.png" to "Assets/2D/xx.png"
     /// </summary>
@@ -45,7 +50,7 @@ public class Folders
             return Assets;
         }
 
-        return Path.Combine("Assets", Path.GetRelativePath(Assets, path));
+        return Path.Combine(Assets, Path.GetRelativePath(Assets, path));
     }
 
     public static string Get2DAssetPath(string assetName) => Path.Combine(TexturesInAssets, assetName);
@@ -57,13 +62,13 @@ public class Folders
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
-    public static string GetPathRelativeToEngineFolder(string path)
+    public static string GetPathRelativeToProjectFolder(string path)
     {
         if (path.Length == 0)
         {
             return Assets;
         }
 
-        return Path.GetRelativePath(EngineFolderPath, path);
+        return Path.GetRelativePath(ProjectFullPath, path);
     }
 }

@@ -10,9 +10,12 @@ public static class SystemConfig
     {
         Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
 
-        var a = Directory.GetParent(Environment.CurrentDirectory);
-        Environment.CurrentDirectory =
-            Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName,
-                "tofuProject");
+        Folders.EngineFullPath = Directory.GetParent(Environment.CurrentDirectory).FullName;
+
+        Folders.ProjectFullPath = Path.Combine(
+            Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName,
+            "tofuProject");
+
+        Environment.CurrentDirectory = Folders.ProjectFullPath;
     }
 }

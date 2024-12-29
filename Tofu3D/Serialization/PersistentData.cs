@@ -7,16 +7,16 @@ public static class PersistentData
 {
     private static bool _inited = false;
     private static Dictionary<string, string> _data = new();
-    private static readonly string PersistentDataFileName = "persistentData.json";
 
     private static void LoadAllData()
     {
-        if (File.Exists(PersistentDataFileName) == false)
+        string persistentDataPath=Path.Combine(Folders.Data, "persistentData.json");
+        if (File.Exists(persistentDataPath) == false)
         {
             return;
         }
 
-        var jsonFileContent = File.ReadAllText(PersistentDataFileName);
+        var jsonFileContent = File.ReadAllText(persistentDataPath);
         var x = JsonConvert.DeserializeObject(jsonFileContent);
         _data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonFileContent);
         // _data = new Dictionary<string, object>();
@@ -38,15 +38,16 @@ public static class PersistentData
     private static void Save()
     {
         var json = JsonConvert.SerializeObject(_data);
+        string persistentDataPath=Path.Combine(Folders.Data, "persistentData.json");
 
-        if (File.Exists(PersistentDataFileName) == false)
+        if (File.Exists(persistentDataPath) == false)
         {
-            var fs = File.Create(PersistentDataFileName);
+            var fs = File.Create(persistentDataPath);
             fs.Close();
         }
 
 
-        using (StreamWriter sw = new(PersistentDataFileName))
+        using (StreamWriter sw = new(persistentDataPath))
         {
             sw.Write(json);
         }

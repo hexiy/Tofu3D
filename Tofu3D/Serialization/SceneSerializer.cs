@@ -62,17 +62,12 @@ public class SceneSerializer
 
     public void SaveClipboardGameObject(GameObject go)
     {
-        if (Directory.Exists("Temp") == false)
-        {
-            Directory.CreateDirectory("Temp");
-        }
-
         var prefabSceneFile = SceneFile.CreateForOneGameObject(go);
 
-        SaveGameObjects(prefabSceneFile, Path.Combine("Temp", "clipboardGameObject"));
+        SaveGameObjects(prefabSceneFile, Path.Combine(Folders.Data, "clipboardGameObject"));
     }
 
-    public GameObject LoadClipboardGameObject() => LoadPrefab(Path.Combine("Temp", "clipboardGameObject"));
+    public GameObject LoadClipboardGameObject() => LoadPrefab(Path.Combine(Folders.Data, "clipboardGameObject"));
 
     public GameObject LoadPrefab(string prefabPath, bool inBackground = false)
     {

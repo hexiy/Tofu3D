@@ -64,7 +64,7 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
                 var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                 if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
                 {
-                    payload = Path.GetRelativePath(Folders.EngineFolderPath, payload);
+                    payload = Path.GetRelativePath(Folders.ProjectFullPath, payload);
 
                     textureName = payload;
 

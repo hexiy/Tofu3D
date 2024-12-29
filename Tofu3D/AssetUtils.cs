@@ -28,8 +28,6 @@ public class AssetUtils
     public static string ValidateAssetPath(string assetPath)
     {
         assetPath = assetPath.Replace("\\", "/");
-        // assetPath = assetPath.Replace("net8", "net7");
-        assetPath = assetPath.Replace("net7", "net8");
         // assetPath = assetPath.Replace(" ", "\\ ");
 
         // bool isValid = Exists(assetPath);
@@ -42,7 +40,7 @@ public class AssetUtils
         }
         else
         {
-            assetPath = Folders.GetPathRelativeToEngineFolder(assetPath);
+            assetPath = Folders.GetPathRelativeToProjectFolder(assetPath);
         }
 
         if (Exists(assetPath) == false)

@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using ImGuiNET;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
@@ -62,16 +64,25 @@ public class ImGuiController : IDisposable
         io.ConfigWindowsResizeFromEdges = true;
         io.WantSaveIniSettings = false;
 
+        unsafe
+        {
+            var filename = Path.Combine(Folders.Data, "imguiConfig.ini");
+            byte[] filenameBytes = Encoding.UTF8.GetBytes(filename + "\0"); // Add null terminator
+            fixed (byte* bytePtr = filenameBytes)
+            {
+                ImGui.GetIO().NativePtr->IniFilename = bytePtr;
+            }
+        }
         // io.IniSavingRate = 5;
 
-        io.Fonts.AddFontFromFileTTF("inconsolata.ttf", 24);
+        io.Fonts.AddFontFromFileTTF(Path.Combine(Folders.FontsInResources, "inconsolata.ttf"), 24);
         //io.Fonts.AddFontDefault();
 
         io.BackendFlags = ImGuiBackendFlags.None; // ImGuiBackendFlags.RendererHasVtxOffset;
 
-        
-        _keysArray = (Keys[])Enum.GetValues(typeof(Keys)); 
-        
+
+        _keysArray = (Keys[])Enum.GetValues(typeof(Keys));
+
         CreateDeviceResources();
         SetKeyMappings();
 
@@ -243,7 +254,6 @@ void main()
 
         SetPerFrameImGuiData(deltaSeconds);
         UpdateImGuiInput(wnd);
-
     }
 
     public void X()
@@ -254,8 +264,9 @@ void main()
         // }
 
         _frameBegun = true;
-        ImGui.NewFrame(); 
+        ImGui.NewFrame();
     }
+
     /// <summary>
     ///     Sets per-frame data based on the associated window.
     ///     This is called by Update(float).
@@ -296,6 +307,7 @@ void main()
             {
                 continue;
             }
+
             io.KeysDown[(int)_keysArray[i]] = keyboardState.IsKeyDown(_keysArray[i]);
         }
 
