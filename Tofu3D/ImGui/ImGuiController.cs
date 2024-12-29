@@ -67,12 +67,14 @@ public class ImGuiController : IDisposable
         unsafe
         {
             var filename = Path.Combine(Folders.Data, "imguiConfig.ini");
+            // filename = Folders.GetPathRelativeToProjectFolder(filename);
             byte[] filenameBytes = Encoding.UTF8.GetBytes(filename + "\0"); // Add null terminator
             fixed (byte* bytePtr = filenameBytes)
             {
                 ImGui.GetIO().NativePtr->IniFilename = bytePtr;
             }
         }
+
         // io.IniSavingRate = 5;
 
         io.Fonts.AddFontFromFileTTF(Path.Combine(Folders.FontsInResources, "inconsolata.ttf"), 24);
