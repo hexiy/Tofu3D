@@ -50,10 +50,9 @@ public class AssetImporter_Texture : AssetImporter<Asset_Texture>
         }
 
         Asset_Texture assetTexture = new Asset_Texture()
-            { TextureSize = imageSize, PathToRawAsset = path };
-        assetTexture.SetPixels(pixels);
+            { Pixels = pixels, TextureSize = imageSize, PathToRawAsset = path };
         
-        QuickSerializer.SaveFileJSON<Asset_Texture>(path.GetPathOfAssetInLibrayFromSourceAssetPathOrName(),
+        QuickSerializer.SaveAssetJSON<Asset_Texture>(path.GetPathOfAssetInLibrayFromSourceAssetPathOrName(),
             assetTexture);
 
         return assetTexture;

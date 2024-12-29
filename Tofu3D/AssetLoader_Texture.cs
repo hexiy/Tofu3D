@@ -18,7 +18,7 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
 
         path = path.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
         
-        Asset_Texture assetTexture = QuickSerializer.ReadFileJSON<Asset_Texture>(path);
+        Asset_Texture assetTexture = QuickSerializer.ReadAssetJSON<Asset_Texture>(path);
         
         var pathOfImportParametersOfSourceAssetFile = assetTexture.PathToRawAsset.GetPathOfImportParametersOfSourceAssetFile();
         AssetImportParameters_Texture importParameters =
@@ -30,10 +30,9 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
 
         var internalFormat = importParameters.IsSrgb ? PixelInternalFormat.SrgbAlpha : PixelInternalFormat.Rgba;
 
-        assetTexture.DecompressPixels();
         GL.TexImage2D(textureTarget, 0, internalFormat, (int)assetTexture.TextureSize.X,
             (int)assetTexture.TextureSize.Y, 0, PixelFormat.Rgba,
-            PixelType.UnsignedByte, assetTexture.GetPixels());
+            PixelType.UnsignedByte, assetTexture.Pixels);
 
         GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 

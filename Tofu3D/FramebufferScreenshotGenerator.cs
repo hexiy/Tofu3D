@@ -19,19 +19,16 @@ public static class FramebufferScreenshotGenerator
             byte[] pixels = new byte[framebufferData.Length];
             image.CopyPixelDataTo(pixels);
 
-            Asset_Texture texture = new Asset_Texture() { TextureSize = framebuffer.Size };
-            texture.SetPixels(pixels);
+            Asset_Texture texture = new Asset_Texture() { Pixels = pixels, TextureSize = framebuffer.Size };
 
             string path = Path.Combine(Folders.ThumbnailsInLibrary,
                 "framebufferCapture" + Random.Range(0, 100) + ".png");
             string tofuTexturePath = path + ".tofutexture";
-            QuickSerializer.SaveFileJSON<Asset_Texture>(tofuTexturePath, texture);
+            QuickSerializer.SaveAssetJSON<Asset_Texture>(tofuTexturePath, texture);
             image.SaveAsPng(Path.Combine(Folders.ThumbnailsInLibrary,
                 "framebufferCapture" + Random.Range(0, 100) + ".png"));
         }
 
         framebuffer.Unbind();
     }
-    
-  
 }

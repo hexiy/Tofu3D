@@ -5,48 +5,42 @@ namespace Tofu3D;
 [Serializable]
 public class Asset_Texture : Asset<Asset_Texture>
 {
-    public bool PixelsAreCompressed = false;
 
-    public byte[] _pixels;//must be public for serialization
+    public byte[] Pixels;//must be public for serialization
 
     public Vector2 TextureSize;
 
-    public byte[] GetPixels()
+    public override void BeforeSerialized()
     {
-        if (_pixels == null)
-        {
-            return null;
-        }
-
-        DecompressPixels();
-        return _pixels;
+        CompressPixels();
+        base.BeforeSerialized();
     }
 
-    public void SetPixels(byte[] pixels)
+    public override void OnDeserialized()
     {
-        _pixels = pixels;
-        CompressPixels();
+        DecompressPixels();
+        base.OnDeserialized();
     }
 
     public void CompressPixels()
     {
-        if (PixelsAreCompressed)
+        if (DataIsCompressed)
         {
             return;
         }
 
-        _pixels = TextureCompression.CompressWithDeflate(_pixels);
-        PixelsAreCompressed = true;
+        Pixels = Compression.Compress(Pixels);
+        DataIsCompressed = true;
     }
 
     public void DecompressPixels()
     {
-        if (PixelsAreCompressed == false)
+        if (DataIsCompressed == false)
         {
             return;
         }
 
-        _pixels = TextureCompression.DecompressWithDeflate(_pixels);
-        PixelsAreCompressed = false;
+        Pixels = Compression.Decompress(Pixels);
+        DataIsCompressed = false;
     }
 }

@@ -3,14 +3,18 @@ public abstract class AssetBase
 {
     [Hide]
     public string PathToRawAsset = "";
+
     [Hide]
-    public string PathToAssetInLibrary=>PathToRawAsset.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+    public string PathToAssetInLibrary => PathToRawAsset.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+
     [XmlIgnore]
     public RuntimeAssetHandle RuntimeAssetHandle { get; set; }
 
     // [XmlIgnore]
     [Hide]
     public bool IsRuntimeCopy { get; set; } = false;
+
+    public bool DataIsCompressed = false;
 
     public void SetAsRuntimeAsset()
     {
@@ -29,5 +33,13 @@ public abstract class AssetBase
         }
 
         return true;
+    }
+
+    public virtual void OnDeserialized()
+    {
+    }
+
+    public virtual void BeforeSerialized()
+    {
     }
 }

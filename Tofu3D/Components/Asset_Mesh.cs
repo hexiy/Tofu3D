@@ -6,4 +6,9 @@ public class Asset_Mesh : Asset<Asset_Mesh>
     public int VerticesCount; // serialize, i dont need this but its fine
     public uint[] Indices; // serialize
 
+    void a()
+    {
+        Compression.Compress(Indices);
+    }
+
 }

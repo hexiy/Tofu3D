@@ -28,7 +28,7 @@ public class AssetLoader_CubemapTexture : AssetLoader<Asset_Texture, RuntimeCube
         {
             var path = pathsToSourceTextures[textureIndex].GetPathOfAssetInLibrayFromSourceAssetPathOrName();
             // Asset_Texture assetTexture = Tofu.AssetLoadManager.Load<Asset_Texture>(path);
-            Asset_Texture assetTexture = QuickSerializer.ReadFileJSON<Asset_Texture>(path);
+            Asset_Texture assetTexture = QuickSerializer.ReadAssetJSON<Asset_Texture>(path);
 
             
             // path = loadSettings.Paths[textureIndex];
@@ -43,7 +43,7 @@ public class AssetLoader_CubemapTexture : AssetLoader<Asset_Texture, RuntimeCube
 
             GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX + textureIndex, 0, PixelInternalFormat.Rgba,
                 (int)imageSize.X, (int)imageSize.Y, 0, PixelFormat.Rgba, PixelType.UnsignedByte,
-                assetTexture.GetPixels());
+                assetTexture.Pixels);
 
             var textureTarget = TextureTarget.TextureCubeMap;
             GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)loadParameters.WrapMode);

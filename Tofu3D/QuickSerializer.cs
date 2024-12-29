@@ -6,6 +6,21 @@ using Newtonsoft.Json;
 
 public static class QuickSerializer
 {
+    public static void SaveAssetJSON<T>(string path, AssetBase asset)
+    {
+        asset.BeforeSerialized();
+        SaveFileJSON<T>(path, asset);
+    }
+
+    public static T? ReadAssetJSON<T>(string path) where T : AssetBase
+    {
+        T asset = ReadFileJSON<T>(path);
+        asset.OnDeserialized();
+
+
+        return asset;
+    }
+
     public static void SaveFileJSON<T>(string path, object content)
     {
         using (var stream = new FileStream(path, FileMode.OpenOrCreate))
@@ -37,10 +52,11 @@ public static class QuickSerializer
             {
                 // Read the serialized JSON string from the binary file
                 string json = reader.ReadString();
-                if (json.Substring(0,20).Contains("xml"))
+                if (json.Substring(0, 20).Contains("xml"))
                 {
                     return ReadFileXML<T>(path);
                 }
+
                 return JsonConvert.DeserializeObject<T>(json);
             }
         }
