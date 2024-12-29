@@ -7,8 +7,15 @@ namespace Tofu3D;
 
 public static class FramebufferScreenshotGenerator
 {
-    public static void TakeScreenshot(Framebuffer framebuffer)
+    public static void TakeScreenshot(Framebuffer framebuffer, string fileName)
     {
+        if (fileName.Contains(".png") == false)
+        {
+            fileName += ".png";
+        }
+
+        fileName = fileName.Replace(".tofutexture", "");
+
         framebuffer.Bind();
         byte[] framebufferData = new byte[(int)framebuffer.Size.X * (int)framebuffer.Size.Y * 4];
         GL.ReadPixels(0, 0, framebuffer.Size.Xi, framebuffer.Size.Yi, PixelFormat.Rgba, PixelType.UnsignedByte,
@@ -21,12 +28,11 @@ public static class FramebufferScreenshotGenerator
 
             Asset_Texture texture = new Asset_Texture() { Pixels = pixels, TextureSize = framebuffer.Size };
 
-            string path = Path.Combine(Folders.ThumbnailsInLibrary,
-                "framebufferCapture" + Random.Range(0, 100) + ".png");
+            string path = Path.Combine(Folders.SceneThumbnailsInLibrary,
+                fileName);
             string tofuTexturePath = path + ".tofutexture";
             Serializer.SaveAssetJSON<Asset_Texture>(tofuTexturePath, texture);
-            image.SaveAsPng(Path.Combine(Folders.ThumbnailsInLibrary,
-                "framebufferCapture" + Random.Range(0, 100) + ".png"));
+            image.SaveAsPng(path);
         }
 
         framebuffer.Unbind();

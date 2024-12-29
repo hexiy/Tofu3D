@@ -16,13 +16,26 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
         AssetLoadParameters_Texture loadParameters = assetLoadParameters as AssetLoadParameters_Texture;
         string path = loadParameters.PathToAsset;
 
-        path = path.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
-        
+        if (File.Exists(path.GetPathOfAssetInLibrayFromSourceAssetPathOrName()))
+        {
+            path = path.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+        }
+
         Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(path);
-        
-        var pathOfImportParametersOfSourceAssetFile = assetTexture.PathToRawAsset.GetPathOfImportParametersOfSourceAssetFile();
-        AssetImportParameters_Texture importParameters =
-            Serializer.ReadFileJSON<AssetImportParameters_Texture>(pathOfImportParametersOfSourceAssetFile);
+
+        var pathOfImportParametersOfSourceAssetFile =
+            assetTexture.PathToRawAsset.GetPathOfImportParametersOfSourceAssetFile();
+        AssetImportParameters_Texture importParameters;
+
+        if (File.Exists(pathOfImportParametersOfSourceAssetFile))
+        {
+            importParameters =
+                Serializer.ReadFileJSON<AssetImportParameters_Texture>(pathOfImportParametersOfSourceAssetFile);
+        }
+        else
+        {
+            importParameters = new AssetImportParameters_Texture();
+        }
 
         var textureId = GL.GenTexture();
         TextureHelper.BindTexture(textureId);
@@ -46,7 +59,8 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
         if (OperatingSystem.IsWindows)
         {
             // GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode + 257);
-            GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter, (int)importParameters.FilterMode + 257);
+            GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter,
+                (int)importParameters.FilterMode + 257);
             GL.TextureParameter(textureId, TextureParameterName.TextureLodBias, -0.4f);
         }
 

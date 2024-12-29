@@ -5,6 +5,7 @@ public struct SceneFile
     public List<GameObject> GameObjects;
     public List<Component> Components;
     public int GameObjectNextId;
+    
 
     public static SceneFile CreateForOneGameObject(GameObject go)
     {

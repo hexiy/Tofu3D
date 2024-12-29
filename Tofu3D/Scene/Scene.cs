@@ -41,8 +41,17 @@ public class Scene
 
     public TransformHandle TransformHandle;
     public SceneFogManager SceneFogManager { get; private set; }
-    public string SceneName => Path.GetFileName(ScenePath);
+    public string SceneName => Path.GetFileNameWithoutExtension(ScenePath);
     private Camera Camera => Camera.MainCamera;
+
+    public string ThumbnailPath => GetThumbnailPath(ScenePath);
+
+    public static string GetThumbnailPath(string scenePath)
+    {
+        string name = Path.GetFileNameWithoutExtension(scenePath);
+        string thumbnailPath = Path.Combine(Folders.SceneThumbnailsInLibrary, name + ".png.tofutexture");
+        return thumbnailPath;
+    }
 
     public void Initialize()
     {
@@ -121,7 +130,7 @@ public class Scene
 
     private void CreateTransformHandle()
     {
-        var transformHandleGameObject = GameObject.Create(visibleInHierarchy: false, runtimeOnly:true);
+        var transformHandleGameObject = GameObject.Create(visibleInHierarchy: false, runtimeOnly: true);
         TransformHandle = transformHandleGameObject.AddComponent<TransformHandle>();
         transformHandleGameObject.RuntimeOnly = true;
         transformHandleGameObject.AlwaysUpdate = true;
@@ -215,7 +224,7 @@ public class Scene
     public void RenderTransparency()
     {
         // GL.Disable(EnableCap.CullFace);
-        
+
         GL.ClearDepth(1000);
         GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
         _renderableComponentQueue.RenderTransparency();

@@ -1,4 +1,5 @@
 using System.IO;
+using Tofu3D.Rendering;
 
 namespace Tofu3D;
 
@@ -67,7 +68,7 @@ public class SceneManager
         for (var i = 0; i < sceneFile.GameObjects.Count; i++)
         {
             sceneFile.GameObjects[i].LinkGameObjectFieldsInComponents();
-            sceneFile.GameObjects[i].Awake(callStartAfterAwake:false);
+            sceneFile.GameObjects[i].Awake(callStartAfterAwake: false);
         }
 
         Debug.EndAndLogTimer("Awake");
@@ -84,7 +85,7 @@ public class SceneManager
         Debug.EndAndLogTimer("LoadScene");
 
         LastOpenedScene = path;
-        
+
         return true;
     }
 
@@ -97,8 +98,10 @@ public class SceneManager
         }
 
         Tofu.SceneSerializer.SaveGameObjects(CurrentScene.GetSceneFile(), path);
-        
-        LastOpenedScene = path;
-    }
 
+        LastOpenedScene = path;
+
+        FramebufferScreenshotGenerator.TakeScreenshot(Tofu.RenderPassSystem.FinalFramebuffer,
+            fileName: CurrentScene.ThumbnailPath);
+    }
 }

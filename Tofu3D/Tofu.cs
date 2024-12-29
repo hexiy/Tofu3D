@@ -144,10 +144,10 @@ public static class Tofu
         Debug.EndGraphTimer("Editor Update");
 
 
-        if (KeyboardInput.WasKeyJustPressed(Keys.Enter))
-        {
-            FramebufferScreenshotGenerator.TakeScreenshot(RenderPassSystem.FinalFramebuffer);
-        }
+        // if (KeyboardInput.WasKeyJustPressed(Keys.Enter))
+        // {
+            // FramebufferScreenshotGenerator.TakeScreenshot(RenderPassSystem.FinalFramebuffer);
+        // }
     }
 
     private static void OnWindowRender(FrameEventArgs e)

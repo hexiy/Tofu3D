@@ -123,7 +123,10 @@ public static class AssetFileExtensions
                 fileName.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
                 fileName.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase));
     }
-
+    public static bool IsFileScene(string fileName)
+    {
+        return fileName.EndsWith(".scene", StringComparison.OrdinalIgnoreCase);
+    }
     public static bool IsFileTemporaryMisc(string fileName)
     {
         return fileName.EndsWith(".temp", StringComparison.OrdinalIgnoreCase);

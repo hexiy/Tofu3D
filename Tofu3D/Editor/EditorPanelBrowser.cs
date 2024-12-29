@@ -165,6 +165,15 @@ public class EditorPanelBrowser : EditorPanel
                 _textures[_assets[i]] =
                     Tofu.AssetLoadManager.Load<RuntimeTexture>(_assets[i]); //, _iconTextureLoadSettings);
             }
+
+            if (AssetFileExtensions.IsFileScene(_assets[i]))
+            {
+                string thumbnailPath = Scene.GetThumbnailPath(_assets[i]);
+                if (File.Exists(thumbnailPath))
+                {
+                    _textures[_assets[i]] = Tofu.AssetLoadManager.Load<RuntimeTexture>(thumbnailPath);
+                }
+            }
         }
     }
 
@@ -194,7 +203,8 @@ public class EditorPanelBrowser : EditorPanel
             || (IsPanelHovered && KeyboardInput.IsKeyDown(Keys.Backspace))
             || (KeyboardInput.IsKeyDown(Keys.LeftCmd) && KeyboardInput.WasKeyJustPressed(Keys.Up)))
         {
-            if (CurrentDirectoryInfo.Name.Equals("assets", StringComparison.OrdinalIgnoreCase) == false && IsPanelHovered)
+            if (CurrentDirectoryInfo.Name.Equals("assets", StringComparison.OrdinalIgnoreCase) == false &&
+                IsPanelHovered)
             {
                 SetCurrentDirectory(CurrentDirectoryInfo.Parent);
                 RefreshAssets();
