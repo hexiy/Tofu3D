@@ -43,7 +43,7 @@ public class AssetLoader_CubemapTexture : AssetLoader<Asset_Texture, RuntimeCube
 
             GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX + textureIndex, 0, PixelInternalFormat.Rgba,
                 (int)imageSize.X, (int)imageSize.Y, 0, PixelFormat.Rgba, PixelType.UnsignedByte,
-                assetTexture.Pixels);
+                assetTexture.GetPixels());
 
             var textureTarget = TextureTarget.TextureCubeMap;
             GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)loadParameters.WrapMode);

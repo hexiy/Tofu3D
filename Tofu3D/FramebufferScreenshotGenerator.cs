@@ -1,6 +1,5 @@
 using System.IO;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
@@ -17,10 +16,22 @@ public static class FramebufferScreenshotGenerator
         using (var image = Image.LoadPixelData<Rgba32>(framebufferData, framebuffer.Size.Xi, framebuffer.Size.Yi))
         {
             image.Mutate(x => x.Flip(FlipMode.Vertical));
-            
-            image.SaveAsPng(Path.Combine(Folders.TempInLibrary, "framebufferCapture" + Random.Range(0, 100) + ".png"));
+            byte[] pixels = new byte[framebufferData.Length];
+            image.CopyPixelDataTo(pixels);
+
+            Asset_Texture texture = new Asset_Texture() { TextureSize = framebuffer.Size };
+            texture.SetPixels(pixels);
+
+            string path = Path.Combine(Folders.ThumbnailsInLibrary,
+                "framebufferCapture" + Random.Range(0, 100) + ".png");
+            string tofuTexturePath = path + ".tofutexture";
+            QuickSerializer.SaveFileJSON<Asset_Texture>(tofuTexturePath, texture);
+            image.SaveAsPng(Path.Combine(Folders.ThumbnailsInLibrary,
+                "framebufferCapture" + Random.Range(0, 100) + ".png"));
         }
 
         framebuffer.Unbind();
     }
+    
+  
 }

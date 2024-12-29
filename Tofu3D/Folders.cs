@@ -31,6 +31,7 @@ public class Folders
         Directory.CreateDirectory(MaterialsInLibrary);
         Directory.CreateDirectory(MeshesInLibrary);
         Directory.CreateDirectory(TempInLibrary);
+        Directory.CreateDirectory(ThumbnailsInLibrary);
     }
     /// <summary>
     ///     From "Desktop/project/bin/Assets/2D/xx.png" to "Assets/2D/xx.png"

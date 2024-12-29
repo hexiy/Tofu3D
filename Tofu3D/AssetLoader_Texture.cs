@@ -30,9 +30,10 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
 
         var internalFormat = importParameters.IsSrgb ? PixelInternalFormat.SrgbAlpha : PixelInternalFormat.Rgba;
 
+        assetTexture.DecompressPixels();
         GL.TexImage2D(textureTarget, 0, internalFormat, (int)assetTexture.TextureSize.X,
             (int)assetTexture.TextureSize.Y, 0, PixelFormat.Rgba,
-            PixelType.UnsignedByte, assetTexture.Pixels);
+            PixelType.UnsignedByte, assetTexture.GetPixels());
 
         GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 
