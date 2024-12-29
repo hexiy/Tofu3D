@@ -71,7 +71,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             int meshIndex = model.PathsToMeshAssets.Count;
 
             string meshPath = objPath.ToMeshAssetFileName(meshIndex).GetPathOfAssetInLibrayFromSourceAssetPathOrName();
-            QuickSerializer.SaveFileJSON<Asset_Mesh>(meshPath, assetMesh);
+            QuickSerializer.SaveAssetJSON<Asset_Mesh>(meshPath, assetMesh);
             model.PathsToMeshAssets.Add(meshPath);
             if (indxTemp == lineStartIndex)
             {
@@ -359,7 +359,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 currentUniqueVertexIndex++;
                 uniqueVertices.Add(position2, index);
             }
-            
+
             if (uniqueVertices.ContainsKey(position3))
             {
                 uint index = uniqueVertices[position3];
@@ -379,13 +379,13 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         // once we have unique vertices in an array, thats our new vertex data, and indices we just find indexes of
         //     them there
         //     because right now we have all vertices in the array wasting time and its wrong too.
-            // so our indice will be pointing to [vertex1, vertex2, vertex3]
+        // so our indice will be pointing to [vertex1, vertex2, vertex3]
 
         Asset_Mesh mesh = new Asset_Mesh();
         mesh.CountsOfElements = countsOfElements;
         mesh.VertexBufferData = vertexBufferData.ToArray();
-        mesh.VerticesCount =(int) (vertexBufferData.Count / 14);
-        mesh.Indices = indices.ToArray();
+        mesh.VerticesCount = (int)(vertexBufferData.Count / 14);
+        mesh.SetIndices(indices.ToArray());
 
         return mesh;
     }

@@ -13,7 +13,7 @@ public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
     public override RuntimeMesh LoadAsset(AssetLoadParameters<RuntimeMesh>? assetLoadParameters)
     {
         string meshAssetPath = assetLoadParameters.PathToAsset;
-        Asset_Mesh assetMesh = QuickSerializer.ReadFileJSON<Asset_Mesh>(meshAssetPath);
+        Asset_Mesh assetMesh = QuickSerializer.ReadAssetJSON<Asset_Mesh>(meshAssetPath);
 
 
         RuntimeMesh runtimeMesh = new RuntimeMesh()
@@ -22,7 +22,7 @@ public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
             VertexBufferDataLength = assetMesh.VertexBufferData.Length,
             VerticesCount = assetMesh.VerticesCount,
             Vao = -1,
-            Indices = assetMesh.Indices
+            Indices = assetMesh.GetIndices()
         };
 
         // if mesh is already loaded, we take its vao!! problem is on model import we unload the runtime meshes so we wont find anything here...
@@ -33,7 +33,7 @@ public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
         }
 
         BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, ref runtimeMesh.Ebo, assetMesh.VertexBufferData, assetMesh.CountsOfElements,
-            indices: assetMesh.Indices);
+            indices: assetMesh.GetIndices());
 
         runtimeMesh.InitAssetRuntimeHandle(runtimeMesh.Vao);
         
