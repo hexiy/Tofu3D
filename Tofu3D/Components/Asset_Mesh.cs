@@ -1,52 +1,53 @@
+using Newtonsoft.Json;
+
 public class Asset_Mesh : Asset<Asset_Mesh>
 {
     // public RuntimeAssetHandle ModelRuntimeAssetHandle; // serialize
-    public float[] VertexBufferData; // serialize
+    [JsonIgnore]
+    public float[] VertexBufferData;// dont serialize
     public int[] CountsOfElements; // serialize
     public int VerticesCount; // serialize, i dont need this but its fine
-    private uint[] _indices; // dont serialize
+
+    [JsonIgnore]
+    public uint[] Indices; // dont serialize
     public byte[] ByteIndices; // serialize
+    public byte[] ByteVertexBufferData; // serialize
 
-    public void SetIndices(uint[] indices)
-    {
-        _indices = indices;
-    }
-
-    public uint[] GetIndices()
-    {
-        return _indices;
-    }
     public override void BeforeSerialized()
     {
-        CompressIndices();
+        CompressData();
         base.BeforeSerialized();
     }
 
     public override void OnDeserialized()
     {
-        DecompressIndices();
+        DecompressData();
         base.OnDeserialized();
     }
 
-    public void CompressIndices()
+
+    public void CompressData()
     {
         if (DataIsCompressed)
         {
             return;
         }
 
-        ByteIndices = Compression.Compress(_indices);
+        ByteIndices = Compression.Compress(Indices);
+        ByteVertexBufferData = Compression.Compress(VertexBufferData);
         DataIsCompressed = true;
     }
 
-    public void DecompressIndices()
+    public void DecompressData()
     {
         if (DataIsCompressed == false)
         {
             return;
         }
 
-        _indices = Compression.DecompressUnsignedIntArray(ByteIndices);
+        Indices = Compression.DecompressUnsignedIntArray(ByteIndices);
+        VertexBufferData = Compression.DecompressFloatArray(ByteVertexBufferData);
+        
         DataIsCompressed = false;
     }
 }

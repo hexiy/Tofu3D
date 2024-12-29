@@ -22,7 +22,7 @@ public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
             VertexBufferDataLength = assetMesh.VertexBufferData.Length,
             VerticesCount = assetMesh.VerticesCount,
             Vao = -1,
-            Indices = assetMesh.GetIndices()
+            Indices = assetMesh.Indices
         };
 
         // if mesh is already loaded, we take its vao!! problem is on model import we unload the runtime meshes so we wont find anything here...
@@ -33,7 +33,7 @@ public class AssetLoader_Mesh : AssetLoader<Asset_Mesh, RuntimeMesh>
         }
 
         BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, ref runtimeMesh.Ebo, assetMesh.VertexBufferData, assetMesh.CountsOfElements,
-            indices: assetMesh.GetIndices());
+            indices: assetMesh.Indices);
 
         runtimeMesh.InitAssetRuntimeHandle(runtimeMesh.Vao);
         

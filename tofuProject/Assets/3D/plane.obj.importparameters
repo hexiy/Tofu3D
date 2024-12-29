@@ -1,4 +1,4 @@
-n{"ImportAsSingleMesh":true,"SmoothNormals":true,"PathToSourceAsset":"Assets/3D/plane.obj","AssetID":830735437}}instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+p{"ImportAsSingleMesh":true,"SmoothNormals":true,"PathToSourceAsset":"Assets/3D/plane.obj","AssetID":-1565539113}nstance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <PathToSourceAsset>Assets/3D/plane.obj</PathToSourceAsset>
   <ImportAsSingleMesh>true</ImportAsSingleMesh>
   <SmoothNormals>true</SmoothNormals>

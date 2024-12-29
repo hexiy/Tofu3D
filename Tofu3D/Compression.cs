@@ -36,6 +36,22 @@ public static class Compression
         return byteArray;
     }
 
+    // Convert float[] to byte[] for Deflate processing
+    public static byte[] ConvertFloatArrayToByteArray(float[] floatArray)
+    {
+        byte[] byteArray = new byte[floatArray.Length * sizeof(float)];
+        Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteArray.Length);
+        return byteArray;
+    }
+
+    // Convert byte[] back to float[] after decompression
+    public static float[] ConvertByteArrayToFloatArray(byte[] byteArray)
+    {
+        float[] floatArray = new float[byteArray.Length / sizeof(float)];
+        Buffer.BlockCopy(byteArray, 0, floatArray, 0, byteArray.Length);
+        return floatArray;
+    }
+
     // Convert byte[] back to uint[] after decompression
     public static uint[] ConvertByteArrayToUIntArray(byte[] byteArray)
     {
@@ -44,10 +60,18 @@ public static class Compression
         return uintArray;
     }
 
+
     // Compress uint[] array
     public static byte[] Compress(uint[] data)
     {
         byte[] byteArray = ConvertUIntArrayToByteArray(data); // Convert to byte array
+        return Compress(byteArray); // Compress the byte array
+    }
+
+    // Compress float[] array
+    public static byte[] Compress(float[] data)
+    {
+        byte[] byteArray = ConvertFloatArrayToByteArray(data); // Convert to byte array
         return Compress(byteArray); // Compress the byte array
     }
 
@@ -56,5 +80,12 @@ public static class Compression
     {
         byte[] decompressedByteArray = Decompress(compressedData); // Decompress compressed data
         return ConvertByteArrayToUIntArray(decompressedByteArray); // Convert back to uint array
+    }
+
+    // Decompress uint[] array
+    public static float[] DecompressFloatArray(byte[] compressedData)
+    {
+        byte[] decompressedByteArray = Decompress(compressedData); // Decompress compressed data
+        return ConvertByteArrayToFloatArray(decompressedByteArray); // Convert back to uint array
     }
 }

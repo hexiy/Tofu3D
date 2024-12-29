@@ -385,7 +385,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         mesh.CountsOfElements = countsOfElements;
         mesh.VertexBufferData = vertexBufferData.ToArray();
         mesh.VerticesCount = (int)(vertexBufferData.Count / 14);
-        mesh.SetIndices(indices.ToArray());
+        mesh.Indices = indices.ToArray();
 
         return mesh;
     }
