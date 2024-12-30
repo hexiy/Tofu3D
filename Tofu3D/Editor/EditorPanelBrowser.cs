@@ -17,7 +17,7 @@ public class EditorPanelBrowser : EditorPanel
     Dictionary<string, DirectoryInfo> directoryInfos = new();
 
     private RuntimeTexture _fileIcon;
-    private Vector2 _iconSize => new Vector2(100, 90)*Screen.Scale;
+    private Vector2 _iconSize => new Vector2(100, 90) * Screen.Scale;
 
     private int _subAssetsDrawnCount = 0;
     // private readonly TextureLoadSettings _iconTextureLoadSettings = new(filterMode: TextureFilterMode.Point);
@@ -34,7 +34,16 @@ public class EditorPanelBrowser : EditorPanel
 
     private string CurrentDirectoryPath
     {
-        get { return PersistentData.GetString("CurrentDirectoryPath", Folders.Assets); }
+        get
+        {
+            string path = PersistentData.GetString("CurrentDirectoryPath", Folders.Assets);
+            if (Directory.Exists(path) == false)
+            {
+                CurrentDirectoryPath = Folders.Assets;
+            }
+
+            return path;
+        }
         set
         {
             // string relativePath = Path.GetRelativePath(Folders.Assets, value);
