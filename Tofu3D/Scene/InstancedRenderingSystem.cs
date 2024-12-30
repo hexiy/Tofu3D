@@ -179,7 +179,7 @@ public class InstancedRenderingSystem
                 _depthMaterial = new Asset_Material()
                     { Shader = new Shader(Path.Combine(Folders.ShadersInAssets,"ModelRendererInstancedDepth.glsl")) };
                 
-                Tofu.AssetLoadManager.Load<Asset_Material>();
+                // Tofu.AssetLoadManager.Load<Asset_Material>();
 
                 _depthMaterial.LoadShader();
             }
