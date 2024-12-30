@@ -79,7 +79,7 @@ public class AssetLoadManager
     public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null,
         bool overwriteAlreadyLoadedAssets = false, bool creatingRuntimeCopy = false) where T : Asset<T>
     {
-        int id = sourcePath.GetHashCode();
+        int id = sourcePath.GetHashCode() + typeof(T).GetHashCode();
 
         if (creatingRuntimeCopy)
         {
@@ -124,6 +124,14 @@ public class AssetLoadManager
                 }
             }
 
+            if (existsInDatabase)
+            {
+                T existingAsset = LoadedAssets[id] as T;
+                // problem is this is Asset_Texture not RuntimeTexture
+                // loadedassets has only asset_textures right? not runtimetextures
+                loadParameters.ExistingAsset = existingAsset;
+            }
+
             if (File.Exists(sourcePath) == false)
             {
                 Debug.LogError("not found asset " + loadParameters.PathToAsset);
@@ -166,9 +174,9 @@ public class AssetLoadManager
         return mat;
     }
 
-    public void Unload(string path)
+    public void Unload<T>(string path) where T : Asset<T>
     {
-        int id = path.GetHashCode();
+        int id = path.GetHashCode() + typeof(T).GetHashCode();
         if (LoadedAssets.ContainsKey(id))
         {
             // Debug.Log($"unloaded asset:{path}");
@@ -185,7 +193,7 @@ public class AssetLoadManager
         //     Debug.Log("Not saving runtime copy of asset");
         //     return;
         // }
-        int id = path.GetHashCode();
+        int id = path.GetHashCode() + typeof(T).GetHashCode();
 
         // 
         // T asset = null;

@@ -32,7 +32,8 @@ public class AssetImportManager
     {
         rawAssetPath = AssetPathConverter.ToProjectRelativePath(rawAssetPath);
         int id = rawAssetPath.GetHashCode();
-        Tofu.AssetLoadManager.Unload(rawAssetPath);
+        // Tofu.AssetLoadManager.Unload(rawAssetPath);
+
         string rawAssetFileName = Path.GetFileName(rawAssetPath); // with extension
 
         string importParametersFilePath = rawAssetPath.GetPathOfImportParametersOfSourceAssetFile();
@@ -166,7 +167,7 @@ public class AssetImportManager
         }
         else
         {
-            ImportAssetInNewThread(rawAssetPath, reimportIfExists); 
+            ImportAssetInNewThread(rawAssetPath, reimportIfExists);
         }
     }
 

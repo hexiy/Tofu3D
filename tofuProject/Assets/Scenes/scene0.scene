@@ -58,7 +58,7 @@
       <IsStaticSelf>true</IsStaticSelf>
       <Name>LongText</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
@@ -90,7 +90,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Cube 1</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
@@ -198,8 +198,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>25.289703</X>
-        <Y>-21.990232</Y>
+        <X>23.281107</X>
+        <Y>-17.838667</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -330,12 +330,12 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>0.93189615</X>
+        <X>0.36288247</X>
         <Y>5</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.93189615</X>
+        <X>0.36288247</X>
         <Y>5</Y>
         <Z>0</Z>
       </LocalPosition>
@@ -387,7 +387,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>38</MousePickingId>
+      <MousePickingId>1</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -413,7 +413,7 @@
             <X>112</X>
             <Y>72</Y>
           </Size>
-          <TextureId>21</TextureId>
+          <TextureId>23</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -556,7 +556,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>39</MousePickingId>
+      <MousePickingId>2</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -582,7 +582,7 @@
             <X>112</X>
             <Y>72</Y>
           </Size>
-          <TextureId>21</TextureId>
+          <TextureId>23</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -695,7 +695,7 @@
       <Go>
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
-        <Id>764</Id>
+        <Id>784</Id>
         <IndexInHierarchy>4</IndexInHierarchy>
         <IsPrefab>true</IsPrefab>
         <IsStaticSelf>false</IsStaticSelf>
@@ -718,6 +718,11 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
         <int>377</int>
         <int>377</int>
         <int>377</int>
@@ -823,7 +828,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>40</MousePickingId>
+      <MousePickingId>3</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -997,6 +1002,11 @@
         <int>400</int>
         <int>400</int>
         <int>400</int>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
       </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>365</ParentId>
@@ -1054,7 +1064,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>41</MousePickingId>
+      <MousePickingId>4</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -1237,7 +1247,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>42</MousePickingId>
+      <MousePickingId>5</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -1420,7 +1430,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>43</MousePickingId>
+      <MousePickingId>6</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -4447,7 +4457,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>44</MousePickingId>
+      <MousePickingId>7</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -4473,7 +4483,7 @@
             <X>2048</X>
             <Y>2048</Y>
           </Size>
-          <TextureId>22</TextureId>
+          <TextureId>24</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -4490,7 +4500,7 @@
             <X>2048</X>
             <Y>2048</Y>
           </Size>
-          <TextureId>23</TextureId>
+          <TextureId>25</TextureId>
         </AmbientOcclusionTexture>
         <NormalTexture>
           <PathToRawAsset>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</PathToRawAsset>
@@ -4500,7 +4510,7 @@
             <X>2048</X>
             <Y>2048</Y>
           </Size>
-          <TextureId>24</TextureId>
+          <TextureId>26</TextureId>
         </NormalTexture>
         <RoughnessTexture>
           <PathToRawAsset>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_01_roughness.png</PathToRawAsset>
@@ -4510,7 +4520,7 @@
             <X>4096</X>
             <Y>4096</Y>
           </Size>
-          <TextureId>25</TextureId>
+          <TextureId>27</TextureId>
         </RoughnessTexture>
         <MetallicTexture>
           <PathToRawAsset>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_01_metallic.png</PathToRawAsset>
@@ -4520,7 +4530,7 @@
             <X>2048</X>
             <Y>2048</Y>
           </Size>
-          <TextureId>26</TextureId>
+          <TextureId>28</TextureId>
         </MetallicTexture>
         <EmissiveTexture>
           <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
@@ -150240,5 +150250,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>767</GameObjectNextId>
+  <GameObjectNextId>787</GameObjectNextId>
 </SceneFile>

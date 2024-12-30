@@ -37,7 +37,7 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
             importParameters = new AssetImportParameters_Texture();
         }
 
-        var textureId = GL.GenTexture();
+        var textureId = loadParameters.ExistingAsset?.TextureId ?? GL.GenTexture();
         TextureHelper.BindTexture(textureId);
         var textureTarget = TextureTarget.Texture2D;
 
