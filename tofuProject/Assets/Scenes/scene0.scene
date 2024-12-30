@@ -330,12 +330,12 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-0.53085</X>
+        <X>0.93189615</X>
         <Y>5</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-0.53085</X>
+        <X>0.93189615</X>
         <Y>5</Y>
         <Z>0</Z>
       </LocalPosition>
@@ -387,7 +387,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>217</MousePickingId>
+      <MousePickingId>38</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -413,7 +413,7 @@
             <X>112</X>
             <Y>72</Y>
           </Size>
-          <TextureId>23</TextureId>
+          <TextureId>21</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -556,7 +556,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>218</MousePickingId>
+      <MousePickingId>39</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -582,7 +582,7 @@
             <X>112</X>
             <Y>72</Y>
           </Size>
-          <TextureId>23</TextureId>
+          <TextureId>21</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -695,7 +695,7 @@
       <Go>
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
-        <Id>748</Id>
+        <Id>764</Id>
         <IndexInHierarchy>4</IndexInHierarchy>
         <IsPrefab>true</IsPrefab>
         <IsStaticSelf>false</IsStaticSelf>
@@ -718,6 +718,10 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
+        <int>377</int>
         <int>377</int>
         <int>377</int>
         <int>377</int>
@@ -819,7 +823,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>219</MousePickingId>
+      <MousePickingId>40</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -989,6 +993,10 @@
         <int>400</int>
         <int>400</int>
         <int>400</int>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
+        <int>400</int>
       </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>365</ParentId>
@@ -1046,7 +1054,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>220</MousePickingId>
+      <MousePickingId>41</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -1229,7 +1237,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>221</MousePickingId>
+      <MousePickingId>42</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -1412,7 +1420,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>222</MousePickingId>
+      <MousePickingId>43</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -4439,7 +4447,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>223</MousePickingId>
+      <MousePickingId>44</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -4465,7 +4473,7 @@
             <X>2048</X>
             <Y>2048</Y>
           </Size>
-          <TextureId>24</TextureId>
+          <TextureId>22</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -4482,7 +4490,7 @@
             <X>2048</X>
             <Y>2048</Y>
           </Size>
-          <TextureId>25</TextureId>
+          <TextureId>23</TextureId>
         </AmbientOcclusionTexture>
         <NormalTexture>
           <PathToRawAsset>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_03_normal.png</PathToRawAsset>
@@ -4492,7 +4500,7 @@
             <X>2048</X>
             <Y>2048</Y>
           </Size>
-          <TextureId>26</TextureId>
+          <TextureId>24</TextureId>
         </NormalTexture>
         <RoughnessTexture>
           <PathToRawAsset>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_01_roughness.png</PathToRawAsset>
@@ -4502,7 +4510,7 @@
             <X>4096</X>
             <Y>4096</Y>
           </Size>
-          <TextureId>27</TextureId>
+          <TextureId>25</TextureId>
         </RoughnessTexture>
         <MetallicTexture>
           <PathToRawAsset>Assets/3D/chaos-belly-plate/textures/Aged_Bronze_01_metallic.png</PathToRawAsset>
@@ -4512,7 +4520,7 @@
             <X>2048</X>
             <Y>2048</Y>
           </Size>
-          <TextureId>28</TextureId>
+          <TextureId>26</TextureId>
         </MetallicTexture>
         <EmissiveTexture>
           <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
@@ -150232,5 +150240,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>751</GameObjectNextId>
+  <GameObjectNextId>767</GameObjectNextId>
 </SceneFile>

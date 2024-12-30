@@ -230,8 +230,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>7.920204</X>
-        <Y>-64.07382</Y>
+        <X>13.487394</X>
+        <Y>-62.42227</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -419,7 +419,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>40</MousePickingId>
+      <MousePickingId>13</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -445,7 +445,7 @@
             <X>112</X>
             <Y>72</Y>
           </Size>
-          <TextureId>22</TextureId>
+          <TextureId>21</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -581,7 +581,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>41</MousePickingId>
+      <MousePickingId>14</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -607,7 +607,7 @@
             <X>112</X>
             <Y>72</Y>
           </Size>
-          <TextureId>22</TextureId>
+          <TextureId>21</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -743,7 +743,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>42</MousePickingId>
+      <MousePickingId>15</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -769,7 +769,7 @@
             <X>112</X>
             <Y>72</Y>
           </Size>
-          <TextureId>22</TextureId>
+          <TextureId>21</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -896,7 +896,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>43</MousePickingId>
+      <MousePickingId>16</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -951,8 +951,8 @@
         <RefractiveIndex>1.309</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
+        <MetallicTextureStrength>1</MetallicTextureStrength>
+        <Smoothness>1</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -970,8 +970,8 @@
         <DataIsCompressed>false</DataIsCompressed>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <MeshAssetPath>Library/Meshes/sculpture.obj_0.tofumesh</MeshAssetPath>
-        <Vao>5</Vao>
-        <Ebo>11</Ebo>
+        <Vao>8</Vao>
+        <Ebo>20</Ebo>
         <VerticesCount>25611</VerticesCount>
         <VertexBufferDataLength>358554</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -151065,6 +151065,8 @@
         <int>193</int>
         <int>191</int>
         <int>193</int>
+        <int>191</int>
+        <int>193</int>
       </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
@@ -151162,7 +151164,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>44</MousePickingId>
+      <MousePickingId>17</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -151188,7 +151190,7 @@
             <X>4096</X>
             <Y>4096</Y>
           </Size>
-          <TextureId>23</TextureId>
+          <TextureId>36</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -151236,8 +151238,8 @@
         <DataIsCompressed>false</DataIsCompressed>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <MeshAssetPath>Library/Meshes/defaultCube.obj_0.tofumesh</MeshAssetPath>
-        <Vao>6</Vao>
-        <Ebo>14</Ebo>
+        <Vao>5</Vao>
+        <Ebo>11</Ebo>
         <VerticesCount>8</VerticesCount>
         <VertexBufferDataLength>112</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -151331,7 +151333,7 @@
       <Go>
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
-        <Id>615</Id>
+        <Id>626</Id>
         <IndexInHierarchy>6</IndexInHierarchy>
         <IsPrefab>true</IsPrefab>
         <IsStaticSelf>false</IsStaticSelf>
@@ -151354,6 +151356,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>377</int>
         <int>377</int>
         <int>377</int>
         <int>377</int>
@@ -151433,7 +151436,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>45</MousePickingId>
+      <MousePickingId>18</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -151488,8 +151491,8 @@
         <RefractiveIndex>1.309</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
+        <MetallicTextureStrength>1</MetallicTextureStrength>
+        <Smoothness>1</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -151507,8 +151510,8 @@
         <DataIsCompressed>false</DataIsCompressed>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <MeshAssetPath>Library/Meshes/defaultCube.obj_0.tofumesh</MeshAssetPath>
-        <Vao>6</Vao>
-        <Ebo>14</Ebo>
+        <Vao>5</Vao>
+        <Ebo>11</Ebo>
         <VerticesCount>8</VerticesCount>
         <VertexBufferDataLength>112</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -151560,6 +151563,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>400</int>
         <int>400</int>
         <int>400</int>
         <int>400</int>
@@ -151638,7 +151642,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>46</MousePickingId>
+      <MousePickingId>19</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -151693,8 +151697,8 @@
         <RefractiveIndex>1.309</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
+        <MetallicTextureStrength>1</MetallicTextureStrength>
+        <Smoothness>1</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -151712,8 +151716,8 @@
         <DataIsCompressed>false</DataIsCompressed>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <MeshAssetPath>Library/Meshes/defaultCube.obj_0.tofumesh</MeshAssetPath>
-        <Vao>6</Vao>
-        <Ebo>14</Ebo>
+        <Vao>5</Vao>
+        <Ebo>11</Ebo>
         <VerticesCount>8</VerticesCount>
         <VertexBufferDataLength>112</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -151821,7 +151825,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>47</MousePickingId>
+      <MousePickingId>20</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -151876,8 +151880,8 @@
         <RefractiveIndex>1.309</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
+        <MetallicTextureStrength>1</MetallicTextureStrength>
+        <Smoothness>1</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -151895,8 +151899,8 @@
         <DataIsCompressed>false</DataIsCompressed>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <MeshAssetPath>Library/Meshes/defaultCube.obj_0.tofumesh</MeshAssetPath>
-        <Vao>6</Vao>
-        <Ebo>14</Ebo>
+        <Vao>5</Vao>
+        <Ebo>11</Ebo>
         <VerticesCount>8</VerticesCount>
         <VertexBufferDataLength>112</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -151942,5 +151946,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>621</GameObjectNextId>
+  <GameObjectNextId>632</GameObjectNextId>
 </SceneFile>
