@@ -9,15 +9,17 @@ public class SceneManager
     public static Action SceneLoaded = () => { };
 
     // public PersistentObject<string> LastOpenedScene = ("lastOpenedScene", "Assets/Scenes/scene1.scene");
-    public string LastOpenedScene
+    public string LastOpenedSceneName
     {
-        get => PersistentData.GetString("lastOpenedScene", "Assets/Scenes/scene1.scene");
+        get => PersistentData.GetString("lastOpenedScene", "scene1.scene");
         set => PersistentData.Set("lastOpenedScene", value);
     }
 
+    public string LastOpenedScenePath => Path.Combine(Folders.ScenesInAssets, LastOpenedSceneName);
+
     public void LoadLastOpenedScene()
     {
-        LoadScene(LastOpenedScene);
+        LoadScene(LastOpenedSceneName);
     }
 
     public void ReloadScene()
@@ -44,7 +46,7 @@ public class SceneManager
 
         CurrentScene = new Scene();
 
-        if (path == null || File.Exists(LastOpenedScene) == false)
+        if (path == null || File.Exists(LastOpenedSceneName) == false)
         {
             path = Path.Combine(Folders.Assets, "Scenes", "scene0.scene");
             CurrentScene.SetupAndSaveEmptyScene(path);
@@ -90,22 +92,22 @@ public class SceneManager
         SceneLoaded.Invoke();
         Debug.EndAndLogTimer("LoadScene");
 
-        LastOpenedScene = path;
+        LastOpenedSceneName = path;
 
         return true;
     }
 
     public void SaveScene(string path = null)
     {
-        path = path ?? LastOpenedScene;
+        path = path ?? LastOpenedScenePath;
         if (path.Length < 1)
         {
-            path = Path.Combine("Assets", "scene1.scene");
+            path = Path.Combine(Folders.ScenesInAssets, "scene1.scene");
         }
 
         Tofu.SceneSerializer.SaveGameObjects(CurrentScene.GetSceneFile(), path);
 
-        LastOpenedScene = path;
+        LastOpenedSceneName = Path.GetFileName(path);
 
         FramebufferScreenshotGenerator.TakeScreenshot(Tofu.RenderPassSystem.FinalFramebuffer,
             fileName: CurrentScene.ThumbnailPath, scale: 0.2f);

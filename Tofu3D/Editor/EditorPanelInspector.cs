@@ -541,7 +541,7 @@ public class EditorPanelInspector : EditorPanel
         }
 
         
-        float itemWidth1 = Size.X/1.6f*Screen.Scale;
+        float itemWidth1 = Size.X/1.6f;
         ImGui.SameLine(Size.X- itemWidth1);
         ImGui.SetNextItemWidth(itemWidth1);
 

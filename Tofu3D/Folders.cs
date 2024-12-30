@@ -25,6 +25,7 @@ public class Folders
     public static string TexturesInAssets => Path.Combine(Assets, "2D");
 
     public static string ShadersInAssets => Path.Combine(Assets, "Shaders");
+    public static string ScenesInAssets => Path.Combine(Assets, "Scenes");
 
     public static string MaterialsInAssets => Path.Combine(Assets, "Materials");
 

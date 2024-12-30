@@ -363,7 +363,7 @@ public class Scene
     public void SetupAndSaveEmptyScene(string path)
     {
         IDsManager.GameObjectNextId = 0;
-        Tofu.SceneManager.LastOpenedScene = path;
+        Tofu.SceneManager.LastOpenedSceneName = path;
         GameObjects = new List<GameObject>();
         CreateDefaultObjects();
         Tofu.SceneSerializer.SaveGameObjects(GetSceneFile(), path);
