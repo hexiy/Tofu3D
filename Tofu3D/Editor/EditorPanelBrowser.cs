@@ -40,6 +40,7 @@ public class EditorPanelBrowser : EditorPanel
             if (Directory.Exists(path) == false)
             {
                 CurrentDirectoryPath = Folders.Assets;
+                return Folders.Assets;
             }
 
             return path;
@@ -70,11 +71,6 @@ public class EditorPanelBrowser : EditorPanel
 
         _directoryIcon =
             Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/DirectoryIcon_b.png"); //, _iconTextureLoadSettings);
-
-        if (Directory.Exists(CurrentDirectoryPath) == false)
-        {
-            CurrentDirectoryPath = Folders.Assets;
-        }
 
         SetCurrentDirectory(CurrentDirectoryPath);
 
