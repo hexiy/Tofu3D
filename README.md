@@ -8,8 +8,8 @@ You need: glfw, .Net 8
 
 run
 ```
-dotnet build "CONFIGURATION"
-dotnet run "CONFIGURATION"
+dotnet build --configuration "CONFIGURATION"
+dotnet run --configuration "CONFIGURATION"
 ```
 Replace "CONFIGURATION" with needed configuration:<br>
 "MacOS Release"<br>
