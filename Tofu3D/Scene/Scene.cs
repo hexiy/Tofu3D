@@ -112,6 +112,7 @@ public class Scene
         {
             var camGo = GameObject.Create(name: "Camera");
             camGo.AddComponent<Camera>();
+            camGo.AddComponent<Skybox>();
             camGo.Awake();
         }
     }
@@ -365,7 +366,7 @@ public class Scene
         IDsManager.GameObjectNextId = 0;
         Tofu.SceneManager.LastOpenedSceneName = path;
         GameObjects = new List<GameObject>();
-        CreateDefaultObjects();
+        //CreateDefaultObjects();
         Tofu.SceneSerializer.SaveGameObjects(GetSceneFile(), path);
     }
 

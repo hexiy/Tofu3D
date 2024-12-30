@@ -80,6 +80,13 @@
         <Y>900</Y>
       </Size>
     </Component>
+    <Component xsi:type="Skybox">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>0</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Fov>60</Fov>
+    </Component>
   </Components>
   <GameObjectNextId>2</GameObjectNextId>
 </SceneFile>
