@@ -14,8 +14,10 @@ public class TestingUserScripts : Component, IComponentUpdateable
         }
         if(_text==null){return;}
         
-        _text.Value = "y";
-        
+        _text.Value = "hello";
+
+        Transform.LocalPosition = new Vector3(Mathf.Sin(Time.EditorElapsedTime*10), 5, 0);
+
     }
 }
 

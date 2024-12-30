@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dc6d7ac-e842-43ae-b7ea-169268d5e8bc" name="Changes" comment="" />
+    <list default="true" id="7dc6d7ac-e842-43ae-b7ea-169268d5e8bc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Folder.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tofu3D/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.tofuProject.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tofuProject.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TestingUserScripts.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TestingUserScripts.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DLLs/Scripts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DLLs/Scripts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DLLs/Tofu3D.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DLLs/Tofu3D.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net9.0/tofuProject.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net9.0/tofuProject.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net9.0/tofuProject.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net9.0/tofuProject.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net9.0/tofuProject.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net9.0/tofuProject.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +25,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4c99b6f25648470e81b33e06ece654808ae00/ca/216b2fc8/IComponentUpdateable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9d772cf9a23f4911a5c7712eef4b84fb8ae00/52/0a7334f1/Time.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/TestingUserScripts.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/obj/Debug/net8.0/tofuProject.AssemblyInfo.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -66,7 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1735551059202</updated>
       <workItem from="1735551060649" duration="320000" />
-      <workItem from="1735551417610" duration="4662000" />
+      <workItem from="1735551417610" duration="5456000" />
     </task>
     <servers />
   </component>
