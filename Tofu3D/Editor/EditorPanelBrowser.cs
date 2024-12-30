@@ -109,12 +109,6 @@ public class EditorPanelBrowser : EditorPanel
 
     public override void Update()
     {
-        if (this.IsPanelHovered)
-        {
-            if (KeyboardInput.IsKeyDown(Keys.LeftSuper) && KeyboardInput.WasKeyJustPressed(Keys.Up))
-            {
-            }
-        }
     }
 
     private void OnFileChanged(FileChangedInfo fileChangedInfo)
