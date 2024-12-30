@@ -11,8 +11,11 @@ public static class SystemConfig
     {
         Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
 
+        if (Environment.CurrentDirectory.EndsWith("Tofu3D", StringComparison.OrdinalIgnoreCase))
+        {
+            Environment.CurrentDirectory = Path.Combine(Environment.CurrentDirectory, "bin", "Debug", "net8.0");
+        }
         Folders.EngineFullPath = Environment.CurrentDirectory;
-
 
         DirectoryInfo directoryInfo = Directory.GetParent(Environment.CurrentDirectory);
 
