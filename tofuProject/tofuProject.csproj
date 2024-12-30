@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Assets/Scripts/TestingUserScripts.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Private.CoreLib">
+      <HintPath>/usr/local/share/dotnet/shared/Microsoft.NETCore.App/8.0.4/System.Private.CoreLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>/usr/local/share/dotnet/shared/Microsoft.NETCore.App/8.0.4/System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Tofu3D">
+      <HintPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/Debug/net8.0/Tofu3D.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

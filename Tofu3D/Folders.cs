@@ -19,6 +19,9 @@ public class Folders
     public static string TempInLibrary => Path.Combine(Library, "Temp");
 
     public static string Assets => Path.Combine(ProjectFullPath, "Assets");
+    public static string Dlls => Path.Combine(ProjectFullPath, "DLLs");
+    public static string Scripts => Path.Combine(Assets, "Scripts");
+
     public static string TexturesInAssets => Path.Combine(Assets, "2D");
 
     public static string ShadersInAssets => Path.Combine(Assets, "Shaders");
@@ -38,6 +41,8 @@ public class Folders
         Directory.CreateDirectory(TempInLibrary);
         Directory.CreateDirectory(ThumbnailsInLibrary);
         Directory.CreateDirectory(SceneThumbnailsInLibrary);
+        Directory.CreateDirectory(Scripts);
+        Directory.CreateDirectory(Dlls);
     }
 
     /// <summary>

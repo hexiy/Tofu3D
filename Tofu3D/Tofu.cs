@@ -1,6 +1,8 @@
 using System.Diagnostics;
+using Microsoft.Build.Locator;
 using OpenTK.Windowing.Common;
 using Tofu3D.Rendering;
+using Tofu3D.Scripting;
 using Tofu3D.Tweening;
 
 namespace Tofu3D;
@@ -45,12 +47,19 @@ public static class Tofu
     public static SceneSelectionHighlighter SceneSelectionHighlighter;
     public static GameObjectSelectionManager GameObjectSelectionManager;
 
+    public static ScriptsReloader ScriptsReloader;
+
     public static void Launch()
     {
+        MSBuildLocator.RegisterDefaults(); // this needs to be here at start
+
         SystemConfig.Configure();
         Global.LoadSavedData();
         Folders.CreateDefaultFolders();
-
+        
+        ScriptsManager.CopyDllsToProjectFolder();
+        ScriptsManager.CompileScriptsAssembly();
+        
         AssetImportManager = new AssetImportManager();
         AssetLoadManager = new AssetLoadManager();
         SceneManager = new SceneManager();
@@ -65,6 +74,8 @@ public static class Tofu
         AssetsWatcher.StartWatching();
         ShaderManager.Initialize();
 
+        ScriptsReloader = new ScriptsReloader();
+        
         Window = new Window();
         Window.Load += OnWindowLoad;
         Window.UpdateFrame += OnWindowUpdate;
@@ -142,6 +153,8 @@ public static class Tofu
         SceneManager.CurrentScene.Update();
         Editor.Update();
         Debug.EndGraphTimer("Editor Update");
+        
+        ScriptsReloader.ReloadScriptsIfNeeded();
 
 
         // if (KeyboardInput.WasKeyJustPressed(Keys.Enter))

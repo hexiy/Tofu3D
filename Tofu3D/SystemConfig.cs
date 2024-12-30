@@ -11,7 +11,7 @@ public static class SystemConfig
     {
         Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
 
-        Folders.EngineFullPath = Directory.GetParent(Environment.CurrentDirectory).FullName;
+        Folders.EngineFullPath = Environment.CurrentDirectory;
 
 
         DirectoryInfo directoryInfo = Directory.GetParent(Environment.CurrentDirectory);

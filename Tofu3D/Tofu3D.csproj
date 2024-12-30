@@ -32,13 +32,28 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.Build" Version="17.12.6">
+            <ExcludeAssets>runtime</ExcludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.6.2">
+            <ExcludeAssets>runtime</ExcludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Build.Locator" Version="1.7.8" >
+        </PackageReference>
+    </ItemGroup>
+    <PropertyGroup>
+        <DisableMSBuildAssemblyCopyCheck>true</DisableMSBuildAssemblyCopyCheck>
+    </PropertyGroup>
+    <ItemGroup>
         <PackageReference Include="ImGui.NET" Version="1.87.3"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
         <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="2.0.3" />
         <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
         <PackageReference Include="OpenTK" Version="4.7.4"/>
         <PackageReference Include="OpenTK.redist.glfw" Version="3.3.7.27"/>
         <PackageReference Include="SharpAudio" Version="1.0.65-beta" />
         <PackageReference Include="SharpAudio.Codec" Version="1.0.65-beta" />
+        <PackageReference Include="System.CodeDom" Version="9.0.0" />
         <PackageReference Include="System.Drawing.Common" Version="8.0.0-preview.1.23110.8"/>
         <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3"/>
     </ItemGroup>

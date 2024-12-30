@@ -106,6 +106,8 @@ public class EditorPanelInspector : EditorPanel
 
         _componentTypes = typeof(Component).Assembly.GetTypes()
             .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
+        _componentTypes.AddRange(ScriptsManager.ScriptsAssembly.GetTypes()
+            .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract));
         Scene.ComponentAwoken += OnComponentAddedToScene;
         GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
         Tofu.MouseInput.RegisterPassThroughEdgesCondition(() =>
@@ -374,8 +376,8 @@ public class EditorPanelInspector : EditorPanel
                     inspectableName += " | RUNTIME COPY";
                     headerColor = Color.Gold.ToVector4();
                 }
-                ImGui.PushStyleColor(ImGuiCol.Header, headerColor);
 
+                ImGui.PushStyleColor(ImGuiCol.Header, headerColor);
             }
 
             var headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);

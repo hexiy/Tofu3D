@@ -86,6 +86,10 @@ public class AssetsWatcher
         {
             Tofu.ShaderManager.QueueShaderReload(assetsRelativePath);
         }
+        if (AssetFileExtensions.IsFileScript(assetsRelativePath))
+        {
+           Tofu.ScriptsReloader.QueueScriptsReload();
+        }
     }
 
     /// <summary>

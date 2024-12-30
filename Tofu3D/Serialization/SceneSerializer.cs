@@ -14,41 +14,44 @@ public class SceneSerializer
         UpdateSerializableTypes();
     }
 
-    public XmlSerializer MainXmlSerializer
-    {
-        get
-        {
-            if (_xmlSerializer == null)
-            {
-                UpdateSerializableTypes();
-            }
-
-            return _xmlSerializer;
-        }
-    }
+    // public XmlSerializer MainXmlSerializer
+    // {
+    //     get
+    //     {
+    //         if (_xmlSerializer == null)
+    //         {
+    //             UpdateSerializableTypes();
+    //         }
+    //
+    //         return _xmlSerializer;
+    //     }
+    // }
 
     // update serializable types only on file watch script changed
-    private void UpdateSerializableTypes()
+    public void UpdateSerializableTypes()
     {
-        if (_serializableTypes.Count == 0)
-        {
+        // if (_serializableTypes.Count == 0)
+        // {
             _serializableTypes = new List<Type>();
 
             _serializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
                 .Where(type => type.IsSubclassOf(typeof(Component))));
 
+            
+            _serializableTypes.AddRange(ScriptsManager.ScriptsAssembly.GetTypes()
+                .Where(t => t.IsSubclassOf(typeof(Component))));
             // delegates
             //SerializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
             //                                             .Where(type => { return type.GetCustomAttribute<SerializableType>() != null; }));
 
             _serializableTypes.AddRange(typeof(Component).Assembly.GetTypes()
                 .Where(type => type.IsSubclassOf(typeof(Component)) || type.IsSubclassOf(typeof(GameObject))));
-        }
+        // }
 
-        if (_xmlSerializer == null)
-        {
+        // if (_xmlSerializer == null)
+        // {
             _xmlSerializer = new XmlSerializer(typeof(SceneFile), _serializableTypes.ToArray());
-        }
+        // }
     }
 
     public void SaveGameObject(GameObject go, string prefabPath)
@@ -198,6 +201,10 @@ public class SceneSerializer
 
             var allComponentTypes = typeof(Component).Assembly.GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
+            
+            allComponentTypes.AddRange(ScriptsManager.ScriptsAssembly.GetTypes()
+                .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract));
+            
             var allComponentStrings = new string[allComponentTypes.Count];
             for (var i = 0; i < allComponentTypes.Count; i++)
             {

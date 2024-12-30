@@ -49,6 +49,24 @@
               "target": "Package",
               "version": "[1.87.3, )"
             },
+            "Microsoft.Build": {
+              "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[17.12.6, )"
+            },
+            "Microsoft.Build.Locator": {
+              "target": "Package",
+              "version": "[1.7.8, )"
+            },
+            "Microsoft.Build.Utilities.Core": {
+              "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[17.6.2, )"
+            },
+            "Microsoft.CodeAnalysis.CSharp": {
+              "target": "Package",
+              "version": "[4.12.0, )"
+            },
             "Microsoft.DotNet.PlatformAbstractions": {
               "target": "Package",
               "version": "[2.0.3, )"
@@ -76,6 +94,10 @@
             "SixLabors.ImageSharp": {
               "target": "Package",
               "version": "[2.1.3, )"
+            },
+            "System.CodeDom": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             },
             "System.Drawing.Common": {
               "target": "Package",

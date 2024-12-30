@@ -142,6 +142,10 @@ public static class AssetFileExtensions
     {
         return fileName.EndsWith(".glsl", StringComparison.OrdinalIgnoreCase);
     }
+    public static bool IsFileScript(string fileName)
+    {
+        return fileName.EndsWith(".cs", StringComparison.OrdinalIgnoreCase);
+    }
 
     public static bool IsFilePrefab(string fileName)
     {

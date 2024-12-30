@@ -20,6 +20,11 @@ public class SceneManager
         LoadScene(LastOpenedScene);
     }
 
+    public void ReloadScene()
+    {
+        LoadScene(CurrentScene.ScenePath);
+    }
+
     public bool LoadScene(string path = null)
     {
         Debug.ClearLogs();
