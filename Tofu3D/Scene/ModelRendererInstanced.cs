@@ -32,7 +32,7 @@ public class ModelRendererInstanced : Renderer
         {
             if (Material?.PathToRawAsset.Length == 0 || Material == null)
             {
-                Material = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
+                Material = Tofu.AssetLoadManager.Load<Asset_Material>(Path.Combine(Folders.MaterialsInAssets,"ModelRendererInstanced.mat"));
             }
             else
             {

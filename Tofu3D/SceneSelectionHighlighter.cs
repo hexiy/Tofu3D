@@ -1,3 +1,4 @@
+using System.IO;
 using Tofu3D.Tweening;
 
 namespace Tofu3D;
@@ -31,7 +32,7 @@ public class SceneSelectionHighlighter
         ModelRendererInstanced modelRenderer = _selectionBoxGameObject.AddComponent<ModelRendererInstanced>();
 
         Asset_Material runtimeMaterial = Tofu.AssetLoadManager
-            .Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat").CreateRuntimeCopy();
+            .Load<Asset_Material>(Path.Combine(Folders.MaterialsInAssets,"ModelRendererInstanced.mat")).CreateRuntimeCopy();
 
         modelRenderer.Material = runtimeMaterial;
 

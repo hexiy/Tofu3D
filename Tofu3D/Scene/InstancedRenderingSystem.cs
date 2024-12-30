@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.IO;
 
 namespace Tofu3D;
 
@@ -176,7 +177,10 @@ public class InstancedRenderingSystem
             if (_depthMaterial == null)
             {
                 _depthMaterial = new Asset_Material()
-                    { Shader = new Shader("Assets/Shaders/ModelRendererInstancedDepth.glsl") };
+                    { Shader = new Shader(Path.Combine(Folders.ShadersInAssets,"ModelRendererInstancedDepth.glsl")) };
+                
+                Tofu.AssetLoadManager.Load<Asset_Material>();
+
                 _depthMaterial.LoadShader();
             }
 

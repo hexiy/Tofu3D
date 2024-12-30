@@ -1,4 +1,5 @@
 /Tofu3D/obj
+/Tofu3D/bin
 /tofuProject/obj
 *.DotSettings.user
 *.idea
