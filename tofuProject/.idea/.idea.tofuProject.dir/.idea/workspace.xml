@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7dc6d7ac-e842-43ae-b7ea-169268d5e8bc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/Scene/SceneManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/Scene/SceneManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/Scripting/ScriptsReloader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/Scripting/ScriptsReloader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/Serialization/SceneSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/Serialization/SceneSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.tofuProject.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tofuProject.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/scene0.scene" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/scene0.scene" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TestingUserScripts.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TestingUserScripts.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DLLs/Scripts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DLLs/Scripts.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DLLs/Tofu3D.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DLLs/Tofu3D.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/persistentData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/persistentData.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/Thumbnails/Scenes/scene0.png" beforeDir="false" afterPath="$PROJECT_DIR$/Library/Thumbnails/Scenes/scene0.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/Thumbnails/Scenes/scene0.png.tofutexture" beforeDir="false" afterPath="$PROJECT_DIR$/Library/Thumbnails/Scenes/scene0.png.tofutexture" afterDir="false" />
-    </list>
+    <list default="true" id="7dc6d7ac-e842-43ae-b7ea-169268d5e8bc" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,7 +66,7 @@
       <option name="presentableId" value="Default" />
       <updated>1735551059202</updated>
       <workItem from="1735551060649" duration="320000" />
-      <workItem from="1735551417610" duration="4622000" />
+      <workItem from="1735551417610" duration="4662000" />
     </task>
     <servers />
   </component>
