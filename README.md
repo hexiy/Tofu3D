@@ -1,9 +1,23 @@
 # <img src="Tofu3D/tofu3d.png" width="70px" align="center">   Tofu3D Game Engine
 
 Simple .NET C# OpenTK game engine with editor.
-
 Heavily in progress so things will break :)
-<br><a href="https://revolut.me/hexiy">Support the development 🖤</a>
+
+# Building
+You need: glfw, .Net 8
+
+run
+```
+dotnet build "CONFIGURATION"
+dotnet run "CONFIGURATION"
+```
+Replace "CONFIGURATION" with needed configuration:<br>
+"MacOS Release"<br>
+"MacOS Debug"<br>
+"Windows Release"<br>
+"Windows Debug"<br>
+"Linux Release"<br>
+"Linux Debug"<br>
 
 <a href="https://youtu.be/9DruwMWLJRM">[5/4/2023] Video - OBJ Models and Shadows // Tofu3D C# OpenGL Game Engine</a><br>
 <a href="https://www.youtube.com/watch?v=fC4k5OtizUE">[3/4/2023] Video - Shadows and Skybox // Tofu3D C# OpenGL Game Engine preview</a><br><br>
@@ -12,7 +26,7 @@ Heavily in progress so things will break :)
 <a href="/Github%20Resources/screen2.png"><img src="/Github%20Resources/screen2.png" align="center" width="100%" ></a>
 <a href="/Github%20Resources/screen1.png"><img src="/Github%20Resources/screen1.png" align="center" width="100%" ></a>
 
-On linux install glfw
+
 
 OpenTK ImGui implementation from https://github.com/NogginBops/ImGui.NET_OpenTK_Sample
 
