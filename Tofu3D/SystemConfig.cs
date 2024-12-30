@@ -13,7 +13,7 @@ public static class SystemConfig
 
         if (Environment.CurrentDirectory.EndsWith("Tofu3D", StringComparison.OrdinalIgnoreCase))
         {
-            Environment.CurrentDirectory = Path.Combine(Environment.CurrentDirectory, "bin", "Debug", "net8.0");
+            Environment.CurrentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         }
         Folders.EngineBinPath = Environment.CurrentDirectory;
 

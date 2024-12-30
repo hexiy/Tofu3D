@@ -9,7 +9,7 @@
         <LangVersion>12</LangVersion>
         <ApplicationIcon>tofu3d.ico</ApplicationIcon>
         <Nullable>enable</Nullable>
-        <Configurations>MacOS Debug;MacOS Release;Windows Release;Windows Debug</Configurations>
+        <Configurations>MacOS Debug;MacOS Release;Windows Release;Windows Debug;Linux Debug;Linux Release</Configurations>
         <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
     <PropertyGroup>
@@ -28,6 +28,13 @@
     </ItemGroup>
     <PropertyGroup>
         <DisableMSBuildAssemblyCopyCheck>true</DisableMSBuildAssemblyCopyCheck>
+    </PropertyGroup>
+    <!-- Determine the OS and set defaults -->
+    <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+        <Configuration>Windows Release</Configuration>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+        <Configuration>MacOS Release</Configuration>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'MacOS Debug' ">
       <DefineConstants>TRACE;OS_MACOS</DefineConstants>
@@ -48,6 +55,12 @@
       <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
       <DefineConstants>TRACE;OS_WINDOWS</DefineConstants>
       <OutputPath>bin\Windows Debug/</OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Linux Debug' ">
+      <DefineConstants>TRACE;OS_LINUX</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Linux Release' ">
+      <DefineConstants>TRACE;OS_LINUX</DefineConstants>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="ImGui.NET" Version="1.87.3"/>

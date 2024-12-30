@@ -11,6 +11,8 @@ Global
 		MacOS Debug|Any CPU = MacOS Debug|Any CPU
 		Windows Release|Any CPU = Windows Release|Any CPU
 		Windows Debug|Any CPU = Windows Debug|Any CPU
+		Linux Debug|Any CPU = Linux Debug|Any CPU
+		Linux Release|Any CPU = Linux Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5B0B9292-82E5-42FA-9C1B-EBC1096080E1}.MacOS Release|Any CPU.ActiveCfg = MacOS Release|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5B0B9292-82E5-42FA-9C1B-EBC1096080E1}.Windows Release|Any CPU.Build.0 = Windows Release|Any CPU
 		{5B0B9292-82E5-42FA-9C1B-EBC1096080E1}.Windows Debug|Any CPU.ActiveCfg = Windows Debug|Any CPU
 		{5B0B9292-82E5-42FA-9C1B-EBC1096080E1}.Windows Debug|Any CPU.Build.0 = Windows Debug|Any CPU
+		{5B0B9292-82E5-42FA-9C1B-EBC1096080E1}.Linux Debug|Any CPU.ActiveCfg = Linux Debug|Any CPU
+		{5B0B9292-82E5-42FA-9C1B-EBC1096080E1}.Linux Debug|Any CPU.Build.0 = Linux Debug|Any CPU
+		{5B0B9292-82E5-42FA-9C1B-EBC1096080E1}.Linux Release|Any CPU.ActiveCfg = Linux Release|Any CPU
+		{5B0B9292-82E5-42FA-9C1B-EBC1096080E1}.Linux Release|Any CPU.Build.0 = Linux Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

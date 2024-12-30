@@ -77,7 +77,7 @@ public class ImGuiController : IDisposable
 
         // io.IniSavingRate = 5;
 
-        io.Fonts.AddFontFromFileTTF(Path.Combine(Folders.FontsInResources, "inconsolata.ttf"), 24);
+        io.Fonts.AddFontFromFileTTF(Path.Combine(Folders.FontsInResources, "inconsolata.ttf"), 12 * Screen.ScaleI);
         //io.Fonts.AddFontDefault();
 
         io.BackendFlags = ImGuiBackendFlags.None; // ImGuiBackendFlags.RendererHasVtxOffset;
@@ -294,10 +294,7 @@ void main()
         io.MouseDown[2] = mouseState[MouseButton.Middle];
 
         Vector2 screenPoint = new(mouseState.X, mouseState.Y);
-        if (OperatingSystem.IsMacOS)
-        {
-            screenPoint *= 2;
-        }
+        screenPoint *= Screen.ScaleI;
 
         io.MousePos = new System.Numerics.Vector2(screenPoint.X, screenPoint.Y);
 

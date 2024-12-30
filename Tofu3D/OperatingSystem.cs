@@ -3,10 +3,16 @@ namespace Tofu3D;
 public static class OperatingSystem
 {
 #if OS_MACOS
-    public static bool IsMacOS => true;
-    public static bool IsWindows => false;
-#else
-    public static bool IsMacOS => false;
-    public static bool IsWindows => true;
+    public const bool IsMacOS = true;
+    public const bool IsWindows = false;
+    public const bool IsLinux = false;
+#elif OS_WINDOWS
+    public const bool IsMacOS = false;
+    public const bool IsWindows = true;
+    public const bool IsLinux = false;
+#elif OS_LINUX
+    public const bool IsMacOS = false;
+    public const bool IsWindows = false;
+    public const bool IsLinux = true;
 #endif
 }
