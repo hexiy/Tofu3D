@@ -80,7 +80,7 @@ public class AssetImportManager
                 foreach (string meshAsset in model.PathsToMeshAssets)
                 {
                     // if mesh was loaded, we load new mesh
-                    if (Tofu.AssetLoadManager.IsAssetLoaded(meshAsset))
+                    if (Tofu.AssetLoadManager.IsAssetLoaded<RuntimeMesh>(meshAsset))
                     {
                         // Tofu.AssetLoadManager.Unload(meshAsset);
                         Tofu.AssetLoadManager.Load<RuntimeMesh>(meshAsset, overwriteAlreadyLoadedAssets: true);

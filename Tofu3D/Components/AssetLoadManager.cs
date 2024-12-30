@@ -46,7 +46,7 @@ public class AssetLoadManager
 
     public T? GetLoadedAsset<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null) where T : Asset<T>
     {
-        int id = sourcePath.GetHashCode();
+        int id = (sourcePath + typeof(T)).GetHashCode();
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
 
         // 
@@ -60,9 +60,9 @@ public class AssetLoadManager
         return asset;
     }
 
-    public bool IsAssetLoaded(string sourcePath)
+    public bool IsAssetLoaded<T>(string sourcePath) where T:Asset<T>
     {
-        int id = sourcePath.GetHashCode();
+        int id = (sourcePath + typeof(T)).GetHashCode();
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
 
         return existsInDatabase;
@@ -79,7 +79,7 @@ public class AssetLoadManager
     public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null,
         bool overwriteAlreadyLoadedAssets = false, bool creatingRuntimeCopy = false) where T : Asset<T>
     {
-        int id = sourcePath.GetHashCode() + typeof(T).GetHashCode();
+        int id = (sourcePath + typeof(T)).GetHashCode();
 
         if (creatingRuntimeCopy)
         {
@@ -193,7 +193,7 @@ public class AssetLoadManager
         //     Debug.Log("Not saving runtime copy of asset");
         //     return;
         // }
-        int id = path.GetHashCode() + typeof(T).GetHashCode();
+        int id = (path + typeof(T)).GetHashCode();
 
         // 
         // T asset = null;
