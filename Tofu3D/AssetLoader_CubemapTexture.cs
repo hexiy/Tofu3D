@@ -56,8 +56,9 @@ public class AssetLoader_CubemapTexture : AssetLoader<Asset_Texture, RuntimeCube
         // crashes the engine on macos
         if (OperatingSystem.IsWindows)
         {
-            GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode + 257);
-            GL.TextureParameter(textureId, TextureParameterName.TextureLodBias, -0.4f);
+            // on windows this causes black texture idk why i put this here in first place...
+            //GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode + 257);
+            //GL.TextureParameter(textureId, TextureParameterName.TextureLodBias, -0.4f);
         }
 
         ImGuiController.CheckGlError("texture load");

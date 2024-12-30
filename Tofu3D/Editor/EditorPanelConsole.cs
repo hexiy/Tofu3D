@@ -9,7 +9,6 @@ public class EditorPanelConsole : EditorPanel
     private string _searchFilter = "";
     private int _selectedMessageIndex = -1;
     private bool _wasMaxScrollLastFrame = true;
-    public override Vector2 Size => new(800, Tofu.Window.ClientSize.Y - Tofu.Editor.SceneViewSize.Y + 1);
     public override Vector2 Position => new(Tofu.Window.ClientSize.X - 800, Tofu.Window.ClientSize.Y);
     public override Vector2 Pivot => new(1, 1);
 

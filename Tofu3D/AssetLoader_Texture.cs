@@ -58,10 +58,11 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
         // crashes the engine on macos
         if (OperatingSystem.IsWindows)
         {
-            // GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode + 257);
-            GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter,
-                (int)importParameters.FilterMode + 257);
-            GL.TextureParameter(textureId, TextureParameterName.TextureLodBias, -0.4f);
+            //GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter,
+            //    (int)importParameters.FilterMode + 257);
+            //GL.TextureParameter(textureId, TextureParameterName.TextureLodBias, -0.4f);
+            // on windows this causes black texture idk why i put this here in first place...
+
         }
 
         ImGuiController.CheckGlError("texture load");

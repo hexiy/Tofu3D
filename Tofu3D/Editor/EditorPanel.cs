@@ -12,8 +12,8 @@ public class EditorPanel
     public int WindowWidth;
     public virtual string Name => "";
 
-    public virtual Vector2 Size => new(Tofu.Window.ClientSize.X - 1600,
-        Tofu.Window.ClientSize.Y - Tofu.Editor.SceneViewSize.Y + 1);
+    public Vector2 Size = new(Tofu.Window.ClientSize.X/10f,
+        Tofu.Window.ClientSize.Y /10f);
 
     public virtual Vector2 Position => new(0, Tofu.Window.ClientSize.Y);
     public virtual Vector2 Pivot => new(0, 1);
@@ -58,7 +58,7 @@ public class EditorPanel
         ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
         ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | AdditionalWindowFlags);
         IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
-
+        Size = ImGui.GetWindowSize();
     }
 
     public void EndWindow()

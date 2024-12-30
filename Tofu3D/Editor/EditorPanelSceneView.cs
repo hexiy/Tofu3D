@@ -144,7 +144,7 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.SetCursorPos(System.Numerics.Vector2.Zero);
 
-            ImGui.SetCursorPosX(Camera.MainCamera.Size.X / 2 - 400);
+            ImGui.SetCursorPosX(Camera.MainCamera.Size.X / 2 - 200 * Screen.ScaleI);
 
             var activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
             Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];

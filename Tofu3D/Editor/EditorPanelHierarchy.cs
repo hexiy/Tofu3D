@@ -15,7 +15,6 @@ public class EditorPanelHierarchy : EditorPanel
     private List<GameObject> _gameObjectsIndexesSelectedBefore = new();
     private List<GameObject> _selectedGameObjects = new();
     private bool _showUpdatePrefabPopup;
-    public override Vector2 Size => new(700, Tofu.Editor.SceneViewSize.Y);
     public override Vector2 Position => new(Tofu.Window.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
     public override Vector2 Pivot => new(1, 0);
 

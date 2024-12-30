@@ -5,7 +5,6 @@ namespace Tofu3D;
 public class EditorPanelProfiler : EditorPanel
 {
     public override string Name => "Profiler";
-    public override Vector2 Size => new(800, Tofu.Window.ClientSize.Y - Tofu.Editor.SceneViewSize.Y + 1);
     public override Vector2 Position => new(Tofu.Window.ClientSize.X, Tofu.Window.ClientSize.Y);
     public override Vector2 Pivot => new(1, 1);
     public static EditorPanelProfiler I { get; private set; }

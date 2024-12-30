@@ -17,7 +17,7 @@ public class EditorPanelBrowser : EditorPanel
     Dictionary<string, DirectoryInfo> directoryInfos = new();
 
     private RuntimeTexture _fileIcon;
-    private readonly Vector2 _iconSize = new(200, 180);
+    private Vector2 _iconSize => new Vector2(100, 90)*Screen.Scale;
 
     private int _subAssetsDrawnCount = 0;
     // private readonly TextureLoadSettings _iconTextureLoadSettings = new(filterMode: TextureFilterMode.Point);
@@ -41,9 +41,6 @@ public class EditorPanelBrowser : EditorPanel
             PersistentData.Set("CurrentDirectoryPath", value);
         }
     }
-
-    public override Vector2 Size => new(Tofu.Window.ClientSize.X - 1600,
-        Tofu.Window.ClientSize.Y - Tofu.Editor.SceneViewSize.Y + 1);
 
     public override Vector2 Position => new(0, Tofu.Window.ClientSize.Y);
     public override Vector2 Pivot => new(0, 1);

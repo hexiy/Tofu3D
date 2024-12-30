@@ -4,7 +4,6 @@ namespace Tofu3D;
 
 public class EditorPanelTextureViewer : EditorPanel
 {
-    public override Vector2 Size => new(400, 400);
     public override Vector2 Position => new(0, 0);
     public override Vector2 Pivot => new(1, 1);
 

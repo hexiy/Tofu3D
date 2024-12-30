@@ -45,7 +45,6 @@ public class EditorPanelInspector : EditorPanel
     private bool _refreshQueued;
     private int _refreshQueuedInspectableIndex = -1; // -1 = all
     private InspectableData _materialToShowAtTheBottom = null;
-    public override Vector2 Size => new(700, Tofu.Editor.SceneViewSize.Y);
     public override Vector2 Position => new(Tofu.Window.ClientSize.X - I.WindowWidth, 0);
     public override Vector2 Pivot => new(1, 0);
 
@@ -228,12 +227,9 @@ public class EditorPanelInspector : EditorPanel
             return;
         }
 
-        WindowWidth = 800;
+        //WindowWidth = 800;
         _contentMaxWidth = WindowWidth - (int)ImGui.GetStyle().WindowPadding.X * 1;
-        ImGui.SetNextItemWidth(WindowWidth);
-        ImGui.SetNextWindowPos(new Vector2(Tofu.Window.ClientSize.X, 0), ImGuiCond.FirstUseEver, new Vector2(1, 0));
-        ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar);
-
+        BeginWindowDefault();
 
         ResetId();
 
@@ -544,9 +540,10 @@ public class EditorPanelInspector : EditorPanel
             }
         }
 
-        float itemWidth1 = 400;
-        ImGui.SameLine(ImGui.GetWindowWidth() - itemWidth1);
-        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
+        
+        float itemWidth1 = Size.X/1.6f*Screen.Scale;
+        ImGui.SameLine(Size.X- itemWidth1);
+        ImGui.SetNextItemWidth(itemWidth1);
 
         if (info.IsGenericList)
         {
