@@ -4,7 +4,7 @@ namespace Tofu3D;
 
 public class Folders
 {
-    public static string EngineFullPath;
+    public static string EngineBinPath;
     public static string ProjectFullPath;
     public static string Resources => Path.Combine(ProjectFullPath, "Resources");
     public static string FontsInResources => Path.Combine(Resources, "Fonts");

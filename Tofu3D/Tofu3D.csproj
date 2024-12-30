@@ -9,26 +9,11 @@
         <LangVersion>12</LangVersion>
         <ApplicationIcon>tofu3d.ico</ApplicationIcon>
         <Nullable>enable</Nullable>
+        <Configurations>MacOS Debug;MacOS Release;Windows Release;Windows Debug</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
     <PropertyGroup>
         <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <Optimize>false</Optimize>
-        <WarningLevel>4</WarningLevel>
-        <OutputPath>bin\Debug</OutputPath>
-        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-        <DefineConstants>TRACE;OS_MACOS;DEBUG</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <WarningLevel>4</WarningLevel>
-        <DefineConstants>TRACE;OS_MACOS;DEBUG</DefineConstants>
-        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     </PropertyGroup>
 
     <ItemGroup>
@@ -43,6 +28,26 @@
     </ItemGroup>
     <PropertyGroup>
         <DisableMSBuildAssemblyCopyCheck>true</DisableMSBuildAssemblyCopyCheck>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'MacOS Debug' ">
+      <DefineConstants>TRACE;OS_MACOS</DefineConstants>
+      <DebugSymbols>true</DebugSymbols>
+      <OutputPath>bin\MacOS Debug/</OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'MacOS Release' ">
+      <DefineConstants>TRACE;OS_MACOS</DefineConstants>
+      <OutputPath>bin\MacOS Release/</OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Windows Release' ">
+      <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
+      <DefineConstants>TRACE;OS_WINDOWS</DefineConstants>
+      <OutputPath>bin\Windows Release/</OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Windows Debug' ">
+      <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
+      <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
+      <DefineConstants>TRACE;OS_WINDOWS</DefineConstants>
+      <OutputPath>bin\Windows Debug/</OutputPath>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="ImGui.NET" Version="1.87.3"/>

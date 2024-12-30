@@ -15,7 +15,7 @@ public static class SystemConfig
         {
             Environment.CurrentDirectory = Path.Combine(Environment.CurrentDirectory, "bin", "Debug", "net8.0");
         }
-        Folders.EngineFullPath = Environment.CurrentDirectory;
+        Folders.EngineBinPath = Environment.CurrentDirectory;
 
         DirectoryInfo directoryInfo = Directory.GetParent(Environment.CurrentDirectory);
 

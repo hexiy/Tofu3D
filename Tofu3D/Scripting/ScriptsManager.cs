@@ -17,7 +17,7 @@ public static class ScriptsManager
 
     public static void CopyDllsToProjectFolder()
     {
-        File.Copy(Path.Combine(Folders.EngineFullPath, "Tofu3D.dll"), Path.Combine(Folders.Dlls, "Tofu3D.dll"),
+        File.Copy(Path.Combine(Folders.EngineBinPath, "Tofu3D.dll"), Path.Combine(Folders.Dlls, "Tofu3D.dll"),
             overwrite: true);
     }
 
