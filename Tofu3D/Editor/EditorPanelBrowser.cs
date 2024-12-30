@@ -345,19 +345,25 @@ public class EditorPanelBrowser : EditorPanel
             // ImGui.PushStyleColor(ImGuiCol.ButtonHovered, Color.MidnightBlue.ToVector4());
         }
 
-
-        /*
-        {
-        ImDrawListPtr dl = ImGui.GetWindowDrawList();
-        Vector2 cursor = ImGui.GetCursorPos();
-        Vector2 p_min = ImGui.GetCursorScreenPos();
-        Vector2 p_max = new Vector2(p_min.X + _iconSize.X, p_min.Y + _iconSize.Y+35);
-        dl.AddImageRounded(Tofu.Editor.EditorTextures.WhitePixel.TextureId, p_min, p_max,
-            new System.Numerics.Vector2(0, 0), new System.Numerics.Vector2(1, 1),
-            ImGui.GetColorU32(new System.Numerics.Vector4(1, 1, 1, 1)),
-            10);
-    }
-    */
+    //
+    //     {
+    //         
+    //         
+    //         Vector4 cBeige = new(1f, 0.96f, 0.90f, 1.00f);
+    //         Vector4 cBeigeMid = new(0.97f, 0.94f, 0.88f, 1f);
+    //         Vector4 cBeigeDarker = new(0.94f, 0.91f, 0.85f, 1f);
+    //         Vector4 cScrollbar = new(0.74f, 0.71f, 0.65f, 0.8f);
+    //         Vector4 cScrollbarDarker = new(0.64f, 0.61f, 0.55f, 1f);
+    //         
+    //     ImDrawListPtr dl = ImGui.GetWindowDrawList();
+    //     Vector2 cursor = ImGui.GetCursorPos();
+    //     Vector2 p_min = ImGui.GetCursorScreenPos();
+    //     Vector2 p_max = new Vector2(p_min.X + _iconSize.X, p_min.Y + _iconSize.Y+35);
+    //     dl.AddImageRounded(Tofu.Editor.EditorTextures.WhitePixel.TextureId, p_min, p_max,
+    //         new System.Numerics.Vector2(0, 0), new System.Numerics.Vector2(1, 1),
+    //         ImGui.GetColorU32(cBeigeDarker),
+    //         10);
+    // }
 
 
         if (isDirectory)
@@ -387,8 +393,11 @@ public class EditorPanelBrowser : EditorPanel
                     new System.Numerics.Vector2(0, 0), new System.Numerics.Vector2(1, 1),
                     ImGui.GetColorU32(new System.Numerics.Vector4(1, 1, 1, 1)),
                     10);
-
-                ImGui.Dummy(_iconSize);
+                
+                // ImGui.Dummy(_iconSize);
+                ImGui.PushStyleColor(ImGuiCol.ButtonHovered, new System.Numerics.Vector4(1,1,1,0));
+                ImGui.ImageButton(_textures[assetPath].TextureId, _iconSize, new System.Numerics.Vector2(0,0), new System.Numerics.Vector2(1,1), 0,System.Numerics.Vector4.Zero, System.Numerics.Vector4.Zero);
+ImGui.PopStyleColor();
             }
             else
                 //ImGui.ImageButton((IntPtr) fileIcon.id, new Vector2(100, 90));
