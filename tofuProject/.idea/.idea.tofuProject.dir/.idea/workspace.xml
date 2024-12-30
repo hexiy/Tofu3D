@@ -5,73 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7dc6d7ac-e842-43ae-b7ea-169268d5e8bc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Tofu3D/Scripting/ProjectFileGenerator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Tofu3D/Scripting/ScriptLoadContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Tofu3D/Scripting/ScriptsManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Tofu3D/Scripting/ScriptsReloader.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Microsoft.Build.Locator.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/System.CodeDom.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.tofuProject.dir/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.tofuProject.dir/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.tofuProject.dir/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.tofuProject.dir/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.tofuProject.dir/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/TestingUserScripts.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DLLs/Scripts.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DLLs/Tofu3D.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net7.0/.NETCoreApp,Version=v7.0.AssemblyAttributes.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net7.0/tofuProject.AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net7.0/tofuProject.AssemblyInfoInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net7.0/tofuProject.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net7.0/tofuProject.assets.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net7.0/tofuProject.csproj.AssemblyReference.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/tofuProject.AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/tofuProject.AssemblyInfoInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/tofuProject.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/tofuProject.assets.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net8.0/tofuProject.csproj.AssemblyReference.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net9.0/.NETCoreApp,Version=v9.0.AssemblyAttributes.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net9.0/tofuProject.AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net9.0/tofuProject.AssemblyInfoInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net9.0/tofuProject.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net9.0/tofuProject.assets.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/Debug/net9.0/tofuProject.csproj.AssemblyReference.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/tofuProject.csproj.nuget.dgspec.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/tofuProject.csproj.nuget.g.props" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/obj/tofuProject.csproj.nuget.g.targets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tofuProject.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/AssetFileExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/AssetFileExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/AssetsWatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/AssetsWatcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/Editor/EditorPanelInspector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/Editor/EditorPanelInspector.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/Folders.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/Folders.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Tofu3D/Scene/SceneManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/Scene/SceneManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/Scripts/FollowMouse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/Serialization/AssemblyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/Serialization/AssemblyManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tofu3D/Scripting/ScriptsReloader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/Scripting/ScriptsReloader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Tofu3D/Serialization/SceneSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/Serialization/SceneSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/SystemConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/SystemConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/Tofu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/Tofu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/Tofu3D.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/Tofu3D.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.dll.config" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.dll.config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/bin/Debug/net8.0/Tofu3D.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/obj/Tofu3D.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/obj/Tofu3D.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/obj/Tofu3D.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/obj/Tofu3D.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/obj/Tofu3D.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/obj/Tofu3D.csproj.nuget.g.targets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Tofu3D/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../Tofu3D/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.tofuProject.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tofuProject.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/scene0.scene" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/scene0.scene" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TestingUserScripts.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TestingUserScripts.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DLLs/Scripts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DLLs/Scripts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DLLs/Tofu3D.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DLLs/Tofu3D.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/persistentData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/persistentData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/Thumbnails/Scenes/scene0.png" beforeDir="false" afterPath="$PROJECT_DIR$/Library/Thumbnails/Scenes/scene0.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/Thumbnails/Scenes/scene0.png.tofutexture" beforeDir="false" afterPath="$PROJECT_DIR$/Library/Thumbnails/Scenes/scene0.png.tofutexture" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -135,7 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1735551059202</updated>
       <workItem from="1735551060649" duration="320000" />
-      <workItem from="1735551417610" duration="3507000" />
+      <workItem from="1735551417610" duration="4622000" />
     </task>
     <servers />
   </component>

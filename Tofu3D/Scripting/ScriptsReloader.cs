@@ -25,8 +25,7 @@ public class ScriptsReloader
 
         ScriptsManager.CompileScriptsAssembly();
         Tofu.SceneSerializer.UpdateSerializableTypes();
-        Tofu.SceneManager.SaveScene();
-        // Tofu.SceneManager.LoadScene();
+        Tofu.SceneManager.ReloadScene();
 
         Debug.Log("Scripts reloaded");
     }

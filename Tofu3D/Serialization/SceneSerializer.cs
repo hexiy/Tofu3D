@@ -32,25 +32,25 @@ public class SceneSerializer
     {
         // if (_serializableTypes.Count == 0)
         // {
-            _serializableTypes = new List<Type>();
+        _serializableTypes = new List<Type>();
 
-            _serializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
-                .Where(type => type.IsSubclassOf(typeof(Component))));
+        _serializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
+            .Where(type => type.IsSubclassOf(typeof(Component))));
 
-            
-            _serializableTypes.AddRange(ScriptsManager.ScriptsAssembly.GetTypes()
-                .Where(t => t.IsSubclassOf(typeof(Component))));
-            // delegates
-            //SerializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
-            //                                             .Where(type => { return type.GetCustomAttribute<SerializableType>() != null; }));
 
-            _serializableTypes.AddRange(typeof(Component).Assembly.GetTypes()
-                .Where(type => type.IsSubclassOf(typeof(Component)) || type.IsSubclassOf(typeof(GameObject))));
+        _serializableTypes.AddRange(ScriptsManager.ScriptsAssembly.GetTypes()
+            .Where(t => t.IsSubclassOf(typeof(Component))));
+        // delegates
+        //SerializableTypes.AddRange(typeof(GameObject).Assembly.GetTypes()
+        //                                             .Where(type => { return type.GetCustomAttribute<SerializableType>() != null; }));
+
+        _serializableTypes.AddRange(typeof(Component).Assembly.GetTypes()
+            .Where(type => type.IsSubclassOf(typeof(Component)) || type.IsSubclassOf(typeof(GameObject))));
         // }
 
         // if (_xmlSerializer == null)
         // {
-            _xmlSerializer = new XmlSerializer(typeof(SceneFile), _serializableTypes.ToArray());
+        _xmlSerializer = new XmlSerializer(typeof(SceneFile), _serializableTypes.ToArray());
         // }
     }
 
@@ -146,6 +146,11 @@ public class SceneSerializer
 
     public SceneFile LoadSceneFile(string scenePath)
     {
+        if (File.Exists(scenePath) == false)
+        {
+            Debug.LogError($"Scene file does not exist:{scenePath}");
+            return new SceneFile { GameObjects = new List<GameObject>(), Components = new List<Component>() };
+        }
         /*string xml = "";
         using (StreamReader sr = new(scenePath))
         {
@@ -189,10 +194,11 @@ public class SceneSerializer
             sw.Write(xml);
         }*/
 
-        if (File.Exists(scenePath))
-        {
-            using StreamReader sr = new(scenePath);
+        using StreamReader sr = new(scenePath);
 
+        bool TESTING_HOT_RELOADING_CRASH = true; //hot reloading not working but this is not it
+        if (TESTING_HOT_RELOADING_CRASH == false)
+        {
             var sceneText = sr.ReadToEnd();
             var finalSceneText = sceneText;
             var xmlString = "<Component xsi:type=";
@@ -201,10 +207,10 @@ public class SceneSerializer
 
             var allComponentTypes = typeof(Component).Assembly.GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
-            
+
             allComponentTypes.AddRange(ScriptsManager.ScriptsAssembly.GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract));
-            
+
             var allComponentStrings = new string[allComponentTypes.Count];
             for (var i = 0; i < allComponentTypes.Count; i++)
             {
@@ -216,7 +222,8 @@ public class SceneSerializer
             foreach (var componentLineIndex in componentLineIndexes)
             {
                 var str = sceneText.Substring(componentLineIndex);
-                var length = sceneText.IndexOf('"', componentLineIndex + xmlString.Length + 1) - componentLineIndex -
+                var length = sceneText.IndexOf('"', componentLineIndex + xmlString.Length + 1) -
+                             componentLineIndex -
                              xmlString.Length - 2;
                 var componentName = sceneText.Substring(componentLineIndex + xmlString.Length + 1, length + 1);
 
@@ -227,7 +234,8 @@ public class SceneSerializer
 
                 var wholeComponentString = finalSceneText.Substring(startIndex, lengthOfComponentString);
 
-                if (allComponentStrings.Contains(componentName) == false && componentName != nameof(MissingComponent))
+                if (allComponentStrings.Contains(componentName) == false &&
+                    componentName != nameof(MissingComponent))
                 {
                     Debug.LogError($"Found invalid component:{componentName}, removing it");
 
@@ -277,15 +285,12 @@ public class SceneSerializer
             }
 
             File.WriteAllText(scenePath, finalSceneText);
-
-
-            using StreamReader sr2 = new(scenePath);
-
-            var sceneFile = (SceneFile)_xmlSerializer.Deserialize(sr2);
-            return sceneFile;
         }
 
-        return new SceneFile { GameObjects = new List<GameObject>(), Components = new List<Component>() };
+        using StreamReader sr2 = new(scenePath);
+
+        var sceneFile = (SceneFile)_xmlSerializer.Deserialize(sr2);
+        return sceneFile;
     }
 
     public void ConnectParentsAndChildren(SceneFile sf, bool newIDs = false)

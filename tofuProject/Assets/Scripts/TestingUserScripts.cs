@@ -14,7 +14,7 @@ public class TestingUserScripts : Component, IComponentUpdateable
         }
         if(_text==null){return;}
         
-        _text.Value = "99s";
+        _text.Value = "y";
         
     }
 }

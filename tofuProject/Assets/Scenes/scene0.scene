@@ -42,7 +42,7 @@
       <IsStaticSelf>true</IsStaticSelf>
       <Name>Text</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
@@ -58,7 +58,7 @@
       <IsStaticSelf>true</IsStaticSelf>
       <Name>LongText</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
@@ -178,14 +178,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>11.74351</X>
-        <Y>12.658136</Y>
-        <Z>-14.0854645</Z>
+        <X>11.959147</X>
+        <Y>12.871046</Y>
+        <Z>-14.62803</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>11.74351</X>
-        <Y>12.658136</Y>
-        <Z>-14.0854645</Z>
+        <X>11.959147</X>
+        <Y>12.871046</Y>
+        <Z>-14.62803</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -379,7 +379,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <Size>1</Size>
-      <Value>123</Value>
+      <Value>2sa</Value>
     </Component>
     <Component xsi:type="TextRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
@@ -387,7 +387,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>13</MousePickingId>
+      <MousePickingId>1</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -477,6 +477,13 @@
       </RuntimeMesh>
       <Layer>0</Layer>
     </Component>
+    <Component xsi:type="TestingUserScripts">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>165</GameObjectId>
+      <Started>true</Started>
+      <UpdateTime>0</UpdateTime>
+      <Enabled>true</Enabled>
+    </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>169</GameObjectId>
@@ -549,7 +556,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>14</MousePickingId>
+      <MousePickingId>2</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -688,7 +695,7 @@
       <Go>
         <AlwaysUpdate>false</AlwaysUpdate>
         <DestroyTimer>2</DestroyTimer>
-        <Id>740</Id>
+        <Id>744</Id>
         <IndexInHierarchy>4</IndexInHierarchy>
         <IsPrefab>true</IsPrefab>
         <IsStaticSelf>false</IsStaticSelf>
@@ -711,6 +718,7 @@
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
       <ChildrenIDs>
+        <int>377</int>
         <int>377</int>
         <int>377</int>
         <int>377</int>
@@ -810,7 +818,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>15</MousePickingId>
+      <MousePickingId>3</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -978,6 +986,7 @@
         <int>400</int>
         <int>400</int>
         <int>400</int>
+        <int>400</int>
       </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>365</ParentId>
@@ -1035,7 +1044,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>16</MousePickingId>
+      <MousePickingId>4</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -1218,7 +1227,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>17</MousePickingId>
+      <MousePickingId>5</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -1401,7 +1410,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>18</MousePickingId>
+      <MousePickingId>6</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -4428,7 +4437,7 @@
       <Started>true</Started>
       <UpdateTime>0</UpdateTime>
       <Enabled>true</Enabled>
-      <MousePickingId>19</MousePickingId>
+      <MousePickingId>7</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -150221,5 +150230,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>743</GameObjectNextId>
+  <GameObjectNextId>747</GameObjectNextId>
 </SceneFile>

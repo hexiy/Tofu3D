@@ -46,7 +46,8 @@ public class SceneManager
 
         if (path == null || File.Exists(LastOpenedScene) == false)
         {
-            CurrentScene.SetupAndSaveEmptyScene(Path.Combine("Assets", "Scenes", "scene0.scene"));
+            path = Path.Combine(Folders.Assets, "Scenes", "scene0.scene");
+            CurrentScene.SetupAndSaveEmptyScene(path);
         }
 
         CurrentScene.ScenePath = path;
