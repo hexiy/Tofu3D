@@ -1,3 +1,5 @@
-/Tofu3D/bin/Debug/net8.0/Library
-/Tofu3D/bin/Release/net8.0/Library
 /Tofu3D/obj
+/tofuProject/obj
+*.DotSettings.user
+*.idea
+**/.idea/
