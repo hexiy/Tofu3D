@@ -64,16 +64,16 @@ public class ImGuiController : IDisposable
         io.ConfigWindowsResizeFromEdges = true;
         io.WantSaveIniSettings = false;
 
-        unsafe
-        {
-            var filename = Path.Combine(Folders.Data, "imguiConfig.ini");
-            // filename = Folders.GetPathRelativeToProjectFolder(filename);
-            byte[] filenameBytes = Encoding.UTF8.GetBytes(filename + "\0"); // Add null terminator
-            fixed (byte* bytePtr = filenameBytes)
-            {
-                ImGui.GetIO().NativePtr->IniFilename = bytePtr;
-            }
-        }
+        // unsafe
+        // {
+        //     var filename = Path.Combine(Folders.Data, "imguiConfig.ini");
+        //     // filename = Folders.GetPathRelativeToProjectFolder(filename);
+        //     byte[] filenameBytes = Encoding.UTF8.GetBytes(filename + "\0"); // Add null terminator
+        //     fixed (byte* bytePtr = filenameBytes)
+        //     {
+        //         ImGui.GetIO().NativePtr->IniFilename = bytePtr;
+        //     }
+        // }
 
         // io.IniSavingRate = 5;
 

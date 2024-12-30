@@ -332,6 +332,7 @@ public class EditorPanelBrowser : EditorPanel
         var isShader = AssetFileExtensions.IsFileShader(assetPath);
         var isPrefab = AssetFileExtensions.IsFilePrefab(assetPath);
         var isTexture = AssetFileExtensions.IsFileTexture(assetPath);
+        var isScene = AssetFileExtensions.IsFileScene(assetPath);
 
         PushNextId();
 
@@ -344,6 +345,21 @@ public class EditorPanelBrowser : EditorPanel
             // ImGui.PushStyleColor(ImGuiCol.ButtonHovered, Color.MidnightBlue.ToVector4());
         }
 
+
+        /*
+        {
+        ImDrawListPtr dl = ImGui.GetWindowDrawList();
+        Vector2 cursor = ImGui.GetCursorPos();
+        Vector2 p_min = ImGui.GetCursorScreenPos();
+        Vector2 p_max = new Vector2(p_min.X + _iconSize.X, p_min.Y + _iconSize.Y+35);
+        dl.AddImageRounded(Tofu.Editor.EditorTextures.WhitePixel.TextureId, p_min, p_max,
+            new System.Numerics.Vector2(0, 0), new System.Numerics.Vector2(1, 1),
+            ImGui.GetColorU32(new System.Numerics.Vector4(1, 1, 1, 1)),
+            10);
+    }
+    */
+
+
         if (isDirectory)
         {
             ImGui.ImageButton(_directoryIcon.TextureId, _iconSize);
@@ -353,7 +369,26 @@ public class EditorPanelBrowser : EditorPanel
         {
             if (_textures.ContainsKey(assetPath)) // && _textures[assetIndex].Loaded)
             {
-                ImGui.ImageButton(_textures[assetPath].TextureId, _iconSize);
+                // if (isScene)
+                // {
+                //     ImGui.PushStyleVar(ImGuiStyleVar.FrameRounding,10);
+                // }
+                // ImGui.ImageButton(_textures[assetPath].TextureId, _iconSize);
+                // if (isScene)
+                // {
+                //     ImGui.PopStyleVar(1);
+                // }
+
+                ImDrawListPtr dl = ImGui.GetWindowDrawList();
+                Vector2 cursor = ImGui.GetCursorPos();
+                Vector2 p_min = ImGui.GetCursorScreenPos();
+                Vector2 p_max = new Vector2(p_min.X + _iconSize.X, p_min.Y + _iconSize.Y);
+                dl.AddImageRounded(_textures[assetPath].TextureId, p_min, p_max,
+                    new System.Numerics.Vector2(0, 0), new System.Numerics.Vector2(1, 1),
+                    ImGui.GetColorU32(new System.Numerics.Vector4(1, 1, 1, 1)),
+                    10);
+
+                ImGui.Dummy(_iconSize);
             }
             else
                 //ImGui.ImageButton((IntPtr) fileIcon.id, new Vector2(100, 90));
