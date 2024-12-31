@@ -118,8 +118,8 @@ public class SceneViewController
         CurrentProjectionMode.Value = newProjectionMode;
     }
 
-    private string isMouseOverSceneViewStringYes = $"isMouseOverSceneView:yes";
-    private string isMouseOverSceneViewStringNo = $"isMouseOverSceneView:no";
+    private const string isMouseOverSceneViewStringYes = "isMouseOverSceneView:yes";
+    private const string isMouseOverSceneViewStringNo = "isMouseOverSceneView:no";
     private float _mouseSensitivity = 0.2f;
 
     public void Update()
