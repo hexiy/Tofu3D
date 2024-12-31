@@ -230,12 +230,18 @@ void main()
     /// </summary>
     public void Render()
     {
-        if (_frameBegun)
+        if (!_frameBegun)
         {
-            _frameBegun = false;
-            ImGui.Render();
-            RenderImDrawData(ImGui.GetDrawData());
+            // If `Render` is called without starting the frame, invoke `ImGui.NewFrame()` first.
+            ImGui.NewFrame();
         }
+
+        // Render the ImGui frame:
+        _frameBegun = false; // End the current frame
+        ImGui.Render();      // Generate draw data
+
+        // Render Draw Data using OpenGL or the configured renderer
+        RenderImDrawData(ImGui.GetDrawData());
     }
 
     /// <summary>
@@ -253,20 +259,15 @@ void main()
             _s = DateTime.Now.Second;
             _updatesThisSecond = 0;
         }
-
+        // Ensure the frame begins (only once per update cycle)
+        if (!_frameBegun)
+        {
+            ImGui.NewFrame();
+            _frameBegun = true; // Mark the frame as active
+        }
+        
         SetPerFrameImGuiData(deltaSeconds);
         UpdateImGuiInput(wnd);
-    }
-
-    public void X()
-    {
-        // if (_frameBegun)
-        // {
-        //     ImGui.Render();
-        // }
-
-        _frameBegun = true;
-        ImGui.NewFrame();
     }
 
     /// <summary>

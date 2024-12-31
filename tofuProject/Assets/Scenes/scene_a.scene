@@ -31,7 +31,7 @@
       <RuntimeOnly>false</RuntimeOnly>
       <Started>true</Started>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
+      <ActiveSelf>false</ActiveSelf>
     </GameObject>
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
@@ -179,7 +179,7 @@
       <GameObjectId>36</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <MousePickingId>1</MousePickingId>
+      <MousePickingId>7</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -190,9 +190,9 @@
       </Color>
       <Material>
         <PathToRawAsset>Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
-        <PathToAssetInLibrary>Library/Temp/10769087.temp</PathToAssetInLibrary>
-        <DataIsCompressed>false</DataIsCompressed>
+        <PathToAssetInLibrary>Library/Temp/8378022.temp</PathToAssetInLibrary>
         <IsRuntimeCopy>true</IsRuntimeCopy>
+        <DataIsCompressed>false</DataIsCompressed>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
@@ -200,8 +200,8 @@
         <Additive>false</Additive>
         <AlbedoTexture>
           <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
-          <DataIsCompressed>false</DataIsCompressed>
           <IsRuntimeCopy>false</IsRuntimeCopy>
+          <DataIsCompressed>false</DataIsCompressed>
           <Size>
             <X>1</X>
             <Y>1</Y>
@@ -217,8 +217,8 @@
         </AlbedoTint>
         <EmissiveTexture>
           <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
-          <DataIsCompressed>false</DataIsCompressed>
           <IsRuntimeCopy>false</IsRuntimeCopy>
+          <DataIsCompressed>false</DataIsCompressed>
           <Size>
             <X>1</X>
             <Y>1</Y>
@@ -251,11 +251,12 @@
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
-        <DataIsCompressed>false</DataIsCompressed>
+        <PathToAssetInLibrary>Library/Temp/37466112.temp</PathToAssetInLibrary>
         <IsRuntimeCopy>false</IsRuntimeCopy>
-        <MeshAssetPath>Library/Meshes/sphere.obj_0.tofumesh</MeshAssetPath>
-        <Vao>5</Vao>
-        <Ebo>13</Ebo>
+        <DataIsCompressed>false</DataIsCompressed>
+        <MeshAssetPath>Library/Temp/37466112.temp</MeshAssetPath>
+        <Vao>12</Vao>
+        <Ebo>29320</Ebo>
         <VerticesCount>482</VerticesCount>
         <VertexBufferDataLength>6748</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -7132,7 +7133,7 @@
       <GameObjectId>71</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <MousePickingId>2</MousePickingId>
+      <MousePickingId>8</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -7143,9 +7144,9 @@
       </Color>
       <Material>
         <PathToRawAsset>Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
-        <PathToAssetInLibrary>Library/Temp/60338953.temp</PathToAssetInLibrary>
-        <DataIsCompressed>false</DataIsCompressed>
+        <PathToAssetInLibrary>Library/Temp/46737672.temp</PathToAssetInLibrary>
         <IsRuntimeCopy>true</IsRuntimeCopy>
+        <DataIsCompressed>false</DataIsCompressed>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
@@ -7153,8 +7154,8 @@
         <Additive>false</Additive>
         <AlbedoTexture>
           <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
-          <DataIsCompressed>false</DataIsCompressed>
           <IsRuntimeCopy>false</IsRuntimeCopy>
+          <DataIsCompressed>false</DataIsCompressed>
           <Size>
             <X>1</X>
             <Y>1</Y>
@@ -7170,8 +7171,8 @@
         </AlbedoTint>
         <EmissiveTexture>
           <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
-          <DataIsCompressed>false</DataIsCompressed>
           <IsRuntimeCopy>false</IsRuntimeCopy>
+          <DataIsCompressed>false</DataIsCompressed>
           <Size>
             <X>1</X>
             <Y>1</Y>
@@ -7204,11 +7205,12 @@
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
-        <DataIsCompressed>false</DataIsCompressed>
+        <PathToAssetInLibrary>Library/Temp/82690731.temp</PathToAssetInLibrary>
         <IsRuntimeCopy>false</IsRuntimeCopy>
-        <MeshAssetPath>Library/Meshes/Teapot.obj_0.tofumesh</MeshAssetPath>
-        <Vao>6</Vao>
-        <Ebo>17</Ebo>
+        <DataIsCompressed>false</DataIsCompressed>
+        <MeshAssetPath>Library/Temp/82690731.temp</MeshAssetPath>
+        <Vao>13</Vao>
+        <Ebo>29323</Ebo>
         <VerticesCount>10540</VerticesCount>
         <VertexBufferDataLength>147560</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>
@@ -154801,5 +154803,5 @@
       </OriginalVertexBufferData>
     </Component>
   </Components>
-  <GameObjectNextId>88</GameObjectNextId>
+  <GameObjectNextId>89</GameObjectNextId>
 </SceneFile>

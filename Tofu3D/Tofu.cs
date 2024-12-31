@@ -190,7 +190,6 @@ public static class Tofu
 
         Debug.StartGraphTimer("ImGui", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromMilliseconds(2));
 
-        ImGuiController.X();
         GL.Viewport(0, 0, Window.ClientSize.X, Window.ClientSize.Y);
 
         ImGuiController.WindowResized(Window.ClientSize.X, Window.ClientSize.Y);

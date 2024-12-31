@@ -61,14 +61,13 @@ if(_assetMesh.IsRuntimeCopy==false){
             _assetMesh.VertexBufferData.CopyTo(OriginalVertexBufferData, 0);
         }
 
-        // _perlin.Quality = NoiseQuality.Fast;
         for (int i = 0; i < _assetMesh.VertexBufferData.Length; i++)
         {
-            _assetMesh.VertexBufferData[i] = OriginalVertexBufferData[i] +
-                                             OriginalVertexBufferData[i] * 0.8f * _perlin.GetValue(
-                                                 OriginalVertexBufferData[i], 0.5f,
-                                                 Time.EditorElapsedTime);
-            // _assetMesh.VertexBufferData[i] = OriginalVertexBufferData[i] + Mathf.Sin(Time.EditorElapsedTime*2)*0.4f;
+            // _assetMesh.VertexBufferData[i] = OriginalVertexBufferData[i] +
+            //                                  OriginalVertexBufferData[i] * 0.8f * _perlin.GetValue(
+            //                                      OriginalVertexBufferData[i], 0.5f,
+            //                                      Time.EditorElapsedTime);
+            _assetMesh.VertexBufferData[i] = OriginalVertexBufferData[i] + Mathf.Sin(Time.EditorElapsedTime*2+OriginalVertexBufferData[i])*0.4f;
         }
         // _assetMesh.CompressData();
 
@@ -123,7 +122,9 @@ if(_assetMesh.IsRuntimeCopy==false){
     {
         if (_perlin == null)
         {
-            _perlin = new ImprovedPerlin();
+            _perlin = new ImprovedPerlin(0,NoiseQuality.Fast);    
+            // _perlin.Quality = NoiseQuality.Fast;
+
         }
 
         if (_assetMesh == null)

@@ -6,6 +6,7 @@ using System.IO;
 // Loads .asset files into runtime
 public class AssetLoadManager
 {
+    private AssetLoader_RuntimeMesh _assetLoaderRuntimeMesh;
     private Dictionary<int, AssetBase> LoadedAssets { get; set; } = new(); // int is (raw asset)path hashcode
 
     public Dictionary<Type, Tuple<IAssetLoader, AssetLoadParametersBase>>
@@ -14,6 +15,8 @@ public class AssetLoadManager
 
     public AssetLoadManager()
     {
+        _assetLoaderRuntimeMesh = new AssetLoader_RuntimeMesh();
+        
         RegisterAssetLoader(new AssetLoader_Texture(), new AssetLoadParameters_Texture());
         RegisterAssetLoader(new AssetLoader_CubemapTexture(), new AssetLoadParameters_CubemapTexture());
         RegisterAssetLoader(new AssetLoader_Material(), new AssetLoadParameters_Material());
@@ -165,10 +168,9 @@ public class AssetLoadManager
     }
 
     public RuntimeMesh LoadRuntimeMeshFromAssetMesh<T>(Asset_Mesh assetMesh,
-        AssetLoadParameters<RuntimeMesh>? loadParameters = null,
-        bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy = false) where T : Asset<T>
+        AssetLoadParameters<RuntimeMesh>? loadParameters = null) where T : Asset<T>
     {
-        RuntimeMesh runtimeMesh = new AssetLoader_RuntimeMesh().LoadAsset(assetMesh: assetMesh, loadParameters);
+        RuntimeMesh runtimeMesh = _assetLoaderRuntimeMesh.LoadAsset(assetMesh: assetMesh, loadParameters);
         return runtimeMesh;
     }
 

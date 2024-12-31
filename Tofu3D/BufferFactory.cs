@@ -66,7 +66,7 @@ public static class BufferFactory
 
     public static void CreateGenericBuffer(ref int vao, ref int ebo, float[] vertexBufferData, int[] countsOfElements, bool isDynamic = false, uint[]? indices=null)
     {
-        GL.Enable(EnableCap.DepthTest);
+        // GL.Enable(EnableCap.DepthTest);
 
         if (vao == -1)
         {
