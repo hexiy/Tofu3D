@@ -9,7 +9,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Tofu3D;
 
-public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
+public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
 {
     public override RuntimeTexture LoadAsset(AssetLoadParameters<RuntimeTexture>? assetLoadParameters)
     {
@@ -24,7 +24,7 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
         Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(path);
 
         var pathOfImportParametersOfSourceAssetFile =
-            assetTexture.PathToRawAsset.GetPathOfImportParametersOfSourceAssetFile();
+            assetTexture.Path.GetPathOfImportParametersOfSourceAssetFile();
         AssetImportParameters_Texture importParameters;
 
         if (File.Exists(pathOfImportParametersOfSourceAssetFile))
@@ -70,7 +70,7 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
         RuntimeTexture runtimeTexture = new()
         {
             Size = assetTexture.TextureSize,
-            PathToRawAsset = assetTexture.PathToRawAsset
+            Path = assetTexture.Path
         };
         runtimeTexture.TextureId = textureId;
 

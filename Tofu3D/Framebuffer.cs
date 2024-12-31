@@ -135,11 +135,11 @@ public class Framebuffer : ITexture
                 (int)TextureMagFilter.Nearest);
 
 
-            float[] borderColor =
-            {
-                1.0f, 1.0f, 1.0f, 1.0f
-            };
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureBorderColor, borderColor);
+            // float[] borderColor =
+            // {
+                // 1.0f, 1.0f, 1.0f, 1.0f
+            // };
+            // GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureBorderColor, borderColor);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS,
                 (int)TextureWrapMode.ClampToEdge);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT,

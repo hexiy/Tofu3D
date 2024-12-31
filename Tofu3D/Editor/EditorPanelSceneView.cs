@@ -359,7 +359,7 @@ public class EditorPanelSceneView : EditorPanel
 
     private GameObject SpawnModelIntoScene(Asset_Model model)
     {
-        string importParametersPath = model.PathToRawAsset.GetPathOfImportParametersOfSourceAssetFile();
+        string importParametersPath = model.Path.GetPathOfImportParametersOfSourceAssetFile();
 
         AssetImportParameters_Model importParameters =
             Serializer.ReadFileJSON<AssetImportParameters_Model>(importParametersPath);
@@ -389,7 +389,7 @@ public class EditorPanelSceneView : EditorPanel
                         Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
 
                     string modelName =
-                        AssetFileExtensions.GetFileNameFromPathWithoutExtensions(model.PathToRawAsset.GetPathOfAssetInLibrayFromSourceAssetPathOrName());
+                        AssetFileExtensions.GetFileNameFromPathWithoutExtensions(model.Path.GetPathOfAssetInLibrayFromSourceAssetPathOrName());
 
                     parent = GameObject.Create(position: worldPosition, name: modelName);
                 }
@@ -407,7 +407,7 @@ public class EditorPanelSceneView : EditorPanel
         Vector3 worldPosition = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
 
         string name =
-            AssetFileExtensions.GetFileNameFromPathWithoutExtensions(mesh.MeshAssetPath);
+            AssetFileExtensions.GetFileNameFromPathWithoutExtensions(mesh.Mesh.Name);
         if (isSingleMeshInModel == false)
         {
             name = name + "_" + indexOfMesh;

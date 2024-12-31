@@ -57,21 +57,25 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         Asset_Model model = new Asset_Model();
 
-        Asset_Mesh assetMesh = new Asset_Mesh();
+        MeshFile meshFile = new MeshFile();
         int lineStartIndex = 0;
         while (lineStartIndex != -1)
         {
             int indxTemp = lineStartIndex;
 
             // save meshes too
-            assetMesh = LoadMeshFromData(data: data, vertices: vertices, uvs: uvs, normals: normals,
+            meshFile = CreateMeshFileFromData(data: data, vertices: vertices, uvs: uvs, normals: normals,
                 lineStartIndex: ref lineStartIndex, singleMesh: importParameters.ImportAsSingleMesh,
                 smoothNormals: importParameters.SmoothNormals);
-
             int meshIndex = model.PathsToMeshAssets.Count;
 
             string meshPath = objPath.ToMeshAssetFileName(meshIndex).GetPathOfAssetInLibrayFromSourceAssetPathOrName();
-            Serializer.SaveAssetJSON<Asset_Mesh>(meshPath, assetMesh);
+
+            meshFile.Mesh.Name = Path.GetFileNameWithoutExtension(meshPath);
+            meshFile.Mesh.PathToMeshFileInLibrary = meshPath;
+
+            Serializer.SaveAssetJSON<MeshFile>(meshPath, meshFile);
+
             model.PathsToMeshAssets.Add(meshPath);
             if (indxTemp == lineStartIndex)
             {
@@ -79,7 +83,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             }
         }
 
-        model.PathToRawAsset = objPath;
+        model.Path = objPath;
         string modelPath = objPath.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
 
         Serializer.SaveAssetJSON<Asset_Model>(modelPath, model);
@@ -88,7 +92,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
     }
 
 
-    private Asset_Mesh LoadMeshFromData(string[] data, List<float> vertices, List<float> uvs, List<float> normals,
+    private MeshFile CreateMeshFileFromData(string[] data, List<float> vertices, List<float> uvs, List<float> normals,
         ref int lineStartIndex, bool singleMesh = false, bool smoothNormals = true)
     {
         List<uint> indices = new();
@@ -381,13 +385,15 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         //     because right now we have all vertices in the array wasting time and its wrong too.
         // so our indice will be pointing to [vertex1, vertex2, vertex3]
 
-        Asset_Mesh mesh = new Asset_Mesh();
+        Mesh mesh = new Mesh();
         mesh.CountsOfElements = countsOfElements;
         mesh.VertexBufferData = vertexBufferData.ToArray();
         mesh.VerticesCount = (int)(vertexBufferData.Count / 14);
         mesh.Indices = indices.ToArray();
 
-        return mesh;
+        MeshFile meshFile = new MeshFile() { Mesh = mesh };
+
+        return meshFile;
     }
 
     private static void SmoothNormals(List<float> everything, int floatsPerTriangle, int floatsPerVertex)

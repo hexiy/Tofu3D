@@ -86,8 +86,7 @@ public class TextRendererInstanced : ModelRendererInstanced
             Tofu.AssetLoadManager.Load<Asset_Model>(Path.Combine(Folders.ModelsInAssets, "plane.obj"));
         RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets.First());
 
-
-        Material = Material.CreateRuntimeCopy();
+        Material = Tofu.AssetLoadManager.CreateCopy(Material);
         Material.AlbedoTexture =
             Tofu.AssetLoadManager.Load<RuntimeTexture>(Path.Combine(Folders.TexturesInAssets, "font.png"));
 

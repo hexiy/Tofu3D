@@ -204,14 +204,15 @@ public partial class TransformHandle : Component, IComponentUpdateable
         Asset_Material material =
             Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
 
-        Asset_Material materialCopy = material.CreateRuntimeCopy();
+        
+        Asset_Material materialCopy = Tofu.AssetLoadManager.CreateCopy(material);
         materialCopy.SpecularSmoothness = 0;
         materialCopy.MetallicTextureStrength = 0;
         materialCopy.Smoothness = 0;
-        ModelRendererX.Material = materialCopy.CreateRuntimeCopy();
-        ModelRendererY.Material = materialCopy.CreateRuntimeCopy();
-        ModelRendererXy.Material = materialCopy.CreateRuntimeCopy();
-        ModelRendererZ.Material = materialCopy.CreateRuntimeCopy();
+        ModelRendererX.Material = Tofu.AssetLoadManager.CreateCopy(materialCopy);
+        ModelRendererY.Material = Tofu.AssetLoadManager.CreateCopy(material);
+        ModelRendererXy.Material = Tofu.AssetLoadManager.CreateCopy(material);
+        ModelRendererZ.Material =Tofu.AssetLoadManager.CreateCopy(material);
 
         PremadeComponentSetupsHelper.PrepareCube(ModelRendererX);
         PremadeComponentSetupsHelper.PrepareCube(ModelRendererY);

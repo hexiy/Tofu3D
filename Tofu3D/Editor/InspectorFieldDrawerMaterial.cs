@@ -13,14 +13,14 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
         if (componentInspectorData.Inspectable is Renderer)
         {
             materialPath =
-                Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material?.PathToRawAsset) ??
+                Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material?.Path) ??
                 materialPath;
 
             material = (componentInspectorData.Inspectable as Renderer).Material;
         }
         else if (componentInspectorData.Inspectable is Asset_Material)
         {
-            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Asset_Material).PathToRawAsset);
+            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Asset_Material).Path);
             material = (componentInspectorData.Inspectable as Asset_Material);
 
         }
@@ -45,8 +45,8 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
                         Asset_Material assetMaterial = (componentInspectorData.Inspectable as Asset_Material);
 
                         // save materials in both Library/ and Assets/ 
-                        Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.PathToRawAsset.GetPathOfAssetInLibrayFromSourceAssetPathOrName(), assetMaterial);
-                        Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.PathToRawAsset, assetMaterial);
+                        Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.Path.GetPathOfAssetInLibrayFromSourceAssetPathOrName(), assetMaterial);
+                        Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.Path, assetMaterial);
                     })
             );
         }

@@ -16,7 +16,7 @@ public class AssetImporter_Material : AssetImporter<Asset_Material>
         Asset_Material material = Serializer.ReadAssetJSON<Asset_Material>(assetImportParameters.PathToSourceAsset);
 
 
-        material.PathToRawAsset = assetImportParameters.PathToSourceAsset;
+        material.Path = assetImportParameters.PathToSourceAsset;
         string libraryPath = importParameters.PathToSourceAsset.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
         Serializer.SaveAssetJSON<Asset_Material>(libraryPath, material);
 

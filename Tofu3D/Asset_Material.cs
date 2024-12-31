@@ -48,7 +48,7 @@ public class Asset_Material : Asset<Asset_Material>
         hashCodeCombiner.Add(base.GetHashCode());
         hashCodeCombiner.Add(Additive.GetHashCode());
         hashCodeCombiner.Add(Shader?.GetHashCode());
-        hashCodeCombiner.Add(PathToRawAsset.GetHashCode());
+        hashCodeCombiner.Add(Path.GetHashCode());
         hashCodeCombiner.Add(AlbedoTexture?.GetHashCode());
         // hashCodeCombiner.Add(AlbedoTint.GetHashCode());
         hashCodeCombiner.Add(AmbientOcclusionTexture?.GetHashCode());
@@ -60,10 +60,10 @@ public class Asset_Material : Asset<Asset_Material>
 
     public void LoadTextures()
     {
-        if (AlbedoTexture?.PathToRawAsset.Length > 2)
+        if (AlbedoTexture?.Path.Length > 2)
         {
             AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
-                { PathToAssetInLibrary = AlbedoTexture.PathToRawAsset });
+                { PathToAssetInLibrary = AlbedoTexture.Path });
         }
         else
         {
@@ -71,31 +71,31 @@ public class Asset_Material : Asset<Asset_Material>
                 { PathToAssetInLibrary = "Resources/whitePixel.png" });
         }
 
-        if (AmbientOcclusionTexture?.PathToRawAsset.Length > 2)
+        if (AmbientOcclusionTexture?.Path.Length > 2)
         {
             AmbientOcclusionTexture =
-                Tofu.AssetLoadManager.Load<RuntimeTexture>(AmbientOcclusionTexture.PathToRawAsset);
+                Tofu.AssetLoadManager.Load<RuntimeTexture>(AmbientOcclusionTexture.Path);
         }
 
-        if (NormalTexture?.PathToRawAsset.Length > 2)
+        if (NormalTexture?.Path.Length > 2)
         {
-            NormalTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(NormalTexture.PathToRawAsset);
+            NormalTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(NormalTexture.Path);
         }
 
-        if (RoughnessTexture?.PathToRawAsset.Length > 2)
+        if (RoughnessTexture?.Path.Length > 2)
         {
-            RoughnessTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(RoughnessTexture.PathToRawAsset);
+            RoughnessTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(RoughnessTexture.Path);
         }
 
-        if (MetallicTexture?.PathToRawAsset.Length > 2)
+        if (MetallicTexture?.Path.Length > 2)
         {
-            MetallicTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(MetallicTexture.PathToRawAsset);
+            MetallicTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(MetallicTexture.Path);
         }
 
-        if (EmissiveTexture?.PathToRawAsset.Length > 2)
+        if (EmissiveTexture?.Path.Length > 2)
         {
             EmissiveTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
-                { PathToAssetInLibrary = EmissiveTexture.PathToRawAsset });
+                { PathToAssetInLibrary = EmissiveTexture.Path });
         }
         else
         {

@@ -8,42 +8,21 @@ using System.Xml.Serialization;
 
 namespace Tofu3D;
 
-public class AssetLoader_RuntimeMesh : AssetLoader<Asset_Mesh, RuntimeMesh>
+public class AssetLoader_RuntimeMesh : AssetLoader<RuntimeMesh>
 {
     public override RuntimeMesh LoadAsset(AssetLoadParameters<RuntimeMesh>? assetLoadParameters)
     {
         string meshAssetPath = assetLoadParameters.PathToAssetInLibrary;
-        Asset_Mesh assetMesh = Serializer.ReadAssetJSON<Asset_Mesh>(meshAssetPath);
+        MeshFile meshFile = Serializer.ReadAssetJSON<MeshFile>(meshAssetPath);
 
-
-        RuntimeMesh runtimeMesh = new RuntimeMesh()
-        {
-            MeshAssetPath = meshAssetPath,
-            VertexBufferDataLength = assetMesh.VertexBufferData.Length,
-            VerticesCount = assetMesh.VerticesCount,
-            Vao = -1,
-            Ebo = -1,
-            IndicesCount = assetMesh.Indices.Length
-        };
-
-        // if mesh is already loaded, we take its vao!! problem is on model import we unload the runtime meshes so we wont find anything here...
-        if (assetLoadParameters.ExistingAsset != null)
-        {
-            runtimeMesh.Vao = assetLoadParameters.ExistingAsset.Vao;
-        }
-
-        BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, ref runtimeMesh.Ebo, assetMesh.VertexBufferData,
-            assetMesh.CountsOfElements,
-            indices: assetMesh.Indices);
-
-        runtimeMesh.InitAssetRuntimeHandle(runtimeMesh.Vao);
-
+        RuntimeMesh runtimeMesh = LoadAsset(meshFile, assetLoadParameters);
 
         return runtimeMesh;
     }
 
-    public RuntimeMesh LoadAsset(Asset_Mesh assetMesh, AssetLoadParameters<RuntimeMesh>? assetLoadParameters)
+    public RuntimeMesh LoadAsset(MeshFile meshFile, AssetLoadParameters<RuntimeMesh>? assetLoadParameters)
     {
+        Mesh mesh = meshFile.Mesh;
         RuntimeMesh runtimeMesh;
         if (assetLoadParameters.ExistingAsset != null)
         {
@@ -53,12 +32,9 @@ public class AssetLoader_RuntimeMesh : AssetLoader<Asset_Mesh, RuntimeMesh>
         {
             runtimeMesh = new RuntimeMesh()
             {
-                MeshAssetPath = assetMesh.PathToAssetInLibrary,
-                VertexBufferDataLength = assetMesh.VertexBufferData.Length,
-                VerticesCount = assetMesh.VerticesCount,
+                Mesh = mesh,
                 Vao = -1,
                 Ebo = -1,
-                IndicesCount = assetMesh.Indices.Length
             };
         }
 
@@ -69,12 +45,9 @@ public class AssetLoader_RuntimeMesh : AssetLoader<Asset_Mesh, RuntimeMesh>
             runtimeMesh.Ebo = assetLoadParameters.ExistingAsset.Ebo;
         }
 
-        BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, ref runtimeMesh.Ebo, assetMesh.VertexBufferData,
-            assetMesh.CountsOfElements,
-            indices: assetMesh.Indices);
-
-        runtimeMesh.InitAssetRuntimeHandle(runtimeMesh.Vao);
-
+        BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, ref runtimeMesh.Ebo, mesh.VertexBufferData,
+            mesh.CountsOfElements,
+            indices: mesh.Indices);
 
         return runtimeMesh;
     }

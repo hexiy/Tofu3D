@@ -9,13 +9,13 @@ public class InspectorFieldDrawerCubemapTexture : InspectorFieldDrawable<Runtime
     {
         // CubemapTexture cubemapTexture = info.ListElement as CubemapTexture;
         var cubemapTexture = GetValue(info, componentInspectorData);
-        var textureName = Path.GetFileName(cubemapTexture.PathToRawAsset);
+        var textureName = Path.GetFileName(cubemapTexture.Path);
 
         var clicked = ImGui.Button(textureName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
         if (clicked)
         {
-            EditorPanelBrowser.I.GoToFile(cubemapTexture.PathToRawAsset);
+            EditorPanelBrowser.I.GoToFile(cubemapTexture.Path);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Tofu3D;
 
 public class VertexManipulator : Component, IComponentUpdateable
 {
-    [XmlIgnore]
+    /*[XmlIgnore]
     public Action CreateInstanceOfMeshAsset
     {
         get
@@ -19,21 +19,21 @@ public class VertexManipulator : Component, IComponentUpdateable
                 // sourcePath: _modelRendererInstanced.RuntimeMesh.MeshAssetPath,
                 // loadParameters:new AssetLoadParameters_AssetMesh(){ExistingAsset = null, PathToAsset = _modelRendererInstanced.RuntimeMesh.MeshAssetPath},
                 // overwriteAlreadyLoadedAssets: true, isRuntimeCopy: true);
-                _assetMesh =
-                    Serializer.ReadAssetJSON<Asset_Mesh>(_modelRendererInstanced.RuntimeMesh.MeshAssetPath);
-if(_assetMesh.IsRuntimeCopy==false){
-                _assetMesh = _assetMesh.CreateRuntimeCopy();
+                _meshFile =
+                    Serializer.ReadAssetJSON<MeshFile>(_modelRendererInstanced.RuntimeMesh.MeshFile.PathToAssetInLibrary);
+if(_meshFile.IsRuntimeCopy==false){
+                _meshFile = _meshFile.CreateRuntimeCopy();
                 }
 
                 // _runtimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(_assetMesh.PathToAssetInLibrary,
                 //     new AssetLoadParameters_RuntimeMesh()
                 //         { ExistingAsset = _runtimeMesh, PathToAsset = _assetMesh.PathToAssetInLibrary });
 
-                _runtimeMesh = Tofu.AssetLoadManager.LoadRuntimeMeshFromAssetMesh<RuntimeMesh>(_assetMesh,
+                _runtimeMesh = Tofu.AssetLoadManager.LoadRuntimeMeshFromAssetMesh<RuntimeMesh>(_meshFile,
                     new AssetLoadParameters_RuntimeMesh()
-                        { ExistingAsset = _runtimeMesh, PathToAssetInLibrary = _assetMesh.PathToAssetInLibrary });
+                        { ExistingAsset = _runtimeMesh, PathToAssetInLibrary = _meshFile.PathToAssetInLibrary });
 
-                _runtimeMesh.PathToAssetInLibrary = _assetMesh.PathToAssetInLibrary;
+                _runtimeMesh.MeshFile.PathToAssetInLibrary = _meshFile.PathToAssetInLibrary;
                 // RuntimeMesh 
 
                 // Tofu.InstancedRenderingSystem.UpdateObjectData(_modelRendererInstanced, ref _modelRendererInstanced.InstancingData, remove: true,
@@ -55,19 +55,19 @@ if(_assetMesh.IsRuntimeCopy==false){
     {
 // do changes
         if (OriginalVertexBufferData == null ||
-            OriginalVertexBufferData?.Length != _assetMesh.VertexBufferData.Length)
+            OriginalVertexBufferData?.Length != _meshFile.VertexBufferData.Length)
         {
-            OriginalVertexBufferData = new float[_assetMesh.VertexBufferData.Length];
-            _assetMesh.VertexBufferData.CopyTo(OriginalVertexBufferData, 0);
+            OriginalVertexBufferData = new float[_meshFile.VertexBufferData.Length];
+            _meshFile.VertexBufferData.CopyTo(OriginalVertexBufferData, 0);
         }
 
-        for (int i = 0; i < _assetMesh.VertexBufferData.Length; i++)
+        for (int i = 0; i < _meshFile.VertexBufferData.Length; i++)
         {
             // _assetMesh.VertexBufferData[i] = OriginalVertexBufferData[i] +
             //                                  OriginalVertexBufferData[i] * 0.8f * _perlin.GetValue(
             //                                      OriginalVertexBufferData[i], 0.5f,
             //                                      Time.EditorElapsedTime);
-            _assetMesh.VertexBufferData[i] = OriginalVertexBufferData[i] + Mathf.Sin(Time.EditorElapsedTime*2+OriginalVertexBufferData[i])*0.4f;
+            _meshFile.VertexBufferData[i] = OriginalVertexBufferData[i] + Mathf.Sin(Time.EditorElapsedTime*2+OriginalVertexBufferData[i])*0.4f;
         }
         // _assetMesh.CompressData();
 
@@ -75,9 +75,9 @@ if(_assetMesh.IsRuntimeCopy==false){
         // Tofu.AssetLoadManager.Save<Asset_Mesh>(_assetMesh.PathToAssetInLibrary, _assetMesh);
 
         // load
-        _runtimeMesh = Tofu.AssetLoadManager.LoadRuntimeMeshFromAssetMesh<RuntimeMesh>(_assetMesh,
+        _runtimeMesh = Tofu.AssetLoadManager.LoadRuntimeMeshFromAssetMesh<RuntimeMesh>(_meshFile,
             new AssetLoadParameters_RuntimeMesh()
-                { ExistingAsset = _runtimeMesh, PathToAssetInLibrary = _assetMesh.PathToAssetInLibrary });
+                { ExistingAsset = _runtimeMesh, PathToAssetInLibrary = _meshFile.PathToAssetInLibrary });
 
         // _runtimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(_assetMesh.PathToAssetInLibrary,
         // new AssetLoadParameters_RuntimeMesh()
@@ -85,7 +85,7 @@ if(_assetMesh.IsRuntimeCopy==false){
         // overwriteAlreadyLoadedAssets: false,
         // isRuntimeCopy: true);
 
-        _runtimeMesh.PathToAssetInLibrary = _assetMesh.PathToAssetInLibrary;
+        _runtimeMesh.MeshFile.PathToAssetInLibrary = _meshFile.PathToAssetInLibrary;
         // RuntimeMesh 
         _modelRendererInstanced.RuntimeMesh = _runtimeMesh;
         
@@ -101,7 +101,7 @@ if(_assetMesh.IsRuntimeCopy==false){
 
     private ModelRendererInstanced _modelRendererInstanced;
     private RuntimeMesh _runtimeMesh;
-    private Asset_Mesh _assetMesh;
+    private MeshFile _meshFile;
     private ImprovedPerlin _perlin;
 
     [JsonIgnore]
@@ -128,12 +128,16 @@ if(_assetMesh.IsRuntimeCopy==false){
 
         }
 
-        if (_assetMesh == null)
+        if (_meshFile == null)
         {
             CreateInstanceOfMeshAsset();
             return;
         }
 
         ModifyMeshMethod();
+    }*/
+    public void Update()
+    {
+        
     }
 }

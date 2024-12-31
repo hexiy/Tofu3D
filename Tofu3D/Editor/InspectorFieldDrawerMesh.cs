@@ -10,7 +10,7 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
     {
         var mesh = (RuntimeMesh)info.GetValue(componentInspectorData.Inspectable);
 
-        var assetName = Path.GetFileName(mesh?.MeshAssetPath) ?? "";
+        var assetName = mesh?.Mesh?.Name ?? "";
 
         var clicked = ImGui.Button(assetName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
@@ -56,7 +56,6 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
                     {
                         Debug.LogError(ex.Message);
                     }
-                    
                 }
             }
 

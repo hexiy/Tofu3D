@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace Tofu3D;
 
-public class AssetLoader_Model : AssetLoader<Asset_Model, Asset_Model>
+public class AssetLoader_Model : AssetLoader<Asset_Model>
 {
     public override Asset_Model LoadAsset(AssetLoadParameters<Asset_Model>? assetLoadParameters)
     {

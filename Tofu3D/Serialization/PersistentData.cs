@@ -115,7 +115,7 @@ public static class PersistentData
         }
     }
 
-    public static string GetString(string key, string? defaultValue = null) => Get(key, defaultValue);
+    public static string GetString(string key, string? defaultValue = null) => Get(key, defaultValue).ToString();
 
     public static int GetInt(string key, int? defaultValue = null) => int.Parse(Get(key, defaultValue)?.ToString());
 

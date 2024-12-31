@@ -8,12 +8,12 @@ using System.Xml.Serialization;
 
 namespace Tofu3D;
 
-public class AssetLoader_AssetMesh : AssetLoader<Asset_Mesh, Asset_Mesh>
+public class AssetLoader_AssetMesh : AssetLoader<MeshFile>
 {
-    public override Asset_Mesh LoadAsset(AssetLoadParameters<Asset_Mesh>? assetLoadParameters)
+    public override MeshFile LoadAsset(AssetLoadParameters<MeshFile>? assetLoadParameters)
     {
         string meshAssetPath = assetLoadParameters.PathToAssetInLibrary;
-        Asset_Mesh assetMesh = Serializer.ReadAssetJSON<Asset_Mesh>(meshAssetPath);
+        MeshFile meshFile = Serializer.ReadAssetJSON<MeshFile>(meshAssetPath);
 
 
         // RuntimeMesh runtimeMesh = new RuntimeMesh()
@@ -38,6 +38,6 @@ public class AssetLoader_AssetMesh : AssetLoader<Asset_Mesh, Asset_Mesh>
         // runtimeMesh.InitAssetRuntimeHandle(runtimeMesh.Vao);
         //
 
-        return assetMesh;
+        return meshFile;
     }
 }

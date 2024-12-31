@@ -137,7 +137,7 @@ public class InstancedRenderingSystem
         var material = definition.Material;
         // material = Tofu.AssetLoadManager.Load<Asset_Material>(material.PathToRawAsset);
         var meshVao = definition.RuntimeMesh.Vao;
-        var indicesCount = definition.RuntimeMesh.IndicesCount;
+        var indicesCount = definition.RuntimeMesh.Mesh.Indices.Length;
         var bufferData = objectBufferPair.Value;
 
         // resize the buffer if needed, after drawing the old one

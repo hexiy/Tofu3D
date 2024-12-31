@@ -646,8 +646,8 @@ public class EditorPanelInspector : EditorPanel
                 return;
             }
 
-            Serializer.SaveFileJSON<Asset_Material>(material.PathToRawAsset, material);
-            Tofu.AssetImportManager.ImportAsset(material.PathToRawAsset, reimportIfExists: true);
+            Serializer.SaveFileJSON<Asset_Material>(material.Path, material);
+            Tofu.AssetImportManager.ImportAsset(material.Path, reimportIfExists: true);
         }
     }
 }

@@ -31,14 +31,14 @@ public class ModelRendererInstanced : Renderer
     {
         if (Material == null || Material?.IsRuntimeCopy == false)
         {
-            if (Material?.PathToRawAsset.Length == 0 || Material == null)
+            if (Material?.Path.Length == 0 || Material == null)
             {
                 Material = Tofu.AssetLoadManager.Load<Asset_Material>(Path.Combine(Folders.MaterialsInAssets,
                     "ModelRendererInstanced.mat"));
             }
             else
             {
-                Material = Tofu.AssetLoadManager.Load<Asset_Material>(Material.PathToRawAsset);
+                Material = Tofu.AssetLoadManager.Load<Asset_Material>(Material.Path);
             }
         }
         else
@@ -50,14 +50,15 @@ public class ModelRendererInstanced : Renderer
 
                 if (Material.IsRuntimeCopy)
                 {
-                    Material = Material.CreateRuntimeCopy();
+                    Material = Tofu.AssetLoadManager.CreateCopy(Material);
                 }
             }
         }
 
-        if (RuntimeMesh?.MeshAssetPath.Length > 0)
+        // RuntimeMesh.Mesh.Indices
+        if (RuntimeMesh?.Mesh?.PathToMeshFileInLibrary?.Length > 0)
         {
-            RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(RuntimeMesh.MeshAssetPath);
+            RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(RuntimeMesh.Mesh.PathToMeshFileInLibrary);
         }
         else
         {

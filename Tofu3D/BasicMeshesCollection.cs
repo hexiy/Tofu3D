@@ -7,10 +7,10 @@ public class BasicMeshesCollection
 
     public BasicMeshesCollection()
     {
-        RenderTextureMesh = new RuntimeMesh() { VerticesCount = 24 };
+        RenderTextureMesh = new RuntimeMesh();
         BufferFactory.CreateRenderTextureBuffers(ref RenderTextureMesh.Vao);
-        
-        CubemapMesh = new RuntimeMesh(){ VerticesCount = 24 };
+
+        CubemapMesh = new RuntimeMesh();
         BufferFactory.CreateCubemapBuffers(ref CubemapMesh.Vao);
     }
 }

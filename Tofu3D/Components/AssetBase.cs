@@ -2,15 +2,8 @@
 public abstract class AssetBase
 {
     [Hide]
-    public string PathToRawAsset = "";
+    public string Path = "";
 
-    [Hide]
-    public string PathToAssetInLibrary;// = PathToRawAsset.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
-
-    [XmlIgnore]
-    public RuntimeAssetHandle RuntimeAssetHandle { get; set; }
-
-    // [XmlIgnore]
     [Hide]
     public bool IsRuntimeCopy = false;
 
@@ -19,11 +12,7 @@ public abstract class AssetBase
     public void SetAsRuntimeAsset()
     {
         IsRuntimeCopy = true;
-        // PathToRawAsset = string.Empty;
     }
-    // private Asset()
-    // {
-    // }
 
     public static implicit operator bool(AssetBase instance)
     {

@@ -9,7 +9,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace Tofu3D;
 
-public class AssetLoader_CubemapTexture : AssetLoader<Asset_Texture, RuntimeCubemapTexture>
+public class AssetLoader_CubemapTexture : AssetLoader<RuntimeCubemapTexture>
 {
     public override RuntimeCubemapTexture LoadAsset(AssetLoadParameters<RuntimeCubemapTexture>? assetLoadParameters)
     {

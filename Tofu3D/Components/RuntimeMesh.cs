@@ -1,11 +1,6 @@
-
-public class RuntimeMesh : Asset<RuntimeMesh>
+public class RuntimeMesh
 {
-    public string MeshAssetPath;
     public int Vao;
     public int Ebo;
-    public int VerticesCount;
-    public int VertexBufferDataLength;
-    public int IsDynamic;
-    public int IndicesCount;
+    public Mesh Mesh;
 }
