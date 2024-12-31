@@ -17,22 +17,22 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
 
         if (ImGui.BeginDragDropTarget())
         {
-            if (TofuImGui.PayloadHasBeenDropped("MODEL"))
+            if (TofuImGui.PayloadHasBeenDropped(DragDropPayloadTypes.Model))
             {
                 var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0 &&
+                if (filePath.Length > 0 &&
                     AssetFileExtensions.IsFileModel(filePath))
                 {
-                    try
-                    {
+                    // try
+                    // {
                         Asset_Model modelAsset = Tofu.AssetLoadManager.Load<Asset_Model>(filePath);
                         mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(modelAsset.PathsToMeshAssets[0]);
                         info.SetValue(componentInspectorData.Inspectable, mesh);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError(ex.Message);
-                    }
+                    // }
+                    // catch (Exception ex)
+                    // {
+                        // Debug.LogError(ex.Message);
+                    // }
                 }
             }
 
@@ -41,21 +41,21 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
 
         if (ImGui.BeginDragDropTarget())
         {
-            if (TofuImGui.PayloadHasBeenDropped("MESH"))
+            if (TofuImGui.PayloadHasBeenDropped(DragDropPayloadTypes.Mesh))
             {
                 var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && filePath.Length > 0 &&
+                if (filePath.Length > 0 &&
                     AssetFileExtensions.IsFileMesh(filePath))
                 {
-                    try
-                    {
+                    // try
+                    // {
                         RuntimeMesh runtimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(filePath);
                         info.SetValue(componentInspectorData.Inspectable, runtimeMesh);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError(ex.Message);
-                    }
+                    // }
+                    // catch (Exception ex)
+                    // {
+                        // Debug.LogError(ex.Message);
+                    // }
                 }
             }
 

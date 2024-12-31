@@ -1,8 +1,8 @@
 ﻿[Serializable]
-public abstract class AssetBase
+public abstract class AssetBase : IHasPath
 {
     [Hide]
-    public string Path = "";
+    public string? Path { get; set; } = "";
 
     [Hide]
     public bool IsRuntimeCopy = false;
@@ -31,4 +31,5 @@ public abstract class AssetBase
     public virtual void BeforeSerialized()
     {
     }
+
 }

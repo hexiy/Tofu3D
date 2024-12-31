@@ -56,9 +56,9 @@ public class ModelRendererInstanced : Renderer
         }
 
         // RuntimeMesh.Mesh.Indices
-        if (RuntimeMesh?.Mesh?.PathToMeshFileInLibrary?.Length > 0)
+        if (RuntimeMesh?.Mesh?.Path?.Length > 0)
         {
-            RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(RuntimeMesh.Mesh.PathToMeshFileInLibrary);
+            RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(RuntimeMesh.Mesh.Path);
         }
         else
         {

@@ -72,7 +72,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             string meshPath = objPath.ToMeshAssetFileName(meshIndex).GetPathOfAssetInLibrayFromSourceAssetPathOrName();
 
             meshFile.Mesh.Name = Path.GetFileNameWithoutExtension(meshPath);
-            meshFile.Mesh.PathToMeshFileInLibrary = meshPath;
+            meshFile.Mesh.Path = meshPath;
 
             Serializer.SaveAssetJSON<MeshFile>(meshPath, meshFile);
 

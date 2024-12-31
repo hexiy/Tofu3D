@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-public class Mesh
+public class Mesh:IHasPath
 {
     [JsonIgnore]
     public float[] VertexBufferData; // dont serialize
@@ -12,5 +12,6 @@ public class Mesh
     public uint[] Indices; // dont serialize
 
     public string Name;
-    public string? PathToMeshFileInLibrary=null;
+//  PathToMeshFileInLibrary
+    public string? Path { get; set; }
 }

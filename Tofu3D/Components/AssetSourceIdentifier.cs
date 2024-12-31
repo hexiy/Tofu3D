@@ -1,5 +1,4 @@
-// namespace Tofu3D;
-//
-// public class AssetSourceIdentifier
-// {
-// }
+public interface IHasPath
+{
+    public string? Path { get; set; }
+}
