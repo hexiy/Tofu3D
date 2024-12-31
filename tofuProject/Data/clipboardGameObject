@@ -7,7 +7,7 @@
       <Id>71</Id>
       <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
+      <IsStaticSelf>true</IsStaticSelf>
       <Name>Sphere</Name>
       <PrefabPath />
       <Selected>true</Selected>
@@ -63,7 +63,7 @@
       <GameObjectId>71</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <MousePickingId>23</MousePickingId>
+      <MousePickingId>17</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -74,9 +74,9 @@
       </Color>
       <Material>
         <PathToRawAsset>Assets/Materials/ModelRendererInstanced.mat</PathToRawAsset>
-        <PathToAssetInLibrary>Library/Temp/28312047.temp</PathToAssetInLibrary>
-        <DataIsCompressed>false</DataIsCompressed>
+        <PathToAssetInLibrary>Library/Temp/25066276.temp</PathToAssetInLibrary>
         <IsRuntimeCopy>true</IsRuntimeCopy>
+        <DataIsCompressed>false</DataIsCompressed>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
@@ -84,8 +84,8 @@
         <Additive>false</Additive>
         <AlbedoTexture>
           <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
-          <DataIsCompressed>false</DataIsCompressed>
           <IsRuntimeCopy>false</IsRuntimeCopy>
+          <DataIsCompressed>false</DataIsCompressed>
           <Size>
             <X>1</X>
             <Y>1</Y>
@@ -101,8 +101,8 @@
         </AlbedoTint>
         <EmissiveTexture>
           <PathToRawAsset>Resources/whitePixel.png</PathToRawAsset>
-          <DataIsCompressed>false</DataIsCompressed>
           <IsRuntimeCopy>false</IsRuntimeCopy>
+          <DataIsCompressed>false</DataIsCompressed>
           <Size>
             <X>1</X>
             <Y>1</Y>
@@ -120,7 +120,7 @@
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0</SpecularSmoothness>
         <MetallicTextureStrength>1</MetallicTextureStrength>
-        <Smoothness>1</Smoothness>
+        <Smoothness>0.997</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -131,16 +131,16 @@
         </Offset>
         <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
         <RenderMode>Opaque</RenderMode>
-        <BlendMode>Opaque</BlendMode>
+        <BlendMode>Cutout</BlendMode>
       </Material>
       <RuntimeMesh>
         <PathToRawAsset />
-        <PathToAssetInLibrary>Library/Temp/25729416.temp</PathToAssetInLibrary>
-        <DataIsCompressed>false</DataIsCompressed>
+        <PathToAssetInLibrary>Library/Temp/32588145.temp</PathToAssetInLibrary>
         <IsRuntimeCopy>false</IsRuntimeCopy>
-        <MeshAssetPath>Library/Temp/25729416.temp</MeshAssetPath>
-        <Vao>16</Vao>
-        <Ebo>62265</Ebo>
+        <DataIsCompressed>false</DataIsCompressed>
+        <MeshAssetPath>Library/Temp/32588145.temp</MeshAssetPath>
+        <Vao>13</Vao>
+        <Ebo>13006</Ebo>
         <VerticesCount>10540</VerticesCount>
         <VertexBufferDataLength>147560</VertexBufferDataLength>
         <IsDynamic>0</IsDynamic>

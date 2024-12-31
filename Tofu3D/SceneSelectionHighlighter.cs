@@ -24,6 +24,7 @@ public class SceneSelectionHighlighter
 
     private void SpawnSelectionBoxGameobjects()
     {
+        return;
         _selectionBoxGameObject =
             GameObject.Create(name: "Selection Box", visibleInHierarchy: false, runtimeOnly: true);
 
@@ -39,7 +40,7 @@ public class SceneSelectionHighlighter
         PremadeComponentSetupsHelper.PrepareCube(modelRenderer);
 
         runtimeMaterial.AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
-            { PathToAsset = "Resources/whitePixel.png" });
+            { PathToAssetInLibrary = "Resources/whitePixel.png" });
         runtimeMaterial.Smoothness = 0;
         runtimeMaterial.AlbedoTint = new Color(1, 1, 1, 0.45f);
         runtimeMaterial.RenderMode = RenderMode.Transparent;

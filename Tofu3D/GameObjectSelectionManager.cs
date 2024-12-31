@@ -82,13 +82,12 @@ public class GameObjectSelectionManager
         var isCameraOrTransformHandle = false;
         if (Camera.MainCamera != null)
         {
-            isCameraOrTransformHandle = gameObjects.Contains(Camera.MainCamera.GameObject) ||
-                                        gameObjects.Contains(TransformHandle.I.GameObject);
+            isCameraOrTransformHandle = gameObjects.Contains(Camera.MainCamera?.GameObject) ||
+                                        gameObjects.Contains(TransformHandle.I?.GameObject);
         }
 
         if (isCameraOrTransformHandle == false && gameObjects.Count != 0)
         {
-            TransformHandle.I.SelectObjects(gameObjects);
             LastSelectedGameObjectId = gameObjects[0].Id;
         }
 

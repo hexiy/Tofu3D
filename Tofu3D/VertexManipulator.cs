@@ -31,7 +31,7 @@ if(_assetMesh.IsRuntimeCopy==false){
 
                 _runtimeMesh = Tofu.AssetLoadManager.LoadRuntimeMeshFromAssetMesh<RuntimeMesh>(_assetMesh,
                     new AssetLoadParameters_RuntimeMesh()
-                        { ExistingAsset = _runtimeMesh, PathToAsset = _assetMesh.PathToAssetInLibrary });
+                        { ExistingAsset = _runtimeMesh, PathToAssetInLibrary = _assetMesh.PathToAssetInLibrary });
 
                 _runtimeMesh.PathToAssetInLibrary = _assetMesh.PathToAssetInLibrary;
                 // RuntimeMesh 
@@ -78,7 +78,7 @@ if(_assetMesh.IsRuntimeCopy==false){
         // load
         _runtimeMesh = Tofu.AssetLoadManager.LoadRuntimeMeshFromAssetMesh<RuntimeMesh>(_assetMesh,
             new AssetLoadParameters_RuntimeMesh()
-                { ExistingAsset = _runtimeMesh, PathToAsset = _assetMesh.PathToAssetInLibrary });
+                { ExistingAsset = _runtimeMesh, PathToAssetInLibrary = _assetMesh.PathToAssetInLibrary });
 
         // _runtimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(_assetMesh.PathToAssetInLibrary,
         // new AssetLoadParameters_RuntimeMesh()

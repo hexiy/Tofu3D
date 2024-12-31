@@ -14,7 +14,7 @@ public class AssetLoader_Texture : AssetLoader<Asset_Texture, RuntimeTexture>
     public override RuntimeTexture LoadAsset(AssetLoadParameters<RuntimeTexture>? assetLoadParameters)
     {
         AssetLoadParameters_Texture loadParameters = assetLoadParameters as AssetLoadParameters_Texture;
-        string path = loadParameters.PathToAsset;
+        string path = loadParameters.PathToAssetInLibrary;
 
         if (File.Exists(path.GetPathOfAssetInLibrayFromSourceAssetPathOrName()))
         {

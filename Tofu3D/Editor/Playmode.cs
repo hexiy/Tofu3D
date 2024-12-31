@@ -4,7 +4,7 @@ public static class Playmode
 {
     public static void PlayMode_Start()
     {
-        Tofu.SceneManager.SaveScene();
+        // Tofu.SceneManager.SaveScene();
         Global.GameRunning = true;
         Tofu.SceneManager.LoadScene(Tofu.SceneManager.CurrentScene.ScenePath);
 

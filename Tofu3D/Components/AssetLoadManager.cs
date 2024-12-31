@@ -77,7 +77,7 @@ public class AssetLoadManager
     public T? Load<T>(AssetLoadParameters<T> loadParameters = null,
         bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy = false) where T : Asset<T>
     {
-        return Load<T>(loadParameters.PathToAsset, loadParameters, overwriteAlreadyLoadedAssets,
+        return Load<T>(loadParameters.PathToAssetInLibrary, loadParameters, overwriteAlreadyLoadedAssets,
             isRuntimeCopy: isRuntimeCopy);
     }
 
@@ -123,10 +123,10 @@ public class AssetLoadManager
                 loadParameters =
                     Activator.CreateInstance(loadParameters.GetType()) as AssetLoadParameters<T>;
 
-                loadParameters.PathToAsset = sourcePath.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
-                if (File.Exists(loadParameters.PathToAsset) == false)
+                loadParameters.PathToAssetInLibrary = sourcePath.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+                if (File.Exists(loadParameters.PathToAssetInLibrary) == false)
                 {
-                    loadParameters.PathToAsset = sourcePath;
+                    loadParameters.PathToAssetInLibrary = sourcePath;
                 }
             }
 
@@ -140,7 +140,7 @@ public class AssetLoadManager
 
             if (File.Exists(sourcePath) == false)
             {
-                Debug.LogError("not found asset " + loadParameters.PathToAsset);
+                Debug.LogError("not found asset " + loadParameters.PathToAssetInLibrary);
 
                 if (typeof(T) == typeof(Asset_Material))
                 {

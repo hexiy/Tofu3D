@@ -39,8 +39,6 @@ public class EditorPanelHierarchy : EditorPanel
 
     public override void Update()
     {
-
-
         if (_canDelete && KeyboardInput.IsKeyDown(Keys.Delete))
         {
             _canDelete = false;
@@ -70,8 +68,8 @@ public class EditorPanelHierarchy : EditorPanel
                 Tofu.GameObjectSelectionManager.SelectGameObject(loadedGo);
             }
         }
-        
-        
+
+
         if (IsPanelHovered && ImGui.IsMouseDragging(ImGuiMouseButton.Left))
         {
             _currentSpaceHeight = 4;
@@ -84,6 +82,11 @@ public class EditorPanelHierarchy : EditorPanel
 
     private void DestroySelectedGameObjects()
     {
+        if (_selectedGameObjects.Count == 0)
+        {
+            return;
+        }
+
         var firstSelectedGameObjectIndex =
             Tofu.SceneManager.CurrentScene.GetGameObjectByID(_selectedGameObjects[0].Id).IndexInHierarchy;
         foreach (var selectedGameObject in Tofu.GameObjectSelectionManager.GetSelectedGameObjects())
@@ -98,7 +101,7 @@ public class EditorPanelHierarchy : EditorPanel
         GameObject closestGameObject = null;
         foreach (var gameObject in Tofu.SceneManager.CurrentScene.GameObjects)
         {
-            if (gameObject.VisibleInHierarchy==false)
+            if (gameObject.VisibleInHierarchy == false)
             {
                 continue;
             }
@@ -303,7 +306,7 @@ public class EditorPanelHierarchy : EditorPanel
                 : new Color(135, 206, 235, 130).ToVector4();
         }
 
-        if (currentGameObject.VisibleInHierarchy==false)
+        if (currentGameObject.VisibleInHierarchy == false)
         {
             nameColor = currentGameObject.ActiveInHierarchy
                 ? Color.Purple.ToVector4()
@@ -340,7 +343,8 @@ public class EditorPanelHierarchy : EditorPanel
             var gameObjectId = currentGameObject.Id.ToString();
             var stringPointer = Marshal.StringToHGlobalAnsi(gameObjectId);
 
-            ImGui.SetDragDropPayload(DragDropPayloadTypes.GameObject, stringPointer, (uint)(sizeof(char) * gameObjectId.Length));
+            ImGui.SetDragDropPayload(DragDropPayloadTypes.GameObject, stringPointer,
+                (uint)(sizeof(char) * gameObjectId.Length));
 
             var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 

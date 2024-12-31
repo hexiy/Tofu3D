@@ -11,7 +11,7 @@ public class AssetLoader_Material : AssetLoader<Asset_Material, Asset_Material>
 {
     public override Asset_Material LoadAsset(AssetLoadParameters<Asset_Material>? assetLoadParameters)
     {
-        string path = assetLoadParameters.PathToAsset;
+        string path = assetLoadParameters.PathToAssetInLibrary;
         if (File.Exists(path) == false)
         {
             return null;

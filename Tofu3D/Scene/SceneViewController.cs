@@ -130,7 +130,7 @@ public class SceneViewController
             _targetOrthoSize = Camera.MainCamera.OrthographicSize;
         }
 
-        if (TransformHandle.I.Interacting)
+        if (TransformHandle.I?.Interacting == true)
         {
             return;
         }
@@ -194,14 +194,14 @@ public class SceneViewController
                 _smoothScreenDeltaVectorForRotation = Tofu.MouseInput.ScreenDelta * _mouseSensitivity; // instant
 
                 // _smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation,
-                    // Tofu.MouseInput.ScreenDelta * _mouseSensitivity, 0.1f);
+                // Tofu.MouseInput.ScreenDelta * _mouseSensitivity, 0.1f);
             }
             else
             {
                 _smoothScreenDeltaVectorForRotation = Vector3.Zero; // instant
 
                 // _smoothScreenDeltaVectorForRotation = Vector2.Lerp(_smoothScreenDeltaVectorForRotation,
-                    // Vector2.Zero, 0.12f);
+                // Vector2.Zero, 0.12f);
             }
 
             MoveCameraByLocalVector(_smoothScreenDeltaVectorForMovement * 30 / Tofu.Window.WindowSize);

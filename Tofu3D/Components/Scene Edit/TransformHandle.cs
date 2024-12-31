@@ -12,13 +12,15 @@ public partial class TransformHandle : Component, IComponentUpdateable
     [XmlIgnore]
     public bool Interacting { get; private set; }
 
-    private TransformHandleMode _mode= TransformHandleMode.Position;
+    private TransformHandleMode _mode = TransformHandleMode.Position;
 
     public TransformHandleAxis? CurrentAxisSelected;
     public ModelRendererInstanced ModelRendererX;
     public ModelRendererInstanced ModelRendererXy;
     public ModelRendererInstanced ModelRendererY;
+
     public ModelRendererInstanced ModelRendererZ;
+
 // create children gameobjects for position handle, rotation handle and scale handle
     public bool ObjectSelected;
     public static TransformHandle I { get; private set; }
@@ -167,6 +169,8 @@ public partial class TransformHandle : Component, IComponentUpdateable
     public override void Awake()
     {
         I = this;
+
+        GameObjectSelectionManager.GameObjectsSelected += OnSelectedObjects;
         ObjectSelected = false;
         GameObject.UpdateWhenDisabled = true;
 
@@ -253,7 +257,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
         Vector3 axisDirection = Vector3.Zero;
         var moveVector = Vector3.Zero;
-        
+
         switch (CurrentAxisSelected)
         {
             case TransformHandleAxis.X:
@@ -266,7 +270,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
                 axisDirection = Transform.TransformVectorToWorldSpaceVector(Vector3.Forward);
                 break;
         }
-        
+
         // Vector3 deltaVectorInWorld
         float similarityInDirection = Vector3.Dot(deltaVector.Normalized(), axisDirection);
 
@@ -279,10 +283,10 @@ public partial class TransformHandle : Component, IComponentUpdateable
         switch (CurrentAxisSelected)
         {
             case TransformHandleAxis.X:
-                moveVector += deltaVector.VectorX().Abs()*similarityInDirection;
+                moveVector += deltaVector.VectorX().Abs() * similarityInDirection;
                 break;
             case TransformHandleAxis.Y:
-                moveVector += deltaVector.VectorY().Abs()*similarityInDirection;
+                moveVector += deltaVector.VectorY().Abs() * similarityInDirection;
                 break;
             case TransformHandleAxis.Z:
                 moveVector -= new Vector3(deltaVector.Z, 0, deltaVector.X);
@@ -346,7 +350,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
         }
     }
 
-    public void SelectObjects(List<GameObject> selection)
+    private void OnSelectedObjects(List<GameObject> selection)
     {
         // GameObject.SetActive(selection != null);
         // GameObject.SetActive(false);

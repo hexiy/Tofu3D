@@ -106,8 +106,8 @@ public static class Tofu
         
         MousePickingSystem.Initialize();
         
-        SceneSelectionHighlighter = new SceneSelectionHighlighter();
-        SceneSelectionHighlighter.Init();
+        // SceneSelectionHighlighter = new SceneSelectionHighlighter();
+        // SceneSelectionHighlighter.Init();
 
         GameObjectSelectionManager = new GameObjectSelectionManager();
         
@@ -145,7 +145,7 @@ public static class Tofu
         MouseInput.Update();
         TweenManager.Update();
         SceneViewController.Update();
-        SceneSelectionHighlighter.Update();
+        SceneSelectionHighlighter?.Update();
         MousePickingSystem.Update();
         AssetsWatcher.ProcessChangedFilesQueue();
         ShaderManager.ReloadQueuedShaders();

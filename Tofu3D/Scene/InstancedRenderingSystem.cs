@@ -155,7 +155,7 @@ public class InstancedRenderingSystem
             }
         }
 
-        if (TransformHandle.I.ModelRendererX.Material == material)
+        if (material == TransformHandle.I?.ModelRendererX?.Material)
         {
             GL.Disable(EnableCap.DepthTest);
         }

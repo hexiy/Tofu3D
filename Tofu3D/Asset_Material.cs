@@ -63,12 +63,12 @@ public class Asset_Material : Asset<Asset_Material>
         if (AlbedoTexture?.PathToRawAsset.Length > 2)
         {
             AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
-                { PathToAsset = AlbedoTexture.PathToRawAsset });
+                { PathToAssetInLibrary = AlbedoTexture.PathToRawAsset });
         }
         else
         {
             AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
-                { PathToAsset = "Resources/whitePixel.png" });
+                { PathToAssetInLibrary = "Resources/whitePixel.png" });
         }
 
         if (AmbientOcclusionTexture?.PathToRawAsset.Length > 2)
@@ -95,12 +95,12 @@ public class Asset_Material : Asset<Asset_Material>
         if (EmissiveTexture?.PathToRawAsset.Length > 2)
         {
             EmissiveTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
-                { PathToAsset = EmissiveTexture.PathToRawAsset });
+                { PathToAssetInLibrary = EmissiveTexture.PathToRawAsset });
         }
         else
         {
             EmissiveTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
-                { PathToAsset = "Resources/whitePixel.png" });
+                { PathToAssetInLibrary = "Resources/whitePixel.png" });
         }
     }
 
