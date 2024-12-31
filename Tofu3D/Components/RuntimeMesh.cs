@@ -7,5 +7,5 @@ public class RuntimeMesh : Asset<RuntimeMesh>
     public int VerticesCount;
     public int VertexBufferDataLength;
     public int IsDynamic;
-    public uint[] Indices;
+    public int IndicesCount;
 }

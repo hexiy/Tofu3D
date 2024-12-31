@@ -45,7 +45,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
                         Asset_Material assetMaterial = (componentInspectorData.Inspectable as Asset_Material);
 
                         // save materials in both Library/ and Assets/ 
-                        Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.PathToAssetInLibrary, assetMaterial);
+                        Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.PathToRawAsset.GetPathOfAssetInLibrayFromSourceAssetPathOrName(), assetMaterial);
                         Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.PathToRawAsset, assetMaterial);
                     })
             );

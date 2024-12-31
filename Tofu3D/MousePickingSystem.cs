@@ -11,7 +11,6 @@ public static class MousePickingSystem
 
     static uint _lastPixel;
 
-    // static uint _tempPixels;
     private static uint _currentPixel;
 
     public static Renderer HoveredRenderer { get; private set; }
@@ -124,7 +123,7 @@ public static class MousePickingSystem
 
             if (HoveredRenderer != null)
             {
-                Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
+                // Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
             }
         }
 

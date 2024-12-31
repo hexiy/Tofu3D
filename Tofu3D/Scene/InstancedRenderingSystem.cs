@@ -14,10 +14,33 @@ public class InstancedRenderingSystem
 
     public void ClearBuffers()
     {
-        foreach (var pair in _objectBufferDatas)
-        {
-            GL.DeleteBuffer(pair.Value.Vbo);
-        }
+        /*foreach (var pair in _objectBufferDatas)
+        { // need to care for left objects that use the same vao
+            if (pair.Value.Vao == -1)
+            {
+                continue;
+            }
+            Tofu.ShaderManager.BindVertexArray(pair.Value.Vao);
+            if (pair.Value.Vbo > 0)
+            {
+                GL.DeleteBuffer(pair.Value.Vbo);
+            }
+
+            if (pair.Value.Ebo > 0)
+            {
+                GL.DeleteBuffer(pair.Value.Ebo);
+            }
+
+            if (pair.Value.ShaderId > 0)
+            {
+                GL.DeleteProgram(pair.Value.ShaderId);
+            }
+
+            Tofu.ShaderManager.BindVertexArray(-1);
+
+            GL.DeleteVertexArray(pair.Value.Vao);
+
+        }*/
 
         _objectBufferDatas = new Dictionary<int, InstancedRenderingObjectBufferData>();
         _definitions = new List<InstancedRenderingObjectDefinition>();
@@ -63,7 +86,7 @@ public class InstancedRenderingSystem
         bufferData.EmptyStartIndexes.Add(instancingData.InstancedRenderingStartingIndexInBuffer);
 
         instancingData.InstancedRenderingStartingIndexInBuffer = -1;
-        // renderer.InstancedRenderingDefinitionIndex = -1;
+        instancingData.InstancedRenderingDefinitionIndex = -1;
         bufferData.NumberOfObjects--;
     }
 
@@ -113,7 +136,8 @@ public class InstancedRenderingSystem
         var definition = _definitions[definitionIndex];
         var material = definition.Material;
         // material = Tofu.AssetLoadManager.Load<Asset_Material>(material.PathToRawAsset);
-        var mesh = definition.RuntimeMesh;
+        var meshVao = definition.RuntimeMesh.Vao;
+        var indicesCount = definition.RuntimeMesh.IndicesCount;
         var bufferData = objectBufferPair.Value;
 
         // resize the buffer if needed, after drawing the old one
@@ -156,9 +180,9 @@ public class InstancedRenderingSystem
             _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
                 Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
-            Tofu.ShaderManager.BindVertexArray(mesh.Vao);
+            Tofu.ShaderManager.BindVertexArray(meshVao);
 
-            GL_DrawElementsInstanced(PrimitiveType.Triangles,mesh,
+            GL_DrawElementsInstanced(PrimitiveType.Triangles, indicesCount,
                 objectBufferPair.Value.NumberOfObjects);
         }
 
@@ -177,8 +201,8 @@ public class InstancedRenderingSystem
             if (_depthMaterial == null)
             {
                 _depthMaterial = new Asset_Material()
-                    { Shader = new Shader(Path.Combine(Folders.ShadersInAssets,"ModelRendererInstancedDepth.glsl")) };
-                
+                    { Shader = new Shader(Path.Combine(Folders.ShadersInAssets, "ModelRendererInstancedDepth.glsl")) };
+
                 // Tofu.AssetLoadManager.Load<Asset_Material>();
 
                 _depthMaterial.LoadShader();
@@ -190,12 +214,12 @@ public class InstancedRenderingSystem
                 Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
 
-            Tofu.ShaderManager.BindVertexArray(mesh.Vao);
+            Tofu.ShaderManager.BindVertexArray(meshVao);
             // GL.BindBuffer(BufferTarget.ElementArrayBuffer, mesh.Ebo); // ebo should be already linked with vao on initialization
 
-            GL_DrawElementsInstanced(PrimitiveType.Triangles,mesh,
+            GL_DrawElementsInstanced(PrimitiveType.Triangles, indicesCount,
                 objectBufferPair.Value.NumberOfObjects);
-           
+
             // GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount,
             // objectBufferPair.Value.NumberOfObjects);
         }
@@ -271,6 +295,10 @@ public class InstancedRenderingSystem
 
             // Albedo Texture
             material.Shader.SetInt("u_hasAlbedoTexture", material.AlbedoTexture != null ? 1 : 0);
+            if (material.Shader.IsLoaded == false)
+            {
+                return;
+            }
 
             if (material.AlbedoTexture)
             {
@@ -348,12 +376,12 @@ public class InstancedRenderingSystem
 
             RenderingBlendingHelper.SetBlendMode(material.BlendMode);
 
-            Tofu.ShaderManager.BindVertexArray(mesh.Vao);
+            Tofu.ShaderManager.BindVertexArray(meshVao);
             // GL.BindBuffer(BufferTarget.ElementArrayBuffer, mesh.Ebo); // ebo should be already linked with vao on initialization
             GL.BindBuffer(BufferTarget.ArrayBuffer, bufferData.Vbo);
-            if (mesh.Indices?.Length > 0)
+            if (indicesCount > 0)
             {
-                GL_DrawElementsInstanced(PrimitiveType.Triangles, mesh,
+                GL_DrawElementsInstanced(PrimitiveType.Triangles, indicesCount,
                     objectBufferPair.Value.NumberOfObjects);
             }
             // GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount,
@@ -371,9 +399,9 @@ public class InstancedRenderingSystem
         DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount * instancesCount);
     }
 
-    private void GL_DrawElementsInstanced(PrimitiveType primitiveType,RuntimeMesh mesh, int instancesCount)
+    private void GL_DrawElementsInstanced(PrimitiveType primitiveType, int indicesCount, int instancesCount)
     {
-        GL.DrawElementsInstanced(primitiveType, mesh.Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero, 
+        GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, IntPtr.Zero,
             instancesCount);
         // GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, indices, instancesCount);
         DebugHelper.LogDrawCall();
@@ -392,15 +420,21 @@ public class InstancedRenderingSystem
             return false;
         }
 
+        if (renderer.GameObject.Name == "Cube 1")
+        {
+            var a = 2;
+        }
+
         InstancedRenderingObjectBufferData bufferData;
         if (instancingData.InstancedRenderingDefinitionIndex == -1)
         {
             // no buffer exists for this combination-create one
-            InstancedRenderingObjectDefinition definition = new(RuntimeMesh: mesh,
+            InstancedRenderingObjectDefinition definition = new(
+                GameObjectNameForTestingIdentification: renderer.GameObject.Name, RuntimeMesh: mesh,
                 Material: material,
                 IsStatic: isStatic,
                 vertexBufferStructureType: vertexBufferStructureType);
-                // index: indexForMultipleObjectsPerRenderer);
+            // index: indexForMultipleObjectsPerRenderer);
 
             var definitionIndex = _definitions.Contains(definition)
                 ? _definitions.IndexOf(definition)
@@ -413,6 +447,12 @@ public class InstancedRenderingSystem
             }
             else
             {
+                if (remove)
+                {
+                    //buffer not created yet, we just return
+                    return true;
+                }
+
                 _definitions.Add(definition);
 
                 bufferData = InitializeBufferData(definition);
@@ -458,7 +498,7 @@ public class InstancedRenderingSystem
                     instancingData.InstancedRenderingStartingIndexInBuffer, uvOffset: uvOffset,
                     mousePickingId: renderer.MousePickingId);
                 UploadBufferData(bufferData);
-                // RemoveObjectFromBuffer(bufferData, instancingData);
+                RemoveObjectFromBuffer(bufferData, instancingData);
             }
 
             else
@@ -511,6 +551,12 @@ public class InstancedRenderingSystem
         GL.BindVertexArray(objectDefinition.RuntimeMesh.Vao);
         // GL.BindBuffer(BufferTarget.ElementArrayBuffer, objectDefinition.RuntimeMesh.Ebo); // ebo should be already linked with vao on initialization
 
+        objectDefinition.Material.LoadShader();
+        if (objectDefinition.Material.Shader.IsLoaded==false)
+        {
+            Debug.LogError("Couldnt load shader");
+            throw new Exception("Couldnt load shader");
+        }
 
         InstancedRenderingObjectBufferData bufferData = new()
         {
@@ -519,6 +565,8 @@ public class InstancedRenderingSystem
             FutureMaxNumberOfObjects = 1,
             Vbo = -1,
             Vao = objectDefinition.RuntimeMesh.Vao,
+            Ebo = objectDefinition.RuntimeMesh.Ebo,
+            ShaderId = objectDefinition.Material.Shader.ProgramId,
             NumberOfObjects = 0,
             UVOffsetIsInstanced = objectDefinition.Material.UVOffsetIsInstanced,
             RenderMode = objectDefinition.Material.RenderMode,

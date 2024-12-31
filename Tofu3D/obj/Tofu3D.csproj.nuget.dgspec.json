@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[1.87.3, )"
             },
+            "LibNoise": {
+              "target": "Package",
+              "version": "[0.2.0, )"
+            },
             "Microsoft.Build": {
               "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "target": "Package",

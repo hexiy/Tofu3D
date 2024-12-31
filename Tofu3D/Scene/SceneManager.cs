@@ -19,7 +19,7 @@ public class SceneManager
 
     public void LoadLastOpenedScene()
     {
-        LoadScene(LastOpenedSceneName);
+        LoadScene(LastOpenedScenePath);
     }
 
     public void ReloadScene()
@@ -92,7 +92,7 @@ public class SceneManager
         SceneLoaded.Invoke();
         Debug.EndAndLogTimer("LoadScene");
 
-        LastOpenedSceneName = path;
+        LastOpenedSceneName = Path.GetFileName(path);
 
         return true;
     }

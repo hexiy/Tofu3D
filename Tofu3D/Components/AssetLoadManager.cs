@@ -18,7 +18,8 @@ public class AssetLoadManager
         RegisterAssetLoader(new AssetLoader_CubemapTexture(), new AssetLoadParameters_CubemapTexture());
         RegisterAssetLoader(new AssetLoader_Material(), new AssetLoadParameters_Material());
         RegisterAssetLoader(new AssetLoader_Model(), new AssetLoadParameters_Model());
-        RegisterAssetLoader(new AssetLoader_Mesh(), new AssetLoadParameters_Mesh());
+        RegisterAssetLoader(new AssetLoader_RuntimeMesh(), new AssetLoadParameters_RuntimeMesh());
+        RegisterAssetLoader(new AssetLoader_AssetMesh(), new AssetLoadParameters_AssetMesh());
     }
 
     private void RegisterAssetLoader(IAssetLoader assetLoader, AssetLoadParametersBase assetLoadParameters)
@@ -60,7 +61,7 @@ public class AssetLoadManager
         return asset;
     }
 
-    public bool IsAssetLoaded<T>(string sourcePath) where T:Asset<T>
+    public bool IsAssetLoaded<T>(string sourcePath) where T : Asset<T>
     {
         int id = (sourcePath + typeof(T)).GetHashCode();
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
@@ -68,27 +69,32 @@ public class AssetLoadManager
         return existsInDatabase;
     }
 
+    public T? CreateRuntimeCopy<T>(T assetToCopy) where T : Asset<T>
+    {
+        return assetToCopy.CreateRuntimeCopy();
+    }
+
     public T? Load<T>(AssetLoadParameters<T> loadParameters = null,
-        bool overwriteAlreadyLoadedAssets = false, bool creatingRuntimeCopy = false) where T : Asset<T>
+        bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy = false) where T : Asset<T>
     {
         return Load<T>(loadParameters.PathToAsset, loadParameters, overwriteAlreadyLoadedAssets,
-            creatingRuntimeCopy: creatingRuntimeCopy);
+            isRuntimeCopy: isRuntimeCopy);
     }
 
     // path here will be Assets/xxxxx
     public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null,
-        bool overwriteAlreadyLoadedAssets = false, bool creatingRuntimeCopy = false) where T : Asset<T>
+        bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy = false) where T : Asset<T>
     {
         int id = (sourcePath + typeof(T)).GetHashCode();
 
-        if (creatingRuntimeCopy)
+        if (isRuntimeCopy)
         {
-            id = -id; // temp only
+            id = -Math.Abs(id); // temp only
             bool exists = LoadedAssets.ContainsKey(id);
-            if (exists)
-            {
-                id = id - Random.Range(0, 1000000);
-            }
+            // if (exists)
+            // {
+            // id = Random.Range(int.MinValue, -1);
+            // }
         }
 
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
@@ -158,6 +164,14 @@ public class AssetLoadManager
         return asset;
     }
 
+    public RuntimeMesh LoadRuntimeMeshFromAssetMesh<T>(Asset_Mesh assetMesh,
+        AssetLoadParameters<RuntimeMesh>? loadParameters = null,
+        bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy = false) where T : Asset<T>
+    {
+        RuntimeMesh runtimeMesh = new AssetLoader_RuntimeMesh().LoadAsset(assetMesh: assetMesh, loadParameters);
+        return runtimeMesh;
+    }
+
     private Asset_Material CreateDefaultMaterialAssetFile(string sourcePath)
     {
         var mat = new Asset_Material()
@@ -194,7 +208,10 @@ public class AssetLoadManager
         //     return;
         // }
         int id = (path + typeof(T)).GetHashCode();
-
+        if (asset.IsRuntimeCopy)
+        {
+            id = -Math.Abs(id);
+        }
         // 
         // T asset = null;
 

@@ -85,7 +85,7 @@ public class Scene
         // GameObjects.Clear();
         // GameObjects = new List<GameObject>();
         Tofu.RenderPassSystem.RemoveRender(RenderPassType.ZPrePass, RenderOpaques);
-        Tofu.RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderAll);
+        Tofu.RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderOpaques);
         Tofu.RenderPassSystem.RemoveRender(RenderPassType.Transparency, RenderTransparency);
 
         // RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);

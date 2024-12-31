@@ -17,6 +17,8 @@ public class InstancedRenderingObjectBufferData
     public int NumberOfObjects;
     public int Vbo;
     public int Vao;
+    public int Ebo;
+    public int ShaderId;
     public bool UVOffsetIsInstanced = false;
     public RenderMode RenderMode;
 

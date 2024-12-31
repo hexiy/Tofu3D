@@ -106,7 +106,7 @@ public class Editor
         {
             if (Global.GameRunning == false)
             {
-                Tofu.SceneManager.LoadLastOpenedScene();
+                Tofu.SceneManager.ReloadScene();
             }
         }
 

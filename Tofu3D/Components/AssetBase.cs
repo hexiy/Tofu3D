@@ -5,14 +5,14 @@ public abstract class AssetBase
     public string PathToRawAsset = "";
 
     [Hide]
-    public string PathToAssetInLibrary => PathToRawAsset.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+    public string PathToAssetInLibrary;// = PathToRawAsset.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
 
     [XmlIgnore]
     public RuntimeAssetHandle RuntimeAssetHandle { get; set; }
 
     // [XmlIgnore]
     [Hide]
-    public bool IsRuntimeCopy { get; set; } = false;
+    public bool IsRuntimeCopy = false;
 
     public bool DataIsCompressed = false;
 

@@ -389,7 +389,7 @@ public class EditorPanelSceneView : EditorPanel
                         Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
 
                     string modelName =
-                        AssetFileExtensions.GetFileNameFromPathWithoutExtensions(model.PathToAssetInLibrary);
+                        AssetFileExtensions.GetFileNameFromPathWithoutExtensions(model.PathToRawAsset.GetPathOfAssetInLibrayFromSourceAssetPathOrName());
 
                     parent = GameObject.Create(position: worldPosition, name: modelName);
                 }

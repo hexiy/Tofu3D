@@ -94,7 +94,11 @@ public static class BufferFactory
 
         
         // ebo
-        ebo = GL.GenBuffer();
+        
+        if (ebo == -1)
+        {
+            ebo = GL.GenBuffer();
+        }
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
         GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices,
             BufferUsageHint.StaticDraw);
