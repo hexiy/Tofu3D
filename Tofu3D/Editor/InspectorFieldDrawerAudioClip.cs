@@ -23,7 +23,7 @@ public class InspectorFieldDrawerAudioClip : InspectorFieldDrawable<AudioClip>
 
         if (ImGui.BeginDragDropTarget())
         {
-            ImGui.AcceptDragDropPayload("CONTENT_BROWSER_AUDIOCLIP", ImGuiDragDropFlags.None);
+            ImGui.AcceptDragDropPayload(DragDropPayloadTypes.AudioClip, ImGuiDragDropFlags.None);
             var fileName = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
             if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && fileName.Length > 0)
             {

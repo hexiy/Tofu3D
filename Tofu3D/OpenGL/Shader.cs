@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Newtonsoft.Json;
 
 namespace Tofu3D;
 
@@ -27,27 +28,35 @@ public class
         0, 0, 0, 0
     };
 
+    [JsonIgnore]
     [XmlIgnore]
     public TextureUnit? AlbedoTextureIndexUnit = null;
 
+    [JsonIgnore]
     [XmlIgnore]
     public TextureUnit? NormalTextureIndexUnit = null;
 
+    [JsonIgnore]
     [XmlIgnore]
     public TextureUnit? AmbientOcclusionTextureUnit = null;
 
+    [JsonIgnore]
     [XmlIgnore]
     public TextureUnit? ShadowMapTextureUnit = null;
 
+    [JsonIgnore]
     [XmlIgnore]
     public TextureUnit? RoughnessTextureUnit = null;
 
+    [JsonIgnore]
     [XmlIgnore]
     public TextureUnit? MetallicTextureUnit = null;
 
+    [JsonIgnore]
     [XmlIgnore]
     public TextureUnit? EnvironmentTextureUnit = null;
 
+    [JsonIgnore]
     [XmlIgnore]
     public TextureUnit? EmissiveTextureUnit = null;
 
@@ -55,6 +64,7 @@ public class
 
     public string Path;
 
+    [JsonIgnore]
     [XmlIgnore]
     public Dictionary<string, object> Uniforms = new()
     {
@@ -89,7 +99,7 @@ public class
 
         if (AssetUtils.Exists(Path) == false)
         {
-            var newPath = System.IO.Path.Combine("Assets", Path);
+            var newPath = System.IO.Path.Combine(Folders.Assets, Path);
             if (AssetUtils.Exists(newPath))
             {
                 Path = newPath;
@@ -99,7 +109,7 @@ public class
         if (Path.Contains(
                 ".mat")) // IF ITS mat  not .glsl, just assign SpriteRenderer so we can fix it without crashing
         {
-            Path = System.IO.Path.Combine("Assets", "Shaders", "SpriteRenderer.glsl");
+            Path = System.IO.Path.Combine(Folders.ShadersInAssets, "SpriteRenderer.glsl");
         }
 
         if (AssetUtils.Exists(Path) == false)

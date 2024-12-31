@@ -1,8 +1,5 @@
 using Microsoft.DotNet.PlatformAbstractions;
-using OpenTK.Mathematics;
 
-[Serializable]
-[XmlRoot("Material")]
 public class Asset_Material : Asset<Asset_Material>
 {
     public Shader? Shader;
@@ -23,7 +20,7 @@ public class Asset_Material : Asset<Asset_Material>
     public Vector4 EmissiveColor;
 
 
-    public bool RefractionEnabled;
+    public bool RefractionEnabled=false;
     public float RefractiveIndex=1.309f;
     
     public bool SpecularHighlightsEnabled;

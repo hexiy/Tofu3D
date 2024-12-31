@@ -20,11 +20,11 @@ public class InspectorFieldDrawerGameObject : InspectorFieldDrawable<GameObject>
 
         if (ImGui.BeginDragDropTarget())
         {
-            ImGui.AcceptDragDropPayload("PREFAB_PATH", ImGuiDragDropFlags.None);
+            ImGui.AcceptDragDropPayload(DragDropPayloadTypes.PrefabPath, ImGuiDragDropFlags.None);
             var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
             var dataType = ImGui.GetDragDropPayload().DataType.GetStringASCII()
                 .Replace("\0", string.Empty);
-            if (dataType == "PREFAB_PATH")
+            if (dataType == DragDropPayloadTypes.PrefabPath)
             {
                 if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
                 {
@@ -38,12 +38,12 @@ public class InspectorFieldDrawerGameObject : InspectorFieldDrawable<GameObject>
 
         if (ImGui.BeginDragDropTarget())
         {
-            ImGui.AcceptDragDropPayload("GAMEOBJECT", ImGuiDragDropFlags.None);
+            ImGui.AcceptDragDropPayload(DragDropPayloadTypes.GameObject, ImGuiDragDropFlags.None);
             var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
             var dataType = ImGui.GetDragDropPayload().DataType.GetStringASCII()
                 .Replace("\0", string.Empty);
 
-            if (dataType == "GAMEOBJECT")
+            if (dataType == DragDropPayloadTypes.GameObject)
                 //	string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
             {
                 if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)

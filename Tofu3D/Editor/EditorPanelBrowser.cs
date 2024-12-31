@@ -424,7 +424,7 @@ public class EditorPanelBrowser : EditorPanel
         {
             if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
             {
-                ImGui.SetDragDropPayload("CONTENT_BROWSER_TEXTURE", assetPathPointer,
+                ImGui.SetDragDropPayload(DragDropPayloadTypes.Texture, assetPathPointer,
                     (uint)(sizeof(char) * assetPath.Length));
 
                 var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
@@ -443,7 +443,7 @@ public class EditorPanelBrowser : EditorPanel
         {
             if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
             {
-                ImGui.SetDragDropPayload("CONTENT_BROWSER_AUDIOCLIP", assetPathPointer,
+                ImGui.SetDragDropPayload(DragDropPayloadTypes.AudioClip, assetPathPointer,
                     (uint)(sizeof(char) * assetPath.Length));
 
                 var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
@@ -485,13 +485,13 @@ public class EditorPanelBrowser : EditorPanel
 
                 if (isMaterial)
                 {
-                    ImGui.SetDragDropPayload("CONTENT_BROWSER_MATERIAL", stringPointer,
+                    ImGui.SetDragDropPayload(DragDropPayloadTypes.Material, stringPointer,
                         (uint)(sizeof(char) * assetPath.Length));
                 }
 
                 if (isShader)
                 {
-                    ImGui.SetDragDropPayload("CONTENT_BROWSER_SHADER", stringPointer,
+                    ImGui.SetDragDropPayload(DragDropPayloadTypes.Shader, stringPointer,
                         (uint)(sizeof(char) * assetPath.Length));
                 }
 
@@ -525,7 +525,7 @@ public class EditorPanelBrowser : EditorPanel
             {
                 var stringPointer = Marshal.StringToHGlobalAnsi(assetPath);
 
-                ImGui.SetDragDropPayload("PREFAB_PATH", stringPointer, (uint)(sizeof(char) * assetPath.Length));
+                ImGui.SetDragDropPayload(DragDropPayloadTypes.PrefabPath, stringPointer, (uint)(sizeof(char) * assetPath.Length));
 
                 //string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                 ImGui.Image(_fileIcon.TextureId, _iconSize);

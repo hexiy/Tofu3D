@@ -3,6 +3,7 @@
 public enum ViewRenderMode
 {
     Regular = 0,
-    Positions = 1,
-    Normals = 2
+    Albedo = 1,
+    Positions = 2,
+    Normals = 3
 }

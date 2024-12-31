@@ -54,7 +54,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
         // EditorPanelBrowser.I.GoToFile(materialPath);
         if (ImGui.BeginDragDropTarget())
         {
-            ImGui.AcceptDragDropPayload("CONTENT_BROWSER_MATERIAL", ImGuiDragDropFlags.None);
+            ImGui.AcceptDragDropPayload(DragDropPayloadTypes.Material, ImGuiDragDropFlags.None);
             var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
             if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
             {

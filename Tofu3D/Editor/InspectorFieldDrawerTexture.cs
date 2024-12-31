@@ -60,9 +60,9 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
         {
             if (ImGui.BeginDragDropTarget())
             {
-                ImGui.AcceptDragDropPayload("CONTENT_BROWSER_TEXTURE", ImGuiDragDropFlags.None);
+                ImGui.AcceptDragDropPayload(DragDropPayloadTypes.Texture, ImGuiDragDropFlags.None);
                 var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+                if (payload.Length > 0)
                 {
                     payload = Path.GetRelativePath(Folders.ProjectFullPath, payload);
 

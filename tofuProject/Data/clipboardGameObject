@@ -4,11 +4,11 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>2</Id>
-      <IndexInHierarchy>0</IndexInHierarchy>
+      <Id>14</Id>
+      <IndexInHierarchy>2</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>GameObject</Name>
+      <Name>block</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
@@ -21,26 +21,26 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>2</GameObjectId>
+      <GameObjectId>14</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <Pivot>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0.9618779</X>
-        <Y>0.57735026</Y>
-        <Z>0</Z>
+        <X>-8.099108</X>
+        <Y>-4.5607867</Y>
+        <Z>-3.6883178</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0.9618779</X>
-        <Y>0.57735026</Y>
-        <Z>0</Z>
+        <X>-8.099108</X>
+        <Y>-4.5607867</Y>
+        <Z>-3.6883178</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -58,12 +58,28 @@
         <Z>0</Z>
       </Rotation>
     </Component>
-    <Component xsi:type="ModelRendererInstanced">
+    <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>2</GameObjectId>
+      <GameObjectId>14</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <MousePickingId>7</MousePickingId>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>3</X>
+        <Y>3</Y>
+        <Z>3</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRendererInstanced">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>14</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <MousePickingId>2</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -84,19 +100,19 @@
         <AlbedoTexture>
           <IsRuntimeCopy>false</IsRuntimeCopy>
           <DataIsCompressed>false</DataIsCompressed>
-          <Path>Resources/whitePixel.png</Path>
+          <Path>Assets/3D/grass block/Grass_Block_TEX.png</Path>
           <Size>
-            <X>1</X>
-            <Y>1</Y>
+            <X>1440</X>
+            <Y>1920</Y>
           </Size>
-          <TextureId>1</TextureId>
+          <TextureId>19</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
           <G>255</G>
-          <R>255</R>
+          <R>254</R>
           <A>255</A>
-          <PackedValue>4294967295</PackedValue>
+          <PackedValue>4294967294</PackedValue>
         </AlbedoTint>
         <EmissiveTexture>
           <IsRuntimeCopy>false</IsRuntimeCopy>
@@ -114,12 +130,12 @@
           <Z>0</Z>
           <W>0</W>
         </EmissiveColor>
-        <RefractionEnabled>true</RefractionEnabled>
+        <RefractionEnabled>false</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
         <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>1</MetallicTextureStrength>
-        <Smoothness>1</Smoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -133,122 +149,122 @@
         <BlendMode>Opaque</BlendMode>
       </Material>
       <RuntimeMesh>
-        <Vao>4</Vao>
-        <Ebo>8</Ebo>
+        <Vao>5</Vao>
+        <Ebo>11</Ebo>
         <Mesh>
           <VertexBufferData>
             <float>1</float>
-            <float>1</float>
+            <float>3E-06</float>
             <float>-1</float>
-            <float>0.625</float>
-            <float>0.5</float>
-            <float>0.33333334</float>
-            <float>0.6666667</float>
-            <float>-0.6666667</float>
-            <float>-8</float>
+            <float>0.666657</float>
+            <float>0.250023</float>
             <float>0</float>
-            <float>0</float>
-            <float>0</float>
-            <float>0</float>
-            <float>8</float>
             <float>-1</float>
+            <float>-0</float>
+            <float>0</float>
+            <float>-0</float>
+            <float>-6.0003486</float>
+            <float>8.00048</float>
+            <float>0</float>
+            <float>0</float>
             <float>1</float>
+            <float>3E-06</float>
+            <float>1</float>
+            <float>0.333343</float>
+            <float>0.250023</float>
+            <float>0</float>
             <float>-1</float>
-            <float>0.875</float>
-            <float>0.5</float>
-            <float>-0.81649655</float>
-            <float>0.40824828</float>
-            <float>-0.40824828</float>
-            <float>-8</float>
+            <float>-0</float>
             <float>0</float>
-            <float>0</float>
-            <float>0</float>
-            <float>0</float>
-            <float>8</float>
-            <float>-1</float>
-            <float>1</float>
-            <float>1</float>
-            <float>0.875</float>
-            <float>0.75</float>
-            <float>-0.33333334</float>
-            <float>0.6666667</float>
-            <float>0.6666667</float>
-            <float>-8</float>
-            <float>0</float>
-            <float>0</float>
-            <float>0</float>
-            <float>0</float>
-            <float>8</float>
-            <float>1</float>
-            <float>1</float>
-            <float>1</float>
-            <float>0.625</float>
-            <float>0.75</float>
-            <float>0.81649655</float>
-            <float>0.40824828</float>
-            <float>0.40824828</float>
-            <float>-8</float>
-            <float>0</float>
-            <float>0</float>
-            <float>0</float>
-            <float>0</float>
-            <float>8</float>
-            <float>1</float>
-            <float>-1</float>
-            <float>1</float>
-            <float>0.375</float>
-            <float>0.75</float>
-            <float>0.33333334</float>
-            <float>-0.6666667</float>
-            <float>0.6666667</float>
-            <float>0</float>
-            <float>8</float>
-            <float>0</float>
-            <float>-8</float>
+            <float>-0</float>
+            <float>-6.0003486</float>
+            <float>8.00048</float>
             <float>0</float>
             <float>0</float>
             <float>-1</float>
-            <float>-1</float>
+            <float>3E-06</float>
             <float>1</float>
-            <float>0.375</float>
+            <float>0.333343</float>
+            <float>3.8E-05</float>
+            <float>0</float>
+            <float>-1</float>
+            <float>-0</float>
+            <float>0</float>
+            <float>-0</float>
+            <float>-6.0003486</float>
+            <float>8.00048</float>
+            <float>0</float>
+            <float>0</float>
+            <float>-1</float>
+            <float>3E-06</float>
+            <float>-1</float>
+            <float>0.666657</float>
+            <float>3.8E-05</float>
+            <float>0</float>
+            <float>-1</float>
+            <float>-0</float>
+            <float>0</float>
+            <float>0</float>
+            <float>-6.0003486</float>
+            <float>8.00048</float>
+            <float>-0</float>
+            <float>-0</float>
             <float>1</float>
-            <float>-0.81649655</float>
-            <float>-0.40824828</float>
-            <float>0.40824828</float>
+            <float>2.000003</float>
+            <float>-0.999999</float>
+            <float>0.666657</float>
+            <float>0.500009</float>
             <float>0</float>
-            <float>8</float>
-            <float>0</float>
-            <float>-8</float>
-            <float>0</float>
-            <float>0</float>
-            <float>-1</float>
-            <float>-1</float>
-            <float>-1</float>
-            <float>0.375</float>
-            <float>0.25</float>
-            <float>-0.33333334</float>
-            <float>-0.6666667</float>
-            <float>-0.6666667</float>
-            <float>0</float>
-            <float>8</float>
-            <float>0</float>
-            <float>0</float>
-            <float>0</float>
-            <float>-8</float>
             <float>1</float>
+            <float>0</float>
+            <float>0</float>
+            <float>0</float>
+            <float>-6.0003486</float>
+            <float>-8.000481</float>
+            <float>0</float>
+            <float>-4.053359E-06</float>
             <float>-1</float>
+            <float>2.000003</float>
             <float>-1</float>
-            <float>0.375</float>
-            <float>0.5</float>
-            <float>0.81649655</float>
-            <float>-0.40824828</float>
-            <float>-0.40824828</float>
-            <float>8</float>
+            <float>0.666657</float>
+            <float>0.749994</float>
+            <float>0</float>
+            <float>1</float>
             <float>0</float>
             <float>0</float>
             <float>0</float>
+            <float>-6.0003486</float>
+            <float>-8.000481</float>
             <float>0</float>
-            <float>8</float>
+            <float>-4.053359E-06</float>
+            <float>-1</float>
+            <float>2.000003</float>
+            <float>1</float>
+            <float>0.333343</float>
+            <float>0.749994</float>
+            <float>0</float>
+            <float>1</float>
+            <float>0</float>
+            <float>0</float>
+            <float>0</float>
+            <float>-6.0003486</float>
+            <float>-8.000481</float>
+            <float>0</float>
+            <float>-4.053359E-06</float>
+            <float>0.999999</float>
+            <float>2.000003</float>
+            <float>1.000001</float>
+            <float>0.333343</float>
+            <float>0.500009</float>
+            <float>0</float>
+            <float>1</float>
+            <float>0</float>
+            <float>3.0400133E-06</float>
+            <float>0</float>
+            <float>-6.0003486</float>
+            <float>-8.000477</float>
+            <float>0</float>
+            <float>-3.5767014E-06</float>
           </VertexBufferData>
           <CountsOfElements>
             <int>3</int>
@@ -266,56 +282,41 @@
             <unsignedInt>2</unsignedInt>
             <unsignedInt>3</unsignedInt>
             <unsignedInt>4</unsignedInt>
-            <unsignedInt>3</unsignedInt>
-            <unsignedInt>2</unsignedInt>
-            <unsignedInt>4</unsignedInt>
-            <unsignedInt>2</unsignedInt>
             <unsignedInt>5</unsignedInt>
-            <unsignedInt>5</unsignedInt>
-            <unsignedInt>2</unsignedInt>
-            <unsignedInt>1</unsignedInt>
-            <unsignedInt>5</unsignedInt>
-            <unsignedInt>1</unsignedInt>
-            <unsignedInt>6</unsignedInt>
-            <unsignedInt>6</unsignedInt>
-            <unsignedInt>7</unsignedInt>
-            <unsignedInt>4</unsignedInt>
             <unsignedInt>6</unsignedInt>
             <unsignedInt>4</unsignedInt>
-            <unsignedInt>5</unsignedInt>
+            <unsignedInt>6</unsignedInt>
             <unsignedInt>7</unsignedInt>
             <unsignedInt>0</unsignedInt>
-            <unsignedInt>3</unsignedInt>
-            <unsignedInt>7</unsignedInt>
-            <unsignedInt>3</unsignedInt>
             <unsignedInt>4</unsignedInt>
+            <unsignedInt>7</unsignedInt>
+            <unsignedInt>0</unsignedInt>
+            <unsignedInt>7</unsignedInt>
+            <unsignedInt>1</unsignedInt>
+            <unsignedInt>1</unsignedInt>
+            <unsignedInt>7</unsignedInt>
             <unsignedInt>6</unsignedInt>
             <unsignedInt>1</unsignedInt>
-            <unsignedInt>0</unsignedInt>
             <unsignedInt>6</unsignedInt>
+            <unsignedInt>2</unsignedInt>
+            <unsignedInt>2</unsignedInt>
+            <unsignedInt>6</unsignedInt>
+            <unsignedInt>5</unsignedInt>
+            <unsignedInt>2</unsignedInt>
+            <unsignedInt>5</unsignedInt>
+            <unsignedInt>3</unsignedInt>
+            <unsignedInt>4</unsignedInt>
             <unsignedInt>0</unsignedInt>
-            <unsignedInt>7</unsignedInt>
+            <unsignedInt>3</unsignedInt>
+            <unsignedInt>4</unsignedInt>
+            <unsignedInt>3</unsignedInt>
+            <unsignedInt>5</unsignedInt>
           </Indices>
-          <Name>defaultCube.obj_0</Name>
+          <Name>Grass_Block.obj_0</Name>
+          <Path>Library/Meshes/Grass_Block.obj_0.tofumesh</Path>
         </Mesh>
       </RuntimeMesh>
       <Layer>0</Layer>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>2</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </Size>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>
