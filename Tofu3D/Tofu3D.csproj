@@ -45,6 +45,7 @@
     <PropertyGroup Condition=" '$(Configuration)' == 'MacOS Release' ">
       <DefineConstants>TRACE;OS_MACOS</DefineConstants>
       <OutputPath>bin\MacOS Release/</OutputPath>
+      <Optimize>true</Optimize>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Windows Release' ">
       <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
@@ -62,6 +63,7 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Linux Release' ">
       <DefineConstants>TRACE;OS_LINUX</DefineConstants>
+      <Optimize>true</Optimize>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="ImGui.NET" Version="1.87.3"/>

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -243,22 +244,32 @@ void main()
         // Render Draw Data using OpenGL or the configured renderer
         RenderImDrawData(ImGui.GetDrawData());
     }
-
+    // private Stopwatch _fpsStopwatch = Stopwatch.StartNew();
+    //
+    // private void CalculateFramesPerSecond()
+    // {
+    //     // Count updates in the current second
+    //     _updatesThisSecond++;
+    //
+    //     // Check if one second has elapsed
+    //     if (_fpsStopwatch.Elapsed.TotalSeconds >= 1.0)
+    //     {
+    //         // Log/update FPS stats
+    //         Debug.StatSetValue("imgui updates per second:", "imgui updates per second: " + _updatesThisSecond);
+    //
+    //         // Reset for the new second
+    //         _fpsStopwatch.Restart();
+    //         _updatesThisSecond = 0;
+    //     }
+    // }
     /// <summary>
     ///     Updates ImGui input and IO configuration state.
     /// </summary>
     public void Update(GameWindow wnd, float deltaSeconds)
     {
-        if (DateTime.Now.Second == _s)
-        {
-            _updatesThisSecond++;
-        }
-        else
-        {
-            Debug.StatSetValue("imgui per second:", "imgui per second:" + _updatesThisSecond);
-            _s = DateTime.Now.Second;
-            _updatesThisSecond = 0;
-        }
+        // CalculateFramesPerSecond();
+        
+        
         // Ensure the frame begins (only once per update cycle)
         if (!_frameBegun)
         {

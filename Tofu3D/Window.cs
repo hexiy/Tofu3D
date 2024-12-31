@@ -3,6 +3,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Common.Input;
@@ -13,6 +14,7 @@ using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using Image = SixLabors.ImageSharp.Image;
+using Monitor = OpenTK.Windowing.GraphicsLibraryFramework.Monitor;
 
 namespace Tofu3D;
 
@@ -22,51 +24,43 @@ public class Window : GameWindow
 
     private float _monitorScale;
 
-    public Window() : base(
-        new GameWindowSettings(), // dont specify fps.... otherwise deltatime fucks up and update and render is called not 1:1
-        new NativeWindowSettings
-        {
-            /*Size = new Vector2i(1, 1),*/
-            APIVersion = new Version(4, 1), Flags = ContextFlags.ForwardCompatible,
-            Profile = ContextProfile.Core /*NumberOfSamples = 8,*/,
-            // WindowBorder = WindowBorder.Hidden,
-            // WindowState = WindowState.Normal,
-        })
-    {
-        // UpdateFrequency = 0;
-        // RenderFrequency = 120;
-        FrameLimiterEnabled = FrameLimiterEnabled;
-        this.VSync = VSyncMode.Off;
-        RenderFrequency = 120;
-        FrameLimiterEnabled = FrameLimiterEnabled;
 
-        LoadIcon();
-        // LoadAndSetCursor();
-        Title = WindowTitleText;
-        // GL.Disable(EnableCap.Multisample);
-    }
+    private const double MaxAllowedFrameRate_NoLimiter = 1000.0; // 1000 FPS max
+    private const double MaxAllowedFrameRate_Limiter = 120; // 1000 FPS max
+
+    private readonly double
+        _minFrameTimeLimit_NoLimiter =
+            1.0 / MaxAllowedFrameRate_NoLimiter; // Time per frame in seconds (1ms for 1000 FPS limit)
+
+    private readonly double
+        _minFrameTimeLimit_Limiter =
+            1.0 / MaxAllowedFrameRate_Limiter; // Time per frame in seconds (1ms for 1000 FPS limit)
+
+    private double _lastFrameTime = 0.0;
+    private bool _framLimiterEnabled = false;
 
     public bool FrameLimiterEnabled
     {
         get
         {
-            var v = PersistentData.GetBool("FrameLimiter", false);
-            return v;
+            _framLimiterEnabled = PersistentData.GetBool("FrameLimiter", false);
+            return _framLimiterEnabled;
         }
         set
         {
             if (value)
             {
-                RenderFrequency = 120;
-                UpdateFrequency = 120;
+                RenderFrequency = 1;
+                UpdateFrequency = MaxAllowedFrameRate_NoLimiter;
             }
             else
             {
-                RenderFrequency = 120;
-                UpdateFrequency = 0;
+                RenderFrequency = 1;
+                UpdateFrequency = 0; // unlimited
             }
 
             PersistentData.Set("FrameLimiter", value);
+            _framLimiterEnabled = value;
         }
     }
 
@@ -95,6 +89,25 @@ public class Window : GameWindow
         }
     }
 
+    public Window() : base(
+        new GameWindowSettings(),
+        new NativeWindowSettings
+        {
+            APIVersion = new Version(4, 1), Flags = ContextFlags.ForwardCompatible,
+            Profile = ContextProfile.Core /*NumberOfSamples = 8,*/,
+            // WindowBorder = WindowBorder.Hidden,
+            // WindowState = WindowState.Normal,
+        })
+    {
+        this.VSync = VSyncMode.Off;
+        FrameLimiterEnabled = FrameLimiterEnabled;
+
+        LoadIcon();
+        // LoadAndSetCursor();
+        Title = WindowTitleText;
+        GL.Disable(EnableCap.Multisample);
+    }
+
     private unsafe void LoadAndSetCursor()
     {
         using (Image<Rgba32> image = Image.Load<Rgba32>(Path.Combine("Resources", "icon.png")))
@@ -108,13 +121,13 @@ public class Window : GameWindow
 
             fixed (byte* pixelPtr = pixels)
             {
-                
-                OpenTK.Windowing.GraphicsLibraryFramework.Image glfwImage = new OpenTK.Windowing.GraphicsLibraryFramework.Image
-                {
-                    Width = image.Width,
-                    Height = image.Height,
-                    Pixels = pixelPtr
-                };
+                OpenTK.Windowing.GraphicsLibraryFramework.Image glfwImage =
+                    new OpenTK.Windowing.GraphicsLibraryFramework.Image
+                    {
+                        Width = image.Width,
+                        Height = image.Height,
+                        Pixels = pixelPtr
+                    };
 
                 Cursor* cursor = GLFW.CreateCursor(ref glfwImage, 0, 0);
                 GLFW.SetCursor(this.WindowPtr, cursor);
@@ -186,6 +199,33 @@ public class Window : GameWindow
 
         // Title = WindowTitleText;
         base.OnUpdateFrame(e);
+    }
+
+
+    public void ManageFrameLimiter()
+    {
+        double currentTime = GLFW.GetTime(); // GLFW time in seconds
+        // double deltaTime = currentTime - _lastFrameTime;
+
+        // if ((_framLimiterEnabled && deltaTime < _minFrameTimeLimit_Limiter) ||
+        //     (_framLimiterEnabled == false && deltaTime < _minFrameTimeLimit_NoLimiter))
+        // {
+        //     double waitTime = (_framLimiterEnabled
+        //         ? _minFrameTimeLimit_Limiter
+        //         : _minFrameTimeLimit_NoLimiter) - deltaTime;
+        //     Thread.Sleep((int)(waitTime * 1000)); // Convert to milliseconds for Thread.Sleep
+        // }
+
+        double elapsedTime = currentTime - _lastFrameTime;
+        while (elapsedTime < (_framLimiterEnabled
+                   ? _minFrameTimeLimit_Limiter
+                   : _minFrameTimeLimit_NoLimiter))
+        {
+            currentTime = GLFW.GetTime();
+            elapsedTime = currentTime - _lastFrameTime;
+        }
+
+        _lastFrameTime = currentTime;
     }
 
     protected override void OnRenderFrame(FrameEventArgs e)

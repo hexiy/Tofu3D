@@ -10,10 +10,10 @@ namespace Tofu3D;
 // Main Application Context
 public static class Tofu
 {
-    private static int _updatesThisSecond;
-    private static int _s;
-    private static int _rendersThisSecond;
-    private static int _renderS;
+    // private static int _updatesThisSecond;
+    // private static int _s;
+    // private static int _rendersThisSecond;
+    // private static int _renderS;
     // public static Tofu I { get; private set; }
 
     // EDITOR
@@ -56,10 +56,10 @@ public static class Tofu
         SystemConfig.Configure();
         Global.LoadSavedData();
         Folders.CreateDefaultFolders();
-        
+
         ScriptsManager.CopyDllsToProjectFolder();
         ScriptsManager.CompileScriptsAssembly();
-        
+
         AssetImportManager = new AssetImportManager();
         AssetLoadManager = new AssetLoadManager();
         SceneManager = new SceneManager();
@@ -75,25 +75,31 @@ public static class Tofu
         ShaderManager.Initialize();
 
         ScriptsReloader = new ScriptsReloader();
-        
+
         Window = new Window();
         Window.Load += OnWindowLoad;
-        Window.UpdateFrame += OnWindowUpdate;
-        Window.RenderFrame += OnWindowRender;
+        Window.UpdateFrame += MainLoop;
+        // Window.RenderFrame += OnWindowRender;
         Window.Run();
+    }
+
+    private static void MainLoop(FrameEventArgs eventArgs)
+    {
+        OnWindowUpdate(eventArgs);
+        OnWindowRender(eventArgs);
     }
 
     private static void OnWindowLoad()
     {
         BasicMeshesCollection = new BasicMeshesCollection();
-        
+
         AssetImportManager.ImportAllAssets();
 
         InstancedRenderingSystem = new InstancedRenderingSystem();
 
         RenderPassSystem = new RenderPassSystem();
         RenderPassSystem.Initialize();
-        
+
 
         ImGuiController = new ImGuiController();
 
@@ -101,42 +107,44 @@ public static class Tofu
         Editor.Initialize();
 
         SceneViewController = new SceneViewController();
-        
+
         SceneManager.LoadLastOpenedScene();
-        
+
         MousePickingSystem.Initialize();
-        
+
         // SceneSelectionHighlighter = new SceneSelectionHighlighter();
         // SceneSelectionHighlighter.Init();
 
         GameObjectSelectionManager = new GameObjectSelectionManager();
-        
-
     }
 
-    static Stopwatch sw = new Stopwatch();
+    // static Stopwatch sw = new Stopwatch();
 
     private static void OnWindowUpdate(FrameEventArgs e)
     {
-
-        Time.EditorDeltaTime = (float)sw.Elapsed.TotalSeconds;
+        // if (Window.FrameLimiterEnabled)
+        // {
+        // Ensure updates are limited to the specified frame rate
+        // }
+        // Time.EditorDeltaTime = (float)sw.Elapsed.TotalSeconds;
+        Time.EditorDeltaTime = (float)e.Time;
         if (Time.EditorDeltaTime == 0)
         {
             Time.EditorDeltaTime = 1f / 60f;
         }
 
-        sw.Restart();
-        // Time.EditorDeltaTime = (float)e.Time;
-        if (DateTime.Now.Second == _s)
-        {
-            _updatesThisSecond++;
-        }
-        else
-        {
-            Debug.StatSetValue("Updates per second:", "Updates per second:" + _updatesThisSecond);
-            _s = DateTime.Now.Second;
-            _updatesThisSecond = 0;
-        }
+        // sw.Restart();
+        // // Time.EditorDeltaTime = (float)e.Time;
+        // if (DateTime.Now.Second == _s)
+        // {
+        //     _updatesThisSecond++;
+        // }
+        // else
+        // {
+        //     Debug.StatSetValue("Updates per second:", "Updates per second:" + _updatesThisSecond);
+        //     _s = DateTime.Now.Second;
+        //     _updatesThisSecond = 0;
+        // }
 
         Debug.StartGraphTimer("Editor Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 120f));
         ImGuiController.Update(Window, Time.EditorDeltaTime);
@@ -153,28 +161,28 @@ public static class Tofu
         SceneManager.CurrentScene.Update();
         Editor.Update();
         Debug.EndGraphTimer("Editor Update");
-        
+
         ScriptsReloader.ReloadScriptsIfNeeded();
 
 
         // if (KeyboardInput.WasKeyJustPressed(Keys.Enter))
         // {
-            // FramebufferScreenshotGenerator.TakeScreenshot(RenderPassSystem.FinalFramebuffer);
+        // FramebufferScreenshotGenerator.TakeScreenshot(RenderPassSystem.FinalFramebuffer);
         // }
     }
 
     private static void OnWindowRender(FrameEventArgs e)
     {
-        if (DateTime.Now.Second == _renderS)
-        {
-            _rendersThisSecond++;
-        }
-        else
-        {
-            Debug.StatSetValue("Renders per second:", "Renders per second:" + _rendersThisSecond);
-            _renderS = DateTime.Now.Second;
-            _rendersThisSecond = 0;
-        }
+        // if (DateTime.Now.Second == _renderS)
+        // {
+        //     _rendersThisSecond++;
+        // }
+        // else
+        // {
+        //     Debug.StatSetValue("Renders per second:", "Renders per second:" + _rendersThisSecond);
+        //     _renderS = DateTime.Now.Second;
+        //     _rendersThisSecond = 0;
+        // }
 
         // Time.EditorDeltaTime = (float)e.Time;
 
@@ -206,5 +214,10 @@ public static class Tofu
 
         Debug.ResetTimers();
         Debug.ClearAdditiveStats();
+        
+        
+        
+        Window.ManageFrameLimiter();
+
     }
 }

@@ -5,7 +5,6 @@ namespace Tofu3D;
 public static class Time
 {
     public static float DeltaTime;
-    // public static float DeltaTimeRender;
 
     public static float EditorDeltaTime = 0.01666666f;
     public static float EditorDeltaTimeMS = EditorDeltaTime*1000f;
@@ -24,23 +23,10 @@ public static class Time
     public static uint MinFpsDisplay;
     public static float MinMaxFpsTimer;
 
-    // static Stopwatch _stopwatchUpdate = new Stopwatch();
-    // static Stopwatch _stopwatchUpdate = new Stopwatch();
-    // static Stopwatch _stopwatch = new Stopwatch();
-
     static StringBuilder _fpsRangeStringBuilder = new();
+    private static float _slowUpdateTimeLeft = 0f;
     public static void Update()
     {
-        // _deltaTimeTotal = (float) Tofu.Window.RenderTime + (float) Tofu.Window.UpdateTime; //_stopwatch.ElapsedMilliseconds / 1000f;
-        // _stopwatch.Restart();
-        // _deltaTimeTotal = (float) (Tofu.Window.RenderTime + Tofu.Window.UpdateTime);
-
-        // var minDeltaTime = 0.0001f; // to avoid division by zero or very small values
-        // if (EditorDeltaTime < minDeltaTime)
-        // {
-        //     EditorDeltaTime = minDeltaTime;
-        // }
-        
         uint fps = (uint)(1f / EditorDeltaTime);
         if (fps > MaxFps && EditorElapsedTime > 1)
         {
@@ -71,8 +57,14 @@ public static class Time
             MinFps = 99999;
             MinMaxFpsTimer = 0;
         }
-
-        var updateSlowerDebugStats = EditorElapsedTicks % 30 == 0;
+        
+        var updateSlowerDebugStats = false;
+        _slowUpdateTimeLeft -= EditorDeltaTime;
+        if (_slowUpdateTimeLeft <= 0)
+        {
+            _slowUpdateTimeLeft = 0.3f;
+            updateSlowerDebugStats = true;
+        }
         if (updateSlowerDebugStats)
         {
             Debug.StatSetValue("FPS ", $"FPS[LIMITER {(Tofu.Window.FrameLimiterEnabled ? "ON" : "OFF ")}]:{fps}");
@@ -112,26 +104,4 @@ public static class Time
             DeltaTime = 0;
         }
     }
-
-    // public static void StartDeltaTimeUpdateStopWatch()
-    // {
-    // 	// _stopwatchUpdate.Restart();
-    // }
-    //
-    // public static void EndDeltaTimeUpdateStopWatch()
-    // {
-    // 	// _stopwatchUpdate.Stop();
-    // 	// _deltaTimeUpdate = _stopwatchUpdate.ElapsedMilliseconds / 1000f;
-    // }
-    //
-    // public static void StartDeltaTimeRenderStopWatch()
-    // {
-    // 	// _stopwatchRender.Restart();
-    // }
-    //
-    // public static void EndDeltaTimeRenderStopWatch()
-    // {
-    // 	// _stopwatchRender.Stop();
-    // 	// _deltaTimeRender = _stopwatchRender.ElapsedMilliseconds / 1000f;
-    // }
 }

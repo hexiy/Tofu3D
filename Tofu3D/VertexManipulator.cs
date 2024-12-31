@@ -120,6 +120,7 @@ if(_assetMesh.IsRuntimeCopy==false){
 
     public void Update()
     {
+        return;
         if (_perlin == null)
         {
             _perlin = new ImprovedPerlin(0,NoiseQuality.Fast);    

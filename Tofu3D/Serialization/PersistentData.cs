@@ -10,7 +10,7 @@ public static class PersistentData
 
     private static void LoadAllData()
     {
-        string persistentDataPath=Path.Combine(Folders.Data, "persistentData.json");
+        string persistentDataPath = Path.Combine(Folders.Data, "persistentData.json");
         if (File.Exists(persistentDataPath) == false)
         {
             return;
@@ -38,7 +38,7 @@ public static class PersistentData
     private static void Save()
     {
         var json = JsonConvert.SerializeObject(_data);
-        string persistentDataPath=Path.Combine(Folders.Data, "persistentData.json");
+        string persistentDataPath = Path.Combine(Folders.Data, "persistentData.json");
 
         if (File.Exists(persistentDataPath) == false)
         {
@@ -66,7 +66,23 @@ public static class PersistentData
             LoadAllData();
         }
 
-        if (_data.ContainsKey(key) == false)
+        if (_data.TryGetValue(key, out string value))
+        {
+            var deserializedObject =
+                JsonConvert.DeserializeObject<T>(_data[key]); // needs this for serialized classes
+            if (deserializedObject == null) //_data[key] is not T)
+            {
+                if (defaultValue != null)
+                {
+                    return defaultValue;
+                }
+
+                return null;
+            }
+
+            return deserializedObject; //(T) _data[key];
+        }
+        else
         {
             if (defaultValue != null)
             {
@@ -75,20 +91,6 @@ public static class PersistentData
 
             return null;
         }
-
-        var deserializedObject =
-            JsonConvert.DeserializeObject<T>(_data[key]); // needs this for serialized classes
-        if (deserializedObject == null) //_data[key] is not T)
-        {
-            if (defaultValue != null)
-            {
-                return defaultValue;
-            }
-
-            return null;
-        }
-
-        return deserializedObject; //(T) _data[key];
     }
 
     public static object Get(string key, object? defaultValue = null)
@@ -98,7 +100,11 @@ public static class PersistentData
             LoadAllData();
         }
 
-        if (_data.ContainsKey(key) == false)
+        if (_data.TryGetValue(key, out string value))
+        {
+            return value;
+        }
+        else
         {
             if (defaultValue != null)
             {
@@ -107,8 +113,6 @@ public static class PersistentData
 
             return null;
         }
-
-        return _data[key];
     }
 
     public static string GetString(string key, string? defaultValue = null) => Get(key, defaultValue);
