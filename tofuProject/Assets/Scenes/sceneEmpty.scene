@@ -85,8 +85,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>33.473377</X>
-        <Y>-93.80076</Y>
+        <X>26.039785</X>
+        <Y>-68.796</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -105,7 +105,7 @@
       <FarPlaneDistance>100</FarPlaneDistance>
       <FieldOfView>60</FieldOfView>
       <IsOrthographic>false</IsOrthographic>
-      <NearPlaneDistance>1E-05</NearPlaneDistance>
+      <NearPlaneDistance>0.5</NearPlaneDistance>
       <OrthographicSize>2</OrthographicSize>
       <Size>
         <X>1721</X>
@@ -163,7 +163,7 @@
       <GameObjectId>10</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <MousePickingId>14</MousePickingId>
+      <MousePickingId>1</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -233,8 +233,8 @@
         <BlendMode>Opaque</BlendMode>
       </Material>
       <RuntimeMesh>
-        <Vao>5</Vao>
-        <Ebo>11</Ebo>
+        <Vao>4</Vao>
+        <Ebo>8</Ebo>
         <Mesh>
           <VertexBufferData>
             <float>-0.454009</float>
@@ -211154,7 +211154,7 @@
       <GameObjectId>14</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <MousePickingId>15</MousePickingId>
+      <MousePickingId>2</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -211224,8 +211224,8 @@
         <BlendMode>Opaque</BlendMode>
       </Material>
       <RuntimeMesh>
-        <Vao>6</Vao>
-        <Ebo>14</Ebo>
+        <Vao>5</Vao>
+        <Ebo>11</Ebo>
         <Mesh>
           <VertexBufferData>
             <float>0</float>
@@ -220874,5 +220874,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>20</GameObjectNextId>
+  <GameObjectNextId>21</GameObjectNextId>
 </SceneFile>

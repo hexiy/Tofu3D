@@ -35,8 +35,7 @@ public static class ScriptsManager
         var scriptsFiles = Directory.GetFiles(Folders.Scripts, "*.cs");
 
         var syntaxTrees = scriptsFiles
-            .Select(file => CSharpSyntaxTree.ParseText(File.ReadAllText(file)))
-            .ToList();
+            .Select(file => CSharpSyntaxTree.ParseText(File.ReadAllText(file)));
 
         var assemblyName = "Scripts.dll";
 
