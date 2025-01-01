@@ -17,6 +17,38 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <Id>3</Id>
+      <IndexInHierarchy>1</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>smoothCube</Name>
+      <PrefabPath />
+      <Selected>true</Selected>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <Id>10</Id>
+      <IndexInHierarchy>2</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>Light</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
+      <Started>true</Started>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
   </GameObjects>
   <Components>
     <Component xsi:type="Transform">
@@ -33,14 +65,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>1.9769013</X>
+        <Y>0.23352513</Y>
+        <Z>1.5385927</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <X>1.9769013</X>
+        <Y>0.23352513</Y>
+        <Z>1.5385927</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -53,8 +85,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
-        <Y>0</Y>
+        <X>5.6585584</X>
+        <Y>234.40437</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -87,6 +119,231 @@
       <Enabled>true</Enabled>
       <Fov>60</Fov>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>3</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>3</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRendererInstanced">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>3</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <MousePickingId>1</MousePickingId>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <Material>
+        <IsRuntimeCopy>false</IsRuntimeCopy>
+        <DataIsCompressed>false</DataIsCompressed>
+        <Path>Assets/Materials/ModelRendererInstanced.mat</Path>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+        </Shader>
+        <Additive>false</Additive>
+        <AlbedoTexture>
+          <IsRuntimeCopy>false</IsRuntimeCopy>
+          <DataIsCompressed>false</DataIsCompressed>
+          <Path>Assets/3D/sculpture/sculpture.jpeg</Path>
+          <Size>
+            <X>4096</X>
+            <Y>4096</Y>
+          </Size>
+          <TextureId>19</TextureId>
+        </AlbedoTexture>
+        <AlbedoTint>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>255</A>
+          <PackedValue>4294967295</PackedValue>
+        </AlbedoTint>
+        <EmissiveTexture>
+          <IsRuntimeCopy>false</IsRuntimeCopy>
+          <DataIsCompressed>false</DataIsCompressed>
+          <Path>Resources/whitePixel.png</Path>
+          <Size>
+            <X>1</X>
+            <Y>1</Y>
+          </Size>
+          <TextureId>1</TextureId>
+        </EmissiveTexture>
+        <EmissiveColor>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+          <W>0</W>
+        </EmissiveColor>
+        <RefractionEnabled>false</RefractionEnabled>
+        <RefractiveIndex>1.309</RefractiveIndex>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>3.2</SpecularSmoothness>
+        <MetallicTextureStrength>0.664</MetallicTextureStrength>
+        <Smoothness>0.568</Smoothness>
+        <Tiling>
+          <X>1</X>
+          <Y>1</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+        <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
+        <RenderMode>Opaque</RenderMode>
+        <BlendMode>Opaque</BlendMode>
+      </Material>
+      <RuntimeMesh>
+        <Vao>4</Vao>
+        <Ebo>-1</Ebo>
+        <Mesh>
+          <CountsOfElements>
+            <int>3</int>
+            <int>2</int>
+            <int>3</int>
+            <int>3</int>
+            <int>3</int>
+          </CountsOfElements>
+          <VerticesCount>149994</VerticesCount>
+          <Name>sculpture.obj_0</Name>
+          <Path>Library/Meshes/sculpture.obj_0.tofumesh</Path>
+        </Mesh>
+      </RuntimeMesh>
+      <Layer>0</Layer>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>10</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <ParentId>-1</ParentId>
+      <Pivot>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>-158.6</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="AmbientLight">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>10</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Color>
+        <B>24</B>
+        <G>24</G>
+        <R>24</R>
+        <A>255</A>
+        <PackedValue>4279769112</PackedValue>
+      </Color>
+      <Intensity>0.35</Intensity>
+    </Component>
+    <Component xsi:type="DirectionalLight">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>10</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <Intensity>1</Intensity>
+      <FarPlaneDistance>1000</FarPlaneDistance>
+      <NearPlaneDistance>0.0001</NearPlaneDistance>
+      <OrthographicSize>15</OrthographicSize>
+      <RefreshRate>60</RefreshRate>
+      <Rotate>false</Rotate>
+      <RotateOffset>0</RotateOffset>
+      <Size>
+        <X>1000</X>
+        <Y>1000</Y>
+      </Size>
+      <Speed>100</Speed>
+    </Component>
   </Components>
-  <GameObjectNextId>2</GameObjectNextId>
+  <GameObjectNextId>14</GameObjectNextId>
 </SceneFile>

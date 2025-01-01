@@ -71,6 +71,7 @@ uniform vec3 u_directionalLightDirection;
 uniform float u_smoothness;
 uniform float u_metallic;
 uniform float u_renderMode = 0;
+uniform float u_specularSmoothness;
 
 uniform int u_hasAlbedoTexture;
 uniform int u_hasNormalTexture;
@@ -96,7 +97,7 @@ float ShadowCalculation() {
 	float shadow = 0.0;
 	float bias = 0.005;
 	int samples = 4; // PCF sample count
-	vec2 texelSize = 1.0 / textureSize(u_shadowmapTexture,0); // Shadowmap size
+	vec2 texelSize = 1.0 / textureSize(u_shadowmapTexture, 0); // Shadowmap size
 
 	for (int x = -1; x <= 1; ++x) {
 		for (int y = -1; y <= 1; ++y) {
@@ -119,7 +120,14 @@ vec3 sRGBToLinear(vec3 color) {
 vec3 LinearToSRGB(vec3 color) {
 	return pow(color, vec3(1.0 / 2.2));
 }
+float D_GGX(float NdotH, float roughness) {
+	float a = roughness * roughness;
+	float a2 = a * a;
+	float NdotH2 = NdotH * NdotH;
 
+	float denominator = NdotH2 * (a2 - 1.0) + 1.0;
+	return a2 / (3.14159 * denominator * denominator);
+}
 void main() {
 	// UV Coordinates with tiling
 	vec2 uvCoords = uv * u_tiling;
@@ -129,6 +137,7 @@ void main() {
 	if (u_hasAlbedoTexture == 1) {
 		albedo *= texture(u_albedoTexture, uvCoords);
 	}
+	vec3 baseColor = albedo.rgb; // Separate out RGB only
 
 	// Normal Mapping
 	vec3 finalNormal = normalize(TBN * normal);
@@ -140,8 +149,8 @@ void main() {
 	// View and Light Directions
 	vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
 	vec3 lightDir = normalize(-u_directionalLightDirection);
-//	vec3 correctedLightDir = u_directionalLightDirection * vec3(1, -1, 1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
-//	lightDir = correctedLightDir;
+	//	vec3 correctedLightDir = u_directionalLightDirection * vec3(1, -1, 1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
+	//	lightDir = correctedLightDir;
 
 	// Metallic and Roughness Maps
 	float metallicValue = u_metallic; // Default metallic value (uniform)
@@ -152,7 +161,7 @@ void main() {
 	float roughnessValue = 1.0 - u_smoothness; // Default roughness from smoothness
 	if (u_hasRoughnessTexture == 1) {
 		float textureRoughness = texture(u_roughnessTexture, uvCoords).r; // Roughness texture (red channel)
-		roughnessValue = mix(roughnessValue, textureRoughness, 0.5); // Blend uniform and texture roughness
+		//		roughnessValue = mix(roughnessValue, textureRoughness, 0.5); // Blend uniform and texture roughness
 
 	}
 
@@ -164,45 +173,63 @@ void main() {
 	}
 
 	// Ambient Lighting
-	vec3 ambient = u_ambientLightColor.rgb * u_ambientLightColor.a * ao;
+	vec3 ambient = u_ambientLightColor.rgb *
+	u_ambientLightColor.a *
+	ao *
+	baseColor;
 
 	// Diffuse Lighting
 	float diffuseFactor = max(dot(finalNormal, lightDir), 0.0);
-	vec3 diffuse = diffuseFactor * u_directionalLightColor.rgb * u_directionalLightColor.a;
+	vec3 diffuse = diffuseFactor *
+	u_directionalLightColor.rgb *
+	u_directionalLightColor.a *
+	baseColor;
 
 	// Specular Highlights
 	vec3 reflectedLight = reflect(lightDir, finalNormal);
-	float specFactor = pow(max(dot(reflectedLight, viewDir), 0.0), 32.0 * (1.0 - roughnessValue)); // Roughness decreases intensity/sharpness
+	//	float specExponent = mix(32.0, 1.0, roughnessValue); // 32 for low roughness, 1 for high roughness
+	//	float specFactor = pow(max(dot(reflectedLight, viewDir), 0.0), specExponent);
+	//	float specIntensity = mix(1.0, 0.0, roughnessValue); // Full specular for low roughness, none for high roughness
+
+	float specFactor = D_GGX(max(dot(reflectedLight, viewDir), 0.0), roughnessValue) * metallicValue;
 	vec3 specular = mix(vec3(0.04), u_directionalLightColor.rgb, metallicValue) * specFactor;
 
 	// Shadows
 	float shadow = (u_hasShadowmapTexture == 1) ? ShadowCalculation() : 0.0;
 
 	// Subtract shadow influence for direct lighting
-	vec3 lighting = ambient + (diffuse + specular) * (1.0 - shadow);
+	vec3 lighting = ambient + (diffuse + specular) *
+	(1.0 - shadow);
 
 	// Environmental Reflections
 	vec3 reflection = vec3(0.0);
-	if (metallicValue > 0.0) {
+	//	if (metallicValue > 0.0) {
 
-		vec3 reflectionI = normalize(vertexPositionWorld - u_camPos);
-		vec3 reflectionDir = reflect(reflectionI, normalize(normal));
-		
-		
-//		vec3 reflectionDir = reflect(-viewDir, finalNormal);
-		reflection = texture(u_environmentCubemap, reflectionDir).rgb;
+	vec3 reflectionI = normalize(vertexPositionWorld - u_camPos);
+	vec3 reflectionDir = reflect(reflectionI, normalize(normal));
 
-		// Roughness reduces reflection intensity
-		reflection *= mix(1.0, roughnessValue, roughnessValue);
-		reflection = sRGBToLinear(reflection);
-	}
+	float MAX_LOD = 7.0; // Maximum level-of-detail for the cubemap mipmaps
+	vec3 environmentReflection = textureLod(u_environmentCubemap, reflectionDir, roughnessValue * MAX_LOD).rgb;
+	//		reflection = texture(u_environmentCubemap, reflectionDir).rgb;
+
+	// Adjust reflection intensity (optional for non-metallic surfaces)
+	//		reflection *= mix(0.04, 1.0, metallicValue); // Base reflectivity: Dielectric vs Metal
+
+	// Reflection scaling based on metallic and roughness
+	vec3 surfaceReflectivity = mix(vec3(0.04), albedo.rgb, metallicValue); // Non-metallic uses F0 ~ 0.04
+	reflection = environmentReflection * surfaceReflectivity;
+	// Roughness reduces reflection intensity
+	// Roughness impact on sharpness, not intensity
+	reflection = mix(reflection, vec3(0.0), roughnessValue); // Soften reflections without killing intensity
+	reflection = sRGBToLinear(reflection);
+	//	}
 
 	// Combine Lighting and Reflections
 	vec3 color = lighting + reflection;
 
 	// Emissive Lighting (if available)
 	if (u_hasEmissiveTexture == 1) {
-		color += texture(u_emissiveTexture, uvCoords).rgb * u_albedoTint.rgb;
+		color += texture(u_emissiveTexture, uvCoords).rgb * baseColor;
 	}
 
 	// Final Conversion to SRGB
