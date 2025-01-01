@@ -90,25 +90,23 @@ uniform sampler2D u_metallicTexture;
 uniform sampler2D u_roughnessTexture;
 
 float ShadowCalculation() {
-	// perform perspective divide
 	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
-	// transform to [0,1] range
 	projCoords = projCoords * 0.5 + 0.5;
-	// get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
-	float closestDepth = texture(u_shadowmapTexture, projCoords.xy).r;
-	// get depth of current fragment from light's perspective
-	float currentDepth = projCoords.z;
-	// check whether current frag pos is in shadow
-	//    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
 
-	float bias = 0.0001;
+	float shadow = 0.0;
+	float bias = 0.005;
+	int samples = 4; // PCF sample count
+	vec2 texelSize = 1.0 / textureSize(u_shadowmapTexture); // Shadowmap size
 
-	float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
-
-	if (projCoords.z > 1.0) // fixes dark border behind the light
-	{
-		shadow = 0.0;
+	for (int x = -1; x <= 1; ++x) {
+		for (int y = -1; y <= 1; ++y) {
+			float closestDepth = texture(u_shadowmapTexture, projCoords.xy + vec2(x, y) * texelSize).r;
+			shadow += (projCoords.z - bias > closestDepth) ? 1.0 : 0.0;
+		}
 	}
+
+	shadow /= (samples * samples); // Normalize shadow intensity
+	if (projCoords.z > 1.0) shadow = 0.0; // Outside light frustum
 	return shadow;
 }
 
@@ -142,8 +140,8 @@ void main() {
 	// View and Light Directions
 	vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
 	vec3 lightDir = normalize(-u_directionalLightDirection);
-	vec3 correctedLightDir = u_directionalLightDirection * vec3(1, -1, 1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
-	lightDir = correctedLightDir;
+//	vec3 correctedLightDir = u_directionalLightDirection * vec3(1, -1, 1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
+//	lightDir = correctedLightDir;
 
 	// Metallic and Roughness Maps
 	float metallicValue = u_metallic; // Default metallic value (uniform)
@@ -153,7 +151,9 @@ void main() {
 
 	float roughnessValue = 1.0 - u_smoothness; // Default roughness from smoothness
 	if (u_hasRoughnessTexture == 1) {
-		roughnessValue = texture(u_roughnessTexture, uvCoords).r; // Roughness texture (red channel)
+		float textureRoughness = texture(u_roughnessTexture, uvCoords).r; // Roughness texture (red channel)
+		roughnessValue = mix(roughnessValue, textureRoughness, 0.5); // Blend uniform and texture roughness
+
 	}
 
 	// Ambient Occlusion
@@ -171,7 +171,7 @@ void main() {
 	vec3 diffuse = diffuseFactor * u_directionalLightColor.rgb * u_directionalLightColor.a;
 
 	// Specular Highlights
-	vec3 reflectedLight = reflect(correctedLightDir, finalNormal);
+	vec3 reflectedLight = reflect(lightDir, finalNormal);
 	float specFactor = pow(max(dot(reflectedLight, viewDir), 0.0), 32.0 * (1.0 - roughnessValue)); // Roughness decreases intensity/sharpness
 	vec3 specular = mix(vec3(0.04), u_directionalLightColor.rgb, metallicValue) * specFactor;
 
