@@ -525,7 +525,8 @@ public class EditorPanelBrowser : EditorPanel
             {
                 var stringPointer = Marshal.StringToHGlobalAnsi(assetPath);
 
-                ImGui.SetDragDropPayload(DragDropPayloadTypes.PrefabPath, stringPointer, (uint)(sizeof(char) * assetPath.Length));
+                ImGui.SetDragDropPayload(DragDropPayloadTypes.PrefabPath, stringPointer,
+                    (uint)(sizeof(char) * assetPath.Length));
 
                 //string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                 ImGui.Image(_fileIcon.TextureId, _iconSize);
@@ -615,17 +616,30 @@ public class EditorPanelBrowser : EditorPanel
 
 
         var maxCharsLimit = 15;
-        var a = assetName.Substring(0, Math.Clamp(assetName.Length, 0, maxCharsLimit));
-        Vector2 textSize = ImGui.CalcTextSize(a);
+
+        // var text = assetName.Substring(0, Math.Clamp(assetName.Length, 0, maxCharsLimit));
+        var text = assetName;
+        Vector2 textSize = ImGui.CalcTextSize(text);
 
         if (textSize.X < _iconSize.X)
         {
             float spaceLeft = textSize.X - _iconSize.X;
             ImGui.SetCursorPosX(ImGui.GetCursorPosX() - spaceLeft / 2f);
         }
+        else
+        {
+            if (ImGui.IsItemHovered())
+            {
+                text = assetName.Substring((int)Mathf.ClampMin(assetName.Length - 2 - maxCharsLimit, 0));
+            }
+            else
+            {
+                text = assetName.Substring(0, Math.Clamp(assetName.Length, 0, maxCharsLimit));
+            }
+        }
 
-        ImGui.Text(a);
 
+        ImGui.Text(text);
 
         if (assetName.Length > maxCharsLimit)
         {

@@ -155,7 +155,7 @@ void main() {
 	// Metallic and Roughness Maps
 	float metallicValue = u_metallic; // Default metallic value (uniform)
 	if (u_hasMetallicTexture == 1) {
-		metallicValue = texture(u_metallicTexture, uvCoords).r; // Metallic texture (red channel)
+		metallicValue = texture(u_metallicTexture, uvCoords).r * u_metallic; // Metallic texture (red channel)
 	}
 
 	float roughnessValue = 1.0 - u_smoothness; // Default roughness from smoothness
@@ -213,7 +213,7 @@ void main() {
 	//		reflection = texture(u_environmentCubemap, reflectionDir).rgb;
 
 	// Adjust reflection intensity (optional for non-metallic surfaces)
-	//		reflection *= mix(0.04, 1.0, metallicValue); // Base reflectivity: Dielectric vs Metal
+			reflection *= mix(0.04, 1.0, metallicValue); // Base reflectivity: Dielectric vs Metal
 
 	// Reflection scaling based on metallic and roughness
 	vec3 surfaceReflectivity = mix(vec3(0.04), albedo.rgb, metallicValue); // Non-metallic uses F0 ~ 0.04
