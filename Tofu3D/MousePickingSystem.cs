@@ -73,12 +73,15 @@ public static class MousePickingSystem
     public static void Initialize()
     {
         //_renderers = new HashSet<MousePickingObject>();
-        Tofu.RenderPassSystem.RegisterRender(RenderPassType.MousePicking, RenderPassMousePicking);
-        EditorPanelTextureViewer.AddTexture(new TextureViewerTextureData()
+        if (Tofu3D.Rendering.RenderPassMousePicking.I?.Enabled == true)
         {
-            Name = "Mouse Picking",
-            Texture = Tofu3D.Rendering.RenderPassMousePicking.I.MainFramebuffer
-        });
+            Tofu.RenderPassSystem.RegisterRender(RenderPassType.MousePicking, RenderPassMousePicking);
+            EditorPanelTextureViewer.AddTexture(new TextureViewerTextureData()
+            {
+                Name = "Mouse Picking",
+                Texture = Tofu3D.Rendering.RenderPassMousePicking.I.MainFramebuffer
+            });
+        }
     }
 
     static void RenderPassMousePicking()

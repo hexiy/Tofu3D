@@ -335,47 +335,55 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             //     position3.X, position3.Y, position3.Z, uv3.X, uv3.Y, nm3.X, nm3.Y, nm3.Z, tangent1.X, tangent1.Y,
             //     tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
             // };
-
-            if (uniqueVertices.ContainsKey(position1))
-            {
-                uint index = uniqueVertices[position1];
-                indices.Add(index);
-            }
-            else
+            if (RenderingSettings.USE_INDICES == false)
             {
                 vertexBufferData.AddRange(vertex1);
-                uint index = (uint)currentUniqueVertexIndex;
-                indices.Add(index);
-                currentUniqueVertexIndex++;
-                uniqueVertices.Add(position1, index);
-            }
-
-            if (uniqueVertices.ContainsKey(position2))
-            {
-                uint index = uniqueVertices[position2];
-                indices.Add(index);
-            }
-            else
-            {
                 vertexBufferData.AddRange(vertex2);
-                uint index = (uint)currentUniqueVertexIndex;
-                indices.Add(index);
-                currentUniqueVertexIndex++;
-                uniqueVertices.Add(position2, index);
-            }
-
-            if (uniqueVertices.ContainsKey(position3))
-            {
-                uint index = uniqueVertices[position3];
-                indices.Add(index);
+                vertexBufferData.AddRange(vertex3);
             }
             else
             {
-                vertexBufferData.AddRange(vertex3);
-                uint index = (uint)currentUniqueVertexIndex;
-                indices.Add(index);
-                currentUniqueVertexIndex++;
-                uniqueVertices.Add(position3, index);
+                if (uniqueVertices.ContainsKey(position1))
+                {
+                    uint index = uniqueVertices[position1];
+                    indices.Add(index);
+                }
+                else
+                {
+                    vertexBufferData.AddRange(vertex1);
+                    uint index = (uint)currentUniqueVertexIndex;
+                    indices.Add(index);
+                    currentUniqueVertexIndex++;
+                    uniqueVertices.Add(position1, index);
+                }
+
+                if (uniqueVertices.ContainsKey(position2))
+                {
+                    uint index = uniqueVertices[position2];
+                    indices.Add(index);
+                }
+                else
+                {
+                    vertexBufferData.AddRange(vertex2);
+                    uint index = (uint)currentUniqueVertexIndex;
+                    indices.Add(index);
+                    currentUniqueVertexIndex++;
+                    uniqueVertices.Add(position2, index);
+                }
+
+                if (uniqueVertices.ContainsKey(position3))
+                {
+                    uint index = uniqueVertices[position3];
+                    indices.Add(index);
+                }
+                else
+                {
+                    vertexBufferData.AddRange(vertex3);
+                    uint index = (uint)currentUniqueVertexIndex;
+                    indices.Add(index);
+                    currentUniqueVertexIndex++;
+                    uniqueVertices.Add(position3, index);
+                }
             }
         }
 

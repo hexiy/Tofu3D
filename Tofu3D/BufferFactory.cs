@@ -64,7 +64,8 @@ public static class BufferFactory
         // CreateGenericBuffer(ref vao, spriteVertexBufferData, countsOfElements);
     }
 
-    public static void CreateGenericBuffer(ref int vao, ref int ebo, float[] vertexBufferData, int[] countsOfElements, bool isDynamic = false, uint[]? indices=null)
+    public static void CreateGenericBuffer(ref int vao, ref int ebo, float[] vertexBufferData, int[] countsOfElements,
+        bool isDynamic = false, uint[]? indices = null)
     {
         // GL.Enable(EnableCap.DepthTest);
 
@@ -81,27 +82,34 @@ public static class BufferFactory
             elementsCountPerVertex += countsOfElements[i];
         }
 
-        var vertexBuffer = VertexBuffer.Create(BufferTarget.ArrayBuffer, vertexBufferData, elementsCountPerVertex, isDynamic);
-        
-        
-        if (indices != null)
+        var vertexBuffer =
+            VertexBuffer.Create(BufferTarget.ArrayBuffer, vertexBufferData, elementsCountPerVertex, isDynamic);
+
+
+        if (RenderingSettings.USE_INDICES)
         {
-            VertexBuffer instanceBuffer = VertexBuffer.Create(BufferTarget.ElementArrayBuffer, indices,
-                elementsCountPerVertex, isDynamic);
+            if (indices != null)
+            {
+                VertexBuffer instanceBuffer = VertexBuffer.Create(BufferTarget.ElementArrayBuffer, indices,
+                    elementsCountPerVertex, isDynamic);
+            }
         }
-        
+
         vertexBuffer.EnableAttribs(true, countsOfElements);
 
-        
+
         // ebo
-        
-        if (ebo == -1)
+        if (RenderingSettings.USE_INDICES)
         {
-            ebo = GL.GenBuffer();
+            if (ebo == -1)
+            {
+                ebo = GL.GenBuffer();
+            }
+
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices,
+                BufferUsageHint.StaticDraw);
         }
-        GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
-        GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices,
-            BufferUsageHint.StaticDraw);
 
         // GL.BindVertexArray(0);
         // GL.BindBuffer(BufferTarget.ArrayBuffer, 0);

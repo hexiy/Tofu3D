@@ -8,6 +8,11 @@ public static class Compression
 {
     public static byte[] Compress(byte[] data)
     {
+        if (data == null)
+        {
+            return data;
+        }
+
         using (var memoryStream = new MemoryStream())
         using (var deflateStream = new DeflateStream(memoryStream, CompressionLevel.Optimal))
         {
@@ -19,6 +24,11 @@ public static class Compression
 
     public static byte[] Decompress(byte[] compressedData)
     {
+        if (compressedData == null)
+        {
+            return compressedData;
+        }
+
         using (var compressedStream = new MemoryStream(compressedData))
         using (var deflateStream = new DeflateStream(compressedStream, CompressionMode.Decompress))
         using (var resultStream = new MemoryStream())
