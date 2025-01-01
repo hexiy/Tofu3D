@@ -200,6 +200,7 @@ public class EditorPanelInspector : EditorPanel
     public void SelectInspectables(IList inspectables)
     {
         ClearInspectableDatas();
+        _materialToShowAtTheBottom = null;
 
         foreach (var inspectable in inspectables)
         {
@@ -540,9 +541,9 @@ public class EditorPanelInspector : EditorPanel
             }
         }
 
-        
-        float itemWidth1 = Size.X/1.6f;
-        ImGui.SameLine(Size.X- itemWidth1);
+
+        float itemWidth1 = Size.X / 1.6f;
+        ImGui.SameLine(Size.X - itemWidth1);
         ImGui.SetNextItemWidth(itemWidth1);
 
         if (info.IsGenericList)
