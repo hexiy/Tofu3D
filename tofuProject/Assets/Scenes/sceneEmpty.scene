@@ -65,14 +65,14 @@
         <Z>0</Z>
       </Pivot>
       <WorldPosition>
-        <X>-2.2203484</X>
-        <Y>1.5651845</Y>
-        <Z>8.19679</Z>
+        <X>4.773533</X>
+        <Y>1.7277344</Y>
+        <Z>8.24321</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-2.2203484</X>
-        <Y>1.5651845</Y>
-        <Z>8.19679</Z>
+        <X>4.773533</X>
+        <Y>1.7277344</Y>
+        <Z>8.24321</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -85,8 +85,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>5.7890763</X>
-        <Y>0.668808</Y>
+        <X>7.364818</X>
+        <Y>-30.446154</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -170,7 +170,7 @@
         <A>255</A>
         <PackedValue>4279769112</PackedValue>
       </Color>
-      <Intensity>0.35</Intensity>
+      <Intensity>0.08</Intensity>
     </Component>
     <Component xsi:type="DirectionalLight">
       <AllowMultiple>true</AllowMultiple>
@@ -213,12 +213,12 @@
       <WorldPosition>
         <X>0</X>
         <Y>-25.95</Y>
-        <Z>18.94</Z>
+        <Z>19.04</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>-25.95</Y>
-        <Z>18.94</Z>
+        <Z>19.04</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -232,7 +232,7 @@
       </WorldScale>
       <Rotation>
         <X>0</X>
-        <Y>-160.7</Y>
+        <Y>180</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -257,7 +257,7 @@
       <GameObjectId>23</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <MousePickingId>6</MousePickingId>
+      <MousePickingId>1</MousePickingId>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -283,7 +283,7 @@
             <X>2048</X>
             <Y>2048</Y>
           </Size>
-          <TextureId>26</TextureId>
+          <TextureId>20</TextureId>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -300,7 +300,7 @@
             <X>2048</X>
             <Y>2048</Y>
           </Size>
-          <TextureId>52</TextureId>
+          <TextureId>21</TextureId>
         </AmbientOcclusionTexture>
         <NormalTexture>
           <IsRuntimeCopy>false</IsRuntimeCopy>
@@ -310,7 +310,7 @@
             <X>2048</X>
             <Y>2048</Y>
           </Size>
-          <TextureId>54</TextureId>
+          <TextureId>22</TextureId>
         </NormalTexture>
         <RoughnessTexture>
           <IsRuntimeCopy>false</IsRuntimeCopy>
@@ -320,7 +320,7 @@
             <X>4096</X>
             <Y>4096</Y>
           </Size>
-          <TextureId>55</TextureId>
+          <TextureId>23</TextureId>
         </RoughnessTexture>
         <MetallicTexture>
           <IsRuntimeCopy>false</IsRuntimeCopy>
@@ -330,18 +330,8 @@
             <X>2048</X>
             <Y>2048</Y>
           </Size>
-          <TextureId>56</TextureId>
+          <TextureId>24</TextureId>
         </MetallicTexture>
-        <EmissiveTexture>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <DataIsCompressed>false</DataIsCompressed>
-          <Path>Resources/whitePixel.png</Path>
-          <Size>
-            <X>1</X>
-            <Y>1</Y>
-          </Size>
-          <TextureId>1</TextureId>
-        </EmissiveTexture>
         <EmissiveColor>
           <X>0</X>
           <Y>0</Y>
@@ -351,9 +341,9 @@
         <RefractionEnabled>false</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>4.94</SpecularSmoothness>
-        <MetallicTextureStrength>0.5</MetallicTextureStrength>
-        <Smoothness>0.508</Smoothness>
+        <SpecularSmoothness>-16.91</SpecularSmoothness>
+        <MetallicTextureStrength>0.435</MetallicTextureStrength>
+        <Smoothness>0.33</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -385,5 +375,5 @@
       <Layer>0</Layer>
     </Component>
   </Components>
-  <GameObjectNextId>28</GameObjectNextId>
+  <GameObjectNextId>42</GameObjectNextId>
 </SceneFile>

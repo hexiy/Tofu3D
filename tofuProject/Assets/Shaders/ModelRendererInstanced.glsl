@@ -71,7 +71,6 @@ uniform vec3 u_directionalLightDirection;
 uniform float u_smoothness;
 uniform float u_metallic;
 uniform float u_renderMode = 0;
-uniform float u_specularSmoothness;
 
 uniform int u_hasAlbedoTexture;
 uniform int u_hasNormalTexture;
@@ -80,6 +79,7 @@ uniform int u_hasAmbientOcclusionTexture;
 uniform int u_hasEmissiveTexture;
 uniform int u_hasMetallicTexture;
 uniform int u_hasRoughnessTexture;
+uniform int u_directionalLightEnabled;
 
 uniform sampler2D u_albedoTexture;
 uniform sampler2D u_normalTexture;
@@ -89,28 +89,112 @@ uniform sampler2D u_shadowmapTexture;
 uniform sampler2D u_emissiveTexture;
 uniform sampler2D u_metallicTexture;
 uniform sampler2D u_roughnessTexture;
+float OldShadowCalculation(){
+	// perform perspective divide
+	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+	// transform to [0,1] range
+	projCoords = projCoords * 0.5 + 0.5;
+	// get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+	float closestDepth = texture(u_shadowmapTexture, projCoords.xy).r;
+	// get depth of current fragment from light's perspective
+	float currentDepth = projCoords.z;
+	// check whether current frag pos is in shadow
+	//    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
 
-float ShadowCalculation() {
+	float bias = 0.0001;
+
+	float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
+
+	if (projCoords.z > 1.0) // fixes dark border behind the light
+	{
+		shadow = 0.0;
+	}
+	
+	return shadow;
+}
+float ShadowCalculationPCFNotSmooth() {
 	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
 	projCoords = projCoords * 0.5 + 0.5;
 
-	float shadow = 0.0;
-	float bias = 0.005;
-	int samples = 4; // PCF sample count
-	vec2 texelSize = 1.0 / textureSize(u_shadowmapTexture, 0); // Shadowmap size
+	// Early return for fragments outside the light's frustum
+	if (projCoords.z > 1.0 || projCoords.z < 0.0) return 0.0;
+	
+	// Calculate distance from the fragment to the camera
+	float distanceToCamera = length(vertexPositionWorld - u_camPos);
 
-	for (int x = -1; x <= 1; ++x) {
-		for (int y = -1; y <= 1; ++y) {
+	
+	float shadow = 0.0;
+	float bias = 0.0001;
+	vec2 texelSize = 1.0 / textureSize(u_shadowmapTexture, 0); // Shadowmap size
+	// Dynamic PCF sampling: Choose sample count and kernel size based on distance
+	int samples = int(mix(50.0, 0.0, clamp(distanceToCamera / 35.0, 0.0, 1.0))); // Adjust range [3..5] based on distance
+
+	for (int x = -samples / 2; x <= samples / 2; ++x) {
+		for (int y = -samples / 2; y <= samples / 2; ++y) {
 			float closestDepth = texture(u_shadowmapTexture, projCoords.xy + vec2(x, y) * texelSize).r;
 			shadow += (projCoords.z - bias > closestDepth) ? 1.0 : 0.0;
 		}
 	}
 
-	shadow /= (samples * samples); // Normalize shadow intensity
-	if (projCoords.z > 1.0) shadow = 0.0; // Outside light frustum
+	shadow /= float((samples + 1) * (samples + 1)); // Total samples in the kernel
+
 	return shadow;
 }
+float ShadowCalculationPCFSmooth() {
+	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+	projCoords = projCoords * 0.5 + 0.5;
 
+	// Early return for fragments outside the light's frustum
+	if (projCoords.z > 1.0 || projCoords.z < 0.0) return 0.0;
+
+	// Calculate distance from the fragment to the camera
+	float distanceToCamera = length(vertexPositionWorld - u_camPos);
+
+
+	// Calculate smooth sample interpolation factor
+	float smoothFactor = 1-clamp(distanceToCamera / 30.0, 0.0, 1.0); // Normalize to [0.0, 1.0]
+
+	// Compute the two kernel sizes to blend between
+	float minSamples = 1.0; // Minimum kernel size (3x3)
+	float maxSamples = 5.0; // Maximum kernel size (5x5)
+	float sampleSize = mix(minSamples, maxSamples, smoothFactor); // Smoothly blend between kernels
+
+	// Separate kernel sizes into integer components for lower and upper bound
+	int lowSamples = int(floor(sampleSize));  // Lower grid size
+	int highSamples = int(ceil(sampleSize)); // Upper grid size
+	float interpFactor = fract(sampleSize);  // Fractional amount between the two sizes
+
+	// Initialize shadow intensity
+	float shadowLow = 0.0;
+	float shadowHigh = 0.0;
+	float bias = 0.0001;
+	vec2 texelSize = 1.0 / textureSize(u_shadowmapTexture, 0); // Size of one texel in shadow map
+
+	// Low kernel sampling (lower bound)
+	for (int x = -lowSamples / 2; x <= lowSamples / 2; ++x) {
+		for (int y = -lowSamples / 2; y <= lowSamples / 2; ++y) {
+			vec2 offset = vec2(x, y) * texelSize;
+			float closestDepth = texture(u_shadowmapTexture, projCoords.xy + offset).r;
+			shadowLow += (projCoords.z - bias > closestDepth) ? 1.0 : 0.0;
+		}
+	}
+	shadowLow /= float((lowSamples + 1) * (lowSamples + 1)); // Normalize low kernel contribution
+
+	// High kernel sampling (upper bound)
+	for (int x = -highSamples / 2; x <= highSamples / 2; ++x) {
+		for (int y = -highSamples / 2; y <= highSamples / 2; ++y) {
+			vec2 offset = vec2(x, y) * texelSize;
+			float closestDepth = texture(u_shadowmapTexture, projCoords.xy + offset).r;
+			shadowHigh += (projCoords.z - bias > closestDepth) ? 1.0 : 0.0;
+		}
+	}
+	shadowHigh /= float((highSamples + 1) * (highSamples + 1)); // Normalize high kernel contribution
+
+	// Blend between low and high kernel results based on fractional sampling factor
+	float shadow = mix(shadowLow, shadowHigh, interpFactor);
+
+	return shadow;
+}
 // Helper function to convert from sRGB to linear space
 vec3 sRGBToLinear(vec3 color) {
 	return pow(color, vec3(2.2));
@@ -143,14 +227,30 @@ void main() {
 	vec3 finalNormal = normalize(TBN * normal);
 	if (u_hasNormalTexture == 1) {
 		vec3 texNormal = texture(u_normalTexture, uvCoords).rgb * 2.0 - 1.0; // Map [0,1] to [-1,1]
-		finalNormal = normalize(TBN * texNormal);
+		//		finalNormal = normalize(TBN * texNormal);
+		finalNormal = normalize(TBN * -texNormal);
+
+
+
+
+
+
+
+		//			vec3 vertexNormalTBNed = normalize(TBN * normal);
+
+		//  texNormal = normalize(TBN * -texNormal); // Transforming the normal values from the texture space to the world space
+		//  //norm = normalize(TBN * norm);
+		//  float blendFactor = 0.8 * u_hasNormalTexture;
+		//  blendFactor = 0;
+		//  vec3 finalNormal = normalize(mix(vertexNormalTBNed, texNormal, blendFactor));
+		//			vec3 finalNormal = vertexNormalTBNed;
 	}
 
 	// View and Light Directions
 	vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
 	vec3 lightDir = normalize(-u_directionalLightDirection);
-	//	vec3 correctedLightDir = u_directionalLightDirection * vec3(1, -1, 1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
-	//	lightDir = correctedLightDir;
+	vec3 correctedLightDir = u_directionalLightDirection * vec3(1, -1, 1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
+	lightDir = correctedLightDir;
 
 	// Metallic and Roughness Maps
 	float metallicValue = u_metallic; // Default metallic value (uniform)
@@ -161,8 +261,7 @@ void main() {
 	float roughnessValue = 1.0 - u_smoothness; // Default roughness from smoothness
 	if (u_hasRoughnessTexture == 1) {
 		float textureRoughness = texture(u_roughnessTexture, uvCoords).r; // Roughness texture (red channel)
-		//		roughnessValue = mix(roughnessValue, textureRoughness, 0.5); // Blend uniform and texture roughness
-
+		roughnessValue = mix(roughnessValue, textureRoughness, 0.5); // Blend uniform and texture roughness
 	}
 
 	// Ambient Occlusion
@@ -195,7 +294,7 @@ void main() {
 	vec3 specular = mix(vec3(0.04), u_directionalLightColor.rgb, metallicValue) * specFactor;
 
 	// Shadows
-	float shadow = (u_hasShadowmapTexture == 1) ? ShadowCalculation() : 0.0;
+	float shadow = (u_hasShadowmapTexture == 1) ? ShadowCalculationPCFSmooth() : 0.0;
 
 	// Subtract shadow influence for direct lighting
 	vec3 lighting = ambient + (diffuse + specular) *
@@ -213,7 +312,7 @@ void main() {
 	//		reflection = texture(u_environmentCubemap, reflectionDir).rgb;
 
 	// Adjust reflection intensity (optional for non-metallic surfaces)
-			reflection *= mix(0.04, 1.0, metallicValue); // Base reflectivity: Dielectric vs Metal
+	reflection *= mix(0.04, 1.0, metallicValue); // Base reflectivity: Dielectric vs Metal
 
 	// Reflection scaling based on metallic and roughness
 	vec3 surfaceReflectivity = mix(vec3(0.04), albedo.rgb, metallicValue); // Non-metallic uses F0 ~ 0.04
@@ -251,5 +350,22 @@ void main() {
 	else if (u_renderMode == 3) // normals
 	{
 		fragColor = vec4(finalNormal, 1);
+	}
+	else if (u_renderMode == 4) // directional light diffuse visualisation
+	{
+		float light = (diffuseFactor) * u_directionalLightColor.a;
+		fragColor = vec4(vec3(light), 1);
+	}
+	else if (u_renderMode == 5) // directional light specular
+	{
+		float light = (specFactor) * u_directionalLightColor.a;
+		fragColor = vec4(vec3(light), 1);
+	}else if (u_renderMode == 6) // shadows
+	{
+
+//		shadow = OldShadowCalculation();
+		shadow = ShadowCalculationPCFSmooth();
+		fragColor = vec4(vec3(1-shadow), 1);
+//		fragColor = vec4(projCoords, 1.0);
 	}
 }

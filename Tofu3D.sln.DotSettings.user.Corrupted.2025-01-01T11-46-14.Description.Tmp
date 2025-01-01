@@ -1,0 +1,10 @@
+﻿<CorruptedSettingsDescription>
+  <!--The backup file has been created before writing in-memory changes to the settings file. As the existing settings file is corrupted, many settings might get lost when writing the new content. If you'd like to restore the settings from the previous version, here're the changes against the backed-up version (note: subsequent changes are not reflected here).-->
+  <InMemoryChanges>
+    <SetValue>
+      <wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AArgumentNullException_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003F_002E_002E_003FLibrary_003FApplication_0020Support_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F822f0377472565b99c3167c333ec9d631630bec5a8754164f048a658ec83_003FArgumentNullException_002Ecs/@EntryIndexedValue">ForceIncluded</s:String></wpf:ResourceDictionary>
+    </SetValue>
+    <ClearValue></ClearValue>
+  </InMemoryChanges>
+</CorruptedSettingsDescription>
