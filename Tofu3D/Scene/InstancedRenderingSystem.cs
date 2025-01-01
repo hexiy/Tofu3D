@@ -182,7 +182,7 @@ public class InstancedRenderingSystem
 
             Tofu.ShaderManager.BindVertexArray(meshVao);
 
-            
+
             if (RenderingSettings.USE_INDICES)
             {
                 if (indicesCount > 0)
@@ -193,7 +193,6 @@ public class InstancedRenderingSystem
             }
             else
             {
-
                 GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, definition.RuntimeMesh.Mesh.VerticesCount,
                     objectBufferPair.Value.NumberOfObjects);
             }
@@ -239,7 +238,6 @@ public class InstancedRenderingSystem
             }
             else
             {
-
                 GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, definition.RuntimeMesh.Mesh.VerticesCount,
                     objectBufferPair.Value.NumberOfObjects);
             }
@@ -324,7 +322,7 @@ public class InstancedRenderingSystem
                 return;
             }
 
-            if (material.AlbedoTexture)
+            if (material.AlbedoTexture != null && material.Shader?.AlbedoTextureIndexUnit != null)
             {
                 GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit.Value);
                 TextureHelper.BindTexture(material.AlbedoTexture.TextureId);
@@ -333,7 +331,7 @@ public class InstancedRenderingSystem
             material.Shader.SetInt("u_hasNormalTexture", material.NormalTexture != null ? 1 : 0);
 
             // Normal Texture
-            if (material.NormalTexture)
+            if (material.NormalTexture != null && material.Shader?.NormalTextureIndexUnit != null)
             {
                 GL.ActiveTexture(material.Shader.NormalTextureIndexUnit.Value);
                 TextureHelper.BindTexture(material.NormalTexture.TextureId);
@@ -341,7 +339,7 @@ public class InstancedRenderingSystem
 
             // Ambient Occlusion Texture
             material.Shader.SetInt("u_hasAmbientOcclusionTexture", material.AmbientOcclusionTexture != null ? 1 : 0);
-            if (material.AmbientOcclusionTexture)
+            if (material.AmbientOcclusionTexture != null && material.Shader?.AmbientOcclusionTextureUnit != null)
             {
                 GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit.Value);
                 TextureHelper.BindTexture(material.AmbientOcclusionTexture.TextureId);
@@ -363,7 +361,7 @@ public class InstancedRenderingSystem
 
             material.Shader.SetInt("u_hasEnvironmentCubemap",
                 Camera.MainCamera?.GetComponent<Skybox>() != null ? 1 : 0);
-            if (Camera.MainCamera?.GetComponent<Skybox>() != null)
+            if (Camera.MainCamera?.GetComponent<Skybox>() != null && material.Shader.EnvironmentTextureUnit != null)
             {
                 GL.ActiveTexture(material.Shader.EnvironmentTextureUnit.Value);
                 TextureHelper.BindTexture(Camera.MainCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
@@ -373,7 +371,7 @@ public class InstancedRenderingSystem
             // Roughness Texture
             material.Shader.SetInt("u_hasRoughnessTexture", material.RoughnessTexture != null ? 1 : 0);
 
-            if (material.RoughnessTexture != null)
+            if (material.RoughnessTexture != null && material.Shader.RoughnessTextureUnit != null)
             {
                 GL.ActiveTexture(material.Shader.RoughnessTextureUnit.Value);
                 TextureHelper.BindTexture(material.RoughnessTexture.TextureId);
@@ -385,14 +383,14 @@ public class InstancedRenderingSystem
             // Metallic Texture
             material.Shader.SetInt("u_hasMetallicTexture", material.MetallicTexture != null ? 1 : 0);
 
-            if (material.MetallicTexture != null)
+            if (material.MetallicTexture != null && material.Shader.MetallicTextureUnit != null)
             {
                 GL.ActiveTexture(material.Shader.MetallicTextureUnit.Value);
                 TextureHelper.BindTexture(material.MetallicTexture.TextureId);
             }
 
             material.Shader.SetVector4("u_emissiveColor", material.EmissiveColor);
-            if (material.EmissiveTexture != null)
+            if (material.EmissiveTexture != null && material.Shader.EmissiveTextureUnit != null)
             {
                 GL.ActiveTexture(material.Shader.EmissiveTextureUnit.Value);
                 TextureHelper.BindTexture(material.EmissiveTexture.TextureId);
@@ -413,7 +411,6 @@ public class InstancedRenderingSystem
             }
             else
             {
-
                 GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, definition.RuntimeMesh.Mesh.VerticesCount,
                     objectBufferPair.Value.NumberOfObjects);
             }
@@ -583,7 +580,7 @@ public class InstancedRenderingSystem
         // GL.BindBuffer(BufferTarget.ElementArrayBuffer, objectDefinition.RuntimeMesh.Ebo); // ebo should be already linked with vao on initialization
 
         objectDefinition.Material.LoadShader();
-        if (objectDefinition.Material.Shader.IsLoaded==false)
+        if (objectDefinition.Material.Shader.IsLoaded == false)
         {
             Debug.LogError("Couldnt load shader");
             throw new Exception("Couldnt load shader");

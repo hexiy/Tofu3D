@@ -96,7 +96,7 @@ float ShadowCalculation() {
 	float shadow = 0.0;
 	float bias = 0.005;
 	int samples = 4; // PCF sample count
-	vec2 texelSize = 1.0 / textureSize(u_shadowmapTexture); // Shadowmap size
+	vec2 texelSize = 1.0 / textureSize(u_shadowmapTexture,0); // Shadowmap size
 
 	for (int x = -1; x <= 1; ++x) {
 		for (int y = -1; y <= 1; ++y) {
