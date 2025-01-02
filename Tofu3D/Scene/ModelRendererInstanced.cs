@@ -29,6 +29,24 @@ public class ModelRendererInstanced : Renderer
 
     public override void SetDefaultMaterial()
     {
+        /////////////////////// MESH
+
+
+        // RuntimeMesh.Mesh.Indices
+        if (RuntimeMesh?.Mesh?.PathInLibraryFolder?.Length > 0)
+        {
+            RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(RuntimeMesh.Mesh.PathInLibraryFolder);
+        }
+        else
+        {
+            Asset_Model model =
+                Tofu.AssetLoadManager.Load<Asset_Model>(Path.Combine(Folders.ModelsInAssets, "defaultCube.obj"));
+            RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets.First());
+
+            // RuntimeMesh = null;
+        }
+
+        /////////////////////// MATERIAL
         if (Material == null || Material?.IsRuntimeCopy == false)
         {
             if (Material?.PathInLibraryFolder.Length == 0 || Material == null)
@@ -55,18 +73,21 @@ public class ModelRendererInstanced : Renderer
             }
         }
 
-        // RuntimeMesh.Mesh.Indices
-        if (RuntimeMesh?.Mesh?.PathInLibraryFolder?.Length > 0)
-        {
-            RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(RuntimeMesh.Mesh.PathInLibraryFolder);
-        }
-        else
-        {
-            Asset_Model model =
-                Tofu.AssetLoadManager.Load<Asset_Model>(Path.Combine(Folders.ModelsInAssets, "defaultCube.obj"));
-            RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets.First());
+        ObjMaterialDefinition objMaterialDefinition = RuntimeMesh?.Mesh?.ObjMaterialDefinition;
+        bool hasObjMaterial = objMaterialDefinition != null;
 
-            // RuntimeMesh = null;
+        if (hasObjMaterial)
+        {
+            Material = Tofu.AssetLoadManager.CreateCopy(Material);
+
+            Material.AlbedoTint = objMaterialDefinition.AlbedoTint;
+
+            if (objMaterialDefinition.AlbedoTexturePath != null)
+            {
+                RuntimeTexture texture =
+                    Tofu.AssetLoadManager.Load<RuntimeTexture>(objMaterialDefinition.AlbedoTexturePath);
+                Material.AlbedoTexture = texture;
+            }
         }
     }
 

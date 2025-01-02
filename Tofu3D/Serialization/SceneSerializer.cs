@@ -148,7 +148,7 @@ public class SceneSerializer
     {
         if (File.Exists(scenePath) == false)
         {
-            Debug.LogError($"Scene file does not exist:{scenePath}");
+            Debug.LogWarning($"Scene file does not exist:{scenePath}");
             return new SceneFile { GameObjects = new List<GameObject>(), Components = new List<Component>() };
         }
         /*string xml = "";

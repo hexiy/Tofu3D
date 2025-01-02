@@ -46,7 +46,11 @@ public class Debug
             }
         }
     }
-
+    public static void LogWarning(object message)
+    {
+        Log(message, LogCategory.Warning);
+    }
+    
     public static void LogError(object message)
     {
         Log(message, LogCategory.Error);

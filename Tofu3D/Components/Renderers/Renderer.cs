@@ -21,6 +21,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
     [Show]
     public Asset_Material Material;
 
+    [Hide]
     public Asset_Material GetMaterial => Material;
 
 
@@ -187,7 +188,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
 
     public virtual void SetDefaultMaterial()
     {
-        Material.LoadShader();
+        Material?.LoadShader();
     }
 
 // private Matrix4x4 GetModelViewProjectionOld()

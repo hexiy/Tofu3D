@@ -19,7 +19,7 @@ public static class MousePickingSystem
     {
         // MousePickingObject mousePickingObject = new MousePickingObject() {Renderer = renderer, Color = GetFreeColor()};
         uint col = GetFreeColor();
-        Debug.Log($"registered mouse picking object with color {col}:rgba:{new Color(col)}");
+        // Debug.Log($"registered mouse picking object with color {col}:rgba:{new Color(col)}");
         _renderers[col] = renderer;
         // _renderers.Add(mousePickingObject);
         return col;

@@ -112,22 +112,18 @@ float OldShadowCalculation(){
 	
 	return shadow;
 }
-float ShadowCalculationPCFNotSmooth() {
+float ShadowCalculationPCFConstantQuality() {
 	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
 	projCoords = projCoords * 0.5 + 0.5;
 
 	// Early return for fragments outside the light's frustum
 	if (projCoords.z > 1.0 || projCoords.z < 0.0) return 0.0;
 	
-	// Calculate distance from the fragment to the camera
-	float distanceToCamera = length(vertexPositionWorld - u_camPos);
-
-	
 	float shadow = 0.0;
 	float bias = 0.0001;
 	vec2 texelSize = 1.0 / textureSize(u_shadowmapTexture, 0); // Shadowmap size
 	// Dynamic PCF sampling: Choose sample count and kernel size based on distance
-	int samples = int(mix(50.0, 0.0, clamp(distanceToCamera / 35.0, 0.0, 1.0))); // Adjust range [3..5] based on distance
+	int samples = 3;
 
 	for (int x = -samples / 2; x <= samples / 2; ++x) {
 		for (int y = -samples / 2; y <= samples / 2; ++y) {
@@ -155,7 +151,7 @@ float ShadowCalculationPCFSmooth() {
 	float smoothFactor = 1-clamp(distanceToCamera / 30.0, 0.0, 1.0); // Normalize to [0.0, 1.0]
 
 	// Compute the two kernel sizes to blend between
-	float minSamples = 1.0; // Minimum kernel size (3x3)
+	float minSamples = 5.0; // Minimum kernel size (3x3)
 	float maxSamples = 5.0; // Maximum kernel size (5x5)
 	float sampleSize = mix(minSamples, maxSamples, smoothFactor); // Smoothly blend between kernels
 
@@ -294,9 +290,9 @@ void main() {
 	vec3 specular = mix(vec3(0.04), u_directionalLightColor.rgb, metallicValue) * specFactor;
 
 	// Shadows
-	float shadow = (u_hasShadowmapTexture == 1) ? ShadowCalculationPCFSmooth() : 0.0;
+	float shadow = (u_hasShadowmapTexture == 1) ? ShadowCalculationPCFConstantQuality() : 0.0;
 
-	// Subtract shadow influence for direct lighting
+// Subtract shadow influence for direct lighting
 	vec3 lighting = ambient + (diffuse + specular) *
 	(1.0 - shadow);
 
@@ -364,7 +360,8 @@ void main() {
 	{
 
 //		shadow = OldShadowCalculation();
-		shadow = ShadowCalculationPCFSmooth();
+//		shadow = ShadowCalculationPCFSmooth();
+		shadow = ShadowCalculationPCFConstantQuality();
 		fragColor = vec4(vec3(1-shadow), 1);
 //		fragColor = vec4(projCoords, 1.0);
 	}

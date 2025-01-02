@@ -58,8 +58,26 @@ public class Folders
             return Assets;
         }
 
-        return Path.Combine(Assets, Path.GetRelativePath(Assets, path));
+        // return Path.Combine(Assets, Path.GetRelativePath(Assets, path));
+        return Path.GetRelativePath(Assets, path);
     }
+
+    public static string GetParentFolder(string path)
+    {
+        if (path.Length == 0)
+        {
+            return path;
+        }
+        int lastIndexOfDirectorySeparator = path.LastIndexOf(Path.DirectorySeparatorChar);
+
+        if (lastIndexOfDirectorySeparator == -1)
+        {
+            return path;
+        }
+
+        return path.Remove(lastIndexOfDirectorySeparator);
+    }
+    
 
     public static string Get2DAssetPath(string assetName) => Path.Combine(TexturesInAssets, assetName);
 

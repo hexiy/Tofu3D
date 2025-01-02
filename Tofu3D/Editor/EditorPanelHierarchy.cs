@@ -216,7 +216,7 @@ public class EditorPanelHierarchy : EditorPanel
             List<GameObject> toDestroy = new();
             foreach (var go in Tofu.SceneManager.CurrentScene.GameObjects)
             {
-                if (go != Camera.MainCamera.GameObject && go.VisibleInHierarchy)
+                if (go != Camera.MainCamera.GameObject)// && go.VisibleInHierarchy)
                 {
                     toDestroy.Add(go);
                 }
@@ -226,6 +226,8 @@ public class EditorPanelHierarchy : EditorPanel
             {
                 go.Destroy();
             }
+            
+            Tofu.SceneManager.CurrentScene.GameObjects.Clear();
         }
 
         for (var goIndex = 0; goIndex < Tofu.SceneManager.CurrentScene.GameObjects.Count; goIndex++)
@@ -241,14 +243,14 @@ public class EditorPanelHierarchy : EditorPanel
                 continue;
             }
 
-            if (ImGui.IsItemVisible() == false)
-            {
-                ImGui.Dummy(new System.Numerics.Vector2(100, 50));
-            }
-            else
-            {
+            // if (ImGui.IsItemVisible() == false)
+            // {
+            //     ImGui.Dummy(new System.Numerics.Vector2(100, 50));
+            // }
+            // else
+            // {
                 DrawGameObjectRow(goIndex);
-            }
+            // }
         }
 
         EndWindow();

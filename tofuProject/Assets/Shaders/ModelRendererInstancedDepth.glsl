@@ -15,7 +15,6 @@ layout (location = 9) in int a_id;
 layout (location = 10) in vec2 a_uv_offset;
 
 uniform mat4 u_viewProjection;
-
 void main(void)
 {
 mat4 a_model = mat4(vec4(a_model_1, 0), vec4(a_model_2, 0), vec4(a_model_3, 0), vec4(a_model_4,1));
@@ -28,5 +27,5 @@ gl_Position = mvp * vec4(a_pos.xyz, 1.0);
 
 void main(void)
 {
-gl_FragDepth = gl_FragCoord.z;
+//gl_FragDepth = gl_FragCoord.z;
 }

@@ -32,14 +32,14 @@ public class EditorPanelBrowser : EditorPanel
 
     public DirectoryInfo CurrentDirectoryInfo;
 
-    private string CurrentDirectoryPath
+    private string CurrentDirectoryPathCached
     {
         get
         {
             string path = PersistentData.GetString("CurrentDirectoryPath", Folders.Assets);
             if (Directory.Exists(path) == false)
             {
-                CurrentDirectoryPath = Folders.Assets;
+                CurrentDirectoryPathCached = Folders.Assets;
                 return Folders.Assets;
             }
 
@@ -72,7 +72,7 @@ public class EditorPanelBrowser : EditorPanel
         _directoryIcon =
             Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/DirectoryIcon_b.png"); //, _iconTextureLoadSettings);
 
-        SetCurrentDirectory(CurrentDirectoryPath);
+        SetCurrentDirectory(CurrentDirectoryPathCached);
 
         RefreshAssets();
     }
@@ -84,7 +84,7 @@ public class EditorPanelBrowser : EditorPanel
 
     private void SetCurrentDirectory(DirectoryInfo directoryInfo)
     {
-        CurrentDirectoryPath = directoryInfo.FullName;
+        CurrentDirectoryPathCached = directoryInfo.FullName;
         CurrentDirectoryInfo = directoryInfo;
     }
 
@@ -211,8 +211,11 @@ public class EditorPanelBrowser : EditorPanel
             if (CurrentDirectoryInfo.Name.Equals("assets", StringComparison.OrdinalIgnoreCase) == false &&
                 IsPanelHovered)
             {
-                SetCurrentDirectory(CurrentDirectoryInfo.Parent);
+                // SetCurrentDirectory(CurrentDirectoryInfo.Parent);
+                CurrentDirectoryInfo = CurrentDirectoryInfo.Parent;
                 RefreshAssets();
+                CurrentDirectoryPathCached = CurrentDirectoryInfo.Parent.FullName; // in case RefreshAssets throws an exception
+
             }
         }
 

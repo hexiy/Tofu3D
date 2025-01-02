@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -18,37 +20,49 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         string objInAssetsFolderPath = importParameters.PathToSourceAsset;
 
+        // read .mtl file
+        ObjMaterialFileDefinition objMaterialFileDefinition = null;
+
         var data = File.ReadAllText(objInAssetsFolderPath).Split("\n");
 
         List<float> vertices = new();
         List<float> uvs = new();
         List<float> normals = new();
 
-        foreach (var line in data)
+        foreach (var l in data)
         {
-            var lineSplit = line.Split(' ');
+            string line = l.Trim();
+            var lineSplits = line.Split(' ').ToList();
+            lineSplits.Remove("");
+
+            if (line.Contains("mtllib"))
+            {
+                string materialPath =
+                    Path.Combine(Folders.GetParentFolder(objInAssetsFolderPath), lineSplits[1]);
+                LoadObjMaterial(materialPath, out objMaterialFileDefinition);
+            }
 
             if (line.StartsWith("v ")) // positions
             {
-                var x = float.Parse(lineSplit[1]);
-                var y = float.Parse(lineSplit[2]);
-                var z = float.Parse(lineSplit[3]);
+                var x = float.Parse(lineSplits[1]);
+                var y = float.Parse(lineSplits[2]);
+                var z = float.Parse(lineSplits[3]);
                 vertices.Add(x);
                 vertices.Add(y);
                 vertices.Add(z);
             }
             else if (line.StartsWith("vt ")) // UVs
             {
-                var x = float.Parse(lineSplit[1]);
-                var y = float.Parse(lineSplit[2]);
+                var x = float.Parse(lineSplits[1]);
+                var y = float.Parse(lineSplits[2]);
                 uvs.Add(x);
                 uvs.Add(y);
             }
             else if (line.StartsWith("vn ")) // normals
             {
-                var x = float.Parse(lineSplit[1]);
-                var y = float.Parse(lineSplit[2]);
-                var z = float.Parse(lineSplit[3]);
+                var x = float.Parse(lineSplits[1]);
+                var y = float.Parse(lineSplits[2]);
+                var z = float.Parse(lineSplits[3]);
                 normals.Add(x);
                 normals.Add(y);
                 normals.Add(z);
@@ -57,7 +71,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         Asset_Model model = new Asset_Model();
 
-        MeshFile meshFile = new MeshFile() { UsesIndices = RenderingSettings.USE_INDICES };
+        MeshFile meshFile = null; //= new MeshFile() { UsesIndices = RenderingSettings.USE_INDICES};
         int lineStartIndex = 0;
         while (lineStartIndex != -1)
         {
@@ -66,7 +80,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             // save meshes too
             meshFile = CreateMeshFileFromData(data: data, vertices: vertices, uvs: uvs, normals: normals,
                 lineStartIndex: ref lineStartIndex, singleMesh: importParameters.ImportAsSingleMesh,
-                smoothNormals: importParameters.SmoothNormals);
+                smoothNormals: importParameters.SmoothNormals, objMaterialFileDefinition);
             int meshIndex = model.PathsToMeshAssets.Count;
 
             string meshPath = objInAssetsFolderPath.ModelToMeshFileName(meshIndex)
@@ -93,26 +107,83 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         return model;
     }
 
+    private void LoadObjMaterial(string objMaterialPath, out ObjMaterialFileDefinition objMaterialFileDefinition)
+    {
+        if (File.Exists(objMaterialPath) == false)
+        {
+            objMaterialFileDefinition = null;
+            return;
+        }
+        objMaterialFileDefinition = new ObjMaterialFileDefinition();
+        string objMaterialDirectory = Folders.GetParentFolder(objMaterialPath);
+
+        string materialFileText = File.ReadAllText(objMaterialPath);
+        materialFileText =
+            materialFileText.Replace('\\', Path.DirectorySeparatorChar); // change \ to directory separator(/ or \)
+        string[] materialFileLines = materialFileText.Split("\n");
+        ObjMaterialDefinition? currentObjMaterialDefinition = null;
+
+        foreach (string l in materialFileLines)
+        {
+            string line = l.Trim();
+            var lineSplits = line.Split(' ').ToList();
+
+
+            // at the beginning of new material definition
+            if (line.Contains("newmtl"))
+            {
+                if (currentObjMaterialDefinition != null)
+                {
+                    objMaterialFileDefinition.Materials.Add(currentObjMaterialDefinition);
+                }
+
+                currentObjMaterialDefinition = new ObjMaterialDefinition();
+                currentObjMaterialDefinition.MaterialName = lineSplits[1];
+            }
+
+            if (lineSplits[0].Equals("Kd", StringComparison.OrdinalIgnoreCase)) // diffuse/albedo color
+            {
+                float r = float.Parse(lineSplits[1]);
+                float g = float.Parse(lineSplits[2]);
+                float b = float.Parse(lineSplits[3]);
+                Color albedoColor = new Color(r, g, b, 1);
+                currentObjMaterialDefinition.AlbedoTint = albedoColor;
+            }
+
+            if (lineSplits[0].Equals("map_Kd", StringComparison.OrdinalIgnoreCase)) // diffuse/albedo texture
+            {
+                string albedoTextureName = Path.Combine(objMaterialDirectory, lineSplits[1]);
+                currentObjMaterialDefinition.AlbedoTexturePath = albedoTextureName;
+                Tofu.AssetImportManager.ImportAsset(albedoTextureName);
+            }
+        }
+    }
+
 
     private MeshFile CreateMeshFileFromData(string[] data, List<float> vertices, List<float> uvs, List<float> normals,
-        ref int lineStartIndex, bool singleMesh = false, bool smoothNormals = true)
+        ref int lineStartIndex, bool singleMesh = false, bool smoothNormals = true,
+        ObjMaterialFileDefinition objMaterialFileDefinition = null)
     {
         List<uint> indices = new();
-
+        ObjMaterialDefinition objMaterialDefinition = null;
         Dictionary<Vector3, uint> uniqueVertices = new Dictionary<Vector3, uint>();
         uint currentUniqueVertexIndex = 0;
         List<float> everything = new();
         var numberOfIndicesPerLine = 0;
         var totalVerticesCount = 0;
 
+        int lineIndexRelativeForThisMesh = -1;
         for (int lineIndex = lineStartIndex; lineIndex < data.Length; lineIndex++)
         {
-            var line = data[lineIndex];
-            var lineSplit = line.Split(' ');
+            lineIndexRelativeForThisMesh++;
 
+            var line = data[lineIndex].Trim();
+            line = line.Replace("\r","");
+
+            var lineSplits = line.Split(' ').ToList();
             if (line.StartsWith("f ")) // indices
             {
-                numberOfIndicesPerLine = lineSplit.Length - 1;
+                numberOfIndicesPerLine = lineSplits.Count - 1;
                 bool isQuad = numberOfIndicesPerLine == 4;
                 int[] indicesSequenceForFirstTriangle = new int[] { 0, 1, 2 };
                 int[] indicesSequenceForSecondTriangle = new int[] { 0, 2, 3 };
@@ -122,7 +193,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                     int indiceIndex = indicesSequenceForFirstTriangle[k];
                     totalVerticesCount++;
 
-                    var group = lineSplit[indiceIndex + 1].Split('/');
+                    var group = lineSplits[indiceIndex + 1].Split('/');
                     for (var i = 0; i < group.Length; i++)
                     {
                         if (group[i].Length == 0)
@@ -162,7 +233,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                         int indiceIndex = indicesSequenceForSecondTriangle[k];
                         totalVerticesCount++;
 
-                        var group = lineSplit[indiceIndex + 1].Split('/');
+                        var group = lineSplits[indiceIndex + 1].Split('/');
                         for (var i = 0; i < group.Length; i++)
                         {
                             if (group[i].Length == 0)
@@ -197,11 +268,19 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                     }
                 }
             }
-            else if ((line.StartsWith("g") || line.StartsWith("usemtl")) && singleMesh == false)
+            // else if ((line.StartsWith("g") || line.StartsWith("usemtl")) && singleMesh == false ||
+            else if ((line.StartsWith("g")) && singleMesh == false ||
+                     (line.StartsWith("# object") && lineStartIndex != 0))
             {
                 // new mesh
-                lineStartIndex = lineIndex + 1;
+                lineStartIndex = lineIndex+1;
                 break;
+            }
+
+            if (line.StartsWith("usemtl") && objMaterialFileDefinition != null)
+            {
+                objMaterialDefinition =
+                    objMaterialFileDefinition.Materials.FirstOrDefault(d => d.MaterialName == lineSplits[1]) ?? null;
             }
         }
 
@@ -400,11 +479,15 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         mesh.VertexBufferData = vertexBufferData.ToArray();
         mesh.VerticesCount = (int)(vertexBufferData.Count / 14);
         mesh.Indices = indices.ToArray();
+        mesh.ObjMaterialDefinition = objMaterialDefinition;
+
+        // mesh.paths are set in ImportAsset
+
 
         MeshFile meshFile = new MeshFile()
         {
             Mesh = mesh,
-            UsesIndices = RenderingSettings.USE_INDICES
+            UsesIndices = RenderingSettings.USE_INDICES,
         };
         return meshFile;
     }
