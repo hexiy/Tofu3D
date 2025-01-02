@@ -16,9 +16,9 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
     {
         AssetImportParameters_Model importParameters = assetImportParameters as AssetImportParameters_Model;
 
-        string objPath = importParameters.PathToSourceAsset;
+        string objInAssetsFolderPath = importParameters.PathToSourceAsset;
 
-        var data = File.ReadAllText(objPath).Split("\n");
+        var data = File.ReadAllText(objInAssetsFolderPath).Split("\n");
 
         List<float> vertices = new();
         List<float> uvs = new();
@@ -57,7 +57,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         Asset_Model model = new Asset_Model();
 
-        MeshFile meshFile = new MeshFile();
+        MeshFile meshFile = new MeshFile() { UsesIndices = RenderingSettings.USE_INDICES };
         int lineStartIndex = 0;
         while (lineStartIndex != -1)
         {
@@ -69,10 +69,11 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 smoothNormals: importParameters.SmoothNormals);
             int meshIndex = model.PathsToMeshAssets.Count;
 
-            string meshPath = objPath.ToMeshAssetFileName(meshIndex).GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+            string meshPath = objInAssetsFolderPath.ModelToMeshFileName(meshIndex)
+                .GetPathOfAssetInLibrayFromSourceAssetPathOrName();
 
             meshFile.Mesh.Name = Path.GetFileNameWithoutExtension(meshPath);
-            meshFile.Mesh.Path = meshPath;
+            meshFile.Mesh.PathInLibraryFolder = meshPath;
 
             Serializer.SaveAssetJSON<MeshFile>(meshPath, meshFile);
 
@@ -83,8 +84,9 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             }
         }
 
-        model.Path = objPath;
-        string modelPath = objPath.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+        model.PathInAssetsFolder = objInAssetsFolderPath;
+        string modelPath = objInAssetsFolderPath.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+        model.PathInLibraryFolder = objInAssetsFolderPath;
 
         Serializer.SaveAssetJSON<Asset_Model>(modelPath, model);
 
@@ -399,8 +401,11 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         mesh.VerticesCount = (int)(vertexBufferData.Count / 14);
         mesh.Indices = indices.ToArray();
 
-        MeshFile meshFile = new MeshFile() { Mesh = mesh };
-
+        MeshFile meshFile = new MeshFile()
+        {
+            Mesh = mesh,
+            UsesIndices = RenderingSettings.USE_INDICES
+        };
         return meshFile;
     }
 

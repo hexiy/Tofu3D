@@ -1,4 +1,5 @@
 public interface IHasPath
 {
-    public string? Path { get; set; }
+    public string? PathInAssetsFolder { get; set; }
+    public string? PathInLibraryFolder { get; set; }
 }

@@ -1,4 +1,4 @@
-‚{"ImportAsSingleMesh":true,"SmoothNormals":false,"PathToSourceAsset":"Assets/3D/grass block/Grass_Block.obj","AssetID":-670932616}"http://www.w3.org/2001/XMLSchema">
+{"ImportAsSingleMesh":true,"SmoothNormals":true,"PathToSourceAsset":"Assets/3D/grass block/Grass_Block.obj","AssetID":1446999456}}"http://www.w3.org/2001/XMLSchema">
   <PathToSourceAsset>Assets/3D/grass block/Grass_Block.obj</PathToSourceAsset>
   <ImportAsSingleMesh>true</ImportAsSingleMesh>
   <SmoothNormals>true</SmoothNormals>

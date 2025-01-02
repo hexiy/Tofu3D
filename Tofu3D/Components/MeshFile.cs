@@ -5,6 +5,7 @@ public class MeshFile : Asset<MeshFile>
     public Mesh Mesh;
     public byte[] ByteIndices; // serialize
     public byte[] ByteVertexBufferData; // serialize
+    public bool UsesIndices;
 
     public override void BeforeSerialized()
     {
@@ -16,6 +17,13 @@ public class MeshFile : Asset<MeshFile>
     {
         DecompressData();
         base.OnDeserialized();
+        
+        if (UsesIndices != RenderingSettings.USE_INDICES)
+        {
+            Tofu.AssetImportManager.ImportAsset(PathInAssetsFolder, reimportIfExists: true);
+            Debug.Log("Reimporting mesh file since it was serialized with different USE_INDICES state");
+            // return;
+        }
     }
 
 

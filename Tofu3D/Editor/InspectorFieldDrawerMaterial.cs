@@ -8,24 +8,24 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        var materialPath = "";
+        var materialName = "";
         Asset_Material material=null;
         if (componentInspectorData.Inspectable is Renderer)
         {
-            materialPath =
-                Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material?.Path) ??
-                materialPath;
+            materialName =
+                Path.GetFileName((componentInspectorData.Inspectable as Renderer).Material?.AnyPath) ??
+                materialName;
 
             material = (componentInspectorData.Inspectable as Renderer).Material;
         }
         else if (componentInspectorData.Inspectable is Asset_Material)
         {
-            materialPath = Path.GetFileName((componentInspectorData.Inspectable as Asset_Material).Path);
+            materialName = Path.GetFileName((componentInspectorData.Inspectable as Asset_Material).AnyPath);
             material = (componentInspectorData.Inspectable as Asset_Material);
 
         }
 
-        materialPath = materialPath ?? "";
+        materialName = materialName ?? "";
 
         if (material?.IsRuntimeCopy == true)
         {
@@ -34,7 +34,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
         }
 
 
-        var clicked = ImGui.Button(materialPath,
+        var clicked = ImGui.Button(materialName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
         if (clicked)
         {
@@ -45,8 +45,8 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
                         Asset_Material assetMaterial = (componentInspectorData.Inspectable as Asset_Material);
 
                         // save materials in both Library/ and Assets/ 
-                        Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.Path.GetPathOfAssetInLibrayFromSourceAssetPathOrName(), assetMaterial);
-                        Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.Path, assetMaterial);
+                        Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.PathInAssetsFolder, assetMaterial);
+                        Tofu.AssetLoadManager.Save<Asset_Material>(assetMaterial.PathInLibraryFolder, assetMaterial);
                     })
             );
         }
@@ -59,7 +59,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
             if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
             {
                 payload = payload;
-                var materialName = Path.GetFileName(payload);
+                // var materialName = Path.GetFileName(payload);
 
                 var draggedMaterial = Tofu.AssetLoadManager.Load<Asset_Material>(payload);
                 if (draggedMaterial.Shader == null)

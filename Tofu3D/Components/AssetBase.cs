@@ -2,7 +2,17 @@
 public abstract class AssetBase : IHasPath
 {
     [Hide]
-    public string? Path { get; set; } = "";
+    public string? PathInAssetsFolder { get; set; } = null;
+    [Hide]
+    public string? PathInLibraryFolder { get; set; } = null;
+
+    public string? AnyPath
+    {
+        get
+        {
+            return PathInAssetsFolder ?? PathInLibraryFolder;
+        }
+    }
 
     [Hide]
     public bool IsRuntimeCopy = false;
@@ -31,5 +41,4 @@ public abstract class AssetBase : IHasPath
     public virtual void BeforeSerialized()
     {
     }
-
 }

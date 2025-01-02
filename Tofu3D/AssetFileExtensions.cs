@@ -3,11 +3,11 @@ using System.Text;
 
 public static class AssetFileExtensions
 {
-    
     public static string GetFileNameFromPathWithoutExtensions(string str)
     {
         return Path.GetFileNameWithoutExtension(str).TrimAfter('.');
     }
+
     public static string TrimAfter(this string str, char character)
     {
         if (str.Contains(character) == false)
@@ -42,9 +42,31 @@ public static class AssetFileExtensions
     }
 
 
-    public static string ToMeshAssetFileName(this string fileName, int meshIndex)
+    public static string ModelToMeshFileName(this string fileName, int meshIndex)
     {
         return fileName + "_" + meshIndex + ".tofumesh";
+    }
+
+    private static readonly string LibraryString1 = Path.DirectorySeparatorChar + "Library";
+    private static readonly string LibraryString2 = "Library" + Path.DirectorySeparatorChar;
+
+    public static bool IsLibraryPath(string path)
+    {
+        if (path.Contains(LibraryString1, StringComparison.OrdinalIgnoreCase) ||
+            path.Contains(LibraryString2, StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static bool IsAssetsPath(string path) => IsLibraryPath(path) == false;
+
+    public static string MeshToModelFileName(this string fileName)
+    {
+        string name = fileName.Remove(fileName.LastIndexOf("_")); // removes _0.tofumesh
+        return name;
     }
 
     private static string GetCorrectLibrarySubfolderPathForAssetType(this string fileName)
@@ -121,12 +143,15 @@ public static class AssetFileExtensions
                (fileName.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
                 fileName.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
                 fileName.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+                fileName.EndsWith(".tga", StringComparison.OrdinalIgnoreCase) ||
                 fileName.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase));
     }
+
     public static bool IsFileScene(string fileName)
     {
         return fileName.EndsWith(".scene", StringComparison.OrdinalIgnoreCase);
     }
+
     public static bool IsFileTemporaryMisc(string fileName)
     {
         return fileName.EndsWith(".temp", StringComparison.OrdinalIgnoreCase);
@@ -142,6 +167,7 @@ public static class AssetFileExtensions
     {
         return fileName.EndsWith(".glsl", StringComparison.OrdinalIgnoreCase);
     }
+
     public static bool IsFileScript(string fileName)
     {
         return fileName.EndsWith(".cs", StringComparison.OrdinalIgnoreCase);

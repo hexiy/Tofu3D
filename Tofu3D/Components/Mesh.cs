@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-public class Mesh:IHasPath
+public class Mesh : IHasPath
 {
     [XmlIgnore] // for scene
     [JsonIgnore]
@@ -14,6 +14,8 @@ public class Mesh:IHasPath
     public uint[] Indices; // dont serialize
 
     public string Name;
+
 //  PathToMeshFileInLibrary
-    public string? Path { get; set; }
+    public string? PathInAssetsFolder { get; set; }
+    public string? PathInLibraryFolder { get; set; }
 }

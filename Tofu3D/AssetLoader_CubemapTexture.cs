@@ -30,14 +30,14 @@ public class AssetLoader_CubemapTexture : AssetLoader<RuntimeCubemapTexture>
             // Asset_Texture assetTexture = Tofu.AssetLoadManager.Load<Asset_Texture>(path);
             Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(path);
 
-            
+
             // path = loadSettings.Paths[textureIndex];
             // var image = Image.Load<Rgba32>(assetTexture.PathToRawAsset);
             //
             // var pixels = new byte[4 * image.Width * image.Height];
             // image.Frames[0].CopyPixelDataTo(pixels);
             // image.Dispose();
-            
+
             imageSize = new Vector2(assetTexture.TextureSize.X, assetTexture.TextureSize.Y);
 
 
@@ -51,31 +51,23 @@ public class AssetLoader_CubemapTexture : AssetLoader<RuntimeCubemapTexture>
             GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)loadParameters.WrapMode);
             // GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode);
             GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)loadParameters.FilterMode);
-            
-            GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.LinearMipmapLinear);
-
-            
-            int maxMipLevels = (int)Math.Floor(Math.Log2(imageSize.X));
-            GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMaxLevel, maxMipLevels);// Generate mipmaps for the cubemap texture
-GL.GenerateMipmap(GenerateMipmapTarget.TextureCubeMap);
+            GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter,
+                (int)TextureMinFilter.LinearMipmapLinear);
+            // GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
         }
 
-        // crashes the engine on macos
-        if (OperatingSystem.IsWindows)
-        {
-            // on windows this causes black texture idk why i put this here in first place...
-            //GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode + 257);
-            //GL.TextureParameter(textureId, TextureParameterName.TextureLodBias, -0.4f);
-        }
+        GL.GenerateMipmap(GenerateMipmapTarget.TextureCubeMap);
+        int maxMipLevels = (int)Math.Floor(Math.Log2(imageSize.X));
+        GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMaxLevel,
+            maxMipLevels); // Generate mipmaps for the cubemap texture
 
-        ImGuiController.CheckGlError("texture load");
+
+        ImGuiController.CheckGlError("cubemap texture load");
 
         RuntimeCubemapTexture runtimeCubemapTexture = new()
         {
             Size = imageSize,
-            //     Size = imageSize,
             Loaded = true,
-            //     PathToRawAsset = path.FromRawAssetFileNameToPathOfAssetInLibrary(),
         };
         runtimeCubemapTexture.TextureId = textureId;
 

@@ -100,7 +100,7 @@ public class EditorPanelBrowser : EditorPanel
             filePath =>
             {
                 Asset_Material createdMaterial = new();
-                createdMaterial.Path = filePath;
+                createdMaterial.PathInAssetsFolder = filePath;
                 Tofu.AssetLoadManager.Save<Asset_Material>(filePath, createdMaterial);
                 RefreshAssets();
             });

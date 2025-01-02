@@ -191,7 +191,7 @@ public class AssetLoadManager
         var mat = new Asset_Material()
             { Shader = new Shader("Assets/Shaders/ModelRendererInstanced.glsl") }; // default shader for now
         mat.LoadShader();
-        mat.Path = sourcePath;
+        mat.PathInAssetsFolder = sourcePath;
         mat.LoadTextures();
         Serializer.SaveAssetJSON<Asset_Material>(path: sourcePath,
             mat); // this needs to be here, otherwise there will be no .tofumaterial file in library if we're creating material ono the fly

@@ -359,7 +359,7 @@ public class EditorPanelSceneView : EditorPanel
 
     private GameObject SpawnModelIntoScene(Asset_Model model)
     {
-        string importParametersPath = model.Path.GetPathOfImportParametersOfSourceAssetFile();
+        string importParametersPath = model.PathInAssetsFolder.GetPathOfImportParametersOfSourceAssetFile();
 
         AssetImportParameters_Model importParameters =
             Serializer.ReadFileJSON<AssetImportParameters_Model>(importParametersPath);
@@ -389,7 +389,7 @@ public class EditorPanelSceneView : EditorPanel
                         Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
 
                     string modelName =
-                        AssetFileExtensions.GetFileNameFromPathWithoutExtensions(model.Path.GetPathOfAssetInLibrayFromSourceAssetPathOrName());
+                        AssetFileExtensions.GetFileNameFromPathWithoutExtensions(model.PathInAssetsFolder);
 
                     parent = GameObject.Create(position: worldPosition, name: modelName);
                 }

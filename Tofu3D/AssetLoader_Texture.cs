@@ -24,7 +24,7 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
         Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(path);
 
         var pathOfImportParametersOfSourceAssetFile =
-            assetTexture.Path.GetPathOfImportParametersOfSourceAssetFile();
+            assetTexture.PathInAssetsFolder.GetPathOfImportParametersOfSourceAssetFile();
         AssetImportParameters_Texture importParameters;
 
         if (File.Exists(pathOfImportParametersOfSourceAssetFile))
@@ -70,7 +70,8 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
         RuntimeTexture runtimeTexture = new()
         {
             Size = assetTexture.TextureSize,
-            Path = assetTexture.Path
+            PathInLibraryFolder = assetTexture.PathInLibraryFolder,
+            PathInAssetsFolder = assetTexture.PathInAssetsFolder,
         };
         runtimeTexture.TextureId = textureId;
 

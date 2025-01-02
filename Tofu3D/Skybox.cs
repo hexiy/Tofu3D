@@ -3,13 +3,16 @@
 namespace Tofu3D;
 
 [ExecuteInEditMode]
-public class Skybox : Component, IComponentUpdateable
+public class Skybox : Component, IComponentUpdateable, IHasMaterial
 {
     private Asset_Material _material;
+    public Asset_Material GetMaterial => _material;
+
     private RuntimeCubemapTexture _texture;
     public float Fov = 60;
 
     public RuntimeCubemapTexture GetCubemapTexture() => _texture;
+
     public void Update()
     {
         // Debug.StatSetValue("SkyboxList Textures", $"{Textures.Count}");
@@ -20,7 +23,7 @@ public class Skybox : Component, IComponentUpdateable
     public override void Awake()
     {
         // _material = Tofu.AssetLoadManager.Load<Asset_Material>("/Assets/Materials/Skybox.mat");
-        _material = new Asset_Material() { Shader = new Shader(Path.Combine(Folders.ShadersInAssets,"Skybox.glsl")) };
+        _material = new Asset_Material() { Shader = new Shader(Path.Combine(Folders.ShadersInAssets, "Skybox.glsl")) };
         _material.LoadShader();
         _texture = new RuntimeCubemapTexture();
         string[] texturePaths =
@@ -32,7 +35,7 @@ public class Skybox : Component, IComponentUpdateable
             Path.Combine(Folders.TexturesInAssets, "skybox2", "Daylight Box_Front.bmp"),
             Path.Combine(Folders.TexturesInAssets, "skybox2", "Daylight Box_Back.bmp")
         };
-    
+
         AssetLoadParameters_CubemapTexture loadParameters = new() { PathsToSourceTextures = texturePaths };
         _texture = Tofu.AssetLoadManager.Load<RuntimeCubemapTexture>(texturePaths[0],
             loadParameters); // texturePaths[0] because for now every Load call will have path

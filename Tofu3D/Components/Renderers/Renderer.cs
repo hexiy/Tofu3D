@@ -1,7 +1,7 @@
 ﻿namespace Scripts;
 
 [ExecuteInEditMode]
-public abstract class Renderer : Component, IComparable<Renderer>, IComponentRenderable, IComponentUpdateable
+public abstract class Renderer : Component, IComparable<Renderer>, IComponentRenderable, IComponentUpdateable, IHasMaterial
 {
     public uint MousePickingId; // => (uint)this.GameObjectId;
 
@@ -20,6 +20,9 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
 
     [Show]
     public Asset_Material Material;
+
+    public Asset_Material GetMaterial => Material;
+
 
     [Show]
     public RuntimeMesh RuntimeMesh;
@@ -332,4 +335,5 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
             InstancingData.MatrixDirty = false;
         }
     }
+
 }

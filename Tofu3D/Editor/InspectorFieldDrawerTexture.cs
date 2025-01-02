@@ -9,7 +9,7 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
         var texture = GetValue(info, componentInspectorData);
-        var textureName = texture == null ? "" : Path.GetFileName(texture.Path);
+        var textureName = texture == null ? "" : Path.GetFileName(texture.AnyPath);
 
         var posX = (int)ImGui.GetCursorPosX();
 
@@ -45,7 +45,7 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
         {
             EditorPanelInspector.I.AddActionToActionQueue(() =>
             {
-                EditorPanelBrowser.I.GoToFile(texture.Path);
+                EditorPanelBrowser.I.GoToFile(texture.PathInAssetsFolder);
             });
         }
 

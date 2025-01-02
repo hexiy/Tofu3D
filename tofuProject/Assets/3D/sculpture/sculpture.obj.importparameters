@@ -1,4 +1,4 @@
-~{"ImportAsSingleMesh":true,"SmoothNormals":false,"PathToSourceAsset":"Assets/3D/sculpture/sculpture.obj","AssetID":-847585865}:xsd="http://www.w3.org/2001/XMLSchema">
+~{"ImportAsSingleMesh":true,"SmoothNormals":true,"PathToSourceAsset":"Assets/3D/sculpture/sculpture.obj","AssetID":-1996412991}:xsd="http://www.w3.org/2001/XMLSchema">
   <PathToSourceAsset>Assets/3D/sculpture/sculpture.obj</PathToSourceAsset>
   <ImportAsSingleMesh>false</ImportAsSingleMesh>
   <SmoothNormals>true</SmoothNormals>

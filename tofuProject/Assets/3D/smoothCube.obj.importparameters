@@ -1,4 +1,4 @@
-t{"ImportAsSingleMesh":true,"SmoothNormals":false,"PathToSourceAsset":"Assets/3D/smoothCube.obj","AssetID":778730625}}ce" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+t{"ImportAsSingleMesh":true,"SmoothNormals":true,"PathToSourceAsset":"Assets/3D/smoothCube.obj","AssetID":2117515082}}ce" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <PathToSourceAsset>Assets/3D/smoothCube.obj</PathToSourceAsset>
   <ImportAsSingleMesh>true</ImportAsSingleMesh>
   <SmoothNormals>true</SmoothNormals>

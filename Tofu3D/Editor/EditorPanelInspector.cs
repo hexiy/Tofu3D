@@ -414,9 +414,9 @@ public class EditorPanelInspector : EditorPanel
                     };*/
             }
 
-            if (componentInspectorData.InspectableType.IsSubclassOf(typeof(Renderer)))
+            if (componentInspectorData.Inspectable is IHasMaterial hasMaterial)
             {
-                Asset_Material material = (componentInspectorData.Inspectable as Renderer).Material;
+                Asset_Material material = hasMaterial.GetMaterial;
                 if (material != null)
                 {
                     _materialToShowAtTheBottom = new InspectableData(material);
@@ -642,13 +642,13 @@ public class EditorPanelInspector : EditorPanel
         {
             // crashed when dragged mesh
             Asset_Material material = (_materialToShowAtTheBottom.Inspectable as Asset_Material);
-            if (material.IsRuntimeCopy)
+            if (material == null || material?.IsRuntimeCopy == true || material?.AnyPath == null)
             {
                 return;
             }
 
-            Serializer.SaveFileJSON<Asset_Material>(material.Path, material);
-            Tofu.AssetImportManager.ImportAsset(material.Path, reimportIfExists: true);
+            Serializer.SaveFileJSON<Asset_Material>(material.PathInAssetsFolder, material);
+            Tofu.AssetImportManager.ImportAsset(material.PathInAssetsFolder, reimportIfExists: true);
         }
     }
 }
