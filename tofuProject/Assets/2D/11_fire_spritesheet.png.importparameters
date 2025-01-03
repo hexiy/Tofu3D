@@ -1,5 +1,11 @@
-œ{"PathToSourceAsset":"Assets/2D/11_fire_spritesheet.png","FilterMode":9729,"WrapMode":10497,"IsSrgb":false,"BlackIsTransparency":false,"AssetID":1323980792}XMLSchema">
-  <PathToSourceAsset>Assets/2D/11_fire_spritesheet.png</PathToSourceAsset>
+µ{
+  "PathToSourceAsset": "Assets/2D/11_fire_spritesheet.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": -678472332
+}}eAsset>Assets/2D/11_fire_spritesheet.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>
   <IsSrgb>false</IsSrgb>

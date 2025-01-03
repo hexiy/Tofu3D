@@ -1,4 +1,12 @@
-Œ{"PathToSourceAsset":"Resources/dot.png","FilterMode":9729,"WrapMode":10497,"IsSrgb":false,"BlackIsTransparency":false,"AssetID":-547308601}www.w3.org/2001/XMLSchema">
+¤{
+  "PathToSourceAsset": "Resources/dot.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": 189144284
+}
+}>
   <PathToSourceAsset>Resources/dot.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>

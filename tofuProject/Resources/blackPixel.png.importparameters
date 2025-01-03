@@ -1,5 +1,11 @@
-“{"PathToSourceAsset":"Resources/blackPixel.png","FilterMode":9729,"WrapMode":10497,"IsSrgb":false,"BlackIsTransparency":false,"AssetID":1883863528}}rg/2001/XMLSchema">
-  <PathToSourceAsset>Resources/blackPixel.png</PathToSourceAsset>
+­{
+  "PathToSourceAsset": "Resources/blackPixel.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": -1950656898
+}thToSourceAsset>Resources/blackPixel.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>
   <IsSrgb>false</IsSrgb>

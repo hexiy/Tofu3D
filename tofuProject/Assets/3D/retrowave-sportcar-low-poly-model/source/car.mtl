@@ -1,0 +1,110 @@
+# Blender 4.1.0 MTL File: 'None'
+# www.blender.org
+
+newmtl body_colour
+Ns 113.137077
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd dmc12_body_dff.png
+map_Bump -bm 0.600000 dmc12_body_nrm.png
+
+newmtl body_colour_chrome
+Ns 85.741859
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd dmc12_body_dff.png
+map_Bump -bm 0.600000 dmc12_body_nrm.png
+
+newmtl body_colour_secondary
+Ns 85.741859
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd dmc12_body_dff.png
+map_Bump -bm 0.600000 dmc12_body_nrm.png
+
+newmtl body_plastic
+Ns 485.029297
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd dmc12_plastic_dff.png
+map_Bump -bm 0.600000 dmc12_plastic_nrm.png
+
+newmtl glass
+Ns 970.058228
+Ka 1.000000 1.000000 1.000000
+Kd 0.023529 0.058824 0.050980
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 0.420000
+illum 6
+
+newmtl lights
+Ns 85.741859
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd dmc12_body_dff.png
+map_Bump -bm 0.600000 dmc12_body_nrm.png
+
+newmtl rim
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd wheel_dmc12_dif.png
+map_Bump -bm 1.000000 wheel_dmc12_nrm.png
+
+newmtl tire
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd wp_tire_01_diff.png
+map_Ks wp_tire_01_spec.png
+map_Bump -bm 1.000000 wp_tire_01_nrm.png
+
+newmtl ucb_bottom
+Ns 37.321308
+Ka 1.000000 1.000000 1.000000
+Ks 0.200000 0.200000 0.200000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd ucb_bottom3_bump.png
+map_Bump -bm 0.600000 ucb_bottom3_bump_NRM.png
+
+newmtl void
+Ns 20.000006
+Ka 1.000000 1.000000 1.000000
+Kd 0.007843 0.007843 0.015686
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1

@@ -1,5 +1,11 @@
-”{"PathToSourceAsset":"Assets/2D/adventurer.png","FilterMode":9729,"WrapMode":10497,"IsSrgb":false,"BlackIsTransparency":false,"AssetID":-1892892611}rg/2001/XMLSchema">
-  <PathToSourceAsset>Assets/2D/adventurer.png</PathToSourceAsset>
+¬{
+  "PathToSourceAsset": "Assets/2D/adventurer.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": -794625974
+}}thToSourceAsset>Assets/2D/adventurer.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>
   <IsSrgb>false</IsSrgb>

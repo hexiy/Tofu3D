@@ -23,6 +23,11 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         // read .mtl file
         ObjMaterialFileDefinition objMaterialFileDefinition = null;
 
+        if (File.Exists(objInAssetsFolderPath) == false)
+        {
+            Debug.LogError($"importing obj failed, file doesnt exist:{objInAssetsFolderPath}");
+        }
+
         var data = File.ReadAllText(objInAssetsFolderPath).Split("\n");
 
         List<float> vertices = new();
@@ -155,7 +160,19 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             {
                 string albedoTextureName = TofuPath.Combine(objMaterialDirectory, lineSplits[1]);
                 currentObjMaterialDefinition.AlbedoTexturePath = albedoTextureName;
-                Tofu.AssetImportManager.ImportAsset(albedoTextureName);
+                Tofu.AssetImportManager
+                    .ImportAsset(
+                        albedoTextureName); // we need to import it because this is called on model import, so textures are not guaranteed to be imported yet
+            }
+
+            if (lineSplits[0].Equals("map_bump", StringComparison.OrdinalIgnoreCase) ||
+                lineSplits[0].Equals("bump", StringComparison.OrdinalIgnoreCase)) // diffuse/albedo texture
+            {
+                string normalTextureName = TofuPath.Combine(objMaterialDirectory, lineSplits[1]);
+                currentObjMaterialDefinition.PathInAssetsFolder = normalTextureName;
+                Tofu.AssetImportManager
+                    .ImportAsset(
+                        normalTextureName); // we need to import it because this is called on model import, so textures are not guaranteed to be imported yet
             }
         }
     }
@@ -270,7 +287,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 }
             }
             // else if ((line.StartsWith("g") || line.StartsWith("usemtl")) && singleMesh == false ||
-            else if ((line.StartsWith("g")) && singleMesh == false ||
+            else if (((line.StartsWith("g") || line.StartsWith("o ")) && singleMesh == false) ||
                      (line.StartsWith("# object") && lineStartIndex != 0))
             {
                 // new mesh
@@ -519,9 +536,22 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         if (materialDefinition.AlbedoTexturePath != null)
         {
+            string pathOfAlbedoTexture =
+                AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(materialDefinition
+                    .AlbedoTexturePath);
             RuntimeTexture texture =
-                Tofu.AssetLoadManager.Load<RuntimeTexture>(materialDefinition.AlbedoTexturePath);
+                Tofu.AssetLoadManager.Load<RuntimeTexture>(pathOfAlbedoTexture);
             material.AlbedoTexture = texture;
+        }
+
+        if (materialDefinition.PathInAssetsFolder != null)
+        {
+            string pathOfNormalTexture =
+                AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(materialDefinition
+                    .PathInAssetsFolder);
+            RuntimeTexture texture =
+                Tofu.AssetLoadManager.Load<RuntimeTexture>(pathOfNormalTexture);
+            material.NormalTexture = texture;
         }
 
         string materialPath =

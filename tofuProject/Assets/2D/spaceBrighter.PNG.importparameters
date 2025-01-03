@@ -1,5 +1,12 @@
-—{"PathToSourceAsset":"Assets/2D/spaceBrighter.PNG","FilterMode":9729,"WrapMode":10497,"IsSrgb":false,"BlackIsTransparency":false,"AssetID":-1656342150}2001/XMLSchema">
-  <PathToSourceAsset>Assets/2D/spaceBrighter.PNG</PathToSourceAsset>
+­{
+  "PathToSourceAsset": "Assets/2D/spaceBrighter.PNG",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": 15537195
+}
+}}oSourceAsset>Assets/2D/spaceBrighter.PNG</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>
   <IsSrgb>false</IsSrgb>

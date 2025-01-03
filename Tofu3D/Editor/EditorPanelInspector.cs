@@ -255,7 +255,7 @@ public class EditorPanelInspector : EditorPanel
             }
 
             // properties with ShowIf and ShowIfNot attributes need to be reevaluated to show or not
-            // if (ImGui.IsMouseReleased(ImGuiMouseButton.Left))
+            // if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left))
             // {
             // 	UpdateCurrentComponentsCache();
             // }
@@ -402,7 +402,7 @@ public class EditorPanelInspector : EditorPanel
                 }
 
                 /*if (componentInspectorData.InspectableType == typeof(Asset_Material) && (_editing ||
-                        ImGui.IsMouseReleased(ImGuiMouseButton.Left) || ImGui.IsMouseReleased(ImGuiMouseButton.Right)))
+                        Tofu.MouseInput.ButtonReleased(MouseButtons.Left) || ImGui.IsMouseReleased(ImGuiMouseButton.Right)))
                     // detect drag and drop texture too....
                     _actionQueue += () =>
                     {
@@ -591,7 +591,7 @@ public class EditorPanelInspector : EditorPanel
 
                         string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                         ImGuiPayloadPtr x = ImGui.GetDragDropPayload();
-                        if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+                        if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && payload.Length > 0)
                         {
                             GameObject foundGo = Tofu.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
                             list[j] = foundGo;
@@ -642,13 +642,21 @@ public class EditorPanelInspector : EditorPanel
         {
             // crashed when dragged mesh
             Asset_Material material = (_materialToShowAtTheBottom.Inspectable as Asset_Material);
-            if (material == null || material?.IsRuntimeCopy == true || material?.AnyPath == null)
+            if (material == null || /*material?.IsRuntimeCopy == true || */material?.AnyPath == null)
             {
                 return;
             }
 
-            Serializer.SaveFileJSON<Asset_Material>(material.PathInAssetsFolder, material);
-            Tofu.AssetImportManager.ImportAsset(material.PathInAssetsFolder, reimportIfExists: true);
+            if (material.PathInAssetsFolder != null)
+            {
+                Serializer.SaveFileJSON<Asset_Material>(material.PathInAssetsFolder, material);
+                Tofu.AssetImportManager.ImportAsset(material.PathInAssetsFolder, reimportIfExists: true);
+            }
+            else
+            {
+                Serializer.SaveFileJSON<Asset_Material>(material.PathInLibraryFolder, material);
+                Tofu.AssetImportManager.ImportAsset(material.PathInLibraryFolder, reimportIfExists: true);  
+            }
         }
     }
 }

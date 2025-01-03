@@ -541,7 +541,7 @@ public class EditorPanelBrowser : EditorPanel
         }
 
         if (ImGui.IsItemHovered() &&
-            ImGui.IsMouseReleased(ImGuiMouseButton.Left)) // released in case we want to drag and drop somemthing
+            Tofu.MouseInput.ButtonReleased(MouseButtons.Left)) // released in case we want to drag and drop somemthing
         {
             if (isMaterial)
             {

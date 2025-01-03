@@ -56,7 +56,8 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
         {
             ImGui.AcceptDragDropPayload(DragDropPayloadTypes.Material, ImGuiDragDropFlags.None);
             var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-            if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+            // if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && payload.Length > 0)
+            if (Tofu.MouseInput.ButtonReleased() && payload.Length > 0)
             {
                 payload = payload;
                 // var materialName = Path.GetFileName(payload);

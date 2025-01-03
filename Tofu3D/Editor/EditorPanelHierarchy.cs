@@ -361,7 +361,7 @@ public class EditorPanelHierarchy : EditorPanel
             ImGui.AcceptDragDropPayload(DragDropPayloadTypes.GameObject, ImGuiDragDropFlags.None);
 
             var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-            if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+            if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && payload.Length > 0)
             {
                 var foundGo = Tofu.SceneManager.CurrentScene.GetGameObjectByID(int.Parse(payload));
                 SetParent(foundGo.Transform, currentGameObject.Transform);
@@ -449,7 +449,7 @@ public class EditorPanelHierarchy : EditorPanel
             ImGui.AcceptDragDropPayload(DragDropPayloadTypes.GameObject, ImGuiDragDropFlags.None);
 
             var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-            if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+            if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && payload.Length > 0)
             {
                 var droppedGameObject = Tofu.SceneManager.CurrentScene.GetGameObjectByID(int.Parse(payload));
                 bool x = droppedGameObject.IndexInHierarchy < currentGameObject.IndexInHierarchy;

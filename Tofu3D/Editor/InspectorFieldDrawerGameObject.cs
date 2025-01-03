@@ -26,7 +26,7 @@ public class InspectorFieldDrawerGameObject : InspectorFieldDrawable<GameObject>
                 .Replace("\0", string.Empty);
             if (dataType == DragDropPayloadTypes.PrefabPath)
             {
-                if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+                if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && payload.Length > 0)
                 {
                     var loadedGo = Tofu.SceneSerializer.LoadPrefab(payload, true);
                     info.SetValue(componentInspectorData.Inspectable, loadedGo);
@@ -46,7 +46,7 @@ public class InspectorFieldDrawerGameObject : InspectorFieldDrawable<GameObject>
             if (dataType == DragDropPayloadTypes.GameObject)
                 //	string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
             {
-                if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+                if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && payload.Length > 0)
                 {
                     var foundGo = Tofu.SceneManager.CurrentScene.GetGameObjectByID(int.Parse(payload));
                     info.SetValue(componentInspectorData.Inspectable, foundGo);

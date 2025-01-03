@@ -83,7 +83,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         base.SetDefaultMaterial();
 
         Asset_Model model =
-            Tofu.AssetLoadManager.Load<Asset_Model>(TofuPath.Combine(Folders.ModelsInAssets, "plane.obj"));
+            Tofu.AssetLoadManager.Load<Asset_Model>(TofuPath.Combine(Folders.BasicModelsInAssets, "plane.obj"));
         RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets.First());
 
         Material = Tofu.AssetLoadManager.CreateUniqueTempCopyFile(Material);

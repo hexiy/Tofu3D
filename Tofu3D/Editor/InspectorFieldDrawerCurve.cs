@@ -95,7 +95,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
             }
 
             // bool doubleClicked = ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
-            var removePoint = ImGui.IsMouseClicked(ImGuiMouseButton.Left) && KeyboardInput.IsKeyDown(Keys.LeftControl);
+            var removePoint = Tofu.MouseInput.IsButtonDown(MouseButtons.Left) && KeyboardInput.IsKeyDown(Keys.LeftControl);
             if (removePoint && cursorHoversCurrentPoint && curve.CanRemovePoint)
             {
                 // remoove the hovered point

@@ -1,7 +1,7 @@
-œ{
+›{
   "ImportAsSingleMesh": false,
   "SmoothNormals": false,
-  "Scale": true,
+  "Scale": 1.0,
   "PathToSourceAsset": "Assets/3D/sponza/sponza.obj",
-  "AssetID": -2054239957
-}
+  "AssetID": -1657698475
+}}

@@ -45,12 +45,15 @@ public class Debug
                 _logs.RemoveAt(0);
             }
         }
+
+        Console.WriteLine($"{logEntry.Time} : {logCategory} | {message}");
     }
+
     public static void LogWarning(object message)
     {
         Log(message, LogCategory.Warning);
     }
-    
+
     public static void LogError(object message)
     {
         Log(message, LogCategory.Error);

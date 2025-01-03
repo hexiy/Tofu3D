@@ -1,5 +1,11 @@
-{"PathToSourceAsset":"Assets/2D/white.png","FilterMode":9729,"WrapMode":10497,"IsSrgb":false,"BlackIsTransparency":false,"AssetID":598097260}}}.w3.org/2001/XMLSchema">
-  <PathToSourceAsset>Assets/2D/white.png</PathToSourceAsset>
+§{
+  "PathToSourceAsset": "Assets/2D/white.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": 1220026011
+}}  <PathToSourceAsset>Assets/2D/white.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>
   <IsSrgb>false</IsSrgb>

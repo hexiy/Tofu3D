@@ -28,7 +28,7 @@ public class InspectorFieldDrawerShader : InspectorFieldDrawable<Shader>
         {
             ImGui.AcceptDragDropPayload(DragDropPayloadTypes.Shader, ImGuiDragDropFlags.None);
             var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-            if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && payload.Length > 0)
+            if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && payload.Length > 0)
             {
                 payload = payload;
                 var shaderName = Path.GetFileName(payload);

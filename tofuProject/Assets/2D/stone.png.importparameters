@@ -1,5 +1,11 @@
-Ž{"PathToSourceAsset":"Assets/2D/stone.png","FilterMode":9729,"WrapMode":10497,"IsSrgb":false,"BlackIsTransparency":false,"AssetID":-738547185}}.w3.org/2001/XMLSchema">
-  <PathToSourceAsset>Assets/2D/stone.png</PathToSourceAsset>
+¨{
+  "PathToSourceAsset": "Assets/2D/stone.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": -1385368138
+}  <PathToSourceAsset>Assets/2D/stone.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>
   <IsSrgb>false</IsSrgb>

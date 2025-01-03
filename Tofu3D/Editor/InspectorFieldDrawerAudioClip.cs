@@ -25,7 +25,7 @@ public class InspectorFieldDrawerAudioClip : InspectorFieldDrawable<AudioClip>
         {
             ImGui.AcceptDragDropPayload(DragDropPayloadTypes.AudioClip, ImGuiDragDropFlags.None);
             var fileName = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-            if (ImGui.IsMouseReleased(ImGuiMouseButton.Left) && fileName.Length > 0)
+            if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && fileName.Length > 0)
             {
                 // fileName = Path.GetRelativePath("Assets", fileName);
 

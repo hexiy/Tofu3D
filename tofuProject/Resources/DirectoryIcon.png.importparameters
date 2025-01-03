@@ -1,5 +1,11 @@
-–{"PathToSourceAsset":"Resources/DirectoryIcon.png","FilterMode":9729,"WrapMode":10497,"IsSrgb":false,"BlackIsTransparency":false,"AssetID":1610096483}}2001/XMLSchema">
-  <PathToSourceAsset>Resources/DirectoryIcon.png</PathToSourceAsset>
+¯{
+  "PathToSourceAsset": "Resources/DirectoryIcon.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": -492350838
+}ToSourceAsset>Resources/DirectoryIcon.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>
   <IsSrgb>false</IsSrgb>

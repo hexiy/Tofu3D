@@ -67,7 +67,7 @@ public class EditorPanelProfiler : EditorPanel
             }
 
             // dont change alpha, we only BeginDisable so we dont see any hover toolips
-            var disableHover = ImGui.IsMouseClicked(ImGuiMouseButton.Left) == false;
+            var disableHover = Tofu.MouseInput.IsButtonDown(MouseButtons.Left) == false;
             if (disableHover)
             {
                 ImGui.BeginDisabled();

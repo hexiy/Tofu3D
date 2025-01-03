@@ -1,4 +1,11 @@
-{"PathToSourceAsset":"Assets/2D/font.png","FilterMode":9729,"WrapMode":10497,"IsSrgb":false,"BlackIsTransparency":false,"AssetID":1195445185}}w.w3.org/2001/XMLSchema">
+§{
+  "PathToSourceAsset": "Assets/2D/font.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": -1273108722
+}
   <PathToSourceAsset>Assets/2D/font.png</PathToSourceAsset>
   <FilterMode>Point</FilterMode>
   <WrapMode>Repeat</WrapMode>

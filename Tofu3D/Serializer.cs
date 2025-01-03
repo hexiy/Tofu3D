@@ -9,10 +9,11 @@ public static class Serializer
         asset.BeforeSerialized();
         SaveFileJSON<T>(path, asset);
     }
+
     public static T? ReadAssetJSON<T>(string path) where T : AssetBase
     {
         T asset = ReadFileJSON<T>(path);
-        asset.OnDeserialized();
+        asset?.OnDeserialized();
 
         return asset;
     }
@@ -32,6 +33,7 @@ public static class Serializer
     {
         if (File.Exists(path) == false)
         {
+            Debug.LogError("ReadFileJSON failed, file doesn't exist");
             return default;
         }
 

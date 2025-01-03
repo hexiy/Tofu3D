@@ -15,7 +15,7 @@ public static class PremadeComponentSetupsHelper
 
         modelRenderer.Material.AlbedoTexture = Tofu.Editor.EditorTextures.WhitePixel;
         Asset_Model model =
-            Tofu.AssetLoadManager.Load<Asset_Model>(TofuPath.Combine(Folders.ModelsInAssets, "defaultCube.obj"));
+            Tofu.AssetLoadManager.Load<Asset_Model>(TofuPath.Combine(Folders.BasicModelsInAssets, "defaultCube.obj"));
         modelRenderer.RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets.First());
 
         return modelRenderer;

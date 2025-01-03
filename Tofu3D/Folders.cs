@@ -30,6 +30,7 @@ public class Folders
     public static string MaterialsInAssets => TofuPath.Combine(Assets, "Materials");
 
     public static string ModelsInAssets => TofuPath.Combine(Assets, "3D");
+    public static string BasicModelsInAssets => TofuPath.Combine(Assets, "3D", "Basic");
 
     public static void CreateDefaultFolders()
     {

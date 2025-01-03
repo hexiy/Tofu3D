@@ -225,7 +225,7 @@ void main() {
 	if (u_hasNormalTexture == 1) {
 		vec3 texNormal = texture(u_normalTexture, uvCoords).rgb * 2.0 - 1.0; // Map [0,1] to [-1,1]
 		//		finalNormalTangentSpace = normalize(TBN * texNormal);
-		finalNormalTangentSpace = normalize(TBN * -texNormal);
+		finalNormalTangentSpace = normalize(TBN * texNormal);
 
 		//			vec3 vertexNormalTBNed = normalize(TBN * normal);
 

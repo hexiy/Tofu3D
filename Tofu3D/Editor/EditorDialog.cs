@@ -71,7 +71,7 @@ public class EditorDialog
             // ImGui.SameLine();
         }
 
-        if (ImGui.IsMouseClicked(ImGuiMouseButton.Left) && ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly) &&
+        if (Tofu.MouseInput.IsButtonDown(MouseButtons.Left) && ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly) &&
             hoveringPanel == false)
         {
             Hide();

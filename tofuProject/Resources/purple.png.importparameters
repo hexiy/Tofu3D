@@ -1,6 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<AssetImportParameters_Texture xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <PathToSourceAsset>Resources/purple.png</PathToSourceAsset>
+¨{
+  "PathToSourceAsset": "Resources/purple.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": 1100135178
+}  <PathToSourceAsset>Resources/purple.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>
   <IsSrgb>false</IsSrgb>
