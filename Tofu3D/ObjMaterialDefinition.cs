@@ -5,4 +5,5 @@ public class ObjMaterialDefinition
     public string MaterialName;
     public string? AlbedoTexturePath;
     public Color AlbedoTint;
+    public string? GeneratedMaterialFilePath = null;
 }

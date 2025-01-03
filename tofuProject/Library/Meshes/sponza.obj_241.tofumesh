@@ -1,1 +1,31 @@
-‚{"Mesh":{"CountsOfElements":[3,2,3,3,3],"VerticesCount":0,"Name":"sponza.obj_241","ObjMaterialDefinition":null,"PathInAssetsFolder":null,"PathInLibraryFolder":"Library/Meshes/sponza.obj_241.tofumesh"},"ByteIndices":"AwA=","ByteVertexBufferData":"AwA=","UsesIndices":false,"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":null,"PathInLibraryFolder":null,"AnyPath":null}JNSUXtnPacH17SoLtrc4K7wdiMA3yCwgvBOqbcUr9MLo+mP/Q9Nnj0gdyJ7K+ixNtYO60/wwJF7z24XEnGCDpa4DFAwH78OqD2YemD6d9yPG3+RWzvVFoAEr8sZxXsO+ZoAEO/+VI8XBhq5LLBUZNsD6n82z2RV1+9mLxV/e1yH/Y9y7CHac+5HgH2beHNQkl3gnZBwuXm/FpyPahpM/DpeudOsz5D6O7ExQuaPr249JHSrrGZh+p7iTXPlLKCVL0Gb2Psj8xQQOcTjZgiT9c5QQufcjhkq0tZu/OnIESLvjsg6XrpkfiyOkFnq5jn4DVNxybre4c03VmLzHpDJc+Qukan3343Gkoscba8DjEXzNmIcpdQvbh0odcvoDsc5bxRilfiNGHr1wCpRcQ/e4ehAbpY3dB5KNVH5PsVz/T3l+ufGdfYYMUQX2w9IKmzx6fPiLc2UCmfVj1EagfsOojlK5BaqLXQtTaXVF3nurIvo+YfIRPH8ydcwVZketNeP2ATR8hd84/o7+3ay+kXph2St15hqYDUfbh0occntoSrPYSU1NQwpOQPlzpGqTm5z1Ien42Wd05fu8bO2LzLTZ9yOl6aioH2D70dI3PPmLK+adAfUbZsw7B8h+x+QGbPmLyH7I+Mt1JUn5H1kdKfYtNH7589BOa50DxoL0HEX/40hk+fbB4kJgqAtaHHg/Y9AEA","UsesIndices":false,"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":null,"PathInLibraryFolder":null,"AnyPath":null}
+›{
+  "Mesh": {
+    "CountsOfElements": [
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "VerticesCount": 0,
+    "Name": "sponza.obj_241",
+    "PathToObjMaterial": "Library/Materials/Material__25.tofumaterial",
+    "PathInAssetsFolder": null,
+    "PathInLibraryFolder": "Library/Meshes/sponza.obj_241.tofumesh"
+  },
+  "ByteIndices": "AwA=",
+  "ByteVertexBufferData": "AwA=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}O60/wwJF7z24XEnGCDpa4DFAwH78OqD2QfTB4q7L0jhia4POf42v2K2NwoNQIk/lvMK9j0TNMDhvxwpHi5sVXK5wKgJ1ud0ns2+qMvPXiz+6r4W+Q/73ke449SHHO8g+/awJqHEOyH7YOFyMz4Nbt+7CHeU9Hm4dL1Thzn/YXR3gsIFWR/Inbj0kZKusdlHqjvJtY+UcoIUfUbvo+xPTNAAp5MNWOIPVzmBSx9yuGRri9m7M2eghAs++2DpuumRODy9IKfr2Cdg9Q3HZqs7x3Sd2UtMOsOlj1C6xmcfPncaSqyxNjwO8deMWYhyl5B9uPQhly8g+5xlvFHKF2L04SuXQOkFRL+7B6FB+thdEPlo1cck+9XPtPeXK9/ZV9QgRVAfLL2g6bPHp48IdzaQaR9WfQTqB6z6CKVrkJrotRC1dlfUnac6su8jJh/h0wdz51xBVuR6E14/YNNHyJ3zz+jv7doLqRemnVJ3nqHpQJR9uPQhh6e2BKu9xNQUlPAkpA9Xugap+XkPkp6fTVZ3jt/7xo7YfItNH3K6nprKAbYPPV3js4+Ycv4pUJ9R9qxDsPxHbH7Apo+Y/Iesj0x3kpTfkfWRUt9i04cvH/2E5jlQPGjvQcQfvnSGTx8sHiSmioD1occDNn0A",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}

@@ -1,1 +1,10 @@
-‘{"PathsToMeshAssets":["Library/Meshes/sculpture.obj_0.tofumesh"],"IsRuntimeCopy":false,"DataIsCompressed":false,"PathInAssetsFolder":"Assets/3D/sculpture/sculpture.obj","PathInLibraryFolder":"Assets/3D/sculpture/sculpture.obj","AnyPath":"Assets/3D/sculpture/sculpture.obj"}
+²{
+  "PathsToMeshAssets": [
+    "Library/Meshes/sculpture.obj_0.tofumesh"
+  ],
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/3D/sculpture/sculpture.obj",
+  "PathInLibraryFolder": "Assets/3D/sculpture/sculpture.obj",
+  "AnyPath": "Assets/3D/sculpture/sculpture.obj"
+}

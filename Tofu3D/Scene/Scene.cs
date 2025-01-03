@@ -150,15 +150,19 @@ public class Scene
         if (FindComponent<AmbientLight>() == null)
         {
             var ambientLightGo = GameObject.Create(name: "Ambient Light");
-            ambientLightGo.AddComponent<AmbientLight>();
+            AmbientLight ambientLight = ambientLightGo.AddComponent<AmbientLight>();
+            ambientLight.Color = new Color(255, 219, 105, 255);
+            ambientLight.Intensity = 0.34f;
             ambientLightGo.Awake();
         }
 
         if (FindComponent<DirectionalLight>() == null)
         {
             var directionLightGo = GameObject.Create(name: "Directional Light");
-            directionLightGo.Transform.Rotation = new Vector3(-90, 0, 0);
-            directionLightGo.AddComponent<DirectionalLight>();
+            directionLightGo.Transform.Rotation = new Vector3(90, 0, 0);
+            DirectionalLight directionalLight = directionLightGo.AddComponent<DirectionalLight>();
+            directionalLight.Color = new Color(255, 219, 105, 255);
+            directionalLight.Intensity = 0.88f;
             directionLightGo.Awake();
         }
     }

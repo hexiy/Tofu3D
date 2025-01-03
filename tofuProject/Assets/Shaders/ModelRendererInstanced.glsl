@@ -80,6 +80,7 @@ uniform int u_hasEmissiveTexture;
 uniform int u_hasMetallicTexture;
 uniform int u_hasRoughnessTexture;
 uniform int u_directionalLightEnabled;
+uniform int u_smoothShadows;
 
 uniform sampler2D u_albedoTexture;
 uniform sampler2D u_normalTexture;
@@ -123,11 +124,11 @@ float ShadowCalculationPCFConstantQuality() {
 	float bias = 0.0001;//
 	vec2 texelSize = 1.0 / textureSize(u_shadowmapTexture, 0); // Shadowmap size
 	// Dynamic PCF sampling: Choose sample count and kernel size based on distance
-	int samples = 3;
+	int samples = 3; // must be odd
 
-	for (int x = -samples / 2; x <= samples / 2; ++x) {
-		for (int y = -samples / 2; y <= samples / 2; ++y) {
-			float closestDepth = texture(u_shadowmapTexture, projCoords.xy + vec2(x, y) * texelSize).r;
+	for (float x = -samples / 2; x <= samples / 2; ++x) {
+		for (float y = -samples / 2; y <= samples / 2; ++y) {
+			float closestDepth = texture(u_shadowmapTexture, projCoords.xy + vec2(x, y) * texelSize*0.1).r;
 			shadow += (projCoords.z - bias > closestDepth) ? 1.0 : 0.0;
 		}
 	}
@@ -136,7 +137,7 @@ float ShadowCalculationPCFConstantQuality() {
 
 	return shadow;
 }
-float ShadowCalculationPCFSmooth() {
+float ShadowCalculationPCFSmoothDistanceToCamera() {
 	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
 	projCoords = projCoords * 0.5 + 0.5;
 
@@ -289,7 +290,17 @@ void main() {
 	vec3 specular = mix(vec3(0.04), u_directionalLightColor.rgb, metallicValue) * specFactor;
 
 	// Shadows
-	float shadow = (u_hasShadowmapTexture == 1) ? ShadowCalculationPCFConstantQuality() : 0.0;
+	
+	float shadow = 0.0;
+	
+	if(u_hasShadowmapTexture == 1) {
+		if(u_smoothShadows==1){
+			shadow = ShadowCalculationPCFConstantQuality();
+		}
+		else{
+			shadow = OldShadowCalculation();
+		}
+	}
 
 	// Subtract shadow influence for direct lighting
 	//	vec3 lighting = ambient + (diffuse + specular) *
@@ -361,10 +372,18 @@ void main() {
 	{
 
 		//		shadow = OldShadowCalculation();
-		//		shadow = ShadowCalculationPCFSmooth();
-		shadow = ShadowCalculationPCFConstantQuality();
+		//		shadow = ShadowCalculationPCFDistanceToCamera();
+
+
+		if(u_hasShadowmapTexture == 1) {
+			if(u_smoothShadows==1){
+				shadow = ShadowCalculationPCFConstantQuality();
+			}
+			else{
+				shadow = OldShadowCalculation();
+			}
+		}
 		fragColor = vec4(vec3(1 - shadow), 1);
-		//		fragColor = vec4(projCoords, 1.0);
 	}
 	else if (u_renderMode == 7) // ambient+albedo
 	{

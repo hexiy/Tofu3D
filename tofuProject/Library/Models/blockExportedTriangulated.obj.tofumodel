@@ -1,1 +1,10 @@
-×{"PathsToMeshAssets":["Library/Meshes/blockExportedTriangulated.obj_0.tofumesh"],"IsRuntimeCopy":false,"DataIsCompressed":false,"PathInAssetsFolder":"Assets/3D/grass block/blockExportedTriangulated.obj","PathInLibraryFolder":"Assets/3D/grass block/blockExportedTriangulated.obj","AnyPath":"Assets/3D/grass block/blockExportedTriangulated.obj"}
+ø{
+  "PathsToMeshAssets": [
+    "Library/Meshes/blockExportedTriangulated.obj_0.tofumesh"
+  ],
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/3D/grass block/blockExportedTriangulated.obj",
+  "PathInLibraryFolder": "Assets/3D/grass block/blockExportedTriangulated.obj",
+  "AnyPath": "Assets/3D/grass block/blockExportedTriangulated.obj"
+}

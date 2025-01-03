@@ -23,7 +23,7 @@ public static class Serializer
         {
             using (var writer = new BinaryWriter(stream, Encoding.UTF8, false))
             {
-                writer.Write(JsonConvert.SerializeObject(content));
+                writer.Write(JsonConvert.SerializeObject(content, Formatting.Indented));
             }
         }
     }

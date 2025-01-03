@@ -18,4 +18,10 @@ public abstract class Asset<T> : AssetBase where T : Asset<T> //, new()
     //
     //     return runtimeCopy;
     // }
+    public T? Clone()
+    {
+        var memberwiseClone = MemberwiseClone();
+        var clone = (T)memberwiseClone;
+        return clone as T;
+    }
 }

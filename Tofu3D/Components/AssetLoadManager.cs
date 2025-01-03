@@ -72,7 +72,7 @@ public class AssetLoadManager
         return existsInDatabase;
     }
 
-    public T? CreateUniqueCopy<T>(T original) where T : class
+    public T? CreateUniqueTempCopyFile<T>(T original) where T : Asset<T>
     {
         string tempFileName =
             Folders.GetPathRelativeToProjectFolder(
@@ -81,13 +81,18 @@ public class AssetLoadManager
         T runtimeCopy =
             Tofu.AssetLoadManager.Load<T>(tempFileName, null, false, isRuntimeCopy: true);
         // runtimeCopy.SetAsRuntimeAsset();
-        // runtimeCopy.PathToAssetInLibrary = tempFileName;
-        // File.Delete(tempFileName);
+        runtimeCopy.PathInLibraryFolder = tempFileName;
+        runtimeCopy.PathInAssetsFolder = null;
+        Tofu.AssetLoadManager.Save<T>(tempFileName, runtimeCopy);
         // Debug.Log("Created new copy of asset");
 
         return runtimeCopy;
     }
 
+    public T? CreateCopy<T>(T original) where T : Asset<T>
+    {
+        return original.Clone();
+    }
 
     public T? Load<T>(AssetLoadParameters<T> loadParameters = null,
         bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy = false) where T : class
@@ -155,7 +160,7 @@ public class AssetLoadManager
 
             if (File.Exists(sourcePath) == false)
             {
-                Debug.LogError("not found asset " + loadParameters.PathToAssetInLibrary);
+                Debug.LogWarning("not found asset " + loadParameters.PathToAssetInLibrary);
 
                 if (typeof(T) == typeof(Asset_Material))
                 {
@@ -189,7 +194,9 @@ public class AssetLoadManager
     private Asset_Material CreateDefaultMaterialAssetFile(string sourcePath)
     {
         var mat = new Asset_Material()
-            { Shader = new Shader("Assets/Shaders/ModelRendererInstanced.glsl") }; // default shader for now
+        {
+            Shader = new Shader(Path.Combine(Folders.ShadersInAssets, "ModelRendererInstanced.glsl"))
+        }; // default shader for now
         mat.LoadShader();
         mat.PathInAssetsFolder = sourcePath;
         mat.LoadTextures();

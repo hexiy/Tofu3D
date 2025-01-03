@@ -23,7 +23,7 @@ public class DirectionalLight : LightBase
     public bool Rotate = false;
 
     public float RotateOffset = 0;
-    public Vector2 Size = new(1000, 1000);
+    public Vector2 Size = new(2048, 2048);
 
     [Show] public float Speed = 100;
 

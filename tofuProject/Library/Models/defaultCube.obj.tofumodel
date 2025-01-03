@@ -1,1 +1,10 @@
-û{"PathsToMeshAssets":["Library/Meshes/defaultCube.obj_0.tofumesh"],"IsRuntimeCopy":false,"DataIsCompressed":false,"PathInAssetsFolder":"Assets/3D/defaultCube.obj","PathInLibraryFolder":"Assets/3D/defaultCube.obj","AnyPath":"Assets/3D/defaultCube.obj"}
+œ{
+  "PathsToMeshAssets": [
+    "Library/Meshes/defaultCube.obj_0.tofumesh"
+  ],
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/3D/defaultCube.obj",
+  "PathInLibraryFolder": "Assets/3D/defaultCube.obj",
+  "AnyPath": "Assets/3D/defaultCube.obj"
+}

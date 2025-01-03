@@ -19,6 +19,7 @@ public class Asset_Material : Asset<Asset_Material>
     [ColorHDR]
     public Vector4 EmissiveColor;
 
+    public bool SmoothShadows=false;
 
     public bool RefractionEnabled=false;
     public float RefractiveIndex=1.309f;

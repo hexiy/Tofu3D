@@ -1,1 +1,10 @@
-ã{"PathsToMeshAssets":["Library/Meshes/torus.obj_0.tofumesh"],"IsRuntimeCopy":false,"DataIsCompressed":false,"PathInAssetsFolder":"Assets/3D/torus.obj","PathInLibraryFolder":"Assets/3D/torus.obj","AnyPath":"Assets/3D/torus.obj"}
+„{
+  "PathsToMeshAssets": [
+    "Library/Meshes/torus.obj_0.tofumesh"
+  ],
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/3D/torus.obj",
+  "PathInLibraryFolder": "Assets/3D/torus.obj",
+  "AnyPath": "Assets/3D/torus.obj"
+}

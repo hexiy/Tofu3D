@@ -1,1 +1,31 @@
-‚{"Mesh":{"CountsOfElements":[3,2,3,3,3],"VerticesCount":0,"Name":"sponza.obj_195","ObjMaterialDefinition":null,"PathInAssetsFolder":null,"PathInLibraryFolder":"Library/Meshes/sponza.obj_195.tofumesh"},"ByteIndices":"AwA=","ByteVertexBufferData":"AwA=","UsesIndices":false,"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":null,"PathInLibraryFolder":null,"AnyPath":null}1Fn37ofpg/gPpQ/cfLn167Jvh+kDixOojwZ0NZNqHoQ9mH0icWPtA7nwA1FfRkuYMcudjsyZ7ZH2r0Px3oHeShaLqaYL+w6WPkDvx2UekOxvItA9DH8w+kDix9hHKtzm1mPFwgIj0iU8fvnjApY8EdzKQaR8Dun34ygl8+mDxANKHHg/o5UQQ7ySLRMEjYH33gPpud/O7gPSJewjYEaMPVC7B9IHKJWL1ketOcu0D6YPZB9JHSrjgiwds+U8Zmq7x+Q+XPkLuxGcfOe4k1z5C9REufaByAhZ/IHH0+EOvH2DxAMpHMH2gfESKPnzlIC59lLiTXPvwlZ/khgt6OQHSl0REfsenD1+6xqWPEneSax++eMClDwA=","UsesIndices":false,"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":null,"PathInLibraryFolder":null,"AnyPath":null}
+›{
+  "Mesh": {
+    "CountsOfElements": [
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "VerticesCount": 0,
+    "Name": "sponza.obj_195",
+    "PathToObjMaterial": "Library/Materials/Material__25.tofumaterial",
+    "PathInAssetsFolder": null,
+    "PathInLibraryFolder": "Library/Meshes/sponza.obj_195.tofumesh"
+  },
+  "ByteIndices": "AwA=",
+  "ByteVertexBufferData": "AwA=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}udjsyZ7ZH2r0Px3oHeShaLqaYL+w6WPkDvx2UekOxvItA9DH8w+kDix9hHKtzm1mPFwgIj0iU8fvnjApY8EdzKQaR8Dun34ygl8+mDxANKHHg/o5UQQ7ySLRMEjYH33gPpud/O7gPSJewjYEaMPVC7B9IHKJWL1ketOcu0D6YPZB9JHSrjgiwds+U8Zmq7x+Q+XPkLuxGcfOe4k1z5C9REufaByAhZ/IHH0+EOvH2DxAMpHMH2gfESKPnzlIC59lLiTXPvwlZ/khgt6OQHSl0REfsenD1+6xqWPEneSax++eMClDwA=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}

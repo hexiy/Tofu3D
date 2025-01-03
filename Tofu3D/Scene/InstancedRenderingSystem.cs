@@ -198,7 +198,7 @@ public class InstancedRenderingSystem
         if (_mousePickingMaterial == null)
         {
             _mousePickingMaterial = new Asset_Material()
-                { Shader = new Shader("Assets/Shaders/ModelMousePicking.glsl") };
+                { Shader = new Shader(Path.Combine(Folders.ShadersInAssets, "ModelMousePicking.glsl")) };
             _mousePickingMaterial.LoadShader();
         }
 
@@ -312,15 +312,16 @@ public class InstancedRenderingSystem
 
         // LIGHTING
         material.Shader.SetMatrix4X4("u_lightSpaceViewProjection", DirectionalLight.LightSpaceViewProjectionMatrix);
+        material.Shader.SetInt("u_smoothShadows", material.SmoothShadows ? 1 : 0);
 
 
         var ambientColor = SceneLightingManager.I.GetAmbientLightsColor().ToVector4();
         ambientColor = new Vector4(ambientColor.X, ambientColor.Y, ambientColor.Z,
-            SceneLightingManager.I.GetAmbientLightsIntensity());
+            Mathf.ClampMin(SceneLightingManager.I.GetAmbientLightsIntensity(), 0));
         material.Shader.SetVector4("u_ambientLightColor", ambientColor);
 
         var directionalLightColor = SceneLightingManager.I.GetDirectionalLightColor().ToVector4();
-        directionalLightColor.W = SceneLightingManager.I.GetDirectionalLightIntensity();
+        directionalLightColor.W = Mathf.ClampMin(SceneLightingManager.I.GetDirectionalLightIntensity(), 0);
         material.Shader.SetVector4("u_directionalLightColor", directionalLightColor);
         material.Shader.SetVector3("u_directionalLightDirection",
             SceneLightingManager.I.GetDirectionalLightDirection());

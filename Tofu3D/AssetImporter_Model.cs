@@ -114,6 +114,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             objMaterialFileDefinition = null;
             return;
         }
+
         objMaterialFileDefinition = new ObjMaterialFileDefinition();
         string objMaterialDirectory = Folders.GetParentFolder(objMaterialPath);
 
@@ -165,7 +166,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         ObjMaterialFileDefinition objMaterialFileDefinition = null)
     {
         List<uint> indices = new();
-        ObjMaterialDefinition objMaterialDefinition = null;
+        ObjMaterialDefinition? objMaterialDefinition = objMaterialFileDefinition?.Materials.LastOrDefault() ?? null;
         Dictionary<Vector3, uint> uniqueVertices = new Dictionary<Vector3, uint>();
         uint currentUniqueVertexIndex = 0;
         List<float> everything = new();
@@ -178,7 +179,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             lineIndexRelativeForThisMesh++;
 
             var line = data[lineIndex].Trim();
-            line = line.Replace("\r","");
+            line = line.Replace("\r", "");
 
             var lineSplits = line.Split(' ').ToList();
             if (line.StartsWith("f ")) // indices
@@ -273,7 +274,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                      (line.StartsWith("# object") && lineStartIndex != 0))
             {
                 // new mesh
-                lineStartIndex = lineIndex+1;
+                lineStartIndex = lineIndex + 1;
                 break;
             }
 
@@ -479,7 +480,17 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         mesh.VertexBufferData = vertexBufferData.ToArray();
         mesh.VerticesCount = (int)(vertexBufferData.Count / 14);
         mesh.Indices = indices.ToArray();
-        mesh.ObjMaterialDefinition = objMaterialDefinition;
+
+        if (objMaterialDefinition != null)
+        {
+            if (objMaterialDefinition.GeneratedMaterialFilePath == null)
+            {
+                objMaterialDefinition.GeneratedMaterialFilePath =
+                    CreateMaterialFromObjMaterialDefinition(objMaterialDefinition);
+            }
+
+            mesh.PathToObjMaterial = objMaterialDefinition.GeneratedMaterialFilePath;
+        }
 
         // mesh.paths are set in ImportAsset
 
@@ -490,6 +501,37 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             UsesIndices = RenderingSettings.USE_INDICES,
         };
         return meshFile;
+    }
+
+    private static string? CreateMaterialFromObjMaterialDefinition(ObjMaterialDefinition? materialDefinition)
+    {
+        if (materialDefinition == null)
+        {
+            return null;
+        }
+
+        Asset_Material material = new Asset_Material()
+            { Shader = new Shader(Path.Combine(Folders.ShadersInAssets, "ModelRendererInstanced.glsl")) };
+
+        material.SmoothShadows = true;
+
+        material.AlbedoTint = materialDefinition.AlbedoTint;
+
+        if (materialDefinition.AlbedoTexturePath != null)
+        {
+            RuntimeTexture texture =
+                Tofu.AssetLoadManager.Load<RuntimeTexture>(materialDefinition.AlbedoTexturePath);
+            material.AlbedoTexture = texture;
+        }
+
+        string materialPath =
+            Folders.GetPathRelativeToProjectFolder(Path.Combine(Folders.MaterialsInLibrary,
+                materialDefinition.MaterialName + ".tofumaterial"));
+
+        material.PathInLibraryFolder = materialPath;
+        Tofu.AssetLoadManager.Save<Asset_Material>(materialPath, material);
+
+        return materialPath;
     }
 
     private static void SmoothNormals(List<float> everything, int floatsPerTriangle, int floatsPerVertex)

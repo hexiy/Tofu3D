@@ -28,9 +28,11 @@ public class Framebuffer : ITexture
         // _depthRenderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/DepthRenderTexture.mat");
         // _renderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/RenderTexture.mat");
 
-        
+
         // creating this in the library not assets, we need it as asset to reuse across other framebuffers and the asset system, but dont need to expose it to the user
-        _renderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>(Path.Combine(Folders.MaterialsInLibrary, "RenderTexture.mat.tofumaterial"));
+        _renderTextureMaterial =
+            Tofu.AssetLoadManager.Load<Asset_Material>(Path.Combine(Folders.MaterialsInLibrary,
+                "RenderTexture.mat.tofumaterial"));
         _renderTextureMaterial.Shader = new Shader("Assets/Shaders/RenderTexture.glsl");
         // _renderTextureMaterial = new Asset_Material()
         // { Shader = new Shader("Assets/Shaders/RenderTexture.glsl") };
@@ -129,15 +131,16 @@ public class Framebuffer : ITexture
                     0, PixelFormat.DepthComponent, PixelType.Float, (IntPtr)null);
             }
 
+            TextureFilterMode textureFilterMode = TextureFilterMode.Bilinear;
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter,
-                (int)TextureMinFilter.Nearest);
+                (int)textureFilterMode);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter,
-                (int)TextureMagFilter.Nearest);
+                (int)textureFilterMode);
 
 
             // float[] borderColor =
             // {
-                // 1.0f, 1.0f, 1.0f, 1.0f
+            // 1.0f, 1.0f, 1.0f, 1.0f
             // };
             // GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureBorderColor, borderColor);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS,
@@ -148,6 +151,18 @@ public class Framebuffer : ITexture
             GL.FramebufferTexture2D(FramebufferTarget.Framebuffer,
                 _hasStencil ? FramebufferAttachment.DepthStencilAttachment : FramebufferAttachment.DepthAttachment,
                 TextureTarget.Texture2D, DepthTextureId, 0);
+
+
+            // // MIPS
+            // {
+            //     GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)textureFilterMode);
+            //     GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter,
+            //         (int)TextureMinFilter.LinearMipmapLinear);
+            //     GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+            //     int maxMipLevels = (int)Math.Floor(Math.Log2(Size.X));
+            //     GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel,
+            //         maxMipLevels); // Generate mipmaps for the cubemap texture
+            // }
 
             if (_hasColorAttachment == false)
             {

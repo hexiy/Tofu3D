@@ -1,1 +1,31 @@
-‚{"Mesh":{"CountsOfElements":[3,2,3,3,3],"VerticesCount":0,"Name":"sponza.obj_211","ObjMaterialDefinition":null,"PathInAssetsFolder":null,"PathInLibraryFolder":"Library/Meshes/sponza.obj_211.tofumesh"},"ByteIndices":"AwA=","ByteVertexBufferData":"AwA=","UsesIndices":false,"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":null,"PathInLibraryFolder":null,"AnyPath":null}i9tiLwpeFMTGtao15qPL5SIVd/StYTuMmv+oKfNYmnw59X/P5maMrIpc82jvzFvVXm+nsuBNXqbdfa4RZx9XtKAy2Eq884ZnJ9KVkq/LNPoNfmPU49ST2d6jk5qmeFw+VOzz/csXdPKNDdMpT3bNJKdVHjBn/t85CaHRvfDje8R9vYkDhQ8qkVPql33/XYnUpDA+5M1tHArZtL89eX56qT52zz576cptJbxEGciwkHcQLXb63PeuVysjjfRBsSrw+VRenaDoZxeiLuLtEDDvSqy4ImVz74YUx6BWR9xTc/tXYOGAlnHmT7yeIg707uhe+236oVtU+i5zFO80pCz+acepSz6pPLYfq2syKSaK7aDHlQMnKmatkPZwSAO+g/EqjcX5h3b0q+eqsoz98S3aGm7m5qh1vEQZyFhIM4gXPnncfJ4lxI+q+L9B/NwUSknogTPSd4nGxfoK5P1ZVGVyyp1b5rRswoCqH7j8Vh+sjNYfP36nNJNIdw8HcNUo/FYfPO4iR5N68630hNR6b80E5MH8ih3KFgejwYKLbzZ+VOEXGwLxUWB3Fu2hVUZ/Z9aJdxmDiXRbptbjhT1bB6PE6QvzFxywkH9bJlXUijzwlMnG6O1jXloF4wHDbODWmdJldMuPoMI47V43GC/mNyCB9i14vDvyiUo/U56if0f+rTyXmpa5ae1ziT1fPSt06OntM0f3BuOs4+c4PgR/qqmFnXA8QTXJwViWPOdx4ne+6K9ARxmtdGUi/wGYPhEU+IrTMeJ6trN0f9BOUsX6BbnoDupz6VrM+rD2FxyDxw9QRxmpeD0+m+SPSEnCx/bo6eY83hLXGGLzBfYQ6o6U9rY/XDFcIx+sHP42jfUs7Vt0I9j3HqtF486tmcU881H3E56ieq7t+IM3yy6bNgXvk4HAGfpXzcez12tdJI0PydIxwj70IO+qgzZMSd/ZdDeo/cfhEniVMBn9W8+tdDurZQGKXH5UCvi3AMn8XlaB/RfXH1rRlngbU+R10riP3kcrJ9YXFJxKkkqWf3kZNzzUdcDtO3MAcYpK4pk1k3rgPTfyKud+h8nOGThXqyOMFf9/TOtueqzUg9Hgf+rIdw1J89GPVnY+Z2Tkihc4BysiiUwMbp5jB9xNOTxQn992ieYs9Vp5F6PA7znHBziLybz4avzY/NtcEc0PouFbM+ISeYA7gcJs73vpGzwcM8xuUkvlWoJ9uX7blRjc4Bl31bCzDniogT+Dom5yV/jrkK4yOZnJe8OzmEn7Dz4P6eFlsvLA6Td4++57/oCeY/Joets8dnH5j9B/OKur2sAOOXRJxkHmNymDh3kLpWXHMORo/FYeqap4fZF9b3wgL/IuRk85ibw/izJPWYHHI++of7Aw==","UsesIndices":false,"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":null,"PathInLibraryFolder":null,"AnyPath":null}
+›{
+  "Mesh": {
+    "CountsOfElements": [
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "VerticesCount": 0,
+    "Name": "sponza.obj_211",
+    "PathToObjMaterial": "Library/Materials/Material__25.tofumaterial",
+    "PathInAssetsFolder": null,
+    "PathInLibraryFolder": "Library/Meshes/sponza.obj_211.tofumesh"
+  },
+  "ByteIndices": "AwA=",
+  "ByteVertexBufferData": "AwA=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}HGo7F9HPbLzSBLeMq965NVzHuOrswzbHdHTUFHGNweM009QzUc/LoZ4TjpArn3agedfOaPhl3Z+8Z8MW6TNvrw5VPo/qOYnBTXDD/xhralJ7t3xqgG9q3301cavMMoA7Of9Q+Mb1OYtX7cjVR0zaGMp9NUbHW8ZBnLMYB3EC1+msz3kVcqo438ZrUm/2F8dxbftKaXoy7i7TAw70zhRHbG5Hd+uA9PLZ+gqvf2po6bJS3jyo9pPHQd693IusmyGnVvQOhV7AOO0rDT2X8+oh59SnkKP0bUtJLFV7ZB3kQcvOGW0sqB8XBm5f6GC4bM+yvHuZi/UbBXmhB/FN+vDtd5rglnEQ5zLGQZzA+fMu4lRxzmD994T1H+ZgKFFPxsmeEyJOtS9Q1yeqtsYXzq40vhtWwiqIkvuPx1H6yM9R8/f685Z4DuPgcwVRj8dR887jFHm3r6qs3pqOZf4wjo3tykFuf2RUMhIudPPn5E6TcbAvJQ4Hca7dFtHHd7Q2qThKnHNjL12uZ6puUPVEnCR/A+LmMQ7qZf3KqIHPCUqcfg7rGjmoFwpHjXP1yBabK2RcdbaVpOqJOEn/cTmCD3HrxeNfNOSwPvv8hNmvPr1ckLrm6QWNM129IH3r5fCcxvzBuek5++wNgj+jliTsuu5inuD8hFiScr6LONVzV6YnidO+1rB6ge/oLu31hNQ6E3GquvZz6CeQc3yB6XgC3E9zNFtfUB/C44h5EOpJ4rQvD2fivij0pJwqf34Oz7Ha0vVJji+wX2EOqOgc2cjrh0uM4/RDSMRh3yKHfcs85ONOhV7AOE2sl4B6LufV881HQg79xJH715Icn2z7LJhXPvbEwGdpH3ddTVwus1KYv9OM4+RdykEftUStpLf/FrDeY3dIxini1MBn1S79VY9ri5aS9IQc6D1hnN9nbe9uFXLYR7gvvr6148x31uepa42wn0JOtS88Lo04tTT13D7ycr75SMhR+hbmAIvVNTJTqwY1U/pPxrX/OZvk+GSpnipO8Ndt7RPduWodUU/EgT9rYxz6s7o+fzZgbvOQDJwDtOMF0RQ1Tj9H6SORnipO6L+HUzR3rion6ok4ynPCzxHybj8bvtY+stcGc0DD++GU9Uk5yRwg5ChxfsjqPRsCzGNCTuFbpXqqfSnKjRs4B1zM2pBPOVdknMTXcbkg+fPMVRQfyeWC5N3LEfyEmwf/77TUeuFxlLwH9D3/RU8y/3E5ap09OvXA7j+YV/Si4nyKX5JxinmMy1Hi3MTqWvPNORQ9Hkepa5EeZV94vwtL/IuUU81jfo7iz9LU43LE+agf9xc=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}

@@ -1,1 +1,10 @@
-ç{"PathsToMeshAssets":["Library/Meshes/Teapot.obj_0.tofumesh"],"IsRuntimeCopy":false,"DataIsCompressed":false,"PathInAssetsFolder":"Assets/3D/Teapot.obj","PathInLibraryFolder":"Assets/3D/Teapot.obj","AnyPath":"Assets/3D/Teapot.obj"}
+ˆ{
+  "PathsToMeshAssets": [
+    "Library/Meshes/Teapot.obj_0.tofumesh"
+  ],
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/3D/Teapot.obj",
+  "PathInLibraryFolder": "Assets/3D/Teapot.obj",
+  "AnyPath": "Assets/3D/Teapot.obj"
+}

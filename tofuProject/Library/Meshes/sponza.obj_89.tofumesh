@@ -1,1 +1,31 @@
-€{"Mesh":{"CountsOfElements":[3,2,3,3,3],"VerticesCount":0,"Name":"sponza.obj_89","ObjMaterialDefinition":null,"PathInAssetsFolder":null,"PathInLibraryFolder":"Library/Meshes/sponza.obj_89.tofumesh"},"ByteIndices":"AwA=","ByteVertexBufferData":"AwA=","UsesIndices":false,"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":null,"PathInLibraryFolder":null,"AnyPath":null}/9n/nOOTP/swMfLbR/O9tqb7/ypmXl3zAPnNzVcG/ia0VYhjg61hxcmhrq8mff6vbEn87pa4vS1X+4/oDgfhfccO1LAXfTSGU6NxwqwLq7N1ukuJ8E11jK2kOCOzL9y4AbDLXgrNLTiVOcA+5Y1YL0Mwn0ZJwpuG1CDzjQEx8HnEpvU/4Ve2qpzT7TPM/64YkG88WTLZkl/eMLsNyrOeCdZWuP+sO7P/T+anetod2H+y+I1zs/edWe290ecM070ubk2g2Z9I2nzXApObi+vOAgTuDEnpgQY7g3Uo6L037Q2nvbO+qLs9f7hWvB98Di9Chuo9CLcqA3bfBOAbi3t2XHrBe9Pnh9cVVNX+m+ayXZzzg3R3BQZ8BdqzwB9WIOhpoqTifOSW0BZ3Q1ViXSk3HR+gRO/CsyJMf17a+l8X3nP+3xN0/o8P75ptq+vKTCmn2jw3uv/WW76kQu4M5NWW4ee6sxk9ueL3S+ny809W4iuS2Ci/YfcDWRvFOc7v0F+u9rwWG9cHoUl+Q+EeW4fWlr2BnUda70mde0Kmd9vMjtn1l/kL1PUBzXRxTHxbl5wsRyHuavzgX9l9LQozguDxTH5f3bSteP1LixdcqfwBq5H18oc1l7XcBh7mCpONwX4CBOeP9ZESvESXFcnLN6rpe5dXWmpatHcVz+HgcHxwKRixkiD0nijHMVYV0DB/Wiw3Fxtjz1vT/v9f19wDxf417qas5ZKQ09iuP6j+I4HxKvl1PCv4AvgDiRgzhH/AQcDsslqWvkHiXOseol6duoHj6nQQ+em6EePAOL/9r9yDnv1PZc+qAt8AYG93ynOC7vFMfFuVbUy/T7+/qQBa8FZ06P4ri6VnHoJ4Ab8QXwrAq9wcrg+hzMg7YPUXBKn0VwmnHi4STUG8Vx+aO4afV1Ml9ghmzg6yJzgIFzAHCSfshgP6g4Sd+a2LcqjonTkM1VGnokJ5mPov5Tyr378wyZTw604Cx8dRr9dZ3j+p17RuaVjYKT5L2Ieae4z4+nZP2Xwf6jOC5OOOO8srjdxRp3OD0VF/dZwi8FNQr9TnGwL5K+LWLu8fric4DufsY53fzJ9HTiDOcqA+eqJPUS5yTzUbmmKU6jbw3sv3vd4y7j9+n2X5xrvfWczCc/lHdKj4sT/fWg4HCu0tGjuLg/G5fNwyr8IvzZ4+CEFwzuweCzksQZ5XT6iNLj4sS5aqHgcK7S7VsZp3OfiHNc3r2z35V/O/nq5pM+zgHc9VEcNwdQHBfn35X//8YDK+QcTk/FqXwrxXH7sj7tWeEc4NyevH4FzgFc/iiO83UUlyB/cDi685iK08z7QxznJ4ZjecA5gKsXiuPyrtLTjNMYo94oTjX/URxXZwN7LpSvr75l6wqcV7jnO8VxPpnidPqhumKkro3YvKLSU3FcH8m4JPtiROYAzr9QHDfnqPQ04jTGqCflNPI+ivsP","UsesIndices":false,"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":null,"PathInLibraryFolder":null,"AnyPath":null}
+™{
+  "Mesh": {
+    "CountsOfElements": [
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "VerticesCount": 0,
+    "Name": "sponza.obj_89",
+    "PathToObjMaterial": "Library/Materials/Material__25.tofumaterial",
+    "PathInAssetsFolder": null,
+    "PathInLibraryFolder": "Library/Meshes/sponza.obj_89.tofumesh"
+  },
+  "ByteIndices": "AwA=",
+  "ByteVertexBufferData": "AwA=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}OieuLkyWP3D9AcbdZ9xw5Vuc6zcSde3NB3Kw/vwulce4W4yrL6TsIcYdmr2Xc4OBFpxVejpxsjPnjpQtSM6IoSfjTMZtZXrAgR77mHMqvQ3Zd+xphYz9S8N868qLteYbxxrrlvSNz8Fyf0sD77y/5rA/vO9z70mraw3tO9h3hr3e+dW79utdrZxr2J40J1c21yWvTTeDpeTg+rKMgziBY3tiQozB3kg5Kk77aUvPTe+wz85ezx7Xgu+BRelh3HqmF+ZAr2Lwjxxwa7emxqwXvj54fX5VRW/hsWvF2c8o9xrjoM6Au1p6FOrFHAw0VZxOnC9kOGd01JfF0pNx4foEjv2rYFCO6tu7hfG9p7/u9jdOaPP+PltuX1pSYs291uZtbl1klx1Nc+7U1A/MIx/V12W2ZXPtn2VzK3s2oNynjAv3H3DhvGOc7v0F+u9nxol6ofQwLs59IsxR+5Kp3cnrOl3Y5a1clba+XOj2vVzTSd4nMI7qI4yj4tw4YWIxD29+nOb9l9DQwzgqDxhH5f1cqeuHatzYMvUhsEb6+rwil7LXcU7kDpaKE/sCHMQJ789ksUKcGEfF+Ur370VuXZVp6ephHJW/58HBsYDlYg7LQ5w4o1xJUNfAQb3ocFScjVMu+/OX/tALzKsV7sWOhrSV0NDDOKr/MI7yIdF6Oc78C/gCiFNwEOeIn4DDIbk4dS24/xPnWPXi9G1YTzynQQ+em4EePAPz/9h9gnM+qey+uCPDvYFBPd8xjso7xlFxrmH1Mvvx972CBa8FZ0oP46i6VnHCTwA34gvgWRV4gw/59TkiD9o+RMEpfRbCacYpDiem3iiOyh/GzaqpkvkCM2C5rwvNAYaYA4CT9APviYesH1ScpG9N0bcqjojTkM1VGnooJ5mPwv5Tym26PUfmk7kWnJmvTgp/XeW4fvv+kXllPeMkec+LvGPc7p8Ssv7jPdjJ+g/jqDjhLOaVt1tdUeMOpafiJD6L1yj0O8bBvkj6Ni9yL64vOgfo7meU082fTE8nzmCuMsRcFadeopxkPirWNMZp9K0h+u9R17hL4vt0+y/Ktdx4SeaTn8k7pkfFKfz1IOPEXKWjh3FRfzYulYWVu8P82fPgmBfk92DwWXHiDHM6fYTpUXGKuaqacWKu0u1bGadzn4hyVN69kxeKv5182z/JF3MAdX0YR80BGEfF+Vfpf7/xwAo4h9JTcSrfinHUvjQlPSuYA5ybk5uWiTmAyh/GUb4O42LkDw5Hdx5TcZp5f4aj/MRwJA9iDqDqBeOovKv0NOM0xqg3ilPNfxhH1dnA/jPF66tp3LJMzCvU8x3jKJ+McTr9UF4yUtdGZF5R6ak4qo9kXJx9MUJzAOVfMI6ac1R6GnEaY9STchp5H8X9Cw==",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}

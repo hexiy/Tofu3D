@@ -1,1 +1,12 @@
-{"FrameLimiter":"true","CurrentDirectoryPath":"\"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Assets/3D/sponza\"","PersistentObject__cameraFieldOfViewInperspectiveMode":"90.0","PersistentObject__cameraPositionInPerspectiveMode":"{\"X\":0.0,\"Y\":0.0,\"Z\":0.0}","PersistentObject__cameraRotationInPerspectiveMode":"{\"X\":0.0,\"Y\":0.0,\"Z\":0.0}","PersistentObject_sceneViewProjectionMode":"0","lastOpenedScene":"\"sceneEmpty.scene\"","LastSelectedGameObjectId":"260","Global.Debug":"false","RenderSettings.Wireframe":"{\"WireframeLineWidth\":5.0,\"WireframeVisible\":false}","RenderSettings.ViewRenderMode":"{\"CurrentRenderMode\":0}"}
+Ï{
+  "FrameLimiter": "false",
+  "CurrentDirectoryPath": "\"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Assets/3D/sponza\"",
+  "PersistentObject__cameraFieldOfViewInperspectiveMode": "90.0",
+  "PersistentObject__cameraPositionInPerspectiveMode": "{\n  \"X\": 0.0,\n  \"Y\": 0.0,\n  \"Z\": 0.0\n}",
+  "PersistentObject__cameraRotationInPerspectiveMode": "{\n  \"X\": 0.0,\n  \"Y\": 0.0,\n  \"Z\": 0.0\n}",
+  "PersistentObject_sceneViewProjectionMode": "0",
+  "lastOpenedScene": "\"defaultScene.scene\"",
+  "LastSelectedGameObjectId": "1840",
+  "RenderSettings.Wireframe": "{\n  \"WireframeLineWidth\": 5.0,\n  \"WireframeVisible\": false\n}",
+  "RenderSettings.ViewRenderMode": "{\n  \"CurrentRenderMode\": 7\n}"
+}

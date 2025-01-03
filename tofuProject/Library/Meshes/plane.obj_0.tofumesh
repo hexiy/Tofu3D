@@ -1,1 +1,24 @@
-´{"Mesh":{"CountsOfElements":[3,2,3,3,3],"VerticesCount":6,"Name":"plane.obj_0","ObjMaterialDefinition":null,"PathInAssetsFolder":null,"PathInLibraryFolder":"Library/Meshes/plane.obj_0.tofumesh"},"ByteIndices":"AwA=","ByteVertexBufferData":"Y2Bo2M8ABiC6wZ4BDuDsAwyYwAEhj4smqG8/qhRBfeS6cz9CHQyT5E6S/AcA","UsesIndices":false,"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":null,"PathInLibraryFolder":null,"AnyPath":null}
+¤{
+  "Mesh": {
+    "CountsOfElements": [
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "VerticesCount": 6,
+    "Name": "plane.obj_0",
+    "PathToObjMaterial": null,
+    "PathInAssetsFolder": null,
+    "PathInLibraryFolder": "Library/Meshes/plane.obj_0.tofumesh"
+  },
+  "ByteIndices": "AwA=",
+  "ByteVertexBufferData": "Y2Bo2M8ABiC6wZ4BDuDsAwyYwAEhj4smqG8/qhRBfeS6cz9CHQyT5E6S/AcA",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}

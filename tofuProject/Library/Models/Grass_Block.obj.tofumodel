@@ -1,1 +1,10 @@
-Ÿ{"PathsToMeshAssets":["Library/Meshes/Grass_Block.obj_0.tofumesh"],"IsRuntimeCopy":false,"DataIsCompressed":false,"PathInAssetsFolder":"Assets/3D/grass block/Grass_Block.obj","PathInLibraryFolder":"Assets/3D/grass block/Grass_Block.obj","AnyPath":"Assets/3D/grass block/Grass_Block.obj"}
+À{
+  "PathsToMeshAssets": [
+    "Library/Meshes/Grass_Block.obj_0.tofumesh"
+  ],
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/3D/grass block/Grass_Block.obj",
+  "PathInLibraryFolder": "Assets/3D/grass block/Grass_Block.obj",
+  "AnyPath": "Assets/3D/grass block/Grass_Block.obj"
+}

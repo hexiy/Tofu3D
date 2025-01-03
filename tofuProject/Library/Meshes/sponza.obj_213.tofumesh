@@ -1,1 +1,31 @@
-‚{"Mesh":{"CountsOfElements":[3,2,3,3,3],"VerticesCount":0,"Name":"sponza.obj_213","ObjMaterialDefinition":null,"PathInAssetsFolder":null,"PathInLibraryFolder":"Library/Meshes/sponza.obj_213.tofumesh"},"ByteIndices":"AwA=","ByteVertexBufferData":"AwA=","UsesIndices":false,"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":null,"PathInLibraryFolder":null,"AnyPath":null}f7z3P8z7v87bpm8aYO7dNKHrTz6d86rC6ryzmvn9yH/vRtW3yc+caJJcjztfn/tnFMIwvU/jWnJxcYVuaH4+KHe/GTjmPCoXGWr5usNxqeuBRLqeuMtxc5ZWHSx+04Lic3jeEDoWr3neEA+75smzLj9u98u323DCOayL4PJYf54FBv0y/xcaa7qmwLaPQw3GmCo+g6l0bDHCg17KpV1rbUSLfejqI1SNxrjVxvsfpibRd7u9ReJ+DJi4ETloQiAInGrZz7sBW0TjulR1LWTOOo/H5S4EnEvzwiTAwD1cGsvop9WbjQG8b0oumfB0FveZN73DCJxeluz4rkO/7eIidr97Ljqk8+KyXO8VLKxyRpI2T9alyUJ/A7RkJms9855Wrf2XCOA7qTPUJdQY+2b5uNusfl1z/bJjFcSSfgTv14vv5kZXSD4gzUOjhOFI89fT09lGwMM6ndUu22qI6izYPJJ84jpQHPT2SzwM9ki2tKnUdcBcsg6ECSj0cp9fPcBz4bL35ulCo+LRfj1lb213saPJbsEpKHuDHl5Y+IL506ZXux9HfMlD+VA7yB1zesT7JYChOrDiuLNUl+BH3+1OZ/MXiVq4w47B1Ms8+WBkcR/Lp19TLidIbYjHillPo4bjh9NqYyo3+5bHScqS4PPZinJdeGAjVf5We6BOplYHQOYU7jLizyn4AjdGqgHR+S7kVrSyOg/cDbue4Nwrvt+qno6zWp56ens9liFt0Y3l3W+fJRL1IvXtDu+1kPT1OLw84DvKuxgXyrsSFVeOizYPn8/NmWG9tmMyf6hPyN90njiO9H44j+dSct76WvNMJboJCD8eR6gXHkfZRDPWJqw5vdttBgwiMjPKwy07eD3qcXh5wHMlnBHHujtTs33bVWLR1TdLDcaT84ThS323V5GHgg5vm1esPRdaivgs+N44cEcaVeI5YTVz/sFGq69shl686juWgXlQO6gU4+J8ljTvk1xabWBxH8lmC5gK2JDG3MtVLjNLZ3EORTAo9HEeaB+fL3X4VxXz/cVvlvV+sU9+zwU72SeJqlP031lXO/XF3l+Vqzk55ddFBrB7J59+ICyOu+cAzYZVz5pP1cBxpPpuvnrafdZ4aEoX179vGNtypzxplHwHnfDtTSnmvVg425mE50vyC40g+tXNrzkPjFh5x1yn0cNxc5nItR4rLEOoTxq1J0fax+0WV32Mn73ccR9q3JD2czwuIC1UkRdcs2JvoZ8NoHnRS9Ak9Ti8POI40lyd67cIJvizDmc0o8/WXFPO1HqeeK9B7gNOeK3ocjc8zm/1Z8LmptCWrbw56s3HqeQQc6GnPIz1OLy7ae5X2GaT7NI6jvAfM4Obr8//oUdxzZtVT89DU0MspeZias7o2+0OLFk5EVU6tF61P4OD9tD5xHCkPeno0PmEFbrdSL7R6s3F693ccN33Ocl/Z/5+61tz/mMT5jZ7Rg54xfd5VOInEUX7PMIOj9DlVL3PUm8HN5XsULfcv","UsesIndices":false,"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":null,"PathInLibraryFolder":null,"AnyPath":null}
+›{
+  "Mesh": {
+    "CountsOfElements": [
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "VerticesCount": 0,
+    "Name": "sponza.obj_213",
+    "PathToObjMaterial": "Library/Materials/Material__25.tofumaterial",
+    "PathInAssetsFolder": null,
+    "PathInLibraryFolder": "Library/Meshes/sponza.obj_213.tofumesh"
+  },
+  "ByteIndices": "AwA=",
+  "ByteVertexBufferData": "AwA=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}c6fL/xgWrSozrasNBUXO95NnHIeE8r1Tbx3sNZifPBxa5HXFW2t98nDNQ+ZSVxR7+tCh8I1fHjUCtyShMEcGPDJzcmNIolrofg8XprigUFvXZ/ZxhnvrbNlM+iROGOdR1D1fh8MWUGvbUOvtLqjWr7xXJioR+OqVqX4HqcnFrzY16PwfgfLulA4aUEoDpyY+YbVHdoq6id8smMZZyJxLD5/K/PEwh88FQXmEVeooI9RbzYO9LYhvXjWd3HQa93wjlX45Lx09xdl8v0fD3Hz1XvFcTsOfsvFTvHCM45Yxvqp/FQ5yE/g9oyETad/9MkNV3RREgd5pvqEPAOfXLKbK/inSm5+IcqROJrP0J188f/62LPST4jLZNAjcbT11NLT2kfh8hSf0y3Zmiq8ZjwONJ8kjhYHLT2az4M9ki2n3rAGuHPmwUgZox6J06pnJA58to9vEcoVn/axhOUKv5971LUNRkmJA7z8Obn94sYLr3Y/ib7LQ/FTOYgfcFfrQ9LZl2vTI4nbbKgSAoi7/nQ+f76y3Vqed8QyFWc/jDoSR/MZwPLl85prYiXiljPokbjh3KaEyl3922Nh5Wjr8sRLKV56sT/SPJCbrhMGVyjyjcIdQdwZZT+ARsnxpJSZWWlBI0fiYH7A7ZjwxWF+K34+xuE+tfS0fGYjbvG15d3BzpPpfJF690V22el6WpxWHEgcxF1dF4g7/Bb54xSfHB4Hz1dnTTDeWDcVP9UnxG+6TxJHmx+Jo/nEzlt/W8mXaW6SQY/E0fKFxNH2UQLVicsOX2HwUKYIjIzisNNO3w9anFYcSBzNZwxx7g5D4R87G814XtP0SBwtfiSOVnfbsTj07x83rVx7OLYa1V3wuX7kqDChrOeIxWjtG9ZL3uR2uXbFCSIH+aJykC/AyXe9Zc6+6ZXHPvqFyNF8VqO+gKtO9626hqV66Uzx4Vg+gx6Jo/WD8+VuvYbW/MAJm+u+r9eo89xtp/ukcY3K/hvtqrX+eU+X+XLRDnllxaEoiaP5vIm4KOJaDz4fVTlnKV2PxNH6s/nq4fWs89SQKKx93za67k5+Nir7CDjn2/lS1ntNcnhvCZGj9S8kjuYT71uLHp4w84gbY9AjcXPpy3GOti5DqE7ot2bEPxt9QFT5PXb6fidxtH1L0yP5PIe4SF1GfNWCfel6Noz6QSdDndDitOJA4mh9ebrWLpzkN+c5C3VKf/0tQ3+txannCtQe4PBzRYtj8Xl6U6AAPrfUtBUk56A3G6eeR8CBHn4eaXFa64Lfq/Bn0O7TJI7xHjCDm6/P/6PHcM+ZVU+NQ8vu3vQ9Fe+zujYFIosXTsZVTs0X3CdwMD/cJ4mjxUFLj8UnjMDtUvKFVW82Tuv+TuKm91nuSwf+k9fY/Q9e/qXoGT3oGdP7XeDw+ZE4xv8ZZnCMPm/nyxz1ZnBz+R8F5/4F",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}

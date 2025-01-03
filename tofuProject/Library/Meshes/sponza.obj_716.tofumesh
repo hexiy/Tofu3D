@@ -1,1 +1,24 @@
-§{"Mesh":{"CountsOfElements":[3,2,3,3,3],"VerticesCount":6,"Name":"sponza.obj_716","ObjMaterialDefinition":{"MaterialName":"chain","AlbedoTexturePath":"Assets/3D/sponza/textures/chain_texture.tga","AlbedoTint":{"B":149,"G":149,"R":149,"A":255}},"PathInAssetsFolder":null,"PathInLibraryFolder":"Library/Meshes/sponza.obj_716.tofumesh"},"ByteIndices":"AwA=","ByteVertexBufferData":"Y/74zzn0AKtzcTi/831/XXsGCGiAUvsF9106IJzydj+IFx305cALp7OOIHavxGfnp4GhYH0pZ3TtN1e7ORCjb+vVL863o8LA+pIEJOwq5hCnj5mAO3fcvXgg9tJPsD41nS8HOBSJsw+XPvFwBhfvk2xgfW0WYnbE2gcA","UsesIndices":false,"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":null,"PathInLibraryFolder":null,"AnyPath":null}
+´{
+  "Mesh": {
+    "CountsOfElements": [
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "VerticesCount": 6,
+    "Name": "sponza.obj_716",
+    "PathToObjMaterial": "Library/Materials/chain.tofumaterial",
+    "PathInAssetsFolder": null,
+    "PathInLibraryFolder": "Library/Meshes/sponza.obj_716.tofumesh"
+  },
+  "ByteIndices": "AwA=",
+  "ByteVertexBufferData": "Y/74zzn0AKtzcTi/831/XXsGCGiAUvsF9106IJzydj+IFx305cALp7OOIHavxGfnp4GhYH0pZ3TtN1e7ORCjb+vVL863o8LA+pIEJOwq5hCnj5mAO3fcvXgg9tJPsD41nS8HOBSJsw+XPvFwBhfvk2xgfW0WYnbE2gcA",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}

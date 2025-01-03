@@ -1,1 +1,10 @@
-ç{"PathsToMeshAssets":["Library/Meshes/sphere.obj_0.tofumesh"],"IsRuntimeCopy":false,"DataIsCompressed":false,"PathInAssetsFolder":"Assets/3D/sphere.obj","PathInLibraryFolder":"Assets/3D/sphere.obj","AnyPath":"Assets/3D/sphere.obj"}
+ˆ{
+  "PathsToMeshAssets": [
+    "Library/Meshes/sphere.obj_0.tofumesh"
+  ],
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/3D/sphere.obj",
+  "PathInLibraryFolder": "Assets/3D/sphere.obj",
+  "AnyPath": "Assets/3D/sphere.obj"
+}

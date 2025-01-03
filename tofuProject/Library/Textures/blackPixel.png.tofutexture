@@ -1,1 +1,12 @@
-ü{"Pixels":"Y2Bg+A8A","TextureSize":{"X":1.0,"Y":1.0},"IsRuntimeCopy":false,"DataIsCompressed":true,"PathInAssetsFolder":"Resources/blackPixel.png","PathInLibraryFolder":"Library/Textures/blackPixel.png.tofutexture","AnyPath":"Resources/blackPixel.png"}
+¨{
+  "Pixels": "Y2Bg+A8A",
+  "TextureSize": {
+    "X": 1.0,
+    "Y": 1.0
+  },
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": "Resources/blackPixel.png",
+  "PathInLibraryFolder": "Library/Textures/blackPixel.png.tofutexture",
+  "AnyPath": "Resources/blackPixel.png"
+}

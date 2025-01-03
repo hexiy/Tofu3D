@@ -47,46 +47,39 @@ public class ModelRendererInstanced : Renderer
         }
 
         /////////////////////// MATERIAL
-        if (Material == null || Material?.IsRuntimeCopy == false)
+        string? pathToObjMaterial = RuntimeMesh?.Mesh?.PathToObjMaterial;
+
+        // for now, always load obj material
+        if (pathToObjMaterial != null)
         {
-            if (Material?.PathInLibraryFolder.Length == 0 || Material == null)
-            {
-                Material = Tofu.AssetLoadManager.Load<Asset_Material>(Path.Combine(Folders.MaterialsInAssets,
-                    "ModelRendererInstanced.mat"));
-            }
-            else
-            {
-                Material = Tofu.AssetLoadManager.Load<Asset_Material>(Material.PathInLibraryFolder);
-            }
+            Material = Tofu.AssetLoadManager.Load<Asset_Material>(pathToObjMaterial);
         }
         else
         {
-            if (Material != null)
+            if (Material == null || Material?.IsRuntimeCopy == false)
             {
-                Debug.Log(
-                    "Not automatically creating material instances, because when tweening higlight box it was losing the reference... only create runtime copy if it was serialized as runtime copy");
-
-                if (Material.IsRuntimeCopy)
+                if (Material?.PathInLibraryFolder.Length == 0 || Material == null)
                 {
-                    Material = Tofu.AssetLoadManager.CreateUniqueCopy(Material);
+                    Material = Tofu.AssetLoadManager.Load<Asset_Material>(Path.Combine(Folders.MaterialsInAssets,
+                        "ModelRendererInstanced.mat"));
+                }
+                else
+                {
+                    Material = Tofu.AssetLoadManager.Load<Asset_Material>(Material.PathInLibraryFolder);
                 }
             }
-        }
-
-        ObjMaterialDefinition objMaterialDefinition = RuntimeMesh?.Mesh?.ObjMaterialDefinition;
-        bool hasObjMaterial = objMaterialDefinition != null;
-
-        if (hasObjMaterial)
-        {
-            Material = Tofu.AssetLoadManager.CreateUniqueCopy(Material);
-
-            Material.AlbedoTint = objMaterialDefinition.AlbedoTint;
-
-            if (objMaterialDefinition.AlbedoTexturePath != null)
+            else
             {
-                RuntimeTexture texture =
-                    Tofu.AssetLoadManager.Load<RuntimeTexture>(objMaterialDefinition.AlbedoTexturePath);
-                Material.AlbedoTexture = texture;
+                if (Material != null)
+                {
+                    Debug.Log(
+                        "Not automatically creating material instances, because when tweening higlight box it was losing the reference... only create runtime copy if it was serialized as runtime copy");
+
+                    if (Material.IsRuntimeCopy)
+                    {
+                        Material = Tofu.AssetLoadManager.CreateUniqueTempCopyFile(Material);
+                    }
+                }
             }
         }
     }

@@ -21,5 +21,5 @@ public class Mesh : IHasPath
     public string? PathInLibraryFolder { get; set; }
 
     // this should be in MeshFile but I'll have it here for now
-    public ObjMaterialDefinition? ObjMaterialDefinition;
+    public string? PathToObjMaterial;
 }

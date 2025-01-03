@@ -11,46 +11,18 @@ public static class PersistentData
     private static void LoadAllData()
     {
         string persistentDataPath = Path.Combine(Folders.Data, "persistentData.json");
-        if (File.Exists(persistentDataPath) == false)
-        {
-            return;
-        }
 
-        var jsonFileContent = File.ReadAllText(persistentDataPath);
-        var x = JsonConvert.DeserializeObject(jsonFileContent);
-        _data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonFileContent);
-        // _data = new Dictionary<string, object>();
-        // using (StreamReader sr = new(PersistentDataFileName))
-        // {
-        // 	while (sr.Peek() != -1)
-        // 	{
-        // 		string line = sr.ReadLine();
-        // 		if (line?.Length > 0)
-        // 		{
-        // 			string key = line.Substring(0, line.IndexOf(":"));
-        // 			object value = line.Substring(line.IndexOf(":") + 1);
-        // 			_data.Add(key, value);
-        // 		}
-        // 	}
-        // }
+        // var x =Serializer.ReadFileJSON<object>(persistentDataPath);
+        // var b = x as Dictionary<string, string>;
+
+        _data = Serializer.ReadFileJSON<Dictionary<string, string>>(persistentDataPath) ?? _data;
     }
 
     private static void Save()
     {
-        var json = JsonConvert.SerializeObject(_data);
         string persistentDataPath = Path.Combine(Folders.Data, "persistentData.json");
 
-        if (File.Exists(persistentDataPath) == false)
-        {
-            var fs = File.Create(persistentDataPath);
-            fs.Close();
-        }
-
-
-        using (StreamWriter sw = new(persistentDataPath))
-        {
-            sw.Write(json);
-        }
+        Serializer.SaveFileJSON<Dictionary<string, string>>(persistentDataPath, _data);
     }
 
     public static void DeleteAll()
@@ -128,7 +100,7 @@ public static class PersistentData
             LoadAllData();
         }
 
-        var json = JsonConvert.SerializeObject(value); // needs this for serialized classes
+        var json = JsonConvert.SerializeObject(value, Formatting.Indented); // needs this for serialized classes
 
         _data[key] = json;
 
