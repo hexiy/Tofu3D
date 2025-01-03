@@ -1,0 +1,31 @@
+›{
+  "Mesh": {
+    "CountsOfElements": [
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "VerticesCount": 0,
+    "Name": "sponza.obj_211",
+    "PathToObjMaterial": "Library/Materials/Material__25.tofumaterial",
+    "PathInAssetsFolder": null,
+    "PathInLibraryFolder": "Library/Meshes/sponza.obj_211.tofumesh"
+  },
+  "ByteIndices": "AwA=",
+  "ByteVertexBufferData": "AwA=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}oS9nIvqpDZdb4JZxNdtLwvWMq8k6YHPdGdk6/LNbotcUPE4zTT0T9bwc6jnhCLlj0/e2lm2Php/V/8p/PGyhPuvWqtClJ1F9QWJwC9zwHmN1bWpXcUcjfFLXjiuJm5WWAdzx7P3h69fmLlq5LU8fMXlDKO/5WB1vGQdxzmYcxAlcj7M+51XIqeJ8Fa9NvdxTGse17a6g6cm4O0wPONA7VRqxuW3f3g1Ir4Ctr+haR2Nbr5Xy5kG1nzwO8u7lnmbeCDm1oncr9ALGaV9p6LmcVw85pz6FHKVv28pjqbqDayEPWlbOGGNBw/gwcLtD+8KVO5fm3x21SL9emB+qj2/Sh2+93QK3jIM4lzIO4gQO877VybuIU8U5k/VfO+s/zMFQop6Mkz0nRJxqX6Cuj1aXxHPnXDI+G1bCKoyS+4/HUfrIz1Hz96KzOJ7DOPi7iqjH46h553GKvNtXdWZ/TcdGfTEOj+vNQW5PZHQyEi5y8+fkTpNxsC/lDgdxrtkS0Sd0v2tRcZQ458WeuVzfNN2g6ok4Sf4GxM1nHNTLuhVRA58TlDj9HNY1clAvFI4a56qRbTZXxLiaLCtJ1RNxkv7jcgQf4taLx79oyGF9/vET5j/16eWC1DVPL2ic6eoF6Vsvh+c05g/OTc/ZZ28Q/Bi9OGHXdS/zBGcnxpKU813EqZ67Mj1JnPa1mtULfMa3in5PSK0zEaeqaz+HfgI5xxeYjifA/TTHsPUF9SE8jpgHoZ4kTvvycCbui0JPyqny5+fwHKurWJfk+AL7FeaAqp6RTbx+uMA4Tj+ERBz2LXK+vpXqBYzTxHoJqOdyXj3ffCTk0E8cvHc1yfHJts+CeeV9Xwx8lva+7EriYqWVwvydZBwn71IO+qgtaiW9/ZfDeo/dIRmniFMDn1W35EcDri1aQdITcqDXzjiOzxJy2Ee4L76+teMscNbnqWuNsJ9CTrUvPC6NOLU09dw+8nK++UjIUfoW5gCL1TUy06oHtVL6T8Z1/Tqd9PtkzLuIU8UJ/vpr1yR3rlpL1BNx4M++Mg792f0//mzA3OYhGTgHaEcKoylqnH6O0kciPVWc0H8PpmruXHWMqCfiKM8JP0fIu/1s+FjXbK8N5oDGN8Mp65NykjlAyFHifJvZfzYEmMeEnMK3SvVU+7IxL27gHHA+c30B5VyRcRJfx+WC5M8zV1F8JJcLkncvR/ATbh7839NS64XHUfIe0Pf8Fz3J/MflqHXWfOK+3X8wr+gbSwsofknGKeYxLkeJcxOra80351D0eBylrkV6lH3hfS8s8S9STjWP+TmKP0tTj8sR56N/uN8=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}

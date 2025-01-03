@@ -1,0 +1,31 @@
+›{
+  "Mesh": {
+    "CountsOfElements": [
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "VerticesCount": 0,
+    "Name": "sponza.obj_375",
+    "PathToObjMaterial": "Library/Materials/Material__25.tofumaterial",
+    "PathInAssetsFolder": null,
+    "PathInLibraryFolder": "Library/Meshes/sponza.obj_375.tofumesh"
+  },
+  "ByteIndices": "AwA=",
+  "ByteVertexBufferData": "AwA=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}B9IDs1/WPWR4s6Ue/wW5NiHrA85vUDlGdDSC1n6oGG/4xkwPmD6Mr/OtSCUXnDpA4WLITBcvKD60MIFpz5i3AlUt+Mpkr7p0HggZB8uffjiD5c+QuFyEy1dI8c7vvyATx/MfyB9IHd+gaZrEI1LHynuRE+fxNqHrI9QPOCzDxYPAX/SD6LnWxCt1dlj8QyavgWh6YWQO/HpwxcP+PQRcCcovYDLMFg8TCci3vHpg+UHkH1o+nDaBwA=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}

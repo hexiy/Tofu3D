@@ -1,0 +1,12 @@
+™{
+  "Pixels": "+////38A",
+  "TextureSize": {
+    "X": 1.0,
+    "Y": 1.0
+  },
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": "Assets/2D/white.png",
+  "PathInLibraryFolder": "Library/Textures/white.png.tofutexture",
+  "AnyPath": "Assets/2D/white.png"
+}

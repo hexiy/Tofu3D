@@ -1,0 +1,31 @@
+›{
+  "Mesh": {
+    "CountsOfElements": [
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "VerticesCount": 0,
+    "Name": "sponza.obj_203",
+    "PathToObjMaterial": "Library/Materials/Material__25.tofumaterial",
+    "PathInAssetsFolder": null,
+    "PathInLibraryFolder": "Library/Meshes/sponza.obj_203.tofumesh"
+  },
+  "ByteIndices": "AwA=",
+  "ByteVertexBufferData": "AwA=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}1FEur2jF7e91Q1O+3U7VHDqI+TO7lf/DzEgQAOIkPj97hBMX9gDfrA+t22fbb+wmNoD8X6QGlz6ui68OwTTZ30/3x6k7zNQz2cC+kh0JwOZ9mHoA9kH0gey764gy/5fr7n2R2/QxGsfKB5A9hV11dmD4gFqnz2yn4R+Q9KJCDQeYPpg9oH03XDn3n8jmsveykdlPz59+NxJyD487mRA0tdAgn149cHsA+lDjgdc+mDpGpbOJFnKQO60h7mzFkt6EQSaQSg/4NJHKB4I2UekOxnItA9DHyxdQ+3bT8g+5Hx77I6pDSgekPMtDEgB0zKonBAhspzApY9QPBCyj1R3kmsfcvyB7IPmB3v0/ICuj1B5fe3+u0MfT7/bAdabKrezmMj6CJe+SafvH9oC1bflRJo9SN/tRX9sa3Pb7Vbfwq2PkDuPAvUh+7OFSPvw6YPZB9IHsk8+i88utvnL3s0rcdtHKP6OIelrvvzfaeu1Jmebg+sPEfIfLn2E3IlLHyF31iPlP7td2w9tA+qzJcI+XPoIlRO49BFKZ71I+lKXfz705uI7px8+G5wI5Xdc+gjVD7j0EZMfeoregtM1l9hpp/QL75x+EmEfLn3E5CNy7GvsCj5sGPPdqfnlfLA/ia3fcekjlF7w2UfIndcjFtjA9LUSmW/x6cMXnrj0AQA=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}

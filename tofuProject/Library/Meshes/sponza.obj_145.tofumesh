@@ -1,0 +1,31 @@
+›{
+  "Mesh": {
+    "CountsOfElements": [
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "VerticesCount": 0,
+    "Name": "sponza.obj_145",
+    "PathToObjMaterial": "Library/Materials/Material__25.tofumaterial",
+    "PathInAssetsFolder": null,
+    "PathInLibraryFolder": "Library/Meshes/sponza.obj_145.tofumesh"
+  },
+  "ByteIndices": "AwA=",
+  "ByteVertexBufferData": "AwA=",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}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",
+  "UsesIndices": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": null,
+  "AnyPath": null
+}

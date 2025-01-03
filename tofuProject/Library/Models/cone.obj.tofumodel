@@ -1,0 +1,10 @@
+€{
+  "PathsToMeshAssets": [
+    "Library/Meshes/cone.obj_0.tofumesh"
+  ],
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/3D/cone.obj",
+  "PathInLibraryFolder": "Assets/3D/cone.obj",
+  "AnyPath": "Assets/3D/cone.obj"
+}
