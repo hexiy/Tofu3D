@@ -1,8 +1,9 @@
-¼{
+º{
   "PathToSourceAsset": "Assets/3D/sponza/textures/lion2_ddn.tga",
   "FilterMode": 9729,
   "WrapMode": 10497,
   "IsSrgb": false,
-  "BlackIsTransparency": false,
-  "AssetID": -2132187208
+  "BlackIsTransparency": true,
+  "AssetID": -788292431
+}
 }

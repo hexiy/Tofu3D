@@ -1,7 +1,8 @@
 ﻿namespace Scripts;
 
 [ExecuteInEditMode]
-public abstract class Renderer : Component, IComparable<Renderer>, IComponentRenderable, IComponentUpdateable, IHasMaterial
+public abstract class Renderer : Component, IComparable<Renderer>, IComponentRenderable, IComponentUpdateable,
+    IHasMaterial
 {
     public uint MousePickingId; // => (uint)this.GameObjectId;
 
@@ -36,6 +37,8 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
 
     [Hide]
     public virtual bool CanRender => true; // && Enabled && GameObject.Awoken && GameObject.ActiveInHierarchy;
+
+    public RenderMode RenderMode => Material?.RenderMode ?? RenderMode.Opaque;
 
     [XmlIgnore]
     public Action CreateInstanceOfMaterial
@@ -336,5 +339,4 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
             InstancingData.MatrixDirty = false;
         }
     }
-
 }

@@ -73,6 +73,7 @@ uniform float u_metallic;
 uniform float u_renderMode = 0;
 
 uniform int u_hasAlbedoTexture;
+uniform int u_hasAlphaMaskTexture;
 uniform int u_hasNormalTexture;
 uniform int u_hasShadowmapTexture;
 uniform int u_hasAmbientOcclusionTexture;
@@ -83,6 +84,7 @@ uniform int u_directionalLightEnabled;
 uniform int u_smoothShadows;
 
 uniform sampler2D u_albedoTexture;
+uniform sampler2D u_alphaMaskTexture;
 uniform sampler2D u_normalTexture;
 uniform sampler2D u_ambientOcclusionTexture;
 uniform samplerCube u_environmentCubemap;
@@ -128,7 +130,7 @@ float ShadowCalculationPCFConstantQuality() {
 
 	for (float x = -samples / 2; x <= samples / 2; ++x) {
 		for (float y = -samples / 2; y <= samples / 2; ++y) {
-			float closestDepth = texture(u_shadowmapTexture, projCoords.xy + vec2(x, y) * texelSize*0.1).r;
+			float closestDepth = texture(u_shadowmapTexture, projCoords.xy + vec2(x, y) * texelSize * 0.1).r;
 			shadow += (projCoords.z - bias > closestDepth) ? 1.0 : 0.0;
 		}
 	}
@@ -290,14 +292,14 @@ void main() {
 	vec3 specular = mix(vec3(0.04), u_directionalLightColor.rgb, metallicValue) * specFactor;
 
 	// Shadows
-	
+
 	float shadow = 0.0;
-	
-	if(u_hasShadowmapTexture == 1) {
-		if(u_smoothShadows==1){
+
+	if (u_hasShadowmapTexture == 1) {
+		if (u_smoothShadows == 1) {
 			shadow = ShadowCalculationPCFConstantQuality();
 		}
-		else{
+		else {
 			shadow = OldShadowCalculation();
 		}
 	}
@@ -341,10 +343,26 @@ void main() {
 	// Final Conversion to SRGB
 	color = LinearToSRGB(color);
 
+	float alpha = albedo.a;
+
+	if (u_hasAlphaMaskTexture == 1) {
+		vec4 alphaMask = texture(u_alphaMaskTexture, uvCoords);
+		alphaMask.rgb *= alphaMask.a;
+		alpha = (alphaMask.r+alphaMask.g+alphaMask.b)/3;
+//		
+//		alpha=alphaMask.a;
+//		
+//		color = alphaMask.rgb;
+	}
+
+
+if(alpha<0.9){
+	discard;
+}
 	// Final Output
 	if (u_renderMode == 0) // regular
 	{
-		fragColor = vec4(color, 1); // Preserve the original albedo alpha
+		fragColor = vec4(color, alpha);
 	}
 	else if (u_renderMode == 1) // albedo
 	{
@@ -375,11 +393,11 @@ void main() {
 		//		shadow = ShadowCalculationPCFDistanceToCamera();
 
 
-		if(u_hasShadowmapTexture == 1) {
-			if(u_smoothShadows==1){
+		if (u_hasShadowmapTexture == 1) {
+			if (u_smoothShadows == 1) {
 				shadow = ShadowCalculationPCFConstantQuality();
 			}
-			else{
+			else {
 				shadow = OldShadowCalculation();
 			}
 		}

@@ -156,7 +156,9 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 currentObjMaterialDefinition.AlbedoTint = albedoColor;
             }
 
-            if (lineSplits[0].Equals("map_Kd", StringComparison.OrdinalIgnoreCase)) // diffuse/albedo texture
+
+            if (lineSplits[0].Equals("map_Kd", StringComparison.OrdinalIgnoreCase) ||
+                lineSplits[0].Equals("map_Ka", StringComparison.OrdinalIgnoreCase)) // diffuse/albedo texture
             {
                 string albedoTextureName = TofuPath.Combine(objMaterialDirectory, lineSplits[1]);
                 currentObjMaterialDefinition.AlbedoTexturePath = albedoTextureName;
@@ -165,11 +167,20 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                         albedoTextureName); // we need to import it because this is called on model import, so textures are not guaranteed to be imported yet
             }
 
+            if (lineSplits[0].Equals("map_d", StringComparison.OrdinalIgnoreCase)) // diffuse/albedo texture
+            {
+                string alphaMaskTextureName = TofuPath.Combine(objMaterialDirectory, lineSplits[1]);
+                currentObjMaterialDefinition.AlphaMaskTexturePath = alphaMaskTextureName;
+                Tofu.AssetImportManager
+                    .ImportAsset(
+                        alphaMaskTextureName); // we need to import it because this is called on model import, so textures are not guaranteed to be imported yet
+            }
+
             if (lineSplits[0].Equals("map_bump", StringComparison.OrdinalIgnoreCase) ||
                 lineSplits[0].Equals("bump", StringComparison.OrdinalIgnoreCase)) // diffuse/albedo texture
             {
                 string normalTextureName = TofuPath.Combine(objMaterialDirectory, lineSplits[1]);
-                currentObjMaterialDefinition.PathInAssetsFolder = normalTextureName;
+                currentObjMaterialDefinition.NormalTexturePath = normalTextureName;
                 Tofu.AssetImportManager
                     .ImportAsset(
                         normalTextureName); // we need to import it because this is called on model import, so textures are not guaranteed to be imported yet
@@ -544,11 +555,23 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             material.AlbedoTexture = texture;
         }
 
-        if (materialDefinition.PathInAssetsFolder != null)
+        if (materialDefinition.AlphaMaskTexturePath != null)
+        {
+            string pathOfAlphaMaskTexture =
+                AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(materialDefinition
+                    .AlphaMaskTexturePath);
+            RuntimeTexture texture =
+                Tofu.AssetLoadManager.Load<RuntimeTexture>(pathOfAlphaMaskTexture);
+            material.AlphaMaskTexture = texture;
+
+            material.RenderMode = RenderMode.Transparent;
+        }
+
+        if (materialDefinition.NormalTexturePath != null)
         {
             string pathOfNormalTexture =
                 AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(materialDefinition
-                    .PathInAssetsFolder);
+                    .NormalTexturePath);
             RuntimeTexture texture =
                 Tofu.AssetLoadManager.Load<RuntimeTexture>(pathOfNormalTexture);
             material.NormalTexture = texture;

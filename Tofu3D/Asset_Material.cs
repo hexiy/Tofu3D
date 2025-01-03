@@ -9,6 +9,7 @@ public class Asset_Material : Asset<Asset_Material>
     public bool Additive = false;
 
     public RuntimeTexture? AlbedoTexture;
+    public RuntimeTexture? AlphaMaskTexture;
     public Color AlbedoTint = Color.White;
     public RuntimeTexture? AmbientOcclusionTexture;
     public RuntimeTexture? NormalTexture;
@@ -65,6 +66,12 @@ public class Asset_Material : Asset<Asset_Material>
                 { PathToAssetInLibrary = AlbedoTexture.PathInLibraryFolder });
         }
 
+        if (AlphaMaskTexture?.PathInLibraryFolder.Length > 2)
+        {
+            AlphaMaskTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
+                { PathToAssetInLibrary = AlphaMaskTexture.PathInLibraryFolder });
+        }
+        
         if (AmbientOcclusionTexture?.PathInLibraryFolder.Length > 2)
         {
             AmbientOcclusionTexture =

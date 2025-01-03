@@ -8,6 +8,7 @@ public class
     Shader : IDisposable
 {
     private const string UniformName_TextureAlbedo = "u_albedoTexture";
+    private const string UniformName_TextureAlphaMask = "u_alphaMaskTexture";
     private const string UniformName_TextureNormal = "u_normalTexture";
     private const string UniformName_TextureAo = "u_ambientOcclusionTexture";
     private const string UniformName_ShadowMap = "u_shadowmapTexture";
@@ -35,6 +36,10 @@ public class
     [JsonIgnore]
     [XmlIgnore]
     public TextureUnit? NormalTextureIndexUnit = null;
+
+    [JsonIgnore]
+    [XmlIgnore]
+    public TextureUnit? AlphaMaskTextureIndexUnit = null;
 
     [JsonIgnore]
     [XmlIgnore]
@@ -174,6 +179,7 @@ public class
         List<string> textureUniformsNames = new()
         {
             UniformName_TextureAlbedo,
+            UniformName_TextureAlphaMask,
             UniformName_TextureNormal,
             UniformName_TextureAo,
             UniformName_ShadowMap,
@@ -208,6 +214,9 @@ public class
                 {
                     case UniformName_TextureAlbedo:
                         AlbedoTextureIndexUnit = textureUnit;
+                        break;
+                    case UniformName_TextureAlphaMask:
+                        AlphaMaskTextureIndexUnit = textureUnit;
                         break;
                     case UniformName_TextureNormal:
                         NormalTextureIndexUnit = textureUnit;

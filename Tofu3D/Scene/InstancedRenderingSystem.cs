@@ -229,11 +229,11 @@ public class InstancedRenderingSystem
     private void RenderObjects_DepthPasses(int meshVao, int numberOfObjects, int indicesCount, int verticesCount,
         Asset_Material material)
     {
-        if (material.RenderMode == RenderMode.Transparent)
-        {
+        // if (material.RenderMode == RenderMode.Transparent)
+        // {
             // dont render depth for transparent objects
-            return;
-        }
+            // return;
+        // }
 
         if (_depthMaterial == null)
         {
@@ -368,9 +368,19 @@ public class InstancedRenderingSystem
             TextureHelper.BindTexture(material.AlbedoTexture.TextureId);
         }
 
-        material.Shader.SetInt("u_hasNormalTexture", material.NormalTexture != null ? 1 : 0);
+        
+
+        // Alpha mask Texture
+        material.Shader.SetInt("u_hasAlphaMaskTexture", material.AlphaMaskTexture != null ? 1 : 0);
+        if (material.AlphaMaskTexture != null && material.Shader?.AlphaMaskTextureIndexUnit != null)
+        {
+            GL.ActiveTexture(material.Shader.AlphaMaskTextureIndexUnit.Value);
+            TextureHelper.BindTexture(material.AlphaMaskTexture.TextureId);
+        }
+        
 
         // Normal Texture
+        material.Shader.SetInt("u_hasNormalTexture", material.NormalTexture != null ? 1 : 0);
         if (material.NormalTexture != null && material.Shader?.NormalTextureIndexUnit != null)
         {
             GL.ActiveTexture(material.Shader.NormalTextureIndexUnit.Value);

@@ -1,22 +1,34 @@
-™{
+»{
   "Shader": {
     "BufferType": 2,
     "Path": "Assets/Shaders/ModelRendererInstanced.glsl",
     "IsLoaded": false,
-    "ProgramId": 65
+    "ProgramId": 40
   },
   "Additive": false,
   "AlbedoTexture": {
     "IsRuntimeCopy": false,
     "DataIsCompressed": false,
     "Size": {
-      "X": 4096.0,
-      "Y": 4096.0
+      "X": 256.0,
+      "Y": 1024.0
     },
-    "TextureId": 42,
-    "PathInAssetsFolder": "Assets/3D/cyberpunk-car/textures/Vehicle_basecolor.png",
-    "PathInLibraryFolder": "Library/Textures/Vehicle_basecolor.png.tofutexture",
-    "AnyPath": "Assets/3D/cyberpunk-car/textures/Vehicle_basecolor.png"
+    "TextureId": 33,
+    "PathInAssetsFolder": "Assets/3D/sponza/textures/chain_texture.tga",
+    "PathInLibraryFolder": "Library/Textures/chain_texture.tga.tofutexture",
+    "AnyPath": "Assets/3D/sponza/textures/chain_texture.tga"
+  },
+  "AlphaMaskTexture": {
+    "IsRuntimeCopy": false,
+    "DataIsCompressed": false,
+    "Size": {
+      "X": 256.0,
+      "Y": 1024.0
+    },
+    "TextureId": 34,
+    "PathInAssetsFolder": "Assets/3D/sponza/textures/chain_texture_mask.tga",
+    "PathInLibraryFolder": "Library/Textures/chain_texture_mask.tga.tofutexture",
+    "AnyPath": "Assets/3D/sponza/textures/chain_texture_mask.tga"
   },
   "AlbedoTint": {
     "B": 255,
@@ -24,63 +36,56 @@
     "R": 255,
     "A": 255
   },
-  "AmbientOcclusionTexture": {
-    "IsRuntimeCopy": false,
-    "DataIsCompressed": false,
-    "Size": {
-      "X": 4096.0,
-      "Y": 4096.0
-    },
-    "TextureId": 43,
-    "PathInAssetsFolder": "Assets/3D/cyberpunk-car/textures/Vehicle_ao.png",
-    "PathInLibraryFolder": "Library/Textures/Vehicle_ao.png.tofutexture",
-    "AnyPath": "Assets/3D/cyberpunk-car/textures/Vehicle_ao.png"
-  },
+  "AmbientOcclusionTexture": null,
   "NormalTexture": {
     "IsRuntimeCopy": false,
     "DataIsCompressed": false,
     "Size": {
-      "X": 4096.0,
-      "Y": 4096.0
+      "X": 256.0,
+      "Y": 1024.0
     },
-    "TextureId": 44,
-    "PathInAssetsFolder": "Assets/3D/cyberpunk-car/textures/Vehicle_normal.png",
-    "PathInLibraryFolder": "Library/Textures/Vehicle_normal.png.tofutexture",
-    "AnyPath": "Assets/3D/cyberpunk-car/textures/Vehicle_normal.png"
+    "TextureId": 35,
+    "PathInAssetsFolder": "Assets/3D/sponza/textures/chain_texture_ddn.tga",
+    "PathInLibraryFolder": "Library/Textures/chain_texture_ddn.tga.tofutexture",
+    "AnyPath": "Assets/3D/sponza/textures/chain_texture_ddn.tga"
   },
-  "RoughnessTexture": {
-    "IsRuntimeCopy": false,
-    "DataIsCompressed": false,
-    "Size": {
-      "X": 4096.0,
-      "Y": 4096.0
-    },
-    "TextureId": 45,
-    "PathInAssetsFolder": "Assets/3D/cyberpunk-car/textures/Vehicle_roughness.png",
-    "PathInLibraryFolder": "Library/Textures/Vehicle_roughness.png.tofutexture",
-    "AnyPath": "Assets/3D/cyberpunk-car/textures/Vehicle_roughness.png"
+  "RoughnessTexture": null,
+  "MetallicTexture": null,
+  "EmissiveTexture": null,
+  "EmissiveColor": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0,
+    "W": 0.895
   },
-  "MetallicTexture": {
-    "IsRuntimeCopy": false,
-    "DataIsCompressed": false,
-    "Size": {
-      "X": 4096.0,
-      "Y": 4096.0
-    },
-    "TextureId": 46,
-    "PathInAssetsFolder": "Assets/3D/cyberpunk-car/textures/Vehicle_metallic.png",
-    "PathInLibraryFolder": "Library/Textures/Vehicle_metallic.png.tofutexture",
-    "AnyPath": "Assets/3D/cyberpunk-car/textures/Vehicle_metallic.png"
+  "SmoothShadows": true,
+  "RefractionEnabled": false,
+  "RefractiveIndex": 1.309,
+  "SpecularHighlightsEnabled": false,
+  "SpecularSmoothness": -16.91,
+  "MetallicTextureStrength": 1.0,
+  "Smoothness": 0.0,
+  "Tiling": {
+    "X": 1.0,
+    "Y": 1.0
   },
-  "EmissiveTexture": {
-    "IsRuntimeCopy": false,
-    "DataIsCompressed": false,
-    "Size": {
-      "X": 4096.0,
-      "Y": 4096.0
-    },
-    "TextureId": 47,
-    "PathInAssetsFolder": "Assets/3D/cyberpunk-car/textures/Vehicle_emissive.png",
+  "Offset": {
+    "X": 0.0,
+    "Y": 0.0
+  },
+  "UVOffsetIsInstanced": false,
+  "RenderMode": 1,
+  "BlendMode": 0,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
+  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
+  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
+}t"
+}.mat",
+  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
+  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
+}  "PathInAssetsFolder": "Assets/3D/cyberpunk-car/textures/Vehicle_emissive.png",
     "PathInLibraryFolder": "Library/Textures/Vehicle_emissive.png.tofutexture",
     "AnyPath": "Assets/3D/cyberpunk-car/textures/Vehicle_emissive.png"
   },

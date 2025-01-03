@@ -22,8 +22,14 @@ public class RenderableComponentQueue : IComponentQueue
     {
         if (component is IComponentRenderable componentRenderable)
         {
-            _opaqueRenderables.Add(componentRenderable);
-            // _transparentRenderables.Add(componentRenderable);
+            if (componentRenderable.RenderMode == RenderMode.Opaque)
+            {
+                _opaqueRenderables.Add(componentRenderable);
+            }
+            else
+            {
+                _transparentRenderables.Add(componentRenderable);
+            }
         }
     }
 
@@ -31,8 +37,14 @@ public class RenderableComponentQueue : IComponentQueue
     {
         if (component is IComponentRenderable componentRenderable)
         {
-            _opaqueRenderables.Remove(componentRenderable);
-            // _transparentRenderables.Remove(componentRenderable);
+            if (componentRenderable.RenderMode == RenderMode.Opaque)
+            {
+                _opaqueRenderables.Remove(componentRenderable);
+            }
+            else
+            {
+                _transparentRenderables.Remove(componentRenderable);
+            }
         }
     }
 
