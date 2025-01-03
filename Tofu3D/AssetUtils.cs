@@ -6,7 +6,7 @@ public class AssetUtils
 {
     private static Dictionary<string, bool> ExistingAssets = new();
     
-    public static bool Exists(string path) => File.Exists(path);
+    /*public static bool Exists(string path) => File.Exists(path);
 
     // ExistingAssets.TryGetValue(path, out var existing);
     //
@@ -32,10 +32,10 @@ public class AssetUtils
 
         // bool isValid = Exists(assetPath);
         // if (isValid) return assetPath;
-        var existsInAssetFolder = Exists(Path.Combine(Folders.Assets, assetPath));
+        var existsInAssetFolder = Exists(TofuPath.Combine(Folders.Assets, assetPath));
         if (existsInAssetFolder)
         {
-            assetPath = Path.Combine(Folders.Assets, assetPath);
+            assetPath = TofuPath.Combine(Folders.Assets, assetPath);
             assetPath = Folders.GetPathRelativeToAssetsFolder(assetPath);
         }
         else
@@ -45,7 +45,7 @@ public class AssetUtils
 
         if (Exists(assetPath) == false)
         {
-            var assetPathInAssetsFolder = Path.Combine("Assets", assetPath);
+            var assetPathInAssetsFolder = TofuPath.Combine("Assets", assetPath);
             if (Exists(assetPathInAssetsFolder))
             {
                 assetPath = assetPathInAssetsFolder;
@@ -60,5 +60,5 @@ public class AssetUtils
         // }
 
         return assetPath;
-    }
+    }*/
 }

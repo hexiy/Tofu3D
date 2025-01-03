@@ -95,12 +95,12 @@ public class
 
     public void Load(Asset_Material material)
     {
-        AssetUtils.ValidateAssetPath(ref Path);
+        AssetPathExtensions.ValidateAssetPath(ref Path);
 
-        if (AssetUtils.Exists(Path) == false)
+        if (AssetPathExtensions.Exists(Path) == false)
         {
-            var newPath = System.IO.Path.Combine(Folders.Assets, Path);
-            if (AssetUtils.Exists(newPath))
+            var newPath = TofuPath.Combine(Folders.Assets, Path);
+            if (AssetPathExtensions.Exists(newPath))
             {
                 Path = newPath;
             }
@@ -109,10 +109,10 @@ public class
         if (Path.Contains(
                 ".mat")) // IF ITS mat  not .glsl, just assign SpriteRenderer so we can fix it without crashing
         {
-            Path = System.IO.Path.Combine(Folders.ShadersInAssets, "SpriteRenderer.glsl");
+            Path = TofuPath.Combine(Folders.ShadersInAssets, "SpriteRenderer.glsl");
         }
 
-        if (AssetUtils.Exists(Path) == false)
+        if (AssetPathExtensions.Exists(Path) == false)
         {
             Debug.Log($"Couldn't find shader:{Path}");
             // throw new FileNotFoundException("Couldn't find shader");
@@ -405,7 +405,7 @@ public class
         Path = Path.Replace(@"\", "/");
         var filename = System.IO.Path.GetFileName(Path);
 
-        Path = System.IO.Path.Combine("Assets", "Shaders", filename);
+        Path = TofuPath.Combine("Assets", "Shaders", filename);
 
         if (File.Exists(Path) == false)
         {

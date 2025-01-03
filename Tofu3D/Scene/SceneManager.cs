@@ -15,7 +15,7 @@ public class SceneManager
         set => PersistentData.Set("lastOpenedScene", value);
     }
 
-    public string LastOpenedScenePath => Path.Combine(Folders.ScenesInAssets, LastOpenedSceneName);
+    public string LastOpenedScenePath => TofuPath.Combine(Folders.ScenesInAssets, LastOpenedSceneName);
 
     public void LoadLastOpenedScene()
     {
@@ -48,7 +48,7 @@ public class SceneManager
 
         if (path == null && File.Exists(LastOpenedSceneName) == false)
         {
-            path = Path.Combine(Folders.Assets, "Scenes", "defaultScene.scene");
+            path = TofuPath.Combine(Folders.Assets, "Scenes", "defaultScene.scene");
             CurrentScene.SetupAndSaveEmptyScene(path);
         }
 
@@ -102,7 +102,7 @@ public class SceneManager
         path = path ?? LastOpenedScenePath;
         if (path.Length < 1)
         {
-            path = Path.Combine(Folders.ScenesInAssets, "defaultScene.scene");
+            path = TofuPath.Combine(Folders.ScenesInAssets, "defaultScene.scene");
         }
 
         Tofu.SceneSerializer.SaveGameObjects(CurrentScene.GetSceneFile(), path);

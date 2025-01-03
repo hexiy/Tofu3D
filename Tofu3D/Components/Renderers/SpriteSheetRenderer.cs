@@ -52,7 +52,7 @@ public class SpriteSheetRenderer : SpriteRenderer
     {
         if (texturePath.Contains("Assets") == false)
         {
-            texturePath = Path.Combine("Assets", texturePath);
+            texturePath = TofuPath.Combine("Assets", texturePath);
         }
 
         if (File.Exists(texturePath) == false)

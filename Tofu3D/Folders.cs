@@ -6,30 +6,30 @@ public class Folders
 {
     public static string EngineBinPath;
     public static string ProjectFullPath;
-    public static string Resources => Path.Combine(ProjectFullPath, "Resources");
-    public static string FontsInResources => Path.Combine(Resources, "Fonts");
-    public static string Library => Path.Combine(ProjectFullPath, "Library");
-    public static string Data => Path.Combine(ProjectFullPath, "Data");
-    public static string ModelsInLibrary => Path.Combine(Library, "Models");
-    public static string TexturesInLibrary => Path.Combine(Library, "Textures");
-    public static string MaterialsInLibrary => Path.Combine(Library, "Materials");
-    public static string MeshesInLibrary => Path.Combine(Library, "Meshes");
-    public static string ThumbnailsInLibrary => Path.Combine(Library, "Thumbnails");
-    public static string SceneThumbnailsInLibrary => Path.Combine(ThumbnailsInLibrary, "Scenes");
-    public static string TempInLibrary => Path.Combine(Library, "Temp");
+    public static string Resources => TofuPath.Combine(ProjectFullPath, "Resources");
+    public static string FontsInResources => TofuPath.Combine(Resources, "Fonts");
+    public static string Library => TofuPath.Combine(ProjectFullPath, "Library");
+    public static string Data => TofuPath.Combine(ProjectFullPath, "Data");
+    public static string ModelsInLibrary => TofuPath.Combine(Library, "Models");
+    public static string TexturesInLibrary => TofuPath.Combine(Library, "Textures");
+    public static string MaterialsInLibrary => TofuPath.Combine(Library, "Materials");
+    public static string MeshesInLibrary => TofuPath.Combine(Library, "Meshes");
+    public static string ThumbnailsInLibrary => TofuPath.Combine(Library, "Thumbnails");
+    public static string SceneThumbnailsInLibrary => TofuPath.Combine(ThumbnailsInLibrary, "Scenes");
+    public static string TempInLibrary => TofuPath.Combine(Library, "Temp");
 
-    public static string Assets => Path.Combine(ProjectFullPath, "Assets");
-    public static string Dlls => Path.Combine(ProjectFullPath, "DLLs");
-    public static string Scripts => Path.Combine(Assets, "Scripts");
+    public static string Assets => TofuPath.Combine(ProjectFullPath, "Assets");
+    public static string Dlls => TofuPath.Combine(ProjectFullPath, "DLLs");
+    public static string Scripts => TofuPath.Combine(Assets, "Scripts");
 
-    public static string TexturesInAssets => Path.Combine(Assets, "2D");
+    public static string TexturesInAssets => TofuPath.Combine(Assets, "2D");
 
-    public static string ShadersInAssets => Path.Combine(Assets, "Shaders");
-    public static string ScenesInAssets => Path.Combine(Assets, "Scenes");
+    public static string ShadersInAssets => TofuPath.Combine(Assets, "Shaders");
+    public static string ScenesInAssets => TofuPath.Combine(Assets, "Scenes");
 
-    public static string MaterialsInAssets => Path.Combine(Assets, "Materials");
+    public static string MaterialsInAssets => TofuPath.Combine(Assets, "Materials");
 
-    public static string ModelsInAssets => Path.Combine(Assets, "3D");
+    public static string ModelsInAssets => TofuPath.Combine(Assets, "3D");
 
     public static void CreateDefaultFolders()
     {
@@ -58,7 +58,7 @@ public class Folders
             return Assets;
         }
 
-        // return Path.Combine(Assets, Path.GetRelativePath(Assets, path));
+        // return TofuPath.Combine(Assets, Path.GetRelativePath(Assets, path));
         return Path.GetRelativePath(Assets, path);
     }
 
@@ -68,7 +68,7 @@ public class Folders
         {
             return path;
         }
-        int lastIndexOfDirectorySeparator = path.LastIndexOf(Microsoft.IO.Path.DirectorySeparatorChar);
+        int lastIndexOfDirectorySeparator = path.LastIndexOf(System.IO.Path.DirectorySeparatorChar);
 
         if (lastIndexOfDirectorySeparator == -1)
         {
@@ -79,9 +79,9 @@ public class Folders
     }
     
 
-    public static string Get2DAssetPath(string assetName) => Path.Combine(TexturesInAssets, assetName);
+    public static string Get2DAssetPath(string assetName) => TofuPath.Combine(TexturesInAssets, assetName);
 
-    public static string GetResourcePath(string assetName) => Path.Combine(Resources, assetName);
+    public static string GetResourcePath(string assetName) => TofuPath.Combine(Resources, assetName);
 
     /// <summary>
     ///     From "Desktop/project/bin/Assets/2D/xx.png" to "bin/Assets/2D/xx.png"

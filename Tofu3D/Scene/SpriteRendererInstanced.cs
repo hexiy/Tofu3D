@@ -49,7 +49,7 @@ public class SpriteRendererInstanced : Renderer
     /*public override void CreateMaterial()
     {
         material = new Material();
-        Shader shader = new(Path.Combine(Folders.Shaders, "SpriteRenderer.glsl"));
+        Shader shader = new(TofuPath.Combine(Folders.Shaders, "SpriteRenderer.glsl"));
         material.SetShader(shader);
     }#1#
 

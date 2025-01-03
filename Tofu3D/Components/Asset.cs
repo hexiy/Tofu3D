@@ -7,7 +7,7 @@ public abstract class Asset<T> : AssetBase where T : Asset<T> //, new()
     // {
     //     string tempFileName =
     //         Folders.GetPathRelativeToProjectFolder(
-    //             Path.Combine(Folders.TempInLibrary, Random.Range(0, 100_000_000).ToString()) + ".temp");
+    //             TofuPath.Combine(Folders.TempInLibrary, Random.Range(0, 100_000_000).ToString()) + ".temp");
     //     Tofu.AssetLoadManager.Save<T>(tempFileName, asset: (T)this);
     //     T runtimeCopy =
     //         Tofu.AssetLoadManager.Load<T>(tempFileName, null, false, isRuntimeCopy: true);

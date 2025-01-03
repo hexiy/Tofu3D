@@ -76,7 +76,7 @@ public class AssetLoadManager
     {
         string tempFileName =
             Folders.GetPathRelativeToProjectFolder(
-                Path.Combine(Folders.TempInLibrary, Guid.NewGuid().ToString()) + ".temp");
+                TofuPath.Combine(Folders.TempInLibrary, Guid.NewGuid().ToString()) + ".temp");
         Tofu.AssetLoadManager.Save<T>(tempFileName, asset: original);
         T runtimeCopy =
             Tofu.AssetLoadManager.Load<T>(tempFileName, null, false, isRuntimeCopy: true);
@@ -195,7 +195,7 @@ public class AssetLoadManager
     {
         var mat = new Asset_Material()
         {
-            Shader = new Shader(Path.Combine(Folders.ShadersInAssets, "ModelRendererInstanced.glsl"))
+            Shader = new Shader(TofuPath.Combine(Folders.ShadersInAssets, "ModelRendererInstanced.glsl"))
         }; // default shader for now
         mat.LoadShader();
         mat.PathInAssetsFolder = sourcePath;

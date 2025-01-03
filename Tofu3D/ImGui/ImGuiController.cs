@@ -67,7 +67,7 @@ public class ImGuiController : IDisposable
 
         // unsafe
         // {
-        //     var filename = Path.Combine(Folders.Data, "imguiConfig.ini");
+        //     var filename = TofuPath.Combine(Folders.Data, "imguiConfig.ini");
         //     // filename = Folders.GetPathRelativeToProjectFolder(filename);
         //     byte[] filenameBytes = Encoding.UTF8.GetBytes(filename + "\0"); // Add null terminator
         //     fixed (byte* bytePtr = filenameBytes)
@@ -78,7 +78,7 @@ public class ImGuiController : IDisposable
 
         // io.IniSavingRate = 5;
 
-        io.Fonts.AddFontFromFileTTF(Path.Combine(Folders.FontsInResources, "inconsolata.ttf"), 12 * Screen.ScaleI);
+        io.Fonts.AddFontFromFileTTF(TofuPath.Combine(Folders.FontsInResources, "inconsolata.ttf"), 12 * Screen.ScaleI);
         //io.Fonts.AddFontDefault();
 
         io.BackendFlags = ImGuiBackendFlags.None; // ImGuiBackendFlags.RendererHasVtxOffset;

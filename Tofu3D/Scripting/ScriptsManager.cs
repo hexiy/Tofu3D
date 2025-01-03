@@ -17,7 +17,7 @@ public static class ScriptsManager
 
     public static void CopyDllsToProjectFolder()
     {
-        File.Copy(Path.Combine(Folders.EngineBinPath, "Tofu3D.dll"), Path.Combine(Folders.Dlls, "Tofu3D.dll"),
+        File.Copy(TofuPath.Combine(Folders.EngineBinPath, "Tofu3D.dll"), TofuPath.Combine(Folders.Dlls, "Tofu3D.dll"),
             overwrite: true);
     }
 
@@ -64,7 +64,7 @@ public static class ScriptsManager
         using var ms = new MemoryStream();
         var result = compilation.Emit(ms);
 
-        using var fs = new FileStream(Path.Combine(Folders.Dlls, "Scripts.dll"), FileMode.Create);
+        using var fs = new FileStream(TofuPath.Combine(Folders.Dlls, "Scripts.dll"), FileMode.Create);
         compilation.Emit(fs);
 
         if (!result.Success)

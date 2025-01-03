@@ -110,7 +110,7 @@ public class Window : GameWindow
 
     private unsafe void LoadAndSetCursor()
     {
-        using (Image<Rgba32> image = Image.Load<Rgba32>(Path.Combine("Resources", "icon.png")))
+        using (Image<Rgba32> image = Image.Load<Rgba32>(TofuPath.Combine("Resources", "icon.png")))
         {
             // image.Mutate(ctx =>
             //     ctx.Flip(FlipMode
@@ -137,7 +137,7 @@ public class Window : GameWindow
 
     private void LoadIcon()
     {
-        var image = Image.Load<Rgba32>(Path.Combine("Resources", "icon.png"));
+        var image = Image.Load<Rgba32>(TofuPath.Combine("Resources", "icon.png"));
         image.DangerousTryGetSinglePixelMemory(out var imageSpan);
 
         var imageBytes = MemoryMarshal.AsBytes(imageSpan.Span).ToArray();

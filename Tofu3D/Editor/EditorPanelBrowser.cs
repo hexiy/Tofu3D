@@ -243,7 +243,7 @@ public class EditorPanelBrowser : EditorPanel
             if (saveBtnPressed)
             {
                 Tofu.SceneSerializer.SaveGameObject(Tofu.GameObjectSelectionManager.GetSelectedGameObject(),
-                    Path.Combine("Assets", CurrentDirectoryInfo.Name,
+                    TofuPath.Combine("Assets", CurrentDirectoryInfo.Name,
                         Tofu.GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
 
                 EditorPanelBrowser.I.RefreshAssets();
@@ -514,7 +514,7 @@ public class EditorPanelBrowser : EditorPanel
                 if (ImGui.IsItemHovered() && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left))
                 {
                     var assetsRelativePath =
-                        Path.Combine("Assets", Path.GetRelativePath("Assets", assetPath));
+                        TofuPath.Combine("Assets", Path.GetRelativePath("Assets", assetPath));
 
                     Tofu.ShaderManager.QueueShaderReload(assetsRelativePath);
                     Debug.Log($"Reloaded shader:{assetName}");

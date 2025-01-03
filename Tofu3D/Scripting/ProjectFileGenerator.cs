@@ -12,7 +12,7 @@ public static class ProjectFileGenerator
             scriptFiles[i] = Path.GetRelativePath(projectDirectory, scriptFiles[i]);
         }
         // Console.WriteLine($"Registered MSBuild?: {MSBuildLocator.IsRegistered}");
-        var csProjPath = Path.Combine(projectDirectory, $"{projectName}.csproj");
+        var csProjPath = TofuPath.Combine(projectDirectory, $"{projectName}.csproj");
 
         // Create a new .csproj structure
         var project = ProjectRootElement.Create();

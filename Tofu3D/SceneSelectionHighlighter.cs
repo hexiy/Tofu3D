@@ -33,7 +33,7 @@ public class SceneSelectionHighlighter
         ModelRendererInstanced modelRenderer = _selectionBoxGameObject.AddComponent<ModelRendererInstanced>();
 
         Asset_Material runtimeMaterial = Tofu.AssetLoadManager
-            .Load<Asset_Material>(Path.Combine(Folders.MaterialsInAssets,"ModelRendererInstanced.mat"));
+            .Load<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets,"ModelRendererInstanced.mat"));
         runtimeMaterial = Tofu.AssetLoadManager.CreateUniqueTempCopyFile(runtimeMaterial);
 
         modelRenderer.Material = runtimeMaterial;

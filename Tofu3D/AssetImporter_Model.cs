@@ -38,7 +38,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             if (line.Contains("mtllib"))
             {
                 string materialPath =
-                    Path.Combine(Folders.GetParentFolder(objInAssetsFolderPath), lineSplits[1]);
+                    TofuPath.Combine(Folders.GetParentFolder(objInAssetsFolderPath), lineSplits[1]);
                 LoadObjMaterial(materialPath, out objMaterialFileDefinition);
             }
 
@@ -153,7 +153,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
             if (lineSplits[0].Equals("map_Kd", StringComparison.OrdinalIgnoreCase)) // diffuse/albedo texture
             {
-                string albedoTextureName = Path.Combine(objMaterialDirectory, lineSplits[1]);
+                string albedoTextureName = TofuPath.Combine(objMaterialDirectory, lineSplits[1]);
                 currentObjMaterialDefinition.AlbedoTexturePath = albedoTextureName;
                 Tofu.AssetImportManager.ImportAsset(albedoTextureName);
             }
@@ -511,7 +511,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         }
 
         Asset_Material material = new Asset_Material()
-            { Shader = new Shader(Path.Combine(Folders.ShadersInAssets, "ModelRendererInstanced.glsl")) };
+            { Shader = new Shader(TofuPath.Combine(Folders.ShadersInAssets, "ModelRendererInstanced.glsl")) };
 
         material.SmoothShadows = true;
 
@@ -525,7 +525,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         }
 
         string materialPath =
-            Folders.GetPathRelativeToProjectFolder(Path.Combine(Folders.MaterialsInLibrary,
+            Folders.GetPathRelativeToProjectFolder(TofuPath.Combine(Folders.MaterialsInLibrary,
                 materialDefinition.MaterialName + ".tofumaterial"));
 
         material.PathInLibraryFolder = materialPath;

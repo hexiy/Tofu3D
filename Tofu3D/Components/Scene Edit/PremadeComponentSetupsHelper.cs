@@ -10,12 +10,12 @@ public static class PremadeComponentSetupsHelper
         if (modelRenderer.Material == null)
         {
             modelRenderer.Material =
-                Tofu.AssetLoadManager.Load<Asset_Material>(Path.Combine(Folders.MaterialsInAssets,"ModelRendererInstanced.mat"));
+                Tofu.AssetLoadManager.Load<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets,"ModelRendererInstanced.mat"));
         }
 
         modelRenderer.Material.AlbedoTexture = Tofu.Editor.EditorTextures.WhitePixel;
         Asset_Model model =
-            Tofu.AssetLoadManager.Load<Asset_Model>(Path.Combine(Folders.ModelsInAssets, "defaultCube.obj"));
+            Tofu.AssetLoadManager.Load<Asset_Model>(TofuPath.Combine(Folders.ModelsInAssets, "defaultCube.obj"));
         modelRenderer.RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets.First());
 
         return modelRenderer;

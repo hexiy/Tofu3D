@@ -34,7 +34,7 @@ public static class FramebufferScreenshotGenerator
 
         Asset_Texture texture = new Asset_Texture() { Pixels = pixels, TextureSize = newSize };
 
-        string path = Path.Combine(Folders.SceneThumbnailsInLibrary,
+        string path = TofuPath.Combine(Folders.SceneThumbnailsInLibrary,
             fileName);
         string tofuTexturePath = path + ".tofutexture";
         // Serializer.SaveAssetJSON<Asset_Texture>(tofuTexturePath, texture);

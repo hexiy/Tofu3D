@@ -60,7 +60,7 @@ public class AssetsWatcher
             return;
         }
 
-        var assetsRelativePath = Path.Combine("Assets", Path.GetRelativePath("Assets", e.FullPath));
+        var assetsRelativePath = TofuPath.Combine("Assets", Path.GetRelativePath("Assets", e.FullPath));
         // some files have junk after the extension
         if (assetsRelativePath.Contains(".sb"))
         {

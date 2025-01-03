@@ -45,7 +45,7 @@ public class BrowserContextItem
                 ImGui.InputText("", ref _defaultFileName, 100);
                 if (ImGui.Button("Save"))
                 {
-                    var filePath = Path.Combine(EditorPanelBrowser.I.CurrentDirectoryInfo.FullName,
+                    var filePath = TofuPath.Combine(EditorPanelBrowser.I.CurrentDirectoryInfo.FullName,
                         _defaultFileName + _fileExtension);
                     _confirmAction.Invoke(filePath);
 

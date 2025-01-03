@@ -8,7 +8,7 @@ public class SpriteRenderer : TextureRenderer
 
     public override void Awake()
     {
-        SetDefaultTexture(Path.Combine(Folders.Textures, "solidColor.png"));
+        SetDefaultTexture(TofuPath.Combine(Folders.Textures, "solidColor.png"));
 
         SetNativeSize += () => { UpdateBoxShapeSize(); };
         SetDefaultMaterial();
@@ -29,7 +29,7 @@ public class SpriteRenderer : TextureRenderer
     /*public override void CreateMaterial()
     {
         material = new Material();
-        Shader shader = new(Path.Combine(Folders.Shaders, "SpriteRenderer.glsl"));
+        Shader shader = new(TofuPath.Combine(Folders.Shaders, "SpriteRenderer.glsl"));
         material.SetShader(shader);
     }#1#
 

@@ -16,7 +16,7 @@ public static class AssetPathExtensions
     {
         fileName = Path.GetFileName(fileName);
         string librarySubFolder = GetCorrectLibrarySubfolderPathForAssetType(fileName);
-        fileName = Path.Combine(librarySubFolder, fileName);
+        fileName = TofuPath.Combine(librarySubFolder, fileName);
 
         string extension = GetTofuAssetExtensionForAsset(fileName);
         if (fileName.EndsWith(extension) == false)
@@ -162,5 +162,50 @@ public static class AssetPathExtensions
     public static bool IsFilePrefab(string fileName)
     {
         return fileName.EndsWith(".prefab", StringComparison.OrdinalIgnoreCase);
+    }
+    
+    public static string ValidateAssetPath(ref string assetPath)
+    {
+        assetPath = ValidateAssetPath(assetPath);
+        return assetPath;
+    }
+    
+    // in case we want to cache
+    public static bool Exists(string path) => File.Exists(path);
+
+    public static string ValidateAssetPath(string assetPath)
+    {
+        assetPath = assetPath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+        // assetPath = assetPath.Replace(" ", "\\ ");
+
+        // bool isValid = Exists(assetPath);
+        // if (isValid) return assetPath;
+        var existsInAssetFolder = File.Exists(TofuPath.Combine(Folders.Assets, assetPath));
+        if (existsInAssetFolder)
+        {
+            assetPath = TofuPath.CombineRelativeTo(TofuPath.PathScope.Assets,Folders.Assets, assetPath);
+        }
+        else
+        {
+            assetPath = Folders.GetPathRelativeToProjectFolder(assetPath);
+        }
+
+        if (AssetPathExtensions.Exists(assetPath) == false)
+        {
+            var assetPathInAssetsFolder = TofuPath.Combine("Assets", assetPath);
+            if (AssetPathExtensions.Exists(assetPathInAssetsFolder))
+            {
+                assetPath = assetPathInAssetsFolder;
+            }
+        }
+
+        // if (AssetUtils.Exists(assetPath) == false)
+        // {
+        // 	string message = $"Couldn't find asset:{assetPath}";
+        // 	Debug.LogError(message);
+        // 	// throw new FileNotFoundException(message);
+        // }
+
+        return assetPath;
     }
 }

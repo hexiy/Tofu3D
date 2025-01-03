@@ -10,7 +10,7 @@ public static class PersistentData
 
     private static void LoadAllData()
     {
-        string persistentDataPath = Path.Combine(Folders.Data, "persistentData.json");
+        string persistentDataPath = TofuPath.Combine(Folders.Data, "persistentData.json");
 
         // var x =Serializer.ReadFileJSON<object>(persistentDataPath);
         // var b = x as Dictionary<string, string>;
@@ -20,7 +20,7 @@ public static class PersistentData
 
     private static void Save()
     {
-        string persistentDataPath = Path.Combine(Folders.Data, "persistentData.json");
+        string persistentDataPath = TofuPath.Combine(Folders.Data, "persistentData.json");
 
         Serializer.SaveFileJSON<Dictionary<string, string>>(persistentDataPath, _data);
     }

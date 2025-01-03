@@ -40,7 +40,7 @@ public class ModelRendererInstanced : Renderer
         else
         {
             Asset_Model model =
-                Tofu.AssetLoadManager.Load<Asset_Model>(Path.Combine(Folders.ModelsInAssets, "defaultCube.obj"));
+                Tofu.AssetLoadManager.Load<Asset_Model>(TofuPath.Combine(Folders.ModelsInAssets, "defaultCube.obj"));
             RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets.First());
 
             // RuntimeMesh = null;
@@ -60,7 +60,7 @@ public class ModelRendererInstanced : Renderer
             {
                 if (Material?.PathInLibraryFolder.Length == 0 || Material == null)
                 {
-                    Material = Tofu.AssetLoadManager.Load<Asset_Material>(Path.Combine(Folders.MaterialsInAssets,
+                    Material = Tofu.AssetLoadManager.Load<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets,
                         "ModelRendererInstanced.mat"));
                 }
                 else

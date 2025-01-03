@@ -198,7 +198,7 @@ public class InstancedRenderingSystem
         if (_mousePickingMaterial == null)
         {
             _mousePickingMaterial = new Asset_Material()
-                { Shader = new Shader(Path.Combine(Folders.ShadersInAssets, "ModelMousePicking.glsl")) };
+                { Shader = new Shader(TofuPath.Combine(Folders.ShadersInAssets, "ModelMousePicking.glsl")) };
             _mousePickingMaterial.LoadShader();
         }
 
@@ -238,7 +238,7 @@ public class InstancedRenderingSystem
         if (_depthMaterial == null)
         {
             _depthMaterial = new Asset_Material()
-                { Shader = new Shader(Path.Combine(Folders.ShadersInAssets, "ModelRendererInstancedDepth.glsl")) };
+                { Shader = new Shader(TofuPath.Combine(Folders.ShadersInAssets, "ModelRendererInstancedDepth.glsl")) };
 
             _depthMaterial.LoadShader();
         }

@@ -12,23 +12,39 @@ public static class TofuPath
 
     public static string Combine(params string[] paths)
     {
-        return Combine(PathScope.None, paths);
+        return System.IO.Path.Combine(paths);
     }
 
-    public static string Combine(PathScope pathScope, params string[] paths)
+    public static string CombineRelativeTo(PathScope pathScope, params string[] paths)
     {
-        string path = Microsoft.IO.Path.Combine(paths);
+        if (pathScope == PathScope.None)
+        {
+            return Combine(paths);
+        }
+
+        string relativeTo = "";
         if (pathScope == PathScope.Project)
         {
-            path = Microsoft.IO.Path.GetRelativePath(Folders.ProjectFullPath, path);
+            relativeTo = Folders.ProjectFullPath;
         }
         else if (pathScope == PathScope.Library)
         {
-            path = Microsoft.IO.Path.GetRelativePath(Folders.Library, path);
+            relativeTo = Folders.Library;
         }
         else if (pathScope == PathScope.Assets)
         {
-            path = Microsoft.IO.Path.GetRelativePath(Folders.Assets, path);
+            relativeTo = Folders.Assets;
+        }
+
+        return CombineRelativeTo(relativeTo, paths);
+    }
+
+    public static string CombineRelativeTo(string? relativeTo, params string[] paths)
+    {
+        string path = System.IO.Path.Combine(paths);
+        if (relativeTo != null)
+        {
+            path = System.IO.Path.GetRelativePath(relativeTo, path);
         }
 
         return path;
@@ -36,6 +52,6 @@ public static class TofuPath
 
     public static string GetFileNameWithoutExtension(string path)
     {
-        return Microsoft.IO.Path.GetFileNameWithoutExtension(path);
+        return System.IO.Path.GetFileNameWithoutExtension(path);
     }
 }

@@ -5,8 +5,8 @@ namespace Tofu3D;
 
 public class EditorLayoutManager
 {
-    private readonly string DefaultEditorLayoutPath = Path.Combine(Folders.Data, "defaultEditorLayout.ini");
-    private readonly string CurrentEditorLayoutPath = Path.Combine(Folders.Data, "currentEditorLayout.ini");
+    private readonly string DefaultEditorLayoutPath = TofuPath.Combine(Folders.Data, "defaultEditorLayout.ini");
+    private readonly string CurrentEditorLayoutPath = TofuPath.Combine(Folders.Data, "currentEditorLayout.ini");
     // string _lastUsedLayoutName => PersistentData.;
 
     private float _autoSaveTimer = 3;

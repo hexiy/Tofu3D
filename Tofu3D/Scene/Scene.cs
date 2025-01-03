@@ -49,7 +49,7 @@ public class Scene
     public static string GetThumbnailPath(string scenePath)
     {
         string name = Path.GetFileNameWithoutExtension(scenePath);
-        string thumbnailPath = Path.Combine(Folders.SceneThumbnailsInLibrary, name + ".png.tofutexture");
+        string thumbnailPath = TofuPath.Combine(Folders.SceneThumbnailsInLibrary, name + ".png.tofutexture");
         return thumbnailPath;
     }
 

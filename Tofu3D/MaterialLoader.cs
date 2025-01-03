@@ -49,7 +49,7 @@
 //
 //         if (File.Exists(loadSettings.Path) == false)
 //         {
-//             loadSettings.Path = Path.Combine(Folders.Materials, loadSettings.Path);
+//             loadSettings.Path = TofuPath.Combine(Folders.Materials, loadSettings.Path);
 //         }
 //
 //
