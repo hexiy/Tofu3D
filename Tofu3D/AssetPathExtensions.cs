@@ -1,30 +1,18 @@
 using System.IO;
 using System.Text;
 
-public static class AssetFileExtensions
+public static class AssetPathExtensions
 {
-    public static string GetFileNameFromPathWithoutExtensions(string str)
-    {
-        return Path.GetFileNameWithoutExtension(str).TrimAfter('.');
-    }
+    private static readonly string LibraryString1 = Path.DirectorySeparatorChar + "Library";
+    private static readonly string LibraryString2 = "Library" + Path.DirectorySeparatorChar;
 
-    public static string TrimAfter(this string str, char character)
-    {
-        if (str.Contains(character) == false)
-        {
-            return str;
-        }
-
-        return str.Remove(str.IndexOf(character));
-    }
-
-    public static string GetPathOfImportParametersOfSourceAssetFile(this string sourceFilePath)
+    public static string GetPathOfImportParametersOfSourceAssetFile(string sourceFilePath)
     {
         return sourceFilePath + ".importparameters";
     }
 
     // from /Assets/car.obj to /Library/car.asset
-    public static string GetPathOfAssetInLibrayFromSourceAssetPathOrName(this string fileName)
+    public static string GetPathOfAssetInLibraryFromSourceAssetPathOrName(string fileName)
     {
         fileName = Path.GetFileName(fileName);
         string librarySubFolder = GetCorrectLibrarySubfolderPathForAssetType(fileName);
@@ -42,13 +30,11 @@ public static class AssetFileExtensions
     }
 
 
-    public static string ModelToMeshFileName(this string fileName, int meshIndex)
+    public static string ModelToMeshFileName(string fileName, int meshIndex)
     {
         return fileName + "_" + meshIndex + ".tofumesh";
     }
 
-    private static readonly string LibraryString1 = Path.DirectorySeparatorChar + "Library";
-    private static readonly string LibraryString2 = "Library" + Path.DirectorySeparatorChar;
 
     public static bool IsLibraryPath(string path)
     {

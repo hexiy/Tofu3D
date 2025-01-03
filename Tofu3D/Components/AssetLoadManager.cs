@@ -143,7 +143,7 @@ public class AssetLoadManager
                 loadParameters =
                     Activator.CreateInstance(loadParameters.GetType()) as AssetLoadParameters<T>;
 
-                loadParameters.PathToAssetInLibrary = sourcePath.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+                loadParameters.PathToAssetInLibrary = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(sourcePath);
                 if (File.Exists(loadParameters.PathToAssetInLibrary) == false)
                 {
                     loadParameters.PathToAssetInLibrary = sourcePath;

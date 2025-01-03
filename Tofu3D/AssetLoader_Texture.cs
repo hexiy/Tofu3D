@@ -16,15 +16,15 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
         AssetLoadParameters_Texture loadParameters = assetLoadParameters as AssetLoadParameters_Texture;
         string path = loadParameters.PathToAssetInLibrary;
 
-        if (File.Exists(path.GetPathOfAssetInLibrayFromSourceAssetPathOrName()))
+        if (File.Exists(AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(path)))
         {
-            path = path.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+            path = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(path);
         }
 
         Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(path);
 
         var pathOfImportParametersOfSourceAssetFile =
-            assetTexture.PathInAssetsFolder.GetPathOfImportParametersOfSourceAssetFile();
+            AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(assetTexture.PathInAssetsFolder);
         AssetImportParameters_Texture importParameters;
 
         if (File.Exists(pathOfImportParametersOfSourceAssetFile))

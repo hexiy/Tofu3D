@@ -83,8 +83,8 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 smoothNormals: importParameters.SmoothNormals, objMaterialFileDefinition);
             int meshIndex = model.PathsToMeshAssets.Count;
 
-            string meshPath = objInAssetsFolderPath.ModelToMeshFileName(meshIndex)
-                .GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+            string meshFileName = AssetPathExtensions.ModelToMeshFileName(objInAssetsFolderPath, meshIndex);
+            string meshPath = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(meshFileName);
 
             meshFile.Mesh.Name = Path.GetFileNameWithoutExtension(meshPath);
             meshFile.Mesh.PathInLibraryFolder = meshPath;
@@ -99,7 +99,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         }
 
         model.PathInAssetsFolder = objInAssetsFolderPath;
-        string modelPath = objInAssetsFolderPath.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+        string modelPath = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(objInAssetsFolderPath);
         model.PathInLibraryFolder = objInAssetsFolderPath;
 
         Serializer.SaveAssetJSON<Asset_Model>(modelPath, model);

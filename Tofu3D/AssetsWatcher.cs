@@ -82,11 +82,11 @@ public class AssetsWatcher
         // 	_changedFilesQueue.Enqueue(fileChangedInfo);
         // }
 
-        if (AssetFileExtensions.IsFileShader(assetsRelativePath))
+        if (AssetPathExtensions.IsFileShader(assetsRelativePath))
         {
             Tofu.ShaderManager.QueueShaderReload(assetsRelativePath);
         }
-        if (AssetFileExtensions.IsFileScript(assetsRelativePath))
+        if (AssetPathExtensions.IsFileScript(assetsRelativePath))
         {
            Tofu.ScriptsReloader.QueueScriptsReload();
         }

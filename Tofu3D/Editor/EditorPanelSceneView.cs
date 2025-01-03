@@ -341,12 +341,12 @@ public class EditorPanelSceneView : EditorPanel
             if (TofuImGui.PayloadHasBeenDropped(DragDropPayloadTypes.Model) ||
                 TofuImGui.PayloadHasBeenDropped(DragDropPayloadTypes.Mesh))
             {
-                if (path.Length > 0 && AssetFileExtensions.IsFileModel(path))
+                if (path.Length > 0 && AssetPathExtensions.IsFileModel(path))
                 {
                     Asset_Model modelAsset = Tofu.AssetLoadManager.Load<Asset_Model>(path);
                     SpawnModelIntoScene(model: modelAsset);
                 }
-                else if (path.Length > 0 && AssetFileExtensions.IsFileMesh(path))
+                else if (path.Length > 0 && AssetPathExtensions.IsFileMesh(path))
                 {
                     RuntimeMesh mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(path);
                     SpawnMeshIntoScene(mesh: mesh, 0, true);
@@ -359,7 +359,8 @@ public class EditorPanelSceneView : EditorPanel
 
     private GameObject SpawnModelIntoScene(Asset_Model model)
     {
-        string importParametersPath = model.PathInAssetsFolder.GetPathOfImportParametersOfSourceAssetFile();
+        string importParametersPath =
+            AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(model.PathInAssetsFolder);
 
         AssetImportParameters_Model importParameters =
             Serializer.ReadFileJSON<AssetImportParameters_Model>(importParametersPath);
@@ -389,7 +390,7 @@ public class EditorPanelSceneView : EditorPanel
                         Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
 
                     string modelName =
-                        AssetFileExtensions.GetFileNameFromPathWithoutExtensions(model.PathInAssetsFolder);
+                        Path.GetFileNameWithoutExtension(model.PathInAssetsFolder);
 
                     parent = GameObject.Create(position: worldPosition, name: modelName);
                 }
@@ -407,7 +408,7 @@ public class EditorPanelSceneView : EditorPanel
         Vector3 worldPosition = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
 
         string name =
-            AssetFileExtensions.GetFileNameFromPathWithoutExtensions(mesh.Mesh.Name);
+            Path.GetFileNameWithoutExtension(mesh.Mesh.Name);
         if (isSingleMeshInModel == false)
         {
             name = name + "_" + indexOfMesh;

@@ -36,9 +36,9 @@ public class AssetImportManager
 
         string rawAssetFileName = Path.GetFileName(rawAssetPath); // with extension
 
-        string importParametersFilePath = rawAssetPath.GetPathOfImportParametersOfSourceAssetFile();
-        string assetFileInLibraryPath = rawAssetFileName.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
-        bool assetExists = AssetFileExists(assetFileInLibraryPath.GetPathOfAssetInLibrayFromSourceAssetPathOrName());
+        string importParametersFilePath = AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(rawAssetPath);
+        string assetFileInLibraryPath = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(rawAssetFileName);
+        bool assetExists = AssetFileExists(AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(assetFileInLibraryPath));
         bool canImport = assetExists == false || reimportIfExists == true;
         if (canImport == false)
         {
@@ -53,7 +53,7 @@ public class AssetImportManager
             assetImportParametersFileExistsForThisAsset = false;
         }
 
-        if (AssetFileExtensions.IsFileModel(rawAssetPath))
+        if (AssetPathExtensions.IsFileModel(rawAssetPath))
         {
             AssetImportParameters_Model assetImportParametersModel;
             if (assetImportParametersFileExistsForThisAsset == false)
@@ -91,7 +91,7 @@ public class AssetImportManager
             }
         }
 
-        if (AssetFileExtensions.IsFileMaterial(rawAssetPath))
+        if (AssetPathExtensions.IsFileMaterial(rawAssetPath))
         {
             AssetImportParameters_Material assetImportParametersMaterial = new AssetImportParameters_Material();
             // if (assetImportParametersFileExistsForThisAsset == false)
@@ -121,7 +121,7 @@ public class AssetImportManager
             }
         }
 
-        if (AssetFileExtensions.IsFileTexture(rawAssetPath))
+        if (AssetPathExtensions.IsFileTexture(rawAssetPath))
         {
             AssetImportParameters_Texture assetImportParametersTexture;
             if (assetImportParametersFileExistsForThisAsset == false)
@@ -193,6 +193,6 @@ public class AssetImportManager
 
     private bool AssetImportParamsFileExists(string assetPath)
     {
-        return File.Exists(assetPath.GetPathOfImportParametersOfSourceAssetFile());
+        return File.Exists(AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(assetPath));
     }
 }

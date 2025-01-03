@@ -49,14 +49,14 @@ public class AssetImporter_Texture : AssetImporter<Asset_Texture>
             }
         }
 
-        string libraryPath = path.GetPathOfAssetInLibrayFromSourceAssetPathOrName();
+        string libraryPath = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(path);
         Asset_Texture assetTexture = new Asset_Texture()
         {
             Pixels = pixels, TextureSize = imageSize, PathInAssetsFolder = path,
             PathInLibraryFolder = libraryPath
         };
 
-        Serializer.SaveAssetJSON<Asset_Texture>(path.GetPathOfAssetInLibrayFromSourceAssetPathOrName(),
+        Serializer.SaveAssetJSON<Asset_Texture>(AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(path),
             assetTexture);
 
         return assetTexture;

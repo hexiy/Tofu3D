@@ -6,6 +6,7 @@ global using Tofu3D;
 global using Vector3 = Tofu3D.Vector3;
 global using Vector2 = Tofu3D.Vector2;
 global using Vector4 = Tofu3D.Vector4;
+global using Color = Tofu3D.Color;
 global using Matrix4x4 = System.Numerics.Matrix4x4;
 global using MathHelper = OpenTK.Mathematics.MathHelper;
 global using System;

@@ -21,7 +21,7 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
             {
                 var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                 if (filePath.Length > 0 &&
-                    AssetFileExtensions.IsFileModel(filePath))
+                    AssetPathExtensions.IsFileModel(filePath))
                 {
                     // try
                     // {
@@ -45,7 +45,7 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
             {
                 var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                 if (filePath.Length > 0 &&
-                    AssetFileExtensions.IsFileMesh(filePath))
+                    AssetPathExtensions.IsFileMesh(filePath))
                 {
                     // try
                     // {

@@ -141,7 +141,7 @@ public class EditorPanelBrowser : EditorPanel
         for (var i = 0; i < allAssets.Count; i++)
         {
             string fileName = Path.GetFileName(allAssets[i]);
-            if (fileName.StartsWith('.') || AssetFileExtensions.IsAssetImportParametersFile(fileName) ||
+            if (fileName.StartsWith('.') || AssetPathExtensions.IsAssetImportParametersFile(fileName) ||
                 fileName.EndsWith(".mtl", StringComparison.OrdinalIgnoreCase))
             {
                 allAssets.RemoveAt(i);
@@ -163,7 +163,7 @@ public class EditorPanelBrowser : EditorPanel
         _textures = new Dictionary<string, RuntimeTexture>();
         for (var i = 0; i < _assets.Length; i++)
         {
-            if (AssetFileExtensions.IsFileTexture(_assets[i]))
+            if (AssetPathExtensions.IsFileTexture(_assets[i]))
                 // _textures[i] = new Texture();
                 // _textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
             {
@@ -171,7 +171,7 @@ public class EditorPanelBrowser : EditorPanel
                     Tofu.AssetLoadManager.Load<RuntimeTexture>(_assets[i]); //, _iconTextureLoadSettings);
             }
 
-            if (AssetFileExtensions.IsFileScene(_assets[i]))
+            if (AssetPathExtensions.IsFileScene(_assets[i]))
             {
                 string thumbnailPath = Scene.GetThumbnailPath(_assets[i]);
                 if (File.Exists(thumbnailPath))
@@ -334,13 +334,13 @@ public class EditorPanelBrowser : EditorPanel
         var assetExtension = Path.GetExtension(assetPath);
 
 
-        bool isMesh = AssetFileExtensions.IsFileMesh(assetPath);
-        var isModel = AssetFileExtensions.IsFileModel(assetPath);
-        var isMaterial = AssetFileExtensions.IsFileMaterial(assetPath);
-        var isShader = AssetFileExtensions.IsFileShader(assetPath);
-        var isPrefab = AssetFileExtensions.IsFilePrefab(assetPath);
-        var isTexture = AssetFileExtensions.IsFileTexture(assetPath);
-        var isScene = AssetFileExtensions.IsFileScene(assetPath);
+        bool isMesh = AssetPathExtensions.IsFileMesh(assetPath);
+        var isModel = AssetPathExtensions.IsFileModel(assetPath);
+        var isMaterial = AssetPathExtensions.IsFileMaterial(assetPath);
+        var isShader = AssetPathExtensions.IsFileShader(assetPath);
+        var isPrefab = AssetPathExtensions.IsFilePrefab(assetPath);
+        var isTexture = AssetPathExtensions.IsFileTexture(assetPath);
+        var isScene = AssetPathExtensions.IsFileScene(assetPath);
 
         PushNextId();
 
@@ -550,7 +550,7 @@ public class EditorPanelBrowser : EditorPanel
 
             if (isModel)
             {
-                var pathOfImportParametersOfSourceAssetFile = assetPath.GetPathOfImportParametersOfSourceAssetFile();
+                var pathOfImportParametersOfSourceAssetFile = AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(assetPath);
                 Object importParameters =
                     Serializer.ReadFileJSON<AssetImportParameters_Model>(pathOfImportParametersOfSourceAssetFile);
 
@@ -577,7 +577,7 @@ public class EditorPanelBrowser : EditorPanel
 
             if (isTexture)
             {
-                var pathOfImportParametersOfSourceAssetFile = assetPath.GetPathOfImportParametersOfSourceAssetFile();
+                var pathOfImportParametersOfSourceAssetFile = AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(assetPath);
                 Object importParameters =
                     Serializer.ReadFileJSON<AssetImportParameters_Texture>(pathOfImportParametersOfSourceAssetFile);
 
