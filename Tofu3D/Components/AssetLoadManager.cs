@@ -39,7 +39,7 @@ public class AssetLoadManager
 
         foreach (var keyValuePair in LoadedAssets)
         {
-            if (keyValuePair.Value.GetType() == t)
+            if (keyValuePair.Value?.GetType() == t)
             {
                 foundAssets.Add(keyValuePair.Value as T);
             }
@@ -72,19 +72,19 @@ public class AssetLoadManager
         return existsInDatabase;
     }
 
-    public T? CreateCopy<T>(T original) where T : class
+    public T? CreateUniqueCopy<T>(T original) where T : class
     {
         string tempFileName =
             Folders.GetPathRelativeToProjectFolder(
-                Path.Combine(Folders.TempInLibrary, Random.Range(0, 100_000_000).ToString()) + ".temp");
+                Path.Combine(Folders.TempInLibrary, Guid.NewGuid().ToString()) + ".temp");
         Tofu.AssetLoadManager.Save<T>(tempFileName, asset: original);
         T runtimeCopy =
             Tofu.AssetLoadManager.Load<T>(tempFileName, null, false, isRuntimeCopy: true);
         // runtimeCopy.SetAsRuntimeAsset();
         // runtimeCopy.PathToAssetInLibrary = tempFileName;
         // File.Delete(tempFileName);
-        Debug.Log("Created new copy of asset");
-    
+        // Debug.Log("Created new copy of asset");
+
         return runtimeCopy;
     }
 
@@ -216,12 +216,11 @@ public class AssetLoadManager
     public void Save<T>(string path, T asset, AssetLoadParameters<T>? loadParameters = null)
         where T : class
     {
-
         int id = (path + typeof(T)).GetHashCode();
 
         Serializer.SaveFileJSON<T>(path, asset);
 
         LoadedAssets[id] = asset;
-        Debug.Log($"Saved file {path}");
+        // Debug.Log($"Saved file {path}");
     }
 }

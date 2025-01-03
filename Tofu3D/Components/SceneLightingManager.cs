@@ -22,11 +22,14 @@ public class SceneLightingManager
 
     private void OnSceneComponentAdded(Component obj)
     {
-        if (_directionalLight == null)
+        if (obj is LightBase light)
         {
-            _lights = _scene.FindComponentsInScene<LightBase>(true);
+            _lights.Add(light);
+        }
 
-            _directionalLight = _scene.FindComponent<DirectionalLight>(true);
+        if (obj is DirectionalLight directionalLight)
+        {
+            _directionalLight = directionalLight;
         }
     }
 

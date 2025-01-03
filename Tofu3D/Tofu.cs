@@ -1,4 +1,6 @@
+using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using Microsoft.Build.Locator;
 using OpenTK.Windowing.Common;
 using Tofu3D.Rendering;
@@ -80,7 +82,17 @@ public static class Tofu
         Window.Load += OnWindowLoad;
         Window.UpdateFrame += MainLoop;
         // Window.RenderFrame += OnWindowRender;
+        Window.Closing += OnWindowClosing;
         Window.Run();
+    }
+
+    private static void OnWindowClosing(CancelEventArgs obj)
+    {
+        if (Directory.Exists(Folders.TempInLibrary))
+        {
+            Directory.Delete(Folders.TempInLibrary, recursive: true);
+            Directory.CreateDirectory(Folders.TempInLibrary);
+        }
     }
 
     private static void MainLoop(FrameEventArgs eventArgs)
@@ -214,10 +226,8 @@ public static class Tofu
 
         Debug.ResetTimers();
         Debug.ClearAdditiveStats();
-        
-        
-        
-        Window.ManageFrameLimiter();
 
+
+        Window.ManageFrameLimiter();
     }
 }

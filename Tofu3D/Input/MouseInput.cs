@@ -198,9 +198,9 @@ public class MouseInput
             PositionInWindow.Y - Tofu.Editor.SceneViewPosition.Y);
 
         Debug.StatSetValue("MousePos", $"Mouse Position In Editor:{PositionInWindow}");
-        Debug.StatSetValue("PositionInView", $"PositionInView:{PositionInView}");
-        Debug.StatSetValue("SceneViewPos", $"SceneViewPos:{Tofu.Editor.SceneViewPosition}");
-        Debug.StatSetValue("SceneViewPos", $"SceneViewPos:{Tofu.Editor.SceneViewPosition.X},{Tofu.Editor.SceneViewPosition.Y}");
+        Debug.StatSetValue("Mouse Position In View", $"Mouse Position In View:{PositionInView}");
+        // Debug.StatSetValue("SceneViewPos", $"SceneViewPos:{Tofu.Editor.SceneViewPosition}");
+        // Debug.StatSetValue("SceneViewPos", $"SceneViewPos:{Tofu.Editor.SceneViewPosition.X},{Tofu.Editor.SceneViewPosition.Y}");
         // Debug.StatSetValue("MousePosFlipped",$"mouse pos flipped:{ImGuiHelper.FlipYToGoodSpace(Tofu.Window.MousePosition)}");
         // Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
         // Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");

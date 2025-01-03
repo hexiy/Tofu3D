@@ -59,7 +59,7 @@ public class EditorPanelSceneView : EditorPanel
                 ImGuiHelper.FlipYToGoodSpace(ImGui.GetCursorPosY()) -
                 Tofu.RenderPassSystem.FinalFramebuffer.Size.Y / Screen.Scale - 15);
 
-            Debug.StatSetValue("aaaa", $"scne size {Tofu.RenderPassSystem.FinalFramebuffer.Size.Y / Screen.Scale}");
+            // Debug.StatSetValue("aaaa", $"scne size {Tofu.RenderPassSystem.FinalFramebuffer.Size.Y / Screen.Scale}");
 
             if (Tofu.RenderPassSystem.CanRender)
             {

@@ -68,7 +68,7 @@ public class ModelRendererInstanced : Renderer
 
                 if (Material.IsRuntimeCopy)
                 {
-                    Material = Tofu.AssetLoadManager.CreateCopy(Material);
+                    Material = Tofu.AssetLoadManager.CreateUniqueCopy(Material);
                 }
             }
         }
@@ -78,7 +78,7 @@ public class ModelRendererInstanced : Renderer
 
         if (hasObjMaterial)
         {
-            Material = Tofu.AssetLoadManager.CreateCopy(Material);
+            Material = Tofu.AssetLoadManager.CreateUniqueCopy(Material);
 
             Material.AlbedoTint = objMaterialDefinition.AlbedoTint;
 

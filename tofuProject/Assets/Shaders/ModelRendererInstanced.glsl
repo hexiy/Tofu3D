@@ -89,7 +89,7 @@ uniform sampler2D u_shadowmapTexture;
 uniform sampler2D u_emissiveTexture;
 uniform sampler2D u_metallicTexture;
 uniform sampler2D u_roughnessTexture;
-float OldShadowCalculation(){
+float OldShadowCalculation() {
 	// perform perspective divide
 	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
 	// transform to [0,1] range
@@ -109,7 +109,7 @@ float OldShadowCalculation(){
 	{
 		shadow = 0.0;
 	}
-	
+
 	return shadow;
 }
 float ShadowCalculationPCFConstantQuality() {
@@ -118,9 +118,9 @@ float ShadowCalculationPCFConstantQuality() {
 
 	// Early return for fragments outside the light's frustum
 	if (projCoords.z > 1.0 || projCoords.z < 0.0) return 0.0;
-	
+
 	float shadow = 0.0;
-	float bias = 0.0001;
+	float bias = 0.0001;//
 	vec2 texelSize = 1.0 / textureSize(u_shadowmapTexture, 0); // Shadowmap size
 	// Dynamic PCF sampling: Choose sample count and kernel size based on distance
 	int samples = 3;
@@ -132,7 +132,7 @@ float ShadowCalculationPCFConstantQuality() {
 		}
 	}
 
-	shadow /= float((samples + 1) * (samples + 1)); // Total samples in the kernel
+	shadow /= float((samples) * (samples)); // Total samples in the kernel
 
 	return shadow;
 }
@@ -148,7 +148,7 @@ float ShadowCalculationPCFSmooth() {
 
 
 	// Calculate smooth sample interpolation factor
-	float smoothFactor = 1-clamp(distanceToCamera / 30.0, 0.0, 1.0); // Normalize to [0.0, 1.0]
+	float smoothFactor = 1 - clamp(distanceToCamera / 30.0, 0.0, 1.0); // Normalize to [0.0, 1.0]
 
 	// Compute the two kernel sizes to blend between
 	float minSamples = 5.0; // Minimum kernel size (3x3)
@@ -220,17 +220,11 @@ void main() {
 	vec3 baseColor = albedo.rgb; // Separate out RGB only
 
 	// Normal Mapping
-	vec3 finalNormal = normalize(TBN * normal);
+	vec3 finalNormalTangentSpace = normalize(TBN * normal);
 	if (u_hasNormalTexture == 1) {
 		vec3 texNormal = texture(u_normalTexture, uvCoords).rgb * 2.0 - 1.0; // Map [0,1] to [-1,1]
-		//		finalNormal = normalize(TBN * texNormal);
-		finalNormal = normalize(TBN * -texNormal);
-
-
-
-
-
-
+		//		finalNormalTangentSpace = normalize(TBN * texNormal);
+		finalNormalTangentSpace = normalize(TBN * -texNormal);
 
 		//			vec3 vertexNormalTBNed = normalize(TBN * normal);
 
@@ -238,8 +232,8 @@ void main() {
 		//  //norm = normalize(TBN * norm);
 		//  float blendFactor = 0.8 * u_hasNormalTexture;
 		//  blendFactor = 0;
-		//  vec3 finalNormal = normalize(mix(vertexNormalTBNed, texNormal, blendFactor));
-		//			vec3 finalNormal = vertexNormalTBNed;
+		//  vec3 finalNormalTangentSpace = normalize(mix(vertexNormalTBNed, texNormal, blendFactor));
+		//			vec3 finalNormalTangentSpace = vertexNormalTBNed;
 	}
 
 	// View and Light Directions
@@ -274,14 +268,19 @@ void main() {
 	baseColor;
 
 	// Diffuse Lighting
-	float diffuseFactor = max(dot(finalNormal, lightDir), 0.0);
+	vec3 lightDirTangentSpace = normalize(TBN * -correctedLightDir.rgb);
+	float diffuseFactor = max(dot(finalNormalTangentSpace, lightDirTangentSpace), 0.0);
+
+	//	float diffuseFactor = max(dot(finalNormalTangentSpace, lightDir), 0.0);
+
+
 	vec3 diffuse = diffuseFactor *
 	u_directionalLightColor.rgb *
 	u_directionalLightColor.a *
 	baseColor;
 
 	// Specular Highlights
-	vec3 reflectedLight = reflect(lightDir, finalNormal);
+	vec3 reflectedLight = reflect(lightDirTangentSpace, finalNormalTangentSpace);
 	//	float specExponent = mix(32.0, 1.0, roughnessValue); // 32 for low roughness, 1 for high roughness
 	//	float specFactor = pow(max(dot(reflectedLight, viewDir), 0.0), specExponent);
 	//	float specIntensity = mix(1.0, 0.0, roughnessValue); // Full specular for low roughness, none for high roughness
@@ -292,8 +291,9 @@ void main() {
 	// Shadows
 	float shadow = (u_hasShadowmapTexture == 1) ? ShadowCalculationPCFConstantQuality() : 0.0;
 
-// Subtract shadow influence for direct lighting
-	vec3 lighting = ambient + (diffuse + specular) *
+	// Subtract shadow influence for direct lighting
+	//	vec3 lighting = ambient + (diffuse + specular) *
+	vec3 lighting = ambient + (diffuse) *
 	(1.0 - shadow);
 
 	// Environmental Reflections
@@ -345,7 +345,7 @@ void main() {
 	}
 	else if (u_renderMode == 3) // normals
 	{
-		fragColor = vec4(finalNormal, 1);
+		fragColor = vec4(finalNormalTangentSpace, 1);
 	}
 	else if (u_renderMode == 4) // directional light diffuse visualisation
 	{
@@ -356,13 +356,18 @@ void main() {
 	{
 		float light = (specFactor) * u_directionalLightColor.a;
 		fragColor = vec4(vec3(light), 1);
-	}else if (u_renderMode == 6) // shadows
+	}
+	else if (u_renderMode == 6) // shadows
 	{
 
-//		shadow = OldShadowCalculation();
-//		shadow = ShadowCalculationPCFSmooth();
+		//		shadow = OldShadowCalculation();
+		//		shadow = ShadowCalculationPCFSmooth();
 		shadow = ShadowCalculationPCFConstantQuality();
-		fragColor = vec4(vec3(1-shadow), 1);
-//		fragColor = vec4(projCoords, 1.0);
+		fragColor = vec4(vec3(1 - shadow), 1);
+		//		fragColor = vec4(projCoords, 1.0);
+	}
+	else if (u_renderMode == 7) // ambient+albedo
+	{
+		fragColor = vec4(ambient, 1);
 	}
 }

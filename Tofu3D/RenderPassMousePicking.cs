@@ -34,10 +34,10 @@ public class RenderPassMousePicking : RenderPass
 
     protected override void PostRender()
     {
-        Debug.StartTimer("Mouse picking");
+        Debug.StartTimer("Mouse picking pass time");
         MousePickingSystem.ReadPixelAtMousePos();
 
-        Debug.EndAndStatTimer("Mouse picking");
+        Debug.EndAndStatTimer("Mouse picking pass time");
         base.PostRender();
     }
 }

@@ -49,7 +49,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
                     return;
                 }
 
-                Material = Tofu.AssetLoadManager.CreateCopy<Asset_Material>(Material);
+                Material = Tofu.AssetLoadManager.CreateUniqueCopy<Asset_Material>(Material);
             };
         }
     }

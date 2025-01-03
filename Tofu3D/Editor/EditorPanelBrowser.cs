@@ -293,7 +293,7 @@ public class EditorPanelBrowser : EditorPanel
             //ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 5);
         }
 
-        Debug.StatSetValue("Browser hovered asset index", $"Browser hovered asset index {hoveredAssetIndex}");
+        // Debug.StatSetValue("Browser hovered asset index", $"Browser hovered asset index {hoveredAssetIndex}");
 
         for (var i = 0; i < _contextItems.Count; i++)
         {

@@ -224,7 +224,7 @@ public class Debug
         }
         else
         {
-            StatSetValue(timerName, msDuration);
+            StatSetValue(timerName, $"{timerName} : {msDuration}ms");
         }
     }
 

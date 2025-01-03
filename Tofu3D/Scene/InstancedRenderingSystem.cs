@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.IO;
+using Tofu3D.Rendering;
 
 namespace Tofu3D;
 
@@ -132,13 +133,14 @@ public class InstancedRenderingSystem
 
     private void RenderSpecific(KeyValuePair<int, InstancedRenderingObjectBufferData> objectBufferPair)
     {
-        var definitionIndex = objectBufferPair.Key;
-        var definition = _definitions[definitionIndex];
-        var material = definition.Material;
-        // material = Tofu.AssetLoadManager.Load<Asset_Material>(material.PathToRawAsset);
-        var meshVao = definition.RuntimeMesh.Vao;
-        var indicesCount = definition.RuntimeMesh.Mesh.Indices.Length;
-        var bufferData = objectBufferPair.Value;
+        int definitionIndex = objectBufferPair.Key;
+        InstancedRenderingObjectBufferData bufferData = objectBufferPair.Value;
+
+        InstancedRenderingObjectDefinition definition = _definitions[definitionIndex];
+        Asset_Material material = definition.Material;
+        int meshVao = definition.RuntimeMesh.Vao;
+        int indicesCount = definition.RuntimeMesh.Mesh.Indices.Length;
+        int numberOfObjects = bufferData.NumberOfObjects;
 
         // resize the buffer if needed, after drawing the old one
         if (bufferData.Buffer.Length != bufferData.InstancedVertexCountOfFloats * bufferData.FutureMaxNumberOfObjects)
@@ -149,10 +151,11 @@ public class InstancedRenderingSystem
         if (objectBufferPair.Value.NeedsUpload)
         {
             UploadBufferData(objectBufferPair.Value);
-            if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.Transparency)
-            {
-                objectBufferPair.Value.NeedsUpload = false;
-            }
+            // if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.Transparency)
+            // {
+            //     objectBufferPair.Value.NeedsUpload = false;
+            // }
+            objectBufferPair.Value.NeedsUpload = false;
         }
 
         if (material == TransformHandle.I?.ModelRendererX?.Material)
@@ -167,252 +170,270 @@ public class InstancedRenderingSystem
         // GL.Enable(EnableCap.DepthTest);
         if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
         {
-            if (_mousePickingMaterial == null)
-            {
-                _mousePickingMaterial = new Asset_Material()
-                    { Shader = new Shader("Assets/Shaders/ModelMousePicking.glsl") };
-                _mousePickingMaterial.LoadShader();
-            }
-
-            // _mousePickingMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("ModelMousePicking.mat");
-            Tofu.ShaderManager.UseShader(_mousePickingMaterial.Shader);
-
-            _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
-                Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
-
-            Tofu.ShaderManager.BindVertexArray(meshVao);
-
-
-            if (RenderingSettings.USE_INDICES)
-            {
-                if (indicesCount > 0)
-                {
-                    GL_DrawElementsInstanced(PrimitiveType.Triangles, indicesCount,
-                        objectBufferPair.Value.NumberOfObjects);
-                }
-            }
-            else
-            {
-                GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, definition.RuntimeMesh.Mesh.VerticesCount,
-                    objectBufferPair.Value.NumberOfObjects);
-            }
+            RenderObjects_MousePickingPass(meshVao: meshVao, numberOfObjects: numberOfObjects,
+                indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount);
         }
 
         else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
                  or RenderPassType.ZPrePass)
         {
-            if (material.RenderMode == RenderMode.Transparent)
-            {
-                // dont render depth for transparent objects
-                return;
-            }
-
-            // var depthMaterial =
-            // Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstancedDepth.mat");
-
-            if (_depthMaterial == null)
-            {
-                _depthMaterial = new Asset_Material()
-                    { Shader = new Shader(Path.Combine(Folders.ShadersInAssets, "ModelRendererInstancedDepth.glsl")) };
-
-                // Tofu.AssetLoadManager.Load<Asset_Material>();
-
-                _depthMaterial.LoadShader();
-            }
-
-
-            Tofu.ShaderManager.UseShader(_depthMaterial.Shader);
-            _depthMaterial.Shader.SetMatrix4X4("u_viewProjection",
-                Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
-
-
-            Tofu.ShaderManager.BindVertexArray(meshVao);
-
-            if (RenderingSettings.USE_INDICES)
-            {
-                if (indicesCount > 0)
-                {
-                    GL_DrawElementsInstanced(PrimitiveType.Triangles, indicesCount,
-                        objectBufferPair.Value.NumberOfObjects);
-                }
-            }
-            else
-            {
-                GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, definition.RuntimeMesh.Mesh.VerticesCount,
-                    objectBufferPair.Value.NumberOfObjects);
-            }
-
-            // GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, mesh.VerticesCount,
-            // objectBufferPair.Value.NumberOfObjects);
+            RenderObjects_DepthPasses(meshVao: meshVao, numberOfObjects: numberOfObjects,
+                indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
+                material: material);
         }
 
         else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
                  or RenderPassType.Transparency)
         {
-            Tofu.ShaderManager.UseShader(material.Shader);
-
-
-            material.Shader.SetFloat("u_renderMode",
-                (int)Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
-
-            material.Shader.SetMatrix4X4("u_viewProjection",
-                Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
-
-            material.Shader.SetColor("u_albedoTint", material.AlbedoTint);
-            // material.Shader.SetVector2("u_tiling", new Vector2(-1, -1)); //grass block
-            material.Shader.SetVector2("u_tiling", material.Tiling); // normal 
-            material.Shader.SetVector2("u_offset", material.Offset);
-
-            material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition);
-
-            // LIGHTING
-            material.Shader.SetMatrix4X4("u_lightSpaceViewProjection", DirectionalLight.LightSpaceViewProjectionMatrix);
-
-
-            var ambientColor = SceneLightingManager.I.GetAmbientLightsColor().ToVector4();
-            ambientColor = new Vector4(ambientColor.X, ambientColor.Y, ambientColor.Z,
-                SceneLightingManager.I.GetAmbientLightsIntensity());
-            material.Shader.SetVector4("u_ambientLightColor", ambientColor);
-
-            var directionalLightColor = SceneLightingManager.I.GetDirectionalLightColor().ToVector4();
-            directionalLightColor.W = SceneLightingManager.I.GetDirectionalLightIntensity();
-            material.Shader.SetVector4("u_directionalLightColor", directionalLightColor);
-            material.Shader.SetVector3("u_directionalLightDirection",
-                SceneLightingManager.I.GetDirectionalLightDirection());
-
-            material.Shader.SetInt("u_refractionEnabled", material.RefractionEnabled ? 1 : 0);
-            material.Shader.SetFloat("u_refractiveIndex", material.RefractiveIndex);
-
-            //FOG
-            var fogEnabled = Tofu.SceneManager.CurrentScene.SceneFogManager.FogEnabled;
-            material.Shader.SetFloat("u_fogEnabled", fogEnabled ? 1 : 0);
-            if (fogEnabled)
-            {
-                material.Shader.SetColor("u_fogColor", Tofu.SceneManager.CurrentScene.SceneFogManager.FogColor1);
-                material.Shader.SetFloat("u_fogIntensity", Tofu.SceneManager.CurrentScene.SceneFogManager.Intensity);
-                if (Tofu.SceneManager.CurrentScene.SceneFogManager.IsGradient)
-                {
-                    material.Shader.SetColor("u_fogColor2", Tofu.SceneManager.CurrentScene.SceneFogManager.FogColor2);
-                    material.Shader.SetFloat("u_fogGradientSmoothness",
-                        Tofu.SceneManager.CurrentScene.SceneFogManager.GradientSmoothness);
-                }
-                else
-                {
-                    material.Shader.SetColor("u_fogColor2", Tofu.SceneManager.CurrentScene.SceneFogManager.FogColor1);
-                }
-
-                material.Shader.SetFloat("u_fogStartDistance",
-                    Tofu.SceneManager.CurrentScene.SceneFogManager.FogStartDistance);
-                material.Shader.SetFloat("u_fogEndDistance",
-                    Tofu.SceneManager.CurrentScene.SceneFogManager.FogEndDistance);
-                material.Shader.SetFloat("u_fogPositionY",
-                    Tofu.SceneManager.CurrentScene.SceneFogManager.FogPositionY);
-            }
-
-            // material.Shader.SetFloat("u_aoStrength", _normalDisabled ? 0 : 1);
-
-            // Albedo Texture
-            material.Shader.SetInt("u_hasAlbedoTexture", material.AlbedoTexture != null ? 1 : 0);
-            if (material.Shader.IsLoaded == false)
-            {
-                return;
-            }
-
-            if (material.AlbedoTexture != null && material.Shader?.AlbedoTextureIndexUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit.Value);
-                TextureHelper.BindTexture(material.AlbedoTexture.TextureId);
-            }
-
-            material.Shader.SetInt("u_hasNormalTexture", material.NormalTexture != null ? 1 : 0);
-
-            // Normal Texture
-            if (material.NormalTexture != null && material.Shader?.NormalTextureIndexUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.NormalTextureIndexUnit.Value);
-                TextureHelper.BindTexture(material.NormalTexture.TextureId);
-            }
-
-            // Ambient Occlusion Texture
-            material.Shader.SetInt("u_hasAmbientOcclusionTexture", material.AmbientOcclusionTexture != null ? 1 : 0);
-            if (material.AmbientOcclusionTexture != null && material.Shader?.AmbientOcclusionTextureUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit.Value);
-                TextureHelper.BindTexture(material.AmbientOcclusionTexture.TextureId);
-            }
-
-            material.Shader.SetInt("u_hasShadowmapTexture",
-                RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
-                material.Shader.ShadowMapTextureUnit != null
-                    ? 1
-                    : 0);
-
-            if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
-                material.Shader.ShadowMapTextureUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.ShadowMapTextureUnit.Value);
-                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthTextureId);
-            }
-
-
-            material.Shader.SetInt("u_hasEnvironmentCubemap",
-                Camera.MainCamera?.GetComponent<Skybox>() != null ? 1 : 0);
-            if (Camera.MainCamera?.GetComponent<Skybox>() != null && material.Shader.EnvironmentTextureUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.EnvironmentTextureUnit.Value);
-                TextureHelper.BindTexture(Camera.MainCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
-                    TextureType.Cubemap);
-            }
-
-            // Roughness Texture
-            material.Shader.SetInt("u_hasRoughnessTexture", material.RoughnessTexture != null ? 1 : 0);
-
-            if (material.RoughnessTexture != null && material.Shader.RoughnessTextureUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.RoughnessTextureUnit.Value);
-                TextureHelper.BindTexture(material.RoughnessTexture.TextureId);
-            }
-
-            material.Shader.SetFloat("u_metallic", material.MetallicTextureStrength);
-            material.Shader.SetFloat("u_smoothness", material.Smoothness);
-
-            // Metallic Texture
-            material.Shader.SetInt("u_hasMetallicTexture", material.MetallicTexture != null ? 1 : 0);
-
-            if (material.MetallicTexture != null && material.Shader.MetallicTextureUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.MetallicTextureUnit.Value);
-                TextureHelper.BindTexture(material.MetallicTexture.TextureId);
-            }
-
-            material.Shader.SetVector4("u_emissiveColor", material.EmissiveColor);
-            if (material.EmissiveTexture != null && material.Shader.EmissiveTextureUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.EmissiveTextureUnit.Value);
-                TextureHelper.BindTexture(material.EmissiveTexture.TextureId);
-            }
-
-            RenderingBlendingHelper.SetBlendMode(material.BlendMode);
-
-            Tofu.ShaderManager.BindVertexArray(meshVao);
-
-            GL.BindBuffer(BufferTarget.ArrayBuffer, bufferData.Vbo);
-            if (RenderingSettings.USE_INDICES)
-            {
-                if (indicesCount > 0)
-                {
-                    GL_DrawElementsInstanced(PrimitiveType.Triangles, indicesCount,
-                        objectBufferPair.Value.NumberOfObjects);
-                }
-            }
-            else
-            {
-                GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, definition.RuntimeMesh.Mesh.VerticesCount,
-                    objectBufferPair.Value.NumberOfObjects);
-            }
+            RenderObjects_Opaques_UI_Transparency(meshVao: meshVao, numberOfObjects: numberOfObjects,
+                indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
+                material: material, vbo: bufferData.Vbo);
         }
 
         ImGuiController.CheckGlError("instanced rendering error");
+    }
+
+    private void RenderObjects_MousePickingPass(int meshVao, int numberOfObjects, int indicesCount, int verticesCount)
+    {
+        if (_mousePickingMaterial == null)
+        {
+            _mousePickingMaterial = new Asset_Material()
+                { Shader = new Shader("Assets/Shaders/ModelMousePicking.glsl") };
+            _mousePickingMaterial.LoadShader();
+        }
+
+        // _mousePickingMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("ModelMousePicking.mat");
+        Tofu.ShaderManager.UseShader(_mousePickingMaterial.Shader);
+
+        _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
+            Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
+
+        Tofu.ShaderManager.BindVertexArray(meshVao);
+
+
+        if (RenderingSettings.USE_INDICES)
+        {
+            if (indicesCount > 0)
+            {
+                GL_DrawElementsInstanced(PrimitiveType.Triangles, indicesCount,
+                    numberOfObjects);
+            }
+        }
+        else
+        {
+            GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, verticesCount,
+                numberOfObjects);
+        }
+    }
+
+    private void RenderObjects_DepthPasses(int meshVao, int numberOfObjects, int indicesCount, int verticesCount,
+        Asset_Material material)
+    {
+        if (material.RenderMode == RenderMode.Transparent)
+        {
+            // dont render depth for transparent objects
+            return;
+        }
+
+        if (_depthMaterial == null)
+        {
+            _depthMaterial = new Asset_Material()
+                { Shader = new Shader(Path.Combine(Folders.ShadersInAssets, "ModelRendererInstancedDepth.glsl")) };
+
+            _depthMaterial.LoadShader();
+        }
+
+
+        Tofu.ShaderManager.UseShader(_depthMaterial.Shader);
+        _depthMaterial.Shader.SetMatrix4X4("u_viewProjection",
+            Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
+
+
+        Tofu.ShaderManager.BindVertexArray(meshVao);
+
+        if (RenderingSettings.USE_INDICES)
+        {
+            if (indicesCount > 0)
+            {
+                GL_DrawElementsInstanced(PrimitiveType.Triangles, indicesCount,
+                    numberOfObjects);
+            }
+        }
+        else
+        {
+            GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, verticesCount,
+                numberOfObjects);
+        }
+    }
+
+    private void RenderObjects_Opaques_UI_Transparency(int meshVao, int numberOfObjects, int indicesCount,
+        int verticesCount,
+        Asset_Material material, int vbo)
+    {
+        Tofu.ShaderManager.UseShader(material.Shader);
+
+
+        SetStandardModelMaterialUniforms(material);
+
+        RenderingBlendingHelper.SetBlendMode(material.BlendMode);
+
+        Tofu.ShaderManager.BindVertexArray(meshVao);
+
+        GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+        if (RenderingSettings.USE_INDICES)
+        {
+            if (indicesCount > 0)
+            {
+                GL_DrawElementsInstanced(PrimitiveType.Triangles, indicesCount,
+                    numberOfObjects);
+            }
+        }
+        else
+        {
+            GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, verticesCount,
+                numberOfObjects);
+        }
+    }
+
+    private void SetStandardModelMaterialUniforms(Asset_Material material)
+    {
+        material.Shader.SetFloat("u_renderMode",
+            (int)Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
+
+        material.Shader.SetMatrix4X4("u_viewProjection",
+            Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
+
+        material.Shader.SetColor("u_albedoTint", material.AlbedoTint);
+        // material.Shader.SetVector2("u_tiling", new Vector2(-1, -1)); //grass block
+        material.Shader.SetVector2("u_tiling", material.Tiling); // normal 
+        material.Shader.SetVector2("u_offset", material.Offset);
+
+        material.Shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition);
+
+        // LIGHTING
+        material.Shader.SetMatrix4X4("u_lightSpaceViewProjection", DirectionalLight.LightSpaceViewProjectionMatrix);
+
+
+        var ambientColor = SceneLightingManager.I.GetAmbientLightsColor().ToVector4();
+        ambientColor = new Vector4(ambientColor.X, ambientColor.Y, ambientColor.Z,
+            SceneLightingManager.I.GetAmbientLightsIntensity());
+        material.Shader.SetVector4("u_ambientLightColor", ambientColor);
+
+        var directionalLightColor = SceneLightingManager.I.GetDirectionalLightColor().ToVector4();
+        directionalLightColor.W = SceneLightingManager.I.GetDirectionalLightIntensity();
+        material.Shader.SetVector4("u_directionalLightColor", directionalLightColor);
+        material.Shader.SetVector3("u_directionalLightDirection",
+            SceneLightingManager.I.GetDirectionalLightDirection());
+
+        material.Shader.SetInt("u_refractionEnabled", material.RefractionEnabled ? 1 : 0);
+        material.Shader.SetFloat("u_refractiveIndex", material.RefractiveIndex);
+
+        //FOG
+        var fogEnabled = Tofu.SceneManager.CurrentScene.SceneFogManager.FogEnabled;
+        material.Shader.SetFloat("u_fogEnabled", fogEnabled ? 1 : 0);
+        if (fogEnabled)
+        {
+            material.Shader.SetColor("u_fogColor", Tofu.SceneManager.CurrentScene.SceneFogManager.FogColor1);
+            material.Shader.SetFloat("u_fogIntensity", Tofu.SceneManager.CurrentScene.SceneFogManager.Intensity);
+            if (Tofu.SceneManager.CurrentScene.SceneFogManager.IsGradient)
+            {
+                material.Shader.SetColor("u_fogColor2", Tofu.SceneManager.CurrentScene.SceneFogManager.FogColor2);
+                material.Shader.SetFloat("u_fogGradientSmoothness",
+                    Tofu.SceneManager.CurrentScene.SceneFogManager.GradientSmoothness);
+            }
+            else
+            {
+                material.Shader.SetColor("u_fogColor2", Tofu.SceneManager.CurrentScene.SceneFogManager.FogColor1);
+            }
+
+            material.Shader.SetFloat("u_fogStartDistance",
+                Tofu.SceneManager.CurrentScene.SceneFogManager.FogStartDistance);
+            material.Shader.SetFloat("u_fogEndDistance",
+                Tofu.SceneManager.CurrentScene.SceneFogManager.FogEndDistance);
+            material.Shader.SetFloat("u_fogPositionY",
+                Tofu.SceneManager.CurrentScene.SceneFogManager.FogPositionY);
+        }
+
+        // Albedo Texture
+        material.Shader.SetInt("u_hasAlbedoTexture", material.AlbedoTexture != null ? 1 : 0);
+        if (material.Shader.IsLoaded == false)
+        {
+            return;
+        }
+
+        if (material.AlbedoTexture != null && material.Shader?.AlbedoTextureIndexUnit != null)
+        {
+            GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit.Value);
+            TextureHelper.BindTexture(material.AlbedoTexture.TextureId);
+        }
+
+        material.Shader.SetInt("u_hasNormalTexture", material.NormalTexture != null ? 1 : 0);
+
+        // Normal Texture
+        if (material.NormalTexture != null && material.Shader?.NormalTextureIndexUnit != null)
+        {
+            GL.ActiveTexture(material.Shader.NormalTextureIndexUnit.Value);
+            TextureHelper.BindTexture(material.NormalTexture.TextureId);
+        }
+
+        // Ambient Occlusion Texture
+        material.Shader.SetInt("u_hasAmbientOcclusionTexture", material.AmbientOcclusionTexture != null ? 1 : 0);
+        if (material.AmbientOcclusionTexture != null && material.Shader?.AmbientOcclusionTextureUnit != null)
+        {
+            GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit.Value);
+            TextureHelper.BindTexture(material.AmbientOcclusionTexture.TextureId);
+        }
+
+        material.Shader.SetInt("u_hasShadowmapTexture",
+            RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
+            material.Shader.ShadowMapTextureUnit != null
+                ? 1
+                : 0);
+
+        if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
+            material.Shader.ShadowMapTextureUnit != null)
+        {
+            GL.ActiveTexture(material.Shader.ShadowMapTextureUnit.Value);
+            TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthTextureId);
+        }
+
+
+        material.Shader.SetInt("u_hasEnvironmentCubemap",
+            Camera.MainCamera?.GetComponent<Skybox>() != null ? 1 : 0);
+        if (Camera.MainCamera?.GetComponent<Skybox>() != null && material.Shader.EnvironmentTextureUnit != null)
+        {
+            GL.ActiveTexture(material.Shader.EnvironmentTextureUnit.Value);
+            TextureHelper.BindTexture(Camera.MainCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
+                TextureType.Cubemap);
+        }
+
+        // Roughness Texture
+        material.Shader.SetInt("u_hasRoughnessTexture", material.RoughnessTexture != null ? 1 : 0);
+
+        if (material.RoughnessTexture != null && material.Shader.RoughnessTextureUnit != null)
+        {
+            GL.ActiveTexture(material.Shader.RoughnessTextureUnit.Value);
+            TextureHelper.BindTexture(material.RoughnessTexture.TextureId);
+        }
+
+        material.Shader.SetFloat("u_metallic", material.MetallicTextureStrength);
+        material.Shader.SetFloat("u_smoothness", material.Smoothness);
+
+        // Metallic Texture
+        material.Shader.SetInt("u_hasMetallicTexture", material.MetallicTexture != null ? 1 : 0);
+
+        if (material.MetallicTexture != null && material.Shader.MetallicTextureUnit != null)
+        {
+            GL.ActiveTexture(material.Shader.MetallicTextureUnit.Value);
+            TextureHelper.BindTexture(material.MetallicTexture.TextureId);
+        }
+
+        material.Shader.SetVector4("u_emissiveColor", material.EmissiveColor);
+        if (material.EmissiveTexture != null && material.Shader.EmissiveTextureUnit != null)
+        {
+            GL.ActiveTexture(material.Shader.EmissiveTextureUnit.Value);
+            TextureHelper.BindTexture(material.EmissiveTexture.TextureId);
+        }
     }
 
     private void GL_DrawArraysInstanced(PrimitiveType primitiveType, int first, int verticesCount, int instancesCount)
@@ -427,7 +448,6 @@ public class InstancedRenderingSystem
     {
         GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, IntPtr.Zero,
             instancesCount);
-        // GL.DrawElementsInstanced(primitiveType, indicesCount, DrawElementsType.UnsignedInt, indices, instancesCount);
         DebugHelper.LogDrawCall();
         Debug.StatAddValue("Instanced objects drawn(elements):", instancesCount);
     }
@@ -437,16 +457,11 @@ public class InstancedRenderingSystem
         Matrix4x4? modelMatrix = null, bool isStatic = false, bool remove = false, Color? color = null,
         Vector2? uvOffset = null, int indexForMultipleObjectsPerRenderer = 0)
     {
-        var mesh = renderer.RuntimeMesh;
-        var material = renderer.Material;
+        RuntimeMesh mesh = renderer.RuntimeMesh;
+        Asset_Material material = renderer.Material;
         if (mesh == null || material == null)
         {
             return false;
-        }
-
-        if (renderer.GameObject.Name == "Cube 1")
-        {
-            var a = 2;
         }
 
         InstancedRenderingObjectBufferData bufferData;
@@ -573,7 +588,6 @@ public class InstancedRenderingSystem
     {
         // Debug.Log("Initializing Instanced Buffer Data");
         GL.BindVertexArray(objectDefinition.RuntimeMesh.Vao);
-        // GL.BindBuffer(BufferTarget.ElementArrayBuffer, objectDefinition.RuntimeMesh.Ebo); // ebo should be already linked with vao on initialization
 
         objectDefinition.Material.LoadShader();
         if (objectDefinition.Material.Shader.IsLoaded == false)
@@ -679,14 +693,11 @@ public class InstancedRenderingSystem
         else
         {
             GL.BufferSubData(BufferTarget.ArrayBuffer, 0,
-                // bufferData._instancedVertexDataSizeInBytes * bufferData.MaxNumberOfObjects,
                 sizeof(float) * bufferData.Buffer.Length,
                 bufferData.Buffer);
         }
 
 
-        // GL.BufferData(BufferTarget.ArrayBuffer, bufferData._instancedVertexDataSizeInBytes * bufferData.MaxNumberOfObjects, bufferData.Buffer, BufferUsageHint.StaticDraw);
-        // GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
         GL.BindVertexArray(0);
     }
 }

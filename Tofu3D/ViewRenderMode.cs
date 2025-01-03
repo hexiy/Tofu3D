@@ -9,4 +9,5 @@ public enum ViewRenderMode
     Diffuse = 4,
     Specular = 5,
     Shadows = 6,
+    AmbientAlbedo = 7,
 }

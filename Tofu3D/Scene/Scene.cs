@@ -104,11 +104,12 @@ public class Scene
         CreateCamera();
         CreateTransformHandle();
         CreateGrid();
+        CreateLights();
     }
 
     private void CreateCamera()
     {
-        if (FindComponent(typeof(Camera)) == null)
+        if (FindComponent<Camera>(out Camera camera) == null)
         {
             var camGo = GameObject.Create(name: "Camera");
             camGo.AddComponent<Camera>();
@@ -142,6 +143,26 @@ public class Scene
 
         transformHandleGameObject.SetActive(true);
     }
+
+
+    private void CreateLights()
+    {
+        if (FindComponent<AmbientLight>() == null)
+        {
+            var ambientLightGo = GameObject.Create(name: "Ambient Light");
+            ambientLightGo.AddComponent<AmbientLight>();
+            ambientLightGo.Awake();
+        }
+
+        if (FindComponent<DirectionalLight>() == null)
+        {
+            var directionLightGo = GameObject.Create(name: "Directional Light");
+            directionLightGo.Transform.Rotation = new Vector3(-90, 0, 0);
+            directionLightGo.AddComponent<DirectionalLight>();
+            directionLightGo.Awake();
+        }
+    }
+
 
     public void Update()
     {
@@ -287,7 +308,7 @@ public class Scene
         return null;
     }
 
-    public T FindComponent<T>(bool ignoreInactive = false) where T : Component
+    public T? FindComponent<T>(bool ignoreInactive = false) where T : Component
     {
         foreach (var gameObject in GameObjects)
         {
@@ -299,6 +320,22 @@ public class Scene
         }
 
         return null;
+    }
+
+    public T? FindComponent<T>(out T component, bool ignoreInactive = false) where T : Component
+    {
+        foreach (var gameObject in GameObjects)
+        {
+            Component bl = gameObject.GetComponent<T>();
+            if (bl != null && ((ignoreInactive && bl.IsActive) || ignoreInactive == false))
+            {
+                component = (T)bl;
+                return component;
+            }
+        }
+
+        component = null;
+        return component;
     }
 
     public List<T> FindComponentsInScene<T>(bool ignoreInactive = false) where T : Component

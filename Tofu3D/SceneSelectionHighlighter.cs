@@ -34,7 +34,7 @@ public class SceneSelectionHighlighter
 
         Asset_Material runtimeMaterial = Tofu.AssetLoadManager
             .Load<Asset_Material>(Path.Combine(Folders.MaterialsInAssets,"ModelRendererInstanced.mat"));
-        runtimeMaterial = Tofu.AssetLoadManager.CreateCopy(runtimeMaterial);
+        runtimeMaterial = Tofu.AssetLoadManager.CreateUniqueCopy(runtimeMaterial);
 
         modelRenderer.Material = runtimeMaterial;
 

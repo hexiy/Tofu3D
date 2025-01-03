@@ -12,7 +12,7 @@ public class Camera : Component, IComponentUpdateable
     [ShowIfNot(nameof(IsOrthographic))] public float FieldOfView = 60;
 
     public bool IsOrthographic = false;
-    public float NearPlaneDistance = 0.5f;
+    public float NearPlaneDistance = 0.01f;
 
     [ShowIf(nameof(IsOrthographic))] public float OrthographicSize = 2;
 
