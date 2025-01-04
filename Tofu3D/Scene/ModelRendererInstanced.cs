@@ -77,7 +77,7 @@ public class ModelRendererInstanced : Renderer
 
                     if (Material.IsRuntimeCopy)
                     {
-                        Material = Tofu.AssetLoadManager.CreateUniqueTempCopyFile(Material);
+                        Material = Tofu.AssetLoadManager.CreateCopyFile(Material);
                     }
                 }
             }

@@ -41,7 +41,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
     public RenderMode RenderMode => Material?.RenderMode ?? RenderMode.Opaque;
 
     [XmlIgnore]
-    public Action CreateInstanceOfMaterial
+    public Action CreateCopyOfMaterial
     {
         get
         {
@@ -52,7 +52,8 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
                     return;
                 }
 
-                Material = Tofu.AssetLoadManager.CreateUniqueTempCopyFile<Asset_Material>(Material);
+                Material = Tofu.AssetLoadManager.CreateCopyFile<Asset_Material>(Material,
+                    folder: Folders.MaterialsInLibrary);
             };
         }
     }

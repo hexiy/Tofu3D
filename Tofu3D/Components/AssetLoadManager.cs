@@ -72,15 +72,19 @@ public class AssetLoadManager
         return existsInDatabase;
     }
 
-    public T? CreateUniqueTempCopyFile<T>(T original) where T : Asset<T>
+    /// <param name="original"></param>
+    /// <param name="folder">By default is Library/Temp and gets wiped when Tofu is closed</param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public T? CreateCopyFile<T>(T original, string? folder = null) where T : Asset<T>
     {
+        folder = folder ?? Folders.TempInLibrary;
         string tempFileName =
             Folders.GetPathRelativeToProjectFolder(
-                TofuPath.Combine(Folders.TempInLibrary, Guid.NewGuid().ToString()) + ".temp");
+                TofuPath.Combine(folder, Guid.NewGuid().ToString()) + ".temp");
         Tofu.AssetLoadManager.Save<T>(tempFileName, asset: original);
         T runtimeCopy =
-            Tofu.AssetLoadManager.Load<T>(tempFileName, null, false, isRuntimeCopy: true);
-        // runtimeCopy.SetAsRuntimeAsset();
+            Tofu.AssetLoadManager.Load<T>(tempFileName, null, false);
         runtimeCopy.PathInLibraryFolder = tempFileName;
         runtimeCopy.PathInAssetsFolder = null;
         Tofu.AssetLoadManager.Save<T>(tempFileName, runtimeCopy);
@@ -143,7 +147,8 @@ public class AssetLoadManager
                 loadParameters =
                     Activator.CreateInstance(loadParameters.GetType()) as AssetLoadParameters<T>;
 
-                loadParameters.PathToAssetInLibrary = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(sourcePath);
+                loadParameters.PathToAssetInLibrary =
+                    AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(sourcePath);
                 if (File.Exists(loadParameters.PathToAssetInLibrary) == false)
                 {
                     loadParameters.PathToAssetInLibrary = sourcePath;
