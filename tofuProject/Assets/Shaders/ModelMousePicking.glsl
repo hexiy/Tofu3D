@@ -36,7 +36,7 @@ void main(void)
 {
 //	fragColor = uint(v_id);  must be integer framebuffer
 //	fragColor = vec4(v_id, 0.0, 0.0, 1.0);
-float r = float((int(v_id) & 0xFF000000) >> 24) / 255.0;
+//float r = float((int(v_id) & 0xFF000000) >> 24) / 255.0;
 //float g = float((int(v_id) & 0x00FF0000) >> 16) / 255.0;
 //float b = float((int(v_id) & 0x0000FF00) >> 8) / 255.0;
 //float a = float(int(v_id) & 0x000000FF) / 255.0;

@@ -29,13 +29,17 @@ public class RenderPassMousePicking : RenderPass
             return;
         }
 
-        MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, isIntegerFramebuffer:false);
+        MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, isIntegerFramebuffer: false);
     }
 
     protected override void PostRender()
     {
         Debug.StartTimer("Mouse picking pass time");
-        MousePickingSystem.ReadPixelAtMousePos();
+        if (Tofu.MouseInput.IsMouseInSceneView)
+        {
+            MousePickingSystem.ReadPixelAtMousePos();
+        }
+
 
         Debug.EndAndStatTimer("Mouse picking pass time");
         base.PostRender();

@@ -89,10 +89,11 @@ public class
     {
         Path = filePath;
     }
-
+    [JsonIgnore]
     [XmlIgnore]
     public bool IsLoaded { get; private set; }
 
+    [JsonIgnore]
     [XmlIgnore]
     public int ProgramId { get; set; }
 
