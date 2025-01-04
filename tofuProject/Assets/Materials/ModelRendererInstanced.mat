@@ -1,23 +1,12 @@
-Â{
+ç	{
   "Shader": {
     "BufferType": 2,
     "Path": "Assets/Shaders/ModelRendererInstanced.glsl",
     "IsLoaded": false,
-    "ProgramId": 3
+    "ProgramId": 13
   },
   "Additive": false,
-  "AlbedoTexture": {
-    "IsRuntimeCopy": false,
-    "DataIsCompressed": false,
-    "Size": {
-      "X": 256.0,
-      "Y": 1024.0
-    },
-    "TextureId": 20,
-    "PathInAssetsFolder": "Assets/3D/sponza/textures/chain_texture.tga",
-    "PathInLibraryFolder": "Library/Textures/chain_texture.tga.tofutexture",
-    "AnyPath": "Assets/3D/sponza/textures/chain_texture.tga"
-  },
+  "AlbedoTexture": null,
   "AlphaMaskTexture": null,
   "AlbedoTint": {
     "B": 255,
@@ -41,8 +30,8 @@
   "RefractiveIndex": 1.309,
   "SpecularHighlightsEnabled": false,
   "SpecularSmoothness": -16.91,
-  "MetallicTextureStrength": 1.0,
-  "Smoothness": 0.0,
+  "MetallicTextureStrength": 0.746,
+  "Smoothness": 0.544,
   "Tiling": {
     "X": 1.0,
     "Y": 1.0
@@ -51,6 +40,16 @@
     "X": 0.0,
     "Y": 0.0
   },
+  "UVOffsetIsInstanced": false,
+  "RenderMode": 0,
+  "BlendMode": 0,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
+  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
+  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
+}
+}
   "UVOffsetIsInstanced": false,
   "RenderMode": 0,
   "BlendMode": 0,

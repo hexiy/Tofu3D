@@ -282,8 +282,25 @@ public class Transform : Component
         direction.Z = (float)(Math.Cos(pitchRadians) * Math.Cos(yawRadians));
         direction.Y = (float)Math.Sin(pitchRadians);
         direction.X = (float)(Math.Cos(pitchRadians) * Math.Sin(yawRadians));
-
+        
         return direction.Normalized();
+        
+        
+        /*var radiansX = rotation.X / 180 * Mathf.Pi;
+        var radiansY = rotation.Y / 180 * Mathf.Pi;
+        var radiansZ = rotation.Z / 180 * Mathf.Pi;
+
+        // Create the transformation matrix based on the rotation
+        var transformationMatrix = 
+            Matrix4x4.CreateRotationX(radiansX) *
+            Matrix4x4.CreateRotationY(radiansY) *
+            Matrix4x4.CreateRotationZ(radiansZ);
+
+        // Apply the transformation to the forward direction
+        var forward = new Vector3(0, 0, 1);
+        var direction = Vector3.Transform(forward, transformationMatrix);
+
+        return direction;*/
     }
 
     public Vector3 TransformVectorToWorldSpaceVector(Vector3 dir)

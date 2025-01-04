@@ -19,7 +19,7 @@ uniform mat4 u_lightSpaceViewProjection;
 
 out vec3 vertexPositionWorld;
 out vec2 uv;
-out vec3 normal;
+out vec3 normalWorldSpace;
 //out vec4 color;
 out vec4 fragPosLightSpace;
 out mat3 TBN;
@@ -38,7 +38,7 @@ void main(void)
     //color = a_color;
 
 	vertexPositionWorld = vec3(a_model * vec4(a_pos.xyz, 1.0));
-	normal = transpose(inverse(mat3(a_model))) * a_normal;
+	normalWorldSpace = transpose(inverse(mat3(a_model))) * a_normal;
 
 	mat4 lightMvp = u_lightSpaceViewProjection * a_model;
 	fragPosLightSpace = lightMvp * vec4(a_pos.xyz, 1.0);
@@ -53,7 +53,7 @@ void main(void)
 //[FRAGMENT]
 #version 410 core
 
-in vec3 normal;
+in vec3 normalWorldSpace;
 in vec3 vertexPositionWorld;
 in vec2 uv;
 in vec4 fragPosLightSpace;
@@ -65,7 +65,7 @@ out vec4 fragColor;
 uniform vec2 u_tiling;
 uniform vec4 u_ambientLightColor;
 uniform vec4 u_albedoTint;
-uniform vec3 u_camPos;
+uniform vec3 u_camPosWorldSpace;
 uniform vec4 u_directionalLightColor;
 uniform vec3 u_directionalLightDirection;
 uniform float u_smoothness;
@@ -147,7 +147,7 @@ float ShadowCalculationPCFSmoothDistanceToCamera() {
 	if (projCoords.z > 1.0 || projCoords.z < 0.0) return 0.0;
 
 	// Calculate distance from the fragment to the camera
-	float distanceToCamera = length(vertexPositionWorld - u_camPos);
+	float distanceToCamera = length(vertexPositionWorld - u_camPosWorldSpace);
 
 
 	// Calculate smooth sample interpolation factor
@@ -203,6 +203,21 @@ vec3 sRGBToLinear(vec3 color) {
 vec3 LinearToSRGB(vec3 color) {
 	return pow(color, vec3(1.0 / 2.2));
 }
+// Fresnel-Schlick approximation for fresnel reflectance (F)
+vec3 F_Schlick(float VdotH, vec3 F0) {
+	return F0 + (1.0 - F0) * pow(1.0 - VdotH, 5.0);
+}
+
+// Geometry (G) term for GGX
+float G_Smith(float NdotV, float NdotL, float roughness) {
+	float r = (roughness + 1.0);
+	float k = (r * r) / 8.0;
+
+	float G_V = NdotV / (NdotV * (1.0 - k) + k);
+	float G_L = NdotL / (NdotL * (1.0 - k) + k);
+
+	return G_V * G_L;
+}
 float D_GGX(float NdotH, float roughness) {
 	float a = roughness * roughness;
 	float a2 = a * a;
@@ -210,6 +225,14 @@ float D_GGX(float NdotH, float roughness) {
 
 	float denominator = NdotH2 * (a2 - 1.0) + 1.0;
 	return a2 / (3.14159 * denominator * denominator);
+}
+// Correct specular term
+vec3 SpecularReflectionGGX(vec3 N, vec3 V, vec3 L, vec3 H, vec3 F0, float roughness) {
+	float D = D_GGX(max(dot(N, H), 0.0), roughness);
+	vec3 F = F_Schlick(max(dot(V, H), 0.0), F0);
+	float G = G_Smith(max(dot(N, V), 0.0), max(dot(N, L), 0.0), roughness);
+
+	return (D * F * G) / (4.0 * max(dot(N, V), 0.0) * max(dot(N, L), 0.0) + 0.001);
 }
 void main() {
 	// UV Coordinates with tiling
@@ -223,7 +246,7 @@ void main() {
 	vec3 baseColor = albedo.rgb; // Separate out RGB only
 
 	// Normal Mapping
-	vec3 finalNormalTangentSpace = normalize(TBN * normal);
+	vec3 finalNormalTangentSpace = normalize(TBN * normalWorldSpace);
 	if (u_hasNormalTexture == 1) {
 		vec3 texNormal = texture(u_normalTexture, uvCoords).rgb * 2.0 - 1.0; // Map [0,1] to [-1,1]
 		//		finalNormalTangentSpace = normalize(TBN * texNormal);
@@ -240,7 +263,7 @@ void main() {
 	}
 
 	// View and Light Directions
-	vec3 viewDir = normalize(u_camPos - vertexPositionWorld);
+	vec3 viewDir = normalize(u_camPosWorldSpace - vertexPositionWorld);
 	vec3 lightDir = normalize(-u_directionalLightDirection);
 	vec3 correctedLightDir = u_directionalLightDirection * vec3(1, -1, 1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
 	lightDir = correctedLightDir;
@@ -283,16 +306,14 @@ void main() {
 	baseColor;
 
 	// Specular Highlights
-	vec3 reflectedLight = reflect(lightDirTangentSpace, finalNormalTangentSpace);
-	//	float specExponent = mix(32.0, 1.0, roughnessValue); // 32 for low roughness, 1 for high roughness
-	//	float specFactor = pow(max(dot(reflectedLight, viewDir), 0.0), specExponent);
-	//	float specIntensity = mix(1.0, 0.0, roughnessValue); // Full specular for low roughness, none for high roughness
+	vec3 H = normalize(viewDir + correctedLightDir); // Halfway vector
+	vec3 F0 = mix(vec3(0.04), baseColor, metallicValue*5); // Base reflectance (metallic or dielectric)
+	vec3 specular = SpecularReflectionGGX(normalWorldSpace, viewDir, correctedLightDir, H, F0, 5);
+	specular = specular * u_directionalLightColor.rgb * u_directionalLightColor.a*5;
+//specular = vec3(1);
 
-	float specFactor = D_GGX(max(dot(reflectedLight, viewDir), 0.0), roughnessValue) * metallicValue;
-	vec3 specular = mix(vec3(0.04), u_directionalLightColor.rgb, metallicValue) * specFactor;
 
 	// Shadows
-
 	float shadow = 0.0;
 
 	if (u_hasShadowmapTexture == 1) {
@@ -313,8 +334,8 @@ void main() {
 	vec3 reflection = vec3(0.0);
 	//	if (metallicValue > 0.0) {
 
-	vec3 reflectionI = normalize(vertexPositionWorld - u_camPos);
-	vec3 reflectionDir = reflect(reflectionI, normalize(normal));
+	vec3 reflectionI = normalize(vertexPositionWorld - u_camPosWorldSpace);
+	vec3 reflectionDir = reflect(reflectionI, normalize(normalWorldSpace));
 
 	float MAX_LOD = 7.0; // Maximum level-of-detail for the cubemap mipmaps
 	vec3 environmentReflection = textureLod(u_environmentCubemap, reflectionDir, roughnessValue * MAX_LOD).rgb;
@@ -348,17 +369,17 @@ void main() {
 	if (u_hasAlphaMaskTexture == 1) {
 		vec4 alphaMask = texture(u_alphaMaskTexture, uvCoords);
 		alphaMask.rgb *= alphaMask.a;
-		alpha = (alphaMask.r+alphaMask.g+alphaMask.b)/3;
-//		
-//		alpha=alphaMask.a;
-//		
-//		color = alphaMask.rgb;
+		alpha = (alphaMask.r + alphaMask.g + alphaMask.b) / 3;
+		//		
+		//		alpha=alphaMask.a;
+		//		
+		//		color = alphaMask.rgb;
 	}
 
 
-if(alpha<0.9){
-	discard;
-}
+	if (alpha < 0.9) {
+		discard;
+	}
 	// Final Output
 	if (u_renderMode == 0) // regular
 	{
@@ -383,8 +404,7 @@ if(alpha<0.9){
 	}
 	else if (u_renderMode == 5) // directional light specular
 	{
-		float light = (specFactor) * u_directionalLightColor.a;
-		fragColor = vec4(vec3(light), 1);
+		fragColor = vec4(specular, 1);
 	}
 	else if (u_renderMode == 6) // shadows
 	{

@@ -64,53 +64,58 @@ public class InstancedRenderingSystem
 
     public void RenderShaderGroups(InstancingRenderMode renderMode)
     {
+        // if mousepicking or depth, we set the shader first for all shadergroups
+        if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
+        {
+            if (_mousePickingMaterial == null)
+            {
+                _mousePickingMaterial = new Asset_Material()
+                {
+                    Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
+                        "ModelMousePicking.glsl"))
+                };
+                _mousePickingMaterial.LoadShader();
+            }
+
+            // _mousePickingMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("ModelMousePicking.mat");
+            Tofu.ShaderManager.UseShader(_mousePickingMaterial.Shader);
+
+            _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
+                Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
+        }
+
+        else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
+                 or RenderPassType.ZPrePass)
+        {
+            if (_depthMaterial == null)
+            {
+                _depthMaterial = new Asset_Material()
+                {
+                    Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
+                        "ModelRendererInstancedDepth.glsl"))
+                };
+
+                _depthMaterial.LoadShader();
+            }
+
+
+            Tofu.ShaderManager.UseShader(_depthMaterial.Shader);
+
+            // not material-dependent
+            _depthMaterial.Shader.SetMatrix4X4("u_viewProjection",
+                Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
+        }
+
         // Iterate over shader groups
         foreach (var shaderGroup in _shaderGroups)
         {
-            if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
-            {
-                if (_mousePickingMaterial == null)
-                {
-                    _mousePickingMaterial = new Asset_Material()
-                        { Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets, "ModelMousePicking.glsl")) };
-                    _mousePickingMaterial.LoadShader();
-                }
-
-                // _mousePickingMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("ModelMousePicking.mat");
-                Tofu.ShaderManager.UseShader(_mousePickingMaterial.Shader);
-
-                _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
-                    Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
-            }
-
-            else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
-                     or RenderPassType.ZPrePass)
-            {
-                if (_depthMaterial == null)
-                {
-                    _depthMaterial = new Asset_Material()
-                    {
-                        Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
-                            "ModelRendererInstancedDepth.glsl"))
-                    };
-
-                    _depthMaterial.LoadShader();
-                }
-
-
-                Tofu.ShaderManager.UseShader(_depthMaterial.Shader);
-
-                // not material-dependent
-                _depthMaterial.Shader.SetMatrix4X4("u_viewProjection",
-                    Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
-            }
-            else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
-                     or RenderPassType.Transparency)
+            if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
+                or RenderPassType.Transparency)
             {
                 Shader shader = _definitions[shaderGroup.Value.DefinitionIndexes[0]].Material.Shader;
                 // shader = Tofu.ShaderManager.LoadShader(shader.Path);
                 Tofu.ShaderManager.UseShader(shader);
-                
+
                 SetGlobalUniforms(shader);
             }
 
@@ -330,7 +335,7 @@ public class InstancedRenderingSystem
         shader.SetMatrix4X4("u_viewProjection",
             Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
 
-        shader.SetVector3("u_camPos", Camera.MainCamera.Transform.WorldPosition);
+        shader.SetVector3("u_camPosWorldSpace", Camera.MainCamera.Transform.WorldPosition);
 
         // LIGHTING
         shader.SetMatrix4X4("u_lightSpaceViewProjection", DirectionalLight.LightSpaceViewProjectionMatrix);
@@ -344,8 +349,12 @@ public class InstancedRenderingSystem
         var directionalLightColor = SceneLightingManager.I.GetDirectionalLightColor().ToVector4();
         directionalLightColor.W = Mathf.ClampMin(SceneLightingManager.I.GetDirectionalLightIntensity(), 0);
         shader.SetVector4("u_directionalLightColor", directionalLightColor);
+
+        var dir = SceneLightingManager.I.GetDirectionalLightDirection().Normalized();
         shader.SetVector3("u_directionalLightDirection",
-            SceneLightingManager.I.GetDirectionalLightDirection());
+            // SceneLightingManager.I.GetDirectionalLightDirection().Normalized());
+            dir);
+            // new Vector3(0,-1,0));
 
 
         //FOG

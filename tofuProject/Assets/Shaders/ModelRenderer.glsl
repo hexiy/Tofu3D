@@ -43,7 +43,7 @@ uniform float u_fogPositionY = 0;
 uniform float u_fogGradientSmoothness = 1;
 uniform float u_fogIntensity = 1;
 
-uniform vec3 u_camPos;
+uniform vec3 u_camPosWorldSpace;
 uniform vec3 u_ambientLightsColor;
 uniform float u_ambientLightsIntensity;
 
@@ -110,10 +110,10 @@ result *= vec4(directionalAndAmbientLighting.rgb, 1);
 
 if (u_specularHighlightsEnabled == 1){
 vec3 reflectedLightVectorWorld = reflect(- u_directionalLightDirection, norm);
-vec3 viewDir = - normalize(u_camPos - vertexPositionWorld);
-//vec3 viewDir = -normalize(u_camPos - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
-//vec3 viewDir = normalize(u_camPos - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
-//vec3 viewDir = normalize(u_camPos - vertexPositionWorld)* vec3(- 1, 1, -1);
+vec3 viewDir = - normalize(u_camPosWorldSpace - vertexPositionWorld);
+//vec3 viewDir = -normalize(u_camPosWorldSpace - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
+//vec3 viewDir = normalize(u_camPosWorldSpace - vertexPositionWorld) ;//* vec3(- 1, 1, -1);
+//vec3 viewDir = normalize(u_camPosWorldSpace - vertexPositionWorld)* vec3(- 1, 1, -1);
 
 float spec = pow(max(dot(viewDir, reflectedLightVectorWorld), 0.0), 32);
 vec3 specular = u_specularSmoothness * spec * u_directionalLightColor.rgb * directionalLightClampedIntensity * 10;
@@ -128,7 +128,7 @@ discard; // having this fixes transparency sorting but breaks debug depthmap
 
 if (u_fogEnabled == 1 && u_renderMode == 0)
 {
-float distanceToVertex = distance(u_camPos.xz, vertexPositionWorld.xz);
+float distanceToVertex = distance(u_camPosWorldSpace.xz, vertexPositionWorld.xz);
 float fogFactor = 0;
 if (distanceToVertex > u_fogStartDistance){
 fogFactor = (distanceToVertex) - u_fogStartDistance;
