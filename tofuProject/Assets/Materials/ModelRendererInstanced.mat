@@ -1,9 +1,9 @@
-»{
+å{
   "Shader": {
     "BufferType": 2,
     "Path": "Assets/Shaders/ModelRendererInstanced.glsl",
     "IsLoaded": false,
-    "ProgramId": 40
+    "ProgramId": 3
   },
   "Additive": false,
   "AlbedoTexture": {
@@ -13,23 +13,12 @@
       "X": 256.0,
       "Y": 1024.0
     },
-    "TextureId": 33,
+    "TextureId": 20,
     "PathInAssetsFolder": "Assets/3D/sponza/textures/chain_texture.tga",
     "PathInLibraryFolder": "Library/Textures/chain_texture.tga.tofutexture",
     "AnyPath": "Assets/3D/sponza/textures/chain_texture.tga"
   },
-  "AlphaMaskTexture": {
-    "IsRuntimeCopy": false,
-    "DataIsCompressed": false,
-    "Size": {
-      "X": 256.0,
-      "Y": 1024.0
-    },
-    "TextureId": 34,
-    "PathInAssetsFolder": "Assets/3D/sponza/textures/chain_texture_mask.tga",
-    "PathInLibraryFolder": "Library/Textures/chain_texture_mask.tga.tofutexture",
-    "AnyPath": "Assets/3D/sponza/textures/chain_texture_mask.tga"
-  },
+  "AlphaMaskTexture": null,
   "AlbedoTint": {
     "B": 255,
     "G": 255,
@@ -37,18 +26,7 @@
     "A": 255
   },
   "AmbientOcclusionTexture": null,
-  "NormalTexture": {
-    "IsRuntimeCopy": false,
-    "DataIsCompressed": false,
-    "Size": {
-      "X": 256.0,
-      "Y": 1024.0
-    },
-    "TextureId": 35,
-    "PathInAssetsFolder": "Assets/3D/sponza/textures/chain_texture_ddn.tga",
-    "PathInLibraryFolder": "Library/Textures/chain_texture_ddn.tga.tofutexture",
-    "AnyPath": "Assets/3D/sponza/textures/chain_texture_ddn.tga"
-  },
+  "NormalTexture": null,
   "RoughnessTexture": null,
   "MetallicTexture": null,
   "EmissiveTexture": null,
@@ -74,14 +52,36 @@
     "Y": 0.0
   },
   "UVOffsetIsInstanced": false,
-  "RenderMode": 1,
+  "RenderMode": 0,
   "BlendMode": 0,
   "IsRuntimeCopy": false,
   "DataIsCompressed": false,
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}t"
+},
+    "Y": 0.0
+  },
+  "UVOffsetIsInstanced": false,
+  "RenderMode": 0,
+  "BlendMode": 0,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
+  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
+  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
+}0.0,
+    "Y": 0.0
+  },
+  "UVOffsetIsInstanced": false,
+  "RenderMode": 0,
+  "BlendMode": 0,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
+  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
+  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
+}}t"
 }.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"

@@ -231,7 +231,7 @@ public class Scene
         GL.ClearDepth(1000);
         GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
         _renderableComponentQueue.RenderAll();
-        Tofu.InstancedRenderingSystem.RenderInstances(InstancingRenderMode.All);
+        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.All);
 
         RestoreOpenGLState();
     }
@@ -243,7 +243,7 @@ public class Scene
         GL.ClearDepth(1000);
         GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
         _renderableComponentQueue.RenderOpaques();
-        Tofu.InstancedRenderingSystem.RenderInstances(InstancingRenderMode.Opaque);
+        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.Opaque);
 
         RestoreOpenGLState();
     }
@@ -255,7 +255,7 @@ public class Scene
         GL.ClearDepth(1000);
         GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
         _renderableComponentQueue.RenderTransparency();
-        Tofu.InstancedRenderingSystem.RenderInstances(InstancingRenderMode.Transparent);
+        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.Transparent);
     }
     // public void RenderUI()
     // {

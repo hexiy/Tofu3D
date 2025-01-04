@@ -69,9 +69,15 @@ public class
 
     public string Path;
 
+    // [JsonIgnore]
+    // [XmlIgnore]
+    // public Dictionary<string, object> Uniforms = new()
+    // {
+    // };
+
     [JsonIgnore]
     [XmlIgnore]
-    public Dictionary<string, object> Uniforms = new()
+    public Dictionary<string, int> UniformLocations = new()
     {
     };
 
@@ -98,7 +104,7 @@ public class
     // make Uniforms List<ShaderUniform> and get index from that
     public int GetUniformLocation(string uniformName) => GL.GetUniformLocation(ProgramId, uniformName);
 
-    public void Load(Asset_Material material)
+    public void Load( /*Asset_Material material*/)
     {
         AssetPathExtensions.ValidateAssetPath(ref Path);
 
@@ -132,14 +138,14 @@ public class
         var vertexCode = GetVertexShaderFromFileString(shaderFile);
         var fragmentCode = GetFragmentShaderFromFileString(shaderFile);
 
-        ProcessShader(material, ref vertexCode, ref fragmentCode);
+        // ProcessShader(material, ref vertexCode, ref fragmentCode);
 
         BufferType = GetBufferTypeFromFileString(shaderFile);
 
 
         int vs, fs;
 
-        vs = GL.CreateShader(ShaderType.VertexShaderArb);
+        vs = GL.CreateShader(ShaderType.VertexShader);
         GL.ShaderSource(vs, vertexCode);
         GL.CompileShader(vs);
 
@@ -147,7 +153,7 @@ public class
         GL.GetShaderInfoLog(vs, out error);
         if (error.Length > 0)
         {
-            System.Diagnostics.Debug.WriteLine("ERROR COMPILING VERTEX SHADER " + error);
+            Debug.LogError("ERROR COMPILING VERTEX SHADER " + error);
         }
 
         fs = GL.CreateShader(ShaderType.FragmentShader);
@@ -158,7 +164,7 @@ public class
         GL.GetShaderInfoLog(fs, out error);
         if (error.Length > 0)
         {
-            System.Diagnostics.Debug.WriteLine("ERROR COMPILING FRAGMENT SHADER " + error);
+            Debug.LogError("ERROR COMPILING VERTEX SHADER " + error);
         }
 
         ProgramId = GL.CreateProgram();
@@ -303,18 +309,18 @@ public class
         IsLoaded = true;
     }
 
-    private void ProcessShader(Asset_Material material, ref string vertexShader, ref string fragmentShader)
-    {
-        // return;
-        string uvOffsetIsInstancedDefine =
-            $"\n#define UV_OFFSET_IS_INSTANCED {(material.UVOffsetIsInstanced ? "1" : "0")}";
-
-        int newLineIndexInVertex = vertexShader.IndexOf("#version 410 core") + "#version 410 core".Length;
-        vertexShader = vertexShader.Insert(newLineIndexInVertex, uvOffsetIsInstancedDefine);
-
-        int newLineIndexInFragment = fragmentShader.IndexOf("#version 410 core") + "#version 410 core".Length;
-        fragmentShader = fragmentShader.Insert(newLineIndexInFragment, uvOffsetIsInstancedDefine);
-    }
+    // private void ProcessShader(Asset_Material material, ref string vertexShader, ref string fragmentShader)
+    // {
+    //     // return;
+    //     string uvOffsetIsInstancedDefine =
+    //         $"\n#define UV_OFFSET_IS_INSTANCED {(material.UVOffsetIsInstanced ? "1" : "0")}";
+    //
+    //     int newLineIndexInVertex = vertexShader.IndexOf("#version 410 core") + "#version 410 core".Length;
+    //     vertexShader = vertexShader.Insert(newLineIndexInVertex, uvOffsetIsInstancedDefine);
+    //
+    //     int newLineIndexInFragment = fragmentShader.IndexOf("#version 410 core") + "#version 410 core".Length;
+    //     fragmentShader = fragmentShader.Insert(newLineIndexInFragment, uvOffsetIsInstancedDefine);
+    // }
 
     public void SetMatrix4X4(string uniformName, Matrix4x4 mat)
     {
@@ -324,84 +330,166 @@ public class
         // 	_uLocationUMvp = location;
         // }
 
-        var location = GL.GetUniformLocation(ProgramId, uniformName);
+        if (UniformLocations.TryGetValue(uniformName, out int location))
+        {
+            GL.UniformMatrix4(location, 1, false, GetMatrix4X4Values(mat));
+        }
+        else
+        {
+            location = GL.GetUniformLocation(ProgramId, uniformName);
+            UniformLocations[uniformName] = location;
 
-        GL.UniformMatrix4(location, 1, false, GetMatrix4X4Values(mat));
+            GL.UniformMatrix4(location, 1, false, GetMatrix4X4Values(mat));
+        }
+
         // GL.UniformMatrix4(location, 1, false, GetMatrix4X4Values(mat));
-        Uniforms[uniformName] = mat;
+        // Uniforms[uniformName] = mat;
     }
 
     public void SetFloat(string uniformName, float fl)
     {
-        var location = GL.GetUniformLocation(ProgramId, uniformName);
-        GL.Uniform1(location, fl);
-        Uniforms[uniformName] = fl;
+        if (UniformLocations.TryGetValue(uniformName, out int location))
+        {
+            GL.Uniform1(location, fl);
+        }
+        else
+        {
+            location = GL.GetUniformLocation(ProgramId, uniformName);
+            UniformLocations[uniformName] = location;
+
+            GL.Uniform1(location, fl);
+        }
+
+        // Uniforms[uniformName] = fl;
     }
 
     public void SetInt(string uniformName, int num)
     {
-        var location = GL.GetUniformLocation(ProgramId, uniformName);
-        GL.Uniform1(location, num);
-        Uniforms[uniformName] = num;
+        if (UniformLocations.TryGetValue(uniformName, out int location))
+        {
+            GL.Uniform1(location, num);
+        }
+        else
+        {
+            location = GL.GetUniformLocation(ProgramId, uniformName);
+            UniformLocations[uniformName] = location;
+
+            GL.Uniform1(location, num);
+        }
+
+        //Uniforms[uniformName] = num;
     }
 
     public void SetVector2(string uniformName, Vector2 vec)
     {
-        var location = GL.GetUniformLocation(ProgramId, uniformName);
-        GL.Uniform2(location, vec.X, vec.Y);
-        Uniforms[uniformName] = vec;
+        if (UniformLocations.TryGetValue(uniformName, out int location))
+        {
+            GL.Uniform2(location, vec.X, vec.Y);
+        }
+        else
+        {
+            location = GL.GetUniformLocation(ProgramId, uniformName);
+            UniformLocations[uniformName] = location;
+
+            GL.Uniform2(location, vec.X, vec.Y);
+        }
+        // Uniforms[uniformName] = vec;
     }
 
     public void SetVector3(string uniformName, Vector3 vec)
     {
-        var location = GL.GetUniformLocation(ProgramId, uniformName);
-        GL.Uniform3(location, vec.X, vec.Y, vec.Z);
-        Uniforms[uniformName] = vec;
+        if (UniformLocations.TryGetValue(uniformName, out int location))
+        {
+            GL.Uniform3(location, vec.X, vec.Y, vec.Z);
+        }
+        else
+        {
+            location = GL.GetUniformLocation(ProgramId, uniformName);
+            UniformLocations[uniformName] = location;
+
+            GL.Uniform3(location, vec.X, vec.Y, vec.Z);
+        }
+        // Uniforms[uniformName] = vec;
     }
 
     public void SetVector3Array(string uniformName, float[] floats)
     {
-        var location = GL.GetUniformLocation(ProgramId, uniformName);
-        GL.Uniform3(location, floats.Length, floats);
-        Uniforms[uniformName] = floats;
+        if (UniformLocations.TryGetValue(uniformName, out int location))
+        {
+            GL.Uniform3(location, floats.Length, floats);
+        }
+        else
+        {
+            location = GL.GetUniformLocation(ProgramId, uniformName);
+            UniformLocations[uniformName] = location;
+
+            GL.Uniform3(location, floats.Length, floats);
+        }
+        // Uniforms[uniformName] = floats;
     }
 
     public void SetFloatArray(string uniformName, float[] floats)
     {
-        var location = GL.GetUniformLocation(ProgramId, uniformName);
-        GL.Uniform1(location, floats.Length, floats);
-        Uniforms[uniformName] = floats;
+        if (UniformLocations.TryGetValue(uniformName, out int location))
+        {
+            GL.Uniform1(location, floats.Length, floats);
+        }
+        else
+        {
+            location = GL.GetUniformLocation(ProgramId, uniformName);
+            UniformLocations[uniformName] = location;
+
+            GL.Uniform1(location, floats.Length, floats);
+        }
+        // Uniforms[uniformName] = floats;
     }
 
     public void SetVector4(string uniformName, Vector4 vec)
     {
-        var location = GL.GetUniformLocation(ProgramId, uniformName);
-        GL.Uniform4(location, vec.X, vec.Y, vec.Z, vec.W);
-        Uniforms[uniformName] = vec;
+        if (UniformLocations.TryGetValue(uniformName, out int location))
+        {
+            GL.Uniform4(location, vec.X, vec.Y, vec.Z, vec.W);
+        }
+        else
+        {
+            location = GL.GetUniformLocation(ProgramId, uniformName);
+            UniformLocations[uniformName] = location;
+
+            GL.Uniform4(location, vec.X, vec.Y, vec.Z, vec.W);
+        }
+        // Uniforms[uniformName] = vec;
     }
 
     public void SetColor(string uniformName, Color col)
     {
-        // if (_uLocationUColor == -1)
-        // {
-        var location = GL.GetUniformLocation(ProgramId, uniformName);
-        // _uLocationUColor = location;
-        // }
+        if (UniformLocations.TryGetValue(uniformName, out int location))
+        {
+            GL.Uniform4(location, col.R / 255f, col.G / 255f, col.B / 255f, col.A / 255f);
+        }
+        else
+        {
+            location = GL.GetUniformLocation(ProgramId, uniformName);
+            UniformLocations[uniformName] = location;
 
-        GL.Uniform4(location, col.R / 255f, col.G / 255f, col.B / 255f, col.A / 255f);
-        Uniforms[uniformName] = col;
+            GL.Uniform4(location, col.R / 255f, col.G / 255f, col.B / 255f, col.A / 255f);
+        }
+        // Uniforms[uniformName] = col;
     }
 
     public void SetColor(string uniformName, Vector4 vec)
     {
-        // if (_uLocationUColor == -1)
-        // {
-        var location = GL.GetUniformLocation(ProgramId, uniformName);
-        // _uLocationUColor = location;
-        // }
+        if (UniformLocations.TryGetValue(uniformName, out int location))
+        {
+            GL.Uniform4(location, vec.X, vec.Y, vec.Z, vec.W);
+        }
+        else
+        {
+            location = GL.GetUniformLocation(ProgramId, uniformName);
+            UniformLocations[uniformName] = location;
 
-        GL.Uniform4(location, vec.X, vec.Y, vec.Z, vec.W);
-        Uniforms[uniformName] = vec;
+            GL.Uniform4(location, vec.X, vec.Y, vec.Z, vec.W);
+        }
+        // Uniforms[uniformName] = vec;
     }
 
     // uniform sampler2D textureObject;

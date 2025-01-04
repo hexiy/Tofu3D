@@ -539,7 +539,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         }
 
         Asset_Material material = new Asset_Material()
-            { Shader = new Shader(TofuPath.Combine(Folders.ShadersInAssets, "ModelRendererInstanced.glsl")) };
+            { Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets, "ModelRendererInstanced.glsl")) };
 
         material.SmoothShadows = true;
 

@@ -200,7 +200,7 @@ public class AssetLoadManager
     {
         var mat = new Asset_Material()
         {
-            Shader = new Shader(TofuPath.Combine(Folders.ShadersInAssets, "ModelRendererInstanced.glsl"))
+            Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets, "ModelRendererInstanced.glsl"))
         }; // default shader for now
         mat.LoadShader();
         mat.PathInAssetsFolder = sourcePath;

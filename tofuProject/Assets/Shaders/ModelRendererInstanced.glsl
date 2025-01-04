@@ -23,7 +23,7 @@ out vec3 normal;
 //out vec4 color;
 out vec4 fragPosLightSpace;
 out mat3 TBN;
-#if UV_OFFSET_IS_INSTANCED == 1
+#ifdef UV_OFFSET_IS_INSTANCED
 out vec2 uvOffset;
 #endif
 void main(void)
@@ -32,7 +32,7 @@ void main(void)
 	mat4 mvp = u_viewProjection * a_model;
 	gl_Position = mvp * vec4(a_pos.xyz, 1.0);
 	uv = a_uv * vec2(1, -1);
-	#if UV_OFFSET_IS_INSTANCED == 1
+	#ifdef UV_OFFSET_IS_INSTANCED
     uvOffset = a_uv_offset;
 	#endif
     //color = a_color;

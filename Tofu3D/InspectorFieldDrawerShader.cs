@@ -33,8 +33,8 @@ public class InspectorFieldDrawerShader : InspectorFieldDrawable<Shader>
                 payload = payload;
                 var shaderName = Path.GetFileName(payload);
 
-                Shader shader = new Shader(payload);
-                (componentInspectorData.Inspectable as Asset_Material).SetAndLoadShader(shader);
+                Shader shader = Tofu3D.Tofu.ShaderManager.LoadShader(payload);
+                (componentInspectorData.Inspectable as Asset_Material).Shader = shader;
                 info.SetValue(componentInspectorData.Inspectable, shader);
                 // load new material
             }

@@ -20,11 +20,11 @@ public class Asset_Material : Asset<Asset_Material>
     [ColorHDR]
     public Vector4 EmissiveColor;
 
-    public bool SmoothShadows=false;
+    public bool SmoothShadows = false;
 
-    public bool RefractionEnabled=false;
-    public float RefractiveIndex=1.309f;
-    
+    public bool RefractionEnabled = false;
+    public float RefractiveIndex = 1.309f;
+
     public bool SpecularHighlightsEnabled;
     public float SpecularSmoothness;
 
@@ -71,7 +71,7 @@ public class Asset_Material : Asset<Asset_Material>
             AlphaMaskTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
                 { PathToAssetInLibrary = AlphaMaskTexture.PathInLibraryFolder });
         }
-        
+
         if (AmbientOcclusionTexture?.PathInLibraryFolder.Length > 2)
         {
             AmbientOcclusionTexture =
@@ -99,25 +99,15 @@ public class Asset_Material : Asset<Asset_Material>
                 { PathToAssetInLibrary = EmissiveTexture.PathInLibraryFolder });
         }
     }
-
-    public void SetAndLoadShader(Shader shader)
-    {
-        Shader = shader;
-
-        if (Shader.IsLoaded == false)
-        {
-            LoadShader();
-            // BufferFactory.CreateBufferForShader(this);
-        }
-    }
-
+    
     public void LoadShader()
     {
-        Shader.Load(this);
+        Shader = Tofu.ShaderManager.LoadShader(Shader.Path);
+        // Shader.Load(/*this*/);
     }
 
     public void Dispose()
     {
-        Shader.Dispose();
+        // Shader.Dispose();
     }
 }

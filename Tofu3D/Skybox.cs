@@ -23,7 +23,7 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
     public override void Awake()
     {
         // _material = Tofu.AssetLoadManager.Load<Asset_Material>("/Assets/Materials/Skybox.mat");
-        _material = new Asset_Material() { Shader = new Shader(TofuPath.Combine(Folders.ShadersInAssets, "Skybox.glsl")) };
+        _material = new Asset_Material() { Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets, "Skybox.glsl")) };
         _material.LoadShader();
         _texture = new RuntimeCubemapTexture();
         string[] texturePaths =

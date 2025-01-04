@@ -47,23 +47,11 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
             (int)assetTexture.TextureSize.Y, 0, PixelFormat.Rgba,
             PixelType.UnsignedByte, assetTexture.Pixels);
 
-        GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-
         GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)importParameters.WrapMode);
         GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)importParameters.WrapMode);
         GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)importParameters.WrapMode);
         GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)importParameters.FilterMode);
         GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)importParameters.FilterMode);
-
-        // crashes the engine on macos
-        if (OperatingSystem.IsWindows)
-        {
-            //GL.TextureParameter(textureId, TextureParameterName.TextureMinFilter,
-            //    (int)importParameters.FilterMode + 257);
-            //GL.TextureParameter(textureId, TextureParameterName.TextureLodBias, -0.4f);
-            // on windows this causes black texture idk why i put this here in first place...
-
-        }
 
         ImGuiController.CheckGlError("texture load");
 

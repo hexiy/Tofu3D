@@ -5,8 +5,31 @@ namespace Tofu3D;
 public class ShaderManager
 {
     private readonly List<string> _shadersReloadQueue = new();
-    public int ShaderInUse = -1;
-    public int VaoInUse = -100;
+
+    // public int ShaderInUse = -1;
+    private Dictionary<string, Shader> _shaders = new Dictionary<string, Shader>();
+
+    public Shader LoadShader(string shaderFile, bool forceReload = false)
+    {
+        if (_shaders.TryGetValue(shaderFile, out Shader shader))
+        {
+            if (shader.IsLoaded == false || forceReload == true)
+            {
+                shader.Load();
+            }
+
+            return shader;
+        }
+        else
+        {
+            shader = new Shader(shaderFile);
+
+            shader.Load();
+            _shaders[shaderFile] = shader;
+
+            return shader;
+        }
+    }
 
     public void Initialize()
     {
@@ -25,14 +48,14 @@ public class ShaderManager
     {
         // if (vao == VaoInUse)
         // {
-            // return;
+        // return;
         // }
 
-        VaoInUse = vao;
+        // VaoInUse = vao;
         GL.BindVertexArray(vao);
     }
 
-    public void UseShader(Shader shader, bool forceUse=false)
+    public void UseShader(Shader shader, bool forceUse = false)
     {
         if (shader == null)
         {
@@ -40,7 +63,7 @@ public class ShaderManager
             return;
         }
 
-        if (shader.IsLoaded == false && forceUse==false)
+        if (shader.IsLoaded == false && forceUse == false)
         {
             Debug.LogError("trying to use not loaded shader!!!!!");
             return;
@@ -56,7 +79,7 @@ public class ShaderManager
         //     return;
         // }
 
-        ShaderInUse = programId;
+        // ShaderInUse = programId;
         GL.UseProgram(programId);
     }
 
@@ -77,11 +100,11 @@ public class ShaderManager
         {
             if (loadedMaterial.Shader?.Path == shaderPath)
             {
-                Shader shader = new(shaderPath);
+                Shader shader = LoadShader(shaderPath, forceReload: true);
 
                 // shader.Load();
 
-                loadedMaterial.SetAndLoadShader(shader);
+                loadedMaterial.Shader = shader;
             }
         }
         /*// find all Renderer components, and check if the material has the changed shader and reload it, ehh this doesnt work with renderpass shaders for example
