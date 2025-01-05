@@ -6,6 +6,9 @@ public class RenderPassMousePicking : RenderPass
 {
     public static RenderPassMousePicking I { get; private set; }
 
+    public override bool CanRender() =>
+        Tofu.MouseInput.IsMouseInSceneView && base.CanRender();
+
     public RenderPassMousePicking() : base(RenderPassType.MousePicking)
     {
         I = this;
@@ -32,15 +35,24 @@ public class RenderPassMousePicking : RenderPass
         MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, isIntegerFramebuffer: false);
     }
 
+    protected override void PreBindFrameBuffer()
+    {
+        // GL.Enable(EnableCap.DepthTest);
+
+        GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassZPrePass.I.MainFramebuffer.FrameBufferID);
+        GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, MainFramebuffer.FrameBufferID);
+        var sizeX = (int)MainFramebuffer.Size.X;
+        var sizeY = (int)MainFramebuffer.Size.Y;
+        GL.BlitFramebuffer(0, 0, sizeX, sizeY, 0, 0, sizeX, sizeY, ClearBufferMask.DepthBufferBit,
+            BlitFramebufferFilter.Nearest);
+
+
+        base.PreBindFrameBuffer();
+    }
+
     protected override void PostRender()
     {
         Debug.StartTimer("Mouse picking pass time");
-        if (Tofu.MouseInput.IsMouseInSceneView)
-        {
-            MousePickingSystem.ReadPixelAtMousePos();
-        }
-
-
         Debug.EndAndStatTimer("Mouse picking pass time");
         base.PostRender();
     }

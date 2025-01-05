@@ -209,6 +209,19 @@ public class Camera : Component, IComponentUpdateable
 
     public Matrix4x4 GetLightViewMatrix()
     {
+        
+        var forwardWorld =
+            Transform.WorldPosition + Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
+        var upLocal = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
+
+
+        var view = Matrix4x4.CreateLookAt(Transform.WorldPosition, forwardWorld, upLocal)
+                   * Matrix4x4.CreateScale(-1, 1, 1);
+
+        return view;
+    }
+    public Matrix4x4 GetLightViewMatrixNotWoring()
+    {
         // Vector3 oldRotation = Transform.Rotation;
         // oldRotation = oldRotation * new Vector3(1, 1, 0);
         // Transform.Rotation = -oldRotation;
@@ -218,8 +231,7 @@ public class Camera : Component, IComponentUpdateable
         var upLocal = Transform.GetDirectionFromRotation(new Vector3(90, 0, 0));
 
 
-        var view = Matrix4x4.CreateLookAt(Transform.WorldPosition, forwardWorld, upLocal)
-                   * Matrix4x4.CreateScale(1, 1, 1);
+        var view = Matrix4x4.CreateLookAt(Transform.WorldPosition, forwardWorld, upLocal);
 
         // Transform.Rotation = oldRotation;
 
