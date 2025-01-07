@@ -24,11 +24,17 @@ public class RenderableComponentQueue : IComponentQueue
         {
             if (componentRenderable.RenderMode == RenderMode.Opaque)
             {
-                _opaqueRenderables.Add(componentRenderable);
+                if (_opaqueRenderables.Contains(componentRenderable) == false)
+                {
+                    _opaqueRenderables.Add(componentRenderable);
+                }
             }
             else
             {
-                _transparentRenderables.Add(componentRenderable);
+                if (_transparentRenderables.Contains(componentRenderable) == false)
+                {
+                    _transparentRenderables.Add(componentRenderable);
+                }
             }
         }
     }

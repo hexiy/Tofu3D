@@ -2,17 +2,17 @@
 using System.IO;
 using Tofu3D.Rendering;
 
-namespace Tofu3D;
+namespace Tofu3D.Rendering.Instancing;
 
 public class InstancedRenderingSystem
 {
-    private List<InstancedRenderingObjectDefinition> _definitions = new();
+    private List<RenderableObjectDefinition> _definitions = new();
 
     // key is shaderID
     private Dictionary<int, InstancedRenderingShaderGroup> _shaderGroups = new();
 
     // index in _definitions
-    private Dictionary<int, InstancedRenderingObjectBufferData> _objectBufferDatas = new();
+    private Dictionary<int, InstancedGroupBufferData> _objectBufferDatas = new();
     private Asset_Material _mousePickingMaterial;
     private Asset_Material _depthMaterial;
 
@@ -57,8 +57,8 @@ public class InstancedRenderingSystem
 
         }*/
 
-        _objectBufferDatas = new Dictionary<int, InstancedRenderingObjectBufferData>();
-        _definitions = new List<InstancedRenderingObjectDefinition>();
+        _objectBufferDatas = new Dictionary<int, InstancedGroupBufferData>();
+        _definitions = new List<RenderableObjectDefinition>();
         _shaderGroups = new Dictionary<int, InstancedRenderingShaderGroup>();
     }
 
@@ -122,6 +122,11 @@ public class InstancedRenderingSystem
 
             foreach (var definitionIndexInThisShaderGroup in shaderGroup.Value.DefinitionIndexes)
             {
+                if (_objectBufferDatas.ContainsKey(definitionIndexInThisShaderGroup) == false)
+                {
+                    continue;
+                }
+
                 var bufferData = _objectBufferDatas[definitionIndexInThisShaderGroup];
                 if (bufferData.NumberOfObjects == 0)
                 {
@@ -140,77 +145,99 @@ public class InstancedRenderingSystem
         }
     }
 
-    private void RemoveObjectFromBuffer(InstancedRenderingObjectBufferData bufferData,
-        RendererInstancingData instancingData)
+    private void RemoveObject(InstancedGroupBufferData groupBufferData,
+        ref ObjectInstancingData objectInstancingData, int shaderGroupId)
     {
-        for (var i = 0; i < bufferData.InstancedVertexCountOfFloats; i++)
+        int definitionIndex = objectInstancingData.InstancedRenderingDefinitionIndex;
+        for (var i = 0; i < groupBufferData.InstancedVertexCountOfFloats; i++)
         {
-            bufferData.Buffer[instancingData.InstancedRenderingStartingIndexInBuffer + i] = 0;
+            groupBufferData.Buffer[objectInstancingData.StartingIndexInBuffer + i] = 0;
         }
 
-        bufferData.EmptyStartIndexes.Add(instancingData.InstancedRenderingStartingIndexInBuffer);
+        groupBufferData.EmptyStartIndexes.Add(objectInstancingData.StartingIndexInBuffer);
+        groupBufferData.NumberOfObjects--;
 
-        instancingData.InstancedRenderingStartingIndexInBuffer = -1;
-        instancingData.InstancedRenderingDefinitionIndex = -1;
-        bufferData.NumberOfObjects--;
+        /////////////////// SHADER GROUP
+        _shaderGroups[shaderGroupId].DefinitionIndexes.Remove(definitionIndex);
+        if (_shaderGroups[shaderGroupId].DefinitionIndexes.Count == 0)
+        {
+            _shaderGroups.Remove(shaderGroupId);
+        }
+        /////////////////// SHADER GROUP
+
+
+        // go through all objectInstancingData that is in this buffer and change their starting index if they are after this one
+
+        if (groupBufferData.NumberOfObjects == 0)
+        {
+            _objectBufferDatas.Remove(definitionIndex);
+            _definitions[definitionIndex] = null;
+        }
+
+
+        objectInstancingData.StartingIndexInBuffer = -1;
+        objectInstancingData.InstancedRenderingDefinitionIndex = -1;
     }
 
-    private int GetEmptyIndexInBuffer(InstancedRenderingObjectBufferData bufferData)
+    private int GetEmptyIndexInBuffer(InstancedGroupBufferData groupBufferData)
     {
-        if (bufferData.EmptyStartIndexes.Count > 0)
+        if (groupBufferData.EmptyStartIndexes.Count > 0)
         {
-            var index = bufferData.EmptyStartIndexes[0];
-            bufferData.EmptyStartIndexes.RemoveAt(0);
+            var index = groupBufferData.EmptyStartIndexes[0];
+            groupBufferData.EmptyStartIndexes.RemoveAt(0);
             return index;
         }
 
-        if (bufferData.NumberOfObjects == bufferData.MaxNumberOfObjects)
+        if (groupBufferData.NumberOfObjects == groupBufferData.MaxNumberOfObjects)
         {
-            bufferData.FutureMaxNumberOfObjects += 1;
+            groupBufferData.FutureMaxNumberOfObjects += 1;
             return -1;
         }
 
-        if (bufferData.Buffer.Length < bufferData.InstancedVertexCountOfFloats * bufferData.MaxNumberOfObjects)
+        if (groupBufferData.Buffer.Length <
+            groupBufferData.InstancedVertexCountOfFloats * groupBufferData.MaxNumberOfObjects)
         {
             return -1;
         }
 
-        return bufferData.NumberOfObjects * bufferData.InstancedVertexCountOfFloats;
+        return groupBufferData.NumberOfObjects * groupBufferData.InstancedVertexCountOfFloats;
     }
 
-    private void ResizeBufferData(InstancedRenderingObjectBufferData bufferData)
+    private void ResizeBufferData(InstancedGroupBufferData groupBufferData)
     {
-        bufferData.FutureMaxNumberOfObjects += 5;
-        if (bufferData.FutureMaxNumberOfObjects > 1000)
+        groupBufferData.FutureMaxNumberOfObjects += 5;
+        if (groupBufferData.FutureMaxNumberOfObjects > 1000)
         {
-            bufferData.FutureMaxNumberOfObjects += 20;
+            groupBufferData.FutureMaxNumberOfObjects += 20;
         }
 
-        bufferData.MaxNumberOfObjects = bufferData.FutureMaxNumberOfObjects;
-        Debug.Log($"Resizing buffer to new size:{bufferData.MaxNumberOfObjects}");
+        groupBufferData.MaxNumberOfObjects = groupBufferData.FutureMaxNumberOfObjects;
+        Debug.Log($"Resizing buffer to new size:{groupBufferData.MaxNumberOfObjects}");
 
-        Array.Resize(ref bufferData.Buffer, bufferData.MaxNumberOfObjects * bufferData.InstancedVertexCountOfFloats);
-        GL.DeleteBuffer(bufferData.Vbo);
-        bufferData.Vbo = -1;
-        bufferData.NeedsUpload = true;
+        Array.Resize(ref groupBufferData.Buffer,
+            groupBufferData.MaxNumberOfObjects * groupBufferData.InstancedVertexCountOfFloats);
+        GL.DeleteBuffer(groupBufferData.Vbo);
+        groupBufferData.Vbo = -1;
+        groupBufferData.NeedsUpload = true;
     }
 
-    private void RenderSpecific(int definitionIndex, InstancedRenderingObjectBufferData bufferData)
+    private void RenderSpecific(int definitionIndex, InstancedGroupBufferData groupBufferData)
     {
         // resize the buffer if needed, after drawing the old one
-        if (bufferData.Buffer.Length != bufferData.InstancedVertexCountOfFloats * bufferData.FutureMaxNumberOfObjects)
+        if (groupBufferData.Buffer.Length !=
+            groupBufferData.InstancedVertexCountOfFloats * groupBufferData.FutureMaxNumberOfObjects)
         {
-            ResizeBufferData(bufferData);
+            ResizeBufferData(groupBufferData);
         }
 
-        if (bufferData.NeedsUpload)
+        if (groupBufferData.NeedsUpload)
         {
-            UploadBufferData(bufferData);
+            UploadData(groupBufferData);
             // if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.Transparency)
             // {
             //     objectBufferPair.Value.NeedsUpload = false;
             // }
-            bufferData.NeedsUpload = false;
+            groupBufferData.NeedsUpload = false;
         }
 
         // if (material == TransformHandle.I?.ModelRendererX?.Material)
@@ -222,11 +249,11 @@ public class InstancedRenderingSystem
         //     GL.Enable(EnableCap.DepthTest);
         // }
 
-        InstancedRenderingObjectDefinition definition = _definitions[definitionIndex];
+        RenderableObjectDefinition definition = _definitions[definitionIndex];
         Asset_Material material = definition.Material;
         int meshVao = definition.RuntimeMesh.Vao;
         int indicesCount = definition.RuntimeMesh.Mesh.Indices.Length;
-        int numberOfObjects = bufferData.NumberOfObjects;
+        int numberOfObjects = groupBufferData.NumberOfObjects;
 
         // GL.Enable(EnableCap.DepthTest);
         if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
@@ -248,7 +275,7 @@ public class InstancedRenderingSystem
         {
             RenderObjects_Opaques_UI_Transparency(meshVao: meshVao, numberOfObjects: numberOfObjects,
                 indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
-                material: material, vbo: bufferData.Vbo);
+                material: material, vbo: groupBufferData.Vbo);
         }
 
         ImGuiController.CheckGlError("instanced rendering error");
@@ -354,7 +381,7 @@ public class InstancedRenderingSystem
         shader.SetVector3("u_directionalLightDirection",
             // SceneLightingManager.I.GetDirectionalLightDirection().Normalized());
             dir);
-            // new Vector3(0,-1,0));
+        // new Vector3(0,-1,0));
 
 
         //FOG
@@ -506,7 +533,7 @@ public class InstancedRenderingSystem
         Debug.StatAddValue("Instanced objects drawn(elements):", instancesCount);
     }
 
-    public bool UpdateObjectData(Renderer renderer, ref RendererInstancingData instancingData,
+    public bool UpdateObjectData(Renderer renderer, ref ObjectInstancingData objectInstancingData,
         VertexBufferStructureType vertexBufferStructureType,
         Matrix4x4? modelMatrix = null, bool isStatic = false, bool remove = false, Color? color = null,
         Vector2? uvOffset = null, int indexForMultipleObjectsPerRenderer = 0)
@@ -518,11 +545,11 @@ public class InstancedRenderingSystem
             return false;
         }
 
-        InstancedRenderingObjectBufferData bufferData;
-        if (instancingData.InstancedRenderingDefinitionIndex == -1)
+        InstancedGroupBufferData groupBufferData;
+        if (objectInstancingData.InstancedRenderingDefinitionIndex == -1)
         {
             // no buffer exists for this combination-create one
-            InstancedRenderingObjectDefinition definition = new(
+            RenderableObjectDefinition definition = new(
                 GameObjectNameForTestingIdentification: renderer.GameObject.Name, RuntimeMesh: mesh,
                 Material: material,
                 IsStatic: isStatic,
@@ -537,7 +564,7 @@ public class InstancedRenderingSystem
             // find bufferData if its already created
             if (_objectBufferDatas.TryGetValue(definitionIndex, out var data))
             {
-                bufferData = data;
+                groupBufferData = data;
             }
             else
             {
@@ -549,70 +576,68 @@ public class InstancedRenderingSystem
 
                 _definitions.Add(definition);
 
-                bufferData = InitializeBufferData(definition);
-                _objectBufferDatas.Add(definitionIndex, bufferData);
+                groupBufferData = InitializeBufferData(definition);
+                _objectBufferDatas.Add(definitionIndex, groupBufferData);
 
 
-                int shaderId = renderer.Material.Shader.ProgramId;
+                // int shaderId = renderer.Material.Shader.ProgramId;
                 // Get or create a group for this shader
                 // Add definition index to this group
                 int groupId = GetOrCreateGroupByShader(renderer.Material.Shader);
                 _shaderGroups[groupId].DefinitionIndexes.Add(definitionIndex);
             }
 
-            instancingData.InstancedRenderingDefinitionIndex = definitionIndex;
+            objectInstancingData.InstancedRenderingDefinitionIndex = definitionIndex;
         }
         else
         {
-            if (_objectBufferDatas.ContainsKey(instancingData.InstancedRenderingDefinitionIndex) == false)
+            if (_objectBufferDatas.ContainsKey(objectInstancingData.InstancedRenderingDefinitionIndex) == false)
             {
                 // on scene reload the definitionIndex is 0 but its not created in the system...
-                instancingData.InstancedRenderingDefinitionIndex = -1;
+                objectInstancingData.InstancedRenderingDefinitionIndex = -1;
                 return false;
             }
 
-            bufferData = _objectBufferDatas[instancingData.InstancedRenderingDefinitionIndex];
+            groupBufferData = _objectBufferDatas[objectInstancingData.InstancedRenderingDefinitionIndex];
         }
 
 
-        if (instancingData.InstancedRenderingStartingIndexInBuffer == -1 && remove == false)
+        if (objectInstancingData.StartingIndexInBuffer == -1 && remove == false)
         {
             // assign new InstancedRenderingIndex
-            instancingData.InstancedRenderingStartingIndexInBuffer = GetEmptyIndexInBuffer(bufferData);
+            objectInstancingData.StartingIndexInBuffer = GetEmptyIndexInBuffer(groupBufferData);
 
-            if (instancingData.InstancedRenderingStartingIndexInBuffer == -1)
+            if (objectInstancingData.StartingIndexInBuffer == -1)
             {
                 return false;
             }
 
-            bufferData.NumberOfObjects++;
+            groupBufferData.NumberOfObjects++;
         }
 
-        bufferData.NeedsUpload = true;
+        groupBufferData.NeedsUpload = true;
 
-        if (instancingData.InstancedRenderingStartingIndexInBuffer != -1)
+        if (objectInstancingData.StartingIndexInBuffer != -1)
         {
             if (remove)
             {
-                CopyObjectDataToBuffer(Matrix4x4.CreateScale(0, 0, 0),
-                    ref bufferData.Buffer,
-                    instancingData.InstancedRenderingStartingIndexInBuffer, uvOffset: uvOffset,
-                    mousePickingId: renderer.MousePickingId);
-                UploadBufferData(bufferData);
-                RemoveObjectFromBuffer(bufferData, instancingData);
+                int groupId = GetOrCreateGroupByShader(renderer.Material.Shader);
+                RemoveObject(groupBufferData, ref objectInstancingData, groupId);
+
+                return true;
             }
 
             else
             {
                 CopyObjectDataToBuffer(modelMatrix ?? renderer.LatestModelMatrix,
-                    ref bufferData.Buffer,
-                    instancingData.InstancedRenderingStartingIndexInBuffer, uvOffset: uvOffset,
+                    ref groupBufferData.Buffer,
+                    objectInstancingData.StartingIndexInBuffer, uvOffset: uvOffset,
                     mousePickingId: renderer.MousePickingId);
             }
         }
 
 
-        _objectBufferDatas[instancingData.InstancedRenderingDefinitionIndex] = bufferData;
+        _objectBufferDatas[objectInstancingData.InstancedRenderingDefinitionIndex] = groupBufferData;
         return true;
     }
 
@@ -646,53 +671,54 @@ public class InstancedRenderingSystem
         }
     }
 
-    private InstancedRenderingObjectBufferData InitializeBufferData(InstancedRenderingObjectDefinition objectDefinition)
+    private InstancedGroupBufferData InitializeBufferData(RenderableObjectDefinition renderableObjectDefinition)
     {
         // Debug.Log("Initializing Instanced Buffer Data");
-        GL.BindVertexArray(objectDefinition.RuntimeMesh.Vao);
+        GL.BindVertexArray(renderableObjectDefinition.RuntimeMesh.Vao);
 
-        objectDefinition.Material.LoadShader();
-        if (objectDefinition.Material.Shader.IsLoaded == false)
+        renderableObjectDefinition.Material.LoadShader();
+        if (renderableObjectDefinition.Material.Shader.IsLoaded == false)
         {
             Debug.LogError("Couldnt load shader");
             throw new Exception("Couldnt load shader");
         }
 
-        InstancedRenderingObjectBufferData bufferData = new()
+        InstancedGroupBufferData instancedGroupBufferData = new()
         {
-            VertexBufferStructureType = objectDefinition.vertexBufferStructureType,
+            VertexBufferStructureType = renderableObjectDefinition.vertexBufferStructureType,
             MaxNumberOfObjects = 1,
             FutureMaxNumberOfObjects = 1,
             Vbo = -1,
-            Vao = objectDefinition.RuntimeMesh.Vao,
+            Vao = renderableObjectDefinition.RuntimeMesh.Vao,
             // Ebo = objectDefinition.RuntimeMesh.Ebo,
-            ShaderId = objectDefinition.Material.Shader.ProgramId,
+            ShaderId = renderableObjectDefinition.Material.Shader.ProgramId,
             NumberOfObjects = 0,
-            UVOffsetIsInstanced = objectDefinition.Material.UVOffsetIsInstanced,
-            RenderMode = objectDefinition.Material.RenderMode,
+            UVOffsetIsInstanced = renderableObjectDefinition.Material.UVOffsetIsInstanced,
+            RenderMode = renderableObjectDefinition.Material.RenderMode,
         };
-        bufferData.Init();
+        instancedGroupBufferData.Init();
 
-        bufferData.Buffer = new float[bufferData.MaxNumberOfObjects * bufferData.InstancedVertexCountOfFloats];
-        bufferData.EmptyStartIndexes = new List<int>();
+        instancedGroupBufferData.Buffer = new float[instancedGroupBufferData.MaxNumberOfObjects *
+                                                    instancedGroupBufferData.InstancedVertexCountOfFloats];
+        instancedGroupBufferData.EmptyStartIndexes = new List<int>();
 
-        UploadBufferData(bufferData);
+        UploadData(instancedGroupBufferData);
 
-        return bufferData;
+        return instancedGroupBufferData;
     }
 
-    private void UploadBufferData(InstancedRenderingObjectBufferData bufferData)
+    private void UploadData(InstancedGroupBufferData groupBufferData)
     {
-        GL.BindVertexArray(bufferData.Vao);
+        GL.BindVertexArray(groupBufferData.Vao);
 
         var newBuffer = false;
-        if (bufferData.Vbo == -1)
+        if (groupBufferData.Vbo == -1)
         {
             newBuffer = true;
-            bufferData.Vbo = GL.GenBuffer();
+            groupBufferData.Vbo = GL.GenBuffer();
         }
 
-        GL.BindBuffer(BufferTarget.ArrayBuffer, bufferData.Vbo);
+        GL.BindBuffer(BufferTarget.ArrayBuffer, groupBufferData.Vbo);
 
         // unique attribs for each instance
         GL.EnableVertexAttribArray(5);
@@ -705,34 +731,34 @@ public class InstancedRenderingSystem
         //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
         int offset = 0;
         GL.VertexAttribPointer(5, 3, VertexAttribPointerType.Float, false,
-            bufferData.InstancedVertexDataSizeInBytes,
+            groupBufferData.InstancedVertexDataSizeInBytes,
             offset);
         offset += 3 * sizeof(float);
         GL.VertexAttribPointer(6, 3, VertexAttribPointerType.Float, false,
-            bufferData.InstancedVertexDataSizeInBytes,
+            groupBufferData.InstancedVertexDataSizeInBytes,
             offset);
         offset += 3 * sizeof(float);
 
         GL.VertexAttribPointer(7, 3, VertexAttribPointerType.Float, false,
-            bufferData.InstancedVertexDataSizeInBytes,
+            groupBufferData.InstancedVertexDataSizeInBytes,
             offset);
         offset += 3 * sizeof(float);
 
         GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
-            bufferData.InstancedVertexDataSizeInBytes,
+            groupBufferData.InstancedVertexDataSizeInBytes,
             offset);
         offset += 3 * sizeof(float);
 
         GL.VertexAttribPointer(9, 1, VertexAttribPointerType.Float, false,
-            bufferData.InstancedVertexDataSizeInBytes,
+            groupBufferData.InstancedVertexDataSizeInBytes,
             offset);
         offset += sizeof(float);
 
-        if (bufferData.UVOffsetIsInstanced)
+        if (groupBufferData.UVOffsetIsInstanced)
         {
             GL.EnableVertexAttribArray(10);
             GL.VertexAttribPointer(10, 2, VertexAttribPointerType.Float, false,
-                bufferData.InstancedVertexDataSizeInBytes,
+                groupBufferData.InstancedVertexDataSizeInBytes,
                 offset);
             offset += 2 * sizeof(float);
 
@@ -749,14 +775,14 @@ public class InstancedRenderingSystem
         if (newBuffer)
         {
             GL.BufferData(BufferTarget.ArrayBuffer,
-                sizeof(float) * bufferData.Buffer.Length,
-                bufferData.Buffer, BufferUsageHint.StaticDraw);
+                sizeof(float) * groupBufferData.Buffer.Length,
+                groupBufferData.Buffer, BufferUsageHint.StaticDraw);
         }
         else
         {
             GL.BufferSubData(BufferTarget.ArrayBuffer, 0,
-                sizeof(float) * bufferData.Buffer.Length,
-                bufferData.Buffer);
+                sizeof(float) * groupBufferData.Buffer.Length,
+                groupBufferData.Buffer);
         }
 
 

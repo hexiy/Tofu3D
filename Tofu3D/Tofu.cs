@@ -4,6 +4,7 @@ using System.IO;
 using Microsoft.Build.Locator;
 using OpenTK.Windowing.Common;
 using Tofu3D.Rendering;
+using Tofu3D.Rendering.Instancing;
 using Tofu3D.Scripting;
 using Tofu3D.Tweening;
 

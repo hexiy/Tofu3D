@@ -1,6 +1,10 @@
-﻿namespace Tofu3D;
+﻿namespace Tofu3D.Rendering.Instancing;
 
-public class InstancedRenderingObjectBufferData
+
+/// <summary>
+/// Contains data of multiple(instanced together) objects in one buffer
+/// </summary>
+public class InstancedGroupBufferData
 {
     public int
         InstancedVertexDataSizeInBytes;

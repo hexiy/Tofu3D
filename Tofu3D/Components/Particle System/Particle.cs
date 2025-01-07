@@ -1,10 +1,12 @@
-﻿namespace Tofu3D;
+﻿using Tofu3D.Rendering.Instancing;
+
+namespace Tofu3D;
 
 public class Particle
 {
     public Color Color = Color.White;
 
-    [XmlIgnore] public RendererInstancingData InstancingData = new();
+    [XmlIgnore] public ObjectInstancingData ObjectInstancingData = new();
 
     public float Lifetime = 0;
     public Vector3 Size = new(1);

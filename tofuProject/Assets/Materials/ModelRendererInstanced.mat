@@ -1,9 +1,7 @@
-ç	{
+·{
   "Shader": {
     "BufferType": 2,
-    "Path": "Assets/Shaders/ModelRendererInstanced.glsl",
-    "IsLoaded": false,
-    "ProgramId": 13
+    "Path": "Assets/Shaders/ModelRendererInstanced.glsl"
   },
   "Additive": false,
   "AlbedoTexture": null,
@@ -48,6 +46,7 @@
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
+}sets/Materials/ModelRendererInstanced.mat"
 }
 }
   "UVOffsetIsInstanced": false,

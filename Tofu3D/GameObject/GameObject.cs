@@ -903,8 +903,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
             var componentClone = (Component)Components[i].Clone();
             if (componentClone is Renderer)
             {
-                (componentClone as Renderer).InstancingData.InstancedRenderingStartingIndexInBuffer = -1;
-                (componentClone as Renderer).InstancingData.InstancedRenderingDefinitionIndex = -1;
+                (componentClone as Renderer).ObjectInstancingData.StartingIndexInBuffer = -1;
+                (componentClone as Renderer).ObjectInstancingData.InstancedRenderingDefinitionIndex = -1;
             }
 
             clone.AddExistingComponent(componentClone);

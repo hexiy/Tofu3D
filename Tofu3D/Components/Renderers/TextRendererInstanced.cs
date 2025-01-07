@@ -1,5 +1,6 @@
 using System.IO;
 using System.Linq;
+using Tofu3D.Rendering.Instancing;
 
 public class TextRendererInstanced : ModelRendererInstanced
 {
@@ -49,7 +50,7 @@ public class TextRendererInstanced : ModelRendererInstanced
     private Vector2 _characterSize = new Vector2(1, 2); // 1,2 because font w:h ratio is 1:2
 
     [XmlIgnore]
-    public List<RendererInstancingData> RendererInstancingDatas = new List<RendererInstancingData>();
+    public List<ObjectInstancingData> RendererInstancingDatas = new List<ObjectInstancingData>();
 
     private int _oldLength = -1;
 
@@ -59,8 +60,8 @@ public class TextRendererInstanced : ModelRendererInstanced
              i < RendererInstancingDatas.Count;
              i++)
         {
-            RendererInstancingData instancingData = RendererInstancingDatas[i];
-            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref instancingData, remove: true,
+            ObjectInstancingData objectInstancingData = RendererInstancingDatas[i];
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref objectInstancingData, remove: true,
                 vertexBufferStructureType: VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
         }
 
@@ -102,8 +103,8 @@ public class TextRendererInstanced : ModelRendererInstanced
             return;
         }
 
-        if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
-            InstancingData.MatrixDirty == false)
+        if (GameObject.IsStatic && ObjectInstancingData.InstancingDataDirty == false &&
+            ObjectInstancingData.MatrixDirty == false)
         {
             return;
         }
@@ -136,9 +137,9 @@ public class TextRendererInstanced : ModelRendererInstanced
                  i < RendererInstancingDatas.Count;
                  i++)
             {
-                RendererInstancingData instancingData = RendererInstancingDatas[i];
+                ObjectInstancingData objectInstancingData = RendererInstancingDatas[i];
 
-                Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref instancingData, remove: true,
+                Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref objectInstancingData, remove: true,
                     vertexBufferStructureType: VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
             }
 
@@ -167,7 +168,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         {
             while (RendererInstancingDatas.Count <= i)
             {
-                RendererInstancingDatas.Add(new RendererInstancingData());
+                RendererInstancingDatas.Add(new ObjectInstancingData());
             }
 
             // var instancingData = RendererInstancingDatas[i];
@@ -202,22 +203,22 @@ public class TextRendererInstanced : ModelRendererInstanced
                 Matrix4x4 modelMatrix = GetModelMatrixWithoutBoxShape() * offsetTranslation;
                 Transform.Pivot = new Vector3(0, 0.5f, 0f);
 
-                RendererInstancingData instancingData = RendererInstancingDatas[i];
-                if (GameObject.IsStatic == false || instancingData.InstancingDataDirty ||
-                    instancingData.MatrixDirty)
+                ObjectInstancingData objectInstancingData = RendererInstancingDatas[i];
+                if (GameObject.IsStatic == false || objectInstancingData.InstancingDataDirty ||
+                    objectInstancingData.MatrixDirty)
                 {
                     var updatedData =
-                        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref instancingData,
+                        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref objectInstancingData,
                             VertexBufferStructureType.Model, modelMatrix: modelMatrix, uvOffset: offset,
                             indexForMultipleObjectsPerRenderer: i, isStatic: GameObject.IsStatic);
 
                     if (updatedData)
                     {
-                        instancingData.InstancingDataDirty = false;
+                        objectInstancingData.InstancingDataDirty = false;
                     }
                 }
 
-                RendererInstancingDatas[i] = instancingData;
+                RendererInstancingDatas[i] = objectInstancingData;
             }
 
             // currentX += textComponent.Size * _characterSize.X;

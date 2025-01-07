@@ -1,6 +1,6 @@
-﻿namespace Tofu3D;
+﻿namespace Tofu3D.Rendering.Instancing;
 
-public record InstancedRenderingObjectDefinition(
+public record RenderableObjectDefinition(
     string GameObjectNameForTestingIdentification,
     RuntimeMesh RuntimeMesh,
     Asset_Material Material,

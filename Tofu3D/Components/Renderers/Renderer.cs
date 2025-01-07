@@ -1,4 +1,6 @@
-﻿namespace Scripts;
+﻿using Tofu3D.Rendering.Instancing;
+
+namespace Scripts;
 
 [ExecuteInEditMode]
 public abstract class Renderer : Component, IComparable<Renderer>, IComponentRenderable, IComponentUpdateable,
@@ -16,7 +18,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
     public Color Color = Color.White;
 
     [XmlIgnore]
-    public RendererInstancingData InstancingData;
+    public ObjectInstancingData ObjectInstancingData;
     // public float DistanceFromCamera;
 
     [Show]
@@ -336,11 +338,11 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
             return;
         }
 
-        if (InstancingData.MatrixDirty || GameObject.IsStatic == false)
+        if (ObjectInstancingData.MatrixDirty || GameObject.IsStatic == false)
         {
             LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
             LatestModelMatrix = GetModelMatrix();
-            InstancingData.MatrixDirty = false;
+            ObjectInstancingData.MatrixDirty = false;
         }
     }
 }

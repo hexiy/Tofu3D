@@ -1,29 +1,29 @@
 ﻿using System.IO;
 using System.Linq;
+using Tofu3D.Rendering.Instancing;
 using Vortice.Mathematics;
 
 public class ModelRendererInstanced : Renderer
 {
     public override void Awake()
     {
-        InstancingData = new RendererInstancingData();
+        ObjectInstancingData = new ObjectInstancingData();
 
         base.Awake();
     }
 
     public override void OnEnabled()
     {
-        InstancingData.InstancingDataDirty = true;
-        InstancingData.MatrixDirty = true;
+        ObjectInstancingData.InstancingDataDirty = true;
+        ObjectInstancingData.MatrixDirty = true;
 
         base.OnEnabled();
     }
 
     public override void OnDisabled()
     {
-        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData, remove: true,
+        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData, remove: true,
             vertexBufferStructureType: VertexBufferStructureType.Model);
-
         base.OnDisabled();
     }
 
@@ -92,8 +92,8 @@ public class ModelRendererInstanced : Renderer
         // return;
         // }
 
-        if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
-            InstancingData.MatrixDirty == false)
+        if (GameObject.IsStatic && ObjectInstancingData.InstancingDataDirty == false &&
+            ObjectInstancingData.MatrixDirty == false)
         {
             return;
         }
@@ -121,11 +121,11 @@ public class ModelRendererInstanced : Renderer
         }*/
 
         var updatedData =
-            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref InstancingData,
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData,
                 VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
         if (updatedData)
         {
-            InstancingData.InstancingDataDirty = false;
+            ObjectInstancingData.InstancingDataDirty = false;
         }
     }
 }

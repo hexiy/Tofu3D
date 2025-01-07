@@ -4,11 +4,11 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>3</Id>
-      <IndexInHierarchy>1</IndexInHierarchy>
+      <Id>4</Id>
+      <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>smoothCube</Name>
+      <IsStaticSelf>true</IsStaticSelf>
+      <Name>defaultCube</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
@@ -21,7 +21,7 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>3</GameObjectId>
+      <GameObjectId>4</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
@@ -35,12 +35,12 @@
       <WorldPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>10</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
         <Y>0</Y>
-        <Z>0</Z>
+        <Z>10</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -60,7 +60,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>3</GameObjectId>
+      <GameObjectId>4</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -69,14 +69,14 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>3</X>
+        <Y>2</Y>
+        <Z>3</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>3</GameObjectId>
+      <GameObjectId>4</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <MousePickingId>1</MousePickingId>
@@ -91,22 +91,13 @@
       <Material>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <Path>Assets/Materials/ModelRendererInstanced.mat</Path>
+        <PathInAssetsFolder>Assets/Materials/ModelRendererInstanced.mat</PathInAssetsFolder>
+        <PathInLibraryFolder>Library/Materials/ModelRendererInstanced.mat.tofumaterial</PathInLibraryFolder>
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
         <Additive>false</Additive>
-        <AlbedoTexture>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <DataIsCompressed>false</DataIsCompressed>
-          <Path>Assets/3D/sculpture/sculpture.jpeg</Path>
-          <Size>
-            <X>4096</X>
-            <Y>4096</Y>
-          </Size>
-          <TextureId>19</TextureId>
-        </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
           <G>255</G>
@@ -114,28 +105,19 @@
           <A>255</A>
           <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
-        <EmissiveTexture>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <DataIsCompressed>false</DataIsCompressed>
-          <Path>Resources/whitePixel.png</Path>
-          <Size>
-            <X>1</X>
-            <Y>1</Y>
-          </Size>
-          <TextureId>1</TextureId>
-        </EmissiveTexture>
         <EmissiveColor>
           <X>0</X>
           <Y>0</Y>
           <Z>0</Z>
-          <W>0</W>
+          <W>0.895</W>
         </EmissiveColor>
+        <SmoothShadows>true</SmoothShadows>
         <RefractionEnabled>false</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>4.94</SpecularSmoothness>
-        <MetallicTextureStrength>0.165</MetallicTextureStrength>
-        <Smoothness>0.766</Smoothness>
+        <SpecularSmoothness>-16.91</SpecularSmoothness>
+        <MetallicTextureStrength>0.746</MetallicTextureStrength>
+        <Smoothness>0.544</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -159,9 +141,9 @@
             <int>3</int>
             <int>3</int>
           </CountsOfElements>
-          <VerticesCount>149994</VerticesCount>
-          <Name>sculpture.obj_0</Name>
-          <Path>Library/Meshes/sculpture.obj_0.tofumesh</Path>
+          <VerticesCount>36</VerticesCount>
+          <Name>defaultCube.obj_0</Name>
+          <PathInLibraryFolder>Library/Meshes/defaultCube.obj_0.tofumesh</PathInLibraryFolder>
         </Mesh>
       </RuntimeMesh>
       <Layer>0</Layer>
