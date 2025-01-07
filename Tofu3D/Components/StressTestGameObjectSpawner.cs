@@ -5,15 +5,17 @@ public class StressTestGameObjectSpawner : Component
 {
     private readonly bool _savedToClipboard = false;
 
-    [XmlIgnore] public Action Despawn;
+    [XmlIgnore]
+    public Action Despawn;
 
-    public GameObject Go;
+    // public GameObject Go;
 
-    [XmlIgnore] public Action Spawn;
+    [XmlIgnore]
+    public Action Spawn;
 
     public int SpawnCount = 1000;
 
-    public float Radius=100;
+    public float Radius = 100;
 
     public override void Awake()
     {
@@ -21,7 +23,7 @@ public class StressTestGameObjectSpawner : Component
         {
             if (_savedToClipboard == false)
             {
-                Tofu.SceneSerializer.SaveClipboardGameObject(Go);
+                Tofu.SceneSerializer.SaveClipboardGameObject(Transform.Children[0].GameObject);
             }
 
             var timerName = "StressTest";
@@ -34,9 +36,10 @@ public class StressTestGameObjectSpawner : Component
                 var go = Tofu.SceneSerializer.LoadClipboardGameObject();
                 go.Transform.SetParent(Transform);
                 go.Transform.LocalPosition +=
-                    new Vector3(Random.Range(-1f, 1f)*Radius, Random.Range(-1f, 1f)*Radius, Random.Range(-1f, 1f)*Radius);
-                go.Transform.Rotation += new Vector3(0, Random.Range(0, 360), 0);
-                
+                    new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f),
+                        Random.Range(-1f, 1f)) * Radius;
+                go.Transform.Rotation += new Vector3(Random.Range(0, 360), Random.Range(0, 360), 0);
+
                 // go.GetComponent<Renderer>().Color = Random.RandomColor();
             }
 
@@ -54,7 +57,7 @@ public class StressTestGameObjectSpawner : Component
                 }
             }
         };
-        
+
         base.Awake();
     }
 }

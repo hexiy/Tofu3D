@@ -173,7 +173,7 @@ public class Scene
         Debug.StartGraphTimer("Scene Update", DebugGraphTimer.SourceGroup.Update, TimeSpan.FromSeconds(1f / 120f));
 
         _sceneLightingManager.Update();
-        SceneFogManager.Update();
+        // SceneFogManager.Update();
 
         // Camera.MainCamera.GameObject.Update();
         // TransformHandle.I.GameObject.Update();

@@ -64,7 +64,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public bool UpdateWhenDisabled = false;
 
-    public bool IsStatic => IsStaticSelf || Transform?.Parent?.GameObject.IsStatic == true;
+    public bool IsStatic => IsStaticSelf;// || Transform?.Parent?.GameObject.IsStatic == true;
 
     public bool ActiveSelf
     {

@@ -40,7 +40,8 @@ public class ModelRendererInstanced : Renderer
         else
         {
             Asset_Model model =
-                Tofu.AssetLoadManager.Load<Asset_Model>(TofuPath.Combine(Folders.BasicModelsInAssets, "defaultCube.obj"));
+                Tofu.AssetLoadManager.Load<Asset_Model>(
+                    TofuPath.Combine(Folders.BasicModelsInAssets, "defaultCube.obj"));
             RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets.First());
 
             // RuntimeMesh = null;
@@ -86,10 +87,10 @@ public class ModelRendererInstanced : Renderer
 
     public override void Render()
     {
-        if (this.GameObject.ActiveInHierarchy == false)
-        {
-            return;
-        }
+        // if (this.GameObject.ActiveInHierarchy == false)
+        // {
+        // return;
+        // }
 
         if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
             InstancingData.MatrixDirty == false)
@@ -97,12 +98,7 @@ public class ModelRendererInstanced : Renderer
             return;
         }
 
-        if (RuntimeMesh == null)
-        {
-            return;
-        }
-
-        if (BoxShape == null)
+        if (RuntimeMesh == null || BoxShape == null)
         {
             return;
         }

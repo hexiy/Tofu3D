@@ -34,6 +34,8 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
 
     [XmlIgnore]
     public Matrix4x4 LatestModelViewProjection { get; private set; }
+  [XmlIgnore]
+    public Matrix4x4 LatestModelMatrix { get; private set; }
 
     [Hide]
     public virtual bool CanRender => true; // && Enabled && GameObject.Awoken && GameObject.ActiveInHierarchy;
@@ -337,6 +339,7 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
         if (InstancingData.MatrixDirty || GameObject.IsStatic == false)
         {
             LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
+            LatestModelMatrix = GetModelMatrix();
             InstancingData.MatrixDirty = false;
         }
     }

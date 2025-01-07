@@ -604,7 +604,7 @@ public class InstancedRenderingSystem
 
             else
             {
-                CopyObjectDataToBuffer(modelMatrix ?? renderer.GetModelMatrix(),
+                CopyObjectDataToBuffer(modelMatrix ?? renderer.LatestModelMatrix,
                     ref bufferData.Buffer,
                     instancingData.InstancedRenderingStartingIndexInBuffer, uvOffset: uvOffset,
                     mousePickingId: renderer.MousePickingId);

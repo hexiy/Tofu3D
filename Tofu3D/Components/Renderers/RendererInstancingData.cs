@@ -2,13 +2,13 @@
 
 public struct RendererInstancingData
 {
-    [XmlIgnore] public int InstancedRenderingStartingIndexInBuffer { get; set; } = -1;
+    [XmlIgnore] public int InstancedRenderingStartingIndexInBuffer = -1;
 
     [XmlIgnore] public int InstancedRenderingDefinitionIndex = -1;
 
-    [XmlIgnore] internal bool InstancingDataDirty { get; set; } = true;
+    [XmlIgnore] internal bool InstancingDataDirty = true;
 
-    [XmlIgnore] internal bool MatrixDirty { get; set; } = true;
+    [XmlIgnore] internal bool MatrixDirty = true;
 
     public RendererInstancingData()
     {
