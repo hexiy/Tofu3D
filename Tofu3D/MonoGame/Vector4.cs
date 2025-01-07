@@ -1283,6 +1283,8 @@ public struct Vector4 : IEquatable<Vector4>
     /// <param name="value">The converted value.</param>
     public static implicit operator System.Numerics.Vector4(Vector4 value) => new(value.X, value.Y, value.Z, value.W);
 
+    public static implicit operator Color(Vector4 vec4) => vec4.ToColor();
+    
     /// <summary>
     ///     Inverts values in the specified <see cref="Vector4" />.
     /// </summary>

@@ -153,14 +153,13 @@ public class InstancedRenderingSystem
 
         groupBufferData.RemoveObject(objectInstancingData);
 
-       
-        
+
         if (groupBufferData.NumberOfObjects == 0)
         {
             _objectBufferDatas.Remove(definitionIndex);
             _definitions[definitionIndex] = null;
-            
-            
+
+
             /////////////////// remove SHADER GROUP
             _shaderGroups[shaderGroupId].DefinitionIndexes.Remove(definitionIndex);
             if (_shaderGroups[shaderGroupId].DefinitionIndexes.Count == 0)
@@ -201,16 +200,9 @@ public class InstancedRenderingSystem
         {
             ResizeBufferData(groupBufferData);
         }
+        
+        SetupBufferAndUploadIfNeeded(groupBufferData);
 
-        if (groupBufferData.NeedsUpload)
-        {
-            UploadData(groupBufferData);
-            // if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.Transparency)
-            // {
-            //     objectBufferPair.Value.NeedsUpload = false;
-            // }
-            groupBufferData.NeedsUpload = false;
-        }
 
         // if (material == TransformHandle.I?.ModelRendererX?.Material)
         // {
@@ -231,7 +223,8 @@ public class InstancedRenderingSystem
         if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
         {
             RenderObjects_MousePickingPass(meshVao: meshVao, numberOfObjects: numberOfObjects,
-                indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount);
+                indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
+                vbo: groupBufferData.Vbo);
         }
 
         else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
@@ -239,7 +232,7 @@ public class InstancedRenderingSystem
         {
             RenderObjects_DepthPasses(meshVao: meshVao, numberOfObjects: numberOfObjects,
                 indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
-                material: material);
+                material: material, vbo: groupBufferData.Vbo);
         }
 
         else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
@@ -253,9 +246,11 @@ public class InstancedRenderingSystem
         ImGuiController.CheckGlError("instanced rendering error");
     }
 
-    private void RenderObjects_MousePickingPass(int meshVao, int numberOfObjects, int indicesCount, int verticesCount)
+    private void RenderObjects_MousePickingPass(int meshVao, int numberOfObjects, int indicesCount, int verticesCount,
+        int vbo)
     {
         Tofu.ShaderManager.BindVertexArray(meshVao);
+        GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
 
         if (RenderingSettings.USE_INDICES)
@@ -274,7 +269,7 @@ public class InstancedRenderingSystem
     }
 
     private void RenderObjects_DepthPasses(int meshVao, int numberOfObjects, int indicesCount, int verticesCount,
-        Asset_Material material)
+        Asset_Material material, int vbo)
     {
         // if (material.RenderMode == RenderMode.Transparent)
         // {
@@ -284,6 +279,7 @@ public class InstancedRenderingSystem
 
 
         Tofu.ShaderManager.BindVertexArray(meshVao);
+        GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
         if (RenderingSettings.USE_INDICES)
         {
@@ -587,7 +583,6 @@ public class InstancedRenderingSystem
             groupBufferData.AddObject(objectInstancingData);
         }
 
-        groupBufferData.NeedsUpload = true;
 
         if (objectInstancingData.StartingIndexInBuffer != -1)
         {
@@ -608,7 +603,7 @@ public class InstancedRenderingSystem
             }
         }
 
-
+        groupBufferData.NeedsUpload = true;
         _objectBufferDatas[objectInstancingData.InstancedRenderingDefinitionIndex] = groupBufferData;
         return true;
     }
@@ -646,7 +641,7 @@ public class InstancedRenderingSystem
     private InstancedGroupBufferData InitializeBufferData(RenderableObjectDefinition renderableObjectDefinition)
     {
         // Debug.Log("Initializing Instanced Buffer Data");
-        GL.BindVertexArray(renderableObjectDefinition.RuntimeMesh.Vao);
+        Tofu.ShaderManager.BindVertexArray(renderableObjectDefinition.RuntimeMesh.Vao);
 
         renderableObjectDefinition.Material.LoadShader();
         if (renderableObjectDefinition.Material.Shader.IsLoaded == false)
@@ -672,14 +667,15 @@ public class InstancedRenderingSystem
         instancedGroupBufferData.Buffer = new float[instancedGroupBufferData.MaxNumberOfObjects *
                                                     instancedGroupBufferData.InstancedVertexCountOfFloats];
 
-        UploadData(instancedGroupBufferData);
+        SetupBufferAndUploadIfNeeded(instancedGroupBufferData);
 
         return instancedGroupBufferData;
     }
 
-    private void UploadData(InstancedGroupBufferData groupBufferData)
+    private void SetupBufferAndUploadIfNeeded(InstancedGroupBufferData groupBufferData)
     {
-        GL.BindVertexArray(groupBufferData.Vao);
+        Tofu.ShaderManager.BindVertexArray(groupBufferData.Vao);
+        // Tofu.ShaderManager.BindVertexArray(groupBufferData.Vao);
 
         var newBuffer = false;
         if (groupBufferData.Vbo == -1)
@@ -742,20 +738,25 @@ public class InstancedRenderingSystem
         GL.VertexAttribDivisor(9, 1);
 
 
-        if (newBuffer)
+        if (groupBufferData.NeedsUpload)
         {
-            GL.BufferData(BufferTarget.ArrayBuffer,
-                sizeof(float) * groupBufferData.Buffer.Length,
-                groupBufferData.Buffer, BufferUsageHint.StaticDraw);
-        }
-        else
-        {
-            GL.BufferSubData(BufferTarget.ArrayBuffer, 0,
-                sizeof(float) * groupBufferData.Buffer.Length,
-                groupBufferData.Buffer);
+            if (newBuffer)
+            {
+                GL.BufferData(BufferTarget.ArrayBuffer,
+                    sizeof(float) * groupBufferData.Buffer.Length,
+                    groupBufferData.Buffer, BufferUsageHint.DynamicDraw);
+            }
+            else
+            {
+                GL.BufferSubData(BufferTarget.ArrayBuffer, 0,
+                    sizeof(float) * groupBufferData.Buffer.Length,
+                    groupBufferData.Buffer);
+            }
+            
+            groupBufferData.NeedsUpload = false;
         }
 
 
-        GL.BindVertexArray(0);
+        Tofu.ShaderManager.BindVertexArray(0);
     }
 }

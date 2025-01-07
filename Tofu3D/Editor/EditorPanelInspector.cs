@@ -299,7 +299,7 @@ public class EditorPanelInspector : EditorPanel
             var wasStatic = gameObject.IsStaticSelf;
             if (gameObject.IsStaticSelf)
             {
-                ImGui.PushStyleColor(ImGuiCol.Text, Color.Purple.ToVector4());
+                ImGui.PushStyleColor(ImGuiCol.Text, EditorColors.StaticLabel.ToVector4());
             }
 
             var staticButtonClicked = ImGui.Button("STATIC");

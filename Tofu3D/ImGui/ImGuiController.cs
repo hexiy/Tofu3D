@@ -128,7 +128,7 @@ public class ImGuiController : IDisposable
         var prevArrayBuffer = GL.GetInteger(GetPName.ArrayBufferBinding);
 
         _vertexArray = GL.GenVertexArray();
-        GL.BindVertexArray(_vertexArray);
+        Tofu.ShaderManager.BindVertexArray(_vertexArray);
         LabelObject(ObjectLabelIdentifier.VertexArray, _vertexArray, "ImGui");
 
         _vertexBuffer = GL.GenBuffer();
@@ -179,7 +179,7 @@ void main()
         GL.EnableVertexAttribArray(1);
         GL.EnableVertexAttribArray(2);
 
-        GL.BindVertexArray(prevVao);
+        Tofu.ShaderManager.BindVertexArray(prevVao);
         GL.BindBuffer(BufferTarget.ArrayBuffer, prevArrayBuffer);
 
         CheckGlError("End of ImGui setup");
@@ -406,7 +406,7 @@ void main()
         }
 
         // Bind the element buffer (thru the VAO) so that we can resize it.
-        GL.BindVertexArray(_vertexArray);
+        Tofu.ShaderManager.BindVertexArray(_vertexArray);
         // Bind the vertex buffer so that we can resize it.
         GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBuffer);
 
@@ -451,7 +451,7 @@ void main()
         GL.Uniform1(_shaderFontTextureLocation, 0);
         CheckGlError("Projection");
 
-        GL.BindVertexArray(_vertexArray);
+        Tofu.ShaderManager.BindVertexArray(_vertexArray);
         CheckGlError("VAO");
 
         Vector2 scl = io.DisplayFramebufferScale;
@@ -523,7 +523,7 @@ void main()
         GL.BindTexture(TextureTarget.Texture2D, prevTexture2D);
         GL.ActiveTexture((TextureUnit)prevActiveTexture);
         GL.UseProgram(prevProgram);
-        GL.BindVertexArray(prevVao);
+        Tofu.ShaderManager.BindVertexArray(prevVao);
         GL.Scissor(prevScissorBox[0], prevScissorBox[1], prevScissorBox[2], prevScissorBox[3]);
         GL.BindBuffer(BufferTarget.ArrayBuffer, prevArrayBuffer);
         GL.BlendEquationSeparate((BlendEquationMode)prevBlendEquationRgb, (BlendEquationMode)prevBlendEquationAlpha);

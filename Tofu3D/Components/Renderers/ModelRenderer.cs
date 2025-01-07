@@ -294,7 +294,7 @@
             GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
             GL.Enable(EnableCap.DepthTest);
 
-            // GL.BindVertexArray(0);
+            // Tofu.ShaderManager.BindVertexArray(0);
             // GL.Disable(EnableCap.Blend);
         }
 
@@ -324,7 +324,7 @@
 
         if (drawOutline)
         {
-            // GL.BindVertexArray(0);
+            // Tofu.ShaderManager.BindVertexArray(0);
         }
 
 

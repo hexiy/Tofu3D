@@ -150,7 +150,7 @@ public class SpriteRenderer : TextureRenderer
             GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
             GL.Enable(EnableCap.DepthTest);
 
-            // GL.BindVertexArray(0);
+            // Tofu.ShaderManager.BindVertexArray(0);
             // GL.Disable(EnableCap.Blend);
         }
 
@@ -174,7 +174,7 @@ public override void Render()
             shader.SetMatrix4x4("u_mvp", GetModelViewProjection());
             shader.SetVector4("u_color", color.ToVector4());
 
-            GL.BindVertexArray(vao);
+            Tofu.ShaderManager.BindVertexArray(vao);
             GL.Enable(EnableCap.Blend);
 
             if (additive)
@@ -204,7 +204,7 @@ public override void Render()
             GL.StencilFunc(StencilFunction.Always, 1, 0xFF);
             GL.Enable(EnableCap.DepthTest);
 
-            GL.BindVertexArray(0);
+            Tofu.ShaderManager.BindVertexArray(0);
             GL.Disable(EnableCap.Blend);
         }
 #1#*/

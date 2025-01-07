@@ -216,7 +216,7 @@ public class EditorPanelHierarchy : EditorPanel
             List<GameObject> toDestroy = new();
             foreach (var go in Tofu.SceneManager.CurrentScene.GameObjects)
             {
-                if (go != Camera.MainCamera.GameObject)// && go.VisibleInHierarchy)
+                if (go != Camera.MainCamera.GameObject) // && go.VisibleInHierarchy)
                 {
                     toDestroy.Add(go);
                 }
@@ -226,7 +226,7 @@ public class EditorPanelHierarchy : EditorPanel
             {
                 go.Destroy();
             }
-            
+
             Tofu.SceneManager.CurrentScene.GameObjects.Clear();
         }
 
@@ -249,7 +249,7 @@ public class EditorPanelHierarchy : EditorPanel
             // }
             // else
             // {
-                DrawGameObjectRow(goIndex);
+            DrawGameObjectRow(goIndex);
             // }
         }
 
@@ -300,6 +300,13 @@ public class EditorPanelHierarchy : EditorPanel
         Vector4 nameColor = currentGameObject.ActiveInHierarchy
             ? ImGui.GetStyle().Colors[(int)ImGuiCol.Text]
             : ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
+
+        if (currentGameObject.IsStatic)
+        {
+            nameColor = currentGameObject.ActiveInHierarchy
+                ? EditorColors.StaticLabel
+                : EditorColors.StaticLabelInactive;
+        }
 
         if (currentGameObject.IsPrefab)
         {
@@ -457,7 +464,7 @@ public class EditorPanelHierarchy : EditorPanel
                 Tofu.SceneManager.CurrentScene.GameObjects.Insert(
                     currentGameObject.IndexInHierarchy + (after ? 1 : 0) - (x ? 1 : 0),
                     droppedGameObject);
-                
+
                 droppedGameObject.Transform.SetParent(currentGameObject.Transform.Parent);
 
                 Tofu.SceneManager.CurrentScene.UpdateGameobjectsIndexInHierarchy();

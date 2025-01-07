@@ -74,7 +74,7 @@ public static class BufferFactory
             vao = GL.GenVertexArray();
         }
 
-        GL.BindVertexArray(vao);
+        Tofu.ShaderManager.BindVertexArray(vao);
 
         var elementsCountPerVertex = 0;
         for (var i = 0; i < countsOfElements.Length; i++)
@@ -111,7 +111,7 @@ public static class BufferFactory
                 BufferUsageHint.StaticDraw);
         }
 
-        // GL.BindVertexArray(0);
+        // Tofu.ShaderManager.BindVertexArray(0);
         // GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
     }
 
@@ -152,7 +152,7 @@ public static class BufferFactory
             6, 2, 3
         };
         vao = GL.GenVertexArray();
-        GL.BindVertexArray(vao);
+        Tofu.ShaderManager.BindVertexArray(vao);
 
         var vertexBuffer = VertexBuffer.Create(BufferTarget.ArrayBuffer, vertices, 3);
         vertexBuffer.EnableAttribs(false, 3); // xyz

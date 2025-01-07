@@ -6,7 +6,7 @@ public class ShaderManager
 {
     private readonly List<string> _shadersReloadQueue = new();
 
-    // public int ShaderInUse = -1;
+    public int VaoInUse = -1;
     private Dictionary<string, Shader> _shaders = new Dictionary<string, Shader>();
 
     public Shader LoadShader(string shaderFile, bool forceReload = false)
@@ -46,12 +46,12 @@ public class ShaderManager
 
     public void BindVertexArray(int vao)
     {
-        // if (vao == VaoInUse)
-        // {
-        // return;
-        // }
+        if (vao == VaoInUse)
+        {
+            return;
+        }
 
-        // VaoInUse = vao;
+        VaoInUse = vao;
         GL.BindVertexArray(vao);
     }
 

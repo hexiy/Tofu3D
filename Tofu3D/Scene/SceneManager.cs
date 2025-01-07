@@ -84,7 +84,10 @@ public class SceneManager
 
         for (var i = 0; i < sceneFile.GameObjects.Count; i++)
         {
-            sceneFile.GameObjects[i].Start();
+            if (sceneFile.GameObjects[i].ActiveInHierarchy)
+            {
+                sceneFile.GameObjects[i].Start();
+            }
         }
 
         CurrentScene.CreateDefaultObjects();

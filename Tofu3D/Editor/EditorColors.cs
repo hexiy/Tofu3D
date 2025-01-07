@@ -6,4 +6,6 @@ public static class EditorColors
     public static readonly Color LogCategoryError = new(255, 54, 95, 255);
     public static readonly Color LogCategoryWarning = new(227, 184, 36, 255);
     public static readonly Color LogCategoryTimer = new(94, 0, 226, 255);
+    public static readonly Color StaticLabel = Color.Purple;
+    public static readonly Color StaticLabelInactive = Color.Purple * new Vector4(1,1,1,0.5f);
 }

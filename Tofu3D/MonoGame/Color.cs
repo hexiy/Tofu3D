@@ -1185,8 +1185,15 @@ public struct Color : IEquatable<Color>
     ///     Gets a <see cref="Vector4" /> representation for this object.
     /// </summary>
     /// <returns>A <see cref="Vector4" /> representation for this object.</returns>
-    public Vector4 ToVector4() => new(R / 255.0f, G / 255.0f, B / 255.0f, A / 255.0f);
+    public readonly Vector4 ToVector4() => new(R / 255.0f, G / 255.0f, B / 255.0f, A / 255.0f);
 
+    
+    /// <summary>
+    ///     Implicit conversion from <see cref="Color"/> to <see cref="Vector4"/>.
+    /// </summary>
+    /// <param name="color">The <see cref="Color"/> to convert.</param>
+    public static implicit operator Vector4(Color color) => color.ToVector4();
+    
     /// <summary>
     ///     Gets or sets packed value of this <see cref="Color" />.
     /// </summary>
