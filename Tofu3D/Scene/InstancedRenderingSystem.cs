@@ -154,53 +154,28 @@ public class InstancedRenderingSystem
             groupBufferData.Buffer[objectInstancingData.StartingIndexInBuffer + i] = 0;
         }
 
-        groupBufferData.EmptyStartIndexes.Add(objectInstancingData.StartingIndexInBuffer);
-        groupBufferData.NumberOfObjects--;
+        groupBufferData.RemoveObject(objectInstancingData);
 
-        /////////////////// SHADER GROUP
-        _shaderGroups[shaderGroupId].DefinitionIndexes.Remove(definitionIndex);
-        if (_shaderGroups[shaderGroupId].DefinitionIndexes.Count == 0)
-        {
-            _shaderGroups.Remove(shaderGroupId);
-        }
-        /////////////////// SHADER GROUP
-
-
-        // go through all objectInstancingData that is in this buffer and change their starting index if they are after this one
-
+       
+        
         if (groupBufferData.NumberOfObjects == 0)
         {
             _objectBufferDatas.Remove(definitionIndex);
             _definitions[definitionIndex] = null;
+            
+            
+            /////////////////// remove SHADER GROUP
+            _shaderGroups[shaderGroupId].DefinitionIndexes.Remove(definitionIndex);
+            if (_shaderGroups[shaderGroupId].DefinitionIndexes.Count == 0)
+            {
+                _shaderGroups.Remove(shaderGroupId);
+            }
+            /////////////////// remove SHADER GROUP
         }
 
 
         objectInstancingData.StartingIndexInBuffer = -1;
         objectInstancingData.InstancedRenderingDefinitionIndex = -1;
-    }
-
-    private int GetEmptyIndexInBuffer(InstancedGroupBufferData groupBufferData)
-    {
-        if (groupBufferData.EmptyStartIndexes.Count > 0)
-        {
-            var index = groupBufferData.EmptyStartIndexes[0];
-            groupBufferData.EmptyStartIndexes.RemoveAt(0);
-            return index;
-        }
-
-        if (groupBufferData.NumberOfObjects == groupBufferData.MaxNumberOfObjects)
-        {
-            groupBufferData.FutureMaxNumberOfObjects += 1;
-            return -1;
-        }
-
-        if (groupBufferData.Buffer.Length <
-            groupBufferData.InstancedVertexCountOfFloats * groupBufferData.MaxNumberOfObjects)
-        {
-            return -1;
-        }
-
-        return groupBufferData.NumberOfObjects * groupBufferData.InstancedVertexCountOfFloats;
     }
 
     private void ResizeBufferData(InstancedGroupBufferData groupBufferData)
@@ -605,14 +580,14 @@ public class InstancedRenderingSystem
         if (objectInstancingData.StartingIndexInBuffer == -1 && remove == false)
         {
             // assign new InstancedRenderingIndex
-            objectInstancingData.StartingIndexInBuffer = GetEmptyIndexInBuffer(groupBufferData);
+            objectInstancingData.StartingIndexInBuffer = groupBufferData.GetEmptyIndex();
 
             if (objectInstancingData.StartingIndexInBuffer == -1)
             {
                 return false;
             }
 
-            groupBufferData.NumberOfObjects++;
+            groupBufferData.AddObject(objectInstancingData);
         }
 
         groupBufferData.NeedsUpload = true;
@@ -692,7 +667,6 @@ public class InstancedRenderingSystem
             Vao = renderableObjectDefinition.RuntimeMesh.Vao,
             // Ebo = objectDefinition.RuntimeMesh.Ebo,
             ShaderId = renderableObjectDefinition.Material.Shader.ProgramId,
-            NumberOfObjects = 0,
             UVOffsetIsInstanced = renderableObjectDefinition.Material.UVOffsetIsInstanced,
             RenderMode = renderableObjectDefinition.Material.RenderMode,
         };
@@ -700,7 +674,6 @@ public class InstancedRenderingSystem
 
         instancedGroupBufferData.Buffer = new float[instancedGroupBufferData.MaxNumberOfObjects *
                                                     instancedGroupBufferData.InstancedVertexCountOfFloats];
-        instancedGroupBufferData.EmptyStartIndexes = new List<int>();
 
         UploadData(instancedGroupBufferData);
 

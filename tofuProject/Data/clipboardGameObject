@@ -7,7 +7,7 @@
       <Id>4</Id>
       <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>true</IsStaticSelf>
+      <IsStaticSelf>false</IsStaticSelf>
       <Name>defaultCube</Name>
       <PrefabPath />
       <Selected>true</Selected>
