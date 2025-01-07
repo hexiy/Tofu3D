@@ -3,8 +3,11 @@
 /// <summary>
 /// Every renderer/object needs ObjectInstancingData
 /// </summary>
-public struct ObjectInstancingData()
+public class ObjectInstancingData()
 {
+    [XmlIgnore]
+    public Guid Guid = Guid.NewGuid();
+    
     [XmlIgnore]
     public int StartingIndexInBuffer = -1;
 

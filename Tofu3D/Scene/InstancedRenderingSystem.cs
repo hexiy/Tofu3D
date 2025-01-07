@@ -149,10 +149,7 @@ public class InstancedRenderingSystem
         ref ObjectInstancingData objectInstancingData, int shaderGroupId)
     {
         int definitionIndex = objectInstancingData.InstancedRenderingDefinitionIndex;
-        for (var i = 0; i < groupBufferData.InstancedVertexCountOfFloats; i++)
-        {
-            groupBufferData.Buffer[objectInstancingData.StartingIndexInBuffer + i] = 0;
-        }
+
 
         groupBufferData.RemoveObject(objectInstancingData);
 

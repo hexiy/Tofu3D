@@ -46,24 +46,30 @@ public class InstancedGroupBufferData
         NumberOfObjects++;
     }
 
-    public void RemoveObject(ObjectInstancingData objectInstancingData)
+    public void RemoveObject(ObjectInstancingData removedObjectInstancingData)
     {
+        for (var i = 0; i < Buffer.Length - InstancedVertexCountOfFloats; i++)
+        {
+            Buffer[i] = Buffer[i + InstancedVertexCountOfFloats];
+        }
+
         // go through all objectInstancingData that is in this buffer and change their starting index if they are after this one
         int indexOfThis =
-            ObjectInstancingDatas.FindIndex(o => o.StartingIndexInBuffer == objectInstancingData.StartingIndexInBuffer);
+            ObjectInstancingDatas.FindIndex(o => o.Guid == removedObjectInstancingData.Guid);
 
 
         ObjectInstancingDatas.RemoveAt(indexOfThis);
 
 
-        EmptyStartIndexes.Add(objectInstancingData.StartingIndexInBuffer);
+        // we dont need to update EmptyStartIndexes if we just shift the whole buffer down to fill the newly emptied space
+        // EmptyStartIndexes.Add(removedObjectInstancingData.StartingIndexInBuffer);
         NumberOfObjects--;
 
         for (int i = indexOfThis; i < ObjectInstancingDatas.Count; i++)
         {
             var oid = ObjectInstancingDatas[i];
             oid.StartingIndexInBuffer =
-                objectInstancingData.StartingIndexInBuffer = GetEmptyIndex();
+                oid.StartingIndexInBuffer - InstancedVertexCountOfFloats;
             ObjectInstancingDatas[i] = oid;
         }
     }
