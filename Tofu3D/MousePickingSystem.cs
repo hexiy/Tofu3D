@@ -89,6 +89,7 @@ public static class MousePickingSystem
         // Tofu.SceneManager.CurrentScene.RenderAll();
         Tofu.SceneManager.CurrentScene.RenderOpaques();
         Tofu.SceneManager.CurrentScene.RenderTransparency();
+        ReadPixelAtMousePos();
     }
 
     public static unsafe void ReadPixelAtMousePos()
@@ -128,7 +129,7 @@ public static class MousePickingSystem
 
             if (HoveredRenderer != null)
             {
-                // Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
+                Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
             }
         }
 

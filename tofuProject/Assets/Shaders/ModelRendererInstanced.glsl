@@ -72,6 +72,7 @@ uniform float u_smoothness;
 uniform float u_metallic;
 uniform float u_renderMode = 0;
 
+uniform int u_materialType;
 uniform int u_hasAlbedoTexture;
 uniform int u_hasAlphaMaskTexture;
 uniform int u_hasNormalTexture;
@@ -243,8 +244,17 @@ void main() {
 	if (u_hasAlbedoTexture == 1) {
 		albedo *= texture(u_albedoTexture, uvCoords);
 	}
+	if(u_materialType==1){
+		if (albedo.a < 0.9) {
+			discard;
+		}
+		fragColor = albedo;
+	
+		return;
+	}
+	
 	vec3 baseColor = albedo.rgb; // Separate out RGB only
-
+	
 	// Normal Mapping
 	vec3 finalNormalTangentSpace = normalize(TBN * normalWorldSpace);
 	if (u_hasNormalTexture == 1) {

@@ -200,9 +200,15 @@ public class InstancedRenderingSystem
         {
             ResizeBufferData(groupBufferData);
         }
-        
+
         SetupBufferAndUploadIfNeeded(groupBufferData);
 
+
+        RenderableObjectDefinition definition = _definitions[definitionIndex];
+        Asset_Material material = definition.Material;
+        int meshVao = definition.RuntimeMesh.Vao;
+        int indicesCount = definition.RuntimeMesh.Mesh.Indices.Length;
+        int numberOfObjects = groupBufferData.NumberOfObjects;
 
         // if (material == TransformHandle.I?.ModelRendererX?.Material)
         // {
@@ -212,12 +218,6 @@ public class InstancedRenderingSystem
         // {
         //     GL.Enable(EnableCap.DepthTest);
         // }
-
-        RenderableObjectDefinition definition = _definitions[definitionIndex];
-        Asset_Material material = definition.Material;
-        int meshVao = definition.RuntimeMesh.Vao;
-        int indicesCount = definition.RuntimeMesh.Mesh.Indices.Length;
-        int numberOfObjects = groupBufferData.NumberOfObjects;
 
         // GL.Enable(EnableCap.DepthTest);
         if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
@@ -276,10 +276,11 @@ public class InstancedRenderingSystem
         // dont render depth for transparent objects
         // return;
         // }
-
+    
 
         Tofu.ShaderManager.BindVertexArray(meshVao);
         GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+
 
         if (RenderingSettings.USE_INDICES)
         {
@@ -381,6 +382,8 @@ public class InstancedRenderingSystem
 
     private void SetMaterialSpecificUniforms(Asset_Material material)
     {
+        material.Shader.SetInt("u_materialType", (int)material.MaterialType);
+        
         material.Shader.SetColor("u_albedoTint", material.AlbedoTint);
         // material.Shader.SetVector2("u_tiling", new Vector2(-1, -1)); //grass block
         material.Shader.SetVector2("u_tiling", material.Tiling); // normal 
@@ -686,57 +689,70 @@ public class InstancedRenderingSystem
 
         GL.BindBuffer(BufferTarget.ArrayBuffer, groupBufferData.Vbo);
 
-        // unique attribs for each instance
-        GL.EnableVertexAttribArray(5);
-        GL.EnableVertexAttribArray(6);
-        GL.EnableVertexAttribArray(7);
-        GL.EnableVertexAttribArray(8);
-        GL.EnableVertexAttribArray(9);
-
-        // https://stackoverflow.com/a/28597384
-        //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
-        int offset = 0;
-        GL.VertexAttribPointer(5, 3, VertexAttribPointerType.Float, false,
-            groupBufferData.InstancedVertexDataSizeInBytes,
-            offset);
-        offset += 3 * sizeof(float);
-        GL.VertexAttribPointer(6, 3, VertexAttribPointerType.Float, false,
-            groupBufferData.InstancedVertexDataSizeInBytes,
-            offset);
-        offset += 3 * sizeof(float);
-
-        GL.VertexAttribPointer(7, 3, VertexAttribPointerType.Float, false,
-            groupBufferData.InstancedVertexDataSizeInBytes,
-            offset);
-        offset += 3 * sizeof(float);
-
-        GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
-            groupBufferData.InstancedVertexDataSizeInBytes,
-            offset);
-        offset += 3 * sizeof(float);
-
-        GL.VertexAttribPointer(9, 1, VertexAttribPointerType.Float, false,
-            groupBufferData.InstancedVertexDataSizeInBytes,
-            offset);
-        offset += sizeof(float);
-
-        if (groupBufferData.UVOffsetIsInstanced)
         {
-            GL.EnableVertexAttribArray(10);
-            GL.VertexAttribPointer(10, 2, VertexAttribPointerType.Float, false,
+            // this should be called only once but it simply doesnt work... i need to call GL.VertexAttribPointer every frame
+            // https://stackoverflow.com/a/28597384
+            //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
+            int offset = 0;
+            GL.VertexAttribPointer(5, 3, VertexAttribPointerType.Float, false,
                 groupBufferData.InstancedVertexDataSizeInBytes,
                 offset);
-            offset += 2 * sizeof(float);
+            offset += 3 * sizeof(float);
+            GL.VertexAttribPointer(6, 3, VertexAttribPointerType.Float, false,
+                groupBufferData.InstancedVertexDataSizeInBytes,
+                offset);
+            offset += 3 * sizeof(float);
 
-            GL.VertexAttribDivisor(10, 1);
+            GL.VertexAttribPointer(7, 3, VertexAttribPointerType.Float, false,
+                groupBufferData.InstancedVertexDataSizeInBytes,
+                offset);
+            offset += 3 * sizeof(float);
+
+            GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
+                groupBufferData.InstancedVertexDataSizeInBytes,
+                offset);
+            offset += 3 * sizeof(float);
+
+            GL.VertexAttribPointer(9, 1, VertexAttribPointerType.Float, false,
+                groupBufferData.InstancedVertexDataSizeInBytes,
+                offset);
+            offset += sizeof(float);
+
+            if (groupBufferData.UVOffsetIsInstanced)
+            {
+                GL.VertexAttribPointer(10, 2, VertexAttribPointerType.Float, false,
+                    groupBufferData.InstancedVertexDataSizeInBytes,
+                    offset);
+                offset += 2 * sizeof(float);
+            }
         }
 
-        GL.VertexAttribDivisor(5, 1);
-        GL.VertexAttribDivisor(6, 1);
-        GL.VertexAttribDivisor(7, 1);
-        GL.VertexAttribDivisor(8, 1);
-        GL.VertexAttribDivisor(9, 1);
+        if (groupBufferData.NeedsUpload)
+        {
+            // unique attribs for each instance
+            GL.EnableVertexAttribArray(5);
+            GL.EnableVertexAttribArray(6);
+            GL.EnableVertexAttribArray(7);
+            GL.EnableVertexAttribArray(8);
+            GL.EnableVertexAttribArray(9);
+            if (groupBufferData.UVOffsetIsInstanced)
+            {
+                GL.EnableVertexAttribArray(10);
+            }
+        }
 
+        if (groupBufferData.NeedsUpload)
+        {
+            GL.VertexAttribDivisor(5, 1);
+            GL.VertexAttribDivisor(6, 1);
+            GL.VertexAttribDivisor(7, 1);
+            GL.VertexAttribDivisor(8, 1);
+            GL.VertexAttribDivisor(9, 1);
+            if (groupBufferData.UVOffsetIsInstanced)
+            {
+                GL.VertexAttribDivisor(10, 1);
+            }
+        }
 
         if (groupBufferData.NeedsUpload)
         {
@@ -752,7 +768,7 @@ public class InstancedRenderingSystem
                     sizeof(float) * groupBufferData.Buffer.Length,
                     groupBufferData.Buffer);
             }
-            
+
             groupBufferData.NeedsUpload = false;
         }
 

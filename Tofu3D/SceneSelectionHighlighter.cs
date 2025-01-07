@@ -24,7 +24,6 @@ public class SceneSelectionHighlighter
 
     private void SpawnSelectionBoxGameobjects()
     {
-        return;
         _selectionBoxGameObject =
             GameObject.Create(name: "Selection Box", visibleInHierarchy: false, runtimeOnly: true);
 
