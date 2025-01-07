@@ -48,7 +48,8 @@ public class InstancedGroupBufferData
 
     public void RemoveObject(ObjectInstancingData removedObjectInstancingData)
     {
-        for (var i = 0; i < Buffer.Length - InstancedVertexCountOfFloats; i++)
+        
+        for (var i = removedObjectInstancingData.StartingIndexInBuffer; i < Buffer.Length - InstancedVertexCountOfFloats; i++)
         {
             Buffer[i] = Buffer[i + InstancedVertexCountOfFloats];
         }

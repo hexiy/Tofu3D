@@ -16,6 +16,9 @@ public class ModelRendererInstanced : Renderer
     {
         ObjectInstancingData.InstancingDataDirty = true;
         ObjectInstancingData.MatrixDirty = true;
+        
+        Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData,
+            VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
 
         base.OnEnabled();
     }
@@ -23,7 +26,7 @@ public class ModelRendererInstanced : Renderer
     public override void OnDisabled()
     {
         Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData, remove: true,
-            vertexBufferStructureType: VertexBufferStructureType.Model);
+            vertexBufferStructureType: VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
         base.OnDisabled();
     }
 
