@@ -224,17 +224,17 @@ public class Scene
         GL.Disable(EnableCap.CullFace);
     }
 
-    public void RenderAll()
-    {
-        SetOpenGLState();
-
-        GL.ClearDepth(1000);
-        GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
-        _renderableComponentQueue.RenderAll();
-        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.All);
-
-        RestoreOpenGLState();
-    }
+    // public void RenderAll()
+    // {
+    //     SetOpenGLState();
+    //
+    //     GL.ClearDepth(1000);
+    //     GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+    //     _renderableComponentQueue.RenderAll();
+    //     Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.All);
+    //
+    //     RestoreOpenGLState();
+    // }
 
     public void RenderOpaques()
     {

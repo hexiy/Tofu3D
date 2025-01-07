@@ -86,7 +86,9 @@ public static class MousePickingSystem
 
     static void RenderPassMousePicking()
     {
-        Tofu.SceneManager.CurrentScene.RenderAll();
+        // Tofu.SceneManager.CurrentScene.RenderAll();
+        Tofu.SceneManager.CurrentScene.RenderOpaques();
+        Tofu.SceneManager.CurrentScene.RenderTransparency();
     }
 
     public static unsafe void ReadPixelAtMousePos()

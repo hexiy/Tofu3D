@@ -76,11 +76,11 @@ public class RenderableComponentQueue : IComponentQueue
         _opaqueRenderables.Remove(component);
     }
 
-    public void RenderAll()
-    {
-        RenderOpaques();
-        RenderTransparency();
-    }
+    // public void RenderAll()
+    // {
+    //     RenderOpaques();
+    //     RenderTransparency();
+    // }
 
     public void RenderOpaques()
     {
