@@ -231,15 +231,19 @@ public class Transform : Component
         // 	Tofu.SceneManager.CurrentScene.GetGameObject(ParentId).Transform.RemoveChild(GameObjectId);
         // }
 
+        if (Transform.Parent != null && Transform.Parent != par)
+        {
+            Transform.Parent.RemoveChild(GameObjectId);
+        }
+        Parent = par;
+        ParentId = Parent?.GameObjectId ?? -1;
+
         if (updateTransform)
         {
             Rotation -= par.Transform.Rotation;
             WorldPosition = par.Transform.WorldPosition + (par.Transform.WorldPosition - Transform.WorldPosition);
             //initialAngleDifferenceFromParent = rotation - par.transform.rotation;
         }
-
-        Parent = par;
-        ParentId = Parent?.GameObjectId ?? -1;
 
         if (par != null)
         {
@@ -282,16 +286,16 @@ public class Transform : Component
         direction.Z = (float)(Math.Cos(pitchRadians) * Math.Cos(yawRadians));
         direction.Y = (float)Math.Sin(pitchRadians);
         direction.X = (float)(Math.Cos(pitchRadians) * Math.Sin(yawRadians));
-        
+
         return direction.Normalized();
-        
-        
+
+
         /*var radiansX = rotation.X / 180 * Mathf.Pi;
         var radiansY = rotation.Y / 180 * Mathf.Pi;
         var radiansZ = rotation.Z / 180 * Mathf.Pi;
 
         // Create the transformation matrix based on the rotation
-        var transformationMatrix = 
+        var transformationMatrix =
             Matrix4x4.CreateRotationX(radiansX) *
             Matrix4x4.CreateRotationY(radiansY) *
             Matrix4x4.CreateRotationZ(radiansZ);
