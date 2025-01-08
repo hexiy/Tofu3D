@@ -10,4 +10,5 @@ public enum ViewRenderMode
     Specular = 5,
     Shadows = 6,
     AmbientAlbedo = 7,
+    Depth = 8,
 }

@@ -3,8 +3,8 @@ namespace Tofu3D.Rendering;
 public abstract class RenderPass : IComparable<RenderPass>
 {
     // List<Action> _renderQueue = new List<Action>();
-    private Action _renderAction;
-
+    internal Action _renderAction;
+    public virtual BlendMode BlendMode { get;} = BlendMode.Fade;
     public bool Enabled = true;
 
     protected RenderPass(RenderPassType type)
@@ -95,7 +95,7 @@ public abstract class RenderPass : IComparable<RenderPass>
         // its 1380,
         if (attachment == FramebufferAttachment.Color && MainFramebuffer.TextureId != -1)
         {
-            target.RenderColorAttachmentToThis(MainFramebuffer.TextureId);
+            target.RenderColorAttachmentToThis(MainFramebuffer.TextureId, this.BlendMode);
         }
 
         if (attachment == FramebufferAttachment.Depth && target.DepthTextureId != -1 &&

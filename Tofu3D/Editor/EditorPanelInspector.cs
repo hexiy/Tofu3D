@@ -307,6 +307,11 @@ public class EditorPanelInspector : EditorPanel
             if (staticButtonClicked)
             {
                 gameObject.IsStaticSelf = !gameObject.IsStaticSelf;
+
+                foreach (Transform child in gameObject.Transform.Children)
+                {
+                    child.GameObject.IsStaticSelf = gameObject.IsStaticSelf;
+                }
             }
 
             if (wasStatic)
@@ -655,7 +660,7 @@ public class EditorPanelInspector : EditorPanel
             else
             {
                 Serializer.SaveFileJSON<Asset_Material>(material.PathInLibraryFolder, material);
-                Tofu.AssetImportManager.ImportAsset(material.PathInLibraryFolder, reimportIfExists: true);  
+                Tofu.AssetImportManager.ImportAsset(material.PathInLibraryFolder, reimportIfExists: true);
             }
         }
     }

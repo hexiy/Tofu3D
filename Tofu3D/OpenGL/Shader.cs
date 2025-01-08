@@ -20,6 +20,8 @@ public class
     private const string UniformName_TextureRoughness = "u_roughnessTexture";
     private const string UniformName_TextureMetallic = "u_metallicTexture";
     private const string UniformName_TextureEmissive = "u_emissiveTexture";
+    private const string UniformName_ScreenColor = "u_screenColor";
+    private const string UniformName_DepthMap = "u_depthMap";
 
     private float[] _getMatrix4X4ValuesArray =
     {
@@ -65,6 +67,14 @@ public class
     [XmlIgnore]
     public TextureUnit? EmissiveTextureUnit = null;
 
+    [JsonIgnore]
+    [XmlIgnore]
+    public TextureUnit? ScreenColorUnit = null;
+
+    [JsonIgnore]
+    [XmlIgnore]
+    public TextureUnit? DepthMapUnit = null;
+
     public BufferType BufferType;
 
     public string Path;
@@ -89,6 +99,7 @@ public class
     {
         Path = filePath;
     }
+
     [JsonIgnore]
     [XmlIgnore]
     public bool IsLoaded { get; private set; }
@@ -197,7 +208,9 @@ public class
             UniformName_VerticalBlurTexture,
             UniformName_TextureRoughness,
             UniformName_TextureMetallic,
-            UniformName_TextureEmissive
+            UniformName_TextureEmissive,
+            UniformName_ScreenColor,
+            UniformName_DepthMap
         };
         // AlbedoTextureLocation = GetUniformLocation("textureAlbedo");
         // NormalTextureLocation = GetUniformLocation("textureNormal");
@@ -253,6 +266,12 @@ public class
                         break;
                     case UniformName_TextureEmissive:
                         EmissiveTextureUnit = textureUnit;
+                        break;
+                    case UniformName_ScreenColor:
+                        ScreenColorUnit = textureUnit;
+                        break;
+                    case UniformName_DepthMap:
+                        DepthMapUnit = textureUnit;
                         break;
                 }
 

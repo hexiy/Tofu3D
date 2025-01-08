@@ -239,8 +239,8 @@ public class Scene
     {
         SetOpenGLState();
 
-        GL.ClearDepth(1000);
-        GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+        // GL.ClearDepth(1000);
+        // GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
         _renderableComponentQueue.RenderOpaques();
         Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.Opaque);
 
@@ -251,8 +251,8 @@ public class Scene
     {
         // GL.Disable(EnableCap.CullFace);
 
-        GL.ClearDepth(1000);
-        GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+        // GL.ClearDepth(1000);
+        // GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
         _renderableComponentQueue.RenderTransparency();
         Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.Transparent);
     }

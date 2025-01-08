@@ -227,7 +227,7 @@ public class Framebuffer : ITexture
         Tofu.ShaderManager.BindVertexArray(0);
     }
 
-    public void RenderColorAttachmentToThis(int texture)
+    public void RenderColorAttachmentToThis(int texture, BlendMode blendMode)
     {
         // return;
         // GL.Viewport(0, 0, (int) Size.X, (int) Size.Y);
@@ -240,7 +240,8 @@ public class Framebuffer : ITexture
 
         // GL.Enable(EnableCap.Blend);
         // GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-        RenderingBlendingHelper.SetBlendMode(BlendMode.Fade);
+        RenderingBlendingHelper.SetBlendMode(blendMode);
+        // RenderingBlendingHelper.SetBlendMode(BlendMode.Fade);
 
         GL.ActiveTexture(TextureUnit.Texture0);
         TextureHelper.BindTexture(texture);

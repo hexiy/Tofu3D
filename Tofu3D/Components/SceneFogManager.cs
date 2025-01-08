@@ -8,6 +8,16 @@ public class SceneFogManager
     public SceneFogManager(Scene scene)
     {
         _scene = scene;
+
+        Scene.ComponentAwoken += OnComponentAwoken;
+    }
+
+    private void OnComponentAwoken(Component component)
+    {
+        if (component is Fog)
+        {
+            _fog = component as Fog;
+        }
     }
 
     public bool FogEnabled => _fog?.IsActive == true;
@@ -24,14 +34,4 @@ public class SceneFogManager
 
     public bool IsGradient => _fog.IsGradient;
     public float Intensity => _fog.Intensity;
-
-    // public void Update()
-    // {
-    //     if (_fog == null ||
-    //         _fog?.GameObject?.Id ==
-    //         -1) // id shenanigans for when we delete/create new component, this should be handled globally for every component that references other Components/GameObjects and the references should be nulled, i think
-    //     {
-    //         _fog = _scene.FindComponent<Fog>();
-    //     }
-    // }
 }

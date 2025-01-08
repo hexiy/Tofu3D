@@ -1,4 +1,4 @@
-ö{
+¢	{
   "Shader": {
     "BufferType": 2,
     "Path": "Assets/Shaders/ModelRendererInstanced.glsl"
@@ -42,15 +42,15 @@
   "RenderMode": 0,
   "BlendMode": 0,
   "MaterialType": 0,
+  "IgnoreDepth": false,
+  "NoDepth": false,
   "IsRuntimeCopy": false,
   "DataIsCompressed": false,
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}endererInstanced.mat"
-}
-}
-  "UVOffsetIsInstanced": false,
+}"
+}d": false,
   "RenderMode": 0,
   "BlendMode": 0,
   "IsRuntimeCopy": false,

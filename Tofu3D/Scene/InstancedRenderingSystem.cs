@@ -15,6 +15,40 @@ public class InstancedRenderingSystem
     private Dictionary<int, InstancedGroupBufferData> _objectBufferDatas = new();
     private Asset_Material _mousePickingMaterial;
     private Asset_Material _depthMaterial;
+    // private Asset_Material _customDepthMaterial;
+
+    public InstancedRenderingSystem()
+    {
+        {
+            _mousePickingMaterial = new Asset_Material()
+            {
+                Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
+                    "ModelMousePicking.glsl"))
+            };
+            _mousePickingMaterial.LoadShader();
+        }
+
+        {
+            _depthMaterial = new Asset_Material()
+            {
+                Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
+                    "ModelRendererInstancedDepth.glsl"))
+            };
+
+            _depthMaterial.LoadShader();
+        }
+
+
+        // {
+        //     _customDepthMaterial = new Asset_Material()
+        //     {
+        //         Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
+        //             "ModelRendererInstancedCustomDepth.glsl"))
+        //     };
+        //
+        //     _customDepthMaterial.LoadShader();
+        // }
+    }
 
     private int GetOrCreateGroupByShader(Shader shader)
     {
@@ -67,16 +101,6 @@ public class InstancedRenderingSystem
         // if mousepicking or depth, we set the shader first for all shadergroups
         if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
         {
-            if (_mousePickingMaterial == null)
-            {
-                _mousePickingMaterial = new Asset_Material()
-                {
-                    Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
-                        "ModelMousePicking.glsl"))
-                };
-                _mousePickingMaterial.LoadShader();
-            }
-
             // _mousePickingMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("ModelMousePicking.mat");
             Tofu.ShaderManager.UseShader(_mousePickingMaterial.Shader);
 
@@ -87,18 +111,6 @@ public class InstancedRenderingSystem
         else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
                  or RenderPassType.ZPrePass)
         {
-            if (_depthMaterial == null)
-            {
-                _depthMaterial = new Asset_Material()
-                {
-                    Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
-                        "ModelRendererInstancedDepth.glsl"))
-                };
-
-                _depthMaterial.LoadShader();
-            }
-
-
             Tofu.ShaderManager.UseShader(_depthMaterial.Shader);
 
             // not material-dependent
@@ -210,16 +222,11 @@ public class InstancedRenderingSystem
         int indicesCount = definition.RuntimeMesh.Mesh.Indices.Length;
         int numberOfObjects = groupBufferData.NumberOfObjects;
 
-        // if (material == TransformHandle.I?.ModelRendererX?.Material)
-        // {
-        //     GL.Disable(EnableCap.DepthTest);
-        // }
-        // else
-        // {
-        //     GL.Enable(EnableCap.DepthTest);
-        // }
+        if (material.IgnoreDepth)
+        {
+            GL.Disable(EnableCap.DepthTest);
+        }
 
-        // GL.Enable(EnableCap.DepthTest);
         if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
         {
             RenderObjects_MousePickingPass(meshVao: meshVao, numberOfObjects: numberOfObjects,
@@ -230,9 +237,12 @@ public class InstancedRenderingSystem
         else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
                  or RenderPassType.ZPrePass)
         {
-            RenderObjects_DepthPasses(meshVao: meshVao, numberOfObjects: numberOfObjects,
-                indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
-                material: material, vbo: groupBufferData.Vbo);
+            if (material.NoDepth == false)
+            {
+                RenderObjects_DepthPasses(meshVao: meshVao, numberOfObjects: numberOfObjects,
+                    indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
+                    material: material, vbo: groupBufferData.Vbo);
+            }
         }
 
         else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
@@ -243,14 +253,20 @@ public class InstancedRenderingSystem
                 material: material, vbo: groupBufferData.Vbo);
         }
 
+        Tofu.ShaderManager.BindVertexArray(0);
+        if (material.IgnoreDepth)
+        {
+            GL.Enable(EnableCap.DepthTest);
+        }
+
         ImGuiController.CheckGlError("instanced rendering error");
     }
 
     private void RenderObjects_MousePickingPass(int meshVao, int numberOfObjects, int indicesCount, int verticesCount,
         int vbo)
     {
-        Tofu.ShaderManager.BindVertexArray(meshVao);
-        GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+        // Tofu.ShaderManager.BindVertexArray(meshVao);
+        // GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
 
         if (RenderingSettings.USE_INDICES)
@@ -271,15 +287,20 @@ public class InstancedRenderingSystem
     private void RenderObjects_DepthPasses(int meshVao, int numberOfObjects, int indicesCount, int verticesCount,
         Asset_Material material, int vbo)
     {
+        // if (material.CustomRenderQueue != null)
+        // {
+        //     Tofu.ShaderManager.UseShader(_customDepthMaterial.Shader);
+        //     _customDepthMaterial.Shader.SetFloat("u_customRenderQueue", material.CustomRenderQueue.Value);
+        // }
         // if (material.RenderMode == RenderMode.Transparent)
         // {
         // dont render depth for transparent objects
         // return;
         // }
-    
 
-        Tofu.ShaderManager.BindVertexArray(meshVao);
-        GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+
+        // Tofu.ShaderManager.BindVertexArray(meshVao);
+        // GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
 
         if (RenderingSettings.USE_INDICES)
@@ -295,6 +316,11 @@ public class InstancedRenderingSystem
             GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, verticesCount,
                 numberOfObjects);
         }
+
+        // if (material.CustomRenderQueue != null)
+        // {
+        // Tofu.ShaderManager.UseShader(_depthMaterial.Shader);
+        // }
     }
 
     private void RenderObjects_Opaques_UI_Transparency(int meshVao, int numberOfObjects, int indicesCount,
@@ -305,9 +331,9 @@ public class InstancedRenderingSystem
 
         RenderingBlendingHelper.SetBlendMode(material.BlendMode);
 
-        Tofu.ShaderManager.BindVertexArray(meshVao);
+        // Tofu.ShaderManager.BindVertexArray(meshVao);
+        // GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
-        GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
         if (RenderingSettings.USE_INDICES)
         {
             if (indicesCount > 0)
@@ -325,6 +351,9 @@ public class InstancedRenderingSystem
 
     private void SetGlobalUniforms(Shader shader)
     {
+        shader.SetFloat("u_cameraFrustumLength",
+            Camera.MainCamera.FarPlaneDistance - Camera.MainCamera.NearPlaneDistance);
+        
         shader.SetFloat("u_renderMode",
             (int)Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
 
@@ -383,7 +412,7 @@ public class InstancedRenderingSystem
     private void SetMaterialSpecificUniforms(Asset_Material material)
     {
         material.Shader.SetInt("u_materialType", (int)material.MaterialType);
-        
+
         material.Shader.SetColor("u_albedoTint", material.AlbedoTint);
         // material.Shader.SetVector2("u_tiling", new Vector2(-1, -1)); //grass block
         material.Shader.SetVector2("u_tiling", material.Tiling); // normal 
@@ -773,6 +802,6 @@ public class InstancedRenderingSystem
         }
 
 
-        Tofu.ShaderManager.BindVertexArray(0);
+        // Tofu.ShaderManager.BindVertexArray(0);
     }
 }

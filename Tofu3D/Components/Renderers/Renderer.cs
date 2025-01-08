@@ -3,10 +3,11 @@
 namespace Scripts;
 
 [ExecuteInEditMode]
-public abstract class Renderer : Component, IComparable<Renderer>, IComponentRenderable, IComponentUpdateable,
+public abstract class Renderer : Component, IComponentRenderable, IComponentUpdateable,
     IHasMaterial
 {
-    public uint MousePickingId; // => (uint)this.GameObjectId;
+    public uint MousePickingId = 0; // => (uint)this.GameObjectId;
+    public bool MousePickingEnabled = true;
 
     [Hide]
     public bool AutomaticallyFindBoxShape = true;
@@ -36,7 +37,8 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
 
     [XmlIgnore]
     public Matrix4x4 LatestModelViewProjection { get; private set; }
-  [XmlIgnore]
+
+    [XmlIgnore]
     public Matrix4x4 LatestModelMatrix { get; private set; }
 
     [Hide]
@@ -114,21 +116,37 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
         }
     }
 
-    public int CompareTo(Renderer comparePart)
-    {
-        // A null value means that this object is greater.
-        if (comparePart == null)
-        {
-            return 1;
-        }
+    // public int CompareTo(IComponentRenderable? other)
+    // {
+    //     // A null value means that this object is greater.
+    //     if (other == null)
+    //     {
+    //         return 1;
+    //     }
+    //
+    //     // return (GameObject.IndexInHierarchy * 1e-15f + Layer).CompareTo(comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer);
+    //     // return (comparePart.DistanceFromCamera + (comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer)).CompareTo(DistanceFromCamera + (GameObject.IndexInHierarchy * 1e-15f + Layer));
+    //     return (other.RenderOrder).CompareTo(
+    //         this.RenderOrder);
+    //
+    //     //return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
+    // }
 
-        // return (GameObject.IndexInHierarchy * 1e-15f + Layer).CompareTo(comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer);
-        // return (comparePart.DistanceFromCamera + (comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer)).CompareTo(DistanceFromCamera + (GameObject.IndexInHierarchy * 1e-15f + Layer));
-        return (comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer).CompareTo(
-            GameObject.IndexInHierarchy * 1e-15f + Layer);
-
-        //return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
-    }
+    // public int CompareTo(Renderer comparePart)
+    // {
+    //     // A null value means that this object is greater.
+    //     if (comparePart == null)
+    //     {
+    //         return 1;
+    //     }
+    //
+    //     // return (GameObject.IndexInHierarchy * 1e-15f + Layer).CompareTo(comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer);
+    //     // return (comparePart.DistanceFromCamera + (comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer)).CompareTo(DistanceFromCamera + (GameObject.IndexInHierarchy * 1e-15f + Layer));
+    //     return (comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer).CompareTo(
+    //         GameObject.IndexInHierarchy * 1e-15f + Layer);
+    //
+    //     //return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
+    // }
 
     public abstract void Render();
 
@@ -182,7 +200,10 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
 // }
     public override void Awake()
     {
-        MousePickingId = MousePickingSystem.RegisterObject(this);
+        if (MousePickingEnabled)
+        {
+            MousePickingId = MousePickingSystem.RegisterObject(this);
+        }
 
         if (AutomaticallyFindBoxShape)
         {
@@ -284,46 +305,46 @@ public abstract class Renderer : Component, IComparable<Renderer>, IComponentRen
 // 	return scale * Matrix4x4.Identity * pivot * rotation * translation * Matrix4x4.CreateScale(Units.OneWorldUnit);
 // }
 
-    public Matrix4x4 GetMvpForOutline()
-    {
-        // float outlineThickness = 0.002f * ((float) MathHelper.Sin(Time.EditorElapsedTime * 2) + 1.3f) * DistanceFromCamera * BoxShape.Size.Length();
-        var outlineThickness = 0.002f * ((float)MathHelper.Sin(Time.EditorElapsedTime * 2) + 1.3f) *
-                               BoxShape.Size.Length();
-        // float outlineThickness = 0.04f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime*5)),0) * DistanceFromCamera * 0.3f;
-        var translation = Matrix4x4.CreateTranslation(Transform.WorldPosition +
-                                                      BoxShape.Offset * Transform.WorldScale +
-                                                      GameObject.IndexInHierarchy * Vector3.One * 0.0001f);
+    // public Matrix4x4 GetMvpForOutline()
+    // {
+    //     // float outlineThickness = 0.002f * ((float) MathHelper.Sin(Time.EditorElapsedTime * 2) + 1.3f) * DistanceFromCamera * BoxShape.Size.Length();
+    //     var outlineThickness = 0.002f * ((float)MathHelper.Sin(Time.EditorElapsedTime * 2) + 1.3f) *
+    //                            BoxShape.Size.Length();
+    //     // float outlineThickness = 0.04f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime*5)),0) * DistanceFromCamera * 0.3f;
+    //     var translation = Matrix4x4.CreateTranslation(Transform.WorldPosition +
+    //                                                   BoxShape.Offset * Transform.WorldScale +
+    //                                                   GameObject.IndexInHierarchy * Vector3.One * 0.0001f);
+    //
+    //     var scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale + new Vector3(outlineThickness));
+    //
+    //     return scale * IdentityPivotRotationMatrix * translation * Camera.MainCamera.ViewMatrix *
+    //            Camera.MainCamera.ProjectionMatrix;
+    // }
 
-        var scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale + new Vector3(outlineThickness));
-
-        return scale * IdentityPivotRotationMatrix * translation * Camera.MainCamera.ViewMatrix *
-               Camera.MainCamera.ProjectionMatrix;
-    }
-
-    public Matrix4x4 GetCanvasMvpForOutline()
-    {
-        ///////////////////////////
-        var worldPositionPivotOffset = BoxShape.Size * Transform.WorldScale * (Vector3.One - Transform.Pivot * 2);
-
-        var pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
-        var translation =
-            Matrix4x4.CreateTranslation(Transform.WorldPosition - Camera.MainCamera.Size / 2 +
-                                        BoxShape.Offset * Transform.WorldScale +
-                                        GameObject.IndexInHierarchy * Vector3.One * 0.0001f) *
-            Matrix4x4.CreateScale(1, 1, 1);
-
-        var rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
-            -Transform.WorldRotation.X / 180 * Mathf.Pi,
-            -Transform.WorldRotation.Z / 180 * Mathf.Pi);
-
-        var outlineThickness = 1 * ((float)MathHelper.Sin(Time.EditorElapsedTime * 7) + 1.3f);
-        // float outlineThickness = 0.04f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime*5)),0) * DistanceFromCamera * 0.3f;
-        var scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale + Vector3.One * outlineThickness);
-
-        return scale * Matrix4x4.Identity * pivot * rotation * translation *
-               Matrix4x4.CreateScale(2f / Camera.MainCamera.Size.X, 2f / Camera.MainCamera.Size.Y, 0) *
-               Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
-    }
+    // public Matrix4x4 GetCanvasMvpForOutline()
+    // {
+    //     ///////////////////////////
+    //     var worldPositionPivotOffset = BoxShape.Size * Transform.WorldScale * (Vector3.One - Transform.Pivot * 2);
+    //
+    //     var pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
+    //     var translation =
+    //         Matrix4x4.CreateTranslation(Transform.WorldPosition - Camera.MainCamera.Size / 2 +
+    //                                     BoxShape.Offset * Transform.WorldScale +
+    //                                     GameObject.IndexInHierarchy * Vector3.One * 0.0001f) *
+    //         Matrix4x4.CreateScale(1, 1, 1);
+    //
+    //     var rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
+    //         -Transform.WorldRotation.X / 180 * Mathf.Pi,
+    //         -Transform.WorldRotation.Z / 180 * Mathf.Pi);
+    //
+    //     var outlineThickness = 1 * ((float)MathHelper.Sin(Time.EditorElapsedTime * 7) + 1.3f);
+    //     // float outlineThickness = 0.04f * Mathf.ClampMin(MathHelper.Abs((float) MathHelper.Sin(Time.EditorElapsedTime*5)),0) * DistanceFromCamera * 0.3f;
+    //     var scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale + Vector3.One * outlineThickness);
+    //
+    //     return scale * Matrix4x4.Identity * pivot * rotation * translation *
+    //            Matrix4x4.CreateScale(2f / Camera.MainCamera.Size.X, 2f / Camera.MainCamera.Size.Y, 0) *
+    //            Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix;
+    // }
 
     public Vector4 GetSize() =>
         new(BoxShape.Size.X * Transform.LocalScale.X, BoxShape.Size.Y * Transform.LocalScale.Y, 1, 1);

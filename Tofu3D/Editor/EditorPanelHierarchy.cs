@@ -465,7 +465,7 @@ public class EditorPanelHierarchy : EditorPanel
                     currentGameObject.IndexInHierarchy + (after ? 1 : 0) - (x ? 1 : 0),
                     droppedGameObject);
 
-                droppedGameObject.Transform.SetParent(currentGameObject.Transform.Parent);
+                // droppedGameObject.Transform.SetParent(currentGameObject.Transform.Parent);
 
                 Tofu.SceneManager.CurrentScene.UpdateGameobjectsIndexInHierarchy();
             }

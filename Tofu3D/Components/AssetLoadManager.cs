@@ -82,7 +82,11 @@ public class AssetLoadManager
         string tempFileName =
             Folders.GetPathRelativeToProjectFolder(
                 TofuPath.Combine(folder, Guid.NewGuid().ToString()) + ".temp");
-        Tofu.AssetLoadManager.Save<T>(tempFileName, asset: original);
+        
+        Serializer.SaveFileJSON<T>(tempFileName,original);
+
+        // for some reason   Tofu.AssetLoadManager.Save doesnt work it overwrites the assets....
+        // Tofu.AssetLoadManager.Save<T>(tempFileName, asset: original);
         T runtimeCopy =
             Tofu.AssetLoadManager.Load<T>(tempFileName, null, false);
         runtimeCopy.PathInLibraryFolder = tempFileName;

@@ -71,6 +71,7 @@ uniform vec3 u_directionalLightDirection;
 uniform float u_smoothness;
 uniform float u_metallic;
 uniform float u_renderMode = 0;
+uniform float u_cameraFrustumLength = 100;
 
 uniform int u_materialType;
 uniform int u_hasAlbedoTexture;
@@ -83,6 +84,16 @@ uniform int u_hasMetallicTexture;
 uniform int u_hasRoughnessTexture;
 uniform int u_directionalLightEnabled;
 uniform int u_smoothShadows;
+
+//////////////////// FOG
+uniform float u_fogEnabled = 0;
+uniform vec4 u_fogColor = vec4(0, 0, 0, 1);
+uniform vec4 u_fogColor2 = vec4(0, 0, 0, 1);
+uniform float u_fogStartDistance = 0;
+uniform float u_fogEndDistance = 1;
+uniform float u_fogPositionY = 0;
+uniform float u_fogGradientSmoothness = 1;
+uniform float u_fogIntensity = 1;
 
 uniform sampler2D u_albedoTexture;
 uniform sampler2D u_alphaMaskTexture;
@@ -244,17 +255,17 @@ void main() {
 	if (u_hasAlbedoTexture == 1) {
 		albedo *= texture(u_albedoTexture, uvCoords);
 	}
-	if(u_materialType==1){
+	if (u_materialType == 1) {
 		if (albedo.a < 0.9) {
 			discard;
 		}
 		fragColor = albedo;
-	
+
 		return;
 	}
-	
+
 	vec3 baseColor = albedo.rgb; // Separate out RGB only
-	
+
 	// Normal Mapping
 	vec3 finalNormalTangentSpace = normalize(TBN * normalWorldSpace);
 	if (u_hasNormalTexture == 1) {
@@ -317,10 +328,10 @@ void main() {
 
 	// Specular Highlights
 	vec3 H = normalize(viewDir + correctedLightDir); // Halfway vector
-	vec3 F0 = mix(vec3(0.04), baseColor, metallicValue*5); // Base reflectance (metallic or dielectric)
+	vec3 F0 = mix(vec3(0.04), baseColor, metallicValue * 5); // Base reflectance (metallic or dielectric)
 	vec3 specular = SpecularReflectionGGX(normalWorldSpace, viewDir, correctedLightDir, H, F0, 5);
-	specular = specular * u_directionalLightColor.rgb * u_directionalLightColor.a*5;
-//specular = vec3(1);
+	specular = specular * u_directionalLightColor.rgb * u_directionalLightColor.a * 5;
+	//specular = vec3(1);
 
 
 	// Shadows
@@ -369,6 +380,35 @@ void main() {
 	// Emissive Lighting (if available)
 	if (u_hasEmissiveTexture == 1) {
 		color += texture(u_emissiveTexture, uvCoords).rgb * baseColor;
+	}
+
+	if (u_fogEnabled == 1)
+	{
+		float distanceToVertex = distance(u_camPosWorldSpace.xyz, vertexPositionWorld.xyz);
+//		float distanceToVertex = distance(u_camPosWorldSpace.xz, vertexPositionWorld.xz); // no y axis fog
+		float fogFactor = 0;
+		if (distanceToVertex > u_fogStartDistance) {
+			fogFactor = (distanceToVertex) - u_fogStartDistance;
+		}
+
+		fogFactor = fogFactor / (u_fogEndDistance - u_fogStartDistance);
+		fogFactor = clamp(fogFactor, 0, 1);
+
+		float gradientStep = (vertexPositionWorld.y - u_fogPositionY) / u_fogGradientSmoothness;
+
+		gradientStep = clamp(gradientStep, 0, 1);
+		//        gradientStep = 1/gradientStep;
+
+		vec4 finalFogColor = mix(vec4(u_fogColor2.rgb * u_fogColor2.a, u_fogColor2.a), vec4(u_fogColor.rgb * u_fogColor.a, u_fogColor.a), gradientStep);
+
+		//        float density = 0.000009;
+		//fogFactor = 1- exp(-density*density*distanceToVertex*distanceToVertex);
+		//fogFactor = clamp(fogFactor, 0,1);
+		fogFactor = fogFactor * u_fogIntensity * finalFogColor.a;
+		
+		fogFactor = pow(fogFactor, 5);
+
+		color.rgb = mix(color.rgb, finalFogColor.rgb, fogFactor);
 	}
 
 	// Final Conversion to SRGB
@@ -436,5 +476,12 @@ void main() {
 	else if (u_renderMode == 7) // ambient+albedo
 	{
 		fragColor = vec4(ambient, 1);
+	}
+	else if (u_renderMode == 8) // depth
+	{
+		float z = gl_FragCoord.z / gl_FragCoord.w;
+		fragColor = vec4(vec3(z / u_cameraFrustumLength), 1);
+		//		float z = gl_FragCoord.w ;
+		//		fragColor = vec4(vec3(z),1);
 	}
 }

@@ -25,6 +25,11 @@ public static class MousePickingSystem
         return col;
     }
 
+    public static void RemoveObject(Renderer renderer)
+    {
+        _renderers.Remove(renderer.MousePickingId);
+    }
+
     // public static uint GetColor(Renderer renderer)
     // {
     // 	string timerName = $"PickingSystem GetColor w {_renderers.Count} renderers";

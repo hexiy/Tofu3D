@@ -41,6 +41,8 @@ public class Asset_Material : Asset<Asset_Material>
     public RenderMode RenderMode = RenderMode.Opaque;
     public BlendMode BlendMode = BlendMode.Opaque;
     public MaterialType MaterialType = MaterialType.Lit;
+    public bool IgnoreDepth = false;
+    public bool NoDepth = false;
 
     public override int GetHashCode()
     {
