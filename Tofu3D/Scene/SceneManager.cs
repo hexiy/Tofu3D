@@ -6,7 +6,6 @@ namespace Tofu3D;
 public class SceneManager
 {
     public Scene CurrentScene { get; private set; }
-    public static Action SceneLoaded = () => { };
 
     // public PersistentObject<string> LastOpenedScene = ("lastOpenedScene", "Assets/Scenes/scene1.scene");
     public string LastOpenedSceneName
@@ -92,7 +91,7 @@ public class SceneManager
 
         CurrentScene.CreateDefaultObjects();
 
-        SceneLoaded.Invoke();
+        Scene.SceneLoaded.Invoke();
         Debug.EndAndLogTimer("LoadScene");
 
         LastOpenedSceneName = Path.GetFileName(path);

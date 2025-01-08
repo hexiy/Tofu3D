@@ -76,6 +76,11 @@ public partial class TransformHandle : Component, IComponentUpdateable
             }
         }
 
+        if (hoveringAny)
+        {
+            Debug.Log("Hovering transformhandle");
+        }
+
         if (hoveringAny && Tofu.MouseInput.ButtonPressed())
         {
             Interacting = true;

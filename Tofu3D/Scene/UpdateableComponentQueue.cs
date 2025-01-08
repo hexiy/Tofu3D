@@ -9,7 +9,7 @@ public class UpdateableComponentQueue : IComponentQueue
         Scene.ComponentEnabled += OnComponentEnabled;
         Scene.ComponentDisabled += OnComponentDisabled;
         Scene.SceneStartedDisposing += OnSceneStartedDisposing;
-        Scene.SceneDisposed += OnSceneDisposed;
+        Scene.SceneLoaded += OnSceneLoaded;
     }
 
     public void OnComponentEnabled(Component component)
@@ -28,7 +28,7 @@ public class UpdateableComponentQueue : IComponentQueue
         }
     }
 
-    private void OnSceneDisposed()
+    private void OnSceneLoaded()
     {
         Scene.ComponentEnabled += OnComponentEnabled;
         Scene.ComponentDisabled += OnComponentDisabled;

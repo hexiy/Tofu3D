@@ -163,7 +163,7 @@ public class Window : GameWindow
         // WindowState = WindowState.Fullscreen;
         WindowState = WindowState.Maximized;
 
-        SceneManager.SceneLoaded += () => { Title = WindowTitleText; };
+        Scene.SceneLoaded += () => { Title = WindowTitleText; };
 
         Focus();
 

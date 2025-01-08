@@ -19,7 +19,7 @@ public static class MousePickingSystem
     {
         // MousePickingObject mousePickingObject = new MousePickingObject() {Renderer = renderer, Color = GetFreeColor()};
         uint col = GetFreeColor();
-        // Debug.Log($"registered mouse picking object with color {col}:rgba:{new Color(col)}");
+        // Debug.Log($"registered mouse picking object with color {col}:rgba:{new Color(col)}, {col}");
         _renderers[col] = renderer;
         // _renderers.Add(mousePickingObject);
         return col;
@@ -69,6 +69,14 @@ public static class MousePickingSystem
     private static uint GetFreeColor()
     {
         return (uint)_renderers.Count + 1;
+        /*byte r = (byte)Random.Range(0, 256);
+        byte g = (byte)Random.Range(0, 256);
+        byte b = (byte)Random.Range(0, 256);
+        byte a = 255; // Ensure alpha is always 255 (fully opaque)
+
+        // Pack the RGBA values into a single uint
+        return (uint)(a << 24 | r << 16 | g << 8 | b);*/
+        
         // int r = (int) Mathf.ClampMax(_renderers.Count, 255);
         // int g = (int) Mathf.ClampMax(_renderers.Count % 255 - r, 255);
         // int b = (int) Mathf.ClampMax((_renderers.Count % 255) % 255 - r - g, 255);
@@ -94,7 +102,6 @@ public static class MousePickingSystem
         // Tofu.SceneManager.CurrentScene.RenderAll();
         Tofu.SceneManager.CurrentScene.RenderOpaques();
         Tofu.SceneManager.CurrentScene.RenderTransparency();
-        ReadPixelAtMousePos();
     }
 
     public static unsafe void ReadPixelAtMousePos()
@@ -105,7 +112,6 @@ public static class MousePickingSystem
         {
             return;
         }
-
 
         GL.ReadPixels((int)Tofu.MouseInput.PositionInView.X * Screen.ScaleI,
             (int)Tofu.MouseInput.PositionInView.Y * Screen.ScaleI, 1, 1,
@@ -128,13 +134,20 @@ public static class MousePickingSystem
         {
             _lastPixel = _currentPixel;
             HoveredRenderer = GetRenderer(_currentPixel); // only find renderer if we're hovering a different color
+            
+            // byte a = (byte)((_currentPixel >> 24) & 0xFF);
+            // byte r = (byte)((_currentPixel >> 16) & 0xFF);
+            // byte g = (byte)((_currentPixel >> 8) & 0xFF);
+            // byte b = (byte)(_currentPixel & 0xFF);
+            // Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
+            
             // Color color = new Color(_pixels);
             // Debug.Log($"picking pixel changed to {_currentPixel}");
 
 
             if (HoveredRenderer != null)
             {
-                Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
+                // Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
             }
         }
 
@@ -147,8 +160,8 @@ public static class MousePickingSystem
             {
                 Tofu.GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObject);
             }
-            else if(HoveredRenderer==null)
-            // else if(HoveredRenderer?.GameObjectId!=TransformHandle.I.GameObjectId) // if we're dragging transformhandle we dont want to deselect anything
+            else if (HoveredRenderer == null)
+                // else if(HoveredRenderer?.GameObjectId!=TransformHandle.I.GameObjectId) // if we're dragging transformhandle we dont want to deselect anything
             {
                 Tofu.GameObjectSelectionManager.Deselect();
             }

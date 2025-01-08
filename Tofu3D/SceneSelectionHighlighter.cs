@@ -7,11 +7,11 @@ public class SceneSelectionHighlighter
 {
     private GameObject _selectionBoxGameObject;
     private List<GameObject> _selectedGameObjects = new List<GameObject>();
-
+    
     public void Init()
     {
         GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
-        SceneManager.SceneLoaded += SpawnSelectionBoxGameobjects;
+        Scene.SceneLoaded += SpawnSelectionBoxGameobjects;
         SpawnSelectionBoxGameobjects();
     }
 
@@ -38,6 +38,7 @@ public class SceneSelectionHighlighter
 
         modelRenderer.Material = runtimeMaterial;
         modelRenderer.Material.NoDepth = true;
+        modelRenderer.Material.IgnoreDepth = true;
 
         PremadeComponentSetupsHelper.PrepareCube(modelRenderer);
 

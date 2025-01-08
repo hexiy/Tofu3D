@@ -37,14 +37,14 @@ public class RenderPassMousePicking : RenderPass
 
     protected override void PreBindFrameBuffer()
     {
-        // GL.Enable(EnableCap.DepthTest);
+        // GL.Disable(EnableCap.DepthTest);
 
-        GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassZPrePass.I.MainFramebuffer.FrameBufferID);
-        GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, MainFramebuffer.FrameBufferID);
-        var sizeX = (int)MainFramebuffer.Size.X;
-        var sizeY = (int)MainFramebuffer.Size.Y;
-        GL.BlitFramebuffer(0, 0, sizeX, sizeY, 0, 0, sizeX, sizeY, ClearBufferMask.DepthBufferBit,
-            BlitFramebufferFilter.Nearest);
+        // GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassZPrePass.I.MainFramebuffer.FrameBufferID);
+        // GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, MainFramebuffer.FrameBufferID);
+        // var sizeX = (int)MainFramebuffer.Size.X;
+        // var sizeY = (int)MainFramebuffer.Size.Y;
+        // GL.BlitFramebuffer(0, 0, sizeX, sizeY, 0, 0, sizeX, sizeY, ClearBufferMask.DepthBufferBit,
+        //     BlitFramebufferFilter.Nearest);
 
 
         base.PreBindFrameBuffer();
@@ -53,7 +53,16 @@ public class RenderPassMousePicking : RenderPass
     protected override void PostRender()
     {
         Debug.StartTimer("Mouse picking pass time");
+        MousePickingSystem.ReadPixelAtMousePos();
         Debug.EndAndStatTimer("Mouse picking pass time");
         base.PostRender();
     }
+
+    // protected override void PostUnbindFrameBuffer()
+    // {
+    //     Debug.StartTimer("Mouse picking pass time");
+    //     MousePickingSystem.ReadPixelAtMousePos();
+    //     Debug.EndAndStatTimer("Mouse picking pass time");
+    //     base.PostRender();
+    // }
 }

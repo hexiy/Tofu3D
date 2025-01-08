@@ -15,7 +15,7 @@ public class RenderableComponentQueue : IComponentQueue
         Scene.ComponentDisabled += OnComponentDisabled;
 
         Scene.SceneStartedDisposing += OnSceneStartedDisposing;
-        Scene.SceneDisposed += OnSceneDisposed;
+        Scene.SceneLoaded += OnSceneLoaded;
     }
 
     public void OnComponentEnabled(Component component)
@@ -54,7 +54,7 @@ public class RenderableComponentQueue : IComponentQueue
         }
     }
 
-    private void OnSceneDisposed()
+    private void OnSceneLoaded()
     {
         Scene.ComponentEnabled += OnComponentEnabled;
         Scene.ComponentDisabled += OnComponentDisabled;
@@ -70,6 +70,7 @@ public class RenderableComponentQueue : IComponentQueue
     private void ClearList()
     {
         _opaqueRenderables.Clear();
+        _transparentRenderables.Clear();
     }
 
     public void AddComponent(IComponentRenderable component)
@@ -90,6 +91,8 @@ public class RenderableComponentQueue : IComponentQueue
 
     public void RenderOpaques()
     {
+        _opaqueRenderables.Sort();
+
         for (var i = 0; i < _opaqueRenderables.Count; i++)
         {
             _opaqueRenderables[i].Render();
@@ -98,6 +101,7 @@ public class RenderableComponentQueue : IComponentQueue
 
     public void RenderTransparency()
     {
+        _transparentRenderables.Sort();
         for (var i = 0; i < _transparentRenderables.Count; i++)
         {
             _transparentRenderables[i].Render();

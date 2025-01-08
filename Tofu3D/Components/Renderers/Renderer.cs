@@ -1,4 +1,5 @@
-﻿using Tofu3D.Rendering.Instancing;
+﻿using Newtonsoft.Json;
+using Tofu3D.Rendering.Instancing;
 
 namespace Scripts;
 
@@ -45,6 +46,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     public virtual bool CanRender => true; // && Enabled && GameObject.Awoken && GameObject.ActiveInHierarchy;
 
     public RenderMode RenderMode => Material?.RenderMode ?? RenderMode.Opaque;
+    public int RenderOrder { get; set; }
 
     [XmlIgnore]
     public Action CreateCopyOfMaterial
@@ -116,21 +118,21 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
         }
     }
 
-    // public int CompareTo(IComponentRenderable? other)
-    // {
-    //     // A null value means that this object is greater.
-    //     if (other == null)
-    //     {
-    //         return 1;
-    //     }
-    //
-    //     // return (GameObject.IndexInHierarchy * 1e-15f + Layer).CompareTo(comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer);
-    //     // return (comparePart.DistanceFromCamera + (comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer)).CompareTo(DistanceFromCamera + (GameObject.IndexInHierarchy * 1e-15f + Layer));
-    //     return (other.RenderOrder).CompareTo(
-    //         this.RenderOrder);
-    //
-    //     //return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
-    // }
+    public int CompareTo(IComponentRenderable? other)
+    {
+        // A null value means that this object is greater.
+        if (other == null)
+        {
+            return 1;
+        }
+
+        // return (GameObject.IndexInHierarchy * 1e-15f + Layer).CompareTo(comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer);
+        // return (comparePart.DistanceFromCamera + (comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer)).CompareTo(DistanceFromCamera + (GameObject.IndexInHierarchy * 1e-15f + Layer));
+        return (other.RenderOrder).CompareTo(
+            this.RenderOrder);
+
+        //return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
+    }
 
     // public int CompareTo(Renderer comparePart)
     // {
@@ -152,6 +154,11 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 
     public void Update()
     {
+        RenderOrder = GameObject.IndexInHierarchy;
+        if (GameObjectId == TransformHandle.I.GameObjectId)
+        {
+            RenderOrder += 1000;
+        }
         /*if (Material != null && Material.IsValid == false)
         {
             Debug.LogError("Material invalid, reloading");

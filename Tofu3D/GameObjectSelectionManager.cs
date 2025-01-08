@@ -15,12 +15,12 @@ public class GameObjectSelectionManager
 
     public GameObjectSelectionManager()
     {
-        SceneManager.SceneLoaded += SelectLastSelectedGameObject;
+        Scene.SceneLoaded += SelectLastSelectedGameObject;
     }
 
     ~GameObjectSelectionManager()
     {
-        SceneManager.SceneLoaded -= SelectLastSelectedGameObject;
+        Scene.SceneLoaded -= SelectLastSelectedGameObject;
     }
 
     public void SelectGameObject(GameObject go)

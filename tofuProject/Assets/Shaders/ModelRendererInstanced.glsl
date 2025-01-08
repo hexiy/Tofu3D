@@ -11,7 +11,7 @@ layout (location = 5) in vec3 a_model_1;
 layout (location = 6) in vec3 a_model_2;
 layout (location = 7) in vec3 a_model_3;
 layout (location = 8) in vec3 a_model_4;
-layout (location = 9) in int a_id;
+layout (location = 9) in float a_id;
 layout (location = 10) in vec2 a_uv_offset;
 
 uniform mat4 u_viewProjection;
@@ -26,6 +26,7 @@ out mat3 TBN;
 #ifdef UV_OFFSET_IS_INSTANCED
 out vec2 uvOffset;
 #endif
+flat out uint v_id;
 void main(void)
 {
 	mat4 a_model = mat4(vec4(a_model_1, 0), vec4(a_model_2, 0), vec4(a_model_3, 0), vec4(a_model_4, 1));
@@ -36,6 +37,7 @@ void main(void)
     uvOffset = a_uv_offset;
 	#endif
     //color = a_color;
+	v_id = uint(a_id);
 
 	vertexPositionWorld = vec3(a_model * vec4(a_pos.xyz, 1.0));
 	normalWorldSpace = transpose(inverse(mat3(a_model))) * a_normal;
@@ -58,7 +60,7 @@ in vec3 vertexPositionWorld;
 in vec2 uv;
 in vec4 fragPosLightSpace;
 in mat3 TBN;
-
+flat in uint v_id;
 out vec4 fragColor;
 
 // Uniforms
@@ -255,7 +257,7 @@ void main() {
 	if (u_hasAlbedoTexture == 1) {
 		albedo *= texture(u_albedoTexture, uvCoords);
 	}
-	if (u_materialType == 1) {
+	if (u_materialType == 1 && u_renderMode == 0) {
 		if (albedo.a < 0.9) {
 			discard;
 		}
@@ -385,7 +387,7 @@ void main() {
 	if (u_fogEnabled == 1)
 	{
 		float distanceToVertex = distance(u_camPosWorldSpace.xyz, vertexPositionWorld.xyz);
-//		float distanceToVertex = distance(u_camPosWorldSpace.xz, vertexPositionWorld.xz); // no y axis fog
+		//		float distanceToVertex = distance(u_camPosWorldSpace.xz, vertexPositionWorld.xz); // no y axis fog
 		float fogFactor = 0;
 		if (distanceToVertex > u_fogStartDistance) {
 			fogFactor = (distanceToVertex) - u_fogStartDistance;
@@ -405,7 +407,7 @@ void main() {
 		//fogFactor = 1- exp(-density*density*distanceToVertex*distanceToVertex);
 		//fogFactor = clamp(fogFactor, 0,1);
 		fogFactor = fogFactor * u_fogIntensity * finalFogColor.a;
-		
+
 		fogFactor = pow(fogFactor, 5);
 
 		color.rgb = mix(color.rgb, finalFogColor.rgb, fogFactor);
@@ -483,5 +485,14 @@ void main() {
 		fragColor = vec4(vec3(z / u_cameraFrustumLength), 1);
 		//		float z = gl_FragCoord.w ;
 		//		fragColor = vec4(vec3(z),1);
+	}
+	else if (u_renderMode == 9)  // mouse picking
+	{
+		float a = float((v_id >> 24) & 0xFFu) / 255.0; // Extract alpha (highest byte)
+		float r = float((v_id >> 16) & 0xFFu) / 255.0; // Extract red (highest byte)
+		float g = float((v_id >> 8) & 0xFFu) / 255.0;  // Extract green (middle byte)
+		float b = float(v_id & 0xFFu) / 255.0;         // Extract blue (lowest byte)
+
+		fragColor = vec4(r, g, b, a); // RGB color with alpha = 1.0
 	}
 }

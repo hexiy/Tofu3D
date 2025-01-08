@@ -47,7 +47,7 @@ public static class Tofu
     // INPUT
     public static MouseInput MouseInput;
 
-    public static SceneSelectionHighlighter SceneSelectionHighlighter;
+    public static SceneSelectionHighlighter? SceneSelectionHighlighter;
     public static GameObjectSelectionManager GameObjectSelectionManager;
 
     public static ScriptsReloader ScriptsReloader;
@@ -125,8 +125,8 @@ public static class Tofu
 
         MousePickingSystem.Initialize();
 
-        SceneSelectionHighlighter = new SceneSelectionHighlighter();
-        SceneSelectionHighlighter.Init();
+        // SceneSelectionHighlighter = new SceneSelectionHighlighter();
+        // SceneSelectionHighlighter.Init();
 
         GameObjectSelectionManager = new GameObjectSelectionManager();
     }

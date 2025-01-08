@@ -3,7 +3,7 @@
 /// <summary>
 /// Contains data of multiple(instanced together) objects in one buffer
 /// </summary>
-public class InstancedGroupBufferData
+public class SharedBuffer
 {
     public int
         InstancedVertexDataSizeInBytes;

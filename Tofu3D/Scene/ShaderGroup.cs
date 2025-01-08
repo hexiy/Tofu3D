@@ -1,6 +1,6 @@
-namespace Tofu3D;
+namespace Tofu3D.Rendering.Instancing;
 
-public class InstancedRenderingShaderGroup
+public class ShaderGroup
 {
     public List<int> DefinitionIndexes = new List<int>();
     public Shader Shader;

@@ -4,6 +4,7 @@ namespace Tofu3D;
 
 public class Scene
 {
+    public static Action SceneLoaded = () => { };
     public static Action SceneStartedDisposing = () => { };
     public static Action SceneDisposed = () => { };
     public static Action<Component> ComponentAwoken = component => { };

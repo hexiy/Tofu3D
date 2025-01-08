@@ -23,6 +23,8 @@ public class AssetLoadManager
         RegisterAssetLoader(new AssetLoader_Model(), new AssetLoadParameters_Model());
         RegisterAssetLoader(new AssetLoader_RuntimeMesh(), new AssetLoadParameters_RuntimeMesh());
         RegisterAssetLoader(new AssetLoader_AssetMesh(), new AssetLoadParameters_AssetMesh());
+
+        Scene.SceneDisposed += UnloadALl;
     }
 
     private void RegisterAssetLoader(IAssetLoader assetLoader, AssetLoadParametersBase assetLoadParameters)
@@ -227,6 +229,11 @@ public class AssetLoadManager
             // LoadedAssets[id].IsLoaded = false;
             LoadedAssets.Remove(id);
         }
+    }
+
+    public void UnloadALl()
+    {
+        LoadedAssets = new Dictionary<int, object>();
     }
 
     public void Save<T>(string path, T asset, AssetLoadParameters<T>? loadParameters = null)
