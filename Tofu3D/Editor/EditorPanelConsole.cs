@@ -205,7 +205,7 @@ public class EditorPanelConsole : EditorPanel
         if (logsCount > _lastFrameMessagesCount && _wasMaxScrollLastFrame)
             // ImGui.SetScrollY(ImGui.GetScrollMaxY());
         {
-            ImGui.SetScrollY(logsCount * 35);
+            ImGui.SetScrollY(int.MaxValue);
         }
 
         _lastFrameMessagesCount = logsCount;
