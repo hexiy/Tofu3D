@@ -32,7 +32,7 @@ public class EditorDialog
 
     public void Draw()
     {
-        var bgPanelSize = Screen.WindowSize * 1.2f;
+        var bgPanelSize = Screen.Size * 1.2f;
         ImGui.SetNextWindowSize(bgPanelSize, ImGuiCond.Always);
         ImGui.SetNextWindowPos(Screen.Center, ImGuiCond.Always, new Vector2(0.5f, 0.5f));
 
