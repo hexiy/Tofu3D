@@ -221,6 +221,7 @@ public class EditorPanelInspector : EditorPanel
             });
     }
 
+    private int _padding = 0;
     public override void Draw()
     {
         if (Active == false)
@@ -229,15 +230,25 @@ public class EditorPanelInspector : EditorPanel
         }
 
         //WindowWidth = 800;
-        _contentMaxWidth = WindowWidth - (int)ImGui.GetStyle().WindowPadding.X * 1;
         BeginWindowDefault();
 
         ResetId();
+        ImGui.SetScrollX(0);
+        _contentMaxWidth = Size.Xi - (int)ImGui.GetStyle().WindowPadding.X;
+        _padding = (int)ImGui.GetStyle().WindowPadding.X;
+        // Ensure we disable horizontal scrolling and clip overflow
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+        ImGui.PushStyleVar(ImGuiStyleVar.ChildBorderSize, 0);
 
         if (HasInspectableData)
         {
             ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 2);
-            DrawInspectables(_currentInspectableDatas);
+            
+            if (ImGui.BeginChild("InspectorChild", ImGui.GetContentRegionAvail()- new System.Numerics.Vector2(_padding,0), false, ImGuiWindowFlags.NoScrollbar))
+            {
+                DrawInspectables(_currentInspectableDatas); 
+            }
+            
             ImGui.PopStyleVar(1);
 
             if (_refreshQueued)
@@ -261,6 +272,7 @@ public class EditorPanelInspector : EditorPanel
             // }
         }
 
+        ImGui.PopStyleVar(2); // Restore all styles
 
         ImGui.End();
     }
@@ -284,11 +296,9 @@ public class EditorPanelInspector : EditorPanel
         }
 
         _editing = false;
-
         if (gameObject)
         {
             PushNextId();
-            ImGui.SetScrollX(0);
 
             var gameObjectName = gameObject.Name;
             var gameObjectActiveSelf = gameObject.ActiveSelf;
@@ -613,7 +623,7 @@ public class EditorPanelInspector : EditorPanel
                 // info.SetValue(componentInspectorData.InspectableType, obj);
             }
         }
-
+        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
         if (info.FieldOrPropertyType.BaseType == typeof(Enum))
         {
             _inspectorFieldDrawables[typeof(Enum)].Draw(info, componentInspectorData);
@@ -622,6 +632,7 @@ public class EditorPanelInspector : EditorPanel
         {
             if (_inspectorFieldDrawables.ContainsKey(info.FieldOrPropertyType))
             {
+
                 _inspectorFieldDrawables[info.FieldOrPropertyType].Draw(info, componentInspectorData);
             }
         }

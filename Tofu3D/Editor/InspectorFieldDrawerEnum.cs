@@ -17,7 +17,7 @@ public class InspectorFieldDrawerEnum : InspectorFieldDrawable<Enum>
 
         _selectedEnumValueIndex = Array.IndexOf(enumValues, Convert.ToInt32(fieldValue));
 
-        var clicked = ImGui.Combo(fieldValue.ToString(), ref _selectedEnumValueIndex, enumValuesNames,
+        var clicked = ImGui.Combo(string.Empty, ref _selectedEnumValueIndex, enumValuesNames,
             enumValuesNames.Length);
         if (clicked)
         {
