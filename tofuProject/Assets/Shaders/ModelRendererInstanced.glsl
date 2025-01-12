@@ -115,9 +115,9 @@ uniform struct PointLight {
 	float radius;    // 16 bytes (next multiple of 4)
 };
 layout (std140) uniform LightBuffer { // 16kb size limit
-	PointLight u_pointLights[1];
+									  PointLight u_pointLights[1];
 };
-uniform int _pointLightsCount=0;
+uniform int _pointLightsCount = 0;
 
 vec3 calculatePointLightsLighting(vec3 normal, vec3 viewDir, vec3 fragPos) {
 	vec3 result = vec3(0.0);
@@ -127,23 +127,23 @@ vec3 calculatePointLightsLighting(vec3 normal, vec3 viewDir, vec3 fragPos) {
 
 		vec3 lightDir = normalize(light.position - fragPos);
 		float distance = length(light.position - fragPos);
-		
+
 		if (distance > light.radius) {
 			continue;
 		}
-		
-		float attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * distance * distance);
 
-		attenuation *= max(0.0, 1.0 - (distance / light.radius));
-		
+		float attenuation = 1.0 - clamp(distance / light.radius, 0.0, 1.0);
+		attenuation = attenuation * attenuation; // Falloff curve for smoother transition
+
 		float diffuseFactor = max(dot(normal, lightDir), 0.0);
 		vec3 diffuse = diffuseFactor * light.color * light.intensity;
-		
+
 		vec3 halfwayDir = normalize(viewDir + lightDir);
 		float specFactor = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
 		vec3 specular = specFactor * light.color * light.intensity;
 
-		result += attenuation * (diffuse + specular);
+				result += attenuation * (diffuse);
+//		result += attenuation * (diffuse + specular);
 	}
 
 	return result;
@@ -395,6 +395,9 @@ void main() {
 	vec3 lighting = ambient + (diffuse) *
 	(1.0 - shadow);
 
+	vec3 pointLight = calculatePointLightsLighting(normalWorldSpace, viewDir, vertexPositionWorld);
+	lighting += pointLight;
+
 	// Environmental Reflections
 	vec3 reflection = vec3(0.0);
 	//	if (metallicValue > 0.0) {
@@ -477,10 +480,9 @@ void main() {
 	// Final Output
 	if (u_renderMode == 0) // regular
 	{
-		vec3 pointLight = calculatePointLightsLighting(normalWorldSpace, viewDir, vertexPositionWorld);
-		fragColor = vec4(pointLight,1);	
-		
-//		fragColor = vec4(color, alpha);
+		fragColor = vec4(color, 1);
+
+		//		fragColor = vec4(color, alpha);
 	}
 	else if (u_renderMode == 1) // albedo
 	{
