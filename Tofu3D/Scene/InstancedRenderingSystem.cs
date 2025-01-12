@@ -64,11 +64,13 @@ public class InstancedRenderingSystem
     public void ClearBuffers()
     {
         foreach (var pair in _sharedBuffers)
-        { // need to care for left objects that use the same vao
+        {
+            // need to care for left objects that use the same vao
             if (pair.Value.Vao == -1)
             {
                 continue;
             }
+
             Tofu.ShaderManager.BindVertexArray(pair.Value.Vao);
             if (pair.Value.Vbo > 0)
             {
@@ -88,7 +90,6 @@ public class InstancedRenderingSystem
             Tofu.ShaderManager.BindVertexArray(-1);
 
             GL.DeleteVertexArray(pair.Value.Vao);
-
         }
 
         _sharedBuffers = new Dictionary<int, SharedBuffer>();
@@ -225,12 +226,12 @@ public class InstancedRenderingSystem
         {
             GL.Disable(EnableCap.DepthTest);
         }
+
         if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
         {
             RenderObjects_MousePickingPass(meshVao: meshVao, numberOfObjects: numberOfObjects,
                 indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
                 vbo: groupBuffer.Vbo);
-
         }
 
         else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
@@ -251,10 +252,12 @@ public class InstancedRenderingSystem
                 indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
                 material: material, vbo: groupBuffer.Vbo);
         }
+
         if (material.IgnoreDepth || material.NoDepth)
         {
             GL.Enable(EnableCap.DepthTest);
         }
+
         Tofu.ShaderManager.BindVertexArray(0);
 
         ImGuiController.CheckGlError("instanced rendering error");
@@ -349,9 +352,12 @@ public class InstancedRenderingSystem
 
     private void SetGlobalUniforms(Shader shader)
     {
+        Tofu3D.Tofu.LightRenderingManager.BindPointLightsUBO(shader.ProgramId);
+        shader.SetInt("_pointLightsCount", Tofu.LightRenderingManager.PointLightsCount);
+
         shader.SetFloat("u_cameraFrustumLength",
             Camera.MainCamera.FarPlaneDistance - Camera.MainCamera.NearPlaneDistance);
-        
+
         shader.SetFloat("u_renderMode",
             (int)Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
 
@@ -695,7 +701,7 @@ public class InstancedRenderingSystem
         sharedBuffer.Init();
 
         sharedBuffer.Buffer = new float[sharedBuffer.MaxNumberOfObjects *
-                                                    sharedBuffer.InstancedVertexCountOfFloats];
+                                        sharedBuffer.InstancedVertexCountOfFloats];
 
         SetupBufferAndUploadIfNeeded(sharedBuffer);
 

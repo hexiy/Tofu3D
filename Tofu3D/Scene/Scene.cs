@@ -165,6 +165,13 @@ public class Scene
             directionalLight.Intensity = 0.88f;
             directionLightGo.Awake();
         }
+
+        if (FindComponent<PointLight>() == null)
+        {
+            var pointLightGo = GameObject.Create(name: "Point Light");
+            PointLight pointLight = pointLightGo.AddComponent<PointLight>();
+            pointLightGo.Awake();
+        }
     }
 
 

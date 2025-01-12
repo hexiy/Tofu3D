@@ -1,3 +1,5 @@
+namespace Tofu3D;
+
 [ExecuteInEditMode]
 public class DirectionalLight : LightBase
 {

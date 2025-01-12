@@ -30,6 +30,7 @@ public static class Tofu
     public static ShaderManager ShaderManager;
     public static BasicMeshesCollection BasicMeshesCollection;
     public static InstancedRenderingSystem InstancedRenderingSystem;
+    public static LightRenderingManager LightRenderingManager;
 
     // ASSETS
     public static AssetImportManager AssetImportManager;
@@ -109,6 +110,7 @@ public static class Tofu
         AssetImportManager.ImportAllAssets();
 
         InstancedRenderingSystem = new InstancedRenderingSystem();
+        LightRenderingManager = new LightRenderingManager();
 
         RenderPassSystem = new RenderPassSystem();
         RenderPassSystem.Initialize();

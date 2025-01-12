@@ -106,6 +106,48 @@ uniform sampler2D u_shadowmapTexture;
 uniform sampler2D u_emissiveTexture;
 uniform sampler2D u_metallicTexture;
 uniform sampler2D u_roughnessTexture;
+
+
+uniform struct PointLight {
+	vec3 position;   // 12 bytes
+	float intensity; // 16 bytes (next multiple of 4)
+	vec3 color;      // 12 bytes
+	float radius;    // 16 bytes (next multiple of 4)
+};
+layout (std140) uniform LightBuffer { // 16kb size limit
+	PointLight u_pointLights[1];
+};
+uniform int _pointLightsCount=0;
+
+vec3 calculatePointLightsLighting(vec3 normal, vec3 viewDir, vec3 fragPos) {
+	vec3 result = vec3(0.0);
+
+	for (int i = 0; i < _pointLightsCount; i++) {
+		PointLight light = u_pointLights[i];
+
+		vec3 lightDir = normalize(light.position - fragPos);
+		float distance = length(light.position - fragPos);
+		
+		if (distance > light.radius) {
+			continue;
+		}
+		
+		float attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * distance * distance);
+
+		attenuation *= max(0.0, 1.0 - (distance / light.radius));
+		
+		float diffuseFactor = max(dot(normal, lightDir), 0.0);
+		vec3 diffuse = diffuseFactor * light.color * light.intensity;
+		
+		vec3 halfwayDir = normalize(viewDir + lightDir);
+		float specFactor = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
+		vec3 specular = specFactor * light.color * light.intensity;
+
+		result += attenuation * (diffuse + specular);
+	}
+
+	return result;
+}
 float OldShadowCalculation() {
 	// perform perspective divide
 	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
@@ -435,7 +477,10 @@ void main() {
 	// Final Output
 	if (u_renderMode == 0) // regular
 	{
-		fragColor = vec4(color, alpha);
+		vec3 pointLight = calculatePointLightsLighting(normalWorldSpace, viewDir, vertexPositionWorld);
+		fragColor = vec4(pointLight,1);	
+		
+//		fragColor = vec4(color, alpha);
 	}
 	else if (u_renderMode == 1) // albedo
 	{
