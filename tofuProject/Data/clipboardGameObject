@@ -4,13 +4,13 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>2527</Id>
-      <IndexInHierarchy>5</IndexInHierarchy>
+      <Id>2567</Id>
+      <IndexInHierarchy>8</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>sphere</Name>
+      <IsStaticSelf>true</IsStaticSelf>
+      <Name>defaultCube</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -20,26 +20,26 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>2527</GameObjectId>
+      <GameObjectId>2567</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
+      <ParentId>2562</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>5.13</X>
-        <Y>-0.68</Y>
-        <Z>10</Z>
+        <X>2.8682609</X>
+        <Y>-2.1134243</Y>
+        <Z>9.43033</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>5.13</X>
-        <Y>-0.68</Y>
-        <Z>10</Z>
+        <X>1.9566846</X>
+        <Y>-2.6907744</Y>
+        <Z>9.43033</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -59,7 +59,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>2527</GameObjectId>
+      <GameObjectId>2567</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -75,11 +75,11 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>2527</GameObjectId>
+      <GameObjectId>2567</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <MousePickingId>58</MousePickingId>
-      <MousePickingEnabled>true</MousePickingEnabled>
+      <MousePickingId>13</MousePickingId>
+      <MousePickingEnabled>false</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -134,7 +134,7 @@
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>20</Vao>
+        <Vao>5</Vao>
         <Ebo>-1</Ebo>
         <Mesh>
           <CountsOfElements>
@@ -144,13 +144,13 @@
             <int>3</int>
             <int>3</int>
           </CountsOfElements>
-          <VerticesCount>2880</VerticesCount>
-          <Name>sphere.obj_0</Name>
-          <PathInLibraryFolder>Library/Meshes/sphere.obj_0.tofumesh</PathInLibraryFolder>
+          <VerticesCount>36</VerticesCount>
+          <Name>defaultCube.obj_0</Name>
+          <PathInLibraryFolder>Library/Meshes/defaultCube.obj_0.tofumesh</PathInLibraryFolder>
         </Mesh>
       </RuntimeMesh>
       <Layer>0</Layer>
-      <RenderOrder>5</RenderOrder>
+      <RenderOrder>8</RenderOrder>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

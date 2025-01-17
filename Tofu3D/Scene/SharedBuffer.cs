@@ -42,7 +42,6 @@ public class SharedBuffer
         objectInstancingData.StartingIndexInBuffer = GetEmptyIndex();
         ObjectInstancingDatas.Add(objectInstancingData);
         NumberOfObjects++;
-
     }
 
     public void ExpandBuffer()
@@ -122,6 +121,7 @@ public class SharedBuffer
     public void SetupBufferAndUploadIfNeeded()
     {
         Tofu.ShaderManager.BindVertexArray(this.Vao);
+        
 
         var newBuffer = this.Vbo == -1;
         if (newBuffer)
@@ -131,7 +131,6 @@ public class SharedBuffer
 
         GL.BindBuffer(BufferTarget.ArrayBuffer, this.Vbo);
 
-        // if(newBuffer)
         {
             // this should be called only once but it simply doesnt work... i need to call GL.VertexAttribPointer every frame
             // https://stackoverflow.com/a/28597384
@@ -170,7 +169,7 @@ public class SharedBuffer
             }
         }
 
-        if (this.NeedsUpload)
+        if (this.NeedsUpload && newBuffer)
         {
             // unique attribs for each instance
             GL.EnableVertexAttribArray(5);
@@ -184,7 +183,7 @@ public class SharedBuffer
             }
         }
 
-        if (this.NeedsUpload)
+        if (this.NeedsUpload && newBuffer)
         {
             GL.VertexAttribDivisor(5, 1);
             GL.VertexAttribDivisor(6, 1);
