@@ -15,6 +15,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public bool AlwaysUpdate = false;
 
     [DefaultValue(false)]
+    [XmlIgnore]
     public bool Awoken;
 
     //[System.Xml.Serialization.XmlArrayItem(type: typeof(Component))]
@@ -34,6 +35,9 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public bool Selected = false;
     public bool VisibleInHierarchy = true;
     public bool RuntimeOnly = false;
+    
+    [DefaultValue(false)]
+    [XmlIgnore]
     public bool Started;
 
     /*		[XmlIgnore]
@@ -64,7 +68,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public bool UpdateWhenDisabled = false;
 
-    public bool IsStatic => IsStaticSelf;// || Transform?.Parent?.GameObject.IsStatic == true;
+    public bool IsStatic => IsStaticSelf; // || Transform?.Parent?.GameObject.IsStatic == true;
 
     public bool ActiveSelf
     {
@@ -111,7 +115,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     {
         var stateChanged = ActiveSelf != tgl;
         _activeSelf = tgl;
-        if (stateChanged && Started)
+        if (stateChanged)
         {
             if (_activeSelf)
             {
@@ -402,18 +406,21 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     /// <param name="alsoCallStartcallStartAfterAwake">when the game is running we can call Start right after Awake</param>
     public virtual void Awake(bool callStartAfterAwake = true)
     {
+        if (Awoken)
+        {
+            return;}
         for (var i = 0; i < Components.Count; i++)
         {
             if (Components[i].Awoken == false) // && Components[i].Enabled)
             {
-                if (Global.GameRunning == false)
-                {
-                    var foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Awake));
-                }
-                else
-                {
-                    Components[i].Awake();
-                }
+                // if (Global.GameRunning == false)
+                // {
+                // var foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Awake));
+                // }
+                // else
+                // {
+                Components[i].Awake();
+                // }
 
                 // if (Components[i].Awoken == false)
                 //     Debug.LogError(
@@ -422,6 +429,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         }
 
         Awoken = true;
+        Transform?.Children.ForEach(child => child.GameObject.Awake());
 
         if (callStartAfterAwake)
         {
@@ -442,6 +450,9 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public virtual void Start()
     {
+        if (Started)
+        {
+            return;}
         if (Awoken == false)
         {
             Awake();
@@ -451,16 +462,18 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         {
             if (Components[i].Enabled)
             {
-                if (Global.GameRunning == false)
-                {
-                    var foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Start));
-                }
-                else
-                {
-                    Components[i].Start();
-                }
+                // if (Global.GameRunning == false)
+                // {
+                // var foundMethod = CallComponentExecuteInEditModeMethod(Components[i], nameof(Start));
+                // }
+                // else
+                // {
+                Components[i].Start();
+                // }
             }
         }
+
+        Transform?.Children.ForEach(child => child.GameObject.Start());
 
         if (ActiveInHierarchy)
         {
@@ -618,7 +631,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
             {
                 // var foundMethod = CallComponentExecuteInEditModeMethod(component, nameof(Awake));
                 component.Awake();
-
             }
             else
             {

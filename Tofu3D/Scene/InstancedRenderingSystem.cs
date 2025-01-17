@@ -184,41 +184,27 @@ public class InstancedRenderingSystem
         objectInstancingData.InstancedRenderingDefinitionIndex = -1;
     }
 
-    private void ResizeBufferData(SharedBuffer groupBuffer)
-    {
-        groupBuffer.FutureMaxNumberOfObjects += 5;
-        if (groupBuffer.FutureMaxNumberOfObjects > 1000)
-        {
-            groupBuffer.FutureMaxNumberOfObjects += 20;
-        }
 
-        groupBuffer.MaxNumberOfObjects = groupBuffer.FutureMaxNumberOfObjects;
-        Debug.Log($"Resizing buffer to new size:{groupBuffer.MaxNumberOfObjects}");
-
-        Array.Resize(ref groupBuffer.Buffer,
-            groupBuffer.MaxNumberOfObjects * groupBuffer.InstancedVertexCountOfFloats);
-        GL.DeleteBuffer(groupBuffer.Vbo);
-        groupBuffer.Vbo = -1;
-        groupBuffer.NeedsUpload = true;
-    }
-
-    private void RenderSpecific(int definitionIndex, SharedBuffer groupBuffer)
+    private void RenderSpecific(int definitionIndex, SharedBuffer sharedBuffer)
     {
         // resize the buffer if needed, after drawing the old one
-        if (groupBuffer.Buffer.Length !=
-            groupBuffer.InstancedVertexCountOfFloats * groupBuffer.FutureMaxNumberOfObjects)
-        {
-            ResizeBufferData(groupBuffer);
-        }
+        // if (sharedBuffer.Buffer.Length !=
+        //     sharedBuffer.InstancedVertexCountOfFloats * sharedBuffer.FutureMaxNumberOfObjects) this was better because we only want to resize once not for each new object
+        // {
+        //     sharedBuffer.ExpandBuffer();
+        // }
 
-        SetupBufferAndUploadIfNeeded(groupBuffer);
+        // sharedBuffer.NeedsUpload = true;
+
+
+        sharedBuffer.SetupBufferAndUploadIfNeeded();
 
 
         InstancedGroupDefinition definition = _groupDefinitions[definitionIndex];
         Asset_Material material = definition.Material;
         int meshVao = definition.RuntimeMesh.Vao;
         int indicesCount = definition.RuntimeMesh.Mesh.Indices.Length;
-        int numberOfObjects = groupBuffer.NumberOfObjects;
+        int numberOfObjects = sharedBuffer.NumberOfObjects;
         if (material.IgnoreDepth || material.NoDepth)
         {
             GL.Disable(EnableCap.DepthTest);
@@ -228,7 +214,7 @@ public class InstancedRenderingSystem
         {
             RenderObjects_MousePickingPass(meshVao: meshVao, numberOfObjects: numberOfObjects,
                 indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
-                vbo: groupBuffer.Vbo);
+                vbo: sharedBuffer.Vbo);
         }
 
         else if (Tofu.RenderPassSystem.CurrentRenderPassType
@@ -240,7 +226,7 @@ public class InstancedRenderingSystem
             {
                 RenderObjects_DepthPasses(meshVao: meshVao, numberOfObjects: numberOfObjects,
                     indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
-                    material: material, vbo: groupBuffer.Vbo);
+                    material: material, vbo: sharedBuffer.Vbo);
             }
         }
 
@@ -249,7 +235,7 @@ public class InstancedRenderingSystem
         {
             RenderObjects_Opaques_UI_Transparency(meshVao: meshVao, numberOfObjects: numberOfObjects,
                 indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
-                material: material, vbo: groupBuffer.Vbo);
+                material: material, vbo: sharedBuffer.Vbo);
         }
 
         if (material.IgnoreDepth || material.NoDepth)
@@ -548,7 +534,7 @@ public class InstancedRenderingSystem
             return false;
         }
 
-        SharedBuffer groupBuffer;
+        SharedBuffer sharedBuffer;
         if (objectInstancingData.InstancedRenderingDefinitionIndex == -1)
         {
             // no buffer exists for this combination-create one
@@ -567,7 +553,7 @@ public class InstancedRenderingSystem
             // find bufferData if its already created
             if (_sharedBuffers.TryGetValue(definitionIndex, out var data))
             {
-                groupBuffer = data;
+                sharedBuffer = data;
             }
             else
             {
@@ -579,8 +565,8 @@ public class InstancedRenderingSystem
 
                 _groupDefinitions.Add(definition);
 
-                groupBuffer = InitializeBufferData(definition);
-                _sharedBuffers.Add(definitionIndex, groupBuffer);
+                sharedBuffer = InitializeSharedBufferData(definition);
+                _sharedBuffers.Add(definitionIndex, sharedBuffer);
 
 
                 // int shaderId = renderer.Material.Shader.ProgramId;
@@ -601,21 +587,16 @@ public class InstancedRenderingSystem
                 return false;
             }
 
-            groupBuffer = _sharedBuffers[objectInstancingData.InstancedRenderingDefinitionIndex];
+            sharedBuffer = _sharedBuffers[objectInstancingData.InstancedRenderingDefinitionIndex];
         }
 
 
         if (objectInstancingData.StartingIndexInBuffer == -1 && remove == false)
         {
             // assign new InstancedRenderingIndex
-            objectInstancingData.StartingIndexInBuffer = groupBuffer.GetEmptyIndex();
 
-            if (objectInstancingData.StartingIndexInBuffer == -1)
-            {
-                return false;
-            }
+            sharedBuffer.AddObject(ref objectInstancingData);
 
-            groupBuffer.AddObject(objectInstancingData);
         }
 
 
@@ -624,22 +605,22 @@ public class InstancedRenderingSystem
             if (remove)
             {
                 int groupId = GetOrCreateGroupByShader(renderer.Material.Shader);
-                RemoveObject(groupBuffer, ref objectInstancingData, groupId);
+                RemoveObject(sharedBuffer, ref objectInstancingData, groupId);
 
                 return true;
             }
 
             else
             {
-                CopyObjectDataToBuffer(modelMatrix ?? renderer.LatestModelMatrix,
-                    ref groupBuffer.Buffer,
+                CopyObjectDataToBuffer(modelMatrix ?? renderer.LatestModelMatrix.Value,
+                    ref sharedBuffer.Buffer,
                     objectInstancingData.StartingIndexInBuffer, uvOffset: uvOffset,
                     mousePickingId: renderer.MousePickingId);
             }
         }
 
-        groupBuffer.NeedsUpload = true;
-        _sharedBuffers[objectInstancingData.InstancedRenderingDefinitionIndex] = groupBuffer;
+        sharedBuffer.NeedsUpload = true;
+        _sharedBuffers[objectInstancingData.InstancedRenderingDefinitionIndex] = sharedBuffer;
         return true;
     }
 
@@ -673,7 +654,7 @@ public class InstancedRenderingSystem
         }
     }
 
-    private SharedBuffer InitializeBufferData(InstancedGroupDefinition instancedGroupDefinition)
+    private SharedBuffer InitializeSharedBufferData(InstancedGroupDefinition instancedGroupDefinition)
     {
         // Debug.Log("Initializing Instanced Buffer Data");
         Tofu.ShaderManager.BindVertexArray(instancedGroupDefinition.RuntimeMesh.Vao);
@@ -689,7 +670,7 @@ public class InstancedRenderingSystem
         {
             VertexBufferStructureType = instancedGroupDefinition.vertexBufferStructureType,
             MaxNumberOfObjects = 1,
-            FutureMaxNumberOfObjects = 1,
+            // FutureMaxNumberOfObjects = 1,
             Vbo = -1,
             Vao = instancedGroupDefinition.RuntimeMesh.Vao,
             // Ebo = objectDefinition.RuntimeMesh.Ebo,
@@ -702,109 +683,8 @@ public class InstancedRenderingSystem
         sharedBuffer.Buffer = new float[sharedBuffer.MaxNumberOfObjects *
                                         sharedBuffer.InstancedVertexCountOfFloats];
 
-        SetupBufferAndUploadIfNeeded(sharedBuffer);
+        sharedBuffer.SetupBufferAndUploadIfNeeded();
 
         return sharedBuffer;
-    }
-
-    private void SetupBufferAndUploadIfNeeded(SharedBuffer groupBuffer)
-    {
-        Tofu.ShaderManager.BindVertexArray(groupBuffer.Vao);
-        // Tofu.ShaderManager.BindVertexArray(groupBufferData.Vao);
-
-        var newBuffer = false;
-        if (groupBuffer.Vbo == -1)
-        {
-            newBuffer = true;
-            groupBuffer.Vbo = GL.GenBuffer();
-        }
-
-        GL.BindBuffer(BufferTarget.ArrayBuffer, groupBuffer.Vbo);
-
-        {
-            // this should be called only once but it simply doesnt work... i need to call GL.VertexAttribPointer every frame
-            // https://stackoverflow.com/a/28597384
-            //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
-            int offset = 0;
-            GL.VertexAttribPointer(5, 3, VertexAttribPointerType.Float, false,
-                groupBuffer.InstancedVertexDataSizeInBytes,
-                offset);
-            offset += 3 * sizeof(float);
-            GL.VertexAttribPointer(6, 3, VertexAttribPointerType.Float, false,
-                groupBuffer.InstancedVertexDataSizeInBytes,
-                offset);
-            offset += 3 * sizeof(float);
-
-            GL.VertexAttribPointer(7, 3, VertexAttribPointerType.Float, false,
-                groupBuffer.InstancedVertexDataSizeInBytes,
-                offset);
-            offset += 3 * sizeof(float);
-
-            GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
-                groupBuffer.InstancedVertexDataSizeInBytes,
-                offset);
-            offset += 3 * sizeof(float);
-
-            GL.VertexAttribPointer(9, 1, VertexAttribPointerType.Float, false,
-                groupBuffer.InstancedVertexDataSizeInBytes,
-                offset);
-            offset += sizeof(float);
-
-            if (groupBuffer.UVOffsetIsInstanced)
-            {
-                GL.VertexAttribPointer(10, 2, VertexAttribPointerType.Float, false,
-                    groupBuffer.InstancedVertexDataSizeInBytes,
-                    offset);
-                offset += 2 * sizeof(float);
-            }
-        }
-
-        if (groupBuffer.NeedsUpload)
-        {
-            // unique attribs for each instance
-            GL.EnableVertexAttribArray(5);
-            GL.EnableVertexAttribArray(6);
-            GL.EnableVertexAttribArray(7);
-            GL.EnableVertexAttribArray(8);
-            GL.EnableVertexAttribArray(9);
-            if (groupBuffer.UVOffsetIsInstanced)
-            {
-                GL.EnableVertexAttribArray(10);
-            }
-        }
-
-        if (groupBuffer.NeedsUpload)
-        {
-            GL.VertexAttribDivisor(5, 1);
-            GL.VertexAttribDivisor(6, 1);
-            GL.VertexAttribDivisor(7, 1);
-            GL.VertexAttribDivisor(8, 1);
-            GL.VertexAttribDivisor(9, 1);
-            if (groupBuffer.UVOffsetIsInstanced)
-            {
-                GL.VertexAttribDivisor(10, 1);
-            }
-        }
-
-        if (groupBuffer.NeedsUpload)
-        {
-            if (newBuffer)
-            {
-                GL.BufferData(BufferTarget.ArrayBuffer,
-                    sizeof(float) * groupBuffer.Buffer.Length,
-                    groupBuffer.Buffer, BufferUsageHint.DynamicDraw);
-            }
-            else
-            {
-                GL.BufferSubData(BufferTarget.ArrayBuffer, 0,
-                    sizeof(float) * groupBuffer.Buffer.Length,
-                    groupBuffer.Buffer);
-            }
-
-            groupBuffer.NeedsUpload = false;
-        }
-
-
-        // Tofu.ShaderManager.BindVertexArray(0);
     }
 }

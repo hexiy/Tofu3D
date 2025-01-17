@@ -22,6 +22,7 @@ public class RenderPassSkybox : RenderPass
     {
         base.Initialize();
         SetupRenderTexture();
+        Scene.SceneDisposed += () => _skybox = null;
     }
 
     protected override void Render_GL()

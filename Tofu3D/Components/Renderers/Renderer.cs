@@ -39,7 +39,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     public Matrix4x4 LatestModelViewProjection { get; private set; }
 
     [XmlIgnore]
-    public Matrix4x4 LatestModelMatrix { get; private set; }
+    public Matrix4x4? LatestModelMatrix { get; private set; } = null;
 
     [Hide]
     public virtual bool CanRender => true; // && Enabled && GameObject.Awoken && GameObject.ActiveInHierarchy;
@@ -365,7 +365,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
             return;
         }
 
-        if (ObjectInstancingData.MatrixDirty || GameObject.IsStatic == false)
+        if (ObjectInstancingData.MatrixDirty || GameObject.IsStatic == false || LatestModelMatrix == null)
         {
             LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
             LatestModelMatrix = GetModelMatrix();

@@ -5,16 +5,13 @@
 /// </summary>
 public class SharedBuffer
 {
-    public int
-        InstancedVertexDataSizeInBytes;
-
+    private int InstancedVertexDataSizeInBytes;
 
     public float[] Buffer;
-    public List<ObjectInstancingData> ObjectInstancingDatas = new List<ObjectInstancingData>();
+    private List<ObjectInstancingData> ObjectInstancingDatas = new List<ObjectInstancingData>();
 
     // public bool IsResizing = false;
     private List<int> EmptyStartIndexes = new List<int>();
-    public int FutureMaxNumberOfObjects;
     public int MaxNumberOfObjects;
 
     public bool NeedsUpload = true;
@@ -40,16 +37,36 @@ public class SharedBuffer
                 : 0) + (sizeof(float)); // 1 int for id-but doing float for now...
     }
 
-    public void AddObject(ObjectInstancingData objectInstancingData)
+    public void AddObject(ref ObjectInstancingData objectInstancingData)
     {
+        objectInstancingData.StartingIndexInBuffer = GetEmptyIndex();
         ObjectInstancingDatas.Add(objectInstancingData);
         NumberOfObjects++;
+
+    }
+
+    public void ExpandBuffer()
+    {
+        this.MaxNumberOfObjects += 5;
+        if (this.MaxNumberOfObjects > 1000)
+        {
+            this.MaxNumberOfObjects += 20;
+        }
+
+        // Debug.Log($"Resizing buffer to new size:{this.MaxNumberOfObjects}");
+
+        Array.Resize(ref this.Buffer,
+            this.MaxNumberOfObjects * this.InstancedVertexCountOfFloats);
+        GL.DeleteBuffer(this.Vbo);
+        this.Vbo = -1;
+        this.NeedsUpload = true;
     }
 
     public void RemoveObject(ObjectInstancingData removedObjectInstancingData)
     {
-        
-        for (var i = removedObjectInstancingData.StartingIndexInBuffer; i < Buffer.Length - InstancedVertexCountOfFloats; i++)
+        for (var i = removedObjectInstancingData.StartingIndexInBuffer;
+             i < Buffer.Length - InstancedVertexCountOfFloats;
+             i++)
         {
             Buffer[i] = Buffer[i + InstancedVertexCountOfFloats];
         }
@@ -75,7 +92,7 @@ public class SharedBuffer
         }
     }
 
-    public int GetEmptyIndex()
+    private int GetEmptyIndex()
     {
         if (EmptyStartIndexes.Count > 0)
         {
@@ -86,16 +103,118 @@ public class SharedBuffer
 
         if (NumberOfObjects == MaxNumberOfObjects)
         {
-            FutureMaxNumberOfObjects += 1;
-            return -1;
+            ExpandBuffer();
+
+            // FutureMaxNumberOfObjects += 1;
+            // return -1;
         }
 
         if (Buffer.Length <
             InstancedVertexCountOfFloats * MaxNumberOfObjects)
         {
-            return -1;
+            ExpandBuffer();
+            // return -1;
         }
 
         return NumberOfObjects * InstancedVertexCountOfFloats;
+    }
+
+    public void SetupBufferAndUploadIfNeeded()
+    {
+        Tofu.ShaderManager.BindVertexArray(this.Vao);
+
+        var newBuffer = this.Vbo == -1;
+        if (newBuffer)
+        {
+            this.Vbo = GL.GenBuffer();
+        }
+
+        GL.BindBuffer(BufferTarget.ArrayBuffer, this.Vbo);
+
+        // if(newBuffer)
+        {
+            // this should be called only once but it simply doesnt work... i need to call GL.VertexAttribPointer every frame
+            // https://stackoverflow.com/a/28597384
+            //  _vertexDataLength * sizeof(float) = 4 bytes * 16 numbers =  64
+            int offset = 0;
+            GL.VertexAttribPointer(5, 3, VertexAttribPointerType.Float, false,
+                this.InstancedVertexDataSizeInBytes,
+                offset);
+            offset += 3 * sizeof(float);
+            GL.VertexAttribPointer(6, 3, VertexAttribPointerType.Float, false,
+                this.InstancedVertexDataSizeInBytes,
+                offset);
+            offset += 3 * sizeof(float);
+
+            GL.VertexAttribPointer(7, 3, VertexAttribPointerType.Float, false,
+                this.InstancedVertexDataSizeInBytes,
+                offset);
+            offset += 3 * sizeof(float);
+
+            GL.VertexAttribPointer(8, 3, VertexAttribPointerType.Float, false,
+                this.InstancedVertexDataSizeInBytes,
+                offset);
+            offset += 3 * sizeof(float);
+
+            GL.VertexAttribPointer(9, 1, VertexAttribPointerType.Float, false,
+                this.InstancedVertexDataSizeInBytes,
+                offset);
+            offset += sizeof(float);
+
+            if (this.UVOffsetIsInstanced)
+            {
+                GL.VertexAttribPointer(10, 2, VertexAttribPointerType.Float, false,
+                    this.InstancedVertexDataSizeInBytes,
+                    offset);
+                offset += 2 * sizeof(float);
+            }
+        }
+
+        if (this.NeedsUpload)
+        {
+            // unique attribs for each instance
+            GL.EnableVertexAttribArray(5);
+            GL.EnableVertexAttribArray(6);
+            GL.EnableVertexAttribArray(7);
+            GL.EnableVertexAttribArray(8);
+            GL.EnableVertexAttribArray(9);
+            if (this.UVOffsetIsInstanced)
+            {
+                GL.EnableVertexAttribArray(10);
+            }
+        }
+
+        if (this.NeedsUpload)
+        {
+            GL.VertexAttribDivisor(5, 1);
+            GL.VertexAttribDivisor(6, 1);
+            GL.VertexAttribDivisor(7, 1);
+            GL.VertexAttribDivisor(8, 1);
+            GL.VertexAttribDivisor(9, 1);
+            if (this.UVOffsetIsInstanced)
+            {
+                GL.VertexAttribDivisor(10, 1);
+            }
+        }
+
+        if (this.NeedsUpload)
+        {
+            if (newBuffer)
+            {
+                GL.BufferData(BufferTarget.ArrayBuffer,
+                    sizeof(float) * this.Buffer.Length,
+                    this.Buffer, BufferUsageHint.DynamicDraw);
+            }
+            else
+            {
+                GL.BufferSubData(BufferTarget.ArrayBuffer, 0,
+                    sizeof(float) * this.Buffer.Length,
+                    this.Buffer);
+            }
+
+            this.NeedsUpload = false;
+        }
+
+        GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
     }
 }

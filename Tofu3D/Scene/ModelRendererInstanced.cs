@@ -14,10 +14,7 @@ public class ModelRendererInstanced : Renderer
     {
         ObjectInstancingData.InstancingDataDirty = true;
         ObjectInstancingData.MatrixDirty = true;
-        //
-        // Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData,
-        //     VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
-        
+
         base.OnEnabled();
     }
 
@@ -88,6 +85,11 @@ public class ModelRendererInstanced : Renderer
 
     public override void UploadRenderData()
     {
+        if (LatestModelMatrix == null)
+        {
+            return;
+        }
+
         if (GameObject.IsStatic && ObjectInstancingData.InstancingDataDirty == false &&
             ObjectInstancingData.MatrixDirty == false)
         {
@@ -115,7 +117,6 @@ public class ModelRendererInstanced : Renderer
         {
             return;
         }*/
-
         var updatedData =
             Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData,
                 VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
