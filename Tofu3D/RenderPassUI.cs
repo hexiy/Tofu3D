@@ -2,6 +2,8 @@
 
 public class RenderPassUI : RenderPass
 {
+    public override bool DrawsToTheFinalColorFramebuffer => true;
+
     public RenderPassUI() : base(RenderPassType.UI)
     {
         I = this;
@@ -15,7 +17,10 @@ public class RenderPassUI : RenderPass
 
         base.Initialize();
     }
-
+    protected override void Render_GL()
+    {
+        
+    }
     protected override void SetupRenderTexture()
     {
         if (MainFramebuffer != null)

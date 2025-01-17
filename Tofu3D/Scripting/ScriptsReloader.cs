@@ -1,5 +1,3 @@
-using System.Reflection;
-
 namespace Tofu3D.Scripting;
 
 public class ScriptsReloader

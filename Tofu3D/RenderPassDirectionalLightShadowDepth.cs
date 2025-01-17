@@ -5,6 +5,7 @@ namespace Tofu3D;
 public class RenderPassDirectionalLightShadowDepth : RenderPass
 {
     private DirectionalLight _directionalLight;
+    public override bool DrawsToTheFinalColorFramebuffer => false;
 
     public RenderPassDirectionalLightShadowDepth() : base(RenderPassType.DirectionalLightShadowDepth)
     {
@@ -28,6 +29,11 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
         _directionalLight = directionalLight;
 
         SetupRenderTexture();
+    }
+
+    protected override void Render_GL()
+    {
+        
     }
 
     protected override void SetupRenderTexture()

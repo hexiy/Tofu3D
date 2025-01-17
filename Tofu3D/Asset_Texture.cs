@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Tofu3D;
 
 [Serializable]
@@ -22,7 +20,7 @@ public class Asset_Texture : Asset<Asset_Texture>
         base.OnDeserialized();
     }
 
-    public void CompressPixels()
+    private void CompressPixels()
     {
         if (DataIsCompressed)
         {
@@ -33,7 +31,7 @@ public class Asset_Texture : Asset<Asset_Texture>
         DataIsCompressed = true;
     }
 
-    public void DecompressPixels()
+    private void DecompressPixels()
     {
         if (DataIsCompressed == false)
         {

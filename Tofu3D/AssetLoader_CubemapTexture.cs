@@ -1,12 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Numerics;
-using System.Xml.Serialization;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-
 namespace Tofu3D;
 
 public class AssetLoader_CubemapTexture : AssetLoader<RuntimeCubemapTexture>
@@ -49,20 +40,20 @@ public class AssetLoader_CubemapTexture : AssetLoader<RuntimeCubemapTexture>
             GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)loadParameters.WrapMode);
             GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)loadParameters.WrapMode);
             GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)loadParameters.WrapMode);
-            // GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode);
+            GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)loadParameters.FilterMode);
             GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)loadParameters.FilterMode);
-            GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter,
-                (int)TextureMinFilter.LinearMipmapLinear);
+            // GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter,
+            //     (int)TextureMinFilter.LinearMipmapLinear);
             // GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
         }
 
-        GL.GenerateMipmap(GenerateMipmapTarget.TextureCubeMap);
-        int maxMipLevels = (int)Math.Floor(Math.Log2(imageSize.X));
-        GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMaxLevel,
-            maxMipLevels); // Generate mipmaps for the cubemap texture
+        // GL.GenerateMipmap(GenerateMipmapTarget.TextureCubeMap);
+        // int maxMipLevels = (int)Math.Floor(Math.Log2(imageSize.X));
+        // GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMaxLevel,
+        //     maxMipLevels); // Generate mipmaps for the cubemap texture
 
 
-        ImGuiController.CheckGlError("cubemap texture load");
+        TofuGL.CheckGlError("cubemap texture load");
 
         RuntimeCubemapTexture runtimeCubemapTexture = new()
         {

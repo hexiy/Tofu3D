@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-[Serializable]
+﻿[Serializable]
 public abstract class Asset<T> : AssetBase where T : Asset<T> //, new()
 {
     // public T CreateRuntimeCopy()

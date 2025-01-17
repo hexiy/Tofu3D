@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using Tofu3D.Rendering;
 
 namespace Tofu3D;
 
@@ -21,13 +21,14 @@ public class Framebuffer : ITexture
     // public Material RenderTextureMaterial;
     private int DownsampleFactor = 1;
     private readonly bool _isIntegerFramebuffer;
+    private readonly bool _isCubemapDepth;
 
     public Framebuffer(Vector2 size, bool colorAttachment = false, bool depthAttachment = false,
-        bool hasStencil = false, bool isGrayscale = false, int downsampleFactor = 1, bool isIntegerFramebuffer = false)
+        bool hasStencil = false, bool isGrayscale = false, int downsampleFactor = 1, bool isIntegerFramebuffer = false,
+        bool isCubemapDepth = false)
     {
         // _depthRenderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/DepthRenderTexture.mat");
         // _renderTextureMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/RenderTexture.mat");
-
 
         // creating this in the library not assets, we need it as asset to reuse across other framebuffers and the asset system, but dont need to expose it to the user
         _renderTextureMaterial =
@@ -48,8 +49,10 @@ public class Framebuffer : ITexture
         _hasStencil = hasStencil;
         _isGrayscale = isGrayscale;
         _isIntegerFramebuffer = isIntegerFramebuffer;
+        _isCubemapDepth = isCubemapDepth;
         //GL.DeleteFramebuffers(1, ref id);
         // CreateMaterial();
+
         Invalidate();
     }
 
@@ -120,6 +123,22 @@ public class Framebuffer : ITexture
 
             GL.BindTexture(TextureTarget.Texture2D, DepthTextureId);
 
+            // if (_isCubemapDepth)
+            // {
+            //     TextureHelper.BindTexture(DepthTextureId, TextureType.Cubemap);
+            //
+            //     for (var faceIndex = 0; faceIndex < 6; faceIndex++)
+            //     {
+            //         GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX + faceIndex, 0, PixelInternalFormat.Rgba,
+            //             Size.Xi, Size.Yi, 0, PixelFormat.Rgba, PixelType.UnsignedByte, IntPtr.Zero);
+            //
+            //         var textureTarget = TextureTarget.TextureCubeMap;
+            //         GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
+            //         GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
+            //         GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)TextureWrapMode.ClampToEdge);
+            //     }
+            // }
+
             if (_hasStencil)
             {
                 GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Depth24Stencil8, (int)Size.X, (int)Size.Y,
@@ -179,6 +198,8 @@ public class Framebuffer : ITexture
         {
             Debug.Log("RENDER TEXTURE ERROR");
         }
+
+        TofuGL.CheckGlError("Framebuffer invalidate error");
 
         GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
     }

@@ -1,7 +1,5 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using Tofu3D.Rendering.Instancing;
-using Vortice.Mathematics;
 
 public class ModelRendererInstanced : Renderer
 {
@@ -88,7 +86,7 @@ public class ModelRendererInstanced : Renderer
         }
     }
 
-    public override void Render()
+    public override void UploadRenderData()
     {
         if (GameObject.IsStatic && ObjectInstancingData.InstancingDataDirty == false &&
             ObjectInstancingData.MatrixDirty == false)

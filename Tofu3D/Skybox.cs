@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Tofu3D;
+﻿namespace Tofu3D;
 
 [ExecuteInEditMode]
 public class Skybox : Component, IComponentUpdateable, IHasMaterial
@@ -43,21 +41,7 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
         base.Awake();
     }
 
-    public override void OnEnabled()
-    {
-        Tofu.RenderPassSystem.RegisterRender(RenderPassType.Skybox, RenderSkybox);
-
-        base.OnEnabled();
-    }
-
-    public override void OnDisabled()
-    {
-        Tofu.RenderPassSystem.RemoveRender(RenderPassType.Skybox, RenderSkybox);
-
-        base.OnDisabled();
-    }
-
-    private void RenderSkybox()
+    public void RenderSkybox()
     {
         if (Enabled == false || GameObject.ActiveInHierarchy == false)
         {
@@ -76,7 +60,7 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
             Camera.MainCamera.Size.X / Camera.MainCamera.Size.Y, 0.01f, 1);
 
 
-        GL.DepthMask(false);
+        // GL.DepthMask(false);
         Tofu.ShaderManager.UseShader(_material.Shader);
 
         _material.Shader.SetMatrix4X4("u_view", viewMatrix);
@@ -89,6 +73,6 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
         GL.DrawElements(PrimitiveType.Triangles, 36, DrawElementsType.UnsignedInt, 0);
 
         DebugHelper.LogDrawCall();
-        GL.DepthMask(true);
+        // GL.DepthMask(true);
     }
 }

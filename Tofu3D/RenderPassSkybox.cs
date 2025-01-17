@@ -4,6 +4,9 @@ namespace Tofu3D;
 
 public class RenderPassSkybox : RenderPass
 {
+    public override bool DrawsToTheFinalColorFramebuffer => true;
+    private Skybox _skybox;
+
     public RenderPassSkybox() : base(RenderPassType.Skybox)
     {
         I = this;
@@ -19,6 +22,21 @@ public class RenderPassSkybox : RenderPass
     {
         base.Initialize();
         SetupRenderTexture();
+    }
+
+    protected override void Render_GL()
+    {
+        if (_skybox == null)
+        {
+            _skybox = Camera.MainCamera.GetComponent<Skybox>();
+        }
+
+        if (_skybox == null)
+        {
+            return;
+        }
+
+        _skybox.RenderSkybox();
     }
 
     protected override void SetupRenderTexture()

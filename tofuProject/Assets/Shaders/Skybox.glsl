@@ -32,7 +32,11 @@ float gray = dot(col.rgb, vec3(0.3, 0.59, 0.11));
 vec3 desaturatedColor = mix(col.rgb, vec3(gray), desaturationFactor);
 
 // Set the final output color with the modified saturation
-FragColor = vec4(desaturatedColor, col.a);
+//FragColor = vec4(desaturatedColor, col.a);
+FragColor = vec4(col.rgb, 1);
+//FragColor = vec4(col.rgb, col.a);
+//FragColor = vec4(1,1,0, 1);
+
 //FragColor = col;
 
 //if (col.a < 0.1){

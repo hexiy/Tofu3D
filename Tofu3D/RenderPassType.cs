@@ -4,6 +4,7 @@ public enum RenderPassType
 {
     Skybox,
     DirectionalLightShadowDepth,
+    PointLightShadowDepth,
 
     // MousePicking,
     //GeometryDepth,

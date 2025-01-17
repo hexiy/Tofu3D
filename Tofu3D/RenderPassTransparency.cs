@@ -2,6 +2,8 @@
 
 public class RenderPassTransparency : RenderPass
 {
+    public override bool DrawsToTheFinalColorFramebuffer => true;
+
     public RenderPassTransparency() : base(RenderPassType.Transparency)
     {
         I = this;
@@ -15,7 +17,10 @@ public class RenderPassTransparency : RenderPass
 
         base.Initialize();
     }
-
+    protected override void Render_GL()
+    {
+        
+    }
     protected override void PreBindFrameBuffer()
     {
         // GL.Enable(EnableCap.DepthTest);

@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using Microsoft.Build.Locator;
 using OpenTK.Windowing.Common;
@@ -105,6 +104,7 @@ public static class Tofu
 
     private static void OnWindowLoad()
     {
+
         BasicMeshesCollection = new BasicMeshesCollection();
 
         AssetImportManager.ImportAllAssets();
@@ -205,7 +205,7 @@ public static class Tofu
 
         Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 120f));
         Camera.MainCamera.UpdateMatrices();
-
+        SceneManager.CurrentScene.UploadRenderData(InstancingRenderMode.All);
         RenderPassSystem.RenderAllPasses();
 
         Debug.EndGraphTimer("Scene Render");

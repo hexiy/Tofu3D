@@ -46,6 +46,7 @@ public class Scene
     private Camera Camera => Camera.MainCamera;
 
     public string ThumbnailPath => GetThumbnailPath(ScenePath);
+    private bool _openGlStateSet = false;
 
     public static string GetThumbnailPath(string scenePath)
     {
@@ -60,10 +61,6 @@ public class Scene
         SceneFogManager = new SceneFogManager(this);
         _renderableComponentQueue = new RenderableComponentQueue();
         _updateableComponentQueue = new UpdateableComponentQueue();
-
-        Tofu.RenderPassSystem.RegisterRender(RenderPassType.ZPrePass, RenderOpaques);
-        Tofu.RenderPassSystem.RegisterRender(RenderPassType.Opaques, RenderOpaques);
-        Tofu.RenderPassSystem.RegisterRender(RenderPassType.Transparency, RenderTransparency);
     }
 
     public void DisposeScene()
@@ -85,9 +82,6 @@ public class Scene
 
         // GameObjects.Clear();
         // GameObjects = new List<GameObject>();
-        Tofu.RenderPassSystem.RemoveRender(RenderPassType.ZPrePass, RenderOpaques);
-        Tofu.RenderPassSystem.RemoveRender(RenderPassType.Opaques, RenderOpaques);
-        Tofu.RenderPassSystem.RemoveRender(RenderPassType.Transparency, RenderTransparency);
 
         // RenderPassSystem.RemoveRender(RenderPassType.UI, RenderUI);
         Tofu.InstancedRenderingSystem.ClearBuffers();
@@ -217,18 +211,30 @@ public class Scene
     // ReSharper disable once InconsistentNaming
     private void SetOpenGLState()
     {
+        if (_openGlStateSet)
+        {
+            return;
+        }
         // GL.Enable(EnableCap.DepthTest);
         // GL.DepthFunc(DepthFunction.Lequal);
 
         GL.Enable(EnableCap.CullFace);
         GL.CullFace(CullFaceMode.Back);
         GL.FrontFace(FrontFaceDirection.Cw);
+
+        _openGlStateSet = true;
     }
 
     // ReSharper disable once InconsistentNaming
     private void RestoreOpenGLState()
     {
+        if (_openGlStateSet == false)
+        {
+            return;
+        }
+
         GL.Disable(EnableCap.CullFace);
+        _openGlStateSet = false;
     }
 
     // public void RenderAll()
@@ -243,26 +249,23 @@ public class Scene
     //     RestoreOpenGLState();
     // }
 
-    public void RenderOpaques()
+    public void UploadRenderData(InstancingRenderMode instancingRenderMode)
     {
         SetOpenGLState();
 
         // GL.ClearDepth(1000);
         // GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
-        _renderableComponentQueue.RenderOpaques();
-        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.Opaque);
+        if (instancingRenderMode is InstancingRenderMode.All or InstancingRenderMode.Opaque)
+        {
+            _renderableComponentQueue.UploadRenderDataOpaques();
+        }
+
+        if (instancingRenderMode is InstancingRenderMode.All or InstancingRenderMode.Transparent)
+        {
+            _renderableComponentQueue.UploadRenderDataTransparency();
+        }
 
         RestoreOpenGLState();
-    }
-
-    public void RenderTransparency()
-    {
-        // GL.Disable(EnableCap.CullFace);
-
-        // GL.ClearDepth(1000);
-        // GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
-        _renderableComponentQueue.RenderTransparency();
-        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.Transparent);
     }
     // public void RenderUI()
     // {

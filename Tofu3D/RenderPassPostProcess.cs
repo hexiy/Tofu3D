@@ -3,6 +3,7 @@
 public class RenderPassPostProcess : RenderPass
 {
     private Asset_Material _postProcessMaterial;
+    public override bool DrawsToTheFinalColorFramebuffer => true;
 
     public RenderPassPostProcess() : base(RenderPassType.PostProcess)
     {
@@ -52,6 +53,11 @@ public class RenderPassPostProcess : RenderPass
         Tofu.ShaderManager.BindVertexArray(0);
 
         target.Unbind();
+    }
+
+    protected override void Render_GL()
+    {
+        
     }
 
     protected override void SetupRenderTexture()

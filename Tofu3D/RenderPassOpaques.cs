@@ -6,6 +6,7 @@ public class RenderPassOpaques : RenderPass
     {
         I = this;
     }
+    public override bool DrawsToTheFinalColorFramebuffer => true;
 
     public static RenderPassOpaques I { get; private set; }
 
@@ -40,7 +41,12 @@ public class RenderPassOpaques : RenderPass
 
     protected override void PreRender()
     {
-        GL.DepthMask(false);
+        GL.DepthMask(true);
+    }
+
+    protected override void Render_GL()
+    {
+        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.Opaque);
     }
 
     protected override void SetupRenderTexture()

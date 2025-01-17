@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Tofu3D.Rendering.Instancing;
+﻿using Tofu3D.Rendering.Instancing;
 
 namespace Scripts;
 
@@ -150,7 +149,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     //     //return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
     // }
 
-    public abstract void Render();
+    public abstract void UploadRenderData();
 
     public void Update()
     {

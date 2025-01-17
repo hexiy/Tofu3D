@@ -20,6 +20,7 @@ public class RenderPassBloomPostProcess : RenderPass
     }
 
 
+    public override bool DrawsToTheFinalColorFramebuffer => true;
     public override bool CanRender() => Enabled;
 
     public override void Initialize()
@@ -136,6 +137,11 @@ public class RenderPassBloomPostProcess : RenderPass
         Tofu.ShaderManager.BindVertexArray(0);
 
         BloomFramebufferVertical.Unbind();
+    }
+
+    protected override void Render_GL()
+    {
+        
     }
 
     protected override void SetupRenderTexture()

@@ -1,11 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Numerics;
-using System.Xml.Serialization;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
 
 namespace Tofu3D;
 
@@ -53,7 +46,7 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
         GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)importParameters.FilterMode);
         GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)importParameters.FilterMode);
 
-        ImGuiController.CheckGlError("texture load");
+        TofuGL.CheckGlError("texture load");
 
         RuntimeTexture runtimeTexture = new()
         {

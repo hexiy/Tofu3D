@@ -1,8 +1,3 @@
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using Tofu3D.Rendering;
-
 namespace Tofu3D;
 
 public static class MousePickingSystem
@@ -88,7 +83,6 @@ public static class MousePickingSystem
         //_renderers = new HashSet<MousePickingObject>();
         if (Tofu3D.Rendering.RenderPassMousePicking.I?.Enabled == true)
         {
-            Tofu.RenderPassSystem.RegisterRender(RenderPassType.MousePicking, RenderPassMousePicking);
             EditorPanelTextureViewer.AddTexture(new TextureViewerTextureData()
             {
                 Name = "Mouse Picking",
@@ -97,12 +91,12 @@ public static class MousePickingSystem
         }
     }
 
-    static void RenderPassMousePicking()
-    {
-        // Tofu.SceneManager.CurrentScene.RenderAll();
-        Tofu.SceneManager.CurrentScene.RenderOpaques();
-        Tofu.SceneManager.CurrentScene.RenderTransparency();
-    }
+    // static void RenderPassMousePicking()
+    // {
+    //     // Tofu.SceneManager.CurrentScene.RenderAll();
+    //     Tofu.SceneManager.CurrentScene.RenderOpaques();
+    //     Tofu.SceneManager.CurrentScene.RenderTransparency();
+    // }
 
     public static unsafe void ReadPixelAtMousePos()
     {

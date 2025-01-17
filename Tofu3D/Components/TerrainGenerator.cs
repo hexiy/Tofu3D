@@ -9,10 +9,6 @@ public class TerrainGenerator : Component, IComponentUpdateable
     private readonly ConcurrentQueue<GameObject> _concurrentBag = new();
     private readonly float _cubeModelSize = 2;
 
-    [Show] private float _huh = 2;
-
-    private bool _savedToClipboard = false;
-
     private int _threadsWorkingCount = -1;
     public GameObject CubePrefab;
 

@@ -48,6 +48,7 @@ public class RenderPassSystem
         // GL.Disable(EnableCap.FramebufferSrgb);
         RenderPassSkybox renderPassSkybox = new();
         RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new();
+        RenderPassPointLightShadowDepth renderPassPointLightShadowDepth = new();
         RenderPassZPrePass renderPassZPrePass = new();
         RenderPassOpaques renderPassOpaques = new();
         // mouse picking for now must come before transparency pass for it to work
@@ -61,36 +62,21 @@ public class RenderPassSystem
 
 
         // RenderPassTransparency renderPassTransparency = new RenderPassTransparency();
+
+
+        // renderPassSkybox.Enabled = false;
+        // renderPassDirectionalLightShadowDepth.Enabled = false;
+        // renderPassPointLightShadowDepth.Enabled = false;
+        // renderPassZPrePass.Enabled = false;
+        // renderPassOpaques.Enabled = false;
+        // renderPassTransparency.Enabled = false;
+        // renderPassMousePicking.Enabled = false;
     }
 
     public void RegisterRenderPass(RenderPass renderPass)
     {
         RenderPasses.Add(renderPass);
         // _renderPasses.Sort();
-    }
-
-    public void RemoveRender(RenderPassType type, Action render)
-    {
-        foreach (var renderPass in RenderPasses)
-        {
-            if (renderPass.RenderPassType == type)
-            {
-                renderPass.RemoveRender(render);
-                return;
-            }
-        }
-    }
-
-    public void RegisterRender(RenderPassType type, Action render)
-    {
-        foreach (var renderPass in RenderPasses)
-        {
-            if (renderPass.RenderPassType == type)
-            {
-                renderPass.RegisterRender(render);
-                return;
-            }
-        }
     }
 
     public void RenderAllPasses()
@@ -124,7 +110,7 @@ public class RenderPassSystem
             CurrentRenderPassType = renderPass.RenderPassType;
 
 
-            renderPass.RenderThisAsFullscreenQuadToTargetFramebuffer();
+            renderPass.RenderToFramebuffer();
         }
 
         RenderFinalRenderTexture();
@@ -141,17 +127,7 @@ public class RenderPassSystem
 
         foreach (var renderPass in RenderPasses)
         {
-            if (renderPass.RenderPassType == RenderPassType.DirectionalLightShadowDepth)
-            {
-                continue;
-            }
-
-            if (renderPass.RenderPassType == RenderPassType.ZPrePass)
-            {
-                continue;
-            }
-
-            if (renderPass.RenderPassType == RenderPassType.MousePicking)
+            if (renderPass.DrawsToTheFinalColorFramebuffer == false)
             {
                 continue;
             }

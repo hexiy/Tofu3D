@@ -2,6 +2,8 @@
 
 public class RenderPassZPrePass : RenderPass
 {
+    public override bool DrawsToTheFinalColorFramebuffer => false;
+
     public RenderPassZPrePass() : base(RenderPassType.ZPrePass)
     {
         I = this;
@@ -15,7 +17,10 @@ public class RenderPassZPrePass : RenderPass
 
         base.Initialize();
     }
-
+    protected override void Render_GL()
+    {
+        
+    }
     protected override void PreRender()
     {
         // GL.Enable(EnableCap.DepthTest);

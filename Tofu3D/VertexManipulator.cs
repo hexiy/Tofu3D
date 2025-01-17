@@ -1,7 +1,3 @@
-using LibNoise;
-using LibNoise.Primitive;
-using Newtonsoft.Json;
-
 namespace Tofu3D;
 
 public class VertexManipulator : Component, IComponentUpdateable

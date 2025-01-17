@@ -3,18 +3,12 @@ namespace Tofu3D;
 [ExecuteInEditMode]
 public class DirectionalLight : LightBase
 {
-    public static Matrix4x4 LightSpaceViewProjectionMatrix = Matrix4x4.Identity;
-    private float _cameraBeforeTransformationFarPlaneDistance;
-    private bool _cameraBeforeTransformationIsOrthographic;
-    private float _cameraBeforeTransformationNearPlaneDistance;
-    private float _cameraBeforeTransformationOrthographicSize;
-    private Vector3 _cameraBeforeTransformationRotation;
-    private Vector2 _cameraBeforeTransformationSize;
+    public static Matrix4x4 LightSpaceViewProjectionMatrix { get; private set; } = Matrix4x4.Identity;
+
 
     // [XmlIgnore] public static RenderTexture DepthRenderTexture { get; private set; }
     // [XmlIgnore] public static RenderTexture DisplayDepthRenderTexture { get; private set; }
 
-    private Vector3 _cameraBeforeTransformationWorldPosition;
     public float FarPlaneDistance = 1000;
 
     public float NearPlaneDistance = 0.0001f;
@@ -36,9 +30,6 @@ public class DirectionalLight : LightBase
     {
         // DepthRenderTexture = new RenderTexture(size: Size, colorAttachment: false, depthAttachment: true);
         // DisplayDepthRenderTexture = new RenderTexture(size: Size, colorAttachment: true, depthAttachment: false);
-
-        Tofu.RenderPassSystem.RegisterRender(RenderPassType.DirectionalLightShadowDepth,
-            RenderDirectionalLightShadowDepth);
         RenderPassDirectionalLightShadowDepth.I?.SetDirectionalLight(this);
         base.Awake();
     }
@@ -65,34 +56,32 @@ public class DirectionalLight : LightBase
 
     }
 
-    public void RenderDirectionalLightShadowDepth()
-    {
-        RefreshRate = Math.Clamp(RefreshRate, 1, 60);
-
-        if (Time.EditorElapsedTicks % (60 / RefreshRate) != 0)
-        {
-            return;
-        }
-
-        ConfigureForShadowMapping();
-
-        // Tofu.SceneManager.CurrentScene.RenderAll();
-        Tofu.SceneManager.CurrentScene.RenderOpaques();
-        Tofu.SceneManager.CurrentScene.RenderTransparency();
-
-        ConfigureForSceneRender();
-    }
+    // public void RenderDirectionalLightShadowDepth()
+    // {
+    //     RefreshRate = Math.Clamp(RefreshRate, 1, 60);
+    //
+    //     if (Time.EditorElapsedTicks % (60 / RefreshRate) != 0)
+    //     {
+    //         return;
+    //     }
+    //
+    //     ConfigureCameraForShadowMapping();
+    //
+    //     // Tofu.SceneManager.CurrentScene.RenderAll();
+    //     Tofu.SceneManager.CurrentScene.RenderOpaques();
+    //     Tofu.SceneManager.CurrentScene.RenderTransparency();
+    //
+    //     ConfigureCameraForSceneRender();
+    // }
 
     public override void OnDestroyed()
     {
-        ConfigureForSceneRender();
-        Tofu.RenderPassSystem.RemoveRender(RenderPassType.DirectionalLightShadowDepth,
-            RenderDirectionalLightShadowDepth);
+        ConfigureCameraForSceneRender();
 
         base.OnDestroyed();
     }
 
-    private void ConfigureForShadowMapping()
+    private void ConfigureCameraForShadowMapping()
     {
         _cameraBeforeTransformationWorldPosition = Camera.MainCamera.Transform.WorldPosition;
         _cameraBeforeTransformationRotation = Camera.MainCamera.Transform.Rotation;
@@ -116,15 +105,5 @@ public class DirectionalLight : LightBase
                                          Camera.MainCamera.GetLightProjectionMatrix(OrthographicSize);
     }
 
-    private void ConfigureForSceneRender()
-    {
-        Camera.MainCamera.IsOrthographic = _cameraBeforeTransformationIsOrthographic;
-        Camera.MainCamera.OrthographicSize = _cameraBeforeTransformationOrthographicSize;
-        Camera.MainCamera.Size = _cameraBeforeTransformationSize;
-        Camera.MainCamera.NearPlaneDistance = _cameraBeforeTransformationNearPlaneDistance;
-        Camera.MainCamera.FarPlaneDistance = _cameraBeforeTransformationFarPlaneDistance;
-        Camera.MainCamera.Transform.WorldPosition = _cameraBeforeTransformationWorldPosition;
-        Camera.MainCamera.Transform.Rotation = _cameraBeforeTransformationRotation;
-        Camera.MainCamera.UpdateMatrices();
-    }
+
 }

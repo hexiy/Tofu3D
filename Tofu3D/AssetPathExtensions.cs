@@ -1,5 +1,4 @@
 using System.IO;
-using System.Text;
 
 public static class AssetPathExtensions
 {

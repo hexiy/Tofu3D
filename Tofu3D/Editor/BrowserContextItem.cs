@@ -1,5 +1,4 @@
-﻿using System.IO;
-using ImGuiNET;
+﻿using ImGuiNET;
 
 namespace Tofu3D;
 

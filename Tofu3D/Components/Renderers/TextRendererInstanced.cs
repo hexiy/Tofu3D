@@ -1,4 +1,3 @@
-using System.IO;
 using System.Linq;
 using Tofu3D.Rendering.Instancing;
 
@@ -96,7 +95,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         Material.LoadShader();
     }
 
-    public override void Render()
+    public override void UploadRenderData()
     {
         if (this.GameObject.ActiveInHierarchy == false)
         {

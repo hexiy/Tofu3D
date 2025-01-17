@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Reflection;
 using ImGuiNET;
 
 namespace Tofu3D;

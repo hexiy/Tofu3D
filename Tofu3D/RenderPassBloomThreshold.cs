@@ -11,6 +11,7 @@ public class RenderPassBloomThreshold : RenderPass
     }
 
 
+    public override bool DrawsToTheFinalColorFramebuffer => false;
     public override bool CanRender() => Enabled;
 
     public override void Initialize()
@@ -57,6 +58,11 @@ public class RenderPassBloomThreshold : RenderPass
         Tofu.ShaderManager.BindVertexArray(0);
 
         MainFramebuffer.Unbind();
+    }
+
+    protected override void Render_GL()
+    {
+        
     }
 
     protected override void SetupRenderTexture()

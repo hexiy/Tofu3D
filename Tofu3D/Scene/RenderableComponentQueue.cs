@@ -89,22 +89,22 @@ public class RenderableComponentQueue : IComponentQueue
     //     RenderTransparency();
     // }
 
-    public void RenderOpaques()
+    public void UploadRenderDataOpaques()
     {
         _opaqueRenderables.Sort();
 
         for (var i = 0; i < _opaqueRenderables.Count; i++)
         {
-            _opaqueRenderables[i].Render();
+            _opaqueRenderables[i].UploadRenderData();
         }
     }
 
-    public void RenderTransparency()
+    public void UploadRenderDataTransparency()
     {
         _transparentRenderables.Sort();
         for (var i = 0; i < _transparentRenderables.Count; i++)
         {
-            _transparentRenderables[i].Render();
+            _transparentRenderables[i].UploadRenderData();
         }
     }
 // public void Update()

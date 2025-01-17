@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-
 public class MeshFile : Asset<MeshFile>
 {
     public Mesh Mesh;

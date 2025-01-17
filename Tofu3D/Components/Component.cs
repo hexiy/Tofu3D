@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Data.SqlTypes;
 using System.Reflection;
 
 namespace Scripts;

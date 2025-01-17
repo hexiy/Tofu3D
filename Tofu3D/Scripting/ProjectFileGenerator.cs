@@ -1,6 +1,5 @@
 using System.IO;
 using Microsoft.Build.Construction;
-using Microsoft.Build.Locator;
 
 public static class ProjectFileGenerator
 {

@@ -1,15 +1,9 @@
-﻿using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Runtime.CompilerServices;
 using ImGuiNET;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using ErrorCode = OpenTK.Graphics.OpenGL4.ErrorCode;
 using Keys = OpenTK.Windowing.GraphicsLibraryFramework.Keys;
-using OperatingSystem = Tofu3D.OperatingSystem;
 
 public class ImGuiController : IDisposable
 {
@@ -182,7 +176,7 @@ void main()
         Tofu.ShaderManager.BindVertexArray(prevVao);
         GL.BindBuffer(BufferTarget.ArrayBuffer, prevArrayBuffer);
 
-        CheckGlError("End of ImGui setup");
+        TofuGL.CheckGlError("End of ImGui setup");
     }
 
     /// <summary>
@@ -239,11 +233,12 @@ void main()
 
         // Render the ImGui frame:
         _frameBegun = false; // End the current frame
-        ImGui.Render();      // Generate draw data
+        ImGui.Render(); // Generate draw data
 
         // Render Draw Data using OpenGL or the configured renderer
         RenderImDrawData(ImGui.GetDrawData());
     }
+
     // private Stopwatch _fpsStopwatch = Stopwatch.StartNew();
     //
     // private void CalculateFramesPerSecond()
@@ -268,15 +263,15 @@ void main()
     public void Update(GameWindow wnd, float deltaSeconds)
     {
         // CalculateFramesPerSecond();
-        
-        
+
+
         // Ensure the frame begins (only once per update cycle)
         if (!_frameBegun)
         {
             ImGui.NewFrame();
             _frameBegun = true; // Mark the frame as active
         }
-        
+
         SetPerFrameImGuiData(deltaSeconds);
         UpdateImGuiInput(wnd);
     }
@@ -445,14 +440,14 @@ void main()
             0.0f,
             -1.0f,
             1.0f);
-
+        
         GL.UseProgram(_shader);
         GL.UniformMatrix4(_shaderProjectionMatrixLocation, false, ref mvp);
         GL.Uniform1(_shaderFontTextureLocation, 0);
-        CheckGlError("Projection");
+        TofuGL.CheckGlError("Projection");
 
         Tofu.ShaderManager.BindVertexArray(_vertexArray);
-        CheckGlError("VAO");
+        TofuGL.CheckGlError("VAO");
 
         Vector2 scl = io.DisplayFramebufferScale;
         drawData.ScaleClipRects(scl);
@@ -473,14 +468,14 @@ void main()
                 cmdList.VtxBuffer.Data, BufferUsageHint.StaticDraw);
             // GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero,
             //     cmdList.VtxBuffer.Size * Unsafe.SizeOf<ImDrawVert>(), cmdList.VtxBuffer.Data);
-            CheckGlError($"Data Vert {n}");
+            TofuGL.CheckGlError($"Data Vert {n}");
 
             GL.BufferData(BufferTarget.ElementArrayBuffer, cmdList.IdxBuffer.Size * sizeof(ushort),
                 cmdList.IdxBuffer.Data, BufferUsageHint.StaticDraw);
 
             // GL.BufferSubData(BufferTarget.ElementArrayBuffer, IntPtr.Zero, cmdList.IdxBuffer.Size * sizeof(ushort),
             //     cmdList.IdxBuffer.Data);
-            CheckGlError($"Data Idx {n}");
+            TofuGL.CheckGlError($"Data Idx {n}");
 
             for (var cmdI = 0; cmdI < cmdList.CmdBuffer.Size; cmdI++)
             {
@@ -493,12 +488,12 @@ void main()
 
                 GL.ActiveTexture(TextureUnit.Texture0);
                 GL.BindTexture(TextureTarget.Texture2D, (int)pcmd.TextureId);
-                CheckGlError("Texture");
+                TofuGL.CheckGlError("Texture");
 
                 // We do _windowHeight - (int)clip.W instead of (int)clip.Y because gl has flipped Y when it comes to these coordinates
                 var clip = pcmd.ClipRect;
                 GL.Scissor((int)clip.X, _windowHeight - (int)clip.W, (int)(clip.Z - clip.X), (int)(clip.W - clip.Y));
-                CheckGlError("Scissor");
+                TofuGL.CheckGlError("Scissor");
 
                 if ((io.BackendFlags & ImGuiBackendFlags.RendererHasVtxOffset) != 0)
                 {
@@ -512,7 +507,7 @@ void main()
                         (int)pcmd.IdxOffset * sizeof(ushort));
                 }
 
-                CheckGlError("Draw");
+                TofuGL.CheckGlError("Draw");
             }
         }
 
@@ -637,19 +632,5 @@ void main()
         }
 
         return shader;
-    }
-
-    public static bool CheckGlError(string title)
-    {
-        var hadError = false;
-        ErrorCode error;
-        var i = 1;
-        while ((error = GL.GetError()) != ErrorCode.NoError)
-        {
-            Debug.LogError($"{title} ({i++}): {error}");
-            hadError = true;
-        }
-
-        return hadError;
     }
 }

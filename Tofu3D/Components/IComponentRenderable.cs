@@ -2,7 +2,7 @@
 
 public interface IComponentRenderable : IComparable<IComponentRenderable>
 {
-    public void Render();
+    public void UploadRenderData();
     public RenderMode RenderMode { get; }
     public int RenderOrder { get; set; }
 }

@@ -1,5 +1,3 @@
-using System.IO;
-
 namespace Tofu3D;
 
 public class AssetUtils

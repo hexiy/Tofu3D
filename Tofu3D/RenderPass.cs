@@ -2,9 +2,7 @@ namespace Tofu3D.Rendering;
 
 public abstract class RenderPass : IComparable<RenderPass>
 {
-    // List<Action> _renderQueue = new List<Action>();
-    internal Action _renderAction;
-    public virtual BlendMode BlendMode { get;} = BlendMode.Fade;
+    public virtual BlendMode BlendMode { get; } = BlendMode.Fade;
     public bool Enabled = true;
 
     protected RenderPass(RenderPassType type)
@@ -15,6 +13,7 @@ public abstract class RenderPass : IComparable<RenderPass>
 
     public RenderPassType RenderPassType { get; }
     public Framebuffer MainFramebuffer { get; protected set; }
+    public abstract bool DrawsToTheFinalColorFramebuffer { get; }
 
     public int CompareTo(RenderPass comparePart)
     {
@@ -26,9 +25,7 @@ public abstract class RenderPass : IComparable<RenderPass>
         return RenderPassType.CompareTo(comparePart.RenderPassType);
     }
 
-    public virtual bool CanRender() =>
-        // return _renderQueue.Count > 0 && Enabled;
-        _renderAction != null && Enabled;
+    public virtual bool CanRender() => Enabled;
 
     public virtual void Initialize()
     {
@@ -44,20 +41,7 @@ public abstract class RenderPass : IComparable<RenderPass>
         MainFramebuffer.Clear();
     }
 
-    public void RegisterRender(Action render)
-    {
-        // _renderQueue.Clear();
-        // _renderQueue.Add(render);
-        _renderAction = render;
-    }
-
-    public void RemoveRender(Action render)
-    {
-        // _renderQueue.Remove(render);
-        _renderAction = null;
-    }
-
-    public void RenderThisAsFullscreenQuadToTargetFramebuffer()
+    public void RenderToFramebuffer()
     {
         // if (CanRender() == false)
         // {
@@ -70,14 +54,15 @@ public abstract class RenderPass : IComparable<RenderPass>
         // {
         // renderCall.Invoke();
         // }
-        _renderAction?.Invoke(); // post process doesnt have render action so ?. 
+        Render_GL();
 
         PostRender();
         UnbindFrameBuffer();
         PostUnbindFrameBuffer();
     }
 
-    public virtual void RenderThisAsFullscreenQuadToTargetFramebuffer(Framebuffer target, FramebufferAttachment attachment)
+    public virtual void RenderThisAsFullscreenQuadToTargetFramebuffer(Framebuffer target,
+        FramebufferAttachment attachment)
     {
         if (MainFramebuffer == null)
         {
@@ -138,5 +123,6 @@ public abstract class RenderPass : IComparable<RenderPass>
     {
     }
 
+    protected abstract void Render_GL();
     protected abstract void SetupRenderTexture();
 }

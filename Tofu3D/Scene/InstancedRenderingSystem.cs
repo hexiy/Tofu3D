@@ -1,8 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.IO;
-using Tofu3D.Rendering;
-
-namespace Tofu3D.Rendering.Instancing;
+﻿namespace Tofu3D.Rendering.Instancing;
 
 public class InstancedRenderingSystem
 {
@@ -109,7 +105,9 @@ public class InstancedRenderingSystem
                 Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
         }
 
-        else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
+        else if (Tofu.RenderPassSystem.CurrentRenderPassType
+                 is RenderPassType.DirectionalLightShadowDepth
+                 or RenderPassType.PointLightShadowDepth
                  or RenderPassType.ZPrePass)
         {
             Tofu.ShaderManager.UseShader(_depthMaterial.Shader);
@@ -131,7 +129,6 @@ public class InstancedRenderingSystem
 
                 SetGlobalUniforms(shader);
             }
-
 
             foreach (var definitionIndexInThisShaderGroup in shaderGroup.Value.DefinitionIndexes)
             {
@@ -234,7 +231,9 @@ public class InstancedRenderingSystem
                 vbo: groupBuffer.Vbo);
         }
 
-        else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.DirectionalLightShadowDepth
+        else if (Tofu.RenderPassSystem.CurrentRenderPassType
+                 is RenderPassType.DirectionalLightShadowDepth
+                 or RenderPassType.PointLightShadowDepth
                  or RenderPassType.ZPrePass)
         {
             if (material.NoDepth == false)
@@ -260,7 +259,7 @@ public class InstancedRenderingSystem
 
         Tofu.ShaderManager.BindVertexArray(0);
 
-        ImGuiController.CheckGlError("instanced rendering error");
+        TofuGL.CheckGlError("instanced rendering error");
     }
 
     private void RenderObjects_MousePickingPass(int meshVao, int numberOfObjects, int indicesCount, int verticesCount,

@@ -113,7 +113,7 @@ public class Camera : Component, IComponentUpdateable
         return GetPerspectiveProjectionMatrix();
     }
 
-    private Matrix4x4 GetPerspectiveProjectionMatrix()
+    public Matrix4x4 GetPerspectiveProjectionMatrix()
     {
         FieldOfView = Mathf.ClampMin(FieldOfView, 0.0001f);
         NearPlaneDistance = Mathf.Clamp(NearPlaneDistance, 0.00001f, FarPlaneDistance);

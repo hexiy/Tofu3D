@@ -40,16 +40,16 @@ void main(void)
 	v_id = uint(a_id);
 
 	vertexPositionWorld = vec3(a_model * vec4(a_pos.xyz, 1.0));
-	normalWorldSpace = transpose(inverse(mat3(a_model))) * a_normal;
-
+//	normalWorldSpace = transpose(inverse(mat3(a_model))) * a_normal;
+	normalWorldSpace = normalize(transpose(inverse(mat3(a_model))) * a_normal);
+	
 	mat4 lightMvp = u_lightSpaceViewProjection * a_model;
 	fragPosLightSpace = lightMvp * vec4(a_pos.xyz, 1.0);
 
-	// TBN for normal texture mapping
 	vec3 T = normalize(vec3(a_model * vec4(a_tangent, 0.0)));
 	vec3 B = normalize(vec3(a_model * vec4(a_bitangent, 0.0)));
 	vec3 N = normalize(vec3(a_model * vec4(a_normal, 0.0)));
-	TBN = mat3(T, B, N);
+	TBN = mat3(T, B, N); // Keep as a forward TBN matrix
 }
 
 //[FRAGMENT]
@@ -135,12 +135,15 @@ vec3 calculatePointLightsLighting(vec3 normal, vec3 viewDir, vec3 fragPos) {
 		float attenuation = 1.0 - clamp(distance / light.radius, 0.0, 1.0);
 		attenuation = attenuation * attenuation; // Falloff curve for smoother transition
 
+		normal = normalize(normal);
+		lightDir = normalize(lightDir);
+
 		float diffuseFactor = max(dot(normal, lightDir), 0.0);
 		vec3 diffuse = diffuseFactor * light.color * light.intensity;
 
-		vec3 halfwayDir = normalize(viewDir + lightDir);
-		float specFactor = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
-		vec3 specular = specFactor * light.color * light.intensity;
+//		vec3 halfwayDir = normalize(viewDir + lightDir);
+//		float specFactor = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
+//		vec3 specular = specFactor * light.color * light.intensity;
 
 				result += attenuation * (diffuse);
 //		result += attenuation * (diffuse + specular);
@@ -311,11 +314,11 @@ void main() {
 	vec3 baseColor = albedo.rgb; // Separate out RGB only
 
 	// Normal Mapping
-	vec3 finalNormalTangentSpace = normalize(TBN * normalWorldSpace);
+	vec3 finalNormalWorldSpace = normalWorldSpace;
 	if (u_hasNormalTexture == 1) {
 		vec3 texNormal = texture(u_normalTexture, uvCoords).rgb * 2.0 - 1.0; // Map [0,1] to [-1,1]
-		//		finalNormalTangentSpace = normalize(TBN * texNormal);
-		finalNormalTangentSpace = normalize(TBN * texNormal);
+		//		normalWorldSpace = normalize(TBN * texNormal);
+		finalNormalWorldSpace = normalize(TBN * normalize(texNormal)); // from tangent space to world space
 
 		//			vec3 vertexNormalTBNed = normalize(TBN * normal);
 
@@ -323,8 +326,8 @@ void main() {
 		//  //norm = normalize(TBN * norm);
 		//  float blendFactor = 0.8 * u_hasNormalTexture;
 		//  blendFactor = 0;
-		//  vec3 finalNormalTangentSpace = normalize(mix(vertexNormalTBNed, texNormal, blendFactor));
-		//			vec3 finalNormalTangentSpace = vertexNormalTBNed;
+		//  vec3 normalWorldSpace = normalize(mix(vertexNormalTBNed, texNormal, blendFactor));
+		//			vec3 normalWorldSpace = vertexNormalTBNed;
 	}
 
 	// View and Light Directions
@@ -360,9 +363,9 @@ void main() {
 
 	// Diffuse Lighting
 	vec3 lightDirTangentSpace = normalize(TBN * -correctedLightDir.rgb);
-	float diffuseFactor = max(dot(finalNormalTangentSpace, lightDirTangentSpace), 0.0);
+	float diffuseFactor = max(dot(normalWorldSpace, lightDirTangentSpace), 0.0);
 
-	//	float diffuseFactor = max(dot(finalNormalTangentSpace, lightDir), 0.0);
+	//	float diffuseFactor = max(dot(normalWorldSpace, lightDir), 0.0);
 
 
 	vec3 diffuse = diffuseFactor *
@@ -375,7 +378,6 @@ void main() {
 	vec3 F0 = mix(vec3(0.04), baseColor, metallicValue * 5); // Base reflectance (metallic or dielectric)
 	vec3 specular = SpecularReflectionGGX(normalWorldSpace, viewDir, correctedLightDir, H, F0, 5);
 	specular = specular * u_directionalLightColor.rgb * u_directionalLightColor.a * 5;
-	//specular = vec3(1);
 
 
 	// Shadows
@@ -494,7 +496,7 @@ void main() {
 	}
 	else if (u_renderMode == 3) // normals
 	{
-		fragColor = vec4(finalNormalTangentSpace, 1);
+		fragColor = vec4(normalWorldSpace, 1);
 	}
 	else if (u_renderMode == 4) // directional light diffuse visualisation
 	{

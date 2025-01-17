@@ -1,10 +1,9 @@
-using Tofu3D;
-
 namespace Tofu3D.Rendering;
 
 public class RenderPassMousePicking : RenderPass
 {
     public static RenderPassMousePicking I { get; private set; }
+    public override bool DrawsToTheFinalColorFramebuffer => false;
 
     public override bool CanRender() =>
         Tofu.MouseInput.IsMouseInSceneView && base.CanRender();
@@ -22,6 +21,12 @@ public class RenderPassMousePicking : RenderPass
         base.Initialize();
     }
 
+
+    protected override void Render_GL()
+    {
+        
+        
+    }
 
     protected override void SetupRenderTexture()
     {
