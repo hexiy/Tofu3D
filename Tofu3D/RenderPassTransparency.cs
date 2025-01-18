@@ -3,6 +3,7 @@
 public class RenderPassTransparency : RenderPass
 {
     public override bool DrawsToTheFinalColorFramebuffer => true;
+    public override BlendMode BlendMode { get; } = BlendMode.Fade;
 
     public RenderPassTransparency() : base(RenderPassType.Transparency)
     {
@@ -19,10 +20,11 @@ public class RenderPassTransparency : RenderPass
     }
     protected override void Render_GL()
     {
-        
+        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.Transparent);
     }
     protected override void PreBindFrameBuffer()
     {
+        GL.Enable(EnableCap.Blend);
         // GL.Enable(EnableCap.DepthTest);
      
         GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassZPrePass.I.MainFramebuffer.FrameBufferID);
@@ -31,7 +33,6 @@ public class RenderPassTransparency : RenderPass
         var sizeY = (int)MainFramebuffer.Size.Y;
         GL.BlitFramebuffer(0, 0, sizeX, sizeY, 0, 0, sizeX, sizeY, ClearBufferMask.DepthBufferBit,
             BlitFramebufferFilter.Nearest);
-
         
         // blit skybox to this
         // GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassSkybox.I.MainFramebuffer.FrameBufferID);
@@ -45,7 +46,7 @@ public class RenderPassTransparency : RenderPass
 
     protected override void PreRender()
     {
-        GL.DepthMask(false);
+        // GL.DepthMask(false);
     }
 
     protected override void SetupRenderTexture()

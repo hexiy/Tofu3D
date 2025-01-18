@@ -480,6 +480,7 @@ void main() {
 
 
 	if (alpha < 0.9) {
+//		alpha = 0;
 		discard;
 	}
 	// Final Output

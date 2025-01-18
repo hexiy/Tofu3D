@@ -69,7 +69,6 @@ public abstract class RenderPass : IComparable<RenderPass>
             Debug.Log("PassRenderTexture == null");
             return;
         }
-
         // GL.ClearColor(Color.Orchid.ToOtherColor());
         // GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 

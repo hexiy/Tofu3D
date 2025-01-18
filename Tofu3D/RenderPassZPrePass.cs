@@ -19,7 +19,7 @@ public class RenderPassZPrePass : RenderPass
     }
     protected override void Render_GL()
     {
-        
+        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.Opaque);
     }
     protected override void PreRender()
     {
