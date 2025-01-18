@@ -24,8 +24,7 @@ public class RenderPassMousePicking : RenderPass
 
     protected override void Render_GL()
     {
-        
-        
+        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.All);
     }
 
     protected override void SetupRenderTexture()
