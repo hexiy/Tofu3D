@@ -33,7 +33,12 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 
     protected override void Render_GL()
     {
-        
+        if (_directionalLight == null)
+        {
+            return;
+        }
+
+        _directionalLight.RenderDirectionalLightShadowDepth();
     }
 
     protected override void SetupRenderTexture()
@@ -46,9 +51,9 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 
     protected override void PreRender()
     {
-        // GL.Enable(EnableCap.DepthTest);
+        GL.Enable(EnableCap.DepthTest);
         GL.DepthMask(true);
-
+GL.Clear(ClearBufferMask.DepthBufferBit);
         // it would be nice to render the skybox to the light view preview textures
         // RenderPassSkybox.I.Render();
         // RenderPassSkybox.I.RenderToRenderTexture(PassRenderTexture, FramebufferAttachment.Color);

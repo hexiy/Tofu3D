@@ -12,16 +12,17 @@ public class DirectionalLight : LightBase
     public float FarPlaneDistance = 1000;
 
     public float NearPlaneDistance = 0.0001f;
-    public float OrthographicSize = 15;
+    public float OrthographicSize = 40;
 
     public int RefreshRate = 60;
 
     public bool Rotate = false;
 
     public float RotateOffset = 0;
-    public Vector2 Size = new(2048, 2048);
+    public Vector2 Size = new(4096, 4096);
 
-    [Show] public float Speed = 100;
+    [Show]
+    public float Speed = 100;
 
     public static DirectionalLight I { get; private set; }
 
@@ -53,26 +54,23 @@ public class DirectionalLight : LightBase
             Transform.Rotation = Transform.Rotation.Set(Mathf.SinAbs(Time.EditorElapsedTime * 0.5f) + 0.2f * 30,
                 RotateOffset + (float)Math.Sin(Time.EditorElapsedTime * Speed) * 50);
         }
-
     }
 
-    // public void RenderDirectionalLightShadowDepth()
-    // {
-    //     RefreshRate = Math.Clamp(RefreshRate, 1, 60);
-    //
-    //     if (Time.EditorElapsedTicks % (60 / RefreshRate) != 0)
-    //     {
-    //         return;
-    //     }
-    //
-    //     ConfigureCameraForShadowMapping();
-    //
-    //     // Tofu.SceneManager.CurrentScene.RenderAll();
-    //     Tofu.SceneManager.CurrentScene.RenderOpaques();
-    //     Tofu.SceneManager.CurrentScene.RenderTransparency();
-    //
-    //     ConfigureCameraForSceneRender();
-    // }
+    public void RenderDirectionalLightShadowDepth()
+    {
+        RefreshRate = Math.Clamp(RefreshRate, 1, 60);
+
+        if (Time.EditorElapsedTicks % (60 / RefreshRate) != 0)
+        {
+            return;
+        }
+
+        ConfigureCameraForShadowMapping();
+
+        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.All);
+
+        ConfigureCameraForSceneRender();
+    }
 
     public override void OnDestroyed()
     {
@@ -104,6 +102,4 @@ public class DirectionalLight : LightBase
         LightSpaceViewProjectionMatrix = Camera.MainCamera.GetLightViewMatrix() *
                                          Camera.MainCamera.GetLightProjectionMatrix(OrthographicSize);
     }
-
-
 }

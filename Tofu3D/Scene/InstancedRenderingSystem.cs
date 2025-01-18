@@ -456,6 +456,7 @@ public class InstancedRenderingSystem
 
         material.Shader.SetInt("u_hasShadowmapTexture",
             RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
+            RenderPassDirectionalLightShadowDepth.I.Enabled &&
             material.Shader.ShadowMapTextureUnit != null
                 ? 1
                 : 0);
@@ -596,7 +597,6 @@ public class InstancedRenderingSystem
             // assign new InstancedRenderingIndex
 
             sharedBuffer.AddObject(ref objectInstancingData);
-
         }
 
 

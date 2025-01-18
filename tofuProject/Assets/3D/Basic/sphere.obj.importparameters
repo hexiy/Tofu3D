@@ -1,7 +1,7 @@
-˜{
+–{
   "ImportAsSingleMesh": true,
-  "SmoothNormals": false,
+  "SmoothNormals": true,
   "Scale": 1.0,
   "PathToSourceAsset": "Assets/3D/Basic/sphere.obj",
-  "AssetID": -362780840
-}}}
+  "AssetID": 670719633
+}}}}}

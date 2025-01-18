@@ -107,19 +107,24 @@ public class ShaderManager
                 loadedMaterial.Shader = shader;
             }
         }
-        /*// find all Renderer components, and check if the material has the changed shader and reload it, ehh this doesnt work with renderpass shaders for example
-        List<Renderer> renderersInScene = Tofu.SceneManager.CurrentScene.FindComponentsInScene<Renderer>();
-        foreach (Renderer renderer in renderersInScene)
-        {
-            if (renderer.Material?.Shader?.Path == shaderPath)
-            {
-                Shader shader = new Shader(shaderPath);
 
-                // we might need to call GL from main thread...
-                shader.Load();
-                renderer.Material?.SetShader(shader);
+        if (false)
+        {
+            // find all Renderer components, and check if the material has the changed shader and reload it, ehh this doesnt work with renderpass shaders for example
+            List<Renderer> renderersInScene = Tofu.SceneManager.CurrentScene.FindComponentsInScene<Renderer>();
+            foreach (Renderer renderer in renderersInScene)
+            {
+                if (renderer.Material?.Shader?.Path == shaderPath)
+                {
+                    Shader shader = new Shader(shaderPath);
+
+                    // we might need to call GL from main thread...
+                    shader.Load();
+                    renderer.Material.Shader = shader;
+                    renderer.Material.LoadShader();
+                }
             }
-        }*/
+        }
     }
 
     public void ReloadQueuedShaders()

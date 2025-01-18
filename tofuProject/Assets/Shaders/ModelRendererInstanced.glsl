@@ -362,10 +362,11 @@ void main() {
 	baseColor;
 
 	// Diffuse Lighting
-	vec3 lightDirTangentSpace = normalize(TBN * -correctedLightDir.rgb);
-	float diffuseFactor = max(dot(normalWorldSpace, lightDirTangentSpace), 0.0);
+	vec3 lightDirTangentSpace = normalize(TBN * correctedLightDir.rgb);
+//	float diffuseFactor = max(dot(-normalWorldSpace, TBN*-lightDirTangentSpace), 0.0);
 
-	//	float diffuseFactor = max(dot(normalWorldSpace, lightDir), 0.0);
+		float diffuseFactor = max(dot(-normalWorldSpace, lightDir), 0.0);
+//		float diffuseFactor = max(dot(lightDirTangentSpace, lightDir), 0.0);
 
 
 	vec3 diffuse = diffuseFactor *
@@ -384,13 +385,15 @@ void main() {
 	float shadow = 0.0;
 
 	if (u_hasShadowmapTexture == 1) {
-		if (u_smoothShadows == 1) {
+//		if (u_smoothShadows == 1) {
 			shadow = ShadowCalculationPCFConstantQuality();
-		}
-		else {
-			shadow = OldShadowCalculation();
-		}
-	}
+//		}
+//		else {
+//			shadow = OldShadowCalculation();
+//		}
+	}		
+	shadow = ShadowCalculationPCFConstantQuality();
+
 
 	// Subtract shadow influence for direct lighting
 	//	vec3 lighting = ambient + (diffuse + specular) *
@@ -515,12 +518,12 @@ void main() {
 
 
 		if (u_hasShadowmapTexture == 1) {
-			if (u_smoothShadows == 1) {
+//			if (u_smoothShadows == 1) {
 				shadow = ShadowCalculationPCFConstantQuality();
-			}
-			else {
-				shadow = OldShadowCalculation();
-			}
+//			}
+//			else {
+//				shadow = OldShadowCalculation();
+//			}
 		}
 		fragColor = vec4(vec3(1 - shadow), 1);
 	}
