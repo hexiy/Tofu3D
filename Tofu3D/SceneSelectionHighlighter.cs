@@ -17,7 +17,7 @@ public class SceneSelectionHighlighter
     private void OnGameObjectsSelected(List<GameObject> gameObjects)
     {
         _selectedGameObjects = gameObjects;
-
+        StartFadingAnimation();
         SetTransform();
     }
 
@@ -49,17 +49,22 @@ public class SceneSelectionHighlighter
         runtimeMaterial.BlendMode = BlendMode.Fade;
         runtimeMaterial.MaterialType = MaterialType.Unlit;
 
+        _selectionBoxGameObject.Awake();
+    }
+
+    private void StartFadingAnimation()
+    {
         Tweener.Kill(this);
-        Tweener.Tween(0.45f, 0.3f, 1.8f, (f) =>
+        ModelRendererInstanced modelRenderer = _selectionBoxGameObject.GetComponent<ModelRendererInstanced>();
+        Tweener.Tween(0.45f, 0.27f, 1.8f, (f) =>
             {
                 // runtimeMaterial.AlbedoTint doesnt do anything... this only works when referencing material like this "modelRenderer.Material"
                 // because in SetDefaultMaterial in renderer we created runtime copy, i'll keep this directly referencing modelRednerer.material so it doesnt break in future...
-                modelRenderer.Material.AlbedoTint = modelRenderer.Material.AlbedoTint.SetA(f);
+                // modelRenderer.Material.AlbedoTint = modelRenderer.Material.AlbedoTint.SetA(f);
+                modelRenderer.Material.AlbedoTint.SetA(f);
                 // Debug.Log(modelRenderer.Material.AlbedoTint.A);
             }).SetTarget(this)
             .SetLoop(Tween.LoopType.Yoyo);
-
-        _selectionBoxGameObject.Awake();
     }
 
     private void SetTransform()

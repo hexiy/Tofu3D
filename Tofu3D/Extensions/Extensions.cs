@@ -26,7 +26,11 @@ public static class Extensions
 
     public static float Lerp(float a, float b, float t) => Mathf.Lerp(a, b, t);
 
-    public static Color SetA(ref this Color col, float a) => new(col.R, col.G, col.B, a);
+    public static Color SetA(ref this Color col, float a)
+    {
+        col = new(col.R, col.G, col.B, a);
+        return col;
+    }
 
     public static Vector2 Set(ref this Vector2 vec, Vector2 vec2) => vec.Set(vec2.X, vec2.Y);
 
@@ -127,7 +131,9 @@ public static class Extensions
     public static Vector3 VectorZ(this Vector3 vector) => new(0, 0, vector.Z);
 
     public static Color ToColor(this System.Numerics.Vector4 vector) => new(vector.X, vector.Y, vector.Z, vector.W);
-    public static Tofu3D.Vector4 ToVector4(this System.Numerics.Vector4 vector) => new(vector.X, vector.Y, vector.Z, vector.W);
+
+    public static Tofu3D.Vector4 ToVector4(this System.Numerics.Vector4 vector) =>
+        new(vector.X, vector.Y, vector.Z, vector.W);
 
     public static Color ToColor(this Vector3 vector) => new(vector.X, vector.Y, vector.Z);
 

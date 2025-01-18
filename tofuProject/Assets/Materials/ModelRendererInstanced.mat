@@ -1,4 +1,4 @@
-¢	{
+ 	{
   "Shader": {
     "BufferType": 2,
     "Path": "Assets/Shaders/ModelRendererInstanced.glsl"
@@ -8,7 +8,7 @@
   "AlphaMaskTexture": null,
   "AlbedoTint": {
     "B": 255,
-    "G": 255,
+    "G": 0,
     "R": 255,
     "A": 255
   },
@@ -41,7 +41,7 @@
   "UVOffsetIsInstanced": false,
   "RenderMode": 0,
   "BlendMode": 0,
-  "MaterialType": 0,
+  "MaterialType": 1,
   "IgnoreDepth": false,
   "NoDepth": false,
   "IsRuntimeCopy": false,
@@ -49,7 +49,7 @@
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}"
+}}}"
 }d": false,
   "RenderMode": 0,
   "BlendMode": 0,

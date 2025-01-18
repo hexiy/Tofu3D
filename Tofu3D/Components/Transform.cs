@@ -43,7 +43,7 @@ public class Transform : Component
     [Hide]
     public int ParentId = -1;
 
-    public Vector3 Pivot = new(0, 0, 0);
+    public Vector3 Pivot = Vector3.Half;
 
     public override bool CanBeDisabled => false;
 
@@ -235,6 +235,7 @@ public class Transform : Component
         {
             Transform.Parent.RemoveChild(GameObjectId);
         }
+
         Parent = par;
         ParentId = Parent?.GameObjectId ?? -1;
 

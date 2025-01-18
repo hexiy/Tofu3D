@@ -4,11 +4,26 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>2567</Id>
-      <IndexInHierarchy>8</IndexInHierarchy>
+      <Id>799</Id>
+      <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>true</IsStaticSelf>
-      <Name>defaultCube</Name>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>Point Light</Name>
+      <PrefabPath />
+      <Selected>true</Selected>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <Id>801</Id>
+      <IndexInHierarchy>4</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>sphere</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
@@ -20,26 +35,84 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>2567</GameObjectId>
+      <GameObjectId>799</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <ChildrenIDs />
+      <ChildrenIDs>
+        <int>801</int>
+        <int>801</int>
+        <int>801</int>
+      </ChildrenIDs>
       <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>2562</ParentId>
+      <ParentId>-1</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>2.8682609</X>
-        <Y>-2.1134243</Y>
-        <Z>9.43033</Z>
+        <X>-0.51</X>
+        <Y>-6.58</Y>
+        <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>1.9566846</X>
-        <Y>-2.6907744</Y>
-        <Z>9.43033</Z>
+        <X>-0.51</X>
+        <Y>-6.58</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="PointLight">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>799</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <Color>
+        <B>255</B>
+        <G>0</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294902015</PackedValue>
+      </Color>
+      <Intensity>1</Intensity>
+      <Radius>10</Radius>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>801</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <ChildrenIDs />
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <ParentId>799</ParentId>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <WorldPosition>
+        <X>-0.51</X>
+        <Y>-6.58</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -59,7 +132,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>2567</GameObjectId>
+      <GameObjectId>801</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -68,18 +141,18 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>3</X>
-        <Y>3</Y>
-        <Z>3</Z>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>2567</GameObjectId>
+      <GameObjectId>801</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <MousePickingId>13</MousePickingId>
-      <MousePickingEnabled>false</MousePickingEnabled>
+      <MousePickingId>772</MousePickingId>
+      <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Color>
         <B>255</B>
@@ -100,10 +173,10 @@
         <Additive>false</Additive>
         <AlbedoTint>
           <B>255</B>
-          <G>255</G>
+          <G>0</G>
           <R>255</R>
           <A>255</A>
-          <PackedValue>4294967295</PackedValue>
+          <PackedValue>4294902015</PackedValue>
         </AlbedoTint>
         <EmissiveColor>
           <X>0</X>
@@ -129,13 +202,13 @@
         <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
         <RenderMode>Opaque</RenderMode>
         <BlendMode>Opaque</BlendMode>
-        <MaterialType>Lit</MaterialType>
+        <MaterialType>Unlit</MaterialType>
         <IgnoreDepth>false</IgnoreDepth>
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>5</Vao>
-        <Ebo>-1</Ebo>
+        <Vao>771</Vao>
+        <Ebo>3084</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -144,13 +217,13 @@
             <int>3</int>
             <int>3</int>
           </CountsOfElements>
-          <VerticesCount>36</VerticesCount>
-          <Name>defaultCube.obj_0</Name>
-          <PathInLibraryFolder>Library/Meshes/defaultCube.obj_0.tofumesh</PathInLibraryFolder>
+          <VerticesCount>482</VerticesCount>
+          <Name>sphere.obj_0</Name>
+          <PathInLibraryFolder>Library/Meshes/sphere.obj_0.tofumesh</PathInLibraryFolder>
         </Mesh>
       </RuntimeMesh>
       <Layer>0</Layer>
-      <RenderOrder>8</RenderOrder>
+      <RenderOrder>4</RenderOrder>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>
