@@ -74,6 +74,7 @@ uniform float u_smoothness;
 uniform float u_metallic;
 uniform float u_renderMode = 0;
 uniform float u_cameraFrustumLength = 100;
+uniform int u_discardTransparentPixels=1;
 
 uniform int u_materialType;
 uniform int u_hasAlbedoTexture;
@@ -303,7 +304,7 @@ void main() {
 		albedo *= texture(u_albedoTexture, uvCoords);
 	}
 	if (u_materialType == 1 && u_renderMode == 0) {
-		if (albedo.a < 0.9) {
+		if (albedo.a < 0.9 && u_discardTransparentPixels == 1) {
 			discard;
 		}
 		fragColor = albedo;
@@ -479,14 +480,14 @@ void main() {
 	}
 
 
-	if (alpha < 0.9) {
+	if (alpha < 0.9 && u_discardTransparentPixels == 1) {
 //		alpha = 0;
 		discard;
 	}
 	// Final Output
 	if (u_renderMode == 0) // regular
 	{
-		fragColor = vec4(color, 1);
+		fragColor = vec4(color, alpha);
 
 		//		fragColor = vec4(color, alpha);
 	}

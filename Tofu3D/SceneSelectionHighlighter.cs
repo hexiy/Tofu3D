@@ -6,7 +6,7 @@ public class SceneSelectionHighlighter
 {
     private GameObject _selectionBoxGameObject;
     private List<GameObject> _selectedGameObjects = new List<GameObject>();
-    
+
     public void Init()
     {
         GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
@@ -47,6 +47,7 @@ public class SceneSelectionHighlighter
         runtimeMaterial.AlbedoTint = new Color(1, 1, 1, 0.45f);
         runtimeMaterial.RenderMode = RenderMode.Transparent;
         runtimeMaterial.BlendMode = BlendMode.Fade;
+        runtimeMaterial.MaterialType = MaterialType.Unlit;
 
         Tweener.Kill(this);
         Tweener.Tween(0.45f, 0.3f, 1.8f, (f) =>

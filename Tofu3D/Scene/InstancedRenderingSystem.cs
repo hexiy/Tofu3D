@@ -127,7 +127,7 @@ public class InstancedRenderingSystem
                 // shader = Tofu.ShaderManager.LoadShader(shader.Path);
                 Tofu.ShaderManager.UseShader(shader);
 
-                SetGlobalUniforms(shader);
+                SetGlobalUniforms(_groupDefinitions[shaderGroup.Value.DefinitionIndexes[0]].Material, shader);
             }
 
             foreach (var definitionIndexInThisShaderGroup in shaderGroup.Value.DefinitionIndexes)
@@ -335,8 +335,12 @@ public class InstancedRenderingSystem
         }
     }
 
-    private void SetGlobalUniforms(Shader shader)
+    private void SetGlobalUniforms(Asset_Material material, Shader shader)
     {
+        bool discardTransparentPixels =
+            material.BlendMode is BlendMode.Fade or BlendMode.PremultipliedAlpha or BlendMode.Additive;
+        shader.SetInt("u_discardTransparentPixels", discardTransparentPixels ? 1 : 0);
+
         Tofu3D.Tofu.LightRenderingManager.BindPointLightsUBO(shader.ProgramId);
         shader.SetInt("_pointLightsCount", Tofu.LightRenderingManager.PointLightsCount);
 
