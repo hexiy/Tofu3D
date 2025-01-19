@@ -421,6 +421,7 @@ public class EditorPanelHierarchy : EditorPanel
             Tofu.GameObjectSelectionManager.SelectGameObject(currentGameObject);
         }
 
+        DrawSpaceBetween(currentGameObject);
         if (opened)
         {
             var children = currentGameObject.Transform.Children;
@@ -432,12 +433,15 @@ public class EditorPanelHierarchy : EditorPanel
 
             //ImGui.TreePop();
             ImGui.TreePop();
+            if (children.Count > 0)
+            {
+                DrawSpaceBetween(currentGameObject, after: true);
+            }
         }
-
-        DrawSpaceBetween(currentGameObject);
     }
 
-    private void DrawSpaceBetween(GameObject currentGameObject, bool after = true)
+    private void DrawSpaceBetween(GameObject currentGameObject, bool after = true,
+        bool currentGameObjectIsParent = true)
     {
         float height = _currentSpaceHeight;
         // if (Mathf.Distance(ImGui.GetCursorPosY(), ImGui.GetMousePos().Y) < 50 &&
@@ -459,15 +463,20 @@ public class EditorPanelHierarchy : EditorPanel
             if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && payload.Length > 0)
             {
                 var droppedGameObject = Tofu.SceneManager.CurrentScene.GetGameObjectByID(int.Parse(payload));
-                bool x = droppedGameObject.IndexInHierarchy < currentGameObject.IndexInHierarchy;
-                Tofu.SceneManager.CurrentScene.GameObjects.Remove(droppedGameObject);
-                Tofu.SceneManager.CurrentScene.GameObjects.Insert(
-                    currentGameObject.IndexInHierarchy + (after ? 1 : 0) - (x ? 1 : 0),
-                    droppedGameObject);
+                if (droppedGameObject.IndexInHierarchy != currentGameObject.IndexInHierarchy)
+                {
+                    bool x = droppedGameObject.IndexInHierarchy < currentGameObject.IndexInHierarchy;
+                    Tofu.SceneManager.CurrentScene.GameObjects.Remove(droppedGameObject);
+                    Tofu.SceneManager.CurrentScene.GameObjects.Insert(
+                        currentGameObject.IndexInHierarchy + (after ? 1 : 0) - (x ? 1 : 0),
+                        droppedGameObject);
 
-                // droppedGameObject.Transform.SetParent(currentGameObject.Transform.Parent);
+                    droppedGameObject.Transform.SetParent(currentGameObjectIsParent
+                        ? currentGameObject.Transform.Parent
+                        : currentGameObject.Transform.Parent.Parent);
 
-                Tofu.SceneManager.CurrentScene.UpdateGameobjectsIndexInHierarchy();
+                    Tofu.SceneManager.CurrentScene.UpdateGameobjectsIndexInHierarchy();
+                }
             }
 
             ImGui.EndDragDropTarget();

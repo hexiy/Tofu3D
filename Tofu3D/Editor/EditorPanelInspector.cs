@@ -442,7 +442,7 @@ public class EditorPanelInspector : EditorPanel
         if (gameObject)
         {
             var justOpened = false;
-            if (ImGui.Button("+"))
+            if (ImGui.Button("[+] Add Component"))
             {
                 ImGui.OpenPopup("AddComponentPopup");
                 justOpened = true;

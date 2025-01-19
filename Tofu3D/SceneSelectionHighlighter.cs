@@ -36,8 +36,8 @@ public class SceneSelectionHighlighter
         runtimeMaterial = Tofu.AssetLoadManager.CreateCopyFile(runtimeMaterial);
 
         modelRenderer.Material = runtimeMaterial;
-        modelRenderer.Material.NoDepth = true;
-        modelRenderer.Material.IgnoreDepth = true;
+        // modelRenderer.Material.NoDepth = true;
+        // modelRenderer.Material.IgnoreDepth = true;
 
         PremadeComponentSetupsHelper.PrepareCube(modelRenderer);
 

@@ -16,7 +16,23 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     [XmlIgnore]
     public BoxShape BoxShape;
 
-    public Color Color = Color.White;
+    private Color _color = Tofu3D.Color.White;
+
+    public Color Color
+    {
+        get { return Material?.AlbedoTint ?? _color; }
+        set
+        {
+            if (Material != null)
+            {
+                Material.AlbedoTint = value;
+            }
+            else
+            {
+                _color = value;
+            }
+        }
+    }
 
     [XmlIgnore]
     public ObjectInstancingData ObjectInstancingData;
