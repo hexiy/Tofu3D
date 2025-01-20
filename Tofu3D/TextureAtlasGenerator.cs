@@ -3,12 +3,16 @@ using System.IO;
 using System.Linq;
 using LibNoise.Renderer;
 using RectpackSharp;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 using Image = SixLabors.ImageSharp.Image;
 
 namespace Tofu3D;
 
 public static class TextureAtlasGenerator
 {
+    private const int AtlasWidth = 4096;
     public static void GenerateAtlasesForTextures(List<Asset_Texture> textures)
     {
         textures.Sort();
@@ -18,31 +22,45 @@ public static class TextureAtlasGenerator
         List<PackingRectangle> currentRectangles = new List<PackingRectangle>();
         List<PackingRectangle[]> rectangleGroups = new List<PackingRectangle[]>();
 
-        Vector2 pixelsLeft = new Vector2(4096, 4096);
+        Vector2 pixelsLeft = new Vector2(AtlasWidth, AtlasWidth);
         for (int i = 0; i < allRectangles.Length; i++)
         {
             pixelsLeft -= textures[i].TextureSize;
-            if (pixelsLeft.X < 0 || pixelsLeft.Y < 0)
-            {
-                if (currentRectangles.Count == 0)
-                {
-                    Debug.LogError("texture didn't fit in this atlas");
-                    continue;
-                }
 
-                PackingRectangle[] rects = currentRectangles.ToArray();
-                RectanglePacker.Pack(rects, out PackingRectangle bounds, maxBoundsHeight: 4096,
-                    maxBoundsWidth: 4096);
-                currentRectangles = rects.ToList();
+            // if (currentRectangles.Count == 0)
+            // {
+            //     Debug.LogError("texture didn't fit in this atlas");
+            //     continue;
+            // }
+
+            PackingRectangle[] rectsOld = currentRectangles.ToArray();
+            PackingRectangle[] rects = currentRectangles.ToArray();
+            bool packed = false;
+            try
+            {
+                RectanglePacker.Pack(rects, out PackingRectangle bounds, maxBoundsHeight: AtlasWidth,
+                    maxBoundsWidth: AtlasWidth);
+                packed = true;
+            }
+            catch (Exception ex)
+            {
+                packed = false;
+            }
+
+            if (packed == false)
+            {
+                currentRectangles = rectsOld.ToList();
 
                 rectangleGroups.Add(currentRectangles.ToArray());
                 i--;
                 currentRectangles.Clear();
-                pixelsLeft = new Vector2(4096, 4096);
+                pixelsLeft = new Vector2(AtlasWidth, AtlasWidth);
                 continue;
             }
             else
             {
+                currentRectangles = rects.ToList();
+                
                 PackingRectangle rectangle = new PackingRectangle(x: 0, y: 0, width: (uint)textures[i].TextureSize.X,
                     height: (uint)textures[i].TextureSize.Y, id: i);
 
@@ -59,7 +77,7 @@ public static class TextureAtlasGenerator
         int atlIndex = 0;
         foreach (PackingRectangle[] textureRectangles in rectangleGroups)
         {
-            byte[] atlasPixels = new byte[4 * 4096 * 4096];
+            byte[] atlasPixels = new byte[4 * AtlasWidth * AtlasWidth];
             for (int i = 0; i < textureRectangles.Length; i++)
             {
                 PackingRectangle rectangle = textureRectangles[i];
@@ -76,7 +94,7 @@ public static class TextureAtlasGenerator
                         int atlasX = (int)rectangle.X + x;
                         int atlasY = (int)rectangle.Y + y;
 
-                        int indexInAtlasPixels = (atlasY * 4096 + atlasX) * 4;
+                        int indexInAtlasPixels = (atlasY * AtlasWidth + atlasX) * 4;
                         int indexInTexturePixels = (y * textureWidth + x) * 4;
                         try
                         {
@@ -94,13 +112,35 @@ public static class TextureAtlasGenerator
             }
 
             AssetImporter_Texture assetImporterTexture = new AssetImporter_Texture();
+
             AssetImportParameters_Texture assetImportParametersTexture =
                 new AssetImportParameters_Texture()
-                    { PathToSourceAsset = Path.Combine(Folders.Assets, $"atlas_{atlIndex}.tofutextureatlas") };
+                {
+                    PathToSourceAsset = Path.Combine(Folders.TextureAtlasesInLibrary,
+                        $"atlas_{atlIndex}.tofutextureatlas")
+                };
+
+
+            ///////////////////////////////////////////////////////////
+            using var image =
+                Image.LoadPixelData<Rgba32>(atlasPixels, AtlasWidth, AtlasWidth);
+            // image.Mutate(x =>
+            // {
+            //     x.Flip(FlipMode.Vertical);
+            // });
+            byte[] pixels = new byte[AtlasWidth * AtlasWidth * 4];
+            image.CopyPixelDataTo(pixels);
+
+
+            string path = Path.Combine(Folders.TextureAtlasesInLibrary, $"atlas_{atlIndex}.png");
+            image.SaveAsPng(path);
+            ///////////////////////////////////////////////////////////
+
 
             atlasPixels = Compression.Compress(atlasPixels);
-            Asset_TextureAtlas atlas = assetImporterTexture.ImportAsset(assetImportParametersTexture, atlasPixels,
-                imageSize: new Vector2(4096, 4096)) as Asset_TextureAtlas;
+            Asset_TextureAtlas atlasTexture = assetImporterTexture.ImportAsset(assetImportParametersTexture,
+                atlasPixels,
+                imageSize: new Vector2(AtlasWidth, AtlasWidth)) as Asset_TextureAtlas;
 
             atlIndex++;
         }
