@@ -72,6 +72,7 @@
         <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
         <PackageReference Include="OpenTK" Version="4.7.4"/>
         <PackageReference Include="OpenTK.redist.glfw" Version="3.3.7.27"/>
+        <PackageReference Include="RectpackSharp" Version="1.2.0" />
         <PackageReference Include="SharpAudio" Version="1.0.65-beta" />
         <PackageReference Include="SharpAudio.Codec" Version="1.0.65-beta" />
         <PackageReference Include="System.CodeDom" Version="9.0.0" />
@@ -1074,11 +1075,6 @@
         <Content Include="bin\Debug\net8.0\Tofu3D.runtimeconfig.json"/>
         <Content Include="bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll"/>
         <Content Include="bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll"/>
-        <Content Include="bin\Debug\net8.0\Vortice.DirectX.dll"/>
-        <Content Include="bin\Debug\net8.0\Vortice.Mathematics.dll"/>
-        <Content Include="bin\Debug\net8.0\Vortice.MediaFoundation.dll"/>
-        <Content Include="bin\Debug\net8.0\Vortice.Multimedia.dll"/>
-        <Content Include="bin\Debug\net8.0\Vortice.XAudio2.dll"/>
         <Content Include="bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll"/>
         <Content Include="bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll"/>
         <Content Include="bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll"/>

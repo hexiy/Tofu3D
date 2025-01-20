@@ -64,6 +64,17 @@
           }
         }
       },
+      "Microsoft.Bcl.HashCode/1.1.1": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/Microsoft.Bcl.HashCode.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/Microsoft.Bcl.HashCode.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.Build/17.12.6": {
         "type": "package",
         "dependencies": {
@@ -705,6 +716,23 @@
         "runtime": {
           "lib/netcoreapp3.1/OpenTK.Windowing.GraphicsLibraryFramework.dll": {
             "related": ".pdb;.xml"
+          }
+        }
+      },
+      "RectpackSharp/1.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Bcl.HashCode": "1.1.1",
+          "System.Memory": "4.5.4"
+        },
+        "compile": {
+          "lib/net5.0/RectpackSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/RectpackSharp.dll": {
+            "related": ".xml"
           }
         }
       },
@@ -1885,6 +1913,34 @@
         "lib/NET45/LibNoise.dll",
         "libnoise.0.2.0.nupkg.sha512",
         "libnoise.nuspec"
+      ]
+    },
+    "Microsoft.Bcl.HashCode/1.1.1": {
+      "sha512": "MalY0Y/uM/LjXtHfX/26l2VtN4LDNZ2OE3aumNOHDLsT4fNYy2hiHXI4CXCqKpNUNm7iJ2brrc4J89UdaL56FA==",
+      "type": "package",
+      "path": "microsoft.bcl.hashcode/1.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/Microsoft.Bcl.HashCode.dll",
+        "lib/net461/Microsoft.Bcl.HashCode.xml",
+        "lib/netcoreapp2.1/Microsoft.Bcl.HashCode.dll",
+        "lib/netcoreapp2.1/Microsoft.Bcl.HashCode.xml",
+        "lib/netstandard2.0/Microsoft.Bcl.HashCode.dll",
+        "lib/netstandard2.0/Microsoft.Bcl.HashCode.xml",
+        "lib/netstandard2.1/Microsoft.Bcl.HashCode.dll",
+        "lib/netstandard2.1/Microsoft.Bcl.HashCode.xml",
+        "microsoft.bcl.hashcode.1.1.1.nupkg.sha512",
+        "microsoft.bcl.hashcode.nuspec",
+        "ref/net461/Microsoft.Bcl.HashCode.dll",
+        "ref/netcoreapp2.1/Microsoft.Bcl.HashCode.dll",
+        "ref/netstandard2.0/Microsoft.Bcl.HashCode.dll",
+        "ref/netstandard2.1/Microsoft.Bcl.HashCode.dll",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "Microsoft.Build/17.12.6": {
@@ -3197,6 +3253,24 @@
         "lib/netcoreapp3.1/OpenTK.Windowing.GraphicsLibraryFramework.xml",
         "opentk.windowing.graphicslibraryframework.4.7.4.nupkg.sha512",
         "opentk.windowing.graphicslibraryframework.nuspec"
+      ]
+    },
+    "RectpackSharp/1.2.0": {
+      "sha512": "uLgPjEZebK5Eyhvy3xlbsa2GC+3ML6j2m69ugbNYLH7folQcGckYJQwvcne6Huu6p+jsKNMd0JIqD60iUcqbrQ==",
+      "type": "package",
+      "path": "rectpacksharp/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "README.md",
+        "lib/net5.0/RectpackSharp.dll",
+        "lib/net5.0/RectpackSharp.xml",
+        "lib/netstandard2.0/RectpackSharp.dll",
+        "lib/netstandard2.0/RectpackSharp.xml",
+        "packsharp-logo.png",
+        "rectpacksharp.1.2.0.nupkg.sha512",
+        "rectpacksharp.nuspec"
       ]
     },
     "runtime.native.System/4.0.0": {
@@ -6250,6 +6324,7 @@
       "Newtonsoft.Json >= 9.0.1",
       "OpenTK >= 4.7.4",
       "OpenTK.redist.glfw >= 3.3.7.27",
+      "RectpackSharp >= 1.2.0",
       "SharpAudio >= 1.0.65-beta",
       "SharpAudio.Codec >= 1.0.65-beta",
       "SixLabors.ImageSharp >= 2.1.3",
@@ -6342,6 +6417,10 @@
           "OpenTK.redist.glfw": {
             "target": "Package",
             "version": "[3.3.7.27, )"
+          },
+          "RectpackSharp": {
+            "target": "Package",
+            "version": "[1.2.0, )"
           },
           "SharpAudio": {
             "target": "Package",

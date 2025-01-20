@@ -81,6 +81,10 @@ public static class AssetPathExtensions
         {
             path = Folders.TempInLibrary;
         }
+        if (IsFileTextureAtlas(fileName))
+        {
+            path = Folders.TextureAtlasesInLibrary;
+        }
 
         return path;
     }
@@ -130,6 +134,11 @@ public static class AssetPathExtensions
                 fileName.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
                 fileName.EndsWith(".tga", StringComparison.OrdinalIgnoreCase) ||
                 fileName.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase));
+    }
+    
+    public static bool IsFileTextureAtlas(string fileName)
+    {
+        return fileName.EndsWith(".tofutextureatlas", StringComparison.OrdinalIgnoreCase);
     }
 
     public static bool IsFileScene(string fileName)

@@ -12,6 +12,7 @@ public class Folders
     public static string Data => TofuPath.Combine(ProjectFullPath, "Data");
     public static string ModelsInLibrary => TofuPath.Combine(Library, "Models");
     public static string TexturesInLibrary => TofuPath.Combine(Library, "Textures");
+    public static string TextureAtlasesInLibrary => TofuPath.Combine(Library, "TextureAtlases");
     public static string MaterialsInLibrary => TofuPath.Combine(Library, "Materials");
     public static string MeshesInLibrary => TofuPath.Combine(Library, "Meshes");
     public static string ThumbnailsInLibrary => TofuPath.Combine(Library, "Thumbnails");
@@ -38,6 +39,7 @@ public class Folders
         Directory.CreateDirectory(Data);
         Directory.CreateDirectory(ModelsInLibrary);
         Directory.CreateDirectory(TexturesInLibrary);
+        Directory.CreateDirectory(TextureAtlasesInLibrary);
         Directory.CreateDirectory(MaterialsInLibrary);
         Directory.CreateDirectory(MeshesInLibrary);
         Directory.CreateDirectory(TempInLibrary);

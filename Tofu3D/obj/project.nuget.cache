@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Na31udfrNYk=",
+  "dgSpecHash": "ivLeT308h5o=",
   "success": true,
   "projectFilePath": "/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj",
   "expectedPackageFiles": [
     "/Users/hexiy/.nuget/packages/ffmpeg.autogen/4.4.1.1/ffmpeg.autogen.4.4.1.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/imgui.net/1.87.3/imgui.net.1.87.3.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/libnoise/0.2.0/libnoise.0.2.0.nupkg.sha512",
+    "/Users/hexiy/.nuget/packages/microsoft.bcl.hashcode/1.1.1/microsoft.bcl.hashcode.1.1.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.build/17.12.6/microsoft.build.17.12.6.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.build.framework/17.12.6/microsoft.build.framework.17.12.6.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.build.locator/1.7.8/microsoft.build.locator.1.7.8.nupkg.sha512",
@@ -39,6 +40,7 @@
     "/Users/hexiy/.nuget/packages/opentk.windowing.common/4.7.4/opentk.windowing.common.4.7.4.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/opentk.windowing.desktop/4.7.4/opentk.windowing.desktop.4.7.4.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/opentk.windowing.graphicslibraryframework/4.7.4/opentk.windowing.graphicslibraryframework.4.7.4.nupkg.sha512",
+    "/Users/hexiy/.nuget/packages/rectpacksharp/1.2.0/rectpacksharp.1.2.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/runtime.native.system/4.0.0/runtime.native.system.4.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/sharpaudio/1.0.65-beta/sharpaudio.1.0.65-beta.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/sharpaudio.albinding/1.0.65-beta/sharpaudio.albinding.1.0.65-beta.nupkg.sha512",

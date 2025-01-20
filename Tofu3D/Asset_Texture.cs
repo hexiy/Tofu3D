@@ -1,10 +1,9 @@
 namespace Tofu3D;
 
 [Serializable]
-public class Asset_Texture : Asset<Asset_Texture>
+public class Asset_Texture : Asset<Asset_Texture>, IComparable<Asset_Texture>
 {
-
-    public byte[] Pixels;//must be public for serialization
+    public byte[] Pixels; //must be public for serialization
 
     public Vector2 TextureSize;
 
@@ -26,7 +25,7 @@ public class Asset_Texture : Asset<Asset_Texture>
         {
             return;
         }
-
+        
         Pixels = Compression.Compress(Pixels);
         DataIsCompressed = true;
     }
@@ -37,8 +36,28 @@ public class Asset_Texture : Asset<Asset_Texture>
         {
             return;
         }
-
+        
         Pixels = Compression.Decompress(Pixels);
         DataIsCompressed = false;
+    }
+
+    public int CompareTo(Asset_Texture? other)
+    {
+        if (this.TextureSize.X * this.TextureSize.Y > other.TextureSize.X * other.TextureSize.Y)
+        {
+            return 1;
+        }
+
+        if (this.TextureSize.X * this.TextureSize.Y == other.TextureSize.X * other.TextureSize.Y)
+        {
+            return 0;
+        }
+
+        if (this.TextureSize.X * this.TextureSize.Y < other.TextureSize.X * other.TextureSize.Y)
+        {
+            return -1;
+        }
+
+        return 0;
     }
 }

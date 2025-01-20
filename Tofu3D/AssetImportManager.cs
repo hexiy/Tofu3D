@@ -6,7 +6,7 @@ namespace Tofu3D;
 // Transforms .obj,.png files into .asset files in /Library/
 public class AssetImportManager
 {
-    // public Dictionary<int, AssetBase> Assets { get; private set; } = new(); // int is id(path hashcode)
+    public List<AssetBase> Assets { get; private set; } = new(); // int is id(path hashcode)
     public Dictionary<int, AssetImportParametersBase> AssetImportParameters { get; private set; } = new();
     public Dictionary<Type, IAssetImporter> Importers { get; private set; } = new();
 
@@ -31,8 +31,11 @@ public class AssetImportManager
         string rawAssetFileName = Path.GetFileName(rawAssetPath); // with extension
 
         string importParametersFilePath = AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(rawAssetPath);
-        string assetFileInLibraryPath = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(rawAssetFileName);
-        bool assetExists = AssetFileExists(AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(assetFileInLibraryPath));
+        string assetFileInLibraryPath =
+            AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(rawAssetFileName);
+        bool assetExists =
+            AssetFileExists(
+                AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(assetFileInLibraryPath));
         bool canImport = assetExists == false || reimportIfExists == true;
         if (canImport == false)
         {
@@ -143,9 +146,10 @@ public class AssetImportManager
                     assetImportParametersTexture);
 
 
-            // Assets[id] = texture;
+            Assets.Add(assetTexture);
             // }
         }
+
         // Debug.Log("Asset import finished");
     }
 
@@ -178,6 +182,22 @@ public class AssetImportManager
         {
             ImportAsset(rawAssetPath, reimportIfExists);
         }
+
+        GenerateTextureAtlases();
+    }
+
+    void GenerateTextureAtlases()
+    {
+        List<Asset_Texture> textures = new List<Asset_Texture>();
+        for (int i = 0; i < Assets.Count; i++)
+        {
+            if (Assets[i] is Asset_Texture texture)
+            {
+                textures.Add(texture);
+            }
+        }
+
+        TextureAtlasGenerator.GenerateAtlasesForTextures(textures);
     }
 
     private bool AssetFileExists(string assetPath)

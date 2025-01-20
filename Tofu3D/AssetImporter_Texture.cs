@@ -25,6 +25,12 @@ public class AssetImporter_Texture : AssetImporter<Asset_Texture>
         image.Frames[0].CopyPixelDataTo(pixels);
         image.Dispose();
 
+        return ImportAsset(importParameters, pixels, imageSize);
+    }
+
+    public Asset_Texture ImportAsset(AssetImportParameters_Texture importParameters, byte[] pixels, Vector2 imageSize)
+    {
+        string path = importParameters.PathToSourceAsset;
 
         if (importParameters != null && importParameters.BlackIsTransparency)
         {
@@ -51,7 +57,8 @@ public class AssetImporter_Texture : AssetImporter<Asset_Texture>
             PathInLibraryFolder = libraryPath
         };
 
-        Serializer.SaveAssetJSON<Asset_Texture>(AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(path),
+        Serializer.SaveAssetJSON<Asset_Texture>(
+            AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(path),
             assetTexture);
 
         return assetTexture;
