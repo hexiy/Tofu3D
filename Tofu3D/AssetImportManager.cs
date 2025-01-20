@@ -197,7 +197,7 @@ public class AssetImportManager
             }
         }
 
-        TextureAtlasGenerator.GenerateAtlasesForTextures(textures);
+        TextureAtlasManager.GenerateAtlasesForTextures(textures);
     }
 
     private bool AssetFileExists(string assetPath)

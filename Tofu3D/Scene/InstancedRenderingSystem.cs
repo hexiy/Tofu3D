@@ -337,6 +337,15 @@ public class InstancedRenderingSystem
 
     private void SetGlobalUniforms(Asset_Material material, Shader shader)
     {
+        // uplad all the texture atlases only once per shader
+        GL.ActiveTexture(TextureUnit.Texture0); // Activate texture unit 0
+        GL.BindTexture(TextureTarget.Texture2DArray, TextureAtlasManager._glTextureArrayId);
+
+// Link the texture to the uniform in the shader
+        int textureLocation = GL.GetUniformLocation(shader.ProgramId, "textureArray");
+        GL.Uniform1(textureLocation, 0); // Texture array is bound to texture unit 0
+
+
         bool discardTransparentPixels =
             material.BlendMode is BlendMode.Fade or BlendMode.PremultipliedAlpha or BlendMode.Additive;
         shader.SetInt("u_discardTransparentPixels", discardTransparentPixels ? 1 : 0);
@@ -426,88 +435,91 @@ public class InstancedRenderingSystem
             return;
         }
 
-        if (material.AlbedoTexture != null && material.Shader?.AlbedoTextureIndexUnit != null)
+        if (false)
         {
-            GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit.Value);
-            TextureHelper.BindTexture(material.AlbedoTexture.AtlasGLTextureId);
-        }
+            if (material.AlbedoTexture != null && material.Shader?.AlbedoTextureIndexUnit != null)
+            {
+                GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit.Value);
+                TextureHelper.BindTexture(material.AlbedoTexture.AtlasGLTextureId);
+            }
 
 
-        // Alpha mask Texture
-        material.Shader.SetInt("u_hasAlphaMaskTexture", material.AlphaMaskTexture != null ? 1 : 0);
-        if (material.AlphaMaskTexture != null && material.Shader?.AlphaMaskTextureIndexUnit != null)
-        {
-            GL.ActiveTexture(material.Shader.AlphaMaskTextureIndexUnit.Value);
-            TextureHelper.BindTexture(material.AlphaMaskTexture.AtlasGLTextureId);
-        }
+            // Alpha mask Texture
+            material.Shader.SetInt("u_hasAlphaMaskTexture", material.AlphaMaskTexture != null ? 1 : 0);
+            if (material.AlphaMaskTexture != null && material.Shader?.AlphaMaskTextureIndexUnit != null)
+            {
+                GL.ActiveTexture(material.Shader.AlphaMaskTextureIndexUnit.Value);
+                TextureHelper.BindTexture(material.AlphaMaskTexture.AtlasGLTextureId);
+            }
 
 
-        // Normal Texture
-        material.Shader.SetInt("u_hasNormalTexture", material.NormalTexture != null ? 1 : 0);
-        if (material.NormalTexture != null && material.Shader?.NormalTextureIndexUnit != null)
-        {
-            GL.ActiveTexture(material.Shader.NormalTextureIndexUnit.Value);
-            TextureHelper.BindTexture(material.NormalTexture.AtlasGLTextureId);
-        }
+            // Normal Texture
+            material.Shader.SetInt("u_hasNormalTexture", material.NormalTexture != null ? 1 : 0);
+            if (material.NormalTexture != null && material.Shader?.NormalTextureIndexUnit != null)
+            {
+                GL.ActiveTexture(material.Shader.NormalTextureIndexUnit.Value);
+                TextureHelper.BindTexture(material.NormalTexture.AtlasGLTextureId);
+            }
 
-        // Ambient Occlusion Texture
-        material.Shader.SetInt("u_hasAmbientOcclusionTexture", material.AmbientOcclusionTexture != null ? 1 : 0);
-        if (material.AmbientOcclusionTexture != null && material.Shader?.AmbientOcclusionTextureUnit != null)
-        {
-            GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit.Value);
-            TextureHelper.BindTexture(material.AmbientOcclusionTexture.AtlasGLTextureId);
-        }
+            // Ambient Occlusion Texture
+            material.Shader.SetInt("u_hasAmbientOcclusionTexture", material.AmbientOcclusionTexture != null ? 1 : 0);
+            if (material.AmbientOcclusionTexture != null && material.Shader?.AmbientOcclusionTextureUnit != null)
+            {
+                GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit.Value);
+                TextureHelper.BindTexture(material.AmbientOcclusionTexture.AtlasGLTextureId);
+            }
 
-        material.Shader.SetInt("u_hasShadowmapTexture",
-            RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
-            RenderPassDirectionalLightShadowDepth.I.Enabled &&
-            material.Shader.ShadowMapTextureUnit != null
-                ? 1
-                : 0);
+            material.Shader.SetInt("u_hasShadowmapTexture",
+                RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
+                RenderPassDirectionalLightShadowDepth.I.Enabled &&
+                material.Shader.ShadowMapTextureUnit != null
+                    ? 1
+                    : 0);
 
-        if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
-            material.Shader.ShadowMapTextureUnit != null)
-        {
-            GL.ActiveTexture(material.Shader.ShadowMapTextureUnit.Value);
-            TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthTextureId);
-        }
+            if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
+                material.Shader.ShadowMapTextureUnit != null)
+            {
+                GL.ActiveTexture(material.Shader.ShadowMapTextureUnit.Value);
+                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthTextureId);
+            }
 
 
-        material.Shader.SetInt("u_hasEnvironmentCubemap",
-            Camera.MainCamera?.GetComponent<Skybox>() != null ? 1 : 0);
-        if (Camera.MainCamera?.GetComponent<Skybox>() != null && material.Shader.EnvironmentTextureUnit != null)
-        {
-            GL.ActiveTexture(material.Shader.EnvironmentTextureUnit.Value);
-            TextureHelper.BindTexture(Camera.MainCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
-                TextureType.Cubemap);
-        }
+            material.Shader.SetInt("u_hasEnvironmentCubemap",
+                Camera.MainCamera?.GetComponent<Skybox>() != null ? 1 : 0);
+            if (Camera.MainCamera?.GetComponent<Skybox>() != null && material.Shader.EnvironmentTextureUnit != null)
+            {
+                GL.ActiveTexture(material.Shader.EnvironmentTextureUnit.Value);
+                TextureHelper.BindTexture(Camera.MainCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
+                    TextureType.Cubemap);
+            }
 
-        // Roughness Texture
-        material.Shader.SetInt("u_hasRoughnessTexture", material.RoughnessTexture != null ? 1 : 0);
+            // Roughness Texture
+            material.Shader.SetInt("u_hasRoughnessTexture", material.RoughnessTexture != null ? 1 : 0);
 
-        if (material.RoughnessTexture != null && material.Shader.RoughnessTextureUnit != null)
-        {
-            GL.ActiveTexture(material.Shader.RoughnessTextureUnit.Value);
-            TextureHelper.BindTexture(material.RoughnessTexture.AtlasGLTextureId);
-        }
+            if (material.RoughnessTexture != null && material.Shader.RoughnessTextureUnit != null)
+            {
+                GL.ActiveTexture(material.Shader.RoughnessTextureUnit.Value);
+                TextureHelper.BindTexture(material.RoughnessTexture.AtlasGLTextureId);
+            }
 
-        material.Shader.SetFloat("u_metallic", material.MetallicTextureStrength);
-        material.Shader.SetFloat("u_smoothness", material.Smoothness);
+            material.Shader.SetFloat("u_metallic", material.MetallicTextureStrength);
+            material.Shader.SetFloat("u_smoothness", material.Smoothness);
 
-        // Metallic Texture
-        material.Shader.SetInt("u_hasMetallicTexture", material.MetallicTexture != null ? 1 : 0);
+            // Metallic Texture
+            material.Shader.SetInt("u_hasMetallicTexture", material.MetallicTexture != null ? 1 : 0);
 
-        if (material.MetallicTexture != null && material.Shader.MetallicTextureUnit != null)
-        {
-            GL.ActiveTexture(material.Shader.MetallicTextureUnit.Value);
-            TextureHelper.BindTexture(material.MetallicTexture.AtlasGLTextureId);
-        }
+            if (material.MetallicTexture != null && material.Shader.MetallicTextureUnit != null)
+            {
+                GL.ActiveTexture(material.Shader.MetallicTextureUnit.Value);
+                TextureHelper.BindTexture(material.MetallicTexture.AtlasGLTextureId);
+            }
 
-        material.Shader.SetVector4("u_emissiveColor", material.EmissiveColor);
-        if (material.EmissiveTexture != null && material.Shader.EmissiveTextureUnit != null)
-        {
-            GL.ActiveTexture(material.Shader.EmissiveTextureUnit.Value);
-            TextureHelper.BindTexture(material.EmissiveTexture.AtlasGLTextureId);
+            material.Shader.SetVector4("u_emissiveColor", material.EmissiveColor);
+            if (material.EmissiveTexture != null && material.Shader.EmissiveTextureUnit != null)
+            {
+                GL.ActiveTexture(material.Shader.EmissiveTextureUnit.Value);
+                TextureHelper.BindTexture(material.EmissiveTexture.AtlasGLTextureId);
+            }
         }
     }
 

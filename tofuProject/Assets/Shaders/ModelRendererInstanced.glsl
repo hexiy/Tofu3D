@@ -40,9 +40,9 @@ void main(void)
 	v_id = uint(a_id);
 
 	vertexPositionWorld = vec3(a_model * vec4(a_pos.xyz, 1.0));
-//	normalWorldSpace = transpose(inverse(mat3(a_model))) * a_normal;
+	//	normalWorldSpace = transpose(inverse(mat3(a_model))) * a_normal;
 	normalWorldSpace = normalize(transpose(inverse(mat3(a_model))) * a_normal);
-	
+
 	mat4 lightMvp = u_lightSpaceViewProjection * a_model;
 	fragPosLightSpace = lightMvp * vec4(a_pos.xyz, 1.0);
 
@@ -74,7 +74,7 @@ uniform float u_smoothness;
 uniform float u_metallic;
 uniform float u_renderMode = 0;
 uniform float u_cameraFrustumLength = 100;
-uniform int u_discardTransparentPixels=1;
+uniform int u_discardTransparentPixels = 1;
 
 uniform int u_materialType;
 uniform int u_hasAlbedoTexture;
@@ -98,6 +98,7 @@ uniform float u_fogPositionY = 0;
 uniform float u_fogGradientSmoothness = 1;
 uniform float u_fogIntensity = 1;
 
+uniform sampler2DArray textureArray; // Texture array uniform
 uniform sampler2D u_albedoTexture;
 uniform sampler2D u_alphaMaskTexture;
 uniform sampler2D u_normalTexture;
@@ -142,12 +143,12 @@ vec3 calculatePointLightsLighting(vec3 normal, vec3 viewDir, vec3 fragPos) {
 		float diffuseFactor = max(dot(normal, lightDir), 0.0);
 		vec3 diffuse = diffuseFactor * light.color * light.intensity;
 
-//		vec3 halfwayDir = normalize(viewDir + lightDir);
-//		float specFactor = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
-//		vec3 specular = specFactor * light.color * light.intensity;
+		//		vec3 halfwayDir = normalize(viewDir + lightDir);
+		//		float specFactor = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
+		//		vec3 specular = specFactor * light.color * light.intensity;
 
-				result += attenuation * (diffuse);
-//		result += attenuation * (diffuse + specular);
+		result += attenuation * (diffuse);
+		//		result += attenuation * (diffuse + specular);
 	}
 
 	return result;
@@ -295,8 +296,13 @@ vec3 SpecularReflectionGGX(vec3 N, vec3 V, vec3 L, vec3 H, vec3 F0, float roughn
 	return (D * F * G) / (4.0 * max(dot(N, V), 0.0) * max(dot(N, L), 0.0) + 0.001);
 }
 void main() {
+
 	// UV Coordinates with tiling
 	vec2 uvCoords = uv * u_tiling;
+
+// map these uvCoords to uvcoords in the atlas
+	fragColor = texture(textureArray, vec3(uvCoords.xy, 4));
+	return;
 
 	// Albedo Color
 	vec4 albedo = u_albedoTint;
@@ -364,10 +370,10 @@ void main() {
 
 	// Diffuse Lighting
 	vec3 lightDirTangentSpace = normalize(TBN * correctedLightDir.rgb);
-//	float diffuseFactor = max(dot(-normalWorldSpace, TBN*-lightDirTangentSpace), 0.0);
+	//	float diffuseFactor = max(dot(-normalWorldSpace, TBN*-lightDirTangentSpace), 0.0);
 
-		float diffuseFactor = max(dot(-normalWorldSpace, lightDir), 0.0);
-//		float diffuseFactor = max(dot(lightDirTangentSpace, lightDir), 0.0);
+	float diffuseFactor = max(dot(-normalWorldSpace, lightDir), 0.0);
+	//		float diffuseFactor = max(dot(lightDirTangentSpace, lightDir), 0.0);
 
 
 	vec3 diffuse = diffuseFactor *
@@ -386,13 +392,13 @@ void main() {
 	float shadow = 0.0;
 
 	if (u_hasShadowmapTexture == 1) {
-//		if (u_smoothShadows == 1) {
-			shadow = ShadowCalculationPCFConstantQuality();
-//		}
-//		else {
-//			shadow = OldShadowCalculation();
-//		}
-	}		
+		//		if (u_smoothShadows == 1) {
+		shadow = ShadowCalculationPCFConstantQuality();
+		//		}
+		//		else {
+		//			shadow = OldShadowCalculation();
+		//		}
+	}
 	shadow = ShadowCalculationPCFConstantQuality();
 
 
@@ -481,7 +487,7 @@ void main() {
 
 
 	if (alpha < 0.9 && u_discardTransparentPixels == 1) {
-//		alpha = 0;
+		//		alpha = 0;
 		discard;
 	}
 	// Final Output
@@ -520,12 +526,12 @@ void main() {
 
 
 		if (u_hasShadowmapTexture == 1) {
-//			if (u_smoothShadows == 1) {
-				shadow = ShadowCalculationPCFConstantQuality();
-//			}
-//			else {
-//				shadow = OldShadowCalculation();
-//			}
+			//			if (u_smoothShadows == 1) {
+			shadow = ShadowCalculationPCFConstantQuality();
+			//			}
+			//			else {
+			//				shadow = OldShadowCalculation();
+			//			}
 		}
 		fragColor = vec4(vec3(1 - shadow), 1);
 	}

@@ -11,12 +11,33 @@ using Image = SixLabors.ImageSharp.Image;
 
 namespace Tofu3D;
 
-public static class TextureAtlasGenerator
+public static class TextureAtlasManager
 {
     private static int AtlasWidth = -1;
+    public static int _glTextureArrayId;
+    private static int _atlasesCount;
+
+    private static void SetupTextureArray()
+    {
+        _glTextureArrayId = GL.GenTexture();
+        GL.BindTexture(TextureTarget.Texture2DArray, _glTextureArrayId);
+
+        GL.TexStorage3D(TextureTarget3d.Texture2DArray, 1, SizedInternalFormat.Rgba8, AtlasWidth, AtlasWidth, _atlasesCount);
+
+        GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMinFilter,
+            (int)TextureMinFilter.Linear);
+        GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMagFilter,
+            (int)TextureMagFilter.Linear);
+        GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureWrapS,
+            (int)TextureWrapMode.ClampToEdge);
+        GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureWrapT,
+            (int)TextureWrapMode.ClampToEdge);
+    }
 
     public static void GenerateAtlasesForTextures(List<Asset_Texture> textures)
     {
+
+
         if (AtlasWidth == -1)
         {
             AtlasWidth = GL.GetInteger(GetPName.MaxTextureSize);
@@ -27,7 +48,7 @@ public static class TextureAtlasGenerator
         PackingRectangle[] allRectangles = new PackingRectangle[textures.Count];
 
         List<PackingRectangle> currentRectangles = new List<PackingRectangle>();
-        List<PackingRectangle[]> rectangleGroups = new List<PackingRectangle[]>();
+        List<PackingRectangle[]> atlasesRectangles = new List<PackingRectangle[]>();
 
         Vector2 pixelsLeft = new Vector2(AtlasWidth, AtlasWidth);
         for (int i = 0; i < allRectangles.Length; i++)
@@ -58,7 +79,7 @@ public static class TextureAtlasGenerator
             {
                 currentRectangles = rectsOld.ToList();
 
-                rectangleGroups.Add(currentRectangles.ToArray());
+                atlasesRectangles.Add(currentRectangles.ToArray());
                 i--;
                 currentRectangles.Clear();
                 pixelsLeft = new Vector2(AtlasWidth, AtlasWidth);
@@ -77,18 +98,22 @@ public static class TextureAtlasGenerator
 
         if (currentRectangles.Count > 0)
         {
-            rectangleGroups.Add(currentRectangles.ToArray());
+            atlasesRectangles.Add(currentRectangles.ToArray());
             currentRectangles.Clear();
         }
 
-        int atlIndex = 0;
+        int atlasIndex = 0;
 
-        foreach (PackingRectangle[] textureRectangles in rectangleGroups)
+        _atlasesCount = atlasesRectangles.Count;
+        SetupTextureArray();
+
+        
+        foreach (PackingRectangle[] textureRectangles in atlasesRectangles)
         {
             TextureAtlasMember[] _textureAtlasMembers = new TextureAtlasMember[textureRectangles.Length];
 
             string atlasPath = Path.Combine(Folders.TextureAtlasesInLibrary,
-                $"atlas_{atlIndex}.tofutextureatlas");
+                $"atlas_{atlasIndex}.tofutextureatlas");
 
             byte[] atlasPixels = new byte[4 * AtlasWidth * AtlasWidth];
             for (int i = 0; i < textureRectangles.Length; i++)
@@ -138,7 +163,23 @@ public static class TextureAtlasGenerator
                         }
                     }
                 }
-            }
+
+
+             
+            }   
+            
+            
+            GL.TexSubImage3D(
+                TextureTarget.Texture2DArray, // Target
+                0, // Level (0 = base level)
+                0, 0, atlasIndex, // x, y offsets, and layer index
+                AtlasWidth, // Width of the texture
+                AtlasWidth, // Height of the texture
+                1, // Depth (1 = single layer)
+                PixelFormat.Rgba, // Format of input data
+                PixelType.UnsignedByte, // Type of pixel data
+                atlasPixels // Pointer to image data
+            );
 
             AssetImporter_Texture assetImporterTexture = new AssetImporter_Texture();
 
@@ -160,7 +201,7 @@ public static class TextureAtlasGenerator
             image.CopyPixelDataTo(pixels);
 
 
-            string path = Path.Combine(Folders.TextureAtlasesInLibrary, $"atlas_{atlIndex}.png");
+            string path = Path.Combine(Folders.TextureAtlasesInLibrary, $"atlas_{atlasIndex}.png");
             image.SaveAsPng(path);
             ///////////////////////////////////////////////////////////
 
@@ -173,11 +214,12 @@ public static class TextureAtlasGenerator
                 DataIsCompressed = true
             };
 
+
             Serializer.SaveAssetJSON<Asset_TextureAtlas>(atlasPath, atlasTexture);
 
             atlasTexture.TextureAtlasMembers = _textureAtlasMembers;
 
-            atlIndex++;
+            atlasIndex++;
         }
 
 
@@ -189,6 +231,7 @@ public static class TextureAtlasGenerator
         //     
         // }
 
+        GL.BindTexture(TextureTarget.Texture2DArray, 0);
 
         // All the rectangles in the array were assigned X and Y values. Bounds contains the width and height of the bin.
     }
