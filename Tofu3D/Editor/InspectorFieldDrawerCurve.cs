@@ -44,7 +44,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
             var circleColor = Color.Purple;
 
             ImGui.SetCursorPos(newPos - new Vector2(15));
-            ImGui.Image(texture.TextureId, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
+            ImGui.Image(texture.AtlasGLTextureId, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
 
             var cursorHoversCurrentPoint = ImGui.IsItemHovered();
             var currentPointIsClicked = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown();
@@ -61,7 +61,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
 
             ImGui.SetCursorPos(newPos - new Vector2(15));
 
-            ImGui.Image(texture.TextureId, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
+            ImGui.Image(texture.AtlasGLTextureId, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
 
             if (draggingPointIndex != -1 && Tofu.MouseInput.IsButtonDown() == false)
             {

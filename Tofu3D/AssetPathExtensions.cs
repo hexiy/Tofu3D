@@ -71,7 +71,12 @@ public static class AssetPathExtensions
         {
             path = Folders.TexturesInLibrary;
         }
-
+        
+        if (IsFileTextureAtlas(fileName))
+        {
+            path = Folders.TextureAtlasesInLibrary;
+        }
+        
         if (IsFileMaterial(fileName))
         {
             path = Folders.MaterialsInLibrary;
@@ -81,11 +86,7 @@ public static class AssetPathExtensions
         {
             path = Folders.TempInLibrary;
         }
-        if (IsFileTextureAtlas(fileName))
-        {
-            path = Folders.TextureAtlasesInLibrary;
-        }
-
+        
         return path;
     }
 
@@ -102,6 +103,11 @@ public static class AssetPathExtensions
             extension = ".tofutexture";
         }
 
+        if (IsFileTextureAtlas(fileName))
+        {
+            extension = ".tofutextureatlas";
+        }
+        
         if (IsFileMaterial(fileName))
         {
             extension = ".tofumaterial";

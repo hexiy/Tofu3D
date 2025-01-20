@@ -429,7 +429,7 @@ public class InstancedRenderingSystem
         if (material.AlbedoTexture != null && material.Shader?.AlbedoTextureIndexUnit != null)
         {
             GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit.Value);
-            TextureHelper.BindTexture(material.AlbedoTexture.TextureId);
+            TextureHelper.BindTexture(material.AlbedoTexture.AtlasGLTextureId);
         }
 
 
@@ -438,7 +438,7 @@ public class InstancedRenderingSystem
         if (material.AlphaMaskTexture != null && material.Shader?.AlphaMaskTextureIndexUnit != null)
         {
             GL.ActiveTexture(material.Shader.AlphaMaskTextureIndexUnit.Value);
-            TextureHelper.BindTexture(material.AlphaMaskTexture.TextureId);
+            TextureHelper.BindTexture(material.AlphaMaskTexture.AtlasGLTextureId);
         }
 
 
@@ -447,7 +447,7 @@ public class InstancedRenderingSystem
         if (material.NormalTexture != null && material.Shader?.NormalTextureIndexUnit != null)
         {
             GL.ActiveTexture(material.Shader.NormalTextureIndexUnit.Value);
-            TextureHelper.BindTexture(material.NormalTexture.TextureId);
+            TextureHelper.BindTexture(material.NormalTexture.AtlasGLTextureId);
         }
 
         // Ambient Occlusion Texture
@@ -455,7 +455,7 @@ public class InstancedRenderingSystem
         if (material.AmbientOcclusionTexture != null && material.Shader?.AmbientOcclusionTextureUnit != null)
         {
             GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit.Value);
-            TextureHelper.BindTexture(material.AmbientOcclusionTexture.TextureId);
+            TextureHelper.BindTexture(material.AmbientOcclusionTexture.AtlasGLTextureId);
         }
 
         material.Shader.SetInt("u_hasShadowmapTexture",
@@ -488,7 +488,7 @@ public class InstancedRenderingSystem
         if (material.RoughnessTexture != null && material.Shader.RoughnessTextureUnit != null)
         {
             GL.ActiveTexture(material.Shader.RoughnessTextureUnit.Value);
-            TextureHelper.BindTexture(material.RoughnessTexture.TextureId);
+            TextureHelper.BindTexture(material.RoughnessTexture.AtlasGLTextureId);
         }
 
         material.Shader.SetFloat("u_metallic", material.MetallicTextureStrength);
@@ -500,14 +500,14 @@ public class InstancedRenderingSystem
         if (material.MetallicTexture != null && material.Shader.MetallicTextureUnit != null)
         {
             GL.ActiveTexture(material.Shader.MetallicTextureUnit.Value);
-            TextureHelper.BindTexture(material.MetallicTexture.TextureId);
+            TextureHelper.BindTexture(material.MetallicTexture.AtlasGLTextureId);
         }
 
         material.Shader.SetVector4("u_emissiveColor", material.EmissiveColor);
         if (material.EmissiveTexture != null && material.Shader.EmissiveTextureUnit != null)
         {
             GL.ActiveTexture(material.Shader.EmissiveTextureUnit.Value);
-            TextureHelper.BindTexture(material.EmissiveTexture.TextureId);
+            TextureHelper.BindTexture(material.EmissiveTexture.AtlasGLTextureId);
         }
     }
 

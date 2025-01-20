@@ -47,6 +47,6 @@ public static class ProjectFileGenerator
         Directory.CreateDirectory(projectDirectory); // Ensure the directory exists
         project.Save(csProjPath);
 
-        Console.WriteLine($"Generated .csproj at: {csProjPath}");
+        // Console.WriteLine($"Generated .csproj at: {csProjPath}");
     }
 }

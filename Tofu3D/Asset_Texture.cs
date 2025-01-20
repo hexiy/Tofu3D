@@ -1,3 +1,5 @@
+using OpenTK.Mathematics;
+
 namespace Tofu3D;
 
 [Serializable]
@@ -6,6 +8,8 @@ public class Asset_Texture : Asset<Asset_Texture>, IComparable<Asset_Texture>
     public byte[] Pixels; //must be public for serialization
 
     public Vector2 TextureSize;
+    public string AtlasPath;
+    public Vector4 BoundingBoxInAtlas;
 
     public override void BeforeSerialized()
     {

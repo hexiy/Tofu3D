@@ -28,7 +28,7 @@ public class AssetImporter_Texture : AssetImporter<Asset_Texture>
         return ImportAsset(importParameters, pixels, imageSize);
     }
 
-    public Asset_Texture ImportAsset(AssetImportParameters_Texture importParameters, byte[] pixels, Vector2 imageSize)
+    private Asset_Texture ImportAsset(AssetImportParameters_Texture importParameters, byte[] pixels, Vector2 imageSize)
     {
         string path = importParameters.PathToSourceAsset;
 

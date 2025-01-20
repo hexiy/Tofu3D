@@ -95,20 +95,20 @@ public class EditorPanelConsole : EditorPanel
 
             var hasFlag = (_currentLogCategoryFilter & filter) == filter;
             // ImGui.RadioButton(filter.ToString(), hasFlag); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
-            var textureId = Tofu.Editor.EditorTextures.LogCategoryInfoIcon.TextureId;
+            var textureId = Tofu.Editor.EditorTextures.LogCategoryInfoIcon.AtlasGLTextureId;
             if (filter == LogCategoryFilter.Error)
             {
-                textureId = Tofu.Editor.EditorTextures.LogCategoryErrorIcon.TextureId;
+                textureId = Tofu.Editor.EditorTextures.LogCategoryErrorIcon.AtlasGLTextureId;
             }
 
             if (filter == LogCategoryFilter.Warning)
             {
-                textureId = Tofu.Editor.EditorTextures.LogCategoryWarningIcon.TextureId;
+                textureId = Tofu.Editor.EditorTextures.LogCategoryWarningIcon.AtlasGLTextureId;
             }
 
             if (filter == LogCategoryFilter.Timer)
             {
-                textureId = Tofu.Editor.EditorTextures.LogCategoryTimerIcon.TextureId;
+                textureId = Tofu.Editor.EditorTextures.LogCategoryTimerIcon.AtlasGLTextureId;
             }
 
             ImGui.Image(textureId, new System.Numerics.Vector2(30, 30), new Vector2(0, 0), new Vector2(1, 1),
@@ -167,20 +167,20 @@ public class EditorPanelConsole : EditorPanel
             }
 
 
-            var textureId = Tofu.Editor.EditorTextures.LogCategoryInfoIcon.TextureId;
+            var textureId = Tofu.Editor.EditorTextures.LogCategoryInfoIcon.AtlasGLTextureId;
             if (log.LogCategory == LogCategory.Error)
             {
-                textureId = Tofu.Editor.EditorTextures.LogCategoryErrorIcon.TextureId;
+                textureId = Tofu.Editor.EditorTextures.LogCategoryErrorIcon.AtlasGLTextureId;
             }
 
             if (log.LogCategory == LogCategory.Warning)
             {
-                textureId = Tofu.Editor.EditorTextures.LogCategoryWarningIcon.TextureId;
+                textureId = Tofu.Editor.EditorTextures.LogCategoryWarningIcon.AtlasGLTextureId;
             }
 
             if (log.LogCategory == LogCategory.Timer)
             {
-                textureId = Tofu.Editor.EditorTextures.LogCategoryTimerIcon.TextureId;
+                textureId = Tofu.Editor.EditorTextures.LogCategoryTimerIcon.AtlasGLTextureId;
             }
 
             ImGui.SameLine();

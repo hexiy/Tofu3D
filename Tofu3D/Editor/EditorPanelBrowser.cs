@@ -173,11 +173,12 @@ public class EditorPanelBrowser : EditorPanel
 
             if (AssetPathExtensions.IsFileScene(_assets[i]))
             {
-                string thumbnailPath = Scene.GetThumbnailPath(_assets[i]);
-                if (File.Exists(thumbnailPath))
-                {
-                    _textures[_assets[i]] = Tofu.AssetLoadManager.Load<RuntimeTexture>(thumbnailPath);
-                }
+                // disabled, doesnt work with texture atlases for now
+                // string thumbnailPath = Scene.GetThumbnailPath(_assets[i]);
+                // if (File.Exists(thumbnailPath))
+                // {
+                //     _textures[_assets[i]] = Tofu.AssetLoadManager.Load<RuntimeTexture>(thumbnailPath);
+                // }
             }
         }
     }
@@ -376,7 +377,7 @@ public class EditorPanelBrowser : EditorPanel
 
         if (isDirectory)
         {
-            ImGui.ImageButton(_directoryIcon.TextureId, _iconSize);
+            ImGui.ImageButton(_directoryIcon.AtlasGLTextureId, _iconSize);
             //ImGui.ImageButton((IntPtr) 0, new Vector2(100, 90));
         }
         else
@@ -397,21 +398,21 @@ public class EditorPanelBrowser : EditorPanel
                 Vector2 cursor = ImGui.GetCursorPos();
                 Vector2 p_min = ImGui.GetCursorScreenPos();
                 Vector2 p_max = new Vector2(p_min.X + _iconSize.X, p_min.Y + _iconSize.Y);
-                dl.AddImageRounded(_textures[assetPath].TextureId, p_min, p_max,
+                dl.AddImageRounded(_textures[assetPath].AtlasGLTextureId, p_min, p_max,
                     new System.Numerics.Vector2(0, 0), new System.Numerics.Vector2(1, 1),
                     ImGui.GetColorU32(new System.Numerics.Vector4(1, 1, 1, 1)),
                     10);
 
                 // ImGui.Dummy(_iconSize);
                 ImGui.PushStyleColor(ImGuiCol.ButtonHovered, new System.Numerics.Vector4(1, 1, 1, 0));
-                ImGui.ImageButton(_textures[assetPath].TextureId, _iconSize, new System.Numerics.Vector2(0, 0),
+                ImGui.ImageButton(_textures[assetPath].AtlasGLTextureId, _iconSize, new System.Numerics.Vector2(0, 0),
                     new System.Numerics.Vector2(1, 1), 0, System.Numerics.Vector4.Zero, System.Numerics.Vector4.Zero);
                 ImGui.PopStyleColor();
             }
             else
                 //ImGui.ImageButton((IntPtr) fileIcon.id, new Vector2(100, 90));
             {
-                ImGui.ImageButton(_fileIcon.TextureId, _iconSize);
+                ImGui.ImageButton(_fileIcon.AtlasGLTextureId, _iconSize);
 
                 // ImGui.ImageButton(_fileIcon.TextureId, _iconSize);
             }
@@ -432,7 +433,7 @@ public class EditorPanelBrowser : EditorPanel
 
                 var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-                ImGui.Image(_textures[assetPath].TextureId, _iconSize);
+                ImGui.Image(_textures[assetPath].AtlasGLTextureId, _iconSize);
 
                 //ImGui.Text(Path.GetFileNameWithoutExtension(itemPath));
                 Marshal.FreeHGlobal(assetPathPointer);
@@ -451,7 +452,7 @@ public class EditorPanelBrowser : EditorPanel
 
                 var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-                ImGui.Image(_fileIcon.TextureId, _iconSize);
+                ImGui.Image(_fileIcon.AtlasGLTextureId, _iconSize);
 
 
                 Marshal.FreeHGlobal(assetPathPointer);
@@ -472,7 +473,7 @@ public class EditorPanelBrowser : EditorPanel
 
                 // var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-                ImGui.Image(_fileIcon.TextureId, _iconSize);
+                ImGui.Image(_fileIcon.AtlasGLTextureId, _iconSize);
 
                 Marshal.FreeHGlobal(stringPointer);
 
@@ -500,7 +501,7 @@ public class EditorPanelBrowser : EditorPanel
 
                 var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
-                ImGui.Image(_fileIcon.TextureId, new Vector2(100, 90));
+                ImGui.Image(_fileIcon.AtlasGLTextureId, new Vector2(100, 90));
 
                 //ImGui.Text(Path.GetFileNameWithoutExtension(itemPath));
 
@@ -532,7 +533,7 @@ public class EditorPanelBrowser : EditorPanel
                     (uint)(sizeof(char) * assetPath.Length));
 
                 //string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                ImGui.Image(_fileIcon.TextureId, _iconSize);
+                ImGui.Image(_fileIcon.AtlasGLTextureId, _iconSize);
 
                 Marshal.FreeHGlobal(stringPointer);
 

@@ -110,7 +110,7 @@ public class EditorPanelSceneView : EditorPanel
 
                     ImGui.SetCursorPos(new Vector2(5, 75));
 
-                    ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId,
+                    ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.AtlasGLTextureId,
                         new Vector2(sizeX, sizeY),
                         new Vector2(0, 1), new Vector2(1, 0), Color.Black.ToVector4(), Color.Red.ToVector4());
 
@@ -130,7 +130,7 @@ public class EditorPanelSceneView : EditorPanel
 
                     ImGui.SetCursorPos(new Vector2(405, 75));
 
-                    ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.TextureId,
+                    ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.AtlasGLTextureId,
                         new Vector2(sizeX, sizeY),
                         new Vector2(0, 1), new Vector2(1, 0), Color.Black.ToVector4(), Color.Red.ToVector4());
 

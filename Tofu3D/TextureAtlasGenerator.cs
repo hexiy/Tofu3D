@@ -2,6 +2,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using LibNoise.Renderer;
+using OpenTK.Mathematics;
 using RectpackSharp;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
@@ -13,6 +14,7 @@ namespace Tofu3D;
 public static class TextureAtlasGenerator
 {
     private const int AtlasWidth = 4096;
+
     public static void GenerateAtlasesForTextures(List<Asset_Texture> textures)
     {
         textures.Sort();
@@ -60,7 +62,7 @@ public static class TextureAtlasGenerator
             else
             {
                 currentRectangles = rects.ToList();
-                
+
                 PackingRectangle rectangle = new PackingRectangle(x: 0, y: 0, width: (uint)textures[i].TextureSize.X,
                     height: (uint)textures[i].TextureSize.Y, id: i);
 
@@ -75,14 +77,35 @@ public static class TextureAtlasGenerator
         }
 
         int atlIndex = 0;
+
         foreach (PackingRectangle[] textureRectangles in rectangleGroups)
         {
+            TextureAtlasMember[] _textureAtlasMembers = new TextureAtlasMember[textureRectangles.Length];
+
+            string atlasPath = Path.Combine(Folders.TextureAtlasesInLibrary,
+                $"atlas_{atlIndex}.tofutextureatlas");
+
             byte[] atlasPixels = new byte[4 * AtlasWidth * AtlasWidth];
             for (int i = 0; i < textureRectangles.Length; i++)
             {
                 PackingRectangle rectangle = textureRectangles[i];
                 Asset_Texture texture = textures[rectangle.Id];
                 texture.OnDeserialized(); // make sure the pixels are decompressed
+
+                Vector4 box = new Vector4(rectangle.X, rectangle.Y, rectangle.X + rectangle.Width,
+                    rectangle.Y + rectangle.Height);
+
+                _textureAtlasMembers[i] = new TextureAtlasMember()
+                {
+                    BoundingBox = box,
+                    PathToTextureInLibrary = texture.PathInAssetsFolder,
+                };
+
+
+                texture.AtlasPath = atlasPath;
+                texture.BoundingBoxInAtlas = box;
+
+                Tofu.AssetLoadManager.Save<Asset_Texture>(texture.PathInLibraryFolder, texture);
 
                 int textureWidth = (int)rectangle.Width;
                 int textureHeight = (int)rectangle.Height;
@@ -116,8 +139,7 @@ public static class TextureAtlasGenerator
             AssetImportParameters_Texture assetImportParametersTexture =
                 new AssetImportParameters_Texture()
                 {
-                    PathToSourceAsset = Path.Combine(Folders.TextureAtlasesInLibrary,
-                        $"atlas_{atlIndex}.tofutextureatlas")
+                    PathToSourceAsset = atlasPath
                 };
 
 
@@ -138,9 +160,14 @@ public static class TextureAtlasGenerator
 
 
             atlasPixels = Compression.Compress(atlasPixels);
-            Asset_TextureAtlas atlasTexture = assetImporterTexture.ImportAsset(assetImportParametersTexture,
-                atlasPixels,
-                imageSize: new Vector2(AtlasWidth, AtlasWidth)) as Asset_TextureAtlas;
+            Asset_TextureAtlas atlasTexture = new Asset_TextureAtlas()
+            {
+                Pixels = atlasPixels, TextureSize = new Vector2(AtlasWidth, AtlasWidth), PathInLibraryFolder = atlasPath
+            };
+
+            Serializer.SaveAssetJSON<Asset_TextureAtlas>(atlasPath, atlasTexture);
+
+            atlasTexture.TextureAtlasMembers = _textureAtlasMembers;
 
             atlIndex++;
         }

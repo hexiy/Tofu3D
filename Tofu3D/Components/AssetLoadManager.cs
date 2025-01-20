@@ -15,6 +15,7 @@ public class AssetLoadManager
         _assetLoaderRuntimeMesh = new AssetLoader_RuntimeMesh();
 
         RegisterAssetLoader(new AssetLoader_Texture(), new AssetLoadParameters_Texture());
+        RegisterAssetLoader(new AssetLoader_AtlasTexture(), new AssetLoadParameters_AtlasTexture());
         RegisterAssetLoader(new AssetLoader_CubemapTexture(), new AssetLoadParameters_CubemapTexture());
         RegisterAssetLoader(new AssetLoader_Material(), new AssetLoadParameters_Material());
         RegisterAssetLoader(new AssetLoader_Model(), new AssetLoadParameters_Model());
@@ -81,8 +82,8 @@ public class AssetLoadManager
         string tempFileName =
             Folders.GetPathRelativeToProjectFolder(
                 TofuPath.Combine(folder, Guid.NewGuid().ToString()) + ".temp");
-        
-        Serializer.SaveFileJSON<T>(tempFileName,original);
+
+        Serializer.SaveFileJSON<T>(tempFileName, original);
 
         // for some reason   Tofu.AssetLoadManager.Save doesnt work it overwrites the assets....
         // Tofu.AssetLoadManager.Save<T>(tempFileName, asset: original);
@@ -203,7 +204,8 @@ public class AssetLoadManager
     {
         var mat = new Asset_Material()
         {
-            Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets, "ModelRendererInstanced.glsl"))
+            Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
+                "ModelRendererInstanced.glsl"))
         }; // default shader for now
         mat.LoadShader();
         mat.PathInAssetsFolder = sourcePath;
@@ -233,7 +235,7 @@ public class AssetLoadManager
         LoadedAssets = new Dictionary<int, object>();
     }
 
-    public void Save<T>(string path, T asset, AssetLoadParameters<T>? loadParameters = null)
+    public void Save<T>(string path, T asset)
         where T : class
     {
         int id = (path + typeof(T)).GetHashCode();
