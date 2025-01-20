@@ -13,10 +13,15 @@ namespace Tofu3D;
 
 public static class TextureAtlasGenerator
 {
-    private const int AtlasWidth = 4096;
+    private static int AtlasWidth = -1;
 
     public static void GenerateAtlasesForTextures(List<Asset_Texture> textures)
     {
+        if (AtlasWidth == -1)
+        {
+            AtlasWidth = GL.GetInteger(GetPName.MaxTextureSize);
+        }
+
         textures.Sort();
 
         PackingRectangle[] allRectangles = new PackingRectangle[textures.Count];
@@ -40,8 +45,8 @@ public static class TextureAtlasGenerator
             bool packed = false;
             try
             {
-                RectanglePacker.Pack(rects, out PackingRectangle bounds, maxBoundsHeight: AtlasWidth,
-                    maxBoundsWidth: AtlasWidth);
+                RectanglePacker.Pack(rects, out PackingRectangle bounds, maxBoundsHeight: (uint)AtlasWidth,
+                    maxBoundsWidth: (uint)AtlasWidth);
                 packed = true;
             }
             catch (Exception ex)
@@ -94,6 +99,7 @@ public static class TextureAtlasGenerator
 
                 Vector4 box = new Vector4(rectangle.X, rectangle.Y, rectangle.X + rectangle.Width,
                     rectangle.Y + rectangle.Height);
+                box = box / AtlasWidth;
 
                 _textureAtlasMembers[i] = new TextureAtlasMember()
                 {
@@ -162,7 +168,9 @@ public static class TextureAtlasGenerator
             atlasPixels = Compression.Compress(atlasPixels);
             Asset_TextureAtlas atlasTexture = new Asset_TextureAtlas()
             {
-                Pixels = atlasPixels, TextureSize = new Vector2(AtlasWidth, AtlasWidth), PathInLibraryFolder = atlasPath
+                Pixels = atlasPixels, TextureSize = new Vector2(AtlasWidth, AtlasWidth),
+                PathInLibraryFolder = atlasPath,
+                DataIsCompressed = true
             };
 
             Serializer.SaveAssetJSON<Asset_TextureAtlas>(atlasPath, atlasTexture);
@@ -173,7 +181,7 @@ public static class TextureAtlasGenerator
         }
 
 
-        // int atlasesCount = (int)MathF.Ceiling((float)bounds.Area / 4096f);
+        // int atlasesCount = (int)MathF.Ceiling((float)bounds.Area / AtlasWidth);
         // Asset_TextureAtlas[] atlases = new Asset_TextureAtlas[atlasesCount];
         //
         // for (int atlasIndex = 0; atlasIndex < atlasesCount; atlasIndex++)

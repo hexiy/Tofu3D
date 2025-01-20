@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 
 namespace Tofu3D;
 
@@ -37,17 +38,17 @@ public class AssetLoader_AtlasTexture : AssetLoader<RuntimeAtlasTexture>
 
         var internalFormat = importParameters.IsSrgb ? PixelInternalFormat.SrgbAlpha : PixelInternalFormat.Rgba;
 
-        byte[] pixels = new byte[(int)assetTextureAtlas.TextureSize.X / 2 * (int)assetTextureAtlas.TextureSize.Y / 2];
-        GL.TexImage2D(textureTarget, 0, internalFormat, (int)assetTextureAtlas.TextureSize.X / 2,
-            (int)assetTextureAtlas.TextureSize.Y / 2, 0, PixelFormat.Rgba,
-            // PixelType.UnsignedByte, assetTextureAtlas.Pixels);
-            PixelType.UnsignedByte, pixels);
+        assetTextureAtlas.OnDeserialized(); // decompress pixels
+        GL.TexImage2D(textureTarget, 0, internalFormat, (int)assetTextureAtlas.TextureSize.X,
+            (int)assetTextureAtlas.TextureSize.Y, 0, PixelFormat.Rgba,
+            PixelType.UnsignedByte, assetTextureAtlas.Pixels);
+        TextureFilterMode filterMode = TextureFilterMode.Point; //  (int)importParameters.WrapMode
 
-        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)importParameters.WrapMode);
-        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)importParameters.WrapMode);
-        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)importParameters.WrapMode);
-        GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)importParameters.FilterMode);
-        GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)importParameters.FilterMode);
+        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)filterMode);
+        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)filterMode);
+        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)filterMode);
+        GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)filterMode);
+        GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)filterMode);
 
         TofuGL.CheckGlError("atlas texture load");
 
@@ -56,6 +57,7 @@ public class AssetLoader_AtlasTexture : AssetLoader<RuntimeAtlasTexture>
         {
             PathInLibraryFolder = assetTextureAtlas.PathInLibraryFolder,
             PathInAssetsFolder = assetTextureAtlas.PathInAssetsFolder,
+            GLTextureId = textureId,
         };
 
         return runtimeAtlasTexture;

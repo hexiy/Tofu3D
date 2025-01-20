@@ -215,8 +215,8 @@ public class EditorPanelBrowser : EditorPanel
                 // SetCurrentDirectory(CurrentDirectoryInfo.Parent);
                 CurrentDirectoryInfo = CurrentDirectoryInfo.Parent;
                 RefreshAssets();
-                CurrentDirectoryPathCached = CurrentDirectoryInfo.Parent.FullName; // in case RefreshAssets throws an exception
-
+                CurrentDirectoryPathCached =
+                    CurrentDirectoryInfo.Parent.FullName; // in case RefreshAssets throws an exception
             }
         }
 
@@ -398,8 +398,13 @@ public class EditorPanelBrowser : EditorPanel
                 Vector2 cursor = ImGui.GetCursorPos();
                 Vector2 p_min = ImGui.GetCursorScreenPos();
                 Vector2 p_max = new Vector2(p_min.X + _iconSize.X, p_min.Y + _iconSize.Y);
+
+                Vector4 boundingBoxInAtlas = _textures[assetPath].BoundingBoxInAtlas;
+                Vector2 uvMin = new Vector2(boundingBoxInAtlas.X, boundingBoxInAtlas.Y);
+                Vector2 uvMax = new Vector2(boundingBoxInAtlas.Z, boundingBoxInAtlas.W);
                 dl.AddImageRounded(_textures[assetPath].AtlasGLTextureId, p_min, p_max,
-                    new System.Numerics.Vector2(0, 0), new System.Numerics.Vector2(1, 1),
+                    // new System.Numerics.Vector2(0, 0), new System.Numerics.Vector2(1, 1),
+                    uvMin, uvMax,
                     ImGui.GetColorU32(new System.Numerics.Vector4(1, 1, 1, 1)),
                     10);
 
@@ -551,7 +556,8 @@ public class EditorPanelBrowser : EditorPanel
 
             if (isModel)
             {
-                var pathOfImportParametersOfSourceAssetFile = AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(assetPath);
+                var pathOfImportParametersOfSourceAssetFile =
+                    AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(assetPath);
                 Object importParameters =
                     Serializer.ReadFileJSON<AssetImportParameters_Model>(pathOfImportParametersOfSourceAssetFile);
 
@@ -578,7 +584,8 @@ public class EditorPanelBrowser : EditorPanel
 
             if (isTexture)
             {
-                var pathOfImportParametersOfSourceAssetFile = AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(assetPath);
+                var pathOfImportParametersOfSourceAssetFile =
+                    AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(assetPath);
                 Object importParameters =
                     Serializer.ReadFileJSON<AssetImportParameters_Texture>(pathOfImportParametersOfSourceAssetFile);
 
