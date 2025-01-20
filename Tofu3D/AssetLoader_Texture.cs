@@ -19,13 +19,15 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
 
         if (assetTexture.AtlasPath == null)
         {
-            throw new NullReferenceException("no atlas path");
+            Debug.LogError("No atlas path in texture asset");
+            // throw new NullReferenceException("no atlas path");
         }
+
         RuntimeAtlasTexture runtimeAtlasTexture =
             Tofu.AssetLoadManager.Load<RuntimeAtlasTexture>(sourcePath: assetTexture.AtlasPath);
         RuntimeTexture runtimeTexture = new()
         {
-            AtlasGLTextureId = runtimeAtlasTexture.GLTextureId,
+            AtlasGLTextureId = runtimeAtlasTexture?.GLTextureId ?? 0,
             BoundingBoxInAtlas = assetTexture.BoundingBoxInAtlas,
             PathInLibraryFolder = assetTexture.PathInLibraryFolder,
             PathInAssetsFolder = assetTexture.PathInAssetsFolder,

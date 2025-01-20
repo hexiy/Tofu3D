@@ -42,11 +42,13 @@ public class AssetLoader_AtlasTexture : AssetLoader<RuntimeAtlasTexture>
         GL.TexImage2D(textureTarget, 0, internalFormat, (int)assetTextureAtlas.TextureSize.X,
             (int)assetTextureAtlas.TextureSize.Y, 0, PixelFormat.Rgba,
             PixelType.UnsignedByte, assetTextureAtlas.Pixels);
-        TextureFilterMode filterMode = TextureFilterMode.Point; //  (int)importParameters.WrapMode
-
-        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)filterMode);
-        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)filterMode);
-        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)filterMode);
+        
+        TextureWrapMode wrapMode = TextureWrapMode.Repeat;
+        TextureFilterMode filterMode = TextureFilterMode.Point;
+        
+        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)wrapMode);
+        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)wrapMode);
+        GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)wrapMode);
         GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)filterMode);
         GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)filterMode);
 

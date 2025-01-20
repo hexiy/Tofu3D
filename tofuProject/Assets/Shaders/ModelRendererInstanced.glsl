@@ -12,7 +12,8 @@ layout (location = 6) in vec3 a_model_2;
 layout (location = 7) in vec3 a_model_3;
 layout (location = 8) in vec3 a_model_4;
 layout (location = 9) in float a_id;
-layout (location = 10) in vec2 a_uv_offset;
+layout (location = 10) in vec4 a_albedoBoundingBoxInAtlas;
+//layout (location = 10) in vec2 a_uv_offset;
 
 uniform mat4 u_viewProjection;
 uniform mat4 u_lightSpaceViewProjection;
@@ -23,19 +24,33 @@ out vec3 normalWorldSpace;
 //out vec4 color;
 out vec4 fragPosLightSpace;
 out mat3 TBN;
-#ifdef UV_OFFSET_IS_INSTANCED
-out vec2 uvOffset;
-#endif
+//#ifdef UV_OFFSET_IS_INSTANCED
+//out vec2 uvOffset;
+//#endif
 flat out uint v_id;
 void main(void)
 {
 	mat4 a_model = mat4(vec4(a_model_1, 0), vec4(a_model_2, 0), vec4(a_model_3, 0), vec4(a_model_4, 1));
 	mat4 mvp = u_viewProjection * a_model;
 	gl_Position = mvp * vec4(a_pos.xyz, 1.0);
-	uv = a_uv * vec2(1, -1);
-	#ifdef UV_OFFSET_IS_INSTANCED
-    uvOffset = a_uv_offset;
-	#endif
+	
+	
+	vec2 albedoBoundingBoxInAtlasStart = a_albedoBoundingBoxInAtlas.xy;
+	vec2 albedoBoundingBoxSize =a_albedoBoundingBoxInAtlas.zw - albedoBoundingBoxInAtlasStart;
+	uv = a_uv;
+	uv = mod(uv, 1.0);
+//	while(uv.x > 1){
+//		uv.x -= 1;
+//	}
+//	while(uv.y > 1){
+//		uv.y -=1;	
+//	}
+	uv = albedoBoundingBoxInAtlasStart + (uv*albedoBoundingBoxSize);
+//	uv = a_uv * vec2(1, -1);
+	
+//	#ifdef UV_OFFSET_IS_INSTANCED
+//    uvOffset = a_uv_offset;
+//	#endif
     //color = a_color;
 	v_id = uint(a_id);
 
@@ -301,7 +316,7 @@ void main() {
 	vec2 uvCoords = uv * u_tiling;
 
 // map these uvCoords to uvcoords in the atlas
-	fragColor = texture(textureArray, vec3(uvCoords.xy, 4));
+	fragColor = texture(textureArray, vec3(uvCoords.xy, 1));
 	return;
 
 	// Albedo Color

@@ -630,7 +630,7 @@ public class InstancedRenderingSystem
             {
                 CopyObjectDataToBuffer(modelMatrix ?? renderer.LatestModelMatrix.Value,
                     ref sharedBuffer.Buffer,
-                    objectInstancingData.StartingIndexInBuffer, uvOffset: uvOffset,
+                    objectInstancingData.StartingIndexInBuffer, material: material, uvOffset: uvOffset,
                     mousePickingId: renderer.MousePickingId);
             }
         }
@@ -641,7 +641,7 @@ public class InstancedRenderingSystem
     }
 
     private void CopyObjectDataToBuffer(Matrix4x4 modelMatrix, ref float[] buffer,
-        int startingIndex,
+        int startingIndex, Asset_Material material,
         Vector2? uvOffset = null, uint mousePickingId = 0)
     {
         int bufferIndex = startingIndex;
@@ -668,6 +668,11 @@ public class InstancedRenderingSystem
             buffer[bufferIndex++] = uvOffset.Value.X;
             buffer[bufferIndex++] = uvOffset.Value.Y;
         }
+
+        buffer[bufferIndex++] = material.AlbedoTexture?.BoundingBoxInAtlas.X ?? 0;
+        buffer[bufferIndex++] = material.AlbedoTexture?.BoundingBoxInAtlas.Y ?? 0;
+        buffer[bufferIndex++] = material.AlbedoTexture?.BoundingBoxInAtlas.Z ?? 0;
+        buffer[bufferIndex++] = material.AlbedoTexture?.BoundingBoxInAtlas.W ?? 0;
     }
 
     private SharedBuffer InitializeSharedBufferData(InstancedGroupDefinition instancedGroupDefinition)

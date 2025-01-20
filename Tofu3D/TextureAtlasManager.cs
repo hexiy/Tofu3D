@@ -125,6 +125,7 @@ public static class TextureAtlasManager
                 Vector4 box = new Vector4(rectangle.X, rectangle.Y, rectangle.X + rectangle.Width,
                     rectangle.Y + rectangle.Height);
                 box = box / AtlasWidth;
+                
 
                 _textureAtlasMembers[i] = new TextureAtlasMember()
                 {
