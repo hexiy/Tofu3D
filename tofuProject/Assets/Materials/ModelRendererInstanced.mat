@@ -1,10 +1,25 @@
- 	{
+Ö{
   "Shader": {
     "BufferType": 2,
     "Path": "Assets/Shaders/ModelRendererInstanced.glsl"
   },
   "Additive": false,
-  "AlbedoTexture": null,
+  "AlbedoTexture": {
+    "BoundingBoxInAtlas": {
+      "X": 0.15258789,
+      "Y": 0.125,
+      "Z": 0.17681885,
+      "W": 0.14923096
+    },
+    "IndexInAtlasTextureArray": 0,
+    "StandaloneGLTextureId": null,
+    "IsRuntimeCopy": false,
+    "DataIsCompressed": false,
+    "AtlasGLTextureArrayId": 0,
+    "PathInAssetsFolder": "Assets/2D/stone.png",
+    "PathInLibraryFolder": "Library/Textures/stone.png.tofutexture",
+    "AnyPath": "Assets/2D/stone.png"
+  },
   "AlphaMaskTexture": null,
   "AlbedoTint": {
     "B": 255,
@@ -49,22 +64,7 @@
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}}}"
-}d": false,
-  "RenderMode": 0,
-  "BlendMode": 0,
-  "IsRuntimeCopy": false,
-  "DataIsCompressed": false,
-  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
-  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
-  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
 },
-    "Y": 0.0
-  },
-  "UVOffsetIsInstanced": false,
-  "RenderMode": 0,
-  "BlendMode": 0,
-  "IsRuntimeCopy": false,
   "DataIsCompressed": false,
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",

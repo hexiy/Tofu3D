@@ -15,7 +15,7 @@ public class AssetLoadManager
         _assetLoaderRuntimeMesh = new AssetLoader_RuntimeMesh();
 
         RegisterAssetLoader(new AssetLoader_Texture(), new AssetLoadParameters_Texture());
-        RegisterAssetLoader(new AssetLoader_AtlasTexture(), new AssetLoadParameters_AtlasTexture());
+        // RegisterAssetLoader(new AssetLoader_AtlasTexture(), new AssetLoadParameters_AtlasTexture());
         RegisterAssetLoader(new AssetLoader_CubemapTexture(), new AssetLoadParameters_CubemapTexture());
         RegisterAssetLoader(new AssetLoader_Material(), new AssetLoadParameters_Material());
         RegisterAssetLoader(new AssetLoader_Model(), new AssetLoadParameters_Model());
@@ -167,6 +167,14 @@ public class AssetLoadManager
                 loadParameters.ExistingAsset = existingAsset;
             }
 
+            // because in EditorTextures its null first so we overwrite it but it stays that value even after so all icons are the same as the first one 
+            bool setLoadParametersPathBackToNull = false;
+            if (loadParameters.PathToAssetInLibrary == null)
+            {
+                setLoadParametersPathBackToNull = true;
+                loadParameters.PathToAssetInLibrary = sourcePath;
+            }
+
             if (File.Exists(sourcePath) == false)
             {
                 Debug.LogWarning("not found asset " + loadParameters.PathToAssetInLibrary);
@@ -188,6 +196,11 @@ public class AssetLoadManager
             // i need the AssetLoadParameters
 
             // _assetDatabase.Assets[id] = asset;
+
+            if (setLoadParametersPathBackToNull)
+            {
+                loadParameters.PathToAssetInLibrary = null;
+            }
         }
 
         return asset;

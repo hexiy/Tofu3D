@@ -39,12 +39,14 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
                 pos.Y + (1 - curve.DefiningPoints[i].Y) * graphSize.Y);
 
 
-            var texture = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/dot.png");
+            AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture()
+                { LoadType = TextureLoadType.Standalone };
+            var texture = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/dot.png", loadParametersTexture);
 
             var circleColor = Color.Purple;
 
             ImGui.SetCursorPos(newPos - new Vector2(15));
-            ImGui.Image(texture.AtlasGLTextureId, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
+            ImGui.Image(texture.StandaloneGLTextureId.Value, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
 
             var cursorHoversCurrentPoint = ImGui.IsItemHovered();
             var currentPointIsClicked = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown();
@@ -61,7 +63,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
 
             ImGui.SetCursorPos(newPos - new Vector2(15));
 
-            ImGui.Image(texture.AtlasGLTextureId, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
+            ImGui.Image(texture.StandaloneGLTextureId.Value, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
 
             if (draggingPointIndex != -1 && Tofu.MouseInput.IsButtonDown() == false)
             {

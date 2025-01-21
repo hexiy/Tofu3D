@@ -32,8 +32,10 @@ public class SharedBuffer
         InstancedVertexDataSizeInBytes =
             sizeof(float) * 3 * 4 // 4x vec 3's for model_1 model_2 model_3 model_4
             + (UVOffsetIsInstanced ? (sizeof(float) * 2) : 0) // 1x vector2 for uv offset
-            + (sizeof(float)) // 1 int for mouse picking id
-            + (sizeof(float) * 4); // 4 floats for albedo texture bounding box in atlas
+            + (sizeof(float)) // 1 float(int) for mouse picking id
+            + (sizeof(float) * 4) // 4 floats for albedo texture bounding box in atlas
+            + (sizeof(float)) // 1 float for albedo texture atlas index
+            ;
     }
 
     public void AddObject(ref ObjectInstancingData objectInstancingData)
@@ -173,6 +175,12 @@ public class SharedBuffer
                 this.InstancedVertexDataSizeInBytes,
                 offset);
             offset += 4 * sizeof(float);
+            
+            // atlas index of albedo texture
+            GL.VertexAttribPointer(vertexAttribPointerIndex++, 1, VertexAttribPointerType.Float, false,
+                this.InstancedVertexDataSizeInBytes,
+                offset);
+            offset += 1 * sizeof(float);
         }
 
         if (this.NeedsUpload && newBuffer)
@@ -188,7 +196,9 @@ public class SharedBuffer
             {
                 GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
             }
-            GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
+
+            GL.EnableVertexAttribArray(vertexAttribArrayIndex++); // albedo texture bounds in atlas
+            GL.EnableVertexAttribArray(vertexAttribArrayIndex++); // atlas index of albedo texture
         }
 
         if (this.NeedsUpload && newBuffer)
@@ -204,6 +214,8 @@ public class SharedBuffer
             {
                 GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
             }
+
+            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
             GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
         }
 

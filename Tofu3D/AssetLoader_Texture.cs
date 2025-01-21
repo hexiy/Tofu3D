@@ -19,19 +19,53 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
 
         if (assetTexture.AtlasPath == null)
         {
-            Debug.LogError("No atlas path in texture asset");
+            // Debug.LogError("No atlas path in texture asset");
             // throw new NullReferenceException("no atlas path");
         }
 
-        RuntimeAtlasTexture runtimeAtlasTexture =
-            Tofu.AssetLoadManager.Load<RuntimeAtlasTexture>(sourcePath: assetTexture.AtlasPath);
+
         RuntimeTexture runtimeTexture = new()
         {
-            AtlasGLTextureId = runtimeAtlasTexture?.GLTextureId ?? 0,
             BoundingBoxInAtlas = assetTexture.BoundingBoxInAtlas,
+            IndexInAtlasTextureArray = assetTexture.IndexInAtlasTextureArray,
             PathInLibraryFolder = assetTexture.PathInLibraryFolder,
             PathInAssetsFolder = assetTexture.PathInAssetsFolder,
         };
+
+
+        if (loadParameters.LoadType.HasFlag(TextureLoadType.Standalone))
+        {
+            var standaloneGLTextureId = loadParameters.ExistingAsset?.StandaloneGLTextureId ?? GL.GenTexture();
+            TextureHelper.BindTexture(standaloneGLTextureId);
+            var textureTarget = TextureTarget.Texture2D;
+
+            var internalFormat = PixelInternalFormat.Rgba;
+
+            GL.TexImage2D(textureTarget, 0, internalFormat, (int)assetTexture.TextureSize.X,
+                (int)assetTexture.TextureSize.Y, 0, PixelFormat.Rgba,
+                PixelType.UnsignedByte, assetTexture.Pixels);
+
+            TextureWrapMode wrapMode = TextureWrapMode.Repeat;
+            TextureFilterMode filterMode = TextureFilterMode.Point;
+
+            GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)wrapMode);
+            GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)wrapMode);
+            GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)wrapMode);
+            GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)filterMode);
+            GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)filterMode);
+
+            TofuGL.CheckGlError("standalone texture load");
+
+            runtimeTexture.StandaloneGLTextureId = standaloneGLTextureId;
+        }
+
+        if (assetTexture.AtlasPath != null)
+        {
+            // Asset_TextureAtlas assetTextureAtlas =
+            // Serializer.ReadAssetJSON<Asset_TextureAtlas>(path: assetTexture.AtlasPath);
+            // runtimeTexture.IndexInAtlasTextureArray = assetTextureAtlas?.IndexInTextureArray ?? 0;
+        }
+
 
         return runtimeTexture;
     }

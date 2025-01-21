@@ -10,6 +10,7 @@ public class Asset_Texture : Asset<Asset_Texture>, IComparable<Asset_Texture>
     public Vector2 TextureSize;
     public string AtlasPath;
     public Vector4 BoundingBoxInAtlas;
+    public int IndexInAtlasTextureArray;
 
     public override void BeforeSerialized()
     {

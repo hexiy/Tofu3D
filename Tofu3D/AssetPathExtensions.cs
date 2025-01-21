@@ -71,12 +71,12 @@ public static class AssetPathExtensions
         {
             path = Folders.TexturesInLibrary;
         }
-        
+
         if (IsFileTextureAtlas(fileName))
         {
             path = Folders.TextureAtlasesInLibrary;
         }
-        
+
         if (IsFileMaterial(fileName))
         {
             path = Folders.MaterialsInLibrary;
@@ -86,7 +86,7 @@ public static class AssetPathExtensions
         {
             path = Folders.TempInLibrary;
         }
-        
+
         return path;
     }
 
@@ -107,7 +107,7 @@ public static class AssetPathExtensions
         {
             extension = ".tofutextureatlas";
         }
-        
+
         if (IsFileMaterial(fileName))
         {
             extension = ".tofumaterial";
@@ -141,7 +141,7 @@ public static class AssetPathExtensions
                 fileName.EndsWith(".tga", StringComparison.OrdinalIgnoreCase) ||
                 fileName.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase));
     }
-    
+
     public static bool IsFileTextureAtlas(string fileName)
     {
         return fileName.EndsWith(".tofutextureatlas", StringComparison.OrdinalIgnoreCase);
@@ -177,13 +177,23 @@ public static class AssetPathExtensions
     {
         return fileName.EndsWith(".prefab", StringComparison.OrdinalIgnoreCase);
     }
-    
+
     public static string ValidateAssetPath(ref string assetPath)
     {
         assetPath = ValidateAssetPath(assetPath);
         return assetPath;
     }
-    
+
+    public static bool IsAnyAssetBase(string assetPath)
+    {
+        return IsFileTexture(assetPath)
+               || IsFileMaterial(assetPath)
+               || IsFileTextureAtlas(assetPath)
+               || IsFileMaterial(assetPath)
+               || IsFileMesh(assetPath)
+               || IsFileModel(assetPath);
+    }
+
     // in case we want to cache
     public static bool Exists(string path) => File.Exists(path);
 
@@ -197,7 +207,7 @@ public static class AssetPathExtensions
         var existsInAssetFolder = File.Exists(TofuPath.Combine(Folders.Assets, assetPath));
         if (existsInAssetFolder)
         {
-            assetPath = TofuPath.CombineRelativeTo(TofuPath.PathScope.Assets,Folders.Assets, assetPath);
+            assetPath = TofuPath.CombineRelativeTo(TofuPath.PathScope.Assets, Folders.Assets, assetPath);
         }
         else
         {

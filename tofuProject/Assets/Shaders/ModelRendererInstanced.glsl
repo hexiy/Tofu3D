@@ -13,6 +13,7 @@ layout (location = 7) in vec3 a_model_3;
 layout (location = 8) in vec3 a_model_4;
 layout (location = 9) in float a_id;
 layout (location = 10) in vec4 a_albedoBoundingBoxInAtlas;
+layout (location = 11) in float a_albedoAtlasIndex;
 //layout (location = 10) in vec2 a_uv_offset;
 
 uniform mat4 u_viewProjection;
@@ -28,31 +29,33 @@ out mat3 TBN;
 //out vec2 uvOffset;
 //#endif
 flat out uint v_id;
+flat out uint albedoAtlasIndex;
 void main(void)
 {
 	mat4 a_model = mat4(vec4(a_model_1, 0), vec4(a_model_2, 0), vec4(a_model_3, 0), vec4(a_model_4, 1));
 	mat4 mvp = u_viewProjection * a_model;
 	gl_Position = mvp * vec4(a_pos.xyz, 1.0);
-	
-	
+
+
 	vec2 albedoBoundingBoxInAtlasStart = a_albedoBoundingBoxInAtlas.xy;
-	vec2 albedoBoundingBoxSize =a_albedoBoundingBoxInAtlas.zw - albedoBoundingBoxInAtlasStart;
+	vec2 albedoBoundingBoxSize = a_albedoBoundingBoxInAtlas.zw - albedoBoundingBoxInAtlasStart;
 	uv = a_uv;
-	uv = mod(uv, 1.0);
-//	while(uv.x > 1){
-//		uv.x -= 1;
-//	}
-//	while(uv.y > 1){
-//		uv.y -=1;	
-//	}
-	uv = albedoBoundingBoxInAtlasStart + (uv*albedoBoundingBoxSize);
-//	uv = a_uv * vec2(1, -1);
-	
-//	#ifdef UV_OFFSET_IS_INSTANCED
-//    uvOffset = a_uv_offset;
-//	#endif
-    //color = a_color;
+	//	uv = mod(uv, 1.0);
+	//	while(uv.x > 1){
+	//		uv.x -= 1;
+	//	}
+	//	while(uv.y > 1){
+	//		uv.y -=1;	
+	//	}
+	uv = albedoBoundingBoxInAtlasStart + (uv * albedoBoundingBoxSize);
+	//	uv = a_uv * vec2(1, -1);
+
+	//	#ifdef UV_OFFSET_IS_INSTANCED
+	//    uvOffset = a_uv_offset;
+	//	#endif
+	//color = a_color;
 	v_id = uint(a_id);
+	albedoAtlasIndex = uint(a_albedoAtlasIndex);
 
 	vertexPositionWorld = vec3(a_model * vec4(a_pos.xyz, 1.0));
 	//	normalWorldSpace = transpose(inverse(mat3(a_model))) * a_normal;
@@ -76,6 +79,7 @@ in vec2 uv;
 in vec4 fragPosLightSpace;
 in mat3 TBN;
 flat in uint v_id;
+flat in uint albedoAtlasIndex;
 out vec4 fragColor;
 
 // Uniforms
@@ -315,7 +319,7 @@ void main() {
 	// UV Coordinates with tiling
 	vec2 uvCoords = uv * u_tiling;
 
-// map these uvCoords to uvcoords in the atlas
+	// map these uvCoords to uvcoords in the atlas
 	fragColor = texture(textureArray, vec3(uvCoords.xy, 1));
 	return;
 

@@ -33,6 +33,7 @@ public static class Tofu
 
     // ASSETS
     public static AssetImportManager AssetImportManager;
+    public static TextureAtlasManager TextureAtlasManager;
     public static AssetLoadManager AssetLoadManager;
     public static SceneSerializer SceneSerializer;
     public static AssetsWatcher AssetsWatcher;
@@ -64,6 +65,7 @@ public static class Tofu
         ScriptsManager.CompileScriptsAssembly();
 
         AssetImportManager = new AssetImportManager();
+        TextureAtlasManager = new TextureAtlasManager();
         AssetLoadManager = new AssetLoadManager();
         SceneManager = new SceneManager();
         SceneSerializer = new SceneSerializer();
@@ -104,10 +106,10 @@ public static class Tofu
 
     private static void OnWindowLoad()
     {
-
         BasicMeshesCollection = new BasicMeshesCollection();
 
         AssetImportManager.ImportAllAssets();
+        TextureAtlasManager.GenerateTextureAtlases();
 
         InstancedRenderingSystem = new InstancedRenderingSystem();
         LightRenderingManager = new LightRenderingManager();
@@ -219,6 +221,7 @@ public static class Tofu
 
         Editor.Draw();
 
+        TofuGL.CheckGlError("Tofu 1");
         ImGuiController.Render();
 
         Debug.EndGraphTimer("ImGui");

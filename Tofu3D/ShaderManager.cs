@@ -53,6 +53,7 @@ public class ShaderManager
 
         VaoInUse = vao;
         GL.BindVertexArray(vao);
+        // Debug.Log("Bind VAO:" + vao);
     }
 
     public void UseShader(Shader shader, bool forceUse = false)

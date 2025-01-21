@@ -95,23 +95,36 @@ public class EditorPanelConsole : EditorPanel
 
             var hasFlag = (_currentLogCategoryFilter & filter) == filter;
             // ImGui.RadioButton(filter.ToString(), hasFlag); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
-            var textureId = Tofu.Editor.EditorTextures.LogCategoryInfoIcon.AtlasGLTextureId;
+            IntPtr textureId = ImGuiController.EncodeTextureArrayId(
+                Tofu.Editor.EditorTextures.LogCategoryInfoIcon.AtlasGLTextureArrayId,
+                Tofu.Editor.EditorTextures.LogCategoryInfoIcon.IndexInAtlasTextureArray);
+            Vector4 textureBoundsInAtlas = Tofu.Editor.EditorTextures.LogCategoryInfoIcon.BoundingBoxInAtlas;
             if (filter == LogCategoryFilter.Error)
             {
-                textureId = Tofu.Editor.EditorTextures.LogCategoryErrorIcon.AtlasGLTextureId;
+                textureId = ImGuiController.EncodeTextureArrayId(
+                    Tofu.Editor.EditorTextures.LogCategoryErrorIcon.AtlasGLTextureArrayId,
+                    Tofu.Editor.EditorTextures.LogCategoryErrorIcon.IndexInAtlasTextureArray);
+                textureBoundsInAtlas = Tofu.Editor.EditorTextures.LogCategoryErrorIcon.BoundingBoxInAtlas;
             }
 
             if (filter == LogCategoryFilter.Warning)
             {
-                textureId = Tofu.Editor.EditorTextures.LogCategoryWarningIcon.AtlasGLTextureId;
+                textureId = ImGuiController.EncodeTextureArrayId(
+                    Tofu.Editor.EditorTextures.LogCategoryWarningIcon.AtlasGLTextureArrayId,
+                    Tofu.Editor.EditorTextures.LogCategoryWarningIcon.IndexInAtlasTextureArray);
+                textureBoundsInAtlas = Tofu.Editor.EditorTextures.LogCategoryWarningIcon.BoundingBoxInAtlas;
             }
 
             if (filter == LogCategoryFilter.Timer)
             {
-                textureId = Tofu.Editor.EditorTextures.LogCategoryTimerIcon.AtlasGLTextureId;
+                textureId = ImGuiController.EncodeTextureArrayId(
+                    Tofu.Editor.EditorTextures.LogCategoryTimerIcon.AtlasGLTextureArrayId,
+                    Tofu.Editor.EditorTextures.LogCategoryTimerIcon.IndexInAtlasTextureArray);
+                textureBoundsInAtlas = Tofu.Editor.EditorTextures.LogCategoryTimerIcon.BoundingBoxInAtlas;
             }
 
-            ImGui.Image(textureId, new System.Numerics.Vector2(30, 30), new Vector2(0, 0), new Vector2(1, 1),
+            ImGui.Image(textureId, new System.Numerics.Vector2(30, 30), textureBoundsInAtlas.XY,
+                textureBoundsInAtlas.ZW,
                 hasFlag
                     ? new Vector4(1, 1, 1, 1)
                     : new Vector4(1, 1, 1, 0.3f)); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
@@ -142,7 +155,8 @@ public class EditorPanelConsole : EditorPanel
         {
             var log = Debug.GetLogsRef()[i];
 
-            if (_searchFilter.Length > 0 && log.Message.Contains(_searchFilter, StringComparison.OrdinalIgnoreCase) == false)
+            if (_searchFilter.Length > 0 &&
+                log.Message.Contains(_searchFilter, StringComparison.OrdinalIgnoreCase) == false)
             {
                 continue;
             }
@@ -167,20 +181,35 @@ public class EditorPanelConsole : EditorPanel
             }
 
 
-            var textureId = Tofu.Editor.EditorTextures.LogCategoryInfoIcon.AtlasGLTextureId;
+            IntPtr textureId = ImGuiController.EncodeTextureArrayId(
+                Tofu.Editor.EditorTextures.LogCategoryInfoIcon.AtlasGLTextureArrayId,
+                Tofu.Editor.EditorTextures.LogCategoryInfoIcon.IndexInAtlasTextureArray);
+
+            Vector4 textureBoundsInAtlas = Tofu.Editor.EditorTextures.LogCategoryInfoIcon.BoundingBoxInAtlas;
+
             if (log.LogCategory == LogCategory.Error)
             {
-                textureId = Tofu.Editor.EditorTextures.LogCategoryErrorIcon.AtlasGLTextureId;
+                textureId = ImGuiController.EncodeTextureArrayId(
+                    Tofu.Editor.EditorTextures.LogCategoryErrorIcon.AtlasGLTextureArrayId,
+                    Tofu.Editor.EditorTextures.LogCategoryErrorIcon.IndexInAtlasTextureArray);
+
+                textureBoundsInAtlas = Tofu.Editor.EditorTextures.LogCategoryErrorIcon.BoundingBoxInAtlas;
             }
 
             if (log.LogCategory == LogCategory.Warning)
             {
-                textureId = Tofu.Editor.EditorTextures.LogCategoryWarningIcon.AtlasGLTextureId;
+                textureId = ImGuiController.EncodeTextureArrayId(
+                    Tofu.Editor.EditorTextures.LogCategoryWarningIcon.AtlasGLTextureArrayId,
+                    Tofu.Editor.EditorTextures.LogCategoryWarningIcon.IndexInAtlasTextureArray);
+                textureBoundsInAtlas = Tofu.Editor.EditorTextures.LogCategoryWarningIcon.BoundingBoxInAtlas;
             }
 
             if (log.LogCategory == LogCategory.Timer)
             {
-                textureId = Tofu.Editor.EditorTextures.LogCategoryTimerIcon.AtlasGLTextureId;
+                textureId = ImGuiController.EncodeTextureArrayId(
+                    Tofu.Editor.EditorTextures.LogCategoryTimerIcon.AtlasGLTextureArrayId,
+                    Tofu.Editor.EditorTextures.LogCategoryTimerIcon.IndexInAtlasTextureArray);
+                textureBoundsInAtlas = Tofu.Editor.EditorTextures.LogCategoryTimerIcon.BoundingBoxInAtlas;
             }
 
             ImGui.SameLine();
@@ -188,7 +217,8 @@ public class EditorPanelConsole : EditorPanel
             // ImGui.SetCursorPos(new Vector2(10, 25 + drawnLogsCounter * 50));
             ImGui.SetCursorPos(new Vector2(10, ImGui.GetCursorPosY()));
             ImGui.Image(textureId,
-                new System.Numerics.Vector2(25, 25)); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
+                new System.Numerics.Vector2(25, 25), textureBoundsInAtlas.XY,
+                textureBoundsInAtlas.ZW); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
             ImGui.SameLine();
             // ImGui.SetCursorPos(new Vector2(100, 25 + drawnLogsCounter * 50));
             // ImGui.SetCursorPos(new Vector2(0, 25 + drawnLogsCounter * 50));

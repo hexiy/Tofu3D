@@ -37,6 +37,35 @@ public class AssetImportManager
             AssetFileExists(
                 AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(assetFileInLibraryPath));
         bool canImport = assetExists == false || reimportIfExists == true;
+
+        if (assetExists && canImport == false)
+        {
+            if (AssetPathExtensions.IsAnyAssetBase(assetFileInLibraryPath))
+            {
+                AssetBase asset = null;
+
+                if (AssetPathExtensions.IsFileModel(rawAssetPath))
+                {
+                    asset = Serializer.ReadAssetJSON<Asset_Model>(assetFileInLibraryPath);
+                }
+
+                if (AssetPathExtensions.IsFileTexture(rawAssetPath))
+                {
+                    asset = Serializer.ReadAssetJSON<Asset_Texture>(assetFileInLibraryPath);
+                }
+
+                if (AssetPathExtensions.IsFileTextureAtlas(rawAssetPath))
+                {
+                    asset = Serializer.ReadAssetJSON<Asset_TextureAtlas>(assetFileInLibraryPath);
+                }
+
+                if (asset != null)
+                {
+                    Assets.Add(asset);
+                }
+            }
+        }
+
         if (canImport == false)
         {
             return;
@@ -146,11 +175,21 @@ public class AssetImportManager
                     assetImportParametersTexture);
 
 
-            Assets.Add(assetTexture);
+            AddAsset(assetTexture);
             // }
         }
 
         // Debug.Log("Asset import finished");
+    }
+
+    private void AddAsset(AssetBase assetBase)
+    {
+        if (Assets.Contains(assetBase))
+        {
+            return;
+        }
+
+        Assets.Add(assetBase);
     }
 
     public void ImportAsset(string rawAssetPath, bool reimportIfExists = false)
@@ -182,22 +221,6 @@ public class AssetImportManager
         {
             ImportAsset(rawAssetPath, reimportIfExists);
         }
-
-        GenerateTextureAtlases();
-    }
-
-    void GenerateTextureAtlases()
-    {
-        List<Asset_Texture> textures = new List<Asset_Texture>();
-        for (int i = 0; i < Assets.Count; i++)
-        {
-            if (Assets[i] is Asset_Texture texture)
-            {
-                textures.Add(texture);
-            }
-        }
-
-        TextureAtlasManager.GenerateAtlasesForTextures(textures);
     }
 
     private bool AssetFileExists(string assetPath)

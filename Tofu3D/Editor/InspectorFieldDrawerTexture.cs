@@ -19,7 +19,9 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
         }
         else
         {
-            ImGui.Image(texture.AtlasGLTextureId, new Vector2(150, 150));
+            ImGui.Image(texture.AtlasGLTextureArrayId, new Vector2(150, 150),
+                uv0: new Vector2(texture.BoundingBoxInAtlas.X, texture.BoundingBoxInAtlas.Y),
+                new Vector2(texture.BoundingBoxInAtlas.Z, texture.BoundingBoxInAtlas.W));
         }
 
         if (ImGui.IsItemClicked())

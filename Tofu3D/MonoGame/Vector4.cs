@@ -77,6 +77,10 @@ public struct Vector4 : IEquatable<Vector4>
     /// </summary>
     public static Vector4 UnitW { get; } = new(0f, 0f, 0f, 1f);
 
+
+    public Vector2 XY => new(X, Y);
+    public Vector2 ZW => new(Z, W);
+
     #endregion
 
     #region Internal Properties

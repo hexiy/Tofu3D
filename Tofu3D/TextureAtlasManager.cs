@@ -11,18 +11,258 @@ using Image = SixLabors.ImageSharp.Image;
 
 namespace Tofu3D;
 
-public static class TextureAtlasManager
+public class TextureAtlasManager
 {
-    private static int AtlasWidth = -1;
-    public static int _glTextureArrayId;
-    private static int _atlasesCount;
+    private int AtlasWidth = -1;
+    public int GLTextureArrayId;
+    private int _atlasesCount;
 
-    private static void SetupTextureArray()
+
+    public void GenerateTextureAtlases()
     {
-        _glTextureArrayId = GL.GenTexture();
-        GL.BindTexture(TextureTarget.Texture2DArray, _glTextureArrayId);
+        List<Asset_Texture> textures = new List<Asset_Texture>();
 
-        GL.TexStorage3D(TextureTarget3d.Texture2DArray, 1, SizedInternalFormat.Rgba8, AtlasWidth, AtlasWidth, _atlasesCount);
+        List<string> paths = new List<string>();
+        paths.AddRange(Directory.GetFiles(Folders.TexturesInLibrary, "*.tofutexture", SearchOption.TopDirectoryOnly));
+        foreach (string rawAssetPath in paths)
+        {
+            Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(rawAssetPath);
+            textures.Add(assetTexture);
+        }
+
+        GenerateAtlasesForTextures(textures);
+    }
+
+    private void GenerateAtlasesForTextures(List<Asset_Texture> textures)
+    {
+        if (AtlasWidth == -1)
+        {
+            AtlasWidth = GL.GetInteger(GetPName.MaxTextureSize);
+            AtlasWidth = (int)Mathf.ClampMax(AtlasWidth, 8192); //8192);
+        }
+
+        textures.Sort();
+
+        // pack textures into atlases
+        List<PackingRectangle[]> atlasesRectangles = PackTexturesIntoAtlases(textures);
+
+        // create the texture array
+        _atlasesCount = atlasesRectangles.Count;
+        SetupTextureArray();
+
+        // populate atlases with textures
+        GenerateAndSaveAtlases(atlasesRectangles, textures);
+
+        GL.BindTexture(TextureTarget.Texture2DArray, 0);
+    }
+
+    private List<PackingRectangle[]> PackTexturesIntoAtlases(List<Asset_Texture> textures)
+    {
+        PackingRectangle[] allRectangles = new PackingRectangle[textures.Count];
+        List<PackingRectangle> currentRectangles = new List<PackingRectangle>();
+        List<PackingRectangle[]> atlasesRectangles = new List<PackingRectangle[]>();
+
+        Vector2 pixelsLeft = new Vector2(AtlasWidth, AtlasWidth);
+
+        for (int i = 0; i < allRectangles.Length; i++)
+        {
+            pixelsLeft -= textures[i].TextureSize;
+
+            PackingRectangle[] rectsOld = currentRectangles.ToArray();
+            PackingRectangle[] rects = currentRectangles.ToArray();
+            bool packed = TryPackTextures(rects, out PackingRectangle bounds);
+
+            if (!packed)
+            {
+                currentRectangles = rectsOld.ToList();
+                atlasesRectangles.Add(currentRectangles.ToArray());
+                i--;
+                currentRectangles.Clear();
+                pixelsLeft = new Vector2(AtlasWidth, AtlasWidth);
+                continue;
+            }
+
+            currentRectangles = rects.ToList();
+
+            PackingRectangle rectangle = new PackingRectangle(
+                x: 0,
+                y: 0,
+                width: (uint)textures[i].TextureSize.X,
+                height: (uint)textures[i].TextureSize.Y,
+                id: i
+            );
+
+            currentRectangles.Add(rectangle);
+        }
+
+        if (currentRectangles.Count > 0)
+        {
+            atlasesRectangles.Add(currentRectangles.ToArray());
+        }
+
+        return atlasesRectangles;
+    }
+
+    private bool TryPackTextures(PackingRectangle[] rects, out PackingRectangle bounds)
+    {
+        try
+        {
+            RectanglePacker.Pack(
+                rects,
+                out bounds,
+                maxBoundsHeight: (uint)AtlasWidth,
+                maxBoundsWidth: (uint)AtlasWidth
+            );
+            return true;
+        }
+        catch
+        {
+            bounds = default;
+            return false;
+        }
+    }
+
+    private void GenerateAndSaveAtlases(List<PackingRectangle[]> atlasesRectangles, List<Asset_Texture> textures)
+    {
+        int atlasIndex = 0;
+
+        foreach (PackingRectangle[] textureRectangles in atlasesRectangles)
+        {
+            byte[] atlasPixels =
+                GenerateAtlasPixels(textureRectangles, textures, out TextureAtlasMember[] atlasMembers, atlasIndex);
+
+            UploadAtlasToTextureArray(atlasPixels, atlasIndex);
+
+            SaveAtlasAsset(atlasPixels, atlasMembers, atlasIndex);
+
+            atlasIndex++;
+        }
+    }
+
+    private byte[] GenerateAtlasPixels(PackingRectangle[] textureRectangles, List<Asset_Texture> textures,
+        out TextureAtlasMember[] atlasMembers, int atlasIndex)
+    {
+        atlasMembers = new TextureAtlasMember[textureRectangles.Length];
+        byte[] atlasPixels = new byte[4 * AtlasWidth * AtlasWidth];
+
+        for (int i = 0; i < textureRectangles.Length; i++)
+        {
+            PackingRectangle rectangle = textureRectangles[i];
+            Asset_Texture texture = textures[rectangle.Id];
+            texture.OnDeserialized();
+
+            FillAtlasPixels(ref atlasPixels, rectangle, texture.Pixels);
+
+            Vector4 box = new Vector4(
+                rectangle.X,
+                rectangle.Y,
+                rectangle.X + rectangle.Width,
+                rectangle.Y + rectangle.Height) / AtlasWidth; // 0 - 1 box
+
+            atlasMembers[i] = new TextureAtlasMember()
+            {
+                BoundingBox = box,
+                PathToTextureInLibrary = texture.PathInAssetsFolder,
+            };
+
+            texture.BoundingBoxInAtlas = box;
+            texture.AtlasPath = GetAtlasPath(atlasIndex);
+            texture.IndexInAtlasTextureArray = atlasIndex;
+
+            Tofu.AssetLoadManager.Save(texture.PathInLibraryFolder, texture);
+        }
+
+        return atlasPixels;
+    }
+
+    private void FillAtlasPixels(ref byte[] atlasPixels, PackingRectangle rectangle, byte[] texturePixels)
+    {
+        int textureWidth = (int)rectangle.Width;
+        int textureHeight = (int)rectangle.Height;
+
+        for (int y = 0; y < textureHeight; y++)
+        {
+            for (int x = 0; x < textureWidth; x++)
+            {
+                int atlasX = (int)rectangle.X + x;
+                int atlasY = (int)rectangle.Y + y;
+
+                int indexInAtlasPixels = (atlasY * AtlasWidth + atlasX) * 4;
+                int indexInTexturePixels = (y * textureWidth + x) * 4;
+
+                atlasPixels[indexInAtlasPixels] = texturePixels[indexInTexturePixels]; // R
+                atlasPixels[indexInAtlasPixels + 1] = texturePixels[indexInTexturePixels + 1]; // G
+                atlasPixels[indexInAtlasPixels + 2] = texturePixels[indexInTexturePixels + 2]; // B
+                atlasPixels[indexInAtlasPixels + 3] = texturePixels[indexInTexturePixels + 3]; // A
+            }
+        }
+    }
+
+    private void UploadAtlasToTextureArray(byte[] atlasPixels, int atlasIndex)
+    {
+        GL.TexSubImage3D(
+            TextureTarget.Texture2DArray,
+            0,
+            0, 0, atlasIndex,
+            AtlasWidth,
+            AtlasWidth,
+            1,
+            PixelFormat.Rgba,
+            PixelType.UnsignedByte,
+            atlasPixels
+        );
+    }
+
+    private void SaveAtlasAsset(byte[] atlasPixels, TextureAtlasMember[] atlasMembers, int atlasIndex)
+    {
+        ///////////////////////////////////////////////////////////// PNG
+        if (false)
+        {
+            using var image =
+                Image.LoadPixelData<Rgba32>(atlasPixels, AtlasWidth, AtlasWidth);
+            // image.Mutate(x =>
+            // {
+            //     x.Flip(FlipMode.Vertical);
+            // });
+            byte[] pixels = new byte[AtlasWidth * AtlasWidth * 4];
+            image.CopyPixelDataTo(pixels);
+
+
+            string path = Path.Combine(Folders.TextureAtlasesInLibrary, $"atlas_{atlasIndex}.png");
+            image.SaveAsPng(path);
+        }
+        /////////////////////////////////////////////////////////////
+
+        string atlasPath = GetAtlasPath(atlasIndex);
+
+        atlasPixels = Compression.Compress(atlasPixels);
+
+        Asset_TextureAtlas atlasTexture = new Asset_TextureAtlas()
+        {
+            Pixels = atlasPixels,
+            TextureSize = new Vector2(AtlasWidth, AtlasWidth),
+            PathInLibraryFolder = atlasPath,
+            DataIsCompressed = true,
+            TextureAtlasMembers = atlasMembers,
+            IndexInTextureArray = atlasIndex,
+        };
+
+        Serializer.SaveAssetJSON<Tofu3D.Asset_TextureAtlas>(atlasPath, atlasTexture);
+    }
+
+    private string GetAtlasPath(int atlasIndex)
+    {
+        string atlasPath = Path.Combine(Folders.TextureAtlasesInLibrary, $"atlas_{atlasIndex}.tofutextureatlas");
+        return atlasPath;
+    }
+
+    private void SetupTextureArray()
+    {
+        GLTextureArrayId = GL.GenTexture();
+        GL.BindTexture(TextureTarget.Texture2DArray, GLTextureArrayId);
+
+        GL.TexStorage3D(TextureTarget3d.Texture2DArray, 1, SizedInternalFormat.Rgba8, AtlasWidth, AtlasWidth,
+            _atlasesCount);
 
         GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMinFilter,
             (int)TextureMinFilter.Linear);
@@ -34,10 +274,8 @@ public static class TextureAtlasManager
             (int)TextureWrapMode.ClampToEdge);
     }
 
-    public static void GenerateAtlasesForTextures(List<Asset_Texture> textures)
+    /*private void GenerateAtlasesForTextures(List<Asset_Texture> textures)
     {
-
-
         if (AtlasWidth == -1)
         {
             AtlasWidth = GL.GetInteger(GetPName.MaxTextureSize);
@@ -107,7 +345,7 @@ public static class TextureAtlasManager
         _atlasesCount = atlasesRectangles.Count;
         SetupTextureArray();
 
-        
+
         foreach (PackingRectangle[] textureRectangles in atlasesRectangles)
         {
             TextureAtlasMember[] _textureAtlasMembers = new TextureAtlasMember[textureRectangles.Length];
@@ -124,8 +362,15 @@ public static class TextureAtlasManager
 
                 Vector4 box = new Vector4(rectangle.X, rectangle.Y, rectangle.X + rectangle.Width,
                     rectangle.Y + rectangle.Height);
-                box = box / AtlasWidth;
-                
+                box = box / (float)AtlasWidth;
+                if (MathF.Abs(box.X) > 1 ||
+                    MathF.Abs(box.Y) > 1 ||
+                    MathF.Abs(box.Z) > 1 ||
+                    MathF.Abs(box.W) > 1)
+                {
+                    Debug.LogError("wrong bounds");
+                }
+
 
                 _textureAtlasMembers[i] = new TextureAtlasMember()
                 {
@@ -164,12 +409,9 @@ public static class TextureAtlasManager
                         }
                     }
                 }
+            }
 
 
-             
-            }   
-            
-            
             GL.TexSubImage3D(
                 TextureTarget.Texture2DArray, // Target
                 0, // Level (0 = base level)
@@ -192,18 +434,21 @@ public static class TextureAtlasManager
 
 
             ///////////////////////////////////////////////////////////
-            using var image =
-                Image.LoadPixelData<Rgba32>(atlasPixels, AtlasWidth, AtlasWidth);
-            // image.Mutate(x =>
-            // {
-            //     x.Flip(FlipMode.Vertical);
-            // });
-            byte[] pixels = new byte[AtlasWidth * AtlasWidth * 4];
-            image.CopyPixelDataTo(pixels);
+            if (false)
+            {
+                using var image =
+                    Image.LoadPixelData<Rgba32>(atlasPixels, AtlasWidth, AtlasWidth);
+                // image.Mutate(x =>
+                // {
+                //     x.Flip(FlipMode.Vertical);
+                // });
+                byte[] pixels = new byte[AtlasWidth * AtlasWidth * 4];
+                image.CopyPixelDataTo(pixels);
 
 
-            string path = Path.Combine(Folders.TextureAtlasesInLibrary, $"atlas_{atlasIndex}.png");
-            image.SaveAsPng(path);
+                string path = Path.Combine(Folders.TextureAtlasesInLibrary, $"atlas_{atlasIndex}.png");
+                image.SaveAsPng(path);
+            }
             ///////////////////////////////////////////////////////////
 
 
@@ -215,10 +460,10 @@ public static class TextureAtlasManager
                 DataIsCompressed = true
             };
 
+            atlasTexture.TextureAtlasMembers = _textureAtlasMembers;
 
             Serializer.SaveAssetJSON<Asset_TextureAtlas>(atlasPath, atlasTexture);
 
-            atlasTexture.TextureAtlasMembers = _textureAtlasMembers;
 
             atlasIndex++;
         }
@@ -229,7 +474,7 @@ public static class TextureAtlasManager
         //
         // for (int atlasIndex = 0; atlasIndex < atlasesCount; atlasIndex++)
         // {
-        //     
+        //
         // }
 
         GL.BindTexture(TextureTarget.Texture2DArray, 0);
@@ -241,4 +486,5 @@ public static class TextureAtlasManager
     // {
     //     Asset_TextureAtlas atlas = new Asset_TextureAtlas();
     // }
+*/
 }
