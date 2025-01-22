@@ -27,6 +27,34 @@ public static class TofuImGui
         }
     }
 
+    public static void ImageButtonTexture2DArray(RuntimeTexture runtimeTexture,
+        Vector2 size, Vector4? bg_col = null, Vector4? tint_col = null)
+    {
+        ImageButtonTexture2DArray(runtimeTexture.AtlasGLTextureArrayId, runtimeTexture.IndexInAtlasTextureArray, size,
+            runtimeTexture.BoundingBoxInAtlas, bg_col, tint_col);
+    }
+
+    public static void ImageButtonTexture2DArray(int texture2DArray, int indexInAtlasTextureArray,
+        Vector2 size, Vector4 uvBoundingBox, Vector4? bg_col = null, Vector4? tint_col = null)
+    {
+        IntPtr textureId = ImGuiController.EncodeTextureArrayId(texture2DArray, indexInAtlasTextureArray);
+
+        if (tint_col != null)
+        {
+            ImGui.ImageButton(textureId, size, uvBoundingBox.XY, uvBoundingBox.ZW, frame_padding: 0, bg_col.Value,
+                tint_col.Value);
+        }
+        else if (bg_col != null)
+        {
+            ImGui.ImageButton(textureId, size, uvBoundingBox.XY, uvBoundingBox.ZW, frame_padding: 0, bg_col.Value);
+        }
+        else
+        {
+            ImGui.ImageButton(textureId, size, uvBoundingBox.XY, uvBoundingBox.ZW);
+        }
+    }
+
+
     public static void ImageTexture2DArray(RuntimeTexture runtimeTexture,
         Vector2 size, Vector4? tint_col = null, Vector4? border_col = null)
     {

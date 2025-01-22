@@ -11,7 +11,7 @@ public class EditorTextures
     public EditorTextures()
     {
         AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture()
-            { LoadType = TextureLoadType.Standalone };
+            { LoadType = TextureLoadType.InAtlas };
         LogCategoryErrorIcon = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/Console/error.png",loadParametersTexture);
         LogCategoryInfoIcon = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/Console/info.png",loadParametersTexture);
         LogCategoryTimerIcon = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/Console/timer.png",loadParametersTexture);

@@ -40,7 +40,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
 
 
             AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture()
-                { LoadType = TextureLoadType.Standalone };
+                { LoadType = TextureLoadType.InAtlas};
             var texture = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/dot.png", loadParametersTexture);
 
             var circleColor = Color.Purple;

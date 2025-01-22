@@ -35,20 +35,13 @@ void main(void)
 	mat4 a_model = mat4(vec4(a_model_1, 0), vec4(a_model_2, 0), vec4(a_model_3, 0), vec4(a_model_4, 1));
 	mat4 mvp = u_viewProjection * a_model;
 	gl_Position = mvp * vec4(a_pos.xyz, 1.0);
-
-
+	
 	vec2 albedoBoundingBoxInAtlasStart = a_albedoBoundingBoxInAtlas.xy;
 	vec2 albedoBoundingBoxSize = a_albedoBoundingBoxInAtlas.zw - albedoBoundingBoxInAtlasStart;
 	uv = a_uv;
-	//	uv = mod(uv, 1.0);
-	//	while(uv.x > 1){
-	//		uv.x -= 1;
-	//	}
-	//	while(uv.y > 1){
-	//		uv.y -=1;	
-	//	}
+
+	uv = mod(uv, 1.0);
 	uv = albedoBoundingBoxInAtlasStart + (uv * albedoBoundingBoxSize);
-	//	uv = a_uv * vec2(1, -1);
 
 	//	#ifdef UV_OFFSET_IS_INSTANCED
 	//    uvOffset = a_uv_offset;
@@ -320,7 +313,7 @@ void main() {
 	vec2 uvCoords = uv * u_tiling;
 
 	// map these uvCoords to uvcoords in the atlas
-	fragColor = texture(textureArray, vec3(uvCoords.xy, 1));
+	fragColor = texture(textureArray, vec3(uvCoords.xy, albedoAtlasIndex));
 	return;
 
 	// Albedo Color

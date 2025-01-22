@@ -67,7 +67,7 @@ public class EditorPanelBrowser : EditorPanel
         CreateContextItems();
 
 
-        AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture() {  LoadType = TextureLoadType.Standalone};
+        AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture() {  LoadType = TextureLoadType.InAtlas};
         
         _fileIcon =
             Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/FileIcon_b.png",loadParametersTexture); //, _iconTextureLoadSettings);
@@ -171,7 +171,7 @@ public class EditorPanelBrowser : EditorPanel
                 // _textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
             {
                 AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture()
-                    { LoadType = TextureLoadType.Standalone | TextureLoadType.InAtlas };
+                    { LoadType = TextureLoadType.InAtlas };
                 _textures[_assets[i]] =
                     Tofu.AssetLoadManager.Load<RuntimeTexture>(_assets[i],loadParametersTexture); //, _iconTextureLoadSettings);
             }
@@ -407,14 +407,14 @@ public class EditorPanelBrowser : EditorPanel
                     10);
 
                 ImGui.PushStyleColor(ImGuiCol.ButtonHovered, new System.Numerics.Vector4(1, 1, 1, 0));
-                TofuImGui.ImageTexture2DArray(_textures[assetPath], _iconSize);
+                TofuImGui.ImageButtonTexture2DArray(_textures[assetPath], _iconSize, bg_col:Vector4.Zero, tint_col:Vector4.Zero);
                 // ImGui.ImageButton(_textures[assetPath].AtlasGLTextureArrayId, _iconSize, new System.Numerics.Vector2(0, 0),
                     // new System.Numerics.Vector2(1, 1), 0, System.Numerics.Vector4.Zero, System.Numerics.Vector4.Zero);
                 ImGui.PopStyleColor();
             }
             else
             {
-                TofuImGui.ImageTexture2DArray(_fileIcon, _iconSize);
+                TofuImGui.ImageButtonTexture2DArray(_fileIcon, _iconSize);
                 // ImGui.ImageButton(_fileIcon.StandaloneGLTextureId.Value, _iconSize);
             }
         }

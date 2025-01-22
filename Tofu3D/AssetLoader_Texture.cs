@@ -35,7 +35,7 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
 
         if (loadParameters.LoadType.HasFlag(TextureLoadType.Standalone))
         {
-            Debug.LogError("Standalone textures are disabled");
+            // Debug.LogError("Standalone textures are disabled");
             // var standaloneGLTextureId = loadParameters.ExistingAsset?.StandaloneGLTextureId ?? GL.GenTexture();
             // TextureHelper.BindTexture(standaloneGLTextureId);
             // var textureTarget = TextureTarget.Texture2D;

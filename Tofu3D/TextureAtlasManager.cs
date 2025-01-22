@@ -38,7 +38,7 @@ public class TextureAtlasManager
         if (AtlasWidth == -1)
         {
             AtlasWidth = GL.GetInteger(GetPName.MaxTextureSize);
-            AtlasWidth = (int)Mathf.ClampMax(AtlasWidth, 8192); //8192);
+            AtlasWidth = (int)Mathf.ClampMax(AtlasWidth, 4092); //8192);
         }
 
         textures.Sort();
