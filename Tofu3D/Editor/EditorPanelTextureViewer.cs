@@ -77,9 +77,9 @@ public class EditorPanelTextureViewer : EditorPanel
                 ImGui.ColorConvertFloat4ToU32(new Vector4(0.2f, 0.2f, 0.2f, 1.0f)) // Background color (RGBA)
             );
 
-            ImGui.Image(textureData.Texture.TextureId,
-                size,
-                new Vector2(0, 1), new Vector2(1, 0));
+            // ImGui.Image(textureData.Texture.TextureId,
+            //     size,
+            //     new Vector2(0, 1), new Vector2(1, 0));
             ImGui.NewLine();
         }
 

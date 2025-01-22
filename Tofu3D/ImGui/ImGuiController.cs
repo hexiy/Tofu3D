@@ -21,7 +21,10 @@ public class ImGuiController : IDisposable
     private int _indexBufferSize;
 
     private int _shader;
-    private int _shaderFontTextureLocation;
+    private int _shaderTexture2DArrayLocation;
+    private int _shaderTexture2DLocation;
+    private int _shaderLayerLocation;
+    private int _shaderIsArrayLocation;
     private int _shaderProjectionMatrixLocation;
 
     private int _vertexArray;
@@ -151,8 +154,8 @@ void main()
     texCoord = in_texCoord;
 }";
         var fragmentSource = @"#version 410 core
+uniform sampler2DArray in_texture2DArray;
 uniform sampler2D in_texture2D;
-uniform sampler2DArray in_textureArray;
 uniform int layerIndex;
 uniform int isArray;
 in vec4 color;
@@ -160,15 +163,14 @@ in vec2 texCoord;
 out vec4 outputColor;
 void main()
 {
-if(isArray == 1){
-        outputColor = color * texture(in_textureArray, vec3(texCoord, layerIndex));
-}
-else
+if(isArray == 0)
 {
-        //vec4 tex = texture(in_texture2D, texCoord);
-        outputColor = color;// * texture(in_texture2D, texCoord);
+        outputColor = color * texture(in_texture2D, texCoord);
 }
-
+if(isArray == 1)
+{
+        outputColor = color * texture(in_texture2DArray, vec3(texCoord, layerIndex));
+}
 }";
 
         _shader = CreateProgram("ImGui", vertexSource, fragmentSource);
@@ -177,8 +179,15 @@ else
         _shaderProjectionMatrixLocation = GL.GetUniformLocation(_shader, "projection_matrix");
         TofuGL.CheckGlError("imgui setup 0");
 
-        _shaderFontTextureLocation = GL.GetUniformLocation(_shader, "in_textureArray");
+        _shaderTexture2DArrayLocation = GL.GetUniformLocation(_shader, "in_texture2DArray");
         TofuGL.CheckGlError("imgui setup 1");
+        _shaderTexture2DLocation = GL.GetUniformLocation(_shader, "in_texture2D");
+        _shaderLayerLocation = GL.GetUniformLocation(_shader, "layerIndex");
+        _shaderIsArrayLocation = GL.GetUniformLocation(_shader, "isArray");
+
+        // GL.Uniform1(_shaderTexture2DArrayLocation, 0); // set the uniform to unit 0
+        // GL.Uniform1(_shaderTexture2DLocation, 1); // set the uniform to unit 1
+
 
         var stride = Unsafe.SizeOf<ImDrawVert>();
         GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, stride, 0);
@@ -207,46 +216,32 @@ else
         var mips = (int)Math.Floor(Math.Log(Math.Max(width, height), 2));
 
         var prevActiveTexture = GL.GetInteger(GetPName.ActiveTexture);
-        GL.ActiveTexture(TextureUnit.Texture0);
+        GL.ActiveTexture(TextureUnit.Texture1);
         var prevTexture2D = GL.GetInteger(GetPName.TextureBinding2D);
 
         _fontTexture = GL.GenTexture();
-
-        GL.BindTexture(TextureTarget.Texture2DArray, _fontTexture);
-
-        int fontAtlasLayer = 0; // Use the layer index you're reserving for the font atlas
-
-        GL.TexStorage3D(TextureTarget3d.Texture2DArray, mips, SizedInternalFormat.Rgba8, width, height, 1);
+        GL.BindTexture(TextureTarget.Texture2D, _fontTexture);
+        GL.TexStorage2D(TextureTarget2d.Texture2D, mips, SizedInternalFormat.Rgba8, width, height);
         LabelObject(ObjectLabelIdentifier.Texture, _fontTexture, "ImGui Text Atlas");
 
-        // GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, width, height, PixelFormat.Bgra, PixelType.UnsignedByte,
-        //     pixels);
-        //
-        // GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+        GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, width, height, PixelFormat.Rgba, PixelType.UnsignedByte,
+            pixels);
 
-        GL.TexSubImage3D(TextureTarget.Texture2DArray, 0, 0, 0, fontAtlasLayer, width, height, 1, PixelFormat.Rgba,
-            PixelType.UnsignedByte, pixels);
+        GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 
-        GL.GenerateMipmap(GenerateMipmapTarget.Texture2DArray);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
 
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel, mips - 1);
 
-        GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
-        GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
-
-        GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMaxLevel, mips - 1);
-
-        GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMagFilter,
-            (int)TextureMagFilter.Linear);
-        GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMinFilter,
-            (int)TextureMinFilter.Linear);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
 
         // Restore state
-        // GL.BindTexture(TextureTarget.Texture2D, prevTexture2D);
-        // GL.ActiveTexture((TextureUnit)prevActiveTexture);
+        GL.BindTexture(TextureTarget.Texture2D, prevTexture2D);
+        GL.ActiveTexture((TextureUnit)prevActiveTexture);
 
-        IntPtr x = EncodeTextureArrayId(_fontTexture, 0);
-        // io.Fonts.SetTexID((IntPtr)_fontTexture);
-        io.Fonts.SetTexID(x);
+        io.Fonts.SetTexID(_fontTexture);
 
         io.Fonts.ClearTexData();
     }
@@ -474,7 +469,7 @@ else
 
         GL.UseProgram(_shader);
         GL.UniformMatrix4(_shaderProjectionMatrixLocation, false, ref mvp);
-        GL.Uniform1(_shaderFontTextureLocation, 0);
+        GL.Uniform1(_shaderTexture2DArrayLocation, 0);
         TofuGL.CheckGlError("Projection");
 
         Tofu.ShaderManager.BindVertexArray(_vertexArray);
@@ -527,32 +522,29 @@ else
                 // GL.Uniform1(layerUniformLocation, layerIndex);
 
 
-                bool isArrayTexture;
-                int textureId, layerIndex;
-                DecodeTextureId(pcmd.TextureId, out isArrayTexture, out textureId, out layerIndex);
+                DecodeTextureId(pcmd.TextureId,
+                    out bool isArrayTexture,
+                    out int textureId,
+                    out int layerIndex);
 
 
-                int isArrayUniformLocation = GL.GetUniformLocation(_shader, "isArray");
-                GL.Uniform1(isArrayUniformLocation, isArrayTexture ? 1 : 0);
+                GL.Uniform1(_shaderIsArrayLocation, isArrayTexture ? 1 : 0);
 
                 if (isArrayTexture)
                 {
                     GL.ActiveTexture(TextureUnit.Texture0);
+                    GL.Uniform1(_shaderTexture2DArrayLocation, 0); // set the uniform to unit 0
 
                     GL.BindTexture(TextureTarget.Texture2DArray, textureId);
-                    int layerUniformLocation = GL.GetUniformLocation(_shader, "layerIndex");
-                    GL.Uniform1(layerUniformLocation, layerIndex);
+                    GL.Uniform1(_shaderLayerLocation, layerIndex);
 
-                    int textureArrayLocation = GL.GetUniformLocation(_shader, "in_textureArray");
-                    GL.Uniform1(textureArrayLocation, 0); // set the uniform to unit 0
                 }
                 else
                 {
-                    GL.ActiveTexture(TextureUnit.Texture0);
+                    GL.ActiveTexture(TextureUnit.Texture1);
+                    GL.Uniform1(_shaderTexture2DLocation, 1); // set the uniform to unit 1
 
                     GL.BindTexture(TextureTarget.Texture2D, textureId);
-                    int texture2DLocation = GL.GetUniformLocation(_shader, "in_texture2D");
-                    GL.Uniform1(texture2DLocation, 0); // set the uniform to unit 0
                 }
 
 
@@ -710,6 +702,11 @@ else
     public static IntPtr EncodeTextureId(int textureId)
     {
         return (IntPtr)textureId;
+    }
+
+    public static IntPtr EncodeTextureArrayId(RuntimeTexture runtimeTexture)
+    {
+        return EncodeTextureArrayId(runtimeTexture.AtlasGLTextureArrayId, runtimeTexture.IndexInAtlasTextureArray);
     }
 
     public static IntPtr EncodeTextureArrayId(int textureId, int layerIndex)

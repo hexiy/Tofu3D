@@ -7,7 +7,7 @@ public class RuntimeTexture : Asset<RuntimeTexture>
     public int IndexInAtlasTextureArray;
 
 
-    public int? StandaloneGLTextureId = null;
+    // public int? StandaloneGLTextureId = null;
 
     public void Delete()
     {

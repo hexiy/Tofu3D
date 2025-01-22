@@ -19,9 +19,7 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
         }
         else
         {
-            ImGui.Image(texture.AtlasGLTextureArrayId, new Vector2(150, 150),
-                uv0: new Vector2(texture.BoundingBoxInAtlas.X, texture.BoundingBoxInAtlas.Y),
-                new Vector2(texture.BoundingBoxInAtlas.Z, texture.BoundingBoxInAtlas.W));
+            TofuImGui.ImageTexture2DArray(texture, size: new Vector2(150, 150));
         }
 
         if (ImGui.IsItemClicked())

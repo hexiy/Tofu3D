@@ -26,4 +26,55 @@ public static class TofuImGui
             return false;
         }
     }
+
+    public static void ImageTexture2DArray(RuntimeTexture runtimeTexture,
+        Vector2 size, Vector4? tint_col = null, Vector4? border_col = null)
+    {
+        ImageTexture2DArray(runtimeTexture.AtlasGLTextureArrayId, runtimeTexture.IndexInAtlasTextureArray, size,
+            runtimeTexture.BoundingBoxInAtlas, tint_col, border_col);
+    }
+
+    public static void ImageTexture2DArray(int texture2DArray, int indexInAtlasTextureArray,
+        Vector2 size, Vector4 uvBoundingBox, Vector4? tint_col = null, Vector4? border_col = null)
+    {
+        IntPtr textureId = ImGuiController.EncodeTextureArrayId(texture2DArray, indexInAtlasTextureArray);
+
+        if (border_col != null)
+        {
+            ImGui.Image(textureId, size, uvBoundingBox.XY, uvBoundingBox.ZW, tint_col.Value,
+                border_col.Value);
+        }
+        else if (tint_col != null)
+        {
+            ImGui.Image(textureId, size, uvBoundingBox.XY, uvBoundingBox.ZW, tint_col.Value);
+        }
+        else
+        {
+            ImGui.Image(textureId, size, uvBoundingBox.XY, uvBoundingBox.ZW);
+        }
+    }
+
+    public static void ImageTexture2D(int texture2D,
+        Vector2 size, Vector4? uvBoundingBox = null, Vector4? tint_col = null, Vector4? border_col = null)
+    {
+        IntPtr textureId = ImGuiController.EncodeTextureId(texture2D);
+
+        if (border_col != null)
+        {
+            ImGui.Image(textureId, size, uvBoundingBox.Value.XY, uvBoundingBox.Value.ZW, tint_col.Value,
+                border_col.Value);
+        }
+        else if (tint_col != null)
+        {
+            ImGui.Image(textureId, size, uvBoundingBox.Value.XY, uvBoundingBox.Value.ZW, tint_col.Value);
+        }
+        else if (uvBoundingBox != null)
+        {
+            ImGui.Image(textureId, size, uvBoundingBox.Value.XY, uvBoundingBox.Value.ZW);
+        }
+        else
+        {
+            ImGui.Image(textureId, size);
+        }
+    }
 }

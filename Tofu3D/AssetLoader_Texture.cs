@@ -35,28 +35,29 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
 
         if (loadParameters.LoadType.HasFlag(TextureLoadType.Standalone))
         {
-            var standaloneGLTextureId = loadParameters.ExistingAsset?.StandaloneGLTextureId ?? GL.GenTexture();
-            TextureHelper.BindTexture(standaloneGLTextureId);
-            var textureTarget = TextureTarget.Texture2D;
-
-            var internalFormat = PixelInternalFormat.Rgba;
-
-            GL.TexImage2D(textureTarget, 0, internalFormat, (int)assetTexture.TextureSize.X,
-                (int)assetTexture.TextureSize.Y, 0, PixelFormat.Rgba,
-                PixelType.UnsignedByte, assetTexture.Pixels);
-
-            TextureWrapMode wrapMode = TextureWrapMode.Repeat;
-            TextureFilterMode filterMode = TextureFilterMode.Point;
-
-            GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)wrapMode);
-            GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)wrapMode);
-            GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)wrapMode);
-            GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)filterMode);
-            GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)filterMode);
-
-            TofuGL.CheckGlError("standalone texture load");
-
-            runtimeTexture.StandaloneGLTextureId = standaloneGLTextureId;
+            Debug.LogError("Standalone textures are disabled");
+            // var standaloneGLTextureId = loadParameters.ExistingAsset?.StandaloneGLTextureId ?? GL.GenTexture();
+            // TextureHelper.BindTexture(standaloneGLTextureId);
+            // var textureTarget = TextureTarget.Texture2D;
+            //
+            // var internalFormat = PixelInternalFormat.Rgba;
+            //
+            // GL.TexImage2D(textureTarget, 0, internalFormat, (int)assetTexture.TextureSize.X,
+            //     (int)assetTexture.TextureSize.Y, 0, PixelFormat.Rgba,
+            //     PixelType.UnsignedByte, assetTexture.Pixels);
+            //
+            // TextureWrapMode wrapMode = TextureWrapMode.Repeat;
+            // TextureFilterMode filterMode = TextureFilterMode.Point;
+            //
+            // GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)wrapMode);
+            // GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)wrapMode);
+            // GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)wrapMode);
+            // GL.TexParameter(textureTarget, TextureParameterName.TextureMinFilter, (int)filterMode);
+            // GL.TexParameter(textureTarget, TextureParameterName.TextureMagFilter, (int)filterMode);
+            //
+            // TofuGL.CheckGlError("standalone texture load");
+            //
+            // runtimeTexture.StandaloneGLTextureId = standaloneGLTextureId;
         }
 
         if (assetTexture.AtlasPath != null)

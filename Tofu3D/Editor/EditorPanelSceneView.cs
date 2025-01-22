@@ -16,14 +16,11 @@ public class EditorPanelSceneView : EditorPanel
 
     public override void Draw()
     {
-        return;
+        // return;
         if (Active == false)
         {
             return;
         }
-
-        IntPtr finalFramebufferTextureId =
-            ImGuiController.EncodeTextureId(Tofu.RenderPassSystem.FinalFramebuffer.TextureId);
 
         if (Global.EditorAttached)
         {
@@ -67,9 +64,9 @@ public class EditorPanelSceneView : EditorPanel
 
             if (Tofu.RenderPassSystem.CanRender)
             {
-                ImGui.Image(finalFramebufferTextureId,
+                TofuImGui.ImageTexture2D(Tofu.RenderPassSystem.FinalFramebuffer.TextureId,
                     Tofu.RenderPassSystem.FinalFramebuffer.Size,
-                    new Vector2(0, 1), new Vector2(1, 0));
+                    new Vector4(0, 1, 1, 0));
             }
             else
             {
@@ -136,15 +133,16 @@ public class EditorPanelSceneView : EditorPanel
 
                     ImGui.SetCursorPos(new Vector2(405, 75));
 
-                    ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.StandaloneGLTextureId.Value,
-                        new Vector2(sizeX, sizeY),
-                        new Vector2(0, 1), new Vector2(1, 0), Color.Black.ToVector4(), Color.Red.ToVector4());
+                    TofuImGui.ImageTexture2DArray(
+                        runtimeTexture: Tofu.Editor.EditorTextures.WhitePixel,
+                        size: new Vector2(sizeX, sizeY),
+                        Color.Black.ToVector4(), Color.Red.ToVector4());
 
                     ImGui.SetCursorPos(new Vector2(405, 75));
 
-                    ImGui.Image(RenderPassBloomPostProcess.I.BloomFramebufferVertical.TextureId,
-                        new Vector2(sizeX, sizeY),
-                        new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
+                    TofuImGui.ImageTexture2D(RenderPassBloomPostProcess.I.BloomFramebufferVertical.TextureId,
+                        size: new Vector2(sizeX, sizeY), new Vector4(0, 1, 1, 0), Color.White.ToVector4(),
+                        Color.Red.ToVector4());
                 }
             }
 
@@ -332,8 +330,9 @@ public class EditorPanelSceneView : EditorPanel
             ImGui.SetCursorPosX(0);
             Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
 
-            ImGui.Image(finalFramebufferTextureId, Camera.MainCamera.Size,
-                new Vector2(0, 1), new Vector2(1, 0));
+            TofuImGui.ImageTexture2D(Tofu.RenderPassSystem.FinalFramebuffer.TextureId,
+                Tofu.RenderPassSystem.FinalFramebuffer.Size,
+                new Vector4(0, 1, 1, 0));
 
             ImGui.End();
         }

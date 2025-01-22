@@ -46,7 +46,9 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
             var circleColor = Color.Purple;
 
             ImGui.SetCursorPos(newPos - new Vector2(15));
-            ImGui.Image(texture.StandaloneGLTextureId.Value, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
+            TofuImGui.ImageTexture2DArray(texture,
+                size: new Vector2(30, 30),
+                tint_col: circleColor.ToVector4());
 
             var cursorHoversCurrentPoint = ImGui.IsItemHovered();
             var currentPointIsClicked = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown();
@@ -63,7 +65,9 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
 
             ImGui.SetCursorPos(newPos - new Vector2(15));
 
-            ImGui.Image(texture.StandaloneGLTextureId.Value, new Vector2(30), new Vector2(0), new Vector2(1), circleColor.ToVector4());
+            TofuImGui.ImageTexture2DArray(texture,
+                size: new Vector2(30, 30),
+                tint_col: circleColor.ToVector4());
 
             if (draggingPointIndex != -1 && Tofu.MouseInput.IsButtonDown() == false)
             {
@@ -97,7 +101,8 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
             }
 
             // bool doubleClicked = ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
-            var removePoint = Tofu.MouseInput.IsButtonDown(MouseButtons.Left) && KeyboardInput.IsKeyDown(Keys.LeftControl);
+            var removePoint = Tofu.MouseInput.IsButtonDown(MouseButtons.Left) &&
+                              KeyboardInput.IsKeyDown(Keys.LeftControl);
             if (removePoint && cursorHoversCurrentPoint && curve.CanRemovePoint)
             {
                 // remoove the hovered point
