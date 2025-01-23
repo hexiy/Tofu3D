@@ -19,6 +19,7 @@ public class TextureAtlasManager
     private int _atlasesCount;
 
 
+    public void SetupTextureAtlases()
     {
         List<Asset_Texture> textures = new List<Asset_Texture>();
 
