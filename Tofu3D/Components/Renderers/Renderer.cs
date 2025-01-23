@@ -170,7 +170,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     public void Update()
     {
         RenderOrder = GameObject.IndexInHierarchy;
-        if (GameObjectId == TransformHandle.I.GameObjectId)
+        if (GameObjectId == TransformHandle.I?.GameObjectId)
         {
             RenderOrder += 1000;
         }

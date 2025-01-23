@@ -326,7 +326,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             SmoothNormals(everything, floatsPerTriangle, floatsPerVertex);
         }
 
-        List<float> vertexBufferData = new List<float>();
+        List<float> geometryBufferData = new List<float>();
 
         for (int indexOfVertex1Start = 0;
              indexOfVertex1Start < everything.Count;
@@ -441,9 +441,9 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             // };
             if (RenderingSettings.USE_INDICES == false)
             {
-                vertexBufferData.AddRange(vertex1);
-                vertexBufferData.AddRange(vertex2);
-                vertexBufferData.AddRange(vertex3);
+                geometryBufferData.AddRange(vertex1);
+                geometryBufferData.AddRange(vertex2);
+                geometryBufferData.AddRange(vertex3);
             }
             else
             {
@@ -454,7 +454,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 }
                 else
                 {
-                    vertexBufferData.AddRange(vertex1);
+                    geometryBufferData.AddRange(vertex1);
                     uint index = (uint)currentUniqueVertexIndex;
                     indices.Add(index);
                     currentUniqueVertexIndex++;
@@ -468,7 +468,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 }
                 else
                 {
-                    vertexBufferData.AddRange(vertex2);
+                    geometryBufferData.AddRange(vertex2);
                     uint index = (uint)currentUniqueVertexIndex;
                     indices.Add(index);
                     currentUniqueVertexIndex++;
@@ -482,7 +482,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 }
                 else
                 {
-                    vertexBufferData.AddRange(vertex3);
+                    geometryBufferData.AddRange(vertex3);
                     uint index = (uint)currentUniqueVertexIndex;
                     indices.Add(index);
                     currentUniqueVertexIndex++;
@@ -499,8 +499,8 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         Mesh mesh = new Mesh();
         mesh.CountsOfElements = countsOfElements;
-        mesh.VertexBufferData = vertexBufferData.ToArray();
-        mesh.VerticesCount = (int)(vertexBufferData.Count / 14);
+        mesh.GeometryBufferData = geometryBufferData.ToArray();
+        mesh.VerticesCount = (int)(geometryBufferData.Count / 14);
         mesh.Indices = indices.ToArray();
 
         if (objMaterialDefinition != null)

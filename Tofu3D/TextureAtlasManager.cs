@@ -8,6 +8,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using Image = SixLabors.ImageSharp.Image;
+using Rectangle = SixLabors.ImageSharp.Rectangle;
 
 namespace Tofu3D;
 
@@ -18,7 +19,6 @@ public class TextureAtlasManager
     private int _atlasesCount;
 
 
-    public void GenerateTextureAtlases()
     {
         List<Asset_Texture> textures = new List<Asset_Texture>();
 
@@ -56,6 +56,8 @@ public class TextureAtlasManager
         GL.BindTexture(TextureTarget.Texture2DArray, 0);
     }
 
+    private PackingRectangle _bounds;
+
     private List<PackingRectangle[]> PackTexturesIntoAtlases(List<Asset_Texture> textures)
     {
         PackingRectangle[] allRectangles = new PackingRectangle[textures.Count];
@@ -71,7 +73,7 @@ public class TextureAtlasManager
             PackingRectangle[] rectsOld = currentRectangles.ToArray();
             PackingRectangle[] rects = currentRectangles.ToArray();
             bool packed = TryPackTextures(rects, out PackingRectangle bounds);
-
+            _bounds = bounds;
             if (!packed)
             {
                 currentRectangles = rectsOld.ToList();
@@ -84,7 +86,8 @@ public class TextureAtlasManager
 
             currentRectangles = rects.ToList();
 
-            PackingRectangle rectangle = new PackingRectangle(
+            
+            PackingRectangle rectangleToBePackedNextIteration = new PackingRectangle(
                 x: 0,
                 y: 0,
                 width: (uint)textures[i].TextureSize.X,
@@ -92,7 +95,7 @@ public class TextureAtlasManager
                 id: i
             );
 
-            currentRectangles.Add(rectangle);
+            currentRectangles.Add(rectangleToBePackedNextIteration);
         }
 
         if (currentRectangles.Count > 0)
@@ -133,7 +136,10 @@ public class TextureAtlasManager
 
             UploadAtlasToTextureArray(atlasPixels, atlasIndex);
 
-            SaveAtlasAsset(atlasPixels, atlasMembers, atlasIndex);
+            if (File.Exists(GetAtlasPath(atlasIndex)) == false) // temporary only
+            {
+                SaveAtlasAsset(atlasPixels, atlasMembers, atlasIndex);
+            }
 
             atlasIndex++;
         }
@@ -156,8 +162,10 @@ public class TextureAtlasManager
             Vector4 box = new Vector4(
                 rectangle.X,
                 rectangle.Y,
-                rectangle.X + rectangle.Width,
-                rectangle.Y + rectangle.Height) / AtlasWidth; // 0 - 1 box
+                rectangle.Right,
+                rectangle.Bottom);
+
+            box = box / (float)AtlasWidth; // 0 - 1
 
             atlasMembers[i] = new TextureAtlasMember()
             {
@@ -216,7 +224,7 @@ public class TextureAtlasManager
     private void SaveAtlasAsset(byte[] atlasPixels, TextureAtlasMember[] atlasMembers, int atlasIndex)
     {
         ///////////////////////////////////////////////////////////// PNG
-        if (false)
+        // if (false)
         {
             using var image =
                 Image.LoadPixelData<Rgba32>(atlasPixels, AtlasWidth, AtlasWidth);

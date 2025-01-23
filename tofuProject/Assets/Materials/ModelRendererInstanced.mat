@@ -1,4 +1,4 @@
-Ö{
+»{
   "Shader": {
     "BufferType": 2,
     "Path": "Assets/Shaders/ModelRendererInstanced.glsl"
@@ -6,16 +6,15 @@
   "Additive": false,
   "AlbedoTexture": {
     "BoundingBoxInAtlas": {
-      "X": 0.15258789,
-      "Y": 0.125,
-      "Z": 0.17681885,
-      "W": 0.14923096
+      "X": 0.62561095,
+      "Y": 0.82111436,
+      "Z": 0.72262955,
+      "W": 0.91813296
     },
     "IndexInAtlasTextureArray": 0,
-    "StandaloneGLTextureId": null,
     "IsRuntimeCopy": false,
     "DataIsCompressed": false,
-    "AtlasGLTextureArrayId": 0,
+    "AtlasGLTextureArrayId": 1,
     "PathInAssetsFolder": "Assets/2D/stone.png",
     "PathInLibraryFolder": "Library/Textures/stone.png.tofutexture",
     "AnyPath": "Assets/2D/stone.png"
@@ -23,7 +22,7 @@
   "AlphaMaskTexture": null,
   "AlbedoTint": {
     "B": 255,
-    "G": 0,
+    "G": 255,
     "R": 255,
     "A": 255
   },
@@ -38,7 +37,7 @@
     "Z": 0.0,
     "W": 0.895
   },
-  "SmoothShadows": true,
+  "SmoothShadows": false,
   "RefractionEnabled": false,
   "RefractiveIndex": 1.309,
   "SpecularHighlightsEnabled": false,
@@ -56,7 +55,7 @@
   "UVOffsetIsInstanced": false,
   "RenderMode": 0,
   "BlendMode": 0,
-  "MaterialType": 1,
+  "MaterialType": 0,
   "IgnoreDepth": false,
   "NoDepth": false,
   "IsRuntimeCopy": false,
@@ -64,6 +63,7 @@
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
+}delRendererInstanced.mat"
 },
   "DataIsCompressed": false,
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",

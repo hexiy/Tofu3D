@@ -3,11 +3,11 @@
 /// <summary>
 /// Contains data of multiple(instanced together) objects in one buffer
 /// </summary>
-public class SharedBuffer
+public class SharedInstancingBuffer
 {
     private int InstancedVertexDataSizeInBytes;
 
-    public float[] Buffer;
+    public float[] InstancingBuffer;
     private List<ObjectInstancingData> ObjectInstancingDatas = new List<ObjectInstancingData>();
 
     // public bool IsResizing = false;
@@ -24,7 +24,7 @@ public class SharedBuffer
     public RenderMode RenderMode;
 
     public required VertexBufferStructureType VertexBufferStructureType { init; get; }
-
+    public InstancedGroupDefinition InstancedGroupDefinition;
     public int InstancedVertexCountOfFloats => InstancedVertexDataSizeInBytes / sizeof(float);
 
     public void Init()
@@ -55,7 +55,7 @@ public class SharedBuffer
 
         // Debug.Log($"Resizing buffer to new size:{this.MaxNumberOfObjects}");
 
-        Array.Resize(ref this.Buffer,
+        Array.Resize(ref this.InstancingBuffer,
             this.MaxNumberOfObjects * this.InstancedVertexCountOfFloats);
         GL.DeleteBuffer(this.Vbo);
         this.Vbo = -1;
@@ -65,10 +65,10 @@ public class SharedBuffer
     public void RemoveObject(ObjectInstancingData removedObjectInstancingData)
     {
         for (var i = removedObjectInstancingData.StartingIndexInBuffer;
-             i < Buffer.Length - InstancedVertexCountOfFloats;
+             i < InstancingBuffer.Length - InstancedVertexCountOfFloats;
              i++)
         {
-            Buffer[i] = Buffer[i + InstancedVertexCountOfFloats];
+            InstancingBuffer[i] = InstancingBuffer[i + InstancedVertexCountOfFloats];
         }
 
         // go through all objectInstancingData that is in this buffer and change their starting index if they are after this one
@@ -109,7 +109,7 @@ public class SharedBuffer
             // return -1;
         }
 
-        if (Buffer.Length <
+        if (InstancingBuffer.Length <
             InstancedVertexCountOfFloats * MaxNumberOfObjects)
         {
             ExpandBuffer();
@@ -119,7 +119,7 @@ public class SharedBuffer
         return NumberOfObjects * InstancedVertexCountOfFloats;
     }
 
-    public void SetupBufferAndUploadIfNeeded()
+    public void SetupInstancedBufferAndUploadIfNeeded()
     {
         Tofu.ShaderManager.BindVertexArray(this.Vao);
 
@@ -131,112 +131,108 @@ public class SharedBuffer
         }
 
         GL.BindBuffer(BufferTarget.ArrayBuffer, this.Vbo);
-
+        if (NeedsUpload)
         {
-            // this should be called only once but it simply doesnt work... i need to call GL.VertexAttribPointer every frame
-            // https://stackoverflow.com/a/28597384
-            int offset = 0;
-            int vertexAttribPointerIndex = 5;
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
-                this.InstancedVertexDataSizeInBytes,
-                offset);
-            offset += 3 * sizeof(float);
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
-                this.InstancedVertexDataSizeInBytes,
-                offset);
-            offset += 3 * sizeof(float);
-
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
-                this.InstancedVertexDataSizeInBytes,
-                offset);
-            offset += 3 * sizeof(float);
-
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
-                this.InstancedVertexDataSizeInBytes,
-                offset);
-            offset += 3 * sizeof(float);
-
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 1, VertexAttribPointerType.Float, false,
-                this.InstancedVertexDataSizeInBytes,
-                offset);
-            offset += 1 * sizeof(float);
-
-            if (this.UVOffsetIsInstanced)
             {
-                GL.VertexAttribPointer(vertexAttribPointerIndex++, 2, VertexAttribPointerType.Float, false,
+                // this should be called only once but it simply doesnt work... i need to call GL.VertexAttribPointer every frame
+                // https://stackoverflow.com/a/28597384
+                int offset = 0;
+                int vertexAttribPointerIndex = 5;
+                GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
                     this.InstancedVertexDataSizeInBytes,
                     offset);
-                offset += 2 * sizeof(float);
+                offset += 3 * sizeof(float);
+                GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
+                    this.InstancedVertexDataSizeInBytes,
+                    offset);
+                offset += 3 * sizeof(float);
+
+                GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
+                    this.InstancedVertexDataSizeInBytes,
+                    offset);
+                offset += 3 * sizeof(float);
+
+                GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
+                    this.InstancedVertexDataSizeInBytes,
+                    offset);
+                offset += 3 * sizeof(float);
+
+                GL.VertexAttribPointer(vertexAttribPointerIndex++, 1, VertexAttribPointerType.Float, false,
+                    this.InstancedVertexDataSizeInBytes,
+                    offset);
+                offset += 1 * sizeof(float);
+
+                if (this.UVOffsetIsInstanced)
+                {
+                    GL.VertexAttribPointer(vertexAttribPointerIndex++, 2, VertexAttribPointerType.Float, false,
+                        this.InstancedVertexDataSizeInBytes,
+                        offset);
+                    offset += 2 * sizeof(float);
+                }
+
+
+                // albedo bounding box in atlas
+                GL.VertexAttribPointer(vertexAttribPointerIndex++, 4, VertexAttribPointerType.Float, false,
+                    this.InstancedVertexDataSizeInBytes,
+                    offset);
+                offset += 4 * sizeof(float);
+
+                // atlas index of albedo texture
+                GL.VertexAttribPointer(vertexAttribPointerIndex++, 1, VertexAttribPointerType.Float, false,
+                    this.InstancedVertexDataSizeInBytes,
+                    offset);
+                offset += 1 * sizeof(float);
             }
 
-
-            // albedo bounding box in atlas
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 4, VertexAttribPointerType.Float, false,
-                this.InstancedVertexDataSizeInBytes,
-                offset);
-            offset += 4 * sizeof(float);
-            
-            // atlas index of albedo texture
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 1, VertexAttribPointerType.Float, false,
-                this.InstancedVertexDataSizeInBytes,
-                offset);
-            offset += 1 * sizeof(float);
-        }
-
-        if (this.NeedsUpload && newBuffer)
-        {
-            // unique attribs for each instance
-            int vertexAttribArrayIndex = 5;
-            GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-            GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-            GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-            GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-            GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-            if (this.UVOffsetIsInstanced)
+            if (newBuffer)
             {
+                // unique attribs for each instance
+                int vertexAttribArrayIndex = 5;
                 GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-            }
+                GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
+                GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
+                GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
+                GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
+                if (this.UVOffsetIsInstanced)
+                {
+                    GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
+                }
 
-            GL.EnableVertexAttribArray(vertexAttribArrayIndex++); // albedo texture bounds in atlas
-            GL.EnableVertexAttribArray(vertexAttribArrayIndex++); // atlas index of albedo texture
-        }
+                GL.EnableVertexAttribArray(vertexAttribArrayIndex++); // albedo texture bounds in atlas
+                GL.EnableVertexAttribArray(vertexAttribArrayIndex++); // atlas index of albedo texture
 
-        if (this.NeedsUpload && newBuffer)
-        {
-            int vertexAttribDivisorIndex = 5;
 
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-            if (this.UVOffsetIsInstanced)
-            {
+                int vertexAttribDivisorIndex = 5;
+
+                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
+                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
+                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
+                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
+                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
+                if (this.UVOffsetIsInstanced)
+                {
+                    GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
+                }
+
+                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
                 GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
             }
 
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-        }
 
-        if (this.NeedsUpload)
-        {
             if (newBuffer)
             {
                 GL.BufferData(BufferTarget.ArrayBuffer,
-                    sizeof(float) * this.Buffer.Length,
-                    this.Buffer, BufferUsageHint.DynamicDraw);
+                    sizeof(float) * this.InstancingBuffer.Length,
+                    this.InstancingBuffer, BufferUsageHint.DynamicDraw);
             }
             else
             {
                 GL.BufferSubData(BufferTarget.ArrayBuffer, 0,
-                    sizeof(float) * this.Buffer.Length,
-                    this.Buffer);
+                    sizeof(float) * this.InstancingBuffer.Length,
+                    this.InstancingBuffer);
             }
 
             this.NeedsUpload = false;
         }
-
-        GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
     }
 }

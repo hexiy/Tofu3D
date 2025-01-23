@@ -4,7 +4,7 @@ public class Mesh : IHasPath
 {
     [XmlIgnore] // for scene xml serialization
     [JsonIgnore]
-    public float[] VertexBufferData; // dont serialize
+    public float[] GeometryBufferData; // dont serialize
 
     public int[] CountsOfElements; // serialize
     public int VerticesCount; // serialize, i dont need this but its fine

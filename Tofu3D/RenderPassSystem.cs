@@ -64,13 +64,13 @@ public class RenderPassSystem
         // RenderPassTransparency renderPassTransparency = new RenderPassTransparency();
 
 
-        // renderPassSkybox.Enabled = false;
-        // renderPassDirectionalLightShadowDepth.Enabled = false;
-        // renderPassPointLightShadowDepth.Enabled = false;
-        // renderPassZPrePass.Enabled = false;
-        // renderPassOpaques.Enabled = false;
-        // renderPassTransparency.Enabled = false;
-        // renderPassMousePicking.Enabled = false;
+        renderPassSkybox.Enabled = true;
+        renderPassDirectionalLightShadowDepth.Enabled = false;
+        renderPassPointLightShadowDepth.Enabled = false;
+        renderPassZPrePass.Enabled = false;
+        renderPassOpaques.Enabled = true;
+        renderPassTransparency.Enabled = false;
+        renderPassMousePicking.Enabled = false;
     }
 
     public void RegisterRenderPass(RenderPass renderPass)

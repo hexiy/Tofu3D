@@ -40,8 +40,8 @@ public static class BufferFactory
         vao = GL.GenVertexArray();
         Tofu.ShaderManager.BindVertexArray(vao);
 
-        var vertexBuffer = VertexBuffer.Create(BufferTarget.ArrayBuffer, vertices, 4);
-        vertexBuffer.EnableAttribs(false, 2, 2);
+        var geometryBuffer = GeometryBuffer.Create(BufferTarget.ArrayBuffer, vertices, 4);
+        geometryBuffer.EnableAttribs(false, 2, 2);
     }
 
     public static void CreateSpriteRendererBuffer(ref int vao)
@@ -64,7 +64,7 @@ public static class BufferFactory
         // CreateGenericBuffer(ref vao, spriteVertexBufferData, countsOfElements);
     }
 
-    public static void CreateGenericBuffer(ref int vao, ref int ebo, float[] vertexBufferData, int[] countsOfElements,
+    public static void CreateGeometryBuffer(ref int vao, ref int ebo, float[] geometryBufferData, int[] countsOfElements,
         bool isDynamic = false, uint[]? indices = null)
     {
         // GL.Enable(EnableCap.DepthTest);
@@ -82,20 +82,20 @@ public static class BufferFactory
             elementsCountPerVertex += countsOfElements[i];
         }
 
-        var vertexBuffer =
-            VertexBuffer.Create(BufferTarget.ArrayBuffer, vertexBufferData, elementsCountPerVertex, isDynamic);
+        var geometryBuffer =
+            GeometryBuffer.Create(BufferTarget.ArrayBuffer, geometryBufferData, elementsCountPerVertex, isDynamic);
 
 
         if (RenderingSettings.USE_INDICES)
         {
             if (indices != null)
             {
-                VertexBuffer instanceBuffer = VertexBuffer.Create(BufferTarget.ElementArrayBuffer, indices,
+                GeometryBuffer instanceBuffer = GeometryBuffer.Create(BufferTarget.ElementArrayBuffer, indices,
                     elementsCountPerVertex, isDynamic);
             }
         }
 
-        vertexBuffer.EnableAttribs(true, countsOfElements);
+        geometryBuffer.EnableAttribs(true, countsOfElements);
 
 
         // ebo
@@ -154,10 +154,10 @@ public static class BufferFactory
         vao = GL.GenVertexArray();
         Tofu.ShaderManager.BindVertexArray(vao);
 
-        var vertexBuffer = VertexBuffer.Create(BufferTarget.ArrayBuffer, vertices, 3);
+        var vertexBuffer = GeometryBuffer.Create(BufferTarget.ArrayBuffer, vertices, 3);
         vertexBuffer.EnableAttribs(false, 3); // xyz
 
-        var indexBuffer = VertexBuffer.Create(BufferTarget.ElementArrayBuffer, indices, 3);
+        var indexBuffer = GeometryBuffer.Create(BufferTarget.ElementArrayBuffer, indices, 3);
     }
     /*private static void CreateSpriteRendererBuffers(ref int vao, ref int vbo)
     {

@@ -37,7 +37,7 @@ public class AssetLoader_RuntimeMesh : AssetLoader<RuntimeMesh>
             runtimeMesh.Ebo = assetLoadParameters.ExistingAsset.Ebo;
         }
 
-        BufferFactory.CreateGenericBuffer(ref runtimeMesh.Vao, ref runtimeMesh.Ebo, mesh.VertexBufferData,
+        BufferFactory.CreateGeometryBuffer(ref runtimeMesh.Vao, ref runtimeMesh.Ebo, mesh.GeometryBufferData,
             mesh.CountsOfElements, indices: mesh.Indices);
 
         return runtimeMesh;

@@ -109,7 +109,7 @@ public static class Tofu
         BasicMeshesCollection = new BasicMeshesCollection();
 
         AssetImportManager.ImportAllAssets();
-        TextureAtlasManager.GenerateTextureAtlases();
+        TextureAtlasManager.SetupTextureAtlases();
 
         InstancedRenderingSystem = new InstancedRenderingSystem();
         LightRenderingManager = new LightRenderingManager();

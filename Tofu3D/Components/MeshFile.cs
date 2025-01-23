@@ -2,7 +2,7 @@ public class MeshFile : Asset<MeshFile>
 {
     public Mesh Mesh;
     public byte[] ByteIndices; // serialize
-    public byte[] ByteVertexBufferData; // serialize
+    public byte[] ByteGeometryBufferData; // serialize
     public bool UsesIndices;
 
     public override void BeforeSerialized()
@@ -33,7 +33,7 @@ public class MeshFile : Asset<MeshFile>
         }
 
         ByteIndices = Compression.Compress(Mesh.Indices);
-        ByteVertexBufferData = Compression.Compress(Mesh.VertexBufferData);
+        ByteGeometryBufferData = Compression.Compress(Mesh.GeometryBufferData);
         DataIsCompressed = true;
     }
 
@@ -45,7 +45,7 @@ public class MeshFile : Asset<MeshFile>
         }
 
         Mesh.Indices = Compression.DecompressUnsignedIntArray(ByteIndices);
-        Mesh.VertexBufferData = Compression.DecompressFloatArray(ByteVertexBufferData);
+        Mesh.GeometryBufferData = Compression.DecompressFloatArray(ByteGeometryBufferData);
 
         DataIsCompressed = false;
     }

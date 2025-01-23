@@ -4,26 +4,11 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>799</Id>
-      <IndexInHierarchy>3</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>Point Light</Name>
-      <PrefabPath />
-      <Selected>true</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>801</Id>
+      <Id>7</Id>
       <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>sphere</Name>
+      <IsStaticSelf>true</IsStaticSelf>
+      <Name>Teapot</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
@@ -35,84 +20,26 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>799</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <ChildrenIDs>
-        <int>801</int>
-        <int>801</int>
-        <int>801</int>
-      </ChildrenIDs>
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <WorldPosition>
-        <X>-0.51</X>
-        <Y>-6.58</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>-0.51</X>
-        <Y>-6.58</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="PointLight">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>799</GameObjectId>
-      <Started>true</Started>
-      <Enabled>true</Enabled>
-      <Color>
-        <B>255</B>
-        <G>0</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294902015</PackedValue>
-      </Color>
-      <Intensity>1</Intensity>
-      <Radius>10</Radius>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>801</GameObjectId>
+      <GameObjectId>7</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>799</ParentId>
+      <ParentId>9</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>-0.51</X>
-        <Y>-6.58</Y>
-        <Z>0</Z>
+        <X>0.9115762</X>
+        <Y>-3.05265</Y>
+        <Z>10</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
+        <Y>-3.63</Y>
+        <Z>10</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -132,7 +59,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>801</GameObjectId>
+      <GameObjectId>7</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -141,26 +68,19 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
+        <X>3</X>
+        <Y>3</Y>
+        <Z>3</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>801</GameObjectId>
+      <GameObjectId>7</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
-      <MousePickingId>772</MousePickingId>
+      <MousePickingId>1</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294967295</PackedValue>
-      </Color>
       <Material>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
@@ -171,12 +91,25 @@
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
         </Shader>
         <Additive>false</Additive>
+        <AlbedoTexture>
+          <IsRuntimeCopy>false</IsRuntimeCopy>
+          <DataIsCompressed>false</DataIsCompressed>
+          <PathInAssetsFolder>Assets/2D/stone.png</PathInAssetsFolder>
+          <PathInLibraryFolder>Library/Textures/stone.png.tofutexture</PathInLibraryFolder>
+          <BoundingBoxInAtlas>
+            <X>0.62561095</X>
+            <Y>0.82111436</Y>
+            <Z>0.72262955</Z>
+            <W>0.91813296</W>
+          </BoundingBoxInAtlas>
+          <IndexInAtlasTextureArray>0</IndexInAtlasTextureArray>
+        </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
-          <G>0</G>
+          <G>255</G>
           <R>255</R>
           <A>255</A>
-          <PackedValue>4294902015</PackedValue>
+          <PackedValue>4294967295</PackedValue>
         </AlbedoTint>
         <EmissiveColor>
           <X>0</X>
@@ -184,7 +117,7 @@
           <Z>0</Z>
           <W>0.895</W>
         </EmissiveColor>
-        <SmoothShadows>true</SmoothShadows>
+        <SmoothShadows>false</SmoothShadows>
         <RefractionEnabled>false</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
         <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
@@ -202,13 +135,13 @@
         <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
         <RenderMode>Opaque</RenderMode>
         <BlendMode>Opaque</BlendMode>
-        <MaterialType>Unlit</MaterialType>
+        <MaterialType>Lit</MaterialType>
         <IgnoreDepth>false</IgnoreDepth>
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>771</Vao>
-        <Ebo>3084</Ebo>
+        <Vao>4</Vao>
+        <Ebo>-1</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -217,11 +150,18 @@
             <int>3</int>
             <int>3</int>
           </CountsOfElements>
-          <VerticesCount>482</VerticesCount>
-          <Name>sphere.obj_0</Name>
-          <PathInLibraryFolder>Library/Meshes/sphere.obj_0.tofumesh</PathInLibraryFolder>
+          <VerticesCount>63264</VerticesCount>
+          <Name>Teapot.obj_0</Name>
+          <PathInLibraryFolder>Library/Meshes/Teapot.obj_0.tofumesh</PathInLibraryFolder>
         </Mesh>
       </RuntimeMesh>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
       <Layer>0</Layer>
       <RenderOrder>4</RenderOrder>
     </Component>

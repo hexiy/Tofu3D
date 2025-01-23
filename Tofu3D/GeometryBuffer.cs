@@ -2,9 +2,9 @@
 
 namespace Tofu3D;
 
-public class VertexBuffer
+public class GeometryBuffer
 {
-    private VertexBuffer(int elementsPerVertex /*, int vbo*/, int sizeOfElementInBytes,
+    private GeometryBuffer(int elementsPerVertex /*, int vbo*/, int sizeOfElementInBytes,
         VertexAttribPointerType vertexAttribPointerType)
     {
         SizeOfElementInBytes = sizeOfElementInBytes;
@@ -18,7 +18,7 @@ public class VertexBuffer
     private int SizeOfElementInBytes { get; }
     private VertexAttribPointerType VertexAttribPointerType { get; }
 
-    public static VertexBuffer Create<T>(BufferTarget bufferTarget, T[] vertexData, int elementsPerVertex,
+    public static GeometryBuffer Create<T>(BufferTarget bufferTarget, T[] vertexData, int elementsPerVertex,
         bool isDynamic = false) where T : unmanaged // Ensure T is a value type (no nullable or reference types)
     {
         int vbo = GL.GenBuffer();
@@ -45,8 +45,8 @@ public class VertexBuffer
         GL.BufferData(bufferTarget, sizeOfElementInBytes * vertexData.Length, vertexData,
             isDynamic ? BufferUsageHint.DynamicDraw : BufferUsageHint.StaticDraw);
 
-        VertexBuffer vertexBuffer = new(elementsPerVertex, sizeOfElementInBytes, vertexAttribPointerType);
-        return vertexBuffer;
+        GeometryBuffer geometryBuffer = new(elementsPerVertex, sizeOfElementInBytes, vertexAttribPointerType);
+        return geometryBuffer;
     }
 
     public void EnableAttribs(bool sequential = true, params int[] countsOfElements)
