@@ -15,7 +15,7 @@ public class Scene
 
     // public static Action SceneModified = () => { };
 
-    private RenderableComponentQueue _renderableComponentQueue;
+    public RenderableComponentQueue _renderableComponentQueue;
     private SceneLightingManager _sceneLightingManager;
     private UpdateableComponentQueue _updateableComponentQueue;
 

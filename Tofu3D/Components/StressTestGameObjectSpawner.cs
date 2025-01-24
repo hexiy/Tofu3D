@@ -1,3 +1,6 @@
+using System.Collections.Concurrent;
+using System.Threading;
+
 namespace Tofu3D;
 
 [ExecuteInEditMode]
@@ -19,45 +22,152 @@ public class StressTestGameObjectSpawner : Component
 
     public override void Awake()
     {
-        Spawn += () =>
-        {
-            if (_savedToClipboard == false)
-            {
-                Tofu.SceneSerializer.SaveClipboardGameObject(Transform.Children[0].GameObject);
-            }
-
-            var timerName = "StressTest";
-            Debug.StartTimer(timerName);
-
-
-            for (var i = 0; i < SpawnCount; i++)
-            {
-                // GameObject go = SceneSerializer.Experimental_LoadClipboardGameObject();
-                var go = Tofu.SceneSerializer.LoadClipboardGameObject();
-                go.Transform.SetParent(Transform);
-                go.Transform.LocalPosition +=
-                    new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f),
-                        Random.Range(-1f, 1f)) * Radius;
-                go.Transform.Rotation += new Vector3(Random.Range(0, 360), Random.Range(0, 360), 0);
-
-                // go.GetComponent<Renderer>().Color = Random.RandomColor();
-            }
-
-            var duration = Debug.EndTimer(timerName);
-
-            Debug.Log($"Spawning {SpawnCount} objects took {duration} ms, {duration / SpawnCount} ms for 1 object");
-        };
-        Despawn += () =>
-        {
-            for (var j = 0; j < Tofu.SceneManager.CurrentScene.GameObjects.Count; j++)
-            {
-                if (j > 10)
-                {
-                    Tofu.SceneManager.CurrentScene.GameObjects[j].Destroy();
-                }
-            }
-        };
-
+        Spawn += StartSpawningOnNewThread;
+        Despawn += Destroy;
+        
         base.Awake();
+    }
+
+
+    private readonly ConcurrentQueue<GameObject> _concurrentBag = new();
+
+    private int _threadsWorkingCount = -1;
+
+    public int ThreadsToUse = 2;
+
+    public void Update()
+    {
+        if (_threadsWorkingCount == 0)
+        {
+            _threadsWorkingCount = -1;
+            AddObjectsToScene();
+        }
+
+        if (KeyboardInput.WasKeyJustPressed(Keys.Space))
+        {
+            Spawn?.Invoke();
+        }
+    }
+
+    /*public override void Start()
+    {
+        Spawn.Invoke();
+        base.Start();
+    }*/
+
+    private void Destroy()
+    {
+        for (var i = 0; i < Transform.Children.Count; i++)
+        {
+            Transform.Children[0].GameObject.Destroy();
+        }
+
+        Transform.Children = new List<Transform>();
+    }
+
+    private void StartSpawningOnNewThread()
+    {
+        // if (_savedToClipboard == false)
+        // {
+        //     Tofu.SceneSerializer.SaveClipboardGameObject(Transform.Children[0].GameObject);
+        // }
+
+
+        for (var i = 0; i < SpawnCount; i++)
+        {
+            // var go = Tofu.SceneSerializer.LoadClipboardGameObject();
+            // go.Transform.SetParent(Transform);
+            // go.Transform.LocalPosition +=
+            //     new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f),
+            //         Random.Range(-1f, 1f)) * Radius;
+            // go.Transform.Rotation += new Vector3(Random.Range(0, 360), Random.Range(0, 360), 0);
+        }
+
+        // var duration = Debug.EndTimer(timerName);
+
+        // Debug.Log($"Spawning {SpawnCount} objects took {duration} ms, {duration / SpawnCount} ms for 1 object");
+//////////
+
+        Destroy();
+        _concurrentBag.Clear();
+
+        var timerName = "StressTest";
+        Debug.StartTimer(timerName);
+
+        var numberOfThreads = ThreadsToUse;
+        _threadsWorkingCount = numberOfThreads;
+        List<Thread> threads = new();
+        GameObject go = Transform.Children[0].GameObject;
+        for (var threadIndex = 0; threadIndex < numberOfThreads; threadIndex++)
+        {
+            var capturedThreadIndex = threadIndex;
+            Thread thread = new(() => SpawnObjects(SpawnCount, go, capturedThreadIndex, numberOfThreads));
+            threads.Add(thread);
+        }
+
+        threads.ForEach(t => t.Start());
+    }
+
+    private void SpawnObjects(int count, GameObject referenceGameObject, int threadIndex, int numberOfThreads)
+    {
+        Debug.StartTimer($"Thread #{threadIndex} finished");
+
+        var objectsPerThread = count / numberOfThreads;
+        var startIndex = objectsPerThread * threadIndex;
+        var endIndex = objectsPerThread + threadIndex * objectsPerThread;
+
+
+        for (var i = startIndex; i < endIndex; i++)
+        {
+            // Debug.Log(i);
+            var go = (GameObject)referenceGameObject.Clone(false);
+            go.Name = $"Thread:{threadIndex} go {i}";
+            go.RuntimeOnly = true;
+
+            _concurrentBag.Enqueue(go);
+        }
+
+
+        Debug.EndAndLogTimer($"Thread #{threadIndex} finished");
+
+        _threadsWorkingCount--;
+        if (_threadsWorkingCount == 0)
+        {
+            // AddObjectsToScene();
+        }
+    }
+
+    private void AddObjectsToScene()
+    {
+        Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
+        foreach (var go in _concurrentBag)
+        {
+            go.Transform.SetParent(Transform);
+            go.Transform.LocalPosition +=
+                new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f),
+                    Random.Range(-1f, 1f)) * Radius;
+            go.Transform.Rotation += new Vector3(Random.Range(0, 360), Random.Range(0, 360), 0);
+
+            go.SetActive(true);
+        }
+
+        float duration = Debug.EndTimer("StressTest");
+        Debug.Log($"Spawning {SpawnCount} objects took {duration} ms, {duration / SpawnCount} ms for 1 object");
+    }
+
+    private void LongTask()
+    {
+        List<GameObject> gameObjects = new(20000);
+        for (var i = 0; i < 20000; i++)
+        {
+            var go = GameObject.Create(name: i.ToString(), addToScene: false);
+            gameObjects.Add(go);
+            Debug.Log(i);
+        }
+
+        lock (Tofu.SceneManager.CurrentScene.GameObjects)
+        {
+            Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(gameObjects);
+        }
     }
 }

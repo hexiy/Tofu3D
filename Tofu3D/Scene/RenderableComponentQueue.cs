@@ -5,6 +5,8 @@ public class RenderableComponentQueue : IComponentQueue
     // bool _renderQueueChanged;
     private readonly List<IComponentRenderable> _opaqueRenderables = new();
     private readonly List<IComponentRenderable> _transparentRenderables = new();
+    private readonly List<IComponentRenderable> _opaqueRenderablesToRemove = new();
+    private readonly List<IComponentRenderable> _transparentRenderablesToRemove = new();
 
     // public List<Renderer> RenderQueueWorld { get; private set; } = new();
     // public List<Renderer> RenderQueueUI { get; private set; } = new();
@@ -15,7 +17,6 @@ public class RenderableComponentQueue : IComponentQueue
         Scene.ComponentDisabled += OnComponentDisabled;
 
         Scene.SceneStartedDisposing += OnSceneStartedDisposing;
-        Scene.SceneLoaded += OnSceneLoaded;
     }
 
     public void OnComponentEnabled(Component component)
@@ -24,17 +25,11 @@ public class RenderableComponentQueue : IComponentQueue
         {
             if (componentRenderable.RenderMode == RenderMode.Opaque)
             {
-                if (_opaqueRenderables.Contains(componentRenderable) == false)
-                {
-                    _opaqueRenderables.Add(componentRenderable);
-                }
+                _opaqueRenderables.Add(componentRenderable);
             }
             else
             {
-                if (_transparentRenderables.Contains(componentRenderable) == false)
-                {
-                    _transparentRenderables.Add(componentRenderable);
-                }
+                _transparentRenderables.Add(componentRenderable);
             }
         }
     }
@@ -54,12 +49,6 @@ public class RenderableComponentQueue : IComponentQueue
         }
     }
 
-    private void OnSceneLoaded()
-    {
-        Scene.ComponentEnabled += OnComponentEnabled;
-        Scene.ComponentDisabled += OnComponentDisabled;
-    }
-
     private void OnSceneStartedDisposing()
     {
         Scene.ComponentEnabled -= OnComponentEnabled;
@@ -75,12 +64,31 @@ public class RenderableComponentQueue : IComponentQueue
 
     public void AddComponent(IComponentRenderable component)
     {
-        _opaqueRenderables.Add(component);
+        if (component.RenderMode == RenderMode.Opaque)
+        {
+            if (_opaqueRenderables.Contains(component))
+            {
+                return;
+            }
+
+            _opaqueRenderables.Add(component);
+        }
+        else
+        {
+            _transparentRenderables.Add(component);
+        }
     }
 
-    public void RemoveComponent(IComponentRenderable component)
+    public void QueueRemove(IComponentRenderable component)
     {
-        _opaqueRenderables.Remove(component);
+        if (component.RenderMode == RenderMode.Opaque)
+        {
+            _opaqueRenderablesToRemove.Add(component);
+        }
+        else
+        {
+            _transparentRenderablesToRemove.Add(component);
+        }
     }
 
     // public void RenderAll()
@@ -91,20 +99,43 @@ public class RenderableComponentQueue : IComponentQueue
 
     public void UploadRenderDataOpaques()
     {
-        _opaqueRenderables.Sort();
+        Debug.StatSetValue("Renderable queue components",
+            $"Renderable queue components: {_opaqueRenderables.Count + _transparentRenderables.Count}");
+
+        // _opaqueRenderables.Sort();
 
         for (var i = 0; i < _opaqueRenderables.Count; i++)
         {
             _opaqueRenderables[i].UploadRenderData();
         }
+
+        for (int i = 0; i < _opaqueRenderablesToRemove.Count; i++)
+        {
+            _opaqueRenderables.Remove(_opaqueRenderablesToRemove[i]);
+        }
+
+        if (_opaqueRenderablesToRemove.Count > 0)
+        {
+            _opaqueRenderablesToRemove.Clear();
+        }
     }
 
     public void UploadRenderDataTransparency()
     {
-        _transparentRenderables.Sort();
+        // _transparentRenderables.Sort();
         for (var i = 0; i < _transparentRenderables.Count; i++)
         {
             _transparentRenderables[i].UploadRenderData();
+        }
+
+        for (int i = 0; i < _transparentRenderablesToRemove.Count; i++)
+        {
+            _transparentRenderables.Remove(_transparentRenderablesToRemove[i]);
+        }
+
+        if (_transparentRenderablesToRemove.Count > 0)
+        {
+            _transparentRenderablesToRemove.Clear();
         }
     }
 // public void Update()

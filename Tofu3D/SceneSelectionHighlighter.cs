@@ -6,9 +6,15 @@ public class SceneSelectionHighlighter
 {
     private GameObject _selectionBoxGameObject;
     private List<GameObject> _selectedGameObjects = new List<GameObject>();
+    private const bool ENABLED = false;
 
     public void Init()
     {
+        if (ENABLED == false)
+        {
+            return;
+        }
+
         GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
         Scene.SceneLoaded += SpawnSelectionBoxGameobjects;
         SpawnSelectionBoxGameobjects();
@@ -99,6 +105,11 @@ public class SceneSelectionHighlighter
 
     public void Update()
     {
+        if (ENABLED == false)
+        {
+            return;
+        }
+
         SetTransform();
     }
 }

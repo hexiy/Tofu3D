@@ -61,7 +61,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         {
             ObjectInstancingData objectInstancingData = RendererInstancingDatas[i];
             Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref objectInstancingData, remove: true,
-                vertexBufferStructureType: VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
+                isStatic: this.GameObject.IsStatic);
         }
 
         base.OnDisabled();
@@ -139,7 +139,7 @@ public class TextRendererInstanced : ModelRendererInstanced
                 ObjectInstancingData objectInstancingData = RendererInstancingDatas[i];
 
                 Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref objectInstancingData, remove: true,
-                    vertexBufferStructureType: VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
+                    isStatic: this.GameObject.IsStatic);
             }
 
             RendererInstancingDatas.RemoveRange(RendererInstancingDatas.Count - instancingDatasToRemove,
@@ -208,7 +208,7 @@ public class TextRendererInstanced : ModelRendererInstanced
                 {
                     var updatedData =
                         Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref objectInstancingData,
-                            VertexBufferStructureType.Model, modelMatrix: modelMatrix, uvOffset: offset,
+                            modelMatrix: modelMatrix, uvOffset: offset,
                             indexForMultipleObjectsPerRenderer: i, isStatic: GameObject.IsStatic);
 
                     if (updatedData)

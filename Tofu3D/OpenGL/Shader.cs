@@ -22,6 +22,7 @@ public class
     private const string UniformName_TextureEmissive = "u_emissiveTexture";
     private const string UniformName_ScreenColor = "u_screenColor";
     private const string UniformName_DepthMap = "u_depthMap";
+    public const string UniformName_AtlasTexture = "textureArray";
 
     private float[] _getMatrix4X4ValuesArray =
     {
@@ -33,19 +34,7 @@ public class
 
     [JsonIgnore]
     [XmlIgnore]
-    public TextureUnit? AlbedoTextureIndexUnit = null;
-
-    [JsonIgnore]
-    [XmlIgnore]
-    public TextureUnit? NormalTextureIndexUnit = null;
-
-    [JsonIgnore]
-    [XmlIgnore]
-    public TextureUnit? AlphaMaskTextureIndexUnit = null;
-
-    [JsonIgnore]
-    [XmlIgnore]
-    public TextureUnit? AmbientOcclusionTextureUnit = null;
+    public TextureUnit? AtlasArrayTextureUnit = null;
 
     [JsonIgnore]
     [XmlIgnore]
@@ -53,19 +42,7 @@ public class
 
     [JsonIgnore]
     [XmlIgnore]
-    public TextureUnit? RoughnessTextureUnit = null;
-
-    [JsonIgnore]
-    [XmlIgnore]
-    public TextureUnit? MetallicTextureUnit = null;
-
-    [JsonIgnore]
-    [XmlIgnore]
     public TextureUnit? EnvironmentTextureUnit = null;
-
-    [JsonIgnore]
-    [XmlIgnore]
-    public TextureUnit? EmissiveTextureUnit = null;
 
     [JsonIgnore]
     [XmlIgnore]
@@ -79,6 +56,7 @@ public class
 
     public string Path;
 
+    public bool AtlasUniformIsSet = false;
     // [JsonIgnore]
     // [XmlIgnore]
     // public Dictionary<string, object> Uniforms = new()
@@ -226,58 +204,63 @@ public class
         {
             var textureUniformName = textureUniformsNames[index];
             int location = GetUniformLocation(textureUniformName);
-            if (location != -1)
+            if (location == -1)
             {
-                TextureUnit textureUnit = TextureUnit.Texture0 + textureUnitsCount;
-
-                switch (textureUniformName)
-                {
-                    case UniformName_TextureAlbedo:
-                        AlbedoTextureIndexUnit = textureUnit;
-                        break;
-                    case UniformName_TextureAlphaMask:
-                        AlphaMaskTextureIndexUnit = textureUnit;
-                        break;
-                    case UniformName_TextureNormal:
-                        NormalTextureIndexUnit = textureUnit;
-                        break;
-                    case UniformName_TextureAo:
-                        AmbientOcclusionTextureUnit = textureUnit;
-                        break;
-                    case UniformName_ShadowMap:
-                        ShadowMapTextureUnit = textureUnit;
-                        break;
-                    case UniformName_EnvironmentCubemap:
-                        EnvironmentTextureUnit = textureUnit;
-                        break;
-                    case UniformName_TextureObject:
-                        break;
-                    case UniformName_BloomThresholdTexture:
-                        break;
-                    case UniformName_HorizontalBlurTexture:
-                        break;
-                    case UniformName_VerticalBlurTexture:
-                        break;
-                    case UniformName_TextureRoughness:
-                        RoughnessTextureUnit = textureUnit;
-                        break;
-                    case UniformName_TextureMetallic:
-                        MetallicTextureUnit = textureUnit;
-                        break;
-                    case UniformName_TextureEmissive:
-                        EmissiveTextureUnit = textureUnit;
-                        break;
-                    case UniformName_ScreenColor:
-                        ScreenColorUnit = textureUnit;
-                        break;
-                    case UniformName_DepthMap:
-                        DepthMapUnit = textureUnit;
-                        break;
-                }
-
-                GL.Uniform1(location, textureUnitsCount);
-                textureUnitsCount++;
+                continue;
             }
+
+            TextureUnit textureUnit = TextureUnit.Texture0 + textureUnitsCount;
+
+            switch (textureUniformName)
+            {
+                // case UniformName_TextureAlbedo:
+                // AlbedoTextureIndexUnit = textureUnit;
+                // break;
+                // case UniformName_TextureAlphaMask:
+                // AlphaMaskTextureIndexUnit = textureUnit;
+                // break;
+                // case UniformName_TextureNormal:
+                // NormalTextureIndexUnit = textureUnit;
+                // break;
+                // case UniformName_TextureAo:
+                // AmbientOcclusionTextureUnit = textureUnit;
+                // break;
+                case UniformName_AtlasTexture:
+                    AtlasArrayTextureUnit = textureUnit;
+                    break;
+                case UniformName_ShadowMap:
+                    ShadowMapTextureUnit = textureUnit;
+                    break;
+                case UniformName_EnvironmentCubemap:
+                    EnvironmentTextureUnit = textureUnit;
+                    break;
+                case UniformName_TextureObject:
+                    break;
+                case UniformName_BloomThresholdTexture:
+                    break;
+                case UniformName_HorizontalBlurTexture:
+                    break;
+                case UniformName_VerticalBlurTexture:
+                    break;
+                // case UniformName_TextureRoughness:
+                // RoughnessTextureUnit = textureUnit;
+                // break;
+                // case UniformName_TextureMetallic:
+                // MetallicTextureUnit = textureUnit;
+                // break;
+                // case UniformName_TextureEmissive:
+                // EmissiveTextureUnit = textureUnit;
+                // break;
+                case UniformName_ScreenColor:
+                    ScreenColorUnit = textureUnit;
+                    break;
+                case UniformName_DepthMap:
+                    DepthMapUnit = textureUnit;
+                    break;
+            }
+
+            GL.Uniform1(location, textureUnitsCount);
+            textureUnitsCount++;
         }
         // if (AlbedoTextureLocation != -1)
         // {

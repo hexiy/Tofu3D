@@ -32,7 +32,7 @@ public class RenderPassOpaques : RenderPass
         }
         else
         {
-            GL.Clear(ClearBufferMask.DepthBufferBit);
+            // GL.Clear(ClearBufferMask.DepthBufferBit);
         }
 
 

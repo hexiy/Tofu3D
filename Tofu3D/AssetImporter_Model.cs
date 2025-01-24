@@ -80,6 +80,11 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             meshFile = CreateMeshFileFromData(data: data, vertices: vertices, uvs: uvs, normals: normals,
                 lineStartIndex: ref lineStartIndex, singleMesh: importParameters.ImportAsSingleMesh,
                 smoothNormals: importParameters.SmoothNormals, objMaterialFileDefinition);
+            if (meshFile == null)
+            {
+                continue;
+            }
+
             int meshIndex = model.PathsToMeshAssets.Count;
 
             string meshFileName = AssetPathExtensions.ModelToMeshFileName(objInAssetsFolderPath, meshIndex);
@@ -102,7 +107,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         model.PathInLibraryFolder = objInAssetsFolderPath;
 
         Serializer.SaveAssetJSON<Asset_Model>(modelPath, model);
-
+        // Debug.Log($"Imported model {Path.GetFileName(modelPath)} with {model.PathsToMeshAssets.Count} meshes");
         return model;
     }
 
@@ -307,6 +312,11 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             }
         }
 
+        if (everything.Count == 0)
+        {
+            // lineStartIndex++;
+            return null;
+        }
 
         int[] countsOfElements = { 3, 2, 3, 3, 3 }; // position, uv, normal, tangent, bitangent
 
@@ -533,7 +543,10 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         }
 
         Asset_Material material = new Asset_Material()
-            { Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets, "ModelRendererInstanced.glsl")) };
+        {
+            Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
+                "ModelRendererInstanced.glsl"))
+        };
 
         material.SmoothShadows = true;
 

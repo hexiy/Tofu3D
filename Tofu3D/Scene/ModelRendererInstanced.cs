@@ -21,7 +21,7 @@ public class ModelRendererInstanced : Renderer
     public override void OnDisabled()
     {
         Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData, remove: true,
-            vertexBufferStructureType: VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
+            isStatic: this.GameObject.IsStatic);
         base.OnDisabled();
     }
 
@@ -93,11 +93,19 @@ public class ModelRendererInstanced : Renderer
         if (GameObject.IsStatic && ObjectInstancingData.InstancingDataDirty == false &&
             ObjectInstancingData.MatrixDirty == false)
         {
+            Tofu.SceneManager.CurrentScene._renderableComponentQueue.QueueRemove(this);
             return;
         }
 
         if (RuntimeMesh == null || BoxShape == null)
         {
+            return;
+        }
+
+        if (RuntimeMesh.Mesh?.VerticesCount == 0)
+        {
+            Tofu.SceneManager.CurrentScene._renderableComponentQueue.QueueRemove(this);
+            GameObject.Name = "0 VERTICES?";
             return;
         }
 
@@ -119,10 +127,16 @@ public class ModelRendererInstanced : Renderer
         }*/
         var updatedData =
             Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData,
-                VertexBufferStructureType.Model, isStatic: this.GameObject.IsStatic);
+                // VertexBufferStructureType.Model, 
+                isStatic: this.GameObject.IsStatic);
         if (updatedData)
         {
             ObjectInstancingData.InstancingDataDirty = false;
+        }
+
+        if (this.GameObject.IsStatic)
+        {
+            Tofu.SceneManager.CurrentScene._renderableComponentQueue.QueueRemove(this);
         }
     }
 }

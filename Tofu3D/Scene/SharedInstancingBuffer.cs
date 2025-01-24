@@ -23,7 +23,7 @@ public class SharedInstancingBuffer
     public bool UVOffsetIsInstanced = false;
     public RenderMode RenderMode;
 
-    public required VertexBufferStructureType VertexBufferStructureType { init; get; }
+    // public required VertexBufferStructureType VertexBufferStructureType { init; get; }
     public InstancedGroupDefinition InstancedGroupDefinition;
     public int InstancedVertexCountOfFloats => InstancedVertexDataSizeInBytes / sizeof(float);
 
@@ -48,7 +48,7 @@ public class SharedInstancingBuffer
     public void ExpandBuffer()
     {
         this.MaxNumberOfObjects += 5;
-        if (this.MaxNumberOfObjects > 1000)
+        if (this.MaxNumberOfObjects > 50)
         {
             this.MaxNumberOfObjects += 20;
         }
@@ -127,12 +127,18 @@ public class SharedInstancingBuffer
         var newBuffer = this.Vbo == -1;
         if (newBuffer)
         {
+            NeedsUpload = true;
+        }
+
+        if (newBuffer)
+        {
             this.Vbo = GL.GenBuffer();
         }
 
         GL.BindBuffer(BufferTarget.ArrayBuffer, this.Vbo);
         if (NeedsUpload)
         {
+            if (newBuffer)
             {
                 // this should be called only once but it simply doesnt work... i need to call GL.VertexAttribPointer every frame
                 // https://stackoverflow.com/a/28597384
@@ -219,18 +225,9 @@ public class SharedInstancingBuffer
             }
 
 
-            if (newBuffer)
-            {
-                GL.BufferData(BufferTarget.ArrayBuffer,
-                    sizeof(float) * this.InstancingBuffer.Length,
-                    this.InstancingBuffer, BufferUsageHint.DynamicDraw);
-            }
-            else
-            {
-                GL.BufferSubData(BufferTarget.ArrayBuffer, 0,
-                    sizeof(float) * this.InstancingBuffer.Length,
-                    this.InstancingBuffer);
-            }
+            GL.BufferData(BufferTarget.ArrayBuffer,
+                sizeof(float) * this.InstancingBuffer.Length,
+                this.InstancingBuffer, BufferUsageHint.StaticDraw);
 
             this.NeedsUpload = false;
         }

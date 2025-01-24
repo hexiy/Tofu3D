@@ -4,11 +4,11 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>7</Id>
+      <Id>6</Id>
       <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>true</IsStaticSelf>
-      <Name>Teapot</Name>
+      <Name>defaultCube</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
@@ -20,12 +20,12 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>7</GameObjectId>
+      <GameObjectId>6</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>9</ParentId>
+      <ParentId>7</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
@@ -33,12 +33,12 @@
       </Pivot>
       <WorldPosition>
         <X>0.9115762</X>
-        <Y>-3.05265</Y>
+        <Y>0.57735026</Y>
         <Z>10</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
-        <Y>-3.63</Y>
+        <Y>0</Y>
         <Z>10</Z>
       </LocalPosition>
       <LocalScale>
@@ -59,7 +59,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>7</GameObjectId>
+      <GameObjectId>6</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <Offset>
@@ -75,7 +75,7 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>7</GameObjectId>
+      <GameObjectId>6</GameObjectId>
       <Started>true</Started>
       <Enabled>true</Enabled>
       <MousePickingId>1</MousePickingId>
@@ -94,15 +94,15 @@
         <AlbedoTexture>
           <IsRuntimeCopy>false</IsRuntimeCopy>
           <DataIsCompressed>false</DataIsCompressed>
-          <PathInAssetsFolder>Assets/2D/stone.png</PathInAssetsFolder>
-          <PathInLibraryFolder>Library/Textures/stone.png.tofutexture</PathInLibraryFolder>
+          <PathInAssetsFolder>Assets/2D/grass.jpg</PathInAssetsFolder>
+          <PathInLibraryFolder>Library/Textures/grass.jpg.tofutexture</PathInLibraryFolder>
           <BoundingBoxInAtlas>
-            <X>0.62561095</X>
-            <Y>0.82111436</Y>
-            <Z>0.72262955</Z>
-            <W>0.91813296</W>
+            <X>0</X>
+            <Y>0.50048876</Y>
+            <Z>0.36656892</Z>
+            <W>0.8670577</W>
           </BoundingBoxInAtlas>
-          <IndexInAtlasTextureArray>0</IndexInAtlasTextureArray>
+          <IndexInAtlasTextureArray>5</IndexInAtlasTextureArray>
         </AlbedoTexture>
         <AlbedoTint>
           <B>255</B>
@@ -150,9 +150,9 @@
             <int>3</int>
             <int>3</int>
           </CountsOfElements>
-          <VerticesCount>63264</VerticesCount>
-          <Name>Teapot.obj_0</Name>
-          <PathInLibraryFolder>Library/Meshes/Teapot.obj_0.tofumesh</PathInLibraryFolder>
+          <VerticesCount>36</VerticesCount>
+          <Name>defaultCube.obj_0</Name>
+          <PathInLibraryFolder>Library/Meshes/defaultCube.obj_0.tofumesh</PathInLibraryFolder>
         </Mesh>
       </RuntimeMesh>
       <Color>

@@ -221,7 +221,6 @@ public static class Tofu
 
         Editor.Draw();
 
-        TofuGL.CheckGlError("Tofu 1");
         ImGuiController.Render();
 
         Debug.EndGraphTimer("ImGui");

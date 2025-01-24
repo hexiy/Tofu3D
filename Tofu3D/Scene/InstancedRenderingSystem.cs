@@ -127,7 +127,7 @@ public class InstancedRenderingSystem
                 // shader = Tofu.ShaderManager.LoadShader(shader.Path);
                 Tofu.ShaderManager.UseShader(shader);
 
-                SetGlobalUniforms(_groupDefinitions[shaderGroup.Value.GroupDefinitionIndexes[0]].Material, shader);
+                SetGlobalUniforms(_groupDefinitions[shaderGroup.Value.GroupDefinitionIndexes[0]].Material);
             }
 
             foreach (var definitionIndexInThisShaderGroup in shaderGroup.Value.GroupDefinitionIndexes)
@@ -168,7 +168,9 @@ public class InstancedRenderingSystem
         {
             _sharedInstancedBuffers.Remove(definitionIndex);
             // _groupDefinitions[definitionIndex] = null;
-            _groupDefinitions.RemoveAt(definitionIndex);
+
+            _groupDefinitions.Remove(sharedInstancingBuffer.InstancedGroupDefinition);
+            // _groupDefinitions.RemoveAt(definitionIndex);
 
 
             /////////////////// remove SHADER GROUP
@@ -199,7 +201,6 @@ public class InstancedRenderingSystem
 
 
         sharedInstancingBuffer.SetupInstancedBufferAndUploadIfNeeded();
-
 
         InstancedGroupDefinition definition = _groupDefinitions[definitionIndex];
         Asset_Material material = definition.Material;
@@ -337,25 +338,29 @@ public class InstancedRenderingSystem
         }
     }
 
-    private void SetGlobalUniforms(Asset_Material material, Shader shader)
+    private void SetGlobalUniforms(Asset_Material material)
     {
-        TofuGL.CheckGlError("instanced rendering system 1");
-        // uplad all the texture atlases only once per shader
-        GL.ActiveTexture(TextureUnit.Texture0); // Activate texture unit 0
-        GL.BindTexture(TextureTarget.Texture2DArray, Tofu.TextureAtlasManager.GLTextureArrayId);
-        TofuGL.CheckGlError("instanced rendering system 2");
+        Shader shader = material.Shader;
+        if (shader.AtlasUniformIsSet == false)
+        {
+            // uplad all the texture atlases only once per shader
+            if (shader.AtlasArrayTextureUnit != null)
+            {
+                GL.ActiveTexture(shader.AtlasArrayTextureUnit.Value); // Activate texture unit 0
 
-// Link the texture to the uniform in the shader
-        int textureLocation = GL.GetUniformLocation(shader.ProgramId, "textureArray");
-        GL.Uniform1(textureLocation, 0); // Texture array is bound to texture unit 0
+                GL.BindTexture(TextureTarget.Texture2DArray, Tofu.TextureAtlasManager.GLTextureArrayId);
 
-        TofuGL.CheckGlError("instanced rendering system 3");
+                shader.AtlasUniformIsSet = true;
+            }
+        }
+
 
         bool discardTransparentPixels =
             material.BlendMode is BlendMode.Fade or BlendMode.PremultipliedAlpha or BlendMode.Additive;
+
         shader.SetInt("u_discardTransparentPixels", discardTransparentPixels ? 1 : 0);
 
-        Tofu3D.Tofu.LightRenderingManager.BindPointLightsUBO(shader.ProgramId);
+        Tofu.LightRenderingManager.BindPointLightsUBO(shader.ProgramId);
         shader.SetInt("_pointLightsCount", Tofu.LightRenderingManager.PointLightsCount);
 
         shader.SetFloat("u_cameraFrustumLength",
@@ -433,8 +438,6 @@ public class InstancedRenderingSystem
         material.Shader.SetFloat("u_refractiveIndex", material.RefractiveIndex);
 
 
-        // Albedo Texture
-        material.Shader.SetInt("u_hasAlbedoTexture", material.AlbedoTexture != null ? 1 : 0);
         if (material.Shader.IsLoaded == false)
         {
             return;
@@ -442,37 +445,39 @@ public class InstancedRenderingSystem
 
         if (false)
         {
-            if (material.AlbedoTexture != null && material.Shader?.AlbedoTextureIndexUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit.Value);
-                TextureHelper.BindTexture(material.AlbedoTexture.AtlasGLTextureArrayId);
-            }
+            // Albedo Texture
+            material.Shader.SetInt("u_hasAlbedoTexture", material.AlbedoTexture != null ? 1 : 0);
+            // if (material.AlbedoTexture != null && material.Shader?.AlbedoTextureIndexUnit != null)
+            // {
+            //     GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit.Value);
+            //     TextureHelper.BindTexture(material.AlbedoTexture.AtlasGLTextureArrayId);
+            // }
 
 
             // Alpha mask Texture
             material.Shader.SetInt("u_hasAlphaMaskTexture", material.AlphaMaskTexture != null ? 1 : 0);
-            if (material.AlphaMaskTexture != null && material.Shader?.AlphaMaskTextureIndexUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.AlphaMaskTextureIndexUnit.Value);
-                TextureHelper.BindTexture(material.AlphaMaskTexture.AtlasGLTextureArrayId);
-            }
+            // if (material.AlphaMaskTexture != null && material.Shader?.AlphaMaskTextureIndexUnit != null)
+            // {
+            //     GL.ActiveTexture(material.Shader.AlphaMaskTextureIndexUnit.Value);
+            //     TextureHelper.BindTexture(material.AlphaMaskTexture.AtlasGLTextureArrayId);
+            // }
 
 
             // Normal Texture
             material.Shader.SetInt("u_hasNormalTexture", material.NormalTexture != null ? 1 : 0);
-            if (material.NormalTexture != null && material.Shader?.NormalTextureIndexUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.NormalTextureIndexUnit.Value);
-                TextureHelper.BindTexture(material.NormalTexture.AtlasGLTextureArrayId);
-            }
+            // if (material.NormalTexture != null && material.Shader?.NormalTextureIndexUnit != null)
+            // {
+            //     GL.ActiveTexture(material.Shader.NormalTextureIndexUnit.Value);
+            //     TextureHelper.BindTexture(material.NormalTexture.AtlasGLTextureArrayId);
+            // }
 
             // Ambient Occlusion Texture
-            material.Shader.SetInt("u_hasAmbientOcclusionTexture", material.AmbientOcclusionTexture != null ? 1 : 0);
-            if (material.AmbientOcclusionTexture != null && material.Shader?.AmbientOcclusionTextureUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit.Value);
-                TextureHelper.BindTexture(material.AmbientOcclusionTexture.AtlasGLTextureArrayId);
-            }
+            // material.Shader.SetInt("u_hasAmbientOcclusionTexture", material.AmbientOcclusionTexture != null ? 1 : 0);
+            // if (material.AmbientOcclusionTexture != null && material.Shader?.AmbientOcclusionTextureUnit != null)
+            // {
+            //     GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit.Value);
+            //     TextureHelper.BindTexture(material.AmbientOcclusionTexture.AtlasGLTextureArrayId);
+            // }
 
             material.Shader.SetInt("u_hasShadowmapTexture",
                 RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
@@ -500,12 +505,12 @@ public class InstancedRenderingSystem
 
             // Roughness Texture
             material.Shader.SetInt("u_hasRoughnessTexture", material.RoughnessTexture != null ? 1 : 0);
-
-            if (material.RoughnessTexture != null && material.Shader.RoughnessTextureUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.RoughnessTextureUnit.Value);
-                TextureHelper.BindTexture(material.RoughnessTexture.AtlasGLTextureArrayId);
-            }
+            
+            // if (material.RoughnessTexture != null && material.Shader.RoughnessTextureUnit != null)
+            // {
+            //     GL.ActiveTexture(material.Shader.RoughnessTextureUnit.Value);
+            //     TextureHelper.BindTexture(material.RoughnessTexture.AtlasGLTextureArrayId);
+            // }
 
             material.Shader.SetFloat("u_metallic", material.MetallicTextureStrength);
             material.Shader.SetFloat("u_smoothness", material.Smoothness);
@@ -513,27 +518,30 @@ public class InstancedRenderingSystem
             // Metallic Texture
             material.Shader.SetInt("u_hasMetallicTexture", material.MetallicTexture != null ? 1 : 0);
 
-            if (material.MetallicTexture != null && material.Shader.MetallicTextureUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.MetallicTextureUnit.Value);
-                TextureHelper.BindTexture(material.MetallicTexture.AtlasGLTextureArrayId);
-            }
+            // if (material.MetallicTexture != null && material.Shader.MetallicTextureUnit != null)
+            // {
+            //     GL.ActiveTexture(material.Shader.MetallicTextureUnit.Value);
+            //     TextureHelper.BindTexture(material.MetallicTexture.AtlasGLTextureArrayId);
+            // }
 
             material.Shader.SetVector4("u_emissiveColor", material.EmissiveColor);
-            if (material.EmissiveTexture != null && material.Shader.EmissiveTextureUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.EmissiveTextureUnit.Value);
-                TextureHelper.BindTexture(material.EmissiveTexture.AtlasGLTextureArrayId);
-            }
+            // if (material.EmissiveTexture != null && material.Shader.EmissiveTextureUnit != null)
+            // {
+            //     GL.ActiveTexture(material.Shader.EmissiveTextureUnit.Value);
+            //     TextureHelper.BindTexture(material.EmissiveTexture.AtlasGLTextureArrayId);
+            // }
         }
     }
 
     private void GL_DrawArraysInstanced(PrimitiveType primitiveType, int first, int verticesCount, int instancesCount)
     {
         GL.DrawArraysInstanced(primitiveType, first, verticesCount, instancesCount);
-        DebugHelper.LogDrawCall();
-        Debug.StatAddValue("Instanced objects drawn(arrays):", instancesCount);
-        DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount * instancesCount);
+        if (false)
+        {
+            DebugHelper.LogDrawCall();
+            Debug.StatAddValue("Instanced objects drawn(arrays):", instancesCount);
+            DebugHelper.LogVerticesDrawCall(verticesCount: verticesCount * instancesCount);
+        }
     }
 
     private void GL_DrawElementsInstanced(PrimitiveType primitiveType, int indicesCount, int instancesCount)
@@ -545,7 +553,7 @@ public class InstancedRenderingSystem
     }
 
     public bool UpdateObjectData(Renderer renderer, ref ObjectInstancingData objectInstancingData,
-        VertexBufferStructureType vertexBufferStructureType,
+        // VertexBufferStructureType vertexBufferStructureType,
         Matrix4x4? modelMatrix = null, bool isStatic = false, bool remove = false, Color? color = null,
         Vector2? uvOffset = null, int indexForMultipleObjectsPerRenderer = 0)
     {
@@ -561,10 +569,12 @@ public class InstancedRenderingSystem
         {
             // no buffer exists for this combination-create one
             InstancedGroupDefinition definition = new(
-                GameObjectNameForTestingIdentification: renderer.GameObject.Name, RuntimeMesh: mesh,
+                // GameObjectNameForTestingIdentification: renderer.GameObject.Name,
+                RuntimeMesh: mesh,
                 Material: material,
-                IsStatic: isStatic,
-                vertexBufferStructureType: vertexBufferStructureType);
+                IsStatic: isStatic
+                // vertexBufferStructureType: vertexBufferStructureType
+            );
             // index: indexForMultipleObjectsPerRenderer);
 
             var definitionIndex = _groupDefinitions.Contains(definition)
@@ -697,7 +707,8 @@ public class InstancedRenderingSystem
 
         SharedInstancingBuffer sharedInstancingBuffer = new()
         {
-            VertexBufferStructureType = instancedGroupDefinition.vertexBufferStructureType,
+            InstancedGroupDefinition = instancedGroupDefinition,
+            // VertexBufferStructureType = instancedGroupDefinition.vertexBufferStructureType,
             MaxNumberOfObjects = 1,
             // FutureMaxNumberOfObjects = 1,
             Vbo = -1,
@@ -710,7 +721,7 @@ public class InstancedRenderingSystem
         sharedInstancingBuffer.Init();
 
         sharedInstancingBuffer.InstancingBuffer = new float[sharedInstancingBuffer.MaxNumberOfObjects *
-                                        sharedInstancingBuffer.InstancedVertexCountOfFloats];
+                                                            sharedInstancingBuffer.InstancedVertexCountOfFloats];
 
         sharedInstancingBuffer.SetupInstancedBufferAndUploadIfNeeded();
 

@@ -145,7 +145,9 @@ public class Component : IDestroyable, ICloneable
     }
 
     public T GetComponent<T>(int? index = null) where T : Component => GameObject.GetComponent<T>(index);
-    public T GetComponent<T>(out T component,int? index = null) where T : Component => GameObject.GetComponent<T>(out component,index);
+
+    public T GetComponent<T>(out T component, int? index = null) where T : Component =>
+        GameObject.GetComponent<T>(out component, index);
 
     public TComponent AddComponent<TComponent>() where TComponent : Component, new()
     {
@@ -171,7 +173,10 @@ public class Component : IDestroyable, ICloneable
     public virtual void Start()
     {
         Started = true;
-        OnEnabled();
+        if (GameObject.ActiveInHierarchy)
+        {
+            OnEnabled();
+        }
     }
 
     /// <summary>
@@ -180,6 +185,7 @@ public class Component : IDestroyable, ICloneable
     public virtual void OnEnabled()
     {
         Scene.ComponentEnabled(this);
+        Enabled = true;
     }
 
     /// <summary>
@@ -188,6 +194,7 @@ public class Component : IDestroyable, ICloneable
     public virtual void OnDisabled()
     {
         Scene.ComponentDisabled(this);
+        Enabled = false;
     }
 
     public virtual void EditorUpdate()
@@ -242,7 +249,7 @@ public class Component : IDestroyable, ICloneable
         {
             return false;
         }
-    
+
         return true;
     }
 

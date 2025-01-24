@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using ImGuiNET;
+﻿using ImGuiNET;
 
 namespace Tofu3D;
 
@@ -262,7 +261,8 @@ public class EditorPanelConsole : EditorPanel
                 clicked = clicked || ImGui.IsItemClicked();
                 if (clicked)
                 {
-                    RiderIDE.OpenStackTrace(log.StackTrace.Frames[i]);
+                    // RiderIDE.OpenStackTrace(log.StackTrace.Frames[i]);
+                    UserCodeEditorOpener.OpenFileFromStackFrame(log.StackTrace.Frames[i]);
                 }
             }
             // ImGui.TextWrapped(log.StackTrace);

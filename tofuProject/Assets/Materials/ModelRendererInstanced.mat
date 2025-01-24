@@ -1,23 +1,24 @@
-»{
+É{
   "Shader": {
     "BufferType": 2,
-    "Path": "Assets/Shaders/ModelRendererInstanced.glsl"
+    "Path": "Assets/Shaders/ModelRendererInstanced.glsl",
+    "AtlasSet": true
   },
   "Additive": false,
   "AlbedoTexture": {
     "BoundingBoxInAtlas": {
-      "X": 0.62561095,
-      "Y": 0.82111436,
-      "Z": 0.72262955,
-      "W": 0.91813296
+      "X": 0.0,
+      "Y": 0.50048876,
+      "Z": 0.36656892,
+      "W": 0.8670577
     },
-    "IndexInAtlasTextureArray": 0,
+    "IndexInAtlasTextureArray": 5,
     "IsRuntimeCopy": false,
     "DataIsCompressed": false,
     "AtlasGLTextureArrayId": 1,
-    "PathInAssetsFolder": "Assets/2D/stone.png",
-    "PathInLibraryFolder": "Library/Textures/stone.png.tofutexture",
-    "AnyPath": "Assets/2D/stone.png"
+    "PathInAssetsFolder": "Assets/2D/grass.jpg",
+    "PathInLibraryFolder": "Library/Textures/grass.jpg.tofutexture",
+    "AnyPath": "Assets/2D/grass.jpg"
   },
   "AlphaMaskTexture": null,
   "AlbedoTint": {
@@ -63,20 +64,19 @@
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}delRendererInstanced.mat"
-},
+}se,
+  "RenderMode": 0,
+  "BlendMode": 0,
+  "MaterialType": 0,
+  "IgnoreDepth": false,
+  "NoDepth": false,
+  "IsRuntimeCopy": false,
   "DataIsCompressed": false,
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}0.0,
-    "Y": 0.0
-  },
-  "UVOffsetIsInstanced": false,
-  "RenderMode": 0,
-  "BlendMode": 0,
-  "IsRuntimeCopy": false,
-  "DataIsCompressed": false,
+}d.mat"
+}IsCompressed": false,
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
