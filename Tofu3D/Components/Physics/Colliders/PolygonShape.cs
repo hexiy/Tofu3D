@@ -2,10 +2,13 @@ namespace Scripts;
 
 public class PolygonShape : Shape
 {
+    public override ShapeType ShapeType => ShapeType.Polygon;
+
     private float _lastRotation;
     public int HighlightEdgeIndex = 0;
 
-    [XmlIgnore] public Action OnPointsEdit; // = Engine.ColliderEditor.GetInstance().ToggleEditing;
+    [XmlIgnore]
+    public Action OnPointsEdit; // = Engine.ColliderEditor.GetInstance().ToggleEditing;
 
     public Vector2 Position = new(0, 0);
 

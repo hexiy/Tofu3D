@@ -1,8 +1,8 @@
-É{
+Ó{
   "Shader": {
     "BufferType": 2,
     "Path": "Assets/Shaders/ModelRendererInstanced.glsl",
-    "AtlasSet": true
+    "AtlasUniformIsSet": false
   },
   "Additive": false,
   "AlbedoTexture": {
@@ -64,8 +64,7 @@
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}se,
-  "RenderMode": 0,
+}derMode": 0,
   "BlendMode": 0,
   "MaterialType": 0,
   "IgnoreDepth": false,

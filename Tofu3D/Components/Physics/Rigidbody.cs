@@ -2,14 +2,17 @@
 
 namespace Scripts;
 
+[ExecuteInEditMode]
 public class Rigidbody : Component
 {
-    [Hide] public new bool AllowMultiple = false;
+    [Hide]
+    public new bool AllowMultiple = false;
 
     public float AngularDrag = 1f;
     public Vector2 BodyPos;
 
-    [XmlIgnore] public List<Rigidbody> TouchingRigidbodies = new();
+    [XmlIgnore]
+    public List<Rigidbody> TouchingRigidbodies = new();
 
     [XmlIgnore]
     // //[LinkableComponent]
@@ -28,13 +31,18 @@ public class Rigidbody : Component
 
         if (boxShape != null)
         {
-            BoxShape shape = new();
-
-            lock (PhysicsController.World)
-            {
-                PhysicsController.World.AddBody(this);
-            }
+            Tofu.PhysicsController.AddRigidbody(this);
         }
+    }
+
+    public override void OnNewComponentAdded(Component comp)
+    {
+        if (comp is BoxShape)
+        {
+            CreateBody();
+        }
+
+        base.OnNewComponentAdded(comp);
     }
 
     public override void FixedUpdate()
@@ -63,7 +71,7 @@ public class Rigidbody : Component
 
     public override void
         OnCollisionEnter(
-            Rigidbody rigidbody) // TODO-TRANSLATE CURRENT VELOCITY TO COLLIDED RIGIDBODY, ADD FORCE (MassRatio2/MassRatio1)
+            Rigidbody rigidbody)
     {
         TouchingRigidbodies.Add(rigidbody);
 

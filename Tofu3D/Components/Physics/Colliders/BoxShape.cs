@@ -8,4 +8,5 @@ public class BoxShape : Shape
     public Vector3 GetMinPos() => Transform.WorldPosition;
 
     public Vector3 GetMaxPos() => Transform.WorldPosition + Size;
+    public override ShapeType ShapeType => ShapeType.Box;
 }

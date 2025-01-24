@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[1.87.3, )"
             },
+            "Jitter2": {
+              "target": "Package",
+              "version": "[2.5.3, )"
+            },
             "LibNoise": {
               "target": "Package",
               "version": "[0.2.0, )"

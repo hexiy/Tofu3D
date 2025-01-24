@@ -5,6 +5,7 @@
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Text;
+using Jitter2.LinearMath;
 
 namespace Tofu3D;
 
@@ -1396,6 +1397,18 @@ public struct Vector3 : IEquatable<Vector3>
     #endregion
 
     #region Operators
+
+    /// <summary>
+    ///     Converts a <see cref="Jitter2.LinearMath.JVector" /> to a <see cref="Vector3" />.
+    /// </summary>
+    /// <param name="value">The converted value.</param>
+    public static implicit operator Vector3(JVector value) => new(value.X, value.Y, value.Z);
+
+    /// <summary>
+    ///     Converts a <see cref="Vector3" /> to a <see cref="Jitter2.LinearMath.JVector" />.
+    /// </summary>
+    /// <param name="value">The converted value.</param>
+    public static implicit operator JVector(Vector3 value) => new(value.X, value.Y, value.Z);
 
     /// <summary>
     ///     Converts a <see cref="System.Numerics.Vector3" /> to a <see cref="Vector3" />.

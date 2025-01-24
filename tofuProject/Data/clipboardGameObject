@@ -10,7 +10,7 @@
       <IsStaticSelf>true</IsStaticSelf>
       <Name>defaultCube</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -25,20 +25,20 @@
       <Enabled>true</Enabled>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>7</ParentId>
+      <ParentId>-1</ParentId>
       <Pivot>
         <X>0.5</X>
         <Y>0.5</Y>
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0.9115762</X>
-        <Y>0.57735026</Y>
+        <X>0</X>
+        <Y>-125.581764</Y>
         <Z>10</Z>
       </WorldPosition>
       <LocalPosition>
         <X>0</X>
-        <Y>0</Y>
+        <Y>-125.581764</Y>
         <Z>10</Z>
       </LocalPosition>
       <LocalScale>
@@ -68,9 +68,9 @@
         <Z>0</Z>
       </Offset>
       <Size>
-        <X>3</X>
-        <Y>3</Y>
-        <Z>3</Z>
+        <X>20</X>
+        <Y>1</Y>
+        <Z>20</Z>
       </Size>
     </Component>
     <Component xsi:type="ModelRendererInstanced">
@@ -89,6 +89,7 @@
         <Shader>
           <BufferType>Model</BufferType>
           <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+          <AtlasUniformIsSet>false</AtlasUniformIsSet>
         </Shader>
         <Additive>false</Additive>
         <AlbedoTexture>
@@ -164,6 +165,17 @@
       </Color>
       <Layer>0</Layer>
       <RenderOrder>4</RenderOrder>
+    </Component>
+    <Component xsi:type="Rigidbody">
+      <AllowMultiple>false</AllowMultiple>
+      <GameObjectId>6</GameObjectId>
+      <Started>true</Started>
+      <Enabled>true</Enabled>
+      <AngularDrag>1</AngularDrag>
+      <BodyPos>
+        <X>0</X>
+        <Y>0</Y>
+      </BodyPos>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

@@ -1,6 +1,8 @@
 ﻿namespace Scripts;
 
 [ExecuteInEditMode]
-public class Shape : Component
+public abstract class Shape : Component
 {
+    [Hide]
+    public abstract ShapeType ShapeType { get; }
 }

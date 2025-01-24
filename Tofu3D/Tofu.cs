@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.IO;
 using Microsoft.Build.Locator;
 using OpenTK.Windowing.Common;
+using Tofu3D.Physics;
 using Tofu3D.Rendering;
 using Tofu3D.Rendering.Instancing;
 using Tofu3D.Scripting;
@@ -44,6 +45,7 @@ public static class Tofu
 
     // MISC
     public static TweenManager TweenManager;
+    public static PhysicsController PhysicsController;
 
     // INPUT
     public static MouseInput MouseInput;
@@ -74,6 +76,9 @@ public static class Tofu
         ShaderManager = new ShaderManager();
         TweenManager = new TweenManager();
         MouseInput = new MouseInput();
+
+        PhysicsController = new PhysicsController();
+
 
         RenderSettings.LoadSavedData();
         AssetsWatcher.StartWatching();
@@ -108,6 +113,7 @@ public static class Tofu
     {
         BasicMeshesCollection = new BasicMeshesCollection();
 
+        PhysicsController.Init();
         AssetImportManager.ImportAllAssets();
         TextureAtlasManager.SetupTextureAtlases();
 

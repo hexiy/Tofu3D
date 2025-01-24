@@ -2,6 +2,8 @@
 
 public class LineShape : Shape
 {
+    public override ShapeType ShapeType => ShapeType.Line;
+
     //[ShowInEditor]
     //[System.ComponentModel.Editor(typeof(Editor.MethodEditor), typeof(System.Drawing.Design.UITypeEditor))]
     //public bool EditPoints { get; set; } = false;

@@ -51,6 +51,19 @@
           }
         }
       },
+      "Jitter2/2.5.3": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Jitter2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Jitter2.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "LibNoise/0.2.0": {
         "type": "package",
         "compile": {
@@ -1896,6 +1909,25 @@
         "runtimes/osx-universal/native/libcimgui.dylib",
         "runtimes/win-x64/native/cimgui.dll",
         "runtimes/win-x86/native/cimgui.dll"
+      ]
+    },
+    "Jitter2/2.5.3": {
+      "sha512": "PQUPXWLpUURZLRwvrfVF6CwTplEezd+cWdcHqJlO3R75uY8ms7DZ3xjVtp7KjT3/03Av/QEb4+0Qdx66MXslww==",
+      "type": "package",
+      "path": "jitter2/2.5.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "jitter2.2.5.3.nupkg.sha512",
+        "jitter2.nuspec",
+        "lib/net7.0/Jitter2.dll",
+        "lib/net7.0/Jitter2.xml",
+        "lib/net8.0/Jitter2.dll",
+        "lib/net8.0/Jitter2.xml",
+        "lib/net9.0/Jitter2.dll",
+        "lib/net9.0/Jitter2.xml",
+        "readme.md"
       ]
     },
     "LibNoise/0.2.0": {
@@ -6315,6 +6347,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "ImGui.NET >= 1.87.3",
+      "Jitter2 >= 2.5.3",
       "LibNoise >= 0.2.0",
       "Microsoft.Build >= 17.12.6",
       "Microsoft.Build.Locator >= 1.7.8",
@@ -6379,6 +6412,10 @@
           "ImGui.NET": {
             "target": "Package",
             "version": "[1.87.3, )"
+          },
+          "Jitter2": {
+            "target": "Package",
+            "version": "[2.5.3, )"
           },
           "LibNoise": {
             "target": "Package",
