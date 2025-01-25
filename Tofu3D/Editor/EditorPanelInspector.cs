@@ -349,11 +349,11 @@ public class EditorPanelInspector : EditorPanel
                 PushNextId();
                 if (component.CanBeDisabled)
                 {
-                    var componentEnabled = component.Enabled;
+                    var componentEnabled = component.EnabledSelf;
                     var toggledComponent = ImGui.Checkbox("", ref componentEnabled);
                     if (toggledComponent)
                     {
-                        component.Enabled = componentEnabled;
+                        component.EnabledSelf = componentEnabled;
                     }
 
                     ImGui.SameLine();

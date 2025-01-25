@@ -5,4 +5,6 @@ public abstract class Shape : Component
 {
     [Hide]
     public abstract ShapeType ShapeType { get; }
+
+    public bool PhysicsEnabled = true;
 }

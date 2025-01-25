@@ -2,6 +2,7 @@ namespace Scripts;
 
 public class PolygonShape : Shape
 {
+    [Hide]
     public override ShapeType ShapeType => ShapeType.Polygon;
 
     private float _lastRotation;

@@ -360,7 +360,7 @@ public class Scene
             var bl = gameObject.GetComponent<T>();
             if (bl != null)
             {
-                if (ignoreInactive && (bl.Enabled == false || bl.GameObject.ActiveSelf == false))
+                if (ignoreInactive && (bl.EnabledSelf == false || bl.GameObject.ActiveSelf == false))
                 {
                     continue;
                 }

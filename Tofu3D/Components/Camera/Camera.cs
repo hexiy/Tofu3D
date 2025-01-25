@@ -118,7 +118,7 @@ public class Camera : Component, IComponentUpdateable
         FieldOfView = Mathf.ClampMin(FieldOfView, 0.0001f);
         NearPlaneDistance = Mathf.Clamp(NearPlaneDistance, 0.00001f, FarPlaneDistance);
         FarPlaneDistance = Mathf.Clamp(FarPlaneDistance, NearPlaneDistance + 0.001f, Mathf.Infinity);
-        var perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(FieldOfView),
+        var perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(OpenTK.Mathematics.MathHelper.DegreesToRadians(FieldOfView),
             Size.X / Size.Y, NearPlaneDistance, FarPlaneDistance);
 
         // .CreatePerspective gives us great depth, but fieldofview doesnt?....

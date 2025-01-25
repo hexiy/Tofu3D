@@ -21,7 +21,8 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
     public override void Awake()
     {
         // _material = Tofu.AssetLoadManager.Load<Asset_Material>("/Assets/Materials/Skybox.mat");
-        _material = new Asset_Material() { Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets, "Skybox.glsl")) };
+        _material = new Asset_Material()
+            { Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets, "Skybox.glsl")) };
         _material.LoadShader();
         _texture = new RuntimeCubemapTexture();
         string[] texturePaths =
@@ -43,7 +44,7 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
 
     public void RenderSkybox()
     {
-        if (Enabled == false || GameObject.ActiveInHierarchy == false)
+        if (EnabledSelf == false || GameObject.ActiveInHierarchy == false)
         {
             return;
         }
@@ -56,7 +57,8 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
                          Matrix4x4.CreateScale(-1, 1, 1);
 
         Fov = Mathf.Clamp(Fov, 0.000001f, 179);
-        var projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(Fov),
+        var projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(
+            OpenTK.Mathematics.MathHelper.DegreesToRadians(Fov),
             Camera.MainCamera.Size.X / Camera.MainCamera.Size.Y, 0.01f, 1);
 
 

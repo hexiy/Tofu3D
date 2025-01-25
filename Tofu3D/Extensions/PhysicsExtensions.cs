@@ -8,7 +8,7 @@ public static class PhysicsExtensions
         float distance = 0;
         switch (shape)
         {
-            case CircleShape circleCollider:
+            case SphereShape circleCollider:
                 if ((distance = Vector2.Distance(circleCollider.Transform.WorldPosition.ToVector2(), point)) <
                     circleCollider.Radius)
                 {

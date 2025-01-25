@@ -2,6 +2,7 @@
 
 public class LineShape : Shape
 {
+    [Hide]
     public override ShapeType ShapeType => ShapeType.Line;
 
     //[ShowInEditor]

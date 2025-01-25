@@ -67,10 +67,10 @@
       <Id>6</Id>
       <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>true</IsStaticSelf>
+      <IsStaticSelf>false</IsStaticSelf>
       <Name>defaultCube</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -85,7 +85,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>defaultCube</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -97,7 +97,7 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>1</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
@@ -107,14 +107,14 @@
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>52.566765</X>
-        <Y>35.20761</Y>
-        <Z>-7.64541</Z>
+        <X>47.170033</X>
+        <Y>30.348707</Y>
+        <Z>-6.713213</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>52.566765</X>
-        <Y>35.20761</Y>
-        <Z>-7.64541</Z>
+        <X>47.170033</X>
+        <Y>30.348707</Y>
+        <Z>-6.713213</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -127,8 +127,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>41.2367</X>
-        <Y>-64.27114</Y>
+        <X>42.96169</X>
+        <Y>-90.70553</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -136,7 +136,7 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>1</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
       <Color>
         <B>34</B>
         <G>34</G>
@@ -144,7 +144,7 @@
         <A>255</A>
         <PackedValue>4280427042</PackedValue>
       </Color>
-      <FarPlaneDistance>100</FarPlaneDistance>
+      <FarPlaneDistance>1000</FarPlaneDistance>
       <FieldOfView>60</FieldOfView>
       <IsOrthographic>false</IsOrthographic>
       <NearPlaneDistance>0.01</NearPlaneDistance>
@@ -158,14 +158,14 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>1</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
       <Fov>60</Fov>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>3</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
@@ -204,7 +204,7 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>3</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
       <Color>
         <B>105</B>
         <G>219</G>
@@ -218,7 +218,7 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>4</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
@@ -257,7 +257,7 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>4</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
       <Color>
         <B>105</B>
         <G>219</G>
@@ -282,7 +282,7 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>5</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
@@ -321,7 +321,7 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>5</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
       <Color>
         <B>255</B>
         <G>255</G>
@@ -336,7 +336,7 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>6</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
@@ -346,13 +346,13 @@
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
-        <Y>-15.56</Y>
+        <X>1.3422631E-07</X>
+        <Y>-43.29097</Y>
         <Z>10</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>-15.56</Y>
+        <X>1.3422631E-07</X>
+        <Y>-43.29097</Y>
         <Z>10</Z>
       </LocalPosition>
       <LocalScale>
@@ -375,7 +375,8 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>6</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
+      <PhysicsEnabled>true</PhysicsEnabled>
       <Offset>
         <X>0</X>
         <Y>0</Y>
@@ -391,8 +392,8 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>6</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
-      <MousePickingId>1</MousePickingId>
+      <EnabledSelf>true</EnabledSelf>
+      <MousePickingId>43</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
@@ -455,7 +456,7 @@
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>4</Vao>
+        <Vao>11</Vao>
         <Ebo>-1</Ebo>
         <Mesh>
           <CountsOfElements>
@@ -484,18 +485,31 @@
       <AllowMultiple>false</AllowMultiple>
       <GameObjectId>6</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
-      <AngularDrag>1</AngularDrag>
-      <BodyPos>
-        <X>0</X>
-        <Y>0</Y>
-      </BodyPos>
+      <EnabledSelf>true</EnabledSelf>
+      <IsStaticBody>true</IsStaticBody>
+      <FirstPhysicsEnabledShape xsi:type="BoxShape">
+        <AllowMultiple>true</AllowMultiple>
+        <GameObjectId>6</GameObjectId>
+        <Started>true</Started>
+        <EnabledSelf>true</EnabledSelf>
+        <PhysicsEnabled>true</PhysicsEnabled>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </Offset>
+        <Size>
+          <X>20</X>
+          <Y>1</Y>
+          <Z>20</Z>
+        </Size>
+      </FirstPhysicsEnabledShape>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>9</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
@@ -505,14 +519,14 @@
         <Z>0.5</Z>
       </Pivot>
       <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>10</Z>
+        <X>0.00034411327</X>
+        <Y>10</Y>
+        <Z>10.000098</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>10</Z>
+        <X>0.00034411327</X>
+        <Y>10</Y>
+        <Z>10.000098</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -525,8 +539,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>0</X>
-        <Y>0</Y>
+        <X>-47.1</X>
+        <Y>-24.7</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -534,7 +548,8 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>9</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
+      <EnabledSelf>true</EnabledSelf>
+      <PhysicsEnabled>true</PhysicsEnabled>
       <Offset>
         <X>0</X>
         <Y>0</Y>
@@ -550,8 +565,8 @@
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>9</GameObjectId>
       <Started>true</Started>
-      <Enabled>true</Enabled>
-      <MousePickingId>2</MousePickingId>
+      <EnabledSelf>true</EnabledSelf>
+      <MousePickingId>44</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
@@ -614,7 +629,7 @@
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>4</Vao>
+        <Vao>11</Vao>
         <Ebo>-1</Ebo>
         <Mesh>
           <CountsOfElements>
@@ -643,13 +658,17 @@
       <AllowMultiple>false</AllowMultiple>
       <GameObjectId>9</GameObjectId>
       <Started>true</Started>
-      <Enabled>false</Enabled>
-      <AngularDrag>1</AngularDrag>
-      <BodyPos>
-        <X>0</X>
-        <Y>0</Y>
-      </BodyPos>
+      <EnabledSelf>true</EnabledSelf>
+      <IsStaticBody>false</IsStaticBody>
+      <FirstPhysicsEnabledShape xsi:type="SphereShape">
+        <AllowMultiple>true</AllowMultiple>
+        <GameObjectId>9</GameObjectId>
+        <Started>true</Started>
+        <EnabledSelf>true</EnabledSelf>
+        <PhysicsEnabled>true</PhysicsEnabled>
+        <Radius>1</Radius>
+      </FirstPhysicsEnabledShape>
     </Component>
   </Components>
-  <GameObjectNextId>16</GameObjectNextId>
+  <GameObjectNextId>32</GameObjectNextId>
 </SceneFile>

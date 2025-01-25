@@ -1,4 +1,5 @@
-﻿using Tofu3D.Physics;
+﻿using System.Linq;
+using Tofu3D.Physics;
 
 namespace Scripts;
 
@@ -8,36 +9,59 @@ public class Rigidbody : Component
     [Hide]
     public new bool AllowMultiple = false;
 
-    public float AngularDrag = 1f;
-    public Vector2 BodyPos;
+    public bool IsStaticBody = true;
 
     [XmlIgnore]
     public List<Rigidbody> TouchingRigidbodies = new();
 
-    [XmlIgnore]
-    // //[LinkableComponent]
-    public Shape Shape => GetComponent<Shape>();
+    public Shape[] GetShapes()
+    {
+        return GetComponents<Shape>().ToArray();
+    }
+
+    private Shape _firstPhysicsEnabledShape;
+
+    public Shape FirstPhysicsEnabledShape
+    {
+        get
+        {
+            if (_firstPhysicsEnabledShape == null)
+            {
+                _firstPhysicsEnabledShape = GetShapes().First(shape => shape.PhysicsEnabled);
+            }
+
+            return _firstPhysicsEnabledShape;
+        }
+        set { _firstPhysicsEnabledShape = value; }
+    }
 
     public override void Awake()
     {
+        base.Awake();
+    }
+
+    public override void OnEnabled()
+    {
         CreateBody();
 
-        base.Awake();
+        base.OnEnabled();
+    }
+
+    public override void OnDisabled()
+    {
+        Tofu.PhysicsController.RemoveRigidbody(this);
+
+        base.OnDisabled();
     }
 
     public void CreateBody()
     {
-        var boxShape = GetComponent<BoxShape>();
-
-        if (boxShape != null)
-        {
-            Tofu.PhysicsController.AddRigidbody(this);
-        }
+        Tofu.PhysicsController.AddRigidbody(this);
     }
 
     public override void OnNewComponentAdded(Component comp)
     {
-        if (comp is BoxShape)
+        if (comp is Scripts.Shape shape)
         {
             CreateBody();
         }
@@ -49,18 +73,8 @@ public class Rigidbody : Component
     {
     }
 
-    // public void UpdateTransform()
-    // {
-    // 	if (body == null)
-    // 	{
-    // 		return;
-    // 	}
-    //
-    // 	transform.position = new Vector2(body.Position.X, body.Position.Y) * Physics.WORLD_SCALE;
-    // 	transform.Rotation = new Vector3(transform.Rotation.X, transform.Rotation.Y, body.Rotation * Mathf.TwoPi * 2);
-    // }
 
-    public override void OnDestroyed()
+    /*public override void OnDestroyed()
     {
         for (var i = 0; i < TouchingRigidbodies.Count; i++)
         {
@@ -129,5 +143,5 @@ public class Rigidbody : Component
                 GameObject.Components[i].OnTriggerExit(rigidbody);
             }
         }
-    }
+    }*/
 }

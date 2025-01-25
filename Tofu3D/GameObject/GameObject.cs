@@ -460,7 +460,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
         for (var i = 0; i < Components.Count; i++)
         {
-            if (Components[i].Enabled)
+            if (Components[i].EnabledSelf)
             {
                 // if (Global.GameRunning == false)
                 // {
@@ -873,7 +873,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     {
         for (var i = 0; i < Components.Count; i++)
         {
-            if (Components[i].Enabled && Components[i].Awoken)
+            if (Components[i].EnabledSelf && Components[i].Awoken)
             {
                 Components[i].FixedUpdate();
             }

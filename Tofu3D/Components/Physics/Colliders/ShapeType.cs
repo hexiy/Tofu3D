@@ -3,7 +3,7 @@ namespace Scripts;
 public enum ShapeType
 {
     Box,
-    Circle,
+    Sphere,
     Line,
     Polygon,
 }

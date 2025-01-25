@@ -59,7 +59,7 @@ public class SceneViewController
         Tweener.Tween(0, 1, 1.3f, progress =>
         {
             // Debug.Log("TWEENING:" + progress);
-            Camera.MainCamera.OrthographicSize = cameraOrthoSize + (float)MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
+            Camera.MainCamera.OrthographicSize = cameraOrthoSize + (float)OpenTK.Mathematics.MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
             Camera.MainCamera.Transform.LocalPosition = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
         });
     }

@@ -5,7 +5,7 @@ namespace Scripts;
 
 public class Component : IDestroyable, ICloneable
 {
-    private bool _enabled = true;
+    private bool _enabledSelfSelf = true;
 
     private readonly Dictionary<string, MethodInfo> _executeInEditModeMethods = new();
 
@@ -41,15 +41,15 @@ public class Component : IDestroyable, ICloneable
     [XmlIgnore]
     public bool CanExecuteUpdateInEditMode { get; }
 
-    public bool Enabled
+    public bool EnabledSelf
     {
-        get => _enabled;
+        get => _enabledSelfSelf;
         set => SetEnabled(value);
     }
 
     public virtual bool CanBeDisabled => true;
 
-    public bool IsActive => GameObject.ActiveInHierarchy && Enabled;
+    public bool IsActive => GameObject.ActiveInHierarchy && EnabledSelf;
 
     [XmlIgnore]
     public Transform Transform
@@ -129,11 +129,11 @@ public class Component : IDestroyable, ICloneable
             return;
         }
 
-        var changedState = Enabled != tgl;
-        _enabled = tgl;
+        var changedState = EnabledSelf != tgl;
+        _enabledSelfSelf = tgl;
         if (changedState)
         {
-            if (Enabled)
+            if (EnabledSelf)
             {
                 OnEnabled();
             }
@@ -185,7 +185,6 @@ public class Component : IDestroyable, ICloneable
     public virtual void OnEnabled()
     {
         Scene.ComponentEnabled(this);
-        Enabled = true;
     }
 
     /// <summary>
@@ -194,7 +193,6 @@ public class Component : IDestroyable, ICloneable
     public virtual void OnDisabled()
     {
         Scene.ComponentDisabled(this);
-        Enabled = false;
     }
 
     public virtual void EditorUpdate()

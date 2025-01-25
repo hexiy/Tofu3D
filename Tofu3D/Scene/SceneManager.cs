@@ -27,7 +27,7 @@ public class SceneManager
 
     public bool LoadScene(string path = null)
     {
-        Debug.ClearLogs();
+        // Debug.ClearLogs();
 
         Debug.StartTimer("LoadScene");
 
