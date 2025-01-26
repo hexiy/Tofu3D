@@ -17,7 +17,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Jitter2" Version="2.5.3" />
+        <PackageReference Include="BepuPhysics" Version="2.5.0-beta.24" />
+        <PackageReference Include="BepuUtilities" Version="2.5.0-beta.24" />
         <PackageReference Include="LibNoise" Version="0.2.0" />
         <PackageReference Include="Microsoft.Build" Version="17.12.6">
             <ExcludeAssets>runtime</ExcludeAssets>

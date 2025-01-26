@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "uwuVLjt7yrI=",
+  "dgSpecHash": "65LHo+zlEac=",
   "success": true,
   "projectFilePath": "/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj",
   "expectedPackageFiles": [
+    "/Users/hexiy/.nuget/packages/bepuphysics/2.5.0-beta.24/bepuphysics.2.5.0-beta.24.nupkg.sha512",
+    "/Users/hexiy/.nuget/packages/bepuutilities/2.5.0-beta.24/bepuutilities.2.5.0-beta.24.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/ffmpeg.autogen/4.4.1.1/ffmpeg.autogen.4.4.1.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/imgui.net/1.87.3/imgui.net.1.87.3.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/jitter2/2.5.3/jitter2.2.5.3.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/libnoise/0.2.0/libnoise.0.2.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.bcl.hashcode/1.1.1/microsoft.bcl.hashcode.1.1.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.build/17.12.6/microsoft.build.17.12.6.nupkg.sha512",

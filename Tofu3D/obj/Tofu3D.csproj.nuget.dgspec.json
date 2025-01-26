@@ -45,13 +45,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BepuPhysics": {
+              "target": "Package",
+              "version": "[2.5.0-beta.24, )"
+            },
+            "BepuUtilities": {
+              "target": "Package",
+              "version": "[2.5.0-beta.24, )"
+            },
             "ImGui.NET": {
               "target": "Package",
               "version": "[1.87.3, )"
-            },
-            "Jitter2": {
-              "target": "Package",
-              "version": "[2.5.3, )"
             },
             "LibNoise": {
               "target": "Package",

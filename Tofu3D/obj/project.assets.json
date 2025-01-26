@@ -2,6 +2,35 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "BepuPhysics/2.5.0-beta.24": {
+        "type": "package",
+        "dependencies": {
+          "BepuUtilities": "2.5.0-beta.24"
+        },
+        "compile": {
+          "lib/net8.0/BepuPhysics.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/BepuPhysics.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "BepuUtilities/2.5.0-beta.24": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/BepuUtilities.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/BepuUtilities.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "FFmpeg.AutoGen/4.4.1.1": {
         "type": "package",
         "compile": {
@@ -48,19 +77,6 @@
           "runtimes/win-x86/native/cimgui.dll": {
             "assetType": "native",
             "rid": "win-x86"
-          }
-        }
-      },
-      "Jitter2/2.5.3": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Jitter2.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Jitter2.dll": {
-            "related": ".xml"
           }
         }
       },
@@ -1869,6 +1885,34 @@
     }
   },
   "libraries": {
+    "BepuPhysics/2.5.0-beta.24": {
+      "sha512": "M0XGK3QkaSLy3qSleNpYnFblLkMezeflvWrXlOmSZPPulinRH+eF439BMR9i0hBDe5x5xMgj2dVXSC5YuRji7g==",
+      "type": "package",
+      "path": "bepuphysics/2.5.0-beta.24",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bepuphysics.2.5.0-beta.24.nupkg.sha512",
+        "bepuphysics.nuspec",
+        "bepuphysicslogo256.png",
+        "lib/net8.0/BepuPhysics.dll",
+        "lib/net8.0/BepuPhysics.xml"
+      ]
+    },
+    "BepuUtilities/2.5.0-beta.24": {
+      "sha512": "H6eI0Nmfka1NnFJvaggMJP2TsfGEUWcImgcGb2hMvVah4nFvmcdSsxaBk2qMWAAapkhm+ZH5L+nv2PNMKgkgow==",
+      "type": "package",
+      "path": "bepuutilities/2.5.0-beta.24",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bepuphysicslogo256.png",
+        "bepuutilities.2.5.0-beta.24.nupkg.sha512",
+        "bepuutilities.nuspec",
+        "lib/net8.0/BepuUtilities.dll",
+        "lib/net8.0/BepuUtilities.xml"
+      ]
+    },
     "FFmpeg.AutoGen/4.4.1.1": {
       "sha512": "UclXDnnMij9eNYUTrBO0y591ZTJLqjXNnNkNgahQa2ZUaAhn4gkDSfT9BszicCoyX1CZpDI5o8d8lkgmMlNU+Q==",
       "type": "package",
@@ -1909,25 +1953,6 @@
         "runtimes/osx-universal/native/libcimgui.dylib",
         "runtimes/win-x64/native/cimgui.dll",
         "runtimes/win-x86/native/cimgui.dll"
-      ]
-    },
-    "Jitter2/2.5.3": {
-      "sha512": "PQUPXWLpUURZLRwvrfVF6CwTplEezd+cWdcHqJlO3R75uY8ms7DZ3xjVtp7KjT3/03Av/QEb4+0Qdx66MXslww==",
-      "type": "package",
-      "path": "jitter2/2.5.3",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "icon.png",
-        "jitter2.2.5.3.nupkg.sha512",
-        "jitter2.nuspec",
-        "lib/net7.0/Jitter2.dll",
-        "lib/net7.0/Jitter2.xml",
-        "lib/net8.0/Jitter2.dll",
-        "lib/net8.0/Jitter2.xml",
-        "lib/net9.0/Jitter2.dll",
-        "lib/net9.0/Jitter2.xml",
-        "readme.md"
       ]
     },
     "LibNoise/0.2.0": {
@@ -6346,8 +6371,9 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "BepuPhysics >= 2.5.0-beta.24",
+      "BepuUtilities >= 2.5.0-beta.24",
       "ImGui.NET >= 1.87.3",
-      "Jitter2 >= 2.5.3",
       "LibNoise >= 0.2.0",
       "Microsoft.Build >= 17.12.6",
       "Microsoft.Build.Locator >= 1.7.8",
@@ -6409,13 +6435,17 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "BepuPhysics": {
+            "target": "Package",
+            "version": "[2.5.0-beta.24, )"
+          },
+          "BepuUtilities": {
+            "target": "Package",
+            "version": "[2.5.0-beta.24, )"
+          },
           "ImGui.NET": {
             "target": "Package",
             "version": "[1.87.3, )"
-          },
-          "Jitter2": {
-            "target": "Package",
-            "version": "[2.5.3, )"
           },
           "LibNoise": {
             "target": "Package",

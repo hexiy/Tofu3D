@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using BepuPhysics;
+using Newtonsoft.Json;
 using Tofu3D.Physics;
 
 namespace Scripts;
@@ -19,7 +21,17 @@ public class Rigidbody : Component
         return GetComponents<Shape>().ToArray();
     }
 
+    [XmlIgnore]
+    [JsonIgnore]
     private Shape _firstPhysicsEnabledShape;
+
+    [XmlIgnore]
+    [JsonIgnore]
+    public BodyHandle? BodyHandle = null;
+
+    [XmlIgnore]
+    [JsonIgnore]
+    public StaticHandle? StaticHandle = null;
 
     public Shape FirstPhysicsEnabledShape
     {
