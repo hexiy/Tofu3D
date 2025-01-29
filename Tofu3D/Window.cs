@@ -131,10 +131,10 @@ public class Window : GameWindow
 
     private void LoadIcon()
     {
-        var image = Image.Load<Rgba32>(TofuPath.Combine("Resources", "icon.png"));
-        image.DangerousTryGetSinglePixelMemory(out var imageSpan);
+        Image<Rgba32>? image = Image.Load<Rgba32>(TofuPath.Combine("Resources", "icon.png"));
+        image.DangerousTryGetSinglePixelMemory(out Memory<Rgba32> imageSpan);
 
-        var imageBytes = MemoryMarshal.AsBytes(imageSpan.Span).ToArray();
+        byte[] imageBytes = MemoryMarshal.AsBytes(imageSpan.Span).ToArray();
         WindowIcon windowIcon = new(new OpenTK.Windowing.Common.Input.Image(image.Width, image.Height, imageBytes));
 
         Icon = windowIcon;
@@ -142,13 +142,13 @@ public class Window : GameWindow
 
     protected override unsafe void OnLoad()
     {
-        GLFW.GetMonitorWorkarea((Monitor*)CurrentMonitor.Pointer, out var x, out var y, out var width, out var height);
+        GLFW.GetMonitorWorkarea((Monitor*)CurrentMonitor.Pointer, out int x, out int y, out int width, out int height);
         GLFW.GetMonitorContentScale((Monitor*)CurrentMonitor.Pointer, out _monitorScale, out _);
         Size = new Vector2i(width, height);
 
         Location = Vector2i.Zero;
 
-        var secondaryMonitor = true;
+        bool secondaryMonitor = true;
         if (secondaryMonitor && GLFW.GetMonitors().Length > 1)
         {
             Location = Vector2i.Zero + new Vector2i(0, -height);

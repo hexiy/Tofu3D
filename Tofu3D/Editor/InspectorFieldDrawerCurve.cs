@@ -11,14 +11,14 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
         Vector2 graphSize = new(300, 100);
 
         Vector2 pos = ImGui.GetCursorPos();
-        var screenPos = TofuImGui.GetCursorScreenPos();
+        Vector2 screenPos = TofuImGui.GetCursorScreenPos();
         // screenPos = screenPos * new Vector2(1, -1);
-        var mousePos = Tofu.MouseInput.PositionInWindow;
-        var mousePosRelativeToGraph =
+        Vector2 mousePos = Tofu.MouseInput.PositionInWindow;
+        Vector2 mousePosRelativeToGraph =
             (mousePos - screenPos) * Tofu.Window.MonitorScale + new Vector2(0, graphSize.Y);
-        var mousePosInGraphNormalizedCoordinates = mousePosRelativeToGraph / graphSize;
+        Vector2 mousePosInGraphNormalizedCoordinates = mousePosRelativeToGraph / graphSize;
 
-        var curve = GetValue(info, componentInspectorData);
+        Curve curve = GetValue(info, componentInspectorData);
 
         ImGui.PlotLines(string.Empty, ref curve._points[0], curve._points.Length, 0,
             string.Empty,
@@ -26,12 +26,12 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
             graphSize);
 
         ImGui.PushClipRect(ImGui.GetItemRectMin(), ImGui.GetItemRectMax(), false);
-        var cursorIsInsideGraph = ImGui.IsItemHovered();
-        var doubleClickedGraph = cursorIsInsideGraph && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
+        bool cursorIsInsideGraph = ImGui.IsItemHovered();
+        bool doubleClickedGraph = cursorIsInsideGraph && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
 
         Vector2 cursorPos = ImGui.GetCursorPos();
 
-        for (var i = 0; i < curve.DefiningPoints.Count; i++)
+        for (int i = 0; i < curve.DefiningPoints.Count; i++)
         {
             ImGui.SameLine();
 
@@ -41,17 +41,17 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
 
             AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture()
                 { LoadType = TextureLoadType.InAtlas};
-            var texture = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/dot.png", loadParametersTexture);
+            RuntimeTexture? texture = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/dot.png", loadParametersTexture);
 
-            var circleColor = Color.Purple;
+            Color circleColor = Color.Purple;
 
             ImGui.SetCursorPos(newPos - new Vector2(15));
             TofuImGui.ImageTexture2DArray(texture,
                 size: new Vector2(30, 30),
                 tint_col: circleColor.ToVector4());
 
-            var cursorHoversCurrentPoint = ImGui.IsItemHovered();
-            var currentPointIsClicked = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown();
+            bool cursorHoversCurrentPoint = ImGui.IsItemHovered();
+            bool currentPointIsClicked = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown();
             if (cursorHoversCurrentPoint)
             {
                 circleColor = Color.MidnightBlue;
@@ -75,7 +75,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
             }
             else if (draggingPointIndex == -1)
             {
-                var x = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown();
+                bool x = cursorHoversCurrentPoint && Tofu.MouseInput.IsButtonDown();
                 x = x || currentPointIsClicked;
                 if (x)
                 {
@@ -101,8 +101,8 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
             }
 
             // bool doubleClicked = ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left);
-            var removePoint = Tofu.MouseInput.IsButtonDown(MouseButtons.Left) &&
-                              KeyboardInput.IsKeyDown(Keys.LeftControl);
+            bool removePoint = Tofu.MouseInput.IsButtonDown(MouseButtons.Left) &&
+                               KeyboardInput.IsKeyDown(Keys.LeftControl);
             if (removePoint && cursorHoversCurrentPoint && curve.CanRemovePoint)
             {
                 // remoove the hovered point

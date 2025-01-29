@@ -11,34 +11,34 @@ public static class ProjectFileGenerator
             scriptFiles[i] = Path.GetRelativePath(projectDirectory, scriptFiles[i]);
         }
         // Console.WriteLine($"Registered MSBuild?: {MSBuildLocator.IsRegistered}");
-        var csProjPath = TofuPath.Combine(projectDirectory, $"{projectName}.csproj");
+        string csProjPath = TofuPath.Combine(projectDirectory, $"{projectName}.csproj");
 
         // Create a new .csproj structure
-        var project = ProjectRootElement.Create();
+        ProjectRootElement project = ProjectRootElement.Create();
 
         // Set the Sdk (e.g., Microsoft.NET.Sdk)
         project.Sdk = "Microsoft.NET.Sdk";
 
         // Add the PropertyGroup for project settings
-        var propertyGroup = project.AddPropertyGroup();
+        ProjectPropertyGroupElement propertyGroup = project.AddPropertyGroup();
         propertyGroup.AddProperty("OutputType", "Library");
         propertyGroup.AddProperty("TargetFramework", "net9.0");
         propertyGroup.AddProperty("Nullable", "enable");
 
         // Add the ItemGroup for script files
-        var itemGroup = project.AddItemGroup();
-        foreach (var scriptFile in scriptFiles)
+        ProjectItemGroupElement itemGroup = project.AddItemGroup();
+        foreach (string scriptFile in scriptFiles)
         {
             itemGroup.AddItem("Compile", scriptFile);
         }
 
         // Add the ItemGroup for references
-        var refItemGroup = project.AddItemGroup();
-        foreach (var reference in references)
+        ProjectItemGroupElement refItemGroup = project.AddItemGroup();
+        foreach (string reference in references)
         {
             if (reference.EndsWith(".dll"))
             {
-                var referenceItem = refItemGroup.AddItem("Reference", Path.GetFileNameWithoutExtension(reference));
+                ProjectItemElement referenceItem = refItemGroup.AddItem("Reference", Path.GetFileNameWithoutExtension(reference));
                 referenceItem.AddMetadata("HintPath", reference);
             }
         }

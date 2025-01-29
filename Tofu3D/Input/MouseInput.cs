@@ -69,7 +69,7 @@ public class MouseInput
     private bool EvaluateAllPassThroughEdgesConditions()
     {
         return false;
-        foreach (var condition in _passThroughEdgesConditions)
+        foreach (Func<bool> condition in _passThroughEdgesConditions)
         {
             if (condition.Invoke())
             {
@@ -122,7 +122,7 @@ public class MouseInput
             return;
         }
 
-        var allowPassThroughEdges =
+        bool allowPassThroughEdges =
             EvaluateAllPassThroughEdgesConditions(); // uh so how does this work, do i get true when all of them are true or what
 
         // Debug.StatSetValue("MouseInput AllowPassthroughEdges", $"AllowPassthroughEdges {allowPassThroughEdges}");
@@ -144,7 +144,7 @@ public class MouseInput
 
         Vector2 mousePosCorrected = new(PositionInWindow.X, Tofu.Window.Size.Y - PositionInWindow.Y);
         // Debug.StatSetValue("mousePos", $"MousePos:{mousePosCorrected}");
-        var passedThroughEdge = false;
+        bool passedThroughEdge = false;
         if (allowPassThroughEdges)
         {
             if (mousePosCorrected.X < 1 && ScreenDelta.X < 0)

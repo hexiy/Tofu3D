@@ -104,10 +104,10 @@ public class EditorPanelSceneView : EditorPanel
             {
                 if (RenderPassBloomThreshold.I?.MainFramebuffer != null)
                 {
-                    var ratio = RenderPassBloomThreshold.I.MainFramebuffer.Size.Y /
-                                RenderPassBloomThreshold.I.MainFramebuffer.Size.X;
-                    var sizeX = Mathf.ClampMax(RenderPassBloomThreshold.I.MainFramebuffer.Size.X, 400);
-                    var sizeY = sizeX * ratio;
+                    float ratio = RenderPassBloomThreshold.I.MainFramebuffer.Size.Y /
+                                  RenderPassBloomThreshold.I.MainFramebuffer.Size.X;
+                    float sizeX = Mathf.ClampMax(RenderPassBloomThreshold.I.MainFramebuffer.Size.X, 400);
+                    float sizeY = sizeX * ratio;
 
                     ImGui.SetCursorPos(new Vector2(5, 75));
 
@@ -126,10 +126,10 @@ public class EditorPanelSceneView : EditorPanel
 
                 if (RenderPassBloomPostProcess.I?.MainFramebuffer != null)
                 {
-                    var ratio = RenderPassBloomPostProcess.I.MainFramebuffer.Size.Y /
-                                RenderPassBloomPostProcess.I.MainFramebuffer.Size.X;
-                    var sizeX = Mathf.ClampMax(RenderPassBloomPostProcess.I.MainFramebuffer.Size.X, 400);
-                    var sizeY = sizeX * ratio;
+                    float ratio = RenderPassBloomPostProcess.I.MainFramebuffer.Size.Y /
+                                  RenderPassBloomPostProcess.I.MainFramebuffer.Size.X;
+                    float sizeX = Mathf.ClampMax(RenderPassBloomPostProcess.I.MainFramebuffer.Size.X, 400);
+                    float sizeY = sizeX * ratio;
 
                     ImGui.SetCursorPos(new Vector2(405, 75));
 
@@ -150,7 +150,7 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.SetCursorPosX(Camera.MainCamera.Size.X / 2 - 200 * Screen.ScaleI);
 
-            var activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
+            Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
             Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
             /*ImGui.PushStyleColor(ImGuiCol.Text, PhysicsController.Running ? activeColor : inactiveColor);
             bool physicsButtonClicked = ImGui.Button("physics");
@@ -170,7 +170,7 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.SameLine();*/
 //////////
-            var renderPassesButtonClicked = ImGui.Button("Render passes");
+            bool renderPassesButtonClicked = ImGui.Button("Render passes");
 
             if (renderPassesButtonClicked)
             {
@@ -185,11 +185,11 @@ public class EditorPanelSceneView : EditorPanel
             {
                 if (ImGui.BeginPopupContextWindow("Render passes"))
                 {
-                    foreach (var renderPass in Tofu.RenderPassSystem.RenderPasses)
+                    foreach (RenderPass renderPass in Tofu.RenderPassSystem.RenderPasses)
                     {
-                        var isEnabled = renderPass.Enabled;
-                        var wasEnabled = isEnabled;
-                        var clicked = ImGui.Checkbox(renderPass.RenderPassType.ToString(), ref isEnabled);
+                        bool isEnabled = renderPass.Enabled;
+                        bool wasEnabled = isEnabled;
+                        bool clicked = ImGui.Checkbox(renderPass.RenderPassType.ToString(), ref isEnabled);
 
                         if (clicked)
                         {
@@ -209,7 +209,7 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.SameLine();
             //////////
-            var renderModeButtonClicked = ImGui.Button("Render mode");
+            bool renderModeButtonClicked = ImGui.Button("Render mode");
 
             if (renderModeButtonClicked)
             {
@@ -226,13 +226,13 @@ public class EditorPanelSceneView : EditorPanel
                 {
                     foreach (ViewRenderMode mode in Enum.GetValues(typeof(ViewRenderMode)))
                     {
-                        var isEnabled = Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode == mode;
-                        var wasEnabled = isEnabled;
-                        var clicked = ImGui.Checkbox(mode.ToString(), ref isEnabled);
-                        var hovered = ImGui.IsItemHovered();
+                        bool isEnabled = Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode == mode;
+                        bool wasEnabled = isEnabled;
+                        bool clicked = ImGui.Checkbox(mode.ToString(), ref isEnabled);
+                        bool hovered = ImGui.IsItemHovered();
                         if (hovered)
                         {
-                            var isNew = Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode != mode;
+                            bool isNew = Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode != mode;
                             Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode = mode;
                             if (isNew)
                             {
@@ -262,7 +262,7 @@ public class EditorPanelSceneView : EditorPanel
             /// 
             ImGui.PushStyleColor(ImGuiCol.Text,
                 Tofu.RenderSettings.CurrentWireframeRenderSettings.WireframeVisible ? activeColor : inactiveColor);
-            var wireframeButtonClicked = ImGui.Button("Wireframe");
+            bool wireframeButtonClicked = ImGui.Button("Wireframe");
             if (wireframeButtonClicked)
             {
                 Tofu.RenderSettings.CurrentWireframeRenderSettings.WireframeVisible =
@@ -276,7 +276,7 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
 
-            var playButtonClicked = ImGui.Button("play");
+            bool playButtonClicked = ImGui.Button("play");
 
             ImGui.PopStyleColor();
 
@@ -296,9 +296,9 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.SetNextItemWidth(200);
 
-            var projectionModeButtonText =
+            string projectionModeButtonText =
                 Tofu.SceneViewController.CurrentProjectionMode == ProjectionMode.Orthographic ? "2D" : "3D";
-            var projectionButtonClicked = ImGui.Button(projectionModeButtonText);
+            bool projectionButtonClicked = ImGui.Button(projectionModeButtonText);
             if (projectionButtonClicked)
             {
                 if (Tofu.SceneViewController.CurrentProjectionMode == ProjectionMode.Orthographic)
@@ -342,7 +342,7 @@ public class EditorPanelSceneView : EditorPanel
     {
         if (ImGui.BeginDragDropTarget())
         {
-            var path = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+            string? path = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
             if (TofuImGui.PayloadHasBeenDropped(DragDropPayloadTypes.Model) ||
                 TofuImGui.PayloadHasBeenDropped(DragDropPayloadTypes.Mesh))
@@ -421,8 +421,8 @@ public class EditorPanelSceneView : EditorPanel
         }
 
         GameObject go = GameObject.Create(name: name, position: worldPosition);
-        go.Transform.Pivot = Vector3.Half;
         BoxShape boxShape = go.AddComponent<BoxShape>();
+        boxShape.Pivot = Vector3.Half;
         boxShape.Size = new Vector3(3, 3, 3);
         ModelRendererInstanced modelRendererInstanced = go.AddComponent<ModelRendererInstanced>();
 

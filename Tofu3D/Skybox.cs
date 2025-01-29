@@ -50,14 +50,14 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
         }
 
 
-        var forwardLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
-        var upLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
+        Vector3 forwardLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
+        Vector3 upLocal = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
 
-        var viewMatrix = Matrix4x4.CreateLookAt(Vector3.Zero, forwardLocal, upLocal) *
-                         Matrix4x4.CreateScale(-1, 1, 1);
+        Matrix4x4 viewMatrix = Matrix4x4.CreateLookAt(Vector3.Zero, forwardLocal, upLocal) *
+                               Matrix4x4.CreateScale(-1, 1, 1);
 
         Fov = Mathf.Clamp(Fov, 0.000001f, 179);
-        var projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(
+        Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(
             OpenTK.Mathematics.MathHelper.DegreesToRadians(Fov),
             Camera.MainCamera.Size.X / Camera.MainCamera.Size.Y, 0.01f, 1);
 

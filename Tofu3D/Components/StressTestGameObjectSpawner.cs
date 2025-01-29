@@ -57,7 +57,7 @@ public class StressTestGameObjectSpawner : Component
 
     private void Destroy()
     {
-        for (var i = 0; i < Transform.Children.Count; i++)
+        for (int i = 0; i < Transform.Children.Count; i++)
         {
             Transform.Children[0].GameObject.Destroy();
         }
@@ -73,7 +73,7 @@ public class StressTestGameObjectSpawner : Component
         // }
 
 
-        for (var i = 0; i < SpawnCount; i++)
+        for (int i = 0; i < SpawnCount; i++)
         {
             // var go = Tofu.SceneSerializer.LoadClipboardGameObject();
             // go.Transform.SetParent(Transform);
@@ -91,16 +91,16 @@ public class StressTestGameObjectSpawner : Component
         Destroy();
         _concurrentBag.Clear();
 
-        var timerName = "StressTest";
+        string timerName = "StressTest";
         Debug.StartTimer(timerName);
 
-        var numberOfThreads = ThreadsToUse;
+        int numberOfThreads = ThreadsToUse;
         _threadsWorkingCount = numberOfThreads;
         List<Thread> threads = new();
         GameObject go = Transform.Children[0].GameObject;
-        for (var threadIndex = 0; threadIndex < numberOfThreads; threadIndex++)
+        for (int threadIndex = 0; threadIndex < numberOfThreads; threadIndex++)
         {
-            var capturedThreadIndex = threadIndex;
+            int capturedThreadIndex = threadIndex;
             Thread thread = new(() => SpawnObjects(SpawnCount, go, capturedThreadIndex, numberOfThreads));
             threads.Add(thread);
         }
@@ -112,15 +112,15 @@ public class StressTestGameObjectSpawner : Component
     {
         Debug.StartTimer($"Thread #{threadIndex} finished");
 
-        var objectsPerThread = count / numberOfThreads;
-        var startIndex = objectsPerThread * threadIndex;
-        var endIndex = objectsPerThread + threadIndex * objectsPerThread;
+        int objectsPerThread = count / numberOfThreads;
+        int startIndex = objectsPerThread * threadIndex;
+        int endIndex = objectsPerThread + threadIndex * objectsPerThread;
 
 
-        for (var i = startIndex; i < endIndex; i++)
+        for (int i = startIndex; i < endIndex; i++)
         {
             // Debug.Log(i);
-            var go = (GameObject)referenceGameObject.Clone(false);
+            GameObject go = (GameObject)referenceGameObject.Clone(false);
             go.Name = $"Thread:{threadIndex} go {i}";
             go.RuntimeOnly = true;
 
@@ -140,7 +140,7 @@ public class StressTestGameObjectSpawner : Component
     private void AddObjectsToScene()
     {
         Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
-        foreach (var go in _concurrentBag)
+        foreach (GameObject go in _concurrentBag)
         {
             go.Transform.SetParent(Transform);
             go.Transform.LocalPosition +=
@@ -158,9 +158,9 @@ public class StressTestGameObjectSpawner : Component
     private void LongTask()
     {
         List<GameObject> gameObjects = new(20000);
-        for (var i = 0; i < 20000; i++)
+        for (int i = 0; i < 20000; i++)
         {
-            var go = GameObject.Create(name: i.ToString(), addToScene: false);
+            GameObject go = GameObject.Create(name: i.ToString(), addToScene: false);
             gameObjects.Add(go);
             Debug.Log(i);
         }

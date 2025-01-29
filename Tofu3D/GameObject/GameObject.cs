@@ -113,7 +113,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public void SetActive(bool tgl)
     {
-        var stateChanged = ActiveSelf != tgl;
+        bool stateChanged = ActiveSelf != tgl;
         _activeSelf = tgl;
         if (stateChanged)
         {
@@ -191,7 +191,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         IDsManager.GameObjectNextId++;
 
 
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
             Components[i].GameObjectId = Id;
             Components[i].GameObject = this;
@@ -200,7 +200,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     private void DestroyChildren()
     {
-        for (var i = 0; i < Transform.Children.Count; i++)
+        for (int i = 0; i < Transform.Children.Count; i++)
         {
             Transform.Children[i].GameObject.Destroy();
         }
@@ -216,7 +216,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     private void InvokeOnComponentAddedOnComponents(Component comp)
     {
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
             Components[i].OnNewComponentAdded(comp);
         }
@@ -225,18 +225,18 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public void LinkGameObjectFieldsInComponents()
     {
         // find "GameObject" members and find them in the scene
-        for (var c = 0; c < Components.Count; c++)
+        for (int c = 0; c < Components.Count; c++)
         {
-            var component = Components[c];
+            Component component = Components[c];
 
-            var sourceType1 = component.GetType();
+            Type sourceType1 = component.GetType();
 
-            var infos = sourceType1.GetFields();
-            for (var i = 0; i < infos.Length; i++)
+            FieldInfo[] infos = sourceType1.GetFields();
+            for (int i = 0; i < infos.Length; i++)
             {
                 if (infos[i].FieldType == typeof(GameObject) && infos[i].Name != "gameObject")
                 {
-                    var goFieldValue = infos[i].GetValue(component) as GameObject;
+                    GameObject? goFieldValue = infos[i].GetValue(component) as GameObject;
                     if (goFieldValue == null)
                     {
                         continue;
@@ -244,28 +244,28 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
                     if (goFieldValue.IsPrefab)
                     {
-                        var loadedGo = Tofu.SceneSerializer.LoadPrefab(goFieldValue.PrefabPath, true);
+                        GameObject loadedGo = Tofu.SceneSerializer.LoadPrefab(goFieldValue.PrefabPath, true);
                         infos[i].SetValue(component, loadedGo);
                     }
                     else
                     {
-                        var foundGameObject = Tofu.SceneManager.CurrentScene.GetGameObjectByID(goFieldValue.Id);
+                        GameObject foundGameObject = Tofu.SceneManager.CurrentScene.GetGameObjectByID(goFieldValue.Id);
                         infos[i].SetValue(component, foundGameObject);
                     }
                 }
             }
 
-            for (var i = 0; i < infos.Length; i++)
+            for (int i = 0; i < infos.Length; i++)
             {
                 if (infos[i].FieldType == typeof(List<GameObject>))
                 {
-                    var gosFieldValue = infos[i].GetValue(component) as List<GameObject>;
+                    List<GameObject>? gosFieldValue = infos[i].GetValue(component) as List<GameObject>;
                     if (gosFieldValue == null)
                     {
                         continue;
                     }
 
-                    for (var goIndex = 0; goIndex < gosFieldValue.Count; goIndex++)
+                    for (int goIndex = 0; goIndex < gosFieldValue.Count; goIndex++)
                     {
                         if (gosFieldValue[goIndex] == null)
                         {
@@ -380,7 +380,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         component.Transform = Transform;
         component.GameObject = this;
         return;
-        var sourceType = component.GetType();
+        Type sourceType = component.GetType();
 
         // fields that are derived from Component
         List<FieldInfo> componentFields = new();
@@ -390,10 +390,10 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
         List<FieldInfo> gameObjectFields = new();
         List<FieldInfo> transformFields = new();
-        for (var i = 0; i < componentFields.Count; i++)
+        for (int i = 0; i < componentFields.Count; i++)
         {
-            var gameObjectFieldInfo = componentFields[0].FieldType.GetProperty("gameObject");
-            var transformFieldInfo = componentFields[0].FieldType.GetProperty("transform");
+            PropertyInfo gameObjectFieldInfo = componentFields[0].FieldType.GetProperty("gameObject");
+            PropertyInfo transformFieldInfo = componentFields[0].FieldType.GetProperty("transform");
 
             gameObjectFieldInfo?.SetValue(component, this);
             transformFieldInfo?.SetValue(component, Transform);
@@ -409,7 +409,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         if (Awoken)
         {
             return;}
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i].Awoken == false) // && Components[i].Enabled)
             {
@@ -442,7 +442,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public virtual void PreSceneSave()
     {
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
             Components[i].PreSceneSave();
         }
@@ -458,7 +458,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
             Awake();
         }
 
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i].EnabledSelf)
             {
@@ -496,7 +496,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
         // lock (_componentsLock)
         // {
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
             Components[i].OnDestroyed();
         }
@@ -612,7 +612,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         /* if ((transform != null || GetComponent<Transform>() != null) && type == typeof(Transform)) {
                 return null;
           }*/
-        var component = (Component)Activator.CreateInstance(type);
+        Component? component = (Component)Activator.CreateInstance(type);
 
         if (component.AllowMultiple == false && GetComponent(type))
         {
@@ -683,7 +683,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public void RemoveComponent(Type type)
     {
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i].GetType() == type)
             {
@@ -695,8 +695,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public T GetComponent<T>(int? index = null) where T : Component
     {
-        var k = index == null ? 0 : (int)index;
-        for (var i = 0; i < Components.Count; i++)
+        int k = index == null ? 0 : (int)index;
+        for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i] is T)
             {
@@ -714,8 +714,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public T GetComponent<T>(out T component, int? index = null) where T : Component
     {
-        var k = index == null ? 0 : (int)index;
-        for (var i = 0; i < Components.Count; i++)
+        int k = index == null ? 0 : (int)index;
+        for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i] is T)
             {
@@ -735,7 +735,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public bool HasComponent<T>() where T : Component
     {
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i] is T)
             {
@@ -749,7 +749,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public List<T> GetComponents<T>() where T : Component
     {
         List<T> componentsToReturn = new();
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i] is T)
             {
@@ -762,7 +762,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public Component GetComponent(Type type)
     {
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i].GetType() == type)
             {
@@ -776,7 +776,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public List<Component> GetComponents(Type type)
     {
         List<Component> componentsToReturn = new();
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i].GetType() == type)
             {
@@ -871,7 +871,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     private void FixedUpdateComponents()
     {
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i].EnabledSelf && Components[i].Awoken)
             {
@@ -904,15 +904,15 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public object Clone(bool active = true)
     {
-        var memberwiseClone = MemberwiseClone();
-        var clone = (GameObject)memberwiseClone;
+        object memberwiseClone = MemberwiseClone();
+        GameObject clone = (GameObject)memberwiseClone;
 
 
         clone.Components = new List<Component>();
 
-        for (var i = 0; i < Components.Count; i++)
+        for (int i = 0; i < Components.Count; i++)
         {
-            var componentClone = (Component)Components[i].Clone();
+            Component componentClone = (Component)Components[i].Clone();
             if (componentClone is Renderer)
             {
                 (componentClone as Renderer).ObjectInstancingData.StartingIndexInBuffer = -1;
@@ -930,7 +930,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         clone.Awoken = false;
         clone.Started = false;
 
-        for (var i = 0; i < clone.Components.Count; i++)
+        for (int i = 0; i < clone.Components.Count; i++)
         {
             clone.Components[i].Awoken = false;
             clone.Components[i].Started = false;

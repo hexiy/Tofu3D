@@ -47,13 +47,13 @@ internal class ImGuiShader
 
     public UniformFieldInfo[] GetUniforms()
     {
-        GL.GetProgram(Program, GetProgramParameterName.ActiveUniforms, out var unifromCount);
+        GL.GetProgram(Program, GetProgramParameterName.ActiveUniforms, out int unifromCount);
 
-        var uniforms = new UniformFieldInfo[unifromCount];
+        UniformFieldInfo[] uniforms = new UniformFieldInfo[unifromCount];
 
-        for (var i = 0; i < unifromCount; i++)
+        for (int i = 0; i < unifromCount; i++)
         {
-            var name = GL.GetActiveUniform(Program, i, out var size, out var type);
+            string? name = GL.GetActiveUniform(Program, i, out int size, out ActiveUniformType type);
 
             UniformFieldInfo fieldInfo;
             fieldInfo.Location = GetUniformLocation(name);
@@ -70,7 +70,7 @@ internal class ImGuiShader
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public int GetUniformLocation(string uniform)
     {
-        if (_uniformToLocation.TryGetValue(uniform, out var location) == false)
+        if (_uniformToLocation.TryGetValue(uniform, out int location) == false)
         {
             location = GL.GetUniformLocation(Program, uniform);
             _uniformToLocation.Add(uniform, location);
@@ -86,29 +86,29 @@ internal class ImGuiShader
 
     private int CreateProgram(string name, params (ShaderType Type, string source)[] shaderPaths)
     {
-        Util.CreateProgram(name, out var program);
+        Util.CreateProgram(name, out int program);
 
-        var shaders = new int[shaderPaths.Length];
-        for (var i = 0; i < shaderPaths.Length; i++)
+        int[] shaders = new int[shaderPaths.Length];
+        for (int i = 0; i < shaderPaths.Length; i++)
         {
             shaders[i] = CompileShader(name, shaderPaths[i].Type, shaderPaths[i].source);
         }
 
-        foreach (var shader in shaders)
+        foreach (int shader in shaders)
         {
             GL.AttachShader(program, shader);
         }
 
         GL.LinkProgram(program);
 
-        GL.GetProgram(program, GetProgramParameterName.LinkStatus, out var success);
+        GL.GetProgram(program, GetProgramParameterName.LinkStatus, out int success);
         if (success == 0)
         {
-            var info = GL.GetProgramInfoLog(program);
+            string? info = GL.GetProgramInfoLog(program);
             Debug.Log($"GL.LinkProgram had info log [{name}]:\n{info}");
         }
 
-        foreach (var shader in shaders)
+        foreach (int shader in shaders)
         {
             GL.DetachShader(program, shader);
             GL.DeleteShader(shader);
@@ -121,14 +121,14 @@ internal class ImGuiShader
 
     private int CompileShader(string name, ShaderType type, string source)
     {
-        Util.CreateShader(type, name, out var shader);
+        Util.CreateShader(type, name, out int shader);
         GL.ShaderSource(shader, source);
         GL.CompileShader(shader);
 
-        GL.GetShader(shader, ShaderParameter.CompileStatus, out var success);
+        GL.GetShader(shader, ShaderParameter.CompileStatus, out int success);
         if (success == 0)
         {
-            var info = GL.GetShaderInfoLog(shader);
+            string? info = GL.GetShaderInfoLog(shader);
             Debug.Log($"GL.CompileShader for shader '{Name}' [{type}] had info log:\n{info}");
         }
 

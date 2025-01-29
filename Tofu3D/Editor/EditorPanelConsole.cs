@@ -43,10 +43,10 @@ public class EditorPanelConsole : EditorPanel
         }
 
         ImGui.SameLine();
-        var activeColor = Color.ForestGreen.ToVector4();
+        Vector4 activeColor = Color.ForestGreen.ToVector4();
         Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
         ImGui.PushStyleColor(ImGuiCol.Text, Debug.Paused ? activeColor : inactiveColor);
-        var pauseBtnClicked = ImGui.Button("Pause");
+        bool pauseBtnClicked = ImGui.Button("Pause");
         if (pauseBtnClicked)
         {
             Debug.Paused = !Debug.Paused;
@@ -56,11 +56,11 @@ public class EditorPanelConsole : EditorPanel
 
         ImGui.SameLine();
 
-        var testMessageBtnClicked = ImGui.Button("Test message");
+        bool testMessageBtnClicked = ImGui.Button("Test message");
         if (testMessageBtnClicked)
         {
-            var randomCategory = LogCategory.Info;
-            var rnd = Random.Range(0, 4);
+            LogCategory randomCategory = LogCategory.Info;
+            int rnd = Random.Range(0, 4);
             if (rnd == 0)
             {
                 randomCategory = LogCategory.Error;
@@ -85,15 +85,15 @@ public class EditorPanelConsole : EditorPanel
         }
 
         // category filters
-        var toggleableFilters = new[]
+        LogCategoryFilter[] toggleableFilters = new[]
         {
             LogCategoryFilter.Info, LogCategoryFilter.Warning, LogCategoryFilter.Error, LogCategoryFilter.Timer
         };
-        foreach (var filter in toggleableFilters)
+        foreach (LogCategoryFilter filter in toggleableFilters)
         {
             ImGui.SameLine();
 
-            var hasFlag = (_currentLogCategoryFilter & filter) == filter;
+            bool hasFlag = (_currentLogCategoryFilter & filter) == filter;
             // ImGui.RadioButton(filter.ToString(), hasFlag); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
             IntPtr textureId = ImGuiController.EncodeTextureArrayId(
                 Tofu.Editor.EditorTextures.LogCategoryInfoIcon.AtlasGLTextureArrayId,
@@ -129,7 +129,7 @@ public class EditorPanelConsole : EditorPanel
                     ? new Vector4(1, 1, 1, 1)
                     : new Vector4(1, 1, 1, 0.3f)); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
             // ImGui.ImageButton(textureId, new System.Numerics.Vector2(30, 30)); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));
-            var filterButtonClicked = ImGui.IsItemClicked();
+            bool filterButtonClicked = ImGui.IsItemClicked();
             if (filterButtonClicked)
             {
                 _currentLogCategoryFilter = _currentLogCategoryFilter;
@@ -149,11 +149,11 @@ public class EditorPanelConsole : EditorPanel
 
         ImGui.BeginChildFrame(2,
             ImGui.GetContentRegionAvail() * new System.Numerics.Vector2(1, _selectedMessageIndex == -1 ? 1 : 0.7f));
-        var logsCount = Debug.GetLogsRef().Count;
-        var drawnLogsCounter = 0;
-        for (var i = 0; i < Mathf.Min(logsCount, Debug.Limit - 1); i++)
+        int logsCount = Debug.GetLogsRef().Count;
+        int drawnLogsCounter = 0;
+        for (int i = 0; i < Mathf.Min(logsCount, Debug.Limit - 1); i++)
         {
-            var log = Debug.GetLogsRef()[i];
+            LogEntry log = Debug.GetLogsRef()[i];
 
             if (_searchFilter.Length > 0 &&
                 log.Message.Contains(_searchFilter, StringComparison.OrdinalIgnoreCase) == false)
@@ -173,7 +173,7 @@ public class EditorPanelConsole : EditorPanel
             // ImGui.Button("", size: new Vector2(ImGui.GetContentRegionAvail().X, 50));
             ImGui.Selectable("", _selectedMessageIndex == i, ImGuiSelectableFlags.None,
                 new Vector2(ImGui.GetContentRegionAvail().X, 30));
-            var clicked = ImGui.IsItemClicked();
+            bool clicked = ImGui.IsItemClicked();
             if (clicked)
             {
                 Tofu.Window.ClipboardString = log.Message;
@@ -207,7 +207,7 @@ public class EditorPanelConsole : EditorPanel
             // ImGui.SetCursorPos(new Vector2(100, 25 + drawnLogsCounter * 50));
             // ImGui.SetCursorPos(new Vector2(0, 25 + drawnLogsCounter * 50));
 
-            var color = GetLogCategoryTextColor(log.LogCategory);
+            Color color = GetLogCategoryTextColor(log.LogCategory);
             ImGui.TextColored(color.ToVector4(), log.Time);
             // ImGui.TextColored(new Vector4(0.74f, 0.33f, 0.16f, 1), log.Time);
             ImGui.SameLine();
@@ -244,17 +244,17 @@ public class EditorPanelConsole : EditorPanel
             ImGui.PushStyleColor(ImGuiCol.HeaderHovered, cBeige);
             // ImGui.BeginChildFrame(1, ImGui.GetContentRegionMax());
             ImGui.BeginChildFrame(1, ImGui.GetContentRegionAvail());
-            var log = Debug.GetLogsRef()[_selectedMessageIndex];
-            var color = GetLogCategoryTextColor(log.LogCategory);
+            LogEntry log = Debug.GetLogsRef()[_selectedMessageIndex];
+            Color color = GetLogCategoryTextColor(log.LogCategory);
             ImGui.TextColored(color.ToVector4(), log.Time);
             ImGui.SameLine();
             ImGui.TextWrapped(log.Message);
             // ImGui.Separator();
-            for (var i = 0; i < log.StackTrace.Frames.Length; i++)
+            for (int i = 0; i < log.StackTrace.Frames.Length; i++)
             {
                 ImGui.Selectable(log.StackTrace.Frames[i].Text);
                 // ImGui.TextWrapped(log.StackTrace.Frames[i].Text);
-                var clicked = ImGui.IsItemClicked();
+                bool clicked = ImGui.IsItemClicked();
                 ImGui.SameLine();
                 ImGui.TextColored(Color.ForestGreen.ToVector4(),
                     $"   /{log.StackTrace.Frames[i].FileShort}({log.StackTrace.Frames[i].Line},{log.StackTrace.Frames[i].Column})");

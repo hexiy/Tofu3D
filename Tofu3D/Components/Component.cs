@@ -24,7 +24,7 @@ public class Component : IDestroyable, ICloneable
 
     public Component()
     {
-        var info = GetType().GetMethod("Update");
+        MethodInfo? info = GetType().GetMethod("Update");
         if (info == null)
         {
             return;
@@ -80,16 +80,16 @@ public class Component : IDestroyable, ICloneable
             return CanExecuteUpdateInEditMode;
         }
 
-        var type = GetType();
-        var typeString = type.ToString();
-        var typeAndMethodString = string.Concat(typeString, methodName);
+        Type type = GetType();
+        string typeString = type.ToString();
+        string typeAndMethodString = string.Concat(typeString, methodName);
 
-        var methodHasExecuteInEditModeAttrib = false;
+        bool methodHasExecuteInEditModeAttrib = false;
         if (_executeInEditModeMethods.ContainsKey(typeAndMethodString) == false)
         {
             methodHasExecuteInEditModeAttrib = type.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
 
-            var info = type.GetMethod(methodName);
+            MethodInfo? info = type.GetMethod(methodName);
             if (methodHasExecuteInEditModeAttrib == false)
             {
                 methodHasExecuteInEditModeAttrib = info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
@@ -129,7 +129,7 @@ public class Component : IDestroyable, ICloneable
             return;
         }
 
-        var changedState = EnabledSelf != tgl;
+        bool changedState = EnabledSelf != tgl;
         _enabledSelfSelf = tgl;
         if (changedState)
         {

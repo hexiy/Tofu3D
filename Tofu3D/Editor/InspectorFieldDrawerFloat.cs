@@ -8,21 +8,21 @@ public class InspectorFieldDrawerFloat : InspectorFieldDrawable<float>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        var fieldValue = GetValue(info, componentInspectorData);
+        float fieldValue = GetValue(info, componentInspectorData);
 
         SliderF sliderAttrib = null;
-        for (var i = 0; i < info.CustomAttributes.Count(); i++)
+        for (int i = 0; i < info.CustomAttributes.Count(); i++)
         {
             if (info.CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(SliderF))
             {
-                var fieldType = componentInspectorData.Inspectable.GetType().GetField(info.Name);
+                FieldInfo? fieldType = componentInspectorData.Inspectable.GetType().GetField(info.Name);
                 if (fieldType != null)
                 {
                     sliderAttrib = fieldType.GetCustomAttribute<SliderF>();
                 }
                 else
                 {
-                    var propertyType =
+                    PropertyInfo? propertyType =
                         componentInspectorData.Inspectable.GetType().GetProperty(info.Name);
                     if (propertyType != null)
                     {

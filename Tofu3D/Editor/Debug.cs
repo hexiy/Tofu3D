@@ -28,7 +28,7 @@ public class Debug
             return;
         }
 
-        var stackTrace = StackTraceFactory.GetStackTrace();
+        StackTrace stackTrace = StackTraceFactory.GetStackTrace();
         LogEntry logEntry = new()
         {
             Message = message, StackTrace = stackTrace,
@@ -193,7 +193,7 @@ public class Debug
         }
 
         SimpleTimers[timerName].Stop();
-        var msDuration = (float)Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
+        float msDuration = (float)Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
         return msDuration;
     }
 
@@ -205,7 +205,7 @@ public class Debug
         }
 
         EndGraphTimer(timerName);
-        var msDuration = (float)Math.Round(GraphTimers[timerName].Stopwatch.Elapsed.TotalMilliseconds, 2);
+        float msDuration = (float)Math.Round(GraphTimers[timerName].Stopwatch.Elapsed.TotalMilliseconds, 2);
 
         StatSetValue(timerName, msDuration);
     }
@@ -218,7 +218,7 @@ public class Debug
         }
 
         EndTimer(timerName);
-        var msDuration = (float)Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
+        float msDuration = (float)Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
 
 
         if (additiveStat)
@@ -239,7 +239,7 @@ public class Debug
         }
 
         EndTimer(timerName);
-        var msDuration = (float)Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
+        float msDuration = (float)Math.Round(SimpleTimers[timerName].Elapsed.TotalMilliseconds, 2);
 
         Log($"{timerName} : {msDuration} ms", LogCategory.Timer);
         return msDuration;
@@ -248,7 +248,7 @@ public class Debug
     public static void ResetTimers()
     {
         //Timers.Clear();
-        foreach (var timerPair in GraphTimers)
+        foreach (KeyValuePair<string, DebugGraphTimer> timerPair in GraphTimers)
         {
             if (timerPair.Value.Stopwatch.IsRunning == false)
             {
@@ -256,7 +256,7 @@ public class Debug
             }
         }
 
-        foreach (var timerPair in SimpleTimers)
+        foreach (KeyValuePair<string, Stopwatch> timerPair in SimpleTimers)
         {
             if (timerPair.Value.IsRunning == false)
             {

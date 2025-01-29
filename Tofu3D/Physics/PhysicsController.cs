@@ -87,7 +87,7 @@ public class PhysicsController
                 {
                     UpdatePhysicsWorldRigidbodyData();
 
-                    var a = Stopwatch.StartNew();
+                    Stopwatch a = Stopwatch.StartNew();
                     _simulation.Timestep(Time.FixedDeltaTime, _threadDispatcher);
                     a.Stop();
                     // Wait(Time.FixedDeltaTime -
@@ -120,12 +120,23 @@ public class PhysicsController
         {
             if (rigidbody.BodyHandle != null)
             {
-                _simulation.Bodies[rigidbody.BodyHandle.Value].MotionState.Pose.Position = rigidbody.Transform.WorldPosition;
+                // _simulation.Bodies[rigidbody.BodyHandle.Value].MotionState.Pose.Position =
+                // rigidbody.Transform.WorldPosition;
+                // _simulation.Bodies[rigidbody.BodyHandle.Value].MotionState.Pose.Orientation =
+                // Quaternion.FromEulerAnglesInDegrees(rigidbody.Transform.WorldRotation);
             }
 
             if (rigidbody.StaticHandle != null)
             {
-                _simulation.Statics[rigidbody.StaticHandle.Value].Pose.Position = rigidbody.Transform.WorldPosition;
+                // _simulation.Statics[rigidbody.StaticHandle.Value].Pose.Position = rigidbody.Transform.WorldPosition;
+                _simulation.Statics[rigidbody.StaticHandle.Value].Static.Pose.Position =
+                    rigidbody.Transform.WorldPosition;
+
+                _simulation.Statics[rigidbody.StaticHandle.Value].Static.Pose.Orientation =
+                    Quaternion.FromEulerAnglesInDegrees(rigidbody.Transform.WorldRotation);
+
+                _simulation.Statics[rigidbody.StaticHandle.Value].Pose.Orientation =
+                    Quaternion.FromEulerAnglesInDegrees(rigidbody.Transform.WorldRotation);
             }
         }
 //         
@@ -193,9 +204,19 @@ public class PhysicsController
         {
             if (rigidbody.BodyHandle != null)
             {
+                // rigidbody.Transform.WorldPosition =
+                //     _simulation.Bodies[rigidbody.BodyHandle.Value].Dynamics.Motion.Pose.Position;
+                
                 rigidbody.Transform.WorldPosition =
-                    _simulation.Bodies[rigidbody.BodyHandle.Value].Dynamics.Motion.Pose.Position;
+                    _simulation.Bodies[rigidbody.BodyHandle.Value].Pose.Position;
+                
+                
                 // Debug.Log(_simulation.Bodies[rigidbody.BodyHandle.Value].Dynamics.Motion.Pose.Position);
+                // rigidbody.Transform.Rotation = Quaternion.ToEulerAngles(_simulation.Bodies[rigidbody.BodyHandle.Value]
+                //     .Dynamics.Motion.Pose.Orientation);
+
+                // rigidbody.Transform.Rotation = Quaternion.ToEulerAngles(_simulation.Bodies[rigidbody.BodyHandle.Value]
+                    // .MotionState.Pose.Orientation);
             }
 
             else if (rigidbody.StaticHandle != null)
@@ -250,28 +271,63 @@ public class PhysicsController
         if (shape.ShapeType is ShapeType.Box)
         {
             Vector3 boxShapeSize = (shape as BoxShape).Size;
-
+            // boxShapeSize *= 2;
             Box box = new Box(boxShapeSize.X, boxShapeSize.Y, boxShapeSize.Z);
-            var inertia = box.ComputeInertia(1);
+            BodyInertia inertia = box.ComputeInertia(1);
 
             if (isStatic == false)
             {
                 rb.BodyHandle = _simulation.Bodies.Add(
                     BodyDescription.CreateDynamic(
-                        new RigidPose(rb.Transform.WorldPosition),
+                        new RigidPose(rb.Transform.WorldPosition, System.Numerics.Quaternion.Identity),
                         inertia, _simulation.Shapes.Add(box), 0.01f));
-                
-                _simulation.Bodies[rb.BodyHandle.Value].MotionState.Pose.Position = rb.Transform.WorldPosition;
 
+                // _simulation.Bodies[rb.BodyHandle.Value].MotionState.Pose.Position = rb.Transform.WorldPosition;
+                // _simulation.Bodies[rb.BodyHandle.Value].MotionState.Pose.Orientation = Quaternion.Identity;
+
+                // _simulation.Bodies[rb.BodyHandle.Value].Pose.Orientation = Quaternion.Identity;
+
+                // _simulation.Bodies[rb.BodyHandle.Value].ApplyAngularImpulse(new Vector3(1, 1, 0));
             }
             else
             {
                 rb.StaticHandle = _simulation.Statics.Add(new StaticDescription(
-                    new RigidPose(rb.Transform.WorldPosition),
-                    _simulation.Shapes.Add(box), ContinuousDetection.Continuous()));
-                
-                _simulation.Statics[rb.StaticHandle.Value].Static.Pose.Position = rb.Transform.WorldPosition;
+                    new RigidPose(rb.Transform.WorldPosition, System.Numerics.Quaternion.Identity),
+                    _simulation.Shapes.Add(box)));
 
+                // _simulation.Statics[rb.StaticHandle.Value].Pose.Position = rb.Transform.WorldPosition;
+                // _simulation.Statics[rb.StaticHandle.Value].Pose.Orientation =Quaternion.Identity;
+                
+                // _simulation.Statics[rb.StaticHandle.Value].Static.Pose.Position = rb.Transform.WorldPosition;
+                // _simulation.Statics[rb.StaticHandle.Value].Static.Pose.Orientation = Quaternion.Identity;
+            }
+        }
+
+        if (shape.ShapeType is ShapeType.Sphere)
+        {
+            float radius = (shape as SphereShape).Radius;
+            // boxShapeSize *= 2;
+            Sphere sphere = new Sphere(radius);
+            BodyInertia inertia = sphere.ComputeInertia(1);
+
+            if (isStatic == false)
+            {
+                rb.BodyHandle = _simulation.Bodies.Add(
+                    BodyDescription.CreateDynamic(
+                        new RigidPose(),
+                        inertia, _simulation.Shapes.Add(sphere), 0.01f));
+
+                _simulation.Bodies[rb.BodyHandle.Value].MotionState.Pose.Position = rb.Transform.WorldPosition;
+                _simulation.Bodies[rb.BodyHandle.Value].ApplyAngularImpulse(new Vector3(1, 1, 0));
+            }
+            else
+            {
+                rb.StaticHandle = _simulation.Statics.Add(new StaticDescription(
+                    new RigidPose(),
+                    _simulation.Shapes.Add(sphere), ContinuousDetection.Discrete));
+
+                _simulation.Statics[rb.StaticHandle.Value].Static.Pose.Position = rb.Transform.WorldPosition;
+                _simulation.Statics[rb.StaticHandle.Value].Static.Pose.Orientation = Quaternion.Identity;
             }
         }
 

@@ -36,7 +36,7 @@ public class SceneLightingManager
     public float[] GetPointLightsPositions()
     {
         List<float> floats = new();
-        for (var i = 0; i < _lights.Count; i++)
+        for (int i = 0; i < _lights.Count; i++)
         {
             if (_lights[i] is PointLight)
             {
@@ -53,7 +53,7 @@ public class SceneLightingManager
     public float[] GetPointLightsColors()
     {
         List<float> floats = new();
-        for (var i = 0; i < _lights.Count; i++)
+        for (int i = 0; i < _lights.Count; i++)
         {
             if (_lights[i] is PointLight)
             {
@@ -70,7 +70,7 @@ public class SceneLightingManager
     public float[] GetPointLightsIntensities()
     {
         List<float> floats = new();
-        for (var i = 0; i < _lights.Count; i++)
+        for (int i = 0; i < _lights.Count; i++)
         {
             if (_lights[i] is PointLight)
             {
@@ -86,7 +86,7 @@ public class SceneLightingManager
         Color col = new(0, 0, 0, 1);
 
 
-        for (var i = 0; i < _lights.Count; i++)
+        for (int i = 0; i < _lights.Count; i++)
         {
             if (_lights[i].GetType() == typeof(AmbientLight))
             {
@@ -100,7 +100,7 @@ public class SceneLightingManager
     public float GetAmbientLightsIntensity()
     {
         float intensity = 0;
-        for (var i = 0; i < _lights.Count; i++)
+        for (int i = 0; i < _lights.Count; i++)
         {
             if (_lights[i].GetType() == typeof(AmbientLight))
             {

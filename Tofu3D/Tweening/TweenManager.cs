@@ -12,7 +12,7 @@ public class TweenManager
 
     public void Update()
     {
-        for (var i = ActiveTweens.Count - 1; i >= 0; i--)
+        for (int i = ActiveTweens.Count - 1; i >= 0; i--)
         {
             if (ActiveTweens[i].CurrentTime == 0 && ActiveTweens[i].Delay > 0)
             {
@@ -21,7 +21,7 @@ public class TweenManager
             }
 
             ActiveTweens[i].CurrentTime += Time.EditorDeltaTime / ActiveTweens[i].Duration * 2;
-            var isCompleted = ActiveTweens[i].CurrentTime > ActiveTweens[i].Duration;
+            bool isCompleted = ActiveTweens[i].CurrentTime > ActiveTweens[i].Duration;
 
             //activeTweens[i].currentTime = Mathf.Clamp(activeTweens[i].currentTime, -Math.Abs(activeTweens[i].delay), activeTweens[i].duration);
             if (ActiveTweens[i].CurrentTime >= 0)
@@ -41,7 +41,7 @@ public class TweenManager
                     ActiveTweens[i].OnComplete?.Invoke();
                     ActiveTweens[i].CurrentTime = 0;
 
-                    var startValue = ActiveTweens[i].StartValue;
+                    float startValue = ActiveTweens[i].StartValue;
                     ActiveTweens[i].StartValue = ActiveTweens[i].EndValue;
                     ActiveTweens[i].EndValue = startValue;
                 }

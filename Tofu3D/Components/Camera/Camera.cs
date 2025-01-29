@@ -91,14 +91,14 @@ public class Camera : Component, IComponentUpdateable
         // return view;
 
 
-        var forwardWorld =
+        Vector3 forwardWorld =
             Transform.WorldPosition + Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
-        var upLocal = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
+        Vector3 upLocal = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
 
         //Debug.Log($"Forward{forwardWorld}");
         //Debug.Log($"Up{upLocal}");
-        var view = Matrix4x4.CreateLookAt(Transform.WorldPosition, forwardWorld, upLocal)
-                   * Matrix4x4.CreateScale(-1, 1, 1);
+        Matrix4x4 view = Matrix4x4.CreateLookAt(Transform.WorldPosition, forwardWorld, upLocal)
+                         * Matrix4x4.CreateScale(-1, 1, 1);
         ; // * Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, 1));
         return view;
     }
@@ -118,7 +118,7 @@ public class Camera : Component, IComponentUpdateable
         FieldOfView = Mathf.ClampMin(FieldOfView, 0.0001f);
         NearPlaneDistance = Mathf.Clamp(NearPlaneDistance, 0.00001f, FarPlaneDistance);
         FarPlaneDistance = Mathf.Clamp(FarPlaneDistance, NearPlaneDistance + 0.001f, Mathf.Infinity);
-        var perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(OpenTK.Mathematics.MathHelper.DegreesToRadians(FieldOfView),
+        Matrix4x4 perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(OpenTK.Mathematics.MathHelper.DegreesToRadians(FieldOfView),
             Size.X / Size.Y, NearPlaneDistance, FarPlaneDistance);
 
         // .CreatePerspective gives us great depth, but fieldofview doesnt?....
@@ -127,12 +127,12 @@ public class Camera : Component, IComponentUpdateable
 
     private Matrix4x4 GetOrthographicProjectionMatrix()
     {
-        var left = -OrthographicSize;
-        var right = OrthographicSize;
-        var bottom = -OrthographicSize;
-        var top = OrthographicSize;
+        float left = -OrthographicSize;
+        float right = OrthographicSize;
+        float bottom = -OrthographicSize;
+        float top = OrthographicSize;
 
-        var orthoMatrix =
+        Matrix4x4 orthoMatrix =
             Matrix4x4.CreateOrthographicOffCenter(left, right, bottom, top, NearPlaneDistance, FarPlaneDistance);
 
         return orthoMatrix;
@@ -141,11 +141,11 @@ public class Camera : Component, IComponentUpdateable
 
     private Matrix4x4 GetTranslationRotationMatrix()
     {
-        var tr = Matrix4x4.CreateTranslation(-Transform.LocalPosition.X, -Transform.LocalPosition.Y,
+        Matrix4x4 tr = Matrix4x4.CreateTranslation(-Transform.LocalPosition.X, -Transform.LocalPosition.Y,
             Transform.LocalPosition.Z);
-        var rotationMatrix = Matrix4x4.CreateFromYawPitchRoll(Transform.Rotation.Y / 180 * Mathf.Pi,
-            -Transform.Rotation.X / 180 * Mathf.Pi,
-            -Transform.Rotation.Z / 180 * Mathf.Pi);
+        Matrix4x4 rotationMatrix = Matrix4x4.CreateFromYawPitchRoll(Mathf.ToRadians(Transform.Rotation.Y),
+            Mathf.ToRadians(-Transform.Rotation.X),
+            Mathf.ToRadians(-Transform.Rotation.Z));
         return tr * rotationMatrix;
     }
 
@@ -187,21 +187,21 @@ public class Camera : Component, IComponentUpdateable
 
     public bool RectangleVisible(BoxShape shape)
     {
-        var isIn = Vector2.Distance(shape.Transform.WorldPosition, Transform.WorldPosition) <
-                   Size.X * 1.1f * (OrthographicSize / 2) +
-                   shape.Size.X / 2 * shape.Transform.LocalScale.MaxVectorMember();
+        bool isIn = Vector2.Distance(shape.Transform.WorldPosition, Transform.WorldPosition) <
+                    Size.X * 1.1f * (OrthographicSize / 2) +
+                    shape.Size.X / 2 * shape.Transform.LocalScale.MaxVectorMember();
 
         return isIn;
     }
 
     public Matrix4x4 GetLightProjectionMatrix(float lightOrthographicSize)
     {
-        var left = -lightOrthographicSize;
-        var right = lightOrthographicSize;
-        var bottom = -lightOrthographicSize;
-        var top = lightOrthographicSize;
+        float left = -lightOrthographicSize;
+        float right = lightOrthographicSize;
+        float bottom = -lightOrthographicSize;
+        float top = lightOrthographicSize;
 
-        var orthoMatrix =
+        Matrix4x4 orthoMatrix =
             Matrix4x4.CreateOrthographicOffCenter(left, right, bottom, top, NearPlaneDistance, FarPlaneDistance);
 
         return orthoMatrix;
@@ -210,13 +210,13 @@ public class Camera : Component, IComponentUpdateable
     public Matrix4x4 GetLightViewMatrix()
     {
         
-        var forwardWorld =
+        Vector3 forwardWorld =
             Transform.WorldPosition + Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
-        var upLocal = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
+        Vector3 upLocal = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
 
 
-        var view = Matrix4x4.CreateLookAt(Transform.WorldPosition, forwardWorld, upLocal)
-                   * Matrix4x4.CreateScale(-1, 1, 1);
+        Matrix4x4 view = Matrix4x4.CreateLookAt(Transform.WorldPosition, forwardWorld, upLocal)
+                         * Matrix4x4.CreateScale(-1, 1, 1);
 
         return view;
     }
@@ -226,12 +226,12 @@ public class Camera : Component, IComponentUpdateable
         // oldRotation = oldRotation * new Vector3(1, 1, 0);
         // Transform.Rotation = -oldRotation;
 
-        var forwardWorld =
+        Vector3 forwardWorld =
             Transform.ForwardWorldDirection;
-        var upLocal = Transform.GetDirectionFromRotation(new Vector3(90, 0, 0));
+        Vector3 upLocal = Transform.GetDirectionFromRotation(new Vector3(90, 0, 0));
 
 
-        var view = Matrix4x4.CreateLookAt(Transform.WorldPosition, forwardWorld, upLocal);
+        Matrix4x4 view = Matrix4x4.CreateLookAt(Transform.WorldPosition, forwardWorld, upLocal);
 
         // Transform.Rotation = oldRotation;
 

@@ -227,7 +227,7 @@ public class TextureAtlasManager
         ///////////////////////////////////////////////////////////// PNG
         // if (false)
         {
-            using var image =
+            using Image<Rgba32>? image =
                 Image.LoadPixelData<Rgba32>(atlasPixels, AtlasWidth, AtlasWidth);
             // image.Mutate(x =>
             // {

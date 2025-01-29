@@ -372,9 +372,9 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="result">The cross product of two vectors as an output parameter.</param>
     public static void Cross(ref Vector3 vector1, ref Vector3 vector2, out Vector3 result)
     {
-        var x = vector1.Y * vector2.Z - vector2.Y * vector1.Z;
-        var y = -(vector1.X * vector2.Z - vector2.X * vector1.Z);
-        var z = vector1.X * vector2.Y - vector2.X * vector1.Y;
+        float x = vector1.Y * vector2.Z - vector2.Y * vector1.Z;
+        float y = -(vector1.X * vector2.Z - vector2.X * vector1.Z);
+        float z = vector1.X * vector2.Y - vector2.X * vector1.Y;
         result.X = x;
         result.Y = y;
         result.Z = z;
@@ -449,7 +449,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <returns>The result of dividing a vector by a scalar.</returns>
     public static Vector3 Divide(Vector3 value1, float divider)
     {
-        var factor = 1 / divider;
+        float factor = 1 / divider;
         value1.X *= factor;
         value1.Y *= factor;
         value1.Z *= factor;
@@ -464,7 +464,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="result">The result of dividing a vector by a scalar as an output parameter.</param>
     public static void Divide(ref Vector3 value1, float divider, out Vector3 result)
     {
-        var factor = 1 / divider;
+        float factor = 1 / divider;
         result.X = value1.X * factor;
         result.Y = value1.Y * factor;
         result.Z = value1.Z * factor;
@@ -515,7 +515,7 @@ public struct Vector3 : IEquatable<Vector3>
             return false;
         }
 
-        var other = (Vector3)obj;
+        Vector3 other = (Vector3)obj;
         return X == other.X && Y == other.Y && Z == other.Z;
     }
 
@@ -571,7 +571,7 @@ public struct Vector3 : IEquatable<Vector3>
     {
         unchecked
         {
-            var hashCode = X.GetHashCode();
+            int hashCode = X.GetHashCode();
             hashCode = (hashCode * 397) ^ Y.GetHashCode();
             hashCode = (hashCode * 397) ^ Z.GetHashCode();
             return hashCode;
@@ -822,7 +822,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// </summary>
     public void Normalize()
     {
-        var factor = MathF.Sqrt(X * X + Y * Y + Z * Z);
+        float factor = MathF.Sqrt(X * X + Y * Y + Z * Z);
         factor = 1f / factor;
         X *= factor;
         Y *= factor;
@@ -836,7 +836,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <returns>Unit vector.</returns>
     public static Vector3 Normalize(Vector3 value)
     {
-        var factor = MathF.Sqrt(value.X * value.X + value.Y * value.Y + value.Z * value.Z);
+        float factor = MathF.Sqrt(value.X * value.X + value.Y * value.Y + value.Z * value.Z);
         factor = 1f / factor;
         return new Vector3(value.X * factor, value.Y * factor, value.Z * factor);
     }
@@ -848,7 +848,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="result">Unit vector as an output parameter.</param>
     public static void Normalize(ref Vector3 value, out Vector3 result)
     {
-        var factor = MathF.Sqrt(value.X * value.X + value.Y * value.Y + value.Z * value.Z);
+        float factor = MathF.Sqrt(value.X * value.X + value.Y * value.Y + value.Z * value.Z);
         factor = 1f / factor;
         result.X = value.X * factor;
         result.Y = value.Y * factor;
@@ -868,7 +868,7 @@ public struct Vector3 : IEquatable<Vector3>
         // R = I - (2 * N * ( DotProduct[ I,N] ))
         Vector3 reflectedVector;
         // inline the dotProduct here instead of calling method
-        var dotProduct = vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z;
+        float dotProduct = vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z;
         reflectedVector.X = vector.X - 2.0f * normal.X * dotProduct;
         reflectedVector.Y = vector.Y - 2.0f * normal.Y * dotProduct;
         reflectedVector.Z = vector.Z - 2.0f * normal.Z * dotProduct;
@@ -889,7 +889,7 @@ public struct Vector3 : IEquatable<Vector3>
         // R = I - (2 * N * ( DotProduct[ I,N] ))
 
         // inline the dotProduct here instead of calling method
-        var dotProduct = vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z;
+        float dotProduct = vector.X * normal.X + vector.Y * normal.Y + vector.Z * normal.Z;
         result.X = vector.X - 2.0f * normal.X * dotProduct;
         result.Y = vector.Y - 2.0f * normal.Y * dotProduct;
         result.Z = vector.Z - 2.0f * normal.Z * dotProduct;
@@ -994,7 +994,7 @@ public struct Vector3 : IEquatable<Vector3>
     public override string ToString()
     {
         StringBuilder sb = new(32);
-        var separator = "  ";
+        string separator = "  ";
         sb.Append("[");
         sb.Append(X.ToString("F1"));
         sb.Append(separator);
@@ -1029,9 +1029,9 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="result">Transformed <see cref="Vector3" /> as an output parameter.</param>
     public static void Transform(ref Vector3 position, ref Matrix matrix, out Vector3 result)
     {
-        var x = position.X * matrix.M11 + position.Y * matrix.M21 + position.Z * matrix.M31 + matrix.M41;
-        var y = position.X * matrix.M12 + position.Y * matrix.M22 + position.Z * matrix.M32 + matrix.M42;
-        var z = position.X * matrix.M13 + position.Y * matrix.M23 + position.Z * matrix.M33 + matrix.M43;
+        float x = position.X * matrix.M11 + position.Y * matrix.M21 + position.Z * matrix.M31 + matrix.M41;
+        float y = position.X * matrix.M12 + position.Y * matrix.M22 + position.Z * matrix.M32 + matrix.M42;
+        float z = position.X * matrix.M13 + position.Y * matrix.M23 + position.Z * matrix.M33 + matrix.M43;
         result.X = x;
         result.Y = y;
         result.Z = z;
@@ -1060,9 +1060,9 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="result">Transformed <see cref="Vector3" /> as an output parameter.</param>
     public static void Transform(ref Vector3 value, ref Quaternion rotation, out Vector3 result)
     {
-        var x = 2 * (rotation.Y * value.Z - rotation.Z * value.Y);
-        var y = 2 * (rotation.Z * value.X - rotation.X * value.Z);
-        var z = 2 * (rotation.X * value.Y - rotation.Y * value.X);
+        float x = 2 * (rotation.Y * value.Z - rotation.Z * value.Y);
+        float y = 2 * (rotation.Z * value.X - rotation.X * value.Z);
+        float z = 2 * (rotation.X * value.Y - rotation.Y * value.X);
 
         result.X = value.X + x * rotation.W + (rotation.Y * z - rotation.Z * y);
         result.Y = value.Y + y * rotation.W + (rotation.Z * x - rotation.X * z);
@@ -1107,9 +1107,9 @@ public struct Vector3 : IEquatable<Vector3>
 
         // TODO: Are there options on some platforms to implement a vectorized version of this?
 
-        for (var i = 0; i < length; i++)
+        for (int i = 0; i < length; i++)
         {
-            var position = sourceArray[sourceIndex + i];
+            Vector3 position = sourceArray[sourceIndex + i];
             destinationArray[destinationIndex + i] =
                 new Vector3(
                     position.X * matrix.M11 + position.Y * matrix.M21 + position.Z * matrix.M31 + matrix.M41,
@@ -1156,13 +1156,13 @@ public struct Vector3 : IEquatable<Vector3>
 
         // TODO: Are there options on some platforms to implement a vectorized version of this?
 
-        for (var i = 0; i < length; i++)
+        for (int i = 0; i < length; i++)
         {
-            var position = sourceArray[sourceIndex + i];
+            Vector3 position = sourceArray[sourceIndex + i];
 
-            var x = 2 * (rotation.Y * position.Z - rotation.Z * position.Y);
-            var y = 2 * (rotation.Z * position.X - rotation.X * position.Z);
-            var z = 2 * (rotation.X * position.Y - rotation.Y * position.X);
+            float x = 2 * (rotation.Y * position.Z - rotation.Z * position.Y);
+            float y = 2 * (rotation.Z * position.X - rotation.X * position.Z);
+            float z = 2 * (rotation.X * position.Y - rotation.Y * position.X);
 
             destinationArray[destinationIndex + i] =
                 new Vector3(
@@ -1198,9 +1198,9 @@ public struct Vector3 : IEquatable<Vector3>
 
         // TODO: Are there options on some platforms to implement a vectorized version of this?
 
-        for (var i = 0; i < sourceArray.Length; i++)
+        for (int i = 0; i < sourceArray.Length; i++)
         {
-            var position = sourceArray[i];
+            Vector3 position = sourceArray[i];
             destinationArray[i] =
                 new Vector3(
                     position.X * matrix.M11 + position.Y * matrix.M21 + position.Z * matrix.M31 + matrix.M41,
@@ -1235,13 +1235,13 @@ public struct Vector3 : IEquatable<Vector3>
 
         // TODO: Are there options on some platforms to implement a vectorized version of this?
 
-        for (var i = 0; i < sourceArray.Length; i++)
+        for (int i = 0; i < sourceArray.Length; i++)
         {
-            var position = sourceArray[i];
+            Vector3 position = sourceArray[i];
 
-            var x = 2 * (rotation.Y * position.Z - rotation.Z * position.Y);
-            var y = 2 * (rotation.Z * position.X - rotation.X * position.Z);
-            var z = 2 * (rotation.X * position.Y - rotation.Y * position.X);
+            float x = 2 * (rotation.Y * position.Z - rotation.Z * position.Y);
+            float y = 2 * (rotation.Z * position.X - rotation.X * position.Z);
+            float z = 2 * (rotation.X * position.Y - rotation.Y * position.X);
 
             destinationArray[i] =
                 new Vector3(
@@ -1277,9 +1277,9 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="result">Transformed normal as an output parameter.</param>
     public static void TransformNormal(ref Vector3 normal, ref Matrix matrix, out Vector3 result)
     {
-        var x = normal.X * matrix.M11 + normal.Y * matrix.M21 + normal.Z * matrix.M31;
-        var y = normal.X * matrix.M12 + normal.Y * matrix.M22 + normal.Z * matrix.M32;
-        var z = normal.X * matrix.M13 + normal.Y * matrix.M23 + normal.Z * matrix.M33;
+        float x = normal.X * matrix.M11 + normal.Y * matrix.M21 + normal.Z * matrix.M31;
+        float y = normal.X * matrix.M12 + normal.Y * matrix.M22 + normal.Z * matrix.M32;
+        float z = normal.X * matrix.M13 + normal.Y * matrix.M23 + normal.Z * matrix.M33;
         result.X = x;
         result.Y = y;
         result.Z = z;
@@ -1325,9 +1325,9 @@ public struct Vector3 : IEquatable<Vector3>
             throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
         }
 
-        for (var x = 0; x < length; x++)
+        for (int x = 0; x < length; x++)
         {
-            var normal = sourceArray[sourceIndex + x];
+            Vector3 normal = sourceArray[sourceIndex + x];
 
             destinationArray[destinationIndex + x] =
                 new Vector3(
@@ -1361,9 +1361,9 @@ public struct Vector3 : IEquatable<Vector3>
             throw new ArgumentException("Destination array length is lesser than source array length");
         }
 
-        for (var i = 0; i < sourceArray.Length; i++)
+        for (int i = 0; i < sourceArray.Length; i++)
         {
-            var normal = sourceArray[i];
+            Vector3 normal = sourceArray[i];
 
             destinationArray[i] =
                 new Vector3(
@@ -1609,7 +1609,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <returns>The result of dividing a vector by a scalar.</returns>
     public static Vector3 operator /(Vector3 value1, float divider)
     {
-        var factor = 1 / divider;
+        float factor = 1 / divider;
         value1.X *= factor;
         value1.Y *= factor;
         value1.Z *= factor;

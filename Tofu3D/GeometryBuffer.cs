@@ -23,14 +23,14 @@ public class GeometryBuffer
     {
         int vbo = GL.GenBuffer();
         GL.BindBuffer(bufferTarget, vbo);
-        var sizeOfElementInBytes = Unsafe.SizeOf<T>();
+        int sizeOfElementInBytes = Unsafe.SizeOf<T>();
         if (sizeOfElementInBytes == 0)
         {
             throw new ArgumentNullException(
                 "Define VertexBuffer data value type(float,uint) as the generic parameter Create<T>");
         }
 
-        var vertexAttribPointerType = VertexAttribPointerType.Float;
+        VertexAttribPointerType vertexAttribPointerType = VertexAttribPointerType.Float;
 
         if (bufferTarget == BufferTarget.ArrayBuffer)
         {
@@ -51,9 +51,9 @@ public class GeometryBuffer
 
     public void EnableAttribs(bool sequential = true, params int[] countsOfElements)
     {
-        var nextAttribIndex = 0;
-        var currentAttribOffset = 0;
-        foreach (var countOfElements in countsOfElements)
+        int nextAttribIndex = 0;
+        int currentAttribOffset = 0;
+        foreach (int countOfElements in countsOfElements)
         {
             GL.EnableVertexAttribArray(nextAttribIndex);
 

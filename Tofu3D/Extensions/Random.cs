@@ -12,8 +12,8 @@ public static class Random
 
     public static Color ColorRange(Color color1, Color color2)
     {
-        var howMuch = Range(1);
-        var r = Mathf.Lerp(color1.R, color2.R, howMuch);
+        float howMuch = Range(1);
+        float r = Mathf.Lerp(color1.R, color2.R, howMuch);
         return new Color(Mathf.Lerp(color1.R, color2.R, howMuch) / 255,
             Mathf.Lerp(color1.G, color2.G, howMuch) / 255,
             Mathf.Lerp(color1.B, color2.B, howMuch) / 255,

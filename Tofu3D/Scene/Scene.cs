@@ -71,7 +71,7 @@ public class Scene
         // 	GameObjects[0].Destroy();
         // }
 
-        foreach (var gameObject in GameObjects)
+        foreach (GameObject gameObject in GameObjects)
         {
             gameObject.SetActive(false);
         }
@@ -106,7 +106,7 @@ public class Scene
     {
         if (FindComponent<Camera>(out Camera camera) == null)
         {
-            var camGo = GameObject.Create(name: "Camera");
+            GameObject camGo = GameObject.Create(name: "Camera");
             camGo.AddComponent<Camera>();
             camGo.AddComponent<Skybox>();
             camGo.Awake();
@@ -127,7 +127,7 @@ public class Scene
 
     private void CreateTransformHandle()
     {
-        var transformHandleGameObject = GameObject.Create(visibleInHierarchy: false, runtimeOnly: true);
+        GameObject transformHandleGameObject = GameObject.Create(visibleInHierarchy: false, runtimeOnly: true);
         TransformHandle = transformHandleGameObject.AddComponent<TransformHandle>();
         transformHandleGameObject.RuntimeOnly = true;
         transformHandleGameObject.AlwaysUpdate = true;
@@ -143,7 +143,7 @@ public class Scene
     {
         if (FindComponent<AmbientLight>() == null)
         {
-            var ambientLightGo = GameObject.Create(name: "Ambient Light");
+            GameObject ambientLightGo = GameObject.Create(name: "Ambient Light");
             AmbientLight ambientLight = ambientLightGo.AddComponent<AmbientLight>();
             ambientLight.Color = new Color(255, 219, 105, 255);
             ambientLight.Intensity = 0.34f;
@@ -152,7 +152,7 @@ public class Scene
 
         if (FindComponent<DirectionalLight>() == null)
         {
-            var directionLightGo = GameObject.Create(name: "Directional Light");
+            GameObject directionLightGo = GameObject.Create(name: "Directional Light");
             directionLightGo.Transform.Rotation = new Vector3(90, 0, 0);
             DirectionalLight directionalLight = directionLightGo.AddComponent<DirectionalLight>();
             directionalLight.Color = new Color(255, 219, 105, 255);
@@ -162,7 +162,7 @@ public class Scene
 
         if (FindComponent<PointLight>() == null)
         {
-            var pointLightGo = GameObject.Create(name: "Point Light");
+            GameObject pointLightGo = GameObject.Create(name: "Point Light");
             PointLight pointLight = pointLightGo.AddComponent<PointLight>();
             pointLightGo.Awake();
         }
@@ -291,7 +291,7 @@ public class Scene
         SceneFile sf = new();
         sf.Components = new List<Component>();
         sf.GameObjects = new List<GameObject>();
-        for (var i = 0; i < GameObjects.Count; i++)
+        for (int i = 0; i < GameObjects.Count; i++)
         {
             GameObjects[i].IndexInHierarchy = i;
 
@@ -310,9 +310,9 @@ public class Scene
 
     public GameObject FindComponent(Type type)
     {
-        foreach (var gameObject in GameObjects)
+        foreach (GameObject gameObject in GameObjects)
         {
-            var bl = gameObject.GetComponent(type);
+            Component? bl = gameObject.GetComponent(type);
             if (bl != null)
             {
                 return gameObject;
@@ -324,7 +324,7 @@ public class Scene
 
     public T? FindComponent<T>(bool ignoreInactive = false) where T : Component
     {
-        foreach (var gameObject in GameObjects)
+        foreach (GameObject gameObject in GameObjects)
         {
             Component bl = gameObject.GetComponent<T>();
             if (bl != null && ((ignoreInactive && bl.IsActive) || ignoreInactive == false))
@@ -338,7 +338,7 @@ public class Scene
 
     public T? FindComponent<T>(out T component, bool ignoreInactive = false) where T : Component
     {
-        foreach (var gameObject in GameObjects)
+        foreach (GameObject gameObject in GameObjects)
         {
             Component bl = gameObject.GetComponent<T>();
             if (bl != null && ((ignoreInactive && bl.IsActive) || ignoreInactive == false))
@@ -355,9 +355,9 @@ public class Scene
     public List<T> FindComponentsInScene<T>(bool ignoreInactive = false) where T : Component
     {
         List<T> components = new();
-        foreach (var gameObject in GameObjects)
+        foreach (GameObject gameObject in GameObjects)
         {
-            var bl = gameObject.GetComponent<T>();
+            T? bl = gameObject.GetComponent<T>();
             if (bl != null)
             {
                 if (ignoreInactive && (bl.EnabledSelf == false || bl.GameObject.ActiveSelf == false))
@@ -374,7 +374,7 @@ public class Scene
 
     public GameObject GetGameObjectByID(int id)
     {
-        for (var i = 0; i < GameObjects.Count; i++)
+        for (int i = 0; i < GameObjects.Count; i++)
         {
             if (GameObjects[i].Id == id)
             {
@@ -388,7 +388,7 @@ public class Scene
     public List<GameObject> GetGameObjectsByIDs(List<int> ids)
     {
         List<GameObject> foundGameObjects = new();
-        for (var i = 0; i < GameObjects.Count; i++)
+        for (int i = 0; i < GameObjects.Count; i++)
         {
             if (ids.Contains(GameObjects[i].Id))
             {
@@ -435,7 +435,7 @@ public class Scene
 
     public void UpdateGameobjectsIndexInHierarchy()
     {
-        for (var i = 0; i < GameObjects.Count; i++)
+        for (int i = 0; i < GameObjects.Count; i++)
         {
             GameObjects[i].IndexInHierarchy = i;
         }

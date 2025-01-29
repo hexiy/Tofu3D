@@ -3,9 +3,9 @@ public static class TofuGL
 {
     public static bool CheckGlError(string errorLabel = "")
     {
-        var hadError = false;
+        bool hadError = false;
         ErrorCode error;
-        var i = 1;
+        int i = 1;
         while ((error = GL.GetError()) != ErrorCode.NoError)
         {
             Debug.LogError($"{errorLabel} ({i++}): {error}");

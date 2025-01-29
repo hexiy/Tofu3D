@@ -96,8 +96,8 @@ public class ShaderManager
 
     private void ReloadShader(string shaderPath)
     {
-        var allLoadedMaterials = Tofu.AssetLoadManager.GetAllLoadedAssetsOfType<Asset_Material>();
-        foreach (var loadedMaterial in allLoadedMaterials)
+        List<Asset_Material> allLoadedMaterials = Tofu.AssetLoadManager.GetAllLoadedAssetsOfType<Asset_Material>();
+        foreach (Asset_Material loadedMaterial in allLoadedMaterials)
         {
             if (loadedMaterial.Shader?.Path == shaderPath)
             {
@@ -130,7 +130,7 @@ public class ShaderManager
 
     public void ReloadQueuedShaders()
     {
-        for (var i = 0; i < _shadersReloadQueue.Count; i++)
+        for (int i = 0; i < _shadersReloadQueue.Count; i++)
         {
             ReloadShader(_shadersReloadQueue[i]);
         }

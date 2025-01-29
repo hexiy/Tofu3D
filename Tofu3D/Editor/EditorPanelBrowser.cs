@@ -116,9 +116,9 @@ public class EditorPanelBrowser : EditorPanel
 
     private void OnFileChanged(FileChangedInfo fileChangedInfo)
     {
-        var directoryName = Path.GetDirectoryName(fileChangedInfo.Path);
-        var currentDirectoryAssetsRelativePath = Folders.GetPathRelativeToAssetsFolder(CurrentDirectoryInfo.FullName);
-        var fileGotDeletedInCurrentDirectory =
+        string? directoryName = Path.GetDirectoryName(fileChangedInfo.Path);
+        string currentDirectoryAssetsRelativePath = Folders.GetPathRelativeToAssetsFolder(CurrentDirectoryInfo.FullName);
+        bool fileGotDeletedInCurrentDirectory =
             fileChangedInfo.Path ==
             currentDirectoryAssetsRelativePath; // when file is deleted, we only get the directory
         if (directoryName != currentDirectoryAssetsRelativePath && fileGotDeletedInCurrentDirectory == false)
@@ -137,11 +137,11 @@ public class EditorPanelBrowser : EditorPanel
             return;
         }
 
-        var tmpAssets = Directory.GetDirectories(CurrentDirectoryInfo.FullName);
-        var allAssets = tmpAssets
+        string[] tmpAssets = Directory.GetDirectories(CurrentDirectoryInfo.FullName);
+        List<string> allAssets = tmpAssets
             .Concat(Directory.GetFiles(CurrentDirectoryInfo.FullName, "", SearchOption.TopDirectoryOnly)).ToList();
 
-        for (var i = 0; i < allAssets.Count; i++)
+        for (int i = 0; i < allAssets.Count; i++)
         {
             string fileName = Path.GetFileName(allAssets[i]);
             if (fileName.StartsWith('.') || AssetPathExtensions.IsAssetImportParametersFile(fileName) ||
@@ -164,7 +164,7 @@ public class EditorPanelBrowser : EditorPanel
         // }
 
         _textures = new Dictionary<string, RuntimeTexture>();
-        for (var i = 0; i < _assets.Length; i++)
+        for (int i = 0; i < _assets.Length; i++)
         {
             if (AssetPathExtensions.IsFileTexture(_assets[i]))
                 // _textures[i] = new Texture();
@@ -201,7 +201,7 @@ public class EditorPanelBrowser : EditorPanel
         BeginWindowDefault();
         if (ImGui.BeginPopupContextWindow("yeh"))
         {
-            for (var i = 0; i < _contextItems.Count; i++)
+            for (int i = 0; i < _contextItems.Count; i++)
             {
                 _contextItems[i].ShowContextItem();
             }
@@ -246,7 +246,7 @@ public class EditorPanelBrowser : EditorPanel
             // ResetId();
 
             PushNextId();
-            var saveBtnPressed = ImGui.Button("Save Prefab");
+            bool saveBtnPressed = ImGui.Button("Save Prefab");
             if (saveBtnPressed)
             {
                 Tofu.SceneSerializer.SaveGameObject(Tofu.GameObjectSelectionManager.GetSelectedGameObject(),
@@ -290,7 +290,7 @@ public class EditorPanelBrowser : EditorPanel
         //}
         _subAssetsDrawnCount = 0;
         hoveredAssetIndex = -1;
-        for (var assetIndex = 0; assetIndex < _assets.Length; assetIndex++)
+        for (int assetIndex = 0; assetIndex < _assets.Length; assetIndex++)
         {
             string assetPath = _assets[assetIndex];
             DrawAsset(assetIndex, assetPath);
@@ -302,7 +302,7 @@ public class EditorPanelBrowser : EditorPanel
 
         // Debug.StatSetValue("Browser hovered asset index", $"Browser hovered asset index {hoveredAssetIndex}");
 
-        for (var i = 0; i < _contextItems.Count; i++)
+        for (int i = 0; i < _contextItems.Count; i++)
         {
             _contextItems[i].ShowPopupIfOpen();
         }
@@ -331,23 +331,23 @@ public class EditorPanelBrowser : EditorPanel
             directoryInfos.Add(assetPath, directoryInfo);
         }
 
-        var isDirectory = directoryInfo.Exists;
+        bool isDirectory = directoryInfo.Exists;
         ImGui.BeginGroup();
 
         ImGui.BeginGroup();
-        var assetPathPointer = Marshal.StringToHGlobalAnsi(assetPath);
+        IntPtr assetPathPointer = Marshal.StringToHGlobalAnsi(assetPath);
 
-        var assetName = Path.GetFileNameWithoutExtension(assetPath);
-        var assetExtension = Path.GetExtension(assetPath);
+        string assetName = Path.GetFileNameWithoutExtension(assetPath);
+        string assetExtension = Path.GetExtension(assetPath);
 
 
         bool isMesh = AssetPathExtensions.IsFileMesh(assetPath);
-        var isModel = AssetPathExtensions.IsFileModel(assetPath);
-        var isMaterial = AssetPathExtensions.IsFileMaterial(assetPath);
-        var isShader = AssetPathExtensions.IsFileShader(assetPath);
-        var isPrefab = AssetPathExtensions.IsFilePrefab(assetPath);
-        var isTexture = AssetPathExtensions.IsFileTexture(assetPath);
-        var isScene = AssetPathExtensions.IsFileScene(assetPath);
+        bool isModel = AssetPathExtensions.IsFileModel(assetPath);
+        bool isMaterial = AssetPathExtensions.IsFileMaterial(assetPath);
+        bool isShader = AssetPathExtensions.IsFileShader(assetPath);
+        bool isPrefab = AssetPathExtensions.IsFilePrefab(assetPath);
+        bool isTexture = AssetPathExtensions.IsFileTexture(assetPath);
+        bool isScene = AssetPathExtensions.IsFileScene(assetPath);
 
         PushNextId();
 
@@ -432,7 +432,7 @@ public class EditorPanelBrowser : EditorPanel
                 ImGui.SetDragDropPayload(DragDropPayloadTypes.Texture, assetPathPointer,
                     (uint)(sizeof(char) * assetPath.Length));
 
-                var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                string? payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
                 TofuImGui.ImageTexture2DArray(_textures[assetPath], _iconSize);
 
@@ -451,7 +451,7 @@ public class EditorPanelBrowser : EditorPanel
                 ImGui.SetDragDropPayload(DragDropPayloadTypes.AudioClip, assetPathPointer,
                     (uint)(sizeof(char) * assetPath.Length));
 
-                var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                string? payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
                 TofuImGui.ImageTexture2DArray(_fileIcon, _iconSize);
 
@@ -465,7 +465,7 @@ public class EditorPanelBrowser : EditorPanel
         {
             if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
             {
-                var stringPointer = Marshal.StringToHGlobalAnsi(assetPath);
+                IntPtr stringPointer = Marshal.StringToHGlobalAnsi(assetPath);
 
                 string payloadType = isMesh ? DragDropPayloadTypes.Mesh : DragDropPayloadTypes.Model;
                 ImGui.SetDragDropPayload(payloadType, stringPointer,
@@ -485,7 +485,7 @@ public class EditorPanelBrowser : EditorPanel
         {
             if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
             {
-                var stringPointer = Marshal.StringToHGlobalAnsi(assetPath);
+                IntPtr stringPointer = Marshal.StringToHGlobalAnsi(assetPath);
 
                 if (isMaterial)
                 {
@@ -499,7 +499,7 @@ public class EditorPanelBrowser : EditorPanel
                         (uint)(sizeof(char) * assetPath.Length));
                 }
 
-                var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                string? payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
 
                 TofuImGui.ImageTexture2DArray(_fileIcon, new Vector2(100, 90));
 
@@ -514,7 +514,7 @@ public class EditorPanelBrowser : EditorPanel
             {
                 if (ImGui.IsItemHovered() && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left))
                 {
-                    var assetsRelativePath =
+                    string assetsRelativePath =
                         TofuPath.Combine("Assets", Path.GetRelativePath("Assets", assetPath));
 
                     Tofu.ShaderManager.QueueShaderReload(assetsRelativePath);
@@ -527,7 +527,7 @@ public class EditorPanelBrowser : EditorPanel
         {
             if (ImGui.BeginDragDropSource())
             {
-                var stringPointer = Marshal.StringToHGlobalAnsi(assetPath);
+                IntPtr stringPointer = Marshal.StringToHGlobalAnsi(assetPath);
 
                 ImGui.SetDragDropPayload(DragDropPayloadTypes.PrefabPath, stringPointer,
                     (uint)(sizeof(char) * assetPath.Length));
@@ -551,7 +551,7 @@ public class EditorPanelBrowser : EditorPanel
 
             if (isModel)
             {
-                var pathOfImportParametersOfSourceAssetFile =
+                string pathOfImportParametersOfSourceAssetFile =
                     AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(assetPath);
                 Object importParameters =
                     Serializer.ReadFileJSON<AssetImportParameters_Model>(pathOfImportParametersOfSourceAssetFile);
@@ -579,7 +579,7 @@ public class EditorPanelBrowser : EditorPanel
 
             if (isTexture)
             {
-                var pathOfImportParametersOfSourceAssetFile =
+                string pathOfImportParametersOfSourceAssetFile =
                     AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(assetPath);
                 Object importParameters =
                     Serializer.ReadFileJSON<AssetImportParameters_Texture>(pathOfImportParametersOfSourceAssetFile);
@@ -609,7 +609,7 @@ public class EditorPanelBrowser : EditorPanel
 
             if (isPrefab)
             {
-                var go = Tofu.SceneSerializer.LoadPrefab(assetPath);
+                GameObject go = Tofu.SceneSerializer.LoadPrefab(assetPath);
                 // todo
                 // EditorPanelHierarchy.I.SelectGameObject(go.Id);
             }
@@ -621,10 +621,10 @@ public class EditorPanelBrowser : EditorPanel
         }
 
 
-        var maxCharsLimit = 15;
+        int maxCharsLimit = 15;
 
         // var text = assetName.Substring(0, Math.Clamp(assetName.Length, 0, maxCharsLimit));
-        var text = assetName;
+        string text = assetName;
         Vector2 textSize = ImGui.CalcTextSize(text);
 
         if (textSize.X < _iconSize.X)

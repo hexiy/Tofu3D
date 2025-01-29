@@ -55,7 +55,7 @@ internal class ImGuiTexture : IDisposable
         GL.TextureStorage2D(GlTexture, MipmapLevels, InternalFormat, Width, Height);
         Util.CheckGlError("Storage2d");
 
-        var data = image.LockBits(new Rectangle(0, 0, Width, Height),
+        BitmapData data = image.LockBits(new Rectangle(0, 0, Width, Height),
             ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
 
         GL.TextureSubImage2D(GlTexture, 0, 0, 0, Width, Height, OpenTK.Graphics.OpenGL4.PixelFormat.Bgra,

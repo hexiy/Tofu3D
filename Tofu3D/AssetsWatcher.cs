@@ -19,7 +19,7 @@ public class AssetsWatcher
         AssetSupportedFileNameExtensions assetSupportedFileNameExtensions = new(extensions);
         _fileWithExtensionChangedConsumers[assetSupportedFileNameExtensions] = fileChanged;
 
-        foreach (var supportedExtension in extensions)
+        foreach (string supportedExtension in extensions)
         {
             _watcher.Filters.Add($"{supportedExtension}");
         }
@@ -60,7 +60,7 @@ public class AssetsWatcher
             return;
         }
 
-        var assetsRelativePath = TofuPath.Combine("Assets", Path.GetRelativePath("Assets", e.FullPath));
+        string assetsRelativePath = TofuPath.Combine("Assets", Path.GetRelativePath("Assets", e.FullPath));
         // some files have junk after the extension
         if (assetsRelativePath.Contains(".sb"))
         {
@@ -99,17 +99,16 @@ public class AssetsWatcher
     {
         lock (_changedFilesQueue)
         {
-            foreach (var fileManipulatedInfo in _changedFilesQueue)
+            foreach (FileChangedInfo fileManipulatedInfo in _changedFilesQueue)
             {
                 if (Global.Debug)
                 {
                     Debug.Log($"File {fileManipulatedInfo.ChangeType.ToString()}:{fileManipulatedInfo.Path}");
                 }
 
-                var fileExtension = Path.GetExtension(fileManipulatedInfo.Path);
+                string fileExtension = Path.GetExtension(fileManipulatedInfo.Path);
 
-                foreach (var
-                             fileWithExtensionChangedConsumer in _fileWithExtensionChangedConsumers)
+                foreach (KeyValuePair<AssetSupportedFileNameExtensions, Action<FileChangedInfo>> fileWithExtensionChangedConsumer in _fileWithExtensionChangedConsumers)
                 {
                     if (fileWithExtensionChangedConsumer.Key.Extensions.Contains(fileExtension) ||
                         fileWithExtensionChangedConsumer.Key.Extensions.Contains("*"))

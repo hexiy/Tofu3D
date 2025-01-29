@@ -8,7 +8,7 @@ public class InspectorFieldDrawerShader : InspectorFieldDrawable<Shader>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        var shaderPath = "";
+        string? shaderPath = "";
 
         if (componentInspectorData.Inspectable is Asset_Material)
         {
@@ -20,18 +20,18 @@ public class InspectorFieldDrawerShader : InspectorFieldDrawable<Shader>
         }
 
         shaderPath = shaderPath ?? "";
-        var clicked = ImGui.Button(shaderPath,
+        bool clicked = ImGui.Button(shaderPath,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 
         // EditorPanelBrowser.I.GoToFile(materialPath);
         if (ImGui.BeginDragDropTarget())
         {
             ImGui.AcceptDragDropPayload(DragDropPayloadTypes.Shader, ImGuiDragDropFlags.None);
-            var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+            string? payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
             if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && payload.Length > 0)
             {
                 payload = payload;
-                var shaderName = Path.GetFileName(payload);
+                string shaderName = Path.GetFileName(payload);
 
                 Shader shader = Tofu3D.Tofu.ShaderManager.LoadShader(payload);
                 (componentInspectorData.Inspectable as Asset_Material).Shader = shader;

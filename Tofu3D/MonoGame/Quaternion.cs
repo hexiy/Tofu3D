@@ -23,22 +23,26 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <summary>
     ///     The x coordinate of this <see cref="Quaternion" />.
     /// </summary>
-    [DataMember] public float X;
+    [DataMember]
+    public float X;
 
     /// <summary>
     ///     The y coordinate of this <see cref="Quaternion" />.
     /// </summary>
-    [DataMember] public float Y;
+    [DataMember]
+    public float Y;
 
     /// <summary>
     ///     The z coordinate of this <see cref="Quaternion" />.
     /// </summary>
-    [DataMember] public float Z;
+    [DataMember]
+    public float Z;
 
     /// <summary>
     ///     The rotation component of this <see cref="Quaternion" />.
     /// </summary>
-    [DataMember] public float W;
+    [DataMember]
+    public float W;
 
     #endregion
 
@@ -165,15 +169,15 @@ public struct Quaternion : IEquatable<Quaternion>
     {
         Quaternion quaternion;
 
-        var x1 = value1.X;
-        var y1 = value1.Y;
-        var z1 = value1.Z;
-        var w1 = value1.W;
+        float x1 = value1.X;
+        float y1 = value1.Y;
+        float z1 = value1.Z;
+        float w1 = value1.W;
 
-        var x2 = value2.X;
-        var y2 = value2.Y;
-        var z2 = value2.Z;
-        var w2 = value2.W;
+        float x2 = value2.X;
+        float y2 = value2.Y;
+        float z2 = value2.Z;
+        float w2 = value2.W;
 
         quaternion.X = x2 * w1 + x1 * w2 + (y2 * z1 - z2 * y1);
         quaternion.Y = y2 * w1 + y1 * w2 + (z2 * x1 - x2 * z1);
@@ -194,15 +198,15 @@ public struct Quaternion : IEquatable<Quaternion>
     /// </param>
     public static void Concatenate(ref Quaternion value1, ref Quaternion value2, out Quaternion result)
     {
-        var x1 = value1.X;
-        var y1 = value1.Y;
-        var z1 = value1.Z;
-        var w1 = value1.W;
+        float x1 = value1.X;
+        float y1 = value1.Y;
+        float z1 = value1.Z;
+        float w1 = value1.W;
 
-        var x2 = value2.X;
-        var y2 = value2.Y;
-        var z2 = value2.Z;
-        var w2 = value2.W;
+        float x2 = value2.X;
+        float y2 = value2.Y;
+        float z2 = value2.Z;
+        float w2 = value2.W;
 
         result.X = x2 * w1 + x1 * w2 + (y2 * z1 - z2 * y1);
         result.Y = y2 * w1 + y1 * w2 + (z2 * x1 - x2 * z1);
@@ -256,9 +260,9 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <returns>The new quaternion builded from axis and angle.</returns>
     public static Quaternion CreateFromAxisAngle(Vector3 axis, float angle)
     {
-        var half = angle * 0.5f;
-        var sin = MathF.Sin(half);
-        var cos = MathF.Cos(half);
+        float half = angle * 0.5f;
+        float sin = MathF.Sin(half);
+        float cos = MathF.Cos(half);
         return new Quaternion(axis.X * sin, axis.Y * sin, axis.Z * sin, cos);
     }
 
@@ -270,9 +274,9 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <param name="result">The new quaternion builded from axis and angle as an output parameter.</param>
     public static void CreateFromAxisAngle(ref Vector3 axis, float angle, out Quaternion result)
     {
-        var half = angle * 0.5f;
-        var sin = MathF.Sin(half);
-        var cos = MathF.Cos(half);
+        float half = angle * 0.5f;
+        float sin = MathF.Sin(half);
+        float cos = MathF.Cos(half);
         result.X = axis.X * sin;
         result.Y = axis.Y * sin;
         result.Z = axis.Z * sin;
@@ -293,7 +297,7 @@ public struct Quaternion : IEquatable<Quaternion>
         Quaternion quaternion;
         float sqrt;
         float half;
-        var scale = matrix.M11 + matrix.M22 + matrix.M33;
+        float scale = matrix.M11 + matrix.M22 + matrix.M33;
 
         if (scale > 0.0f)
         {
@@ -354,7 +358,7 @@ public struct Quaternion : IEquatable<Quaternion>
     {
         float sqrt;
         float half;
-        var scale = matrix.M11 + matrix.M22 + matrix.M33;
+        float scale = matrix.M11 + matrix.M22 + matrix.M33;
 
         if (scale > 0.0f)
         {
@@ -411,21 +415,83 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <returns>A new quaternion from the concatenated yaw, pitch, and roll angles.</returns>
     public static Quaternion CreateFromYawPitchRoll(float yaw, float pitch, float roll)
     {
-        var halfRoll = roll * 0.5f;
-        var halfPitch = pitch * 0.5f;
-        var halfYaw = yaw * 0.5f;
+        float halfRoll = roll * 0.5f;
+        float halfPitch = pitch * 0.5f;
+        float halfYaw = yaw * 0.5f;
 
-        var sinRoll = MathF.Sin(halfRoll);
-        var cosRoll = MathF.Cos(halfRoll);
-        var sinPitch = MathF.Sin(halfPitch);
-        var cosPitch = MathF.Cos(halfPitch);
-        var sinYaw = MathF.Sin(halfYaw);
-        var cosYaw = MathF.Cos(halfYaw);
+        float sinRoll = MathF.Sin(halfRoll);
+        float cosRoll = MathF.Cos(halfRoll);
+        float sinPitch = MathF.Sin(halfPitch);
+        float cosPitch = MathF.Cos(halfPitch);
+        float sinYaw = MathF.Sin(halfYaw);
+        float cosYaw = MathF.Cos(halfYaw);
 
         return new Quaternion(cosYaw * sinPitch * cosRoll + sinYaw * cosPitch * sinRoll,
             sinYaw * cosPitch * cosRoll - cosYaw * sinPitch * sinRoll,
             cosYaw * cosPitch * sinRoll - sinYaw * sinPitch * cosRoll,
             cosYaw * cosPitch * cosRoll + sinYaw * sinPitch * sinRoll);
+    }
+
+    public static Quaternion FromEulerAnglesInDegrees(Vector3 eulerAngles)
+    {
+        // Convert input Euler angles from degrees to radians
+        float yaw = Mathf.ToRadians(eulerAngles.Y);   // Yaw around the y-axis
+        float pitch = Mathf.ToRadians(eulerAngles.X); // Pitch around the x-axis
+        float roll = Mathf.ToRadians(eulerAngles.Z);  // Roll around the z-axis
+
+        // Use existing CreateFromYawPitchRoll method to convert
+        // return CreateFromYawPitchRoll(yaw, pitch, roll);
+        
+        
+        float halfRoll = roll * 0.5f;
+        float halfPitch = pitch * 0.5f;
+        float halfYaw = yaw * 0.5f;
+
+        float sinRoll = MathF.Sin(halfRoll);
+        float cosRoll = MathF.Cos(halfRoll);
+        float sinPitch = MathF.Sin(halfPitch);
+        float cosPitch = MathF.Cos(halfPitch);
+        float sinYaw = MathF.Sin(halfYaw);
+        float cosYaw = MathF.Cos(halfYaw);
+
+        return new Quaternion(
+            sinYaw * cosPitch * cosRoll - cosYaw * sinPitch * sinRoll,
+            cosYaw * sinPitch * cosRoll + sinYaw * cosPitch * sinRoll,
+            cosYaw * cosPitch * sinRoll - sinYaw * sinPitch * cosRoll,
+            cosYaw * cosPitch * cosRoll + sinYaw * sinPitch * sinRoll);
+    }
+
+    public static Vector3 ToEulerAngles(Quaternion quaternion)
+    {
+        // Calculate roll (X-axis rotation)
+        float sinr_cosp = 2 * (quaternion.W * quaternion.X + quaternion.Y * quaternion.Z);
+        float cosr_cosp = 1 - 2 * (quaternion.X * quaternion.X + quaternion.Y * quaternion.Y);
+        float roll = MathF.Atan2(sinr_cosp, cosr_cosp);
+
+        // Calculate pitch (Y-axis rotation)
+        float sinp = 2 * (quaternion.W * quaternion.Y - quaternion.Z * quaternion.X);
+        float pitch;
+        if (MathF.Abs(sinp) >= 1) // Check if the angle is out of range
+            pitch = MathF.CopySign(MathF.PI / 2, sinp); // Use 90 degrees
+        else
+            pitch = MathF.Asin(sinp);
+
+        // Calculate yaw (Z-axis rotation)
+        float siny_cosp = 2 * (quaternion.W * quaternion.Z + quaternion.X * quaternion.Y);
+        float cosy_cosp = 1 - 2 * (quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z);
+        float yaw = MathF.Atan2(siny_cosp, cosy_cosp);
+
+        // Return the Euler angles in radians
+
+        /*return new Vector3(
+            Tofu3D.MathHelper.ToDegrees(pitch),
+            Tofu3D.MathHelper.ToDegrees(yaw),
+            Tofu3D.MathHelper.ToDegrees(roll));*/
+        
+        return new Vector3(
+            Mathf.ToDegrees(pitch),
+            Mathf.ToDegrees(roll),
+            Mathf.ToDegrees(yaw));
     }
 
     /// <summary>
@@ -437,16 +503,16 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <param name="result">A new quaternion from the concatenated yaw, pitch, and roll angles as an output parameter.</param>
     public static void CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Quaternion result)
     {
-        var halfRoll = roll * 0.5f;
-        var halfPitch = pitch * 0.5f;
-        var halfYaw = yaw * 0.5f;
+        float halfRoll = roll * 0.5f;
+        float halfPitch = pitch * 0.5f;
+        float halfYaw = yaw * 0.5f;
 
-        var sinRoll = MathF.Sin(halfRoll);
-        var cosRoll = MathF.Cos(halfRoll);
-        var sinPitch = MathF.Sin(halfPitch);
-        var cosPitch = MathF.Cos(halfPitch);
-        var sinYaw = MathF.Sin(halfYaw);
-        var cosYaw = MathF.Cos(halfYaw);
+        float sinRoll = MathF.Sin(halfRoll);
+        float cosRoll = MathF.Cos(halfRoll);
+        float sinPitch = MathF.Sin(halfPitch);
+        float cosPitch = MathF.Cos(halfPitch);
+        float sinYaw = MathF.Sin(halfYaw);
+        float cosYaw = MathF.Cos(halfYaw);
 
         result.X = cosYaw * sinPitch * cosRoll + sinYaw * cosPitch * sinRoll;
         result.Y = sinYaw * cosPitch * cosRoll - cosYaw * sinPitch * sinRoll;
@@ -467,21 +533,21 @@ public struct Quaternion : IEquatable<Quaternion>
     public static Quaternion Divide(Quaternion quaternion1, Quaternion quaternion2)
     {
         Quaternion quaternion;
-        var x = quaternion1.X;
-        var y = quaternion1.Y;
-        var z = quaternion1.Z;
-        var w = quaternion1.W;
-        var num14 = quaternion2.X * quaternion2.X + quaternion2.Y * quaternion2.Y + quaternion2.Z * quaternion2.Z +
-                    quaternion2.W * quaternion2.W;
-        var num5 = 1f / num14;
-        var num4 = -quaternion2.X * num5;
-        var num3 = -quaternion2.Y * num5;
-        var num2 = -quaternion2.Z * num5;
-        var num = quaternion2.W * num5;
-        var num13 = y * num2 - z * num3;
-        var num12 = z * num4 - x * num2;
-        var num11 = x * num3 - y * num4;
-        var num10 = x * num4 + y * num3 + z * num2;
+        float x = quaternion1.X;
+        float y = quaternion1.Y;
+        float z = quaternion1.Z;
+        float w = quaternion1.W;
+        float num14 = quaternion2.X * quaternion2.X + quaternion2.Y * quaternion2.Y + quaternion2.Z * quaternion2.Z +
+                      quaternion2.W * quaternion2.W;
+        float num5 = 1f / num14;
+        float num4 = -quaternion2.X * num5;
+        float num3 = -quaternion2.Y * num5;
+        float num2 = -quaternion2.Z * num5;
+        float num = quaternion2.W * num5;
+        float num13 = y * num2 - z * num3;
+        float num12 = z * num4 - x * num2;
+        float num11 = x * num3 - y * num4;
+        float num10 = x * num4 + y * num3 + z * num2;
         quaternion.X = x * num + num4 * w + num13;
         quaternion.Y = y * num + num3 * w + num12;
         quaternion.Z = z * num + num2 * w + num11;
@@ -497,21 +563,21 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <param name="result">The result of dividing the quaternions as an output parameter.</param>
     public static void Divide(ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
     {
-        var x = quaternion1.X;
-        var y = quaternion1.Y;
-        var z = quaternion1.Z;
-        var w = quaternion1.W;
-        var num14 = quaternion2.X * quaternion2.X + quaternion2.Y * quaternion2.Y + quaternion2.Z * quaternion2.Z +
-                    quaternion2.W * quaternion2.W;
-        var num5 = 1f / num14;
-        var num4 = -quaternion2.X * num5;
-        var num3 = -quaternion2.Y * num5;
-        var num2 = -quaternion2.Z * num5;
-        var num = quaternion2.W * num5;
-        var num13 = y * num2 - z * num3;
-        var num12 = z * num4 - x * num2;
-        var num11 = x * num3 - y * num4;
-        var num10 = x * num4 + y * num3 + z * num2;
+        float x = quaternion1.X;
+        float y = quaternion1.Y;
+        float z = quaternion1.Z;
+        float w = quaternion1.W;
+        float num14 = quaternion2.X * quaternion2.X + quaternion2.Y * quaternion2.Y + quaternion2.Z * quaternion2.Z +
+                      quaternion2.W * quaternion2.W;
+        float num5 = 1f / num14;
+        float num4 = -quaternion2.X * num5;
+        float num3 = -quaternion2.Y * num5;
+        float num2 = -quaternion2.Z * num5;
+        float num = quaternion2.W * num5;
+        float num13 = y * num2 - z * num3;
+        float num12 = z * num4 - x * num2;
+        float num11 = x * num3 - y * num4;
+        float num10 = x * num4 + y * num3 + z * num2;
         result.X = x * num + num4 * w + num13;
         result.Y = y * num + num3 * w + num12;
         result.Z = z * num + num2 * w + num11;
@@ -588,9 +654,9 @@ public struct Quaternion : IEquatable<Quaternion>
     public static Quaternion Inverse(Quaternion quaternion)
     {
         Quaternion quaternion2;
-        var num2 = quaternion.X * quaternion.X + quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z +
-                   quaternion.W * quaternion.W;
-        var num = 1f / num2;
+        float num2 = quaternion.X * quaternion.X + quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z +
+                     quaternion.W * quaternion.W;
+        float num = 1f / num2;
         quaternion2.X = -quaternion.X * num;
         quaternion2.Y = -quaternion.Y * num;
         quaternion2.Z = -quaternion.Z * num;
@@ -605,9 +671,9 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <param name="result">The inverse quaternion as an output parameter.</param>
     public static void Inverse(ref Quaternion quaternion, out Quaternion result)
     {
-        var num2 = quaternion.X * quaternion.X + quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z +
-                   quaternion.W * quaternion.W;
-        var num = 1f / num2;
+        float num2 = quaternion.X * quaternion.X + quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z +
+                     quaternion.W * quaternion.W;
+        float num = 1f / num2;
         result.X = -quaternion.X * num;
         result.Y = -quaternion.Y * num;
         result.Z = -quaternion.Z * num;
@@ -642,11 +708,11 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <returns>The result of linear blending between two quaternions.</returns>
     public static Quaternion Lerp(Quaternion quaternion1, Quaternion quaternion2, float amount)
     {
-        var num = amount;
-        var num2 = 1f - num;
+        float num = amount;
+        float num2 = 1f - num;
         Quaternion quaternion = new();
-        var num5 = quaternion1.X * quaternion2.X + quaternion1.Y * quaternion2.Y + quaternion1.Z * quaternion2.Z +
-                   quaternion1.W * quaternion2.W;
+        float num5 = quaternion1.X * quaternion2.X + quaternion1.Y * quaternion2.Y + quaternion1.Z * quaternion2.Z +
+                     quaternion1.W * quaternion2.W;
         if (num5 >= 0f)
         {
             quaternion.X = num2 * quaternion1.X + num * quaternion2.X;
@@ -662,9 +728,9 @@ public struct Quaternion : IEquatable<Quaternion>
             quaternion.W = num2 * quaternion1.W - num * quaternion2.W;
         }
 
-        var num4 = quaternion.X * quaternion.X + quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z +
-                   quaternion.W * quaternion.W;
-        var num3 = 1f / MathF.Sqrt(num4);
+        float num4 = quaternion.X * quaternion.X + quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z +
+                     quaternion.W * quaternion.W;
+        float num3 = 1f / MathF.Sqrt(num4);
         quaternion.X *= num3;
         quaternion.Y *= num3;
         quaternion.Z *= num3;
@@ -684,10 +750,10 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <param name="result">The result of linear blending between two quaternions as an output parameter.</param>
     public static void Lerp(ref Quaternion quaternion1, ref Quaternion quaternion2, float amount, out Quaternion result)
     {
-        var num = amount;
-        var num2 = 1f - num;
-        var num5 = quaternion1.X * quaternion2.X + quaternion1.Y * quaternion2.Y + quaternion1.Z * quaternion2.Z +
-                   quaternion1.W * quaternion2.W;
+        float num = amount;
+        float num2 = 1f - num;
+        float num5 = quaternion1.X * quaternion2.X + quaternion1.Y * quaternion2.Y + quaternion1.Z * quaternion2.Z +
+                     quaternion1.W * quaternion2.W;
         if (num5 >= 0f)
         {
             result.X = num2 * quaternion1.X + num * quaternion2.X;
@@ -703,8 +769,8 @@ public struct Quaternion : IEquatable<Quaternion>
             result.W = num2 * quaternion1.W - num * quaternion2.W;
         }
 
-        var num4 = result.X * result.X + result.Y * result.Y + result.Z * result.Z + result.W * result.W;
-        var num3 = 1f / MathF.Sqrt(num4);
+        float num4 = result.X * result.X + result.Y * result.Y + result.Z * result.Z + result.W * result.W;
+        float num3 = 1f / MathF.Sqrt(num4);
         result.X *= num3;
         result.Y *= num3;
         result.Z *= num3;
@@ -730,10 +796,10 @@ public struct Quaternion : IEquatable<Quaternion>
         float num2;
         float num3;
         Quaternion quaternion;
-        var num = amount;
-        var num4 = quaternion1.X * quaternion2.X + quaternion1.Y * quaternion2.Y + quaternion1.Z * quaternion2.Z +
-                   quaternion1.W * quaternion2.W;
-        var flag = false;
+        float num = amount;
+        float num4 = quaternion1.X * quaternion2.X + quaternion1.Y * quaternion2.Y + quaternion1.Z * quaternion2.Z +
+                     quaternion1.W * quaternion2.W;
+        bool flag = false;
         if (num4 < 0f)
         {
             flag = true;
@@ -747,8 +813,8 @@ public struct Quaternion : IEquatable<Quaternion>
         }
         else
         {
-            var num5 = MathF.Acos(num4);
-            var num6 = (float)(1.0 / Math.Sin(num5));
+            float num5 = MathF.Acos(num4);
+            float num6 = (float)(1.0 / Math.Sin(num5));
             num3 = MathF.Sin((1f - num) * num5) * num6;
             num2 = flag ? -MathF.Sin(num * num5) * num6 : MathF.Sin(num * num5) * num6;
         }
@@ -775,10 +841,10 @@ public struct Quaternion : IEquatable<Quaternion>
     {
         float num2;
         float num3;
-        var num = amount;
-        var num4 = quaternion1.X * quaternion2.X + quaternion1.Y * quaternion2.Y + quaternion1.Z * quaternion2.Z +
-                   quaternion1.W * quaternion2.W;
-        var flag = false;
+        float num = amount;
+        float num4 = quaternion1.X * quaternion2.X + quaternion1.Y * quaternion2.Y + quaternion1.Z * quaternion2.Z +
+                     quaternion1.W * quaternion2.W;
+        bool flag = false;
         if (num4 < 0f)
         {
             flag = true;
@@ -792,8 +858,8 @@ public struct Quaternion : IEquatable<Quaternion>
         }
         else
         {
-            var num5 = MathF.Acos(num4);
-            var num6 = (float)(1.0 / Math.Sin(num5));
+            float num5 = MathF.Acos(num4);
+            float num6 = (float)(1.0 / Math.Sin(num5));
             num3 = MathF.Sin((1f - num) * num5) * num6;
             num2 = flag ? -MathF.Sin(num * num5) * num6 : MathF.Sin(num * num5) * num6;
         }
@@ -853,18 +919,18 @@ public struct Quaternion : IEquatable<Quaternion>
     public static Quaternion Multiply(Quaternion quaternion1, Quaternion quaternion2)
     {
         Quaternion quaternion;
-        var x = quaternion1.X;
-        var y = quaternion1.Y;
-        var z = quaternion1.Z;
-        var w = quaternion1.W;
-        var num4 = quaternion2.X;
-        var num3 = quaternion2.Y;
-        var num2 = quaternion2.Z;
-        var num = quaternion2.W;
-        var num12 = y * num2 - z * num3;
-        var num11 = z * num4 - x * num2;
-        var num10 = x * num3 - y * num4;
-        var num9 = x * num4 + y * num3 + z * num2;
+        float x = quaternion1.X;
+        float y = quaternion1.Y;
+        float z = quaternion1.Z;
+        float w = quaternion1.W;
+        float num4 = quaternion2.X;
+        float num3 = quaternion2.Y;
+        float num2 = quaternion2.Z;
+        float num = quaternion2.W;
+        float num12 = y * num2 - z * num3;
+        float num11 = z * num4 - x * num2;
+        float num10 = x * num3 - y * num4;
+        float num9 = x * num4 + y * num3 + z * num2;
         quaternion.X = x * num + num4 * w + num12;
         quaternion.Y = y * num + num3 * w + num11;
         quaternion.Z = z * num + num2 * w + num10;
@@ -912,18 +978,18 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <param name="result">The result of the quaternion multiplication as an output parameter.</param>
     public static void Multiply(ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
     {
-        var x = quaternion1.X;
-        var y = quaternion1.Y;
-        var z = quaternion1.Z;
-        var w = quaternion1.W;
-        var num4 = quaternion2.X;
-        var num3 = quaternion2.Y;
-        var num2 = quaternion2.Z;
-        var num = quaternion2.W;
-        var num12 = y * num2 - z * num3;
-        var num11 = z * num4 - x * num2;
-        var num10 = x * num3 - y * num4;
-        var num9 = x * num4 + y * num3 + z * num2;
+        float x = quaternion1.X;
+        float y = quaternion1.Y;
+        float z = quaternion1.Z;
+        float w = quaternion1.W;
+        float num4 = quaternion2.X;
+        float num3 = quaternion2.Y;
+        float num2 = quaternion2.Z;
+        float num = quaternion2.W;
+        float num12 = y * num2 - z * num3;
+        float num11 = z * num4 - x * num2;
+        float num10 = x * num3 - y * num4;
+        float num9 = x * num4 + y * num3 + z * num2;
         result.X = x * num + num4 * w + num12;
         result.Y = y * num + num3 * w + num11;
         result.Z = z * num + num2 * w + num10;
@@ -964,7 +1030,7 @@ public struct Quaternion : IEquatable<Quaternion>
     /// </summary>
     public void Normalize()
     {
-        var num = 1f / MathF.Sqrt(X * X + Y * Y + Z * Z + W * W);
+        float num = 1f / MathF.Sqrt(X * X + Y * Y + Z * Z + W * W);
         X *= num;
         Y *= num;
         Z *= num;
@@ -979,8 +1045,8 @@ public struct Quaternion : IEquatable<Quaternion>
     public static Quaternion Normalize(Quaternion quaternion)
     {
         Quaternion result;
-        var num = 1f / MathF.Sqrt(quaternion.X * quaternion.X + quaternion.Y * quaternion.Y +
-                                  quaternion.Z * quaternion.Z + quaternion.W * quaternion.W);
+        float num = 1f / MathF.Sqrt(quaternion.X * quaternion.X + quaternion.Y * quaternion.Y +
+                                    quaternion.Z * quaternion.Z + quaternion.W * quaternion.W);
         result.X = quaternion.X * num;
         result.Y = quaternion.Y * num;
         result.Z = quaternion.Z * num;
@@ -995,8 +1061,8 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <param name="result">The unit length quaternion an output parameter.</param>
     public static void Normalize(ref Quaternion quaternion, out Quaternion result)
     {
-        var num = 1f / MathF.Sqrt(quaternion.X * quaternion.X + quaternion.Y * quaternion.Y +
-                                  quaternion.Z * quaternion.Z + quaternion.W * quaternion.W);
+        float num = 1f / MathF.Sqrt(quaternion.X * quaternion.X + quaternion.Y * quaternion.Y +
+                                    quaternion.Z * quaternion.Z + quaternion.W * quaternion.W);
         result.X = quaternion.X * num;
         result.Y = quaternion.Y * num;
         result.Z = quaternion.Z * num;
@@ -1043,6 +1109,14 @@ public struct Quaternion : IEquatable<Quaternion>
         new(value.X, value.Y, value.Z, value.W);
 
     /// <summary>
+    ///     Converts a <see cref="Quaternion" /> to a <see cref="System.Numerics.Quaternion" />.
+    /// </summary>
+    /// <param name="value">The converted value.</param>
+    public static implicit operator System.Numerics.Quaternion(Quaternion value) =>
+        new(value.X, value.Y, value.Z, value.W);
+    
+
+    /// <summary>
     ///     Adds two quaternions.
     /// </summary>
     /// <param name="quaternion1">Source <see cref="Quaternion" /> on the left of the add sign.</param>
@@ -1067,21 +1141,21 @@ public struct Quaternion : IEquatable<Quaternion>
     public static Quaternion operator /(Quaternion quaternion1, Quaternion quaternion2)
     {
         Quaternion quaternion;
-        var x = quaternion1.X;
-        var y = quaternion1.Y;
-        var z = quaternion1.Z;
-        var w = quaternion1.W;
-        var num14 = quaternion2.X * quaternion2.X + quaternion2.Y * quaternion2.Y + quaternion2.Z * quaternion2.Z +
-                    quaternion2.W * quaternion2.W;
-        var num5 = 1f / num14;
-        var num4 = -quaternion2.X * num5;
-        var num3 = -quaternion2.Y * num5;
-        var num2 = -quaternion2.Z * num5;
-        var num = quaternion2.W * num5;
-        var num13 = y * num2 - z * num3;
-        var num12 = z * num4 - x * num2;
-        var num11 = x * num3 - y * num4;
-        var num10 = x * num4 + y * num3 + z * num2;
+        float x = quaternion1.X;
+        float y = quaternion1.Y;
+        float z = quaternion1.Z;
+        float w = quaternion1.W;
+        float num14 = quaternion2.X * quaternion2.X + quaternion2.Y * quaternion2.Y + quaternion2.Z * quaternion2.Z +
+                      quaternion2.W * quaternion2.W;
+        float num5 = 1f / num14;
+        float num4 = -quaternion2.X * num5;
+        float num3 = -quaternion2.Y * num5;
+        float num2 = -quaternion2.Z * num5;
+        float num = quaternion2.W * num5;
+        float num13 = y * num2 - z * num3;
+        float num12 = z * num4 - x * num2;
+        float num11 = x * num3 - y * num4;
+        float num10 = x * num4 + y * num3 + z * num2;
         quaternion.X = x * num + num4 * w + num13;
         quaternion.Y = y * num + num3 * w + num12;
         quaternion.Z = z * num + num2 * w + num11;
@@ -1124,18 +1198,18 @@ public struct Quaternion : IEquatable<Quaternion>
     public static Quaternion operator *(Quaternion quaternion1, Quaternion quaternion2)
     {
         Quaternion quaternion;
-        var x = quaternion1.X;
-        var y = quaternion1.Y;
-        var z = quaternion1.Z;
-        var w = quaternion1.W;
-        var num4 = quaternion2.X;
-        var num3 = quaternion2.Y;
-        var num2 = quaternion2.Z;
-        var num = quaternion2.W;
-        var num12 = y * num2 - z * num3;
-        var num11 = z * num4 - x * num2;
-        var num10 = x * num3 - y * num4;
-        var num9 = x * num4 + y * num3 + z * num2;
+        float x = quaternion1.X;
+        float y = quaternion1.Y;
+        float z = quaternion1.Z;
+        float w = quaternion1.W;
+        float num4 = quaternion2.X;
+        float num3 = quaternion2.Y;
+        float num2 = quaternion2.Z;
+        float num = quaternion2.W;
+        float num12 = y * num2 - z * num3;
+        float num11 = z * num4 - x * num2;
+        float num10 = x * num3 - y * num4;
+        float num9 = x * num4 + y * num3 + z * num2;
         quaternion.X = x * num + num4 * w + num12;
         quaternion.Y = y * num + num3 * w + num11;
         quaternion.Z = z * num + num2 * w + num10;

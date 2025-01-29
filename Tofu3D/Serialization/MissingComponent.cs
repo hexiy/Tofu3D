@@ -15,20 +15,20 @@ public class MissingComponent : Component
 
     public string GetXMLOfThisComponent()
     {
-        using var stream = new StringWriter();
-        var serializer = new XmlSerializer(typeof(MissingComponent), new[] { typeof(MissingComponent) });
+        using StringWriter stream = new StringWriter();
+        XmlSerializer serializer = new XmlSerializer(typeof(MissingComponent), new[] { typeof(MissingComponent) });
         serializer.Serialize(stream, this);
-        var xml = stream.ToString();
-        var a = xml.IndexOf("<MissingComponent");
+        string xml = stream.ToString();
+        int a = xml.IndexOf("<MissingComponent");
 
         xml = xml.Substring(xml.IndexOf("<MissingComponent"));
 
         // string aaaa =
         //     "<MissingComponent xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">";
         // string bbbb = "<Component xsi:type=\"MissingComponent\">\n";  
-        var aaaa =
+        string aaaa =
             "<MissingComponent";
-        var bbbb =
+        string bbbb =
             "<Component xsi:type=\"MissingComponent\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"";
         // string bbbb = "<Component xsi:type=\"MissingComponent\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"";
 
@@ -42,8 +42,8 @@ public class MissingComponent : Component
             xml = xml.Replace(aaaa, bbbb);
         }
 
-        var x = "</MissingComponent>";
-        var y = "</Component>";
+        string x = "</MissingComponent>";
+        string y = "</Component>";
         xml = xml.Replace(x, y);
         return xml;
     }

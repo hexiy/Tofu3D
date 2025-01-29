@@ -35,10 +35,10 @@ public class EditorPanelMenuBar : EditorPanel
             // ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoTitleBar);
             ImGui.BeginMainMenuBar();
 
-            var layoutButtonClicked = ImGui.BeginMenu("Layout");
+            bool layoutButtonClicked = ImGui.BeginMenu("Layout");
             if (layoutButtonClicked)
             {
-                var saveCurrentLayoutButtonClicked = ImGui.Button("Save Current Layout");
+                bool saveCurrentLayoutButtonClicked = ImGui.Button("Save Current Layout");
                 if (saveCurrentLayoutButtonClicked)
                 {
                     ImGui.CloseCurrentPopup();
@@ -46,7 +46,7 @@ public class EditorPanelMenuBar : EditorPanel
                     _editorLayoutManager.SaveCurrentLayout();
                 }
 
-                var loadDefaultLayoutButtonClicked = ImGui.Button("Load Default Layout");
+                bool loadDefaultLayoutButtonClicked = ImGui.Button("Load Default Layout");
                 if (loadDefaultLayoutButtonClicked)
                 {
                     ImGui.CloseCurrentPopup();
@@ -56,7 +56,7 @@ public class EditorPanelMenuBar : EditorPanel
                             .LoadDefaultLayout; // load layout before drawing anything, otherwise we break the layout by calling imgui after this editor panel
                 }
 
-                var saveDefaultLayoutButtonClicked = ImGui.Button("Save Default Layout");
+                bool saveDefaultLayoutButtonClicked = ImGui.Button("Save Default Layout");
                 if (saveDefaultLayoutButtonClicked)
                 {
                     ImGui.CloseCurrentPopup();
@@ -68,10 +68,10 @@ public class EditorPanelMenuBar : EditorPanel
                 ImGui.EndMenu();
             }
 
-            var persistentDataButtonClicked = ImGui.BeginMenu("Persistent Data");
+            bool persistentDataButtonClicked = ImGui.BeginMenu("Persistent Data");
             if (persistentDataButtonClicked)
             {
-                var resetPersistentDataButtonClicked = ImGui.Button("Reset");
+                bool resetPersistentDataButtonClicked = ImGui.Button("Reset");
                 if (resetPersistentDataButtonClicked)
                 {
                     ImGui.CloseCurrentPopup();
@@ -83,7 +83,7 @@ public class EditorPanelMenuBar : EditorPanel
             }
 
 
-            var skyboxButtonClicked = ImGui.BeginMenu("Skybox");
+            bool skyboxButtonClicked = ImGui.BeginMenu("Skybox");
             if (skyboxButtonClicked)
             {
                 EditorPanelInspector.I.SelectInspectable(Tofu.SceneManager.CurrentScene.FindComponent<Skybox>());
@@ -94,7 +94,7 @@ public class EditorPanelMenuBar : EditorPanel
                 ImGui.EndMenu();
             }
 
-            var instancedRenderingClicked = ImGui.BeginMenu("Instanced Rendering");
+            bool instancedRenderingClicked = ImGui.BeginMenu("Instanced Rendering");
             if (instancedRenderingClicked)
             {
                 EditorPanelInspector.I.SelectInspectable(Tofu.InstancedRenderingSystem);
@@ -105,7 +105,7 @@ public class EditorPanelMenuBar : EditorPanel
                 ImGui.EndMenu();
             }
 
-            var fpsLimiterButtonClicked = ImGui.BeginMenu($"FPS Limiter [{Tofu.Window.FrameLimiterEnabled}]");
+            bool fpsLimiterButtonClicked = ImGui.BeginMenu($"FPS Limiter [{Tofu.Window.FrameLimiterEnabled}]");
             if (fpsLimiterButtonClicked)
             {
                 Tofu.Window.FrameLimiterEnabled = !Tofu.Window.FrameLimiterEnabled;
@@ -115,10 +115,10 @@ public class EditorPanelMenuBar : EditorPanel
                 ImGui.EndMenu();
             }
 
-            var showDebugButton = true; // KeyboardInput.IsKeyDown(Keys.LeftAlt);
+            bool showDebugButton = true; // KeyboardInput.IsKeyDown(Keys.LeftAlt);
             if (showDebugButton)
             {
-                var debugButtonClicked = ImGui.SmallButton($"Debug [{(Global.Debug ? "ON" : "OFF")}]");
+                bool debugButtonClicked = ImGui.SmallButton($"Debug [{(Global.Debug ? "ON" : "OFF")}]");
                 if (debugButtonClicked)
                 {
                     Global.Debug = !Global.Debug;

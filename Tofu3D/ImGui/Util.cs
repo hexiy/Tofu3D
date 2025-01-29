@@ -12,7 +12,7 @@ internal static class Util
     [Conditional("DEBUG")]
     public static void CheckGlError(string title)
     {
-        var error = GL.GetError();
+        ErrorCode error = GL.GetError();
         if (error != ErrorCode.NoError)
         {
             Debug.Log($"{title}: {error}");

@@ -125,7 +125,7 @@ public class ModelRendererInstanced : Renderer
         {
             return;
         }*/
-        var updatedData =
+        bool updatedData =
             Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData,
                 // VertexBufferStructureType.Model, 
                 isStatic: this.GameObject.IsStatic);

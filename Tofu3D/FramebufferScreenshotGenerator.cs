@@ -20,7 +20,7 @@ public static class FramebufferScreenshotGenerator
         GL.ReadPixels(0, 0, framebuffer.Size.Xi, framebuffer.Size.Yi, PixelFormat.Rgba, PixelType.UnsignedByte,
             ref framebufferData[0]);
 
-        using var image = Image.LoadPixelData<Rgba32>(framebufferData, framebuffer.Size.Xi, framebuffer.Size.Yi);
+        using Image<Rgba32>? image = Image.LoadPixelData<Rgba32>(framebufferData, framebuffer.Size.Xi, framebuffer.Size.Yi);
         Vector2 newSize = framebuffer.Size * scale;
 
         image.Mutate(x =>

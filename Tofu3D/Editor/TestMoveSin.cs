@@ -16,8 +16,8 @@ public class TestMoveSin : Component, IComponentUpdateable
             }
 
             _c += _dir;
-            var x = "";
-            for (var i = 0; i < _c; i++)
+            string x = "";
+            for (int i = 0; i < _c; i++)
             {
                 x += "^";
             }

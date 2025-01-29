@@ -46,7 +46,7 @@ public class Asset_Material : Asset<Asset_Material>
 
     public override int GetHashCode()
     {
-        var hashCodeCombiner = HashCodeCombiner.Start();
+        HashCodeCombiner hashCodeCombiner = HashCodeCombiner.Start();
         hashCodeCombiner.Add(base.GetHashCode());
         hashCodeCombiner.Add(Additive.GetHashCode());
         hashCodeCombiner.Add(Shader?.GetHashCode());

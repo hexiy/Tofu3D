@@ -14,7 +14,7 @@ public class EditorDialogManager
 
     public EditorDialogHandle ShowDialog(EditorDialogParams dialogParams)
     {
-        foreach (var dialog in _dialogs)
+        foreach (EditorDialog dialog in _dialogs)
         {
             if (dialog.IsActive == false)
             {
@@ -32,7 +32,7 @@ public class EditorDialogManager
 
     private EditorDialog? GetDialogByHandle(EditorDialogHandle dialogHandle)
     {
-        foreach (var editorDialog in _dialogs)
+        foreach (EditorDialog editorDialog in _dialogs)
         {
             if (editorDialog.Handle == dialogHandle)
             {
@@ -47,7 +47,7 @@ public class EditorDialogManager
 
     public void Update()
     {
-        foreach (var editorDialog in _dialogs)
+        foreach (EditorDialog editorDialog in _dialogs)
         {
             if (editorDialog.IsActive)
             {
@@ -58,7 +58,7 @@ public class EditorDialogManager
 
     public void Draw()
     {
-        foreach (var editorDialog in _dialogs)
+        foreach (EditorDialog editorDialog in _dialogs)
         {
             if (editorDialog.IsActive)
             {

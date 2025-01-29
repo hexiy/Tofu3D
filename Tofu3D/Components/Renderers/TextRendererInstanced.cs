@@ -74,7 +74,7 @@ public class TextRendererInstanced : ModelRendererInstanced
 
     public override void Start()
     {
-        Transform.Pivot = new Vector3(0, 0.5f, 1f);
+        BoxShape.Pivot = new Vector3(0, 0.5f, 1f);
         base.Start();
     }
 
@@ -122,7 +122,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         {
             for (int i = 0; i < RendererInstancingDatas.Count; i++)
             {
-                var x = RendererInstancingDatas[i];
+                ObjectInstancingData x = RendererInstancingDatas[i];
                 x.InstancingDataDirty = true;
                 RendererInstancingDatas[i] = x;
             }
@@ -163,7 +163,7 @@ public class TextRendererInstanced : ModelRendererInstanced
             maxY = -textComponent.Size; // base size
         }
 
-        for (var i = 0; i < textComponent.Value.Length; i++)
+        for (int i = 0; i < textComponent.Value.Length; i++)
         {
             while (RendererInstancingDatas.Count <= i)
             {
@@ -176,15 +176,15 @@ public class TextRendererInstanced : ModelRendererInstanced
 
             if (isNewlineCharacter == false)
             {
-                var glyphMappingIndex = 0;
+                int glyphMappingIndex = 0;
 
-                if (_fontMappings.TryGetValue(ch.ToString().ToUpper()[0], out var mapping))
+                if (_fontMappings.TryGetValue(ch.ToString().ToUpper()[0], out int mapping))
                 {
                     glyphMappingIndex = mapping;
                 }
 
-                var columnIndex = glyphMappingIndex % (int)_spritesCountInSpritesheet.X;
-                var rowIndex = (int)Math.Floor(glyphMappingIndex / _spritesCountInSpritesheet.X);
+                int columnIndex = glyphMappingIndex % (int)_spritesCountInSpritesheet.X;
+                int rowIndex = (int)Math.Floor(glyphMappingIndex / _spritesCountInSpritesheet.X);
 
 
                 Material.Tiling = new Vector2(1f / _spritesCountInSpritesheet.X, 1f / _spritesCountInSpritesheet.Y);
@@ -196,17 +196,17 @@ public class TextRendererInstanced : ModelRendererInstanced
                         1f - 1f / -_spritesCountInSpritesheet.Y * rowIndex);
 
 
-                var offsetTranslation =
+                Matrix4x4 offsetTranslation =
                     Matrix4x4.CreateTranslation(currentX + xOffset, 0, currentY);
-                Transform.Pivot = new Vector3(0, 0.5f, 1f);
+                BoxShape.Pivot = new Vector3(0, 0.5f, 1f);
                 Matrix4x4 modelMatrix = GetModelMatrixWithoutBoxShape() * offsetTranslation;
-                Transform.Pivot = new Vector3(0, 0.5f, 0f);
+                BoxShape.Pivot = new Vector3(0, 0.5f, 0f);
 
                 ObjectInstancingData objectInstancingData = RendererInstancingDatas[i];
                 if (GameObject.IsStatic == false || objectInstancingData.InstancingDataDirty ||
                     objectInstancingData.MatrixDirty)
                 {
-                    var updatedData =
+                    bool updatedData =
                         Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref objectInstancingData,
                             modelMatrix: modelMatrix, uvOffset: offset,
                             indexForMultipleObjectsPerRenderer: i, isStatic: GameObject.IsStatic);

@@ -58,7 +58,7 @@ public static class Time
             MinMaxFpsTimer = 0;
         }
         
-        var updateSlowerDebugStats = false;
+        bool updateSlowerDebugStats = false;
         _slowUpdateTimeLeft -= EditorDeltaTime;
         if (_slowUpdateTimeLeft <= 0)
         {

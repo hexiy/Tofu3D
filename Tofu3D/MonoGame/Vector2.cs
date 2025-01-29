@@ -317,7 +317,7 @@ public struct Vector2 : IEquatable<Vector2>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector2 operator /(Vector2 value1, float divider)
     {
-        var factor = 1 / divider;
+        float factor = 1 / divider;
         value1.X *= factor;
         value1.Y *= factor;
         return value1;
@@ -600,7 +600,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <returns>The result of dividing a vector by a scalar.</returns>
     public static Vector2 Divide(Vector2 value1, float divider)
     {
-        var factor = 1 / divider;
+        float factor = 1 / divider;
         value1.X *= factor;
         value1.Y *= factor;
         return value1;
@@ -614,7 +614,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="result">The result of dividing a vector by a scalar as an output parameter.</param>
     public static void Divide(ref Vector2 value1, float divider, out Vector2 result)
     {
-        var factor = 1 / divider;
+        float factor = 1 / divider;
         result.X = value1.X * factor;
         result.Y = value1.Y * factor;
     }
@@ -930,7 +930,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// </summary>
     public void Normalize()
     {
-        var val = 1.0f / MathF.Sqrt(X * X + Y * Y);
+        float val = 1.0f / MathF.Sqrt(X * X + Y * Y);
         X *= val;
         Y *= val;
     }
@@ -942,7 +942,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <returns>Unit vector.</returns>
     public static Vector2 Normalize(Vector2 value)
     {
-        var val = 1.0f / MathF.Sqrt(value.X * value.X + value.Y * value.Y);
+        float val = 1.0f / MathF.Sqrt(value.X * value.X + value.Y * value.Y);
         value.X *= val;
         value.Y *= val;
         return value;
@@ -955,7 +955,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="result">Unit vector as an output parameter.</param>
     public static void Normalize(ref Vector2 value, out Vector2 result)
     {
-        var val = 1.0f / MathF.Sqrt(value.X * value.X + value.Y * value.Y);
+        float val = 1.0f / MathF.Sqrt(value.X * value.X + value.Y * value.Y);
         result.X = value.X * val;
         result.Y = value.Y * val;
     }
@@ -969,7 +969,7 @@ public struct Vector2 : IEquatable<Vector2>
     public static Vector2 Reflect(Vector2 vector, Vector2 normal)
     {
         Vector2 result;
-        var val = 2.0f * (vector.X * normal.X + vector.Y * normal.Y);
+        float val = 2.0f * (vector.X * normal.X + vector.Y * normal.Y);
         result.X = vector.X - normal.X * val;
         result.Y = vector.Y - normal.Y * val;
         return result;
@@ -983,7 +983,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="result">Reflected vector as an output parameter.</param>
     public static void Reflect(ref Vector2 vector, ref Vector2 normal, out Vector2 result)
     {
-        var val = 2.0f * (vector.X * normal.X + vector.Y * normal.Y);
+        float val = 2.0f * (vector.X * normal.X + vector.Y * normal.Y);
         result.X = vector.X - normal.X * val;
         result.Y = vector.Y - normal.Y * val;
     }
@@ -1116,8 +1116,8 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="result">Transformed <see cref="Vector2" /> as an output parameter.</param>
     public static void Transform(ref Vector2 position, ref Matrix matrix, out Vector2 result)
     {
-        var x = position.X * matrix.M11 + position.Y * matrix.M21 + matrix.M41;
-        var y = position.X * matrix.M12 + position.Y * matrix.M22 + matrix.M42;
+        float x = position.X * matrix.M11 + position.Y * matrix.M21 + matrix.M41;
+        float y = position.X * matrix.M12 + position.Y * matrix.M22 + matrix.M42;
         result.X = x;
         result.Y = y;
     }
@@ -1147,8 +1147,8 @@ public struct Vector2 : IEquatable<Vector2>
         Vector3 rot1 = new(rotation.X + rotation.X, rotation.Y + rotation.Y, rotation.Z + rotation.Z);
         Vector3 rot2 = new(rotation.X, rotation.X, rotation.W);
         Vector3 rot3 = new(1, rotation.Y, rotation.Z);
-        var rot4 = rot1 * rot2;
-        var rot5 = rot1 * rot3;
+        Vector3 rot4 = rot1 * rot2;
+        Vector3 rot5 = rot1 * rot3;
 
         Vector2 v = new();
         v.X = (float)(value.X * (1.0 - rot5.Y - rot5.Z) + value.Y * (rot4.Y - (double)rot4.Z));
@@ -1197,10 +1197,10 @@ public struct Vector2 : IEquatable<Vector2>
             throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
         }
 
-        for (var x = 0; x < length; x++)
+        for (int x = 0; x < length; x++)
         {
-            var position = sourceArray[sourceIndex + x];
-            var destination = destinationArray[destinationIndex + x];
+            Vector2 position = sourceArray[sourceIndex + x];
+            Vector2 destination = destinationArray[destinationIndex + x];
             destination.X = position.X * matrix.M11 + position.Y * matrix.M21 + matrix.M41;
             destination.Y = position.X * matrix.M12 + position.Y * matrix.M22 + matrix.M42;
             destinationArray[destinationIndex + x] = destination;
@@ -1247,10 +1247,10 @@ public struct Vector2 : IEquatable<Vector2>
             throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
         }
 
-        for (var x = 0; x < length; x++)
+        for (int x = 0; x < length; x++)
         {
-            var position = sourceArray[sourceIndex + x];
-            var destination = destinationArray[destinationIndex + x];
+            Vector2 position = sourceArray[sourceIndex + x];
+            Vector2 destination = destinationArray[destinationIndex + x];
 
             Vector2 v;
             Transform(ref position, ref rotation, out v);
@@ -1310,8 +1310,8 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="result">Transformed normal as an output parameter.</param>
     public static void TransformNormal(ref Vector2 normal, ref Matrix matrix, out Vector2 result)
     {
-        var x = normal.X * matrix.M11 + normal.Y * matrix.M21;
-        var y = normal.X * matrix.M12 + normal.Y * matrix.M22;
+        float x = normal.X * matrix.M11 + normal.Y * matrix.M21;
+        float y = normal.X * matrix.M12 + normal.Y * matrix.M22;
         result.X = x;
         result.Y = y;
     }
@@ -1356,9 +1356,9 @@ public struct Vector2 : IEquatable<Vector2>
             throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
         }
 
-        for (var i = 0; i < length; i++)
+        for (int i = 0; i < length; i++)
         {
-            var normal = sourceArray[sourceIndex + i];
+            Vector2 normal = sourceArray[sourceIndex + i];
 
             destinationArray[destinationIndex + i] = new Vector2(normal.X * matrix.M11 + normal.Y * matrix.M21,
                 normal.X * matrix.M12 + normal.Y * matrix.M22);
@@ -1391,9 +1391,9 @@ public struct Vector2 : IEquatable<Vector2>
             throw new ArgumentException("Destination array length is lesser than source array length");
         }
 
-        for (var i = 0; i < sourceArray.Length; i++)
+        for (int i = 0; i < sourceArray.Length; i++)
         {
-            var normal = sourceArray[i];
+            Vector2 normal = sourceArray[i];
 
             destinationArray[i] = new Vector2(normal.X * matrix.M11 + normal.Y * matrix.M21,
                 normal.X * matrix.M12 + normal.Y * matrix.M22);

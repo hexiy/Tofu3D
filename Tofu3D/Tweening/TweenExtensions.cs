@@ -11,7 +11,7 @@ public static class Tweener
 
     public static void Kill(object target)
     {
-        for (var i = 0; i < Tofu.TweenManager.ActiveTweens.Count; i++)
+        for (int i = 0; i < Tofu.TweenManager.ActiveTweens.Count; i++)
         {
             if (Tofu.TweenManager.ActiveTweens[i].Target == target)
             {

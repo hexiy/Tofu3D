@@ -159,7 +159,7 @@ public class FieldOrPropertyInfo
             CanShowInEditor = false;
         }
 
-        foreach (var attribute in CustomAttributes)
+        foreach (CustomAttributeData attribute in CustomAttributes)
         {
             if (attribute.AttributeType == typeof(Show))
             {
@@ -173,22 +173,22 @@ public class FieldOrPropertyInfo
 
             if (attribute.AttributeType == typeof(Header))
             {
-                var objType = obj.GetType();
+                Type objType = obj.GetType();
 
-                var text = attribute.ConstructorArguments[0].Value.ToString();
+                string? text = attribute.ConstructorArguments[0].Value.ToString();
 
                 HeaderText = text;
             }
 
             else if (attribute.AttributeType == typeof(ShowIf))
             {
-                var objType = obj.GetType();
+                Type objType = obj.GetType();
 
-                var name = attribute.ConstructorArguments[0].Value.ToString();
+                string? name = attribute.ConstructorArguments[0].Value.ToString();
 
-                var field = objType.GetField(name,
+                FieldInfo? field = objType.GetField(name,
                     BindingFlags.Default | BindingFlags.Instance | BindingFlags.NonPublic);
-                var property = objType.GetProperty(name,
+                PropertyInfo? property = objType.GetProperty(name,
                     BindingFlags.Default | BindingFlags.Instance | BindingFlags.NonPublic);
                 if (field != null)
                 {
@@ -203,11 +203,11 @@ public class FieldOrPropertyInfo
 
             else if (attribute.AttributeType == typeof(ShowIfNot))
             {
-                var name = attribute.ConstructorArguments[0].Value.ToString();
-                var objType = obj.GetType();
+                string? name = attribute.ConstructorArguments[0].Value.ToString();
+                Type objType = obj.GetType();
 
-                var field = objType.GetField(name);
-                var property = objType.GetProperty(name);
+                FieldInfo? field = objType.GetField(name);
+                PropertyInfo? property = objType.GetProperty(name);
                 if (field != null)
                 {
                     CanShowInEditor = (bool)field.GetValue(obj) == false;

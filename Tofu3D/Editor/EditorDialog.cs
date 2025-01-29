@@ -32,7 +32,7 @@ public class EditorDialog
 
     public void Draw()
     {
-        var bgPanelSize = Screen.Size * 1.2f;
+        Vector2 bgPanelSize = Screen.Size * 1.2f;
         ImGui.SetNextWindowSize(bgPanelSize, ImGuiCond.Always);
         ImGui.SetNextWindowPos(Screen.Center, ImGuiCond.Always, new Vector2(0.5f, 0.5f));
 
@@ -47,16 +47,16 @@ public class EditorDialog
         ImGui.SetCursorScreenPos(Screen.Center - panelSize / 2);
         TofuImGui.ImageTexture2DArray(Tofu.Editor.EditorTextures.WhitePixel, panelSize, tint_col:
             new Vector4(1f, 0.96f, 0.90f, 1.00f));
-        var hoveringPanel = ImGui.IsItemHovered();
+        bool hoveringPanel = ImGui.IsItemHovered();
         ImGui.SetCursorScreenPos(Screen.Center + new Vector2(0, -50));
         TofuGUI.Text(_dialogParams.message);
 
-        var index = 0;
-        foreach (var button in _dialogParams.buttons)
+        int index = 0;
+        foreach (EditorDialogButtonDefinition button in _dialogParams.buttons)
         {
             ImGui.SetCursorScreenPos(Screen.Center + new Vector2(0, index * TofuGUI.ButtonSize.Y + index * 20));
             index++;
-            var btnClicked = TofuGUI.Button(button.text);
+            bool btnClicked = TofuGUI.Button(button.text);
 
             // bool btnClicked = ImGui.Button(button.text);
             if (btnClicked)

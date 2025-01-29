@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Emit;
 
 public static class ScriptsManager
 {
@@ -31,15 +32,15 @@ public static class ScriptsManager
             GC.WaitForPendingFinalizers();
         }
 
-        var scriptsFiles = Directory.GetFiles(Folders.Scripts, "*.cs");
+        string[] scriptsFiles = Directory.GetFiles(Folders.Scripts, "*.cs");
 
-        var syntaxTrees = scriptsFiles
+        IEnumerable<SyntaxTree> syntaxTrees = scriptsFiles
             .Select(file => CSharpSyntaxTree.ParseText(File.ReadAllText(file)));
 
-        var assemblyName = "Scripts.dll";
+        string assemblyName = "Scripts.dll";
 
 
-        var referencesPaths = new[]
+        string[] referencesPaths = new[]
         {
             typeof(object).Assembly.Location,
             // Assembly.Load("netstandard").Location,
@@ -54,21 +55,21 @@ public static class ScriptsManager
 
         ProjectFileGenerator.GenerateCsproj(Folders.ProjectFullPath, "tofuProject", scriptsFiles, referencesPaths);
 
-        var compilation = CSharpCompilation.Create(
+        CSharpCompilation compilation = CSharpCompilation.Create(
             assemblyName,
             syntaxTrees,
             references,
             new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
-        using var ms = new MemoryStream();
-        var result = compilation.Emit(ms);
+        using MemoryStream ms = new MemoryStream();
+        EmitResult result = compilation.Emit(ms);
 
-        using var fs = new FileStream(TofuPath.Combine(Folders.Dlls, "Scripts.dll"), FileMode.Create);
+        using FileStream fs = new FileStream(TofuPath.Combine(Folders.Dlls, "Scripts.dll"), FileMode.Create);
         compilation.Emit(fs);
 
         if (!result.Success)
         {
-            var errors = string.Join(Environment.NewLine, result.Diagnostics.Select(diag => diag.ToString()));
+            string errors = string.Join(Environment.NewLine, result.Diagnostics.Select(diag => diag.ToString()));
             Console.WriteLine($"Compilation errors: {errors}");
             return;
         }

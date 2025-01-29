@@ -5,7 +5,7 @@ public class MonkeyHead : Component, IComponentUpdateable
 
     public void Update()
     {
-        var color = Extensions.ColorFromHsv(Time.EditorElapsedTime * 200, 0.6f, 1);
+        Color color = Extensions.ColorFromHsv(Time.EditorElapsedTime * 200, 0.6f, 1);
         _renderer.Color = color;
     }
 

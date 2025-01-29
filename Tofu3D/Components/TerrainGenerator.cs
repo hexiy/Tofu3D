@@ -51,7 +51,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void DestroyTerrain()
     {
-        for (var i = 0; i < Transform.Children.Count; i++)
+        for (int i = 0; i < Transform.Children.Count; i++)
         {
             Transform.Children[0].GameObject.Destroy();
         }
@@ -74,12 +74,12 @@ public class TerrainGenerator : Component, IComponentUpdateable
         Debug.StartTimer(
             $"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");
 
-        var numberOfThreads = ThreadsToUse;
+        int numberOfThreads = ThreadsToUse;
         _threadsWorkingCount = numberOfThreads;
         List<Thread> threads = new();
-        for (var threadIndex = 0; threadIndex < numberOfThreads; threadIndex++)
+        for (int threadIndex = 0; threadIndex < numberOfThreads; threadIndex++)
         {
-            var capturedThreadIndex = threadIndex;
+            int capturedThreadIndex = threadIndex;
             Thread thread = new(() => GenerateTerrain(TerrainSize, CubePrefab, capturedThreadIndex, numberOfThreads));
             threads.Add(thread);
         }
@@ -106,16 +106,16 @@ public class TerrainGenerator : Component, IComponentUpdateable
     {
         Debug.StartTimer($"Thread #{threadIndex} finished");
 
-        var totalBlocks = terrainSize * terrainSize;
-        var blocksPerThread = totalBlocks / numberOfThreads;
-        var startIndex = blocksPerThread * threadIndex;
-        var endIndex = blocksPerThread + threadIndex * blocksPerThread;
+        int totalBlocks = terrainSize * terrainSize;
+        int blocksPerThread = totalBlocks / numberOfThreads;
+        int startIndex = blocksPerThread * threadIndex;
+        int endIndex = blocksPerThread + threadIndex * blocksPerThread;
 
 
-        for (var i = startIndex; i < endIndex; i++)
+        for (int i = startIndex; i < endIndex; i++)
         {
             // Debug.Log(i);
-            var go = (GameObject)referenceGameObject.Clone(false);
+            GameObject go = (GameObject)referenceGameObject.Clone(false);
             go.Name = $"Thread:{threadIndex} go {i}";
             go.RuntimeOnly = true;
 
@@ -134,15 +134,15 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void AddBlocksToScene()
     {
-        var x = 0;
-        var z = 0;
+        int x = 0;
+        int z = 0;
 
         Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
-        foreach (var go in _concurrentBag)
+        foreach (GameObject go in _concurrentBag)
         {
             go.Transform.SetParent(Transform);
 
-            var positionY = Mathf.Sin(x / 10f) * Mathf.Cos((float)z / 10) * 15;
+            float positionY = Mathf.Sin(x / 10f) * Mathf.Cos((float)z / 10) * 15;
             positionY = positionY.TranslateToGrid(2);
 
             go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
@@ -162,9 +162,9 @@ public class TerrainGenerator : Component, IComponentUpdateable
     private void LongTask()
     {
         List<GameObject> gameObjects = new(20000);
-        for (var i = 0; i < 20000; i++)
+        for (int i = 0; i < 20000; i++)
         {
-            var go = GameObject.Create(name: i.ToString(), addToScene: false);
+            GameObject go = GameObject.Create(name: i.ToString(), addToScene: false);
             gameObjects.Add(go);
             Debug.Log(i);
         }

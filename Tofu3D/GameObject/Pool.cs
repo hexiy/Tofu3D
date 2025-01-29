@@ -8,8 +8,8 @@ public class Pool
 
     private void AddNewObject()
     {
-        var gameObject = GameObject.Create(name: "Pooled object");
-        for (var i = 0; i < Go.Components.Count; i++)
+        GameObject gameObject = GameObject.Create(name: "Pooled object");
+        for (int i = 0; i < Go.Components.Count; i++)
         {
             gameObject.AddComponent(Go.Components[i].GetType());
         }
@@ -25,7 +25,7 @@ public class Pool
             AddNewObject();
         }
 
-        var gameObject = FreeObjects.Pop();
+        GameObject gameObject = FreeObjects.Pop();
         gameObject.SetActive(true);
         UsedObjects.Push(gameObject);
         return gameObject;

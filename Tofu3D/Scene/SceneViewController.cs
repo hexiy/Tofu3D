@@ -47,15 +47,15 @@ public class SceneViewController
 
     public void MoveToGameObject(GameObject targetGo)
     {
-        var cameraStartPos = Camera.MainCamera.Transform.LocalPosition;
-        var cameraEndPos = targetGo.Transform.LocalPosition + new Vector3(0, 0, -4);
+        Vector3 cameraStartPos = Camera.MainCamera.Transform.LocalPosition;
+        Vector3 cameraEndPos = targetGo.Transform.LocalPosition + new Vector3(0, 0, -4);
 
         if (cameraStartPos == cameraEndPos)
         {
             cameraEndPos = targetGo.Transform.LocalPosition + new Vector3(0, 0, -2);
         }
 
-        var cameraOrthoSize = Camera.MainCamera.OrthographicSize;
+        float cameraOrthoSize = Camera.MainCamera.OrthographicSize;
         Tweener.Tween(0, 1, 1.3f, progress =>
         {
             // Debug.Log("TWEENING:" + progress);
@@ -78,7 +78,7 @@ public class SceneViewController
             _cameraFieldOfViewInperspectiveMode.Value = Camera.MainCamera.FieldOfView;
         }
 
-        var tweenDuration = 1f;
+        float tweenDuration = 1f;
         Tweener.Tween(Camera.MainCamera.Transform.Rotation.X,
             newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.X : 0,
             tweenDuration,
@@ -93,7 +93,7 @@ public class SceneViewController
                 : Camera.MainCamera.Transform.WorldPosition.Z - 350, tweenDuration,
             f => { Camera.MainCamera.Transform.WorldPosition = Camera.MainCamera.Transform.WorldPosition.Set(z: f); });
 
-        var tween = Tweener.Tween(Camera.MainCamera.Transform.Rotation.Z,
+        Tween tween = Tweener.Tween(Camera.MainCamera.Transform.Rotation.Z,
             newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Z : 0,
             tweenDuration,
             f => { Camera.MainCamera.Transform.Rotation = Camera.MainCamera.Transform.Rotation.Set(z: f); });
@@ -146,12 +146,12 @@ public class SceneViewController
         // }
         // todo MoveToGameObject(Tofu.GameObjectSelectionManager.GetSelectedGameObject());
 
-        var isMouseOverSceneView = Tofu.MouseInput.IsMouseInSceneView;
+        bool isMouseOverSceneView = Tofu.MouseInput.IsMouseInSceneView;
 // Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
         Debug.StatSetValue("isMouseOverSceneView",
             isMouseOverSceneView ? isMouseOverSceneViewStringYes : isMouseOverSceneViewStringNo);
-        var justClicked = Tofu.MouseInput.ButtonPressed() |
-                          Tofu.MouseInput.ButtonPressed(MouseButtons.Right);
+        bool justClicked = Tofu.MouseInput.ButtonPressed() |
+                           Tofu.MouseInput.ButtonPressed(MouseButtons.Right);
         if (justClicked)
         {
             _clickedInsideScene = isMouseOverSceneView;
@@ -164,8 +164,8 @@ public class SceneViewController
             HandleMouseScroll();
         }
 
-        var validInput = ((isMouseOverSceneView || _clickedInsideScene) && _clickedInsideScene) ||
-                         (justClicked == false && isMouseOverSceneView && _clickedInsideScene);
+        bool validInput = ((isMouseOverSceneView || _clickedInsideScene) && _clickedInsideScene) ||
+                          (justClicked == false && isMouseOverSceneView && _clickedInsideScene);
         if (Tofu.MouseInput.IsButtonDown() || Tofu.MouseInput.IsButtonDown(MouseButtons.Right))
         {
             if (validInput)
@@ -211,7 +211,7 @@ public class SceneViewController
             // Camera.MainCamera.Transform.Rotation += new Vector3(-_smoothScreenDeltaVectorForRotation.Y,
             // _smoothScreenDeltaVectorForRotation.X, 0) * 1000 * Time.EditorDeltaTime;
 
-            var keyboardMoveSpeed = _moveSpeed;
+            float keyboardMoveSpeed = _moveSpeed;
 
             _keyboardInputDirectionVector = Vector3.Zero;
             if (KeyboardInput.IsKeyDown(Keys.LeftControl) == false)
@@ -296,7 +296,7 @@ public class SceneViewController
 
     private void MoveCameraByLocalVector(Vector3 moveVector)
     {
-        var delta = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(moveVector);
+        Vector3 delta = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(moveVector);
 
         // Debug.StatSetValue("DASDSAD", $"CameraDir:{Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(moveVector)}");
         //Debug.Log(delta);

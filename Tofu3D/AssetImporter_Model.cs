@@ -22,16 +22,16 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             Debug.LogError($"importing obj failed, file doesnt exist:{objInAssetsFolderPath}");
         }
 
-        var data = File.ReadAllText(objInAssetsFolderPath).Split("\n");
+        string[] data = File.ReadAllText(objInAssetsFolderPath).Split("\n");
 
         List<float> vertices = new();
         List<float> uvs = new();
         List<float> normals = new();
 
-        foreach (var l in data)
+        foreach (string l in data)
         {
             string line = l.Trim();
-            var lineSplits = line.Split(' ').ToList();
+            List<string> lineSplits = line.Split(' ').ToList();
             lineSplits.Remove("");
 
             if (line.Contains("mtllib"))
@@ -43,25 +43,25 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
             if (line.StartsWith("v ")) // positions
             {
-                var x = float.Parse(lineSplits[1]);
-                var y = float.Parse(lineSplits[2]);
-                var z = float.Parse(lineSplits[3]);
+                float x = float.Parse(lineSplits[1]);
+                float y = float.Parse(lineSplits[2]);
+                float z = float.Parse(lineSplits[3]);
                 vertices.Add(x);
                 vertices.Add(y);
                 vertices.Add(z);
             }
             else if (line.StartsWith("vt ")) // UVs
             {
-                var x = float.Parse(lineSplits[1]);
-                var y = float.Parse(lineSplits[2]);
+                float x = float.Parse(lineSplits[1]);
+                float y = float.Parse(lineSplits[2]);
                 uvs.Add(x);
                 uvs.Add(y);
             }
             else if (line.StartsWith("vn ")) // normals
             {
-                var x = float.Parse(lineSplits[1]);
-                var y = float.Parse(lineSplits[2]);
-                var z = float.Parse(lineSplits[3]);
+                float x = float.Parse(lineSplits[1]);
+                float y = float.Parse(lineSplits[2]);
+                float z = float.Parse(lineSplits[3]);
                 normals.Add(x);
                 normals.Add(y);
                 normals.Add(z);
@@ -131,7 +131,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         foreach (string l in materialFileLines)
         {
             string line = l.Trim();
-            var lineSplits = line.Split(' ').ToList();
+            List<string> lineSplits = line.Split(' ').ToList();
 
 
             // at the beginning of new material definition
@@ -197,18 +197,18 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         Dictionary<Vector3, uint> uniqueVertices = new Dictionary<Vector3, uint>();
         uint currentUniqueVertexIndex = 0;
         List<float> everything = new();
-        var numberOfIndicesPerLine = 0;
-        var totalVerticesCount = 0;
+        int numberOfIndicesPerLine = 0;
+        int totalVerticesCount = 0;
 
         int lineIndexRelativeForThisMesh = -1;
         for (int lineIndex = lineStartIndex; lineIndex < data.Length; lineIndex++)
         {
             lineIndexRelativeForThisMesh++;
 
-            var line = data[lineIndex].Trim();
+            string line = data[lineIndex].Trim();
             line = line.Replace("\r", "");
 
-            var lineSplits = line.Split(' ').ToList();
+            List<string> lineSplits = line.Split(' ').ToList();
             if (line.StartsWith("f ")) // indices
             {
                 numberOfIndicesPerLine = lineSplits.Count - 1;
@@ -216,13 +216,13 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 int[] indicesSequenceForFirstTriangle = new int[] { 0, 1, 2 };
                 int[] indicesSequenceForSecondTriangle = new int[] { 0, 2, 3 };
 
-                for (var k = 0; k < 3; k++)
+                for (int k = 0; k < 3; k++)
                 {
                     int indiceIndex = indicesSequenceForFirstTriangle[k];
                     totalVerticesCount++;
 
-                    var group = lineSplits[indiceIndex + 1].Split('/');
-                    for (var i = 0; i < group.Length; i++)
+                    string[] group = lineSplits[indiceIndex + 1].Split('/');
+                    for (int i = 0; i < group.Length; i++)
                     {
                         if (group[i].Length == 0)
                         {
@@ -230,9 +230,9 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                         }
                     }
 
-                    var positionIndex = int.Parse(group[0]) - 1;
-                    var uvIndex = int.Parse(group[1]) - 1;
-                    var normalIndex = int.Parse(group[2]) - 1;
+                    int positionIndex = int.Parse(group[0]) - 1;
+                    int uvIndex = int.Parse(group[1]) - 1;
+                    int normalIndex = int.Parse(group[2]) - 1;
 
                     everything.Add(vertices[positionIndex * 3 + 0]);
                     everything.Add(vertices[positionIndex * 3 + 1]);
@@ -256,13 +256,13 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
                 if (isQuad)
                 {
-                    for (var k = 0; k < 3; k++)
+                    for (int k = 0; k < 3; k++)
                     {
                         int indiceIndex = indicesSequenceForSecondTriangle[k];
                         totalVerticesCount++;
 
-                        var group = lineSplits[indiceIndex + 1].Split('/');
-                        for (var i = 0; i < group.Length; i++)
+                        string[] group = lineSplits[indiceIndex + 1].Split('/');
+                        for (int i = 0; i < group.Length; i++)
                         {
                             if (group[i].Length == 0)
                             {
@@ -270,9 +270,9 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                             }
                         }
 
-                        var positionIndex = int.Parse(group[0]) - 1;
-                        var uvIndex = int.Parse(group[1]) - 1;
-                        var normalIndex = int.Parse(group[2]) - 1;
+                        int positionIndex = int.Parse(group[0]) - 1;
+                        int uvIndex = int.Parse(group[1]) - 1;
+                        int normalIndex = int.Parse(group[2]) - 1;
 
                         everything.Add(vertices[positionIndex * 3 + 0]);
                         everything.Add(vertices[positionIndex * 3 + 1]);
@@ -685,21 +685,21 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 int offset = 5; // pos.x,pos.y,pos.z, uv.x,uv.y
 
 
-                if (smoothedNormals.TryGetValue(t1position1, out var normal1))
+                if (smoothedNormals.TryGetValue(t1position1, out Vector3 normal1))
                 {
                     everything[triangle1StartIndex + offset + 0] = normal1.X;
                     everything[triangle1StartIndex + offset + 1] = normal1.Y;
                     everything[triangle1StartIndex + offset + 2] = normal1.Z;
                 }
 
-                if (smoothedNormals.TryGetValue(t1position2, out var normal2))
+                if (smoothedNormals.TryGetValue(t1position2, out Vector3 normal2))
                 {
                     everything[triangle1StartIndex + offset + floatsPerVertex + 0] = normal2.X;
                     everything[triangle1StartIndex + offset + floatsPerVertex + 1] = normal2.Y;
                     everything[triangle1StartIndex + offset + floatsPerVertex + 2] = normal2.Z;
                 }
 
-                if (smoothedNormals.TryGetValue(t1position3, out var normal3))
+                if (smoothedNormals.TryGetValue(t1position3, out Vector3 normal3))
                 {
                     everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 0] = normal3.X;
                     everything[triangle1StartIndex + offset + floatsPerVertex + floatsPerVertex + 1] = normal3.Y;

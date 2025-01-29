@@ -42,9 +42,7 @@ public class Transform : Component
 
     [Hide]
     public int ParentId = -1;
-
-    public Vector3 Pivot = Vector3.Half;
-
+    
     public override bool CanBeDisabled => false;
 
     [Hide]
@@ -52,7 +50,7 @@ public class Transform : Component
     {
         get
         {
-            var parent = Parent;
+            Transform? parent = Parent;
             _worldPosition = LocalPosition; // Start with local position
             if (parent != null)
             {
@@ -64,10 +62,10 @@ public class Transform : Component
                 }
 
                 // Create a local transformation matrix for this transform
-                var localMatrix = this.MatrixLocalPosition;
+                Matrix4x4 localMatrix = this.MatrixLocalPosition;
 
                 // Combine the parent's matrix with the local matrix to transform to world space
-                var combinedMatrix = Matrix4x4.Multiply(localMatrix, allParentsMatrix);
+                Matrix4x4 combinedMatrix = Matrix4x4.Multiply(localMatrix, allParentsMatrix);
 
                 // Extract the world position from the combined matrix
                 _worldPosition = new Vector3(combinedMatrix.M41, combinedMatrix.M42, combinedMatrix.M43);
@@ -78,7 +76,7 @@ public class Transform : Component
         }
         set
         {
-            var parent = Parent;
+            Transform? parent = Parent;
             while (parent != null)
             {
                 // Calculate the inverse transformation matrix for the parent
@@ -86,7 +84,7 @@ public class Transform : Component
                 if (success)
                 {
                     // Transform the world position back into the local space of the parent
-                    var localPos = Vector3.Transform(value, inverseParentMatrix);
+                    Vector3 localPos = Vector3.Transform(value, inverseParentMatrix);
                     LocalPosition = new Vector3(localPos.X, localPos.Y, localPos.Z);
                 }
 
@@ -124,8 +122,8 @@ public class Transform : Component
     {
         get
         {
-            var pr = Parent;
-            var scl = Transform.LocalScale;
+            Transform? pr = Parent;
+            Vector3 scl = Transform.LocalScale;
 
             while (pr != null)
             {
@@ -137,8 +135,8 @@ public class Transform : Component
         }
         set
         {
-            var pr = Parent;
-            var parentsScale = Vector3.One;
+            Transform? pr = Parent;
+            Vector3 parentsScale = Vector3.One;
             while (pr != null)
             {
                 parentsScale = parentsScale * pr.LocalScale;
@@ -205,7 +203,7 @@ public class Transform : Component
 
     public void RemoveChild(int id)
     {
-        for (var i = 0; i < Children.Count; i++)
+        for (int i = 0; i < Children.Count; i++)
         {
             if (Children[i].GameObjectId == id)
             {
@@ -214,7 +212,7 @@ public class Transform : Component
             }
         }
 
-        for (var i = 0; i < ChildrenIDs.Count; i++)
+        for (int i = 0; i < ChildrenIDs.Count; i++)
         {
             if (ChildrenIDs[i] == id)
             {
@@ -267,10 +265,10 @@ public class Transform : Component
     {
         // v1 = new Vector3(-v1.X, -v1.Y, -v1.Z);
 
-        var transformationMatrix = -Matrix4x4.CreateTranslation(v1)
-                                   * Matrix4x4.CreateRotationX(v2.X / 180 * Mathf.Pi)
-                                   * Matrix4x4.CreateRotationY(v2.Y / 180 * Mathf.Pi)
-                                   * Matrix4x4.CreateRotationZ(v2.Z / 180 * Mathf.Pi);
+        Matrix4x4 transformationMatrix = -Matrix4x4.CreateTranslation(v1)
+                                         * Matrix4x4.CreateRotationX(v2.X / 180 * Mathf.Pi)
+                                         * Matrix4x4.CreateRotationY(v2.Y / 180 * Mathf.Pi)
+                                         * Matrix4x4.CreateRotationZ(v2.Z / 180 * Mathf.Pi);
 
         Vector3 x = transformationMatrix.Translation;
         return x;
@@ -321,10 +319,10 @@ public class Transform : Component
         // return x;
         // dir = new Vector3(-dir.X, -dir.Y, -dir.Z);
         //dir = dir.Normalized();
-        var transformationMatrix = Matrix4x4.CreateTranslation(dir)
-                                   * Matrix4x4.CreateRotationX(Transform.WorldRotation.X / 180 * Mathf.Pi)
-                                   * Matrix4x4.CreateRotationY(Transform.WorldRotation.Y / 180 * Mathf.Pi)
-                                   * Matrix4x4.CreateRotationZ(Transform.WorldRotation.Z / 180 * Mathf.Pi);
+        Matrix4x4 transformationMatrix = Matrix4x4.CreateTranslation(dir)
+                                         * Matrix4x4.CreateRotationX(Transform.WorldRotation.X / 180 * Mathf.Pi)
+                                         * Matrix4x4.CreateRotationY(Transform.WorldRotation.Y / 180 * Mathf.Pi)
+                                         * Matrix4x4.CreateRotationZ(Transform.WorldRotation.Z / 180 * Mathf.Pi);
 
         Vector3 x = transformationMatrix.Translation;
 

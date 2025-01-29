@@ -15,13 +15,13 @@ public class CubeSpawner : Component
             return;
         }
 
-        var go = Tofu.SceneSerializer.LoadPrefab(Prefab.PrefabPath);
+        GameObject go = Tofu.SceneSerializer.LoadPrefab(Prefab.PrefabPath);
         go.Awake();
         Tofu.SceneSerializer.SaveClipboardGameObject(go);
-        for (var x = 0; x < 10; x++)
-        for (var y = 0; y < 10; y++)
+        for (int x = 0; x < 10; x++)
+        for (int y = 0; y < 10; y++)
         {
-            var go1 = Tofu.SceneSerializer.LoadClipboardGameObject();
+            GameObject go1 = Tofu.SceneSerializer.LoadClipboardGameObject();
             go1.Transform.WorldPosition = new Vector3(x * 15 - 70, -5, y * 15 - 70);
         }
     }

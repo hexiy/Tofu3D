@@ -104,7 +104,7 @@ public class RenderableComponentQueue : IComponentQueue
 
         // _opaqueRenderables.Sort();
 
-        for (var i = 0; i < _opaqueRenderables.Count; i++)
+        for (int i = 0; i < _opaqueRenderables.Count; i++)
         {
             _opaqueRenderables[i].UploadRenderData();
         }
@@ -123,7 +123,7 @@ public class RenderableComponentQueue : IComponentQueue
     public void UploadRenderDataTransparency()
     {
         // _transparentRenderables.Sort();
-        for (var i = 0; i < _transparentRenderables.Count; i++)
+        for (int i = 0; i < _transparentRenderables.Count; i++)
         {
             _transparentRenderables[i].UploadRenderData();
         }

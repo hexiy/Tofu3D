@@ -31,8 +31,8 @@
             _jumpProgress = 0;
         }
 
-        var wobble = (float)Math.Sin(_positionDelta / 4) + (float)Math.Cos(_positionDelta / 4);
-        var rotationWobble = (float)Math.Sin(_positionDelta / 8) + (float)Math.Cos(_positionDelta / 8);
+        float wobble = (float)Math.Sin(_positionDelta / 4) + (float)Math.Cos(_positionDelta / 4);
+        float rotationWobble = (float)Math.Sin(_positionDelta / 8) + (float)Math.Cos(_positionDelta / 8);
         Transform.WorldPosition = Transform.WorldPosition.Set(y: PosY + wobble + _jumpY);
 
 

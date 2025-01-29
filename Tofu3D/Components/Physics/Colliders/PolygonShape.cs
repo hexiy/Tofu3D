@@ -33,7 +33,7 @@ public class PolygonShape : Shape
         {
             float totalX = 0;
             float totalY = 0;
-            for (var i = 0; i < Points.Count; i++)
+            for (int i = 0; i < Points.Count; i++)
             {
                 totalX += Points[i].X;
                 totalY += Points[i].Y;
@@ -60,7 +60,7 @@ public class PolygonShape : Shape
         Vector2 p1;
         Vector2 p2;
         Edges.Clear();
-        for (var i = 0; i < Points.Count; i++)
+        for (int i = 0; i < Points.Count; i++)
         {
             p1 = Points[i];
             if (i + 1 >= Points.Count)
@@ -88,9 +88,9 @@ public class PolygonShape : Shape
     public void SetRotation(float angle)
     {
         //if (angle > 0.01 || float.IsNaN(angle)) { return; }
-        for (var i = 0; i < Points.Count; i++)
+        for (int i = 0; i < Points.Count; i++)
         {
-            var originalPoint = OriginalPoints[i];
+            Vector2 originalPoint = OriginalPoints[i];
 
             Points[i] = new Vector2(
                 originalPoint.X * (float)Math.Cos(-angle) - originalPoint.Y * (float)Math.Sin(-angle),

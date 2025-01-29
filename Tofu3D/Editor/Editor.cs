@@ -70,7 +70,7 @@ public class Editor
             };
         }
 
-        for (var i = 0; i < _editorPanels.Length; i++)
+        for (int i = 0; i < _editorPanels.Length; i++)
         {
             _editorPanels[i].Init();
         }
@@ -87,7 +87,7 @@ public class Editor
     {
         _editorLayoutManager.Update();
 
-        for (var i = 0; i < _editorPanels.Length; i++)
+        for (int i = 0; i < _editorPanels.Length; i++)
         {
             _editorPanels[i].Update();
         }
@@ -110,7 +110,7 @@ public class Editor
             }
         }
 
-        var exitDialogIsActive = _editorDialogManager.IsDialogActive(_exitDialogHandle);
+        bool exitDialogIsActive = _editorDialogManager.IsDialogActive(_exitDialogHandle);
         if (KeyboardInput.WasKeyJustPressed(Keys.Escape))
         {
             if (exitDialogIsActive)
@@ -139,7 +139,7 @@ public class Editor
     {
         BeforeDraw.Invoke();
         BeforeDraw = () => { };
-        var viewportPtr = ImGui.GetWindowViewport();
+        ImGuiViewportPtr viewportPtr = ImGui.GetWindowViewport();
 
         ImGui.DockSpaceOverViewport(viewportPtr,
             ImGuiDockNodeFlags.PassthruCentralNode /*, ImGuiDockNodeFlags.NoDockingInCentralNode*/);
@@ -154,7 +154,7 @@ public class Editor
         }
         else
         {
-            for (var i = 0; i < _editorPanels.Length; i++)
+            for (int i = 0; i < _editorPanels.Length; i++)
             {
                 _editorPanels[i].Draw();
             }

@@ -6,7 +6,7 @@ public abstract class InspectorFieldDrawable<T> : IInspectorFieldDrawable
 
     internal T GetValue(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        var v = (T)info.GetValue(componentInspectorData.Inspectable);
+        T? v = (T)info.GetValue(componentInspectorData.Inspectable);
         return v;
     }
 

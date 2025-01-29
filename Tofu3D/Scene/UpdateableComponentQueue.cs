@@ -50,7 +50,7 @@ public class UpdateableComponentQueue : IComponentQueue
     {
         Debug.StatSetValue("Update queue components", $"Update queue components: {_components.Count}");
         
-        for (var i = 0; i < _components.Count; i++)
+        for (int i = 0; i < _components.Count; i++)
         {
             _components[i].Update();
         }

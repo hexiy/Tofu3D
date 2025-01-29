@@ -31,7 +31,7 @@ public class PersistentObject<T>
     {
         get
         {
-            var obj = PersistentData.Get($"PersistentObject_{_name}");
+            object? obj = PersistentData.Get($"PersistentObject_{_name}");
             if (obj == null)
             {
                 return default;
@@ -45,7 +45,7 @@ public class PersistentObject<T>
             // return (T) Enum.ToObject(typeof(T), obj);
             if (typeof(T) == typeof(Vector3))
             {
-                var split = obj.ToString().Split(',');
+                string[] split = obj.ToString().Split(',');
                 Vector3 vector = new(float.Parse(split[0].Substring(5)), float.Parse(split[1].Substring(4)),
                     float.Parse(split[2].Substring(4, split[2].Length - 5)));
                 return (T)Convert.ChangeType(vector, typeof(T));

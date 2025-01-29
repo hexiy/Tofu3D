@@ -6,7 +6,7 @@ public class InspectorFieldDrawerString : InspectorFieldDrawable<string>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        var fieldValue = GetValue(info, componentInspectorData);
+        string? fieldValue = GetValue(info, componentInspectorData);
 
         if (ImGui.InputTextMultiline("", ref fieldValue, 10_000,
                 new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, 200)))

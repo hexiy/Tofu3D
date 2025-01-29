@@ -8,23 +8,23 @@ public class InspectorFieldDrawerAudioClip : InspectorFieldDrawable<AudioClip>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        var audioClip = GetValue(info, componentInspectorData);
+        AudioClip? audioClip = GetValue(info, componentInspectorData);
         if (audioClip == null)
         {
             audioClip = new AudioClip();
             info.SetValue(componentInspectorData.Inspectable, audioClip);
         }
 
-        var clipName = Path.GetFileName(audioClip?.PathInLibraryFolder);
+        string? clipName = Path.GetFileName(audioClip?.PathInLibraryFolder);
 
-        var clicked = ImGui.Button(clipName,
+        bool clicked = ImGui.Button(clipName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 
 
         if (ImGui.BeginDragDropTarget())
         {
             ImGui.AcceptDragDropPayload(DragDropPayloadTypes.AudioClip, ImGuiDragDropFlags.None);
-            var fileName = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+            string? fileName = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
             if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && fileName.Length > 0)
             {
                 // fileName = Path.GetRelativePath("Assets", fileName);

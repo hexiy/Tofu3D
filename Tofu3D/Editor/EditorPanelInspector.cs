@@ -97,7 +97,7 @@ public class EditorPanelInspector : EditorPanel
         };
 
         InspectorSupportedTypes = new List<Type>();
-        foreach (var keyValuePair in _inspectorFieldDrawables)
+        foreach (KeyValuePair<Type, IInspectorFieldDrawable> keyValuePair in _inspectorFieldDrawables)
         {
             InspectorSupportedTypes.Add(keyValuePair.Key);
         }
@@ -115,9 +115,9 @@ public class EditorPanelInspector : EditorPanel
 
     private void OnComponentAddedToScene(Component comp)
     {
-        foreach (var currentInspectableData in _currentInspectableDatas)
+        foreach (InspectableData currentInspectableData in _currentInspectableDatas)
         {
-            var c = currentInspectableData.Inspectable as Component;
+            Component? c = currentInspectableData.Inspectable as Component;
             if (c?.GameObject == comp.GameObject)
             {
                 SelectInspectables(comp.GameObject.Components); // RefreshInspector();
@@ -201,7 +201,7 @@ public class EditorPanelInspector : EditorPanel
         ClearInspectableDatas();
         _materialToShowAtTheBottom = null;
 
-        foreach (var inspectable in inspectables)
+        foreach (object? inspectable in inspectables)
         {
             InspectableData inspectableData = new(inspectable);
             _currentInspectableDatas.Add(inspectableData);
@@ -279,7 +279,7 @@ public class EditorPanelInspector : EditorPanel
 
     private void DrawInspectables(List<InspectableData> inspectableDatas)
     {
-        var gameObject = (inspectableDatas[0].Inspectable as Component)?.GameObject;
+        GameObject? gameObject = (inspectableDatas[0].Inspectable as Component)?.GameObject;
         if (gameObject?.IsPrefab == true)
         {
             if (ImGui.Button("Update prefab"))
@@ -299,19 +299,19 @@ public class EditorPanelInspector : EditorPanel
         {
             PushNextId();
 
-            var gameObjectName = gameObject.Name;
-            var gameObjectActiveSelf = gameObject.ActiveSelf;
+            string? gameObjectName = gameObject.Name;
+            bool gameObjectActiveSelf = gameObject.ActiveSelf;
             ImGui.Checkbox("", ref gameObjectActiveSelf);
             gameObject.SetActive(gameObjectActiveSelf);
             ImGui.SameLine();
 
-            var wasStatic = gameObject.IsStaticSelf;
+            bool wasStatic = gameObject.IsStaticSelf;
             if (gameObject.IsStaticSelf)
             {
                 ImGui.PushStyleColor(ImGuiCol.Text, EditorColors.StaticLabel.ToVector4());
             }
 
-            var staticButtonClicked = ImGui.Button("STATIC");
+            bool staticButtonClicked = ImGui.Button("STATIC");
 
             if (staticButtonClicked)
             {
@@ -340,17 +340,17 @@ public class EditorPanelInspector : EditorPanel
         }
 
         // _materialToShowAtTheBottom = null;
-        foreach (var componentInspectorData in inspectableDatas)
+        foreach (InspectableData componentInspectorData in inspectableDatas)
         {
-            var component = componentInspectorData.Inspectable as Component;
+            Component? component = componentInspectorData.Inspectable as Component;
 
             if (component)
             {
                 PushNextId();
                 if (component.CanBeDisabled)
                 {
-                    var componentEnabled = component.EnabledSelf;
-                    var toggledComponent = ImGui.Checkbox("", ref componentEnabled);
+                    bool componentEnabled = component.EnabledSelf;
+                    bool toggledComponent = ImGui.Checkbox("", ref componentEnabled);
                     if (toggledComponent)
                     {
                         component.EnabledSelf = componentEnabled;
@@ -370,7 +370,7 @@ public class EditorPanelInspector : EditorPanel
 
             PushNextId();
 
-            var inspectableName = componentInspectorData.InspectableType.Name;
+            string inspectableName = componentInspectorData.InspectableType.Name;
             if (componentInspectorData.InspectableType.IsSubclassOf(typeof(Component)))
             {
                 inspectableName = (Global.Debug ? $"[{component.GameObjectId}] " : "") +
@@ -391,7 +391,7 @@ public class EditorPanelInspector : EditorPanel
                 ImGui.PushStyleColor(ImGuiCol.Header, headerColor);
             }
 
-            var headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);
+            bool headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);
             if (componentInspectorData.InspectableType == typeof(Asset_Material))
             {
                 ImGui.PopStyleColor();
@@ -405,9 +405,9 @@ public class EditorPanelInspector : EditorPanel
                 }
 
 
-                foreach (var info in componentInspectorData.Infos)
+                foreach (FieldOrPropertyInfo info in componentInspectorData.Infos)
                 {
-                    var drawn = DrawFieldOrProperty(info, componentInspectorData);
+                    bool drawn = DrawFieldOrProperty(info, componentInspectorData);
                     if (drawn == false)
                     {
                     }
@@ -441,7 +441,7 @@ public class EditorPanelInspector : EditorPanel
 
         if (gameObject)
         {
-            var justOpened = false;
+            bool justOpened = false;
             if (ImGui.Button("[+] Add Component"))
             {
                 ImGui.OpenPopup("AddComponentPopup");
@@ -455,13 +455,13 @@ public class EditorPanelInspector : EditorPanel
                     ImGui.SetKeyboardFocusHere(0);
                 }
 
-                var enterPressed = ImGui.InputText("", ref _addComponentPopupText, 100,
+                bool enterPressed = ImGui.InputText("", ref _addComponentPopupText, 100,
                     ImGuiInputTextFlags.EnterReturnsTrue);
 
 
                 if (_addComponentPopupText.Length > 0)
                 {
-                    for (var i = 0; i < _componentTypes.Count; i++)
+                    for (int i = 0; i < _componentTypes.Count; i++)
                     {
                         if (_componentTypes[i].Name
                             .Contains(_addComponentPopupText, StringComparison.OrdinalIgnoreCase))
@@ -479,7 +479,7 @@ public class EditorPanelInspector : EditorPanel
                 }
                 else
                 {
-                    for (var i = 0; i < _componentTypes.Count; i++)
+                    for (int i = 0; i < _componentTypes.Count; i++)
                     {
                         if (ImGui.Button(_componentTypes[i].Name))
                         {
@@ -528,7 +528,7 @@ public class EditorPanelInspector : EditorPanel
 
         PushNextId();
 
-        var hovering = false;
+        bool hovering = false;
         if (ImGui.IsMouseHoveringRect(ImGui.GetCursorScreenPos(),
                 ImGui.GetCursorScreenPos() +
                 new System.Numerics.Vector2(1500, ImGui.GetFrameHeightWithSpacing())))
@@ -562,13 +562,13 @@ public class EditorPanelInspector : EditorPanel
 
         if (info.IsGenericList)
         {
-            var obj = info.GetValue(componentInspectorData.Inspectable);
-            var list = (IList)obj;
+            object? obj = info.GetValue(componentInspectorData.Inspectable);
+            IList? list = (IList)obj;
 
 
             if (ImGui.Button("+"))
             {
-                var newElement = Activator.CreateInstance(info.GenericParameterType);
+                object? newElement = Activator.CreateInstance(info.GenericParameterType);
                 list.Add(newElement);
                 info.SetValue(componentInspectorData.Inspectable, list);
             }
@@ -577,10 +577,10 @@ public class EditorPanelInspector : EditorPanel
             if (ImGui.CollapsingHeader($"List<{info.GenericParameterType.Name}>",
                     ImGuiTreeNodeFlags.DefaultOpen))
             {
-                for (var j = 0; j < list.Count; j++)
+                for (int j = 0; j < list.Count; j++)
                 {
                     PushNextId();
-                    var xClicked = ImGui.Button("x",
+                    bool xClicked = ImGui.Button("x",
                         new System.Numerics.Vector2(ImGui.GetFrameHeight(), ImGui.GetFrameHeight()));
 
                     if (xClicked)
@@ -592,8 +592,8 @@ public class EditorPanelInspector : EditorPanel
 
                     ImGui.SameLine();
 
-                    var isNull = list[j] == null;
-                    var name = isNull ? "<null>" : "name";
+                    bool isNull = list[j] == null;
+                    string name = isNull ? "<null>" : "name";
 
 
                     FieldOrPropertyInfo listElementFieldOrProperty = new(list, j);

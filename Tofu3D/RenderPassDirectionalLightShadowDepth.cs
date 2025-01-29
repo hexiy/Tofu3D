@@ -62,7 +62,7 @@ GL.Clear(ClearBufferMask.DepthBufferBit);
     protected override void PostRender()
     {
         base.PostRender();
-        var renderToDebugTexture =
+        bool renderToDebugTexture =
             Tofu.GameObjectSelectionManager.GetSelectedGameObject()?.GetComponent<DirectionalLight>() != null;
 
         if (renderToDebugTexture || true)

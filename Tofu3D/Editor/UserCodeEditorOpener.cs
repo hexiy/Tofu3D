@@ -110,7 +110,7 @@ public static class UserCodeEditorOpener
                 editor.Name.Equals(FavouriteEditor, StringComparison.OrdinalIgnoreCase));
             if (favouriteEditorInfo != null)
             {
-                foreach (var exe in favouriteEditorInfo.ExecutableNames)
+                foreach (string exe in favouriteEditorInfo.ExecutableNames)
                 {
                     if (CanExecute(exe))
                     {
@@ -120,9 +120,9 @@ public static class UserCodeEditorOpener
             }
         }
 
-        foreach (var editor in knownEditors)
+        foreach (EditorInfo editor in knownEditors)
         {
-            foreach (var exe in editor.ExecutableNames)
+            foreach (string exe in editor.ExecutableNames)
             {
                 if (CanExecute(exe))
                 {
@@ -138,7 +138,7 @@ public static class UserCodeEditorOpener
     {
         try
         {
-            var proc = Process.Start(new ProcessStartInfo
+            Process? proc = Process.Start(new ProcessStartInfo
             {
                 FileName = fileName,
                 CreateNoWindow = true,

@@ -88,7 +88,7 @@ public static class Mathf
         // Using formula from http://www.mvps.org/directx/articles/catmull/
         // Internally using doubles not to lose precission
         double amountSquared = amount * amount;
-        var amountCubed = amountSquared * amount;
+        double amountCubed = amountSquared * amount;
         return (float)(0.5 * (2.0 * value2 + (value3 - value1) * amount +
                               (2.0 * value1 - 5.0 * value2 + 4.0 * value3 - value4) * amountSquared +
                               (3.0 * value2 - value1 - 3.0 * value3 + value4) * amountCubed));
@@ -179,8 +179,8 @@ public static class Mathf
         // All transformed to double not to lose precission
         // Otherwise, for high numbers of param:amount the result is NaN instead of Infinity
         double v1 = value1, v2 = value2, t1 = tangent1, t2 = tangent2, s = amount, result;
-        var sCubed = s * s * s;
-        var sSquared = s * s;
+        double sCubed = s * s * s;
+        double sSquared = s * s;
 
         if (amount == 0f)
         {
@@ -310,7 +310,7 @@ public static class Mathf
         // It is expected that 0 < amount < 1
         // If amount < 0, return value1
         // If amount > 1, return value2
-        var result = Clamp(amount, 0f, 1f);
+        float result = Clamp(amount, 0f, 1f);
         result = Hermite(value1, 0f, value2, 0f, result);
 
         return result;

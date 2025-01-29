@@ -7,18 +7,18 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        var mesh = (RuntimeMesh)info.GetValue(componentInspectorData.Inspectable);
+        RuntimeMesh? mesh = (RuntimeMesh)info.GetValue(componentInspectorData.Inspectable);
 
-        var assetName = mesh?.Mesh?.Name ?? "";
+        string assetName = mesh?.Mesh?.Name ?? "";
 
-        var clicked = ImGui.Button(assetName,
+        bool clicked = ImGui.Button(assetName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
 
         if (ImGui.BeginDragDropTarget())
         {
             if (TofuImGui.PayloadHasBeenDropped(DragDropPayloadTypes.Model))
             {
-                var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                string? filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                 if (filePath.Length > 0 &&
                     AssetPathExtensions.IsFileModel(filePath))
                 {
@@ -42,7 +42,7 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
         {
             if (TofuImGui.PayloadHasBeenDropped(DragDropPayloadTypes.Mesh))
             {
-                var filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                string? filePath = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                 if (filePath.Length > 0 &&
                     AssetPathExtensions.IsFileMesh(filePath))
                 {

@@ -54,15 +54,15 @@ public class SceneManager
 
         CurrentScene.Initialize();
 
-        var sceneFile = Tofu.SceneSerializer.LoadSceneFile(path);
+        SceneFile sceneFile = Tofu.SceneSerializer.LoadSceneFile(path);
 
         Tofu.SceneSerializer.ConnectGameObjectsWithComponents(sceneFile);
         IDsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
 
         Tofu.SceneSerializer.ConnectParentsAndChildren(sceneFile);
-        for (var i = 0; i < sceneFile.GameObjects.Count; i++)
+        for (int i = 0; i < sceneFile.GameObjects.Count; i++)
         {
-            for (var j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
+            for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
             {
                 sceneFile.GameObjects[i].Components[j].GameObjectId = sceneFile.GameObjects[i].Id;
             }
@@ -71,7 +71,7 @@ public class SceneManager
         }
 
         Debug.StartTimer("Awake");
-        for (var i = 0; i < sceneFile.GameObjects.Count; i++)
+        for (int i = 0; i < sceneFile.GameObjects.Count; i++)
         {
             sceneFile.GameObjects[i].LinkGameObjectFieldsInComponents();
             sceneFile.GameObjects[i].Awake(callStartAfterAwake: false);
@@ -80,7 +80,7 @@ public class SceneManager
         Debug.EndAndLogTimer("Awake");
 
 
-        for (var i = 0; i < sceneFile.GameObjects.Count; i++)
+        for (int i = 0; i < sceneFile.GameObjects.Count; i++)
         {
             if (sceneFile.GameObjects[i].ActiveInHierarchy)
             {

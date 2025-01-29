@@ -10,18 +10,18 @@ public class InspectorFieldDrawerEnum : InspectorFieldDrawable<Enum>
 
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        var fieldValue = GetValue(info, componentInspectorData);
+        Enum fieldValue = GetValue(info, componentInspectorData);
 
-        var enumValuesNames = Enum.GetNames(info.FieldOrPropertyType);
-        var enumValues = Enum.GetValues(info.FieldOrPropertyType).Cast<int>().ToArray();
+        string[] enumValuesNames = Enum.GetNames(info.FieldOrPropertyType);
+        int[] enumValues = Enum.GetValues(info.FieldOrPropertyType).Cast<int>().ToArray();
 
         _selectedEnumValueIndex = Array.IndexOf(enumValues, Convert.ToInt32(fieldValue));
 
-        var clicked = ImGui.Combo(string.Empty, ref _selectedEnumValueIndex, enumValuesNames,
+        bool clicked = ImGui.Combo(string.Empty, ref _selectedEnumValueIndex, enumValuesNames,
             enumValuesNames.Length);
         if (clicked)
         {
-            var selectedEnumValue = Enum.ToObject(info.FieldOrPropertyType, enumValues[_selectedEnumValueIndex]);
+            object selectedEnumValue = Enum.ToObject(info.FieldOrPropertyType, enumValues[_selectedEnumValueIndex]);
             SetValue(info, componentInspectorData,
                 (Enum)Enum.ToObject(info.FieldOrPropertyType, (Enum)selectedEnumValue));
             // info.SetValue(componentInspectorData.Inspectable, Enum.ToObject(info.FieldOrPropertyType, _selectedEnumValueIndex));

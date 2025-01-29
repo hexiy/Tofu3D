@@ -59,7 +59,7 @@ public class InstancedRenderingSystem
 
     public void ClearBuffers()
     {
-        foreach (var pair in _sharedInstancedBuffers)
+        foreach (KeyValuePair<int, SharedInstancingBuffer> pair in _sharedInstancedBuffers)
         {
             // need to care for left objects that use the same vao
             if (pair.Value.Vao == -1)
@@ -118,7 +118,7 @@ public class InstancedRenderingSystem
         }
 
         // Iterate over shader groups
-        foreach (var shaderGroup in _shaderGroups)
+        foreach (KeyValuePair<int, ShaderGroup> shaderGroup in _shaderGroups)
         {
             if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
                 or RenderPassType.Transparency)
@@ -130,14 +130,14 @@ public class InstancedRenderingSystem
                 SetGlobalUniforms(_groupDefinitions[shaderGroup.Value.GroupDefinitionIndexes[0]].Material);
             }
 
-            foreach (var definitionIndexInThisShaderGroup in shaderGroup.Value.GroupDefinitionIndexes)
+            foreach (int definitionIndexInThisShaderGroup in shaderGroup.Value.GroupDefinitionIndexes)
             {
                 if (_sharedInstancedBuffers.ContainsKey(definitionIndexInThisShaderGroup) == false)
                 {
                     continue;
                 }
 
-                var bufferData = _sharedInstancedBuffers[definitionIndexInThisShaderGroup];
+                SharedInstancingBuffer bufferData = _sharedInstancedBuffers[definitionIndexInThisShaderGroup];
                 if (bufferData.NumberOfObjects == 0)
                 {
                     continue;
@@ -192,7 +192,7 @@ public class InstancedRenderingSystem
     {
         // resize the buffer if needed, after drawing the old one
         // if (sharedBuffer.Buffer.Length !=
-        //     sharedBuffer.InstancedVertexCountOfFloats * sharedBuffer.FutureMaxNumberOfObjects) this was better because we only want to resize once not for each new object
+        //     sharedBuffer.InstancedVertexDataLayoutDefinition.CountOfFloats * sharedBuffer.FutureMaxNumberOfObjects) this was better because we only want to resize once not for each new object
         // {
         //     sharedBuffer.ExpandBuffer();
         // }
@@ -378,16 +378,16 @@ public class InstancedRenderingSystem
         shader.SetMatrix4X4("u_lightSpaceViewProjection", DirectionalLight.LightSpaceViewProjectionMatrix);
 
 
-        var ambientColor = SceneLightingManager.I.GetAmbientLightsColor().ToVector4();
+        Vector4 ambientColor = SceneLightingManager.I.GetAmbientLightsColor().ToVector4();
         ambientColor = new Vector4(ambientColor.X, ambientColor.Y, ambientColor.Z,
             Mathf.ClampMin(SceneLightingManager.I.GetAmbientLightsIntensity(), 0));
         shader.SetVector4("u_ambientLightColor", ambientColor);
 
-        var directionalLightColor = SceneLightingManager.I.GetDirectionalLightColor().ToVector4();
+        Vector4 directionalLightColor = SceneLightingManager.I.GetDirectionalLightColor().ToVector4();
         directionalLightColor.W = Mathf.ClampMin(SceneLightingManager.I.GetDirectionalLightIntensity(), 0);
         shader.SetVector4("u_directionalLightColor", directionalLightColor);
 
-        var dir = SceneLightingManager.I.GetDirectionalLightDirection().Normalized();
+        Vector3 dir = SceneLightingManager.I.GetDirectionalLightDirection().Normalized();
         shader.SetVector3("u_directionalLightDirection",
             // SceneLightingManager.I.GetDirectionalLightDirection().Normalized());
             dir);
@@ -395,7 +395,7 @@ public class InstancedRenderingSystem
 
 
         //FOG
-        var fogEnabled = Tofu.SceneManager.CurrentScene.SceneFogManager.FogEnabled;
+        bool fogEnabled = Tofu.SceneManager.CurrentScene.SceneFogManager.FogEnabled;
         shader.SetFloat("u_fogEnabled", fogEnabled ? 1 : 0);
         if (fogEnabled)
         {
@@ -505,7 +505,7 @@ public class InstancedRenderingSystem
 
             // Roughness Texture
             material.Shader.SetInt("u_hasRoughnessTexture", material.RoughnessTexture != null ? 1 : 0);
-            
+
             // if (material.RoughnessTexture != null && material.Shader.RoughnessTextureUnit != null)
             // {
             //     GL.ActiveTexture(material.Shader.RoughnessTextureUnit.Value);
@@ -577,13 +577,13 @@ public class InstancedRenderingSystem
             );
             // index: indexForMultipleObjectsPerRenderer);
 
-            var definitionIndex = _groupDefinitions.Contains(definition)
+            int definitionIndex = _groupDefinitions.Contains(definition)
                 ? _groupDefinitions.IndexOf(definition)
                 : _groupDefinitions.Count;
 
 
             // find bufferData if its already created
-            if (_sharedInstancedBuffers.TryGetValue(definitionIndex, out var data))
+            if (_sharedInstancedBuffers.TryGetValue(definitionIndex, out SharedInstancingBuffer? data))
             {
                 sharedInstancingBuffer = data;
             }
@@ -684,13 +684,20 @@ public class InstancedRenderingSystem
             buffer[bufferIndex++] = uvOffset.Value.Y;
         }
 
-        buffer[bufferIndex++] = material.AlbedoTexture?.BoundingBoxInAtlas.X ?? 0;
-        buffer[bufferIndex++] = material.AlbedoTexture?.BoundingBoxInAtlas.Y ?? 0;
-        buffer[bufferIndex++] = material.AlbedoTexture?.BoundingBoxInAtlas.Z ?? 0;
-        buffer[bufferIndex++] = material.AlbedoTexture?.BoundingBoxInAtlas.W ?? 0;
+        
+        // i dont have to add the atlas index to the whole vector4 but for now i will
+        buffer[bufferIndex++] =
+            material.AlbedoTexture?.BoundingBoxInAtlas.X + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+        buffer[bufferIndex++] =
+            material.AlbedoTexture?.BoundingBoxInAtlas.Y + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+        buffer[bufferIndex++] =
+            material.AlbedoTexture?.BoundingBoxInAtlas.Z + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+        buffer[bufferIndex++] =
+            material.AlbedoTexture?.BoundingBoxInAtlas.W + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+        // uv = 0 - 1 = atlas 0
+        // uv = 1 - 2 = atlas 1
 
-
-        buffer[bufferIndex++] = material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+        // buffer[bufferIndex++] = material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
     }
 
     private SharedInstancingBuffer InitializeSharedBufferData(InstancedGroupDefinition instancedGroupDefinition)
@@ -721,7 +728,7 @@ public class InstancedRenderingSystem
         sharedInstancingBuffer.Init();
 
         sharedInstancingBuffer.InstancingBuffer = new float[sharedInstancingBuffer.MaxNumberOfObjects *
-                                                            sharedInstancingBuffer.InstancedVertexCountOfFloats];
+                                                            InstancedVertexDataLayoutDefinition.CountOfFloats];
 
         sharedInstancingBuffer.SetupInstancedBufferAndUploadIfNeeded();
 

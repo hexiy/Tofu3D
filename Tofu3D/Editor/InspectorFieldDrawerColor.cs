@@ -9,10 +9,10 @@ public class InspectorFieldDrawerColor : InspectorFieldDrawable<Color>
     {
         System.Numerics.Vector4 fieldValue =
             ((Color)info.GetValue(componentInspectorData.Inspectable)).ToVector4();
-        var changed = false;
+        bool changed = false;
 
 
-        var hasColor3Attribute =
+        bool hasColor3Attribute =
             info.CustomAttributes.Count(data => data.AttributeType == typeof(Color3Attrib)) > 0;
         if (hasColor3Attribute)
         {
@@ -23,7 +23,7 @@ public class InspectorFieldDrawerColor : InspectorFieldDrawable<Color>
         }
         else
         {
-            var isHDRColor =
+            bool isHDRColor =
                 info.CustomAttributes.Count(data => data.AttributeType == typeof(ColorHDR)) > 0;
             ImGuiColorEditFlags flags = isHDRColor ? ImGuiColorEditFlags.HDR : ImGuiColorEditFlags.None;
 

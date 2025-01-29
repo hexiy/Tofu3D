@@ -35,9 +35,9 @@ public class AssetLoadManager
     public List<T> GetAllLoadedAssetsOfType<T>() where T : Asset<T>
     {
         List<T> foundAssets = new();
-        var t = typeof(T);
+        Type t = typeof(T);
 
-        foreach (var keyValuePair in LoadedAssets)
+        foreach (KeyValuePair<int, object> keyValuePair in LoadedAssets)
         {
             if (keyValuePair.Value?.GetType() == t)
             {
@@ -215,7 +215,7 @@ public class AssetLoadManager
 
     private Asset_Material CreateDefaultMaterialAssetFile(string sourcePath)
     {
-        var mat = new Asset_Material()
+        Asset_Material mat = new Asset_Material()
         {
             Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
                 "ModelRendererInstanced.glsl"))

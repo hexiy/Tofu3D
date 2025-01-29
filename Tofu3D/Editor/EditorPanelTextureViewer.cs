@@ -57,8 +57,8 @@ public class EditorPanelTextureViewer : EditorPanel
         float yAvailablePerOneTexture = yAvailable / (float)_textures.Count;
         foreach (TextureViewerTextureData textureData in _textures)
         {
-            var ratio = textureData.Texture.Size.Y /
-                        textureData.Texture.Size.X;
+            float ratio = textureData.Texture.Size.Y /
+                          textureData.Texture.Size.X;
 
             Vector2 size = Vector2.Zero;
 
@@ -70,7 +70,7 @@ public class EditorPanelTextureViewer : EditorPanel
             Vector2 cursorScreenPos = ImGui.GetCursorScreenPos();
             Vector2 textureEnd = cursorScreenPos + size;
 
-            var drawList = ImGui.GetWindowDrawList();
+            ImDrawListPtr drawList = ImGui.GetWindowDrawList();
             drawList.AddRectFilled(
                 cursorScreenPos,
                 textureEnd,

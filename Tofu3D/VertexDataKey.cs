@@ -9,7 +9,7 @@ public struct VertexDataKey
         if (!(obj is VertexDataKey))
             return false;
 
-        var other = (VertexDataKey)obj;
+        VertexDataKey other = (VertexDataKey)obj;
 
         // Compare Position, UV, and Normal for equality
         return Position.Equals(other.Position) &&

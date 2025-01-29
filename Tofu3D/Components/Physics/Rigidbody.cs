@@ -37,10 +37,10 @@ public class Rigidbody : Component
     {
         get
         {
-            if (_firstPhysicsEnabledShape == null)
-            {
+            // if (_firstPhysicsEnabledShape == null)
+            // {
                 _firstPhysicsEnabledShape = GetShapes().First(shape => shape.PhysicsEnabled);
-            }
+            // }
 
             return _firstPhysicsEnabledShape;
         }

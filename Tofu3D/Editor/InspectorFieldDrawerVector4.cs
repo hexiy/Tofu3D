@@ -10,12 +10,12 @@ public class InspectorFieldDrawerVector4 : InspectorFieldDrawable<Vector4>
         float cursorPosX = ImGui.GetCursorPosX();
         float width = ImGui.GetContentRegionAvail().X;
         Vector4 v4 = (Vector4)info.GetValue(componentInspectorData.Inspectable);
-        var changed = false;
+        bool changed = false;
 
         System.Numerics.Vector3 vec3 = v4.ToVector3();
 
         ColorHDR colorHdr = info.GetCustomAttribute<ColorHDR>();
-        var isHDRColor = colorHdr != null;
+        bool isHDRColor = colorHdr != null;
         if (isHDRColor)
         {
             ImGui.SetNextItemWidth(width);

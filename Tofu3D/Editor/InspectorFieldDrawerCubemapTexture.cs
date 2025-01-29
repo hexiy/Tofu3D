@@ -8,10 +8,10 @@ public class InspectorFieldDrawerCubemapTexture : InspectorFieldDrawable<Runtime
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
         // CubemapTexture cubemapTexture = info.ListElement as CubemapTexture;
-        var cubemapTexture = GetValue(info, componentInspectorData);
-        var textureName = Path.GetFileName(cubemapTexture.PathInAssetsFolder);
+        RuntimeCubemapTexture cubemapTexture = GetValue(info, componentInspectorData);
+        string? textureName = Path.GetFileName(cubemapTexture.PathInAssetsFolder);
 
-        var clicked = ImGui.Button(textureName,
+        bool clicked = ImGui.Button(textureName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
         if (clicked)
         {

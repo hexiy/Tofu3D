@@ -13,8 +13,8 @@ public static class Compression
             return data;
         }
 
-        using (var memoryStream = new MemoryStream())
-        using (var deflateStream = new DeflateStream(memoryStream, CompressionLevel.Optimal))
+        using (MemoryStream memoryStream = new MemoryStream())
+        using (DeflateStream deflateStream = new DeflateStream(memoryStream, CompressionLevel.Optimal))
         {
             deflateStream.Write(data, 0, data.Length);
             deflateStream.Close(); // Ensure all data is flushed
@@ -29,9 +29,9 @@ public static class Compression
             return compressedData;
         }
 
-        using (var compressedStream = new MemoryStream(compressedData))
-        using (var deflateStream = new DeflateStream(compressedStream, CompressionMode.Decompress))
-        using (var resultStream = new MemoryStream())
+        using (MemoryStream compressedStream = new MemoryStream(compressedData))
+        using (DeflateStream deflateStream = new DeflateStream(compressedStream, CompressionMode.Decompress))
+        using (MemoryStream resultStream = new MemoryStream())
         {
             deflateStream.CopyTo(resultStream); // Copy decompressed data into result stream
             return resultStream.ToArray(); // Return the decompressed bytes

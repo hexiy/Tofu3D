@@ -179,7 +179,6 @@ public partial class TransformHandle : Component, IComponentUpdateable
         ObjectSelected = false;
         GameObject.UpdateWhenDisabled = true;
 
-        Transform.Pivot = new Vector3(0, 0, 0);
 
         BoxColliderX = GameObject.AddComponent<BoxShape>();
         BoxColliderX.Size = new Vector3(0.5f, 0.05f, 0.05f);
@@ -265,7 +264,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
         deltaVector = Camera.MainCamera.ScreenToWorld(deltaVector) * 100;
 
         Vector3 axisDirection = Vector3.Zero;
-        var moveVector = Vector3.Zero;
+        Vector3 moveVector = Vector3.Zero;
 
         switch (CurrentAxisSelected)
         {
@@ -310,7 +309,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
         // _selectedTransform.LocalPosition = _selectedTransform.TranslateWorldToLocal(_selectedTransform.WorldPosition);
 
-        for (var i = 0; i < _selectedTransforms.Count; i++)
+        for (int i = 0; i < _selectedTransforms.Count; i++)
         {
             // _selectedTransforms[i].LocalPosition +=
             // moveVector / (_selectedTransforms[i].Parent?.WorldScale ?? Vector3.One);
@@ -338,7 +337,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
         if (KeyboardInput.IsKeyDown(Keys.LeftShift))
         {
-            for (var i = 0; i < _selectedTransforms.Count; i++)
+            for (int i = 0; i < _selectedTransforms.Count; i++)
             {
                 switch (CurrentAxisSelected)
                 {
@@ -378,10 +377,10 @@ public partial class TransformHandle : Component, IComponentUpdateable
         // }
 
         _selectedTransforms = new List<Transform>();
-        for (var i = 0; i < selection.Count; i++)
+        for (int i = 0; i < selection.Count; i++)
         {
             // var go = Tofu.SceneManager.CurrentScene.GetGameObjectByID(selection[i]);
-            var go = selection[i];
+            GameObject? go = selection[i];
 
             if (go != null)
             {
@@ -401,8 +400,8 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
     private Vector3 GetCenterOfSelection()
     {
-        var accumulatedPos = Vector3.Zero;
-        for (var i = 0; i < _selectedTransforms.Count; i++)
+        Vector3 accumulatedPos = Vector3.Zero;
+        for (int i = 0; i < _selectedTransforms.Count; i++)
         {
             accumulatedPos += _selectedTransforms[i].WorldPosition;
         }
@@ -413,7 +412,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
     private Vector3 GetRotationOfSelection()
     {
-        var rotation = Vector3.Zero;
+        Vector3 rotation = Vector3.Zero;
         if (_selectedTransforms.Count > 0)
         {
             rotation = _selectedTransforms[0].Rotation;

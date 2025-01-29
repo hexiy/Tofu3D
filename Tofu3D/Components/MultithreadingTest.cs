@@ -35,9 +35,9 @@ public class MultithreadingTest : Component
         Debug.StartTimer("Task");
         List<GameObject> gameObjects = new(SpawnCount);
 
-        for (var i = 0; i < SpawnCount; i++)
+        for (int i = 0; i < SpawnCount; i++)
         {
-            var go2 = (GameObject)ReferenceGameObject.Clone();
+            GameObject go2 = (GameObject)ReferenceGameObject.Clone();
             go2.Name = i.ToString();
             go2.Transform.LocalPosition +=
                 new Vector3(Random.Range(-10f, 10f), Random.Range(0, 10), Random.Range(0, 10));

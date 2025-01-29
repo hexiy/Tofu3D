@@ -25,23 +25,23 @@ public class EditorPanelProfiler : EditorPanel
 
         ImGui.Text($"GameObjects in scene: {Tofu.SceneManager.CurrentScene.GameObjects.Count}");
 
-        foreach (var stat in Debug.Stats)
+        foreach (KeyValuePair<string, string> stat in Debug.Stats)
         {
             ImGui.Text($"{stat.Value}");
         }
 
-        foreach (var stat in Debug.AdditiveStats)
+        foreach (KeyValuePair<string, float> stat in Debug.AdditiveStats)
         {
             ImGui.Text($"{stat.Key} : {stat.Value}");
         }
 
-        var currentSourceGroup = DebugGraphTimer.SourceGroup.None;
+        DebugGraphTimer.SourceGroup currentSourceGroup = DebugGraphTimer.SourceGroup.None;
 
-        foreach (var timerPair in Debug.GraphTimers)
+        foreach (KeyValuePair<string, DebugGraphTimer> timerPair in Debug.GraphTimers)
         {
-            var msDuration = (float)Math.Round(timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds, 2);
+            float msDuration = (float)Math.Round(timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds, 2);
             // float msDuration = (float) timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds;
-            var msDurationSlower = timerPair.Value.Sample10FramesAgo;
+            float msDurationSlower = timerPair.Value.Sample10FramesAgo;
             timerPair.Value.AddSample(msDuration);
 
             if (timerPair.Value.Group != currentSourceGroup)
@@ -52,7 +52,7 @@ public class EditorPanelProfiler : EditorPanel
                 ImGui.SetWindowFontScale(1);
             }
 
-            var redlineHasValue = timerPair.Value.Redline.HasValue;
+            bool redlineHasValue = timerPair.Value.Redline.HasValue;
             if (redlineHasValue)
             {
                 ImGui.PushStyleColor(ImGuiCol.Text,
@@ -67,13 +67,13 @@ public class EditorPanelProfiler : EditorPanel
             }
 
             // dont change alpha, we only BeginDisable so we dont see any hover toolips
-            var disableHover = Tofu.MouseInput.IsButtonDown(MouseButtons.Left) == false;
+            bool disableHover = Tofu.MouseInput.IsButtonDown(MouseButtons.Left) == false;
             if (disableHover)
             {
                 ImGui.BeginDisabled();
             }
 
-            var clickedOnAnyControl = false;
+            bool clickedOnAnyControl = false;
             // ImGui.PushStyleColor(ImGuiCol.PlotHistogram, Color.DarkRed.ToVector4());
 
 
@@ -94,7 +94,7 @@ public class EditorPanelProfiler : EditorPanel
             }
             else
             {
-                var plotWidth = (int)ImGui.GetContentRegionAvail().X;
+                int plotWidth = (int)ImGui.GetContentRegionAvail().X;
                 // if (timerPair.Value.Samples.Length != plotWidth && plotWidth > 0)
                 // {
                 // timerPair.Value.SetSamplesBufferSize((uint) plotWidth);

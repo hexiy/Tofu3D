@@ -5,8 +5,6 @@
 /// </summary>
 public class SharedInstancingBuffer
 {
-    private int InstancedVertexDataSizeInBytes;
-
     public float[] InstancingBuffer;
     private List<ObjectInstancingData> ObjectInstancingDatas = new List<ObjectInstancingData>();
 
@@ -25,17 +23,9 @@ public class SharedInstancingBuffer
 
     // public required VertexBufferStructureType VertexBufferStructureType { init; get; }
     public InstancedGroupDefinition InstancedGroupDefinition;
-    public int InstancedVertexCountOfFloats => InstancedVertexDataSizeInBytes / sizeof(float);
 
     public void Init()
     {
-        InstancedVertexDataSizeInBytes =
-            sizeof(float) * 3 * 4 // 4x vec 3's for model_1 model_2 model_3 model_4
-            + (UVOffsetIsInstanced ? (sizeof(float) * 2) : 0) // 1x vector2 for uv offset
-            + (sizeof(float)) // 1 float(int) for mouse picking id
-            + (sizeof(float) * 4) // 4 floats for albedo texture bounding box in atlas
-            + (sizeof(float)) // 1 float for albedo texture atlas index
-            ;
     }
 
     public void AddObject(ref ObjectInstancingData objectInstancingData)
@@ -56,7 +46,7 @@ public class SharedInstancingBuffer
         // Debug.Log($"Resizing buffer to new size:{this.MaxNumberOfObjects}");
 
         Array.Resize(ref this.InstancingBuffer,
-            this.MaxNumberOfObjects * this.InstancedVertexCountOfFloats);
+            this.MaxNumberOfObjects * InstancedVertexDataLayoutDefinition.CountOfFloats);
         GL.DeleteBuffer(this.Vbo);
         this.Vbo = -1;
         this.NeedsUpload = true;
@@ -64,11 +54,11 @@ public class SharedInstancingBuffer
 
     public void RemoveObject(ObjectInstancingData removedObjectInstancingData)
     {
-        for (var i = removedObjectInstancingData.StartingIndexInBuffer;
-             i < InstancingBuffer.Length - InstancedVertexCountOfFloats;
+        for (int i = removedObjectInstancingData.StartingIndexInBuffer;
+             i < InstancingBuffer.Length - InstancedVertexDataLayoutDefinition.CountOfFloats;
              i++)
         {
-            InstancingBuffer[i] = InstancingBuffer[i + InstancedVertexCountOfFloats];
+            InstancingBuffer[i] = InstancingBuffer[i + InstancedVertexDataLayoutDefinition.CountOfFloats];
         }
 
         // go through all objectInstancingData that is in this buffer and change their starting index if they are after this one
@@ -85,9 +75,9 @@ public class SharedInstancingBuffer
 
         for (int i = indexOfThis; i < ObjectInstancingDatas.Count; i++)
         {
-            var oid = ObjectInstancingDatas[i];
+            ObjectInstancingData oid = ObjectInstancingDatas[i];
             oid.StartingIndexInBuffer =
-                oid.StartingIndexInBuffer - InstancedVertexCountOfFloats;
+                oid.StartingIndexInBuffer - InstancedVertexDataLayoutDefinition.CountOfFloats;
             ObjectInstancingDatas[i] = oid;
         }
     }
@@ -96,7 +86,7 @@ public class SharedInstancingBuffer
     {
         if (EmptyStartIndexes.Count > 0)
         {
-            var index = EmptyStartIndexes[0];
+            int index = EmptyStartIndexes[0];
             EmptyStartIndexes.RemoveAt(0);
             return index;
         }
@@ -110,13 +100,13 @@ public class SharedInstancingBuffer
         }
 
         if (InstancingBuffer.Length <
-            InstancedVertexCountOfFloats * MaxNumberOfObjects)
+            InstancedVertexDataLayoutDefinition.CountOfFloats * MaxNumberOfObjects)
         {
             ExpandBuffer();
             // return -1;
         }
 
-        return NumberOfObjects * InstancedVertexCountOfFloats;
+        return NumberOfObjects * InstancedVertexDataLayoutDefinition.CountOfFloats;
     }
 
     public void SetupInstancedBufferAndUploadIfNeeded()
@@ -124,7 +114,7 @@ public class SharedInstancingBuffer
         Tofu.ShaderManager.BindVertexArray(this.Vao);
 
 
-        var newBuffer = this.Vbo == -1;
+        bool newBuffer = this.Vbo == -1;
         if (newBuffer)
         {
             NeedsUpload = true;
@@ -142,86 +132,31 @@ public class SharedInstancingBuffer
             {
                 // this should be called only once but it simply doesnt work... i need to call GL.VertexAttribPointer every frame
                 // https://stackoverflow.com/a/28597384
-                int offset = 0;
+                int bytesOffset = 0;
                 int vertexAttribPointerIndex = 5;
-                GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
-                    this.InstancedVertexDataSizeInBytes,
-                    offset);
-                offset += 3 * sizeof(float);
-                GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
-                    this.InstancedVertexDataSizeInBytes,
-                    offset);
-                offset += 3 * sizeof(float);
 
-                GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
-                    this.InstancedVertexDataSizeInBytes,
-                    offset);
-                offset += 3 * sizeof(float);
-
-                GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
-                    this.InstancedVertexDataSizeInBytes,
-                    offset);
-                offset += 3 * sizeof(float);
-
-                GL.VertexAttribPointer(vertexAttribPointerIndex++, 1, VertexAttribPointerType.Float, false,
-                    this.InstancedVertexDataSizeInBytes,
-                    offset);
-                offset += 1 * sizeof(float);
-
-                if (this.UVOffsetIsInstanced)
+                for (int i = 0; i < InstancedVertexDataLayoutDefinition.Members.Count; i++)
                 {
-                    GL.VertexAttribPointer(vertexAttribPointerIndex++, 2, VertexAttribPointerType.Float, false,
-                        this.InstancedVertexDataSizeInBytes,
-                        offset);
-                    offset += 2 * sizeof(float);
+                    int numberOfFloatsInAttribute = InstancedVertexDataLayoutDefinition.Members[i];
+                    GL.VertexAttribPointer(vertexAttribPointerIndex++, numberOfFloatsInAttribute,
+                        VertexAttribPointerType.Float, false,
+                        InstancedVertexDataLayoutDefinition.TotalSizeOfVertexInBytes,
+                        bytesOffset);
+                    bytesOffset += numberOfFloatsInAttribute * sizeof(float);
                 }
-
-
-                // albedo bounding box in atlas
-                GL.VertexAttribPointer(vertexAttribPointerIndex++, 4, VertexAttribPointerType.Float, false,
-                    this.InstancedVertexDataSizeInBytes,
-                    offset);
-                offset += 4 * sizeof(float);
-
-                // atlas index of albedo texture
-                GL.VertexAttribPointer(vertexAttribPointerIndex++, 1, VertexAttribPointerType.Float, false,
-                    this.InstancedVertexDataSizeInBytes,
-                    offset);
-                offset += 1 * sizeof(float);
             }
 
             if (newBuffer)
             {
                 // unique attribs for each instance
                 int vertexAttribArrayIndex = 5;
-                GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-                GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-                GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-                GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-                GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-                if (this.UVOffsetIsInstanced)
-                {
-                    GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-                }
-
-                GL.EnableVertexAttribArray(vertexAttribArrayIndex++); // albedo texture bounds in atlas
-                GL.EnableVertexAttribArray(vertexAttribArrayIndex++); // atlas index of albedo texture
-
-
                 int vertexAttribDivisorIndex = 5;
 
-                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-                if (this.UVOffsetIsInstanced)
+                for (int i = 0; i < InstancedVertexDataLayoutDefinition.Members.Count; i++)
                 {
+                    GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
                     GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
                 }
-
-                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
             }
 
 

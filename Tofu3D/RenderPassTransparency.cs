@@ -29,8 +29,8 @@ public class RenderPassTransparency : RenderPass
      
         GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassZPrePass.I.MainFramebuffer.FrameBufferID);
         GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, MainFramebuffer.FrameBufferID);
-        var sizeX = (int)MainFramebuffer.Size.X;
-        var sizeY = (int)MainFramebuffer.Size.Y;
+        int sizeX = (int)MainFramebuffer.Size.X;
+        int sizeY = (int)MainFramebuffer.Size.Y;
         GL.BlitFramebuffer(0, 0, sizeX, sizeY, 0, 0, sizeX, sizeY, ClearBufferMask.DepthBufferBit,
             BlitFramebufferFilter.Nearest);
         

@@ -15,19 +15,19 @@ public class CoordinateSystemCubeTest : Component, IComponentUpdateable
 
     public void Update()
     {
-        var endPosition = _startingPosition + Transform.TransformVectorToWorldSpaceVector(MoveLoopTarget) * 5;
+        Vector3 endPosition = _startingPosition + Transform.TransformVectorToWorldSpaceVector(MoveLoopTarget) * 5;
         Transform.WorldPosition = Vector3.Lerp(_startingPosition, endPosition,
             (float)Math.Abs(Math.Cos(Time.EditorElapsedTime * MoveSpeed)));
 
         if (CubeForward != null)
         {
-            var cubeForwardPosition = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 2));
+            Vector3 cubeForwardPosition = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 2));
             CubeForward.Transform.WorldPosition = Transform.WorldPosition + cubeForwardPosition;
         }
 
         if (CubeUp != null)
         {
-            var cubeUpPosition = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 2, 0));
+            Vector3 cubeUpPosition = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 2, 0));
             CubeUp.Transform.WorldPosition = Transform.WorldPosition + cubeUpPosition;
         }
 

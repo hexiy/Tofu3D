@@ -5,19 +5,19 @@ public class AssetLoader_CubemapTexture : AssetLoader<RuntimeCubemapTexture>
     public override RuntimeCubemapTexture LoadAsset(AssetLoadParameters<RuntimeCubemapTexture>? assetLoadParameters)
     {
         AssetLoadParameters_CubemapTexture loadParameters = assetLoadParameters as AssetLoadParameters_CubemapTexture;
-        var pathsToSourceTextures = loadParameters.PathsToSourceTextures;
+        string[] pathsToSourceTextures = loadParameters.PathsToSourceTextures;
 
 
-        var imageSize = Vector2.Zero;
+        Vector2 imageSize = Vector2.Zero;
 
 
-        var textureId = GL.GenTexture();
+        int textureId = GL.GenTexture();
         GL.ActiveTexture(TextureUnit.Texture0);
         TextureHelper.BindTexture(textureId, TextureType.Cubemap);
 
-        for (var textureIndex = 0; textureIndex < pathsToSourceTextures.Length; textureIndex++)
+        for (int textureIndex = 0; textureIndex < pathsToSourceTextures.Length; textureIndex++)
         {
-            var path = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(pathsToSourceTextures[textureIndex]);
+            string path = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(pathsToSourceTextures[textureIndex]);
             // Asset_Texture assetTexture = Tofu.AssetLoadManager.Load<Asset_Texture>(path);
             Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(path);
 
@@ -36,7 +36,7 @@ public class AssetLoader_CubemapTexture : AssetLoader<RuntimeCubemapTexture>
                 (int)imageSize.X, (int)imageSize.Y, 0, PixelFormat.Rgba, PixelType.UnsignedByte,
                 assetTexture.Pixels);
 
-            var textureTarget = TextureTarget.TextureCubeMap;
+            TextureTarget textureTarget = TextureTarget.TextureCubeMap;
             GL.TexParameter(textureTarget, TextureParameterName.TextureWrapS, (int)loadParameters.WrapMode);
             GL.TexParameter(textureTarget, TextureParameterName.TextureWrapT, (int)loadParameters.WrapMode);
             GL.TexParameter(textureTarget, TextureParameterName.TextureWrapR, (int)loadParameters.WrapMode);

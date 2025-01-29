@@ -85,7 +85,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     {
         get
         {
-            var scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale);
+            Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale);
             return scale * IdentityPivotRotationMatrix;
         }
     }
@@ -94,7 +94,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     {
         get
         {
-            var scale = Matrix4x4.CreateScale(Transform.WorldScale);
+            Matrix4x4 scale = Matrix4x4.CreateScale(Transform.WorldScale);
             return scale * IdentityPivotRotationMatrixWithoutBoxShape;
         }
     }
@@ -103,12 +103,12 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     {
         get
         {
-            var worldPositionPivotOffset =
-                BoxShape.Size * Transform.WorldScale * (Vector3.One - Transform.Pivot * 2);
+            Vector3 worldPositionPivotOffset =
+                BoxShape.Size * Transform.WorldScale * (Vector3.One - BoxShape.Pivot * 2);
 
-            var pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
+            Matrix4x4 pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
 
-            var rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
+            Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
                 Transform.WorldRotation.X / 180 * Mathf.Pi,
                 Transform.WorldRotation.Z / 180 * Mathf.Pi);
 
@@ -120,14 +120,14 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     {
         get
         {
-            var worldPositionPivotOffset =
-                Transform.WorldScale * (Vector3.One - Transform.Pivot * 2);
+            Vector3 worldPositionPivotOffset =
+                Transform.WorldScale * (Vector3.One - BoxShape.Pivot * 2);
 
-            var pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
+            Matrix4x4 pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
 
-            var rotation = Matrix4x4.CreateFromYawPitchRoll(Transform.WorldRotation.Y / 180 * Mathf.Pi,
-                Transform.WorldRotation.X / 180 * Mathf.Pi,
-                Transform.WorldRotation.Z / 180 * Mathf.Pi);
+            Matrix4x4 rotation = Matrix4x4.CreateFromYawPitchRoll(Mathf.ToRadians(Transform.WorldRotation.Y),
+                Mathf.ToRadians(Transform.WorldRotation.X),
+                Mathf.ToRadians(Transform.WorldRotation.Z));
 
             return Matrix4x4.Identity * pivot * rotation;
         }
@@ -199,9 +199,9 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
         //     }
         // }
 
-        if (BoxShape == null)
-        {
-        }
+        // if (BoxShape == null)
+        // {
+        // }
         //if (Time.elapsedTicks % 10 == 0) onScreen = Camera.I.RectangleVisible(boxShape);
 
         // if (OnScreen)
@@ -287,7 +287,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
         // }
 
         // Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
-        var translation =
+        Matrix4x4 translation =
             Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale);
         return ScalePivotRotationMatrix * translation;
     }
@@ -300,7 +300,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
         // }
 
         // Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
-        var translation =
+        Matrix4x4 translation =
             Matrix4x4.CreateTranslation(Transform.WorldPosition * Transform.WorldScale);
         return ScalePivotRotationMatrixWithoutBoxShape * translation;
     }

@@ -10,10 +10,10 @@ public static class EditorThemeing
         ImGui.GetStyle().WindowBorderSize = 0.2f;
         //ImGui.GetStyle().WindowPadding = new Vector2(0,0;
 
-        var style = ImGui.GetStyle();
-        var colors = style.Colors;
+        ImGuiStylePtr style = ImGui.GetStyle();
+        RangeAccessor<System.Numerics.Vector4> colors = style.Colors;
 
-        var themeIndex = 3;
+        int themeIndex = 3;
         if (themeIndex == 0)
         {
             colors[(int)ImGuiCol.Text] = new Vector4(1.000f, 1.000f, 1.000f, 1.000f);

@@ -20,9 +20,9 @@ public static class Serializer
 
     public static void SaveFileJSON<T>(string path, object content)
     {
-        using (var stream = new FileStream(path, FileMode.OpenOrCreate))
+        using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
         {
-            using (var writer = new BinaryWriter(stream, Encoding.UTF8, false))
+            using (BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8, false))
             {
                 writer.Write(JsonConvert.SerializeObject(content, Formatting.Indented));
             }
@@ -37,9 +37,9 @@ public static class Serializer
             return default;
         }
 
-        using (var stream = new FileStream(path, FileMode.Open))
+        using (FileStream stream = new FileStream(path, FileMode.Open))
         {
-            using (var reader = new BinaryReader(stream, Encoding.UTF8, false))
+            using (BinaryReader reader = new BinaryReader(stream, Encoding.UTF8, false))
             {
                 // Read the serialized JSON string from the binary file
                 string json = reader.ReadString();

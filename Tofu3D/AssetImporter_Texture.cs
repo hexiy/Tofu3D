@@ -15,9 +15,9 @@ public class AssetImporter_Texture : AssetImporter<Asset_Texture>
             path = Folders.GetResourcePath("purple.png");
         }
 
-        var imageSize = Vector2.Zero;
+        Vector2 imageSize = Vector2.Zero;
 
-        var image = Image.Load<Rgba32>(path);
+        Image<Rgba32>? image = Image.Load<Rgba32>(path);
 
         imageSize = new Vector2(image.Width, image.Height);
 

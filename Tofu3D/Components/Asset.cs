@@ -18,8 +18,8 @@ public abstract class Asset<T> : AssetBase where T : Asset<T> //, new()
     // }
     public T? Clone()
     {
-        var memberwiseClone = MemberwiseClone();
-        var clone = (T)memberwiseClone;
+        object memberwiseClone = MemberwiseClone();
+        T clone = (T)memberwiseClone;
         return clone as T;
     }
 }

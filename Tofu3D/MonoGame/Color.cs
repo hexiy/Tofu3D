@@ -203,7 +203,7 @@ public struct Color : IEquatable<Color>
     {
         if ((alpha & 0xFFFFFF00) != 0)
         {
-            var clampedA = (uint)Mathf.Clamp(alpha, byte.MinValue, byte.MaxValue);
+            uint clampedA = (uint)Mathf.Clamp(alpha, byte.MinValue, byte.MaxValue);
 
             PackedValue = (color.PackedValue & 0x00FFFFFF) | (clampedA << 24);
         }
@@ -258,9 +258,9 @@ public struct Color : IEquatable<Color>
 
         if (((r | g | b) & 0xFFFFFF00) != 0)
         {
-            var clampedR = (uint)Mathf.Clamp(r, byte.MinValue, byte.MaxValue);
-            var clampedG = (uint)Mathf.Clamp(g, byte.MinValue, byte.MaxValue);
-            var clampedB = (uint)Mathf.Clamp(b, byte.MinValue, byte.MaxValue);
+            uint clampedR = (uint)Mathf.Clamp(r, byte.MinValue, byte.MaxValue);
+            uint clampedG = (uint)Mathf.Clamp(g, byte.MinValue, byte.MaxValue);
+            uint clampedB = (uint)Mathf.Clamp(b, byte.MinValue, byte.MaxValue);
 
             PackedValue |= (clampedB << 16) | (clampedG << 8) | clampedR;
         }
@@ -281,10 +281,10 @@ public struct Color : IEquatable<Color>
     {
         if (((r | g | b | alpha) & 0xFFFFFF00) != 0)
         {
-            var clampedR = (uint)Mathf.Clamp(r, byte.MinValue, byte.MaxValue);
-            var clampedG = (uint)Mathf.Clamp(g, byte.MinValue, byte.MaxValue);
-            var clampedB = (uint)Mathf.Clamp(b, byte.MinValue, byte.MaxValue);
-            var clampedA = (uint)Mathf.Clamp(alpha, byte.MinValue, byte.MaxValue);
+            uint clampedR = (uint)Mathf.Clamp(r, byte.MinValue, byte.MaxValue);
+            uint clampedG = (uint)Mathf.Clamp(g, byte.MinValue, byte.MaxValue);
+            uint clampedB = (uint)Mathf.Clamp(b, byte.MinValue, byte.MaxValue);
+            uint clampedA = (uint)Mathf.Clamp(alpha, byte.MinValue, byte.MaxValue);
 
             PackedValue = (clampedA << 24) | (clampedB << 16) | (clampedG << 8) | clampedR;
         }

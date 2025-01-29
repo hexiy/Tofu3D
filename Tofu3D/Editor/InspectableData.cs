@@ -29,16 +29,16 @@ public class InspectableData
 
     public void InitInfos()
     {
-        var members = InspectableType
+        List<MemberInfo> members = InspectableType
             .FindMembers(MemberTypes.Field | MemberTypes.Property,
                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
                 null,
                 null).ToList();
 
         Infos = new FieldOrPropertyInfo[members.Count];
-        for (var i = 0; i < members.Count; i++)
+        for (int i = 0; i < members.Count; i++)
         {
-            var memberInfo = members[i];
+            MemberInfo memberInfo = members[i];
             if (memberInfo.MemberType is MemberTypes.Field)
             {
                 Infos[i] = new FieldOrPropertyInfo((FieldInfo)memberInfo, Inspectable);
@@ -54,14 +54,14 @@ public class InspectableData
         }
 
 
-        for (var infoIndex = 0; infoIndex < Infos.Length; infoIndex++)
+        for (int infoIndex = 0; infoIndex < Infos.Length; infoIndex++)
         {
             //== "List`1")
             if (Infos[infoIndex].FieldOrPropertyType.IsGenericType &&
                 Infos[infoIndex].FieldOrPropertyType.Name
                     .Contains("List`1")) // && Infos[infoIndex].FieldOrPropertyType.GetGenericTypeDefinition() == typeof(IList<>))
             {
-                var genericType = Infos[infoIndex].FieldOrPropertyType.GenericTypeArguments.First();
+                Type genericType = Infos[infoIndex].FieldOrPropertyType.GenericTypeArguments.First();
                 Infos[infoIndex].IsGenericList = true;
                 Infos[infoIndex].GenericParameterType = genericType;
 

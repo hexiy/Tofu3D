@@ -204,7 +204,7 @@ public static class AssetPathExtensions
 
         // bool isValid = Exists(assetPath);
         // if (isValid) return assetPath;
-        var existsInAssetFolder = File.Exists(TofuPath.Combine(Folders.Assets, assetPath));
+        bool existsInAssetFolder = File.Exists(TofuPath.Combine(Folders.Assets, assetPath));
         if (existsInAssetFolder)
         {
             assetPath = TofuPath.CombineRelativeTo(TofuPath.PathScope.Assets, Folders.Assets, assetPath);
@@ -216,7 +216,7 @@ public static class AssetPathExtensions
 
         if (AssetPathExtensions.Exists(assetPath) == false)
         {
-            var assetPathInAssetsFolder = TofuPath.Combine("Assets", assetPath);
+            string assetPathInAssetsFolder = TofuPath.Combine("Assets", assetPath);
             if (AssetPathExtensions.Exists(assetPathInAssetsFolder))
             {
                 assetPath = assetPathInAssetsFolder;

@@ -64,7 +64,9 @@
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}derMode": 0,
+}d.mat"
+}}}  "UVOffsetIsInstanced": false,
+  "RenderMode": 0,
   "BlendMode": 0,
   "MaterialType": 0,
   "IgnoreDepth": false,
@@ -74,9 +76,7 @@
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}d.mat"
-}IsCompressed": false,
-  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
+}der": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
 }}t"

@@ -8,7 +8,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        var materialName = "";
+        string? materialName = "";
         Asset_Material material=null;
         if (componentInspectorData.Inspectable is Renderer)
         {
@@ -34,7 +34,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
         }
 
 
-        var clicked = ImGui.Button(materialName,
+        bool clicked = ImGui.Button(materialName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
         if (clicked)
         {
@@ -55,14 +55,14 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
         if (ImGui.BeginDragDropTarget())
         {
             ImGui.AcceptDragDropPayload(DragDropPayloadTypes.Material, ImGuiDragDropFlags.None);
-            var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+            string? payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
             // if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && payload.Length > 0)
             if (Tofu.MouseInput.ButtonReleased() && payload.Length > 0)
             {
                 payload = payload;
                 // var materialName = Path.GetFileName(payload);
 
-                var draggedMaterial = Tofu.AssetLoadManager.Load<Asset_Material>(payload);
+                Asset_Material? draggedMaterial = Tofu.AssetLoadManager.Load<Asset_Material>(payload);
                 if (draggedMaterial.Shader == null)
                 {
                     Debug.Log("No Shader attached to material.");

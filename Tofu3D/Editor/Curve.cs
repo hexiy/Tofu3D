@@ -35,7 +35,7 @@ public class Curve
 
         // DefiningPoints.ForEach(vector2 => vector2 = Vector2.Clamp(vector2, Vector2.Zero, Vector2.One));
 
-        for (var i = 0; i < DefiningPoints.Count; i++)
+        for (int i = 0; i < DefiningPoints.Count; i++)
         {
             DefiningPoints[i] = new Vector2(Mathf.Clamp(DefiningPoints[i].X, 0, 1),
                 Mathf.Clamp(DefiningPoints[i].Y, 0, 1));
@@ -43,13 +43,13 @@ public class Curve
 
         _points = new float[NUM_OF_POINTS];
 
-        var x = new Vector2[DefiningPoints.Count];
+        Vector2[] x = new Vector2[DefiningPoints.Count];
         DefiningPoints.CopyTo(x);
-        var xList = x.ToList();
+        List<Vector2> xList = x.ToList();
         xList.Sort((vector2, vector3) => vector2.X.CompareTo(vector3.X));
 
-        var uh = HigherOrderBezierCurve(xList, NUM_OF_POINTS);
-        for (var i = 0; i < _points.Length; i++)
+        Vector2[] uh = HigherOrderBezierCurve(xList, NUM_OF_POINTS);
+        for (int i = 0; i < _points.Length; i++)
             // _points[i] = Mathf.Sin((float)i / NUM_OF_POINTS * Mathf.TwoPi * 10) * 0.5f + 0.5f;
         {
             _points[i] = uh[i].Y;
@@ -78,26 +78,26 @@ public class Curve
         }
 
         // Create an output array of the same size as the number of points
-        var output = new Vector2[numPoints];
+        Vector2[] output = new Vector2[numPoints];
 
         // Loop through the output array and calculate each point using the higher-order Bezier formula
-        for (var i = 0; i < numPoints; i++)
+        for (int i = 0; i < numPoints; i++)
         {
             // Calculate the parameter t that corresponds to the current point
-            var t = (double)i / (numPoints - 1);
+            double t = (double)i / (numPoints - 1);
 
             // Initialize the coordinates of the current point to zero
             double x = 0;
             double y = 0;
 
             // Loop through the input array and add each term to the coordinates
-            for (var j = 0; j < points.Count; j++)
+            for (int j = 0; j < points.Count; j++)
             {
                 // Calculate the binomial coefficient for the current term
-                var binom = BinomialCoefficient(points.Count - 1, j);
+                int binom = BinomialCoefficient(points.Count - 1, j);
 
                 // Calculate the Bernstein polynomial for the current term
-                var bernstein = Math.Pow(1 - t, points.Count - 1 - j) * Math.Pow(t, j);
+                double bernstein = Math.Pow(1 - t, points.Count - 1 - j) * Math.Pow(t, j);
 
                 // Add the product of the binomial coefficient, the Bernstein polynomial and the point coordinates to the output coordinates
                 x += binom * bernstein * points[j].X;

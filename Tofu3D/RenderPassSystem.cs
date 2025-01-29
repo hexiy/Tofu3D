@@ -35,7 +35,7 @@ public class RenderPassSystem
         ViewSize = viewSize;
         FinalFramebuffer = new Framebuffer(ViewSize, true);
 
-        foreach (var renderPass in RenderPasses)
+        foreach (RenderPass renderPass in RenderPasses)
         {
             renderPass.Initialize();
         }
@@ -90,7 +90,7 @@ public class RenderPassSystem
         GL.Enable(EnableCap.DepthTest);
 
 
-        foreach (var renderPass in RenderPasses)
+        foreach (RenderPass renderPass in RenderPasses)
         {
             if (renderPass.CanRender() == false)
             {
@@ -100,7 +100,7 @@ public class RenderPassSystem
             renderPass.Clear();
         }
 
-        foreach (var renderPass in RenderPasses)
+        foreach (RenderPass renderPass in RenderPasses)
         {
             if (renderPass.CanRender() == false)
             {
@@ -125,7 +125,7 @@ public class RenderPassSystem
             return;
         }
 
-        foreach (var renderPass in RenderPasses)
+        foreach (RenderPass renderPass in RenderPasses)
         {
             if (renderPass.DrawsToTheFinalColorFramebuffer == false)
             {

@@ -8,10 +8,10 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        var texture = GetValue(info, componentInspectorData);
-        var textureName = texture == null ? "" : Path.GetFileName(texture.AnyPath);
+        RuntimeTexture? texture = GetValue(info, componentInspectorData);
+        string? textureName = texture == null ? "" : Path.GetFileName(texture.AnyPath);
 
-        var posX = (int)ImGui.GetCursorPosX();
+        int posX = (int)ImGui.GetCursorPosX();
 
         if (texture == null)
         {
@@ -32,9 +32,9 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
         ImGui.SetCursorPosX(posX);
 
 
-        var clicked = ImGui.Button(textureName,
+        bool clicked = ImGui.Button(textureName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
-        var rightMouseClicked = ImGui.IsItemClicked(ImGuiMouseButton.Right);
+        bool rightMouseClicked = ImGui.IsItemClicked(ImGuiMouseButton.Right);
         //ImiGui.Text(textureName);
         if (clicked)
         {
@@ -61,14 +61,14 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
             if (ImGui.BeginDragDropTarget())
             {
                 ImGui.AcceptDragDropPayload(DragDropPayloadTypes.Texture, ImGuiDragDropFlags.None);
-                var payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
+                string? payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
                 if (payload.Length > 0)
                 {
                     payload = Path.GetRelativePath(Folders.ProjectFullPath, payload);
 
                     textureName = payload;
 
-                    var loadedTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(textureName);
+                    RuntimeTexture? loadedTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(textureName);
 
                     SetValue(info, componentInspectorData, loadedTexture);
                 }

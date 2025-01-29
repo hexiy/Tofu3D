@@ -100,7 +100,7 @@ public class
 
         if (AssetPathExtensions.Exists(Path) == false)
         {
-            var newPath = TofuPath.Combine(Folders.Assets, Path);
+            string newPath = TofuPath.Combine(Folders.Assets, Path);
             if (AssetPathExtensions.Exists(newPath))
             {
                 Path = newPath;
@@ -121,12 +121,12 @@ public class
         }
 
         // GetAllUniforms();
-        var shaderFile = File.ReadAllText(Path);
+        string shaderFile = File.ReadAllText(Path);
 
         // set defines here 
 
-        var vertexCode = GetVertexShaderFromFileString(shaderFile);
-        var fragmentCode = GetFragmentShaderFromFileString(shaderFile);
+        string vertexCode = GetVertexShaderFromFileString(shaderFile);
+        string fragmentCode = GetFragmentShaderFromFileString(shaderFile);
 
         // ProcessShader(material, ref vertexCode, ref fragmentCode);
 
@@ -139,7 +139,7 @@ public class
         GL.ShaderSource(vs, vertexCode);
         GL.CompileShader(vs);
 
-        var error = "";
+        string? error = "";
         GL.GetShaderInfoLog(vs, out error);
         if (error.Length > 0)
         {
@@ -200,9 +200,9 @@ public class
 
         // GL.Uniform1 to bind the texture to the texture unit-Texture0, Texture1 etc
         int textureUnitsCount = 0;
-        for (var index = 0; index < textureUniformsNames.Count; index++)
+        for (int index = 0; index < textureUniformsNames.Count; index++)
         {
-            var textureUniformName = textureUniformsNames[index];
+            string textureUniformName = textureUniformsNames[index];
             int location = GetUniformLocation(textureUniformName);
             if (location == -1)
             {
@@ -503,7 +503,7 @@ public class
         List<ShaderUniform> uniforms = new();
 
         Path = Path.Replace(@"\", "/");
-        var filename = System.IO.Path.GetFileName(Path);
+        string filename = System.IO.Path.GetFileName(Path);
 
         Path = TofuPath.Combine("Assets", "Shaders", filename);
 
@@ -514,16 +514,16 @@ public class
 
         using (StreamReader sr = new(Path))
         {
-            var shaderString = sr.ReadToEnd();
-            var currentIndexInString = 0;
-            var trimmedShaderString = shaderString;
+            string shaderString = sr.ReadToEnd();
+            int currentIndexInString = 0;
+            string trimmedShaderString = shaderString;
 
             while (trimmedShaderString.Contains("uniform"))
             {
-                var startIndex = trimmedShaderString.IndexOf("uniform");
-                var endIndex = startIndex + trimmedShaderString.Substring(startIndex).IndexOf(";");
+                int startIndex = trimmedShaderString.IndexOf("uniform");
+                int endIndex = startIndex + trimmedShaderString.Substring(startIndex).IndexOf(";");
 
-                var endIndexWithEqualsOperator = startIndex + trimmedShaderString.Substring(startIndex).IndexOf("=");
+                int endIndexWithEqualsOperator = startIndex + trimmedShaderString.Substring(startIndex).IndexOf("=");
 
                 if (endIndexWithEqualsOperator < endIndex) // if we have "=", trim it so it isnt in the name
                 {
@@ -537,7 +537,7 @@ public class
 
                 ShaderUniform uniform = new();
 
-                var uniformString = trimmedShaderString.Substring(startIndex, endIndex - startIndex).Split(' ');
+                string[] uniformString = trimmedShaderString.Substring(startIndex, endIndex - startIndex).Split(' ');
 
                 uniform.Name = uniformString[2];
                 uniform.Type = GetUniformType(uniformString[1]);
@@ -609,7 +609,7 @@ public class
 
     public static BufferType GetBufferTypeFromFileString(string shaderFile)
     {
-        var typeString = shaderFile.Substring(shaderFile.IndexOf("["),
+        string typeString = shaderFile.Substring(shaderFile.IndexOf("["),
             shaderFile.IndexOf("]") - 2); //File.ReadA;
 
         typeString = typeString.Substring(13);

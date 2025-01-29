@@ -48,7 +48,7 @@ public class AudioSource : Component, IComponentUpdateable
     {
         _threadStart = () =>
         {
-            var bytes = File.ReadAllBytes(Clip.PathInLibraryFolder);
+            byte[] bytes = File.ReadAllBytes(Clip.PathInLibraryFolder);
             _loadedAudioFileName = Clip.PathInLibraryFolder;
             if (_audioMemoryStream != null)
             {

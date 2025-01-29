@@ -58,14 +58,14 @@ public class SceneSerializer
     {
         go.IsPrefab = true;
         go.PrefabPath = prefabPath;
-        var prefabSceneFile = SceneFile.CreateForOneGameObject(go);
+        SceneFile prefabSceneFile = SceneFile.CreateForOneGameObject(go);
 
         SaveGameObjects(prefabSceneFile, prefabPath);
     }
 
     public void SaveClipboardGameObject(GameObject go)
     {
-        var prefabSceneFile = SceneFile.CreateForOneGameObject(go);
+        SceneFile prefabSceneFile = SceneFile.CreateForOneGameObject(go);
 
         SaveGameObjects(prefabSceneFile, TofuPath.Combine(Folders.Data, "clipboardGameObject"));
     }
@@ -80,7 +80,7 @@ public class SceneSerializer
 
         StreamReader sr = new(prefabPath);
         // maybe cache streamreader in a dictionary and close it after few frames if not used?
-        var sceneFile = (SceneFile)_xmlSerializer.Deserialize(sr);
+        SceneFile sceneFile = (SceneFile)_xmlSerializer.Deserialize(sr);
         sr.Close();
 
         // float duration = Debug.EndTimer(timerName);
@@ -91,14 +91,14 @@ public class SceneSerializer
         ConnectParentsAndChildren(sceneFile, true);
 
         GameObject mainGo = null;
-        for (var i = 0; i < sceneFile.GameObjects.Count; i++)
+        for (int i = 0; i < sceneFile.GameObjects.Count; i++)
         {
-            for (var j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
+            for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
             {
                 sceneFile.GameObjects[i].Components[j].GameObjectId = sceneFile.GameObjects[i].Id;
             }
 
-            var go = sceneFile.GameObjects[i];
+            GameObject go = sceneFile.GameObjects[i];
 
             if (i == 0)
             {
@@ -121,10 +121,10 @@ public class SceneSerializer
         File.Create(scenePath).Close();
         using (StreamWriter sw = new(scenePath))
         {
-            for (var i = 0; i < sceneFile.GameObjects.Count; i++)
+            for (int i = 0; i < sceneFile.GameObjects.Count; i++)
             {
                 sceneFile.GameObjects[i].Awoken = false;
-                for (var j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
+                for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
                 {
                     sceneFile.GameObjects[i].Components[j].Awoken = false;
                 }
@@ -133,10 +133,10 @@ public class SceneSerializer
             // XmlSerializer xmlSerializer = new(typeof(SceneFile), _serializableTypes.ToArray());
             _xmlSerializer.Serialize(sw, sceneFile);
 
-            for (var i = 0; i < sceneFile.GameObjects.Count; i++)
+            for (int i = 0; i < sceneFile.GameObjects.Count; i++)
             {
                 sceneFile.GameObjects[i].Awoken = true;
-                for (var j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
+                for (int j = 0; j < sceneFile.GameObjects[i].Components.Count; j++)
                 {
                     sceneFile.GameObjects[i].Components[j].Awoken = true;
                 }
@@ -199,74 +199,74 @@ public class SceneSerializer
         bool TESTING_HOT_RELOADING_CRASH = true; //hot reloading not working but this is not it
         if (TESTING_HOT_RELOADING_CRASH == false)
         {
-            var sceneText = sr.ReadToEnd();
-            var finalSceneText = sceneText;
-            var xmlString = "<Component xsi:type=";
+            string sceneText = sr.ReadToEnd();
+            string finalSceneText = sceneText;
+            string xmlString = "<Component xsi:type=";
 
-            var componentLineIndexes = sceneText.AllIndexesOf(xmlString).ToArray();
+            int[] componentLineIndexes = sceneText.AllIndexesOf(xmlString).ToArray();
 
-            var allComponentTypes = typeof(Component).Assembly.GetTypes()
+            List<Type> allComponentTypes = typeof(Component).Assembly.GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
 
             allComponentTypes.AddRange(ScriptsManager.ScriptsAssembly.GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract));
 
-            var allComponentStrings = new string[allComponentTypes.Count];
-            for (var i = 0; i < allComponentTypes.Count; i++)
+            string[] allComponentStrings = new string[allComponentTypes.Count];
+            for (int i = 0; i < allComponentTypes.Count; i++)
             {
                 allComponentStrings[i] = allComponentTypes[i].Name;
             }
 
             // Find components that no longer exist and replace them with MissingComponent component, we save that, and if that component is brought back we recover the component
 
-            foreach (var componentLineIndex in componentLineIndexes)
+            foreach (int componentLineIndex in componentLineIndexes)
             {
-                var str = sceneText.Substring(componentLineIndex);
-                var length = sceneText.IndexOf('"', componentLineIndex + xmlString.Length + 1) -
+                string str = sceneText.Substring(componentLineIndex);
+                int length = sceneText.IndexOf('"', componentLineIndex + xmlString.Length + 1) -
                              componentLineIndex -
                              xmlString.Length - 2;
-                var componentName = sceneText.Substring(componentLineIndex + xmlString.Length + 1, length + 1);
+                string componentName = sceneText.Substring(componentLineIndex + xmlString.Length + 1, length + 1);
 
 
-                var startIndex = componentLineIndex;
-                var lengthOfComponentString = sceneText.IndexOf("</Component>", componentLineIndex) -
+                int startIndex = componentLineIndex;
+                int lengthOfComponentString = sceneText.IndexOf("</Component>", componentLineIndex) -
                     componentLineIndex + "</Component>".Length;
 
-                var wholeComponentString = finalSceneText.Substring(startIndex, lengthOfComponentString);
+                string wholeComponentString = finalSceneText.Substring(startIndex, lengthOfComponentString);
 
                 if (allComponentStrings.Contains(componentName) == false &&
                     componentName != nameof(MissingComponent))
                 {
                     Debug.LogError($"Found invalid component:{componentName}, removing it");
 
-                    var missingComponent = new MissingComponent();
+                    MissingComponent missingComponent = new MissingComponent();
                     missingComponent.SetMissingComponentXML(componentName, wholeComponentString);
 
-                    var ind1 = wholeComponentString.IndexOf("<GameObjectId>") + "<GameObjectId>".Length;
-                    var ind2 = wholeComponentString.IndexOf("</GameObjectId>");
-                    var gameObjectIDString =
+                    int ind1 = wholeComponentString.IndexOf("<GameObjectId>") + "<GameObjectId>".Length;
+                    int ind2 = wholeComponentString.IndexOf("</GameObjectId>");
+                    string gameObjectIDString =
                         wholeComponentString.Substring(ind1, ind2 - ind1);
-                    var gameObjectID = int.Parse(gameObjectIDString);
+                    int gameObjectID = int.Parse(gameObjectIDString);
 
                     missingComponent.GameObjectId = gameObjectID;
-                    var missingComponentXML = missingComponent.GetXMLOfThisComponent();
+                    string missingComponentXML = missingComponent.GetXMLOfThisComponent();
                     finalSceneText = finalSceneText.Replace(wholeComponentString, missingComponentXML);
                 }
 
                 if (componentName == nameof(MissingComponent))
                 {
-                    var xmlSerializer = new XmlSerializer(typeof(Component), new[] { typeof(MissingComponent) });
-                    var abc = "<Component xsi:type=\"MissingComponent\">";
-                    var abc2 =
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(Component), new[] { typeof(MissingComponent) });
+                    string abc = "<Component xsi:type=\"MissingComponent\">";
+                    string abc2 =
                         "<Component xsi:type=\"MissingComponent\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">";
-                    var wholeComponentStringNew = wholeComponentString.Replace(abc, abc2);
-                    var stringReader = new StringReader(wholeComponentStringNew);
-                    var missingComponent = (MissingComponent)xmlSerializer.Deserialize(stringReader);
+                    string wholeComponentStringNew = wholeComponentString.Replace(abc, abc2);
+                    StringReader stringReader = new StringReader(wholeComponentStringNew);
+                    MissingComponent? missingComponent = (MissingComponent)xmlSerializer.Deserialize(stringReader);
                     // get _oldComponentTypeName from MissingComponent as xml
-                    var nameOfOldComponentTypeName = missingComponent._oldComponentTypeName;
+                    string nameOfOldComponentTypeName = missingComponent._oldComponentTypeName;
 
-                    var itExistsNow = false; // we want to bring back the missing component
-                    for (var i = 0; i < allComponentTypes.Count; i++)
+                    bool itExistsNow = false; // we want to bring back the missing component
+                    for (int i = 0; i < allComponentTypes.Count; i++)
                     {
                         if (allComponentTypes[i].Name == nameOfOldComponentTypeName)
                         {
@@ -289,33 +289,33 @@ public class SceneSerializer
 
         using StreamReader sr2 = new(scenePath);
 
-        var sceneFile = (SceneFile)_xmlSerializer.Deserialize(sr2);
+        SceneFile sceneFile = (SceneFile)_xmlSerializer.Deserialize(sr2);
         return sceneFile;
     }
 
     public void ConnectParentsAndChildren(SceneFile sf, bool newIDs = false)
     {
-        var gos = sf.GameObjects.ToArray();
-        var comps = sf.Components.ToArray();
+        GameObject[] gos = sf.GameObjects.ToArray();
+        Component[] comps = sf.Components.ToArray();
 
-        var goIndexes = new int[gos.Length];
-        for (var i = 0; i < goIndexes.Length; i++)
+        int[] goIndexes = new int[gos.Length];
+        for (int i = 0; i < goIndexes.Length; i++)
         {
             goIndexes[i] = -1;
         }
 
-        var ogIDs = new int[gos.Length];
-        for (var i = 0; i < ogIDs.Length; i++)
+        int[] ogIDs = new int[gos.Length];
+        for (int i = 0; i < ogIDs.Length; i++)
         {
             ogIDs[i] = gos[i].Id;
         }
 
-        for (var compIndex = 0; compIndex < comps.Length; compIndex++)
+        for (int compIndex = 0; compIndex < comps.Length; compIndex++)
         {
             if (comps[compIndex].GetType() == typeof(Transform))
             {
-                var tr = comps[compIndex] as Transform;
-                for (var goIndex = 0; goIndex < gos.Length; goIndex++)
+                Transform? tr = comps[compIndex] as Transform;
+                for (int goIndex = 0; goIndex < gos.Length; goIndex++)
                 {
                     if (tr.ParentId == ogIDs[goIndex]) // found child/parent pair
                     {
@@ -345,7 +345,7 @@ public class SceneSerializer
             }
         }
 
-        for (var goIndex = 0; goIndex < gos.Length; goIndex++)
+        for (int goIndex = 0; goIndex < gos.Length; goIndex++)
         {
             if (gos[goIndex].Components.Count == 0)
             {
@@ -360,7 +360,7 @@ public class SceneSerializer
                     IDsManager.GameObjectNextId++;
                 }
 
-                for (var i = 0; i < gos[goIndex].Transform.Children.Count; i++)
+                for (int i = 0; i < gos[goIndex].Transform.Children.Count; i++)
                 {
                     gos[goIndex].Transform.Children[i].ParentId = gos[goIndex].Id;
                 }
@@ -373,11 +373,11 @@ public class SceneSerializer
 
     public void ConnectGameObjectsWithComponents(SceneFile sf)
     {
-        var gos = sf.GameObjects.ToArray();
-        var comps = sf.Components.ToArray();
+        GameObject[] gos = sf.GameObjects.ToArray();
+        Component[] comps = sf.Components.ToArray();
 
-        for (var i = 0; i < gos.Length; i++)
-        for (var j = 0; j < comps.Length; j++)
+        for (int i = 0; i < gos.Length; i++)
+        for (int j = 0; j < comps.Length; j++)
         {
             if (comps[j].GameObjectId == gos[i].Id)
             {

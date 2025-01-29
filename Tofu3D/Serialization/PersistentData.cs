@@ -39,7 +39,7 @@ public static class PersistentData
 
         if (_data.TryGetValue(key, out string value))
         {
-            var deserializedObject =
+            T? deserializedObject =
                 JsonConvert.DeserializeObject<T>(_data[key]); // needs this for serialized classes
             if (deserializedObject == null) //_data[key] is not T)
             {
@@ -99,7 +99,7 @@ public static class PersistentData
             LoadAllData();
         }
 
-        var json = JsonConvert.SerializeObject(value, Formatting.Indented); // needs this for serialized classes
+        string? json = JsonConvert.SerializeObject(value, Formatting.Indented); // needs this for serialized classes
 
         _data[key] = json;
 

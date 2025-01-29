@@ -60,7 +60,7 @@ public class GameObjectSelectionManager
 
         if (gameObjects != null && gameObjects?.Count > 0)
         {
-            for (var i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
+            for (int i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
             {
                 if (gameObjects.Contains(Tofu.SceneManager.CurrentScene.GameObjects[i]) == false)
                 {
@@ -68,7 +68,7 @@ public class GameObjectSelectionManager
                 }
             }
 
-            for (var i = 0; i < gameObjects.Count; i++)
+            for (int i = 0; i < gameObjects.Count; i++)
             {
                 // var go = Tofu.SceneManager.CurrentScene.GetGameObjectByID(gameObjects[i]);
                 // if (go != null)
@@ -79,7 +79,7 @@ public class GameObjectSelectionManager
             }
         }
 
-        var isCameraOrTransformHandle = false;
+        bool isCameraOrTransformHandle = false;
         if (Camera.MainCamera != null)
         {
             isCameraOrTransformHandle = gameObjects.Contains(Camera.MainCamera?.GameObject) ||
@@ -124,7 +124,7 @@ public class GameObjectSelectionManager
 
     public int GetGameObjectIndexInHierarchy(int id)
     {
-        for (var i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
+        for (int i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
         {
             if (Tofu.SceneManager.CurrentScene.GameObjects[i].Id == id)
             {
@@ -138,7 +138,7 @@ public class GameObjectSelectionManager
     public List<GameObject> GetSelectedGameObjects()
     {
         List<GameObject> selectedGameObjects = new();
-        for (var i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
+        for (int i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
         {
             if (Tofu.SceneManager.CurrentScene.GameObjects[i].Selected)
             {
@@ -151,7 +151,7 @@ public class GameObjectSelectionManager
 
     public GameObject GetSelectedGameObject()
     {
-        for (var i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
+        for (int i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
         {
             if (Tofu.SceneManager.CurrentScene.GameObjects[i].Selected)
             {
