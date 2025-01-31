@@ -1,7 +1,7 @@
-# <img src="Tofu3D/tofu3d.png" width="70px" align="center">   Tofu3D Game Engine
+Tofu3D Game Engine
 
 Simple .NET C# OpenTK game engine with editor.
-Heavily in progress so things will break :)
+Heavily in development.
 
 # Building
 You need: glfw, .Net 8
