@@ -27,7 +27,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
     public override void Init()
     {
         I = this;
-        _inspector = new Inspector();
+        _inspector = new Inspector(drawInspectableHeader:true);
         _inspector.FieldChangedByUser += OnAnyFieldChangedByUser;
 
         _componentTypesForAddComponentPopup = typeof(Component).Assembly.GetTypes()
@@ -106,17 +106,16 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
         // 	_currentInspectableDatas.Add(data);
         // }
     }*/
-    public void SelectInspectable(object inspectable, Action? anyValueChanged = null)
+    public void SelectInspectable(object inspectable, Action<string>? anyValueChanged = null)
     {
-        _inspector.FieldChangedByUserInspectableCallback = anyValueChanged;
-        SelectInspectables(new List<object> { inspectable });
+        _inspector.SelectInspectable(inspectable, anyValueChanged);
     }
 
 
     public void SelectInspectables(IList inspectables)
     {
         _materialToShowAtTheBottom = null;
-        
+
         _inspector.SelectInspectables(inspectables);
     }
 
@@ -125,7 +124,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
         object materialInspectable = Tofu.AssetLoadManager.Load<Asset_Material>(materialPath);
 
         EditorPanelInspector.I.SelectInspectable(materialInspectable,
-            anyValueChanged: () =>
+            anyValueChanged: (fieldName) =>
             {
                 Serializer.SaveFileJSON<Asset_Material>(
                     materialPath, materialInspectable);
@@ -245,16 +244,19 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
         // _materialToShowAtTheBottom = null;
         _inspector.Render(inspectableDatas);
 
-
-        foreach (InspectableData inspectableData in _inspector.CurrentInspectableDatas)
+        // added this check because when recursively calling DrawInspectables with the material it created new InspectableData for the material and then it just got stuck
+        if (_materialToShowAtTheBottom == null)
         {
-            if (inspectableData.Inspectable is IHasMaterial hasMaterial)
+            foreach (InspectableData inspectableData in _inspector.CurrentInspectableDatas)
             {
-                Asset_Material material = hasMaterial.GetMaterial;
-                if (material != null)
+                if (inspectableData.Inspectable is IHasMaterial hasMaterial)
                 {
-                    _materialToShowAtTheBottom =
-                        new InspectableData(material, _inspector);
+                    Asset_Material material = hasMaterial.GetMaterial;
+                    if (material != null)
+                    {
+                        _materialToShowAtTheBottom =
+                            new InspectableData(material, _inspector);
+                    }
                 }
             }
         }
@@ -328,7 +330,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
     }
 
 
-    public void OnAnyFieldChangedByUser()
+    public void OnAnyFieldChangedByUser(string fieldName)
     {
         if (_materialToShowAtTheBottom != null)
         {

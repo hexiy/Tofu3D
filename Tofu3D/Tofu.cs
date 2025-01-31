@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.IO;
 using Microsoft.Build.Locator;
 using OpenTK.Windowing.Common;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using Tofu3D.Physics;
 using Tofu3D.Rendering;
 using Tofu3D.Rendering.Instancing;

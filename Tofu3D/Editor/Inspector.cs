@@ -6,8 +6,8 @@ namespace Tofu3D;
 
 public class Inspector
 {
-    public Action FieldChangedByUser = () => { };
-    public Action FieldChangedByUserInspectableCallback = () => { };
+    public Action<string> FieldChangedByUser = (fieldName) => { };
+    public Action<string> FieldChangedByUserInspectableCallback = (fieldName) => { };
 
     private Action _actionQueue = () => { };
     private bool _anyActionQueued = false;
@@ -28,9 +28,13 @@ public class Inspector
     public float ContentMaxWidth;
 
     public bool HasInspectableData => CurrentInspectableDatas.Count > 0;
+    
+    // probably should be set per InspectableData
+    private bool _drawInspectableHeader;
 
-    public Inspector()
+    public Inspector(bool drawInspectableHeader=true)
     {
+        _drawInspectableHeader = drawInspectableHeader;
         if (_inspectorFieldDrawables == null)
         {
             PopulateFieldDrawablesCollection();
@@ -80,7 +84,7 @@ public class Inspector
         };
     }
 
-    public void SelectInspectable(object inspectable, Action? anyValueChanged = null)
+    public void SelectInspectable(object inspectable, Action<string> anyValueChanged = null)
     {
         FieldChangedByUserInspectableCallback = anyValueChanged;
         SelectInspectables(new List<object> { inspectable });
@@ -214,7 +218,12 @@ public class Inspector
                 ImGui.PushStyleColor(ImGuiCol.Header, headerColor);
             }
 
-            bool headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);
+            bool headerClicked =true;
+            if (_drawInspectableHeader)
+            {
+                headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);
+            }
+
             if (componentInspectorData.InspectableType == typeof(Asset_Material))
             {
                 ImGui.PopStyleColor();

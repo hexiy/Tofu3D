@@ -6,7 +6,7 @@ namespace Tofu3D;
 
 public interface IHasInspector
 {
-    public void SelectInspectable(object inspectable, Action? anyValueChanged = null);
+    public void SelectInspectable(object inspectable, Action<string>? anyValueChanged = null);
 
     public void SelectInspectables(IList inspectables);
 

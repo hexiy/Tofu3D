@@ -40,7 +40,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
         {
             EditorPanelInspector.I.AddActionToActionQueue(() =>
                 EditorPanelInspector.I.SelectInspectable((componentInspectorData.Inspectable as Renderer).Material,
-                    () =>
+                    (fieldName) =>
                     {
                         Asset_Material assetMaterial = (componentInspectorData.Inspectable as Asset_Material);
 

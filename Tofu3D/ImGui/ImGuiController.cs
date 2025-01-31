@@ -15,7 +15,7 @@ public class ImGuiController : IDisposable
 
     //private Texture _fontTexture;
 
-    private int _fontTexture;
+    private int _fontTexture = -1;
     private bool _frameBegun;
     private int _indexBuffer;
     private int _indexBufferSize;
@@ -37,7 +37,8 @@ public class ImGuiController : IDisposable
     private int _updatesThisSecond;
     private int _s;
 
-
+    private int _currentFontSize;
+    public int FontSizeFactorRelativeToDefault => (int)(Tofu.ImGuiController._currentFontSize / 12f);
     private readonly Keys[] _keysArray;
 
     /// <summary>
@@ -75,6 +76,7 @@ public class ImGuiController : IDisposable
 
         // io.IniSavingRate = 5;
 
+        _currentFontSize = 12;
         io.Fonts.AddFontFromFileTTF(TofuPath.Combine(Folders.FontsInResources, "inconsolata.ttf"), 12 * Screen.ScaleI);
         //io.Fonts.AddFontDefault();
 
@@ -90,6 +92,20 @@ public class ImGuiController : IDisposable
 
         ImGui.NewFrame();
         _frameBegun = true;
+    }
+
+    public void UpdateFontSize(int size)
+    {
+        ImGuiIOPtr io = ImGui.GetIO();
+
+        io.Fonts.Clear();
+        _currentFontSize = size;
+        ImFontPtr fontPointer =
+            io.Fonts.AddFontFromFileTTF(TofuPath.Combine(Folders.FontsInResources, "inconsolata.ttf"),
+                size * Screen.ScaleI);
+
+        RecreateFontDeviceTexture();
+        // ImGui.PushFont(fontPointer);
     }
 
     /// <summary>
@@ -241,8 +257,8 @@ if(isArray == 1)
         GL.BindTexture(TextureTarget.Texture2D, prevTexture2D);
         GL.ActiveTexture((TextureUnit)prevActiveTexture);
 
-        io.Fonts.SetTexID(_fontTexture);
 
+        io.Fonts.SetTexID(_fontTexture);
         io.Fonts.ClearTexData();
     }
 
@@ -537,7 +553,6 @@ if(isArray == 1)
 
                     GL.BindTexture(TextureTarget.Texture2DArray, textureId);
                     GL.Uniform1(_shaderLayerLocation, layerIndex);
-
                 }
                 else
                 {

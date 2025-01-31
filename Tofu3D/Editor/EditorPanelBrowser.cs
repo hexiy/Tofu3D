@@ -559,7 +559,7 @@ public class EditorPanelBrowser : EditorPanel
                 if (importParameters != null)
                 {
                     EditorPanelInspector.I.SelectInspectable(importParameters,
-                        anyValueChanged: () =>
+                        anyValueChanged: (fieldName) =>
                         {
                             Serializer.SaveFileJSON<AssetImportParameters_Model>(
                                 pathOfImportParametersOfSourceAssetFile, importParameters);
@@ -587,7 +587,7 @@ public class EditorPanelBrowser : EditorPanel
                 if (importParameters != null)
                 {
                     EditorPanelInspector.I.SelectInspectable(importParameters,
-                        anyValueChanged: () =>
+                        anyValueChanged: (fieldName) =>
                         {
                             Serializer.SaveFileJSON<AssetImportParameters_Texture>(
                                 pathOfImportParametersOfSourceAssetFile, importParameters);

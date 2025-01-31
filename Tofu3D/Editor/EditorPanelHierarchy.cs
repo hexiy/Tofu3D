@@ -11,7 +11,7 @@ public class EditorPanelHierarchy : EditorPanel
 
     private GameObject _clipboardGameObject;
 
-    private float _currentSpaceHeight;
+    private readonly float _spaceHeight = 4;
     private List<GameObject> _gameObjectsIndexesSelectedBefore = new List<GameObject>();
     private List<GameObject> _selectedGameObjects = new List<GameObject>();
     private bool _showUpdatePrefabPopup;
@@ -70,14 +70,14 @@ public class EditorPanelHierarchy : EditorPanel
         }
 
 
-        if (IsPanelHovered && ImGui.IsMouseDragging(ImGuiMouseButton.Left))
-        {
-            _currentSpaceHeight = 4;
-        }
-        else
-        {
-            _currentSpaceHeight = 4;
-        }
+        // if (IsPanelHovered && ImGui.IsMouseDragging(ImGuiMouseButton.Left))
+        // {
+        //     _spaceHeight = 4;
+        // }
+        // else
+        // {
+        //     _spaceHeight = 4;
+        // }
     }
 
     private void DestroySelectedGameObjects()
@@ -443,7 +443,7 @@ public class EditorPanelHierarchy : EditorPanel
     private void DrawSpaceBetween(GameObject currentGameObject, bool after = true,
         bool currentGameObjectIsParent = true)
     {
-        float height = _currentSpaceHeight;
+        float height = _spaceHeight * Tofu.ImGuiController.FontSizeFactorRelativeToDefault;
         // if (Mathf.Distance(ImGui.GetCursorPosY(), ImGui.GetMousePos().Y) < 50 &&
         //     ImGui.GetCursorPosY() - ImGui.GetMousePos().Y < 50)
         // {

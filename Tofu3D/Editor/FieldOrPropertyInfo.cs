@@ -267,8 +267,8 @@ public class FieldOrPropertyInfo
         if (_fieldInfo != null)
         {
             _fieldInfo.SetValue(obj, value);
-            _inspectableData.Inspector.FieldChangedByUserInspectableCallback.Invoke();
-            _inspectableData.Inspector.FieldChangedByUser.Invoke();
+            _inspectableData.Inspector.FieldChangedByUserInspectableCallback?.Invoke(_fieldInfo.Name);
+            _inspectableData.Inspector.FieldChangedByUser.Invoke(_fieldInfo.Name);
         }
 
         if (_propertyInfo != null)
@@ -276,8 +276,8 @@ public class FieldOrPropertyInfo
             if (_propertyInfo.GetSetMethod() != null)
             {
                 _propertyInfo.SetValue(obj, value);
-                _inspectableData.Inspector.FieldChangedByUserInspectableCallback.Invoke();
-                _inspectableData.Inspector.FieldChangedByUser.Invoke();
+                _inspectableData.Inspector.FieldChangedByUserInspectableCallback?.Invoke(_propertyInfo.Name);
+                _inspectableData.Inspector.FieldChangedByUser.Invoke(_propertyInfo.Name);
             }
         }
 

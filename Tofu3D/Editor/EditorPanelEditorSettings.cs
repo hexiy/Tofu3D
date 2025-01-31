@@ -7,12 +7,12 @@ namespace Tofu3D;
 public class EditorPanelEditorSettings : EditorPanel, IHasInspector
 {
     private Inspector _inspector;
-    
+
     public override Vector2 Position => Screen.Center;
     public override Vector2 Pivot => Vector2.Half;
 
     public override string Name => "Editor Settings";
-    public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.Modal | ImGuiWindowFlags.NoDocking;
+    public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.Modal | ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.Tooltip | ImGuiWindowFlags.MenuBar;
 
 
     public static EditorPanelEditorSettings I { get; private set; }
@@ -23,7 +23,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector
     public override void Init()
     {
         I = this;
-        _inspector = new Inspector();
+        _inspector = new Inspector(drawInspectableHeader:false);
         _inspector.FieldChangedByUser += OnAnyFieldChangedByUser;
 
         _editorSettingsAll = new EditorSettingsAll();
@@ -47,7 +47,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector
     }
 
 
-    public void SelectInspectable(object inspectable, Action? anyValueChanged = null)
+    public void SelectInspectable(object inspectable, Action<string>? anyValueChanged = null)
     {
         _inspector.SelectInspectable(inspectable, anyValueChanged);
     }
@@ -93,12 +93,12 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector
         {
             ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 2);
 
-            if (ImGui.BeginChild("InspectorChild",
-                    ImGui.GetContentRegionAvail() - new System.Numerics.Vector2(_padding, 0), false,
-                    ImGuiWindowFlags.NoScrollbar))
-            {
-                DrawInspectables(_inspector.CurrentInspectableDatas);
-            }
+            // if (ImGui.BeginChild("InspectorChild",
+            // ImGui.GetContentRegionAvail() - new System.Numerics.Vector2(_padding, 0), false,
+            // ImGuiWindowFlags.NoScrollbar))
+            // {
+            DrawInspectables(_inspector.CurrentInspectableDatas);
+            // }
 
             ImGui.PopStyleVar(1);
 
@@ -134,8 +134,13 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector
     }
 
 
-    public void OnAnyFieldChangedByUser()
+    public void OnAnyFieldChangedByUser(string fieldName)
     {
+        if (fieldName == nameof(EditorSettingsGeneral.FontSize))
+        {
+            Tofu.ImGuiController.UpdateFontSize(_editorSettingsAll.EditorSettingsGeneral.FontSize);
+        }
+
         _editorSettingsAll.SaveData();
     }
 }
