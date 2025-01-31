@@ -58,6 +58,7 @@ public class Editor
                 new EditorPanelConsole(),
                 new EditorPanelProfiler(),
                 new EditorPanelSceneView(),
+                new EditorPanelEditorSettings(),
                 // new EditorPanelTextureViewer(),
             };
         }

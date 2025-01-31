@@ -71,6 +71,10 @@ public struct Vector2 : IEquatable<Vector2>
     /// </summary>
     public static Vector2 Down { get; } = new Vector2(0f, -1f);
 
+    /// <summary>
+    ///     Returns a <see cref="Vector2" /> with components 0.5f, 0.5f.
+    /// </summary>
+    public static Vector2 Half { get; } = new Vector2(0.5f);
     #endregion
 
     #region Internal Properties

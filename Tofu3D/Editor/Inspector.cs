@@ -80,6 +80,24 @@ public class Inspector
         };
     }
 
+    public void SelectInspectable(object inspectable, Action? anyValueChanged = null)
+    {
+        FieldChangedByUserInspectableCallback = anyValueChanged;
+        SelectInspectables(new List<object> { inspectable });
+    }
+
+
+    public void SelectInspectables(IList inspectables)
+    {
+        ClearInspectableData();
+
+        foreach (object? inspectable in inspectables)
+        {
+            InspectableData inspectableData = new InspectableData(inspectable, inspector: this);
+            CurrentInspectableDatas.Add(inspectableData);
+        }
+    }
+
     /// <summary>
     /// Updates the InspectableData with brand new field infos
     /// </summary>

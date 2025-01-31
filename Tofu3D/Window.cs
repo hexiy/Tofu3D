@@ -96,7 +96,7 @@ public class Window : GameWindow
         this.VSync = VSyncMode.Off;
         FrameLimiterEnabled = FrameLimiterEnabled;
 
-        LoadIcon();
+        // LoadIcon();
         // LoadAndSetCursor();
         Title = WindowTitleText;
         GL.Disable(EnableCap.Multisample);

@@ -114,6 +114,16 @@ public class EditorPanelMenuBar : EditorPanel
 
                 ImGui.EndMenu();
             }
+            
+            bool editorSettingsClicked = ImGui.BeginMenu($"Editor Settings");
+            if (editorSettingsClicked)
+            {
+                EditorPanelEditorSettings.I.Active = !EditorPanelEditorSettings.I.Active;
+                ImGui.CloseCurrentPopup();
+
+
+                ImGui.EndMenu();
+            }
 
             bool showDebugButton = true; // KeyboardInput.IsKeyDown(Keys.LeftAlt);
             if (showDebugButton)

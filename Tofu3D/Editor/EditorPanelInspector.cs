@@ -4,7 +4,7 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class EditorPanelInspector : EditorPanel
+public class EditorPanelInspector : EditorPanel, IHasInspector
 {
     private Inspector _inspector;
     private string _addComponentPopupText = "";
@@ -115,14 +115,9 @@ public class EditorPanelInspector : EditorPanel
 
     public void SelectInspectables(IList inspectables)
     {
-        _inspector.ClearInspectableData();
         _materialToShowAtTheBottom = null;
-
-        foreach (object? inspectable in inspectables)
-        {
-            InspectableData inspectableData = new InspectableData(inspectable, inspector: _inspector);
-            _inspector.CurrentInspectableDatas.Add(inspectableData);
-        }
+        
+        _inspector.SelectInspectables(inspectables);
     }
 
     public void OnMaterialSelected(string materialPath)

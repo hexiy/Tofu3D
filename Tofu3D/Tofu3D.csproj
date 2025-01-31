@@ -7,7 +7,6 @@
         <Authors>hexiy</Authors>
         <AssemblyName>Tofu3D</AssemblyName>
         <LangVersion>12</LangVersion>
-        <ApplicationIcon>tofu3d.ico</ApplicationIcon>
         <Nullable>enable</Nullable>
         <Configurations>MacOS Debug;MacOS Release;Windows Release;Windows Debug;Linux Debug;Linux Release</Configurations>
         <Platforms>AnyCPU</Platforms>
