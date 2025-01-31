@@ -49,62 +49,62 @@ public struct Vector3 : IEquatable<Vector3>
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components 0, 0, 0.
     /// </summary>
-    public static Vector3 Zero { get; } = new(0f, 0f, 0f);
+    public static Vector3 Zero { get; } = new Vector3(0f, 0f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components 1, 1, 1.
     /// </summary>
-    public static Vector3 One { get; } = new(1f, 1f, 1f);
+    public static Vector3 One { get; } = new Vector3(1f, 1f, 1f);
 
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components 0.5f, 0.5f, 0.5f.
     /// </summary>
-    public static Vector3 Half { get; } = new(0.5f, 0.5f, 0.5f);
+    public static Vector3 Half { get; } = new Vector3(0.5f, 0.5f, 0.5f);
 
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components 1, 0, 0.
     /// </summary>
-    public static Vector3 UnitX { get; } = new(1f, 0f, 0f);
+    public static Vector3 UnitX { get; } = new Vector3(1f, 0f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components 0, 1, 0.
     /// </summary>
-    public static Vector3 UnitY { get; } = new(0f, 1f, 0f);
+    public static Vector3 UnitY { get; } = new Vector3(0f, 1f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components 0, 0, 1.
     /// </summary>
-    public static Vector3 UnitZ { get; } = new(0f, 0f, 1f);
+    public static Vector3 UnitZ { get; } = new Vector3(0f, 0f, 1f);
 
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components 0, 1, 0.
     /// </summary>
-    public static Vector3 Up { get; } = new(0f, 1f, 0f);
+    public static Vector3 Up { get; } = new Vector3(0f, 1f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components 0, -1, 0.
     /// </summary>
-    public static Vector3 Down { get; } = new(0f, -1f, 0f);
+    public static Vector3 Down { get; } = new Vector3(0f, -1f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components 1, 0, 0.
     /// </summary>
-    public static Vector3 Right { get; } = new(1f, 0f, 0f);
+    public static Vector3 Right { get; } = new Vector3(1f, 0f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components -1, 0, 0.
     /// </summary>
-    public static Vector3 Left { get; } = new(-1f, 0f, 0f);
+    public static Vector3 Left { get; } = new Vector3(-1f, 0f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components 0, 0, 1.
     /// </summary>
-    public static Vector3 Forward { get; } = new(0f, 0f, 1f);
+    public static Vector3 Forward { get; } = new Vector3(0f, 0f, 1f);
 
     /// <summary>
     ///     Returns a <see cref="Vector3" /> with components 0, 0, -1.
     /// </summary>
-    public static Vector3 Backward { get; } = new(0f, 0f, -1f);
+    public static Vector3 Backward { get; } = new Vector3(0f, 0f, -1f);
 
     #endregion
 
@@ -227,8 +227,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// </param>
     /// <returns>The cartesian translation of barycentric coordinates.</returns>
     public static Vector3 Barycentric(Vector3 value1, Vector3 value2, Vector3 value3, float amount1, float amount2) =>
-        new(
-            Mathf.Barycentric(value1.X, value2.X, value3.X, amount1, amount2),
+        new Vector3(Mathf.Barycentric(value1.X, value2.X, value3.X, amount1, amount2),
             Mathf.Barycentric(value1.Y, value2.Y, value3.Y, amount1, amount2),
             Mathf.Barycentric(value1.Z, value2.Z, value3.Z, amount1, amount2));
 
@@ -266,8 +265,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="amount">Weighting factor.</param>
     /// <returns>The result of CatmullRom interpolation.</returns>
     public static Vector3 CatmullRom(Vector3 value1, Vector3 value2, Vector3 value3, Vector3 value4, float amount) =>
-        new(
-            Mathf.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
+        new Vector3(Mathf.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
             Mathf.CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount),
             Mathf.CatmullRom(value1.Z, value2.Z, value3.Z, value4.Z, amount));
 
@@ -333,9 +331,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="max">The max value.</param>
     /// <returns>The clamped value.</returns>
     public static Vector3 Clamp(Vector3 value1, Vector3 min, Vector3 max) =>
-        new(
-            Mathf.Clamp(value1.X, min.X, max.X),
-            Mathf.Clamp(value1.Y, min.Y, max.Y),
+        new Vector3(Mathf.Clamp(value1.X, min.X, max.X), Mathf.Clamp(value1.Y, min.Y, max.Y),
             Mathf.Clamp(value1.Z, min.Z, max.Z));
 
     /// <summary>
@@ -588,7 +584,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="amount">Weighting factor.</param>
     /// <returns>The hermite spline interpolation vector.</returns>
     public static Vector3 Hermite(Vector3 value1, Vector3 tangent1, Vector3 value2, Vector3 tangent2, float amount) =>
-        new(Mathf.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount),
+        new Vector3(Mathf.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount),
             Mathf.Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount),
             Mathf.Hermite(value1.Z, tangent1.Z, value2.Z, tangent2.Z, amount));
 
@@ -665,9 +661,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
     /// <returns>The result of linear interpolation of the specified vectors.</returns>
     public static Vector3 LerpPrecise(Vector3 value1, Vector3 value2, float amount) =>
-        new(
-            Mathf.LerpPrecise(value1.X, value2.X, amount),
-            Mathf.LerpPrecise(value1.Y, value2.Y, amount),
+        new Vector3(Mathf.LerpPrecise(value1.X, value2.X, amount), Mathf.LerpPrecise(value1.Y, value2.Y, amount),
             Mathf.LerpPrecise(value1.Z, value2.Z, amount));
 
     /// <summary>
@@ -697,10 +691,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="value2">The second vector.</param>
     /// <returns>The <see cref="Vector3" /> with maximal values from the two vectors.</returns>
     public static Vector3 Max(Vector3 value1, Vector3 value2) =>
-        new(
-            Mathf.Max(value1.X, value2.X),
-            Mathf.Max(value1.Y, value2.Y),
-            Mathf.Max(value1.Z, value2.Z));
+        new Vector3(Mathf.Max(value1.X, value2.X), Mathf.Max(value1.Y, value2.Y), Mathf.Max(value1.Z, value2.Z));
 
     /// <summary>
     ///     Creates a new <see cref="Vector3" /> that contains a maximal values from the two vectors.
@@ -722,10 +713,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="value2">The second vector.</param>
     /// <returns>The <see cref="Vector3" /> with minimal values from the two vectors.</returns>
     public static Vector3 Min(Vector3 value1, Vector3 value2) =>
-        new(
-            Mathf.Min(value1.X, value2.X),
-            Mathf.Min(value1.Y, value2.Y),
-            Mathf.Min(value1.Z, value2.Z));
+        new Vector3(Mathf.Min(value1.X, value2.X), Mathf.Min(value1.Y, value2.Y), Mathf.Min(value1.Z, value2.Z));
 
     /// <summary>
     ///     Creates a new <see cref="Vector3" /> that contains a minimal values from the two vectors.
@@ -940,9 +928,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <param name="amount">Weighting value.</param>
     /// <returns>Cubic interpolation of the specified vectors.</returns>
     public static Vector3 SmoothStep(Vector3 value1, Vector3 value2, float amount) =>
-        new(
-            Mathf.SmoothStep(value1.X, value2.X, amount),
-            Mathf.SmoothStep(value1.Y, value2.Y, amount),
+        new Vector3(Mathf.SmoothStep(value1.X, value2.X, amount), Mathf.SmoothStep(value1.Y, value2.Y, amount),
             Mathf.SmoothStep(value1.Z, value2.Z, amount));
 
     /// <summary>
@@ -993,7 +979,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <returns>A <see cref="String" /> representation of this <see cref="Vector3" />.</returns>
     public override string ToString()
     {
-        StringBuilder sb = new(32);
+        StringBuilder sb = new StringBuilder(32);
         string separator = "  ";
         sb.Append("[");
         sb.Append(X.ToString("F1"));
@@ -1391,7 +1377,7 @@ public struct Vector3 : IEquatable<Vector3>
     /// <summary>
     ///     Returns a <see cref="System.Numerics.Vector3" />.
     /// </summary>
-    public System.Numerics.Vector3 ToNumerics() => new(X, Y, Z);
+    public System.Numerics.Vector3 ToNumerics() => new System.Numerics.Vector3(X, Y, Z);
 
     #endregion
 
@@ -1401,19 +1387,20 @@ public struct Vector3 : IEquatable<Vector3>
     ///     Converts a <see cref="System.Numerics.Vector3" /> to a <see cref="Vector3" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator Vector3(System.Numerics.Vector3 value) => new(value.X, value.Y, value.Z);
+    public static implicit operator Vector3(System.Numerics.Vector3 value) => new Vector3(value.X, value.Y, value.Z);
 
     /// <summary>
     ///     Converts a <see cref="Vector3" /> to a <see cref="System.Numerics.Vector3" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator System.Numerics.Vector3(Vector3 value) => new(value.X, value.Y, value.Z);
+    public static implicit operator System.Numerics.Vector3(Vector3 value) =>
+        new System.Numerics.Vector3(value.X, value.Y, value.Z);
 
     /// <summary>
     ///     Converts a <see cref="Vector2" /> to a <see cref="Vector3" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator Vector3(Vector2 value) => new(value.X, value.Y, 0);
+    public static implicit operator Vector3(Vector2 value) => new Vector3(value.X, value.Y, 0);
 
     /// <summary>
     ///     Compares whether two <see cref="Vector3" /> instances are equal.

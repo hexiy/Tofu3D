@@ -65,7 +65,7 @@ public class
 
     [JsonIgnore]
     [XmlIgnore]
-    public Dictionary<string, int> UniformLocations = new()
+    public Dictionary<string, int> UniformLocations = new Dictionary<string, int>
     {
     };
 
@@ -172,7 +172,7 @@ public class
 
         Tofu.ShaderManager.UseShader(this, forceUse: true);
 
-        List<string> textureUniformsNames = new()
+        List<string> textureUniformsNames = new List<string>
         {
             UniformName_TextureAlbedo,
             UniformName_TextureAlphaMask,
@@ -500,7 +500,7 @@ public class
     // todo
     public ShaderUniform[] GetAllUniforms()
     {
-        List<ShaderUniform> uniforms = new();
+        List<ShaderUniform> uniforms = new List<ShaderUniform>();
 
         Path = Path.Replace(@"\", "/");
         string filename = System.IO.Path.GetFileName(Path);
@@ -512,7 +512,7 @@ public class
             return new ShaderUniform[] { };
         }
 
-        using (StreamReader sr = new(Path))
+        using (StreamReader sr = new StreamReader(Path))
         {
             string shaderString = sr.ReadToEnd();
             int currentIndexInString = 0;
@@ -535,7 +535,7 @@ public class
                     break;
                 }
 
-                ShaderUniform uniform = new();
+                ShaderUniform uniform = new ShaderUniform();
 
                 string[] uniformString = trimmedShaderString.Substring(startIndex, endIndex - startIndex).Split(' ');
 

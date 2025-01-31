@@ -23,7 +23,7 @@ public static class Time
     public static uint MinFpsDisplay;
     public static float MinMaxFpsTimer;
 
-    static StringBuilder _fpsRangeStringBuilder = new();
+    static StringBuilder _fpsRangeStringBuilder = new StringBuilder();
     private static float _slowUpdateTimeLeft = 0f;
     public static void Update()
     {

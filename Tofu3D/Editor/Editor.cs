@@ -23,7 +23,7 @@ public class Editor
     private EditorDialogHandle _exitDialogHandle;
 
     private ImGuiWindowClassPtr _panelWindowClassPtr;
-    private List<RangeAccessor<System.Numerics.Vector4>> _themes = new();
+    private List<RangeAccessor<System.Numerics.Vector4>> _themes = new List<RangeAccessor<System.Numerics.Vector4>>();
 
     // Is cleared after invocation
     public Action BeforeDraw = () => { };
@@ -31,9 +31,9 @@ public class Editor
     public EditorTextures EditorTextures;
 
     // Left Bottom corner of the scene view
-    public Vector2 SceneViewPosition = new(0, 0);
+    public Vector2 SceneViewPosition = new Vector2(0, 0);
 
-    public Vector2 SceneViewSize = new(0, 0);
+    public Vector2 SceneViewSize = new Vector2(0, 0);
 
     public unsafe void Initialize()
     {
@@ -43,7 +43,7 @@ public class Editor
 
         EditorTextures = new EditorTextures();
 
-        ImGuiWindowClass panelWindowClas = new()
+        ImGuiWindowClass panelWindowClas = new ImGuiWindowClass
             { DockNodeFlagsOverrideSet = ImGuiDockNodeFlags.None /*ImGuiDockNodeFlags.AutoHideTabBar*/ };
         _panelWindowClassPtr = new ImGuiWindowClassPtr(&panelWindowClas);
 

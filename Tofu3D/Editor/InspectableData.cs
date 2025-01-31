@@ -11,21 +11,23 @@ public class InspectableData
     // public FieldInfo[] Fields;
     // public PropertyInfo[] Properties;
 
-    public InspectableData(object inspectable)
+    public object Inspectable { get; }
+    public Inspector Inspector;
+
+    public InspectableData(object inspectable, Inspector inspector)
     {
         if (inspectable == null)
         {
             throw new ArgumentNullException(nameof(inspectable));
         }
 
+        Inspector = inspector;
         Inspectable = inspectable;
         InspectableType = inspectable.GetType();
         // Fields = ComponentType.GetFields();
         // Properties = ComponentType.GetProperties();
         InitInfos();
     }
-
-    public object Inspectable { get; }
 
     public void InitInfos()
     {
@@ -41,11 +43,11 @@ public class InspectableData
             MemberInfo memberInfo = members[i];
             if (memberInfo.MemberType is MemberTypes.Field)
             {
-                Infos[i] = new FieldOrPropertyInfo((FieldInfo)memberInfo, Inspectable);
+                Infos[i] = new FieldOrPropertyInfo((FieldInfo)memberInfo, Inspectable, this);
             }
             else
             {
-                Infos[i] = new FieldOrPropertyInfo((PropertyInfo)memberInfo, Inspectable);
+                Infos[i] = new FieldOrPropertyInfo((PropertyInfo)memberInfo, Inspectable, this);
                 if (Infos[i].GetValue(Inspectable) == null)
                 {
                     Infos[i].CanShowInEditor = false;
@@ -65,7 +67,7 @@ public class InspectableData
                 Infos[infoIndex].IsGenericList = true;
                 Infos[infoIndex].GenericParameterType = genericType;
 
-                if (EditorPanelInspector.InspectorSupportedTypes.Contains(genericType) == false)
+                if (Inspector.InspectorSupportedTypes.Contains(genericType) == false)
                 {
                     Infos[infoIndex].CanShowInEditor = false;
                 }
@@ -73,7 +75,7 @@ public class InspectableData
                 continue;
             }
 
-            if (EditorPanelInspector.InspectorSupportedTypes.Contains(Infos[infoIndex].FieldOrPropertyType) == false
+            if (Inspector.InspectorSupportedTypes.Contains(Infos[infoIndex].FieldOrPropertyType) == false
                 && Infos[infoIndex].FieldOrPropertyType.BaseType != typeof(Enum))
             {
                 Infos[infoIndex].CanShowInEditor = false;

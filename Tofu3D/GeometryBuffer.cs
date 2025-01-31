@@ -45,7 +45,8 @@ public class GeometryBuffer
         GL.BufferData(bufferTarget, sizeOfElementInBytes * vertexData.Length, vertexData,
             isDynamic ? BufferUsageHint.DynamicDraw : BufferUsageHint.StaticDraw);
 
-        GeometryBuffer geometryBuffer = new(elementsPerVertex, sizeOfElementInBytes, vertexAttribPointerType);
+        GeometryBuffer geometryBuffer =
+            new GeometryBuffer(elementsPerVertex, sizeOfElementInBytes, vertexAttribPointerType);
         return geometryBuffer;
     }
 

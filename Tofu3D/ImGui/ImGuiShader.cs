@@ -13,7 +13,7 @@ internal struct UniformFieldInfo
 internal class ImGuiShader
 {
     private readonly (ShaderType Type, string Path)[] _files;
-    private readonly Dictionary<string, int> _uniformToLocation = new();
+    private readonly Dictionary<string, int> _uniformToLocation = new Dictionary<string, int>();
     public readonly string Name;
     private bool _initialized;
 

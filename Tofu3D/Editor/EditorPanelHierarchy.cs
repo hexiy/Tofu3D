@@ -12,11 +12,11 @@ public class EditorPanelHierarchy : EditorPanel
     private GameObject _clipboardGameObject;
 
     private float _currentSpaceHeight;
-    private List<GameObject> _gameObjectsIndexesSelectedBefore = new();
-    private List<GameObject> _selectedGameObjects = new();
+    private List<GameObject> _gameObjectsIndexesSelectedBefore = new List<GameObject>();
+    private List<GameObject> _selectedGameObjects = new List<GameObject>();
     private bool _showUpdatePrefabPopup;
-    public override Vector2 Position => new(Tofu.Window.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
-    public override Vector2 Pivot => new(1, 0);
+    public override Vector2 Position => new Vector2(Tofu.Window.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
+    public override Vector2 Pivot => new Vector2(1, 0);
 
     public override string Name => "Hierarchy";
 
@@ -213,7 +213,7 @@ public class EditorPanelHierarchy : EditorPanel
         ImGui.SameLine();
         if (ImGui.Button("Clear scene"))
         {
-            List<GameObject> toDestroy = new();
+            List<GameObject> toDestroy = new List<GameObject>();
             foreach (GameObject go in Tofu.SceneManager.CurrentScene.GameObjects)
             {
                 if (go != Camera.MainCamera.GameObject) // && go.VisibleInHierarchy)

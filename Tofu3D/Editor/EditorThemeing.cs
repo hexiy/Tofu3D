@@ -171,12 +171,12 @@ public static class EditorThemeing
 
         if (themeIndex == 3) // custom one to look like my ide
         {
-            Vector4 cTransparent = new(0, 0, 0, 0);
-            Vector4 cBeige = new(1f, 0.96f, 0.90f, 1.00f);
-            Vector4 cBeigeMid = new(0.97f, 0.94f, 0.88f, 1f);
-            Vector4 cBeigeDarker = new(0.94f, 0.91f, 0.85f, 1f);
-            Vector4 cScrollbar = new(0.74f, 0.71f, 0.65f, 0.8f);
-            Vector4 cScrollbarDarker = new(0.64f, 0.61f, 0.55f, 1f);
+            Vector4 cTransparent = new Vector4(0, 0, 0, 0);
+            Vector4 cBeige = new Vector4(1f, 0.96f, 0.90f, 1.00f);
+            Vector4 cBeigeMid = new Vector4(0.97f, 0.94f, 0.88f, 1f);
+            Vector4 cBeigeDarker = new Vector4(0.94f, 0.91f, 0.85f, 1f);
+            Vector4 cScrollbar = new Vector4(0.74f, 0.71f, 0.65f, 0.8f);
+            Vector4 cScrollbarDarker = new Vector4(0.64f, 0.61f, 0.55f, 1f);
 
             colors[(int)ImGuiCol.Text] = new Vector4(0.23f, 0.29f, 0.40f, 1f);
             colors[(int)ImGuiCol.TextDisabled] = new Vector4(0.23f, 0.29f, 0.40f, 0.5f);

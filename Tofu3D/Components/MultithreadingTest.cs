@@ -26,14 +26,14 @@ public class MultithreadingTest : Component
 
     private void ExecuteTaskOnNewThread()
     {
-        Thread thread = new(LongTask);
+        Thread thread = new Thread(LongTask);
         thread.Start();
     }
 
     private void LongTask()
     {
         Debug.StartTimer("Task");
-        List<GameObject> gameObjects = new(SpawnCount);
+        List<GameObject> gameObjects = new List<GameObject>(SpawnCount);
 
         for (int i = 0; i < SpawnCount; i++)
         {

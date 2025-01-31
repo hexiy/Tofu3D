@@ -4,10 +4,11 @@
 public class AssetLoadManager
 {
     private AssetLoader_RuntimeMesh _assetLoaderRuntimeMesh;
-    private Dictionary<int, object> LoadedAssets { get; set; } = new(); // int is (raw asset)path hashcode
+    private Dictionary<int, object> LoadedAssets { get; set; } = new Dictionary<int, object>(); // int is (raw asset)path hashcode
 
     public Dictionary<Type, Tuple<IAssetLoader, AssetLoadParametersBase>>
-        LoadersAndLoadParameters { get; private set; } = new();
+        LoadersAndLoadParameters { get; private set; } =
+        new Dictionary<Type, Tuple<IAssetLoader, AssetLoadParametersBase>>();
 
 
     public AssetLoadManager()
@@ -34,7 +35,7 @@ public class AssetLoadManager
 
     public List<T> GetAllLoadedAssetsOfType<T>() where T : Asset<T>
     {
-        List<T> foundAssets = new();
+        List<T> foundAssets = new List<T>();
         Type t = typeof(T);
 
         foreach (KeyValuePair<int, object> keyValuePair in LoadedAssets)

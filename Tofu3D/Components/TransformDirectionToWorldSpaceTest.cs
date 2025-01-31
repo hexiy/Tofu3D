@@ -12,7 +12,7 @@ public class TransformDirectionToWorldSpaceTest : Component
     {
         Transform.WorldPosition = Vector3.Zero;
 
-        Vector3 v1 = new(0, 0, 1);
+        Vector3 v1 = new Vector3(0, 0, 1);
 
         // Vector3 result1 = Transform.TransformDirectionToWorldSpace(v1);
         // Vector3 wantedResult1 = new Vector3(0, 0, 1);
@@ -30,7 +30,7 @@ public class TransformDirectionToWorldSpaceTest : Component
         {
             Transform.Rotation = new Vector3(90, 0, 0);
             Vector3 result = Transform.TransformVectorToWorldSpaceVector(v1);
-            Vector3 wantedResult = new(0, -1, 0);
+            Vector3 wantedResult = new Vector3(0, -1, 0);
             Debug.Log($"[{result == wantedResult}] Wanted {wantedResult} got {result}");
         }
     }

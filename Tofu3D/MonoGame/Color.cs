@@ -1155,8 +1155,7 @@ public struct Color : IEquatable<Color>
     /// <param name="scale">Multiplicator.</param>
     /// <returns>Multiplication result.</returns>
     public static Color Multiply(Color value, float scale) =>
-        new((int)(value.R * scale), (int)(value.G * scale), (int)(value.B * scale),
-            (int)(value.A * scale));
+        new Color((int)(value.R * scale), (int)(value.G * scale), (int)(value.B * scale), (int)(value.A * scale));
 
     /// <summary>
     ///     Multiply <see cref="Color" /> by value.
@@ -1165,27 +1164,25 @@ public struct Color : IEquatable<Color>
     /// <param name="scale">Multiplicator.</param>
     /// <returns>Multiplication result.</returns>
     public static Color operator *(Color value, float scale) =>
-        new((int)(value.R * scale), (int)(value.G * scale), (int)(value.B * scale),
-            (int)(value.A * scale));
+        new Color((int)(value.R * scale), (int)(value.G * scale), (int)(value.B * scale), (int)(value.A * scale));
 
     public static Color operator *(float scale, Color value) =>
-        new((int)(value.R * scale), (int)(value.G * scale), (int)(value.B * scale),
-            (int)(value.A * scale));
+        new Color((int)(value.R * scale), (int)(value.G * scale), (int)(value.B * scale), (int)(value.A * scale));
 
     public static Color operator +(Color c, Color value) =>
-        new(c.R + value.R, c.G + value.G, c.B + value.B, c.A + value.A);
+        new Color(c.R + value.R, c.G + value.G, c.B + value.B, c.A + value.A);
 
     /// <summary>
     ///     Gets a <see cref="Vector3" /> representation for this object.
     /// </summary>
     /// <returns>A <see cref="Vector3" /> representation for this object.</returns>
-    public Vector3 ToVector3() => new(R / 255.0f, G / 255.0f, B / 255.0f);
+    public Vector3 ToVector3() => new Vector3(R / 255.0f, G / 255.0f, B / 255.0f);
 
     /// <summary>
     ///     Gets a <see cref="Vector4" /> representation for this object.
     /// </summary>
     /// <returns>A <see cref="Vector4" /> representation for this object.</returns>
-    public readonly Vector4 ToVector4() => new(R / 255.0f, G / 255.0f, B / 255.0f, A / 255.0f);
+    public readonly Vector4 ToVector4() => new Vector4(R / 255.0f, G / 255.0f, B / 255.0f, A / 255.0f);
 
     
     /// <summary>
@@ -1215,7 +1212,7 @@ public struct Color : IEquatable<Color>
     /// <returns><see cref="String" /> representation of this <see cref="Color" />.</returns>
     public override string ToString()
     {
-        StringBuilder sb = new(25);
+        StringBuilder sb = new StringBuilder(25);
         sb.Append("{R:");
         sb.Append(R);
         sb.Append(" G:");
@@ -1235,7 +1232,7 @@ public struct Color : IEquatable<Color>
     /// <param name="vector">A <see cref="Vector4" /> representing color.</param>
     /// <returns>A <see cref="Color" /> which contains premultiplied alpha data.</returns>
     public static Color FromNonPremultiplied(Vector4 vector) =>
-        new(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
+        new Color(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
 
     /// <summary>
     ///     Translate a non-premultipled alpha <see cref="Color" /> to a <see cref="Color" /> that contains premultiplied
@@ -1247,7 +1244,7 @@ public struct Color : IEquatable<Color>
     /// <param name="a">Alpha component value.</param>
     /// <returns>A <see cref="Color" /> which contains premultiplied alpha data.</returns>
     public static Color FromNonPremultiplied(int r, int g, int b, int a) =>
-        new(r * a / 255, g * a / 255, b * a / 255, a);
+        new Color(r * a / 255, g * a / 255, b * a / 255, a);
 
     #region IEquatable<Color> Members
 

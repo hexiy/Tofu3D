@@ -8,7 +8,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
 
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        Vector2 graphSize = new(300, 100);
+        Vector2 graphSize = new Vector2(300, 100);
 
         Vector2 pos = ImGui.GetCursorPos();
         Vector2 screenPos = TofuImGui.GetCursorScreenPos();
@@ -35,7 +35,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
         {
             ImGui.SameLine();
 
-            Vector2 newPos = new(pos.X + curve.DefiningPoints[i].X * graphSize.X,
+            Vector2 newPos = new Vector2(pos.X + curve.DefiningPoints[i].X * graphSize.X,
                 pos.Y + (1 - curve.DefiningPoints[i].Y) * graphSize.Y);
 
 

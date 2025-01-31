@@ -9,7 +9,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 {
     private bool _activeSelf = true;
 
-    private object _componentsLock = new();
+    private object _componentsLock = new object();
     private bool _destroyTimerRunning;
 
     public bool AlwaysUpdate = false;
@@ -20,7 +20,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     //[System.Xml.Serialization.XmlArrayItem(type: typeof(Component))]
     [XmlIgnore]
-    public List<Component> Components = new();
+    public List<Component> Components = new List<Component>();
 
     public float DestroyTimer = 2;
     public int Id = -1;
@@ -150,11 +150,12 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public static GameObject Create(Vector3? position = null, Vector3? scale = null, string name = "",
         bool linkComponents = true, bool visibleInHierarchy = true, bool addToScene = true, bool runtimeOnly = false)
     {
-        GameObject go = new();
-
-        go.Name = name;
-        go.VisibleInHierarchy = visibleInHierarchy;
-        go.RuntimeOnly = runtimeOnly;
+        GameObject go = new GameObject
+        {
+            Name = name,
+            VisibleInHierarchy = visibleInHierarchy,
+            RuntimeOnly = runtimeOnly
+        };
 
 
         if (go.Id == -1)
@@ -383,13 +384,13 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         Type sourceType = component.GetType();
 
         // fields that are derived from Component
-        List<FieldInfo> componentFields = new();
+        List<FieldInfo> componentFields = new List<FieldInfo>();
 
         // Find all fields that derive from Component
         componentFields.AddRange(sourceType.GetFields().Where(info => info.FieldType.IsSubclassOf(typeof(Component))));
 
-        List<FieldInfo> gameObjectFields = new();
-        List<FieldInfo> transformFields = new();
+        List<FieldInfo> gameObjectFields = new List<FieldInfo>();
+        List<FieldInfo> transformFields = new List<FieldInfo>();
         for (int i = 0; i < componentFields.Count; i++)
         {
             PropertyInfo gameObjectFieldInfo = componentFields[0].FieldType.GetProperty("gameObject");
@@ -602,7 +603,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public TComponent AddComponent<TComponent>() where TComponent : Component, new()
     {
-        TComponent component = new();
+        TComponent component = new TComponent();
 
         return AddComponent(component.GetType()) as TComponent;
     }
@@ -748,7 +749,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public List<T> GetComponents<T>() where T : Component
     {
-        List<T> componentsToReturn = new();
+        List<T> componentsToReturn = new List<T>();
         for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i] is T)
@@ -775,7 +776,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public List<Component> GetComponents(Type type)
     {
-        List<Component> componentsToReturn = new();
+        List<Component> componentsToReturn = new List<Component>();
         for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i].GetType() == type)

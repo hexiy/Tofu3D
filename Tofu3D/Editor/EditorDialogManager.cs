@@ -8,7 +8,7 @@ public class EditorDialogManager
     {
         _dialogs = new List<EditorDialog>();
 
-        EditorDialog dialog1 = new(_dialogs.Count);
+        EditorDialog dialog1 = new EditorDialog(_dialogs.Count);
         _dialogs.Add(dialog1);
     }
 

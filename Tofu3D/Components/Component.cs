@@ -7,7 +7,7 @@ public class Component : IDestroyable, ICloneable
 {
     private bool _enabledSelfSelf = true;
 
-    private readonly Dictionary<string, MethodInfo> _executeInEditModeMethods = new();
+    private readonly Dictionary<string, MethodInfo> _executeInEditModeMethods = new Dictionary<string, MethodInfo>();
 
     [Hide]
     public bool AllowMultiple = true;
@@ -151,7 +151,7 @@ public class Component : IDestroyable, ICloneable
 
     public TComponent AddComponent<TComponent>() where TComponent : Component, new()
     {
-        TComponent component = new();
+        TComponent component = new TComponent();
 
         return GameObject.AddComponent<TComponent>();
     }

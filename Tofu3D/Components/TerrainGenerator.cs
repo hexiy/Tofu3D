@@ -6,7 +6,7 @@ namespace Tofu3D;
 [ExecuteInEditMode]
 public class TerrainGenerator : Component, IComponentUpdateable
 {
-    private readonly ConcurrentQueue<GameObject> _concurrentBag = new();
+    private readonly ConcurrentQueue<GameObject> _concurrentBag = new ConcurrentQueue<GameObject>();
     private readonly float _cubeModelSize = 2;
 
     private int _threadsWorkingCount = -1;
@@ -76,11 +76,12 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
         int numberOfThreads = ThreadsToUse;
         _threadsWorkingCount = numberOfThreads;
-        List<Thread> threads = new();
+        List<Thread> threads = new List<Thread>();
         for (int threadIndex = 0; threadIndex < numberOfThreads; threadIndex++)
         {
             int capturedThreadIndex = threadIndex;
-            Thread thread = new(() => GenerateTerrain(TerrainSize, CubePrefab, capturedThreadIndex, numberOfThreads));
+            Thread thread = new Thread(() =>
+                GenerateTerrain(TerrainSize, CubePrefab, capturedThreadIndex, numberOfThreads));
             threads.Add(thread);
         }
 
@@ -161,7 +162,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void LongTask()
     {
-        List<GameObject> gameObjects = new(20000);
+        List<GameObject> gameObjects = new List<GameObject>(20000);
         for (int i = 0; i < 20000; i++)
         {
             GameObject go = GameObject.Create(name: i.ToString(), addToScene: false);

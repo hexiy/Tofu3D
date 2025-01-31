@@ -310,7 +310,7 @@ public struct Matrix : IEquatable<Matrix>
     /// </summary>
     public Vector3 Backward
     {
-        get => new(M31, M32, M33);
+        get => new Vector3(M31, M32, M33);
         set
         {
             M31 = value.X;
@@ -324,7 +324,7 @@ public struct Matrix : IEquatable<Matrix>
     /// </summary>
     public Vector3 Down
     {
-        get => new(-M21, -M22, -M23);
+        get => new Vector3(-M21, -M22, -M23);
         set
         {
             M21 = -value.X;
@@ -338,7 +338,7 @@ public struct Matrix : IEquatable<Matrix>
     /// </summary>
     public Vector3 Forward
     {
-        get => new(-M31, -M32, -M33);
+        get => new Vector3(-M31, -M32, -M33);
         set
         {
             M31 = -value.X;
@@ -350,14 +350,14 @@ public struct Matrix : IEquatable<Matrix>
     /// <summary>
     ///     Returns the identity matrix.
     /// </summary>
-    public static Matrix Identity { get; } = new(1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f);
+    public static Matrix Identity { get; } = new Matrix(1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f);
 
     /// <summary>
     ///     The left vector formed from the first row -M11, -M12, -M13 elements.
     /// </summary>
     public Vector3 Left
     {
-        get => new(-M11, -M12, -M13);
+        get => new Vector3(-M11, -M12, -M13);
         set
         {
             M11 = -value.X;
@@ -371,7 +371,7 @@ public struct Matrix : IEquatable<Matrix>
     /// </summary>
     public Vector3 Right
     {
-        get => new(M11, M12, M13);
+        get => new Vector3(M11, M12, M13);
         set
         {
             M11 = value.X;
@@ -385,7 +385,7 @@ public struct Matrix : IEquatable<Matrix>
     /// </summary>
     public Vector3 Translation
     {
-        get => new(M41, M42, M43);
+        get => new Vector3(M41, M42, M43);
         set
         {
             M41 = value.X;
@@ -399,7 +399,7 @@ public struct Matrix : IEquatable<Matrix>
     /// </summary>
     public Vector3 Up
     {
-        get => new(M21, M22, M23);
+        get => new Vector3(M21, M22, M23);
         set
         {
             M21 = value.X;
@@ -1504,12 +1504,14 @@ public struct Matrix : IEquatable<Matrix>
         x.Normalize();
         y.Normalize();
 
-        result = new Matrix();
-        result.Right = x;
-        result.Up = y;
-        result.Forward = z;
-        result.Translation = position;
-        result.M44 = 1f;
+        result = new Matrix
+        {
+            Right = x,
+            Up = y,
+            Forward = z,
+            Translation = position,
+            M44 = 1f
+        };
     }
 
     /// <summary>
@@ -1540,7 +1542,7 @@ public struct Matrix : IEquatable<Matrix>
             return false;
         }
 
-        Matrix m1 = new(M11 / scale.X, M12 / scale.X, M13 / scale.X, 0, M21 / scale.Y, M22 / scale.Y,
+        Matrix m1 = new Matrix(M11 / scale.X, M12 / scale.X, M13 / scale.X, 0, M21 / scale.Y, M22 / scale.Y,
             M23 / scale.Y, 0, M31 / scale.Z, M32 / scale.Z, M33 / scale.Z, 0, 0, 0, 0, 1);
 
         rotation = Quaternion.CreateFromRotationMatrix(m1.ToNumerics());
@@ -2168,11 +2170,8 @@ public struct Matrix : IEquatable<Matrix>
     /// </summary>
     /// <param name="value">The converted value.</param>
     public static implicit operator Matrix(Matrix4x4 value) =>
-        new(
-            value.M11, value.M12, value.M13, value.M14,
-            value.M21, value.M22, value.M23, value.M24,
-            value.M31, value.M32, value.M33, value.M34,
-            value.M41, value.M42, value.M43, value.M44);
+        new Matrix(value.M11, value.M12, value.M13, value.M14, value.M21, value.M22, value.M23, value.M24, value.M31,
+            value.M32, value.M33, value.M34, value.M41, value.M42, value.M43, value.M44);
 
     /// <summary>
     ///     Adds two matrixes.
@@ -2610,11 +2609,7 @@ public struct Matrix : IEquatable<Matrix>
     ///     Returns a <see cref="System.Numerics.Matrix4x4" />.
     /// </summary>
     public Matrix4x4 ToNumerics() =>
-        new(
-            M11, M12, M13, M14,
-            M21, M22, M23, M24,
-            M31, M32, M33, M34,
-            M41, M42, M43, M44);
+        new Matrix4x4(M11, M12, M13, M14, M21, M22, M23, M24, M31, M32, M33, M34, M41, M42, M43, M44);
 
     #endregion
 

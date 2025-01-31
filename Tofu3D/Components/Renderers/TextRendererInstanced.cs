@@ -3,7 +3,7 @@ using Tofu3D.Rendering.Instancing;
 
 public class TextRendererInstanced : ModelRendererInstanced
 {
-    private readonly Dictionary<char, int> _fontMappings = new()
+    private readonly Dictionary<char, int> _fontMappings = new Dictionary<char, int>
     {
         { ' ', 0 },
         { '0', 48 },
@@ -45,7 +45,7 @@ public class TextRendererInstanced : ModelRendererInstanced
         { 'Z', 90 }
     };
 
-    private Vector2 _spritesCountInSpritesheet = new(16, 8);
+    private Vector2 _spritesCountInSpritesheet = new Vector2(16, 8);
     private Vector2 _characterSize = new Vector2(1, 2); // 1,2 because font w:h ratio is 1:2
 
     [XmlIgnore]

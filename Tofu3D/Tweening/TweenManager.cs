@@ -2,7 +2,7 @@ namespace Tofu3D.Tweening;
 
 public class TweenManager
 {
-    public List<Tween> ActiveTweens = new();
+    public List<Tween> ActiveTweens = new List<Tween>();
 
     public Tween StartTween(Tween tween)
     {

@@ -9,9 +9,11 @@ public struct SceneFile
 
     public static SceneFile CreateForOneGameObject(GameObject go)
     {
-        SceneFile sceneFile = new();
-        sceneFile.GameObjects = new List<GameObject>();
-        sceneFile.Components = new List<Component>();
+        SceneFile sceneFile = new SceneFile
+        {
+            GameObjects = [],
+            Components = []
+        };
         sceneFile.GameObjects.Add(go);
         sceneFile.Components.AddRange(go.Components);
 

@@ -43,7 +43,7 @@ public class EditorDialog
             new Vector4(0f, 0f, 0f, 0.9f));
 
 
-        Vector2 panelSize = new(300, 200);
+        Vector2 panelSize = new Vector2(300, 200);
         ImGui.SetCursorScreenPos(Screen.Center - panelSize / 2);
         TofuImGui.ImageTexture2DArray(Tofu.Editor.EditorTextures.WhitePixel, panelSize, tint_col:
             new Vector4(1f, 0.96f, 0.90f, 1.00f));

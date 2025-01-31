@@ -2,7 +2,7 @@ namespace Tofu3D;
 
 public class AssetUtils
 {
-    private static Dictionary<string, bool> ExistingAssets = new();
+    private static Dictionary<string, bool> ExistingAssets = new Dictionary<string, bool>();
     
     /*public static bool Exists(string path) => File.Exists(path);
 

@@ -6,7 +6,7 @@ public class Camera : Component, IComponentUpdateable
     public static Action<Vector2> CameraSizeChanged = newSize => { };
 
     //public int antialiasingStrength = 0;
-    public Color Color = new(34, 34, 34);
+    public Color Color = new Color(34, 34, 34);
     public float FarPlaneDistance = 100;
 
     [ShowIfNot(nameof(IsOrthographic))] public float FieldOfView = 60;
@@ -19,7 +19,7 @@ public class Camera : Component, IComponentUpdateable
     //public float cameraSize = 0.1f;
     [XmlIgnore] public Matrix4x4 ProjectionMatrix;
 
-    public Vector2 Size = new(1380, 900);
+    public Vector2 Size = new Vector2(1380, 900);
 
     [XmlIgnore] public Matrix4x4 TranslationMatrix;
 

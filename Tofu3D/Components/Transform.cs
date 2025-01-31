@@ -17,10 +17,10 @@ public class Transform : Component
 
     [XmlIgnore]
     [Hide]
-    public List<Transform> Children = new();
+    public List<Transform> Children = new List<Transform>();
 
     [Hide]
-    public List<int> ChildrenIDs = new();
+    public List<int> ChildrenIDs = new List<int>();
 
     public bool MockIsInCanvas = false;
     //[Hide] public Vector3 localPosition { get { return position - GetParentPosition(); } set { position = GetParentPosition() + value; } }

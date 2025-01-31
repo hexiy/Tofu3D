@@ -38,7 +38,7 @@ public struct Point : IEquatable<Point>
     /// <summary>
     ///     Returns a <see cref="Point" /> with coordinates 0, 0.
     /// </summary>
-    public static Point Zero { get; } = new();
+    public static Point Zero { get; } = new Point();
 
     #endregion
 
@@ -85,7 +85,7 @@ public struct Point : IEquatable<Point>
     /// <param name="value1">Source <see cref="Point" /> on the left of the add sign.</param>
     /// <param name="value2">Source <see cref="Point" /> on the right of the add sign.</param>
     /// <returns>Sum of the points.</returns>
-    public static Point operator +(Point value1, Point value2) => new(value1.X + value2.X, value1.Y + value2.Y);
+    public static Point operator +(Point value1, Point value2) => new Point(value1.X + value2.X, value1.Y + value2.Y);
 
     /// <summary>
     ///     Subtracts a <see cref="Point" /> from a <see cref="Point" />.
@@ -93,7 +93,7 @@ public struct Point : IEquatable<Point>
     /// <param name="value1">Source <see cref="Point" /> on the left of the sub sign.</param>
     /// <param name="value2">Source <see cref="Point" /> on the right of the sub sign.</param>
     /// <returns>Result of the subtraction.</returns>
-    public static Point operator -(Point value1, Point value2) => new(value1.X - value2.X, value1.Y - value2.Y);
+    public static Point operator -(Point value1, Point value2) => new Point(value1.X - value2.X, value1.Y - value2.Y);
 
     /// <summary>
     ///     Multiplies the components of two points by each other.
@@ -101,7 +101,7 @@ public struct Point : IEquatable<Point>
     /// <param name="value1">Source <see cref="Point" /> on the left of the mul sign.</param>
     /// <param name="value2">Source <see cref="Point" /> on the right of the mul sign.</param>
     /// <returns>Result of the multiplication.</returns>
-    public static Point operator *(Point value1, Point value2) => new(value1.X * value2.X, value1.Y * value2.Y);
+    public static Point operator *(Point value1, Point value2) => new Point(value1.X * value2.X, value1.Y * value2.Y);
 
     /// <summary>
     ///     Divides the components of a <see cref="Point" /> by the components of another <see cref="Point" />.
@@ -109,7 +109,7 @@ public struct Point : IEquatable<Point>
     /// <param name="source">Source <see cref="Point" /> on the left of the div sign.</param>
     /// <param name="divisor">Divisor <see cref="Point" /> on the right of the div sign.</param>
     /// <returns>The result of dividing the points.</returns>
-    public static Point operator /(Point source, Point divisor) => new(source.X / divisor.X, source.Y / divisor.Y);
+    public static Point operator /(Point source, Point divisor) => new Point(source.X / divisor.X, source.Y / divisor.Y);
 
     /// <summary>
     ///     Compares whether two <see cref="Point" /> instances are equal.
@@ -172,7 +172,7 @@ public struct Point : IEquatable<Point>
     /// </summary>
     /// <returns>A <see cref="Vector2" /> representation for this object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public Vector2 ToVector2() => new(X, Y);
+    public Vector2 ToVector2() => new Vector2(X, Y);
 
     /// <summary>
     ///     Deconstruction method for <see cref="Point" />.

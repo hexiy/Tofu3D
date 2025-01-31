@@ -4,8 +4,8 @@ namespace Tofu3D;
 
 public class EditorPanelTextureViewer : EditorPanel
 {
-    public override Vector2 Position => new(0, 0);
-    public override Vector2 Pivot => new(1, 1);
+    public override Vector2 Position => new Vector2(0, 0);
+    public override Vector2 Pivot => new Vector2(1, 1);
 
     public override ImGuiWindowFlags AdditionalWindowFlags =>
         ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoScrollbar;

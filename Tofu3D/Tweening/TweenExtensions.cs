@@ -4,7 +4,7 @@ public static class Tweener
 {
     public static Tween Tween(float startValue, float endValue, float duration, Action<float> onUpdate)
     {
-        Tween tween = new()
+        Tween tween = new Tween
             { Duration = duration, EndValue = endValue, StartValue = startValue, CurrentTime = 0, OnUpdate = onUpdate };
         return Tofu.TweenManager.StartTween(tween);
     }

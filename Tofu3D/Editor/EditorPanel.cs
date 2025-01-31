@@ -12,11 +12,10 @@ public class EditorPanel
     public int WindowWidth;
     public virtual string Name => "";
 
-    public Vector2 Size = new(Tofu.Window.ClientSize.X/10f,
-        Tofu.Window.ClientSize.Y /10f);
+    public Vector2 Size = new Vector2(Tofu.Window.ClientSize.X / 10f, Tofu.Window.ClientSize.Y / 10f);
 
-    public virtual Vector2 Position => new(0, Tofu.Window.ClientSize.Y);
-    public virtual Vector2 Pivot => new(0, 1);
+    public virtual Vector2 Position => new Vector2(0, Tofu.Window.ClientSize.Y);
+    public virtual Vector2 Pivot => new Vector2(0, 1);
     public virtual ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.None;
     public bool IsFullscreen { get; set; }
 

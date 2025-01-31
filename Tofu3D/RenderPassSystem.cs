@@ -11,7 +11,7 @@ public class RenderPassSystem
     // should be reorderable and being able to add new pass easily...
     // every pass will have its own texture
     // in editor we will be able to visualise all the passes
-    public List<RenderPass> RenderPasses { get; } = new();
+    public List<RenderPass> RenderPasses { get; } = new List<RenderPass>();
 
     public RenderPassType CurrentRenderPassType { get; private set; } = RenderPassType.DirectionalLightShadowDepth;
 
@@ -20,7 +20,7 @@ public class RenderPassSystem
         get { return _renderPasses[^1].PassRenderTexture; }
     } //*/ { get; private set; } //= new RenderTexture(new Vector2(100, 100), true, false);
 
-    public Vector2 ViewSize { get; private set; } = new(100, 100);
+    public Vector2 ViewSize { get; private set; } = new Vector2(100, 100);
     public bool CanRender => Camera.MainCamera?.IsActive == true && _initialized;
 
     public void Initialize()
@@ -46,14 +46,15 @@ public class RenderPassSystem
     private void CreatePasses()
     {
         // GL.Disable(EnableCap.FramebufferSrgb);
-        RenderPassSkybox renderPassSkybox = new();
-        RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth = new();
-        RenderPassPointLightShadowDepth renderPassPointLightShadowDepth = new();
-        RenderPassZPrePass renderPassZPrePass = new();
-        RenderPassOpaques renderPassOpaques = new();
+        RenderPassSkybox renderPassSkybox = new RenderPassSkybox();
+        RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth =
+            new RenderPassDirectionalLightShadowDepth();
+        RenderPassPointLightShadowDepth renderPassPointLightShadowDepth = new RenderPassPointLightShadowDepth();
+        RenderPassZPrePass renderPassZPrePass = new RenderPassZPrePass();
+        RenderPassOpaques renderPassOpaques = new RenderPassOpaques();
         // mouse picking for now must come before transparency pass for it to work
 
-        RenderPassTransparency renderPassTransparency = new();
+        RenderPassTransparency renderPassTransparency = new RenderPassTransparency();
         RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
         // RenderPassBloomThreshold renderPassBloomThreshold = new();
         // RenderPassBloomPostProcess renderPassBloomPostProcess = new(renderPassBloomThreshold);

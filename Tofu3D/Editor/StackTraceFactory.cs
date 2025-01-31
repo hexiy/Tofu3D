@@ -16,10 +16,10 @@ public static class StackTraceFactory
         // stackTrace.FullText = stackTraceFullText;
         // var a = new System.Diagnostics.StackFrame(true);
         int skipFrames = 3;
-        System.Diagnostics.StackTrace? b = new(fNeedFileInfo: true, skipFrames: 3);
+        System.Diagnostics.StackTrace? b = new System.Diagnostics.StackTrace(fNeedFileInfo: true, skipFrames: 3);
         System.Diagnostics.StackFrame[] frames = b.GetFrames();
 
-        StackTrace stackTrace = new();
+        StackTrace stackTrace = new StackTrace();
         StackFrame[] stackFrames = new StackFrame[frames.Length];
         for (int i = 0; i < stackFrames.Length; i++)
         {

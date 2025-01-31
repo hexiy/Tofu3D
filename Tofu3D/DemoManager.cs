@@ -2,7 +2,7 @@ public class DemoManager : Component
 {
     private int _currentIndex;
 
-    public List<GameObject> DemoGameObjects = new();
+    public List<GameObject> DemoGameObjects = new List<GameObject>();
     public static DemoManager I { get; private set; }
 
     public override void Awake()

@@ -6,9 +6,10 @@ namespace Tofu3D;
 // Transforms .obj,.png files into .asset files in /Library/
 public class AssetImportManager
 {
-    public List<AssetBase> Assets { get; private set; } = new(); // int is id(path hashcode)
-    public Dictionary<int, AssetImportParametersBase> AssetImportParameters { get; private set; } = new();
-    public Dictionary<Type, IAssetImporter> Importers { get; private set; } = new();
+    public List<AssetBase> Assets { get; private set; } = new List<AssetBase>(); // int is id(path hashcode)
+    public Dictionary<int, AssetImportParametersBase> AssetImportParameters { get; private set; } =
+        new Dictionary<int, AssetImportParametersBase>();
+    public Dictionary<Type, IAssetImporter> Importers { get; private set; } = new Dictionary<Type, IAssetImporter>();
 
     public AssetImportManager()
     {
@@ -84,8 +85,10 @@ public class AssetImportManager
             AssetImportParameters_Model assetImportParametersModel;
             if (assetImportParametersFileExistsForThisAsset == false)
             {
-                assetImportParametersModel = new AssetImportParameters_Model();
-                assetImportParametersModel.PathToSourceAsset = rawAssetPath;
+                assetImportParametersModel = new AssetImportParameters_Model
+                {
+                    PathToSourceAsset = rawAssetPath
+                };
 
                 Serializer.SaveFileJSON<AssetImportParameters_Model>(importParametersFilePath,
                     assetImportParametersModel);
@@ -119,10 +122,12 @@ public class AssetImportManager
 
         if (AssetPathExtensions.IsFileMaterial(rawAssetPath))
         {
-            AssetImportParameters_Material assetImportParametersMaterial = new AssetImportParameters_Material();
-            // if (assetImportParametersFileExistsForThisAsset == false)
-            // {
-            assetImportParametersMaterial.PathToSourceAsset = rawAssetPath;
+            AssetImportParameters_Material assetImportParametersMaterial = new AssetImportParameters_Material
+                {
+                    // if (assetImportParametersFileExistsForThisAsset == false)
+                    // {
+                    PathToSourceAsset = rawAssetPath
+                };
             //
             //     // we save this .importParameters file as /Library/car.obj.importParameters
             //
@@ -152,8 +157,10 @@ public class AssetImportManager
             AssetImportParameters_Texture assetImportParametersTexture;
             if (assetImportParametersFileExistsForThisAsset == false)
             {
-                assetImportParametersTexture = new AssetImportParameters_Texture();
-                assetImportParametersTexture.PathToSourceAsset = rawAssetPath;
+                assetImportParametersTexture = new AssetImportParameters_Texture
+                {
+                    PathToSourceAsset = rawAssetPath
+                };
 
                 Serializer.SaveFileJSON<AssetImportParameters_Texture>(importParametersFilePath,
                     assetImportParametersTexture);
@@ -197,9 +204,11 @@ public class AssetImportManager
         const bool IMPORT_ON_NEW_THREAD = false;
         if (IMPORT_ON_NEW_THREAD)
         {
-            Thread importThread = new Thread(() => { ImportAssetInNewThread(rawAssetPath, reimportIfExists); });
-            importThread.Name = "Asset import thread";
-            importThread.IsBackground = true;
+            Thread importThread = new Thread(() => { ImportAssetInNewThread(rawAssetPath, reimportIfExists); })
+                {
+                    Name = "Asset import thread",
+                    IsBackground = true
+                };
             importThread.Start();
         }
         else

@@ -9,8 +9,8 @@ public class EditorPanelConsole : EditorPanel
     private string _searchFilter = "";
     private int _selectedMessageIndex = -1;
     private bool _wasMaxScrollLastFrame = true;
-    public override Vector2 Position => new(Tofu.Window.ClientSize.X - 800, Tofu.Window.ClientSize.Y);
-    public override Vector2 Pivot => new(1, 1);
+    public override Vector2 Position => new Vector2(Tofu.Window.ClientSize.X - 800, Tofu.Window.ClientSize.Y);
+    public override Vector2 Pivot => new Vector2(1, 1);
 
     public override ImGuiWindowFlags AdditionalWindowFlags =>
         ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoScrollbar;
@@ -237,9 +237,9 @@ public class EditorPanelConsole : EditorPanel
             ImGui.SetCursorPosY(ImGui.GetContentRegionMax().Y * 0.72f);
             ImGui.Separator();
 
-            Vector4 cBeige = new(1f, 0.96f, 0.90f, 1.00f);
+            Vector4 cBeige = new Vector4(1f, 0.96f, 0.90f, 1.00f);
 
-            Vector4 cBeigeMid = new(0.97f, 0.94f, 0.88f, 1f); // greenish
+            Vector4 cBeigeMid = new Vector4(0.97f, 0.94f, 0.88f, 1f); // greenish
             ImGui.PushStyleColor(ImGuiCol.FrameBg, cBeigeMid);
             ImGui.PushStyleColor(ImGuiCol.HeaderHovered, cBeige);
             // ImGui.BeginChildFrame(1, ImGui.GetContentRegionMax());

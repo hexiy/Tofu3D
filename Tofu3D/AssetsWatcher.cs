@@ -5,18 +5,18 @@ namespace Tofu3D;
 
 public class AssetsWatcher
 {
-    private readonly Queue<FileChangedInfo> _changedFilesQueue = new();
+    private readonly Queue<FileChangedInfo> _changedFilesQueue = new Queue<FileChangedInfo>();
 
     // ShaderCache can register for ".shader" file changes, so we only check the extension once 
     private readonly Dictionary<AssetSupportedFileNameExtensions, Action<FileChangedInfo>>
-        _fileWithExtensionChangedConsumers =
-            new();
+        _fileWithExtensionChangedConsumers = new Dictionary<AssetSupportedFileNameExtensions, Action<FileChangedInfo>>();
 
     private FileSystemWatcher _watcher;
 
     public void RegisterFileChangedCallback(Action<FileChangedInfo> fileChanged, params string[] extensions)
     {
-        AssetSupportedFileNameExtensions assetSupportedFileNameExtensions = new(extensions);
+        AssetSupportedFileNameExtensions assetSupportedFileNameExtensions =
+            new AssetSupportedFileNameExtensions(extensions);
         _fileWithExtensionChangedConsumers[assetSupportedFileNameExtensions] = fileChanged;
 
         foreach (string supportedExtension in extensions)
@@ -71,7 +71,7 @@ public class AssetsWatcher
         // {
         // 	return;
         // }
-        FileChangedInfo fileChangedInfo = new()
+        FileChangedInfo fileChangedInfo = new FileChangedInfo
         {
             Path = assetsRelativePath,
             ChangeType = e.ChangeType

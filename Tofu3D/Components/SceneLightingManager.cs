@@ -5,7 +5,7 @@ public class SceneLightingManager
     private readonly Scene _scene;
 
     private DirectionalLight _directionalLight;
-    private List<LightBase> _lights = new();
+    private List<LightBase> _lights = new List<LightBase>();
 
     public SceneLightingManager(Scene scene)
     {
@@ -35,7 +35,7 @@ public class SceneLightingManager
 
     public float[] GetPointLightsPositions()
     {
-        List<float> floats = new();
+        List<float> floats = new List<float>();
         for (int i = 0; i < _lights.Count; i++)
         {
             if (_lights[i] is PointLight)
@@ -52,7 +52,7 @@ public class SceneLightingManager
 
     public float[] GetPointLightsColors()
     {
-        List<float> floats = new();
+        List<float> floats = new List<float>();
         for (int i = 0; i < _lights.Count; i++)
         {
             if (_lights[i] is PointLight)
@@ -69,7 +69,7 @@ public class SceneLightingManager
 
     public float[] GetPointLightsIntensities()
     {
-        List<float> floats = new();
+        List<float> floats = new List<float>();
         for (int i = 0; i < _lights.Count; i++)
         {
             if (_lights[i] is PointLight)
@@ -83,7 +83,7 @@ public class SceneLightingManager
 
     public Color GetAmbientLightsColor()
     {
-        Color col = new(0, 0, 0, 1);
+        Color col = new Color(0, 0, 0, 1);
 
 
         for (int i = 0; i < _lights.Count; i++)

@@ -2,9 +2,9 @@
 
 public class Pool
 {
-    public Stack<GameObject> FreeObjects = new();
+    public Stack<GameObject> FreeObjects = new Stack<GameObject>();
     public GameObject Go;
-    public Stack<GameObject> UsedObjects = new();
+    public Stack<GameObject> UsedObjects = new Stack<GameObject>();
 
     private void AddNewObject()
     {

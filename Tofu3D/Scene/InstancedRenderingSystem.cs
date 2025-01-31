@@ -2,13 +2,14 @@
 
 public class InstancedRenderingSystem
 {
-    private List<InstancedGroupDefinition> _groupDefinitions = new();
+    private List<InstancedGroupDefinition> _groupDefinitions = new List<InstancedGroupDefinition>();
 
     // key is shaderID
-    private Dictionary<int, ShaderGroup> _shaderGroups = new();
+    private Dictionary<int, ShaderGroup> _shaderGroups = new Dictionary<int, ShaderGroup>();
 
     // index in _definitions
-    private Dictionary<int, SharedInstancingBuffer> _sharedInstancedBuffers = new();
+    private Dictionary<int, SharedInstancingBuffer> _sharedInstancedBuffers =
+        new Dictionary<int, SharedInstancingBuffer>();
     private Asset_Material _mousePickingMaterial;
     private Asset_Material _depthMaterial;
     // private Asset_Material _customDepthMaterial;
@@ -568,11 +569,9 @@ public class InstancedRenderingSystem
         if (objectInstancingData.InstancedRenderingDefinitionIndex == -1)
         {
             // no buffer exists for this combination-create one
-            InstancedGroupDefinition definition = new(
+            InstancedGroupDefinition definition = new InstancedGroupDefinition(
                 // GameObjectNameForTestingIdentification: renderer.GameObject.Name,
-                RuntimeMesh: mesh,
-                Material: material,
-                IsStatic: isStatic
+                RuntimeMesh: mesh, Material: material, IsStatic: isStatic
                 // vertexBufferStructureType: vertexBufferStructureType
             );
             // index: indexForMultipleObjectsPerRenderer);
@@ -712,7 +711,7 @@ public class InstancedRenderingSystem
             throw new Exception("Couldnt load shader");
         }
 
-        SharedInstancingBuffer sharedInstancingBuffer = new()
+        SharedInstancingBuffer sharedInstancingBuffer = new SharedInstancingBuffer
         {
             InstancedGroupDefinition = instancedGroupDefinition,
             // VertexBufferStructureType = instancedGroupDefinition.vertexBufferStructureType,

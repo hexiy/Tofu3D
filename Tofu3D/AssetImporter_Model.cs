@@ -24,9 +24,9 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         string[] data = File.ReadAllText(objInAssetsFolderPath).Split("\n");
 
-        List<float> vertices = new();
-        List<float> uvs = new();
-        List<float> normals = new();
+        List<float> vertices = new List<float>();
+        List<float> uvs = new List<float>();
+        List<float> normals = new List<float>();
 
         foreach (string l in data)
         {
@@ -142,8 +142,10 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                     objMaterialFileDefinition.Materials.Add(currentObjMaterialDefinition);
                 }
 
-                currentObjMaterialDefinition = new ObjMaterialDefinition();
-                currentObjMaterialDefinition.MaterialName = lineSplits[1];
+                currentObjMaterialDefinition = new ObjMaterialDefinition
+                {
+                    MaterialName = lineSplits[1]
+                };
             }
 
             if (lineSplits[0].Equals("Kd", StringComparison.OrdinalIgnoreCase)) // diffuse/albedo color
@@ -192,11 +194,11 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         ref int lineStartIndex, bool singleMesh = false, bool smoothNormals = true,
         ObjMaterialFileDefinition objMaterialFileDefinition = null)
     {
-        List<uint> indices = new();
+        List<uint> indices = new List<uint>();
         ObjMaterialDefinition? objMaterialDefinition = objMaterialFileDefinition?.Materials.LastOrDefault() ?? null;
         Dictionary<Vector3, uint> uniqueVertices = new Dictionary<Vector3, uint>();
         uint currentUniqueVertexIndex = 0;
-        List<float> everything = new();
+        List<float> everything = new List<float>();
         int numberOfIndicesPerLine = 0;
         int totalVerticesCount = 0;
 
@@ -507,11 +509,13 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         //     because right now we have all vertices in the array wasting time and its wrong too.
         // so our indice will be pointing to [vertex1, vertex2, vertex3]
 
-        Mesh mesh = new Mesh();
-        mesh.CountsOfElements = countsOfElements;
-        mesh.GeometryBufferData = geometryBufferData.ToArray();
-        mesh.VerticesCount = (int)(geometryBufferData.Count / 14);
-        mesh.Indices = indices.ToArray();
+        Mesh mesh = new Mesh
+        {
+            CountsOfElements = countsOfElements,
+            GeometryBufferData = geometryBufferData.ToArray(),
+            VerticesCount = (int)(geometryBufferData.Count / 14),
+            Indices = indices.ToArray()
+        };
 
         if (objMaterialDefinition != null)
         {
@@ -542,15 +546,13 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             return null;
         }
 
-        Asset_Material material = new Asset_Material()
+        Asset_Material material = new Asset_Material
         {
             Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
-                "ModelRendererInstanced.glsl"))
+                "ModelRendererInstanced.glsl")),
+            SmoothShadows = true,
+            AlbedoTint = materialDefinition.AlbedoTint
         };
-
-        material.SmoothShadows = true;
-
-        material.AlbedoTint = materialDefinition.AlbedoTint;
 
         if (materialDefinition.AlbedoTexturePath != null)
         {
@@ -601,7 +603,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         // Dictionary<vertexPosition, accumulatedNormals>
         // and at the end we just find those vertex positions again, and assign them new normal, the accumulatedNormal but normalized
 
-        ParallelOptions opt = new() { MaxDegreeOfParallelism = Environment.ProcessorCount };
+        ParallelOptions opt = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount };
         Parallel.For(0, (int)MathF.Floor((float)everything.Count / (float)floatsPerTriangle), parallelOptions: opt,
             i =>
             {

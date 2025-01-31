@@ -2,7 +2,7 @@
 
 public static class Random
 {
-    public static System.Random Rnd = new();
+    public static System.Random Rnd = new System.Random();
 
     public static int Range(int min, int max) => Rnd.Next(max - min) + min;
 
@@ -20,5 +20,5 @@ public static class Random
             Mathf.Lerp(color1.A, color2.A, howMuch) / 255);
     }
 
-    public static Color RandomColor() => new(Range(1), Range(1), Range(1), 1);
+    public static Color RandomColor() => new Color(Range(1), Range(1), Range(1), 1);
 }

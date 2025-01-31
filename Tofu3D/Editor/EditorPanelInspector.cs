@@ -6,116 +6,46 @@ namespace Tofu3D;
 
 public class EditorPanelInspector : EditorPanel
 {
-    public static List<Type> InspectorSupportedTypes; /* = new()
-    {
-        typeof(GameObject),
-        typeof(Material),
-        typeof(Vector3),
-        typeof(Vector2),
-        typeof(Texture),
-        typeof(CubemapTexture),
-        typeof(Color),
-        typeof(bool),
-        typeof(float),
-        typeof(int),
-        typeof(string),
-        typeof(Action),
-        typeof(AudioClip),
-        typeof(Mesh),
-        typeof(Shader),
-        typeof(Curve)
-    };*/
-
-    public Action AnyValueChanged = () => { };
-
-    private Action _actionQueue = () => { };
-
+    private Inspector _inspector;
     private string _addComponentPopupText = "";
 
     // if its a list, simply draw it like any other value but under the list row
-    private List<Type> _componentTypes;
-    private int _contentMaxWidth;
 
-    private readonly List<InspectableData> _currentInspectableDatas = new(); // cached inspectable data
-    private bool _editing;
 
-    private Dictionary<Type, IInspectorFieldDrawable> _inspectorFieldDrawables;
-
-    private bool _refreshQueued;
-    private int _refreshQueuedInspectableIndex = -1; // -1 = all
     private InspectableData _materialToShowAtTheBottom = null;
-    public override Vector2 Position => new(Tofu.Window.ClientSize.X - I.WindowWidth, 0);
-    public override Vector2 Pivot => new(1, 0);
+    public override Vector2 Position => new Vector2(Tofu.Window.ClientSize.X - I.WindowWidth, 0);
+    public override Vector2 Pivot => new Vector2(1, 0);
 
     public override string Name => "Inspector";
 
+
     public static EditorPanelInspector I { get; private set; }
+    public List<Type> _componentTypesForAddComponentPopup;
+    private int _padding = 0;
 
-    private bool HasInspectableData => _currentInspectableDatas.Count > 0;
-
-    public void AddActionToActionQueue(Action action)
-    {
-        _actionQueue += action;
-    }
-
-    public void QueueRefresh()
-    {
-        _refreshQueuedInspectableIndex = -1;
-        _refreshQueued = true;
-    }
-
-    public void QueueRefresh(InspectableData inspectableData)
-    {
-        _refreshQueuedInspectableIndex = _currentInspectableDatas.IndexOf(inspectableData);
-        _refreshQueued = true;
-    }
 
     public override void Init()
     {
         I = this;
+        _inspector = new Inspector();
+        _inspector.FieldChangedByUser += OnAnyFieldChangedByUser;
 
-        _inspectorFieldDrawables = new Dictionary<Type, IInspectorFieldDrawable>
-        {
-            { typeof(Vector2), new InspectorFieldDrawerVector2() },
-            { typeof(Vector3), new InspectorFieldDrawerVector3() },
-            { typeof(Vector4), new InspectorFieldDrawerVector4() },
-            { typeof(GameObject), new InspectorFieldDrawerGameObject() },
-            { typeof(Asset_Material), new InspectorFieldDrawerMaterial() },
-            { typeof(Shader), new InspectorFieldDrawerShader() },
-            { typeof(RuntimeTexture), new InspectorFieldDrawerTexture() },
-            { typeof(RuntimeCubemapTexture), new InspectorFieldDrawerCubemapTexture() },
-            { typeof(Color), new InspectorFieldDrawerColor() },
-            { typeof(bool), new InspectorFieldDrawerBool() },
-            { typeof(float), new InspectorFieldDrawerFloat() },
-            { typeof(int), new InspectorFieldDrawerInt() },
-            { typeof(string), new InspectorFieldDrawerString() },
-            { typeof(Action), new InspectorFieldDrawerAction() },
-            { typeof(AudioClip), new InspectorFieldDrawerAudioClip() },
-            { typeof(RuntimeMesh), new InspectorFieldDrawerMesh() },
-            { typeof(Curve), new InspectorFieldDrawerCurve() },
-            { typeof(Enum), new InspectorFieldDrawerEnum() }
-        };
-
-        InspectorSupportedTypes = new List<Type>();
-        foreach (KeyValuePair<Type, IInspectorFieldDrawable> keyValuePair in _inspectorFieldDrawables)
-        {
-            InspectorSupportedTypes.Add(keyValuePair.Key);
-        }
-
-        _componentTypes = typeof(Component).Assembly.GetTypes()
+        _componentTypesForAddComponentPopup = typeof(Component).Assembly.GetTypes()
             .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract).ToList();
-        _componentTypes.AddRange(ScriptsManager.ScriptsAssembly.GetTypes()
+        _componentTypesForAddComponentPopup.AddRange(ScriptsManager.ScriptsAssembly.GetTypes()
             .Where(t => t.IsSubclassOf(typeof(Component)) && !t.IsAbstract));
+
+
         Scene.ComponentAwoken += OnComponentAddedToScene;
+        Scene.ComponentRemoved += c => _inspector.QueueRefresh();
         GameObjectSelectionManager.GameObjectsSelected += OnGameObjectsSelected;
-        Tofu.MouseInput.RegisterPassThroughEdgesCondition(() =>
-            _editing && Tofu.MouseInput.IsButtonDown());
-        Global.DebugStateChanged += b => QueueInspectorRefresh();
+
+        Global.DebugStateChanged += b => _inspector.QueueRefresh();
     }
 
     private void OnComponentAddedToScene(Component comp)
     {
-        foreach (InspectableData currentInspectableData in _currentInspectableDatas)
+        foreach (InspectableData currentInspectableData in _inspector.CurrentInspectableDatas)
         {
             Component? c = currentInspectableData.Inspectable as Component;
             if (c?.GameObject == comp.GameObject)
@@ -128,29 +58,16 @@ public class EditorPanelInspector : EditorPanel
 
     public override void Update()
     {
-        _actionQueue.Invoke();
-        _actionQueue = () => { };
+        _inspector.Update();
+        _inspector.Size = Size;
+        _inspector.ContentMaxWidth = Size.Xi - (int)ImGui.GetStyle().WindowPadding.X;
     }
 
-    public void ClearInspectableDatas()
+    public void AddActionToActionQueue(Action action)
     {
-        _currentInspectableDatas.Clear();
+        _inspector.AddActionToActionQueue(action);
     }
 
-    public void QueueInspectorRefresh()
-    {
-        _refreshQueued = true;
-    }
-
-    private void RefreshInspector()
-    {
-        _currentInspectableDatas.ForEach(data => data.InitInfos());
-    }
-
-    private void RefreshInspectable(object inspectable)
-    {
-        _currentInspectableDatas.FirstOrDefault(data => data.Inspectable == inspectable, null)?.InitInfos();
-    }
 
     private void OnGameObjectsSelected(List<GameObject> gameObjects)
     {
@@ -167,7 +84,7 @@ public class EditorPanelInspector : EditorPanel
 
         if (gameObjects.Count == 0 || gameObjects.FirstOrDefault() == null)
         {
-            ClearInspectableDatas();
+            _inspector.ClearInspectableData();
 
             return;
         }
@@ -191,20 +108,20 @@ public class EditorPanelInspector : EditorPanel
     }*/
     public void SelectInspectable(object inspectable, Action? anyValueChanged = null)
     {
-        AnyValueChanged = anyValueChanged;
+        _inspector.FieldChangedByUserInspectableCallback = anyValueChanged;
         SelectInspectables(new List<object> { inspectable });
     }
 
 
     public void SelectInspectables(IList inspectables)
     {
-        ClearInspectableDatas();
+        _inspector.ClearInspectableData();
         _materialToShowAtTheBottom = null;
 
         foreach (object? inspectable in inspectables)
         {
-            InspectableData inspectableData = new(inspectable);
-            _currentInspectableDatas.Add(inspectableData);
+            InspectableData inspectableData = new InspectableData(inspectable, inspector: _inspector);
+            _inspector.CurrentInspectableDatas.Add(inspectableData);
         }
     }
 
@@ -220,7 +137,7 @@ public class EditorPanelInspector : EditorPanel
             });
     }
 
-    private int _padding = 0;
+
     public override void Draw()
     {
         if (Active == false)
@@ -230,39 +147,28 @@ public class EditorPanelInspector : EditorPanel
 
         //WindowWidth = 800;
         BeginWindowDefault();
-
+        var a = 123;
+        a = a + a;
         ResetId();
         ImGui.SetScrollX(0);
-        _contentMaxWidth = Size.Xi - (int)ImGui.GetStyle().WindowPadding.X;
         _padding = (int)ImGui.GetStyle().WindowPadding.X;
         // Ensure we disable horizontal scrolling and clip overflow
         ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
         ImGui.PushStyleVar(ImGuiStyleVar.ChildBorderSize, 0);
 
-        if (HasInspectableData)
+        if (_inspector.HasInspectableData)
         {
             ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 2);
-            
-            if (ImGui.BeginChild("InspectorChild", ImGui.GetContentRegionAvail()- new System.Numerics.Vector2(_padding,0), false, ImGuiWindowFlags.NoScrollbar))
+
+            if (ImGui.BeginChild("InspectorChild",
+                    ImGui.GetContentRegionAvail() - new System.Numerics.Vector2(_padding, 0), false,
+                    ImGuiWindowFlags.NoScrollbar))
             {
-                DrawInspectables(_currentInspectableDatas); 
+                DrawInspectables(_inspector.CurrentInspectableDatas);
             }
-            
+
             ImGui.PopStyleVar(1);
 
-            if (_refreshQueued)
-            {
-                _refreshQueued = false;
-
-                if (_refreshQueuedInspectableIndex == -1)
-                {
-                    RefreshInspector();
-                }
-                else
-                {
-                    RefreshInspectable(_currentInspectableDatas[_refreshQueuedInspectableIndex]);
-                }
-            }
 
             // properties with ShowIf and ShowIfNot attributes need to be reevaluated to show or not
             // if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left))
@@ -277,6 +183,10 @@ public class EditorPanelInspector : EditorPanel
     }
 
 
+    /// <summary>
+    /// EditorPanelInspector specific
+    /// </summary>
+    /// <param name="inspectableDatas"></param>
     private void DrawInspectables(List<InspectableData> inspectableDatas)
     {
         GameObject? gameObject = (inspectableDatas[0].Inspectable as Component)?.GameObject;
@@ -294,7 +204,7 @@ public class EditorPanelInspector : EditorPanel
             }
         }
 
-        _editing = false;
+        _inspector._editing = false;
         if (gameObject)
         {
             PushNextId();
@@ -340,104 +250,21 @@ public class EditorPanelInspector : EditorPanel
         }
 
         // _materialToShowAtTheBottom = null;
-        foreach (InspectableData componentInspectorData in inspectableDatas)
+        _inspector.Render(inspectableDatas);
+
+
+        foreach (InspectableData inspectableData in _inspector.CurrentInspectableDatas)
         {
-            Component? component = componentInspectorData.Inspectable as Component;
-
-            if (component)
-            {
-                PushNextId();
-                if (component.CanBeDisabled)
-                {
-                    bool componentEnabled = component.EnabledSelf;
-                    bool toggledComponent = ImGui.Checkbox("", ref componentEnabled);
-                    if (toggledComponent)
-                    {
-                        component.EnabledSelf = componentEnabled;
-                    }
-
-                    ImGui.SameLine();
-
-                    if (ImGui.Button("-"))
-                    {
-                        component.GameObject.RemoveComponent(component);
-                        continue;
-                    }
-
-                    ImGui.SameLine();
-                }
-            }
-
-            PushNextId();
-
-            string inspectableName = componentInspectorData.InspectableType.Name;
-            if (componentInspectorData.InspectableType.IsSubclassOf(typeof(Component)))
-            {
-                inspectableName = (Global.Debug ? $"[{component.GameObjectId}] " : "") +
-                                  componentInspectorData.InspectableType.Name;
-            }
-
-            if (componentInspectorData.InspectableType == typeof(Asset_Material))
-            {
-                Vector4 headerColor = Color.Honeydew.ToVector4();
-
-                Asset_Material material = componentInspectorData.Inspectable as Asset_Material;
-                if (material is { IsRuntimeCopy: true })
-                {
-                    inspectableName += " | RUNTIME COPY";
-                    headerColor = Color.Gold.ToVector4();
-                }
-
-                ImGui.PushStyleColor(ImGuiCol.Header, headerColor);
-            }
-
-            bool headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);
-            if (componentInspectorData.InspectableType == typeof(Asset_Material))
-            {
-                ImGui.PopStyleColor();
-            }
-
-            if (headerClicked)
-            {
-                if (componentInspectorData.InspectableType == typeof(Asset_Material))
-                {
-                    // DrawMaterialStuff(componentInspectorData);
-                }
-
-
-                foreach (FieldOrPropertyInfo info in componentInspectorData.Infos)
-                {
-                    bool drawn = DrawFieldOrProperty(info, componentInspectorData);
-                    if (drawn == false)
-                    {
-                    }
-
-                    //ImGui.PopID();
-                }
-
-                /*if (componentInspectorData.InspectableType == typeof(Asset_Material) && (_editing ||
-                        Tofu.MouseInput.ButtonReleased(MouseButtons.Left) || ImGui.IsMouseReleased(ImGuiMouseButton.Right)))
-                    // detect drag and drop texture too....
-                    _actionQueue += () =>
-                    {
-                        Debug.Log("wip try to save texture");
-                        Asset_Material assetMaterial = (componentInspectorData.Inspectable as Asset_Material);
-                        string assetPathInLibrary = assetMaterial.PathToRawAsset.FromRawAssetFileNameToPathOfAssetInLibrary();
-                        Tofu.AssetLoadManager.Save<Asset_Material>(assetPathInLibrary, assetMaterial);
-                        // Tofu.AssetLoadManager.Save<Material>();.Save<Material>(componentInspectorData.Inspectable as Material);
-                    };*/
-            }
-
-            if (componentInspectorData.Inspectable is IHasMaterial hasMaterial)
+            if (inspectableData.Inspectable is IHasMaterial hasMaterial)
             {
                 Asset_Material material = hasMaterial.GetMaterial;
                 if (material != null)
                 {
-                    _materialToShowAtTheBottom = new InspectableData(material);
+                    _materialToShowAtTheBottom =
+                        new InspectableData(material, _inspector);
                 }
             }
         }
-
 
         if (gameObject)
         {
@@ -461,14 +288,15 @@ public class EditorPanelInspector : EditorPanel
 
                 if (_addComponentPopupText.Length > 0)
                 {
-                    for (int i = 0; i < _componentTypes.Count; i++)
+                    for (int i = 0; i < _componentTypesForAddComponentPopup.Count; i++)
                     {
-                        if (_componentTypes[i].Name
+                        if (_componentTypesForAddComponentPopup[i].Name
                             .Contains(_addComponentPopupText, StringComparison.OrdinalIgnoreCase))
                         {
-                            if (ImGui.Button(_componentTypes[i].Name) || enterPressed)
+                            if (ImGui.Button(_componentTypesForAddComponentPopup[i].Name) || enterPressed)
                             {
-                                gameObject.AddComponent(_componentTypes[i]);
+                                gameObject.AddComponent(_componentTypesForAddComponentPopup[i]);
+                                _inspector.QueueRefresh();
                                 // this.RefreshInspector();
                                 // this.QueueInspectorRefresh();
                                 ImGui.CloseCurrentPopup();
@@ -479,11 +307,11 @@ public class EditorPanelInspector : EditorPanel
                 }
                 else
                 {
-                    for (int i = 0; i < _componentTypes.Count; i++)
+                    for (int i = 0; i < _componentTypesForAddComponentPopup.Count; i++)
                     {
-                        if (ImGui.Button(_componentTypes[i].Name))
+                        if (ImGui.Button(_componentTypesForAddComponentPopup[i].Name))
                         {
-                            gameObject.AddComponent(_componentTypes[i]);
+                            gameObject.AddComponent(_componentTypesForAddComponentPopup[i]);
                             // this.RefreshInspector();
                             // this.QueueInspectorRefresh();
 
@@ -507,152 +335,8 @@ public class EditorPanelInspector : EditorPanel
     }
 
 
-    private bool DrawFieldOrProperty(FieldOrPropertyInfo info, InspectableData componentInspectorData)
+    public void OnAnyFieldChangedByUser()
     {
-        if (info.HasSpaceAttribute)
-        {
-            ImGui.NewLine();
-        }
-
-        if (info.HeaderText != null)
-        {
-            ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 10);
-            ImGui.TextColored(Color.Chocolate.ToVector4(), info.HeaderText);
-            // ImGui.NewLine();
-        }
-
-        if (info.CanShowInEditor == false)
-        {
-            return false;
-        }
-
-        PushNextId();
-
-        bool hovering = false;
-        if (ImGui.IsMouseHoveringRect(ImGui.GetCursorScreenPos(),
-                ImGui.GetCursorScreenPos() +
-                new System.Numerics.Vector2(1500, ImGui.GetFrameHeightWithSpacing())))
-        {
-            hovering = true;
-        }
-
-        ImGui.SetCursorPosX(ImGui.GetCursorPosX() + 10);
-
-        if (info.IsListElement == false)
-        {
-            if (info.IsReadonly)
-            {
-                ImGui.BeginDisabled();
-            }
-
-            if (hovering)
-            {
-                ImGui.TextColored(new Vector4(0.7f, 0.4f, 0.6f, 1), info.Name);
-            }
-            else
-            {
-                ImGui.Text(info.Name);
-            }
-        }
-
-
-        float itemWidth1 = Size.X / 1.6f;
-        ImGui.SameLine(Size.X - itemWidth1);
-        ImGui.SetNextItemWidth(itemWidth1);
-
-        if (info.IsGenericList)
-        {
-            object? obj = info.GetValue(componentInspectorData.Inspectable);
-            IList? list = (IList)obj;
-
-
-            if (ImGui.Button("+"))
-            {
-                object? newElement = Activator.CreateInstance(info.GenericParameterType);
-                list.Add(newElement);
-                info.SetValue(componentInspectorData.Inspectable, list);
-            }
-
-            ImGui.SameLine();
-            if (ImGui.CollapsingHeader($"List<{info.GenericParameterType.Name}>",
-                    ImGuiTreeNodeFlags.DefaultOpen))
-            {
-                for (int j = 0; j < list.Count; j++)
-                {
-                    PushNextId();
-                    bool xClicked = ImGui.Button("x",
-                        new System.Numerics.Vector2(ImGui.GetFrameHeight(), ImGui.GetFrameHeight()));
-
-                    if (xClicked)
-                    {
-                        list.RemoveAt(j);
-                        info.SetValue(componentInspectorData.Inspectable, list);
-                        continue;
-                    }
-
-                    ImGui.SameLine();
-
-                    bool isNull = list[j] == null;
-                    string name = isNull ? "<null>" : "name";
-
-
-                    FieldOrPropertyInfo listElementFieldOrProperty = new(list, j);
-                    listElementFieldOrProperty.IsListElement = true;
-                    DrawFieldOrProperty(listElementFieldOrProperty, componentInspectorData);
-                    /*if (ImGui.BeginDragDropTarget())
-                    {
-                        ImGui.AcceptDragDropPayload("GAMEOBJECT", ImGuiDragDropFlags.None);
-
-                        string payload = Marshal.PtrToStringAnsi(ImGui.GetDragDropPayload().Data);
-                        ImGuiPayloadPtr x = ImGui.GetDragDropPayload();
-                        if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left) && payload.Length > 0)
-                        {
-                            GameObject foundGo = Tofu.SceneManager.CurrentScene.GetGameObject(int.Parse(payload));
-                            list[j] = foundGo;
-                            info.SetValue(componentInspectorData.Inspectable, list);
-                        }
-
-                        ImGui.EndDragDropTarget();
-                    }*/
-                }
-
-                info.SetValue(componentInspectorData.Inspectable, list);
-                // FieldInfo info;
-                // info.get
-                // info.SetValue(componentInspectorData.InspectableType, obj);
-            }
-        }
-        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
-        if (info.FieldOrPropertyType.BaseType == typeof(Enum))
-        {
-            _inspectorFieldDrawables[typeof(Enum)].Draw(info, componentInspectorData);
-        }
-        else
-        {
-            if (_inspectorFieldDrawables.ContainsKey(info.FieldOrPropertyType))
-            {
-
-                _inspectorFieldDrawables[info.FieldOrPropertyType].Draw(info, componentInspectorData);
-            }
-        }
-
-        if (info.IsReadonly)
-        {
-            ImGui.EndDisabled();
-        }
-
-        if (ImGui.IsItemEdited())
-        {
-            _editing = true;
-        }
-
-        return true;
-    }
-
-    public void OnAnyValueChanged()
-    {
-        AnyValueChanged?.Invoke();
-
         if (_materialToShowAtTheBottom != null)
         {
             // crashed when dragged mesh

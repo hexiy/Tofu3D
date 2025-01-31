@@ -9,7 +9,7 @@ public class ImGuiController : IDisposable
 {
     private static bool _khrDebugAvailable;
 
-    private readonly List<char> _pressedChars = new();
+    private readonly List<char> _pressedChars = new List<char>();
 
     private readonly System.Numerics.Vector2 _scaleFactor = System.Numerics.Vector2.One;
 
@@ -326,7 +326,7 @@ if(isArray == 1)
         io.MouseDown[1] = mouseState[MouseButton.Right];
         io.MouseDown[2] = mouseState[MouseButton.Middle];
 
-        Vector2 screenPoint = new(mouseState.X, mouseState.Y);
+        Vector2 screenPoint = new Vector2(mouseState.X, mouseState.Y);
         screenPoint *= Screen.ScaleI;
 
         io.MousePos = new System.Numerics.Vector2(screenPoint.X, screenPoint.Y);

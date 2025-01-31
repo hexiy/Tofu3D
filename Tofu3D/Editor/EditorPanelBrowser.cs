@@ -14,7 +14,7 @@ public class EditorPanelBrowser : EditorPanel
 
     private List<BrowserContextItem> _contextItems;
     private RuntimeTexture _directoryIcon;
-    Dictionary<string, DirectoryInfo> directoryInfos = new();
+    Dictionary<string, DirectoryInfo> directoryInfos = new Dictionary<string, DirectoryInfo>();
 
     private RuntimeTexture _fileIcon;
     private Vector2 _iconSize => new Vector2(100, 90) * Screen.Scale;
@@ -52,8 +52,8 @@ public class EditorPanelBrowser : EditorPanel
         }
     }
 
-    public override Vector2 Position => new(0, Tofu.Window.ClientSize.Y);
-    public override Vector2 Pivot => new(0, 1);
+    public override Vector2 Position => new Vector2(0, Tofu.Window.ClientSize.Y);
+    public override Vector2 Pivot => new Vector2(0, 1);
 
     public override string Name => "Browser";
     public static EditorPanelBrowser I { get; private set; }
@@ -93,17 +93,16 @@ public class EditorPanelBrowser : EditorPanel
 
     private void CreateContextItems()
     {
-        BrowserContextItem createSceneContextItem = new("Create Scene", "scene", ".scene",
+        BrowserContextItem createSceneContextItem = new BrowserContextItem("Create Scene", "scene", ".scene",
             filePath =>
             {
                 Tofu.SceneManager.CurrentScene.SetupAndSaveEmptyScene(filePath);
                 RefreshAssets();
             });
-        BrowserContextItem createMaterialContextItem = new("Create Material", "mat", ".mat",
+        BrowserContextItem createMaterialContextItem = new BrowserContextItem("Create Material", "mat", ".mat",
             filePath =>
             {
-                Asset_Material createdMaterial = new();
-                createdMaterial.PathInAssetsFolder = filePath;
+                Asset_Material createdMaterial = new Asset_Material { PathInAssetsFolder = filePath };
                 Tofu.AssetLoadManager.Save<Asset_Material>(filePath, createdMaterial);
                 RefreshAssets();
             });

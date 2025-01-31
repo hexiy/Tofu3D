@@ -369,7 +369,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     // }
 
     public Vector4 GetSize() =>
-        new(BoxShape.Size.X * Transform.LocalScale.X, BoxShape.Size.Y * Transform.LocalScale.Y, 1, 1);
+        new Vector4(BoxShape.Size.X * Transform.LocalScale.X, BoxShape.Size.Y * Transform.LocalScale.Y, 1, 1);
 
     private float CalculateDistanceFromCamera() =>
         Vector3.Distance(Transform.WorldPosition, Camera.MainCamera.Transform.WorldPosition);

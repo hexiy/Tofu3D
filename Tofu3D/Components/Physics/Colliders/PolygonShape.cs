@@ -11,18 +11,18 @@ public class PolygonShape : Shape
     [XmlIgnore]
     public Action OnPointsEdit; // = Engine.ColliderEditor.GetInstance().ToggleEditing;
 
-    public Vector2 Position = new(0, 0);
+    public Vector2 Position = new Vector2(0, 0);
 
     /// <summary>
     ///     LOCAL points
     /// </summary>
 
     [Show]
-    public List<Vector2> Points { get; } = new();
+    public List<Vector2> Points { get; } = new List<Vector2>();
 
-    public List<Vector2> OriginalPoints { get; } = new();
+    public List<Vector2> OriginalPoints { get; } = new List<Vector2>();
 
-    public List<Vector2> Edges { get; } = new() { new Vector2(0, 0) };
+    public List<Vector2> Edges { get; } = new List<Vector2> { new Vector2(0, 0) };
 
     /// <summary>
     ///     Returns center in WORLD

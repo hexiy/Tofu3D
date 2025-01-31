@@ -5,7 +5,7 @@ namespace Tofu3D;
 
 public class SceneSerializer
 {
-    private List<Type> _serializableTypes = new();
+    private List<Type> _serializableTypes = new List<Type>();
 
     private XmlSerializer _xmlSerializer;
 
@@ -78,7 +78,7 @@ public class SceneSerializer
         // Debug.StartTimer(timerName);
 
 
-        StreamReader sr = new(prefabPath);
+        StreamReader sr = new StreamReader(prefabPath);
         // maybe cache streamreader in a dictionary and close it after few frames if not used?
         SceneFile sceneFile = (SceneFile)_xmlSerializer.Deserialize(sr);
         sr.Close();
@@ -119,7 +119,7 @@ public class SceneSerializer
     public void SaveGameObjects(SceneFile sceneFile, string scenePath)
     {
         File.Create(scenePath).Close();
-        using (StreamWriter sw = new(scenePath))
+        using (StreamWriter sw = new StreamWriter(scenePath))
         {
             for (int i = 0; i < sceneFile.GameObjects.Count; i++)
             {
@@ -194,7 +194,7 @@ public class SceneSerializer
             sw.Write(xml);
         }*/
 
-        using StreamReader sr = new(scenePath);
+        using StreamReader sr = new StreamReader(scenePath);
 
         bool TESTING_HOT_RELOADING_CRASH = true; //hot reloading not working but this is not it
         if (TESTING_HOT_RELOADING_CRASH == false)
@@ -287,7 +287,7 @@ public class SceneSerializer
             File.WriteAllText(scenePath, finalSceneText);
         }
 
-        using StreamReader sr2 = new(scenePath);
+        using StreamReader sr2 = new StreamReader(scenePath);
 
         SceneFile sceneFile = (SceneFile)_xmlSerializer.Deserialize(sr2);
         return sceneFile;

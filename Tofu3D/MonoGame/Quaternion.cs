@@ -95,7 +95,7 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <summary>
     ///     Returns a quaternion representing no rotation.
     /// </summary>
-    public static Quaternion Identity { get; } = new(0, 0, 0, 1);
+    public static Quaternion Identity { get; } = new Quaternion(0, 0, 0, 1);
 
     #endregion
 
@@ -233,7 +233,7 @@ public struct Quaternion : IEquatable<Quaternion>
     /// </summary>
     /// <param name="value">The quaternion which values will be used to create the conjugated version.</param>
     /// <returns>The conjugate version of the specified quaternion.</returns>
-    public static Quaternion Conjugate(Quaternion value) => new(-value.X, -value.Y, -value.Z, value.W);
+    public static Quaternion Conjugate(Quaternion value) => new Quaternion(-value.X, -value.Y, -value.Z, value.W);
 
     /// <summary>
     ///     Creates a new <see cref="Quaternion" /> that contains conjugated version of the specified quaternion.
@@ -710,7 +710,7 @@ public struct Quaternion : IEquatable<Quaternion>
     {
         float num = amount;
         float num2 = 1f - num;
-        Quaternion quaternion = new();
+        Quaternion quaternion = new Quaternion();
         float num5 = quaternion1.X * quaternion2.X + quaternion1.Y * quaternion2.Y + quaternion1.Z * quaternion2.Z +
                      quaternion1.W * quaternion2.W;
         if (num5 >= 0f)
@@ -1006,7 +1006,7 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <param name="quaternion">Source <see cref="Quaternion" />.</param>
     /// <returns>The result of the quaternion negation.</returns>
     public static Quaternion Negate(Quaternion quaternion) =>
-        new(-quaternion.X, -quaternion.Y, -quaternion.Z, -quaternion.W);
+        new Quaternion(-quaternion.X, -quaternion.Y, -quaternion.Z, -quaternion.W);
 
     /// <summary>
     ///     Flips the sign of the all the quaternion components.
@@ -1082,7 +1082,7 @@ public struct Quaternion : IEquatable<Quaternion>
     ///     Gets a <see cref="Vector4" /> representation for this object.
     /// </summary>
     /// <returns>A <see cref="Vector4" /> representation for this object.</returns>
-    public Vector4 ToVector4() => new(X, Y, Z, W);
+    public Vector4 ToVector4() => new Vector4(X, Y, Z, W);
 
     public void Deconstruct(out float x, out float y, out float z, out float w)
     {
@@ -1095,7 +1095,7 @@ public struct Quaternion : IEquatable<Quaternion>
     /// <summary>
     ///     Returns a <see cref="System.Numerics.Quaternion" />.
     /// </summary>
-    public System.Numerics.Quaternion ToNumerics() => new(X, Y, Z, W);
+    public System.Numerics.Quaternion ToNumerics() => new System.Numerics.Quaternion(X, Y, Z, W);
 
     #endregion
 
@@ -1106,14 +1106,14 @@ public struct Quaternion : IEquatable<Quaternion>
     /// </summary>
     /// <param name="value">The converted value.</param>
     public static implicit operator Quaternion(System.Numerics.Quaternion value) =>
-        new(value.X, value.Y, value.Z, value.W);
+        new Quaternion(value.X, value.Y, value.Z, value.W);
 
     /// <summary>
     ///     Converts a <see cref="Quaternion" /> to a <see cref="System.Numerics.Quaternion" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
     public static implicit operator System.Numerics.Quaternion(Quaternion value) =>
-        new(value.X, value.Y, value.Z, value.W);
+        new System.Numerics.Quaternion(value.X, value.Y, value.Z, value.W);
     
 
     /// <summary>

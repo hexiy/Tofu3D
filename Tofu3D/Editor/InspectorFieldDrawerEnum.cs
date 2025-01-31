@@ -25,7 +25,8 @@ public class InspectorFieldDrawerEnum : InspectorFieldDrawable<Enum>
             SetValue(info, componentInspectorData,
                 (Enum)Enum.ToObject(info.FieldOrPropertyType, (Enum)selectedEnumValue));
             // info.SetValue(componentInspectorData.Inspectable, Enum.ToObject(info.FieldOrPropertyType, _selectedEnumValueIndex));
-            EditorPanelInspector.I.QueueInspectorRefresh();
+
+            componentInspectorData.Inspector.QueueRefresh(componentInspectorData);
         }
         // bool enumClicked = ImGui.IsItemClicked();
         //

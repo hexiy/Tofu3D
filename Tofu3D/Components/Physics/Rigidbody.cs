@@ -14,7 +14,7 @@ public class Rigidbody : Component
     public bool IsStaticBody = true;
 
     [XmlIgnore]
-    public List<Rigidbody> TouchingRigidbodies = new();
+    public List<Rigidbody> TouchingRigidbodies = new List<Rigidbody>();
 
     public Shape[] GetShapes()
     {

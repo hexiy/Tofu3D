@@ -2,7 +2,7 @@
 
 public class UpdateableComponentQueue : IComponentQueue
 {
-    private readonly List<IComponentUpdateable> _components = new();
+    private readonly List<IComponentUpdateable> _components = new List<IComponentUpdateable>();
 
     public UpdateableComponentQueue()
     {

@@ -5,14 +5,14 @@ namespace Tofu3D;
 
 public class Debug
 {
-    private static List<LogEntry> _logs = new();
+    private static List<LogEntry> _logs = new List<LogEntry>();
 
     public static readonly int Limit = 3000;
 
-    public static Dictionary<string, DebugGraphTimer> GraphTimers = new();
-    public static Dictionary<string, Stopwatch> SimpleTimers = new();
-    public static Dictionary<string, string> Stats = new();
-    public static Dictionary<string, float> AdditiveStats = new();
+    public static Dictionary<string, DebugGraphTimer> GraphTimers = new Dictionary<string, DebugGraphTimer>();
+    public static Dictionary<string, Stopwatch> SimpleTimers = new Dictionary<string, Stopwatch>();
+    public static Dictionary<string, string> Stats = new Dictionary<string, string>();
+    public static Dictionary<string, float> AdditiveStats = new Dictionary<string, float>();
 
     public static bool Paused = false;
 
@@ -29,7 +29,7 @@ public class Debug
         }
 
         StackTrace stackTrace = StackTraceFactory.GetStackTrace();
-        LogEntry logEntry = new()
+        LogEntry logEntry = new LogEntry
         {
             Message = message, StackTrace = stackTrace,
             Time = $"[{DateTime.Now:HH:mm:ss}:{DateTime.Now.Millisecond:000}]", LogCategory = logCategory
@@ -87,7 +87,7 @@ public class Debug
         }
         else
         {
-            DebugGraphTimer debugGraphTimer = new(timerName, group, redline, drawOrder);
+            DebugGraphTimer debugGraphTimer = new DebugGraphTimer(timerName, group, redline, drawOrder);
 
             GraphTimers.Add(timerName, debugGraphTimer);
             GraphTimers = new Dictionary<string, DebugGraphTimer>(GraphTimers.OrderBy(x => x.Value));
@@ -112,7 +112,7 @@ public class Debug
             }
             else
             {
-                Stopwatch sw = new();
+                Stopwatch sw = new Stopwatch();
                 SimpleTimers.Add(timerName, sw);
 
                 sw.Start();

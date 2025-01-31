@@ -24,7 +24,7 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
         }
 
 
-        RuntimeTexture runtimeTexture = new()
+        RuntimeTexture runtimeTexture = new RuntimeTexture
         {
             BoundingBoxInAtlas = assetTexture.BoundingBoxInAtlas,
             IndexInAtlasTextureArray = assetTexture.IndexInAtlasTextureArray,

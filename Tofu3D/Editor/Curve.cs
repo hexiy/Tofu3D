@@ -28,7 +28,7 @@ public class Curve
         if (DefiningPoints == null || DefiningPoints.Count < 2)
             // return;
         {
-            DefiningPoints = new List<Vector2> { new(0, 0f), new(1f, 1f) };
+            DefiningPoints = new List<Vector2> { new Vector2(0, 0f), new Vector2(1f, 1f) };
         }
         // DefiningPoints.Sort((vector2, vector3) => vector2.X.CompareTo(vector3.X));
         // DefiningPoints.Sort((v1,v2)=>v1.X.CompareTo(v2.X));

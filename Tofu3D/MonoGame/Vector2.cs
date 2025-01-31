@@ -44,32 +44,32 @@ public struct Vector2 : IEquatable<Vector2>
     /// <summary>
     ///     Returns a <see cref="Vector2" /> with components 0, 0.
     /// </summary>
-    public static Vector2 Zero { get; } = new(0f, 0f);
+    public static Vector2 Zero { get; } = new Vector2(0f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector2" /> with components 1, 1.
     /// </summary>
-    public static Vector2 One { get; } = new(1f, 1f);
+    public static Vector2 One { get; } = new Vector2(1f, 1f);
 
     /// <summary>
     ///     Returns a <see cref="Vector2" /> with components -1, 0.
     /// </summary>
-    public static Vector2 Left { get; } = new(-1f, 0f);
+    public static Vector2 Left { get; } = new Vector2(-1f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector2" /> with components -1, 0.
     /// </summary>
-    public static Vector2 Right { get; } = new(1f, 0f);
+    public static Vector2 Right { get; } = new Vector2(1f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector2" /> with components -1, 0.
     /// </summary>
-    public static Vector2 Up { get; } = new(0f, 1f);
+    public static Vector2 Up { get; } = new Vector2(0f, 1f);
 
     /// <summary>
     ///     Returns a <see cref="Vector2" /> with components -1, 0.
     /// </summary>
-    public static Vector2 Down { get; } = new(0f, -1f);
+    public static Vector2 Down { get; } = new Vector2(0f, -1f);
 
     #endregion
 
@@ -116,25 +116,26 @@ public struct Vector2 : IEquatable<Vector2>
     ///     Converts a <see cref="System.Numerics.Vector2" /> to a <see cref="Vector2" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator Vector2(System.Numerics.Vector2 value) => new(value.X, value.Y);
+    public static implicit operator Vector2(System.Numerics.Vector2 value) => new Vector2(value.X, value.Y);
 
     /// <summary>
     ///     Converts a <see cref="OpenTK.Mathematics.Vector2" /> to a <see cref="Vector2" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator Vector2(OpenTK.Mathematics.Vector2 value) => new(value.X, value.Y);
+    public static implicit operator Vector2(OpenTK.Mathematics.Vector2 value) => new Vector2(value.X, value.Y);
 
     /// <summary>
     ///     Converts a <see cref="System.Numerics.Vector2" /> to a <see cref="Vector2" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator System.Numerics.Vector2(Vector2 value) => new(value.X, value.Y);
+    public static implicit operator System.Numerics.Vector2(Vector2 value) =>
+        new System.Numerics.Vector2(value.X, value.Y);
 
     /// <summary>
     ///     Converts a <see cref="Vector3" /> to a <see cref="Vector2" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator Vector2(Vector3 value) => new(value.X, value.Y);
+    public static implicit operator Vector2(Vector3 value) => new Vector2(value.X, value.Y);
 
     /// <summary>
     ///     Inverts values in the specified <see cref="Vector2" />.
@@ -403,8 +404,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// </param>
     /// <returns>The cartesian translation of barycentric coordinates.</returns>
     public static Vector2 Barycentric(Vector2 value1, Vector2 value2, Vector2 value3, float amount1, float amount2) =>
-        new(
-            Mathf.Barycentric(value1.X, value2.X, value3.X, amount1, amount2),
+        new Vector2(Mathf.Barycentric(value1.X, value2.X, value3.X, amount1, amount2),
             Mathf.Barycentric(value1.Y, value2.Y, value3.Y, amount1, amount2));
 
     /// <summary>
@@ -440,8 +440,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="amount">Weighting factor.</param>
     /// <returns>The result of CatmullRom interpolation.</returns>
     public static Vector2 CatmullRom(Vector2 value1, Vector2 value2, Vector2 value3, Vector2 value4, float amount) =>
-        new(
-            Mathf.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
+        new Vector2(Mathf.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
             Mathf.CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount));
 
     /// <summary>
@@ -502,9 +501,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="max">The max value.</param>
     /// <returns>The clamped value.</returns>
     public static Vector2 Clamp(Vector2 value1, Vector2 min, Vector2 max) =>
-        new(
-            Mathf.Clamp(value1.X, min.X, max.X),
-            Mathf.Clamp(value1.Y, min.Y, max.Y));
+        new Vector2(Mathf.Clamp(value1.X, min.X, max.X), Mathf.Clamp(value1.Y, min.Y, max.Y));
 
     /// <summary>
     ///     Clamps the specified value within a range.
@@ -716,7 +713,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="amount">Weighting factor.</param>
     /// <returns>The hermite spline interpolation vector.</returns>
     public static Vector2 Hermite(Vector2 value1, Vector2 tangent1, Vector2 value2, Vector2 tangent2, float amount) =>
-        new(Mathf.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount),
+        new Vector2(Mathf.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount),
             Mathf.Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount));
 
     /// <summary>
@@ -787,9 +784,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
     /// <returns>The result of linear interpolation of the specified vectors.</returns>
     public static Vector2 LerpPrecise(Vector2 value1, Vector2 value2, float amount) =>
-        new(
-            Mathf.LerpPrecise(value1.X, value2.X, amount),
-            Mathf.LerpPrecise(value1.Y, value2.Y, amount));
+        new Vector2(Mathf.LerpPrecise(value1.X, value2.X, amount), Mathf.LerpPrecise(value1.Y, value2.Y, amount));
 
     /// <summary>
     ///     Creates a new <see cref="Vector2" /> that contains linear interpolation of the specified vectors.
@@ -815,8 +810,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="value2">The second vector.</param>
     /// <returns>The <see cref="Vector2" /> with maximal values from the two vectors.</returns>
     public static Vector2 Max(Vector2 value1, Vector2 value2) =>
-        new(value1.X > value2.X ? value1.X : value2.X,
-            value1.Y > value2.Y ? value1.Y : value2.Y);
+        new Vector2(value1.X > value2.X ? value1.X : value2.X, value1.Y > value2.Y ? value1.Y : value2.Y);
 
     /// <summary>
     ///     Creates a new <see cref="Vector2" /> that contains a maximal values from the two vectors.
@@ -837,8 +831,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="value2">The second vector.</param>
     /// <returns>The <see cref="Vector2" /> with minimal values from the two vectors.</returns>
     public static Vector2 Min(Vector2 value1, Vector2 value2) =>
-        new(value1.X < value2.X ? value1.X : value2.X,
-            value1.Y < value2.Y ? value1.Y : value2.Y);
+        new Vector2(value1.X < value2.X ? value1.X : value2.X, value1.Y < value2.Y ? value1.Y : value2.Y);
 
     /// <summary>
     ///     Creates a new <see cref="Vector2" /> that contains a minimal values from the two vectors.
@@ -1030,9 +1023,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="amount">Weighting value.</param>
     /// <returns>Cubic interpolation of the specified vectors.</returns>
     public static Vector2 SmoothStep(Vector2 value1, Vector2 value2, float amount) =>
-        new(
-            Mathf.SmoothStep(value1.X, value2.X, amount),
-            Mathf.SmoothStep(value1.Y, value2.Y, amount));
+        new Vector2(Mathf.SmoothStep(value1.X, value2.X, amount), Mathf.SmoothStep(value1.Y, value2.Y, amount));
 
     /// <summary>
     ///     Creates a new <see cref="Vector2" /> that contains cubic interpolation of the specified vectors.
@@ -1072,7 +1063,7 @@ public struct Vector2 : IEquatable<Vector2>
         result.Y = value1.Y - value2.Y;
     }
 
-    static StringBuilder sbV2 = new(32);
+    static StringBuilder sbV2 = new StringBuilder(32);
 
     /// <summary>
     ///     Returns a <see cref="String" /> representation of this <see cref="Vector2" /> in the format:
@@ -1094,7 +1085,7 @@ public struct Vector2 : IEquatable<Vector2>
     ///     Gets a <see cref="Point" /> representation for this object.
     /// </summary>
     /// <returns>A <see cref="Point" /> representation for this object.</returns>
-    public Point ToPoint() => new((int)X, (int)Y);
+    public Point ToPoint() => new Point((int)X, (int)Y);
 
     /// <summary>
     ///     Creates a new <see cref="Vector2" /> that contains a transformation of 2d-vector by the specified
@@ -1104,7 +1095,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
     /// <returns>Transformed <see cref="Vector2" />.</returns>
     public static Vector2 Transform(Vector2 position, Matrix matrix) =>
-        new(position.X * matrix.M11 + position.Y * matrix.M21 + matrix.M41,
+        new Vector2(position.X * matrix.M11 + position.Y * matrix.M21 + matrix.M41,
             position.X * matrix.M12 + position.Y * matrix.M22 + matrix.M42);
 
     /// <summary>
@@ -1144,15 +1135,17 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="result">Transformed <see cref="Vector2" /> as an output parameter.</param>
     public static void Transform(ref Vector2 value, ref Quaternion rotation, out Vector2 result)
     {
-        Vector3 rot1 = new(rotation.X + rotation.X, rotation.Y + rotation.Y, rotation.Z + rotation.Z);
-        Vector3 rot2 = new(rotation.X, rotation.X, rotation.W);
-        Vector3 rot3 = new(1, rotation.Y, rotation.Z);
+        Vector3 rot1 = new Vector3(rotation.X + rotation.X, rotation.Y + rotation.Y, rotation.Z + rotation.Z);
+        Vector3 rot2 = new Vector3(rotation.X, rotation.X, rotation.W);
+        Vector3 rot3 = new Vector3(1, rotation.Y, rotation.Z);
         Vector3 rot4 = rot1 * rot2;
         Vector3 rot5 = rot1 * rot3;
 
-        Vector2 v = new();
-        v.X = (float)(value.X * (1.0 - rot5.Y - rot5.Z) + value.Y * (rot4.Y - (double)rot4.Z));
-        v.Y = (float)(value.X * (rot4.Y + (double)rot4.Z) + value.Y * (1.0 - rot4.X - rot5.Z));
+        Vector2 v = new Vector2
+        {
+            X = (float)(value.X * (1.0 - rot5.Y - rot5.Z) + value.Y * (rot4.Y - (double)rot4.Z)),
+            Y = (float)(value.X * (rot4.Y + (double)rot4.Z) + value.Y * (1.0 - rot4.X - rot5.Z))
+        };
         result.X = v.X;
         result.Y = v.Y;
     }
@@ -1298,8 +1291,7 @@ public struct Vector2 : IEquatable<Vector2>
     /// <param name="matrix">The transformation <see cref="Matrix" />.</param>
     /// <returns>Transformed normal.</returns>
     public static Vector2 TransformNormal(Vector2 normal, Matrix matrix) =>
-        new(normal.X * matrix.M11 + normal.Y * matrix.M21,
-            normal.X * matrix.M12 + normal.Y * matrix.M22);
+        new Vector2(normal.X * matrix.M11 + normal.Y * matrix.M21, normal.X * matrix.M12 + normal.Y * matrix.M22);
 
     /// <summary>
     ///     Creates a new <see cref="Vector2" /> that contains a transformation of the specified normal by the specified
@@ -1414,13 +1406,13 @@ public struct Vector2 : IEquatable<Vector2>
     /// <summary>
     ///     Returns a <see cref="System.Numerics.Vector2" />.
     /// </summary>
-    public System.Numerics.Vector2 ToNumericsVector2() => new(X, Y);
+    public System.Numerics.Vector2 ToNumericsVector2() => new System.Numerics.Vector2(X, Y);
 
     /// <summary>
     ///     Returns a <see cref="System.Numerics.Vector2" />.
     /// </summary>
     // ReSharper disable once InconsistentNaming
-    public OpenTK.Mathematics.Vector2 ToOpenTKVector2() => new(X, Y);
+    public OpenTK.Mathematics.Vector2 ToOpenTKVector2() => new OpenTK.Mathematics.Vector2(X, Y);
 
     #endregion
 }

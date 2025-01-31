@@ -50,36 +50,36 @@ public struct Vector4 : IEquatable<Vector4>
     /// <summary>
     ///     Returns a <see cref="Vector4" /> with components 0, 0, 0, 0.
     /// </summary>
-    public static Vector4 Zero { get; } = new();
+    public static Vector4 Zero { get; } = new Vector4();
 
     /// <summary>
     ///     Returns a <see cref="Vector4" /> with components 1, 1, 1, 1.
     /// </summary>
-    public static Vector4 One { get; } = new(1f, 1f, 1f, 1f);
+    public static Vector4 One { get; } = new Vector4(1f, 1f, 1f, 1f);
 
     /// <summary>
     ///     Returns a <see cref="Vector4" /> with components 1, 0, 0, 0.
     /// </summary>
-    public static Vector4 UnitX { get; } = new(1f, 0f, 0f, 0f);
+    public static Vector4 UnitX { get; } = new Vector4(1f, 0f, 0f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector4" /> with components 0, 1, 0, 0.
     /// </summary>
-    public static Vector4 UnitY { get; } = new(0f, 1f, 0f, 0f);
+    public static Vector4 UnitY { get; } = new Vector4(0f, 1f, 0f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector4" /> with components 0, 0, 1, 0.
     /// </summary>
-    public static Vector4 UnitZ { get; } = new(0f, 0f, 1f, 0f);
+    public static Vector4 UnitZ { get; } = new Vector4(0f, 0f, 1f, 0f);
 
     /// <summary>
     ///     Returns a <see cref="Vector4" /> with components 0, 0, 0, 1.
     /// </summary>
-    public static Vector4 UnitW { get; } = new(0f, 0f, 0f, 1f);
+    public static Vector4 UnitW { get; } = new Vector4(0f, 0f, 0f, 1f);
 
 
-    public Vector2 XY => new(X, Y);
-    public Vector2 ZW => new(Z, W);
+    public Vector2 XY => new Vector2(X, Y);
+    public Vector2 ZW => new Vector2(Z, W);
 
     #endregion
 
@@ -203,8 +203,7 @@ public struct Vector4 : IEquatable<Vector4>
     /// </param>
     /// <returns>The cartesian translation of barycentric coordinates.</returns>
     public static Vector4 Barycentric(Vector4 value1, Vector4 value2, Vector4 value3, float amount1, float amount2) =>
-        new(
-            Mathf.Barycentric(value1.X, value2.X, value3.X, amount1, amount2),
+        new Vector4(Mathf.Barycentric(value1.X, value2.X, value3.X, amount1, amount2),
             Mathf.Barycentric(value1.Y, value2.Y, value3.Y, amount1, amount2),
             Mathf.Barycentric(value1.Z, value2.Z, value3.Z, amount1, amount2),
             Mathf.Barycentric(value1.W, value2.W, value3.W, amount1, amount2));
@@ -244,8 +243,7 @@ public struct Vector4 : IEquatable<Vector4>
     /// <param name="amount">Weighting factor.</param>
     /// <returns>The result of CatmullRom interpolation.</returns>
     public static Vector4 CatmullRom(Vector4 value1, Vector4 value2, Vector4 value3, Vector4 value4, float amount) =>
-        new(
-            Mathf.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
+        new Vector4(Mathf.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
             Mathf.CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount),
             Mathf.CatmullRom(value1.Z, value2.Z, value3.Z, value4.Z, amount),
             Mathf.CatmullRom(value1.W, value2.W, value3.W, value4.W, amount));
@@ -316,11 +314,8 @@ public struct Vector4 : IEquatable<Vector4>
     /// <param name="max">The max value.</param>
     /// <returns>The clamped value.</returns>
     public static Vector4 Clamp(Vector4 value1, Vector4 min, Vector4 max) =>
-        new(
-            Mathf.Clamp(value1.X, min.X, max.X),
-            Mathf.Clamp(value1.Y, min.Y, max.Y),
-            Mathf.Clamp(value1.Z, min.Z, max.Z),
-            Mathf.Clamp(value1.W, min.W, max.W));
+        new Vector4(Mathf.Clamp(value1.X, min.X, max.X), Mathf.Clamp(value1.Y, min.Y, max.Y),
+            Mathf.Clamp(value1.Z, min.Z, max.Z), Mathf.Clamp(value1.W, min.W, max.W));
 
     /// <summary>
     ///     Clamps the specified value within a range.
@@ -542,7 +537,7 @@ public struct Vector4 : IEquatable<Vector4>
     /// <param name="amount">Weighting factor.</param>
     /// <returns>The hermite spline interpolation vector.</returns>
     public static Vector4 Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount) =>
-        new(Mathf.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount),
+        new Vector4(Mathf.Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount),
             Mathf.Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount),
             Mathf.Hermite(value1.Z, tangent1.Z, value2.Z, tangent2.Z, amount),
             Mathf.Hermite(value1.W, tangent1.W, value2.W, tangent2.W, amount));
@@ -585,11 +580,8 @@ public struct Vector4 : IEquatable<Vector4>
     /// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
     /// <returns>The result of linear interpolation of the specified vectors.</returns>
     public static Vector4 Lerp(Vector4 value1, Vector4 value2, float amount) =>
-        new(
-            Mathf.Lerp(value1.X, value2.X, amount),
-            Mathf.Lerp(value1.Y, value2.Y, amount),
-            Mathf.Lerp(value1.Z, value2.Z, amount),
-            Mathf.Lerp(value1.W, value2.W, amount));
+        new Vector4(Mathf.Lerp(value1.X, value2.X, amount), Mathf.Lerp(value1.Y, value2.Y, amount),
+            Mathf.Lerp(value1.Z, value2.Z, amount), Mathf.Lerp(value1.W, value2.W, amount));
 
     /// <summary>
     ///     Creates a new <see cref="Vector4" /> that contains linear interpolation of the specified vectors.
@@ -617,11 +609,8 @@ public struct Vector4 : IEquatable<Vector4>
     /// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
     /// <returns>The result of linear interpolation of the specified vectors.</returns>
     public static Vector4 LerpPrecise(Vector4 value1, Vector4 value2, float amount) =>
-        new(
-            Mathf.LerpPrecise(value1.X, value2.X, amount),
-            Mathf.LerpPrecise(value1.Y, value2.Y, amount),
-            Mathf.LerpPrecise(value1.Z, value2.Z, amount),
-            Mathf.LerpPrecise(value1.W, value2.W, amount));
+        new Vector4(Mathf.LerpPrecise(value1.X, value2.X, amount), Mathf.LerpPrecise(value1.Y, value2.Y, amount),
+            Mathf.LerpPrecise(value1.Z, value2.Z, amount), Mathf.LerpPrecise(value1.W, value2.W, amount));
 
     /// <summary>
     ///     Creates a new <see cref="Vector4" /> that contains linear interpolation of the specified vectors.
@@ -649,10 +638,7 @@ public struct Vector4 : IEquatable<Vector4>
     /// <param name="value2">The second vector.</param>
     /// <returns>The <see cref="Vector4" /> with maximal values from the two vectors.</returns>
     public static Vector4 Max(Vector4 value1, Vector4 value2) =>
-        new(
-            Mathf.Max(value1.X, value2.X),
-            Mathf.Max(value1.Y, value2.Y),
-            Mathf.Max(value1.Z, value2.Z),
+        new Vector4(Mathf.Max(value1.X, value2.X), Mathf.Max(value1.Y, value2.Y), Mathf.Max(value1.Z, value2.Z),
             Mathf.Max(value1.W, value2.W));
 
     /// <summary>
@@ -676,10 +662,7 @@ public struct Vector4 : IEquatable<Vector4>
     /// <param name="value2">The second vector.</param>
     /// <returns>The <see cref="Vector4" /> with minimal values from the two vectors.</returns>
     public static Vector4 Min(Vector4 value1, Vector4 value2) =>
-        new(
-            Mathf.Min(value1.X, value2.X),
-            Mathf.Min(value1.Y, value2.Y),
-            Mathf.Min(value1.Z, value2.Z),
+        new Vector4(Mathf.Min(value1.X, value2.X), Mathf.Min(value1.Y, value2.Y), Mathf.Min(value1.Z, value2.Z),
             Mathf.Min(value1.W, value2.W));
 
     /// <summary>
@@ -866,11 +849,8 @@ public struct Vector4 : IEquatable<Vector4>
     /// <param name="amount">Weighting value.</param>
     /// <returns>Cubic interpolation of the specified vectors.</returns>
     public static Vector4 SmoothStep(Vector4 value1, Vector4 value2, float amount) =>
-        new(
-            Mathf.SmoothStep(value1.X, value2.X, amount),
-            Mathf.SmoothStep(value1.Y, value2.Y, amount),
-            Mathf.SmoothStep(value1.Z, value2.Z, amount),
-            Mathf.SmoothStep(value1.W, value2.W, amount));
+        new Vector4(Mathf.SmoothStep(value1.X, value2.X, amount), Mathf.SmoothStep(value1.Y, value2.Y, amount),
+            Mathf.SmoothStep(value1.Z, value2.Z, amount), Mathf.SmoothStep(value1.W, value2.W, amount));
 
     /// <summary>
     ///     Creates a new <see cref="Vector4" /> that contains cubic interpolation of the specified vectors.
@@ -1269,7 +1249,7 @@ public struct Vector4 : IEquatable<Vector4>
     /// <summary>
     ///     Returns a <see cref="System.Numerics.Vector4" />.
     /// </summary>
-    public System.Numerics.Vector4 ToNumerics() => new(X, Y, Z, W);
+    public System.Numerics.Vector4 ToNumerics() => new System.Numerics.Vector4(X, Y, Z, W);
 
     #endregion
 
@@ -1279,13 +1259,15 @@ public struct Vector4 : IEquatable<Vector4>
     ///     Converts a <see cref="System.Numerics.Vector4" /> to a <see cref="Vector4" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator Vector4(System.Numerics.Vector4 value) => new(value.X, value.Y, value.Z, value.W);
+    public static implicit operator Vector4(System.Numerics.Vector4 value) =>
+        new Vector4(value.X, value.Y, value.Z, value.W);
 
     /// <summary>
     ///     Converts a <see cref="Vector4" /> to a <see cref="System.Numerics.Vector4" />.
     /// </summary>
     /// <param name="value">The converted value.</param>
-    public static implicit operator System.Numerics.Vector4(Vector4 value) => new(value.X, value.Y, value.Z, value.W);
+    public static implicit operator System.Numerics.Vector4(Vector4 value) =>
+        new System.Numerics.Vector4(value.X, value.Y, value.Z, value.W);
 
     public static implicit operator Color(Vector4 vec4) => vec4.ToColor();
     
@@ -1294,7 +1276,7 @@ public struct Vector4 : IEquatable<Vector4>
     /// </summary>
     /// <param name="value">Source <see cref="Vector4" /> on the right of the sub sign.</param>
     /// <returns>Result of the inversion.</returns>
-    public static Vector4 operator -(Vector4 value) => new(-value.X, -value.Y, -value.Z, -value.W);
+    public static Vector4 operator -(Vector4 value) => new Vector4(-value.X, -value.Y, -value.Z, -value.W);
 
     /// <summary>
     ///     Compares whether two <see cref="Vector4" /> instances are equal.

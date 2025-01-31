@@ -6,7 +6,7 @@ public class MouseInput
 {
     public delegate void MouseEvent();
 
-    private readonly List<Func<bool>> _passThroughEdgesConditions = new();
+    private readonly List<Func<bool>> _passThroughEdgesConditions = new List<Func<bool>>();
 
     //
     // Summary:
@@ -142,7 +142,7 @@ public class MouseInput
 
         ScreenDelta = PositionInWindow - oldPosition;
 
-        Vector2 mousePosCorrected = new(PositionInWindow.X, Tofu.Window.Size.Y - PositionInWindow.Y);
+        Vector2 mousePosCorrected = new Vector2(PositionInWindow.X, Tofu.Window.Size.Y - PositionInWindow.Y);
         // Debug.StatSetValue("mousePos", $"MousePos:{mousePosCorrected}");
         bool passedThroughEdge = false;
         if (allowPassThroughEdges)

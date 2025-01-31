@@ -137,7 +137,7 @@ public class GameObjectSelectionManager
 
     public List<GameObject> GetSelectedGameObjects()
     {
-        List<GameObject> selectedGameObjects = new();
+        List<GameObject> selectedGameObjects = new List<GameObject>();
         for (int i = 0; i < Tofu.SceneManager.CurrentScene.GameObjects.Count; i++)
         {
             if (Tofu.SceneManager.CurrentScene.GameObjects[i].Selected)

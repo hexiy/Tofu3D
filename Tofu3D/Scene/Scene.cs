@@ -20,7 +20,7 @@ public class Scene
     private UpdateableComponentQueue _updateableComponentQueue;
 
     // List<GameObject> _gameObjects = new();
-    public List<GameObject> GameObjects = new();
+    public List<GameObject> GameObjects = new List<GameObject>();
 
     /*{
         get
@@ -288,9 +288,11 @@ public class Scene
 
     public SceneFile GetSceneFile()
     {
-        SceneFile sf = new();
-        sf.Components = new List<Component>();
-        sf.GameObjects = new List<GameObject>();
+        SceneFile sf = new SceneFile
+        {
+            Components = [],
+            GameObjects = []
+        };
         for (int i = 0; i < GameObjects.Count; i++)
         {
             GameObjects[i].IndexInHierarchy = i;
@@ -354,7 +356,7 @@ public class Scene
 
     public List<T> FindComponentsInScene<T>(bool ignoreInactive = false) where T : Component
     {
-        List<T> components = new();
+        List<T> components = new List<T>();
         foreach (GameObject gameObject in GameObjects)
         {
             T? bl = gameObject.GetComponent<T>();
@@ -387,7 +389,7 @@ public class Scene
 
     public List<GameObject> GetGameObjectsByIDs(List<int> ids)
     {
-        List<GameObject> foundGameObjects = new();
+        List<GameObject> foundGameObjects = new List<GameObject>();
         for (int i = 0; i < GameObjects.Count; i++)
         {
             if (ids.Contains(GameObjects[i].Id))

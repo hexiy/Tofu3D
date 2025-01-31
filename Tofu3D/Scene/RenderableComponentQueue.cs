@@ -3,10 +3,10 @@ namespace Tofu3D;
 public class RenderableComponentQueue : IComponentQueue
 {
     // bool _renderQueueChanged;
-    private readonly List<IComponentRenderable> _opaqueRenderables = new();
-    private readonly List<IComponentRenderable> _transparentRenderables = new();
-    private readonly List<IComponentRenderable> _opaqueRenderablesToRemove = new();
-    private readonly List<IComponentRenderable> _transparentRenderablesToRemove = new();
+    private readonly List<IComponentRenderable> _opaqueRenderables = new List<IComponentRenderable>();
+    private readonly List<IComponentRenderable> _transparentRenderables = new List<IComponentRenderable>();
+    private readonly List<IComponentRenderable> _opaqueRenderablesToRemove = new List<IComponentRenderable>();
+    private readonly List<IComponentRenderable> _transparentRenderablesToRemove = new List<IComponentRenderable>();
 
     // public List<Renderer> RenderQueueWorld { get; private set; } = new();
     // public List<Renderer> RenderQueueUI { get; private set; } = new();

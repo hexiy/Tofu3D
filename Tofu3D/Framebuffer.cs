@@ -15,7 +15,7 @@ public class Framebuffer : ITexture
 
     private bool _isGrayscale;
     private readonly Asset_Material _renderTextureMaterial;
-    public Color ClearColor = new(0, 0, 0, 0);
+    public Color ClearColor = new Color(0, 0, 0, 0);
     public int FrameBufferID;
 
     // public Material RenderTextureMaterial;

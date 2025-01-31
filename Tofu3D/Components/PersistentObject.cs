@@ -46,7 +46,7 @@ public class PersistentObject<T>
             if (typeof(T) == typeof(Vector3))
             {
                 string[] split = obj.ToString().Split(',');
-                Vector3 vector = new(float.Parse(split[0].Substring(5)), float.Parse(split[1].Substring(4)),
+                Vector3 vector = new Vector3(float.Parse(split[0].Substring(5)), float.Parse(split[1].Substring(4)),
                     float.Parse(split[2].Substring(4, split[2].Length - 5)));
                 return (T)Convert.ChangeType(vector, typeof(T));
             }
@@ -63,10 +63,11 @@ public class PersistentObject<T>
                    Value = value
                };#1#
     }*/
-    public static implicit operator PersistentObject<T>((string, T) tuple) => new(tuple.Item2, tuple.Item1); /*
-               {
-                   Value = value
-               };*/
+    public static implicit operator PersistentObject<T>((string, T) tuple) =>
+        new PersistentObject<T>(tuple.Item2, tuple.Item1); /*
+                   {
+                       Value = value
+                   };*/
 
     public static implicit operator T(PersistentObject<T> obj) => obj.Value;
 }

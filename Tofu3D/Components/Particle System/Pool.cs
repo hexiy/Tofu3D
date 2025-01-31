@@ -4,7 +4,7 @@ namespace Tofu3D;
 
 public class Pool<T>
 {
-    private readonly ConcurrentBag<T> _collection = new();
+    private readonly ConcurrentBag<T> _collection = new ConcurrentBag<T>();
     private readonly Func<T> _objectGenerator;
 
     public Pool(Func<T> generator)

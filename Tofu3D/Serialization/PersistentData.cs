@@ -5,7 +5,7 @@ namespace Tofu3D;
 public static class PersistentData
 {
     private static bool _inited = false;
-    private static Dictionary<string, string> _data = new();
+    private static Dictionary<string, string> _data = new Dictionary<string, string>();
 
     private static void LoadAllData()
     {

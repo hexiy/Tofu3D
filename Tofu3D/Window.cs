@@ -58,7 +58,7 @@ public class Window : GameWindow
         }
     }
 
-    public Vector2 WindowSize => new(Size.X, Size.Y);
+    public Vector2 WindowSize => new Vector2(Size.X, Size.Y);
 
     public Vector2 WindowPosition { get; private set; }
     public float MonitorScale => _monitorScale;
@@ -135,7 +135,8 @@ public class Window : GameWindow
         image.DangerousTryGetSinglePixelMemory(out Memory<Rgba32> imageSpan);
 
         byte[] imageBytes = MemoryMarshal.AsBytes(imageSpan.Span).ToArray();
-        WindowIcon windowIcon = new(new OpenTK.Windowing.Common.Input.Image(image.Width, image.Height, imageBytes));
+        WindowIcon windowIcon =
+            new WindowIcon(new OpenTK.Windowing.Common.Input.Image(image.Width, image.Height, imageBytes));
 
         Icon = windowIcon;
     }

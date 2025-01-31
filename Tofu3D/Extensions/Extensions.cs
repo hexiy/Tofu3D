@@ -11,7 +11,7 @@ public static class Extensions
             throw new ArgumentException("the string to find may not be empty", "value");
         }
 
-        List<int> indexes = new();
+        List<int> indexes = new List<int>();
         for (int index = 0;; index += value.Length)
         {
             index = str.IndexOf(value, index);
@@ -28,12 +28,12 @@ public static class Extensions
 
     public static Color SetAByRef(ref this Color col, float a)
     {
-        col = new(col.R, col.G, col.B, a);
+        col = new Color(col.R, col.G, col.B, a);
         return col;
     }
     public static Color SetA(this Color col, float a)
     {
-        col = new(col.R, col.G, col.B, a);
+        col = new Color(col.R, col.G, col.B, a);
         return col;
     }
 
@@ -124,25 +124,26 @@ public static class Extensions
     }
 
     //  Vector2
-    public static Vector3 VectorX(this Vector2 vector) => new(vector.X, 0, 0);
+    public static Vector3 VectorX(this Vector2 vector) => new Vector3(vector.X, 0, 0);
 
-    public static Vector3 VectorY(this Vector2 vector) => new(0, vector.Y, 0);
+    public static Vector3 VectorY(this Vector2 vector) => new Vector3(0, vector.Y, 0);
 
     //  Vector3
-    public static Vector3 VectorX(this Vector3 vector) => new(vector.X, 0, 0);
+    public static Vector3 VectorX(this Vector3 vector) => new Vector3(vector.X, 0, 0);
 
-    public static Vector3 VectorY(this Vector3 vector) => new(0, vector.Y, 0);
+    public static Vector3 VectorY(this Vector3 vector) => new Vector3(0, vector.Y, 0);
 
-    public static Vector3 VectorZ(this Vector3 vector) => new(0, 0, vector.Z);
+    public static Vector3 VectorZ(this Vector3 vector) => new Vector3(0, 0, vector.Z);
 
-    public static Color ToColor(this System.Numerics.Vector4 vector) => new(vector.X, vector.Y, vector.Z, vector.W);
+    public static Color ToColor(this System.Numerics.Vector4 vector) =>
+        new Color(vector.X, vector.Y, vector.Z, vector.W);
 
     public static Tofu3D.Vector4 ToVector4(this System.Numerics.Vector4 vector) =>
-        new(vector.X, vector.Y, vector.Z, vector.W);
+        new Vector4(vector.X, vector.Y, vector.Z, vector.W);
 
-    public static Color ToColor(this Vector3 vector) => new(vector.X, vector.Y, vector.Z);
+    public static Color ToColor(this Vector3 vector) => new Color(vector.X, vector.Y, vector.Z);
 
-    public static Color ToColor(this Vector4 vector) => new(vector.X, vector.Y, vector.Z, vector.W);
+    public static Color ToColor(this Vector4 vector) => new Color(vector.X, vector.Y, vector.Z, vector.W);
 
     public static List<MemberInfo> GetPropertiesOrFields(this Type t,
         BindingFlags bf = BindingFlags.Public | BindingFlags.Instance)
@@ -151,15 +152,15 @@ public static class Extensions
             .ToList();
     }
 
-    public static Vector2 ToVector2(this Vector3 point) => new(point.X, point.Y);
+    public static Vector2 ToVector2(this Vector3 point) => new Vector2(point.X, point.Y);
 
-    public static Vector3 ToVector3(this Vector2 point) => new(point.X, point.Y, 0);
+    public static Vector3 ToVector3(this Vector2 point) => new Vector3(point.X, point.Y, 0);
 
-    public static Vector3 ToVector3(this Vector4 v4) => new(v4.X, v4.Y, v4.Z);
+    public static Vector3 ToVector3(this Vector4 v4) => new Vector3(v4.X, v4.Y, v4.Z);
 
     public static Vector3 Normalized(this Vector3 vec)
     {
-        Vector3 v = new(vec.X / vec.Length(), vec.Y / vec.Length(), vec.Z / vec.Length());
+        Vector3 v = new Vector3(vec.X / vec.Length(), vec.Y / vec.Length(), vec.Z / vec.Length());
         if (vec.Length() == 0)
         {
             v = Vector3.Zero;
@@ -170,7 +171,7 @@ public static class Extensions
 
     public static Vector2 Normalized(this Vector2 vec)
     {
-        Vector2 v = new(vec.X / vec.Length(), vec.Y / vec.Length());
+        Vector2 v = new Vector2(vec.X / vec.Length(), vec.Y / vec.Length());
         if (vec.Length() == 0)
         {
             v = Vector2.Zero;
@@ -181,14 +182,14 @@ public static class Extensions
 
     public static Vector3 Abs(this Vector3 vec)
     {
-        Vector3 v = new(Math.Abs(vec.X), Math.Abs(vec.Y), Math.Abs(vec.Z));
+        Vector3 v = new Vector3(Math.Abs(vec.X), Math.Abs(vec.Y), Math.Abs(vec.Z));
         return v;
     }
 
     public static System.Drawing.Color ToOtherColor(this Color color) =>
         System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
 
-    public static Color ToOtherColor(this System.Drawing.Color color) => new(color.R, color.G, color.B, color.A);
+    public static Color ToOtherColor(this System.Drawing.Color color) => new Color(color.R, color.G, color.B, color.A);
 
     public static Color ColorFromHsvToXna(double hue, double saturation, double value)
     {
@@ -349,26 +350,24 @@ public static class Extensions
     }
 
     public static Vector2 Round(this Vector2 vector) =>
-        new((float)Math.Round((decimal)vector.X, 2), (float)Math.Round((decimal)vector.Y, 2));
+        new Vector2((float)Math.Round((decimal)vector.X, 2), (float)Math.Round((decimal)vector.Y, 2));
 
     public static Vector3 Round(this Vector3 vector) =>
-        new((float)Math.Round((decimal)vector.X, 2), (float)Math.Round((decimal)vector.Y, 2),
+        new Vector3((float)Math.Round((decimal)vector.X, 2), (float)Math.Round((decimal)vector.Y, 2),
             (float)Math.Round((decimal)vector.Z, 2));
 
     public static Point Round(this Point point, int scale) =>
-        new((int)Math.Floor(point.X / (float)scale) * scale,
-            (int)Math.Floor(point.Y / (float)scale) * scale);
+        new Point((int)Math.Floor(point.X / (float)scale) * scale, (int)Math.Floor(point.Y / (float)scale) * scale);
 
     public static float TranslateToGrid(this float value, int gridSize = 1) =>
         (int)((decimal)value / gridSize) * gridSize - gridSize;
 
     public static Vector2 TranslateToGrid(this Vector2 vector, float gridSize = 1) =>
-        new((int)(vector.X / gridSize) * gridSize - gridSize,
-            (int)(vector.Y / gridSize) * gridSize - gridSize);
+        new Vector2((int)(vector.X / gridSize) * gridSize - gridSize, (int)(vector.Y / gridSize) * gridSize - gridSize);
 
     public static Vector3 TranslateToGrid(this Vector3 vector, float gridSize = 1) =>
-        new((int)(vector.X / gridSize) * gridSize - gridSize,
-            (int)(vector.Y / gridSize) * gridSize - gridSize, (int)(vector.Z / gridSize) * gridSize - gridSize);
+        new Vector3((int)(vector.X / gridSize) * gridSize - gridSize, (int)(vector.Y / gridSize) * gridSize - gridSize,
+            (int)(vector.Z / gridSize) * gridSize - gridSize);
 
     public static float AngleBetween(Vector2 vector1, Vector2 vector2)
     {

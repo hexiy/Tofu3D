@@ -9,7 +9,7 @@ public class CoordinateSystemCubeTest : Component, IComponentUpdateable
 
     [Show] public GameObject CubeUp;
 
-    [Show] public Vector3 MoveLoopTarget = new(0, 0, 5);
+    [Show] public Vector3 MoveLoopTarget = new Vector3(0, 0, 5);
 
     [Show] public float MoveSpeed = 1;
 

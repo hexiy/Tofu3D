@@ -35,7 +35,7 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
             TofuPath.Combine(Folders.TexturesInAssets, "skybox2", "Daylight Box_Back.bmp")
         };
 
-        AssetLoadParameters_CubemapTexture loadParameters = new() { PathsToSourceTextures = texturePaths };
+        AssetLoadParameters_CubemapTexture loadParameters = new AssetLoadParameters_CubemapTexture { PathsToSourceTextures = texturePaths };
         _texture = Tofu.AssetLoadManager.Load<RuntimeCubemapTexture>(texturePaths[0],
             loadParameters); // texturePaths[0] because for now every Load call will have path
 

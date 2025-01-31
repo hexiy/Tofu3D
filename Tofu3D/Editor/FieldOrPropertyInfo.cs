@@ -18,21 +18,26 @@ public class FieldOrPropertyInfo
     public bool IsGenericList;
     public bool IsListElement;
     public bool IsReadonly;
+    private InspectableData _inspectableData;
 
-    public FieldOrPropertyInfo(IList list, int index)
+    public FieldOrPropertyInfo(IList list, int index, InspectableData inspectableData)
     {
         _list = list;
         _index = index;
+        _inspectableData = inspectableData;
     }
 
-    public FieldOrPropertyInfo(FieldInfo fi, object obj)
+    public FieldOrPropertyInfo(FieldInfo fi, object obj, InspectableData inspectableData)
     {
         SetInfo(fi, obj);
+        _inspectableData = inspectableData;
     }
 
-    public FieldOrPropertyInfo(PropertyInfo pi, object obj)
+    public FieldOrPropertyInfo(PropertyInfo pi, object obj, InspectableData inspectableData)
     {
         SetInfo(pi, obj);
+        _inspectableData = inspectableData;
+
     }
 
     public object ListElement => _list[_index];
@@ -262,7 +267,8 @@ public class FieldOrPropertyInfo
         if (_fieldInfo != null)
         {
             _fieldInfo.SetValue(obj, value);
-            EditorPanelInspector.I.OnAnyValueChanged();
+            _inspectableData.Inspector.FieldChangedByUserInspectableCallback.Invoke();
+            _inspectableData.Inspector.FieldChangedByUser.Invoke();
         }
 
         if (_propertyInfo != null)
@@ -270,7 +276,8 @@ public class FieldOrPropertyInfo
             if (_propertyInfo.GetSetMethod() != null)
             {
                 _propertyInfo.SetValue(obj, value);
-                EditorPanelInspector.I.OnAnyValueChanged();
+                _inspectableData.Inspector.FieldChangedByUserInspectableCallback.Invoke();
+                _inspectableData.Inspector.FieldChangedByUser.Invoke();
             }
         }
 

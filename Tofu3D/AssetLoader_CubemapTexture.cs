@@ -55,12 +55,12 @@ public class AssetLoader_CubemapTexture : AssetLoader<RuntimeCubemapTexture>
 
         TofuGL.CheckGlError("cubemap texture load");
 
-        RuntimeCubemapTexture runtimeCubemapTexture = new()
+        RuntimeCubemapTexture runtimeCubemapTexture = new RuntimeCubemapTexture
         {
             Size = imageSize,
             Loaded = true,
+            TextureId = textureId
         };
-        runtimeCubemapTexture.TextureId = textureId;
 
         return runtimeCubemapTexture;
     }

@@ -4,7 +4,7 @@ namespace Tofu3D;
 
 public class ShaderManager
 {
-    private readonly List<string> _shadersReloadQueue = new();
+    private readonly List<string> _shadersReloadQueue = new List<string>();
 
     public int VaoInUse = -1;
     private Dictionary<string, Shader> _shaders = new Dictionary<string, Shader>();
