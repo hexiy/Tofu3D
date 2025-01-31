@@ -147,8 +147,6 @@ public class EditorPanelInspector : EditorPanel
 
         //WindowWidth = 800;
         BeginWindowDefault();
-        var a = 123;
-        a = a + a;
         ResetId();
         ImGui.SetScrollX(0);
         _padding = (int)ImGui.GetStyle().WindowPadding.X;
