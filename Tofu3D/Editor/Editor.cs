@@ -11,7 +11,8 @@ public class Editor
     private bool _sceneViewFullscreen = false;
 
     public static readonly ImGuiWindowFlags
-        ImGuiDefaultWindowFlags = ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove /* | ImGuiWindowFlags.AlwaysAutoResize*/
+        ImGuiDefaultWindowFlags =
+            ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove /* | ImGuiWindowFlags.AlwaysAutoResize*/
         /* | ImGuiWindowFlags.NoDocking*/;
 
     private EditorDialogManager _editorDialogManager;
@@ -27,6 +28,7 @@ public class Editor
 
     // Is cleared after invocation
     public Action BeforeDraw = () => { };
+    public Action ActionQueue = () => { };
 
     public EditorTextures EditorTextures;
 
@@ -39,7 +41,7 @@ public class Editor
     {
         _editorLayoutManager = new EditorLayoutManager();
         _editorLayoutManager.LoadLastLayout();
-        EditorThemeing.SetTheme();
+        EditorThemeing.SetTheme(Tofu.EditorSettingsAll.EditorSettingsGeneral.EditorTheme);
 
         EditorTextures = new EditorTextures();
 
@@ -111,24 +113,33 @@ public class Editor
             }
         }
 
-        bool exitDialogIsActive = _editorDialogManager.IsDialogActive(_exitDialogHandle);
-        if (KeyboardInput.WasKeyJustPressed(Keys.Escape))
+        if (Tofu.EditorWindowsManager.AnyWindowOpen == false)
         {
-            if (exitDialogIsActive)
+            bool exitDialogIsActive = _editorDialogManager.IsDialogActive(_exitDialogHandle);
+            if (KeyboardInput.WasKeyJustPressed(Keys.Escape))
             {
-                Tofu.Window.Close();
-                return;
-            }
+                if (exitDialogIsActive)
+                {
+                    // Tofu.Window.Close();
+                    _editorDialogManager.HideDialog(_exitDialogHandle);
+                    return;
+                }
 
-            _exitDialogHandle = ShowDialog(new EditorDialogParams("Close Tofu3D?",
-                new EditorDialogButtonDefinition("Close", Tofu.Window.Close, true),
-                new EditorDialogButtonDefinition("No", () => { }, true)));
+
+                _exitDialogHandle = ShowDialog(new EditorDialogParams("Close Tofu3D?",
+                    new EditorDialogButtonDefinition("Close", Tofu.Window.Close, true),
+                    new EditorDialogButtonDefinition("No", () => { }, true)));
+            }
         }
 
         if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.WasKeyJustPressed(Keys.F))
         {
             ToggleFullscreenOfSceneView();
         }
+
+
+        ActionQueue.Invoke();
+        ActionQueue = () => { };
     }
 
     private void ToggleFullscreenOfSceneView()
@@ -151,7 +162,6 @@ public class Editor
 
             EditorPanelSceneView.I.IsFullscreen = true;
             EditorPanelSceneView.I.Draw();
-            
         }
         else
         {

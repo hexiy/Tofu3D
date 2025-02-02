@@ -482,6 +482,73 @@
           }
         }
       },
+      "NativeFileDialogSharp/0.6.0-alpha": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NativeFileDialogSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NativeFileDialogSharp.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/any/netstandard2.0/nfd.dll": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          },
+          "contentFiles/any/netstandard2.0/nfd_x86.dll": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libnfd.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-arm64/native/libnfd.dylib": {
+            "assetType": "native",
+            "rid": "osx-arm64"
+          },
+          "runtimes/osx-x64/native/libnfd.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-x64/native/nfd.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/nfd.exp": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/nfd.lib": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/nfd.pdb": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/nfd.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/nfd.exp": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/nfd.lib": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/nfd.pdb": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
+      },
       "NativeLibraryLoader/1.0.12": {
         "type": "package",
         "dependencies": {
@@ -3077,6 +3144,33 @@
         "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll",
         "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.xml",
         "useSharedDesignerContext.txt"
+      ]
+    },
+    "NativeFileDialogSharp/0.6.0-alpha": {
+      "sha512": "2JvfxgAMWEGA9rIuYw+/vcj8eisBJbb4fzviJU47urU72z7m6BW2SykaMRtQorr06Xh3ZxG+gykiqV3D4crfLA==",
+      "type": "package",
+      "path": "nativefiledialogsharp/0.6.0-alpha",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/nfd.dll",
+        "content/nfd_x86.dll",
+        "contentFiles/any/netstandard2.0/nfd.dll",
+        "contentFiles/any/netstandard2.0/nfd_x86.dll",
+        "lib/netstandard2.0/NativeFileDialogSharp.dll",
+        "nativefiledialogsharp.0.6.0-alpha.nupkg.sha512",
+        "nativefiledialogsharp.nuspec",
+        "runtimes/linux-x64/native/libnfd.so",
+        "runtimes/osx-arm64/native/libnfd.dylib",
+        "runtimes/osx-x64/native/libnfd.dylib",
+        "runtimes/win-x64/native/nfd.dll",
+        "runtimes/win-x64/native/nfd.exp",
+        "runtimes/win-x64/native/nfd.lib",
+        "runtimes/win-x64/native/nfd.pdb",
+        "runtimes/win-x86/native/nfd.dll",
+        "runtimes/win-x86/native/nfd.exp",
+        "runtimes/win-x86/native/nfd.lib",
+        "runtimes/win-x86/native/nfd.pdb"
       ]
     },
     "NativeLibraryLoader/1.0.12": {
@@ -6380,6 +6474,7 @@
       "Microsoft.Build.Utilities.Core >= 17.6.2",
       "Microsoft.CodeAnalysis.CSharp >= 4.12.0",
       "Microsoft.DotNet.PlatformAbstractions >= 2.0.3",
+      "NativeFileDialogSharp >= 0.6.0-alpha",
       "Newtonsoft.Json >= 9.0.1",
       "OpenTK >= 4.7.4",
       "OpenTK.redist.glfw >= 3.3.7.27",
@@ -6472,6 +6567,10 @@
           "Microsoft.DotNet.PlatformAbstractions": {
             "target": "Package",
             "version": "[2.0.3, )"
+          },
+          "NativeFileDialogSharp": {
+            "target": "Package",
+            "version": "[0.6.0-alpha, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",

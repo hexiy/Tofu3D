@@ -2,11 +2,11 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class EditorPanel
+public abstract class EditorPanel
 {
     private int _currentId;
 
-    internal bool Active = true;
+    internal virtual bool Active { get; set; }= true;
 
     internal bool IsPanelHovered;
     public int WindowWidth;

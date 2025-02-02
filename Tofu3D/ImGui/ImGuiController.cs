@@ -37,8 +37,7 @@ public class ImGuiController : IDisposable
     private int _updatesThisSecond;
     private int _s;
 
-    private int _currentFontSize;
-    public int FontSizeFactorRelativeToDefault => (int)(Tofu.ImGuiController._currentFontSize / 12f);
+    public int FontSizeFactorRelativeToDefault => (int)(Tofu.EditorSettingsAll.EditorSettingsGeneral.FontSize / 12f);
     private readonly Keys[] _keysArray;
 
     /// <summary>
@@ -76,8 +75,7 @@ public class ImGuiController : IDisposable
 
         // io.IniSavingRate = 5;
 
-        _currentFontSize = 12;
-        io.Fonts.AddFontFromFileTTF(TofuPath.Combine(Folders.FontsInResources, "inconsolata.ttf"), 12 * Screen.ScaleI);
+        UpdateFontSize(Tofu.EditorSettingsAll.EditorSettingsGeneral.FontSize);
         //io.Fonts.AddFontDefault();
 
         io.BackendFlags = ImGuiBackendFlags.None; // ImGuiBackendFlags.RendererHasVtxOffset;
@@ -99,7 +97,6 @@ public class ImGuiController : IDisposable
         ImGuiIOPtr io = ImGui.GetIO();
 
         io.Fonts.Clear();
-        _currentFontSize = size;
         ImFontPtr fontPointer =
             io.Fonts.AddFontFromFileTTF(TofuPath.Combine(Folders.FontsInResources, "inconsolata.ttf"),
                 size * Screen.ScaleI);

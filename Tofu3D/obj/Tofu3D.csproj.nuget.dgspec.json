@@ -83,6 +83,10 @@
               "target": "Package",
               "version": "[2.0.3, )"
             },
+            "NativeFileDialogSharp": {
+              "target": "Package",
+              "version": "[0.6.0-alpha, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[9.0.1, )"

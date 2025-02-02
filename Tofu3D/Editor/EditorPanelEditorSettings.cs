@@ -4,32 +4,37 @@ using ImGuiNET;
 
 namespace Tofu3D;
 
-public class EditorPanelEditorSettings : EditorPanel, IHasInspector
+public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWindow
 {
     private Inspector _inspector;
+
+    public bool IsOpened { get; set; }
+
+    internal override bool Active
+    {
+        get => IsOpened;
+        set => Toggle(value);
+    }
 
     public override Vector2 Position => Screen.Center;
     public override Vector2 Pivot => Vector2.Half;
 
     public override string Name => "Editor Settings";
-    public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.Modal | ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.Tooltip | ImGuiWindowFlags.MenuBar;
+
+    public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.Modal | ImGuiWindowFlags.NoDocking |
+                                                              ImGuiWindowFlags.Tooltip | ImGuiWindowFlags.MenuBar;
 
 
     public static EditorPanelEditorSettings I { get; private set; }
     private int _padding = 0;
 
-    private EditorSettingsAll _editorSettingsAll;
-
     public override void Init()
     {
         I = this;
-        _inspector = new Inspector(drawInspectableHeader:false);
+        _inspector = new Inspector(drawInspectableHeader: false);
         _inspector.FieldChangedByUser += OnAnyFieldChangedByUser;
 
-        _editorSettingsAll = new EditorSettingsAll();
-        _editorSettingsAll.LoadSavedData();
-
-        SelectInspectable(_editorSettingsAll.EditorSettingsGeneral);
+        SelectInspectable(Tofu.EditorSettingsAll.EditorSettingsGeneral);
 
         Active = false;
     }
@@ -39,6 +44,15 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector
         _inspector.Update();
         _inspector.Size = Size;
         _inspector.ContentMaxWidth = Size.Xi - (int)ImGui.GetStyle().WindowPadding.X;
+
+        if (KeyboardInput.WasKeyJustPressed(Keys.Escape))
+        {
+            if (Tofu.EditorWindowsManager.IsInFront(this))
+            {
+                Tofu.Editor.ActionQueue +=
+                    () => Tofu.EditorWindowsManager.CloseWindow(this);
+            }
+        }
     }
 
     public void AddActionToActionQueue(Action action)
@@ -138,9 +152,25 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector
     {
         if (fieldName == nameof(EditorSettingsGeneral.FontSize))
         {
-            Tofu.ImGuiController.UpdateFontSize(_editorSettingsAll.EditorSettingsGeneral.FontSize);
+            Tofu.ImGuiController.UpdateFontSize(Tofu.EditorSettingsAll.EditorSettingsGeneral.FontSize);
         }
 
-        _editorSettingsAll.SaveData();
+        if (fieldName == nameof(EditorSettingsGeneral.EditorTheme))
+        {
+            EditorThemeing.SetTheme(Tofu.EditorSettingsAll.EditorSettingsGeneral.EditorTheme);
+        }
+
+        Tofu.EditorSettingsAll.SaveData();
+    }
+
+
+    public void Toggle(bool tgl)
+    {
+        Tofu.EditorWindowsManager.ToggleWindow(this, tgl);
+    }
+
+    public void OnToggled(bool tgl)
+    {
+        IsOpened = tgl;
     }
 }

@@ -24,6 +24,8 @@ public static class Tofu
     public static Window Window;
     public static Editor Editor;
     public static ImGuiController ImGuiController;
+    public static EditorSettingsAll EditorSettingsAll;
+    public static EditorWindowsManager EditorWindowsManager;
 
     // RENDERING
     public static RenderSettings RenderSettings;
@@ -67,6 +69,9 @@ public static class Tofu
         ScriptsManager.CopyDllsToProjectFolder();
         ScriptsManager.CompileScriptsAssembly();
 
+        EditorSettingsAll = new EditorSettingsAll();
+        EditorWindowsManager = new EditorWindowsManager();
+        
         AssetImportManager = new AssetImportManager();
         TextureAtlasManager = new TextureAtlasManager();
         AssetLoadManager = new AssetLoadManager();
@@ -82,6 +87,7 @@ public static class Tofu
 
 
         RenderSettings.LoadSavedData();
+        EditorSettingsAll.LoadSavedData();
         AssetsWatcher.StartWatching();
         ShaderManager.Initialize();
 
@@ -229,7 +235,7 @@ public static class Tofu
         Editor.Draw();
 
         ImGuiController.Render();
-
+        
         Debug.EndGraphTimer("ImGui");
 
         Window.SwapBuffers();

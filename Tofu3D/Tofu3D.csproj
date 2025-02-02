@@ -70,6 +70,7 @@
         <PackageReference Include="ImGui.NET" Version="1.87.3"/>
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
         <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="2.0.3" />
+        <PackageReference Include="NativeFileDialogSharp" Version="0.6.0-alpha" />
         <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
         <PackageReference Include="OpenTK" Version="4.7.4"/>
         <PackageReference Include="OpenTK.redist.glfw" Version="3.3.7.27"/>

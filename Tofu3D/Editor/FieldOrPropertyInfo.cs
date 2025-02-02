@@ -37,12 +37,17 @@ public class FieldOrPropertyInfo
     {
         SetInfo(pi, obj);
         _inspectableData = inspectableData;
-
     }
 
     public object ListElement => _list[_index];
 
-    public T GetCustomAttribute<T>() where T : Attribute
+    public bool GetCustomAttribute<T>(out T? attribute) where T : Attribute
+    {
+        attribute = GetCustomAttribute<T>();
+        return attribute != null;
+    }
+
+    public T? GetCustomAttribute<T>() where T : Attribute
     {
         if (_fieldInfo != null)
         {

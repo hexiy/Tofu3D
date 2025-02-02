@@ -10,27 +10,7 @@ public class InspectorFieldDrawerFloat : InspectorFieldDrawable<float>
     {
         float fieldValue = GetValue(info, componentInspectorData);
 
-        SliderF sliderAttrib = null;
-        for (int i = 0; i < info.CustomAttributes.Count(); i++)
-        {
-            if (info.CustomAttributes.ElementAtOrDefault(i).AttributeType == typeof(SliderF))
-            {
-                FieldInfo? fieldType = componentInspectorData.Inspectable.GetType().GetField(info.Name);
-                if (fieldType != null)
-                {
-                    sliderAttrib = fieldType.GetCustomAttribute<SliderF>();
-                }
-                else
-                {
-                    PropertyInfo? propertyType =
-                        componentInspectorData.Inspectable.GetType().GetProperty(info.Name);
-                    if (propertyType != null)
-                    {
-                        sliderAttrib = propertyType.GetCustomAttribute<SliderF>();
-                    }
-                }
-            }
-        }
+        info.GetCustomAttribute<SliderF>(out SliderF? sliderAttrib);
 
         if (sliderAttrib != null)
         {
