@@ -24,6 +24,10 @@ public abstract class EditorPanel
         _currentId = 0;
     }
 
+    internal void PushId(int id)
+    {
+        ImGui.PushID(id);
+    }
     internal void PushNextId()
     {
         ImGui.PushID(_currentId++);
@@ -36,6 +40,11 @@ public abstract class EditorPanel
             ImGui.PopID();
         }
         ResetId();
+    }
+
+    internal void PopId()
+    {
+        ImGui.PopID();
     }
 
     public virtual void Init()

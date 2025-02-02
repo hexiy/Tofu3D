@@ -237,7 +237,6 @@ public class Inspector
                     // DrawMaterialStuff(componentInspectorData);
                 }
 
-
                 foreach (FieldOrPropertyInfo info in componentInspectorData.Infos)
                 {
                     bool drawn = DrawFieldOrProperty(info, componentInspectorData);
@@ -261,7 +260,7 @@ public class Inspector
                     };*/
             }
         }
-        
+
         PopAllIds();
     }
 
@@ -282,6 +281,7 @@ public class Inspector
         {
             ImGui.PopID();
         }
+
         ResetId();
     }
 

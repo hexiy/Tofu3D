@@ -65,7 +65,7 @@ public class EditorPanelHierarchy : EditorPanel
             {
                 GameObject loadedGo = Tofu.SceneSerializer.LoadClipboardGameObject();
 
-                Tofu.GameObjectSelectionManager.SelectGameObject(loadedGo);
+                Tofu.Editor.AfterDraw += () => Tofu.GameObjectSelectionManager.SelectGameObject(loadedGo);
             }
         }
 
@@ -116,7 +116,7 @@ public class EditorPanelHierarchy : EditorPanel
 
         if (closestGameObject != null)
         {
-            Tofu.GameObjectSelectionManager.SelectGameObject(closestGameObject);
+            Tofu.Editor.AfterDraw += () => Tofu.GameObjectSelectionManager.SelectGameObject(closestGameObject);
         }
     }
 
@@ -252,10 +252,10 @@ public class EditorPanelHierarchy : EditorPanel
             DrawGameObjectRow(goIndex);
             // }
         }
+
         PopAllIds();
 
         EndWindow();
-        
     }
 
 
@@ -420,7 +420,7 @@ public class EditorPanelHierarchy : EditorPanel
         else if (ImGui.IsItemHovered() && Tofu.MouseInput.IsButtonDown())
         {
             _gameObjectsIndexesSelectedBefore = _selectedGameObjects;
-            Tofu.GameObjectSelectionManager.SelectGameObject(currentGameObject);
+            Tofu.Editor.AfterDraw += () => Tofu.GameObjectSelectionManager.SelectGameObject(currentGameObject);
         }
 
         DrawSpaceBetween(currentGameObject);

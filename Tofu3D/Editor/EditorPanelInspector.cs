@@ -141,6 +141,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
 
         //WindowWidth = 800;
         BeginWindowDefault();
+
         ResetId();
         ImGui.SetScrollX(0);
         _padding = (int)ImGui.GetStyle().WindowPadding.X;
@@ -199,7 +200,8 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
         _inspector._editing = false;
         if (gameObject)
         {
-            PushNextId();
+
+            PushId(gameObject.Id);
 
             string? gameObjectName = gameObject.Name;
             bool gameObjectActiveSelf = gameObject.ActiveSelf;
@@ -326,6 +328,11 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
             {
                 _materialToShowAtTheBottom
             });
+        }
+
+        if (gameObject)
+        {
+            PopId();
         }
     }
 

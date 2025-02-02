@@ -152,7 +152,7 @@ public static class MousePickingSystem
             // dont detect clicks on the transformhandle/selection highlighter box
             if (HoveredRenderer?.GameObject.VisibleInHierarchy == true)
             {
-                Tofu.GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObject);
+                Tofu.Editor.AfterDraw += () => Tofu.GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObject);
             }
             else if (HoveredRenderer == null)
                 // else if(HoveredRenderer?.GameObjectId!=TransformHandle.I.GameObjectId) // if we're dragging transformhandle we dont want to deselect anything

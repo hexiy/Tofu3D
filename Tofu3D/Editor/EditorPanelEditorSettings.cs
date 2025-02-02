@@ -49,7 +49,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         {
             if (Tofu.EditorWindowsManager.IsInFront(this))
             {
-                Tofu.Editor.ActionQueue +=
+                Tofu.Editor.AfterDraw +=
                     () => Tofu.EditorWindowsManager.CloseWindow(this);
             }
         }

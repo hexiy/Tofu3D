@@ -118,7 +118,7 @@ public class EditorPanelMenuBar : EditorPanel
             bool editorSettingsClicked = ImGui.BeginMenu($"Editor Settings");
             if (editorSettingsClicked)
             {
-                Tofu.Editor.ActionQueue +=
+                Tofu.Editor.AfterDraw +=
                     () => EditorPanelEditorSettings.I.Toggle(!EditorPanelEditorSettings.I.Active);
 
                 ImGui.CloseCurrentPopup();

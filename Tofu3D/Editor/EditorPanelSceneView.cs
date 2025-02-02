@@ -429,8 +429,7 @@ public class EditorPanelSceneView : EditorPanel
         modelRendererInstanced.RuntimeMesh = mesh;
 
         go.Awake();
-
-
+        
         Tofu.GameObjectSelectionManager.SelectGameObject(go);
 
         return go;

@@ -28,7 +28,7 @@ public class Editor
 
     // Is cleared after invocation
     public Action BeforeDraw = () => { };
-    public Action ActionQueue = () => { };
+    public Action AfterDraw = () => { };
 
     public EditorTextures EditorTextures;
 
@@ -136,10 +136,6 @@ public class Editor
         {
             ToggleFullscreenOfSceneView();
         }
-
-
-        ActionQueue.Invoke();
-        ActionQueue = () => { };
     }
 
     private void ToggleFullscreenOfSceneView()
@@ -172,6 +168,9 @@ public class Editor
         }
 
         _editorDialogManager.Draw();
+
+        AfterDraw.Invoke();
+        AfterDraw = () => { };
     }
 
     public EditorDialogHandle ShowDialog(EditorDialogParams editorDialogParams) =>
