@@ -67,13 +67,16 @@ public class EditorPanelBrowser : EditorPanel
         CreateContextItems();
 
 
-        AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture() {  LoadType = TextureLoadType.InAtlas};
-        
+        AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture()
+            { LoadType = TextureLoadType.InAtlas };
+
         _fileIcon =
-            Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/FileIcon_b.png",loadParametersTexture); //, _iconTextureLoadSettings);
+            Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/FileIcon_b.png",
+                loadParametersTexture); //, _iconTextureLoadSettings);
 
         _directoryIcon =
-            Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/DirectoryIcon_b.png",loadParametersTexture); //, _iconTextureLoadSettings);
+            Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/DirectoryIcon_b.png",
+                loadParametersTexture); //, _iconTextureLoadSettings);
 
         SetCurrentDirectory(CurrentDirectoryPathCached);
 
@@ -116,7 +119,8 @@ public class EditorPanelBrowser : EditorPanel
     private void OnFileChanged(FileChangedInfo fileChangedInfo)
     {
         string? directoryName = Path.GetDirectoryName(fileChangedInfo.Path);
-        string currentDirectoryAssetsRelativePath = Folders.GetPathRelativeToAssetsFolder(CurrentDirectoryInfo.FullName);
+        string currentDirectoryAssetsRelativePath =
+            Folders.GetPathRelativeToAssetsFolder(CurrentDirectoryInfo.FullName);
         bool fileGotDeletedInCurrentDirectory =
             fileChangedInfo.Path ==
             currentDirectoryAssetsRelativePath; // when file is deleted, we only get the directory
@@ -172,7 +176,8 @@ public class EditorPanelBrowser : EditorPanel
                 AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture()
                     { LoadType = TextureLoadType.InAtlas };
                 _textures[_assets[i]] =
-                    Tofu.AssetLoadManager.Load<RuntimeTexture>(_assets[i],loadParametersTexture); //, _iconTextureLoadSettings);
+                    Tofu.AssetLoadManager.Load<RuntimeTexture>(_assets[i],
+                        loadParametersTexture); //, _iconTextureLoadSettings);
             }
 
             if (AssetPathExtensions.IsFileScene(_assets[i]))
@@ -198,6 +203,8 @@ public class EditorPanelBrowser : EditorPanel
         }
 
         BeginWindowDefault();
+        ResetId();
+
         if (ImGui.BeginPopupContextWindow("yeh"))
         {
             for (int i = 0; i < _contextItems.Count; i++)
@@ -208,7 +215,6 @@ public class EditorPanelBrowser : EditorPanel
             ImGui.EndPopup();
         }
 
-        ResetId();
 
         if (ImGui.Button("<")
             || (IsPanelHovered && KeyboardInput.IsKeyDown(Keys.Backspace))
@@ -306,7 +312,7 @@ public class EditorPanelBrowser : EditorPanel
             _contextItems[i].ShowPopupIfOpen();
         }
 
-
+        PopAllIds();
         ImGui.End();
 
         base.Draw();
@@ -394,8 +400,7 @@ public class EditorPanelBrowser : EditorPanel
                 Vector2 p_min = ImGui.GetCursorScreenPos();
                 Vector2 p_max = new Vector2(p_min.X + _iconSize.X, p_min.Y + _iconSize.Y);
 
-                
-                
+
                 Vector4 boundingBoxInAtlas = _textures[assetPath].BoundingBoxInAtlas;
                 Vector2 uvMin = new Vector2(boundingBoxInAtlas.X, boundingBoxInAtlas.Y);
                 Vector2 uvMax = new Vector2(boundingBoxInAtlas.Z, boundingBoxInAtlas.W);
@@ -406,9 +411,10 @@ public class EditorPanelBrowser : EditorPanel
                     10);
 
                 ImGui.PushStyleColor(ImGuiCol.ButtonHovered, new System.Numerics.Vector4(1, 1, 1, 0));
-                TofuImGui.ImageButtonTexture2DArray(_textures[assetPath], _iconSize, bg_col:Vector4.Zero, tint_col:Vector4.Zero);
+                TofuImGui.ImageButtonTexture2DArray(_textures[assetPath], _iconSize, bg_col: Vector4.Zero,
+                    tint_col: Vector4.Zero);
                 // ImGui.ImageButton(_textures[assetPath].AtlasGLTextureArrayId, _iconSize, new System.Numerics.Vector2(0, 0),
-                    // new System.Numerics.Vector2(1, 1), 0, System.Numerics.Vector4.Zero, System.Numerics.Vector4.Zero);
+                // new System.Numerics.Vector2(1, 1), 0, System.Numerics.Vector4.Zero, System.Numerics.Vector4.Zero);
                 ImGui.PopStyleColor();
             }
             else

@@ -28,11 +28,11 @@ public class Inspector
     public float ContentMaxWidth;
 
     public bool HasInspectableData => CurrentInspectableDatas.Count > 0;
-    
+
     // probably should be set per InspectableData
     private bool _drawInspectableHeader;
 
-    public Inspector(bool drawInspectableHeader=true)
+    public Inspector(bool drawInspectableHeader = true)
     {
         _drawInspectableHeader = drawInspectableHeader;
         if (_inspectorFieldDrawables == null)
@@ -167,6 +167,7 @@ public class Inspector
 
     public void Render(List<InspectableData> inspectableDatas)
     {
+        ResetId();
         foreach (InspectableData componentInspectorData in inspectableDatas)
         {
             Component? component = componentInspectorData.Inspectable as Component;
@@ -218,7 +219,7 @@ public class Inspector
                 ImGui.PushStyleColor(ImGuiCol.Header, headerColor);
             }
 
-            bool headerClicked =true;
+            bool headerClicked = true;
             if (_drawInspectableHeader)
             {
                 headerClicked = ImGui.CollapsingHeader(inspectableName, ImGuiTreeNodeFlags.DefaultOpen);
@@ -260,6 +261,8 @@ public class Inspector
                     };*/
             }
         }
+        
+        PopAllIds();
     }
 
 
@@ -273,14 +276,13 @@ public class Inspector
         ImGui.PushID(_currentId++);
     }
 
-    internal void PushNextId(string id)
+    internal void PopAllIds()
     {
-        ImGui.PushID(id);
-    }
-
-    internal void PopId()
-    {
-        ImGui.PopID();
+        for (int i = 0; i < _currentId; i++)
+        {
+            ImGui.PopID();
+        }
+        ResetId();
     }
 
     public bool DrawFieldOrProperty(FieldOrPropertyInfo info, InspectableData componentInspectorData)

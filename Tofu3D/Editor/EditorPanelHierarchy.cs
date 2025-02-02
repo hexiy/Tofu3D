@@ -252,8 +252,10 @@ public class EditorPanelHierarchy : EditorPanel
             DrawGameObjectRow(goIndex);
             // }
         }
+        PopAllIds();
 
         EndWindow();
+        
     }
 
 

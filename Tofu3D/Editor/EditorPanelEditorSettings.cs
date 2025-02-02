@@ -125,7 +125,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         }
 
         ImGui.PopStyleVar(2); // Restore all styles
-
+        PopAllIds();
         ImGui.End();
     }
 

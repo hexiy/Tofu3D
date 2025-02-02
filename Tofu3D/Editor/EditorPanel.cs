@@ -29,14 +29,13 @@ public abstract class EditorPanel
         ImGui.PushID(_currentId++);
     }
 
-    internal void PushNextId(string id)
+    internal void PopAllIds()
     {
-        ImGui.PushID(id);
-    }
-
-    internal void PopId()
-    {
-        ImGui.PopID();
+        for (int i = 0; i < _currentId; i++)
+        {
+            ImGui.PopID();
+        }
+        ResetId();
     }
 
     public virtual void Init()

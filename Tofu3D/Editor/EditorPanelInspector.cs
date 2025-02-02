@@ -27,7 +27,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
     public override void Init()
     {
         I = this;
-        _inspector = new Inspector(drawInspectableHeader:true);
+        _inspector = new Inspector(drawInspectableHeader: true);
         _inspector.FieldChangedByUser += OnAnyFieldChangedByUser;
 
         _componentTypesForAddComponentPopup = typeof(Component).Assembly.GetTypes()
@@ -170,7 +170,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
         }
 
         ImGui.PopStyleVar(2); // Restore all styles
-
+        PopAllIds();
         ImGui.End();
     }
 

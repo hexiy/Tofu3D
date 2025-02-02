@@ -373,7 +373,7 @@
       <GameObjectId>6</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>55</MousePickingId>
+      <MousePickingId>1</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
@@ -436,7 +436,7 @@
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>13</Vao>
+        <Vao>4</Vao>
         <Ebo>-1</Ebo>
         <Mesh>
           <CountsOfElements>
@@ -484,9 +484,9 @@
           <Z>0</Z>
         </Offset>
         <Size>
-          <X>3</X>
-          <Y>3</Y>
-          <Z>3</Z>
+          <X>5</X>
+          <Y>0.1</Y>
+          <Z>5</Z>
         </Size>
       </FirstPhysicsEnabledShape>
     </Component>
@@ -551,7 +551,7 @@
       <GameObjectId>7</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>56</MousePickingId>
+      <MousePickingId>2</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
@@ -614,7 +614,7 @@
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>13</Vao>
+        <Vao>4</Vao>
         <Ebo>-1</Ebo>
         <Mesh>
           <CountsOfElements>
@@ -645,9 +645,9 @@
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <IsStaticBody>false</IsStaticBody>
-      <FirstPhysicsEnabledShape xsi:type="BoxShape">
+      <FirstPhysicsEnabledShape xsi:type="SphereShape">
         <AllowMultiple>true</AllowMultiple>
-        <GameObjectId>6</GameObjectId>
+        <GameObjectId>7</GameObjectId>
         <Started>true</Started>
         <EnabledSelf>true</EnabledSelf>
         <Pivot>
@@ -656,16 +656,7 @@
           <Z>0.5</Z>
         </Pivot>
         <PhysicsEnabled>true</PhysicsEnabled>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-        </Offset>
-        <Size>
-          <X>3</X>
-          <Y>3</Y>
-          <Z>3</Z>
-        </Size>
+        <Radius>1</Radius>
       </FirstPhysicsEnabledShape>
     </Component>
     <Component xsi:type="SphereShape">
@@ -682,5 +673,5 @@
       <Radius>1</Radius>
     </Component>
   </Components>
-  <GameObjectNextId>18</GameObjectNextId>
+  <GameObjectNextId>20</GameObjectNextId>
 </SceneFile>
