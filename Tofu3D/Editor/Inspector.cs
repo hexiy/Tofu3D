@@ -13,7 +13,7 @@ public class Inspector
     private bool _anyActionQueued = false;
     private int _currentId;
 
-    public Vector2 Size;
+    private Vector2 _size;
 
     public readonly List<InspectableData>
         CurrentInspectableDatas = new List<InspectableData>(); // cached inspectable data
@@ -25,7 +25,7 @@ public class Inspector
 
     public bool _refreshQueued;
     public int _refreshQueuedInspectableIndex = -1; // -1 = all
-    public float ContentMaxWidth;
+    // public float ContentMaxWidth;
 
     public bool HasInspectableData => CurrentInspectableDatas.Count > 0;
 
@@ -97,6 +97,11 @@ public class Inspector
 
         foreach (object? inspectable in inspectables)
         {
+            if (inspectable == null)
+            {
+                continue;
+            }
+
             InspectableData inspectableData = new InspectableData(inspectable, inspector: this);
             CurrentInspectableDatas.Add(inspectableData);
         }
@@ -138,8 +143,9 @@ public class Inspector
         _anyActionQueued = true;
     }
 
-    public void Update()
+    public void Update(Vector2 size)
     {
+        _size = size;
         if (_anyActionQueued)
         {
             _actionQueue.Invoke();
@@ -334,8 +340,8 @@ public class Inspector
         }
 
 
-        float itemWidth1 = Size.X / 1.6f;
-        ImGui.SameLine(Size.X - itemWidth1);
+        float itemWidth1 = _size.X / 1.6f;
+        ImGui.SameLine(_size.X - itemWidth1);
         ImGui.SetNextItemWidth(itemWidth1);
 
         if (info.IsGenericList)

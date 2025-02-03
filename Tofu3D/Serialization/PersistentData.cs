@@ -98,7 +98,7 @@ public static class PersistentData
         {
             LoadAllData();
         }
-
+        
         string? json = JsonConvert.SerializeObject(value, Formatting.Indented); // needs this for serialized classes
 
         _data[key] = json;

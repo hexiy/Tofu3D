@@ -100,6 +100,8 @@ public class Window : GameWindow
         // LoadAndSetCursor();
         Title = WindowTitleText;
         GL.Disable(EnableCap.Multisample);
+   
+        
     }
 
     private unsafe void LoadAndSetCursor()

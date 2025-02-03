@@ -58,9 +58,8 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
 
     public override void Update()
     {
-        _inspector.Update();
-        _inspector.Size = Size;
-        _inspector.ContentMaxWidth = Size.Xi - (int)ImGui.GetStyle().WindowPadding.X;
+        _inspector.Update(Size);
+        // _inspector.ContentMaxWidth = Size.Xi - (int)ImGui.GetStyle().WindowPadding.X;
     }
 
     public void AddActionToActionQueue(Action action)

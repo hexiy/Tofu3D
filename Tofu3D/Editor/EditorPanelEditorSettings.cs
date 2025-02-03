@@ -21,29 +21,47 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
     public override string Name => "Editor Settings";
 
-    public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.Modal | ImGuiWindowFlags.NoDocking |
-                                                              ImGuiWindowFlags.Tooltip | ImGuiWindowFlags.MenuBar;
+    public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.NoDocking;
 
 
     public static EditorPanelEditorSettings I { get; private set; }
-    private int _padding = 0;
+    private EditorPanelSideBar _sideBar;
 
     public override void Init()
     {
         I = this;
+
         _inspector = new Inspector(drawInspectableHeader: false);
         _inspector.FieldChangedByUser += OnAnyFieldChangedByUser;
 
+        _sideBar = new EditorPanelSideBar(["General", "Code Editor", "Scene", "Gizmos", "Assets", "Graphics", "Cache"]);
+        _sideBar.SelectedItemChanged += OnSidebarSelectedItemChanged;
         SelectInspectable(Tofu.EditorSettingsAll.EditorSettingsGeneral);
+
 
         Active = false;
     }
 
+    private void OnSidebarSelectedItemChanged(int itemIndex)
+    {
+        object[] inspectorInspectables = new object[]
+        {
+            Tofu.EditorSettingsAll.EditorSettingsGeneral,
+            Tofu.EditorSettingsAll.EditorSettingsCodeEditor,
+            null,
+            null,
+            null,
+            null,
+            null,
+        };
+
+        SelectInspectable(inspectorInspectables[itemIndex]);
+    }
+
     public override void Update()
     {
-        _inspector.Update();
-        _inspector.Size = Size;
-        _inspector.ContentMaxWidth = Size.Xi - (int)ImGui.GetStyle().WindowPadding.X;
+        _inspector.Update(Size);
+        // _inspector.ContentMaxWidth = Size.Xi - (int)ImGui.GetStyle().WindowPadding.X;
 
         if (KeyboardInput.WasKeyJustPressed(Keys.Escape))
         {
@@ -54,12 +72,6 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
             }
         }
     }
-
-    public void AddActionToActionQueue(Action action)
-    {
-        _inspector.AddActionToActionQueue(action);
-    }
-
 
     public void SelectInspectable(object inspectable, Action<string>? anyValueChanged = null)
     {
@@ -95,46 +107,44 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         }
 
         BeginWindow();
-        // BeginWindowDefault();
         ResetId();
         ImGui.SetScrollX(0);
-        _padding = (int)ImGui.GetStyle().WindowPadding.X;
-        // Ensure we disable horizontal scrolling and clip overflow
+        // _padding = (int)ImGui.GetStyle().WindowPadding.X;
+
         ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
         ImGui.PushStyleVar(ImGuiStyleVar.ChildBorderSize, 0);
+
+
+        float topY = ImGui.GetCursorPosY();
+        _sideBar.Draw(height: Size.Y);
+
+        Vector2 pos = ImGui.GetCursorPos();
+        ImGui.SetCursorPos(new Vector2(250, topY));
+
+        ImGui.Begin("main", ImGuiWindowFlags.ChildWindow | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoMove);
 
         if (_inspector.HasInspectableData)
         {
             ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 2);
 
-            // if (ImGui.BeginChild("InspectorChild",
-            // ImGui.GetContentRegionAvail() - new System.Numerics.Vector2(_padding, 0), false,
-            // ImGuiWindowFlags.NoScrollbar))
-            // {
             DrawInspectables(_inspector.CurrentInspectableDatas);
-            // }
 
             ImGui.PopStyleVar(1);
-
-
-            // properties with ShowIf and ShowIfNot attributes need to be reevaluated to show or not
-            // if (Tofu.MouseInput.ButtonReleased(MouseButtons.Left))
-            // {
-            // 	UpdateCurrentComponentsCache();
-            // }
         }
 
         ImGui.PopStyleVar(2); // Restore all styles
         PopAllIds();
+        ImGui.End();
         ImGui.End();
     }
 
     private void BeginWindow()
     {
         Vector2 size = Screen.Size / 2;
-        ImGui.SetNextWindowSize(size, ImGuiCond.Always);
-        ImGui.SetNextWindowPos(Position, ImGuiCond.Always, Pivot);
-        ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | AdditionalWindowFlags);
+        ImGui.SetNextWindowSize(size, ImGuiCond.FirstUseEver);
+        ImGui.SetNextWindowSizeConstraints(Vector2.One * 200, Vector2.One * 99999);
+        ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
+        ImGui.Begin(Name, AdditionalWindowFlags | ImGuiWindowFlags.NoCollapse);
         IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
         Size = ImGui.GetWindowSize();
     }

@@ -35,49 +35,95 @@ public class EditorPanelMenuBar : EditorPanel
             // ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoTitleBar);
             ImGui.BeginMainMenuBar();
 
-            bool layoutButtonClicked = ImGui.BeginMenu("Layout");
-            if (layoutButtonClicked)
+            using TofuImGuiSetItemSpacingGuard itemSpacingGuard = TofuImGui.SetTemporaryItemSpacingForCurrentScope(x: TofuImGui.DefaultItemSpacing.X + 5);
+            
+            bool tofu3dMenuOpened = ImGui.BeginMenu("Tofu3D");
+            if (tofu3dMenuOpened)
             {
-                bool saveCurrentLayoutButtonClicked = ImGui.Button("Save Current Layout");
-                if (saveCurrentLayoutButtonClicked)
+                bool settingsButtonClicked = ImGui.Button("Settings");
+                if (settingsButtonClicked)
                 {
+                    Tofu.Editor.AfterDraw +=
+                        () => EditorPanelEditorSettings.I.Toggle(true);
                     ImGui.CloseCurrentPopup();
-
-                    _editorLayoutManager.SaveCurrentLayout();
                 }
-
-                bool loadDefaultLayoutButtonClicked = ImGui.Button("Load Default Layout");
-                if (loadDefaultLayoutButtonClicked)
-                {
-                    ImGui.CloseCurrentPopup();
-
-                    Tofu.Editor.BeforeDraw +=
-                        _editorLayoutManager
-                            .LoadDefaultLayout; // load layout before drawing anything, otherwise we break the layout by calling imgui after this editor panel
-                }
-
-                bool saveDefaultLayoutButtonClicked = ImGui.Button("Save Default Layout");
-                if (saveDefaultLayoutButtonClicked)
-                {
-                    ImGui.CloseCurrentPopup();
-
-                    _editorLayoutManager.SaveDefaultLayout();
-                }
-
 
                 ImGui.EndMenu();
             }
 
-            bool persistentDataButtonClicked = ImGui.BeginMenu("Persistent Data");
-            if (persistentDataButtonClicked)
-            {
-                bool resetPersistentDataButtonClicked = ImGui.Button("Reset");
-                if (resetPersistentDataButtonClicked)
-                {
-                    ImGui.CloseCurrentPopup();
 
-                    PersistentData.DeleteAll();
+            bool fileMenuOpened = ImGui.BeginMenu("File");
+            if (fileMenuOpened)
+            {
+                // bool newSceneButtonClicked = ImGui.Button("New scene");
+                // if (newSceneButtonClicked)
+                // {
+                //     Tofu.Editor.AfterDraw +=
+                //         () => Tofu.SceneManager.LoadLastOpenedScene();
+                //     ImGui.CloseCurrentPopup();
+                // }
+
+                bool saveSceneButtonClicked = ImGui.Button("Save scene");
+                if (saveSceneButtonClicked)
+                {
+                    Tofu.Editor.AfterDraw +=
+                        () => Tofu.SceneManager.SaveScene();
+                    ImGui.CloseCurrentPopup();
                 }
+
+                bool realodSceneButtonClicked = ImGui.Button("Reload scene");
+                if (realodSceneButtonClicked)
+                {
+                    Tofu.Editor.AfterDraw +=
+                        () => Tofu.SceneManager.ReloadScene();
+                    ImGui.CloseCurrentPopup();
+                }
+
+                ImGui.EndMenu();
+            }
+
+            bool editMenuOpened = ImGui.BeginMenu("Edit");
+            if (editMenuOpened)
+            {
+                ImGui.EndMenu();
+            }
+
+
+            bool windowMenuClicked = ImGui.BeginMenu("Window");
+            if (windowMenuClicked)
+            {
+                bool layoutMenuOpened = ImGui.BeginMenu("Layout");
+                if (layoutMenuOpened)
+                {
+                    bool saveCurrentLayoutButtonClicked = ImGui.Button("Save Current Layout");
+                    if (saveCurrentLayoutButtonClicked)
+                    {
+                        ImGui.CloseCurrentPopup();
+
+                        _editorLayoutManager.SaveCurrentLayout();
+                    }
+
+                    bool loadDefaultLayoutButtonClicked = ImGui.Button("Load Default Layout");
+                    if (loadDefaultLayoutButtonClicked)
+                    {
+                        ImGui.CloseCurrentPopup();
+
+                        Tofu.Editor.BeforeDraw +=
+                            _editorLayoutManager
+                                .LoadDefaultLayout; // load layout before drawing anything, otherwise we break the layout by calling imgui after this editor panel
+                    }
+
+                    bool saveDefaultLayoutButtonClicked = ImGui.Button("Save Default Layout");
+                    if (saveDefaultLayoutButtonClicked)
+                    {
+                        ImGui.CloseCurrentPopup();
+
+                        _editorLayoutManager.SaveDefaultLayout();
+                    }
+                    ImGui.EndMenu();
+
+                }
+
 
                 ImGui.EndMenu();
             }
@@ -109,18 +155,6 @@ public class EditorPanelMenuBar : EditorPanel
             if (fpsLimiterButtonClicked)
             {
                 Tofu.Window.FrameLimiterEnabled = !Tofu.Window.FrameLimiterEnabled;
-                ImGui.CloseCurrentPopup();
-
-
-                ImGui.EndMenu();
-            }
-
-            bool editorSettingsClicked = ImGui.BeginMenu($"Editor Settings");
-            if (editorSettingsClicked)
-            {
-                Tofu.Editor.AfterDraw +=
-                    () => EditorPanelEditorSettings.I.Toggle(!EditorPanelEditorSettings.I.Active);
-
                 ImGui.CloseCurrentPopup();
 
 

@@ -135,6 +135,8 @@ public static class Tofu
 
         Editor = new Editor();
         Editor.Initialize();
+        
+        TofuImGui.Init();
 
         SceneViewController = new SceneViewController();
 

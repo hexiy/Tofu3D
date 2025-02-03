@@ -4,10 +4,17 @@ namespace Tofu3D;
 
 public static class TofuImGui
 {
+    public static Vector2 DefaultItemSpacing { get; private set; }
+
     public static Vector2 GetCursorScreenPos() =>
         new System.Numerics.Vector2(ImGui.GetCursorScreenPos().X / Tofu.Window.MonitorScale,
             Tofu.Window.WindowSize.Y -
             ImGui.GetCursorScreenPos().Y / Tofu.Window.MonitorScale); // * new Vector2(-1, 1);
+
+    public static void Init()
+    {
+        DefaultItemSpacing = ImGui.GetStyle().ItemSpacing;
+    }
 
     /// <summary>
     /// Returns true only on mouse released
@@ -104,5 +111,17 @@ public static class TofuImGui
         {
             ImGui.Image(textureId, size);
         }
+    }
+
+    public static TofuImGuiSetItemSpacingGuard SetTemporaryItemSpacingForCurrentScope(float? x = null, float? y = null)
+    {
+        return SetTemporaryItemSpacingForCurrentScope(new Vector2(x ?? ImGui.GetStyle().ItemSpacing.X,
+            y ?? ImGui.GetStyle().ItemSpacing.Y));
+    }
+
+    public static TofuImGuiSetItemSpacingGuard SetTemporaryItemSpacingForCurrentScope(Vector2 spacing)
+    {
+        TofuImGuiSetItemSpacingGuard guard = new TofuImGuiSetItemSpacingGuard(ImGui.GetStyle().ItemSpacing, spacing);
+        return guard;
     }
 }

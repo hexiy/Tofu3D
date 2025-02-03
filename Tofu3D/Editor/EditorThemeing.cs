@@ -13,6 +13,7 @@ public static class EditorThemeing
     {
         ImGui.GetStyle().WindowRounding = 0;
         ImGui.GetStyle().WindowBorderSize = 0.2f;
+        // ImGui.GetStyle().ItemSpacing = new Vector2();
         //ImGui.GetStyle().WindowPadding = new Vector2(0,0;
 
         ImGuiStylePtr style = ImGui.GetStyle();

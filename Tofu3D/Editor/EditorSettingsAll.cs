@@ -6,15 +6,20 @@ namespace Tofu3D;
 public class EditorSettingsAll
 {
     public EditorSettingsGeneral EditorSettingsGeneral;
+    public EditorSettingsCodeEditor EditorSettingsCodeEditor;
 
     public void SaveData()
     {
         PersistentData.Set("EditorSettingsGeneral", EditorSettingsGeneral);
+        PersistentData.Set("EditorSettingsCodeEditor", EditorSettingsCodeEditor);
     }
 
     public void LoadSavedData()
     {
         EditorSettingsGeneral =
             PersistentData.Get<EditorSettingsGeneral>("EditorSettingsGeneral", new EditorSettingsGeneral());
+        
+        EditorSettingsCodeEditor =
+            PersistentData.Get<EditorSettingsCodeEditor>("EditorSettingsCodeEditor", new EditorSettingsCodeEditor());
     }
 }
