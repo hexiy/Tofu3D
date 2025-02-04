@@ -30,7 +30,7 @@ public static class PersistentData
         Save();
     }
 
-    public static T Get<T>(string key, T? defaultValue) where T : class
+    public static T Get<T>(string key, Func<T>? defaultValueFunc) where T : class
     {
         if (_data.Count == 0)
         {
@@ -43,9 +43,9 @@ public static class PersistentData
                 JsonConvert.DeserializeObject<T>(_data[key]); // needs this for serialized classes
             if (deserializedObject == null) //_data[key] is not T)
             {
-                if (defaultValue != null)
+                if (defaultValueFunc != null)
                 {
-                    return defaultValue;
+                    return defaultValueFunc.Invoke();
                 }
 
                 return null;
@@ -55,16 +55,16 @@ public static class PersistentData
         }
         else
         {
-            if (defaultValue != null)
+            if (defaultValueFunc != null)
             {
-                return defaultValue;
+                return defaultValueFunc.Invoke();
             }
 
             return null;
         }
     }
 
-    public static object Get(string key, object? defaultValue = null)
+    public static object Get(string key, Func<object>? defaultValue = null)
     {
         if (_data.Count == 0)
         {
@@ -79,18 +79,18 @@ public static class PersistentData
         {
             if (defaultValue != null)
             {
-                return defaultValue;
+                return defaultValue.Invoke();
             }
 
             return null;
         }
     }
 
-    public static string GetString(string key, string? defaultValue = null) => Get(key, defaultValue).ToString();
+    public static string GetString(string key, string? defaultValue = null) => Get(key, ()=>defaultValue).ToString();
 
-    public static int GetInt(string key, int? defaultValue = null) => int.Parse(Get(key, defaultValue)?.ToString());
+    public static int GetInt(string key, int? defaultValue = null) => int.Parse(Get(key, ()=>defaultValue)?.ToString());
 
-    public static bool GetBool(string key, bool? defaultValue = null) => bool.Parse(Get(key, defaultValue)?.ToString());
+    public static bool GetBool(string key, bool? defaultValue = null) => bool.Parse(Get(key, ()=>defaultValue)?.ToString());
 
     public static void Set(string key, object value)
     {

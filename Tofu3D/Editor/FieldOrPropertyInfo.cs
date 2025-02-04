@@ -15,6 +15,7 @@ public class FieldOrPropertyInfo
     public Type GenericParameterType;
     public bool HasSpaceAttribute;
     public string? HeaderText;
+    public string? NameOverride;
     public bool IsGenericList;
     public bool IsListElement;
     public bool IsReadonly;
@@ -47,16 +48,23 @@ public class FieldOrPropertyInfo
         return attribute != null;
     }
 
+    public bool HasCustomAttribute<T>() where T : Attribute
+    {
+        return GetCustomAttribute<T>() != null;
+    }
+
     public T? GetCustomAttribute<T>() where T : Attribute
     {
         if (_fieldInfo != null)
         {
-            return _fieldInfo.GetCustomAttribute<T>();
+            return _fieldInfo.GetCustomAttributes<T>().FirstOrDefault(attrib => attrib.GetType() == typeof(T), null);
         }
 
         if (_propertyInfo != null)
         {
-            return _propertyInfo.GetCustomAttribute<T>();
+            // return _propertyInfo.GetCustomAttribute<T>();
+            return _propertyInfo.GetCustomAttributes<T>().FirstOrDefault(attrib => attrib.GetType() == typeof(T), null);
+
         }
 
         return null;
@@ -94,17 +102,28 @@ public class FieldOrPropertyInfo
                 return "RefObject";
             }
 
+            if (NameOverride != null)
+            {
+                return NameOverride;
+            }
+
+            string name = "";
             if (_fieldInfo != null)
             {
-                return _fieldInfo.Name;
+                name = _fieldInfo.Name;
             }
 
             if (_propertyInfo != null)
             {
-                return _propertyInfo.Name;
+                name = _propertyInfo.Name;
             }
 
-            return null;
+            if (HasCustomAttribute<SplitWords>())
+            {
+                name = StringExtensions.SplitCamelCase(name);
+            }
+
+            return name;
         }
     }
 
@@ -135,16 +154,16 @@ public class FieldOrPropertyInfo
     public void SetInfo(FieldInfo fi, object obj)
     {
         _fieldInfo = fi;
-        UpdateCanShowInEditor(obj);
+        Init(obj);
     }
 
     public void SetInfo(PropertyInfo pi, object obj)
     {
         _propertyInfo = pi;
-        UpdateCanShowInEditor(obj);
+        Init(obj);
     }
 
-    private void UpdateCanShowInEditor(object obj)
+    private void Init(object obj)
     {
         CanShowInEditor = true;
         if (_fieldInfo?.IsPrivate == true)
@@ -169,80 +188,88 @@ public class FieldOrPropertyInfo
             CanShowInEditor = false;
         }
 
-        foreach (CustomAttributeData attribute in CustomAttributes)
+
+        if (HasCustomAttribute<Show>())
         {
-            if (attribute.AttributeType == typeof(Show))
+            CanShowInEditor = true;
+        }
+
+        if (HasCustomAttribute<Space>())
+        {
+            HasSpaceAttribute = true;
+        }
+
+
+        if (GetCustomAttribute<InspectorNameOverride>(out InspectorNameOverride nameOverrideAttrib))
+        {
+            NameOverride = nameOverrideAttrib.Name;
+        }
+
+        if (GetCustomAttribute<Header>(out Header headerAttrib))
+        {
+            string? text = headerAttrib.Text;
+
+            HeaderText = text;
+        }
+
+        if (GetCustomAttribute<ShowIf>(out ShowIf showIfAttrib))
+        {
+            Type objType = obj.GetType();
+
+            string? name = showIfAttrib.FieldName;
+
+            FieldInfo? field = objType.GetField(name,
+                BindingFlags.Default | BindingFlags.Instance | BindingFlags.NonPublic);
+            PropertyInfo? property = objType.GetProperty(name,
+                BindingFlags.Default | BindingFlags.Instance | BindingFlags.NonPublic);
+            if (field != null)
             {
-                CanShowInEditor = true;
+                CanShowInEditor = (bool)field.GetValue(obj);
             }
 
-            if (attribute.AttributeType == typeof(Space))
+            if (property != null)
             {
-                HasSpaceAttribute = true;
+                CanShowInEditor = (bool)property.GetValue(obj);
+            }
+        }
+
+        if (GetCustomAttribute<ShowIfNot>(out ShowIfNot showIfNotAttrib))
+        {
+            string? name = showIfNotAttrib.FieldName;
+            Type objType = obj.GetType();
+
+            FieldInfo? field = objType.GetField(name);
+            PropertyInfo? property = objType.GetProperty(name);
+            if (field != null)
+            {
+                CanShowInEditor = (bool)field.GetValue(obj) == false;
             }
 
-            if (attribute.AttributeType == typeof(Header))
+            if (property != null)
             {
-                Type objType = obj.GetType();
+                CanShowInEditor = (bool)property.GetValue(obj) == false;
+            }
+        }
 
-                string? text = attribute.ConstructorArguments[0].Value.ToString();
+        if (HasCustomAttribute<Hide>())
+        {
+            CanShowInEditor = false;
+        }
 
-                HeaderText = text;
+        if (HasCustomAttribute<ReadOnly>())
+        {
+            IsReadonly = true;
+        }
+
+        // Show everything in debug mode, if it was not shown before, set it to readonly
+        if (Global.Debug)
+        {
+            if (CanShowInEditor == false)
+            {
+                IsReadonly = true;
             }
 
-            else if (attribute.AttributeType == typeof(ShowIf))
-            {
-                Type objType = obj.GetType();
-
-                string? name = attribute.ConstructorArguments[0].Value.ToString();
-
-                FieldInfo? field = objType.GetField(name,
-                    BindingFlags.Default | BindingFlags.Instance | BindingFlags.NonPublic);
-                PropertyInfo? property = objType.GetProperty(name,
-                    BindingFlags.Default | BindingFlags.Instance | BindingFlags.NonPublic);
-                if (field != null)
-                {
-                    CanShowInEditor = (bool)field.GetValue(obj);
-                }
-
-                if (property != null)
-                {
-                    CanShowInEditor = (bool)property.GetValue(obj);
-                }
-            }
-
-            else if (attribute.AttributeType == typeof(ShowIfNot))
-            {
-                string? name = attribute.ConstructorArguments[0].Value.ToString();
-                Type objType = obj.GetType();
-
-                FieldInfo? field = objType.GetField(name);
-                PropertyInfo? property = objType.GetProperty(name);
-                if (field != null)
-                {
-                    CanShowInEditor = (bool)field.GetValue(obj) == false;
-                }
-
-                if (property != null)
-                {
-                    CanShowInEditor = (bool)property.GetValue(obj) == false;
-                }
-            }
-
-            else if (attribute.AttributeType == typeof(Hide))
-            {
-                CanShowInEditor = false;
-            }
-
-            if (Global.Debug)
-            {
-                if (CanShowInEditor == false)
-                {
-                    IsReadonly = true;
-                }
-
-                CanShowInEditor = true;
-            }
+            CanShowInEditor = true;
         }
     }
 
@@ -272,8 +299,11 @@ public class FieldOrPropertyInfo
         if (_fieldInfo != null)
         {
             _fieldInfo.SetValue(obj, value);
-            _inspectableData.Inspector.FieldChangedByUserInspectableCallback?.Invoke(_fieldInfo.Name);
-            _inspectableData.Inspector.FieldChangedByUser.Invoke(_fieldInfo.Name);
+            Tofu.Editor.AfterDraw += () =>
+            {
+                _inspectableData.Inspector.FieldChangedByUserInspectableCallback?.Invoke(_fieldInfo.Name);
+                _inspectableData.Inspector.FieldChangedByUser.Invoke(_fieldInfo.Name);
+            };
         }
 
         if (_propertyInfo != null)
@@ -281,8 +311,11 @@ public class FieldOrPropertyInfo
             if (_propertyInfo.GetSetMethod() != null)
             {
                 _propertyInfo.SetValue(obj, value);
-                _inspectableData.Inspector.FieldChangedByUserInspectableCallback?.Invoke(_propertyInfo.Name);
-                _inspectableData.Inspector.FieldChangedByUser.Invoke(_propertyInfo.Name);
+                Tofu.Editor.AfterDraw += () =>
+                {
+                    _inspectableData.Inspector.FieldChangedByUserInspectableCallback?.Invoke(_propertyInfo.Name);
+                    _inspectableData.Inspector.FieldChangedByUser.Invoke(_propertyInfo.Name);
+                };
             }
         }
 

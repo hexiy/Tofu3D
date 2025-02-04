@@ -83,7 +83,7 @@
       <IndexInHierarchy>5</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>sphere</Name>
+      <Name>cube</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
@@ -145,7 +145,7 @@
       <NearPlaneDistance>0.01</NearPlaneDistance>
       <OrthographicSize>2</OrthographicSize>
       <Size>
-        <X>1631</X>
+        <X>1633</X>
         <Y>1033</Y>
       </Size>
     </Component>
@@ -673,5 +673,5 @@
       <Radius>1</Radius>
     </Component>
   </Components>
-  <GameObjectNextId>22</GameObjectNextId>
+  <GameObjectNextId>24</GameObjectNextId>
 </SceneFile>

@@ -5,6 +5,7 @@ namespace Tofu3D;
 public static class TofuImGui
 {
     public static Vector2 DefaultItemSpacing { get; private set; }
+    public static Vector2 DefaultWindowPadding { get; private set; }
 
     public static Vector2 GetCursorScreenPos() =>
         new System.Numerics.Vector2(ImGui.GetCursorScreenPos().X / Tofu.Window.MonitorScale,
@@ -14,6 +15,7 @@ public static class TofuImGui
     public static void Init()
     {
         DefaultItemSpacing = ImGui.GetStyle().ItemSpacing;
+        DefaultWindowPadding = ImGui.GetStyle().WindowPadding;
     }
 
     /// <summary>
@@ -123,5 +125,10 @@ public static class TofuImGui
     {
         TofuImGuiSetItemSpacingGuard guard = new TofuImGuiSetItemSpacingGuard(ImGui.GetStyle().ItemSpacing, spacing);
         return guard;
+    }
+
+    public static Vector2 GetContentRegionAvailWithPadding()
+    {
+        return ImGui.GetContentRegionAvail() - DefaultWindowPadding;
     }
 }

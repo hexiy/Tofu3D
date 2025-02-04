@@ -80,7 +80,8 @@ public class Inspector
             { typeof(AudioClip), new InspectorFieldDrawerAudioClip() },
             { typeof(RuntimeMesh), new InspectorFieldDrawerMesh() },
             { typeof(Curve), new InspectorFieldDrawerCurve() },
-            { typeof(Enum), new InspectorFieldDrawerEnum() }
+            { typeof(Enum), new InspectorFieldDrawerEnum() },
+            { typeof(CollectionWithSelection<string>), new InspectorFieldDrawerCollectionWithSelection<string>() },
         };
     }
 
@@ -329,6 +330,7 @@ public class Inspector
                 ImGui.BeginDisabled();
             }
 
+
             if (hovering)
             {
                 ImGui.TextColored(new Vector4(0.7f, 0.4f, 0.6f, 1), info.Name);
@@ -342,7 +344,8 @@ public class Inspector
 
         float itemWidth1 = _size.X / 1.6f;
         ImGui.SameLine(_size.X - itemWidth1);
-        ImGui.SetNextItemWidth(itemWidth1);
+        // ImGui.SetNextItemWidth(itemWidth1);
+        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X - TofuImGui.DefaultWindowPadding.X);
 
         if (info.IsGenericList)
         {
@@ -377,7 +380,7 @@ public class Inspector
                     ImGui.SameLine();
 
                     bool isNull = list[j] == null;
-                    string name = isNull ? "<null>" : "name";
+                    // string name = isNull ? "<null>" : "name";
 
 
                     FieldOrPropertyInfo listElementFieldOrProperty =
@@ -408,7 +411,6 @@ public class Inspector
             }
         }
 
-        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X);
         if (info.FieldOrPropertyType.BaseType == typeof(Enum))
         {
             Inspector._inspectorFieldDrawables[typeof(Enum)].Draw(info, componentInspectorData);

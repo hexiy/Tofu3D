@@ -1,5 +1,5 @@
-Ù{
-  "FrameLimiter": "true",
+€{
+  "FrameLimiter": "false",
   "CurrentDirectoryPath": "\"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Assets/3D/sponza\"",
   "PersistentObject__cameraFieldOfViewInperspectiveMode": "90.0",
   "PersistentObject__cameraPositionInPerspectiveMode": "{\n  \"X\": 0.0,\n  \"Y\": 0.0,\n  \"Z\": 0.0\n}",
@@ -11,14 +11,8 @@
   "RenderSettings.ViewRenderMode": "{}",
   "Global.Debug": "false",
   "EditorSettingsGeneral": "{\n  \"FontSize\": 12,\n  \"EditorTheme\": 0\n}",
-  "EditorSettingsCodeEditor": "{\n  \"CodeEditorPath\": \"\"\n}"
-}}EditorTheme\": 0\n}"
-}
-}"
-}"
-}}"
-}"
-}\n}"
+  "EditorSettingsCodeEditor": "{\n  \"CodeEditorPath\": \"/Users/hexiy/Documents/Unreal Projects\"\n}"
+}n}"
 }"
 }"
 }"

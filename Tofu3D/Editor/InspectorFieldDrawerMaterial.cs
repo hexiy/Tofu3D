@@ -35,7 +35,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
 
 
         bool clicked = ImGui.Button(materialName,
-            new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+            new Vector2(TofuImGui.GetContentRegionAvailWithPadding().X, ImGui.GetFrameHeight()));
         if (clicked)
         {
             EditorPanelInspector.I.AddActionToActionQueue(() =>

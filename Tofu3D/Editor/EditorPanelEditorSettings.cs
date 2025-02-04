@@ -26,6 +26,8 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
     public static EditorPanelEditorSettings I { get; private set; }
     private EditorPanelSideBar _sideBar;
+    private Vector2 InspectorSize => Size - new Vector2(_sidebarWidth, 0);
+    private const float _sidebarWidth = 250;
 
     public override void Init()
     {
@@ -34,7 +36,9 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         _inspector = new Inspector(drawInspectableHeader: false);
         _inspector.FieldChangedByUser += OnAnyFieldChangedByUser;
 
-        _sideBar = new EditorPanelSideBar(["General", "Code Editor", "Scene", "Gizmos", "Assets", "Graphics", "Cache"]);
+        _sideBar = new EditorPanelSideBar([
+            "General", "Code Editor", "Scene View", "Analysis", "Assets", "Graphics", "Cache"
+        ]);
         _sideBar.SelectedItemChanged += OnSidebarSelectedItemChanged;
         SelectInspectable(Tofu.EditorSettingsAll.EditorSettingsGeneral);
 
@@ -60,7 +64,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
     public override void Update()
     {
-        _inspector.Update(Size);
+        _inspector.Update(InspectorSize);
         // _inspector.ContentMaxWidth = Size.Xi - (int)ImGui.GetStyle().WindowPadding.X;
 
         if (KeyboardInput.WasKeyJustPressed(Keys.Escape))
@@ -119,8 +123,9 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         _sideBar.Draw(height: Size.Y);
 
         Vector2 pos = ImGui.GetCursorPos();
-        ImGui.SetCursorPos(new Vector2(250, topY));
+        ImGui.SetCursorPos(new Vector2(_sidebarWidth, topY));
 
+        ImGui.SetNextWindowSize(InspectorSize);
         ImGui.Begin("main", ImGuiWindowFlags.ChildWindow | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoMove);
 
         if (_inspector.HasInspectableData)
@@ -140,13 +145,17 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
     private void BeginWindow()
     {
+        bool imguiOpened = true;
+
         Vector2 size = Screen.Size / 2;
         ImGui.SetNextWindowSize(size, ImGuiCond.FirstUseEver);
         ImGui.SetNextWindowSizeConstraints(Vector2.One * 200, Vector2.One * 99999);
         ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
-        ImGui.Begin(Name, AdditionalWindowFlags | ImGuiWindowFlags.NoCollapse);
+        ImGui.Begin(Name, ref imguiOpened, AdditionalWindowFlags | ImGuiWindowFlags.NoCollapse);
         IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
         Size = ImGui.GetWindowSize();
+
+        Active = imguiOpened;
     }
 
 
@@ -176,6 +185,11 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
     public void Toggle(bool tgl)
     {
+        if (IsOpened == tgl)
+        {
+            return;
+        }
+
         Tofu.EditorWindowsManager.ToggleWindow(this, tgl);
     }
 

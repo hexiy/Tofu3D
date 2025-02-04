@@ -9,7 +9,8 @@ public class InspectorFieldDrawerAction : InspectorFieldDrawable<Action>
         Action? action = GetValue(info, componentInspectorData);
         ImGui.PushStyleColor(ImGuiCol.Text, ImGui.GetStyle().Colors[(int)ImGuiCol.Text]);
         if (ImGui.Button($"> {info.Name} <",
-                new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight())))
+                new Vector2(TofuImGui.GetContentRegionAvailWithPadding().X,
+                    ImGui.GetFrameHeight())))
         {
             action?.Invoke();
         }

@@ -237,12 +237,11 @@ public class EditorPanelConsole : EditorPanel
             ImGui.SetCursorPosY(ImGui.GetContentRegionMax().Y * 0.72f);
             ImGui.Separator();
 
-            Vector4 cBeige = new Vector4(1f, 0.96f, 0.90f, 1.00f);
-
-            Vector4 cBeigeMid = new Vector4(0.97f, 0.94f, 0.88f, 1f); // greenish
-            ImGui.PushStyleColor(ImGuiCol.FrameBg, cBeigeMid);
-            ImGui.PushStyleColor(ImGuiCol.HeaderHovered, cBeige);
-            // ImGui.BeginChildFrame(1, ImGui.GetContentRegionMax());
+            // Vector4 cBeige = new Vector4(1f, 0.96f, 0.90f, 1.00f);
+            //
+            // Vector4 cBeigeMid = new Vector4(0.97f, 0.94f, 0.88f, 1f); // greenish
+            // ImGui.PushStyleColor(ImGuiCol.FrameBg, cBeigeMid);
+            // ImGui.PushStyleColor(ImGuiCol.HeaderHovered, cBeige);
             ImGui.BeginChildFrame(1, ImGui.GetContentRegionAvail());
             LogEntry log = Debug.GetLogsRef()[_selectedMessageIndex];
             Color color = GetLogCategoryTextColor(log.LogCategory);
@@ -261,11 +260,9 @@ public class EditorPanelConsole : EditorPanel
                 clicked = clicked || ImGui.IsItemClicked();
                 if (clicked)
                 {
-                    // RiderIDE.OpenStackTrace(log.StackTrace.Frames[i]);
                     UserCodeEditorOpener.OpenFileFromStackFrame(log.StackTrace.Frames[i]);
                 }
             }
-            // ImGui.TextWrapped(log.StackTrace);
 
             ImGui.EndChildFrame();
 
@@ -277,8 +274,6 @@ public class EditorPanelConsole : EditorPanel
         {
             ImGui.Separator();
         }
-        //ResetID();
-
 
         ImGui.End();
     }

@@ -12,7 +12,7 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
         string assetName = mesh?.Mesh?.Name ?? "";
 
         bool clicked = ImGui.Button(assetName,
-            new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));
+            new Vector2(TofuImGui.GetContentRegionAvailWithPadding().X, ImGui.GetFrameHeight()));
 
         if (ImGui.BeginDragDropTarget())
         {

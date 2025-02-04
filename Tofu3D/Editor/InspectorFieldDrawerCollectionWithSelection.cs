@@ -1,0 +1,61 @@
+using System.Linq;
+using ImGuiNET;
+using NativeFileDialogSharp;
+
+namespace Tofu3D;
+
+public class InspectorFieldDrawerCollectionWithSelection<T> : InspectorFieldDrawable<CollectionWithSelection<T>>
+{
+    public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
+    {
+        CollectionWithSelection<T> fieldValue = GetValue(info, componentInspectorData);
+
+        bool hasBrowserPathAttrib =
+            info.GetCustomAttribute<CollectionWithSelectionAttrib_BrowsePath>(
+                out CollectionWithSelectionAttrib_BrowsePath? browserPathAttrib);
+
+        List<string> collectionValuesAsStrings = fieldValue.Items.Cast<string>().ToList();
+
+        if (hasBrowserPathAttrib)
+        {
+            collectionValuesAsStrings.Add("------Add------");
+        }
+
+        string[] collectionValuesAsStringsArray = collectionValuesAsStrings.ToArray();
+
+        int _firstSelectedIndex = 0;
+        IReadOnlyList<int> selectedIndexes = fieldValue.GetSelectedIndices();
+        if (selectedIndexes.Count > 0)
+        {
+            _firstSelectedIndex = selectedIndexes[0];
+        }
+
+        bool clicked = ImGui.Combo(string.Empty, ref _firstSelectedIndex, collectionValuesAsStringsArray,
+            collectionValuesAsStringsArray.Length);
+        if (clicked)
+        {
+            if (_firstSelectedIndex == collectionValuesAsStrings.Count - 1)
+            {
+                DialogResult dialogResult = Dialog.FileOpen(browserPathAttrib.FileFilter);
+
+                bool pathDoesntExistInCollection = collectionValuesAsStrings.Contains(dialogResult.Path) == false;
+                if (dialogResult.IsOk && pathDoesntExistInCollection)
+                {
+                    collectionValuesAsStrings[^1] = dialogResult.Path;
+
+                    fieldValue.Items = (IReadOnlyList<T>)collectionValuesAsStrings;
+                    SetValue(info, componentInspectorData, fieldValue);
+                }
+                else
+                {
+                    _firstSelectedIndex--;
+                }
+            }
+
+            fieldValue.SelectItems([_firstSelectedIndex]);
+            SetValue(info, componentInspectorData, fieldValue);
+
+            componentInspectorData.Inspector.QueueRefresh(componentInspectorData);
+        }
+    }
+}

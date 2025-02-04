@@ -17,9 +17,10 @@ public class EditorSettingsAll
     public void LoadSavedData()
     {
         EditorSettingsGeneral =
-            PersistentData.Get<EditorSettingsGeneral>("EditorSettingsGeneral", new EditorSettingsGeneral());
-        
+            PersistentData.Get<EditorSettingsGeneral>("EditorSettingsGeneral", () => new EditorSettingsGeneral());
+
         EditorSettingsCodeEditor =
-            PersistentData.Get<EditorSettingsCodeEditor>("EditorSettingsCodeEditor", new EditorSettingsCodeEditor());
+            PersistentData.Get<EditorSettingsCodeEditor>("EditorSettingsCodeEditor",
+                () => new EditorSettingsCodeEditor());
     }
 }
