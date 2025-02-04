@@ -169,9 +169,11 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
     public void OnAnyFieldChangedByUser(string fieldName)
     {
-        if (fieldName == nameof(EditorSettingsGeneral.FontSize))
+        if (fieldName == nameof(EditorSettingsGeneral.FontSize) ||
+            fieldName == nameof(EditorSettingsGeneral.FontPathsCollection))
         {
-            Tofu.ImGuiController.UpdateFontSize(Tofu.EditorSettingsAll.EditorSettingsGeneral.FontSize);
+            Tofu.ImGuiController.LoadFont(Tofu.EditorSettingsAll.EditorSettingsGeneral.FontSize,
+                Tofu.EditorSettingsAll.EditorSettingsGeneral.FontPathsCollection.GetFirstSelectedItem());
         }
 
         if (fieldName == nameof(EditorSettingsGeneral.EditorTheme))

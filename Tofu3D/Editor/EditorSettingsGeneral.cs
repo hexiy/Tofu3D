@@ -13,7 +13,7 @@ public class EditorSettingsGeneral
     [Show]
     [InspectorNameOverride("Font")]
     [CollectionWithSelectionAttrib_BrowsePath()]
-    private CollectionWithSelection<string> FontPathsCollection;
+    public CollectionWithSelection<string> FontPathsCollection;
 
     [SplitWords]
     public EditorThemeEnum EditorTheme;

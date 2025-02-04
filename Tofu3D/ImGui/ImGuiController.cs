@@ -75,7 +75,8 @@ public class ImGuiController : IDisposable
 
         // io.IniSavingRate = 5;
 
-        UpdateFontSize(Tofu.EditorSettingsAll.EditorSettingsGeneral.FontSize);
+        LoadFont(Tofu.EditorSettingsAll.EditorSettingsGeneral.FontSize,
+            TofuPath.Combine(Folders.FontsInResources, "inconsolata.ttf"));
         //io.Fonts.AddFontDefault();
 
         io.BackendFlags = ImGuiBackendFlags.None; // ImGuiBackendFlags.RendererHasVtxOffset;
@@ -92,13 +93,13 @@ public class ImGuiController : IDisposable
         _frameBegun = true;
     }
 
-    public void UpdateFontSize(int size)
+    public void LoadFont(int size, string path)
     {
         ImGuiIOPtr io = ImGui.GetIO();
 
         io.Fonts.Clear();
         ImFontPtr fontPointer =
-            io.Fonts.AddFontFromFileTTF(TofuPath.Combine(Folders.FontsInResources, "inconsolata.ttf"),
+            io.Fonts.AddFontFromFileTTF(path,
                 size * Screen.ScaleI);
 
         RecreateFontDeviceTexture();

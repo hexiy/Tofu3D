@@ -28,5 +28,10 @@ public class CollectionWithSelection<T>
         return _selectedIndexes.Select(index => Items[index]).ToList();
     }
 
+    public T GetFirstSelectedItem()
+    {
+        return Items[_selectedIndexes.FirstOrDefault(defaultValue: 0)];
+    }
+
     public IReadOnlyList<int> GetSelectedIndices() => _selectedIndexes;
 }

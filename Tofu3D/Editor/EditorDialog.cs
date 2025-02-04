@@ -36,18 +36,26 @@ public class EditorDialog
         ImGui.SetNextWindowSize(bgPanelSize, ImGuiCond.Always);
         ImGui.SetNextWindowPos(Screen.Center, ImGuiCond.Always, new Vector2(0.5f, 0.5f));
 
+        ImGui.PushStyleColor(ImGuiCol.WindowBg, new Vector4(0,0,0,0.9f));
         ImGui.Begin("Dialog",
-            ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoDecoration |
-            ImGuiWindowFlags.NoBackground);
-        TofuImGui.ImageTexture2DArray(Tofu.Editor.EditorTextures.WhitePixel, bgPanelSize, tint_col:
-            new Vector4(0f, 0f, 0f, 0.9f));
+            ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoDecoration
+            // | ImGuiWindowFlags.NoBackground
+            );
+        // TofuImGui.ImageTexture2DArray(Tofu.Editor.EditorTextures.WhitePixel, bgPanelSize, tint_col:
+            // new Vector4(0f, 0f, 0f, 0.9f));
+        ImGui.PopStyleColor();
+        
+        bool hoveringBackground = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
 
 
         Vector2 panelSize = new Vector2(300, 200);
         ImGui.SetCursorScreenPos(Screen.Center - panelSize / 2);
-        TofuImGui.ImageTexture2DArray(Tofu.Editor.EditorTextures.WhitePixel, panelSize, tint_col:
-            new Vector4(1f, 0.96f, 0.90f, 1.00f));
-        bool hoveringPanel = ImGui.IsItemHovered();
+        ImGui.SetNextWindowPos(Screen.Center, ImGuiCond.Always, Vector2.Half);
+        ImGui.SetNextWindowSize(panelSize);
+        ImGui.Begin("dialog", ImGuiWindowFlags.Modal | ImGuiWindowFlags.ChildWindow | ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoDecoration);
+        // TofuImGui.ImageTexture2DArray(Tofu.Editor.EditorTextures.WhitePixel, panelSize, tint_col:
+        //     new Vector4(1f, 0.96f, 0.90f, 1.00f));
+        bool hoveringPanel = ImGui.IsWindowHovered();
         ImGui.SetCursorScreenPos(Screen.Center + new Vector2(0, -50));
         TofuGUI.Text(_dialogParams.message);
 
@@ -71,12 +79,13 @@ public class EditorDialog
             // ImGui.SameLine();
         }
 
-        if (Tofu.MouseInput.IsButtonDown(MouseButtons.Left) && ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly) &&
+        if (Tofu.MouseInput.IsButtonDown(MouseButtons.Left) && hoveringBackground &&
             hoveringPanel == false)
         {
             Hide();
         }
 
+        ImGui.End();
         ImGui.End();
     }
 }
