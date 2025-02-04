@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Tofu3D;
@@ -22,14 +23,28 @@ public class EditorSettingsGeneral
     [SplitWords]
     public Action DeletePersistentData => () => { PersistentData.DeleteAll(); };
 
-    public EditorSettingsGeneral()
+    public void Init()
     {
-        if (FontPathsCollection == null)
+        InitFontPathsCollection();
+    }
+
+    private void InitFontPathsCollection()
+    {
+        // to keep what we added but also load new fonts
+        string[] fonts = Directory.GetFiles(Folders.FontsInResources, "*.ttf");
+        HashSet<string> fontsHashSet = new HashSet<string>();
+        for (int i = 0; i < fonts.Length; i++)
         {
-            string[] fonts = Directory.GetFiles(Folders.FontsInResources, "*.ttf");
-            FontPathsCollection = new CollectionWithSelection<string>();
-            FontPathsCollection.Items = fonts;
-            FontPathsCollection.SelectFirst();
+            fontsHashSet.Add(fonts[i]);
         }
+
+        for (int i = 0; i < FontPathsCollection?.Items.Count; i++)
+        {
+            fontsHashSet.Add(FontPathsCollection.Items[i]);
+        }
+
+        FontPathsCollection = new CollectionWithSelection<string>();
+        FontPathsCollection.Items = fontsHashSet.ToArray();
+        FontPathsCollection.SelectFirst();
     }
 }

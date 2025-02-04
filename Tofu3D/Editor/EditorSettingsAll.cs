@@ -19,6 +19,8 @@ public class EditorSettingsAll
         EditorSettingsGeneral =
             PersistentData.Get<EditorSettingsGeneral>("EditorSettingsGeneral", () => new EditorSettingsGeneral());
 
+        EditorSettingsGeneral.Init();
+        
         EditorSettingsCodeEditor =
             PersistentData.Get<EditorSettingsCodeEditor>("EditorSettingsCodeEditor",
                 () => new EditorSettingsCodeEditor());
