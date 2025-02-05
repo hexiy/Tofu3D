@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 
 namespace Tofu3D;
 
@@ -16,11 +17,15 @@ public static class StackTraceFactory
         // stackTrace.FullText = stackTraceFullText;
         // var a = new System.Diagnostics.StackFrame(true);
         int skipFrames = 3;
-        System.Diagnostics.StackTrace? b = new System.Diagnostics.StackTrace(fNeedFileInfo: true, skipFrames: 3);
-        System.Diagnostics.StackFrame[] frames = b.GetFrames();
+        System.Diagnostics.StackTrace? b = new System.Diagnostics.StackTrace(fNeedFileInfo: true, skipFrames: 2);
+        List<System.Diagnostics.StackFrame> frames = b.GetFrames().ToList();
+        while (frames[0].GetFileName().Contains("debug.cs", StringComparison.OrdinalIgnoreCase))
+        {
+            frames.RemoveAt(0);
+        }
 
         StackTrace stackTrace = new StackTrace();
-        StackFrame[] stackFrames = new StackFrame[frames.Length];
+        StackFrame[] stackFrames = new StackFrame[frames.Count];
         for (int i = 0; i < stackFrames.Length; i++)
         {
             stackFrames[i] = new StackFrame();
@@ -36,7 +41,7 @@ public static class StackTraceFactory
             int column = 0;
             if (fileFullPath != null)
             {
-                string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+                string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
                 fileShort = Path.GetRelativePath(projectDirectory, fileFullPath);
                 line = frames[i].GetFileLineNumber();
                 column = frames[i].GetFileColumnNumber();
@@ -44,6 +49,11 @@ public static class StackTraceFactory
             else
             {
                 fileFullPath = "undefined";
+            }
+
+            if (fileFullPath.Length == 0)
+            {
+                fileShort = "external code";
             }
 
             stackFrames[i].FileFullPath = fileFullPath;
