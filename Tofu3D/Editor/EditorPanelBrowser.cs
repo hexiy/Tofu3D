@@ -197,7 +197,7 @@ public class EditorPanelBrowser : EditorPanel
     public override void Draw()
     {
         // return;
-        if (Active == false)
+        if (IsActive == false)
         {
             return;
         }

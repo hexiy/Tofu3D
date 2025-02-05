@@ -57,6 +57,7 @@ public static class Tofu
     public static GameObjectSelectionManager GameObjectSelectionManager;
 
     public static ScriptsReloader ScriptsReloader;
+    public static UserCodeEditorOpener UserCodeEditorOpener;
 
     public static void Launch()
     {
@@ -68,6 +69,8 @@ public static class Tofu
 
         ScriptsManager.CopyDllsToProjectFolder();
         ScriptsManager.CompileScriptsAssembly();
+
+        UserCodeEditorOpener = new UserCodeEditorOpener();
 
         EditorSettingsAll = new EditorSettingsAll();
         EditorWindowsManager = new EditorWindowsManager();
@@ -92,6 +95,7 @@ public static class Tofu
         ShaderManager.Initialize();
 
         ScriptsReloader = new ScriptsReloader();
+
 
         Window = new Window();
         Window.Load += OnWindowLoad;

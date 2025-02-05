@@ -32,7 +32,7 @@ public class EditorPanelTextureViewer : EditorPanel
 
     public override void Draw()
     {
-        if (Active == false)
+        if (IsActive == false)
         {
             return;
         }

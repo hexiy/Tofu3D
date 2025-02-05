@@ -133,7 +133,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
 
     public override void Draw()
     {
-        if (Active == false)
+        if (IsActive == false)
         {
             return;
         }

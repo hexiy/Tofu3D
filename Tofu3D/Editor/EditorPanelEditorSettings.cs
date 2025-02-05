@@ -10,11 +10,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
     public bool IsOpened { get; set; }
 
-    internal override bool Active
-    {
-        get => IsOpened;
-        set => Toggle(value);
-    }
+    internal override bool IsActive => IsOpened;
 
     public override Vector2 Position => Screen.Center;
     public override Vector2 Pivot => Vector2.Half;
@@ -43,7 +39,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         SelectInspectable(Tofu.EditorSettingsAll.EditorSettingsGeneral);
 
 
-        Active = false;
+        Toggle(true);
     }
 
     private void OnSidebarSelectedItemChanged(int itemIndex)
@@ -105,7 +101,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
     public override void Draw()
     {
-        if (Active == false)
+        if (IsActive == false)
         {
             return;
         }
@@ -155,7 +151,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
         Size = ImGui.GetWindowSize();
 
-        Active = imguiOpened;
+        Toggle(imguiOpened);
     }
 
 
@@ -174,6 +170,37 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         {
             Tofu.ImGuiController.LoadFont(Tofu.EditorSettingsAll.EditorSettingsGeneral.FontSize,
                 Tofu.EditorSettingsAll.EditorSettingsGeneral.FontPathsCollection.GetFirstSelectedItem());
+        }
+
+        if (fieldName == nameof(EditorSettingsCodeEditor.EditorArgs))
+        {
+            string editorPathOrName = Tofu.EditorSettingsAll.EditorSettingsCodeEditor.CodeEditorPaths.GetFirstSelectedItem();
+            CodeEditorInfo editorInfo = Tofu.UserCodeEditorOpener.GetEditorInfoByName(editorPathOrName);
+            editorInfo.ArgsTemplate = Tofu.EditorSettingsAll.EditorSettingsCodeEditor.EditorArgs;
+        }
+
+        if (fieldName == nameof(EditorSettingsCodeEditor.CodeEditorPaths))
+        {
+            string editorPathOrName = Tofu.EditorSettingsAll.EditorSettingsCodeEditor.CodeEditorPaths.GetFirstSelectedItem();
+            CodeEditorInfo editorInfo = Tofu.UserCodeEditorOpener.GetEditorInfoByName(editorPathOrName);
+            if (editorInfo == null) // doesnt exist yet
+            {
+                if (OperatingSystem.IsMacOS) // on macos user can select the app bundle which is just a directory
+                {
+                    editorPathOrName = StringExtensions.GetExecutablePathFromMacosAppBundlePath(editorPathOrName);
+                }
+                editorInfo = Tofu.UserCodeEditorOpener.AddEditor(editorPathOrName);
+
+                if (editorInfo == null)
+                {
+                    Debug.LogError("Error adding editor");
+                }
+            }
+
+            if (editorInfo != null)
+            {
+                Tofu.UserCodeEditorOpener.SetEditorToUse(editorInfo);
+            }
         }
 
         if (fieldName == nameof(EditorSettingsGeneral.EditorTheme))

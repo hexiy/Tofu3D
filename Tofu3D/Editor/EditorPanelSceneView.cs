@@ -17,7 +17,7 @@ public class EditorPanelSceneView : EditorPanel
     public override void Draw()
     {
         // return;
-        if (Active == false)
+        if (IsActive == false)
         {
             return;
         }

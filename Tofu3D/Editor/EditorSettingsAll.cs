@@ -24,5 +24,7 @@ public class EditorSettingsAll
         EditorSettingsCodeEditor =
             PersistentData.Get<EditorSettingsCodeEditor>("EditorSettingsCodeEditor",
                 () => new EditorSettingsCodeEditor());
+        
+        EditorSettingsCodeEditor.Init();
     }
 }

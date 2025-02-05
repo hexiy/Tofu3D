@@ -30,7 +30,7 @@ public class EditorPanelConsole : EditorPanel
 
     public override void Draw()
     {
-        if (Active == false)
+        if (IsActive == false)
         {
             return;
         }
@@ -260,14 +260,14 @@ public class EditorPanelConsole : EditorPanel
                 clicked = clicked || ImGui.IsItemClicked();
                 if (clicked)
                 {
-                    UserCodeEditorOpener.OpenFileFromStackFrame(log.StackTrace.Frames[i]);
+                    Tofu.UserCodeEditorOpener.OpenFileFromStackFrame(log.StackTrace.Frames[i]);
                 }
             }
 
             ImGui.EndChildFrame();
 
-            ImGui.PopStyleColor();
-            ImGui.PopStyleColor();
+            // ImGui.PopStyleColor();
+            // ImGui.PopStyleColor();
         }
 
         if (logsCount > 0)

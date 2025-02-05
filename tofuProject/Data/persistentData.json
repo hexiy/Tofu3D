@@ -1,5 +1,4 @@
-Ã
-{
+°{
   "FrameLimiter": "false",
   "CurrentDirectoryPath": "\"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Assets/3D/sponza\"",
   "PersistentObject__cameraFieldOfViewInperspectiveMode": "90.0",
@@ -7,12 +6,14 @@
   "PersistentObject__cameraRotationInPerspectiveMode": "{\n  \"X\": 0.0,\n  \"Y\": 0.0,\n  \"Z\": 0.0\n}",
   "PersistentObject_sceneViewProjectionMode": "0",
   "lastOpenedScene": "\"defaultScene.scene\"",
-  "LastSelectedGameObjectId": "-1",
+  "LastSelectedGameObjectId": "4",
   "RenderSettings.Wireframe": "{\n  \"WireframeLineWidth\": 5.0,\n  \"WireframeVisible\": false\n}",
   "RenderSettings.ViewRenderMode": "{}",
   "Global.Debug": "false",
-  "EditorSettingsGeneral": "{\n  \"FontSize\": 12,\n  \"FontPathsCollection\": {\n    \"Items\": [\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/inconsolata.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/inter.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Montserrat-Regular.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Montserrat-Medium.ttf\"\n    ]\n  },\n  \"EditorTheme\": 0\n}",
-  "EditorSettingsCodeEditor": "{\n  \"CodeEditorPath\": \"/Users/hexiy/Documents/Unreal Projects\"\n}"
-}/Tofu3D/tofuProject/Resources/Fonts/inter.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Fredoka-Regular.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Poppins-Regular.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Montserrat-Regular.ttf\"\n    ]\n  },\n  \"EditorTheme\": 0\n}",
+  "EditorSettingsGeneral": "{\n  \"FontSize\": 12,\n  \"FontPathsCollection\": {\n    \"Items\": [\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Montserrat-Medium.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/inconsolata.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/inter.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Montserrat-Regular.ttf\"\n    ]\n  },\n  \"EditorTheme\": 2\n}",
+  "EditorSettingsCodeEditor": "{\n  \"CodeEditorPaths\": {\n    \"Items\": [\n      \"JetBrains Rider\",\n      \"Visual Studio Code\",\n      \"Zed\",\n      \"TextEdit\"\n    ]\n  },\n  \"EditorArgs\": null\n}"
+}"EditorArgs\": null\n}"
+}n}"
+}ar.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Poppins-Regular.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Montserrat-Regular.ttf\"\n    ]\n  },\n  \"EditorTheme\": 0\n}",
   "EditorSettingsCodeEditor": "{\n  \"CodeEditorPath\": \"/Users/hexiy/Documents/Unreal Projects\"\n}"
 }

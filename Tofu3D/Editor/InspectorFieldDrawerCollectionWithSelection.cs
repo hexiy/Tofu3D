@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 using ImGuiNET;
 using NativeFileDialogSharp;
@@ -23,6 +24,16 @@ public class InspectorFieldDrawerCollectionWithSelection<T> : InspectorFieldDraw
 
         string[] collectionValuesAsStringsArray = collectionValuesAsStrings.ToArray();
 
+        info.GetCustomAttribute<PathString>(out PathString? pathStringAttrib);
+        if (pathStringAttrib != null && pathStringAttrib.DisplayNameOnly)
+        {
+            for (int i = 0; i < collectionValuesAsStringsArray.Length; i++)
+            {
+                collectionValuesAsStringsArray[i] = Path.GetFileName(collectionValuesAsStringsArray[i]);
+            }
+        }
+
+
         int _firstSelectedIndex = 0;
         IReadOnlyList<int> selectedIndexes = fieldValue.GetSelectedIndices();
         if (selectedIndexes.Count > 0)
@@ -34,7 +45,7 @@ public class InspectorFieldDrawerCollectionWithSelection<T> : InspectorFieldDraw
             collectionValuesAsStringsArray.Length);
         if (clicked)
         {
-            if (_firstSelectedIndex == collectionValuesAsStrings.Count - 1)
+            if (hasBrowserPathAttrib && _firstSelectedIndex == collectionValuesAsStrings.Count - 1)
             {
                 DialogResult dialogResult = Dialog.FileOpen(browserPathAttrib.FileFilter);
 

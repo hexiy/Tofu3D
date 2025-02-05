@@ -6,7 +6,7 @@ public abstract class EditorPanel
 {
     private int _currentId;
 
-    internal virtual bool Active { get; set; }= true;
+    internal virtual bool IsActive { get;}= true;
 
     internal bool IsPanelHovered;
     public int WindowWidth;

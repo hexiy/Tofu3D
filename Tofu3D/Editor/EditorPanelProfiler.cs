@@ -16,7 +16,7 @@ public class EditorPanelProfiler : EditorPanel
 
     public override void Draw()
     {
-        if (Active == false)
+        if (IsActive == false)
         {
             return;
         }

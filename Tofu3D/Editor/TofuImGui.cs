@@ -131,4 +131,6 @@ public static class TofuImGui
     {
         return ImGui.GetContentRegionAvail() - DefaultWindowPadding;
     }
+
+    public const float WindowMenuBarHeight = 25;
 }

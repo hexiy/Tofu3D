@@ -25,10 +25,10 @@ public class EditorSettingsGeneral
 
     public void Init()
     {
-        InitFontPathsCollection();
+        FillFontPathsCollection();
     }
 
-    private void InitFontPathsCollection()
+    private void FillFontPathsCollection()
     {
         // to keep what we added but also load new fonts
         string[] fonts = Directory.GetFiles(Folders.FontsInResources, "*.ttf");
