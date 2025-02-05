@@ -1,3 +1,4 @@
+using System.IO;
 using ImGuiNET;
 using NativeFileDialogSharp;
 
@@ -12,9 +13,14 @@ public class InspectorFieldDrawerString : InspectorFieldDrawable<string>
         info.GetCustomAttribute<PathString>(out PathString? pathStringAttrib);
         if (pathStringAttrib != null)
         {
+            if (pathStringAttrib.DisplayNameOnly)
+            {
+                fieldValue = Path.GetFileName(fieldValue);
+            }
+
             string buttonLabel = fieldValue.Length > 0 ? fieldValue : "<path>";
             bool clicked = ImGui.Button(buttonLabel, new Vector2(ImGui.GetContentRegionAvail().X, 30));
-            
+
             // ImGui.SameLine();
             if (clicked)
             {
