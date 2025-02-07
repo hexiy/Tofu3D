@@ -174,6 +174,7 @@ public class TextureAtlasManager
                 rectangle.Right,
                 rectangle.Bottom);
 
+
             box = box / (float)AtlasWidth; // 0 - 1
 
             atlasMembers[i] = new TextureAtlasMember()
@@ -202,7 +203,7 @@ public class TextureAtlasManager
             for (int x = 0; x < textureWidth; x++)
             {
                 int atlasX = (int)rectangle.X + x;
-                int atlasY = (int)rectangle.Y + y;
+                int atlasY = (int)rectangle.Y + (textureHeight - 1 - y); // Flip vertically
 
                 int indexInAtlasPixels = (atlasY * AtlasWidth + atlasX) * 4;
                 int indexInTexturePixels = (y * textureWidth + x) * 4;
@@ -223,10 +224,7 @@ public class TextureAtlasManager
         {
             using Image<Rgba32>? image =
                 Image.LoadPixelData<Rgba32>(atlasPixels, AtlasWidth, AtlasWidth);
-            // image.Mutate(x =>
-            // {
-            //     x.Flip(FlipMode.Vertical);
-            // });
+            image.Mutate(x => { x.Flip(FlipMode.Vertical); });
             // byte[] pixels = new byte[AtlasWidth * AtlasWidth * 4];
             // image.CopyPixelDataTo(pixels);
 
@@ -302,9 +300,9 @@ public class TextureAtlasManager
         GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureBorderColor, borderColor);
 
         GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMinFilter,
-            (int)TextureMinFilter.Linear);
+            (int)TextureMinFilter.Nearest);
         GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMagFilter,
-            (int)TextureMagFilter.Linear);
+            (int)TextureMagFilter.Nearest);
         GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureWrapS,
             (int)TextureWrapMode.ClampToBorder);
         GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureWrapT,

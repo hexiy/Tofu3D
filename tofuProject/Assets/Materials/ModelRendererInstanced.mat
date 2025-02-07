@@ -7,12 +7,12 @@
   "Additive": false,
   "AlbedoTexture": {
     "BoundingBoxInAtlas": {
-      "X": 0.0,
-      "Y": 0.5,
-      "Z": 0.25,
-      "W": 0.75
+      "X": 0.5,
+      "Y": 0.25,
+      "Z": 0.75,
+      "W": 0.5
     },
-    "IndexInAtlasTextureArray": 0,
+    "IndexInAtlasTextureArray": 1,
     "IsRuntimeCopy": false,
     "DataIsCompressed": false,
     "AtlasGLTextureArrayId": 0,
@@ -46,7 +46,7 @@
   "MetallicTextureStrength": 0.746,
   "Smoothness": 0.544,
   "Tiling": {
-    "X": 1.0,
+    "X": 0.1,
     "Y": 1.0
   },
   "Offset": {
@@ -64,7 +64,7 @@
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}g": {
+}}}: {
     "X": 1.0,
     "Y": 1.0
   },

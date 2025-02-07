@@ -39,8 +39,10 @@ void main(void)
 
 	albedoAtlasIndex = uint(floor(a_albedoBoundingBoxAndIndexInAtlas.x)); // extract from a_albedoBoundingBoxAndIndexInAtlas,
 	vec4 boundingBox = a_albedoBoundingBoxAndIndexInAtlas - vec4(albedoAtlasIndex);
-	uv = vec2(1-a_uv);
+//	uv = vec2(1-a_uv);
+	uv = vec2(a_uv);
 	uv = uv * u_tiling + u_offset;
+
 	uv = mod(uv, 1.0);
 //	uv = fract(uv);
 

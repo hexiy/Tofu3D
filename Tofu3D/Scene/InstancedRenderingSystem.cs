@@ -361,7 +361,6 @@ public class InstancedRenderingSystem
             }
         }
 
-
         bool discardTransparentPixels =
             material.BlendMode is BlendMode.Fade or BlendMode.PremultipliedAlpha or BlendMode.Additive;
 
@@ -703,22 +702,22 @@ public class InstancedRenderingSystem
 
         buffer[bufferIndex++] = mousePickingId;
 
-        if (uvOffset != null)
-        {
-            buffer[bufferIndex++] = uvOffset.Value.X;
-            buffer[bufferIndex++] = uvOffset.Value.Y;
-        }
+        // if (uvOffset != null)
+        // {
+        //     buffer[bufferIndex++] = uvOffset.Value.X;
+        //     buffer[bufferIndex++] = uvOffset.Value.Y;
+        // }
 
 
         // i dont have to add the atlas index to the whole vector4 but for now i will
         buffer[bufferIndex++] =
-            material.AlbedoTexture?.BoundingBoxInAtlas.X + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+            (material.AlbedoTexture?.BoundingBoxInAtlas.X ?? 0) + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
         buffer[bufferIndex++] =
-            material.AlbedoTexture?.BoundingBoxInAtlas.Y + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+            (material.AlbedoTexture?.BoundingBoxInAtlas.Y ?? 0) + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
         buffer[bufferIndex++] =
-            material.AlbedoTexture?.BoundingBoxInAtlas.Z + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+            (material.AlbedoTexture?.BoundingBoxInAtlas.Z ?? 0) + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
         buffer[bufferIndex++] =
-            material.AlbedoTexture?.BoundingBoxInAtlas.W + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+            (material.AlbedoTexture?.BoundingBoxInAtlas.W ?? 0) + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
         // uv = 0 - 1 = atlas 0
         // uv = 1 - 2 = atlas 1
 

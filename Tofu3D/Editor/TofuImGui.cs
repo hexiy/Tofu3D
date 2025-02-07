@@ -50,16 +50,16 @@ public static class TofuImGui
 
         if (tint_col != null)
         {
-            ImGui.ImageButton(textureId, size, uvBoundingBox.XY, uvBoundingBox.ZW, frame_padding: 0, bg_col.Value,
+            ImGui.ImageButton(textureId, size, uvBoundingBox.XW, uvBoundingBox.ZY, frame_padding: 0, bg_col.Value,
                 tint_col.Value);
         }
         else if (bg_col != null)
         {
-            ImGui.ImageButton(textureId, size, uvBoundingBox.XY, uvBoundingBox.ZW, frame_padding: 0, bg_col.Value);
+            ImGui.ImageButton(textureId, size, uvBoundingBox.XW, uvBoundingBox.ZY, frame_padding: 0, bg_col.Value);
         }
         else
         {
-            ImGui.ImageButton(textureId, size, uvBoundingBox.XY, uvBoundingBox.ZW);
+            ImGui.ImageButton(textureId, size, uvBoundingBox.XW, uvBoundingBox.ZY);
         }
     }
 
@@ -78,16 +78,16 @@ public static class TofuImGui
 
         if (border_col != null)
         {
-            ImGui.Image(textureId, size, uvBoundingBox.XY, uvBoundingBox.ZW, tint_col.Value,
+            ImGui.Image(textureId, size, uvBoundingBox.XW, uvBoundingBox.ZY, tint_col.Value,
                 border_col.Value);
         }
         else if (tint_col != null)
         {
-            ImGui.Image(textureId, size, uvBoundingBox.XY, uvBoundingBox.ZW, tint_col.Value);
+            ImGui.Image(textureId, size, uvBoundingBox.XW, uvBoundingBox.ZY, tint_col.Value);
         }
         else
         {
-            ImGui.Image(textureId, size, uvBoundingBox.XY, uvBoundingBox.ZW);
+            ImGui.Image(textureId, size, uvBoundingBox.XW, uvBoundingBox.ZY);
         }
     }
 

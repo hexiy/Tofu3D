@@ -79,7 +79,9 @@ public struct Vector4 : IEquatable<Vector4>
 
 
     public Vector2 XY => new Vector2(X, Y);
+    public Vector2 XW => new Vector2(X, W);
     public Vector2 ZW => new Vector2(Z, W);
+    public Vector2 ZY => new Vector2(Z, Y);
 
     #endregion
 
