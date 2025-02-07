@@ -3,20 +3,20 @@ public abstract class AssetBase : IHasPath
 {
     [Hide]
     public string? PathInAssetsFolder { get; set; } = null;
+
     [Hide]
     public string? PathInLibraryFolder { get; set; } = null;
 
+    [Hide]
     public string? AnyPath
     {
-        get
-        {
-            return PathInAssetsFolder ?? PathInLibraryFolder;
-        }
+        get { return PathInAssetsFolder ?? PathInLibraryFolder; }
     }
 
     [Hide]
     public bool IsRuntimeCopy = false;
 
+    [Hide]
     public bool DataIsCompressed = false;
 
     public void SetAsRuntimeAsset()

@@ -1,11 +1,12 @@
-¨{
+§{
   "PathToSourceAsset": "Assets/2D/purple.png",
   "FilterMode": 9729,
   "WrapMode": 10497,
   "IsSrgb": false,
   "BlackIsTransparency": false,
-  "AssetID": 1674868971
-}  <PathToSourceAsset>Assets/2D/purple.png</PathToSourceAsset>
+  "AssetID": 366413844
+}
+} <PathToSourceAsset>Assets/2D/purple.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>
   <IsSrgb>false</IsSrgb>

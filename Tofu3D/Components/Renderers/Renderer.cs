@@ -76,7 +76,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
                 }
 
                 Material = Tofu.AssetLoadManager.CreateCopyFile<Asset_Material>(Material,
-                    folder: Folders.MaterialsInLibrary);
+                    folder: Folders.MaterialsInAssets);
             };
         }
     }

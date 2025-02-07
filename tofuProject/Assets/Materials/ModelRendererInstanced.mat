@@ -1,4 +1,4 @@
-Ó{
+°{
   "Shader": {
     "BufferType": 2,
     "Path": "Assets/Shaders/ModelRendererInstanced.glsl",
@@ -8,17 +8,17 @@
   "AlbedoTexture": {
     "BoundingBoxInAtlas": {
       "X": 0.0,
-      "Y": 0.50048876,
-      "Z": 0.36656892,
-      "W": 0.8670577
+      "Y": 0.5,
+      "Z": 0.25,
+      "W": 0.75
     },
-    "IndexInAtlasTextureArray": 5,
+    "IndexInAtlasTextureArray": 0,
     "IsRuntimeCopy": false,
     "DataIsCompressed": false,
-    "AtlasGLTextureArrayId": 1,
-    "PathInAssetsFolder": "Assets/2D/grass.jpg",
-    "PathInLibraryFolder": "Library/Textures/grass.jpg.tofutexture",
-    "AnyPath": "Assets/2D/grass.jpg"
+    "AtlasGLTextureArrayId": 0,
+    "PathInAssetsFolder": "Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png",
+    "PathInLibraryFolder": "Library/Textures/Aged_Bronze_02_basecolor.png.tofutexture",
+    "AnyPath": "Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png"
   },
   "AlphaMaskTexture": null,
   "AlbedoTint": {
@@ -64,8 +64,15 @@
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}d.mat"
-}}}  "UVOffsetIsInstanced": false,
+}g": {
+    "X": 1.0,
+    "Y": 1.0
+  },
+  "Offset": {
+    "X": 0.0,
+    "Y": 0.0
+  },
+  "UVOffsetIsInstanced": false,
   "RenderMode": 0,
   "BlendMode": 0,
   "MaterialType": 0,
@@ -76,30 +83,44 @@
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}der": "Assets/Materials/ModelRendererInstanced.mat",
-  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
-  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}}t"
-}.mat",
-  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
-  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}  "PathInAssetsFolder": "Assets/3D/cyberpunk-car/textures/Vehicle_emissive.png",
-    "PathInLibraryFolder": "Library/Textures/Vehicle_emissive.png.tofutexture",
-    "AnyPath": "Assets/3D/cyberpunk-car/textures/Vehicle_emissive.png"
+}ng": {
+    "X": 1.0,
+    "Y": 1.0
   },
-  "EmissiveColor": {
+  "Offset": {
     "X": 0.0,
-    "Y": 0.0,
-    "Z": 0.0,
-    "W": 0.895
+    "Y": 0.0
   },
-  "SmoothShadows": true,
-  "RefractionEnabled": false,
-  "RefractiveIndex": 1.309,
-  "SpecularHighlightsEnabled": false,
-  "SpecularSmoothness": -16.91,
-  "MetallicTextureStrength": 1.0,
-  "Smoothness": 0.0,
+  "UVOffsetIsInstanced": false,
+  "RenderMode": 0,
+  "BlendMode": 0,
+  "MaterialType": 0,
+  "IgnoreDepth": false,
+  "NoDepth": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
+  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
+  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
+}    "X": 1.0,
+    "Y": 1.0
+  },
+  "Offset": {
+    "X": 0.0,
+    "Y": 0.0
+  },
+  "UVOffsetIsInstanced": false,
+  "RenderMode": 0,
+  "BlendMode": 0,
+  "MaterialType": 0,
+  "IgnoreDepth": false,
+  "NoDepth": false,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
+  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
+  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
+}": 0.544,
   "Tiling": {
     "X": 1.0,
     "Y": 1.0
@@ -111,9 +132,13 @@
   "UVOffsetIsInstanced": false,
   "RenderMode": 0,
   "BlendMode": 0,
+  "MaterialType": 0,
+  "IgnoreDepth": false,
+  "NoDepth": false,
   "IsRuntimeCopy": false,
   "DataIsCompressed": false,
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
 }
+}}

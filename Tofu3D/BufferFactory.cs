@@ -111,7 +111,7 @@ public static class BufferFactory
                 BufferUsageHint.StaticDraw);
         }
 
-        // Tofu.ShaderManager.BindVertexArray(0);
+        Tofu.ShaderManager.BindVertexArray(0);
         // GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
     }
 

@@ -24,8 +24,33 @@ public class SharedInstancingBuffer
     // public required VertexBufferStructureType VertexBufferStructureType { init; get; }
     public InstancedGroupDefinition InstancedGroupDefinition;
 
-    public void Init()
+    public SharedInstancingBuffer(InstancedGroupDefinition instancedGroupDefinition)
     {
+        // Debug.Log("Initializing Instanced Buffer Data");
+        Tofu.ShaderManager.BindVertexArray(instancedGroupDefinition.RuntimeMesh.Vao);
+
+        instancedGroupDefinition.Material.LoadShader();
+        if (instancedGroupDefinition.Material.Shader.IsLoaded == false)
+        {
+            Debug.LogError("Couldnt load shader");
+            throw new Exception("Couldnt load shader");
+        }
+
+        InstancedGroupDefinition = instancedGroupDefinition;
+        // VertexBufferStructureType = instancedGroupDefinition.vertexBufferStructureType;
+        MaxNumberOfObjects = 1;
+        // FutureMaxNumberOfObjects = 1;
+        Vbo = -1;
+        Vao = instancedGroupDefinition.RuntimeMesh.Vao;
+        // Ebo = objectDefinition.RuntimeMesh.Ebo;
+        ShaderId = instancedGroupDefinition.Material.Shader.ProgramId;
+        UVOffsetIsInstanced = instancedGroupDefinition.Material.UVOffsetIsInstanced;
+        RenderMode = instancedGroupDefinition.Material.RenderMode;
+
+        InstancingBuffer = new float[MaxNumberOfObjects *
+                                     InstancedVertexDataLayoutDefinition.CountOfFloats];
+
+        SetupInstancedBufferAndUploadIfNeeded();
     }
 
     public void AddObject(ref ObjectInstancingData objectInstancingData)

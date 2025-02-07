@@ -30,7 +30,7 @@ public class Asset_Texture : Asset<Asset_Texture>, IComparable<Asset_Texture>
         {
             return;
         }
-        
+
         Pixels = Compression.Compress(Pixels);
         DataIsCompressed = true;
     }
@@ -41,7 +41,7 @@ public class Asset_Texture : Asset<Asset_Texture>, IComparable<Asset_Texture>
         {
             return;
         }
-        
+
         Pixels = Compression.Decompress(Pixels);
         DataIsCompressed = false;
     }

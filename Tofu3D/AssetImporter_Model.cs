@@ -24,7 +24,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         string[] data = File.ReadAllText(objInAssetsFolderPath).Split("\n");
 
-        List<float> vertices = new List<float>();
+        List<float> positions = new List<float>();
         List<float> uvs = new List<float>();
         List<float> normals = new List<float>();
 
@@ -46,9 +46,14 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 float x = float.Parse(lineSplits[1]);
                 float y = float.Parse(lineSplits[2]);
                 float z = float.Parse(lineSplits[3]);
-                vertices.Add(x);
-                vertices.Add(y);
-                vertices.Add(z);
+                if (lineSplits[1].Length == 0 || lineSplits[1] == " ")
+                {
+                    var a = 0;
+                }
+
+                positions.Add(x);
+                positions.Add(y);
+                positions.Add(z);
             }
             else if (line.StartsWith("vt ")) // UVs
             {
@@ -77,7 +82,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             int indxTemp = lineStartIndex;
 
             // save meshes too
-            meshFile = CreateMeshFileFromData(data: data, vertices: vertices, uvs: uvs, normals: normals,
+            meshFile = CreateMeshFileFromData(data: data, positions: positions, uvs: uvs, normals: normals,
                 lineStartIndex: ref lineStartIndex, singleMesh: importParameters.ImportAsSingleMesh,
                 smoothNormals: importParameters.SmoothNormals, objMaterialFileDefinition);
             if (meshFile == null)
@@ -111,11 +116,20 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         return model;
     }
 
+    private Dictionary<string, ObjMaterialFileDefinition> _objMaterialFiles =
+        new Dictionary<string, ObjMaterialFileDefinition>();
+
     private void LoadObjMaterial(string objMaterialPath, out ObjMaterialFileDefinition objMaterialFileDefinition)
     {
         if (File.Exists(objMaterialPath) == false)
         {
             objMaterialFileDefinition = null;
+            return;
+        }
+
+        if (_objMaterialFiles.TryGetValue(objMaterialPath, out var materialFile))
+        {
+            objMaterialFileDefinition = materialFile;
             return;
         }
 
@@ -187,16 +201,18 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                         normalTextureName); // we need to import it because this is called on model import, so textures are not guaranteed to be imported yet
             }
         }
+
+        _objMaterialFiles[objMaterialPath] = objMaterialFileDefinition;
     }
 
 
-    private MeshFile CreateMeshFileFromData(string[] data, List<float> vertices, List<float> uvs, List<float> normals,
+    private MeshFile CreateMeshFileFromData(string[] data, List<float> positions, List<float> uvs, List<float> normals,
         ref int lineStartIndex, bool singleMesh = false, bool smoothNormals = true,
         ObjMaterialFileDefinition objMaterialFileDefinition = null)
     {
         List<uint> indices = new List<uint>();
         ObjMaterialDefinition? objMaterialDefinition = objMaterialFileDefinition?.Materials.LastOrDefault() ?? null;
-        Dictionary<Vector3, uint> uniqueVertices = new Dictionary<Vector3, uint>();
+        Dictionary<VertexDataKey, uint> uniqueVertices = new Dictionary<VertexDataKey, uint>();
         uint currentUniqueVertexIndex = 0;
         List<float> everything = new List<float>();
         int numberOfIndicesPerLine = 0;
@@ -210,25 +226,36 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             string line = data[lineIndex].Trim();
             line = line.Replace("\r", "");
 
-            List<string> lineSplits = line.Split(' ').ToList();
+            string[] lineSplits = line.Split(' ');
             if (line.StartsWith("f ")) // indices
             {
-                numberOfIndicesPerLine = lineSplits.Count - 1;
+                numberOfIndicesPerLine = lineSplits.Length - 1;
                 bool isQuad = numberOfIndicesPerLine == 4;
-                int[] indicesSequenceForFirstTriangle = new int[] { 0, 1, 2 };
-                int[] indicesSequenceForSecondTriangle = new int[] { 0, 2, 3 };
 
-                for (int k = 0; k < 3; k++)
+                int[] indicesSequence = new int[] { 0, 1, 2 };
+                if (isQuad)
                 {
-                    int indiceIndex = indicesSequenceForFirstTriangle[k];
+                    indicesSequence = new int[]
+                    {
+                        0, 1, 2,
+                        0, 2, 3
+                    };
+                }
+
+
+                for (int k = 0; k < indicesSequence.Length; k++)
+                {
+                    int indiceIndex = indicesSequence[k];
                     totalVerticesCount++;
+
 
                     string[] group = lineSplits[indiceIndex + 1].Split('/');
                     for (int i = 0; i < group.Length; i++)
                     {
                         if (group[i].Length == 0)
                         {
-                            group[i] = "0";
+                            // throw new Exception("group[i].Length == 0");
+                            group[i] = "1"; // 1 because we will do -1 few lines down
                         }
                     }
 
@@ -236,11 +263,28 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                     int uvIndex = int.Parse(group[1]) - 1;
                     int normalIndex = int.Parse(group[2]) - 1;
 
-                    everything.Add(vertices[positionIndex * 3 + 0]);
-                    everything.Add(vertices[positionIndex * 3 + 1]);
-                    everything.Add(vertices[positionIndex * 3 + 2]);
+                    // negative means its from the end of the vertex list
+                    if (positionIndex < 0)
+                    {
+                        positionIndex = positions.Count / 3 + positionIndex + 1;
+                    }
 
-                    if (uvIndex == -1)
+                    if (uvIndex < 0)
+                    {
+                        uvIndex = uvs.Count / 2 + uvIndex + 1;
+                    }
+
+                    if (normalIndex < 0)
+                    {
+                        normalIndex = normals.Count / 3 + normalIndex + 1;
+                    }
+
+
+                    everything.Add(positions[positionIndex * 3 + 0]);
+                    everything.Add(positions[positionIndex * 3 + 1]);
+                    everything.Add(positions[positionIndex * 3 + 2]);
+
+                    if (uvs.Count == 0)
                     {
                         everything.Add(0);
                         everything.Add(0);
@@ -254,48 +298,6 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                     everything.Add(normals[normalIndex * 3 + 0]);
                     everything.Add(normals[normalIndex * 3 + 1]);
                     everything.Add(normals[normalIndex * 3 + 2]);
-                }
-
-                if (isQuad)
-                {
-                    for (int k = 0; k < 3; k++)
-                    {
-                        int indiceIndex = indicesSequenceForSecondTriangle[k];
-                        totalVerticesCount++;
-
-                        string[] group = lineSplits[indiceIndex + 1].Split('/');
-                        for (int i = 0; i < group.Length; i++)
-                        {
-                            if (group[i].Length == 0)
-                            {
-                                group[i] = "0";
-                            }
-                        }
-
-                        int positionIndex = int.Parse(group[0]) - 1;
-                        int uvIndex = int.Parse(group[1]) - 1;
-                        int normalIndex = int.Parse(group[2]) - 1;
-
-                        everything.Add(vertices[positionIndex * 3 + 0]);
-                        everything.Add(vertices[positionIndex * 3 + 1]);
-                        everything.Add(vertices[positionIndex * 3 + 2]);
-
-                        if (uvIndex == -1)
-                        {
-                            everything.Add(0);
-                            everything.Add(0);
-                        }
-                        else
-                        {
-                            everything.Add(uvs[uvIndex * 2 + 0]);
-                            everything.Add(uvs[uvIndex * 2 + 1]);
-                        }
-
-
-                        everything.Add(normals[normalIndex * 3 + 0]);
-                        everything.Add(normals[normalIndex * 3 + 1]);
-                        everything.Add(normals[normalIndex * 3 + 2]);
-                    }
                 }
             }
             // else if ((line.StartsWith("g") || line.StartsWith("usemtl")) && singleMesh == false ||
@@ -340,117 +342,75 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         List<float> geometryBufferData = new List<float>();
 
-        for (int indexOfVertex1Start = 0;
-             indexOfVertex1Start < everything.Count;
-             indexOfVertex1Start += floatsPerTriangle)
+        // Loop through each triangle from the temporary buffer.
+        int trianglesCount = everything.Count / floatsPerTriangle;
+        for (int triangleIndex = 0; triangleIndex < trianglesCount; triangleIndex++)
         {
-            Vector3 position1 = new Vector3(
-                everything[indexOfVertex1Start + 0],
-                everything[indexOfVertex1Start + 1],
-                everything[indexOfVertex1Start + 2]);
-            Vector3 position2 = new Vector3(
-                everything[indexOfVertex1Start + floatsPerVertex + 0],
-                everything[indexOfVertex1Start + floatsPerVertex + 1],
-                everything[indexOfVertex1Start + floatsPerVertex + 2]);
-            Vector3 position3 = new Vector3(
-                everything[indexOfVertex1Start + floatsPerVertex + floatsPerVertex + 0],
-                everything[indexOfVertex1Start + floatsPerVertex + floatsPerVertex + 1],
-                everything[indexOfVertex1Start + floatsPerVertex + floatsPerVertex + 2]);
+            int baseIndex = triangleIndex * floatsPerTriangle;
+            // For vertex1 (indices 0-7), vertex2 (8-15), vertex3 (16-23)
+            int v0 = baseIndex;
+            int v1 = baseIndex + floatsPerVertex;
+            int v2 = baseIndex + 2 * floatsPerVertex;
 
+            Vector3 pos1 = new Vector3(everything[v0 + 0], everything[v0 + 1], everything[v0 + 2]);
+            Vector2 uv1 = new Vector2(everything[v0 + 3], everything[v0 + 4]);
+            Vector3 norm1 = new Vector3(everything[v0 + 5], everything[v0 + 6], everything[v0 + 7]);
 
-            int offset = 3; // pos.x,pos.y,pos.z
-            Vector2 uv1 = new Vector2(
-                everything[indexOfVertex1Start + offset + 0],
-                everything[indexOfVertex1Start + offset + 1]);
-            Vector2 uv2 = new Vector2(
-                everything[indexOfVertex1Start + offset + floatsPerVertex + 0],
-                everything[indexOfVertex1Start + offset + floatsPerVertex + 1]);
-            Vector2 uv3 = new Vector2(
-                everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 0],
-                everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 1]);
+            Vector3 pos2 = new Vector3(everything[v1 + 0], everything[v1 + 1], everything[v1 + 2]);
+            Vector2 uv2 = new Vector2(everything[v1 + 3], everything[v1 + 4]);
+            Vector3 norm2 = new Vector3(everything[v1 + 5], everything[v1 + 6], everything[v1 + 7]);
 
+            Vector3 pos3 = new Vector3(everything[v2 + 0], everything[v2 + 1], everything[v2 + 2]);
+            Vector2 uv3 = new Vector2(everything[v2 + 3], everything[v2 + 4]);
+            Vector3 norm3 = new Vector3(everything[v2 + 5], everything[v2 + 6], everything[v2 + 7]);
 
-            offset = 5; // pos.x,pos.y,pos.z, uv.x,uv.y
-
-
-            Vector3 nm1 = new Vector3(
-                everything[indexOfVertex1Start + offset + 0],
-                everything[indexOfVertex1Start + offset + 1],
-                everything[indexOfVertex1Start + offset + 2]);
-            Vector3 nm2 = new Vector3(
-                everything[indexOfVertex1Start + offset + floatsPerVertex + 0],
-                everything[indexOfVertex1Start + offset + floatsPerVertex + 1],
-                everything[indexOfVertex1Start + offset + floatsPerVertex + 2]);
-            Vector3 nm3 = new Vector3(
-                everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 0],
-                everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 1],
-                everything[indexOfVertex1Start + offset + floatsPerVertex + floatsPerVertex + 2]);
-
-            Vector3 tangent1;
-            Vector3 bitangent1;
-            Vector3 tangent2;
-            Vector3 bitangent2;
-
-            Vector3 edge1 = position2 - position1;
-            Vector3 edge2 = position3 - position1;
+            // Compute edges and UV differences
+            Vector3 edge1 = pos2 - pos1;
+            Vector3 edge2 = pos3 - pos1;
             Vector2 deltaUV1 = uv2 - uv1;
             Vector2 deltaUV2 = uv3 - uv1;
 
             float f = 1.0f / (deltaUV1.X * deltaUV2.Y - deltaUV2.X * deltaUV1.Y);
+            Vector3 tangent = new Vector3
+            (
+                f * (deltaUV2.Y * edge1.X - deltaUV1.Y * edge2.X),
+                f * (deltaUV2.Y * edge1.Y - deltaUV1.Y * edge2.Y),
+                f * (deltaUV2.Y * edge1.Z - deltaUV1.Y * edge2.Z)
+            );
+            Vector3 bitangent = new Vector3
+            (
+                f * (-deltaUV2.X * edge1.X + deltaUV1.X * edge2.X),
+                f * (-deltaUV2.X * edge1.Y + deltaUV1.X * edge2.Y),
+                f * (-deltaUV2.X * edge1.Z + deltaUV1.X * edge2.Z)
+            );
 
-
-            tangent1.X = f * (deltaUV2.Y * edge1.X - deltaUV1.Y * edge2.X);
-            tangent1.Y = f * (deltaUV2.Y * edge1.Y - deltaUV1.Y * edge2.Y);
-            tangent1.Z = f * (deltaUV2.Y * edge1.Z - deltaUV1.Y * edge2.Z);
-
-            bitangent1.X = f * (-deltaUV2.X * edge1.X + deltaUV1.X * edge2.X);
-            bitangent1.Y = f * (-deltaUV2.X * edge1.Y + deltaUV1.X * edge2.Y);
-            bitangent1.Z = f * (-deltaUV2.X * edge1.Z + deltaUV1.X * edge2.Z);
-
-            // triangle 2
-            // ----------
-            edge1 = position2 - position1;
-            edge2 = position3 - position1;
-            deltaUV1 = uv2 - uv1;
-            deltaUV2 = uv3 - uv1;
-
-            f = 1.0f / (deltaUV1.X * deltaUV2.Y - deltaUV2.X * deltaUV1.Y);
-
-            tangent2.X = f * (deltaUV2.Y * edge1.X - deltaUV1.Y * edge2.X);
-            tangent2.Y = f * (deltaUV2.Y * edge1.Y - deltaUV1.Y * edge2.Y);
-            tangent2.Z = f * (deltaUV2.Y * edge1.Z - deltaUV1.Y * edge2.Z);
-
-
-            bitangent2.X = f * (-deltaUV2.X * edge1.X + deltaUV1.X * edge2.X);
-            bitangent2.Y = f * (-deltaUV2.X * edge1.Y + deltaUV1.X * edge2.Y);
-            bitangent2.Z = f * (-deltaUV2.X * edge1.Z + deltaUV1.X * edge2.Z);
-
-
-            float[] vertex1 =
+            // Create final vertex arrays (14 floats each)
+            float[] vertex1 = new float[]
             {
-                position1.X, position1.Y, position1.Z, uv1.X, uv1.Y, nm1.X, nm1.Y, nm1.Z, tangent1.X, tangent1.Y,
-                tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z
+                pos1.X, pos1.Y, pos1.Z,
+                uv1.X, uv1.Y,
+                norm1.X, norm1.Y, norm1.Z,
+                tangent.X, tangent.Y, tangent.Z,
+                bitangent.X, bitangent.Y, bitangent.Z
             };
-            float[] vertex2 =
+            float[] vertex2 = new float[]
             {
-                position2.X, position2.Y, position2.Z, uv2.X, uv2.Y, nm2.X, nm2.Y, nm2.Z, tangent1.X, tangent1.Y,
-                tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
+                pos2.X, pos2.Y, pos2.Z,
+                uv2.X, uv2.Y,
+                norm2.X, norm2.Y, norm2.Z,
+                tangent.X, tangent.Y, tangent.Z,
+                bitangent.X, bitangent.Y, bitangent.Z
             };
-            float[] vertex3 =
+            float[] vertex3 = new float[]
             {
-                position3.X, position3.Y, position3.Z, uv3.X, uv3.Y, nm3.X, nm3.Y, nm3.Z, tangent1.X, tangent1.Y,
-                tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
+                pos3.X, pos3.Y, pos3.Z,
+                uv3.X, uv3.Y,
+                norm3.X, norm3.Y, norm3.Z,
+                tangent.X, tangent.Y, tangent.Z,
+                bitangent.X, bitangent.Y, bitangent.Z
             };
-            // float[] triangleVertices =
-            // {
-            //     // positions                           // uvs        // normals        // tangent                          // bitangent
-            //     position1.X, position1.Y, position1.Z, uv1.X, uv1.Y, nm1.X, nm1.Y, nm1.Z, tangent1.X, tangent1.Y,
-            //     tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
-            //     position2.X, position2.Y, position2.Z, uv2.X, uv2.Y, nm2.X, nm2.Y, nm2.Z, tangent1.X, tangent1.Y,
-            //     tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
-            //     position3.X, position3.Y, position3.Z, uv3.X, uv3.Y, nm3.X, nm3.Y, nm3.Z, tangent1.X, tangent1.Y,
-            //     tangent1.Z, bitangent1.X, bitangent1.Y, bitangent1.Z,
-            // };
+
+            // If we're not using indices, simply append the data
             if (RenderingSettings.USE_INDICES == false)
             {
                 geometryBufferData.AddRange(vertex1);
@@ -459,46 +419,44 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             }
             else
             {
-                if (uniqueVertices.ContainsKey(position1))
+                // Otherwise check for unique vertices (using position, normal, and UV as the key)
+                VertexDataKey key1 = new VertexDataKey { Position = pos1, Normal = norm1, UV = uv1 };
+                if (uniqueVertices.ContainsKey(key1))
                 {
-                    uint index = uniqueVertices[position1];
-                    indices.Add(index);
+                    indices.Add(uniqueVertices[key1]);
                 }
                 else
                 {
                     geometryBufferData.AddRange(vertex1);
-                    uint index = (uint)currentUniqueVertexIndex;
+                    uint index = currentUniqueVertexIndex++;
                     indices.Add(index);
-                    currentUniqueVertexIndex++;
-                    uniqueVertices.Add(position1, index);
+                    uniqueVertices.Add(key1, index);
                 }
 
-                if (uniqueVertices.ContainsKey(position2))
+                VertexDataKey key2 = new VertexDataKey { Position = pos2, Normal = norm2, UV = uv2 };
+                if (uniqueVertices.ContainsKey(key2))
                 {
-                    uint index = uniqueVertices[position2];
-                    indices.Add(index);
+                    indices.Add(uniqueVertices[key2]);
                 }
                 else
                 {
                     geometryBufferData.AddRange(vertex2);
-                    uint index = (uint)currentUniqueVertexIndex;
+                    uint index = currentUniqueVertexIndex++;
                     indices.Add(index);
-                    currentUniqueVertexIndex++;
-                    uniqueVertices.Add(position2, index);
+                    uniqueVertices.Add(key2, index);
                 }
 
-                if (uniqueVertices.ContainsKey(position3))
+                VertexDataKey key3 = new VertexDataKey { Position = pos3, Normal = norm3, UV = uv3 };
+                if (uniqueVertices.ContainsKey(key3))
                 {
-                    uint index = uniqueVertices[position3];
-                    indices.Add(index);
+                    indices.Add(uniqueVertices[key3]);
                 }
                 else
                 {
                     geometryBufferData.AddRange(vertex3);
-                    uint index = (uint)currentUniqueVertexIndex;
+                    uint index = currentUniqueVertexIndex++;
                     indices.Add(index);
-                    currentUniqueVertexIndex++;
-                    uniqueVertices.Add(position3, index);
+                    uniqueVertices.Add(key3, index);
                 }
             }
         }

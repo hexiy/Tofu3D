@@ -1,30 +1,36 @@
 /*using Tofu3D.Rendering.Instancing;
 
-public static class StaticGeometryBaker
+public class StaticGeometryBaker
 {
-    public static int VAO = -1;
-    public static int VBO = -1;
-    private static int EBO = -1;
-    public static float[] GeometryBuffer = [];
-    public static float[] InstancedBuffer = [];
-    public static HashSet<MeshVertexDataHashCode> BakedMeshesCodes = new HashSet<MeshVertexDataHashCode>();
-
-    private const int _instancedVertexDataSizeInBytes =
+    public int VAO = -1;
+    public int VBO = -1;
+    private int EBO = -1;
+    public float[] GeometryBuffer = [];
+    public float[] InstancedBuffer = [];
+    public HashSet<MeshVertexDataHashCode> BakedMeshesCodes = new HashSet<MeshVertexDataHashCode>();
+    private SharedInstancingBuffer _instancingBuffer;
+    private int _instancedVertexDataSizeInBytes =
         sizeof(float) * 3 * 4 // 4x vec 3's for model_1 model_2 model_3 model_4
         + (sizeof(float)) // 1 float(int) for mouse picking id
-        + (sizeof(float) * 4) // 4 floats for albedo texture bounding box in atlas
-        + (sizeof(float));
+        + (sizeof(float) * 4 // 4 floats for albedo texture bounding box in atlas+atlas index packed in there
+        );
 
-    public static int VerticesCount => GeometryBuffer.Length / 14;
-    public static int InstancesCount => BakedMeshesCodes.Count;
+    public int VerticesCount => GeometryBuffer.Length / 14;
+    public int InstancesCount => BakedMeshesCodes.Count;
 
-
-    public static void AddMesh(Mesh mesh, Renderer renderer, InstancedRenderingBufferParameters bufferParameters)
+    public StaticGeometryBaker()
     {
-        if (mesh.VertexBufferData.Length == 0)
+        InstancedGroupDefinition
+        _instancingBuffer = new SharedInstancingBuffer();
+    }
+
+    public void AddMesh(Mesh mesh, Renderer renderer, InstancedRenderingBufferParameters bufferParameters)
+    {
+        if (mesh.GeometryBufferData.Length == 0)
         {
             return;
         }
+
         MeshVertexDataHashCode hashCode = new MeshVertexDataHashCode(mesh, renderer.GameObjectId);
         if (BakedMeshesCodes.Contains(hashCode))
         {
@@ -34,11 +40,11 @@ public static class StaticGeometryBaker
         bufferParameters.StartingIndexInInstancedBuffer = InstancedBuffer.Length;
 
 
-        int newGeometryBufferDataArraySize = GeometryBuffer.Length + mesh.VertexBufferData.Length;
+        int newGeometryBufferDataArraySize = GeometryBuffer.Length + mesh.GeometryBufferData.Length;
         Array.Resize(ref GeometryBuffer, newGeometryBufferDataArraySize);
-        Array.Copy(sourceArray: mesh.VertexBufferData, destinationArray: GeometryBuffer, sourceIndex: 0,
-            destinationIndex: newGeometryBufferDataArraySize - mesh.VertexBufferData.Length,
-            length: mesh.VertexBufferData.Length);
+        Array.Copy(sourceArray: mesh.GeometryBufferData, destinationArray: GeometryBuffer, sourceIndex: 0,
+            destinationIndex: newGeometryBufferDataArraySize - mesh.GeometryBufferData.Length,
+            length: mesh.GeometryBufferData.Length);
 
         BakedMeshesCodes.Add(hashCode);
 
@@ -46,14 +52,15 @@ public static class StaticGeometryBaker
 
         int newInstancedBufferSize = InstancedBuffer.Length + (_instancedVertexDataSizeInBytes / sizeof(float));
         Array.Resize(ref InstancedBuffer, newInstancedBufferSize);
-        InstancedRenderingSystem.CopyObjectDataToInstancedBuffer(ref InstancedBuffer, bufferParameters);
+
+        Tofu.InstancedRenderingSystem.CopyObjectDataToBuffer(ref InstancedBuffer, bufferParameters);
         Debug.Log($"Added new mesh to static buffer, number of meshes:{BakedMeshesCodes.Count}");
 
 
         UploadInstancedBuffer();
     }
 
-    private static void CreateGeometryBuffer()
+    private void CreateGeometryBuffer()
     {
         int[] countsOfElements = { 3, 2, 3, 3, 3 }; // position, uv, normal, tangent, bitangent
         BufferFactory.CreateGeometryBuffer(ref VAO, ref EBO, GeometryBuffer,
@@ -61,7 +68,7 @@ public static class StaticGeometryBaker
     }
 
 
-    public static void UploadInstancedBuffer()
+    public void UploadInstancedBuffer()
     {
         Tofu.ShaderManager.BindVertexArray(VAO);
 

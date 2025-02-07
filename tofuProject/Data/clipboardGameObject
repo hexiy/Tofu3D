@@ -4,11 +4,11 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>6</Id>
-      <IndexInHierarchy>5</IndexInHierarchy>
+      <Id>2115</Id>
+      <IndexInHierarchy>488</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>defaultCube</Name>
+      <Name>plane</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
@@ -20,21 +20,21 @@
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>6</GameObjectId>
+      <GameObjectId>2115</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>10</Z>
+        <X>6.0109625</X>
+        <Y>-7.6815214</Y>
+        <Z>-2.2051215</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>10</Z>
+        <X>6.0109625</X>
+        <Y>-7.6815214</Y>
+        <Z>-2.2051215</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -54,7 +54,7 @@
     </Component>
     <Component xsi:type="BoxShape">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>6</GameObjectId>
+      <GameObjectId>2115</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <Pivot>
@@ -76,10 +76,10 @@
     </Component>
     <Component xsi:type="ModelRendererInstanced">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>6</GameObjectId>
+      <GameObjectId>2115</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>5</MousePickingId>
+      <MousePickingId>1456</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
@@ -96,16 +96,29 @@
         <AlbedoTexture>
           <IsRuntimeCopy>false</IsRuntimeCopy>
           <DataIsCompressed>false</DataIsCompressed>
-          <PathInAssetsFolder>Assets/2D/grass.jpg</PathInAssetsFolder>
-          <PathInLibraryFolder>Library/Textures/grass.jpg.tofutexture</PathInLibraryFolder>
+          <PathInAssetsFolder>Assets/3D/vokselia_spawn/vokselia_spawn.png</PathInAssetsFolder>
+          <PathInLibraryFolder>Library/Textures/vokselia_spawn.png.tofutexture</PathInLibraryFolder>
           <BoundingBoxInAtlas>
-            <X>0</X>
-            <Y>0.50048876</Y>
-            <Z>0.36656892</Z>
-            <W>0.8670577</W>
+            <X>0.125</X>
+            <Y>0</Y>
+            <Z>0.25</Z>
+            <W>0.125</W>
           </BoundingBoxInAtlas>
-          <IndexInAtlasTextureArray>5</IndexInAtlasTextureArray>
+          <IndexInAtlasTextureArray>0</IndexInAtlasTextureArray>
         </AlbedoTexture>
+        <AlphaMaskTexture>
+          <IsRuntimeCopy>false</IsRuntimeCopy>
+          <DataIsCompressed>false</DataIsCompressed>
+          <PathInAssetsFolder>Assets/3D/vokselia_spawn/vokselia_spawn.png</PathInAssetsFolder>
+          <PathInLibraryFolder>Library/Textures/vokselia_spawn.png.tofutexture</PathInLibraryFolder>
+          <BoundingBoxInAtlas>
+            <X>0.125</X>
+            <Y>0</Y>
+            <Z>0.25</Z>
+            <W>0.125</W>
+          </BoundingBoxInAtlas>
+          <IndexInAtlasTextureArray>0</IndexInAtlasTextureArray>
+        </AlphaMaskTexture>
         <AlbedoTint>
           <B>255</B>
           <G>255</G>
@@ -142,7 +155,7 @@
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>4</Vao>
+        <Vao>1451</Vao>
         <Ebo>-1</Ebo>
         <Mesh>
           <CountsOfElements>
@@ -152,9 +165,9 @@
             <int>3</int>
             <int>3</int>
           </CountsOfElements>
-          <VerticesCount>36</VerticesCount>
-          <Name>defaultCube.obj_0</Name>
-          <PathInLibraryFolder>Library/Meshes/defaultCube.obj_0.tofumesh</PathInLibraryFolder>
+          <VerticesCount>6</VerticesCount>
+          <Name>plane.obj_0</Name>
+          <PathInLibraryFolder>Library/Meshes/plane.obj_0.tofumesh</PathInLibraryFolder>
         </Mesh>
       </RuntimeMesh>
       <Color>
@@ -165,36 +178,7 @@
         <PackedValue>4294967295</PackedValue>
       </Color>
       <Layer>0</Layer>
-      <RenderOrder>5</RenderOrder>
-    </Component>
-    <Component xsi:type="Rigidbody">
-      <AllowMultiple>false</AllowMultiple>
-      <GameObjectId>6</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <IsStaticBody>true</IsStaticBody>
-      <FirstPhysicsEnabledShape xsi:type="BoxShape">
-        <AllowMultiple>true</AllowMultiple>
-        <GameObjectId>6</GameObjectId>
-        <Started>true</Started>
-        <EnabledSelf>true</EnabledSelf>
-        <Pivot>
-          <X>0.5</X>
-          <Y>0.5</Y>
-          <Z>0.5</Z>
-        </Pivot>
-        <PhysicsEnabled>true</PhysicsEnabled>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-        </Offset>
-        <Size>
-          <X>3</X>
-          <Y>3</Y>
-          <Z>3</Z>
-        </Size>
-      </FirstPhysicsEnabledShape>
+      <RenderOrder>488</RenderOrder>
     </Component>
   </Components>
   <GameObjectNextId>0</GameObjectNextId>

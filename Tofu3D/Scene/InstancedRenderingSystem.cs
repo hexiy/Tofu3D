@@ -10,6 +10,7 @@ public class InstancedRenderingSystem
     // index in _definitions
     private Dictionary<int, SharedInstancingBuffer> _sharedInstancedBuffers =
         new Dictionary<int, SharedInstancingBuffer>();
+
     private Asset_Material _mousePickingMaterial;
     private Asset_Material _depthMaterial;
     // private Asset_Material _customDepthMaterial;
@@ -202,6 +203,11 @@ public class InstancedRenderingSystem
 
 
         sharedInstancingBuffer.SetupInstancedBufferAndUploadIfNeeded();
+
+        if (_groupDefinitions.Count <= definitionIndex)
+        {
+            return;
+        }
 
         InstancedGroupDefinition definition = _groupDefinitions[definitionIndex];
         Asset_Material material = definition.Material;
@@ -438,6 +444,19 @@ public class InstancedRenderingSystem
         material.Shader.SetInt("u_refractionEnabled", material.RefractionEnabled ? 1 : 0);
         material.Shader.SetFloat("u_refractiveIndex", material.RefractiveIndex);
 
+        // Albedo Texture
+
+        // if (material.AlbedoTexture != null && material.Shader?.AlbedoTextureIndexUnit != null)
+        // {
+        //     material.Shader.SetInt("u_hasAlbedoTexture", 1);
+        //
+        //     GL.ActiveTexture(material.Shader.AlbedoTextureIndexUnit.Value);
+        //     TextureHelper.BindTexture(material.AlbedoTexture.StandaloneGLTextureId.Value);
+        // }
+        // else
+        // {
+        //     material.Shader.SetInt("u_hasAlbedoTexture", 0);
+        // }
 
         if (material.Shader.IsLoaded == false)
         {
@@ -596,7 +615,7 @@ public class InstancedRenderingSystem
 
                 _groupDefinitions.Add(definition);
 
-                sharedInstancingBuffer = InitializeSharedBufferData(definition);
+                sharedInstancingBuffer = new SharedInstancingBuffer(definition);
                 _sharedInstancedBuffers.Add(definitionIndex, sharedInstancingBuffer);
 
 
@@ -654,7 +673,14 @@ public class InstancedRenderingSystem
         return true;
     }
 
-    private void CopyObjectDataToBuffer(Matrix4x4 modelMatrix, ref float[] buffer,
+    public void CopyObjectDataToBuffer(ref float[] buffer, InstancedRenderingBufferParameters bufferParameters)
+    {
+        CopyObjectDataToBuffer(modelMatrix: bufferParameters.ModelMatrix, ref buffer,
+            startingIndex: bufferParameters.StartingIndexInInstancedBuffer,
+            bufferParameters.Material, bufferParameters.UvOffset, bufferParameters.MousePickingId);
+    }
+
+    public void CopyObjectDataToBuffer(Matrix4x4 modelMatrix, ref float[] buffer,
         int startingIndex, Asset_Material material,
         Vector2? uvOffset = null, uint mousePickingId = 0)
     {
@@ -683,7 +709,7 @@ public class InstancedRenderingSystem
             buffer[bufferIndex++] = uvOffset.Value.Y;
         }
 
-        
+
         // i dont have to add the atlas index to the whole vector4 but for now i will
         buffer[bufferIndex++] =
             material.AlbedoTexture?.BoundingBoxInAtlas.X + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
@@ -697,40 +723,5 @@ public class InstancedRenderingSystem
         // uv = 1 - 2 = atlas 1
 
         // buffer[bufferIndex++] = material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
-    }
-
-    private SharedInstancingBuffer InitializeSharedBufferData(InstancedGroupDefinition instancedGroupDefinition)
-    {
-        // Debug.Log("Initializing Instanced Buffer Data");
-        Tofu.ShaderManager.BindVertexArray(instancedGroupDefinition.RuntimeMesh.Vao);
-
-        instancedGroupDefinition.Material.LoadShader();
-        if (instancedGroupDefinition.Material.Shader.IsLoaded == false)
-        {
-            Debug.LogError("Couldnt load shader");
-            throw new Exception("Couldnt load shader");
-        }
-
-        SharedInstancingBuffer sharedInstancingBuffer = new SharedInstancingBuffer
-        {
-            InstancedGroupDefinition = instancedGroupDefinition,
-            // VertexBufferStructureType = instancedGroupDefinition.vertexBufferStructureType,
-            MaxNumberOfObjects = 1,
-            // FutureMaxNumberOfObjects = 1,
-            Vbo = -1,
-            Vao = instancedGroupDefinition.RuntimeMesh.Vao,
-            // Ebo = objectDefinition.RuntimeMesh.Ebo,
-            ShaderId = instancedGroupDefinition.Material.Shader.ProgramId,
-            UVOffsetIsInstanced = instancedGroupDefinition.Material.UVOffsetIsInstanced,
-            RenderMode = instancedGroupDefinition.Material.RenderMode,
-        };
-        sharedInstancingBuffer.Init();
-
-        sharedInstancingBuffer.InstancingBuffer = new float[sharedInstancingBuffer.MaxNumberOfObjects *
-                                                            InstancedVertexDataLayoutDefinition.CountOfFloats];
-
-        sharedInstancingBuffer.SetupInstancedBufferAndUploadIfNeeded();
-
-        return sharedInstancingBuffer;
     }
 }

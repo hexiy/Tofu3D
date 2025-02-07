@@ -35,7 +35,11 @@ public class
     [JsonIgnore]
     [XmlIgnore]
     public TextureUnit? AtlasArrayTextureUnit = null;
-
+    
+    [JsonIgnore]
+    [XmlIgnore]
+    public TextureUnit? AlbedoTextureIndexUnit = null;
+    
     [JsonIgnore]
     [XmlIgnore]
     public TextureUnit? ShadowMapTextureUnit = null;
@@ -213,9 +217,9 @@ public class
 
             switch (textureUniformName)
             {
-                // case UniformName_TextureAlbedo:
-                // AlbedoTextureIndexUnit = textureUnit;
-                // break;
+                case UniformName_TextureAlbedo:
+                AlbedoTextureIndexUnit = textureUnit;
+                break;
                 // case UniformName_TextureAlphaMask:
                 // AlphaMaskTextureIndexUnit = textureUnit;
                 // break;

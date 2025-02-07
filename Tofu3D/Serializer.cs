@@ -18,6 +18,11 @@ public static class Serializer
         return asset;
     }
 
+    public static void SaveFileJSON(string path, object content)
+    {
+        SaveFileJSON<object>(path, content);
+    }
+
     public static void SaveFileJSON<T>(string path, object content)
     {
         using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
@@ -25,6 +30,16 @@ public static class Serializer
             using (BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8, false))
             {
                 writer.Write(JsonConvert.SerializeObject(content, Formatting.Indented));
+            }
+        }
+    }
+    public static void SaveTextFile(string path, string text)
+    {
+        using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
+        {
+            using (BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8, false))
+            {
+                writer.Write(text);
             }
         }
     }

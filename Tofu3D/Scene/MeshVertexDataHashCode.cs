@@ -1,4 +1,4 @@
-/*using Microsoft.DotNet.PlatformAbstractions;
+using Microsoft.DotNet.PlatformAbstractions;
 
 public struct MeshVertexDataHashCode(Mesh mesh, int id)
 {
@@ -8,8 +8,8 @@ public struct MeshVertexDataHashCode(Mesh mesh, int id)
     {
         var hashCodeCombiner = HashCodeCombiner.Start();
 
-        hashCodeCombiner.Add(mesh.VertexBufferData.GetHashCode());
+        hashCodeCombiner.Add(mesh.GeometryBufferData.GetHashCode());
         hashCodeCombiner.Add(id.GetHashCode());
         return hashCodeCombiner.CombinedHash;
     }
-}*/
+}

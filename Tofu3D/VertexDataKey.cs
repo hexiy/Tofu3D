@@ -4,7 +4,7 @@ public struct VertexDataKey
     public Vector2 UV;        // UV coordinates of the vertex
     public Vector3 Normal;    // Normal vector of the vertex
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (!(obj is VertexDataKey))
             return false;

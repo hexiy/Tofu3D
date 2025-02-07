@@ -12,4 +12,5 @@ public enum ViewRenderMode
     AmbientAlbedo = 7,
     Depth = 8,
     MousePicking = 9,
+    UVs = 10
 }

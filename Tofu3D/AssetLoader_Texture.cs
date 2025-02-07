@@ -33,8 +33,8 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
         };
 
 
-        if (loadParameters.LoadType.HasFlag(TextureLoadType.Standalone))
-        {
+        // if (loadParameters.LoadType.HasFlag(TextureLoadType.Standalone))
+        // {
             // Debug.LogError("Standalone textures are disabled");
             // var standaloneGLTextureId = loadParameters.ExistingAsset?.StandaloneGLTextureId ?? GL.GenTexture();
             // TextureHelper.BindTexture(standaloneGLTextureId);
@@ -58,7 +58,7 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
             // TofuGL.CheckGlError("standalone texture load");
             //
             // runtimeTexture.StandaloneGLTextureId = standaloneGLTextureId;
-        }
+        // }
 
         if (assetTexture.AtlasPath != null)
         {
