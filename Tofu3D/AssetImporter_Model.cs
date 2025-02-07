@@ -324,8 +324,6 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         int[] countsOfElements = { 3, 2, 3, 3, 3 }; // position, uv, normal, tangent, bitangent
 
-        // now we need to calculate tangents and bitangents per triangle
-
         int floatsOfPosition = 9; // pos(3x vector3)
         int floatsOfUv = 6; // uv(3x vector2)
         int floatsOfNormal = 9; // norm(3x vector3)
@@ -342,12 +340,11 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         List<float> geometryBufferData = new List<float>();
 
-        // Loop through each triangle from the temporary buffer.
         int trianglesCount = everything.Count / floatsPerTriangle;
         for (int triangleIndex = 0; triangleIndex < trianglesCount; triangleIndex++)
         {
             int baseIndex = triangleIndex * floatsPerTriangle;
-            // For vertex1 (indices 0-7), vertex2 (8-15), vertex3 (16-23)
+
             int v0 = baseIndex;
             int v1 = baseIndex + floatsPerVertex;
             int v2 = baseIndex + 2 * floatsPerVertex;
@@ -384,7 +381,6 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 f * (-deltaUV2.X * edge1.Z + deltaUV1.X * edge2.Z)
             );
 
-            // Create final vertex arrays (14 floats each)
             float[] vertex1 = new float[]
             {
                 pos1.X, pos1.Y, pos1.Z,
@@ -410,7 +406,6 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 bitangent.X, bitangent.Y, bitangent.Z
             };
 
-            // If we're not using indices, simply append the data
             if (RenderingSettings.USE_INDICES == false)
             {
                 geometryBufferData.AddRange(vertex1);

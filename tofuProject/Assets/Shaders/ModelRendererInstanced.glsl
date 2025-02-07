@@ -41,8 +41,8 @@ void main(void)
 	vec4 boundingBox = a_albedoBoundingBoxAndIndexInAtlas - vec4(albedoAtlasIndex);
 	uv = vec2(1-a_uv);
 	uv = uv * u_tiling + u_offset;
-//	uv = mod(uv, 1.0);
-	uv = fract(uv);
+	uv = mod(uv, 1.0);
+//	uv = fract(uv);
 
 	vec2 albedoBoundingBoxInAtlasStart = boundingBox.xy;
 	vec2 albedoBoundingBoxSize = boundingBox.zw - albedoBoundingBoxInAtlasStart;
