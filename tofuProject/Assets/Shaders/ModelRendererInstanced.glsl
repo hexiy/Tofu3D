@@ -39,16 +39,16 @@ void main(void)
 
 	albedoAtlasIndex = uint(floor(a_albedoBoundingBoxAndIndexInAtlas.x)); // extract from a_albedoBoundingBoxAndIndexInAtlas,
 	vec4 boundingBox = a_albedoBoundingBoxAndIndexInAtlas - vec4(albedoAtlasIndex);
-//	uv = vec2(1-a_uv);
+	//	uv = vec2(1-a_uv);
 	uv = vec2(a_uv);
 	uv = uv * u_tiling + u_offset;
 
 	uv = mod(uv, 1.0);
-//	uv = fract(uv);
+	//	uv = fract(uv);
 
 	vec2 albedoBoundingBoxInAtlasStart = boundingBox.xy;
 	vec2 albedoBoundingBoxSize = boundingBox.zw - albedoBoundingBoxInAtlasStart;
-		
+
 	uv = albedoBoundingBoxInAtlasStart + (uv * albedoBoundingBoxSize);
 
 	//	#ifdef UV_OFFSET_IS_INSTANCED
@@ -87,6 +87,7 @@ out vec4 fragColor;
 // Uniforms
 uniform vec4 u_ambientLightColor;
 uniform vec4 u_albedoTint;
+uniform vec4 u_emissiveColor;
 uniform vec3 u_camPosWorldSpace;
 uniform vec4 u_directionalLightColor;
 uniform vec3 u_directionalLightDirection;
@@ -332,6 +333,8 @@ void main() {
 	{
 		fragColor = vec4(uvCoords.x, 0, uvCoords.y, 1);
 	}
+
+	fragColor = fragColor + vec4(u_emissiveColor.rgb * u_emissiveColor.a, 0);
 	return;
 
 	// Albedo Color

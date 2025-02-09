@@ -118,38 +118,38 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
         if (MousePickingSystem.HoveredRenderer == ModelRendererX || CurrentAxisSelected == TransformHandleAxis.X)
         {
-            ModelRendererX.Material.AlbedoTint = Color.WhiteSmoke;
+            ModelRendererX.Material.AlbedoColor = Color.WhiteSmoke;
         }
         else
         {
-            ModelRendererX.Material.AlbedoTint = Color.Red;
+            ModelRendererX.Material.AlbedoColor = Color.Red;
         }
 
         if (MousePickingSystem.HoveredRenderer == ModelRendererY || CurrentAxisSelected == TransformHandleAxis.Y)
         {
-            ModelRendererY.Material.AlbedoTint = Color.WhiteSmoke;
+            ModelRendererY.Material.AlbedoColor = Color.WhiteSmoke;
         }
         else
         {
-            ModelRendererY.Material.AlbedoTint = Color.YellowGreen;
+            ModelRendererY.Material.AlbedoColor = Color.YellowGreen;
         }
 
         if (MousePickingSystem.HoveredRenderer == ModelRendererXy || CurrentAxisSelected == TransformHandleAxis.Xy)
         {
-            ModelRendererXy.Material.AlbedoTint = Color.WhiteSmoke;
+            ModelRendererXy.Material.AlbedoColor = Color.WhiteSmoke;
         }
         else
         {
-            ModelRendererXy.Material.AlbedoTint = Color.Gold;
+            ModelRendererXy.Material.AlbedoColor = Color.Gold;
         }
 
         if (MousePickingSystem.HoveredRenderer == ModelRendererZ || CurrentAxisSelected == TransformHandleAxis.Z)
         {
-            ModelRendererZ.Material.AlbedoTint = Color.WhiteSmoke;
+            ModelRendererZ.Material.AlbedoColor = Color.WhiteSmoke;
         }
         else
         {
-            ModelRendererZ.Material.AlbedoTint = Color.Cyan;
+            ModelRendererZ.Material.AlbedoColor = Color.Cyan;
         }
     }
 
@@ -237,10 +237,10 @@ public partial class TransformHandle : Component, IComponentUpdateable
         ModelRendererZ.BoxShape = BoxColliderZ;
 
 
-        ModelRendererX.Material.AlbedoTint = Color.Red;
-        ModelRendererY.Material.AlbedoTint = Color.YellowGreen;
-        ModelRendererXy.Material.AlbedoTint = Color.Gold;
-        ModelRendererZ.Material.AlbedoTint = Color.Cyan;
+        ModelRendererX.Material.AlbedoColor = Color.Red;
+        ModelRendererY.Material.AlbedoColor = Color.YellowGreen;
+        ModelRendererXy.Material.AlbedoColor = Color.Gold;
+        ModelRendererZ.Material.AlbedoColor = Color.Cyan;
 
         ModelRendererX.AutomaticallyFindBoxShape = false;
         ModelRendererY.AutomaticallyFindBoxShape = false;

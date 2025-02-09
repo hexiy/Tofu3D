@@ -20,12 +20,12 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 
     public Color Color
     {
-        get { return Material?.AlbedoTint ?? _color; }
+        get { return Material?.AlbedoColor ?? _color; }
         set
         {
             if (Material != null)
             {
-                Material.AlbedoTint = value;
+                Material.AlbedoColor = value;
             }
             else
             {
@@ -183,6 +183,16 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 
         UpdateMvp();
 
+        // if (Material.RenderMode == RenderMode.Transparent)
+        // {
+        //     RenderOrder = (int)(CalculateDistanceFromCamera()*100);
+        //
+        // }
+        // else
+        // {
+        //     RenderOrder = GameObject.IndexInHierarchy;
+        //
+        // }
         // DistanceFromCamera = CalculateDistanceFromCamera();
         // if (Material.RenderMode)
         // {
@@ -386,6 +396,14 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
             LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
             LatestModelMatrix = GetModelMatrix();
             ObjectInstancingData.MatrixDirty = false;
+        }
+    }
+
+    public override void OnSelectedChanged(bool isSelected)
+    {
+        if (Material != null)
+        {
+            Material.ObjectSelected = isSelected;
         }
     }
 }

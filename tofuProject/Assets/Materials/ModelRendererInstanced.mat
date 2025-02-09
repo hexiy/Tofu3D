@@ -1,32 +1,19 @@
-°{
+Ö	{
   "Shader": {
     "BufferType": 2,
     "Path": "Assets/Shaders/ModelRendererInstanced.glsl",
     "AtlasUniformIsSet": false
   },
   "Additive": false,
-  "AlbedoTexture": {
-    "BoundingBoxInAtlas": {
-      "X": 0.5,
-      "Y": 0.25,
-      "Z": 0.75,
-      "W": 0.5
-    },
-    "IndexInAtlasTextureArray": 1,
-    "IsRuntimeCopy": false,
-    "DataIsCompressed": false,
-    "AtlasGLTextureArrayId": 0,
-    "PathInAssetsFolder": "Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png",
-    "PathInLibraryFolder": "Library/Textures/Aged_Bronze_02_basecolor.png.tofutexture",
-    "AnyPath": "Assets/3D/chaos-belly-plate/textures/Aged_Bronze_02_basecolor.png"
-  },
+  "AlbedoTexture": null,
   "AlphaMaskTexture": null,
-  "AlbedoTint": {
+  "AlbedoColor": {
     "B": 255,
     "G": 255,
     "R": 255,
     "A": 255
   },
+  "ObjectSelected": false,
   "AmbientOcclusionTexture": null,
   "NormalTexture": null,
   "RoughnessTexture": null,
@@ -36,91 +23,15 @@
     "X": 0.0,
     "Y": 0.0,
     "Z": 0.0,
-    "W": 0.895
+    "W": 0.0
   },
   "SmoothShadows": false,
   "RefractionEnabled": false,
   "RefractiveIndex": 1.309,
   "SpecularHighlightsEnabled": false,
-  "SpecularSmoothness": -16.91,
-  "MetallicTextureStrength": 0.746,
-  "Smoothness": 0.544,
-  "Tiling": {
-    "X": 0.1,
-    "Y": 1.0
-  },
-  "Offset": {
-    "X": 0.0,
-    "Y": 0.0
-  },
-  "UVOffsetIsInstanced": false,
-  "RenderMode": 0,
-  "BlendMode": 0,
-  "MaterialType": 0,
-  "IgnoreDepth": false,
-  "NoDepth": false,
-  "IsRuntimeCopy": false,
-  "DataIsCompressed": false,
-  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
-  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
-  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}}}: {
-    "X": 1.0,
-    "Y": 1.0
-  },
-  "Offset": {
-    "X": 0.0,
-    "Y": 0.0
-  },
-  "UVOffsetIsInstanced": false,
-  "RenderMode": 0,
-  "BlendMode": 0,
-  "MaterialType": 0,
-  "IgnoreDepth": false,
-  "NoDepth": false,
-  "IsRuntimeCopy": false,
-  "DataIsCompressed": false,
-  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
-  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
-  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}ng": {
-    "X": 1.0,
-    "Y": 1.0
-  },
-  "Offset": {
-    "X": 0.0,
-    "Y": 0.0
-  },
-  "UVOffsetIsInstanced": false,
-  "RenderMode": 0,
-  "BlendMode": 0,
-  "MaterialType": 0,
-  "IgnoreDepth": false,
-  "NoDepth": false,
-  "IsRuntimeCopy": false,
-  "DataIsCompressed": false,
-  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
-  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
-  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}    "X": 1.0,
-    "Y": 1.0
-  },
-  "Offset": {
-    "X": 0.0,
-    "Y": 0.0
-  },
-  "UVOffsetIsInstanced": false,
-  "RenderMode": 0,
-  "BlendMode": 0,
-  "MaterialType": 0,
-  "IgnoreDepth": false,
-  "NoDepth": false,
-  "IsRuntimeCopy": false,
-  "DataIsCompressed": false,
-  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
-  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
-  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}": 0.544,
+  "SpecularSmoothness": 0.0,
+  "MetallicTextureStrength": 0.0,
+  "Smoothness": 0.0,
   "Tiling": {
     "X": 1.0,
     "Y": 1.0
@@ -141,4 +52,3 @@
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
 }
-}}

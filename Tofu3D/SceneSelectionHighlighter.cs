@@ -50,7 +50,7 @@ public class SceneSelectionHighlighter
         runtimeMaterial.AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
             { PathToAssetInLibrary = "Resources/whitePixel.png" });
         runtimeMaterial.Smoothness = 0;
-        runtimeMaterial.AlbedoTint = new Color(1, 1, 1, 0.45f);
+        runtimeMaterial.AlbedoColor = new Color(1, 1, 1, 0.45f);
         runtimeMaterial.RenderMode = RenderMode.Transparent;
         runtimeMaterial.BlendMode = BlendMode.Fade;
         runtimeMaterial.MaterialType = MaterialType.Unlit;
@@ -67,7 +67,7 @@ public class SceneSelectionHighlighter
                 // runtimeMaterial.AlbedoTint doesnt do anything... this only works when referencing material like this "modelRenderer.Material"
                 // because in SetDefaultMaterial in renderer we created runtime copy, i'll keep this directly referencing modelRednerer.material so it doesnt break in future...
                 // modelRenderer.Material.AlbedoTint = modelRenderer.Material.AlbedoTint.SetA(f);
-                modelRenderer.Material.AlbedoTint.SetA(f);
+                modelRenderer.Material.AlbedoColor.GetColorWithAlpha(f);
                 // Debug.Log(modelRenderer.Material.AlbedoTint.A);
             }).SetTarget(this)
             .SetLoop(Tween.LoopType.Yoyo);

@@ -10,7 +10,8 @@ public class Asset_Material : Asset<Asset_Material>
 
     public RuntimeTexture? AlbedoTexture;
     public RuntimeTexture? AlphaMaskTexture;
-    public Color AlbedoTint = Color.White;
+    public Color AlbedoColor = Color.White;
+    public bool ObjectSelected = false;
     public RuntimeTexture? AmbientOcclusionTexture;
     public RuntimeTexture? NormalTexture;
     public RuntimeTexture? RoughnessTexture;
@@ -18,7 +19,7 @@ public class Asset_Material : Asset<Asset_Material>
     public RuntimeTexture? EmissiveTexture;
 
     [ColorHDR]
-    public Vector4 EmissiveColor;
+    public Vector4 EmissiveColor = Vector4.Zero;
 
     public bool SmoothShadows = false;
 
@@ -102,7 +103,7 @@ public class Asset_Material : Asset<Asset_Material>
                 { PathToAssetInLibrary = EmissiveTexture.PathInLibraryFolder });
         }
     }
-    
+
     public void LoadShader()
     {
         Shader = Tofu.ShaderManager.LoadShader(Shader.Path);

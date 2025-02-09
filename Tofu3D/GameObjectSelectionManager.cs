@@ -64,7 +64,8 @@ public class GameObjectSelectionManager
             {
                 if (gameObjects.Contains(Tofu.SceneManager.CurrentScene.GameObjects[i]) == false)
                 {
-                    Tofu.SceneManager.CurrentScene.GameObjects[i].Selected = false;
+                    Tofu.SceneManager.CurrentScene.GameObjects[i].SetSelected(false);
+
                 }
             }
 
@@ -75,7 +76,7 @@ public class GameObjectSelectionManager
                 // {
                 // go.Selected = true;
                 // }
-                gameObjects[i].Selected = true;
+                gameObjects[i].SetSelected(true);
             }
         }
 

@@ -217,9 +217,7 @@ public class Scene
         }
         // GL.Enable(EnableCap.DepthTest);
         // GL.DepthFunc(DepthFunction.Lequal);
-
-        GL.Enable(EnableCap.CullFace);
-        GL.CullFace(CullFaceMode.Back);
+        
         GL.FrontFace(FrontFaceDirection.Cw);
 
         _openGlStateSet = true;

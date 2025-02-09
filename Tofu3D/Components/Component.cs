@@ -211,6 +211,11 @@ public class Component : IDestroyable, ICloneable
     {
     }
 
+    public virtual void OnSelectedChanged(bool isSelected)
+    {
+        
+    }
+    
     public virtual void OnCollisionEnter(Rigidbody rigidbody)
     {
     }

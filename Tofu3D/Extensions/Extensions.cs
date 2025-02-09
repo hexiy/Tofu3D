@@ -26,14 +26,32 @@ public static class Extensions
 
     public static float Lerp(float a, float b, float t) => Mathf.Lerp(a, b, t);
 
-    public static Color SetAByRef(ref this Color col, float a)
+    public static Color SetAlpha(ref this Color col, float a)
     {
         col = new Color(col.R, col.G, col.B, a);
         return col;
     }
-    public static Color SetA(this Color col, float a)
+
+    public static Color GetColorWithAlpha(this Color col, float a)
     {
         col = new Color(col.R, col.G, col.B, a);
+        return col;
+    }
+
+    public static Color SetRGB(ref this Color col, Vector3 rgb)
+    {
+        col.SetRGB(rgb.X, rgb.Y, rgb.Z);
+        return col;
+    }
+
+    public static Color GetColorWithRGB(this Color col, float r, float g, float b)
+    {
+        return col.SetRGB(r, g, b);
+    }
+
+    public static Color SetRGB(ref this Color col, float r, float g, float b)
+    {
+        col = new Color(r, g, b, col.A);
         return col;
     }
 

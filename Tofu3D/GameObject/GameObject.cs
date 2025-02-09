@@ -35,7 +35,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public bool Selected = false;
     public bool VisibleInHierarchy = true;
     public bool RuntimeOnly = false;
-    
+
     [DefaultValue(false)]
     [XmlIgnore]
     public bool Started;
@@ -409,7 +409,9 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     {
         if (Awoken)
         {
-            return;}
+            return;
+        }
+
         for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i].Awoken == false) // && Components[i].Enabled)
@@ -453,7 +455,9 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     {
         if (Started)
         {
-            return;}
+            return;
+        }
+
         if (Awoken == false)
         {
             Awake();
@@ -482,6 +486,9 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         }
 
         Started = true;
+
+
+        SetSelected(Selected);
     }
 
     private void RemoveFromLists()
@@ -691,6 +698,16 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
                 RemoveComponent(Components[i]);
                 return;
             }
+        }
+    }
+
+    public void SetSelected(bool selected)
+    {
+        Selected = selected;
+
+        foreach (Component component in Components)
+        {
+            component.OnSelectedChanged(selected);
         }
     }
 

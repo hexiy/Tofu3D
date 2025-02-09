@@ -9,6 +9,6 @@ public class ObjMaterialDefinition
     
     
     public string? PathInAssetsFolder;
-    public Color AlbedoTint = Color.White;
+    public Color AlbedoColor = new Color(1,1,1,1);
     public string? GeneratedMaterialFilePath = null;
 }

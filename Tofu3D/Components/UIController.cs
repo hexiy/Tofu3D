@@ -20,8 +20,8 @@ public class UiController : Component
         {
             Debug.Log($"Tweening alpha progress:{f}");
 
-            PlayBtn.GetComponent<Renderer>().Color = PlayBtn.GetComponent<Renderer>().Color.SetA(f);
-            Bg.GetComponent<Renderer>().Color = Bg.GetComponent<Renderer>().Color.SetA(f);
+            PlayBtn.GetComponent<Renderer>().Color = PlayBtn.GetComponent<Renderer>().Color.GetColorWithAlpha(f);
+            Bg.GetComponent<Renderer>().Color = Bg.GetComponent<Renderer>().Color.GetColorWithAlpha(f);
         });
         //playBtn.GetComponent<Renderer>();
     }

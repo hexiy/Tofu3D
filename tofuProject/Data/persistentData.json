@@ -1,22 +1,22 @@
-¨{
+š{
   "FrameLimiter": "false",
-  "CurrentDirectoryPath": "\"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Assets\"",
+  "CurrentDirectoryPath": "\"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Assets/3D/vokselia_spawn\"",
   "PersistentObject__cameraFieldOfViewInperspectiveMode": "90.0",
   "PersistentObject__cameraPositionInPerspectiveMode": "{\n  \"X\": 0.0,\n  \"Y\": 0.0,\n  \"Z\": 0.0\n}",
   "PersistentObject__cameraRotationInPerspectiveMode": "{\n  \"X\": 0.0,\n  \"Y\": 0.0,\n  \"Z\": 0.0\n}",
   "PersistentObject_sceneViewProjectionMode": "0",
   "lastOpenedScene": "\"defaultScene.scene\"",
-  "LastSelectedGameObjectId": "413",
+  "LastSelectedGameObjectId": "-1",
   "RenderSettings.Wireframe": "{\n  \"WireframeLineWidth\": 5.0,\n  \"WireframeVisible\": false\n}",
   "RenderSettings.ViewRenderMode": "{}",
   "Global.Debug": "false",
   "EditorSettingsGeneral": "{\n  \"FontSize\": 12,\n  \"FontPathsCollection\": {\n    \"Items\": [\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Montserrat-Medium.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/inconsolata.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/inter.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Montserrat-Regular.ttf\"\n    ]\n  },\n  \"EditorTheme\": 0\n}",
-  "EditorSettingsCodeEditor": "{\n  \"CodeEditorPaths\": {\n    \"Items\": [\n      \"JetBrains Rider\",\n      \"Visual Studio Code\",\n      \"Zed\",\n      \"TextEdit\"\n    ]\n  },\n  \"EditorArgs\": null\n}"
-}gs\": null\n}"
-}}}l\n}"
-}"
-}}"
-}}n}"
-}ar.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Poppins-Regular.ttf\",\n      \"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Resources/Fonts/Montserrat-Regular.ttf\"\n    ]\n  },\n  \"EditorTheme\": 0\n}",
+  "EditorSettingsCodeEditor": "{\n  \"CodeEditorPaths\": {\n    \"Items\": [\n      \"JetBrains Rider\",\n      \"Visual Studio Code\",\n      \"Zed\",\n      \"TextEdit\"\n    ]\n  },\n  \"EditorArgs\": null\n}",
+  "DebugTimerCollapsed_Scene Render": "true",
+  "DebugTimerCollapsed_Window Render": "true",
+  "DebugTimerCollapsed_Scene Update": "true",
+  "DebugTimerCollapsed_ImGui": "true",
+  "DebugTimerCollapsed_Editor Update": "true"
+}}.ttf\"\n    ]\n  },\n  \"EditorTheme\": 0\n}",
   "EditorSettingsCodeEditor": "{\n  \"CodeEditorPath\": \"/Users/hexiy/Documents/Unreal Projects\"\n}"
 }

@@ -219,6 +219,16 @@ public class InstancedRenderingSystem
             GL.Disable(EnableCap.DepthTest);
         }
 
+        if (material.RenderMode == RenderMode.Transparent)
+        {
+            GL.Disable(EnableCap.CullFace);
+            GL.CullFace(CullFaceMode.Back);
+        }
+        else
+        {
+            GL.Enable(EnableCap.CullFace);
+            GL.CullFace(CullFaceMode.Back);
+        }
         if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
         {
             RenderObjects_MousePickingPass(meshVao: meshVao, numberOfObjects: numberOfObjects,
@@ -431,7 +441,17 @@ public class InstancedRenderingSystem
     {
         material.Shader.SetInt("u_materialType", (int)material.MaterialType);
 
-        material.Shader.SetColor("u_albedoTint", material.AlbedoTint);
+
+        if (material.ObjectSelected)
+        {
+            material.Shader.SetVector4("u_emissiveColor", new Vector4(1, 0, 0, 1));
+        }
+        else
+        {
+            material.Shader.SetVector4("u_emissiveColor", material.EmissiveColor);
+        }
+
+        material.Shader.SetColor("u_albedoTint", material.AlbedoColor);
         // material.Shader.SetVector2("u_tiling", new Vector2(-1, -1)); //grass block
         material.Shader.SetVector2("u_tiling", material.Tiling); // normal 
         material.Shader.SetVector2("u_offset", material.Offset);

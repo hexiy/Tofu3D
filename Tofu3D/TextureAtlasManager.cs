@@ -290,7 +290,7 @@ public class TextureAtlasManager
         GLTextureArrayId = GL.GenTexture();
         GL.BindTexture(TextureTarget.Texture2DArray, GLTextureArrayId);
 
-        GL.TexImage3D(TextureTarget.Texture2DArray, 0, PixelInternalFormat.Rgba, AtlasWidth, AtlasWidth,
+        GL.TexImage3D(TextureTarget.Texture2DArray, 0, PixelInternalFormat.CompressedRgbaS3tcDxt5Ext, AtlasWidth, AtlasWidth,
             _atlasesCount, 0, PixelFormat.Rgba, PixelType.UnsignedByte, IntPtr.Zero);
 
         float[] borderColor =

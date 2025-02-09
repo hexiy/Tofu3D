@@ -208,8 +208,8 @@ map_Ka vokselia_spawn.png
 map_Kd vokselia_spawn.png
 # map_d vokselia_spawn.png
 illum 2
-# d 1
-# Tr 1
+# d 0.01
+# Tr 0.99
 
 newmtl Glass
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
@@ -352,8 +352,8 @@ map_Ka vokselia_spawn.png
 map_Kd vokselia_spawn.png
 # map_d vokselia_spawn.png
 illum 2
-# d 1
-# Tr 1
+# d 0.01
+# Tr 0.99
 
 newmtl Rose
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
@@ -365,8 +365,8 @@ map_Ka vokselia_spawn.png
 map_Kd vokselia_spawn.png
 # map_d vokselia_spawn.png
 illum 2
-# d 1
-# Tr 1
+# d 0.01
+# Tr 0.99
 
 newmtl Brown_Mushroom
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
@@ -508,8 +508,8 @@ map_Ka vokselia_spawn.png
 map_Kd vokselia_spawn.png
 # map_d vokselia_spawn.png
 illum 2
-# d 1
-# Tr 1
+# d 0.01
+# Tr 0.99
 
 newmtl Fire
 interpolateMode NEAREST_MAGNIFICATION_TRILINEAR_MIPMAP_MINIFICATION
@@ -1292,4 +1292,3 @@ map_Kd vokselia_spawn.png
 illum 2
 # d 1
 # Tr 1
-

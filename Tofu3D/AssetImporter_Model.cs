@@ -75,35 +75,40 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         Asset_Model model = new Asset_Model();
 
-        MeshFile meshFile = null; //= new MeshFile() { UsesIndices = RenderingSettings.USE_INDICES};
-        int lineStartIndex = 0;
-        while (lineStartIndex != -1)
-        {
-            int indxTemp = lineStartIndex;
+        MeshFile meshFile; //= new MeshFile() { UsesIndices = RenderingSettings.USE_INDICES};
 
-            // save meshes too
-            meshFile = CreateMeshFileFromData(data: data, positions: positions, uvs: uvs, normals: normals,
-                lineStartIndex: ref lineStartIndex, singleMesh: importParameters.ImportAsSingleMesh,
-                smoothNormals: importParameters.SmoothNormals, objMaterialFileDefinition);
-            if (meshFile == null)
+        int meshIndex = 0;
+        int lineStartIndex = 0;
+        while (true)
+        {
+            int lineStartIndexBefore = lineStartIndex;
+            meshFile = CreateMeshFileFromObj(
+                modelFilePath: objInAssetsFolderPath,
+                meshIndex: meshIndex,
+                data: data,
+                positions: positions,
+                uvs: uvs,
+                normals: normals,
+                lineStartIndex: ref lineStartIndex,
+                singleMesh: importParameters.ImportAsSingleMesh,
+                smoothNormals: importParameters.SmoothNormals,
+                objMaterialFileDefinition);
+
+            if (meshFile != null)
             {
-                continue;
+                model.PathsToMeshAssets.Add(meshFile.PathInLibraryFolder);
+                meshIndex++;
             }
 
-            int meshIndex = model.PathsToMeshAssets.Count;
-
-            string meshFileName = AssetPathExtensions.ModelToMeshFileName(objInAssetsFolderPath, meshIndex);
-            string meshPath = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(meshFileName);
-
-            meshFile.Mesh.Name = Path.GetFileNameWithoutExtension(meshPath);
-            meshFile.Mesh.PathInLibraryFolder = meshPath;
-
-            Serializer.SaveAssetJSON<MeshFile>(meshPath, meshFile);
-
-            model.PathsToMeshAssets.Add(meshPath);
-            if (indxTemp == lineStartIndex)
+            if (meshFile == null && lineStartIndexBefore != 0)
             {
-                break; // final mesh
+                break;
+            }
+
+            if (lineStartIndex == lineStartIndexBefore)
+            {
+                lineStartIndex++;
+                // break;
             }
         }
 
@@ -139,6 +144,8 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         string materialFileText = File.ReadAllText(objMaterialPath);
         materialFileText =
             materialFileText.Replace('\\', Path.DirectorySeparatorChar); // change \ to directory separator(/ or \)
+        materialFileText = materialFileText.Replace("# d", "d");
+        materialFileText = materialFileText.Replace("# Tr", "Tr");
         string[] materialFileLines = materialFileText.Split("\n");
         ObjMaterialDefinition? currentObjMaterialDefinition = null;
 
@@ -167,10 +174,20 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 float r = float.Parse(lineSplits[1]);
                 float g = float.Parse(lineSplits[2]);
                 float b = float.Parse(lineSplits[3]);
-                Color albedoColor = new Color(r, g, b, 1);
-                currentObjMaterialDefinition.AlbedoTint = albedoColor;
+                currentObjMaterialDefinition.AlbedoColor.GetColorWithRGB(r, g, b);
             }
 
+            if (lineSplits[0].Equals("d", StringComparison.OrdinalIgnoreCase)) // opacity
+            {
+                float a = 1 - float.Parse(lineSplits[1]);
+                currentObjMaterialDefinition.AlbedoColor.SetAlpha(a);
+            }
+
+            if (lineSplits[0].Equals("Tr", StringComparison.OrdinalIgnoreCase)) // transparency
+            {
+                float a = float.Parse(lineSplits[1]);
+                currentObjMaterialDefinition.AlbedoColor.SetAlpha(a);
+            }
 
             if (lineSplits[0].Equals("map_Kd", StringComparison.OrdinalIgnoreCase) ||
                 lineSplits[0].Equals("map_Ka", StringComparison.OrdinalIgnoreCase)) // diffuse/albedo texture
@@ -205,9 +222,15 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         _objMaterialFiles[objMaterialPath] = objMaterialFileDefinition;
     }
 
-
-    private MeshFile CreateMeshFileFromData(string[] data, List<float> positions, List<float> uvs, List<float> normals,
-        ref int lineStartIndex, bool singleMesh = false, bool smoothNormals = true,
+    private MeshFile? CreateMeshFileFromObj(string modelFilePath,
+        int meshIndex,
+        string[] data,
+        List<float> positions,
+        List<float> uvs,
+        List<float> normals,
+        ref int lineStartIndex,
+        bool singleMesh = false,
+        bool smoothNormals = true,
         ObjMaterialFileDefinition objMaterialFileDefinition = null)
     {
         List<uint> indices = new List<uint>();
@@ -218,11 +241,33 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         int numberOfIndicesPerLine = 0;
         int totalVerticesCount = 0;
 
-        int lineIndexRelativeForThisMesh = -1;
+        string? foundMeshName = null;
+        bool isInMesh = false;
+        if (singleMesh)
+        {
+            isInMesh = true;
+        }
+
+        if (isInMesh == false)
+        {
+            bool hasG = false;
+            for (int lineIndex = lineStartIndex; lineIndex < data.Length; lineIndex++)
+            {
+                if (data[lineIndex].StartsWith("g ", StringComparison.OrdinalIgnoreCase) ||
+                    data[lineIndex].StartsWith("o ", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasG = true;
+                }
+            }
+
+            if (hasG == false)
+            {
+                isInMesh = true;
+            }
+        }
+
         for (int lineIndex = lineStartIndex; lineIndex < data.Length; lineIndex++)
         {
-            lineIndexRelativeForThisMesh++;
-
             string line = data[lineIndex].Trim();
             line = line.Replace("\r", "");
 
@@ -300,25 +345,39 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                     everything.Add(normals[normalIndex * 3 + 2]);
                 }
             }
-            // else if ((line.StartsWith("g") || line.StartsWith("usemtl")) && singleMesh == false ||
-            else if (((line.StartsWith("g") || line.StartsWith("o ")) && singleMesh == false) ||
-                     (line.StartsWith("# object") && lineStartIndex != 0))
-            {
-                // new mesh
-                lineStartIndex = lineIndex + 1;
-                break;
-            }
 
+       
+
+            if (
+                ((line.StartsWith("g") || line.StartsWith("o ")) && singleMesh == false))
+            {
+                // if we're already in mesh
+                if (isInMesh)
+                {
+                    break;
+                }
+
+                isInMesh = true;
+            }
+            if (line.StartsWith("g ", StringComparison.OrdinalIgnoreCase) ||
+                line.StartsWith("o ", StringComparison.OrdinalIgnoreCase))
+            {
+                if (isInMesh)
+                {
+                    foundMeshName = lineSplits[1];
+                }
+            }
             if (line.StartsWith("usemtl") && objMaterialFileDefinition != null)
             {
                 objMaterialDefinition =
                     objMaterialFileDefinition.Materials.FirstOrDefault(d => d.MaterialName == lineSplits[1]) ?? null;
             }
+
+            lineStartIndex = lineIndex;
         }
 
-        if (everything.Count == 0)
+        if (everything.Count == 0 || isInMesh == false)
         {
-            // lineStartIndex++;
             return null;
         }
 
@@ -456,12 +515,6 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             }
         }
 
-        // unique vertex list
-        // once we have unique vertices in an array, thats our new vertex data, and indices we just find indexes of
-        //     them there
-        //     because right now we have all vertices in the array wasting time and its wrong too.
-        // so our indice will be pointing to [vertex1, vertex2, vertex3]
-
         Mesh mesh = new Mesh
         {
             CountsOfElements = countsOfElements,
@@ -481,14 +534,23 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             mesh.PathToObjMaterial = objMaterialDefinition.GeneratedMaterialFilePath;
         }
 
-        // mesh.paths are set in ImportAsset
-
 
         MeshFile meshFile = new MeshFile()
         {
             Mesh = mesh,
             UsesIndices = RenderingSettings.USE_INDICES,
         };
+
+
+        string meshFileName = AssetPathExtensions.ModelToMeshFileName(modelFilePath, meshIndex);
+        string meshPath = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(meshFileName);
+
+        meshFile.Mesh.Name = foundMeshName ?? Path.GetFileNameWithoutExtension(meshPath);
+        meshFile.Mesh.PathInLibraryFolder = meshPath;
+        meshFile.PathInLibraryFolder = meshPath;
+
+        Serializer.SaveAssetJSON<MeshFile>(meshPath, meshFile);
+
         return meshFile;
     }
 
@@ -504,8 +566,12 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
                 "ModelRendererInstanced.glsl")),
             SmoothShadows = true,
-            AlbedoTint = materialDefinition.AlbedoTint
+            AlbedoColor = materialDefinition.AlbedoColor
         };
+        if (materialDefinition.AlbedoColor.A < 255)
+        {
+            material.RenderMode = RenderMode.Transparent;
+        }
 
         if (materialDefinition.AlbedoTexturePath != null)
         {

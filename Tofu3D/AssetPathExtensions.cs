@@ -29,8 +29,13 @@ public static class AssetPathExtensions
     }
 
 
-    public static string ModelToMeshFileName(string fileName, int meshIndex)
+    public static string ModelToMeshFileName(string fileName, int? meshIndex)
     {
+        if (meshIndex == null)
+        {
+            return fileName + ".tofumesh";
+        }
+
         return fileName + "_" + meshIndex + ".tofumesh";
     }
 
