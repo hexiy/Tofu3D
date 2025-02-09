@@ -709,6 +709,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         {
             component.OnSelectedChanged(selected);
         }
+        
     }
 
     public T GetComponent<T>(int? index = null) where T : Component

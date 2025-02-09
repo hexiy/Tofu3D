@@ -14,6 +14,7 @@ public class EditorPanelHierarchy : EditorPanel
     private readonly float _spaceHeight = 4;
     private List<GameObject> _gameObjectsIndexesSelectedBefore = new List<GameObject>();
     private List<GameObject> _selectedGameObjects = new List<GameObject>();
+    private List<GameObject> _selectedGameObjectsParents = new List<GameObject>();
     private bool _showUpdatePrefabPopup;
     public override Vector2 Position => new Vector2(Tofu.Window.ClientSize.X - EditorPanelInspector.I.WindowWidth, 0);
     public override Vector2 Pivot => new Vector2(1, 0);
@@ -30,11 +31,19 @@ public class EditorPanelHierarchy : EditorPanel
     private void OnGameObjectsSelected(List<GameObject> gameObjects)
     {
         _selectedGameObjects.Clear();
-
+        _selectedGameObjectsParents.Clear();
         for (int i = 0; i < gameObjects.Count; i++)
         {
             AddGameObjectToSelection(gameObjects[i]);
+
+            Transform parent = gameObjects[i].Transform.Parent;
+            while (parent != null)
+            {
+                _selectedGameObjectsParents.Add(parent.GameObject);
+                parent = parent.Parent;
+            }
         }
+
     }
 
     public override void Update()
@@ -288,7 +297,9 @@ public class EditorPanelHierarchy : EditorPanel
 
         //bool hasAnyChildren = false;
         bool hasAnyChildren = currentGameObject.Transform.Children?.Count > 0;
-        bool isSelected = _selectedGameObjects.Contains(currentGameObject);
+        // bool isSelected = _selectedGameObjects.Contains(currentGameObject);
+        bool isSelected = currentGameObject.Selected;
+
         ImGuiTreeNodeFlags flags =
             (isSelected ? ImGuiTreeNodeFlags.Selected : 0) |
             ImGuiTreeNodeFlags.OpenOnArrow;
@@ -330,6 +341,12 @@ public class EditorPanelHierarchy : EditorPanel
         flags |= ImGuiTreeNodeFlags.SpanFullWidth;
         flags |= ImGuiTreeNodeFlags.OpenOnDoubleClick;
         bool opened = ImGui.TreeNodeEx(rowText, flags);
+
+        if (_selectedGameObjectsParents.Contains(currentGameObject))
+        {
+            opened = true;
+        }
+        // set opened if a children is selected
 
         if (ImGui.IsItemClicked(ImGuiMouseButton.Right))
         {
