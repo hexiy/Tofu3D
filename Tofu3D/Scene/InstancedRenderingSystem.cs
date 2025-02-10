@@ -367,7 +367,7 @@ public class InstancedRenderingSystem
 
                 GL.BindTexture(TextureTarget.Texture2DArray, Tofu.TextureAtlasManager.GLTextureArrayId);
 
-                shader.AtlasUniformIsSet = true;
+                // shader.AtlasUniformIsSet = true;
             }
         }
 

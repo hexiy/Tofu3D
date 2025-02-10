@@ -5,7 +5,9 @@ public class AssetLoader_AssetMesh : AssetLoader<MeshFile>
     public override MeshFile LoadAsset(AssetLoadParameters<MeshFile>? assetLoadParameters)
     {
         string meshAssetPath = assetLoadParameters.PathToAssetInLibrary;
-        MeshFile meshFile = Serializer.ReadAssetJSON<MeshFile>(meshAssetPath);
+        MeshFile meshFile;
+
+        Tofu.AssetFileCache.GetAsset<MeshFile>(meshAssetPath, out meshFile);
 
 
         // RuntimeMesh runtimeMesh = new RuntimeMesh()

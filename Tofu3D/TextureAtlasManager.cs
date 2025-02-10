@@ -26,9 +26,12 @@ public class TextureAtlasManager
 
         List<string> paths = new List<string>();
         paths.AddRange(Directory.GetFiles(Folders.TexturesInLibrary, "*.tofutexture", SearchOption.TopDirectoryOnly));
-        foreach (string rawAssetPath in paths)
+        // var a = Tofu.AssetImportManager.ImportedAssets;
+        // asdasdowpejwk
+            // Importer sends loaded assets to Loader so we dont have to read from disk
+        foreach (string texturePath in paths)
         {
-            Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(rawAssetPath);
+            Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(texturePath);
             textures.Add(assetTexture);
         }
 
@@ -188,6 +191,8 @@ public class TextureAtlasManager
             texture.IndexInAtlasTextureArray = atlasIndex;
 
             Tofu.AssetLoadManager.Save(texture.PathInLibraryFolder, texture);
+            Tofu.AssetFileCache.AddAsset(texture);
+
         }
 
         return _atlasPixels;
@@ -290,7 +295,8 @@ public class TextureAtlasManager
         GLTextureArrayId = GL.GenTexture();
         GL.BindTexture(TextureTarget.Texture2DArray, GLTextureArrayId);
 
-        GL.TexImage3D(TextureTarget.Texture2DArray, 0, PixelInternalFormat.CompressedRgbaS3tcDxt5Ext, AtlasWidth, AtlasWidth,
+        GL.TexImage3D(TextureTarget.Texture2DArray, 0, PixelInternalFormat.CompressedRgbaS3tcDxt5Ext, AtlasWidth,
+            AtlasWidth,
             _atlasesCount, 0, PixelFormat.Rgba, PixelType.UnsignedByte, IntPtr.Zero);
 
         float[] borderColor =

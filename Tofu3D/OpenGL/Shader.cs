@@ -178,6 +178,7 @@ public class
 
         List<string> textureUniformsNames = new List<string>
         {
+            UniformName_AtlasTexture,
             UniformName_TextureAlbedo,
             UniformName_TextureAlphaMask,
             UniformName_TextureNormal,
@@ -218,8 +219,8 @@ public class
             switch (textureUniformName)
             {
                 case UniformName_TextureAlbedo:
-                AlbedoTextureIndexUnit = textureUnit;
-                break;
+                    AlbedoTextureIndexUnit = textureUnit;
+                    break;
                 // case UniformName_TextureAlphaMask:
                 // AlphaMaskTextureIndexUnit = textureUnit;
                 // break;

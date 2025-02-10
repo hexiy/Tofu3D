@@ -38,6 +38,7 @@ public static class Tofu
 
     // ASSETS
     public static AssetImportManager AssetImportManager;
+    public static AssetFileCache AssetFileCache;
     public static TextureAtlasManager TextureAtlasManager;
     public static AssetLoadManager AssetLoadManager;
     public static SceneSerializer SceneSerializer;
@@ -77,6 +78,7 @@ public static class Tofu
         EditorWindowsManager = new EditorWindowsManager();
 
         AssetImportManager = new AssetImportManager();
+        AssetFileCache = new AssetFileCache();
         TextureAtlasManager = new TextureAtlasManager();
         AssetLoadManager = new AssetLoadManager();
         SceneManager = new SceneManager();
@@ -126,9 +128,14 @@ public static class Tofu
         BasicMeshesCollection = new BasicMeshesCollection();
 
         PhysicsController.Init();
+        
+        // first import textures so we can setup atlases
+        AssetImportManager.ImportAllTextures();
+        TextureAtlasManager.SetupTextureAtlases();
+        
+        // then import rest of the assets such as models/meshes that will now load correct textures from mtl files
         AssetImportManager.ImportAllAssets();
 
-        TextureAtlasManager.SetupTextureAtlases();
 
         InstancedRenderingSystem = new InstancedRenderingSystem();
         LightRenderingManager = new LightRenderingManager();

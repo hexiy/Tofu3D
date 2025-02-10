@@ -4,7 +4,9 @@
 public class AssetLoadManager
 {
     private AssetLoader_RuntimeMesh _assetLoaderRuntimeMesh;
-    private Dictionary<int, object> LoadedAssets { get; set; } = new Dictionary<int, object>(); // int is (raw asset)path hashcode
+
+    private Dictionary<int, object> LoadedAssets { get; set; } =
+        new Dictionary<int, object>(); // int is (raw asset)path hashcode
 
     public Dictionary<Type, Tuple<IAssetLoader, AssetLoadParametersBase>>
         LoadersAndLoadParameters { get; private set; } =
@@ -114,7 +116,10 @@ public class AssetLoadManager
     public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null,
         bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy = false) where T : class
     {
-        int id = (sourcePath + typeof(T)).GetHashCode();
+        string pathToAssetInLibrary =
+            AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(sourcePath);
+
+        int id = (pathToAssetInLibrary + typeof(T)).GetHashCode();
 
         if (isRuntimeCopy)
         {
@@ -152,9 +157,8 @@ public class AssetLoadManager
                 loadParameters =
                     Activator.CreateInstance(loadParameters.GetType()) as AssetLoadParameters<T>;
 
-                loadParameters.PathToAssetInLibrary =
-                    AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(sourcePath);
-                if (File.Exists(loadParameters.PathToAssetInLibrary) == false)
+                loadParameters.PathToAssetInLibrary = pathToAssetInLibrary;
+                if (File.Exists(pathToAssetInLibrary) == false)
                 {
                     loadParameters.PathToAssetInLibrary = sourcePath;
                 }
@@ -249,14 +253,13 @@ public class AssetLoadManager
         LoadedAssets = new Dictionary<int, object>();
     }
 
-    public void Save<T>(string path, T asset)
-        where T : class
+    public void Save<T>(string path, T asset) where T : AssetBase
     {
         int id = (path + typeof(T)).GetHashCode();
 
-        Serializer.SaveFileJSON<T>(path, asset);
+        Serializer.SaveAssetJSON<T>(path,asset);
 
-        LoadedAssets[id] = asset;
+        // LoadedAssets[id] = asset;
         // Debug.Log($"Saved file {path}");
     }
 }

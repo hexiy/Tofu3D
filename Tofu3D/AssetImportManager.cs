@@ -6,9 +6,9 @@ namespace Tofu3D;
 // Transforms .obj,.png files into .asset files in /Library/
 public class AssetImportManager
 {
-    public List<AssetBase> Assets { get; private set; } = new List<AssetBase>(); // int is id(path hashcode)
     public Dictionary<int, AssetImportParametersBase> AssetImportParameters { get; private set; } =
         new Dictionary<int, AssetImportParametersBase>();
+
     public Dictionary<Type, IAssetImporter> Importers { get; private set; } = new Dictionary<Type, IAssetImporter>();
 
     public AssetImportManager()
@@ -62,7 +62,7 @@ public class AssetImportManager
 
                 if (asset != null)
                 {
-                    Assets.Add(asset);
+                    Tofu.AssetFileCache.AddAsset(asset);
                 }
             }
         }
@@ -123,11 +123,11 @@ public class AssetImportManager
         if (AssetPathExtensions.IsFileMaterial(rawAssetPath))
         {
             AssetImportParameters_Material assetImportParametersMaterial = new AssetImportParameters_Material
-                {
-                    // if (assetImportParametersFileExistsForThisAsset == false)
-                    // {
-                    PathToSourceAsset = rawAssetPath
-                };
+            {
+                // if (assetImportParametersFileExistsForThisAsset == false)
+                // {
+                PathToSourceAsset = rawAssetPath
+            };
             //
             //     // we save this .importParameters file as /Library/car.obj.importParameters
             //
@@ -182,22 +182,13 @@ public class AssetImportManager
                     assetImportParametersTexture);
 
 
-            AddAsset(assetTexture);
+            Tofu.AssetFileCache.AddAsset(assetTexture);
             // }
         }
 
         // Debug.Log("Asset import finished");
     }
 
-    private void AddAsset(AssetBase assetBase)
-    {
-        if (Assets.Contains(assetBase))
-        {
-            return;
-        }
-
-        Assets.Add(assetBase);
-    }
 
     public void ImportAsset(string rawAssetPath, bool reimportIfExists = false)
     {
@@ -205,10 +196,10 @@ public class AssetImportManager
         if (IMPORT_ON_NEW_THREAD)
         {
             Thread importThread = new Thread(() => { ImportAssetInNewThread(rawAssetPath, reimportIfExists); })
-                {
-                    Name = "Asset import thread",
-                    IsBackground = true
-                };
+            {
+                Name = "Asset import thread",
+                IsBackground = true
+            };
             importThread.Start();
         }
         else
@@ -228,6 +219,23 @@ public class AssetImportManager
         // create AssetCreationParams<Asset_Model> for car if it doesnt exist
         foreach (string rawAssetPath in allPaths)
         {
+            ImportAsset(rawAssetPath, reimportIfExists);
+        }
+    }
+
+    public void ImportAllTextures(bool reimportIfExists = false)
+    {
+        List<string> allPaths = new List<string>();
+        allPaths.AddRange(Directory.GetFiles(Folders.Assets, "", SearchOption.AllDirectories));
+        allPaths.AddRange(Directory.GetFiles(Folders.Resources, "", SearchOption.AllDirectories));
+
+        foreach (string rawAssetPath in allPaths)
+        {
+            if (AssetPathExtensions.IsFileTexture(rawAssetPath) == false)
+            {
+                continue;
+            }
+
             ImportAsset(rawAssetPath, reimportIfExists);
         }
     }
