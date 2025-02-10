@@ -49,11 +49,11 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>1562</Id>
+      <Id>1565</Id>
       <IndexInHierarchy>3</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
-      <Name>Point Light</Name>
+      <Name>mmGroup0_0</Name>
       <PrefabPath />
       <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
@@ -64,23 +64,8 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>1565</Id>
-      <IndexInHierarchy>4</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>mmGroup0_0</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
       <Id>1566</Id>
-      <IndexInHierarchy>5</IndexInHierarchy>
+      <IndexInHierarchy>4</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Kaiser_Josef_II_C</Name>
@@ -95,7 +80,7 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <Id>1567</Id>
-      <IndexInHierarchy>6</IndexInHierarchy>
+      <IndexInHierarchy>5</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
       <Name>mmGroup1_1</Name>
@@ -110,7 +95,7 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <Id>1568</Id>
-      <IndexInHierarchy>7</IndexInHierarchy>
+      <IndexInHierarchy>6</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
       <Name>mmGroup2_2</Name>
@@ -125,7 +110,7 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <Id>1569</Id>
-      <IndexInHierarchy>8</IndexInHierarchy>
+      <IndexInHierarchy>7</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
       <Name>mmGroup3_3</Name>
@@ -140,7 +125,7 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <Id>1570</Id>
-      <IndexInHierarchy>9</IndexInHierarchy>
+      <IndexInHierarchy>8</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
       <Name>mmGroup4_4</Name>
@@ -155,10 +140,25 @@
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
       <Id>1571</Id>
-      <IndexInHierarchy>10</IndexInHierarchy>
+      <IndexInHierarchy>9</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
       <Name>mmGroup6_5</Name>
+      <PrefabPath />
+      <Selected>false</Selected>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <Id>1591</Id>
+      <IndexInHierarchy>11</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>Point Light</Name>
       <PrefabPath />
       <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
@@ -177,14 +177,14 @@
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <WorldPosition>
-        <X>-3.9206538</X>
-        <Y>6.5540066</Y>
-        <Z>-4.736467</Z>
+        <X>-5.051944</X>
+        <Y>3.8865702</Y>
+        <Z>-6.094994</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-3.9206538</X>
-        <Y>6.5540066</Y>
-        <Z>-4.736467</Z>
+        <X>-5.051944</X>
+        <Y>3.8865702</Y>
+        <Z>-6.094994</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -197,8 +197,8 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>41.178825</X>
-        <Y>39.570976</Y>
+        <X>19.354572</X>
+        <Y>36.315456</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
@@ -340,55 +340,6 @@
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1562</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <WorldPosition>
-        <X>-2.2</X>
-        <Y>8.4</Y>
-        <Z>-0.57</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>-2.2</X>
-        <Y>8.4</Y>
-        <Z>-0.57</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="PointLight">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1562</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <Color>
-        <B>255</B>
-        <G>0</G>
-        <R>255</R>
-        <A>255</A>
-        <PackedValue>4294902015</PackedValue>
-      </Color>
-      <Intensity>10.21</Intensity>
-      <Radius>8.3</Radius>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
       <GameObjectId>1565</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
@@ -448,13 +399,12 @@
       <GameObjectId>1565</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>41</MousePickingId>
+      <MousePickingId>1</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <PathInAssetsFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInAssetsFolder>
         <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
         <Shader>
           <BufferType>Model</BufferType>
@@ -482,7 +432,7 @@
           <A>0</A>
           <PackedValue>16777215</PackedValue>
         </AlbedoColor>
-        <ObjectSelected>false</ObjectSelected>
+        <ObjectSelected>true</ObjectSelected>
         <EmissiveColor>
           <X>0</X>
           <Y>0</Y>
@@ -492,10 +442,10 @@
         <SmoothShadows>true</SmoothShadows>
         <RefractionEnabled>false</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>1.34</SpecularSmoothness>
-        <MetallicTextureStrength>1</MetallicTextureStrength>
-        <Smoothness>0.498</Smoothness>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -512,8 +462,8 @@
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>32</Vao>
-        <Ebo>116</Ebo>
+        <Vao>4</Vao>
+        <Ebo>8</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -536,7 +486,7 @@
         <PackedValue>16777215</PackedValue>
       </Color>
       <Layer>0</Layer>
-      <RenderOrder>4</RenderOrder>
+      <RenderOrder>3</RenderOrder>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -544,6 +494,18 @@
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs>
+        <int>1565</int>
+        <int>1567</int>
+        <int>1568</int>
+        <int>1569</int>
+        <int>1570</int>
+        <int>1571</int>
+        <int>1565</int>
+        <int>1567</int>
+        <int>1568</int>
+        <int>1569</int>
+        <int>1570</int>
+        <int>1571</int>
         <int>1565</int>
         <int>1567</int>
         <int>1568</int>
@@ -682,13 +644,12 @@
       <GameObjectId>1567</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>42</MousePickingId>
+      <MousePickingId>2</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <PathInAssetsFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInAssetsFolder>
         <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
         <Shader>
           <BufferType>Model</BufferType>
@@ -716,7 +677,7 @@
           <A>0</A>
           <PackedValue>16777215</PackedValue>
         </AlbedoColor>
-        <ObjectSelected>false</ObjectSelected>
+        <ObjectSelected>true</ObjectSelected>
         <EmissiveColor>
           <X>0</X>
           <Y>0</Y>
@@ -726,10 +687,10 @@
         <SmoothShadows>true</SmoothShadows>
         <RefractionEnabled>false</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>1.34</SpecularSmoothness>
-        <MetallicTextureStrength>1</MetallicTextureStrength>
-        <Smoothness>0.498</Smoothness>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -746,8 +707,8 @@
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>33</Vao>
-        <Ebo>119</Ebo>
+        <Vao>5</Vao>
+        <Ebo>11</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -770,7 +731,7 @@
         <PackedValue>16777215</PackedValue>
       </Color>
       <Layer>0</Layer>
-      <RenderOrder>6</RenderOrder>
+      <RenderOrder>5</RenderOrder>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -833,13 +794,12 @@
       <GameObjectId>1568</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>43</MousePickingId>
+      <MousePickingId>3</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <PathInAssetsFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInAssetsFolder>
         <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
         <Shader>
           <BufferType>Model</BufferType>
@@ -867,7 +827,7 @@
           <A>0</A>
           <PackedValue>16777215</PackedValue>
         </AlbedoColor>
-        <ObjectSelected>false</ObjectSelected>
+        <ObjectSelected>true</ObjectSelected>
         <EmissiveColor>
           <X>0</X>
           <Y>0</Y>
@@ -877,10 +837,10 @@
         <SmoothShadows>true</SmoothShadows>
         <RefractionEnabled>false</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>1.34</SpecularSmoothness>
-        <MetallicTextureStrength>1</MetallicTextureStrength>
-        <Smoothness>0.498</Smoothness>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -897,8 +857,8 @@
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>34</Vao>
-        <Ebo>122</Ebo>
+        <Vao>6</Vao>
+        <Ebo>14</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -921,7 +881,7 @@
         <PackedValue>16777215</PackedValue>
       </Color>
       <Layer>0</Layer>
-      <RenderOrder>7</RenderOrder>
+      <RenderOrder>6</RenderOrder>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -984,13 +944,12 @@
       <GameObjectId>1569</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>44</MousePickingId>
+      <MousePickingId>4</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <PathInAssetsFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInAssetsFolder>
         <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
         <Shader>
           <BufferType>Model</BufferType>
@@ -1018,7 +977,7 @@
           <A>0</A>
           <PackedValue>16777215</PackedValue>
         </AlbedoColor>
-        <ObjectSelected>false</ObjectSelected>
+        <ObjectSelected>true</ObjectSelected>
         <EmissiveColor>
           <X>0</X>
           <Y>0</Y>
@@ -1028,10 +987,10 @@
         <SmoothShadows>true</SmoothShadows>
         <RefractionEnabled>false</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>1.34</SpecularSmoothness>
-        <MetallicTextureStrength>1</MetallicTextureStrength>
-        <Smoothness>0.498</Smoothness>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -1048,8 +1007,8 @@
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>35</Vao>
-        <Ebo>125</Ebo>
+        <Vao>7</Vao>
+        <Ebo>17</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -1072,7 +1031,7 @@
         <PackedValue>16777215</PackedValue>
       </Color>
       <Layer>0</Layer>
-      <RenderOrder>8</RenderOrder>
+      <RenderOrder>7</RenderOrder>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -1135,13 +1094,12 @@
       <GameObjectId>1570</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>45</MousePickingId>
+      <MousePickingId>5</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <PathInAssetsFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInAssetsFolder>
         <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
         <Shader>
           <BufferType>Model</BufferType>
@@ -1169,7 +1127,7 @@
           <A>0</A>
           <PackedValue>16777215</PackedValue>
         </AlbedoColor>
-        <ObjectSelected>false</ObjectSelected>
+        <ObjectSelected>true</ObjectSelected>
         <EmissiveColor>
           <X>0</X>
           <Y>0</Y>
@@ -1179,10 +1137,10 @@
         <SmoothShadows>true</SmoothShadows>
         <RefractionEnabled>false</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>1.34</SpecularSmoothness>
-        <MetallicTextureStrength>1</MetallicTextureStrength>
-        <Smoothness>0.498</Smoothness>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -1199,8 +1157,8 @@
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>36</Vao>
-        <Ebo>128</Ebo>
+        <Vao>8</Vao>
+        <Ebo>20</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -1223,7 +1181,7 @@
         <PackedValue>16777215</PackedValue>
       </Color>
       <Layer>0</Layer>
-      <RenderOrder>9</RenderOrder>
+      <RenderOrder>8</RenderOrder>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
@@ -1286,13 +1244,12 @@
       <GameObjectId>1571</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>46</MousePickingId>
+      <MousePickingId>6</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <PathInAssetsFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInAssetsFolder>
         <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
         <Shader>
           <BufferType>Model</BufferType>
@@ -1320,7 +1277,7 @@
           <A>0</A>
           <PackedValue>16777215</PackedValue>
         </AlbedoColor>
-        <ObjectSelected>false</ObjectSelected>
+        <ObjectSelected>true</ObjectSelected>
         <EmissiveColor>
           <X>0</X>
           <Y>0</Y>
@@ -1330,10 +1287,10 @@
         <SmoothShadows>true</SmoothShadows>
         <RefractionEnabled>false</RefractionEnabled>
         <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>true</SpecularHighlightsEnabled>
-        <SpecularSmoothness>1.34</SpecularSmoothness>
-        <MetallicTextureStrength>1</MetallicTextureStrength>
-        <Smoothness>0.498</Smoothness>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0</SpecularSmoothness>
+        <MetallicTextureStrength>0</MetallicTextureStrength>
+        <Smoothness>0</Smoothness>
         <Tiling>
           <X>1</X>
           <Y>1</Y>
@@ -1350,8 +1307,8 @@
         <NoDepth>false</NoDepth>
       </Material>
       <RuntimeMesh>
-        <Vao>37</Vao>
-        <Ebo>131</Ebo>
+        <Vao>9</Vao>
+        <Ebo>23</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -1374,8 +1331,57 @@
         <PackedValue>16777215</PackedValue>
       </Color>
       <Layer>0</Layer>
-      <RenderOrder>10</RenderOrder>
+      <RenderOrder>9</RenderOrder>
+    </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1591</GameObjectId>
+      <Started>true</Started>
+      <EnabledSelf>true</EnabledSelf>
+      <ChildrenIDs />
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <ParentId>-1</ParentId>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>1</X>
+        <Y>1</Y>
+        <Z>1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="PointLight">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1591</GameObjectId>
+      <Started>true</Started>
+      <EnabledSelf>true</EnabledSelf>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>255</A>
+        <PackedValue>4294967295</PackedValue>
+      </Color>
+      <Intensity>1</Intensity>
+      <Radius>10</Radius>
     </Component>
   </Components>
-  <GameObjectNextId>1586</GameObjectNextId>
+  <GameObjectNextId>1592</GameObjectNextId>
 </SceneFile>

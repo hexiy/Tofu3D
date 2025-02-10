@@ -1,4 +1,4 @@
-ù{
+ü{
   "FrameLimiter": "false",
   "CurrentDirectoryPath": "\"/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject/Assets/3D/Kaiser_Josef_II_C\"",
   "PersistentObject__cameraFieldOfViewInperspectiveMode": "90.0",
@@ -6,7 +6,7 @@
   "PersistentObject__cameraRotationInPerspectiveMode": "{\n  \"X\": 0.0,\n  \"Y\": 0.0,\n  \"Z\": 0.0\n}",
   "PersistentObject_sceneViewProjectionMode": "0",
   "lastOpenedScene": "\"defaultScene.scene\"",
-  "LastSelectedGameObjectId": "-1",
+  "LastSelectedGameObjectId": "1565",
   "RenderSettings.Wireframe": "{\n  \"WireframeLineWidth\": 5.0,\n  \"WireframeVisible\": false\n}",
   "RenderSettings.ViewRenderMode": "{}",
   "Global.Debug": "false",
@@ -17,7 +17,6 @@
   "DebugTimerCollapsed_Scene Update": "true",
   "DebugTimerCollapsed_ImGui": "true",
   "DebugTimerCollapsed_Editor Update": "true"
-}
 } "true"
 }\n  },\n  \"EditorTheme\": 0\n}",
   "EditorSettingsCodeEditor": "{\n  \"CodeEditorPath\": \"/Users/hexiy/Documents/Unreal Projects\"\n}"

@@ -43,7 +43,6 @@ public class EditorPanelHierarchy : EditorPanel
                 parent = parent.Parent;
             }
         }
-
     }
 
     public override void Update()
@@ -340,12 +339,14 @@ public class EditorPanelHierarchy : EditorPanel
         string rowText = (Global.Debug ? $"[{currentGameObject.Id}] " : "") + currentGameObject.Name;
         flags |= ImGuiTreeNodeFlags.SpanFullWidth;
         flags |= ImGuiTreeNodeFlags.OpenOnDoubleClick;
-        bool opened = ImGui.TreeNodeEx(rowText, flags);
 
         if (_selectedGameObjectsParents.Contains(currentGameObject))
         {
-            opened = true;
+            ImGui.SetNextItemOpen(true);
         }
+
+        bool opened = ImGui.TreeNodeEx(rowText, flags);
+
         // set opened if a children is selected
 
         if (ImGui.IsItemClicked(ImGuiMouseButton.Right))
