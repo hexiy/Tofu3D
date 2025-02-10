@@ -219,16 +219,16 @@ public class InstancedRenderingSystem
             GL.Disable(EnableCap.DepthTest);
         }
 
-        if (material.RenderMode == RenderMode.Transparent)
-        {
-            GL.Disable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.Back);
-        }
-        else
-        {
-            GL.Enable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.Back);
-        }
+        // if (material.RenderMode == RenderMode.Transparent)
+        // {
+        //     GL.Disable(EnableCap.CullFace);
+        //     GL.CullFace(CullFaceMode.Back);
+        // }
+        // else
+        // {
+        //     GL.Enable(EnableCap.CullFace);
+        //     GL.CullFace(CullFaceMode.Back);
+        // }
         if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
         {
             RenderObjects_MousePickingPass(meshVao: meshVao, numberOfObjects: numberOfObjects,
@@ -367,7 +367,7 @@ public class InstancedRenderingSystem
 
                 GL.BindTexture(TextureTarget.Texture2DArray, Tofu.TextureAtlasManager.GLTextureArrayId);
 
-                // shader.AtlasUniformIsSet = true;
+                shader.AtlasUniformIsSet = true;
             }
         }
 
@@ -482,6 +482,21 @@ public class InstancedRenderingSystem
             return;
         }
 
+        // Shadowmap
+        {
+            bool shadowMapReady = RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
+                                  RenderPassDirectionalLightShadowDepth.I.Enabled &&
+                                  material.Shader.ShadowMapTextureUnit != null;
+
+            material.Shader.SetInt("u_hasShadowmapTexture", shadowMapReady ? 1 : 0);
+
+            if (shadowMapReady)
+            {
+                GL.ActiveTexture(material.Shader.ShadowMapTextureUnit.Value);
+                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthTextureId);
+            }
+        }
+
         if (false)
         {
             // Albedo Texture
@@ -517,20 +532,6 @@ public class InstancedRenderingSystem
             //     GL.ActiveTexture(material.Shader.AmbientOcclusionTextureUnit.Value);
             //     TextureHelper.BindTexture(material.AmbientOcclusionTexture.AtlasGLTextureArrayId);
             // }
-
-            material.Shader.SetInt("u_hasShadowmapTexture",
-                RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
-                RenderPassDirectionalLightShadowDepth.I.Enabled &&
-                material.Shader.ShadowMapTextureUnit != null
-                    ? 1
-                    : 0);
-
-            if (RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
-                material.Shader.ShadowMapTextureUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.ShadowMapTextureUnit.Value);
-                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthTextureId);
-            }
 
 
             material.Shader.SetInt("u_hasEnvironmentCubemap",

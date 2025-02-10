@@ -18,7 +18,7 @@ public static class Compression
         {
             deflateStream.Write(data, 0, data.Length);
             deflateStream.Close(); // Ensure all data is flushed
-            return memoryStream.ToArray(); // Get the compressed bytes
+            return memoryStream.GetBuffer(); // Get the compressed bytes
         }
     }
 
@@ -34,7 +34,7 @@ public static class Compression
         using (MemoryStream resultStream = new MemoryStream())
         {
             deflateStream.CopyTo(resultStream); // Copy decompressed data into result stream
-            return resultStream.ToArray(); // Return the decompressed bytes
+            return resultStream.GetBuffer(); // Return the decompressed bytes
         }
     }
 

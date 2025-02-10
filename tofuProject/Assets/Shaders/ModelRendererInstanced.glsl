@@ -321,7 +321,6 @@ void main() {
 	// UV Coordinates with tiling
 	vec2 uvCoords = uv;
 	// map these uvCoords to uvcoords in the atlas
-	fragColor = texture(textureArray, vec3(uvCoords.xy, albedoAtlasIndex));
 
 	//	if(u_hasAlbedoTexture==1)
 	//	{
@@ -335,65 +334,68 @@ void main() {
 	}
 
 	fragColor = fragColor + vec4(u_emissiveColor.rgb * u_emissiveColor.a, 0);
-	return;
 
 	// Albedo Color
 	vec4 albedo = u_albedoTint;
-	if (u_hasAlbedoTexture == 1) {
-		albedo *= texture(u_albedoTexture, uvCoords);
-	}
-	if (u_materialType == 1 && u_renderMode == 0) {
-		if (albedo.a < 0.9 && u_discardTransparentPixels == 1) {
-			discard;
-		}
-		fragColor = albedo;
+	albedo *= texture(textureArray, vec3(uvCoords.xy, albedoAtlasIndex));
 
-		return;
-	}
+	//	if (u_hasAlbedoTexture == 1) {
+	//		albedo *= texture(u_albedoTexture, uvCoords);
+	//	}
+	//	if (u_materialType == 1 && u_renderMode == 0) {
+	//		if (albedo.a < 0.9 && u_discardTransparentPixels == 1) {
+	//			discard;
+	//		}
+	//		fragColor = albedo;
+	//
+	//		return;
+	//	}
 
 	vec3 baseColor = albedo.rgb; // Separate out RGB only
 
 	// Normal Mapping
 	vec3 finalNormalWorldSpace = normalWorldSpace;
-	if (u_hasNormalTexture == 1) {
-		vec3 texNormal = texture(u_normalTexture, uvCoords).rgb * 2.0 - 1.0; // Map [0,1] to [-1,1]
-		//		normalWorldSpace = normalize(TBN * texNormal);
-		finalNormalWorldSpace = normalize(TBN * normalize(texNormal)); // from tangent space to world space
-
-		//			vec3 vertexNormalTBNed = normalize(TBN * normal);
-
-		//  texNormal = normalize(TBN * -texNormal); // Transforming the normal values from the texture space to the world space
-		//  //norm = normalize(TBN * norm);
-		//  float blendFactor = 0.8 * u_hasNormalTexture;
-		//  blendFactor = 0;
-		//  vec3 normalWorldSpace = normalize(mix(vertexNormalTBNed, texNormal, blendFactor));
-		//			vec3 normalWorldSpace = vertexNormalTBNed;
-	}
+	//	if (u_hasNormalTexture == 1) {
+	//		vec3 texNormal = texture(u_normalTexture, uvCoords).rgb * 2.0 - 1.0; // Map [0,1] to [-1,1]
+	//		//		normalWorldSpace = normalize(TBN * texNormal);
+	//		finalNormalWorldSpace = normalize(TBN * normalize(texNormal)); // from tangent space to world space
+	//
+	//		//			vec3 vertexNormalTBNed = normalize(TBN * normal);
+	//
+	//		//  texNormal = normalize(TBN * -texNormal); // Transforming the normal values from the texture space to the world space
+	//		//  //norm = normalize(TBN * norm);
+	//		//  float blendFactor = 0.8 * u_hasNormalTexture;
+	//		//  blendFactor = 0;
+	//		//  vec3 normalWorldSpace = normalize(mix(vertexNormalTBNed, texNormal, blendFactor));
+	//		//			vec3 normalWorldSpace = vertexNormalTBNed;
+	//	}
 
 	// View and Light Directions
 	vec3 viewDir = normalize(u_camPosWorldSpace - vertexPositionWorld);
+
 	vec3 lightDir = normalize(-u_directionalLightDirection);
+
 	vec3 correctedLightDir = u_directionalLightDirection * vec3(1, -1, 1); // what is this where is it flipping so that i need to flip it here? is the tbn incorrect?
 	lightDir = correctedLightDir;
 
 	// Metallic and Roughness Maps
 	float metallicValue = u_metallic; // Default metallic value (uniform)
-	if (u_hasMetallicTexture == 1) {
-		metallicValue = texture(u_metallicTexture, uvCoords).r * u_metallic; // Metallic texture (red channel)
-	}
+	//	if (u_hasMetallicTexture == 1) {
+	//		metallicValue = texture(u_metallicTexture, uvCoords).r * u_metallic; // Metallic texture (red channel)
+	//	}
 
 	float roughnessValue = 1.0 - u_smoothness; // Default roughness from smoothness
-	if (u_hasRoughnessTexture == 1) {
-		float textureRoughness = texture(u_roughnessTexture, uvCoords).r; // Roughness texture (red channel)
-		roughnessValue = mix(roughnessValue, textureRoughness, 0.5); // Blend uniform and texture roughness
-	}
+	//	if (u_hasRoughnessTexture == 1) {
+	//		float textureRoughness = texture(u_roughnessTexture, uvCoords).r; // Roughness texture (red channel)
+	//		roughnessValue = mix(roughnessValue, textureRoughness, 0.5); // Blend uniform and texture roughness
+	//	}
 
 	// Ambient Occlusion
 	float ao = 1.0;
-	if (u_hasAmbientOcclusionTexture == 1) {
-		ao = texture(u_ambientOcclusionTexture, uvCoords).r; // AO texture affects ambient light
-		ao = clamp(ao, 0.0, 1.0); // Ensure AO is within valid range
-	}
+	//	if (u_hasAmbientOcclusionTexture == 1) {
+	//		ao = texture(u_ambientOcclusionTexture, uvCoords).r; // AO texture affects ambient light
+	//		ao = clamp(ao, 0.0, 1.0); // Ensure AO is within valid range
+	//	}
 
 	// Ambient Lighting
 	vec3 ambient = u_ambientLightColor.rgb *
@@ -415,10 +417,16 @@ void main() {
 	baseColor;
 
 	// Specular Highlights
-	vec3 H = normalize(viewDir + correctedLightDir); // Halfway vector
-	vec3 F0 = mix(vec3(0.04), baseColor, metallicValue * 5); // Base reflectance (metallic or dielectric)
-	vec3 specular = SpecularReflectionGGX(normalWorldSpace, viewDir, correctedLightDir, H, F0, 5);
-	specular = specular * u_directionalLightColor.rgb * u_directionalLightColor.a * 5;
+	//	vec3 H = normalize(viewDir + correctedLightDir); // Halfway vector
+	//	vec3 F0 = mix(vec3(0.04), baseColor, metallicValue * 5); // Base reflectance (metallic or dielectric)
+	//	vec3 specular = SpecularReflectionGGX(normalWorldSpace, viewDir, correctedLightDir, H, F0, 5);
+	//		specular = specular * u_directionalLightColor.rgb * u_directionalLightColor.a * 5;
+
+	
+	// phong specular reflections because ggx doesnt work :(
+	vec3 reflectDir = reflect(-lightDir, normalWorldSpace);
+	float spec = pow(max(dot(-viewDir, reflectDir), 0.0), 32) * 5;
+	vec3 specular = spec * u_directionalLightColor.rgb * u_directionalLightColor.a * 1;
 
 
 	// Shadows
@@ -432,47 +440,46 @@ void main() {
 		//			shadow = OldShadowCalculation();
 		//		}
 	}
-	shadow = ShadowCalculationPCFConstantQuality();
 
 
 	// Subtract shadow influence for direct lighting
 	//	vec3 lighting = ambient + (diffuse + specular) *
-	vec3 lighting = ambient + (diffuse) *
+	vec3 lighting = ambient + (diffuse + specular) *
 	(1.0 - shadow);
 
 	vec3 pointLight = calculatePointLightsLighting(normalWorldSpace, viewDir, vertexPositionWorld);
 	lighting += pointLight;
 
-	// Environmental Reflections
-	vec3 reflection = vec3(0.0);
-	//	if (metallicValue > 0.0) {
-
-	vec3 reflectionI = normalize(vertexPositionWorld - u_camPosWorldSpace);
-	vec3 reflectionDir = reflect(reflectionI, normalize(normalWorldSpace));
-
-	float MAX_LOD = 7.0; // Maximum level-of-detail for the cubemap mipmaps
-	vec3 environmentReflection = textureLod(u_environmentCubemap, reflectionDir, roughnessValue * MAX_LOD).rgb;
-	//		reflection = texture(u_environmentCubemap, reflectionDir).rgb;
-
-	// Adjust reflection intensity (optional for non-metallic surfaces)
-	reflection *= mix(0.04, 1.0, metallicValue); // Base reflectivity: Dielectric vs Metal
-
-	// Reflection scaling based on metallic and roughness
-	vec3 surfaceReflectivity = mix(vec3(0.04), albedo.rgb, metallicValue); // Non-metallic uses F0 ~ 0.04
-	reflection = environmentReflection * surfaceReflectivity;
-	// Roughness reduces reflection intensity
-	// Roughness impact on sharpness, not intensity
-	reflection = mix(reflection, vec3(0.0), roughnessValue); // Soften reflections without killing intensity
-	reflection = sRGBToLinear(reflection);
-	//	}
-
-	// Combine Lighting and Reflections
-	vec3 color = lighting + reflection;
-
+	//	// Environmental Reflections
+	//	vec3 reflection = vec3(0.0);
+	//	//	if (metallicValue > 0.0) {
+	//
+	//	vec3 reflectionI = normalize(vertexPositionWorld - u_camPosWorldSpace);
+	//	vec3 reflectionDir = reflect(reflectionI, normalize(normalWorldSpace));
+	//
+	//	float MAX_LOD = 7.0; // Maximum level-of-detail for the cubemap mipmaps
+	//	vec3 environmentReflection = textureLod(u_environmentCubemap, reflectionDir, roughnessValue * MAX_LOD).rgb;
+	//	//		reflection = texture(u_environmentCubemap, reflectionDir).rgb;
+	//
+	//	// Adjust reflection intensity (optional for non-metallic surfaces)
+	//	reflection *= mix(0.04, 1.0, metallicValue); // Base reflectivity: Dielectric vs Metal
+	//
+	//	// Reflection scaling based on metallic and roughness
+	//	vec3 surfaceReflectivity = mix(vec3(0.04), albedo.rgb, metallicValue); // Non-metallic uses F0 ~ 0.04
+	//	reflection = environmentReflection * surfaceReflectivity;
+	//	// Roughness reduces reflection intensity
+	//	// Roughness impact on sharpness, not intensity
+	//	reflection = mix(reflection, vec3(0.0), roughnessValue); // Soften reflections without killing intensity
+	//	reflection = sRGBToLinear(reflection);
+	//	//	}
+	//
+	//	// Combine Lighting and Reflections
+	//	vec3 color = lighting + reflection;
+	vec3 color = lighting;
 	// Emissive Lighting (if available)
-	if (u_hasEmissiveTexture == 1) {
-		color += texture(u_emissiveTexture, uvCoords).rgb * baseColor;
-	}
+	//	if (u_hasEmissiveTexture == 1) {
+	//		color += texture(u_emissiveTexture, uvCoords).rgb * baseColor;
+	//	}
 
 	if (u_fogEnabled == 1)
 	{
@@ -508,15 +515,15 @@ void main() {
 
 	float alpha = albedo.a;
 
-	if (u_hasAlphaMaskTexture == 1) {
-		vec4 alphaMask = texture(u_alphaMaskTexture, uvCoords);
-		alphaMask.rgb *= alphaMask.a;
-		alpha = (alphaMask.r + alphaMask.g + alphaMask.b) / 3;
-		//		
-		//		alpha=alphaMask.a;
-		//		
-		//		color = alphaMask.rgb;
-	}
+	//	if (u_hasAlphaMaskTexture == 1) {
+	//		vec4 alphaMask = texture(u_alphaMaskTexture, uvCoords);
+	//		alphaMask.rgb *= alphaMask.a;
+	//		alpha = (alphaMask.r + alphaMask.g + alphaMask.b) / 3;
+	//		//		
+	//		//		alpha=alphaMask.a;
+	//		//		
+	//		//		color = alphaMask.rgb;
+	//	}
 
 
 	if (alpha < 0.9 && u_discardTransparentPixels == 1) {
@@ -526,7 +533,8 @@ void main() {
 	// Final Output
 	if (u_renderMode == 0) // regular
 	{
-		fragColor = vec4(color, alpha);
+		//		fragColor = vec4(color, alpha);
+		fragColor = vec4(color, 1);
 
 		//		fragColor = vec4(color, alpha);
 	}

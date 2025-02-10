@@ -27,6 +27,7 @@ public class AssetFileCache
         else
         {
             assetBase = Serializer.ReadAssetJSON<T>(pathInLibraryFolder);
+            Assets[id] = assetBase;
             return assetBase as T;
         }
     }

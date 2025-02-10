@@ -28,10 +28,11 @@ public class TextureAtlasManager
         paths.AddRange(Directory.GetFiles(Folders.TexturesInLibrary, "*.tofutexture", SearchOption.TopDirectoryOnly));
         // var a = Tofu.AssetImportManager.ImportedAssets;
         // asdasdowpejwk
-            // Importer sends loaded assets to Loader so we dont have to read from disk
+        // Importer sends loaded assets to Loader so we dont have to read from disk
         foreach (string texturePath in paths)
         {
-            Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(texturePath);
+            Asset_Texture assetTexture = Tofu.AssetFileCache.GetAsset<Tofu3D.Asset_Texture>(texturePath, out _);
+            // Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(texturePath);
             textures.Add(assetTexture);
         }
 
@@ -138,8 +139,9 @@ public class TextureAtlasManager
 
             UploadAtlasToTextureArray(atlasPixels, atlasIndex);
 
-            if (File.Exists(GetAtlasPath(atlasIndex)) == false) // temporary only
+            if (File.Exists(GetAtlasPath(atlasIndex))) // temporary only
             {
+                // can read and compare atlasmembers
                 SaveAtlasAsset(atlasPixels, atlasMembers, atlasIndex);
             }
 
@@ -192,7 +194,6 @@ public class TextureAtlasManager
 
             Tofu.AssetLoadManager.Save(texture.PathInLibraryFolder, texture);
             Tofu.AssetFileCache.AddAsset(texture);
-
         }
 
         return _atlasPixels;
@@ -225,7 +226,7 @@ public class TextureAtlasManager
     private void SaveAtlasAsset(byte[] atlasPixels, TextureAtlasMember[] atlasMembers, int atlasIndex)
     {
         ///////////////////////////////////////////////////////////// PNG
-        // if (false)
+        if (false)
         {
             using Image<Rgba32>? image =
                 Image.LoadPixelData<Rgba32>(atlasPixels, AtlasWidth, AtlasWidth);
