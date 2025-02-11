@@ -521,7 +521,8 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             CountsOfElements = countsOfElements,
             GeometryBufferData = geometryBufferData.ToArray(),
             VerticesCount = (int)(geometryBufferData.Count / 14),
-            Indices = indices.ToArray()
+            Indices = indices.ToArray(),
+            IndicesLength = indices.Count()
         };
 
         if (objMaterialDefinition != null)

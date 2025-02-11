@@ -45,6 +45,7 @@ public class MeshFile : Asset<MeshFile>
         }
 
         Mesh.Indices = Compression.DecompressUnsignedIntArray(ByteIndices);
+        Mesh.IndicesLength = Mesh.Indices.Length;
         Mesh.GeometryBufferData = Compression.DecompressFloatArray(ByteGeometryBufferData);
 
         DataIsCompressed = false;

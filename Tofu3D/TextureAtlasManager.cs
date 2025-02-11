@@ -38,6 +38,9 @@ public class TextureAtlasManager
         }
 
         GenerateAtlasesForTextures(textures);
+
+        _atlasPixels = null;
+        GC.Collect();
     }
 
     private void GenerateAtlasesForTextures(List<Asset_Texture> textures)

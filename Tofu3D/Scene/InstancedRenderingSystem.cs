@@ -212,7 +212,7 @@ public class InstancedRenderingSystem
         InstancedGroupDefinition definition = _groupDefinitions[definitionIndex];
         Asset_Material material = definition.Material;
         int meshVao = definition.RuntimeMesh.Vao;
-        int indicesCount = definition.RuntimeMesh.Mesh.Indices.Length;
+        int indicesCount = definition.RuntimeMesh.Mesh.IndicesLength;
         int numberOfObjects = sharedInstancingBuffer.NumberOfObjects;
         if (material.IgnoreDepth || material.NoDepth)
         {

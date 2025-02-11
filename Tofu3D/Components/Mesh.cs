@@ -12,6 +12,9 @@ public class Mesh : IHasPath
     [XmlIgnore] // for scene xml serialization
     [JsonIgnore]
     public uint[] Indices; // dont serialize
+    [XmlIgnore] // for scene xml serialization
+    [JsonIgnore]
+    public int IndicesLength; // dont serialize
 
     public string Name;
 
