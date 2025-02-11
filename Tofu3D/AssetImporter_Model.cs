@@ -579,7 +579,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(materialDefinition
                     .AlbedoTexturePath);
             RuntimeTexture texture =
-                Tofu.AssetLoadManager.Load<RuntimeTexture>(pathOfAlbedoTexture);
+                Tofu.AssetLoadManager.Get<RuntimeTexture>(pathOfAlbedoTexture);
             material.AlbedoTexture = texture;
         }
 
@@ -589,7 +589,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(materialDefinition
                     .AlphaMaskTexturePath);
             RuntimeTexture texture =
-                Tofu.AssetLoadManager.Load<RuntimeTexture>(pathOfAlphaMaskTexture);
+                Tofu.AssetLoadManager.Get<RuntimeTexture>(pathOfAlphaMaskTexture);
             material.AlphaMaskTexture = texture;
 
             material.RenderMode = RenderMode.Transparent;
@@ -601,7 +601,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(materialDefinition
                     .NormalTexturePath);
             RuntimeTexture texture =
-                Tofu.AssetLoadManager.Load<RuntimeTexture>(pathOfNormalTexture);
+                Tofu.AssetLoadManager.Get<RuntimeTexture>(pathOfNormalTexture);
             material.NormalTexture = texture;
         }
 

@@ -2,11 +2,11 @@ using System.IO;
 
 namespace Tofu3D;
 
-public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
+public class AssetLoader_RuntimeTexture : AssetLoader<RuntimeTexture>
 {
     public override RuntimeTexture LoadAsset(AssetLoadParameters<RuntimeTexture>? assetLoadParameters)
     {
-        AssetLoadParameters_Texture loadParameters = assetLoadParameters as AssetLoadParameters_Texture;
+        AssetLoadParameters_RuntimeTexture loadParameters = assetLoadParameters as AssetLoadParameters_RuntimeTexture;
         string path = loadParameters.PathToAssetInLibrary;
 
         if (File.Exists(AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(path)))
@@ -15,8 +15,8 @@ public class AssetLoader_Texture : AssetLoader<RuntimeTexture>
         }
 
 
-        Asset_Texture assetTexture =
-            Tofu.AssetFileCache.GetAsset<Asset_Texture>(path, out _);
+        Asset_Texture assetTexture = Tofu.AssetLoadManager.Get<Asset_Texture>(path);
+        // Tofu.AssetFileCache.GetAsset<Asset_Texture>(path, out _);
 
 
         if (assetTexture.AtlasPath == null)

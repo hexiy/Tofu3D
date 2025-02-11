@@ -66,40 +66,40 @@ public class Asset_Material : Asset<Asset_Material>
     {
         if (AlbedoTexture?.PathInLibraryFolder.Length > 2)
         {
-            AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
+            AlbedoTexture = Tofu.AssetLoadManager.Get<RuntimeTexture>(new AssetLoadParameters_RuntimeTexture()
                 { PathToAssetInLibrary = AlbedoTexture.PathInLibraryFolder });
         }
 
         if (AlphaMaskTexture?.PathInLibraryFolder.Length > 2)
         {
-            AlphaMaskTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
+            AlphaMaskTexture = Tofu.AssetLoadManager.Get<RuntimeTexture>(new AssetLoadParameters_RuntimeTexture()
                 { PathToAssetInLibrary = AlphaMaskTexture.PathInLibraryFolder });
         }
 
         if (AmbientOcclusionTexture?.PathInLibraryFolder.Length > 2)
         {
             AmbientOcclusionTexture =
-                Tofu.AssetLoadManager.Load<RuntimeTexture>(AmbientOcclusionTexture.PathInLibraryFolder);
+                Tofu.AssetLoadManager.Get<RuntimeTexture>(AmbientOcclusionTexture.PathInLibraryFolder);
         }
 
         if (NormalTexture?.PathInLibraryFolder.Length > 2)
         {
-            NormalTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(NormalTexture.PathInLibraryFolder);
+            NormalTexture = Tofu.AssetLoadManager.Get<RuntimeTexture>(NormalTexture.PathInLibraryFolder);
         }
 
         if (RoughnessTexture?.PathInLibraryFolder.Length > 2)
         {
-            RoughnessTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(RoughnessTexture.PathInLibraryFolder);
+            RoughnessTexture = Tofu.AssetLoadManager.Get<RuntimeTexture>(RoughnessTexture.PathInLibraryFolder);
         }
 
         if (MetallicTexture?.PathInLibraryFolder.Length > 2)
         {
-            MetallicTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(MetallicTexture.PathInLibraryFolder);
+            MetallicTexture = Tofu.AssetLoadManager.Get<RuntimeTexture>(MetallicTexture.PathInLibraryFolder);
         }
 
         if (EmissiveTexture?.PathInLibraryFolder.Length > 2)
         {
-            EmissiveTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
+            EmissiveTexture = Tofu.AssetLoadManager.Get<RuntimeTexture>(new AssetLoadParameters_RuntimeTexture()
                 { PathToAssetInLibrary = EmissiveTexture.PathInLibraryFolder });
         }
     }

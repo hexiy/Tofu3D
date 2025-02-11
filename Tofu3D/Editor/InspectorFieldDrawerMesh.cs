@@ -24,8 +24,8 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
                 {
                     // try
                     // {
-                        Asset_Model modelAsset = Tofu.AssetLoadManager.Load<Asset_Model>(filePath);
-                        mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(modelAsset.PathsToMeshAssets[0]);
+                        Asset_Model modelAsset = Tofu.AssetLoadManager.Get<Asset_Model>(filePath);
+                        mesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(modelAsset.PathsToMeshAssets[0]);
                         info.SetValue(componentInspectorData.Inspectable, mesh);
                     // }
                     // catch (Exception ex)
@@ -48,7 +48,7 @@ public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
                 {
                     // try
                     // {
-                        RuntimeMesh runtimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(filePath);
+                        RuntimeMesh runtimeMesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(filePath);
                         info.SetValue(componentInspectorData.Inspectable, runtimeMesh);
                     // }
                     // catch (Exception ex)

@@ -38,7 +38,7 @@ public static class FramebufferScreenshotGenerator
         string tofuTexturePath = path + ".tofutexture";
         // Serializer.SaveAssetJSON<Asset_Texture>(tofuTexturePath, texture);
         Tofu.AssetLoadManager.Save(tofuTexturePath,texture);
-        Tofu.AssetLoadManager.Load<Tofu3D.RuntimeTexture>(tofuTexturePath, overwriteAlreadyLoadedAssets:true);
+        Tofu.AssetLoadManager.Get<Tofu3D.RuntimeTexture>(tofuTexturePath, overwriteAlreadyLoadedAssets:true);
         // image.SaveAsPng(path);
 
 

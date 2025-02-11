@@ -349,12 +349,12 @@ public class EditorPanelSceneView : EditorPanel
             {
                 if (path.Length > 0 && AssetPathExtensions.IsFileModel(path))
                 {
-                    Asset_Model modelAsset = Tofu.AssetLoadManager.Load<Asset_Model>(path);
+                    Asset_Model modelAsset = Tofu.AssetLoadManager.Get<Asset_Model>(path);
                     SpawnModelIntoScene(model: modelAsset);
                 }
                 else if (path.Length > 0 && AssetPathExtensions.IsFileMesh(path))
                 {
-                    RuntimeMesh mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(path);
+                    RuntimeMesh mesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(path);
                     SpawnMeshIntoScene(mesh: mesh, 0, true);
                 }
             }
@@ -379,7 +379,7 @@ public class EditorPanelSceneView : EditorPanel
 
         for (int i = 0; i < meshGameObjects.Length; i++)
         {
-            RuntimeMesh mesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets[i]);
+            RuntimeMesh mesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(model.PathsToMeshAssets[i]);
 
             GameObject meshGameObject =
                 SpawnMeshIntoScene(mesh, indexOfMesh: i, isSingleMeshInModel: countOfMeshes == 1);

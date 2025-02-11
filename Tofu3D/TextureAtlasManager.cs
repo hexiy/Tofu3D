@@ -31,7 +31,7 @@ public class TextureAtlasManager
         // Importer sends loaded assets to Loader so we dont have to read from disk
         foreach (string texturePath in paths)
         {
-            Asset_Texture assetTexture = Tofu.AssetFileCache.GetAsset<Tofu3D.Asset_Texture>(texturePath, out _);
+            Asset_Texture assetTexture = Tofu.AssetLoadManager.Get<Asset_Texture>(texturePath);
             // Asset_Texture assetTexture = Serializer.ReadAssetJSON<Asset_Texture>(texturePath);
             textures.Add(assetTexture);
         }
@@ -193,7 +193,7 @@ public class TextureAtlasManager
             texture.IndexInAtlasTextureArray = atlasIndex;
 
             Tofu.AssetLoadManager.Save(texture.PathInLibraryFolder, texture);
-            Tofu.AssetFileCache.AddAsset(texture);
+            // Tofu.AssetFileCache.AddAsset(texture);
         }
 
         return _atlasPixels;

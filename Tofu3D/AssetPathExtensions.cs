@@ -13,6 +13,11 @@ public static class AssetPathExtensions
     // from /Assets/car.obj to /Library/car.asset
     public static string GetPathOfAssetInLibraryFromSourceAssetPathOrName(string fileName)
     {
+        if (fileName.Contains("Library/", StringComparison.OrdinalIgnoreCase))
+        {
+            return fileName;
+        }
+
         fileName = Path.GetFileName(fileName);
         string librarySubFolder = GetCorrectLibrarySubfolderPathForAssetType(fileName);
         fileName = TofuPath.Combine(librarySubFolder, fileName);

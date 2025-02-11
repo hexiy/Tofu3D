@@ -67,16 +67,11 @@ public class EditorPanelBrowser : EditorPanel
         CreateContextItems();
 
 
-        AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture()
-            { LoadType = TextureLoadType.InAtlas };
-
         _fileIcon =
-            Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/FileIcon_b.png",
-                loadParametersTexture); //, _iconTextureLoadSettings);
+            Tofu.AssetLoadManager.Get<RuntimeTexture>("Resources/FileIcon_b.png"); //, _iconTextureLoadSettings);
 
         _directoryIcon =
-            Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/DirectoryIcon_b.png",
-                loadParametersTexture); //, _iconTextureLoadSettings);
+            Tofu.AssetLoadManager.Get<RuntimeTexture>("Resources/DirectoryIcon_b.png"); //, _iconTextureLoadSettings);
 
         SetCurrentDirectory(CurrentDirectoryPathCached);
 
@@ -173,11 +168,8 @@ public class EditorPanelBrowser : EditorPanel
                 // _textures[i] = new Texture();
                 // _textures[i].Load(path: _assets[i], loadSettings: _iconTextureLoadSettings);
             {
-                AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture()
-                    { LoadType = TextureLoadType.InAtlas };
                 _textures[_assets[i]] =
-                    Tofu.AssetLoadManager.Load<RuntimeTexture>(_assets[i],
-                        loadParametersTexture); //, _iconTextureLoadSettings);
+                    Tofu.AssetLoadManager.Get<RuntimeTexture>(_assets[i]); //, _iconTextureLoadSettings);
             }
 
             if (AssetPathExtensions.IsFileScene(_assets[i]))
@@ -664,7 +656,7 @@ public class EditorPanelBrowser : EditorPanel
         {
             if (_expandedAssets.Contains(assetIndex))
             {
-                Asset_Model assetModel = Tofu.AssetLoadManager.Load<Asset_Model>(assetPath);
+                Asset_Model assetModel = Tofu.AssetLoadManager.Get<Asset_Model>(assetPath);
                 for (int meshIndex = 0; meshIndex < assetModel.PathsToMeshAssets.Count; meshIndex++)
                 {
                     // ImGui.SameLine();

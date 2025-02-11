@@ -1,4 +1,4 @@
-namespace Tofu3D;
+/*namespace Tofu3D;
 
 /// <summary>
 /// Holds asset files
@@ -31,4 +31,4 @@ public class AssetFileCache
             return assetBase as T;
         }
     }
-}
+}*/

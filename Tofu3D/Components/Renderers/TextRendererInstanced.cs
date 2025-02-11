@@ -83,12 +83,12 @@ public class TextRendererInstanced : ModelRendererInstanced
         base.SetDefaultMaterial();
 
         Asset_Model model =
-            Tofu.AssetLoadManager.Load<Asset_Model>(TofuPath.Combine(Folders.BasicModelsInAssets, "plane.obj"));
-        RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets.First());
+            Tofu.AssetLoadManager.Get<Asset_Model>(TofuPath.Combine(Folders.BasicModelsInAssets, "plane.obj"));
+        RuntimeMesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(model.PathsToMeshAssets.First());
 
         Material = Tofu.AssetLoadManager.CreateCopyFile(Material);
         Material.AlbedoTexture =
-            Tofu.AssetLoadManager.Load<RuntimeTexture>(TofuPath.Combine(Folders.TexturesInAssets, "font.png"));
+            Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.TexturesInAssets, "font.png"));
 
         Material.RenderMode = RenderMode.Transparent;
         Material.UVOffsetIsInstanced = true;

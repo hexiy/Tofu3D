@@ -68,7 +68,7 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
 
                     textureName = payload;
 
-                    RuntimeTexture? loadedTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(textureName);
+                    RuntimeTexture? loadedTexture = Tofu.AssetLoadManager.Get<RuntimeTexture>(textureName);
 
                     SetValue(info, componentInspectorData, loadedTexture);
                 }

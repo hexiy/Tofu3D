@@ -32,7 +32,7 @@ public class Framebuffer : ITexture
 
         // creating this in the library not assets, we need it as asset to reuse across other framebuffers and the asset system, but dont need to expose it to the user
         _renderTextureMaterial =
-            Tofu.AssetLoadManager.Load<Asset_Material>(TofuPath.Combine(Folders.MaterialsInLibrary,
+            Tofu.AssetLoadManager.Get<Asset_Material>(TofuPath.Combine(Folders.MaterialsInLibrary,
                 "RenderTexture.mat.tofumaterial"));
         _renderTextureMaterial.Shader = Tofu.ShaderManager.LoadShader("Assets/Shaders/RenderTexture.glsl");
         // _renderTextureMaterial = new Asset_Material()

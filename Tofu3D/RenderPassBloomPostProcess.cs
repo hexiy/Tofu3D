@@ -27,9 +27,9 @@ public class RenderPassBloomPostProcess : RenderPass
     {
         SetupRenderTexture();
 
-        _bloomPostProcessMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/BloomPostProcess.mat");
-        _horizontalBlurMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/BloomHorizontal.mat");
-        _verticalBlurMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/BloomVertical.mat");
+        _bloomPostProcessMaterial = Tofu.AssetLoadManager.Get<Asset_Material>("Assets/Materials/BloomPostProcess.mat");
+        _horizontalBlurMaterial = Tofu.AssetLoadManager.Get<Asset_Material>("Assets/Materials/BloomHorizontal.mat");
+        _verticalBlurMaterial = Tofu.AssetLoadManager.Get<Asset_Material>("Assets/Materials/BloomVertical.mat");
         base.Initialize();
     }
 

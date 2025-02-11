@@ -62,7 +62,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
                 payload = payload;
                 // var materialName = Path.GetFileName(payload);
 
-                Asset_Material? draggedMaterial = Tofu.AssetLoadManager.Load<Asset_Material>(payload);
+                Asset_Material? draggedMaterial = Tofu.AssetLoadManager.Get<Asset_Material>(payload);
                 if (draggedMaterial.Shader == null)
                 {
                     Debug.Log("No Shader attached to material.");

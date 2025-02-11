@@ -38,7 +38,7 @@ public class SceneSelectionHighlighter
         modelRenderer.MousePickingEnabled = false;
 
         Asset_Material runtimeMaterial = Tofu.AssetLoadManager
-            .Load<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets, "ModelRendererInstanced.mat"));
+            .Get<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets, "ModelRendererInstanced.mat"));
         runtimeMaterial = Tofu.AssetLoadManager.CreateCopyFile(runtimeMaterial);
 
         modelRenderer.Material = runtimeMaterial;
@@ -47,7 +47,7 @@ public class SceneSelectionHighlighter
 
         PremadeComponentSetupsHelper.PrepareCube(modelRenderer);
 
-        runtimeMaterial.AlbedoTexture = Tofu.AssetLoadManager.Load<RuntimeTexture>(new AssetLoadParameters_Texture()
+        runtimeMaterial.AlbedoTexture = Tofu.AssetLoadManager.Get<RuntimeTexture>(new AssetLoadParameters_RuntimeTexture()
             { PathToAssetInLibrary = "Resources/whitePixel.png" });
         runtimeMaterial.Smoothness = 0;
         runtimeMaterial.AlbedoColor = new Color(1, 1, 1, 0.45f);

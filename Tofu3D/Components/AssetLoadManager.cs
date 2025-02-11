@@ -5,8 +5,8 @@ public class AssetLoadManager
 {
     private AssetLoader_RuntimeMesh _assetLoaderRuntimeMesh;
 
-    private Dictionary<int, object> LoadedAssets { get; set; } =
-        new Dictionary<int, object>(); // int is (raw asset)path hashcode
+    private Dictionary<int, AssetBase> LoadedAssets { get; set; } =
+        new Dictionary<int, AssetBase>(); // int is (raw asset)path hashcode
 
     public Dictionary<Type, Tuple<IAssetLoader, AssetLoadParametersBase>>
         LoadersAndLoadParameters { get; private set; } =
@@ -17,13 +17,14 @@ public class AssetLoadManager
     {
         _assetLoaderRuntimeMesh = new AssetLoader_RuntimeMesh();
 
-        RegisterAssetLoader(new AssetLoader_Texture(), new AssetLoadParameters_Texture());
+        RegisterAssetLoader(new AssetLoader_RuntimeTexture(), new AssetLoadParameters_RuntimeTexture());
+        RegisterAssetLoader(new AssetLoader_AssetTexture(), new AssetLoadParameters_AssetTexture());
         // RegisterAssetLoader(new AssetLoader_AtlasTexture(), new AssetLoadParameters_AtlasTexture());
         RegisterAssetLoader(new AssetLoader_CubemapTexture(), new AssetLoadParameters_CubemapTexture());
         RegisterAssetLoader(new AssetLoader_Material(), new AssetLoadParameters_Material());
         RegisterAssetLoader(new AssetLoader_Model(), new AssetLoadParameters_Model());
-        RegisterAssetLoader(new AssetLoader_RuntimeMesh(), new AssetLoadParameters_RuntimeMesh());
-        RegisterAssetLoader(new AssetLoader_AssetMesh(), new AssetLoadParameters_AssetMesh());
+        RegisterAssetLoader(_assetLoaderRuntimeMesh, new AssetLoadParameters_RuntimeMesh());
+        RegisterAssetLoader(new AssetLoader_MeshFile(), new AssetLoadParameters_MeshFile());
 
         Scene.SceneDisposed += UnloadALl;
     }
@@ -34,13 +35,29 @@ public class AssetLoadManager
             new Tuple<IAssetLoader, AssetLoadParametersBase>(assetLoader, assetLoadParameters));
     }
 
+    public void AddAsset<T>(AssetBase assetBase) where T : AssetBase
+    {
+        AddAsset(assetBase, typeof(T));
+    }
 
-    public List<T> GetAllLoadedAssetsOfType<T>() where T : Asset<T>
+    public void AddAsset(AssetBase assetBase, Type type)
+    {
+        if (assetBase == null)
+        {
+            return;
+        }
+
+        int id = GetAssetID(assetBase.PathInLibraryFolder, type);
+
+        LoadedAssets[id] = assetBase;
+    }
+
+    public List<T> GetAllLoadedAssetsOfType<T>() where T : AssetBase
     {
         List<T> foundAssets = new List<T>();
         Type t = typeof(T);
 
-        foreach (KeyValuePair<int, object> keyValuePair in LoadedAssets)
+        foreach (KeyValuePair<int, AssetBase> keyValuePair in LoadedAssets)
         {
             if (keyValuePair.Value?.GetType() == t)
             {
@@ -51,25 +68,26 @@ public class AssetLoadManager
         return foundAssets;
     }
 
-    public T? GetLoadedAsset<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null) where T : Asset<T>
+    // public T? GetLoadedAsset<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null) where T : AssetBase
+    // {
+    //     int id = GetAssetID(sourcePath);
+    //     bool existsInDatabase = LoadedAssets.ContainsKey(id);
+    //
+    //     // 
+    //     T asset = null;
+    //
+    //     if (existsInDatabase)
+    //     {
+    //         asset = LoadedAssets[id] as T;
+    //     }
+    //
+    //     return asset;
+    // }
+
+    public bool IsAssetLoaded<T>(string sourcePath) where T : AssetBase
     {
-        int id = (sourcePath + typeof(T)).GetHashCode();
-        bool existsInDatabase = LoadedAssets.ContainsKey(id);
+        int id = GetAssetID<T>(sourcePath);
 
-        // 
-        T asset = null;
-
-        if (existsInDatabase)
-        {
-            asset = LoadedAssets[id] as T;
-        }
-
-        return asset;
-    }
-
-    public bool IsAssetLoaded<T>(string sourcePath) where T : class
-    {
-        int id = (sourcePath + typeof(T)).GetHashCode();
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
 
         return existsInDatabase;
@@ -79,7 +97,7 @@ public class AssetLoadManager
     /// <param name="folder">By default is Library/Temp and gets wiped when Tofu is closed</param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public T? CreateCopyFile<T>(T original, string? folder = null) where T : Asset<T>
+    public T? CreateCopyFile<T>(T original, string? folder = null) where T : AssetBase
     {
         folder = folder ?? Folders.TempInLibrary;
         string tempFileName =
@@ -91,7 +109,7 @@ public class AssetLoadManager
         // for some reason   Tofu.AssetLoadManager.Save doesnt work it overwrites the assets....
         // Tofu.AssetLoadManager.Save<T>(tempFileName, asset: original);
         T runtimeCopy =
-            Tofu.AssetLoadManager.Load<T>(tempFileName, null, false);
+            Tofu.AssetLoadManager.Get<T>(tempFileName, null, false);
         runtimeCopy.PathInLibraryFolder = tempFileName;
         runtimeCopy.PathInAssetsFolder = null;
         Tofu.AssetLoadManager.Save<T>(tempFileName, runtimeCopy);
@@ -105,21 +123,21 @@ public class AssetLoadManager
         return original.Clone();
     }
 
-    public T? Load<T>(AssetLoadParameters<T> loadParameters = null,
-        bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy = false) where T : class
+    public T? Get<T>(AssetLoadParameters<T> loadParameters = null,
+        bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy = false) where T : AssetBase
     {
-        return Load<T>(loadParameters.PathToAssetInLibrary, loadParameters, overwriteAlreadyLoadedAssets,
+        return Get<T>(loadParameters.PathToAssetInLibrary, loadParameters, overwriteAlreadyLoadedAssets,
             isRuntimeCopy: isRuntimeCopy);
     }
 
     // path here will be Assets/xxxxx
-    public T? Load<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null,
-        bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy = false) where T : class
+    public T? Get<T>(string sourcePath, AssetLoadParameters<T>? loadParameters = null,
+        bool overwriteAlreadyLoadedAssets = false, bool isRuntimeCopy = false) where T : AssetBase
     {
         string pathToAssetInLibrary =
             AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(sourcePath);
 
-        int id = (pathToAssetInLibrary + typeof(T)).GetHashCode();
+        int id = GetAssetID<T>(sourcePath);
 
         if (isRuntimeCopy)
         {
@@ -139,6 +157,7 @@ public class AssetLoadManager
         if (existsInDatabase && overwriteAlreadyLoadedAssets == false)
         {
             asset = LoadedAssets[id] as T;
+            return asset;
         }
         else
         {
@@ -148,19 +167,24 @@ public class AssetLoadManager
                 return null;
             }
 
-            Tuple<IAssetLoader, AssetLoadParametersBase> loaderAndLoadParameters = LoadersAndLoadParameters[typeof(T)];
+            Tuple<IAssetLoader, AssetLoadParametersBase> loaderAndLoadParameters;
+            bool foundLoader = LoadersAndLoadParameters.TryGetValue(typeof(T), out loaderAndLoadParameters);
 
             if (loadParameters == null)
             {
-                loadParameters = (loaderAndLoadParameters.Item2 as AssetLoadParameters<T>);
-
-                loadParameters =
-                    Activator.CreateInstance(loadParameters.GetType()) as AssetLoadParameters<T>;
-
-                loadParameters.PathToAssetInLibrary = pathToAssetInLibrary;
-                if (File.Exists(pathToAssetInLibrary) == false)
+                // Tuple<IAssetLoader, AssetLoadParametersBase> loaderAndLoadParameters = LoadersAndLoadParameters[typeof(T)];
+                if (foundLoader && loaderAndLoadParameters.Item2 != null)
                 {
-                    loadParameters.PathToAssetInLibrary = sourcePath;
+                    loadParameters = (loaderAndLoadParameters.Item2 as AssetLoadParameters<T>);
+
+                    loadParameters =
+                        Activator.CreateInstance(loadParameters.GetType()) as AssetLoadParameters<T>;
+
+                    loadParameters.PathToAssetInLibrary = pathToAssetInLibrary;
+                    if (File.Exists(pathToAssetInLibrary) == false)
+                    {
+                        loadParameters.PathToAssetInLibrary = sourcePath;
+                    }
                 }
             }
 
@@ -169,25 +193,23 @@ public class AssetLoadManager
                 T existingAsset = LoadedAssets[id] as T;
                 // problem is this is Asset_Texture not RuntimeTexture
                 // loadedassets has only asset_textures right? not runtimetextures
-                loadParameters.ExistingAsset = existingAsset;
+                if (loadParameters != null)
+                {
+                    loadParameters.ExistingAsset = existingAsset;
+                }
             }
 
             // because in EditorTextures its null first so we overwrite it but it stays that value even after so all icons are the same as the first one 
             bool setLoadParametersPathBackToNull = false;
-            if (loadParameters.PathToAssetInLibrary == null)
+            if (loadParameters is { PathToAssetInLibrary: null })
             {
                 setLoadParametersPathBackToNull = true;
                 loadParameters.PathToAssetInLibrary = sourcePath;
             }
 
-            if (File.Exists(sourcePath) == false)
+            if (typeof(T) == typeof(Asset_Material) && File.Exists(sourcePath) == false)
             {
-                Debug.LogWarning("not found asset " + loadParameters.PathToAssetInLibrary);
-
-                if (typeof(T) == typeof(Asset_Material))
-                {
-                    asset = CreateDefaultMaterialAssetFile(sourcePath) as T;
-                }
+                asset = CreateDefaultMaterialAssetFile(sourcePath) as T;
             }
             else
             {
@@ -212,7 +234,7 @@ public class AssetLoadManager
     }
 
     public RuntimeMesh LoadRuntimeMeshFromAssetMesh<T>(MeshFile meshFile,
-        AssetLoadParameters<RuntimeMesh>? loadParameters = null) where T : Asset<T>
+        AssetLoadParameters<RuntimeMesh>? loadParameters = null) where T : AssetBase
     {
         RuntimeMesh runtimeMesh = _assetLoaderRuntimeMesh.LoadAsset(meshFile: meshFile, loadParameters);
         return runtimeMesh;
@@ -237,9 +259,12 @@ public class AssetLoadManager
         return mat;
     }
 
-    public void Unload<T>(string path) where T : Asset<T>
+    public void Unload<T>(string sourcePath) where T : AssetBase
     {
-        int id = path.GetHashCode() + typeof(T).GetHashCode();
+        string pathToAssetInLibrary =
+            AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(sourcePath);
+
+        int id = GetAssetID<T>(pathToAssetInLibrary);
         if (LoadedAssets.ContainsKey(id))
         {
             // Debug.Log($"unloaded asset:{path}");
@@ -250,16 +275,33 @@ public class AssetLoadManager
 
     public void UnloadALl()
     {
-        LoadedAssets = new Dictionary<int, object>();
+        LoadedAssets.Clear();
     }
 
     public void Save<T>(string path, T asset) where T : AssetBase
     {
-        int id = (path + typeof(T)).GetHashCode();
+        int id = GetAssetID<T>(path); //, typeof(T));
 
-        Serializer.SaveAssetJSON<T>(path,asset);
+        Serializer.SaveAssetJSON<T>(path, asset);
 
         // LoadedAssets[id] = asset;
         // Debug.Log($"Saved file {path}");
+    }
+
+    // private int GetAssetID<T>(string path) where T : AssetBase
+
+    private int GetAssetID<T>(string path) where T : AssetBase
+    {
+        return GetAssetID(path: path, type: typeof(T));
+    }
+
+    private int GetAssetID(string path, Type type)
+    {
+        string pathToAssetInLibrary =
+            AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(path);
+
+        int id = (pathToAssetInLibrary + type.ToString()).GetHashCode();
+        // int id = (pathToAssetInLibrary).GetHashCode();
+        return id;
     }
 }

@@ -33,14 +33,14 @@ public class ModelRendererInstanced : Renderer
         // RuntimeMesh.Mesh.Indices
         if (RuntimeMesh?.Mesh?.PathInLibraryFolder?.Length > 0)
         {
-            RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(RuntimeMesh.Mesh.PathInLibraryFolder);
+            RuntimeMesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(RuntimeMesh.Mesh.PathInLibraryFolder);
         }
         else
         {
             Asset_Model model =
-                Tofu.AssetLoadManager.Load<Asset_Model>(
+                Tofu.AssetLoadManager.Get<Asset_Model>(
                     TofuPath.Combine(Folders.BasicModelsInAssets, "defaultCube.obj"));
-            RuntimeMesh = Tofu.AssetLoadManager.Load<RuntimeMesh>(model.PathsToMeshAssets.First());
+            RuntimeMesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(model.PathsToMeshAssets.First());
 
             // RuntimeMesh = null;
         }
@@ -51,7 +51,7 @@ public class ModelRendererInstanced : Renderer
         // for now, always load obj material
         if (pathToObjMaterial != null)
         {
-            Material = Tofu.AssetLoadManager.Load<Asset_Material>(pathToObjMaterial);
+            Material = Tofu.AssetLoadManager.Get<Asset_Material>(pathToObjMaterial);
         }
         else
         {
@@ -59,12 +59,12 @@ public class ModelRendererInstanced : Renderer
             {
                 if (Material?.PathInLibraryFolder.Length == 0 || Material == null)
                 {
-                    Material = Tofu.AssetLoadManager.Load<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets,
+                    Material = Tofu.AssetLoadManager.Get<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets,
                         "ModelRendererInstanced.mat"));
                 }
                 else
                 {
-                    Material = Tofu.AssetLoadManager.Load<Asset_Material>(Material.PathInLibraryFolder);
+                    Material = Tofu.AssetLoadManager.Get<Asset_Material>(Material.PathInLibraryFolder);
                 }
             }
             else

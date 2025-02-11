@@ -44,25 +44,29 @@ public class AssetImportManager
             if (AssetPathExtensions.IsAnyAssetBase(assetFileInLibraryPath))
             {
                 AssetBase asset = null;
-
+                Type assetType = null;
                 if (AssetPathExtensions.IsFileModel(rawAssetPath))
                 {
                     asset = Serializer.ReadAssetJSON<Asset_Model>(assetFileInLibraryPath);
+                    assetType = typeof(Asset_Model);
                 }
 
                 if (AssetPathExtensions.IsFileTexture(rawAssetPath))
                 {
                     asset = Serializer.ReadAssetJSON<Asset_Texture>(assetFileInLibraryPath);
+                    assetType = typeof(Asset_Texture);
                 }
 
                 if (AssetPathExtensions.IsFileTextureAtlas(rawAssetPath))
                 {
                     asset = Serializer.ReadAssetJSON<Asset_TextureAtlas>(assetFileInLibraryPath);
+                    assetType = typeof(Asset_TextureAtlas);
                 }
 
                 if (asset != null)
                 {
-                    Tofu.AssetFileCache.AddAsset(asset);
+                    Tofu.AssetLoadManager.AddAsset(asset, assetType);
+                    // Tofu.AssetFileCache.AddAsset(asset);
                 }
             }
         }
@@ -112,7 +116,7 @@ public class AssetImportManager
                     if (Tofu.AssetLoadManager.IsAssetLoaded<RuntimeMesh>(meshAsset))
                     {
                         // Tofu.AssetLoadManager.Unload(meshAsset);
-                        Tofu.AssetLoadManager.Load<RuntimeMesh>(meshAsset, overwriteAlreadyLoadedAssets: true);
+                        Tofu.AssetLoadManager.Get<RuntimeMesh>(meshAsset, overwriteAlreadyLoadedAssets: true);
                     }
                 }
 
@@ -182,7 +186,8 @@ public class AssetImportManager
                     assetImportParametersTexture);
 
 
-            Tofu.AssetFileCache.AddAsset(assetTexture);
+            Tofu.AssetLoadManager.AddAsset<Tofu3D.Asset_Texture>(assetTexture);
+            // Tofu.AssetFileCache.AddAsset(assetTexture);
             // }
         }
 

@@ -10,12 +10,10 @@ public class EditorTextures
 
     public EditorTextures()
     {
-        AssetLoadParameters_Texture loadParametersTexture = new AssetLoadParameters_Texture()
-            { LoadType = TextureLoadType.InAtlas };
-        LogCategoryErrorIcon = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/Console/error.png",loadParametersTexture);
-        LogCategoryInfoIcon = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/Console/info.png",loadParametersTexture);
-        LogCategoryTimerIcon = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/Console/timer.png",loadParametersTexture);
-        LogCategoryWarningIcon = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/Console/warning.png",loadParametersTexture);
-        WhitePixel = Tofu.AssetLoadManager.Load<RuntimeTexture>("Resources/whitePixel.png",loadParametersTexture);
+        LogCategoryErrorIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>("Resources/Console/error.png");
+        LogCategoryInfoIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>("Resources/Console/info.png");
+        LogCategoryTimerIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>("Resources/Console/timer.png");
+        LogCategoryWarningIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>("Resources/Console/warning.png");
+        WhitePixel = Tofu.AssetLoadManager.Get<RuntimeTexture>("Resources/whitePixel.png");
     }
 }

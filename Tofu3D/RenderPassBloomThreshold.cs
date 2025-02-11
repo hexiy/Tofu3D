@@ -18,7 +18,7 @@ public class RenderPassBloomThreshold : RenderPass
     {
         SetupRenderTexture();
 
-        _bloomThresholdMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/BloomThreshold.mat");
+        _bloomThresholdMaterial = Tofu.AssetLoadManager.Get<Asset_Material>("Assets/Materials/BloomThreshold.mat");
         base.Initialize();
     }
 

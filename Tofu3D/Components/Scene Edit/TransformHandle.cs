@@ -206,7 +206,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
         // Material unlitMaterial = Tofu.AssetManager.Load<Asset_Material>("ModelRendererUnlit");
         Asset_Material standardMaterial =
-            Tofu.AssetLoadManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
+            Tofu.AssetLoadManager.Get<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
 
 
         Asset_Material materialCopy = Tofu.AssetLoadManager.CreateCopyFile(standardMaterial);

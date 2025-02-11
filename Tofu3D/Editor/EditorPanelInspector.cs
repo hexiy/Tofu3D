@@ -120,7 +120,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
 
     public void OnMaterialSelected(string materialPath)
     {
-        object materialInspectable = Tofu.AssetLoadManager.Load<Asset_Material>(materialPath);
+        object materialInspectable = Tofu.AssetLoadManager.Get<Asset_Material>(materialPath);
 
         EditorPanelInspector.I.SelectInspectable(materialInspectable,
             anyValueChanged: (fieldName) =>

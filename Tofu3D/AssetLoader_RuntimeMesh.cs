@@ -6,8 +6,9 @@ public class AssetLoader_RuntimeMesh : AssetLoader<RuntimeMesh>
     {
         string meshAssetPath = assetLoadParameters.PathToAssetInLibrary;
 
-        
-        Tofu.AssetFileCache.GetAsset<MeshFile>(meshAssetPath, out MeshFile meshFile);
+
+        MeshFile meshFile = Tofu.AssetLoadManager.Get<MeshFile>(meshAssetPath);
+        // Tofu.AssetFileCache.GetAsset<MeshFile>(meshAssetPath, out MeshFile meshFile);
 
         RuntimeMesh runtimeMesh = LoadAsset(meshFile, assetLoadParameters);
 
