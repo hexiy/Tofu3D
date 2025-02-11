@@ -22,7 +22,8 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             Debug.LogError($"importing obj failed, file doesnt exist:{objInAssetsFolderPath}");
         }
 
-        string[] data = File.ReadAllText(objInAssetsFolderPath).Split("\n");
+        // string[] data = File.ReadAllText(objInAssetsFolderPath).Split("\n");
+        string[] data = File.ReadAllLines(objInAssetsFolderPath);
 
         List<float> positions = new List<float>();
         List<float> uvs = new List<float>();

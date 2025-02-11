@@ -18,6 +18,7 @@ public class TextureAtlasManager
     private int AtlasWidth = -1;
     public int GLTextureArrayId;
     private int _atlasesCount;
+    private byte[] _atlasPixels;
 
 
     public void SetupTextureAtlases()
@@ -45,8 +46,8 @@ public class TextureAtlasManager
         {
             AtlasWidth = GL.GetInteger(GetPName.MaxTextureSize);
             // AtlasWidth = (int)Mathf.ClampMax(AtlasWidth, 16_384);
-            AtlasWidth = (int)Mathf.ClampMax(AtlasWidth, 8192);
-            // AtlasWidth = (int)Mathf.ClampMax(AtlasWidth, 4092); //8192);
+            // AtlasWidth = (int)Mathf.ClampMax(AtlasWidth, 8192);
+            AtlasWidth = (int)Mathf.ClampMax(AtlasWidth, 4092); //8192);
         }
 
         textures.Sort();
@@ -139,7 +140,7 @@ public class TextureAtlasManager
 
             UploadAtlasToTextureArray(atlasPixels, atlasIndex);
 
-            if (File.Exists(GetAtlasPath(atlasIndex))) // temporary only
+            if (File.Exists(GetAtlasPath(atlasIndex)) == false) // temporary only
             {
                 // can read and compare atlasmembers
                 SaveAtlasAsset(atlasPixels, atlasMembers, atlasIndex);
@@ -149,7 +150,6 @@ public class TextureAtlasManager
         }
     }
 
-    private byte[] _atlasPixels;
 
     private byte[] GenerateAtlasPixels(PackingRectangle[] textureRectangles, List<Asset_Texture> textures,
         out TextureAtlasMember[] atlasMembers, int atlasIndex)
@@ -192,7 +192,7 @@ public class TextureAtlasManager
             texture.AtlasPath = GetAtlasPath(atlasIndex);
             texture.IndexInAtlasTextureArray = atlasIndex;
 
-            Tofu.AssetLoadManager.Save(texture.PathInLibraryFolder, texture);
+            Tofu.AssetLoadManager.Save<Tofu3D.Asset_Texture>(texture.PathInLibraryFolder, texture);
             // Tofu.AssetFileCache.AddAsset(texture);
         }
 
@@ -226,7 +226,7 @@ public class TextureAtlasManager
     private void SaveAtlasAsset(byte[] atlasPixels, TextureAtlasMember[] atlasMembers, int atlasIndex)
     {
         ///////////////////////////////////////////////////////////// PNG
-        if (false)
+        // if (false)
         {
             using Image<Rgba32>? image =
                 Image.LoadPixelData<Rgba32>(atlasPixels, AtlasWidth, AtlasWidth);

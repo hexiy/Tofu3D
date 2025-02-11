@@ -261,10 +261,7 @@ public class AssetLoadManager
 
     public void Unload<T>(string sourcePath) where T : AssetBase
     {
-        string pathToAssetInLibrary =
-            AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(sourcePath);
-
-        int id = GetAssetID<T>(pathToAssetInLibrary);
+        int id = GetAssetID<T>(sourcePath);
         if (LoadedAssets.ContainsKey(id))
         {
             // Debug.Log($"unloaded asset:{path}");
@@ -284,7 +281,7 @@ public class AssetLoadManager
 
         Serializer.SaveAssetJSON<T>(path, asset);
 
-        // LoadedAssets[id] = asset;
+        LoadedAssets[id] = asset;
         // Debug.Log($"Saved file {path}");
     }
 

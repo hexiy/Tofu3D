@@ -6,8 +6,8 @@ namespace Tofu3D;
 // Transforms .obj,.png files into .asset files in /Library/
 public class AssetImportManager
 {
-    public Dictionary<int, AssetImportParametersBase> AssetImportParameters { get; private set; } =
-        new Dictionary<int, AssetImportParametersBase>();
+    // public Dictionary<int, AssetImportParametersBase> AssetImportParameters { get; private set; } =
+    // new Dictionary<int, AssetImportParametersBase>();
 
     public Dictionary<Type, IAssetImporter> Importers { get; private set; } = new Dictionary<Type, IAssetImporter>();
 
@@ -26,7 +26,6 @@ public class AssetImportManager
     private void ImportAssetInNewThread(string rawAssetPath, bool reimportIfExists = false)
     {
         rawAssetPath = AssetPathConverter.ToProjectRelativePath(rawAssetPath);
-        int id = rawAssetPath.GetHashCode();
         // Tofu.AssetLoadManager.Unload(rawAssetPath);
 
         string rawAssetFileName = Path.GetFileName(rawAssetPath); // with extension
@@ -39,37 +38,37 @@ public class AssetImportManager
                 AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(assetFileInLibraryPath));
         bool canImport = assetExists == false || reimportIfExists == true;
 
-        if (assetExists && canImport == false)
-        {
-            if (AssetPathExtensions.IsAnyAssetBase(assetFileInLibraryPath))
-            {
-                AssetBase asset = null;
-                Type assetType = null;
-                if (AssetPathExtensions.IsFileModel(rawAssetPath))
-                {
-                    asset = Serializer.ReadAssetJSON<Asset_Model>(assetFileInLibraryPath);
-                    assetType = typeof(Asset_Model);
-                }
-
-                if (AssetPathExtensions.IsFileTexture(rawAssetPath))
-                {
-                    asset = Serializer.ReadAssetJSON<Asset_Texture>(assetFileInLibraryPath);
-                    assetType = typeof(Asset_Texture);
-                }
-
-                if (AssetPathExtensions.IsFileTextureAtlas(rawAssetPath))
-                {
-                    asset = Serializer.ReadAssetJSON<Asset_TextureAtlas>(assetFileInLibraryPath);
-                    assetType = typeof(Asset_TextureAtlas);
-                }
-
-                if (asset != null)
-                {
-                    Tofu.AssetLoadManager.AddAsset(asset, assetType);
-                    // Tofu.AssetFileCache.AddAsset(asset);
-                }
-            }
-        }
+        // if (assetExists && canImport == false)
+        // {
+        //     if (AssetPathExtensions.IsAnyAssetBase(assetFileInLibraryPath))
+        //     {
+        //         AssetBase asset = null;
+        //         Type assetType = null;
+        //         if (AssetPathExtensions.IsFileModel(rawAssetPath))
+        //         {
+        //             asset = Serializer.ReadAssetJSON<Asset_Model>(assetFileInLibraryPath);
+        //             assetType = typeof(Asset_Model);
+        //         }
+        //
+        //         if (AssetPathExtensions.IsFileTexture(rawAssetPath))
+        //         {
+        //             asset = Serializer.ReadAssetJSON<Asset_Texture>(assetFileInLibraryPath);
+        //             assetType = typeof(Asset_Texture);
+        //         }
+        //
+        //         if (AssetPathExtensions.IsFileTextureAtlas(rawAssetPath))
+        //         {
+        //             asset = Serializer.ReadAssetJSON<Asset_TextureAtlas>(assetFileInLibraryPath);
+        //             assetType = typeof(Asset_TextureAtlas);
+        //         }
+        //
+        //         if (asset != null)
+        //         {
+        //             Tofu.AssetLoadManager.AddAsset(asset, assetType);
+        //             // Tofu.AssetFileCache.AddAsset(asset);
+        //         }
+        //     }
+        // }
 
         if (canImport == false)
         {
@@ -84,6 +83,9 @@ public class AssetImportManager
             assetImportParametersFileExistsForThisAsset = false;
         }
 
+        // List<Tuple<AssetBase, Type>> importedAssets = new List<Tuple<AssetBase, Type>>();
+
+        (AssetBase asset, Type assetType)? importedAssetAndType = null;
         if (AssetPathExtensions.IsFileModel(rawAssetPath))
         {
             AssetImportParameters_Model assetImportParametersModel;
@@ -103,7 +105,7 @@ public class AssetImportManager
                     Serializer.ReadFileJSON<AssetImportParameters_Model>(importParametersFilePath);
             }
 
-            AssetImportParameters[id] = assetImportParametersModel;
+            // AssetImportParameters[id] = assetImportParametersModel;
 
             if (canImport)
             {
@@ -120,6 +122,7 @@ public class AssetImportManager
                     }
                 }
 
+                importedAssetAndType = (model, typeof(Asset_Model));
                 // Assets[id] = model;
             }
         }
@@ -151,6 +154,7 @@ public class AssetImportManager
             {
                 Asset_Material material = (Importers[typeof(Asset_Material)] as AssetImporter_Material)
                     .ImportAsset(assetImportParametersMaterial);
+                importedAssetAndType = (material, typeof(Asset_Material));
 
                 // Assets[id] = material;
             }
@@ -175,7 +179,7 @@ public class AssetImportManager
                     Serializer.ReadFileJSON<AssetImportParameters_Texture>(importParametersFilePath);
             }
 
-            AssetImportParameters[id] = assetImportParametersTexture;
+            // AssetImportParameters[id] = assetImportParametersTexture;
 
 
             // if (canImport == false)
@@ -185,12 +189,16 @@ public class AssetImportManager
                 (Importers[typeof(Asset_Texture)] as AssetImporter_Texture).ImportAsset(
                     assetImportParametersTexture);
 
+            importedAssetAndType = (assetTexture, typeof(Asset_Texture));
 
-            Tofu.AssetLoadManager.AddAsset<Tofu3D.Asset_Texture>(assetTexture);
             // Tofu.AssetFileCache.AddAsset(assetTexture);
             // }
         }
 
+        if (importedAssetAndType != null)
+        {
+            Tofu.AssetLoadManager.AddAsset(importedAssetAndType.Value.asset, importedAssetAndType.Value.assetType);
+        }
         // Debug.Log("Asset import finished");
     }
 

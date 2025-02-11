@@ -1,6 +1,7 @@
 using System.IO;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace Tofu3D;
 
@@ -18,14 +19,21 @@ public class AssetImporter_Texture : AssetImporter<Asset_Texture>
         Vector2 imageSize = Vector2.Zero;
 
         Image<Rgba32>? image = Image.Load<Rgba32>(path);
+        int maxResolution = 1024;
 
-        imageSize = new Vector2(image.Width, image.Height);
+        Vector2 newResolution = new Vector2(Mathf.ClampMax(image.Width, maxResolution),
+            Mathf.ClampMax(image.Height, maxResolution));
 
-        byte[] pixels = new byte[4 * image.Width * image.Height];
+        if (image.Width != newResolution.X || image.Height != newResolution.Y)
+        {
+            image.Mutate(x => x.Resize(newResolution.Xi, newResolution.Yi));
+        }
+
+        byte[] pixels = new byte[4 * newResolution.Xi * newResolution.Yi];
         image.Frames[0].CopyPixelDataTo(pixels);
         image.Dispose();
 
-        return ImportAsset(importParameters, pixels, imageSize);
+        return ImportAsset(importParameters, pixels, newResolution);
     }
 
     private Asset_Texture ImportAsset(AssetImportParameters_Texture importParameters, byte[] pixels, Vector2 imageSize)
