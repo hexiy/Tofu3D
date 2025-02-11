@@ -1,8 +1,7 @@
-—{
-  "ImportAsSingleMesh": true,
+ï»¿{
+  "ImportAsSingleMesh": false,
   "SmoothNormals": false,
   "Scale": 1.0,
   "PathToSourceAsset": "Assets/3D/Basic/Teapot.obj",
-  "AssetID": -25193622
-}1
+  "AssetID": -1232716490
 }

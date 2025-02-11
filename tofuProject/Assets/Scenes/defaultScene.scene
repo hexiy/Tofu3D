@@ -4,7 +4,7 @@
     <GameObject>
       <AlwaysUpdate>true</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>1558</Id>
+      <Id>1595</Id>
       <IndexInHierarchy>0</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
@@ -19,7 +19,7 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>1560</Id>
+      <Id>1597</Id>
       <IndexInHierarchy>1</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
@@ -34,7 +34,7 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>1561</Id>
+      <Id>1598</Id>
       <IndexInHierarchy>2</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
@@ -49,113 +49,8 @@
     <GameObject>
       <AlwaysUpdate>false</AlwaysUpdate>
       <DestroyTimer>2</DestroyTimer>
-      <Id>1565</Id>
+      <Id>1599</Id>
       <IndexInHierarchy>3</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>mmGroup0_0</Name>
-      <PrefabPath />
-      <Selected>true</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>1566</Id>
-      <IndexInHierarchy>4</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>Kaiser_Josef_II_C</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>1567</Id>
-      <IndexInHierarchy>5</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>mmGroup1_1</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>1568</Id>
-      <IndexInHierarchy>6</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>mmGroup2_2</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>1569</Id>
-      <IndexInHierarchy>7</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>mmGroup3_3</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>1570</Id>
-      <IndexInHierarchy>8</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>mmGroup4_4</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>1571</Id>
-      <IndexInHierarchy>9</IndexInHierarchy>
-      <IsPrefab>false</IsPrefab>
-      <IsStaticSelf>false</IsStaticSelf>
-      <Name>mmGroup6_5</Name>
-      <PrefabPath />
-      <Selected>false</Selected>
-      <VisibleInHierarchy>true</VisibleInHierarchy>
-      <RuntimeOnly>false</RuntimeOnly>
-      <UpdateWhenDisabled>false</UpdateWhenDisabled>
-      <ActiveSelf>true</ActiveSelf>
-    </GameObject>
-    <GameObject>
-      <AlwaysUpdate>false</AlwaysUpdate>
-      <DestroyTimer>2</DestroyTimer>
-      <Id>1591</Id>
-      <IndexInHierarchy>11</IndexInHierarchy>
       <IsPrefab>false</IsPrefab>
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Point Light</Name>
@@ -166,25 +61,40 @@
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
       <ActiveSelf>true</ActiveSelf>
     </GameObject>
+    <GameObject>
+      <AlwaysUpdate>false</AlwaysUpdate>
+      <DestroyTimer>2</DestroyTimer>
+      <Id>1600</Id>
+      <IndexInHierarchy>4</IndexInHierarchy>
+      <IsPrefab>false</IsPrefab>
+      <IsStaticSelf>false</IsStaticSelf>
+      <Name>mmGroup6</Name>
+      <PrefabPath />
+      <Selected>true</Selected>
+      <VisibleInHierarchy>true</VisibleInHierarchy>
+      <RuntimeOnly>false</RuntimeOnly>
+      <UpdateWhenDisabled>false</UpdateWhenDisabled>
+      <ActiveSelf>true</ActiveSelf>
+    </GameObject>
   </GameObjects>
   <Components>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1558</GameObjectId>
+      <GameObjectId>1595</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <WorldPosition>
-        <X>-5.051944</X>
-        <Y>3.8865702</Y>
-        <Z>-6.094994</Z>
+        <X>-5.2313147</X>
+        <Y>4.7407928</Y>
+        <Z>4.2250605</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-5.051944</X>
-        <Y>3.8865702</Y>
-        <Z>-6.094994</Z>
+        <X>-5.2313147</X>
+        <Y>4.7407928</Y>
+        <Z>4.2250605</Z>
       </LocalPosition>
       <LocalScale>
         <X>1</X>
@@ -197,14 +107,14 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>19.354572</X>
-        <Y>36.315456</Y>
+        <X>25.95704</X>
+        <Y>41.498425</Y>
         <Z>0</Z>
       </Rotation>
     </Component>
     <Component xsi:type="Camera">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1558</GameObjectId>
+      <GameObjectId>1595</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <Color>
@@ -226,14 +136,14 @@
     </Component>
     <Component xsi:type="Skybox">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1558</GameObjectId>
+      <GameObjectId>1595</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <Fov>60</Fov>
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1560</GameObjectId>
+      <GameObjectId>1597</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs />
@@ -267,7 +177,7 @@
     </Component>
     <Component xsi:type="AmbientLight">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1560</GameObjectId>
+      <GameObjectId>1597</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <Color>
@@ -281,19 +191,19 @@
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1561</GameObjectId>
+      <GameObjectId>1598</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs />
       <MockIsInCanvas>false</MockIsInCanvas>
       <ParentId>-1</ParentId>
       <WorldPosition>
-        <X>-3.6</X>
+        <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </WorldPosition>
       <LocalPosition>
-        <X>-3.6</X>
+        <X>0</X>
         <Y>0</Y>
         <Z>0</Z>
       </LocalPosition>
@@ -308,14 +218,14 @@
         <Z>1</Z>
       </WorldScale>
       <Rotation>
-        <X>117.7</X>
-        <Y>-124.2</Y>
-        <Z>5</Z>
+        <X>52</X>
+        <Y>0</Y>
+        <Z>-27</Z>
       </Rotation>
     </Component>
     <Component xsi:type="DirectionalLight">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1561</GameObjectId>
+      <GameObjectId>1598</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <Color>
@@ -328,7 +238,7 @@
       <Intensity>0.88</Intensity>
       <FarPlaneDistance>1000</FarPlaneDistance>
       <NearPlaneDistance>0.0001</NearPlaneDistance>
-      <OrthographicSize>10</OrthographicSize>
+      <OrthographicSize>40</OrthographicSize>
       <RefreshRate>60</RefreshRate>
       <Rotate>false</Rotate>
       <RotateOffset>0</RotateOffset>
@@ -340,1002 +250,7 @@
     </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1565</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>1566</ParentId>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>0.1</X>
-        <Y>0.1</Y>
-        <Z>0.1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1565</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <PhysicsEnabled>true</PhysicsEnabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>3</X>
-        <Y>3</Y>
-        <Z>3</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1565</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>1</MousePickingId>
-      <MousePickingEnabled>true</MousePickingEnabled>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Material>
-        <IsRuntimeCopy>false</IsRuntimeCopy>
-        <DataIsCompressed>false</DataIsCompressed>
-        <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-          <AtlasUniformIsSet>true</AtlasUniformIsSet>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <DataIsCompressed>false</DataIsCompressed>
-          <PathInAssetsFolder>Assets/3D/Kaiser_Josef_II_C/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png</PathInAssetsFolder>
-          <PathInLibraryFolder>Library/Textures/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png.tofutexture</PathInLibraryFolder>
-          <BoundingBoxInAtlas>
-            <X>0</X>
-            <Y>0</Y>
-            <Z>1</Z>
-            <W>1</W>
-          </BoundingBoxInAtlas>
-          <IndexInAtlasTextureArray>1</IndexInAtlasTextureArray>
-        </AlbedoTexture>
-        <AlbedoColor>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>0</A>
-          <PackedValue>16777215</PackedValue>
-        </AlbedoColor>
-        <ObjectSelected>true</ObjectSelected>
-        <EmissiveColor>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>0</W>
-        </EmissiveColor>
-        <SmoothShadows>true</SmoothShadows>
-        <RefractionEnabled>false</RefractionEnabled>
-        <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
-        <Tiling>
-          <X>1</X>
-          <Y>1</Y>
-        </Tiling>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
-        <RenderMode>Transparent</RenderMode>
-        <BlendMode>Opaque</BlendMode>
-        <MaterialType>Lit</MaterialType>
-        <IgnoreDepth>false</IgnoreDepth>
-        <NoDepth>false</NoDepth>
-      </Material>
-      <RuntimeMesh>
-        <Vao>4</Vao>
-        <Ebo>8</Ebo>
-        <Mesh>
-          <CountsOfElements>
-            <int>3</int>
-            <int>2</int>
-            <int>3</int>
-            <int>3</int>
-            <int>3</int>
-          </CountsOfElements>
-          <VerticesCount>358582</VerticesCount>
-          <Name>mmGroup0</Name>
-          <PathToObjMaterial>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathToObjMaterial>
-          <PathInLibraryFolder>Library/Meshes/Kaiser_Josef_II_C.obj_0.tofumesh</PathInLibraryFolder>
-        </Mesh>
-      </RuntimeMesh>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>0</A>
-        <PackedValue>16777215</PackedValue>
-      </Color>
-      <Layer>0</Layer>
-      <RenderOrder>3</RenderOrder>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1566</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <ChildrenIDs>
-        <int>1565</int>
-        <int>1567</int>
-        <int>1568</int>
-        <int>1569</int>
-        <int>1570</int>
-        <int>1571</int>
-        <int>1565</int>
-        <int>1567</int>
-        <int>1568</int>
-        <int>1569</int>
-        <int>1570</int>
-        <int>1571</int>
-        <int>1565</int>
-        <int>1567</int>
-        <int>1568</int>
-        <int>1569</int>
-        <int>1570</int>
-        <int>1571</int>
-        <int>1565</int>
-        <int>1567</int>
-        <int>1568</int>
-        <int>1569</int>
-        <int>1570</int>
-        <int>1571</int>
-        <int>1565</int>
-        <int>1567</int>
-        <int>1568</int>
-        <int>1569</int>
-        <int>1570</int>
-        <int>1571</int>
-        <int>1565</int>
-        <int>1567</int>
-        <int>1568</int>
-        <int>1569</int>
-        <int>1570</int>
-        <int>1571</int>
-        <int>1565</int>
-        <int>1567</int>
-        <int>1568</int>
-        <int>1569</int>
-        <int>1570</int>
-        <int>1571</int>
-        <int>1565</int>
-        <int>1567</int>
-        <int>1568</int>
-        <int>1569</int>
-        <int>1570</int>
-        <int>1571</int>
-        <int>1565</int>
-        <int>1567</int>
-        <int>1568</int>
-        <int>1569</int>
-        <int>1570</int>
-        <int>1571</int>
-        <int>1565</int>
-        <int>1567</int>
-        <int>1568</int>
-        <int>1569</int>
-        <int>1570</int>
-        <int>1571</int>
-      </ChildrenIDs>
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>-1</ParentId>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>0.1</X>
-        <Y>0.1</Y>
-        <Z>0.1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>0.1</X>
-        <Y>0.1</Y>
-        <Z>0.1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>-90</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1567</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>1566</ParentId>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>0.1</X>
-        <Y>0.1</Y>
-        <Z>0.1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1567</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <PhysicsEnabled>true</PhysicsEnabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>3</X>
-        <Y>3</Y>
-        <Z>3</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1567</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>2</MousePickingId>
-      <MousePickingEnabled>true</MousePickingEnabled>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Material>
-        <IsRuntimeCopy>false</IsRuntimeCopy>
-        <DataIsCompressed>false</DataIsCompressed>
-        <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-          <AtlasUniformIsSet>true</AtlasUniformIsSet>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <DataIsCompressed>false</DataIsCompressed>
-          <PathInAssetsFolder>Assets/3D/Kaiser_Josef_II_C/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png</PathInAssetsFolder>
-          <PathInLibraryFolder>Library/Textures/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png.tofutexture</PathInLibraryFolder>
-          <BoundingBoxInAtlas>
-            <X>0</X>
-            <Y>0</Y>
-            <Z>1</Z>
-            <W>1</W>
-          </BoundingBoxInAtlas>
-          <IndexInAtlasTextureArray>1</IndexInAtlasTextureArray>
-        </AlbedoTexture>
-        <AlbedoColor>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>0</A>
-          <PackedValue>16777215</PackedValue>
-        </AlbedoColor>
-        <ObjectSelected>true</ObjectSelected>
-        <EmissiveColor>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>0</W>
-        </EmissiveColor>
-        <SmoothShadows>true</SmoothShadows>
-        <RefractionEnabled>false</RefractionEnabled>
-        <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
-        <Tiling>
-          <X>1</X>
-          <Y>1</Y>
-        </Tiling>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
-        <RenderMode>Transparent</RenderMode>
-        <BlendMode>Opaque</BlendMode>
-        <MaterialType>Lit</MaterialType>
-        <IgnoreDepth>false</IgnoreDepth>
-        <NoDepth>false</NoDepth>
-      </Material>
-      <RuntimeMesh>
-        <Vao>5</Vao>
-        <Ebo>11</Ebo>
-        <Mesh>
-          <CountsOfElements>
-            <int>3</int>
-            <int>2</int>
-            <int>3</int>
-            <int>3</int>
-            <int>3</int>
-          </CountsOfElements>
-          <VerticesCount>3804</VerticesCount>
-          <Name>mmGroup1</Name>
-          <PathToObjMaterial>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathToObjMaterial>
-          <PathInLibraryFolder>Library/Meshes/Kaiser_Josef_II_C.obj_1.tofumesh</PathInLibraryFolder>
-        </Mesh>
-      </RuntimeMesh>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>0</A>
-        <PackedValue>16777215</PackedValue>
-      </Color>
-      <Layer>0</Layer>
-      <RenderOrder>5</RenderOrder>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1568</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>1566</ParentId>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>0.1</X>
-        <Y>0.1</Y>
-        <Z>0.1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1568</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <PhysicsEnabled>true</PhysicsEnabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>3</X>
-        <Y>3</Y>
-        <Z>3</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1568</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>3</MousePickingId>
-      <MousePickingEnabled>true</MousePickingEnabled>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Material>
-        <IsRuntimeCopy>false</IsRuntimeCopy>
-        <DataIsCompressed>false</DataIsCompressed>
-        <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-          <AtlasUniformIsSet>true</AtlasUniformIsSet>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <DataIsCompressed>false</DataIsCompressed>
-          <PathInAssetsFolder>Assets/3D/Kaiser_Josef_II_C/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png</PathInAssetsFolder>
-          <PathInLibraryFolder>Library/Textures/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png.tofutexture</PathInLibraryFolder>
-          <BoundingBoxInAtlas>
-            <X>0</X>
-            <Y>0</Y>
-            <Z>1</Z>
-            <W>1</W>
-          </BoundingBoxInAtlas>
-          <IndexInAtlasTextureArray>1</IndexInAtlasTextureArray>
-        </AlbedoTexture>
-        <AlbedoColor>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>0</A>
-          <PackedValue>16777215</PackedValue>
-        </AlbedoColor>
-        <ObjectSelected>true</ObjectSelected>
-        <EmissiveColor>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>0</W>
-        </EmissiveColor>
-        <SmoothShadows>true</SmoothShadows>
-        <RefractionEnabled>false</RefractionEnabled>
-        <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
-        <Tiling>
-          <X>1</X>
-          <Y>1</Y>
-        </Tiling>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
-        <RenderMode>Transparent</RenderMode>
-        <BlendMode>Opaque</BlendMode>
-        <MaterialType>Lit</MaterialType>
-        <IgnoreDepth>false</IgnoreDepth>
-        <NoDepth>false</NoDepth>
-      </Material>
-      <RuntimeMesh>
-        <Vao>6</Vao>
-        <Ebo>14</Ebo>
-        <Mesh>
-          <CountsOfElements>
-            <int>3</int>
-            <int>2</int>
-            <int>3</int>
-            <int>3</int>
-            <int>3</int>
-          </CountsOfElements>
-          <VerticesCount>1079</VerticesCount>
-          <Name>mmGroup2</Name>
-          <PathToObjMaterial>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathToObjMaterial>
-          <PathInLibraryFolder>Library/Meshes/Kaiser_Josef_II_C.obj_2.tofumesh</PathInLibraryFolder>
-        </Mesh>
-      </RuntimeMesh>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>0</A>
-        <PackedValue>16777215</PackedValue>
-      </Color>
-      <Layer>0</Layer>
-      <RenderOrder>6</RenderOrder>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1569</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>1566</ParentId>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>0.1</X>
-        <Y>0.1</Y>
-        <Z>0.1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1569</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <PhysicsEnabled>true</PhysicsEnabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>3</X>
-        <Y>3</Y>
-        <Z>3</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1569</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>4</MousePickingId>
-      <MousePickingEnabled>true</MousePickingEnabled>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Material>
-        <IsRuntimeCopy>false</IsRuntimeCopy>
-        <DataIsCompressed>false</DataIsCompressed>
-        <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-          <AtlasUniformIsSet>true</AtlasUniformIsSet>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <DataIsCompressed>false</DataIsCompressed>
-          <PathInAssetsFolder>Assets/3D/Kaiser_Josef_II_C/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png</PathInAssetsFolder>
-          <PathInLibraryFolder>Library/Textures/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png.tofutexture</PathInLibraryFolder>
-          <BoundingBoxInAtlas>
-            <X>0</X>
-            <Y>0</Y>
-            <Z>1</Z>
-            <W>1</W>
-          </BoundingBoxInAtlas>
-          <IndexInAtlasTextureArray>1</IndexInAtlasTextureArray>
-        </AlbedoTexture>
-        <AlbedoColor>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>0</A>
-          <PackedValue>16777215</PackedValue>
-        </AlbedoColor>
-        <ObjectSelected>true</ObjectSelected>
-        <EmissiveColor>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>0</W>
-        </EmissiveColor>
-        <SmoothShadows>true</SmoothShadows>
-        <RefractionEnabled>false</RefractionEnabled>
-        <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
-        <Tiling>
-          <X>1</X>
-          <Y>1</Y>
-        </Tiling>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
-        <RenderMode>Transparent</RenderMode>
-        <BlendMode>Opaque</BlendMode>
-        <MaterialType>Lit</MaterialType>
-        <IgnoreDepth>false</IgnoreDepth>
-        <NoDepth>false</NoDepth>
-      </Material>
-      <RuntimeMesh>
-        <Vao>7</Vao>
-        <Ebo>17</Ebo>
-        <Mesh>
-          <CountsOfElements>
-            <int>3</int>
-            <int>2</int>
-            <int>3</int>
-            <int>3</int>
-            <int>3</int>
-          </CountsOfElements>
-          <VerticesCount>1232</VerticesCount>
-          <Name>mmGroup3</Name>
-          <PathToObjMaterial>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathToObjMaterial>
-          <PathInLibraryFolder>Library/Meshes/Kaiser_Josef_II_C.obj_3.tofumesh</PathInLibraryFolder>
-        </Mesh>
-      </RuntimeMesh>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>0</A>
-        <PackedValue>16777215</PackedValue>
-      </Color>
-      <Layer>0</Layer>
-      <RenderOrder>7</RenderOrder>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1570</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>1566</ParentId>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>0.1</X>
-        <Y>0.1</Y>
-        <Z>0.1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1570</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <PhysicsEnabled>true</PhysicsEnabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>3</X>
-        <Y>3</Y>
-        <Z>3</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1570</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>5</MousePickingId>
-      <MousePickingEnabled>true</MousePickingEnabled>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Material>
-        <IsRuntimeCopy>false</IsRuntimeCopy>
-        <DataIsCompressed>false</DataIsCompressed>
-        <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-          <AtlasUniformIsSet>true</AtlasUniformIsSet>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <DataIsCompressed>false</DataIsCompressed>
-          <PathInAssetsFolder>Assets/3D/Kaiser_Josef_II_C/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png</PathInAssetsFolder>
-          <PathInLibraryFolder>Library/Textures/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png.tofutexture</PathInLibraryFolder>
-          <BoundingBoxInAtlas>
-            <X>0</X>
-            <Y>0</Y>
-            <Z>1</Z>
-            <W>1</W>
-          </BoundingBoxInAtlas>
-          <IndexInAtlasTextureArray>1</IndexInAtlasTextureArray>
-        </AlbedoTexture>
-        <AlbedoColor>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>0</A>
-          <PackedValue>16777215</PackedValue>
-        </AlbedoColor>
-        <ObjectSelected>true</ObjectSelected>
-        <EmissiveColor>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>0</W>
-        </EmissiveColor>
-        <SmoothShadows>true</SmoothShadows>
-        <RefractionEnabled>false</RefractionEnabled>
-        <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
-        <Tiling>
-          <X>1</X>
-          <Y>1</Y>
-        </Tiling>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
-        <RenderMode>Transparent</RenderMode>
-        <BlendMode>Opaque</BlendMode>
-        <MaterialType>Lit</MaterialType>
-        <IgnoreDepth>false</IgnoreDepth>
-        <NoDepth>false</NoDepth>
-      </Material>
-      <RuntimeMesh>
-        <Vao>8</Vao>
-        <Ebo>20</Ebo>
-        <Mesh>
-          <CountsOfElements>
-            <int>3</int>
-            <int>2</int>
-            <int>3</int>
-            <int>3</int>
-            <int>3</int>
-          </CountsOfElements>
-          <VerticesCount>1280</VerticesCount>
-          <Name>mmGroup4</Name>
-          <PathToObjMaterial>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathToObjMaterial>
-          <PathInLibraryFolder>Library/Meshes/Kaiser_Josef_II_C.obj_4.tofumesh</PathInLibraryFolder>
-        </Mesh>
-      </RuntimeMesh>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>0</A>
-        <PackedValue>16777215</PackedValue>
-      </Color>
-      <Layer>0</Layer>
-      <RenderOrder>8</RenderOrder>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1571</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <ChildrenIDs />
-      <MockIsInCanvas>false</MockIsInCanvas>
-      <ParentId>1566</ParentId>
-      <WorldPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </WorldPosition>
-      <LocalPosition>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </LocalPosition>
-      <LocalScale>
-        <X>1</X>
-        <Y>1</Y>
-        <Z>1</Z>
-      </LocalScale>
-      <WorldScale>
-        <X>0.1</X>
-        <Y>0.1</Y>
-        <Z>0.1</Z>
-      </WorldScale>
-      <Rotation>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Rotation>
-    </Component>
-    <Component xsi:type="BoxShape">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1571</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <Pivot>
-        <X>0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Pivot>
-      <PhysicsEnabled>true</PhysicsEnabled>
-      <Offset>
-        <X>0</X>
-        <Y>0</Y>
-        <Z>0</Z>
-      </Offset>
-      <Size>
-        <X>3</X>
-        <Y>3</Y>
-        <Z>3</Z>
-      </Size>
-    </Component>
-    <Component xsi:type="ModelRendererInstanced">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1571</GameObjectId>
-      <Started>true</Started>
-      <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>6</MousePickingId>
-      <MousePickingEnabled>true</MousePickingEnabled>
-      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
-      <Material>
-        <IsRuntimeCopy>false</IsRuntimeCopy>
-        <DataIsCompressed>false</DataIsCompressed>
-        <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
-        <Shader>
-          <BufferType>Model</BufferType>
-          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
-          <AtlasUniformIsSet>true</AtlasUniformIsSet>
-        </Shader>
-        <Additive>false</Additive>
-        <AlbedoTexture>
-          <IsRuntimeCopy>false</IsRuntimeCopy>
-          <DataIsCompressed>false</DataIsCompressed>
-          <PathInAssetsFolder>Assets/3D/Kaiser_Josef_II_C/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png</PathInAssetsFolder>
-          <PathInLibraryFolder>Library/Textures/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png.tofutexture</PathInLibraryFolder>
-          <BoundingBoxInAtlas>
-            <X>0</X>
-            <Y>0</Y>
-            <Z>1</Z>
-            <W>1</W>
-          </BoundingBoxInAtlas>
-          <IndexInAtlasTextureArray>1</IndexInAtlasTextureArray>
-        </AlbedoTexture>
-        <AlbedoColor>
-          <B>255</B>
-          <G>255</G>
-          <R>255</R>
-          <A>0</A>
-          <PackedValue>16777215</PackedValue>
-        </AlbedoColor>
-        <ObjectSelected>true</ObjectSelected>
-        <EmissiveColor>
-          <X>0</X>
-          <Y>0</Y>
-          <Z>0</Z>
-          <W>0</W>
-        </EmissiveColor>
-        <SmoothShadows>true</SmoothShadows>
-        <RefractionEnabled>false</RefractionEnabled>
-        <RefractiveIndex>1.309</RefractiveIndex>
-        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
-        <SpecularSmoothness>0</SpecularSmoothness>
-        <MetallicTextureStrength>0</MetallicTextureStrength>
-        <Smoothness>0</Smoothness>
-        <Tiling>
-          <X>1</X>
-          <Y>1</Y>
-        </Tiling>
-        <Offset>
-          <X>0</X>
-          <Y>0</Y>
-        </Offset>
-        <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
-        <RenderMode>Transparent</RenderMode>
-        <BlendMode>Opaque</BlendMode>
-        <MaterialType>Lit</MaterialType>
-        <IgnoreDepth>false</IgnoreDepth>
-        <NoDepth>false</NoDepth>
-      </Material>
-      <RuntimeMesh>
-        <Vao>9</Vao>
-        <Ebo>23</Ebo>
-        <Mesh>
-          <CountsOfElements>
-            <int>3</int>
-            <int>2</int>
-            <int>3</int>
-            <int>3</int>
-            <int>3</int>
-          </CountsOfElements>
-          <VerticesCount>1234</VerticesCount>
-          <Name>mmGroup6</Name>
-          <PathToObjMaterial>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathToObjMaterial>
-          <PathInLibraryFolder>Library/Meshes/Kaiser_Josef_II_C.obj_5.tofumesh</PathInLibraryFolder>
-        </Mesh>
-      </RuntimeMesh>
-      <Color>
-        <B>255</B>
-        <G>255</G>
-        <R>255</R>
-        <A>0</A>
-        <PackedValue>16777215</PackedValue>
-      </Color>
-      <Layer>0</Layer>
-      <RenderOrder>9</RenderOrder>
-    </Component>
-    <Component xsi:type="Transform">
-      <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1591</GameObjectId>
+      <GameObjectId>1599</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs />
@@ -1369,7 +284,7 @@
     </Component>
     <Component xsi:type="PointLight">
       <AllowMultiple>true</AllowMultiple>
-      <GameObjectId>1591</GameObjectId>
+      <GameObjectId>1599</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <Color>
@@ -1382,6 +297,159 @@
       <Intensity>1</Intensity>
       <Radius>10</Radius>
     </Component>
+    <Component xsi:type="Transform">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1600</GameObjectId>
+      <Started>true</Started>
+      <EnabledSelf>true</EnabledSelf>
+      <ChildrenIDs />
+      <MockIsInCanvas>false</MockIsInCanvas>
+      <ParentId>-1</ParentId>
+      <WorldPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>10</Z>
+      </WorldPosition>
+      <LocalPosition>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>10</Z>
+      </LocalPosition>
+      <LocalScale>
+        <X>0.1</X>
+        <Y>0.1</Y>
+        <Z>0.1</Z>
+      </LocalScale>
+      <WorldScale>
+        <X>0.1</X>
+        <Y>0.1</Y>
+        <Z>0.1</Z>
+      </WorldScale>
+      <Rotation>
+        <X>-90</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Rotation>
+    </Component>
+    <Component xsi:type="BoxShape">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1600</GameObjectId>
+      <Started>true</Started>
+      <EnabledSelf>true</EnabledSelf>
+      <Pivot>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Pivot>
+      <PhysicsEnabled>true</PhysicsEnabled>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+        <Z>0</Z>
+      </Offset>
+      <Size>
+        <X>3</X>
+        <Y>3</Y>
+        <Z>3</Z>
+      </Size>
+    </Component>
+    <Component xsi:type="ModelRendererInstanced">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>1600</GameObjectId>
+      <Started>true</Started>
+      <EnabledSelf>true</EnabledSelf>
+      <MousePickingId>21</MousePickingId>
+      <MousePickingEnabled>true</MousePickingEnabled>
+      <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
+      <Material>
+        <IsRuntimeCopy>false</IsRuntimeCopy>
+        <DataIsCompressed>false</DataIsCompressed>
+        <PathInAssetsFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInAssetsFolder>
+        <PathInLibraryFolder>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathInLibraryFolder>
+        <Shader>
+          <BufferType>Model</BufferType>
+          <Path>Assets/Shaders/ModelRendererInstanced.glsl</Path>
+          <AtlasUniformIsSet>true</AtlasUniformIsSet>
+        </Shader>
+        <Additive>false</Additive>
+        <AlbedoTexture>
+          <IsRuntimeCopy>false</IsRuntimeCopy>
+          <DataIsCompressed>false</DataIsCompressed>
+          <PathInAssetsFolder>Assets/3D/Kaiser_Josef_II_C/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png</PathInAssetsFolder>
+          <PathInLibraryFolder>Library/Textures/Kaiser_Josef_II_C_Kaiser_Josef_II_O_Material_u1_v1.png.tofutexture</PathInLibraryFolder>
+          <BoundingBoxInAtlas>
+            <X>0.25024438</X>
+            <Y>0</Y>
+            <Z>0.50048876</Z>
+            <W>0.25024438</W>
+          </BoundingBoxInAtlas>
+          <IndexInAtlasTextureArray>0</IndexInAtlasTextureArray>
+        </AlbedoTexture>
+        <AlbedoColor>
+          <B>255</B>
+          <G>255</G>
+          <R>255</R>
+          <A>0</A>
+          <PackedValue>16777215</PackedValue>
+        </AlbedoColor>
+        <ObjectSelected>false</ObjectSelected>
+        <EmissiveColor>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+          <W>0</W>
+        </EmissiveColor>
+        <SmoothShadows>true</SmoothShadows>
+        <RefractionEnabled>false</RefractionEnabled>
+        <RefractiveIndex>1.309</RefractiveIndex>
+        <SpecularHighlightsEnabled>false</SpecularHighlightsEnabled>
+        <SpecularSmoothness>0.95</SpecularSmoothness>
+        <MetallicTextureStrength>0.459</MetallicTextureStrength>
+        <Smoothness>0.455</Smoothness>
+        <Tiling>
+          <X>1</X>
+          <Y>1</Y>
+        </Tiling>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+        <UVOffsetIsInstanced>false</UVOffsetIsInstanced>
+        <RenderMode>Transparent</RenderMode>
+        <BlendMode>Opaque</BlendMode>
+        <MaterialType>Lit</MaterialType>
+        <IgnoreDepth>false</IgnoreDepth>
+        <NoDepth>false</NoDepth>
+      </Material>
+      <RuntimeMesh>
+        <IsRuntimeCopy>false</IsRuntimeCopy>
+        <DataIsCompressed>false</DataIsCompressed>
+        <Vao>15</Vao>
+        <Ebo>49</Ebo>
+        <Mesh>
+          <CountsOfElements>
+            <int>3</int>
+            <int>2</int>
+            <int>3</int>
+            <int>3</int>
+            <int>3</int>
+          </CountsOfElements>
+          <VerticesCount>366661</VerticesCount>
+          <Name>mmGroup6</Name>
+          <PathToObjMaterial>Library/Materials/Kaiser_Josef_II_O_Material_u1_v1.tofumaterial</PathToObjMaterial>
+          <PathInLibraryFolder>Library/Meshes/Kaiser_Josef_II_C.obj_0.tofumesh</PathInLibraryFolder>
+        </Mesh>
+      </RuntimeMesh>
+      <Color>
+        <B>255</B>
+        <G>255</G>
+        <R>255</R>
+        <A>0</A>
+        <PackedValue>16777215</PackedValue>
+      </Color>
+      <Layer>0</Layer>
+      <RenderOrder>4</RenderOrder>
+    </Component>
   </Components>
-  <GameObjectNextId>1592</GameObjectNextId>
+  <GameObjectNextId>1603</GameObjectNextId>
 </SceneFile>

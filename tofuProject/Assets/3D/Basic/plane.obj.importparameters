@@ -1,7 +1,7 @@
-—{
-  "ImportAsSingleMesh": true,
+ï»¿{
+  "ImportAsSingleMesh": false,
   "SmoothNormals": false,
   "Scale": 1.0,
   "PathToSourceAsset": "Assets/3D/Basic/plane.obj",
-  "AssetID": 1640822887
-}}}
+  "AssetID": 693303948
+}}
