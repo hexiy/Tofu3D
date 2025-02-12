@@ -13,5 +13,6 @@ global using System;
 global using System.Collections.Generic;
 global using System.Xml.Serialization;
 global using Random = Tofu3D.Random;
-
+// global using NonSerialized = Newtonsoft.Json.JsonIgnoreAttribute;
+global using JsonIgnoreAttribute = Newtonsoft.Json.JsonIgnoreAttribute;
 namespace Tofu3D;

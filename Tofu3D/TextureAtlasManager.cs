@@ -175,6 +175,7 @@ public class TextureAtlasManager
             texture.OnDeserialized();
 
             FillAtlasPixels(ref _atlasPixels, rectangle, texture.Pixels);
+            texture.CleanPixelData();
 
             Vector4 box = new Vector4(
                 rectangle.X,

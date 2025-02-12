@@ -8,6 +8,7 @@ public class RuntimeMesh : Asset<RuntimeMesh>
     {
         Mesh.GeometryBufferData = null;
         Mesh.Indices = null;
+        CanBeSerialized = false;
         GC.Collect();
     }
 }

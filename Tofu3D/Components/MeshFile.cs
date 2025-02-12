@@ -5,6 +5,14 @@ public class MeshFile : Asset<MeshFile>
     public byte[] ByteGeometryBufferData; // serialize
     public bool UsesIndices;
 
+    public void CleanData()
+    {
+        ByteIndices = null;
+        ByteGeometryBufferData = null;
+        CanBeSerialized = false;
+        GC.Collect();
+    }
+
     public override void BeforeSerialized()
     {
         CompressData();
@@ -15,7 +23,7 @@ public class MeshFile : Asset<MeshFile>
     {
         DecompressData();
         base.OnDeserialized();
-        
+
         if (UsesIndices != RenderingSettings.USE_INDICES)
         {
             Tofu.AssetImportManager.ImportAsset(PathInAssetsFolder, reimportIfExists: true);
@@ -49,5 +57,7 @@ public class MeshFile : Asset<MeshFile>
         Mesh.GeometryBufferData = Compression.DecompressFloatArray(ByteGeometryBufferData);
 
         DataIsCompressed = false;
+
+        CleanData();
     }
 }

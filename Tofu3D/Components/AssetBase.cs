@@ -1,6 +1,10 @@
-﻿[Serializable]
+﻿
+[Serializable]
 public abstract class AssetBase : IHasPath
 {
+    [XmlIgnore]
+    [JsonIgnore]
+    public bool CanBeSerialized = true;
     [Hide]
     public string? PathInAssetsFolder { get; set; } = null;
 

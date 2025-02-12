@@ -65,4 +65,11 @@ public class Asset_Texture : Asset<Asset_Texture>, IComparable<Asset_Texture>
 
         return 0;
     }
+    
+    public void CleanPixelData()
+    {
+        Pixels = null;
+        CanBeSerialized = false;
+        GC.Collect();
+    }
 }

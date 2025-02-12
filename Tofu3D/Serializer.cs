@@ -8,6 +8,11 @@ public static class Serializer
 
     public static void SaveAssetJSON<T>(string path, AssetBase asset)
     {
+        if (asset.CanBeSerialized == false)
+        {
+            return;
+        }
+
         asset.BeforeSerialized();
         SaveFileJSON<T>(path, asset);
     }
