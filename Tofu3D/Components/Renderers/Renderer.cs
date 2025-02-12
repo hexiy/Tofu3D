@@ -167,7 +167,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 
     public abstract void UploadRenderData();
 
-    public void Update()
+    public virtual void Update()
     {
         RenderOrder = GameObject.IndexInHierarchy;
         if (GameObjectId == TransformHandle.I?.GameObjectId)

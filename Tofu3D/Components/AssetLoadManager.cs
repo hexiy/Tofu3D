@@ -84,9 +84,9 @@ public class AssetLoadManager
     //     return asset;
     // }
 
-    public bool IsAssetLoaded<T>(string sourcePath) where T : AssetBase
+    public bool IsAssetLoaded<T>(string sourcePath, AssetLoadParametersBase? loadParameters = null) where T : AssetBase
     {
-        int id = GetAssetID<T>(sourcePath);
+        int id = GetAssetID<T>(sourcePath, loadParameters);
 
         bool existsInDatabase = LoadedAssets.ContainsKey(id);
 
@@ -137,7 +137,7 @@ public class AssetLoadManager
         string pathToAssetInLibrary =
             AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(sourcePath);
 
-        int id = GetAssetID<T>(sourcePath);
+        int id = GetAssetID<T>(sourcePath, loadParameters);
 
         if (isRuntimeCopy)
         {
@@ -259,9 +259,9 @@ public class AssetLoadManager
         return mat;
     }
 
-    public void Unload<T>(string sourcePath) where T : AssetBase
+    public void Unload<T>(string sourcePath, AssetLoadParametersBase? loadParameters) where T : AssetBase
     {
-        int id = GetAssetID<T>(sourcePath);
+        int id = GetAssetID<T>(sourcePath, loadParameters);
         if (LoadedAssets.ContainsKey(id))
         {
             // Debug.Log($"unloaded asset:{path}");
@@ -277,7 +277,7 @@ public class AssetLoadManager
 
     public void Save<T>(string path, T asset) where T : AssetBase
     {
-        int id = GetAssetID<T>(path); //, typeof(T));
+        int id = GetAssetID<T>(path, asset.AssetLoadParameters, asset.AssetImportParameters); //, typeof(T));
 
         Serializer.SaveAssetJSON<T>(path, asset);
 
@@ -287,17 +287,20 @@ public class AssetLoadManager
 
     // private int GetAssetID<T>(string path) where T : AssetBase
 
-    private int GetAssetID<T>(string path) where T : AssetBase
+    private int GetAssetID<T>(string path, AssetLoadParametersBase? loadParameters = null,
+        AssetImportParametersBase? importParameters = null) where T : AssetBase
     {
         return GetAssetID(path: path, type: typeof(T));
     }
 
-    private int GetAssetID(string path, Type type)
+    private int GetAssetID(string path, Type type, AssetLoadParametersBase? loadParameters = null,
+        AssetImportParametersBase? importParameters = null)
     {
         string pathToAssetInLibrary =
             AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(path);
 
-        int id = (pathToAssetInLibrary + type.ToString()).GetHashCode();
+        int id = (pathToAssetInLibrary + type.ToString() + (loadParameters?.GetHashCode() ?? 0) +
+                  (importParameters?.GetHashCode() ?? 0)).GetHashCode();
         // int id = (pathToAssetInLibrary).GetHashCode();
         return id;
     }

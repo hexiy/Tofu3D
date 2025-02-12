@@ -33,7 +33,7 @@ public class AssetLoader_RuntimeTexture : AssetLoader<RuntimeTexture>
             PathInLibraryFolder = assetTexture.PathInLibraryFolder,
             PathInAssetsFolder = assetTexture.PathInAssetsFolder,
         };
-
+        runtimeTexture.AssetLoadParameters = loadParameters;
 
         // if (loadParameters.LoadType.HasFlag(TextureLoadType.Standalone))
         // {

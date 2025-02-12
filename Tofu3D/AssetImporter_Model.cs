@@ -116,6 +116,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         model.PathInAssetsFolder = objInAssetsFolderPath;
         string modelPath = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(objInAssetsFolderPath);
         model.PathInLibraryFolder = objInAssetsFolderPath;
+        model.AssetImportParameters = importParameters;
 
         Serializer.SaveAssetJSON<Asset_Model>(modelPath, model);
         // Debug.Log($"Imported model {Path.GetFileName(modelPath)} with {model.PathsToMeshAssets.Count} meshes");

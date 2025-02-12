@@ -64,7 +64,8 @@ public class AssetImporter_Texture : AssetImporter<Asset_Texture>
             Pixels = pixels, TextureSize = imageSize, PathInAssetsFolder = path,
             PathInLibraryFolder = libraryPath
         };
-
+        assetTexture.AssetImportParameters = importParameters;
+        
         Serializer.SaveAssetJSON<Asset_Texture>(
             AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(path),
             assetTexture);

@@ -3,6 +3,8 @@ using Tofu3D.Rendering.Instancing;
 
 public class ModelRendererInstanced : Renderer
 {
+    private bool _isInRenderQueue = true;
+
     public override void Awake()
     {
         ObjectInstancingData = new ObjectInstancingData();
@@ -90,10 +92,12 @@ public class ModelRendererInstanced : Renderer
             return;
         }
 
-        if (GameObject.IsStatic && ObjectInstancingData.InstancingDataDirty == false &&
-            ObjectInstancingData.MatrixDirty == false)
+        if (GameObject.IsStatic
+            && ObjectInstancingData.InstancingDataDirty == false
+            && ObjectInstancingData.MatrixDirty == false)
         {
-            Tofu.SceneManager.CurrentScene._renderableComponentQueue.QueueRemove(this);
+            RemoveFromRenderQueue();
+
             return;
         }
 
@@ -104,7 +108,9 @@ public class ModelRendererInstanced : Renderer
 
         if (RuntimeMesh.Mesh?.VerticesCount == 0)
         {
-            Tofu.SceneManager.CurrentScene._renderableComponentQueue.QueueRemove(this);
+            RemoveFromRenderQueue();
+
+
             GameObject.Name = "0 VERTICES?";
             return;
         }
@@ -136,7 +142,25 @@ public class ModelRendererInstanced : Renderer
 
         if (this.GameObject.IsStatic)
         {
-            Tofu.SceneManager.CurrentScene._renderableComponentQueue.QueueRemove(this);
+         RemoveFromRenderQueue();
         }
+    }
+
+    public override void Update()
+    {
+        // when IsStatic is toggled to false
+        if (GameObject.IsStatic == false && _isInRenderQueue == false)
+        {
+            Tofu.SceneManager.CurrentScene._renderableComponentQueue.AddComponent(this);
+            _isInRenderQueue = true;
+        }
+
+        base.Update();
+    }
+
+    private void RemoveFromRenderQueue()
+    {
+        Tofu.SceneManager.CurrentScene._renderableComponentQueue.QueueRemove(this);
+        _isInRenderQueue = false;
     }
 }

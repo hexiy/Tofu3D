@@ -12,6 +12,7 @@ public class AssetImporter_Material : AssetImporter<Asset_Material>
         material.PathInAssetsFolder = assetImportParameters.PathToSourceAsset;
         string libraryPath = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(importParameters.PathToSourceAsset);
         material.PathInLibraryFolder = libraryPath;
+        material.AssetImportParameters = importParameters;
         Serializer.SaveAssetJSON<Asset_Material>(libraryPath, material);
 
         // save the material back, i had a problem where i changed default value for shadwomap texture unity but the /assets/material was unchanged so shadowmap kept textureunit0...

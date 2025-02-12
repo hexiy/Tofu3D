@@ -1,10 +1,13 @@
-﻿
-[Serializable]
+﻿[Serializable]
 public abstract class AssetBase : IHasPath
 {
+    public AssetImportParametersBase? AssetImportParameters;
+    public AssetLoadParametersBase? AssetLoadParameters;
+
     [XmlIgnore]
     [JsonIgnore]
     public bool CanBeSerialized = true;
+
     [Hide]
     public string? PathInAssetsFolder { get; set; } = null;
 

@@ -61,7 +61,7 @@ public class AssetLoader_CubemapTexture : AssetLoader<RuntimeCubemapTexture>
             Loaded = true,
             TextureId = textureId
         };
-
+        runtimeCubemapTexture.AssetLoadParameters = loadParameters;
         return runtimeCubemapTexture;
     }
 }

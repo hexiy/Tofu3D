@@ -6,7 +6,7 @@ public class AssetLoader_MeshFile : AssetLoader<MeshFile>
     {
         string meshAssetPath = assetLoadParameters.PathToAssetInLibrary;
         MeshFile meshFile = Serializer.ReadAssetJSON<MeshFile>(meshAssetPath);
-
+        meshFile.AssetLoadParameters = assetLoadParameters as AssetLoadParameters_MeshFile;
         return meshFile;
     }
 }
