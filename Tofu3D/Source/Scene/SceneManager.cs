@@ -90,7 +90,7 @@ public class SceneManager
 
         CurrentScene.CreateDefaultObjects();
 
-        Scene.SceneLoaded.Invoke();
+        Scene.OnSceneLoaded();
         Debug.EndAndLogTimer("LoadScene");
 
         LastOpenedSceneName = Path.GetFileName(path);

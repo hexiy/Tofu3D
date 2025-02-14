@@ -2,9 +2,14 @@ using System.Collections;
 
 namespace TofuEngine;
 
-public class CoroutineManager
+internal class CoroutineManager
 {
     private readonly List<IEnumerator> _activeCoroutines = new List<IEnumerator>();
+
+    public CoroutineManager()
+    {
+        Scene.SceneStartedDisposing += _activeCoroutines.Clear;
+    }
 
     public void StartCoroutine(IEnumerator routine)
     {

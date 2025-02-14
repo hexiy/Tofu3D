@@ -2,7 +2,7 @@ namespace TofuEngine;
 
 public class GameObjectSelectionManager
 {
-    public static Action<List<GameObject>> GameObjectsSelected;
+    public static event Action<List<GameObject>> GameObjectsSelected;
 
     private int LastSelectedGameObjectId
     {

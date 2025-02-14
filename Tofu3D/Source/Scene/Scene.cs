@@ -4,14 +4,13 @@ namespace TofuEngine;
 
 public class Scene
 {
-    public static Action SceneLoaded = () => { };
-    public static Action SceneStartedDisposing = () => { };
-    public static Action SceneDisposed = () => { };
-    public static Action<Component> ComponentAwoken = component => { };
-    public static Action<Component> ComponentRemoved = component => { };
-    public static Action<Component> ComponentEnabled = component => { };
-
-    public static Action<Component> ComponentDisabled = component => { };
+    public static event Action SceneLoaded = () => { };
+    public static event Action SceneStartedDisposing = () => { };
+    public static event Action SceneDisposed = () => { };
+    public static event Action<Component> ComponentAwoken = component => { };
+    public static event Action<Component> ComponentRemoved = component => { };
+    public static event Action<Component> ComponentEnabled = component => { };
+    public static event Action<Component> ComponentDisabled = component => { };
 
     // public static Action SceneModified = () => { };
 
@@ -22,6 +21,30 @@ public class Scene
     // List<GameObject> _gameObjects = new();
     public List<GameObject> GameObjects = new List<GameObject>();
 
+
+    internal static void OnComponentRemoved(Component component)
+    {
+        ComponentRemoved.Invoke(component);
+    }
+
+    internal static void OnComponentAwoken(Component component)
+    {
+        ComponentAwoken.Invoke(component);
+    }
+
+    internal static void OnComponentEnabled(Component component)
+    {
+        ComponentEnabled.Invoke(component);
+    }
+
+    internal static void OnComponentDisabled(Component component)
+    {
+        ComponentDisabled.Invoke(component);
+    }
+    internal static void OnSceneLoaded()
+    {
+        SceneLoaded.Invoke();
+    }
     /*{
         get
         {
@@ -217,7 +240,7 @@ public class Scene
         }
         // GL.Enable(EnableCap.DepthTest);
         // GL.DepthFunc(DepthFunction.Lequal);
-        
+
         GL.FrontFace(FrontFaceDirection.Cw);
 
         _openGlStateSet = true;

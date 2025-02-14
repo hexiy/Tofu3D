@@ -5,7 +5,7 @@
     public static bool EditorAttached = true;
     private static bool _debug;
 
-    public static Action<bool> DebugStateChanged = b => { };
+    public static event Action<bool> DebugStateChanged = b => { };
 
     public static bool Debug
     {

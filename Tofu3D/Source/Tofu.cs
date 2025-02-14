@@ -12,58 +12,58 @@ using TofuEngine.Tweening;
 namespace TofuEngine;
 
 // Main Application Context
-public static class Tofu
+internal static class Tofu
 {
     // private static int _updatesThisSecond;
     // private static int _s;
     // private static int _rendersThisSecond;
     // private static int _renderS;
-    // public static Tofu I { get; private set; }
+    // internal static Tofu I { get; private set; }
 
     // EDITOR
-    public static Window Window;
-    public static Editor Editor;
-    public static ImGuiController ImGuiController;
-    public static EditorSettingsAll EditorSettingsAll;
-    public static EditorWindowsManager EditorWindowsManager;
-    public static StatusWindow StatusWindow;
+    internal static Window Window;
+    internal static Editor Editor;
+    internal static ImGuiController ImGuiController;
+    internal static EditorSettingsAll EditorSettingsAll;
+    internal static EditorWindowsManager EditorWindowsManager;
+    internal static StatusWindow StatusWindow;
 
     // RENDERING
-    public static RenderSettings RenderSettings;
-    public static RenderPassSystem RenderPassSystem;
-    public static ShaderManager ShaderManager;
-    public static BasicMeshesCollection BasicMeshesCollection;
-    public static InstancedRenderingSystem InstancedRenderingSystem;
-    public static LightRenderingManager LightRenderingManager;
+    internal static RenderSettings RenderSettings;
+    internal static RenderPassSystem RenderPassSystem;
+    internal static ShaderManager ShaderManager;
+    internal static BasicMeshesCollection BasicMeshesCollection;
+    internal static InstancedRenderingSystem InstancedRenderingSystem;
+    internal static LightRenderingManager LightRenderingManager;
 
     // ASSETS
-    public static AssetImportManager AssetImportManager;
+    internal static AssetImportManager AssetImportManager;
 
-    // public static AssetFileCache AssetFileCache;
-    public static TextureAtlasManager TextureAtlasManager;
-    public static AssetLoadManager AssetLoadManager;
-    public static SceneSerializer SceneSerializer;
-    public static AssetsWatcher AssetsWatcher;
+    // internal static AssetFileCache AssetFileCache;
+    internal static TextureAtlasManager TextureAtlasManager;
+    internal static AssetLoadManager AssetLoadManager;
+    internal static SceneSerializer SceneSerializer;
+    internal static AssetsWatcher AssetsWatcher;
 
     // SCENE
-    public static SceneManager SceneManager;
-    public static SceneViewController SceneViewController;
+    internal static SceneManager SceneManager;
+    internal static SceneViewController SceneViewController;
 
     // MISC
-    public static TweenManager TweenManager;
-    public static PhysicsController PhysicsController;
-    public static CoroutineManager CoroutineManager;
+    internal static TweenManager TweenManager;
+    internal static PhysicsController PhysicsController;
+    internal static CoroutineManager CoroutineManager;
 
     // INPUT
-    public static MouseInput MouseInput;
+    internal static MouseInput MouseInput;
 
-    public static SceneSelectionHighlighter? SceneSelectionHighlighter;
-    public static GameObjectSelectionManager GameObjectSelectionManager;
+    internal static SceneSelectionHighlighter? SceneSelectionHighlighter;
+    internal static GameObjectSelectionManager GameObjectSelectionManager;
 
-    public static ScriptsReloader ScriptsReloader;
-    public static UserCodeEditorOpener UserCodeEditorOpener;
+    internal static ScriptsReloader ScriptsReloader;
+    internal static UserCodeEditorOpener UserCodeEditorOpener;
 
-    public static void Launch()
+    internal static void Launch()
     {
         MSBuildLocator.RegisterDefaults(); // this needs to be here at start
 

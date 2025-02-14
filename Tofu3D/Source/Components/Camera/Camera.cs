@@ -3,7 +3,7 @@
 [ExecuteInEditMode]
 public class Camera : Component, IComponentUpdateable
 {
-    public static Action<Vector2> CameraSizeChanged = newSize => { };
+    public static event Action<Vector2> CameraSizeChanged = newSize => { };
 
     //public int antialiasingStrength = 0;
     public Color Color = new Color(34, 34, 34);

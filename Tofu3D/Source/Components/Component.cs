@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.ComponentModel;
 using System.Reflection;
 
 namespace Scripts;
@@ -70,7 +71,7 @@ public class Component : IDestroyable, ICloneable
         return (object) clone;*/
     public virtual void OnDestroyed()
     {
-        Scene.ComponentRemoved(this);
+        Scene.OnComponentRemoved(this);
     }
 
     public bool CallComponentExecuteInEditModeMethod(string methodName)
@@ -166,7 +167,7 @@ public class Component : IDestroyable, ICloneable
     public virtual void Awake()
     {
         Awoken = true;
-        Scene.ComponentAwoken(this);
+        Scene.OnComponentAwoken(this);
         // OnEnabled();
     }
 
@@ -184,7 +185,7 @@ public class Component : IDestroyable, ICloneable
     /// </summary>
     public virtual void OnEnabled()
     {
-        Scene.ComponentEnabled(this);
+        Scene.OnComponentEnabled(this);
     }
 
     /// <summary>
@@ -192,7 +193,7 @@ public class Component : IDestroyable, ICloneable
     /// </summary>
     public virtual void OnDisabled()
     {
-        Scene.ComponentDisabled(this);
+        Scene.OnComponentDisabled(this);
     }
 
     public virtual void EditorUpdate()
@@ -213,9 +214,8 @@ public class Component : IDestroyable, ICloneable
 
     public virtual void OnSelectedChanged(bool isSelected)
     {
-        
     }
-    
+
     public virtual void OnCollisionEnter(Rigidbody rigidbody)
     {
     }
@@ -269,5 +269,10 @@ public class Component : IDestroyable, ICloneable
     public static bool operator !=(Component? left, Component? right)
     {
         return !(left == right);
+    }
+
+    protected void StartCoroutine(IEnumerator routine)
+    {
+        Tofu.CoroutineManager.StartCoroutine(routine);
     }
 }
