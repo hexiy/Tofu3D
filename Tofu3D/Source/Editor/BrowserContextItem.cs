@@ -5,16 +5,16 @@ namespace Tofu3D;
 public class BrowserContextItem
 {
     private readonly Action<string> _confirmAction;
-    private string _defaultFileName;
+    private string _fileName;
     private readonly string _fileExtension;
     private readonly string _itemName;
     public bool ShowPopup;
 
-    public BrowserContextItem(string itemName, string defaultFileName, string fileExtension,
+    public BrowserContextItem(string itemName, string fileName, string fileExtension,
         Action<string> confirmAction)
     {
         _itemName = itemName;
-        _defaultFileName = defaultFileName;
+        _fileName = fileName;
         _fileExtension = fileExtension;
         _confirmAction = confirmAction;
     }
@@ -41,11 +41,11 @@ public class BrowserContextItem
 
             if (ImGui.BeginPopupContextWindow(_itemName))
             {
-                ImGui.InputText("", ref _defaultFileName, 100);
+                ImGui.InputText("", ref _fileName, 100);
                 if (ImGui.Button("Save"))
                 {
                     string filePath = TofuPath.Combine(EditorPanelBrowser.I.CurrentDirectoryInfo.FullName,
-                        _defaultFileName + _fileExtension);
+                        _fileName + _fileExtension);
                     _confirmAction.Invoke(filePath);
 
                     ShowPopup = false;

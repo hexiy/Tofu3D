@@ -7,12 +7,22 @@ using Microsoft.CodeAnalysis.Emit;
 
 public static class ScriptsManager
 {
-    private static List<string> unusedScripts = new List<string>();
     public static Assembly ScriptsAssembly;
     private static ScriptLoadContext _scriptLoadContext;
 
+    private static readonly string _componentScriptTemplate;
+
     static ScriptsManager()
     {
+        _componentScriptTemplate = File.ReadAllText(TofuPath.Combine(Folders.EngineBinPath,
+            "EditorResources", "ScriptTemplates", "ComponentScriptTemplate.txt"));
+    }
+
+    public static void CreateCustomComponentFile(string componentName, string path)
+    {
+        string componentFileContent = _componentScriptTemplate;
+        componentFileContent = componentFileContent.Replace("#SCRIPTNAME#", componentName);
+        File.WriteAllText(path, componentFileContent);
     }
 
     public static void CopyDllsToProjectFolder()
@@ -27,7 +37,7 @@ public static class ScriptsManager
         {
             _scriptLoadContext.Unload();
             _scriptLoadContext = null;
-            
+
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }

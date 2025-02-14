@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using ImGuiNET;
+using Tofu3D.Source;
 using ImGui = ImGuiNET.ImGui;
 
 namespace Tofu3D;
@@ -104,7 +105,26 @@ public class EditorPanelBrowser : EditorPanel
                 Tofu.AssetLoadManager.Save<Asset_Material>(filePath, createdMaterial);
                 RefreshAssets();
             });
-        _contextItems = new List<BrowserContextItem> { createSceneContextItem, createMaterialContextItem };
+        BrowserContextItem createFolderContextItem = new BrowserContextItem("New Folder", "folder", "",
+            filePath =>
+            {
+                Directory.CreateDirectory(filePath);
+                RefreshAssets();
+            });
+        BrowserContextItem createScriptContextItem = new BrowserContextItem("New C# Component", "MyComponent", ".cs",
+            filePath =>
+            {
+                string scriptName = TofuPath.GetFileNameWithoutExtension(filePath);
+                ScriptsManager.CreateCustomComponentFile(scriptName, filePath);
+                RefreshAssets();
+            });
+        _contextItems = new List<BrowserContextItem>
+        {
+            createSceneContextItem,
+            createMaterialContextItem,
+            createFolderContextItem,
+            createScriptContextItem
+        };
     }
 
     public override void Update()
@@ -338,13 +358,7 @@ public class EditorPanelBrowser : EditorPanel
         string assetExtension = Path.GetExtension(assetPath);
 
 
-        bool isMesh = AssetPathExtensions.IsFileMesh(assetPath);
-        bool isModel = AssetPathExtensions.IsFileModel(assetPath);
-        bool isMaterial = AssetPathExtensions.IsFileMaterial(assetPath);
-        bool isShader = AssetPathExtensions.IsFileShader(assetPath);
-        bool isPrefab = AssetPathExtensions.IsFilePrefab(assetPath);
-        bool isTexture = AssetPathExtensions.IsFileTexture(assetPath);
-        bool isScene = AssetPathExtensions.IsFileScene(assetPath);
+        FileType fileType = AssetPathExtensions.GetFileType(assetPath);
 
         PushNextId();
 
@@ -422,7 +436,7 @@ public class EditorPanelBrowser : EditorPanel
             ImGui.PopStyleColor();
         }
 
-        if (isTexture)
+        if (fileType is FileType.Texture)
         {
             if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
             {
@@ -440,8 +454,7 @@ public class EditorPanelBrowser : EditorPanel
             }
         }
 
-        if (assetExtension.Contains(".mp3", StringComparison.OrdinalIgnoreCase) ||
-            assetExtension.Contains(".wav", StringComparison.OrdinalIgnoreCase))
+        if (fileType is FileType.Audio)
         {
             if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
             {
@@ -458,13 +471,13 @@ public class EditorPanelBrowser : EditorPanel
             }
         }
 
-        if (isModel || isMesh)
+        if (fileType is FileType.Model or FileType.Mesh)
         {
             if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
             {
                 IntPtr stringPointer = Marshal.StringToHGlobalAnsi(assetPath);
 
-                string payloadType = isMesh ? DragDropPayloadTypes.Mesh : DragDropPayloadTypes.Model;
+                string payloadType = fileType is FileType.Mesh ? DragDropPayloadTypes.Mesh : DragDropPayloadTypes.Model;
                 ImGui.SetDragDropPayload(payloadType, stringPointer,
                     (uint)(sizeof(char) * assetPath.Length));
 
@@ -478,19 +491,19 @@ public class EditorPanelBrowser : EditorPanel
             }
         }
 
-        if (isShader || isMaterial)
+        if (fileType is FileType.Shader or FileType.Material)
         {
             if (ImGui.BeginDragDropSource(ImGuiDragDropFlags.None)) // DRAG N DROP
             {
                 IntPtr stringPointer = Marshal.StringToHGlobalAnsi(assetPath);
 
-                if (isMaterial)
+                if (fileType is FileType.Material)
                 {
                     ImGui.SetDragDropPayload(DragDropPayloadTypes.Material, stringPointer,
                         (uint)(sizeof(char) * assetPath.Length));
                 }
 
-                if (isShader)
+                if (fileType is FileType.Shader)
                 {
                     ImGui.SetDragDropPayload(DragDropPayloadTypes.Shader, stringPointer,
                         (uint)(sizeof(char) * assetPath.Length));
@@ -507,7 +520,7 @@ public class EditorPanelBrowser : EditorPanel
                 ImGui.EndDragDropSource();
             }
 
-            if (isShader)
+            if (fileType is FileType.Shader)
             {
                 if (ImGui.IsItemHovered() && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left))
                 {
@@ -520,7 +533,7 @@ public class EditorPanelBrowser : EditorPanel
             }
         }
 
-        if (isPrefab)
+        if (fileType is FileType.Prefab)
         {
             if (ImGui.BeginDragDropSource())
             {
@@ -541,12 +554,12 @@ public class EditorPanelBrowser : EditorPanel
         if (ImGui.IsItemHovered() &&
             Tofu.MouseInput.ButtonReleased(MouseButtons.Left)) // released in case we want to drag and drop somemthing
         {
-            if (isMaterial)
+            if (fileType is FileType.Material)
             {
                 EditorPanelInspector.I.OnMaterialSelected(assetPath);
             }
 
-            if (isModel)
+            if (fileType is FileType.Model)
             {
                 string pathOfImportParametersOfSourceAssetFile =
                     AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(assetPath);
@@ -574,7 +587,7 @@ public class EditorPanelBrowser : EditorPanel
                 }
             }
 
-            if (isTexture)
+            if (fileType is FileType.Texture)
             {
                 string pathOfImportParametersOfSourceAssetFile =
                     AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(assetPath);
@@ -604,16 +617,21 @@ public class EditorPanelBrowser : EditorPanel
                 return;
             }
 
-            if (isPrefab)
+            if (fileType is FileType.Prefab)
             {
                 GameObject go = Tofu.SceneSerializer.LoadPrefab(assetPath);
                 // todo
                 // EditorPanelHierarchy.I.SelectGameObject(go.Id);
             }
 
-            if (assetExtension == ".scene")
+            if (fileType is FileType.Scene)
             {
                 Tofu.SceneManager.LoadScene(assetPath);
+            }
+
+            if (fileType is FileType.Script)
+            {
+                Tofu.UserCodeEditorOpener.OpenFile(assetPath, 0, 0);
             }
         }
 
@@ -652,7 +670,7 @@ public class EditorPanelBrowser : EditorPanel
         ImGui.EndGroup();
 
 
-        if (isModel)
+        if (fileType is FileType.Model)
         {
             if (_expandedAssets.Contains(assetIndex))
             {
@@ -672,7 +690,7 @@ public class EditorPanelBrowser : EditorPanel
             hoveredAssetIndex = assetIndex;
         }
 
-        if (isMesh == false && isDirectory == false)
+        if (fileType is not FileType.Mesh && isDirectory == false)
         {
             if (ImGui.BeginPopupContextItem("item_context", ImGuiPopupFlags.MouseButtonRight))
             {

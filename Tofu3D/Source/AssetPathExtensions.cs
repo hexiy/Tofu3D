@@ -1,4 +1,5 @@
 using System.IO;
+using Tofu3D.Source;
 
 public static class AssetPathExtensions
 {
@@ -186,6 +187,27 @@ public static class AssetPathExtensions
     public static bool IsFilePrefab(string fileName)
     {
         return fileName.EndsWith(".prefab", StringComparison.OrdinalIgnoreCase);
+    }
+
+    public static FileType GetFileType(string fileName)
+    {
+        string extension = Path.GetExtension(fileName).ToLower();
+
+        return extension switch
+        {
+            ".tofutexture" or ".png" or ".jpg" or ".jpeg" or ".tga" or ".bmp" => FileType.Texture,
+            ".tofumesh" => FileType.Mesh,
+            ".cs" => FileType.Script,
+            ".tofumodel" or ".obj" => FileType.Model,
+            ".glsl" => FileType.Shader,
+            ".prefab" => FileType.Prefab,
+            ".tofumaterial" or ".mat" => FileType.Material,
+            ".tofutextureatlas" => FileType.TextureAtlas,
+            ".scene" => FileType.Scene,
+            ".mp3" or ".wav" => FileType.Audio,
+            ".temp" => FileType.Temporary,
+            _ => FileType.Other
+        };
     }
 
     public static string ValidateAssetPath(ref string assetPath)

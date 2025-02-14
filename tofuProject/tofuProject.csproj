@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets/Scripts/TestingUserScripts.cs" />
+    <Compile Include="Assets/Scripts/MyComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Private.CoreLib">
