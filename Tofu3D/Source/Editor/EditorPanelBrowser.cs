@@ -13,7 +13,7 @@ public class EditorPanelBrowser : EditorPanel
     private int _itemsInRow = 8;
     private string[] _assets = Array.Empty<string>();
 
-    private List<BrowserContextItem> _contextItems;
+    private List<BrowserContextItemCreateFile> _contextItems;
     private RuntimeTexture _directoryIcon;
     Dictionary<string, DirectoryInfo> directoryInfos = new Dictionary<string, DirectoryInfo>();
 
@@ -92,38 +92,38 @@ public class EditorPanelBrowser : EditorPanel
 
     private void CreateContextItems()
     {
-        BrowserContextItem createSceneContextItem = new BrowserContextItem("Create Scene", "scene", ".scene",
+        BrowserContextItemCreateFile createSceneContextItemCreateFile = new BrowserContextItemCreateFile("Create Scene", "scene", ".scene",
             filePath =>
             {
                 Tofu.SceneManager.CurrentScene.SetupAndSaveEmptyScene(filePath);
                 RefreshAssets();
             });
-        BrowserContextItem createMaterialContextItem = new BrowserContextItem("Create Material", "mat", ".mat",
+        BrowserContextItemCreateFile createMaterialContextItemCreateFile = new BrowserContextItemCreateFile("Create Material", "mat", ".mat",
             filePath =>
             {
                 Asset_Material createdMaterial = new Asset_Material { PathInAssetsFolder = filePath };
                 Tofu.AssetLoadManager.Save<Asset_Material>(filePath, createdMaterial);
                 RefreshAssets();
             });
-        BrowserContextItem createFolderContextItem = new BrowserContextItem("New Folder", "folder", "",
+        BrowserContextItemCreateFile createFolderContextItemCreateFile = new BrowserContextItemCreateFile("New Folder", "folder", "",
             filePath =>
             {
                 Directory.CreateDirectory(filePath);
                 RefreshAssets();
             });
-        BrowserContextItem createScriptContextItem = new BrowserContextItem("New C# Component", "MyComponent", ".cs",
+        BrowserContextItemCreateFile createScriptContextItemCreateFile = new BrowserContextItemCreateFile("New C# Component", "MyComponent", ".cs",
             filePath =>
             {
                 string scriptName = TofuPath.GetFileNameWithoutExtension(filePath);
                 ScriptsManager.CreateCustomComponentFile(scriptName, filePath);
                 RefreshAssets();
             });
-        _contextItems = new List<BrowserContextItem>
+        _contextItems = new List<BrowserContextItemCreateFile>
         {
-            createSceneContextItem,
-            createMaterialContextItem,
-            createFolderContextItem,
-            createScriptContextItem
+            createSceneContextItemCreateFile,
+            createMaterialContextItemCreateFile,
+            createFolderContextItemCreateFile,
+            createScriptContextItemCreateFile
         };
     }
 

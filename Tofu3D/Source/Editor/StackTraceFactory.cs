@@ -19,7 +19,7 @@ public static class StackTraceFactory
         int skipFrames = 3;
         System.Diagnostics.StackTrace? b = new System.Diagnostics.StackTrace(fNeedFileInfo: true, skipFrames: 2);
         List<System.Diagnostics.StackFrame> frames = b.GetFrames().ToList();
-        while (frames[0].GetFileName().Contains("debug.cs", StringComparison.OrdinalIgnoreCase))
+        while (frames[0].GetFileName()?.Contains("debug.cs", StringComparison.OrdinalIgnoreCase) ?? false)
         {
             frames.RemoveAt(0);
         }

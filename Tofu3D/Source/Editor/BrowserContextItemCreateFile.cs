@@ -2,7 +2,7 @@
 
 namespace Tofu3D;
 
-public class BrowserContextItem
+public class BrowserContextItemCreateFile
 {
     private readonly Action<string> _confirmAction;
     private string _fileName;
@@ -10,7 +10,7 @@ public class BrowserContextItem
     private readonly string _itemName;
     public bool ShowPopup;
 
-    public BrowserContextItem(string itemName, string fileName, string fileExtension,
+    public BrowserContextItemCreateFile(string itemName, string fileName, string fileExtension,
         Action<string> confirmAction)
     {
         _itemName = itemName;

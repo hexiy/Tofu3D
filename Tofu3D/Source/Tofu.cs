@@ -38,6 +38,7 @@ public static class Tofu
 
     // ASSETS
     public static AssetImportManager AssetImportManager;
+
     // public static AssetFileCache AssetFileCache;
     public static TextureAtlasManager TextureAtlasManager;
     public static AssetLoadManager AssetLoadManager;
@@ -51,6 +52,7 @@ public static class Tofu
     // MISC
     public static TweenManager TweenManager;
     public static PhysicsController PhysicsController;
+    public static CoroutineManager CoroutineManager;
 
     // INPUT
     public static MouseInput MouseInput;
@@ -117,6 +119,7 @@ public static class Tofu
         }
     }
 
+
     private static void MainLoop(FrameEventArgs eventArgs)
     {
         OnWindowUpdate(eventArgs);
@@ -128,11 +131,11 @@ public static class Tofu
         BasicMeshesCollection = new BasicMeshesCollection();
 
         PhysicsController.Init();
-        
+
         // first import textures so we can setup atlases
         AssetImportManager.ImportAllTextures();
         TextureAtlasManager.SetupTextureAtlases();
-        
+
         // then import rest of the assets such as models/meshes that will now load correct textures from mtl files
         AssetImportManager.ImportAllAssets();
 
@@ -143,6 +146,7 @@ public static class Tofu
         RenderPassSystem = new RenderPassSystem();
         RenderPassSystem.Initialize();
 
+        CoroutineManager = new CoroutineManager();
 
         ImGuiController = new ImGuiController();
 
@@ -173,6 +177,7 @@ public static class Tofu
         // }
         // Time.EditorDeltaTime = (float)sw.Elapsed.TotalSeconds;
         Time.EditorDeltaTime = (float)e.Time;
+
         if (Time.EditorDeltaTime == 0)
         {
             Time.EditorDeltaTime = 1f / 60f;
@@ -204,6 +209,9 @@ public static class Tofu
         ShaderManager.ReloadQueuedShaders();
 
         SceneManager.CurrentScene.Update();
+
+        CoroutineManager.Update();
+
         Editor.Update();
         Debug.EndGraphTimer("Editor Update");
 

@@ -55,7 +55,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Point Light</Name>
       <PrefabPath />
-      <Selected>false</Selected>
+      <Selected>true</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -85,7 +85,7 @@
       <IsStaticSelf>false</IsStaticSelf>
       <Name>Kaiser_Josef_II_C</Name>
       <PrefabPath />
-      <Selected>true</Selected>
+      <Selected>false</Selected>
       <VisibleInHierarchy>true</VisibleInHierarchy>
       <RuntimeOnly>false</RuntimeOnly>
       <UpdateWhenDisabled>false</UpdateWhenDisabled>
@@ -402,6 +402,12 @@
       <Intensity>1</Intensity>
       <Radius>10</Radius>
     </Component>
+    <Component xsi:type="MyComponent">
+      <AllowMultiple>true</AllowMultiple>
+      <GameObjectId>5</GameObjectId>
+      <Started>true</Started>
+      <EnabledSelf>true</EnabledSelf>
+    </Component>
     <Component xsi:type="Transform">
       <AllowMultiple>true</AllowMultiple>
       <GameObjectId>6</GameObjectId>
@@ -463,7 +469,7 @@
       <GameObjectId>6</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>23</MousePickingId>
+      <MousePickingId>1</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
@@ -531,8 +537,8 @@
       <RuntimeMesh>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <Vao>20</Vao>
-        <Ebo>70</Ebo>
+        <Vao>4</Vao>
+        <Ebo>8</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -563,6 +569,13 @@
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
       <ChildrenIDs>
+        <int>6</int>
+        <int>8</int>
+        <int>9</int>
+        <int>10</int>
+        <int>11</int>
+        <int>12</int>
+        <int>13</int>
         <int>6</int>
         <int>8</int>
         <int>9</int>
@@ -667,7 +680,7 @@
       <GameObjectId>8</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>24</MousePickingId>
+      <MousePickingId>2</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
@@ -735,8 +748,8 @@
       <RuntimeMesh>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <Vao>21</Vao>
-        <Ebo>73</Ebo>
+        <Vao>5</Vao>
+        <Ebo>11</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -822,7 +835,7 @@
       <GameObjectId>9</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>25</MousePickingId>
+      <MousePickingId>3</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
@@ -890,8 +903,8 @@
       <RuntimeMesh>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <Vao>22</Vao>
-        <Ebo>76</Ebo>
+        <Vao>6</Vao>
+        <Ebo>14</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -977,7 +990,7 @@
       <GameObjectId>10</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>26</MousePickingId>
+      <MousePickingId>4</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
@@ -1045,8 +1058,8 @@
       <RuntimeMesh>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <Vao>23</Vao>
-        <Ebo>79</Ebo>
+        <Vao>7</Vao>
+        <Ebo>17</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -1132,7 +1145,7 @@
       <GameObjectId>11</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>27</MousePickingId>
+      <MousePickingId>5</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
@@ -1200,8 +1213,8 @@
       <RuntimeMesh>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <Vao>24</Vao>
-        <Ebo>82</Ebo>
+        <Vao>8</Vao>
+        <Ebo>20</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -1287,7 +1300,7 @@
       <GameObjectId>12</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>28</MousePickingId>
+      <MousePickingId>6</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
@@ -1355,8 +1368,8 @@
       <RuntimeMesh>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <Vao>25</Vao>
-        <Ebo>85</Ebo>
+        <Vao>9</Vao>
+        <Ebo>23</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -1442,7 +1455,7 @@
       <GameObjectId>13</GameObjectId>
       <Started>true</Started>
       <EnabledSelf>true</EnabledSelf>
-      <MousePickingId>29</MousePickingId>
+      <MousePickingId>7</MousePickingId>
       <MousePickingEnabled>true</MousePickingEnabled>
       <AutomaticallyFindBoxShape>true</AutomaticallyFindBoxShape>
       <Material>
@@ -1510,8 +1523,8 @@
       <RuntimeMesh>
         <IsRuntimeCopy>false</IsRuntimeCopy>
         <DataIsCompressed>false</DataIsCompressed>
-        <Vao>26</Vao>
-        <Ebo>88</Ebo>
+        <Vao>10</Vao>
+        <Ebo>26</Ebo>
         <Mesh>
           <CountsOfElements>
             <int>3</int>
@@ -1537,5 +1550,5 @@
       <RenderOrder>11</RenderOrder>
     </Component>
   </Components>
-  <GameObjectNextId>16</GameObjectNextId>
+  <GameObjectNextId>18</GameObjectNextId>
 </SceneFile>
