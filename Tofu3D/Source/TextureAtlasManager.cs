@@ -11,7 +11,7 @@ using SixLabors.ImageSharp.Processing;
 using Image = SixLabors.ImageSharp.Image;
 using Rectangle = SixLabors.ImageSharp.Rectangle;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class TextureAtlasManager
 {
@@ -196,7 +196,7 @@ public class TextureAtlasManager
             texture.AtlasPath = GetAtlasPath(atlasIndex);
             texture.IndexInAtlasTextureArray = atlasIndex;
 
-            Tofu.AssetLoadManager.Save<Tofu3D.Asset_Texture>(texture.PathInLibraryFolder, texture);
+            Tofu.AssetLoadManager.Save<Asset_Texture>(texture.PathInLibraryFolder, texture);
             // Tofu.AssetFileCache.AddAsset(texture);
         }
 
@@ -271,7 +271,7 @@ public class TextureAtlasManager
             IndexInTextureArray = atlasIndex,
         };
 
-        Serializer.SaveAssetJSON<Tofu3D.Asset_TextureAtlas>(atlasPath, atlasTexture);
+        Serializer.SaveAssetJSON<Asset_TextureAtlas>(atlasPath, atlasTexture);
     }
 
     private string GetAtlasPath(int atlasIndex)

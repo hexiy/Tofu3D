@@ -1,4 +1,4 @@
-namespace Tofu3D.Rendering;
+namespace TofuEngine.Rendering;
 
 public class LightRenderingManager
 {
@@ -67,7 +67,7 @@ public class LightRenderingManager
         int blockIndex = GL.GetUniformBlockIndex(shaderProgram, "LightBuffer");
         if (blockIndex == -1)
         {
-            Tofu3D.Debug.LogError("LightBuffer uniform block not found in shader.");
+            Debug.LogError("LightBuffer uniform block not found in shader.");
             return;
         }
 

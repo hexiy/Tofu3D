@@ -1,6 +1,6 @@
-using Tofu3D.Rendering;
+using TofuEngine.Rendering;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class RenderPassDirectionalLightShadowDepth : RenderPass
 {

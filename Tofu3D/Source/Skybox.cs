@@ -1,4 +1,4 @@
-﻿namespace Tofu3D;
+﻿namespace TofuEngine;
 
 [ExecuteInEditMode]
 public class Skybox : Component, IComponentUpdateable, IHasMaterial

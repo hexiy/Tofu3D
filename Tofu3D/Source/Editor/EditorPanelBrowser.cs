@@ -3,10 +3,10 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using ImGuiNET;
-using Tofu3D.Source;
+using TofuEngine.Source;
 using ImGui = ImGuiNET.ImGui;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class EditorPanelBrowser : EditorPanel
 {

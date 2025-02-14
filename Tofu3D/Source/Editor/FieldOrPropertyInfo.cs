@@ -2,7 +2,7 @@ using System.Collections;
 using System.Linq;
 using System.Reflection;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class FieldOrPropertyInfo
 {

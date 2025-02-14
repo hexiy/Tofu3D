@@ -3,7 +3,7 @@ using System.Linq;
 using ImGuiNET;
 using NativeFileDialogSharp;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class InspectorFieldDrawerCollectionWithSelection<T> : InspectorFieldDrawable<CollectionWithSelection<T>>
 {

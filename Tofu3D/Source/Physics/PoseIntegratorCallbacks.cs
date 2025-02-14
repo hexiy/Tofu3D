@@ -2,7 +2,7 @@ using System.Numerics;
 using BepuPhysics;
 using BepuUtilities;
 
-namespace Tofu3D.Physics;
+namespace TofuEngine.Physics;
 
 public struct PoseIntegratorCallbacks : IPoseIntegratorCallbacks
 {

@@ -1,7 +1,7 @@
 using System.IO;
 using System.Threading;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 // Transforms .obj,.png files into .asset files in /Library/
 public class AssetImportManager

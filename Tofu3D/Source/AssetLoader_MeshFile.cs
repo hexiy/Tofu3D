@@ -1,4 +1,4 @@
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class AssetLoader_MeshFile : AssetLoader<MeshFile>
 {

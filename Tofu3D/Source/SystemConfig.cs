@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public static class SystemConfig
 {

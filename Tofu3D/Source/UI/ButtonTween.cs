@@ -1,4 +1,4 @@
-﻿namespace Tofu3D.UI;
+﻿namespace TofuEngine.UI;
 
 public class ButtonTween : Component
 {

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Component = Scripts.Component;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 {

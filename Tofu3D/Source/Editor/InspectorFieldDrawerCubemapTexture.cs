@@ -1,7 +1,7 @@
 using System.IO;
 using ImGuiNET;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class InspectorFieldDrawerCubemapTexture : InspectorFieldDrawable<RuntimeCubemapTexture>
 {

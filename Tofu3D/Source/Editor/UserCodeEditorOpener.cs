@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using StackFrame = Tofu3D.StackFrame;
+using StackFrame = TofuEngine.StackFrame;
 
 public class UserCodeEditorOpener
 {

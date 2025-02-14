@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Runtime.InteropServices;
 using ImGuiNET;
-using Tofu3D.Rendering;
+using TofuEngine.Rendering;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class EditorPanelSceneView : EditorPanel
 {

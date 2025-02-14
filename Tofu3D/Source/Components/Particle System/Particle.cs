@@ -1,6 +1,6 @@
-﻿using Tofu3D.Rendering.Instancing;
+﻿using TofuEngine.Rendering.Instancing;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class Particle
 {

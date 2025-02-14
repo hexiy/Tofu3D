@@ -2,7 +2,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public static class FramebufferScreenshotGenerator
 {
@@ -38,7 +38,7 @@ public static class FramebufferScreenshotGenerator
         string tofuTexturePath = path + ".tofutexture";
         // Serializer.SaveAssetJSON<Asset_Texture>(tofuTexturePath, texture);
         Tofu.AssetLoadManager.Save(tofuTexturePath,texture);
-        Tofu.AssetLoadManager.Get<Tofu3D.RuntimeTexture>(tofuTexturePath, overwriteAlreadyLoadedAssets:true);
+        Tofu.AssetLoadManager.Get<RuntimeTexture>(tofuTexturePath, overwriteAlreadyLoadedAssets:true);
         // image.SaveAsPng(path);
 
 

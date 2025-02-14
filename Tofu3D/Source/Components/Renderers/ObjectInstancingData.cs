@@ -1,4 +1,4 @@
-﻿namespace Tofu3D.Rendering.Instancing;
+﻿namespace TofuEngine.Rendering.Instancing;
 
 /// <summary>
 /// Every renderer/object needs ObjectInstancingData

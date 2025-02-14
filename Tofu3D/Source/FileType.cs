@@ -1,4 +1,4 @@
-namespace Tofu3D.Source;
+namespace TofuEngine.Source;
 
 public enum FileType
 {

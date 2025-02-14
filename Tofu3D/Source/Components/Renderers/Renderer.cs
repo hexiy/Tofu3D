@@ -1,4 +1,4 @@
-﻿using Tofu3D.Rendering.Instancing;
+﻿using TofuEngine.Rendering.Instancing;
 
 namespace Scripts;
 
@@ -16,7 +16,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     [XmlIgnore]
     public BoxShape BoxShape;
 
-    private Color _color = Tofu3D.Color.White;
+    private Color _color = TofuEngine.Color.White;
 
     public Color Color
     {

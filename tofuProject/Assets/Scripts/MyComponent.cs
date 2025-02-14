@@ -1,11 +1,10 @@
-using Tofu3D;
+using TofuEngine;
 using Scripts;
 using System.Collections;
 
 [ExecuteInEditMode]
 public class MyComponent : Component, IComponentUpdateable
 {
-    
     public override void Awake()
     {
         Tofu.CoroutineManager.StartCoroutine(MyCoroutine());
@@ -19,19 +18,18 @@ public class MyComponent : Component, IComponentUpdateable
         yield return new WaitForSeconds(5);
         Debug.Log("like this");
         yield return new WaitForSeconds(1);
-        Debug.Log("and this");
-
+        Debug.Log("and this, now wait for space key press");
+        yield return new WaitWhile(() => KeyboardInput.IsKeyDown(Keys.Space) == false);
+        Debug.Log("space");
 
     }
 
     public override void Start()
     {
-         
         base.Start();
     }
-    
+
     public void Update()
     {
-        
     }
 }

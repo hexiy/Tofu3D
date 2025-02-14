@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class EditorSettingsCodeEditor
 {

@@ -1,6 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public static class IDsManager
 {

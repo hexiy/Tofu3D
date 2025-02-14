@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using ImGuiNET;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class InspectorFieldDrawerMesh : InspectorFieldDrawable<RuntimeMesh>
 {

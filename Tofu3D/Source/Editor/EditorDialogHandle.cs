@@ -1,3 +1,3 @@
-namespace Tofu3D;
+namespace TofuEngine;
 
 public record EditorDialogHandle(int Handle);

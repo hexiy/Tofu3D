@@ -1,4 +1,4 @@
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class AssetImporter_Material : AssetImporter<Asset_Material>
 {

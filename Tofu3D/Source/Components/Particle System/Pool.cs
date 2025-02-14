@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class Pool<T>
 {

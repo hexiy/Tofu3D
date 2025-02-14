@@ -1,4 +1,4 @@
-namespace Tofu3D;
+namespace TofuEngine;
 
 [Serializable]
 public class Asset_TextureAtlas : Asset_Texture

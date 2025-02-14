@@ -1,7 +1,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class CollectionWithSelection<T>
 {

@@ -63,7 +63,10 @@ public static class ScriptsManager
             references[i] = MetadataReference.CreateFromFile(referencesPaths[i]);
         }
 
-        ProjectFileGenerator.GenerateCsproj(Folders.ProjectFullPath, "tofuProject", scriptsFiles, referencesPaths);
+        var referencePathsWithoutCoreLib = referencesPaths.ToList();
+        referencePathsWithoutCoreLib.RemoveAt(0);
+        ProjectFileGenerator.GenerateCsproj(Folders.ProjectFullPath, "tofuProject", scriptsFiles,
+            referencePathsWithoutCoreLib.ToArray());
 
         CSharpCompilation compilation = CSharpCompilation.Create(
             assemblyName,

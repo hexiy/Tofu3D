@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class EditorSettingsGeneral
 {

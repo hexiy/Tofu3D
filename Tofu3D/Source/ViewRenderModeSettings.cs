@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class ViewRenderModeSettings
 {

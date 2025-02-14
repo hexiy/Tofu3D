@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 /// <summary>
 ///     Describes a 3D-vector.

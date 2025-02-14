@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public static class Time
 {

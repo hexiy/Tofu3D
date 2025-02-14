@@ -1,4 +1,4 @@
-namespace Tofu3D;
+namespace TofuEngine;
 
 [SplitWords]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Class, Inherited = false)]

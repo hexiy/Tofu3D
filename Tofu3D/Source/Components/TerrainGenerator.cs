@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Threading;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 [ExecuteInEditMode]
 public class TerrainGenerator : Component, IComponentUpdateable
@@ -165,7 +165,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
         List<GameObject> gameObjects = new List<GameObject>(20000);
         for (int i = 0; i < 20000; i++)
         {
-            GameObject go = GameObject.Create(name: i.ToString(), addToScene: false);
+            GameObject go = TofuEngine.GameObject.Create(name: i.ToString(), addToScene: false);
             gameObjects.Add(go);
             Debug.Log(i);
         }

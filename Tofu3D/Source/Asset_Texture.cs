@@ -1,6 +1,6 @@
 using OpenTK.Mathematics;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 [Serializable]
 public class Asset_Texture : Asset<Asset_Texture>, IComparable<Asset_Texture>

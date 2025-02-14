@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class Curve
 {

@@ -2,7 +2,7 @@ using System.IO;
 using ImGuiNET;
 using NativeFileDialogSharp;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class InspectorFieldDrawerString : InspectorFieldDrawable<string>
 {

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class GeometryBuffer
 {

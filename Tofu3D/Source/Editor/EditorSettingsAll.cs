@@ -1,4 +1,4 @@
-namespace Tofu3D;
+namespace TofuEngine;
 
 /// <summary>
 /// Used in editor settings window

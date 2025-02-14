@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 /// <summary>
 ///     Describes a 2D-vector.

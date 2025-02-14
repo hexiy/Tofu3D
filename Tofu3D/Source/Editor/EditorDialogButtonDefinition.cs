@@ -1,3 +1,3 @@
-namespace Tofu3D;
+namespace TofuEngine;
 
 public record EditorDialogButtonDefinition(string text, Action clicked, bool closeOnClick = false);

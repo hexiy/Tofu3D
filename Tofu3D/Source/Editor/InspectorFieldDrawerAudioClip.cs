@@ -2,7 +2,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using ImGuiNET;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class InspectorFieldDrawerAudioClip : InspectorFieldDrawable<AudioClip>
 {

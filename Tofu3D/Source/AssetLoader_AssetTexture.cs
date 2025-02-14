@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class AssetLoader_AssetTexture : AssetLoader<Asset_Texture>
 {

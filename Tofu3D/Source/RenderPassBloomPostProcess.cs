@@ -1,4 +1,4 @@
-namespace Tofu3D.Rendering;
+namespace TofuEngine.Rendering;
 
 public class RenderPassBloomPostProcess : RenderPass
 {

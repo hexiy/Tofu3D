@@ -1,7 +1,7 @@
 using System.IO;
 using System.Linq;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public static class StringExtensions
 {

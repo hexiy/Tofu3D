@@ -1,4 +1,4 @@
-﻿namespace Tofu3D;
+﻿namespace TofuEngine;
 
 [Show]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Delegate,

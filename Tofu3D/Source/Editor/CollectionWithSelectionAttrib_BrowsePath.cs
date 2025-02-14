@@ -1,4 +1,4 @@
-namespace Tofu3D;
+namespace TofuEngine;
 
 [CollectionWithSelectionAttrib_BrowsePath("")]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Class, Inherited = false)]

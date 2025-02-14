@@ -2,7 +2,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using ImGuiNET;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class InspectorFieldDrawerShader : InspectorFieldDrawable<Shader>
 {
@@ -33,7 +33,7 @@ public class InspectorFieldDrawerShader : InspectorFieldDrawable<Shader>
                 payload = payload;
                 string shaderName = Path.GetFileName(payload);
 
-                Shader shader = Tofu3D.Tofu.ShaderManager.LoadShader(payload);
+                Shader shader = Tofu.ShaderManager.LoadShader(payload);
                 (componentInspectorData.Inspectable as Asset_Material).Shader = shader;
                 info.SetValue(componentInspectorData.Inspectable, shader);
                 // load new material

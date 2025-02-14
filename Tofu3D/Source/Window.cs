@@ -10,7 +10,7 @@ using SixLabors.ImageSharp.PixelFormats;
 using Image = SixLabors.ImageSharp.Image;
 using Monitor = OpenTK.Windowing.GraphicsLibraryFramework.Monitor;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class Window : GameWindow
 {

@@ -1,4 +1,4 @@
-namespace Tofu3D;
+namespace TofuEngine;
 
 // loads .asset into runtime
 public abstract class AssetLoader<T1> : IAssetLoader where T1 : class

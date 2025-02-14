@@ -1,6 +1,6 @@
 using ImGuiNET;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class InspectorFieldDrawerVector4 : InspectorFieldDrawable<Vector4>
 {

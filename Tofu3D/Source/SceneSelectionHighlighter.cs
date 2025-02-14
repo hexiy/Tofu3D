@@ -1,6 +1,6 @@
-using Tofu3D.Tweening;
+using TofuEngine.Tweening;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class SceneSelectionHighlighter
 {

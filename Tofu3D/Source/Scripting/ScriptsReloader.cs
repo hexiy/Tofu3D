@@ -1,4 +1,4 @@
-namespace Tofu3D.Scripting;
+namespace TofuEngine.Scripting;
 
 public class ScriptsReloader
 {

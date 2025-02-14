@@ -4,7 +4,7 @@ using BepuPhysics.Collidables;
 using BepuPhysics.CollisionDetection;
 using BepuPhysics.Constraints;
 
-namespace Tofu3D.Physics;
+namespace TofuEngine.Physics;
 
 struct NarrowPhaseCallbacks : INarrowPhaseCallbacks
 {

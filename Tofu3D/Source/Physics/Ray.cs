@@ -1,4 +1,4 @@
-namespace Tofu3D.Physics;
+namespace TofuEngine.Physics;
 
 public struct Ray
 {

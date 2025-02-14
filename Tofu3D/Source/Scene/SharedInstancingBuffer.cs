@@ -1,4 +1,4 @@
-﻿namespace Tofu3D.Rendering.Instancing;
+﻿namespace TofuEngine.Rendering.Instancing;
 
 /// <summary>
 /// Contains data of multiple(instanced together) objects in one buffer

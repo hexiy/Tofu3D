@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public static class DebugHelper
 {

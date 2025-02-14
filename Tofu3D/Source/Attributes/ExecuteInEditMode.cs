@@ -1,4 +1,4 @@
-namespace Tofu3D;
+namespace TofuEngine;
 
 [ExecuteInEditMode]
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]

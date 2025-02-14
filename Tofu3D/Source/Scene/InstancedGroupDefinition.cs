@@ -1,4 +1,4 @@
-﻿namespace Tofu3D.Rendering.Instancing;
+﻿namespace TofuEngine.Rendering.Instancing;
 
 public record InstancedGroupDefinition(
     // string GameObjectNameForTestingIdentification,

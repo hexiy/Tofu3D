@@ -3,7 +3,7 @@ using System.Threading;
 using SharpAudio;
 using SharpAudio.Codec;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 [ExecuteInEditMode]
 public class AudioSource : Component, IComponentUpdateable

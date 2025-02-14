@@ -9,9 +9,6 @@
     <Compile Include="Assets/Scripts/MyComponent.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Private.CoreLib">
-      <HintPath>/usr/local/share/dotnet/shared/Microsoft.NETCore.App/9.0.0/System.Private.CoreLib.dll</HintPath>
-    </Reference>
     <Reference Include="System.Runtime">
       <HintPath>/usr/local/share/dotnet/shared/Microsoft.NETCore.App/9.0.0/System.Runtime.dll</HintPath>
     </Reference>

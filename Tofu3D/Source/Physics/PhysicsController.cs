@@ -17,7 +17,7 @@ using SphereShape = Scripts.SphereShape;
 
 ////
 
-namespace Tofu3D.Physics;
+namespace TofuEngine.Physics;
 
 public class PhysicsController
 {

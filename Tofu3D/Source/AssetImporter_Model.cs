@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 // Imports .obj, creates .asset in /Library/ and
 public class AssetImporter_Model : AssetImporter<Asset_Model>

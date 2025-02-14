@@ -3,13 +3,13 @@ using System.IO;
 using Microsoft.Build.Locator;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using Tofu3D.Physics;
-using Tofu3D.Rendering;
-using Tofu3D.Rendering.Instancing;
-using Tofu3D.Scripting;
-using Tofu3D.Tweening;
+using TofuEngine.Physics;
+using TofuEngine.Rendering;
+using TofuEngine.Rendering.Instancing;
+using TofuEngine.Scripting;
+using TofuEngine.Tweening;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 // Main Application Context
 public static class Tofu

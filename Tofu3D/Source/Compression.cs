@@ -2,7 +2,7 @@ using System.IO;
 using System.IO.Compression;
 using Buffer = System.Buffer;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public static class Compression
 {

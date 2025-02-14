@@ -1,6 +1,6 @@
-﻿using Tofu3D.UI;
+﻿using TofuEngine.UI;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class Button : Component
 {

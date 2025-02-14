@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class AssetLoader_Material : AssetLoader<Asset_Material>
 {

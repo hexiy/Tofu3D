@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class CoroutineManager
 {
@@ -27,12 +27,39 @@ public class CoroutineManager
                 }
             }
 
+            if (routine.Current == null || routine.Current is WaitForEndOfFrame)
+            {
+                // waits a frame
+                continue;
+            }
 
-            if (routine.Current is WaitForSeconds waitForSeconds)
+            else if (routine.Current is WaitForSeconds waitForSeconds)
             {
                 waitForSeconds.SecondsToWait -= Time.EditorDeltaTime;
 
                 if (waitForSeconds.SecondsToWait > 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    routine.MoveNext();
+                }
+            }
+            else if (routine.Current is WaitWhile waitWhile)
+            {
+                if (waitWhile.WaitCondition() == true)
+                {
+                    continue;
+                }
+                else
+                {
+                    routine.MoveNext();
+                }
+            }
+            else if (routine.Current is WaitUntil waitUntil)
+            {
+                if (waitUntil.WaitCondition() == false)
                 {
                     continue;
                 }

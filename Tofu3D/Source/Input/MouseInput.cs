@@ -1,6 +1,6 @@
 ﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class MouseInput
 {

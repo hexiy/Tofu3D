@@ -1,4 +1,4 @@
-using Tofu3D.Tweening;
+using TofuEngine.Tweening;
 
 public class LogoAnimation : Component
 {
