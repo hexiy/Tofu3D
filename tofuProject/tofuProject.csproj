@@ -13,7 +13,7 @@
       <HintPath>/usr/local/share/dotnet/shared/Microsoft.NETCore.App/9.0.0/System.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Tofu3D">
-      <HintPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/MacOS Debug/net9.0/Tofu3D.dll</HintPath>
+      <HintPath>/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/bin/MacOS Release/net9.0/Tofu3D.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

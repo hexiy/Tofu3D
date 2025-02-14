@@ -1,4 +1,6 @@
-﻿/*public class ParticleSystemRenderer : Renderer
+﻿using System.Linq;
+
+public class ParticleSystemRenderer : Renderer
 {
     private ParticleSystem _particleSystem;
 
@@ -10,10 +12,15 @@
 
     private void SetParticlesInstancingDataDirty()
     {
+        if (_particleSystem == null)
+        {
+            return;
+        }
+
         foreach (var particle in _particleSystem?.Particles)
         {
-            particle.InstancingData.InstancingDataDirty = true;
-            particle.InstancingData.MatrixDirty = true;
+            particle.ObjectInstancingData.InstancingDataDirty = true;
+            particle.ObjectInstancingData.MatrixDirty = true;
         }
     }
 
@@ -21,8 +28,7 @@
     {
         foreach (var particle in _particleSystem?.Particles)
         {
-            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData, remove: true,
-                vertexBufferStructureType: VertexBufferStructureType.Model);
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.ObjectInstancingData, remove: true);
         }
     }
 
@@ -40,37 +46,33 @@
         base.OnDisabled();
     }
 
-    public override void SetDefaultMaterial()
+    public override void UploadRenderData()
     {
-        if (Material?.PathToRawAsset.Length == 0 || Material == null)
+        if (LatestModelMatrix == null)
         {
-            Material = Tofu.AssetManager.Load<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
-        }
-        else
-        {
-            Material = Tofu.AssetManager.Load<Asset_Material>(Material.PathToRawAsset);
+            return;
         }
 
-        if (RuntimeMesh?.PathToRawAsset.Length > 0)
+        if (GameObject.IsStatic
+            && ObjectInstancingData.InstancingDataDirty == false
+            && ObjectInstancingData.MatrixDirty == false)
         {
-            RuntimeMesh = Tofu.AssetManager.Load<Asset_Mesh>(RuntimeMesh.PathToRawAsset);
-        }
-        else
-        {
-            RuntimeMesh = null;
-        }
-    }
+            RemoveFromRenderQueue();
 
-    public override void Render()
-    {
-        if (GameObject.IsStatic && InstancingData.InstancingDataDirty == false &&
-            InstancingData.MatrixDirty == false)
-        {
             return;
         }
 
         if (RuntimeMesh == null)
         {
+            return;
+        }
+
+        if (RuntimeMesh.Mesh?.VerticesCount == 0)
+        {
+            RemoveFromRenderQueue();
+
+
+            GameObject.Name = "0 VERTICES?";
             return;
         }
 
@@ -89,31 +91,77 @@
         if (Model == null)
         {
             return;
-        }#1#
-
-
-        for (var i = 0; i < _particleSystem.Particles.Count; i++)
+        }*/
+        foreach (Particle particle in _particleSystem.Particles)
         {
-            var particle = _particleSystem.Particles[i];
-
-
             var particleModelMatrix = Matrix4x4.CreateScale(particle.Size * (particle.Visible ? 1 : 0)) *
                                       Matrix4x4.CreateTranslation(particle.WorldPosition * Transform.WorldScale);
 
-            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.InstancingData,
-                VertexBufferStructureType.Model, particleModelMatrix,
+            Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.ObjectInstancingData, particleModelMatrix,
                 color: particle.Color);
-
-            if (particle.Visible == false)
-            {
-                _particleSystem.DisableParticle(i);
-            }
-            // return;
         }
-        // bool updatedData = Tofu.InstancedRenderingSystem.UpdateObjectData(this,);
-        // if (updatedData)
-        // {
-        // InstancingData.InstancingDataDirty = false;
-        // }
     }
-}*/
+
+    public override void SetDefaultMaterial()
+    {
+        /////////////////////// MESH
+
+
+        // RuntimeMesh.Mesh.Indices
+        if (RuntimeMesh?.Mesh?.PathInLibraryFolder?.Length > 0)
+        {
+            RuntimeMesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(RuntimeMesh.Mesh.PathInLibraryFolder);
+        }
+        else
+        {
+            Asset_Model model =
+                Tofu.AssetLoadManager.Get<Asset_Model>(
+                    TofuPath.Combine(Folders.BasicModelsInAssets, "defaultCube.obj"));
+            RuntimeMesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(model.PathsToMeshAssets.First());
+
+            // RuntimeMesh = null;
+        }
+
+        /////////////////////// MATERIAL
+        string? pathToObjMaterial = RuntimeMesh?.Mesh?.PathToObjMaterial;
+
+        // for now, always load obj material
+        if (pathToObjMaterial != null)
+        {
+            Material = Tofu.AssetLoadManager.Get<Asset_Material>(pathToObjMaterial);
+        }
+        else
+        {
+            if (Material == null || Material?.IsRuntimeCopy == false)
+            {
+                if (Material?.PathInLibraryFolder.Length == 0 || Material == null)
+                {
+                    Material = Tofu.AssetLoadManager.Get<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets,
+                        "ModelRendererInstanced.mat"));
+                }
+                else
+                {
+                    Material = Tofu.AssetLoadManager.Get<Asset_Material>(Material.PathInLibraryFolder);
+                }
+            }
+            else
+            {
+                if (Material != null)
+                {
+                    Debug.Log(
+                        "Not automatically creating material instances, because when tweening higlight box it was losing the reference... only create runtime copy if it was serialized as runtime copy");
+
+                    if (Material.IsRuntimeCopy)
+                    {
+                        Material = Tofu.AssetLoadManager.CreateCopyFile(Material);
+                    }
+                }
+            }
+        }
+    }
+
+    private void RemoveFromRenderQueue()
+    {
+        Tofu.SceneManager.CurrentScene._renderableComponentQueue.QueueRemove(this);
+    }
+}

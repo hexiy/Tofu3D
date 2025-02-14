@@ -1,8 +1,7 @@
-public abstract class AssetLoadParametersBase
+public class AssetLoadParametersBase
 {
     /// <summary>
     /// Our .asset file, somewhere in /Library/ folder
     /// </summary>
     public string? PathToAssetInLibrary;
-
 }

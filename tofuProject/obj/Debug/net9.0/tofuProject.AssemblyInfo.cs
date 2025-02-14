@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tofuProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4be6599765aaa78b4d5c4a4e476e16421741c181")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+15d503e025e01daf74fbc9c51b22b5dd2be99e8c")]
 [assembly: System.Reflection.AssemblyProductAttribute("tofuProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tofuProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

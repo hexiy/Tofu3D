@@ -97,7 +97,7 @@ public class AssetLoadManager
     /// <param name="folder">By default is Library/Temp and gets wiped when Tofu is closed</param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public T? CreateCopyFile<T>(T original, string? folder = null) where T : AssetBase
+    public T? CreateCopyFile<T>(T original, string? folder = null) where T : Asset<T>
     {
         folder = folder ?? Folders.TempInLibrary;
         string tempFileName =
@@ -275,7 +275,7 @@ public class AssetLoadManager
         LoadedAssets.Clear();
     }
 
-    public void Save<T>(string path, T asset) where T : AssetBase
+    public void Save<T>(string path, T asset) where T : Asset<T>
     {
         int id = GetAssetID<T>(path, asset.AssetLoadParameters, asset.AssetImportParameters); //, typeof(T));
 

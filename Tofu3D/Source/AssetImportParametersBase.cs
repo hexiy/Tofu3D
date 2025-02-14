@@ -1,4 +1,4 @@
-public abstract class AssetImportParametersBase
+public class AssetImportParametersBase
 {
     /// <summary>
     /// Raw asset, .png, .obj, somewhere in /Assets/ folder

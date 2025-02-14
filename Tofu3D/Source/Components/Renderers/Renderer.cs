@@ -391,11 +391,14 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
             return;
         }
 
-        if (ObjectInstancingData.MatrixDirty || GameObject.IsStatic == false || LatestModelMatrix == null)
+        if (ObjectInstancingData?.MatrixDirty==true || GameObject.IsStatic == false || LatestModelMatrix == null)
         {
             LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
             LatestModelMatrix = GetModelMatrix();
-            ObjectInstancingData.MatrixDirty = false;
+            if (ObjectInstancingData != null)
+            {
+                ObjectInstancingData.MatrixDirty = false;
+            }
         }
     }
 

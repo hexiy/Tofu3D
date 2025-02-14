@@ -121,7 +121,7 @@ public static class MousePickingSystem
     // find renderer in Update, so we're not slowing down rendering/inflating the numbers
     public static void Update()
     {
-        if (Tofu.MouseInput.IsMouseInSceneView == false)
+        if (Tofu.MouseInput.IsMouseInSceneView == false || Tofu.MouseInput.IsButtonDown() == false)
         {
             return;
         }
