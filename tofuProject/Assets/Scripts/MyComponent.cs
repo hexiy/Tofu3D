@@ -15,11 +15,9 @@ public class MyComponent : Component, IComponentUpdateable
     {
         Debug.Log("after 3 seconds there should be another message");
         yield return new WaitForSeconds(3);
-        Debug.Log("like this");
-        yield return new WaitForSeconds(1);
-        Debug.Log("and this, now wait for space key press");
+        Debug.Log("like this, now waiting for space key press");
         yield return new WaitWhile(() => KeyboardInput.IsKeyDown(Keys.Space) == false);
-        Debug.Log("space");
+        Debug.Log("space pressed");
         yield return null;
         Debug.Log("after yield return null");
 
