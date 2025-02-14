@@ -277,4 +277,13 @@ public class Debug
     }
 
     public static ref List<LogEntry> GetLogsRef() => ref _logs;
+
+    [Conditional("TOFU_ASSERTIONS")]
+    public static void Assert(bool condition, object? message = null)
+    {
+        if (condition == false)
+        {
+            Debug.LogError($"Assertion failed. {message ?? string.Empty}");
+        }
+    }
 }

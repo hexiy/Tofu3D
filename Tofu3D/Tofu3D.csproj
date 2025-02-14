@@ -39,31 +39,31 @@
         <Configuration>MacOS Release</Configuration>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'MacOS Debug' ">
-      <DefineConstants>TRACE;OS_MACOS</DefineConstants>
+      <DefineConstants>TRACE;OS_MACOS;TOFU_ASSERTIONS;</DefineConstants>
       <DebugSymbols>true</DebugSymbols>
       <OutputPath>bin\MacOS Debug/</OutputPath>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'MacOS Release' ">
-      <DefineConstants>TRACE;OS_MACOS</DefineConstants>
+      <DefineConstants>TRACE;OS_MACOS;TOFU_ASSERTIONS;</DefineConstants>
       <OutputPath>bin\MacOS Release/</OutputPath>
       <Optimize>true</Optimize>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Windows Release' ">
       <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
-      <DefineConstants>TRACE;OS_WINDOWS</DefineConstants>
+      <DefineConstants>TRACE;OS_WINDOWS;TOFU_ASSERTIONS;</DefineConstants>
       <OutputPath>bin\Windows Release/</OutputPath>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Windows Debug' ">
       <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
       <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
-      <DefineConstants>TRACE;OS_WINDOWS</DefineConstants>
+      <DefineConstants>TRACE;OS_WINDOWS;TOFU_ASSERTIONS;</DefineConstants>
       <OutputPath>bin\Windows Debug/</OutputPath>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Linux Debug' ">
-      <DefineConstants>TRACE;OS_LINUX</DefineConstants>
+      <DefineConstants>TRACE;OS_LINUX;TOFU_ASSERTIONS;</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Linux Release' ">
-      <DefineConstants>TRACE;OS_LINUX</DefineConstants>
+      <DefineConstants>TRACE;OS_LINUX;TOFU_ASSERTIONS;</DefineConstants>
       <Optimize>true</Optimize>
     </PropertyGroup>
     <ItemGroup>
