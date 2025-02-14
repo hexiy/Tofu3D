@@ -38,6 +38,16 @@ public class SceneSerializer
             .Where(type => type.IsSubclassOf(typeof(Component))));
 
 
+        // _serializableTypes.AddRange(typeof(AssetLoadParametersBase).Assembly.GetTypes()
+        //     .Where(type =>
+        //         type.IsSubclassOf(typeof(AssetLoadParametersBase))));
+        IEnumerable<Type> assetLoadParametersTypes = typeof(AssetLoadParametersBase).Assembly.GetTypes()
+            .Where(type =>
+                type.IsSubclassOf(typeof(AssetLoadParametersBase)) && type.BaseType != typeof(AssetLoadParametersBase));
+
+        _serializableTypes.AddRange(assetLoadParametersTypes);
+        _serializableTypes.Add(typeof(AssetLoadParametersBase));
+
         _serializableTypes.AddRange(ScriptsManager.ScriptsAssembly.GetTypes()
             .Where(t => t.IsSubclassOf(typeof(Component))));
         // delegates
@@ -255,7 +265,8 @@ public class SceneSerializer
 
                 if (componentName == nameof(MissingComponent))
                 {
-                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(Component), new[] { typeof(MissingComponent) });
+                    XmlSerializer xmlSerializer =
+                        new XmlSerializer(typeof(Component), new[] { typeof(MissingComponent) });
                     string abc = "<Component xsi:type=\"MissingComponent\">";
                     string abc2 =
                         "<Component xsi:type=\"MissingComponent\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">";

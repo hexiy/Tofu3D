@@ -24,6 +24,11 @@ public class SharedInstancingBuffer
     // public required VertexBufferStructureType VertexBufferStructureType { init; get; }
     public InstancedGroupDefinition InstancedGroupDefinition;
 
+    // public SharedInstancingBuffer(Shader shader)
+    // {
+    // }
+    
+
     public SharedInstancingBuffer(InstancedGroupDefinition instancedGroupDefinition)
     {
         // Debug.Log("Initializing Instanced Buffer Data");

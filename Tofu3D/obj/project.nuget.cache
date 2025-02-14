@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8Dj4Mxy6PCg=",
+  "dgSpecHash": "QcQ3mJBOQuQ=",
   "success": true,
   "projectFilePath": "/Users/hexiy/dev/Game Engine dev/Tofu3D/Tofu3D/Tofu3D.csproj",
   "expectedPackageFiles": [
@@ -20,12 +20,10 @@
     "/Users/hexiy/.nuget/packages/microsoft.csharp/4.0.1/microsoft.csharp.4.0.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.dotnet.platformabstractions/2.0.3/microsoft.dotnet.platformabstractions.2.0.3.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.extensions.dependencymodel/2.0.3/microsoft.extensions.dependencymodel.2.0.3.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/microsoft.io.redist/6.0.1/microsoft.io.redist.6.0.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.net.stringtools/17.12.6/microsoft.net.stringtools.17.12.6.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.netcore.platforms/5.0.0/microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.netcore.targets/1.0.1/microsoft.netcore.targets.1.0.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.visualstudio.setup.configuration.interop/3.2.2146/microsoft.visualstudio.setup.configuration.interop.3.2.2146.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/microsoft.win32.registry/5.0.0/microsoft.win32.registry.5.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/microsoft.win32.systemevents/8.0.0-preview.1.23110.8/microsoft.win32.systemevents.8.0.0-preview.1.23110.8.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/nativefiledialogsharp/0.6.0-alpha/nativefiledialogsharp.0.6.0-alpha.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/nativelibraryloader/1.0.12/nativelibraryloader.1.0.12.nupkg.sha512",
@@ -52,7 +50,7 @@
     "/Users/hexiy/.nuget/packages/sharpgen.runtime.com/2.0.0-beta.9/sharpgen.runtime.com.2.0.0-beta.9.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/sixlabors.imagesharp/2.1.3/sixlabors.imagesharp.2.1.3.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.appcontext/4.1.0/system.appcontext.4.1.0.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
+    "/Users/hexiy/.nuget/packages/system.buffers/4.4.0/system.buffers.4.4.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.codedom/9.0.0/system.codedom.9.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.collections/4.0.11/system.collections.4.0.11.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.collections.immutable/8.0.0/system.collections.immutable.8.0.0.nupkg.sha512",
@@ -68,7 +66,7 @@
     "/Users/hexiy/.nuget/packages/system.io.filesystem.primitives/4.0.1/system.io.filesystem.primitives.4.0.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.linq/4.1.0/system.linq.4.1.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.linq.expressions/4.1.0/system.linq.expressions.4.1.0.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/system.memory/4.5.5/system.memory.4.5.5.nupkg.sha512",
+    "/Users/hexiy/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.numerics.vectors/4.4.0/system.numerics.vectors.4.4.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.objectmodel/4.0.12/system.objectmodel.4.0.12.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.reflection/4.1.0/system.reflection.4.1.0.nupkg.sha512",
@@ -82,24 +80,20 @@
     "/Users/hexiy/.nuget/packages/system.reflection.typeextensions/4.1.0/system.reflection.typeextensions.4.1.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.resources.resourcemanager/4.0.1/system.resources.resourcemanager.4.0.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.runtime/4.1.0/system.runtime.4.1.0.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "/Users/hexiy/.nuget/packages/system.runtime.compilerservices.unsafe/5.0.0/system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.runtime.extensions/4.1.0/system.runtime.extensions.4.1.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.runtime.handles/4.0.1/system.runtime.handles.4.0.1.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.runtime.interopservices/4.1.0/system.runtime.interopservices.4.1.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.runtime.interopservices.runtimeinformation/4.0.0/system.runtime.interopservices.runtimeinformation.4.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.runtime.serialization.primitives/4.1.1/system.runtime.serialization.primitives.4.1.1.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/system.security.accesscontrol/5.0.0/system.security.accesscontrol.5.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.security.cryptography.protecteddata/8.0.0/system.security.cryptography.protecteddata.8.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.security.permissions/7.0.0/system.security.permissions.7.0.0.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/system.security.principal.windows/5.0.0/system.security.principal.windows.5.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.text.encoding/4.0.11/system.text.encoding.4.0.11.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.text.encoding.codepages/5.0.0/system.text.encoding.codepages.5.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.text.encoding.extensions/4.0.11/system.text.encoding.extensions.4.0.11.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/system.text.json/8.0.5/system.text.json.8.0.5.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.text.regularexpressions/4.1.0/system.text.regularexpressions.4.1.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.threading/4.0.11/system.threading.4.0.11.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.threading.tasks/4.0.11/system.threading.tasks.4.0.11.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/system.threading.tasks.dataflow/8.0.0/system.threading.tasks.dataflow.8.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.threading.tasks.extensions/4.0.0/system.threading.tasks.extensions.4.0.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.valuetuple/4.5.0/system.valuetuple.4.5.0.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/system.windows.extensions/7.0.0/system.windows.extensions.7.0.0.nupkg.sha512",
@@ -109,10 +103,7 @@
     "/Users/hexiy/.nuget/packages/vortice.mathematics/1.3.21/vortice.mathematics.1.3.21.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/vortice.mediafoundation/1.9.143/vortice.mediafoundation.1.9.143.nupkg.sha512",
     "/Users/hexiy/.nuget/packages/vortice.multimedia/1.9.143/vortice.multimedia.1.9.143.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/vortice.xaudio2/1.9.143/vortice.xaudio2.1.9.143.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/microsoft.netcore.app.ref/8.0.11/microsoft.netcore.app.ref.8.0.11.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.11/microsoft.aspnetcore.app.ref.8.0.11.nupkg.sha512",
-    "/Users/hexiy/.nuget/packages/microsoft.netcore.app.host.osx-arm64/8.0.11/microsoft.netcore.app.host.osx-arm64.8.0.11.nupkg.sha512"
+    "/Users/hexiy/.nuget/packages/vortice.xaudio2/1.9.143/vortice.xaudio2.1.9.143.nupkg.sha512"
   ],
   "logs": [
     {
@@ -122,7 +113,7 @@
       "message": "Tofu3D depends on Microsoft.Build.Utilities.Core (>= 17.6.2) but Microsoft.Build.Utilities.Core 17.6.2 was not found. Microsoft.Build.Utilities.Core 17.6.3 was resolved instead.",
       "libraryId": "Microsoft.Build.Utilities.Core",
       "targetGraphs": [
-        "net8.0"
+        "net9.0"
       ]
     },
     {
@@ -132,7 +123,7 @@
       "message": "Package 'Newtonsoft.Json' 9.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
       "libraryId": "Newtonsoft.Json",
       "targetGraphs": [
-        "net8.0"
+        "net9.0"
       ]
     },
     {
@@ -142,7 +133,7 @@
       "message": "Package 'SixLabors.ImageSharp' 2.1.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-5x7m-6737-26cr",
       "libraryId": "SixLabors.ImageSharp",
       "targetGraphs": [
-        "net8.0"
+        "net9.0"
       ]
     },
     {
@@ -152,7 +143,7 @@
       "message": "Package 'SixLabors.ImageSharp' 2.1.3 has a known high severity vulnerability, https://github.com/advisories/GHSA-63p8-c4ww-9cg7",
       "libraryId": "SixLabors.ImageSharp",
       "targetGraphs": [
-        "net8.0"
+        "net9.0"
       ]
     },
     {
@@ -162,7 +153,7 @@
       "message": "Package 'SixLabors.ImageSharp' 2.1.3 has a known high severity vulnerability, https://github.com/advisories/GHSA-65x7-c272-7g7r",
       "libraryId": "SixLabors.ImageSharp",
       "targetGraphs": [
-        "net8.0"
+        "net9.0"
       ]
     },
     {
@@ -172,7 +163,7 @@
       "message": "Package 'SixLabors.ImageSharp' 2.1.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-g85r-6x2q-45w7",
       "libraryId": "SixLabors.ImageSharp",
       "targetGraphs": [
-        "net8.0"
+        "net9.0"
       ]
     },
     {
@@ -182,37 +173,17 @@
       "message": "Package 'SixLabors.ImageSharp' 2.1.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-qxrv-gp6x-rc23",
       "libraryId": "SixLabors.ImageSharp",
       "targetGraphs": [
-        "net8.0"
+        "net9.0"
       ]
     },
     {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'LibNoise 0.2.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "message": "Package 'LibNoise 0.2.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net9.0'. This package may not be fully compatible with your project.",
       "libraryId": "LibNoise",
       "targetGraphs": [
-        "net8.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'Microsoft.Build 17.12.6' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
-      "libraryId": "Microsoft.Build",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'Microsoft.IO.Redist 6.0.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
-      "libraryId": "Microsoft.IO.Redist",
-      "targetGraphs": [
-        "net8.0"
+        "net9.0"
       ]
     }
   ]

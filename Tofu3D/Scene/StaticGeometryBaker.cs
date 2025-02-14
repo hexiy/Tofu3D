@@ -2,26 +2,29 @@
 
 public class StaticGeometryBaker
 {
-    public int VAO = -1;
-    public int VBO = -1;
-    private int EBO = -1;
-    public float[] GeometryBuffer = [];
-    public float[] InstancedBuffer = [];
-    public HashSet<MeshVertexDataHashCode> BakedMeshesCodes = new HashSet<MeshVertexDataHashCode>();
-    private SharedInstancingBuffer _instancingBuffer;
-    private int _instancedVertexDataSizeInBytes =
-        sizeof(float) * 3 * 4 // 4x vec 3's for model_1 model_2 model_3 model_4
-        + (sizeof(float)) // 1 float(int) for mouse picking id
-        + (sizeof(float) * 4 // 4 floats for albedo texture bounding box in atlas+atlas index packed in there
-        );
+    public Dictionary<int, SharedInstancingBuffer> SharedInstancingBuffers =
+        new Dictionary<int, SharedInstancingBuffer>();
 
-    public int VerticesCount => GeometryBuffer.Length / 14;
-    public int InstancesCount => BakedMeshesCodes.Count;
+    public float[] GeometryBuffer = [];
+    public HashSet<MeshVertexDataHashCode> BakedMeshesCodes = new HashSet<MeshVertexDataHashCode>();
 
     public StaticGeometryBaker()
     {
-        InstancedGroupDefinition
-        _instancingBuffer = new SharedInstancingBuffer();
+    }
+
+
+    private SharedInstancingBuffer GetOrCreateInstancingBufferByShader(Shader shader)
+    {
+        if (SharedInstancingBuffers.TryGetValue(shader.ProgramId, out SharedInstancingBuffer buffer))
+        {
+            return buffer;
+        }
+        else
+        {
+            SharedInstancingBuffer buff = new SharedInstancingBuffer(shader);
+            buff.
+            return SharedInstancingBuffers[shader.ProgramId] = ;
+        }
     }
 
     public void AddMesh(Mesh mesh, Renderer renderer, InstancedRenderingBufferParameters bufferParameters)
@@ -37,7 +40,9 @@ public class StaticGeometryBaker
             return;
         }
 
-        bufferParameters.StartingIndexInInstancedBuffer = InstancedBuffer.Length;
+        SharedInstancingBuffer InstancingBuffer = GetOrCreateInstancingBufferByShader(renderer.Material.Shader);
+
+        bufferParameters.StartingIndexInInstancedBuffer = InstancingBuffer.Length;
 
 
         int newGeometryBufferDataArraySize = GeometryBuffer.Length + mesh.GeometryBufferData.Length;
@@ -50,10 +55,10 @@ public class StaticGeometryBaker
 
         CreateGeometryBuffer();
 
-        int newInstancedBufferSize = InstancedBuffer.Length + (_instancedVertexDataSizeInBytes / sizeof(float));
-        Array.Resize(ref InstancedBuffer, newInstancedBufferSize);
+        int newInstancedBufferSize = InstancingBuffer.Length + (_instancedVertexDataSizeInBytes / sizeof(float));
+        Array.Resize(ref InstancingBuffer, newInstancedBufferSize);
 
-        Tofu.InstancedRenderingSystem.CopyObjectDataToBuffer(ref InstancedBuffer, bufferParameters);
+        Tofu.InstancedRenderingSystem.CopyObjectDataToBuffer(ref InstancingBuffer, bufferParameters);
         Debug.Log($"Added new mesh to static buffer, number of meshes:{BakedMeshesCodes.Count}");
 
 
@@ -65,89 +70,5 @@ public class StaticGeometryBaker
         int[] countsOfElements = { 3, 2, 3, 3, 3 }; // position, uv, normal, tangent, bitangent
         BufferFactory.CreateGeometryBuffer(ref VAO, ref EBO, GeometryBuffer,
             countsOfElements);
-    }
-
-
-    public void UploadInstancedBuffer()
-    {
-        Tofu.ShaderManager.BindVertexArray(VAO);
-
-
-        var newBuffer = VBO == -1;
-        if (newBuffer)
-        {
-            VBO = GL.GenBuffer();
-        }
-
-        GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
-
-        {
-            // https://stackoverflow.com/a/28597384
-            int offset = 0;
-            int vertexAttribPointerIndex = 5;
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
-                _instancedVertexDataSizeInBytes,
-                offset);
-            offset += 3 * sizeof(float);
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
-                _instancedVertexDataSizeInBytes,
-                offset);
-            offset += 3 * sizeof(float);
-
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
-                _instancedVertexDataSizeInBytes,
-                offset);
-            offset += 3 * sizeof(float);
-
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 3, VertexAttribPointerType.Float, false,
-                _instancedVertexDataSizeInBytes,
-                offset);
-            offset += 3 * sizeof(float);
-
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 1, VertexAttribPointerType.Float, false,
-                _instancedVertexDataSizeInBytes,
-                offset);
-            offset += 1 * sizeof(float);
-
-
-            // albedo bounding box in atlas
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 4, VertexAttribPointerType.Float, false,
-                _instancedVertexDataSizeInBytes,
-                offset);
-            offset += 4 * sizeof(float);
-
-            // atlas index of albedo texture
-            GL.VertexAttribPointer(vertexAttribPointerIndex++, 1, VertexAttribPointerType.Float, false,
-                _instancedVertexDataSizeInBytes,
-                offset);
-            offset += 1 * sizeof(float);
-        }
-
-        // unique attribs for each instance
-        int vertexAttribArrayIndex = 5;
-        GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-        GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-        GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-        GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-        GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-        GL.EnableVertexAttribArray(vertexAttribArrayIndex++); // albedo texture bounds in atlas
-        GL.EnableVertexAttribArray(vertexAttribArrayIndex++); // atlas index of albedo texture
-
-        if (newBuffer)
-        {
-            int vertexAttribDivisorIndex = 5;
-
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-            GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-        }
-
-        GL.BufferData(BufferTarget.ArrayBuffer,
-            sizeof(float) * InstancedBuffer.Length,
-            InstancedBuffer, BufferUsageHint.StaticDraw);
     }
 }*/
