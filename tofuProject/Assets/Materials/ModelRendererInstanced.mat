@@ -66,7 +66,7 @@
   "NoDepth": false,
   "AssetImportParameters": {
     "PathToSourceAsset": "Assets/Materials/ModelRendererInstanced.mat",
-    "AssetID": 1298015549
+    "AssetID": 243001915
   },
   "AssetLoadParameters": null,
   "IsRuntimeCopy": false,
@@ -75,4 +75,4 @@
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
 }ModelRendererInstanced.mat"
-}}
+}}}
