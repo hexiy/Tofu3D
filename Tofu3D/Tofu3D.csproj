@@ -11,7 +11,7 @@
         <Configurations>MacOS Debug;MacOS Release;Windows Release;Windows Debug;Linux Debug;Linux Release</Configurations>
         <Platforms>AnyCPU</Platforms>
 
-        <RuntimeIdentifier>osx-arm64</RuntimeIdentifier>
+<!--        <RuntimeIdentifier>osx-arm64</RuntimeIdentifier>-->
         <PublishSingleFile>true</PublishSingleFile>
         <SelfContained>true</SelfContained>
         <!--        <PublishTrimmed>true</PublishTrimmed>-->
