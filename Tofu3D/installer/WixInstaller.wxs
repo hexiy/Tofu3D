@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <package
+            name="YourAppName"
+            manufacturer="YourCompany"
+            version="1.0.0.0"
+            upgrade-code="{REPLACE-WITH-UNIQUE-GUID}">
+
+        <target-defaults>
+            <product-database
+                    name="YourProduct.msi"
+                    manufacturer="YourCompany"/>
+        </target-defaults>
+
+        <!-- Multi-Architecture Support -->
+        <bundle>
+            <chain>
+                <package-group id="NetRuntime">
+                    <payload name=".NET Runtime"
+                             source="path/to/dotnet/runtime"/>
+                </package-group>
+
+                <package-group id="MainApp">
+                    <package
+                            id="x64Package"
+                            arch="x64"
+                            source="path/to/x64/publish"/>
+                    <package
+                            id="arm64Package"
+                            arch="arm64"
+                            source="path/to/arm64/publish"/>
+                </package-group>
+            </chain>
+        </bundle>
+    </package>
+</wix>
