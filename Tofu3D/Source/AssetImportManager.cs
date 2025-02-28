@@ -29,6 +29,7 @@ public class AssetImportManager
         // Tofu.AssetLoadManager.Unload(rawAssetPath);
 
         string rawAssetFileName = Path.GetFileName(rawAssetPath); // with extension
+        Console.WriteLine($"rawAssetPath:{rawAssetPath}");
 
         string importParametersFilePath = AssetPathExtensions.GetPathOfImportParametersOfSourceAssetFile(rawAssetPath);
         string assetFileInLibraryPath =
@@ -77,7 +78,7 @@ public class AssetImportManager
 
 
         bool assetImportParametersFileExistsForThisAsset = File.Exists(importParametersFilePath);
-        const bool FORCE_NEW_IMPORT_PARAMETERS = false;
+        const bool FORCE_NEW_IMPORT_PARAMETERS = true;
         if (FORCE_NEW_IMPORT_PARAMETERS)
         {
             assetImportParametersFileExistsForThisAsset = false;
@@ -241,6 +242,13 @@ public class AssetImportManager
         List<string> allPaths = new List<string>();
         allPaths.AddRange(Directory.GetFiles(Folders.Assets, "", SearchOption.AllDirectories));
         allPaths.AddRange(Directory.GetFiles(Folders.Resources, "", SearchOption.AllDirectories));
+
+        Console.WriteLine("****** ImportAllTextures at paths ");
+        allPaths.ForEach((s) => Console.WriteLine(s));
+        Console.WriteLine("******");
+        Debug.Log($"Environment.CurrentDirectory(should be project path):{Environment.CurrentDirectory}");
+        Environment.CurrentDirectory = Folders.ProjectFullPath;
+        Debug.Log($"Environment.CurrentDirectory(now?):{Environment.CurrentDirectory}");
 
         foreach (string rawAssetPath in allPaths)
         {

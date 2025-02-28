@@ -48,7 +48,8 @@ echo "Universal binary created successfully"
 
 # Handle .dylib files
 echo "Creating universal .dylib libraries..."
-cp "$DOTNETBUILDDIR/osx-arm64/publish/runtimes/osx-arm64/native/cimgui.dylib" "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/Contents/Frameworks/cimgui.dylib"
+cp "$DOTNETBUILDDIR/osx-arm64/cimgui.dylib" "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/Contents/Frameworks/cimgui.dylib"
+#cp "$DOTNETBUILDDIR/osx-arm64/publish/runtimes/osx-arm64/native/cimgui.dylib" "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/Contents/Frameworks/cimgui.dylib"
     
 for dylib in "$DOTNETBUILDDIR/osx-arm64/publish/"*.dylib; do
     base_name=$(basename "$dylib") # Extract the file name (e.g., libSkiaSharp.dylib)

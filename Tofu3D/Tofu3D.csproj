@@ -92,7 +92,7 @@
         <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3"/>
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup Condition="$(Configuration.Contains('MacOS'))">
         <None Remove="runtimes\osx-arm64\native\cimgui.dylib"/>
         <AdditionalFiles Include="runtimes\osx-arm64\native\cimgui.dylib">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -103,6 +103,20 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <Link>glfw.dylib</Link>
         </AdditionalFiles>
+    </ItemGroup>
+
+
+    <ItemGroup Condition="$(Configuration.Contains('Windows'))">
+    </ItemGroup>
+
+    <ItemGroup Condition="$(Configuration.Contains('Linux'))">
+    </ItemGroup>
+
+
+
+
+
+    <ItemGroup>
         <None Update="EditorResources\ScriptTemplates\ComponentScriptTemplate.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>

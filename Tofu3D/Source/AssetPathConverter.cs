@@ -18,7 +18,6 @@ public static class AssetPathConverter
 
         // return Path.Combine(Folders.ProjectFullPath, path);
 
-
         return Path.GetRelativePath(Folders.ProjectFullPath, path);
     }
 }

@@ -19,12 +19,12 @@ public static class SystemConfig
         //     Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
         // for macos only
-        Folders.EditorResources =Path.Combine(AppContext.BaseDirectory, "../Resources/EditorResources");
+        Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "../Resources/EditorResources");
         if (Directory.Exists(Folders.EditorResources) == false)
         {
-            Folders.EditorResources =Path.Combine(AppContext.BaseDirectory, "../../../../EditorResources");
- 
+            Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "../../../../EditorResources");
         }
+
         Debug.Log($"Folders.EditorResources:{Folders.EditorResources}");
 
         // DirectoryInfo directoryInfo = Directory.GetParent(Environment.CurrentDirectory);
@@ -41,7 +41,6 @@ public static class SystemConfig
         string projectFullPath = "/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject";
 
         Folders.ProjectFullPath = projectFullPath;
-
         Environment.CurrentDirectory = Folders.ProjectFullPath;
     }
 }
