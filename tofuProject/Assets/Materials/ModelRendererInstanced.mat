@@ -2,28 +2,10 @@
   "Shader": {
     "BufferType": 2,
     "Path": "Assets/Shaders/ModelRendererInstanced.glsl",
-    "AtlasUniformIsSet": true
+    "AtlasUniformIsSet": false
   },
   "Additive": false,
-  "AlbedoTexture": {
-    "BoundingBoxInAtlas": {
-      "X": 0.0,
-      "Y": 0.50048876,
-      "Z": 0.062561095,
-      "W": 0.56304985
-    },
-    "IndexInAtlasTextureArray": 0,
-    "AssetImportParameters": null,
-    "AssetLoadParameters": {
-      "PathToAssetInLibrary": "Library/Textures/particle.png.tofutexture"
-    },
-    "IsRuntimeCopy": false,
-    "DataIsCompressed": false,
-    "AtlasGLTextureArrayId": 1,
-    "PathInAssetsFolder": "Assets/2D/particle.png",
-    "PathInLibraryFolder": "Library/Textures/particle.png.tofutexture",
-    "AnyPath": "Assets/2D/particle.png"
-  },
+  "AlbedoTexture": null,
   "AlphaMaskTexture": null,
   "AlbedoColor": {
     "B": 255,
@@ -31,7 +13,7 @@
     "R": 255,
     "A": 255
   },
-  "ObjectSelected": true,
+  "ObjectSelected": false,
   "AmbientOcclusionTexture": null,
   "NormalTexture": null,
   "RoughnessTexture": null,
@@ -66,7 +48,7 @@
   "NoDepth": false,
   "AssetImportParameters": {
     "PathToSourceAsset": "Assets/Materials/ModelRendererInstanced.mat",
-    "AssetID": 243001915
+    "AssetID": 2068203811
   },
   "AssetLoadParameters": null,
   "IsRuntimeCopy": false,
@@ -74,5 +56,4 @@
   "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
   "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
   "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
-}ModelRendererInstanced.mat"
-}}}
+}

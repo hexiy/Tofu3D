@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.InteropServices;
 using Microsoft.Build.Locator;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -71,7 +72,7 @@ internal static class Tofu
         Global.LoadSavedData();
         Folders.CreateDefaultFolders();
 
-        ScriptsManager.CopyDllsToProjectFolder();
+        // ScriptsManager.CopyDllsToProjectFolder();
         ScriptsManager.CompileScriptsAssembly();
 
         UserCodeEditorOpener = new UserCodeEditorOpener();

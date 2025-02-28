@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 VERSION="0.0.1"
 
 BUILDS_DIR="./builds/$VERSION"

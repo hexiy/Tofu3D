@@ -5,7 +5,7 @@ BUILDS_DIR=$1
 cd $BUILDS_DIR
 VERSION=$2
 PROJECT_NAME="Tofu3D"
-DOTNETBUILDDIR="../../../bin/MacOS Release/net9.0"
+DOTNETBUILDDIR="../../../bin/MacOS Debug/net9.0"
 FINAL_OUTPUT_DIR="tofu3d_${VERSION}_macos_universal"
 
 # libraries to exclude from lipo-since they are already x64 and arm64
@@ -24,7 +24,7 @@ is_excluded() {
 build_for_architecture() {
     local arch=$1
     echo "Building for $arch..."
-    dotnet publish "../../../Tofu3D.csproj" -r osx-$arch -c "MacOS Release" --self-contained
+    dotnet publish "../../../Tofu3D.csproj" -r osx-$arch -c "MacOS Debug" --self-contained
 #     --verbosity m
 }
 
@@ -48,6 +48,8 @@ echo "Universal binary created successfully"
 
 # Handle .dylib files
 echo "Creating universal .dylib libraries..."
+cp "$DOTNETBUILDDIR/osx-arm64/publish/runtimes/osx-arm64/native/cimgui.dylib" "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/Contents/Frameworks/cimgui.dylib"
+    
 for dylib in "$DOTNETBUILDDIR/osx-arm64/publish/"*.dylib; do
     base_name=$(basename "$dylib") # Extract the file name (e.g., libSkiaSharp.dylib)
 
@@ -73,7 +75,9 @@ echo "Packaging app resources..."
 mkdir -p "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/Contents/Resources"
 cp ../../Info.plist "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/Contents/"
 cp ../../tofu_icon.icns "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/Contents/Resources/"
+cp -R ../../../EditorResources "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/Contents/Resources/"
 
+cp "$DOTNETBUILDDIR/osx-arm64/Tofu3D.dll" "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/Contents/Resources/EditorResources"
 # Sign the app (optional for local testing)
 echo "Signing the app bundle..."
 codesign --force --deep --sign - "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app"
@@ -85,3 +89,5 @@ codesign --force --deep --sign - "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app"
 echo "Final universal app bundle created at: $FINAL_OUTPUT_DIR/$PROJECT_NAME.app"
 
 #open "$FINAL_OUTPUT_DIR"
+
+open "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/Contents/MacOS/Tofu3D"

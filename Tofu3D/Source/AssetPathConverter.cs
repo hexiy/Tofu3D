@@ -11,6 +11,14 @@ public static class AssetPathConverter
             return path;
         }
 
-        return Path.GetRelativePath(Environment.CurrentDirectory, path);
+        // if (Path.IsPathRooted(path))
+        // {
+        //     return path;
+        // }
+
+        // return Path.Combine(Folders.ProjectFullPath, path);
+
+
+        return Path.GetRelativePath(Folders.ProjectFullPath, path);
     }
 }

@@ -8,7 +8,7 @@ public static class TofuPath
         Project,
         Library,
         Assets,
-        Engine
+        // Engine
     }
 
     public static string Combine(params string[] paths)
@@ -36,10 +36,10 @@ public static class TofuPath
         {
             relativeTo = Folders.Assets;
         }
-        else if (pathScope == PathScope.Engine)
-        {
-            relativeTo = Folders.EngineBinPath;
-        }
+        // else if (pathScope == PathScope.Engine)
+        // {
+        //     relativeTo = Folders.EngineBinPath;
+        // }
 
         return CombineRelativeTo(relativeTo, paths);
     }

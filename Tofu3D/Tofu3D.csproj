@@ -14,24 +14,28 @@
         <RuntimeIdentifier>osx-arm64</RuntimeIdentifier>
         <PublishSingleFile>true</PublishSingleFile>
         <SelfContained>true</SelfContained>
-        <PublishTrimmed>true</PublishTrimmed>
+        <!--        <PublishTrimmed>true</PublishTrimmed>-->
         <PublishReadyToRun>true</PublishReadyToRun>
+
+        <DebugType>portable</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+
     </PropertyGroup>
     <PropertyGroup>
         <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BepuPhysics" Version="2.5.0-beta.24" />
-        <PackageReference Include="BepuUtilities" Version="2.5.0-beta.24" />
-        <PackageReference Include="LibNoise" Version="0.2.0" />
+        <PackageReference Include="BepuPhysics" Version="2.5.0-beta.24"/>
+        <PackageReference Include="BepuUtilities" Version="2.5.0-beta.24"/>
+        <PackageReference Include="LibNoise" Version="0.2.0"/>
         <PackageReference Include="Microsoft.Build" Version="17.12.6">
             <ExcludeAssets>runtime</ExcludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.6.2">
             <ExcludeAssets>runtime</ExcludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Build.Locator" Version="1.7.8" >
+        <PackageReference Include="Microsoft.Build.Locator" Version="1.7.8">
         </PackageReference>
     </ItemGroup>
     <PropertyGroup>
@@ -45,57 +49,63 @@
         <Configuration>MacOS Release</Configuration>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'MacOS Debug' ">
-      <DefineConstants>TRACE;OS_MACOS;TOFU_ASSERTIONS;</DefineConstants>
-      <DebugSymbols>true</DebugSymbols>
-      <OutputPath>bin\MacOS Debug/</OutputPath>
+        <DefineConstants>TRACE;OS_MACOS;TOFU_ASSERTIONS;</DefineConstants>
+        <DebugSymbols>true</DebugSymbols>
+        <OutputPath>bin\MacOS Debug/</OutputPath>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'MacOS Release' ">
-      <DefineConstants>TRACE;OS_MACOS;TOFU_ASSERTIONS;</DefineConstants>
-      <OutputPath>bin\MacOS Release/</OutputPath>
-      <Optimize>true</Optimize>
+        <DefineConstants>TRACE;OS_MACOS;TOFU_ASSERTIONS;</DefineConstants>
+        <OutputPath>bin\MacOS Release/</OutputPath>
+        <Optimize>true</Optimize>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Windows Release' ">
-      <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
-      <DefineConstants>TRACE;OS_WINDOWS;TOFU_ASSERTIONS;</DefineConstants>
-      <OutputPath>bin\Windows Release/</OutputPath>
+        <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
+        <DefineConstants>TRACE;OS_WINDOWS;TOFU_ASSERTIONS;</DefineConstants>
+        <OutputPath>bin\Windows Release/</OutputPath>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Windows Debug' ">
-      <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
-      <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
-      <DefineConstants>TRACE;OS_WINDOWS;TOFU_ASSERTIONS;</DefineConstants>
-      <OutputPath>bin\Windows Debug/</OutputPath>
+        <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
+        <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
+        <DefineConstants>TRACE;OS_WINDOWS;TOFU_ASSERTIONS;</DefineConstants>
+        <OutputPath>bin\Windows Debug/</OutputPath>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Linux Debug' ">
-      <DefineConstants>TRACE;OS_LINUX;TOFU_ASSERTIONS;</DefineConstants>
+        <DefineConstants>TRACE;OS_LINUX;TOFU_ASSERTIONS;</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Linux Release' ">
-      <DefineConstants>TRACE;OS_LINUX;TOFU_ASSERTIONS;</DefineConstants>
-      <Optimize>true</Optimize>
+        <DefineConstants>TRACE;OS_LINUX;TOFU_ASSERTIONS;</DefineConstants>
+        <Optimize>true</Optimize>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="ImGui.NET" Version="1.87.3"/>
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
-        <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="2.0.3" />
-        <PackageReference Include="NativeFileDialogSharp" Version="0.6.0-alpha" />
-        <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0"/>
+        <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="2.0.3"/>
+        <PackageReference Include="NativeFileDialogSharp" Version="0.6.0-alpha"/>
+        <PackageReference Include="Newtonsoft.Json" Version="9.0.1"/>
         <PackageReference Include="OpenTK" Version="4.7.4"/>
         <PackageReference Include="OpenTK.redist.glfw" Version="3.3.7.27"/>
-        <PackageReference Include="RectpackSharp" Version="1.2.0" />
-        <PackageReference Include="SharpAudio" Version="1.0.65-beta" />
-        <PackageReference Include="SharpAudio.Codec" Version="1.0.65-beta" />
-        <PackageReference Include="System.CodeDom" Version="9.0.0" />
+        <PackageReference Include="RectpackSharp" Version="1.2.0"/>
+        <PackageReference Include="SharpAudio" Version="1.0.65-beta"/>
+        <PackageReference Include="SharpAudio.Codec" Version="1.0.65-beta"/>
+        <PackageReference Include="System.CodeDom" Version="9.0.0"/>
         <PackageReference Include="System.Drawing.Common" Version="8.0.0-preview.1.23110.8"/>
         <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="runtimes\osx-arm64\native\cimgui.dylib" />
-      <AdditionalFiles Include="runtimes\osx-arm64\native\cimgui.dylib">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Update="EditorResources\ScriptTemplates\ComponentScriptTemplate.txt">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+        <None Remove="runtimes\osx-arm64\native\cimgui.dylib"/>
+        <AdditionalFiles Include="runtimes\osx-arm64\native\cimgui.dylib">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <Link>cimgui.dylib</Link>
+        </AdditionalFiles>
+        <None Remove="runtimes\osx-arm64\native\libglfw.dylib"/>
+        <AdditionalFiles Include="runtimes\osx-arm64\native\libglfw.dylib">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <Link>glfw.dylib</Link>
+        </AdditionalFiles>
+        <None Update="EditorResources\ScriptTemplates\ComponentScriptTemplate.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
