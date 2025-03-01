@@ -1,0 +1,26 @@
+﻿{
+  "Mesh": {
+    "CountsOfElements": [
+      3,
+      2,
+      3,
+      3,
+      3
+    ],
+    "VerticesCount": 24,
+    "Name": "Cube",
+    "PathToObjMaterial": null,
+    "PathInAssetsFolder": null,
+    "PathInLibraryFolder": "Library/Meshes/defaultCube.obj_0.tofumesh"
+  },
+  "ByteIndices": "LcZHEoQADMAw0XvdBf7/UyZDfJGhQOkrrFCjQZsfdugxYMwPJ8xYsOaHG3YcOPPDH/64cOeHD14=",
+  "ByteGeometryBufferData": "ndQBDoUgCAbg/yidJOsmHYWb9bpZM6BHRgW6uTbnlygoQAXcV2AoAGonHqtfbLi3meerW3pcYTdFncZZOM6UkzV/49+dVuYdzfzjab1Pt14dZZyJs9fpmNqL07bd40w7qRcaE076sb8Oh7o/zbva1rR5l/XSrqmXT2fygIxz4rS5d8/F3gdzb1PO1HXYNedCEefk/azrejbWGe/VWcg9vGch59TLu9sB",
+  "UsesIndices": true,
+  "AssetImportParameters": null,
+  "AssetLoadParameters": null,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": null,
+  "PathInLibraryFolder": "Library/Meshes/defaultCube.obj_0.tofumesh",
+  "AnyPath": "Library/Meshes/defaultCube.obj_0.tofumesh"
+}

@@ -1,0 +1,19 @@
+﻿{
+  "PathsToMeshAssets": [
+    "Library/Meshes/sphere.obj_0.tofumesh",
+    "Library/Meshes/sphere.obj_1.tofumesh"
+  ],
+  "AssetImportParameters": {
+    "ImportAsSingleMesh": false,
+    "SmoothNormals": false,
+    "Scale": 1.0,
+    "PathToSourceAsset": "Assets/3D/Basic/sphere.obj",
+    "AssetID": 732911695
+  },
+  "AssetLoadParameters": null,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/3D/Basic/sphere.obj",
+  "PathInLibraryFolder": "Assets/3D/Basic/sphere.obj",
+  "AnyPath": "Assets/3D/Basic/sphere.obj"
+}

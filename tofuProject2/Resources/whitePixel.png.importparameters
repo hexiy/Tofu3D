@@ -1,0 +1,13 @@
+﻿{
+  "PathToSourceAsset": "Resources/whitePixel.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": -1381301073
+}hToSourceAsset>Resources/whitePixel.png</PathToSourceAsset>
+  <FilterMode>Bilinear</FilterMode>
+  <WrapMode>Repeat</WrapMode>
+  <IsSrgb>false</IsSrgb>
+  <BlackIsTransparency>false</BlackIsTransparency>
+</AssetImportParameters_Texture>

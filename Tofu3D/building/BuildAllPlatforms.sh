@@ -33,9 +33,9 @@ build_for_platform() {
 }
 
 echo "Building "
-#build_for_platform "win-x64" "win_x64" "Windows Release"
+build_for_platform "win-x64" "win_x64" "Windows Release"
 #build_for_platform "win-arm64" "win_arm64" "Windows Release"
-#build_for_platform "linux-x64" "linux_x64" "Linux Release"
+build_for_platform "linux-x64" "linux_x64" "Linux Release"
 #build_for_platform "linux-arm64" "linux_arm64" "Linux Release"
 #
 cd ../..

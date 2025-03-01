@@ -1,0 +1,13 @@
+﻿{
+  "PathToSourceAsset": "Resources/FileIcon.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": -23776194
+}}PathToSourceAsset>Resources/FileIcon.png</PathToSourceAsset>
+  <FilterMode>Bilinear</FilterMode>
+  <WrapMode>Repeat</WrapMode>
+  <IsSrgb>false</IsSrgb>
+  <BlackIsTransparency>false</BlackIsTransparency>
+</AssetImportParameters_Texture>

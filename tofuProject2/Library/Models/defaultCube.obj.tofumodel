@@ -1,0 +1,19 @@
+﻿{
+  "PathsToMeshAssets": [
+    "Library/Meshes/defaultCube.obj_0.tofumesh",
+    "Library/Meshes/defaultCube.obj_1.tofumesh"
+  ],
+  "AssetImportParameters": {
+    "ImportAsSingleMesh": false,
+    "SmoothNormals": false,
+    "Scale": 1.0,
+    "PathToSourceAsset": "Assets/3D/Basic/defaultCube.obj",
+    "AssetID": 1160516906
+  },
+  "AssetLoadParameters": null,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/3D/Basic/defaultCube.obj",
+  "PathInLibraryFolder": "Assets/3D/Basic/defaultCube.obj",
+  "AnyPath": "Assets/3D/Basic/defaultCube.obj"
+}

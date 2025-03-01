@@ -1,0 +1,29 @@
+﻿{
+  "Pixels": "+////38A",
+  "TextureSize": {
+    "X": 1.0,
+    "Y": 1.0
+  },
+  "AtlasPath": null,
+  "BoundingBoxInAtlas": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0,
+    "W": 0.0
+  },
+  "IndexInAtlasTextureArray": 0,
+  "AssetImportParameters": {
+    "PathToSourceAsset": "Resources/whitePixel.png",
+    "FilterMode": 9729,
+    "WrapMode": 10497,
+    "IsSrgb": false,
+    "BlackIsTransparency": false,
+    "AssetID": -1381301073
+  },
+  "AssetLoadParameters": null,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": "Resources/whitePixel.png",
+  "PathInLibraryFolder": "Library/Textures/whitePixel.png.tofutexture",
+  "AnyPath": "Resources/whitePixel.png"
+}

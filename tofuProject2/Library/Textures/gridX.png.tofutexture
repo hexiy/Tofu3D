@@ -1,0 +1,29 @@
+﻿{
+  "Pixels": "7dHBDYAADAOx7r90EU8m4FTZEyS6mRt2d//ewJcmPZr0aNKjSY8mPZr0aNKjSY8mPZr0aNKjSY8mPZr0aNKjSY8mPZr0aNKjSY8mPZr0aNKjSY8mPZr0aNKjSY8mPZr0aNKjSY8mPZr0aNKjSY8mPZr0aNKjSY8mPZr0aNKjSY8mPZr0aNKjSc+lJu8XWuaIS1+u0KRHkx5NejTp0aRHkx5NejTp0aRHkx5NejTp0aRHkx5NejTp0aRHkx5NejTp0aRHkx5NejTp0aRHkx5NejTp0aRHkx5NejTp0aRHkx5NejTp0aRHkx5NejTp0aRHkx5NejTp0aRHkx5NejTp2UNNHg==",
+  "TextureSize": {
+    "X": 101.0,
+    "Y": 101.0
+  },
+  "AtlasPath": null,
+  "BoundingBoxInAtlas": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0,
+    "W": 0.0
+  },
+  "IndexInAtlasTextureArray": 0,
+  "AssetImportParameters": {
+    "PathToSourceAsset": "Assets/2D/gridX.png",
+    "FilterMode": 9729,
+    "WrapMode": 10497,
+    "IsSrgb": false,
+    "BlackIsTransparency": false,
+    "AssetID": 61416942
+  },
+  "AssetLoadParameters": null,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": "Assets/2D/gridX.png",
+  "PathInLibraryFolder": "Library/Textures/gridX.png.tofutexture",
+  "AnyPath": "Assets/2D/gridX.png"
+}

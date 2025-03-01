@@ -83,12 +83,12 @@ cp "$DOTNETBUILDDIR/osx-arm64/Tofu3D.dll" "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/C
 echo "Signing the app bundle..."
 codesign --force --deep --sign - "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app"
 
-#cd "$FINAL_OUTPUT_DIR"
-#zip -r "../tofu3d_${VERSION}_macos_universal.zip" "$PROJECT_NAME.app"
-#cd -
+cd "$FINAL_OUTPUT_DIR"
+zip -r "../tofu3d_${VERSION}_macos_universal.zip" "$PROJECT_NAME.app"
+cd -
 
 echo "Final universal app bundle created at: $FINAL_OUTPUT_DIR/$PROJECT_NAME.app"
 
 #open "$FINAL_OUTPUT_DIR"
 
-open "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/Contents/MacOS/Tofu3D"
+#open "$FINAL_OUTPUT_DIR/$PROJECT_NAME.app/Contents/MacOS/Tofu3D"

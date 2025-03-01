@@ -3,17 +3,17 @@
 <plist version="1.0">
     <dict>
         <key>CFBundleName</key>
-        <string>TofuHub</string>
+        <string>Tofu3D</string>
         <key>CFBundleIdentifier</key>
-        <string>com.hexiy.tofuhub</string>
+        <string>com.hexiy.tofuengine</string>
         <key>CFBundleVersion</key>
-        <string>0.1</string>
+        <string>0.0.1</string>
         <key>CFBundlePackageType</key>
         <string>APPL</string>
         <key>CFBundleSignature</key>
         <string>TOFU</string>
         <key>CFBundleExecutable</key>
-        <string>TofuHub</string>
+        <string>Tofu3D</string>
         <key>CFBundleIconFile</key>
         <string>tofu_icon.icns</string>
     </dict>

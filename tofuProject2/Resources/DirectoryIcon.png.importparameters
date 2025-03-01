@@ -1,0 +1,13 @@
+﻿{
+  "PathToSourceAsset": "Resources/DirectoryIcon.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": 2053638004
+}oSourceAsset>Resources/DirectoryIcon.png</PathToSourceAsset>
+  <FilterMode>Bilinear</FilterMode>
+  <WrapMode>Repeat</WrapMode>
+  <IsSrgb>false</IsSrgb>
+  <BlackIsTransparency>false</BlackIsTransparency>
+</AssetImportParameters_Texture>

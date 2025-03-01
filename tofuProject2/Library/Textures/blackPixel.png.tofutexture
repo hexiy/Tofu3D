@@ -1,0 +1,29 @@
+﻿{
+  "Pixels": "Y2Bg+A8A",
+  "TextureSize": {
+    "X": 1.0,
+    "Y": 1.0
+  },
+  "AtlasPath": null,
+  "BoundingBoxInAtlas": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0,
+    "W": 0.0
+  },
+  "IndexInAtlasTextureArray": 0,
+  "AssetImportParameters": {
+    "PathToSourceAsset": "Resources/blackPixel.png",
+    "FilterMode": 9729,
+    "WrapMode": 10497,
+    "IsSrgb": false,
+    "BlackIsTransparency": false,
+    "AssetID": -1809837413
+  },
+  "AssetLoadParameters": null,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": "Resources/blackPixel.png",
+  "PathInLibraryFolder": "Library/Textures/blackPixel.png.tofutexture",
+  "AnyPath": "Resources/blackPixel.png"
+}

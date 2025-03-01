@@ -1,0 +1,13 @@
+﻿{
+  "PathToSourceAsset": "Resources/defaultSkybox/Daylight Box_Right.bmp",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": -1224783905
+}2D/skybox2/Daylight Box_Right.bmp</PathToSourceAsset>
+  <FilterMode>Bilinear</FilterMode>
+  <WrapMode>Repeat</WrapMode>
+  <IsSrgb>false</IsSrgb>
+  <BlackIsTransparency>false</BlackIsTransparency>
+</AssetImportParameters_Texture>

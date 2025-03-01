@@ -1,0 +1,29 @@
+﻿{
+  "Pixels": "7cOxDQAACMAg/7/Xva4eAQnNlqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrqew==",
+  "TextureSize": {
+    "X": 256.0,
+    "Y": 256.0
+  },
+  "AtlasPath": null,
+  "BoundingBoxInAtlas": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0,
+    "W": 0.0
+  },
+  "IndexInAtlasTextureArray": 0,
+  "AssetImportParameters": {
+    "PathToSourceAsset": "Assets/2D/purple.png",
+    "FilterMode": 9729,
+    "WrapMode": 10497,
+    "IsSrgb": false,
+    "BlackIsTransparency": false,
+    "AssetID": 1636015215
+  },
+  "AssetLoadParameters": null,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": true,
+  "PathInAssetsFolder": "Assets/2D/purple.png",
+  "PathInLibraryFolder": "Library/Textures/purple.png.tofutexture",
+  "AnyPath": "Assets/2D/purple.png"
+}
