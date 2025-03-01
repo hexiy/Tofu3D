@@ -1,0 +1,59 @@
+﻿{
+  "Shader": {
+    "BufferType": 2,
+    "Path": "Assets/Shaders/ModelRendererInstanced.glsl",
+    "AtlasUniformIsSet": false
+  },
+  "Additive": false,
+  "AlbedoTexture": null,
+  "AlphaMaskTexture": null,
+  "AlbedoColor": {
+    "B": 255,
+    "G": 255,
+    "R": 255,
+    "A": 255
+  },
+  "ObjectSelected": false,
+  "AmbientOcclusionTexture": null,
+  "NormalTexture": null,
+  "RoughnessTexture": null,
+  "MetallicTexture": null,
+  "EmissiveTexture": null,
+  "EmissiveColor": {
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0,
+    "W": 0.0
+  },
+  "SmoothShadows": false,
+  "RefractionEnabled": false,
+  "RefractiveIndex": 1.309,
+  "SpecularHighlightsEnabled": false,
+  "SpecularSmoothness": 0.0,
+  "MetallicTextureStrength": 0.0,
+  "Smoothness": 0.0,
+  "Tiling": {
+    "X": 1.0,
+    "Y": 1.0
+  },
+  "Offset": {
+    "X": 0.0,
+    "Y": 0.0
+  },
+  "UVOffsetIsInstanced": false,
+  "RenderMode": 0,
+  "BlendMode": 0,
+  "MaterialType": 0,
+  "IgnoreDepth": false,
+  "NoDepth": false,
+  "AssetImportParameters": {
+    "PathToSourceAsset": "Assets/Materials/ModelRendererInstanced.mat",
+    "AssetID": 2068203811
+  },
+  "AssetLoadParameters": null,
+  "IsRuntimeCopy": false,
+  "DataIsCompressed": false,
+  "PathInAssetsFolder": "Assets/Materials/ModelRendererInstanced.mat",
+  "PathInLibraryFolder": "Library/Materials/ModelRendererInstanced.mat.tofumaterial",
+  "AnyPath": "Assets/Materials/ModelRendererInstanced.mat"
+}

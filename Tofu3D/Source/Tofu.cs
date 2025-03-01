@@ -1,9 +1,11 @@
 using System.ComponentModel;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using Microsoft.Build.Locator;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using Tofu3D;
 using TofuEngine.Physics;
 using TofuEngine.Rendering;
 using TofuEngine.Rendering.Instancing;
@@ -64,13 +66,22 @@ internal static class Tofu
     internal static ScriptsReloader ScriptsReloader;
     internal static UserCodeEditorOpener UserCodeEditorOpener;
 
-    internal static void Launch()
+    internal static void Launch(string projectPath)
     {
         MSBuildLocator.RegisterDefaults(); // this needs to be here at start
+        SystemConfig.Configure(projectPath);
 
-        SystemConfig.Configure();
+        Folders.ValidateProjectFolder(projectPath);
+
+        if (ProjectDataManager.EditorVersion == null)
+        {
+            ProjectDataManager.EditorVersion = EngineBuildInfo.Version;
+        }
+
         Global.LoadSavedData();
         Folders.CreateDefaultFolders();
+
+        Environment.CurrentDirectory = projectPath;
 
         // ScriptsManager.CopyDllsToProjectFolder();
         ScriptsManager.CompileScriptsAssembly();

@@ -7,7 +7,7 @@ namespace TofuEngine;
 
 public static class SystemConfig
 {
-    public static void Configure()
+    public static void Configure(string projectPath)
     {
         Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
 
@@ -38,9 +38,7 @@ public static class SystemConfig
         //     projectFullPath = Directory.GetDirectories(directoryInfo.FullName, searchPattern: "tofuProject",
         //         searchOption: SearchOption.AllDirectories).FirstOrDefault() ?? "";
         // }
-        string projectFullPath = "/Users/hexiy/dev/Game Engine dev/Tofu3D/tofuProject";
 
-        Folders.ProjectFullPath = projectFullPath;
-        Environment.CurrentDirectory = Folders.ProjectFullPath;
+        Folders.ProjectFullPath = projectPath;
     }
 }

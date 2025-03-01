@@ -1,0 +1,14 @@
+﻿{
+  "PathToSourceAsset": "Assets/2D/font.png",
+  "FilterMode": 9729,
+  "WrapMode": 10497,
+  "IsSrgb": false,
+  "BlackIsTransparency": false,
+  "AssetID": 1117724596
+}
+  <PathToSourceAsset>Assets/2D/font.png</PathToSourceAsset>
+  <FilterMode>Point</FilterMode>
+  <WrapMode>Repeat</WrapMode>
+  <IsSrgb>false</IsSrgb>
+  <BlackIsTransparency>true</BlackIsTransparency>
+</AssetImportParameters_Texture>

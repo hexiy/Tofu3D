@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 
 namespace TofuEngine;
 
@@ -6,6 +7,8 @@ public class Folders
 {
     public static string ProjectFullPath;
     public static string EditorResources;
+    public static string EditorResourcesProjectFiles => TofuPath.Combine(EditorResources, "ProjectFiles");
+    public static string ProjectSettings => TofuPath.Combine(ProjectFullPath, "ProjectSettings");
     public static string Resources => TofuPath.Combine(ProjectFullPath, "Resources");
     public static string FontsInResources => TofuPath.Combine(Resources, "Fonts");
     public static string Library => TofuPath.Combine(ProjectFullPath, "Library");
@@ -32,6 +35,31 @@ public class Folders
 
     public static string ModelsInAssets => TofuPath.Combine(Assets, "3D");
     public static string BasicModelsInAssets => TofuPath.Combine(Assets, "3D", "Basic");
+
+    public static void ValidateProjectFolder(string projectPath)
+    {
+        ProjectFullPath = projectPath;
+        if (Directory.Exists(ProjectFullPath) == false)
+        {
+            Directory.CreateDirectory(ProjectFullPath);
+        }
+
+        var foldersInside = Directory.GetDirectories(ProjectFullPath);
+        if (foldersInside.Length < 2)
+        {
+            foreach (string dirPath in Directory.GetDirectories(EditorResourcesProjectFiles, "*",
+                         SearchOption.AllDirectories))
+            {
+                Directory.CreateDirectory(dirPath.Replace(EditorResourcesProjectFiles, ProjectFullPath));
+            }
+
+            foreach (string newPath in Directory.GetFiles(EditorResourcesProjectFiles, "*.*",
+                         SearchOption.AllDirectories))
+            {
+                File.Copy(newPath, newPath.Replace(EditorResourcesProjectFiles, ProjectFullPath), true);
+            }
+        }
+    }
 
     public static void CreateDefaultFolders()
     {
@@ -71,6 +99,7 @@ public class Folders
         {
             return path;
         }
+
         int lastIndexOfDirectorySeparator = path.LastIndexOf(System.IO.Path.DirectorySeparatorChar);
 
         if (lastIndexOfDirectorySeparator == -1)
@@ -80,7 +109,7 @@ public class Folders
 
         return path.Remove(lastIndexOfDirectorySeparator);
     }
-    
+
 
     public static string Get2DAssetPath(string assetName) => TofuPath.Combine(TexturesInAssets, assetName);
 
