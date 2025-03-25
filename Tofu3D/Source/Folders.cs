@@ -59,6 +59,8 @@ public class Folders
                 File.Copy(newPath, newPath.Replace(EditorResourcesProjectFiles, ProjectFullPath), true);
             }
         }
+        
+        Directory.CreateDirectory(Path.Combine(ProjectFullPath, "ProjectSettings"));
     }
 
     public static void CreateDefaultFolders()
