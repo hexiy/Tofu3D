@@ -25,6 +25,10 @@ public static class SystemConfig
             {
                 Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "../../../../EditorResources");
             }
+            if (Directory.Exists(Folders.EditorResources) == false)
+            {
+                Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "EditorResources");
+            }
         }
     
         if (OperatingSystem.IsWindows || OperatingSystem.IsLinux)
