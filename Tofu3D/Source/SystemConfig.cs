@@ -18,12 +18,20 @@ public static class SystemConfig
         // Environment.CurrentDirectory =
         //     Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-        // for macos only
-        Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "../Resources/EditorResources");
-        if (Directory.Exists(Folders.EditorResources) == false)
+        if (OperatingSystem.IsMacOS)
         {
-            Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "../../../../EditorResources");
+            Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "../Resources/EditorResources");
+            if (Directory.Exists(Folders.EditorResources) == false)
+            {
+                Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "../../../../EditorResources");
+            }
         }
+    
+        if (OperatingSystem.IsWindows || OperatingSystem.IsLinux)
+        {
+            Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "EditorResources");
+        }
+        
 
         Debug.Log($"Folders.EditorResources:{Folders.EditorResources}");
 
