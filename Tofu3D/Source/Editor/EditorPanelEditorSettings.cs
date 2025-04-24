@@ -33,7 +33,13 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         _inspector.FieldChangedByUser += OnAnyFieldChangedByUser;
 
         _sideBar = new EditorPanelSideBar([
-            "General", "Code Editor", "Scene View", "Analysis", "Assets", "Graphics", "Cache"
+            new EditorPanelSideBarButtonDefinition("General", Tofu.EditorSettingsAll.EditorSettingsGeneral),
+            new EditorPanelSideBarButtonDefinition("Code Editor", Tofu.EditorSettingsAll.EditorSettingsCodeEditor),
+            new EditorPanelSideBarButtonDefinition("Scene View", null),
+            new EditorPanelSideBarButtonDefinition("Analysis", null),
+            new EditorPanelSideBarButtonDefinition("Assets", null),
+            new EditorPanelSideBarButtonDefinition("Graphics", null),
+            new EditorPanelSideBarButtonDefinition("Cache", null),
         ]);
         _sideBar.SelectedItemChanged += OnSidebarSelectedItemChanged;
         SelectInspectable(Tofu.EditorSettingsAll.EditorSettingsGeneral);
@@ -44,18 +50,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
     private void OnSidebarSelectedItemChanged(int itemIndex)
     {
-        object[] inspectorInspectables = new object[]
-        {
-            Tofu.EditorSettingsAll.EditorSettingsGeneral,
-            Tofu.EditorSettingsAll.EditorSettingsCodeEditor,
-            null,
-            null,
-            null,
-            null,
-            null,
-        };
-
-        SelectInspectable(inspectorInspectables[itemIndex]);
+        SelectInspectable(_sideBar.Items[itemIndex].Inspectable);
     }
 
     public override void Update()
@@ -110,6 +105,9 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         ResetId();
         ImGui.SetScrollX(0);
         // _padding = (int)ImGui.GetStyle().WindowPadding.X;
+
+        // using TofuImGuiSetWindowPaddingGuard windowPaddingGuard =
+        // TofuImGui.SetTemporaryWindowPaddingForCurrentScope(TofuImGui.DefaultWindowPadding + new Vector2(50));
 
         ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
         ImGui.PushStyleVar(ImGuiStyleVar.ChildBorderSize, 0);
@@ -174,14 +172,16 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
         if (fieldName == nameof(EditorSettingsCodeEditor.EditorArgs))
         {
-            string editorPathOrName = Tofu.EditorSettingsAll.EditorSettingsCodeEditor.CodeEditorPaths.GetFirstSelectedItem();
+            string editorPathOrName =
+                Tofu.EditorSettingsAll.EditorSettingsCodeEditor.CodeEditorPaths.GetFirstSelectedItem();
             CodeEditorInfo editorInfo = Tofu.UserCodeEditorOpener.GetEditorInfoByName(editorPathOrName);
             editorInfo.ArgsTemplate = Tofu.EditorSettingsAll.EditorSettingsCodeEditor.EditorArgs;
         }
 
         if (fieldName == nameof(EditorSettingsCodeEditor.CodeEditorPaths))
         {
-            string editorPathOrName = Tofu.EditorSettingsAll.EditorSettingsCodeEditor.CodeEditorPaths.GetFirstSelectedItem();
+            string editorPathOrName =
+                Tofu.EditorSettingsAll.EditorSettingsCodeEditor.CodeEditorPaths.GetFirstSelectedItem();
             CodeEditorInfo editorInfo = Tofu.UserCodeEditorOpener.GetEditorInfoByName(editorPathOrName);
             if (editorInfo == null) // doesnt exist yet
             {
@@ -189,6 +189,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
                 {
                     editorPathOrName = StringExtensions.GetExecutablePathFromMacosAppBundlePath(editorPathOrName);
                 }
+
                 editorInfo = Tofu.UserCodeEditorOpener.AddEditor(editorPathOrName);
 
                 if (editorInfo == null)

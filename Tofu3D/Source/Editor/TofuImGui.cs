@@ -127,6 +127,13 @@ public static class TofuImGui
         return guard;
     }
 
+    public static TofuImGuiSetWindowPaddingGuard SetTemporaryWindowPaddingForCurrentScope(Vector2 padding)
+    {
+        TofuImGuiSetWindowPaddingGuard guard =
+            new TofuImGuiSetWindowPaddingGuard(ImGui.GetStyle().WindowPadding, padding);
+        return guard;
+    }
+
     public static Vector2 GetContentRegionAvailWithPadding()
     {
         return ImGui.GetContentRegionAvail() - DefaultWindowPadding;

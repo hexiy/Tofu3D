@@ -24,6 +24,7 @@ public static class EditorThemeing
             Vector4 cBeige = new Vector4(1f, 0.96f, 0.90f, 1.00f);
             Vector4 cBeigeMid = new Vector4(0.97f, 0.94f, 0.88f, 1f);
             Vector4 cBeigeDarker = new Vector4(0.94f, 0.91f, 0.85f, 1f);
+            Vector4 cBeigeEvenDarker = cBeigeDarker * new Vector4(0.92f, 0.92f, 0.92f, 1f);
             Vector4 cScrollbar = new Vector4(0.74f, 0.71f, 0.65f, 0.8f);
             Vector4 cScrollbarDarker = new Vector4(0.64f, 0.61f, 0.55f, 1f);
 
@@ -37,9 +38,9 @@ public static class EditorThemeing
             colors[(int)ImGuiCol.FrameBg] = cBeige;
             colors[(int)ImGuiCol.FrameBgHovered] = cBeige;
             colors[(int)ImGuiCol.FrameBgActive] = cBeige;
-            colors[(int)ImGuiCol.TitleBg] = cBeige;
-            colors[(int)ImGuiCol.TitleBgActive] = cBeige;
-            colors[(int)ImGuiCol.TitleBgCollapsed] = cBeige;
+            colors[(int)ImGuiCol.TitleBg] = cBeigeEvenDarker;
+            colors[(int)ImGuiCol.TitleBgActive] = cBeigeEvenDarker;
+            colors[(int)ImGuiCol.TitleBgCollapsed] = cBeigeEvenDarker;
             colors[(int)ImGuiCol.MenuBarBg] = cBeige;
             colors[(int)ImGuiCol.ScrollbarBg] = cBeige;
             colors[(int)ImGuiCol.ScrollbarGrab] = cScrollbar;
