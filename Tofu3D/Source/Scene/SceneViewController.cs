@@ -17,7 +17,7 @@ public class SceneViewController
     private bool _clickedInsideScene;
 
     private Vector3 _keyboardInputDirectionVector = Vector3.Zero;
-    private readonly float _moveSpeed = 5f; // WASD units moved per seconds
+    private float MoveSpeed => Tofu.EditorSettingsAll.EditorSettingsSceneView.MoveSpeed; // WASD units moved per seconds
     private float _moveSpeedMultiplier = 1; // WASD units moved per seconds
 
     private Vector3 _smoothKeyboardInputMoveVector = Vector3.Zero;
@@ -30,20 +30,27 @@ public class SceneViewController
     public PersistentObject<ProjectionMode> CurrentProjectionMode =
         ("sceneViewProjectionMode", ProjectionMode.Perspective);
 
+
+    public bool IsPanningCamera { get; private set; }
+
+    public bool AllowPassThroughEdges { get; set; }
+
+    private const string isMouseOverSceneViewStringYes = "isMouseOverSceneView:yes";
+    private const string isMouseOverSceneViewStringNo = "isMouseOverSceneView:no";
+    private float _mouseSensitivity => Tofu.EditorSettingsAll.EditorSettingsSceneView.LookSensitivity;
+
+    // public ProjectionMode ProjectionMode
+    // {
+    // 	get { return (ProjectionMode) PersistentData.GetInt("SceneViewControllerPerspectiveMode", 0); }
+    // 	private set { PersistentData.Set("SceneViewControllerPerspectiveMode", (int) value); }
+    // }
+
     public SceneViewController()
     {
         Tofu.MouseInput.RegisterPassThroughEdgesCondition(() => AllowPassThroughEdges);
         SetProjectionMode(CurrentProjectionMode);
     }
 
-    public bool IsPanningCamera { get; private set; }
-
-    public bool AllowPassThroughEdges { get; set; }
-    // public ProjectionMode ProjectionMode
-    // {
-    // 	get { return (ProjectionMode) PersistentData.GetInt("SceneViewControllerPerspectiveMode", 0); }
-    // 	private set { PersistentData.Set("SceneViewControllerPerspectiveMode", (int) value); }
-    // }
 
     public void MoveToGameObject(GameObject targetGo)
     {
@@ -59,7 +66,8 @@ public class SceneViewController
         Tweener.Tween(0, 1, 1.3f, progress =>
         {
             // Debug.Log("TWEENING:" + progress);
-            Camera.MainCamera.OrthographicSize = cameraOrthoSize + (float)OpenTK.Mathematics.MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
+            Camera.MainCamera.OrthographicSize =
+                cameraOrthoSize + (float)OpenTK.Mathematics.MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
             Camera.MainCamera.Transform.LocalPosition = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
         });
     }
@@ -118,9 +126,6 @@ public class SceneViewController
         CurrentProjectionMode.Value = newProjectionMode;
     }
 
-    private const string isMouseOverSceneViewStringYes = "isMouseOverSceneView:yes";
-    private const string isMouseOverSceneViewStringNo = "isMouseOverSceneView:no";
-    private float _mouseSensitivity = 0.2f;
 
     public void Update()
     {
@@ -211,7 +216,7 @@ public class SceneViewController
             // Camera.MainCamera.Transform.Rotation += new Vector3(-_smoothScreenDeltaVectorForRotation.Y,
             // _smoothScreenDeltaVectorForRotation.X, 0) * 1000 * Time.EditorDeltaTime;
 
-            float keyboardMoveSpeed = _moveSpeed;
+            float keyboardMoveSpeed = MoveSpeed;
 
             _keyboardInputDirectionVector = Vector3.Zero;
             if (KeyboardInput.IsKeyDown(Keys.LeftControl) == false)
@@ -274,7 +279,7 @@ public class SceneViewController
             else
             {
                 MoveCameraByLocalVector(new Vector3(0, 0, Mathf.Clamp(Tofu.MouseInput.ScrollDelta, -10, 10)) *
-                                        _moveSpeed * 0.2f);
+                                        MoveSpeed * 0.2f);
 
                 //Camera.I.transform.position += Camera.I.transform.TransformDirection(Vector3.Forward) * Tofu.MouseInput.ScrollDelta * 0.05f;
             }

@@ -115,17 +115,17 @@ public static class TofuImGui
         }
     }
 
-    public static TofuImGuiSetItemSpacingGuard SetTemporaryItemSpacingForCurrentScope(float? x = null, float? y = null)
-    {
-        return SetTemporaryItemSpacingForCurrentScope(new Vector2(x ?? ImGui.GetStyle().ItemSpacing.X,
-            y ?? ImGui.GetStyle().ItemSpacing.Y));
-    }
-
-    public static TofuImGuiSetItemSpacingGuard SetTemporaryItemSpacingForCurrentScope(Vector2 spacing)
-    {
-        TofuImGuiSetItemSpacingGuard guard = new TofuImGuiSetItemSpacingGuard(ImGui.GetStyle().ItemSpacing, spacing);
-        return guard;
-    }
+    // public static TofuImGuiSetItemSpacingGuard SetTemporaryItemSpacingForCurrentScope(float? x = null, float? y = null)
+    // {
+    //     return SetTemporaryItemSpacingForCurrentScope(new Vector2(x ?? ImGui.GetStyle().ItemSpacing.X,
+    //         y ?? ImGui.GetStyle().ItemSpacing.Y));
+    // }
+    //
+    // public static TofuImGuiSetItemSpacingGuard SetTemporaryItemSpacingForCurrentScope(Vector2 spacing)
+    // {
+    //     TofuImGuiSetItemSpacingGuard guard = new TofuImGuiSetItemSpacingGuard(ImGui.GetStyle().ItemSpacing, spacing);
+    //     return guard;
+    // }
 
     public static TofuImGuiSetWindowPaddingGuard SetTemporaryWindowPaddingForCurrentScope(Vector2 padding)
     {
@@ -139,5 +139,9 @@ public static class TofuImGui
         return ImGui.GetContentRegionAvail() - DefaultWindowPadding;
     }
 
+    public static void SetItemWidthToFullSpan()
+    {
+        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X - TofuImGui.DefaultWindowPadding.X);
+    }
     public const float WindowMenuBarHeight = 25;
 }

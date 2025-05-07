@@ -35,7 +35,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         _sideBar = new EditorPanelSideBar([
             new EditorPanelSideBarButtonDefinition("General", Tofu.EditorSettingsAll.EditorSettingsGeneral),
             new EditorPanelSideBarButtonDefinition("Code Editor", Tofu.EditorSettingsAll.EditorSettingsCodeEditor),
-            new EditorPanelSideBarButtonDefinition("Scene View", null),
+            new EditorPanelSideBarButtonDefinition("Scene View", Tofu.EditorSettingsAll.EditorSettingsSceneView),
             new EditorPanelSideBarButtonDefinition("Analysis", null),
             new EditorPanelSideBarButtonDefinition("Assets", null),
             new EditorPanelSideBarButtonDefinition("Graphics", null),
@@ -77,21 +77,6 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
     public void SelectInspectables(IList inspectables)
     {
         _inspector.SelectInspectables(inspectables);
-    }
-
-    public void Refresh()
-    {
-        _inspector.Refresh();
-    }
-
-    public void QueueRefresh()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void QueueRefresh(InspectableData inspectableData)
-    {
-        throw new NotImplementedException();
     }
 
     public override void Draw()

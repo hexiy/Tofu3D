@@ -12,12 +12,75 @@ public class InspectorFieldDrawerFloat : InspectorFieldDrawable<float>
 
         info.GetCustomAttribute<SliderF>(out SliderF? sliderAttrib);
 
+        if (info.AdditionalData == null)
+        {
+            info.AdditionalData = new InspectorFieldDrawerSliderData();
+        }
+
+        InspectorFieldDrawerSliderData data = info.AdditionalData as InspectorFieldDrawerSliderData;
+
         if (sliderAttrib != null)
         {
-            if (ImGui.SliderFloat("", ref fieldValue, sliderAttrib.MinValue, sliderAttrib.MaxValue))
+            if (data.IsEditing == false)
             {
-                SetValue(info, componentInspectorData, fieldValue);
+                bool isCustomValue = fieldValue < sliderAttrib.MinValue || fieldValue > sliderAttrib.MaxValue;
+                if (isCustomValue)
+                {
+                    ImGui.PushStyleColor(ImGuiCol.SliderGrab, Color.Teal.ToVector4());
+                    ImGui.PushStyleColor(ImGuiCol.Text, Color.Teal.ToVector4());
+                }
+
+                bool sliderValueChanged =
+                    ImGui.SliderFloat("", ref fieldValue, sliderAttrib.MinValue, sliderAttrib.MaxValue);
+
+                if (sliderValueChanged)
+                {
+                    SetValue(info, componentInspectorData, fieldValue);
+                }
+
+                if (ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left) && ImGui.IsItemHovered())
+                {
+                    data.IsEditing = true;
+                    data.FirstTimeShowingEditing = true;
+                }
+
+                if (isCustomValue)
+                {
+                    ImGui.PopStyleColor(2);
+                }
             }
+            else
+            {
+                if (data.FirstTimeShowingEditing)
+                {
+                    // ImGui.SetKeyboardFocusHere();
+                    data.FirstTimeShowingEditing = false;
+                }
+
+                bool inputFieldValueChanged =
+                    ImGui.InputFloat(string.Empty, ref fieldValue, 1, 5, string.Empty,
+                        ImGuiInputTextFlags.AutoSelectAll);
+                if (inputFieldValueChanged)
+                {
+                    SetValue(info, componentInspectorData, fieldValue);
+                }
+
+                // enter or we lose focus by clicking elsewhere...
+                if (data.IsEditing && KeyboardInput.WasKeyJustPressed(Keys.Enter))
+                {
+                    data.IsEditing = false;
+                }
+
+                if (ImGui.IsItemFocused() == false)
+                {
+                    // data.IsEditing = false;
+                }
+            }
+
+            // if (ImGui.SliderFloat("", ref fieldValue, sliderAttrib.MinValue, sliderAttrib.MaxValue))
+            // {
+            // SetValue(info, componentInspectorData, fieldValue);
+            // }
         }
         else
         {

@@ -410,7 +410,7 @@ public class Inspector
                 // info.SetValue(componentInspectorData.InspectableType, obj);
             }
         }
-
+        
         if (info.FieldOrPropertyType.BaseType == typeof(Enum))
         {
             Inspector._inspectorFieldDrawables[typeof(Enum)].Draw(info, componentInspectorData);

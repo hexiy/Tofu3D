@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 
 namespace TofuEngine;
 
@@ -6,10 +7,14 @@ public static class Program
 {
     private static void Main(string[] args)
     {
-        foreach (string s in args)
-        {
-            Console.WriteLine($"arg: {s}");
-        }
+        Debug.StartTimer("Engine start time");
+
+        TofuEngine.Debug.Log($"args: {string.Join(" | ", args)}");
+
+        // foreach (string s in args)
+        // {
+        // Console.WriteLine($"arg: {s}");
+        // }
 
         string projectPath = string.Empty;
 
@@ -33,8 +38,8 @@ public static class Program
                 break;
             }
         }
-        
-        if(string.IsNullOrEmpty(projectPath))
+
+        if (string.IsNullOrEmpty(projectPath))
         {
             Console.WriteLine("No project path specified, not launching the editor");
             return;

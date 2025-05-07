@@ -35,8 +35,11 @@ public class EditorPanelMenuBar : EditorPanel
             // ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoTitleBar);
             ImGui.BeginMainMenuBar();
 
-            using TofuImGuiSetItemSpacingGuard itemSpacingGuard = TofuImGui.SetTemporaryItemSpacingForCurrentScope(x: TofuImGui.DefaultItemSpacing.X + 5);
-            
+            using TofuImGuiSetItemSpacingGuard itemSpacingGuard =
+                new TofuImGuiSetItemSpacingGuard(newSpacingX: TofuImGui.DefaultItemSpacing.X + 5);
+            // using TofuImGuiSetItemSpacingGuard itemSpacingGuard =
+                // TofuImGui.SetTemporaryItemSpacingForCurrentScope(x: TofuImGui.DefaultItemSpacing.X + 5);
+
             bool tofu3dMenuOpened = ImGui.BeginMenu("Tofu3D");
             if (tofu3dMenuOpened)
             {
@@ -120,8 +123,8 @@ public class EditorPanelMenuBar : EditorPanel
 
                         _editorLayoutManager.SaveDefaultLayout();
                     }
-                    ImGui.EndMenu();
 
+                    ImGui.EndMenu();
                 }
 
 

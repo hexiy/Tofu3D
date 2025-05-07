@@ -20,6 +20,7 @@ public class FieldOrPropertyInfo
     public bool IsListElement;
     public bool IsReadonly;
     private InspectableData _inspectableData;
+    public object? AdditionalData;
 
     public FieldOrPropertyInfo(IList list, int index, InspectableData inspectableData)
     {

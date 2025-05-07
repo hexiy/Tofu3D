@@ -177,6 +177,10 @@ internal static class Tofu
         SceneSelectionHighlighter.Init();
 
         GameObjectSelectionManager = new GameObjectSelectionManager();
+        
+        
+        Debug.EndAndLogTimer("Engine start time");
+
     }
 
     // static Stopwatch sw = new Stopwatch();
