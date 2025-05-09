@@ -1,12 +1,12 @@
 namespace TofuEngine;
 
-[ShowIf(null)]
+[ShowIfNot(null)]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Class, Inherited = false)]
-public sealed class ShowIf : Show
+public sealed class ShowIfNotAttribute : ShowAttribute
 {
     public string FieldName;
 
-    public ShowIf(string fieldName)
+    public ShowIfNotAttribute(string fieldName)
     {
         FieldName = fieldName;
     }

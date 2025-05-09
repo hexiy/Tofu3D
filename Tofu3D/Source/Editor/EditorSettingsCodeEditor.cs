@@ -8,7 +8,7 @@ public class EditorSettingsCodeEditor
 {
     [PathString(displayNameOnly: true)]
     [SplitWords]
-    [CollectionWithSelectionAttrib_BrowsePath]
+    [CollectionWithSelection_BrowsePath]
     [InspectorNameOverride("Code Editor")]
     public CollectionWithSelection<string> CodeEditorPaths;
 

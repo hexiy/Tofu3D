@@ -1,10 +1,10 @@
 namespace TofuEngine;
 
-[DropdownAttrib_SelectOnHover()]
+[Dropdown_SelectOnHover()]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Class, Inherited = false)]
-public class DropdownAttrib_SelectOnHover : Attribute
+public class Dropdown_SelectOnHoverAttribute : Attribute
 {
-    public DropdownAttrib_SelectOnHover()
+    public Dropdown_SelectOnHoverAttribute()
     {
     }
 }

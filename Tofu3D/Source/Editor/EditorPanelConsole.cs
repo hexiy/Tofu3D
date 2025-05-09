@@ -123,8 +123,8 @@ public class EditorPanelConsole : EditorPanel
                 textureBoundsInAtlas = Tofu.Editor.EditorTextures.LogCategoryTimerIcon.BoundingBoxInAtlas;
             }
 
-            ImGui.Image(textureId, new System.Numerics.Vector2(30, 30), textureBoundsInAtlas.XY,
-                textureBoundsInAtlas.ZW,
+            ImGui.Image(textureId, new System.Numerics.Vector2(30, 30), textureBoundsInAtlas.XW,
+                textureBoundsInAtlas.ZY,
                 hasFlag
                     ? new Vector4(1, 1, 1, 1)
                     : new Vector4(1, 1, 1, 0.3f)); //|| _currentLogCategoryFilter.HasFlag(LogCategoryFilter.All));

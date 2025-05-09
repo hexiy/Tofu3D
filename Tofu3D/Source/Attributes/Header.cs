@@ -2,7 +2,7 @@ namespace TofuEngine;
 
 [Header("Header")]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Class, Inherited = false)]
-public sealed class Header : Show
+public sealed class Header : ShowAttribute
 {
     public string Text;
 

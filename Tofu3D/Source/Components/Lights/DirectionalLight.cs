@@ -8,12 +8,17 @@ public class DirectionalLight : LightBase
 
     // [XmlIgnore] public static RenderTexture DepthRenderTexture { get; private set; }
     // [XmlIgnore] public static RenderTexture DisplayDepthRenderTexture { get; private set; }
-
+    [PositiveNumber]
     public float FarPlaneDistance = 1000;
 
+
+    [PositiveNumber]
     public float NearPlaneDistance = 0.0001f;
+
+    [PositiveNumber]
     public float OrthographicSize = 40;
 
+    [PositiveNumber]
     public int RefreshRate = 60;
 
     public bool Rotate = false;
@@ -22,6 +27,7 @@ public class DirectionalLight : LightBase
     public Vector2 Size = new Vector2(4096, 4096);
 
     [Show]
+    [PositiveNumber]
     public float Speed = 100;
 
     public static DirectionalLight I { get; private set; }

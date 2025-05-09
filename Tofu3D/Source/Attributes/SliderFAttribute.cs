@@ -2,13 +2,13 @@
 
 [Show]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-public sealed class Slider : Attribute
+public sealed class SliderFAttribute : Attribute
 {
-    public int MaxValue;
-    public int MinValue;
+    public float MaxValue;
+    public float MinValue;
     public bool AllowCustomValue;
 
-    public Slider(int min, int max, bool allowCustomValue = false)
+    public SliderFAttribute(float min, float max, bool allowCustomValue = false)
     {
         MinValue = min;
         MaxValue = max;

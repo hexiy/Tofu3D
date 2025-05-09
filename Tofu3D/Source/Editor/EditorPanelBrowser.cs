@@ -92,26 +92,30 @@ public class EditorPanelBrowser : EditorPanel
 
     private void CreateContextItems()
     {
-        BrowserContextItemCreateFile createSceneContextItemCreateFile = new BrowserContextItemCreateFile("Create Scene", "scene", ".scene",
+        BrowserContextItemCreateFile createSceneContextItemCreateFile = new BrowserContextItemCreateFile("Create Scene",
+            "scene", ".scene",
             filePath =>
             {
                 Tofu.SceneManager.CurrentScene.SetupAndSaveEmptyScene(filePath);
                 RefreshAssets();
             });
-        BrowserContextItemCreateFile createMaterialContextItemCreateFile = new BrowserContextItemCreateFile("Create Material", "mat", ".mat",
+        BrowserContextItemCreateFile createMaterialContextItemCreateFile = new BrowserContextItemCreateFile(
+            "Create Material", "mat", ".mat",
             filePath =>
             {
                 Asset_Material createdMaterial = new Asset_Material { PathInAssetsFolder = filePath };
                 Tofu.AssetLoadManager.Save<Asset_Material>(filePath, createdMaterial);
                 RefreshAssets();
             });
-        BrowserContextItemCreateFile createFolderContextItemCreateFile = new BrowserContextItemCreateFile("New Folder", "folder", "",
+        BrowserContextItemCreateFile createFolderContextItemCreateFile = new BrowserContextItemCreateFile("New Folder",
+            "folder", "",
             filePath =>
             {
                 Directory.CreateDirectory(filePath);
                 RefreshAssets();
             });
-        BrowserContextItemCreateFile createScriptContextItemCreateFile = new BrowserContextItemCreateFile("New C# Component", "MyComponent", ".cs",
+        BrowserContextItemCreateFile createScriptContextItemCreateFile = new BrowserContextItemCreateFile(
+            "New C# Component", "MyComponent", ".cs",
             filePath =>
             {
                 string scriptName = TofuPath.GetFileNameWithoutExtension(filePath);
@@ -522,13 +526,17 @@ public class EditorPanelBrowser : EditorPanel
 
             if (fileType is FileType.Shader)
             {
-                if (ImGui.IsItemHovered() && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left))
+                // if (ImGui.IsItemHovered() && ImGui.IsMouseDoubleClicked(ImGuiMouseButton.Left))
+                // {
+                //     string assetsRelativePath =
+                //         TofuPath.Combine("Assets", Path.GetRelativePath("Assets", assetPath));
+                //
+                //     Tofu.ShaderManager.QueueShaderReload(assetsRelativePath);
+                //     Debug.Log($"Reloaded shader:{assetName}");
+                // }
+                if (ImGui.IsItemHovered() && ImGui.IsMouseClicked(ImGuiMouseButton.Left))
                 {
-                    string assetsRelativePath =
-                        TofuPath.Combine("Assets", Path.GetRelativePath("Assets", assetPath));
-
-                    Tofu.ShaderManager.QueueShaderReload(assetsRelativePath);
-                    Debug.Log($"Reloaded shader:{assetName}");
+                    Tofu.UserCodeEditorOpener.OpenFile(assetPath, 0, 0);
                 }
             }
         }
@@ -629,7 +637,7 @@ public class EditorPanelBrowser : EditorPanel
                 Tofu.SceneManager.LoadScene(assetPath);
             }
 
-            if (fileType is FileType.Script)
+            if (fileType is FileType.Script or FileType.Text)
             {
                 Tofu.UserCodeEditorOpener.OpenFile(assetPath, 0, 0);
             }

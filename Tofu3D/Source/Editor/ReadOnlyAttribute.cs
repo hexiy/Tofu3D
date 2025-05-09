@@ -1,7 +1,7 @@
-﻿namespace TofuEngine;
+namespace TofuEngine;
 
-[Hide]
+[ReadOnly]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Class, Inherited = false)]
-public sealed class Hide : Attribute
+public class ReadOnlyAttribute : Attribute
 {
 }

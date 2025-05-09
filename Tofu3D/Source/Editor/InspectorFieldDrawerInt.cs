@@ -13,7 +13,14 @@ public class InspectorFieldDrawerInt : InspectorFieldDrawable<int>
     {
         int fieldValue = GetValue(info, componentInspectorData);
 
-        info.GetCustomAttribute<Slider>(out Slider? sliderAttrib);
+        info.GetCustomAttribute<SliderAttribute>(out SliderAttribute? sliderAttrib);
+        info.GetCustomAttribute<NumberRangeLimiterAttribute>(out NumberRangeLimiterAttribute? rangeLimiterAttribute);
+
+        if (rangeLimiterAttribute != null)
+        {
+            fieldValue = Mathf.Clamp(fieldValue, rangeLimiterAttribute.MinValueInt ?? int.MinValue,
+                rangeLimiterAttribute.MaxValueInt ?? int.MaxValue);
+        }
 
         if (info.AdditionalData == null)
         {

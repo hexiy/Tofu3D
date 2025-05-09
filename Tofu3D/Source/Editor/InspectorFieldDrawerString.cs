@@ -10,7 +10,7 @@ public class InspectorFieldDrawerString : InspectorFieldDrawable<string>
     {
         string? fieldValue = GetValue(info, componentInspectorData);
 
-        info.GetCustomAttribute<PathString>(out PathString? pathStringAttrib);
+        info.GetCustomAttribute<PathStringAttribute>(out PathStringAttribute? pathStringAttrib);
         if (pathStringAttrib != null)
         {
             if (pathStringAttrib.DisplayNameOnly)

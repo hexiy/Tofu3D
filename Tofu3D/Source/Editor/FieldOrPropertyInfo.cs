@@ -58,14 +58,17 @@ public class FieldOrPropertyInfo
     {
         if (_fieldInfo != null)
         {
-            return _fieldInfo.GetCustomAttributes<T>().FirstOrDefault(attrib => attrib.GetType() == typeof(T), null);
+            return _fieldInfo.GetCustomAttributes<T>()
+                .FirstOrDefault(attrib => attrib.GetType() == typeof(T) || attrib.GetType().IsSubclassOf(typeof(T)),
+                    null);
         }
 
         if (_propertyInfo != null)
         {
             // return _propertyInfo.GetCustomAttribute<T>();
-            return _propertyInfo.GetCustomAttributes<T>().FirstOrDefault(attrib => attrib.GetType() == typeof(T), null);
-
+            return _propertyInfo.GetCustomAttributes<T>()
+                .FirstOrDefault(attrib => attrib.GetType() == typeof(T) || attrib.GetType().IsSubclassOf(typeof(T)),
+                    null);
         }
 
         return null;
@@ -190,12 +193,12 @@ public class FieldOrPropertyInfo
         }
 
 
-        if (HasCustomAttribute<Show>())
+        if (HasCustomAttribute<ShowAttribute>())
         {
             CanShowInEditor = true;
         }
 
-        if (HasCustomAttribute<Space>())
+        if (HasCustomAttribute<SpaceAttribute>())
         {
             HasSpaceAttribute = true;
         }
@@ -213,7 +216,7 @@ public class FieldOrPropertyInfo
             HeaderText = text;
         }
 
-        if (GetCustomAttribute<ShowIf>(out ShowIf showIfAttrib))
+        if (GetCustomAttribute<ShowIfAttribute>(out ShowIfAttribute showIfAttrib))
         {
             Type objType = obj.GetType();
 
@@ -234,7 +237,7 @@ public class FieldOrPropertyInfo
             }
         }
 
-        if (GetCustomAttribute<ShowIfNot>(out ShowIfNot showIfNotAttrib))
+        if (GetCustomAttribute<ShowIfNotAttribute>(out ShowIfNotAttribute showIfNotAttrib))
         {
             string? name = showIfNotAttrib.FieldName;
             Type objType = obj.GetType();
@@ -252,12 +255,12 @@ public class FieldOrPropertyInfo
             }
         }
 
-        if (HasCustomAttribute<Hide>())
+        if (HasCustomAttribute<HideAttribute>())
         {
             CanShowInEditor = false;
         }
 
-        if (HasCustomAttribute<ReadOnly>())
+        if (HasCustomAttribute<ReadOnlyAttribute>())
         {
             IsReadonly = true;
         }

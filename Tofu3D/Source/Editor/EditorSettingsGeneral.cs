@@ -13,11 +13,11 @@ public class EditorSettingsGeneral
 
     [Show]
     [InspectorNameOverride("Font")]
-    [CollectionWithSelectionAttrib_BrowsePath]
+    [CollectionWithSelection_BrowsePath]
     public CollectionWithSelection<string> FontPathsCollection;
 
     [SplitWords]
-    [DropdownAttrib_SelectOnHover]
+    [Dropdown_SelectOnHover]
     public EditorThemeEnum EditorTheme;
 
     [JsonIgnore]

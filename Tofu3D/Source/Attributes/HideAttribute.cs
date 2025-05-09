@@ -1,7 +1,7 @@
-namespace TofuEngine;
+﻿namespace TofuEngine;
 
-[Space]
+[Hide]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Class, Inherited = false)]
-public class Space : Attribute
+public sealed class HideAttribute : Attribute
 {
 }

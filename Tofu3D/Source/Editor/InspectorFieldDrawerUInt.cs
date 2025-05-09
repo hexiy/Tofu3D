@@ -4,20 +4,19 @@ using ImGuiNET;
 
 namespace TofuEngine;
 
-public class InspectorFieldDrawerFloat : InspectorFieldDrawable<float>
+public class InspectorFieldDrawerUInt : InspectorFieldDrawable<uint>
 {
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
-        float fieldValue = GetValue(info, componentInspectorData);
-
-        info.GetCustomAttribute<SliderFAttribute>(out SliderFAttribute? sliderAttrib);
+        uint fieldValue = GetValue(info, componentInspectorData);
+        int fieldValueForImGui = (int)fieldValue;
+        info.GetCustomAttribute<SliderAttribute>(out SliderAttribute? sliderAttrib);
         info.GetCustomAttribute<NumberRangeLimiterAttribute>(out NumberRangeLimiterAttribute? rangeLimiterAttribute);
 
         if (rangeLimiterAttribute != null)
         {
-            fieldValue = Mathf.Clamp(fieldValue,
-                rangeLimiterAttribute.MinValueFloat ?? rangeLimiterAttribute.MinValueInt ?? float.MinValue,
-                rangeLimiterAttribute.MaxValueFloat ?? rangeLimiterAttribute.MaxValueInt ?? float.MaxValue);
+            fieldValue = (uint)Mathf.Clamp(fieldValue, 0,
+                rangeLimiterAttribute.MaxValueInt != null ? (uint)rangeLimiterAttribute.MaxValueInt : uint.MaxValue);
         }
 
         if (info.AdditionalData == null)
@@ -31,6 +30,9 @@ public class InspectorFieldDrawerFloat : InspectorFieldDrawable<float>
         {
             if (data.IsEditing == false)
             {
+                // when custom value, dont show the slider
+
+
                 bool isCustomValue = fieldValue < sliderAttrib.MinValue || fieldValue > sliderAttrib.MaxValue;
                 if (isCustomValue)
                 {
@@ -39,8 +41,9 @@ public class InspectorFieldDrawerFloat : InspectorFieldDrawable<float>
                 }
 
                 bool sliderValueChanged =
-                    ImGui.SliderFloat("", ref fieldValue, sliderAttrib.MinValue, sliderAttrib.MaxValue);
+                    ImGui.SliderInt("", ref fieldValueForImGui, sliderAttrib.MinValue, sliderAttrib.MaxValue);
 
+                fieldValue = (uint)fieldValueForImGui;
                 if (sliderValueChanged)
                 {
                     SetValue(info, componentInspectorData, fieldValue);
@@ -61,40 +64,36 @@ public class InspectorFieldDrawerFloat : InspectorFieldDrawable<float>
             {
                 if (data.FirstTimeShowingEditing)
                 {
-                    // ImGui.SetKeyboardFocusHere();
+                    ImGui.SetKeyboardFocusHere();
                     data.FirstTimeShowingEditing = false;
                 }
 
                 bool inputFieldValueChanged =
-                    ImGui.InputFloat(string.Empty, ref fieldValue, 1, 5, string.Empty,
-                        ImGuiInputTextFlags.AutoSelectAll);
+                    ImGui.InputInt("", ref fieldValueForImGui, 1, 5, ImGuiInputTextFlags.AutoSelectAll);
+
+                fieldValue = (uint)fieldValueForImGui;
                 if (inputFieldValueChanged)
                 {
                     SetValue(info, componentInspectorData, fieldValue);
                 }
 
                 // enter or we lose focus by clicking elsewhere...
-                if (data.IsEditing && KeyboardInput.WasKeyJustPressed(Keys.Enter))
+                if (ImGui.IsItemEdited() && KeyboardInput.WasKeyJustPressed(Keys.Enter))
                 {
                     data.IsEditing = false;
                 }
 
                 if (ImGui.IsItemFocused() == false)
                 {
-                    // data.IsEditing = false;
+                    data.IsEditing = false;
                 }
             }
-
-            // if (ImGui.SliderFloat("", ref fieldValue, sliderAttrib.MinValue, sliderAttrib.MaxValue))
-            // {
-            // SetValue(info, componentInspectorData, fieldValue);
-            // }
         }
         else
         {
-            if (ImGui.DragFloat("", ref fieldValue, 0.01f, float.NegativeInfinity, float.PositiveInfinity,
-                    "%.05f"))
+            if (ImGui.DragInt("", ref fieldValueForImGui))
             {
+                fieldValue = (uint)fieldValueForImGui;
                 SetValue(info, componentInspectorData, fieldValue);
             }
         }

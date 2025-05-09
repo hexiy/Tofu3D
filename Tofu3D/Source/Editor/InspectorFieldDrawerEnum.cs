@@ -22,7 +22,7 @@ public class InspectorFieldDrawerEnum : InspectorFieldDrawable<Enum>
 
         data.SelectedEnumValueIndex = Array.IndexOf(enumValues, Convert.ToInt32(fieldValue));
 
-        bool hasSelectOnHoverAttrib = info.HasCustomAttribute<DropdownAttrib_SelectOnHover>();
+        bool hasSelectOnHoverAttrib = info.HasCustomAttribute<Dropdown_SelectOnHoverAttribute>();
         int oldIndex = data.SelectedEnumValueIndex;
 
         // bool clicked = ImGui.Combo(string.Empty, ref _selectedEnumValueIndex, enumValuesNames,

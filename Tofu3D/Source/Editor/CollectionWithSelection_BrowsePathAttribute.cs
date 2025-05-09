@@ -1,12 +1,12 @@
 namespace TofuEngine;
 
-[CollectionWithSelectionAttrib_BrowsePath("")]
+[CollectionWithSelection_BrowsePath("")]
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Class, Inherited = false)]
-public sealed class CollectionWithSelectionAttrib_BrowsePath : Attribute
+public sealed class CollectionWithSelection_BrowsePathAttribute : Attribute
 {
     public string FileFilter;
 
-    public CollectionWithSelectionAttrib_BrowsePath(string fileFilter = "")
+    public CollectionWithSelection_BrowsePathAttribute(string fileFilter = "")
     {
         FileFilter = fileFilter;
     }

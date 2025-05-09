@@ -12,8 +12,8 @@ public class InspectorFieldDrawerCollectionWithSelection<T> : InspectorFieldDraw
         CollectionWithSelection<T> fieldValue = GetValue(info, componentInspectorData);
 
         bool hasBrowserPathAttrib =
-            info.GetCustomAttribute<CollectionWithSelectionAttrib_BrowsePath>(
-                out CollectionWithSelectionAttrib_BrowsePath? browserPathAttrib);
+            info.GetCustomAttribute<CollectionWithSelection_BrowsePathAttribute>(
+                out CollectionWithSelection_BrowsePathAttribute? browserPathAttrib);
 
         List<string> collectionValuesAsStrings = fieldValue.Items.Cast<string>().ToList();
 
@@ -24,7 +24,7 @@ public class InspectorFieldDrawerCollectionWithSelection<T> : InspectorFieldDraw
 
         string[] collectionValuesAsStringsArray = collectionValuesAsStrings.ToArray();
 
-        info.GetCustomAttribute<PathString>(out PathString? pathStringAttrib);
+        info.GetCustomAttribute<PathStringAttribute>(out PathStringAttribute? pathStringAttrib);
         if (pathStringAttrib != null && pathStringAttrib.DisplayNameOnly)
         {
             for (int i = 0; i < collectionValuesAsStringsArray.Length; i++)

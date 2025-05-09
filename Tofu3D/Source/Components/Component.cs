@@ -31,9 +31,9 @@ public class Component : IDestroyable, ICloneable
             return;
         }
 
-        CanExecuteUpdateInEditMode = GetType().GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
+        CanExecuteUpdateInEditMode = GetType().GetCustomAttribute(typeof(ExecuteInEditModeAttribute), true) != null;
         CanExecuteUpdateInEditMode = CanExecuteUpdateInEditMode ||
-                                     info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
+                                     info.GetCustomAttribute(typeof(ExecuteInEditModeAttribute), true) != null;
     }
 #if DEBUG
     public float UpdateTime { get; set; } // how long in ms it took to update this gameobject
@@ -88,12 +88,12 @@ public class Component : IDestroyable, ICloneable
         bool methodHasExecuteInEditModeAttrib = false;
         if (_executeInEditModeMethods.ContainsKey(typeAndMethodString) == false)
         {
-            methodHasExecuteInEditModeAttrib = type.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
+            methodHasExecuteInEditModeAttrib = type.GetCustomAttribute(typeof(ExecuteInEditModeAttribute), true) != null;
 
             MethodInfo? info = type.GetMethod(methodName);
             if (methodHasExecuteInEditModeAttrib == false)
             {
-                methodHasExecuteInEditModeAttrib = info.GetCustomAttribute(typeof(ExecuteInEditMode), true) != null;
+                methodHasExecuteInEditModeAttrib = info.GetCustomAttribute(typeof(ExecuteInEditModeAttribute), true) != null;
             }
 
             _executeInEditModeMethods[typeAndMethodString] = methodHasExecuteInEditModeAttrib ? info : null;

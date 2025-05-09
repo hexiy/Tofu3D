@@ -75,6 +75,7 @@ public class Inspector
             { typeof(bool), new InspectorFieldDrawerBool() },
             { typeof(float), new InspectorFieldDrawerFloat() },
             { typeof(int), new InspectorFieldDrawerInt() },
+            { typeof(uint), new InspectorFieldDrawerUInt() },
             { typeof(string), new InspectorFieldDrawerString() },
             { typeof(Action), new InspectorFieldDrawerAction() },
             { typeof(AudioClip), new InspectorFieldDrawerAudioClip() },

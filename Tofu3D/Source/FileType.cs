@@ -11,6 +11,7 @@ public enum FileType
     TextureAtlas,
     Scene,
     Script,
+    Text,
     Audio,
     Temporary,
     Other,

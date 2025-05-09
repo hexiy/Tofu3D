@@ -1,6 +1,6 @@
 public class LightBase : Component
 {
-    [Color3Attrib]
+    [Color3]
     public Color Color = Color.White;
 
     public float Intensity = 1;

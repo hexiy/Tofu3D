@@ -14,8 +14,8 @@ public class InspectorFieldDrawerVector4 : InspectorFieldDrawable<Vector4>
 
         System.Numerics.Vector3 vec3 = v4.ToVector3();
 
-        ColorHDR colorHdr = info.GetCustomAttribute<ColorHDR>();
-        bool isHDRColor = colorHdr != null;
+        ColorHDRAttribute colorHdrAttribute = info.GetCustomAttribute<ColorHDRAttribute>();
+        bool isHDRColor = colorHdrAttribute != null;
         if (isHDRColor)
         {
             ImGui.SetNextItemWidth(width);
@@ -24,7 +24,7 @@ public class InspectorFieldDrawerVector4 : InspectorFieldDrawable<Vector4>
             
             ImGui.SetCursorPosX(cursorPosX);
             ImGui.SetNextItemWidth(width);
-            changed = changed || ImGui.SliderFloat("", ref v4.W, colorHdr.MinIntensity, colorHdr.MaxIntensity);
+            changed = changed || ImGui.SliderFloat("", ref v4.W, colorHdrAttribute.MinIntensity, colorHdrAttribute.MaxIntensity);
         }
         else
         {

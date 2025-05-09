@@ -198,6 +198,7 @@ public static class AssetPathExtensions
             ".tofutexture" or ".png" or ".jpg" or ".jpeg" or ".tga" or ".bmp" => FileType.Texture,
             ".tofumesh" => FileType.Mesh,
             ".cs" => FileType.Script,
+            ".txt" or  ".log" or ".csv" or ".json" or ".md" or ".xml"or ".yaml" or ".py"or ".js" => FileType.Text,
             ".tofumodel" or ".obj" => FileType.Model,
             ".glsl" => FileType.Shader,
             ".prefab" => FileType.Prefab,

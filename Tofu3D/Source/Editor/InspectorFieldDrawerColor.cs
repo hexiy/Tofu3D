@@ -14,7 +14,7 @@ public class InspectorFieldDrawerColor : InspectorFieldDrawable<Color>
 
        
 
-        bool hasColor3Attribute = info.GetCustomAttribute<Color3Attrib>(out Color3Attrib? color3Attrib);
+        bool hasColor3Attribute = info.GetCustomAttribute<Color3Attribute>(out Color3Attribute? color3Attrib);
         if (hasColor3Attribute)
         {
             System.Numerics.Vector3 vec3 = Extensions.ToVector3(fieldValue);
@@ -25,7 +25,7 @@ public class InspectorFieldDrawerColor : InspectorFieldDrawable<Color>
         else
         {
             bool isHDRColor =
-                info.GetCustomAttribute<ColorHDR>(out ColorHDR? colorHDRAttrib);
+                info.GetCustomAttribute<ColorHDRAttribute>(out ColorHDRAttribute? colorHDRAttrib);
             ImGuiColorEditFlags flags = isHDRColor ? ImGuiColorEditFlags.HDR : ImGuiColorEditFlags.None;
 
             changed = ImGui.ColorEdit4("", ref fieldValue, flags);
