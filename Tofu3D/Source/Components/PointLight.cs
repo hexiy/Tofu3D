@@ -20,25 +20,25 @@ public class PointLight : LightBase
 
     private void ConfigureCameraForShadowMapping(int cubemapFaceIndex)
     {
-        _cameraBeforeTransformationWorldPosition = Camera.MainCamera.Transform.WorldPosition;
-        _cameraBeforeTransformationRotation = Camera.MainCamera.Transform.Rotation;
-        _cameraBeforeTransformationIsOrthographic = Camera.MainCamera.IsOrthographic;
-        _cameraBeforeTransformationOrthographicSize = Camera.MainCamera.OrthographicSize;
-        _cameraBeforeTransformationSize = Camera.MainCamera.Size;
-        _cameraBeforeTransformationNearPlaneDistance = Camera.MainCamera.NearPlaneDistance;
-        _cameraBeforeTransformationFarPlaneDistance = Camera.MainCamera.FarPlaneDistance;
+        _cameraBeforeTransformationWorldPosition = Camera.GameViewCamera.Transform.WorldPosition;
+        _cameraBeforeTransformationRotation = Camera.GameViewCamera.Transform.Rotation;
+        _cameraBeforeTransformationIsOrthographic = Camera.GameViewCamera.IsOrthographic;
+        _cameraBeforeTransformationOrthographicSize = Camera.GameViewCamera.OrthographicSize;
+        _cameraBeforeTransformationSize = Camera.GameViewCamera.Size;
+        _cameraBeforeTransformationNearPlaneDistance = Camera.GameViewCamera.NearPlaneDistance;
+        _cameraBeforeTransformationFarPlaneDistance = Camera.GameViewCamera.FarPlaneDistance;
 
-        Camera.MainCamera.IsOrthographic = false;
-        Camera.MainCamera.FieldOfView = 90;
-        Camera.MainCamera.Transform.WorldPosition =
+        Camera.GameViewCamera.IsOrthographic = false;
+        Camera.GameViewCamera.FieldOfView = 90;
+        Camera.GameViewCamera.Transform.WorldPosition =
             Transform.WorldPosition; // * new Vector3(1, 1, 1); // TODO: well this is weird
-        Camera.MainCamera.Transform.Rotation = Transform.Rotation;
-        Camera.MainCamera.Size = new Vector2(2048, 2048);
-        Camera.MainCamera.NearPlaneDistance = 0.1f;
-        Camera.MainCamera.FarPlaneDistance = Radius;
-        Camera.MainCamera.UpdateMatrices();
+        Camera.GameViewCamera.Transform.Rotation = Transform.Rotation;
+        Camera.GameViewCamera.Size = new Vector2(2048, 2048);
+        Camera.GameViewCamera.NearPlaneDistance = 0.1f;
+        Camera.GameViewCamera.FarPlaneDistance = Radius;
+        Camera.GameViewCamera.UpdateMatrices();
 
-        LightSpaceViewProjectionMatrix = Camera.MainCamera.GetLightViewMatrix() *
-                                         Camera.MainCamera.GetPerspectiveProjectionMatrix();
+        LightSpaceViewProjectionMatrix = Camera.GameViewCamera.GetLightViewMatrix() *
+                                         Camera.GameViewCamera.GetPerspectiveProjectionMatrix();
     }
 }

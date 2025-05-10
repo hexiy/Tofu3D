@@ -3,7 +3,7 @@
 [ExecuteInEditMode]
 public class Camera : Component, IComponentUpdateable
 {
-    public static event Action<Vector2> CameraSizeChanged = newSize => { };
+    public event Action<Vector2> CameraSizeChanged = newSize => { };
 
     //public int antialiasingStrength = 0;
     public Color Color = new Color(34, 34, 34);
@@ -26,7 +26,8 @@ public class Camera : Component, IComponentUpdateable
     [XmlIgnore] public Matrix4x4 ViewMatrix;
     //[XmlIgnore] public RenderTarget2D renderTarget;
 
-    public static Camera MainCamera { get; private set; }
+    public static Camera GameViewCamera { get; private set; }
+    public static Camera SceneViewCamera { get; private set; }
 
     public void Update()
     {
@@ -47,7 +48,7 @@ public class Camera : Component, IComponentUpdateable
     {
         // if (MainCamera == null)
         // {
-        MainCamera = this;
+        GameViewCamera = this;
         // }
 
         GameObject.AlwaysUpdate = true;

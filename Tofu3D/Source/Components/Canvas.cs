@@ -7,8 +7,8 @@ public class Canvas : Component, IComponentUpdateable
     {
         return;
         //Debug.Log(Transform.LocalPosition - Camera.I.Transform.LocalPosition);
-        Transform.LocalPosition = Camera.MainCamera.Transform.LocalPosition;
-        Transform.LocalScale = Camera.MainCamera.Transform.LocalScale;
+        Transform.LocalPosition = Camera.GameViewCamera.Transform.LocalPosition;
+        Transform.LocalScale = Camera.GameViewCamera.Transform.LocalScale;
     }
 
     public override void Awake()

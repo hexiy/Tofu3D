@@ -45,7 +45,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         SelectInspectable(Tofu.EditorSettingsAll.EditorSettingsGeneral);
 
 
-        Toggle(true);
+        // Toggle(true);
     }
 
     private void OnSidebarSelectedItemChanged(int itemIndex)

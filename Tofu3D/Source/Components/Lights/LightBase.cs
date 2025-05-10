@@ -28,13 +28,13 @@ public class LightBase : Component
 
     protected void ConfigureCameraForSceneRender()
     {
-        Camera.MainCamera.IsOrthographic = _cameraBeforeTransformationIsOrthographic;
-        Camera.MainCamera.OrthographicSize = _cameraBeforeTransformationOrthographicSize;
-        Camera.MainCamera.Size = _cameraBeforeTransformationSize;
-        Camera.MainCamera.NearPlaneDistance = _cameraBeforeTransformationNearPlaneDistance;
-        Camera.MainCamera.FarPlaneDistance = _cameraBeforeTransformationFarPlaneDistance;
-        Camera.MainCamera.Transform.WorldPosition = _cameraBeforeTransformationWorldPosition;
-        Camera.MainCamera.Transform.Rotation = _cameraBeforeTransformationRotation;
-        Camera.MainCamera.UpdateMatrices();
+        Camera.GameViewCamera.IsOrthographic = _cameraBeforeTransformationIsOrthographic;
+        Camera.GameViewCamera.OrthographicSize = _cameraBeforeTransformationOrthographicSize;
+        Camera.GameViewCamera.Size = _cameraBeforeTransformationSize;
+        Camera.GameViewCamera.NearPlaneDistance = _cameraBeforeTransformationNearPlaneDistance;
+        Camera.GameViewCamera.FarPlaneDistance = _cameraBeforeTransformationFarPlaneDistance;
+        Camera.GameViewCamera.Transform.WorldPosition = _cameraBeforeTransformationWorldPosition;
+        Camera.GameViewCamera.Transform.Rotation = _cameraBeforeTransformationRotation;
+        Camera.GameViewCamera.UpdateMatrices();
     }
 }

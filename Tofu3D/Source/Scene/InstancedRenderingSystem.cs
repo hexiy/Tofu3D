@@ -98,16 +98,16 @@ public class InstancedRenderingSystem
     public void RenderShaderGroups(InstancingRenderMode renderMode)
     {
         // if mousepicking or depth, we set the shader first for all shadergroups
-        if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
+        if (Tofu.RenderingSystem.SceneViewPipeline.CurrentRenderPassType == RenderPassType.MousePicking)
         {
             // _mousePickingMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("ModelMousePicking.mat");
             Tofu.ShaderManager.UseShader(_mousePickingMaterial.Shader);
 
             _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
-                Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
+                Camera.GameViewCamera.ViewMatrix * Camera.GameViewCamera.ProjectionMatrix);
         }
 
-        else if (Tofu.RenderPassSystem.CurrentRenderPassType
+        else if (Tofu.RenderingSystem.SceneViewPipeline.CurrentRenderPassType
                  is RenderPassType.DirectionalLightShadowDepth
                  or RenderPassType.PointLightShadowDepth
                  or RenderPassType.ZPrePass)
@@ -116,13 +116,13 @@ public class InstancedRenderingSystem
 
             // not material-dependent
             _depthMaterial.Shader.SetMatrix4X4("u_viewProjection",
-                Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
+                Camera.GameViewCamera.ViewMatrix * Camera.GameViewCamera.ProjectionMatrix);
         }
 
         // Iterate over shader groups
         foreach (KeyValuePair<int, ShaderGroup> shaderGroup in _shaderGroups)
         {
-            if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
+            if (Tofu.RenderingSystem.SceneViewPipeline.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
                 or RenderPassType.Transparency)
             {
                 Shader shader = _groupDefinitions[shaderGroup.Value.GroupDefinitionIndexes[0]].Material.Shader;
@@ -229,14 +229,14 @@ public class InstancedRenderingSystem
         //     GL.Enable(EnableCap.CullFace);
         //     GL.CullFace(CullFaceMode.Back);
         // }
-        if (Tofu.RenderPassSystem.CurrentRenderPassType == RenderPassType.MousePicking)
+        if (Tofu.RenderingSystem.SceneViewPipeline.CurrentRenderPassType == RenderPassType.MousePicking)
         {
             RenderObjects_MousePickingPass(meshVao: meshVao, numberOfObjects: numberOfObjects,
                 indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
                 vbo: sharedInstancingBuffer.Vbo);
         }
 
-        else if (Tofu.RenderPassSystem.CurrentRenderPassType
+        else if (Tofu.RenderingSystem.SceneViewPipeline.CurrentRenderPassType
                  is RenderPassType.DirectionalLightShadowDepth
                  or RenderPassType.PointLightShadowDepth
                  or RenderPassType.ZPrePass)
@@ -249,7 +249,7 @@ public class InstancedRenderingSystem
             }
         }
 
-        else if (Tofu.RenderPassSystem.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
+        else if (Tofu.RenderingSystem.SceneViewPipeline.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
                  or RenderPassType.Transparency)
         {
             RenderObjects_Opaques_UI_Transparency(meshVao: meshVao, numberOfObjects: numberOfObjects,
@@ -380,15 +380,15 @@ public class InstancedRenderingSystem
         shader.SetInt("_pointLightsCount", Tofu.LightRenderingManager.PointLightsCount);
 
         shader.SetFloat("u_cameraFrustumLength",
-            Camera.MainCamera.FarPlaneDistance - Camera.MainCamera.NearPlaneDistance);
+            Camera.GameViewCamera.FarPlaneDistance - Camera.GameViewCamera.NearPlaneDistance);
 
         shader.SetFloat("u_renderMode",
             (int)Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
 
         shader.SetMatrix4X4("u_viewProjection",
-            Camera.MainCamera.ViewMatrix * Camera.MainCamera.ProjectionMatrix);
+            Camera.GameViewCamera.ViewMatrix * Camera.GameViewCamera.ProjectionMatrix);
 
-        shader.SetVector3("u_camPosWorldSpace", Camera.MainCamera.Transform.WorldPosition);
+        shader.SetVector3("u_camPosWorldSpace", Camera.GameViewCamera.Transform.WorldPosition);
 
         // LIGHTING
         shader.SetMatrix4X4("u_lightSpaceViewProjection", DirectionalLight.LightSpaceViewProjectionMatrix);
@@ -535,11 +535,11 @@ public class InstancedRenderingSystem
 
 
             material.Shader.SetInt("u_hasEnvironmentCubemap",
-                Camera.MainCamera?.GetComponent<Skybox>() != null ? 1 : 0);
-            if (Camera.MainCamera?.GetComponent<Skybox>() != null && material.Shader.EnvironmentTextureUnit != null)
+                Camera.GameViewCamera?.GetComponent<Skybox>() != null ? 1 : 0);
+            if (Camera.GameViewCamera?.GetComponent<Skybox>() != null && material.Shader.EnvironmentTextureUnit != null)
             {
                 GL.ActiveTexture(material.Shader.EnvironmentTextureUnit.Value);
-                TextureHelper.BindTexture(Camera.MainCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
+                TextureHelper.BindTexture(Camera.GameViewCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
                     TextureType.Cubemap);
             }
 

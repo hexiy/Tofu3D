@@ -8,7 +8,6 @@ public abstract class RenderPass : IComparable<RenderPass>
     protected RenderPass(RenderPassType type)
     {
         RenderPassType = type;
-        Tofu.RenderPassSystem.RegisterRenderPass(this);
     }
 
     public RenderPassType RenderPassType { get; }

@@ -87,25 +87,25 @@ public class DirectionalLight : LightBase
 
     private void ConfigureCameraForShadowMapping()
     {
-        _cameraBeforeTransformationWorldPosition = Camera.MainCamera.Transform.WorldPosition;
-        _cameraBeforeTransformationRotation = Camera.MainCamera.Transform.Rotation;
-        _cameraBeforeTransformationIsOrthographic = Camera.MainCamera.IsOrthographic;
-        _cameraBeforeTransformationOrthographicSize = Camera.MainCamera.OrthographicSize;
-        _cameraBeforeTransformationSize = Camera.MainCamera.Size;
-        _cameraBeforeTransformationNearPlaneDistance = Camera.MainCamera.NearPlaneDistance;
-        _cameraBeforeTransformationFarPlaneDistance = Camera.MainCamera.FarPlaneDistance;
+        _cameraBeforeTransformationWorldPosition = Camera.GameViewCamera.Transform.WorldPosition;
+        _cameraBeforeTransformationRotation = Camera.GameViewCamera.Transform.Rotation;
+        _cameraBeforeTransformationIsOrthographic = Camera.GameViewCamera.IsOrthographic;
+        _cameraBeforeTransformationOrthographicSize = Camera.GameViewCamera.OrthographicSize;
+        _cameraBeforeTransformationSize = Camera.GameViewCamera.Size;
+        _cameraBeforeTransformationNearPlaneDistance = Camera.GameViewCamera.NearPlaneDistance;
+        _cameraBeforeTransformationFarPlaneDistance = Camera.GameViewCamera.FarPlaneDistance;
 
-        Camera.MainCamera.IsOrthographic = true;
-        Camera.MainCamera.OrthographicSize = OrthographicSize;
-        Camera.MainCamera.Transform.WorldPosition =
+        Camera.GameViewCamera.IsOrthographic = true;
+        Camera.GameViewCamera.OrthographicSize = OrthographicSize;
+        Camera.GameViewCamera.Transform.WorldPosition =
             Transform.WorldPosition; // * new Vector3(1, 1, 1); // TODO: well this is weird
-        Camera.MainCamera.Transform.Rotation = Transform.Rotation;
-        Camera.MainCamera.Size = Size;
-        Camera.MainCamera.NearPlaneDistance = NearPlaneDistance;
-        Camera.MainCamera.FarPlaneDistance = FarPlaneDistance;
-        Camera.MainCamera.UpdateMatrices();
+        Camera.GameViewCamera.Transform.Rotation = Transform.Rotation;
+        Camera.GameViewCamera.Size = Size;
+        Camera.GameViewCamera.NearPlaneDistance = NearPlaneDistance;
+        Camera.GameViewCamera.FarPlaneDistance = FarPlaneDistance;
+        Camera.GameViewCamera.UpdateMatrices();
 
-        LightSpaceViewProjectionMatrix = Camera.MainCamera.GetLightViewMatrix() *
-                                         Camera.MainCamera.GetLightProjectionMatrix(OrthographicSize);
+        LightSpaceViewProjectionMatrix = Camera.GameViewCamera.GetLightViewMatrix() *
+                                         Camera.GameViewCamera.GetLightProjectionMatrix(OrthographicSize);
     }
 }

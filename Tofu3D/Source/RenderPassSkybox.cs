@@ -29,7 +29,7 @@ public class RenderPassSkybox : RenderPass
     {
         if (_skybox == null)
         {
-            _skybox = Camera.MainCamera.GetComponent<Skybox>();
+            _skybox = Camera.GameViewCamera.GetComponent<Skybox>();
         }
 
         if (_skybox == null)
@@ -42,6 +42,6 @@ public class RenderPassSkybox : RenderPass
 
     protected override void SetupRenderTexture()
     {
-        MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true);
+        MainFramebuffer = new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true);
     }
 }

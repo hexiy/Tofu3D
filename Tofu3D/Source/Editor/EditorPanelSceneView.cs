@@ -34,9 +34,9 @@ public class EditorPanelSceneView : EditorPanel
             ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 
             Tofu.Editor.SceneViewSize =
-                Tofu.RenderPassSystem.FinalFramebuffer.Size / Screen.Scale; // + new Vector2(0, tooltipsPanelHeight);
+                Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.Size / Screen.Scale; // + new Vector2(0, tooltipsPanelHeight);
 
-            ImGui.SetNextWindowSize(Tofu.RenderPassSystem.FinalFramebuffer.Size, ImGuiCond.FirstUseEver);
+            ImGui.SetNextWindowSize(Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.Size, ImGuiCond.FirstUseEver);
             ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
             ImGuiWindowFlags flags = Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar |
                                      ImGuiWindowFlags.NoScrollWithMouse;
@@ -46,9 +46,9 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.Begin(Name, flags);
 
-            if ((Vector2)ImGui.GetWindowSize() != Camera.MainCamera.Size)
+            if ((Vector2)ImGui.GetWindowSize() != Camera.GameViewCamera.Size)
             {
-                Camera.MainCamera.SetSize(ImGui.GetWindowSize());
+                Camera.GameViewCamera.SetSize(ImGui.GetWindowSize());
                 // Debug.Log("SetSize");
             }
 
@@ -58,19 +58,19 @@ public class EditorPanelSceneView : EditorPanel
 
             Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(),
                 ImGuiHelper.FlipYToGoodSpace(ImGui.GetCursorPosY()) -
-                Tofu.RenderPassSystem.FinalFramebuffer.Size.Y / Screen.Scale - 15);
+                Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.Size.Y / Screen.Scale - 15);
 
             // Debug.StatSetValue("aaaa", $"scne size {Tofu.RenderPassSystem.FinalFramebuffer.Size.Y / Screen.Scale}");
 
-            if (Tofu.RenderPassSystem.CanRender)
+            if (Tofu.RenderingSystem.SceneViewPipeline.CanRender)
             {
-                TofuImGui.ImageTexture2D(Tofu.RenderPassSystem.FinalFramebuffer.TextureId,
-                    Tofu.RenderPassSystem.FinalFramebuffer.Size,
+                TofuImGui.ImageTexture2D(Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.TextureId,
+                    Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.Size,
                     new Vector4(0, 1, 1, 0));
             }
             else
             {
-                ImGui.Dummy(Tofu.RenderPassSystem.FinalFramebuffer.Size);
+                ImGui.Dummy(Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.Size);
             }
 
             HandleModelDragDrop();
@@ -148,7 +148,7 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.SetCursorPos(System.Numerics.Vector2.Zero);
 
-            ImGui.SetCursorPosX(Camera.MainCamera.Size.X / 2 - 200 * Screen.ScaleI);
+            ImGui.SetCursorPosX(Camera.GameViewCamera.Size.X / 2 - 200 * Screen.ScaleI);
 
             Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
             Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
@@ -185,7 +185,7 @@ public class EditorPanelSceneView : EditorPanel
             {
                 if (ImGui.BeginPopupContextWindow("Render passes"))
                 {
-                    foreach (RenderPass renderPass in Tofu.RenderPassSystem.RenderPasses)
+                    foreach (RenderPass renderPass in Tofu.RenderingSystem.SceneViewPipeline.RenderPasses)
                     {
                         bool isEnabled = renderPass.Enabled;
                         bool wasEnabled = isEnabled;
@@ -321,7 +321,7 @@ public class EditorPanelSceneView : EditorPanel
         else
 
         {
-            ImGui.SetNextWindowSize(Camera.MainCamera.Size + new Vector2(0, 50), ImGuiCond.Always);
+            ImGui.SetNextWindowSize(Camera.GameViewCamera.Size + new Vector2(0, 50), ImGuiCond.Always);
             ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.Always, new Vector2(0, 0));
             ImGui.Begin("Scene View",
                 ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize |
@@ -330,8 +330,8 @@ public class EditorPanelSceneView : EditorPanel
             ImGui.SetCursorPosX(0);
             Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
 
-            TofuImGui.ImageTexture2D(Tofu.RenderPassSystem.FinalFramebuffer.TextureId,
-                Tofu.RenderPassSystem.FinalFramebuffer.Size,
+            TofuImGui.ImageTexture2D(Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.TextureId,
+                Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.Size,
                 new Vector4(0, 1, 1, 0));
 
             ImGui.End();
@@ -393,7 +393,7 @@ public class EditorPanelSceneView : EditorPanel
                 if (parent == null)
                 {
                     Vector3 worldPosition =
-                        Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
+                        Camera.GameViewCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
 
                     string modelName =
                         Path.GetFileNameWithoutExtension(model.PathInAssetsFolder);
@@ -411,7 +411,7 @@ public class EditorPanelSceneView : EditorPanel
 
     private GameObject SpawnMeshIntoScene(RuntimeMesh mesh, int indexOfMesh, bool isSingleMeshInModel)
     {
-        Vector3 worldPosition = Camera.MainCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
+        Vector3 worldPosition = Camera.GameViewCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
 
         string name =
             Path.GetFileNameWithoutExtension(mesh.Mesh.Name);

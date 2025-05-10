@@ -69,11 +69,11 @@ public class RenderPassBloomThreshold : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = Tofu.RenderPassSystem.ViewSize/3;
+            MainFramebuffer.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize/3;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize/3, true, false, downsampleFactor: 1);
+        MainFramebuffer = new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize/3, true, false, downsampleFactor: 1);
     }
 }

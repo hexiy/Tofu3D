@@ -81,9 +81,9 @@ public class GameObjectSelectionManager
         }
 
         bool isCameraOrTransformHandle = false;
-        if (Camera.MainCamera != null)
+        if (Camera.GameViewCamera != null)
         {
-            isCameraOrTransformHandle = gameObjects.Contains(Camera.MainCamera?.GameObject) ||
+            isCameraOrTransformHandle = gameObjects.Contains(Camera.GameViewCamera?.GameObject) ||
                                         gameObjects.Contains(TransformHandle.I?.GameObject);
         }
 

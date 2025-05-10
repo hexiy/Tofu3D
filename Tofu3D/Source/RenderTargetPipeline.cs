@@ -1,33 +1,35 @@
 namespace TofuEngine.Rendering;
 
-public class RenderPassSystem
+public class RenderTargetPipeline
 {
     private bool _initialized;
-    // we need to first render the whole scene for directional light
-    // next pass-opaques we now have a shadowmap so we drav the scene normally
-    // post process pass to post process scene
-    // next pass-ui pass
 
-    // should be reorderable and being able to add new pass easily...
-    // every pass will have its own texture
-    // in editor we will be able to visualise all the passes
     public List<RenderPass> RenderPasses { get; } = new List<RenderPass>();
 
     public RenderPassType CurrentRenderPassType { get; private set; } = RenderPassType.DirectionalLightShadowDepth;
 
-    public Framebuffer FinalFramebuffer /*
-    {
-        get { return _renderPasses[^1].PassRenderTexture; }
-    } //*/ { get; private set; } //= new RenderTexture(new Vector2(100, 100), true, false);
+    public Framebuffer FinalFramebuffer { get; private set; }
 
     public Vector2 ViewSize { get; private set; } = new Vector2(100, 100);
-    public bool CanRender => Camera.MainCamera?.IsActive == true && _initialized;
+    public bool CanRender => Camera.GameViewCamera?.IsActive == true && _initialized;
+    public Camera Camera;
 
     public void Initialize()
     {
         CreatePasses();
         RebuildRenderTextures(ViewSize);
+        Scene.SceneLoaded += SetupCamera;
+    }
+
+    private void SetupCamera()
+    {
+        GameObject camGo = GameObject.Create(name: "RenderTargetPipeline Camera", visibleInHierarchy: false,
+            runtimeOnly: true);
+
+        Camera = camGo.AddComponent<Camera>();
         Camera.CameraSizeChanged += RebuildRenderTextures;
+        camGo.AddComponent<Skybox>();
+        camGo.Awake();
     }
 
     public void RebuildRenderTextures(Vector2 viewSize)
@@ -56,6 +58,18 @@ public class RenderPassSystem
 
         RenderPassTransparency renderPassTransparency = new RenderPassTransparency();
         RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
+
+
+        RenderPasses.AddRange([
+            renderPassSkybox,
+            renderPassDirectionalLightShadowDepth,
+            renderPassPointLightShadowDepth,
+            renderPassPointLightShadowDepth,
+            renderPassZPrePass,
+            renderPassOpaques,
+            renderPassTransparency,
+            renderPassMousePicking
+        ]);
         // RenderPassBloomThreshold renderPassBloomThreshold = new();
         // RenderPassBloomPostProcess renderPassBloomPostProcess = new(renderPassBloomThreshold);
         // RenderPassPostProcess renderPassPostProcess = new();
@@ -74,11 +88,11 @@ public class RenderPassSystem
         // renderPassMousePicking.Enabled = false;
     }
 
-    public void RegisterRenderPass(RenderPass renderPass)
-    {
-        RenderPasses.Add(renderPass);
-        // _renderPasses.Sort();
-    }
+    // public void RegisterRenderPass(RenderPass renderPass)
+    // {
+    //     RenderPasses.Add(renderPass);
+    //     // _renderPasses.Sort();
+    // }
 
     public void RenderAllPasses()
     {

@@ -33,7 +33,7 @@ internal static class Tofu
 
     // RENDERING
     internal static RenderSettings RenderSettings;
-    internal static RenderPassSystem RenderPassSystem;
+    internal static RenderingSystem RenderingSystem;
     internal static ShaderManager ShaderManager;
     internal static BasicMeshesCollection BasicMeshesCollection;
     internal static InstancedRenderingSystem InstancedRenderingSystem;
@@ -155,8 +155,8 @@ internal static class Tofu
         InstancedRenderingSystem = new InstancedRenderingSystem();
         LightRenderingManager = new LightRenderingManager();
 
-        RenderPassSystem = new RenderPassSystem();
-        RenderPassSystem.Initialize();
+        RenderingSystem = new RenderingSystem();
+        RenderingSystem.Initialize();
 
         CoroutineManager = new CoroutineManager();
 
@@ -258,9 +258,11 @@ internal static class Tofu
         Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 120f), -1);
 
         Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 120f));
-        Camera.MainCamera.UpdateMatrices();
+        Camera.GameViewCamera.UpdateMatrices();
         SceneManager.CurrentScene.UploadRenderData(InstancingRenderMode.All);
-        RenderPassSystem.RenderAllPasses();
+        
+        
+        RenderingSystem.RenderAllRenderTargetPipelines();
 
         Debug.EndGraphTimer("Scene Render");
 

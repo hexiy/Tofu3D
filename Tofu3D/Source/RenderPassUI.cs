@@ -25,11 +25,11 @@ public class RenderPassUI : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = Tofu.RenderPassSystem.ViewSize;
+            MainFramebuffer.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, true, true);
+        MainFramebuffer = new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true, true, true);
     }
 }

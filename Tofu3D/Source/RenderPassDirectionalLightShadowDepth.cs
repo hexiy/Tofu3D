@@ -53,7 +53,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
     {
         GL.Enable(EnableCap.DepthTest);
         GL.DepthMask(true);
-GL.Clear(ClearBufferMask.DepthBufferBit);
+        GL.Clear(ClearBufferMask.DepthBufferBit);
         // it would be nice to render the skybox to the light view preview textures
         // RenderPassSkybox.I.Render();
         // RenderPassSkybox.I.RenderToRenderTexture(PassRenderTexture, FramebufferAttachment.Color);

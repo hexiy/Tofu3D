@@ -148,27 +148,27 @@ public class RenderPassBloomPostProcess : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = Tofu.RenderPassSystem.ViewSize;
+            MainFramebuffer.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize;
             MainFramebuffer.Invalidate(false);
         }
         else
         {
-            MainFramebuffer = new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false);
+            MainFramebuffer = new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true, false);
         }
 
         if (BloomFramebufferHorizontal != null)
         {
-            BloomFramebufferHorizontal.Size = Tofu.RenderPassSystem.ViewSize / 3f;
+            BloomFramebufferHorizontal.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize / 3f;
             BloomFramebufferHorizontal.Invalidate(false);
-            BloomFramebufferVertical.Size = Tofu.RenderPassSystem.ViewSize / 3f;
+            BloomFramebufferVertical.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize / 3f;
             BloomFramebufferVertical.Invalidate(false);
         }
         else
         {
             BloomFramebufferHorizontal =
-                new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, downsampleFactor: 3);
+                new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true, false, downsampleFactor: 3);
             BloomFramebufferVertical =
-                new Framebuffer(Tofu.RenderPassSystem.ViewSize, true, false, downsampleFactor: 3);
+                new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true, false, downsampleFactor: 3);
         }
     }
 }

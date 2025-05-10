@@ -66,7 +66,7 @@ public class Scene
     public TransformHandle TransformHandle;
     public SceneFogManager SceneFogManager { get; private set; }
     public string SceneName => Path.GetFileNameWithoutExtension(ScenePath);
-    private Camera Camera => Camera.MainCamera;
+    private Camera Camera => Camera.GameViewCamera;
 
     public string ThumbnailPath => GetThumbnailPath(ScenePath);
     private bool _openGlStateSet = false;
