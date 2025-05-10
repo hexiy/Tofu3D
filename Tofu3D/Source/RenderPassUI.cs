@@ -4,7 +4,7 @@ public class RenderPassUI : RenderPass
 {
     public override bool DrawsToTheFinalColorFramebuffer => true;
 
-    public RenderPassUI() : base(RenderPassType.UI)
+    public RenderPassUI(RenderTargetPipeline pipeline) : base(RenderPassType.UI, pipeline)
     {
         I = this;
     }
@@ -25,11 +25,11 @@ public class RenderPassUI : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize;
+            MainFramebuffer.Size = RenderTargetPipeline.ViewSize;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true, true, true);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize, true, true, true);
     }
 }

@@ -7,7 +7,7 @@ public class RenderPassSkybox : RenderPass
     public override bool DrawsToTheFinalColorFramebuffer => true;
     private Skybox _skybox;
 
-    public RenderPassSkybox() : base(RenderPassType.Skybox)
+    public RenderPassSkybox(RenderTargetPipeline pipeline) : base(RenderPassType.Skybox, pipeline)
     {
         I = this;
     }
@@ -42,6 +42,6 @@ public class RenderPassSkybox : RenderPass
 
     protected override void SetupRenderTexture()
     {
-        MainFramebuffer = new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize, true);
     }
 }

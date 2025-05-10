@@ -5,7 +5,7 @@ public class RenderPassPostProcess : RenderPass
     private Asset_Material _postProcessMaterial;
     public override bool DrawsToTheFinalColorFramebuffer => true;
 
-    public RenderPassPostProcess() : base(RenderPassType.PostProcess)
+    public RenderPassPostProcess(RenderTargetPipeline pipeline) : base(RenderPassType.PostProcess,pipeline)
     {
         I = this;
     }
@@ -64,11 +64,11 @@ public class RenderPassPostProcess : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize;
+            MainFramebuffer.Size = RenderTargetPipeline.ViewSize;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true, true);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize, true, true);
     }
 }

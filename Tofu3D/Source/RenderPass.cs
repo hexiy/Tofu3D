@@ -4,10 +4,12 @@ public abstract class RenderPass : IComparable<RenderPass>
 {
     public virtual BlendMode BlendMode { get; } = BlendMode.Fade;
     public bool Enabled = true;
+    public RenderTargetPipeline RenderTargetPipeline;
 
-    protected RenderPass(RenderPassType type)
+    protected RenderPass(RenderPassType type, RenderTargetPipeline pipeline)
     {
         RenderPassType = type;
+        RenderTargetPipeline = pipeline;
     }
 
     public RenderPassType RenderPassType { get; }

@@ -5,25 +5,32 @@ namespace Tofu3D;
 public class RenderingSystem
 {
     private List<RenderTargetPipeline> _renderTargetPipelines = new List<RenderTargetPipeline>();
-    public RenderTargetPipeline SceneViewPipeline;
+    public RenderTargetPipeline? CurrentlyExecutingPipeline;
 
     public void Initialize()
     {
         _renderTargetPipelines = new List<RenderTargetPipeline>();
+    }
+
+    public RenderTargetPipeline CreatePipeline()
+    {
+        RenderTargetPipeline pipeline = new RenderTargetPipeline();
+        pipeline.Initialize();
 
 
-        SceneViewPipeline = new RenderTargetPipeline();
-        SceneViewPipeline.Initialize();
+        _renderTargetPipelines.Add(pipeline);
 
-
-        _renderTargetPipelines.Add(SceneViewPipeline);
+        return pipeline;
     }
 
     public void RenderAllRenderTargetPipelines()
     {
         foreach (RenderTargetPipeline pipeline in _renderTargetPipelines)
         {
+            CurrentlyExecutingPipeline = pipeline;
             pipeline.RenderAllPasses();
         }
+
+        CurrentlyExecutingPipeline = null;
     }
 }

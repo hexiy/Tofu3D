@@ -5,7 +5,7 @@ public class RenderPassPointLightShadowDepth : RenderPass
     public static RenderPassPointLightShadowDepth I { get; private set; }
     public override bool DrawsToTheFinalColorFramebuffer => false;
 
-    public RenderPassPointLightShadowDepth() : base(RenderPassType.PointLightShadowDepth)
+    public RenderPassPointLightShadowDepth(RenderTargetPipeline pipeline) : base(RenderPassType.PointLightShadowDepth,pipeline)
     {
         I = this;
     }

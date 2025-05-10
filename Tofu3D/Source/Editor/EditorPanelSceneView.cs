@@ -13,6 +13,8 @@ public class EditorPanelSceneView : EditorPanel
     private bool _renderPassesWindowOpened;
     public override string Name => "Scene View";
     public static EditorPanelSceneView I { get; private set; }
+    private RenderTargetPipeline _renderTargetPipeline;
+
 
     public override void Draw()
     {
@@ -34,9 +36,11 @@ public class EditorPanelSceneView : EditorPanel
             ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 
             Tofu.Editor.SceneViewSize =
-                Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.Size / Screen.Scale; // + new Vector2(0, tooltipsPanelHeight);
+                _renderTargetPipeline.FinalFramebuffer.Size /
+                Screen.Scale; // + new Vector2(0, tooltipsPanelHeight);
 
-            ImGui.SetNextWindowSize(Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.Size, ImGuiCond.FirstUseEver);
+            ImGui.SetNextWindowSize(_renderTargetPipeline.FinalFramebuffer.Size,
+                ImGuiCond.FirstUseEver);
             ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
             ImGuiWindowFlags flags = Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar |
                                      ImGuiWindowFlags.NoScrollWithMouse;
@@ -58,19 +62,19 @@ public class EditorPanelSceneView : EditorPanel
 
             Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(),
                 ImGuiHelper.FlipYToGoodSpace(ImGui.GetCursorPosY()) -
-                Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.Size.Y / Screen.Scale - 15);
+                _renderTargetPipeline.FinalFramebuffer.Size.Y / Screen.Scale - 15);
 
             // Debug.StatSetValue("aaaa", $"scne size {Tofu.RenderPassSystem.FinalFramebuffer.Size.Y / Screen.Scale}");
 
-            if (Tofu.RenderingSystem.SceneViewPipeline.CanRender)
+            if (_renderTargetPipeline.CanRender)
             {
-                TofuImGui.ImageTexture2D(Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.TextureId,
-                    Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.Size,
+                TofuImGui.ImageTexture2D(_renderTargetPipeline.FinalFramebuffer.TextureId,
+                    _renderTargetPipeline.FinalFramebuffer.Size,
                     new Vector4(0, 1, 1, 0));
             }
             else
             {
-                ImGui.Dummy(Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.Size);
+                ImGui.Dummy(_renderTargetPipeline.FinalFramebuffer.Size);
             }
 
             HandleModelDragDrop();
@@ -185,7 +189,7 @@ public class EditorPanelSceneView : EditorPanel
             {
                 if (ImGui.BeginPopupContextWindow("Render passes"))
                 {
-                    foreach (RenderPass renderPass in Tofu.RenderingSystem.SceneViewPipeline.RenderPasses)
+                    foreach (RenderPass renderPass in _renderTargetPipeline.RenderPasses)
                     {
                         bool isEnabled = renderPass.Enabled;
                         bool wasEnabled = isEnabled;
@@ -330,8 +334,8 @@ public class EditorPanelSceneView : EditorPanel
             ImGui.SetCursorPosX(0);
             Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
 
-            TofuImGui.ImageTexture2D(Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.TextureId,
-                Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer.Size,
+            TofuImGui.ImageTexture2D(_renderTargetPipeline.FinalFramebuffer.TextureId,
+                _renderTargetPipeline.FinalFramebuffer.Size,
                 new Vector4(0, 1, 1, 0));
 
             ImGui.End();
@@ -429,7 +433,7 @@ public class EditorPanelSceneView : EditorPanel
         modelRendererInstanced.RuntimeMesh = mesh;
 
         go.Awake();
-        
+
         Tofu.GameObjectSelectionManager.SelectGameObject(go);
 
         return go;
@@ -442,5 +446,7 @@ public class EditorPanelSceneView : EditorPanel
     public override void Init()
     {
         I = this;
+
+        _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline();
     }
 }

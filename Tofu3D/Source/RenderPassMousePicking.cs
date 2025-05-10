@@ -8,7 +8,7 @@ public class RenderPassMousePicking : RenderPass
     public override bool CanRender() =>
         Tofu.MouseInput.IsMouseInSceneView && Tofu.MouseInput.IsButtonDown() && base.CanRender();
 
-    public RenderPassMousePicking() : base(RenderPassType.MousePicking)
+    public RenderPassMousePicking(RenderTargetPipeline pipeline) : base(RenderPassType.MousePicking, pipeline)
     {
         I = this;
     }
@@ -31,12 +31,12 @@ public class RenderPassMousePicking : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize;
+            MainFramebuffer.Size = RenderTargetPipeline.ViewSize;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true, false, isIntegerFramebuffer: false);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize, true, false, isIntegerFramebuffer: false);
     }
 
     protected override void PreBindFrameBuffer()

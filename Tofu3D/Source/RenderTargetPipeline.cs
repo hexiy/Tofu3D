@@ -48,16 +48,16 @@ public class RenderTargetPipeline
     private void CreatePasses()
     {
         // GL.Disable(EnableCap.FramebufferSrgb);
-        RenderPassSkybox renderPassSkybox = new RenderPassSkybox();
+        RenderPassSkybox renderPassSkybox = new RenderPassSkybox(this);
         RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth =
-            new RenderPassDirectionalLightShadowDepth();
-        RenderPassPointLightShadowDepth renderPassPointLightShadowDepth = new RenderPassPointLightShadowDepth();
-        RenderPassZPrePass renderPassZPrePass = new RenderPassZPrePass();
-        RenderPassOpaques renderPassOpaques = new RenderPassOpaques();
+            new RenderPassDirectionalLightShadowDepth(this);
+        RenderPassPointLightShadowDepth renderPassPointLightShadowDepth = new RenderPassPointLightShadowDepth(this);
+        RenderPassZPrePass renderPassZPrePass = new RenderPassZPrePass(this);
+        RenderPassOpaques renderPassOpaques = new RenderPassOpaques(this);
         // mouse picking for now must come before transparency pass for it to work
 
-        RenderPassTransparency renderPassTransparency = new RenderPassTransparency();
-        RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking();
+        RenderPassTransparency renderPassTransparency = new RenderPassTransparency(this);
+        RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking(this);
 
 
         RenderPasses.AddRange([

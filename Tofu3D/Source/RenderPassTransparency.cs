@@ -5,7 +5,7 @@ public class RenderPassTransparency : RenderPass
     public override bool DrawsToTheFinalColorFramebuffer => true;
     public override BlendMode BlendMode { get; } = BlendMode.Fade;
 
-    public RenderPassTransparency() : base(RenderPassType.Transparency)
+    public RenderPassTransparency(RenderTargetPipeline pipeline) : base(RenderPassType.Transparency, pipeline)
     {
         I = this;
     }
@@ -53,11 +53,11 @@ public class RenderPassTransparency : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize;
+            MainFramebuffer.Size = RenderTargetPipeline.ViewSize;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true, true);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize, true, true);
     }
 }

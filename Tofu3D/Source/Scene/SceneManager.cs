@@ -110,7 +110,7 @@ public class SceneManager
 
         LastOpenedSceneName = Path.GetFileName(path);
 
-        FramebufferScreenshotGenerator.TakeScreenshot(Tofu.RenderingSystem.SceneViewPipeline.FinalFramebuffer,
+        FramebufferScreenshotGenerator.TakeScreenshot(Tofu.RenderingSystem.CurrentlyExecutingPipeline.FinalFramebuffer,
             fileName: CurrentScene.ThumbnailPath, scale: 0.2f);
     }
 }

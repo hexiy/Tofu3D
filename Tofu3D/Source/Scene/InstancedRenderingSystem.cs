@@ -98,7 +98,7 @@ public class InstancedRenderingSystem
     public void RenderShaderGroups(InstancingRenderMode renderMode)
     {
         // if mousepicking or depth, we set the shader first for all shadergroups
-        if (Tofu.RenderingSystem.SceneViewPipeline.CurrentRenderPassType == RenderPassType.MousePicking)
+        if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType == RenderPassType.MousePicking)
         {
             // _mousePickingMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("ModelMousePicking.mat");
             Tofu.ShaderManager.UseShader(_mousePickingMaterial.Shader);
@@ -107,7 +107,7 @@ public class InstancedRenderingSystem
                 Camera.GameViewCamera.ViewMatrix * Camera.GameViewCamera.ProjectionMatrix);
         }
 
-        else if (Tofu.RenderingSystem.SceneViewPipeline.CurrentRenderPassType
+        else if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType
                  is RenderPassType.DirectionalLightShadowDepth
                  or RenderPassType.PointLightShadowDepth
                  or RenderPassType.ZPrePass)
@@ -122,7 +122,7 @@ public class InstancedRenderingSystem
         // Iterate over shader groups
         foreach (KeyValuePair<int, ShaderGroup> shaderGroup in _shaderGroups)
         {
-            if (Tofu.RenderingSystem.SceneViewPipeline.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
+            if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
                 or RenderPassType.Transparency)
             {
                 Shader shader = _groupDefinitions[shaderGroup.Value.GroupDefinitionIndexes[0]].Material.Shader;
@@ -229,14 +229,14 @@ public class InstancedRenderingSystem
         //     GL.Enable(EnableCap.CullFace);
         //     GL.CullFace(CullFaceMode.Back);
         // }
-        if (Tofu.RenderingSystem.SceneViewPipeline.CurrentRenderPassType == RenderPassType.MousePicking)
+        if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType == RenderPassType.MousePicking)
         {
             RenderObjects_MousePickingPass(meshVao: meshVao, numberOfObjects: numberOfObjects,
                 indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
                 vbo: sharedInstancingBuffer.Vbo);
         }
 
-        else if (Tofu.RenderingSystem.SceneViewPipeline.CurrentRenderPassType
+        else if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType
                  is RenderPassType.DirectionalLightShadowDepth
                  or RenderPassType.PointLightShadowDepth
                  or RenderPassType.ZPrePass)
@@ -249,7 +249,7 @@ public class InstancedRenderingSystem
             }
         }
 
-        else if (Tofu.RenderingSystem.SceneViewPipeline.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
+        else if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
                  or RenderPassType.Transparency)
         {
             RenderObjects_Opaques_UI_Transparency(meshVao: meshVao, numberOfObjects: numberOfObjects,

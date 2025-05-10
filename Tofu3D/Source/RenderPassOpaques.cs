@@ -2,7 +2,7 @@ namespace TofuEngine.Rendering;
 
 public class RenderPassOpaques : RenderPass
 {
-    public RenderPassOpaques() : base(RenderPassType.Opaques)
+    public RenderPassOpaques(RenderTargetPipeline pipeline) : base(RenderPassType.Opaques, pipeline)
     {
         I = this;
     }
@@ -60,11 +60,11 @@ public class RenderPassOpaques : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize;
+            MainFramebuffer.Size = RenderTargetPipeline.ViewSize;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true, true);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize, true, true);
     }
 }

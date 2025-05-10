@@ -7,7 +7,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
     private DirectionalLight _directionalLight;
     public override bool DrawsToTheFinalColorFramebuffer => false;
 
-    public RenderPassDirectionalLightShadowDepth() : base(RenderPassType.DirectionalLightShadowDepth)
+    public RenderPassDirectionalLightShadowDepth(RenderTargetPipeline pipeline) : base(RenderPassType.DirectionalLightShadowDepth, pipeline)
     {
         I = this;
     }

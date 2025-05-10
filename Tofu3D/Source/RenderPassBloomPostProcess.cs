@@ -12,8 +12,9 @@ public class RenderPassBloomPostProcess : RenderPass
 
     public static RenderPassBloomPostProcess I;
 
-    public RenderPassBloomPostProcess(RenderPassBloomThreshold renderPassBloomThreshold) : base(RenderPassType
-        .BloomPostProcess)
+    public RenderPassBloomPostProcess(RenderPassBloomThreshold renderPassBloomThreshold, RenderTargetPipeline pipeline)
+        : base(RenderPassType
+            .BloomPostProcess, pipeline)
     {
         I = this;
         _renderPassBloomThreshold = renderPassBloomThreshold;
@@ -69,7 +70,7 @@ public class RenderPassBloomPostProcess : RenderPass
 
         GL.Enable(EnableCap.Blend);
         GL.BlendFunc(BlendingFactor.One, BlendingFactor.One); // Additive blending for bloom effect
-        GL.Viewport(0,0, (int)target.Size.X,(int)target.Size.Y);
+        GL.Viewport(0, 0, (int)target.Size.X, (int)target.Size.Y);
 
         GL.ActiveTexture(TextureUnit.Texture0);
         TextureHelper.BindTexture(BloomFramebufferHorizontal.TextureId);
@@ -95,7 +96,7 @@ public class RenderPassBloomPostProcess : RenderPass
         _horizontalBlurMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
         _horizontalBlurMaterial.Shader.SetFloat("texelWidth", 1f / BloomFramebufferHorizontal.Size.X);
         _horizontalBlurMaterial.Shader.SetFloat("texelHeight", 1f / BloomFramebufferHorizontal.Size.Y);
-        GL.Viewport(0,0, (int)BloomFramebufferHorizontal.Size.X,(int)BloomFramebufferHorizontal.Size.Y);
+        GL.Viewport(0, 0, (int)BloomFramebufferHorizontal.Size.X, (int)BloomFramebufferHorizontal.Size.Y);
 
         Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
@@ -122,7 +123,7 @@ public class RenderPassBloomPostProcess : RenderPass
         _verticalBlurMaterial.Shader.SetMatrix4X4("u_mvp", Matrix4x4.Identity);
         _verticalBlurMaterial.Shader.SetFloat("texelWidth", 1f / BloomFramebufferVertical.Size.X);
         _verticalBlurMaterial.Shader.SetFloat("texelHeight", 1f / BloomFramebufferVertical.Size.Y);
-        GL.Viewport(0,0, (int)BloomFramebufferVertical.Size.X,(int)BloomFramebufferVertical.Size.Y);
+        GL.Viewport(0, 0, (int)BloomFramebufferVertical.Size.X, (int)BloomFramebufferVertical.Size.Y);
 
         Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.RenderTextureMesh.Vao);
 
@@ -141,34 +142,33 @@ public class RenderPassBloomPostProcess : RenderPass
 
     protected override void Render_GL()
     {
-        
     }
 
     protected override void SetupRenderTexture()
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize;
+            MainFramebuffer.Size = RenderTargetPipeline.ViewSize;
             MainFramebuffer.Invalidate(false);
         }
         else
         {
-            MainFramebuffer = new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true, false);
+            MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize, true, false);
         }
 
         if (BloomFramebufferHorizontal != null)
         {
-            BloomFramebufferHorizontal.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize / 3f;
+            BloomFramebufferHorizontal.Size = RenderTargetPipeline.ViewSize / 3f;
             BloomFramebufferHorizontal.Invalidate(false);
-            BloomFramebufferVertical.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize / 3f;
+            BloomFramebufferVertical.Size = RenderTargetPipeline.ViewSize / 3f;
             BloomFramebufferVertical.Invalidate(false);
         }
         else
         {
             BloomFramebufferHorizontal =
-                new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true, false, downsampleFactor: 3);
+                new Framebuffer(RenderTargetPipeline.ViewSize, true, false, downsampleFactor: 3);
             BloomFramebufferVertical =
-                new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize, true, false, downsampleFactor: 3);
+                new Framebuffer(RenderTargetPipeline.ViewSize, true, false, downsampleFactor: 3);
         }
     }
 }

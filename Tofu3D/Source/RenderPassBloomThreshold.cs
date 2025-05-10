@@ -5,7 +5,7 @@ public class RenderPassBloomThreshold : RenderPass
     private Asset_Material _bloomThresholdMaterial;
     public static RenderPassBloomThreshold I;
 
-    public RenderPassBloomThreshold() : base(RenderPassType.BloomThreshold)
+    public RenderPassBloomThreshold(RenderTargetPipeline pipeline) : base(RenderPassType.BloomThreshold, pipeline)
     {
         I = this;
     }
@@ -69,11 +69,11 @@ public class RenderPassBloomThreshold : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = Tofu.RenderingSystem.SceneViewPipeline.ViewSize/3;
+            MainFramebuffer.Size = RenderTargetPipeline.ViewSize/3;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(Tofu.RenderingSystem.SceneViewPipeline.ViewSize/3, true, false, downsampleFactor: 1);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize/3, true, false, downsampleFactor: 1);
     }
 }
