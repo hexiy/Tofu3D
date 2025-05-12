@@ -183,7 +183,7 @@ public class EditorPanelHierarchy : EditorPanel
         {
             GameObject go = GameObject.Create(name: "GameObject");
             go.Awake();
-            go.Transform.WorldPosition = Camera.GameViewCamera.CenterOfScreenToWorld();
+            go.Transform.WorldPosition = Camera.SceneViewCamera.CenterOfScreenToWorld();
         }
 
         ImGui.SameLine();
@@ -224,7 +224,7 @@ public class EditorPanelHierarchy : EditorPanel
             List<GameObject> toDestroy = new List<GameObject>();
             foreach (GameObject go in Tofu.SceneManager.CurrentScene.GameObjects)
             {
-                if (go != Camera.GameViewCamera.GameObject) // && go.VisibleInHierarchy)
+                if (go.GetComponent<Camera>() == false) // && go.VisibleInHierarchy)
                 {
                     toDestroy.Add(go);
                 }

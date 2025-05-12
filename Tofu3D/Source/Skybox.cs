@@ -6,7 +6,9 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
     private Asset_Material _material;
     public Asset_Material GetMaterial => _material;
 
+    [Hide]
     private RuntimeCubemapTexture _texture;
+
     public float Fov = 60;
 
     public RuntimeCubemapTexture GetCubemapTexture() => _texture;
@@ -51,8 +53,8 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
         }
 
 
-        Vector3 forwardLocal = Camera.GameViewCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
-        Vector3 upLocal = Camera.GameViewCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
+        Vector3 forwardLocal = Camera.CurrentlyRenderingCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
+        Vector3 upLocal = Camera.CurrentlyRenderingCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
 
         Matrix4x4 viewMatrix = Matrix4x4.CreateLookAt(Vector3.Zero, forwardLocal, upLocal) *
                                Matrix4x4.CreateScale(-1, 1, 1);
@@ -60,7 +62,7 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
         Fov = Mathf.Clamp(Fov, 0.000001f, 179);
         Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(
             OpenTK.Mathematics.MathHelper.DegreesToRadians(Fov),
-            Camera.GameViewCamera.Size.X / Camera.GameViewCamera.Size.Y, 0.01f, 1);
+            Camera.CurrentlyRenderingCamera.Size.X / Camera.CurrentlyRenderingCamera.Size.Y, 0.01f, 1);
 
 
         // GL.DepthMask(false);

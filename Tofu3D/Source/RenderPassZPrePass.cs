@@ -6,11 +6,8 @@ public class RenderPassZPrePass : RenderPass
 
     public RenderPassZPrePass(RenderTargetPipeline pipeline) : base(RenderPassType.ZPrePass, pipeline)
     {
-        I = this;
     }
-
-    public static RenderPassZPrePass I { get; private set; }
-
+    
     public override void Initialize()
     {
         SetupRenderTexture();

@@ -41,10 +41,12 @@ public class Scene
     {
         ComponentDisabled.Invoke(component);
     }
+
     internal static void OnSceneLoaded()
     {
         SceneLoaded.Invoke();
     }
+
     /*{
         get
         {
@@ -66,7 +68,6 @@ public class Scene
     public TransformHandle TransformHandle;
     public SceneFogManager SceneFogManager { get; private set; }
     public string SceneName => Path.GetFileNameWithoutExtension(ScenePath);
-    private Camera Camera => Camera.GameViewCamera;
 
     public string ThumbnailPath => GetThumbnailPath(ScenePath);
     private bool _openGlStateSet = false;
@@ -119,21 +120,24 @@ public class Scene
 
     public void CreateDefaultObjects()
     {
-        CreateCamera();
+        SetupCamera();
         CreateTransformHandle();
         CreateGrid();
         CreateLights();
     }
 
-    private void CreateCamera()
+    private void SetupCamera()
     {
         if (FindComponent<Camera>(out Camera camera) == null)
         {
             GameObject camGo = GameObject.Create(name: "Camera");
-            camGo.AddComponent<Camera>();
+            camera = camGo.AddComponent<Camera>();
             camGo.AddComponent<Skybox>();
             camGo.Awake();
         }
+
+        Camera.GameViewCamera = camera;
+        Camera.AllCameras.Add(camera);
     }
 
     private void CreateGrid()
@@ -272,7 +276,7 @@ public class Scene
 
     public void UploadRenderData(InstancingRenderMode instancingRenderMode)
     {
-        SetOpenGLState();
+        SetOpenGLState(); // works without this,opaques atleast
 
         // GL.ClearDepth(1000);
         // GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
@@ -286,7 +290,7 @@ public class Scene
             _renderableComponentQueue.UploadRenderDataTransparency();
         }
 
-        RestoreOpenGLState();
+        RestoreOpenGLState(); // works without this,opaques atleast
     }
     // public void RenderUI()
     // {

@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.InteropServices;
 using ImGuiNET;
+using Tofu3D;
 using TofuEngine.Rendering;
 
 namespace TofuEngine;
@@ -14,6 +15,7 @@ public class EditorPanelSceneView : EditorPanel
     public override string Name => "Scene View";
     public static EditorPanelSceneView I { get; private set; }
     private RenderTargetPipeline _renderTargetPipeline;
+    public Camera _camera => _renderTargetPipeline.Camera;
 
 
     public override void Draw()
@@ -50,9 +52,9 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.Begin(Name, flags);
 
-            if ((Vector2)ImGui.GetWindowSize() != Camera.GameViewCamera.Size)
+            if ((Vector2)ImGui.GetWindowSize() != _camera.Size)
             {
-                Camera.GameViewCamera.SetSize(ImGui.GetWindowSize());
+                _camera.SetSize(ImGui.GetWindowSize());
                 // Debug.Log("SetSize");
             }
 
@@ -152,7 +154,7 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.SetCursorPos(System.Numerics.Vector2.Zero);
 
-            ImGui.SetCursorPosX(Camera.GameViewCamera.Size.X / 2 - 200 * Screen.ScaleI);
+            ImGui.SetCursorPosX(_camera.Size.X / 2 - 200 * Screen.ScaleI);
 
             Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
             Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
@@ -325,7 +327,7 @@ public class EditorPanelSceneView : EditorPanel
         else
 
         {
-            ImGui.SetNextWindowSize(Camera.GameViewCamera.Size + new Vector2(0, 50), ImGuiCond.Always);
+            ImGui.SetNextWindowSize(_camera.Size + new Vector2(0, 50), ImGuiCond.Always);
             ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.Always, new Vector2(0, 0));
             ImGui.Begin("Scene View",
                 ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize |
@@ -397,7 +399,7 @@ public class EditorPanelSceneView : EditorPanel
                 if (parent == null)
                 {
                     Vector3 worldPosition =
-                        Camera.GameViewCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
+                        _camera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
 
                     string modelName =
                         Path.GetFileNameWithoutExtension(model.PathInAssetsFolder);
@@ -415,7 +417,7 @@ public class EditorPanelSceneView : EditorPanel
 
     private GameObject SpawnMeshIntoScene(RuntimeMesh mesh, int indexOfMesh, bool isSingleMeshInModel)
     {
-        Vector3 worldPosition = Camera.GameViewCamera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
+        Vector3 worldPosition = _camera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
 
         string name =
             Path.GetFileNameWithoutExtension(mesh.Mesh.Name);
@@ -447,6 +449,6 @@ public class EditorPanelSceneView : EditorPanel
     {
         I = this;
 
-        _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline();
+        _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.SceneView);
     }
 }

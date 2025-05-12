@@ -9,7 +9,7 @@ public class InspectorFieldDrawerCubemapTexture : InspectorFieldDrawable<Runtime
     {
         // CubemapTexture cubemapTexture = info.ListElement as CubemapTexture;
         RuntimeCubemapTexture cubemapTexture = GetValue(info, componentInspectorData);
-        string? textureName = Path.GetFileName(cubemapTexture.PathInAssetsFolder);
+        string textureName = Path.GetFileName(cubemapTexture.PathInAssetsFolder) ?? "";
 
         bool clicked = ImGui.Button(textureName,
             new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetFrameHeight()));

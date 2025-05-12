@@ -12,7 +12,7 @@ public class Editor
 
     public static readonly ImGuiWindowFlags
         ImGuiDefaultWindowFlags =
-            ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove /* | ImGuiWindowFlags.AlwaysAutoResize*/
+            ImGuiWindowFlags.NoCollapse// | ImGuiWindowFlags.NoMove /* | ImGuiWindowFlags.AlwaysAutoResize*/
         /* | ImGuiWindowFlags.NoDocking*/;
 
     private EditorDialogManager _editorDialogManager;
@@ -37,6 +37,11 @@ public class Editor
 
     public Vector2 SceneViewSize = new Vector2(0, 0);
 
+    
+    // Left Bottom corner of the scene view
+    public Vector2 GameViewPosition = new Vector2(0, 0);
+
+    public Vector2 GameViewSize = new Vector2(0, 0);
     public unsafe void Initialize()
     {
         _editorLayoutManager = new EditorLayoutManager();
@@ -60,6 +65,7 @@ public class Editor
                 new EditorPanelConsole(),
                 new EditorPanelProfiler(),
                 new EditorPanelSceneView(),
+                new EditorPanelGameView(),
                 new EditorPanelEditorSettings(),
                 // new EditorPanelTextureViewer(),
             };

@@ -1,9 +1,11 @@
+using Tofu3D;
+
 namespace TofuEngine.Rendering;
 
 public class RenderTargetPipeline
 {
     private bool _initialized;
-
+    private RenderTargetPipelineType ViewType;
     public List<RenderPass> RenderPasses { get; } = new List<RenderPass>();
 
     public RenderPassType CurrentRenderPassType { get; private set; } = RenderPassType.DirectionalLightShadowDepth;
@@ -11,8 +13,14 @@ public class RenderTargetPipeline
     public Framebuffer FinalFramebuffer { get; private set; }
 
     public Vector2 ViewSize { get; private set; } = new Vector2(100, 100);
-    public bool CanRender => Camera.GameViewCamera?.IsActive == true && _initialized;
+    public bool CanRender => Camera.IsActive == true && _initialized;
     public Camera Camera;
+    public RenderPass ZPrePass;
+
+    public RenderTargetPipeline(RenderTargetPipelineType type)
+    {
+        ViewType = type;
+    }
 
     public void Initialize()
     {
@@ -23,10 +31,22 @@ public class RenderTargetPipeline
 
     private void SetupCamera()
     {
+        if (ViewType == RenderTargetPipelineType.GameView)
+        {
+            Camera = Tofu.SceneManager.CurrentScene.FindComponent<Camera>();
+            if (Camera != null)
+            {
+                Camera.CameraSizeChanged += RebuildRenderTextures;
+                return;
+            }
+        }
+
         GameObject camGo = GameObject.Create(name: "RenderTargetPipeline Camera", visibleInHierarchy: false,
             runtimeOnly: true);
 
         Camera = camGo.AddComponent<Camera>();
+        Camera.SceneViewCamera = Camera;
+        Camera.AllCameras.Add(Camera);
         Camera.CameraSizeChanged += RebuildRenderTextures;
         camGo.AddComponent<Skybox>();
         camGo.Awake();
@@ -53,6 +73,8 @@ public class RenderTargetPipeline
             new RenderPassDirectionalLightShadowDepth(this);
         RenderPassPointLightShadowDepth renderPassPointLightShadowDepth = new RenderPassPointLightShadowDepth(this);
         RenderPassZPrePass renderPassZPrePass = new RenderPassZPrePass(this);
+        ZPrePass = renderPassZPrePass;
+        
         RenderPassOpaques renderPassOpaques = new RenderPassOpaques(this);
         // mouse picking for now must come before transparency pass for it to work
 
@@ -113,6 +135,7 @@ public class RenderTargetPipeline
             }
 
             renderPass.Clear();
+            
         }
 
         foreach (RenderPass renderPass in RenderPasses)

@@ -6,6 +6,7 @@ public class RenderPassOpaques : RenderPass
     {
         I = this;
     }
+
     public override bool DrawsToTheFinalColorFramebuffer => true;
 
     public static RenderPassOpaques I { get; private set; }
@@ -21,9 +22,10 @@ public class RenderPassOpaques : RenderPass
     {
         // GL.Enable(EnableCap.DepthTest);
 
-        if (RenderPassZPrePass.I.Enabled)
+        if (RenderTargetPipeline.ZPrePass.Enabled)
         {
-            GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassZPrePass.I.MainFramebuffer.FrameBufferID);
+            GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer,
+                RenderTargetPipeline.ZPrePass.MainFramebuffer.FrameBufferID);
             GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, MainFramebuffer.FrameBufferID);
             int sizeX = (int)MainFramebuffer.Size.X;
             int sizeY = (int)MainFramebuffer.Size.Y;

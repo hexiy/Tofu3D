@@ -12,9 +12,9 @@ public class RenderingSystem
         _renderTargetPipelines = new List<RenderTargetPipeline>();
     }
 
-    public RenderTargetPipeline CreatePipeline()
+    public RenderTargetPipeline CreatePipeline(RenderTargetPipelineType type)
     {
-        RenderTargetPipeline pipeline = new RenderTargetPipeline();
+        RenderTargetPipeline pipeline = new RenderTargetPipeline(type);
         pipeline.Initialize();
 
 
@@ -28,9 +28,11 @@ public class RenderingSystem
         foreach (RenderTargetPipeline pipeline in _renderTargetPipelines)
         {
             CurrentlyExecutingPipeline = pipeline;
+            Tofu.SceneManager.CurrentScene.UploadRenderData(InstancingRenderMode.All);
+
             pipeline.RenderAllPasses();
         }
 
-        CurrentlyExecutingPipeline = null;
+        // CurrentlyExecutingPipeline = null;
     }
 }

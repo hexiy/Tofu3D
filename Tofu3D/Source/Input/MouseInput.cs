@@ -33,16 +33,16 @@ public class MouseInput
     {
         get
         {
-            if (Camera.GameViewCamera.IsOrthographic)
+            if (Camera.ActivelyInteractedWithCamera.IsOrthographic)
             {
-                return ScreenDelta * Camera.GameViewCamera.OrthographicSize;
+                return ScreenDelta * Camera.ActivelyInteractedWithCamera.OrthographicSize;
             }
 
             return ScreenDelta;
         }
     }
 
-    public Vector2 WorldPosition => Camera.GameViewCamera.ScreenToWorld(PositionInView);
+    public Vector2 WorldPosition => Camera.ActivelyInteractedWithCamera.ScreenToWorld(PositionInView);
 
     public float ScrollDelta
     {

@@ -258,8 +258,15 @@ internal static class Tofu
         Debug.StartGraphTimer("Window Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1 / 120f), -1);
 
         Debug.StartGraphTimer("Scene Render", DebugGraphTimer.SourceGroup.Render, TimeSpan.FromSeconds(1f / 120f));
-        Camera.GameViewCamera.UpdateMatrices();
-        SceneManager.CurrentScene.UploadRenderData(InstancingRenderMode.All);
+        // Camera.MainCamera.UpdateMatrices();
+        foreach (Camera camera in Camera.AllCameras)
+        {
+            camera.UpdateMatrices();
+        }
+        
+        
+        // uploading render data is now in RenderingSystem.RenderAllRenderTargetPipelines 
+        // SceneManager.CurrentScene.UploadRenderData(InstancingRenderMode.All);
         
         
         RenderingSystem.RenderAllRenderTargetPipelines();

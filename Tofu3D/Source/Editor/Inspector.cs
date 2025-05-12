@@ -224,7 +224,7 @@ public class Inspector
                     headerColor = Color.Gold.ToVector4();
                 }
 
-                ImGui.PushStyleColor(ImGuiCol.Header, headerColor);
+                // ImGui.PushStyleColor(ImGuiCol.Header, headerColor);
             }
 
             bool headerClicked = true;
@@ -235,7 +235,7 @@ public class Inspector
 
             if (componentInspectorData.InspectableType == typeof(Asset_Material))
             {
-                ImGui.PopStyleColor();
+                // ImGui.PopStyleColor();
             }
 
             if (headerClicked)
@@ -247,6 +247,11 @@ public class Inspector
 
                 foreach (FieldOrPropertyInfo info in componentInspectorData.Infos)
                 {
+                    // if (Global.Debug)
+                    // {
+                    // Debug.Log($"attempting to draw {info.Name} property of component {componentInspectorData.InspectableType}");
+                    // }
+
                     bool drawn = DrawFieldOrProperty(info, componentInspectorData);
                     if (drawn == false)
                     {
@@ -411,16 +416,17 @@ public class Inspector
                 // info.SetValue(componentInspectorData.InspectableType, obj);
             }
         }
-        
+
         if (info.FieldOrPropertyType.BaseType == typeof(Enum))
         {
             Inspector._inspectorFieldDrawables[typeof(Enum)].Draw(info, componentInspectorData);
         }
         else
         {
-            if (Inspector._inspectorFieldDrawables.ContainsKey(info.FieldOrPropertyType))
+            if (Inspector._inspectorFieldDrawables.TryGetValue(info.FieldOrPropertyType,
+                    out var inspectorFieldDrawable))
             {
-                Inspector._inspectorFieldDrawables[info.FieldOrPropertyType].Draw(info, componentInspectorData);
+                inspectorFieldDrawable.Draw(info, componentInspectorData);
             }
         }
 

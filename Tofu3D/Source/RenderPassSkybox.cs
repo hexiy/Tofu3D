@@ -29,7 +29,7 @@ public class RenderPassSkybox : RenderPass
     {
         if (_skybox == null)
         {
-            _skybox = Camera.GameViewCamera.GetComponent<Skybox>();
+            _skybox = Camera.CurrentlyRenderingCamera.GetComponent<Skybox>();
         }
 
         if (_skybox == null)

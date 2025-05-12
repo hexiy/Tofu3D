@@ -9,25 +9,33 @@ public class Camera : Component, IComponentUpdateable
     public Color Color = new Color(34, 34, 34);
     public float FarPlaneDistance = 100;
 
-    [ShowIfNot(nameof(IsOrthographic))] public float FieldOfView = 60;
+    [ShowIfNot(nameof(IsOrthographic))]
+    public float FieldOfView = 60;
 
     public bool IsOrthographic = false;
     public float NearPlaneDistance = 0.01f;
 
-    [ShowIf(nameof(IsOrthographic))] public float OrthographicSize = 2;
+    [ShowIf(nameof(IsOrthographic))]
+    public float OrthographicSize = 2;
 
     //public float cameraSize = 0.1f;
-    [XmlIgnore] public Matrix4x4 ProjectionMatrix;
+    [XmlIgnore]
+    public Matrix4x4 ProjectionMatrix;
 
     public Vector2 Size = new Vector2(1380, 900);
 
-    [XmlIgnore] public Matrix4x4 TranslationMatrix;
+    [XmlIgnore]
+    public Matrix4x4 TranslationMatrix;
 
-    [XmlIgnore] public Matrix4x4 ViewMatrix;
+    [XmlIgnore]
+    public Matrix4x4 ViewMatrix;
     //[XmlIgnore] public RenderTarget2D renderTarget;
 
-    public static Camera GameViewCamera { get; private set; }
-    public static Camera SceneViewCamera { get; private set; }
+    public static Camera GameViewCamera; // { get; private set; } // game view camera
+    public static Camera SceneViewCamera; // { get; private set; } // game view camera
+    public static Camera CurrentlyRenderingCamera => Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera;
+    public static Camera ActivelyInteractedWithCamera => SceneViewCamera;
+    public static List<Camera> AllCameras = new List<Camera>();
 
     public void Update()
     {
@@ -48,7 +56,7 @@ public class Camera : Component, IComponentUpdateable
     {
         // if (MainCamera == null)
         // {
-        GameViewCamera = this;
+        //     MainCamera = this;
         // }
 
         GameObject.AlwaysUpdate = true;
@@ -119,7 +127,8 @@ public class Camera : Component, IComponentUpdateable
         FieldOfView = Mathf.ClampMin(FieldOfView, 0.0001f);
         NearPlaneDistance = Mathf.Clamp(NearPlaneDistance, 0.00001f, FarPlaneDistance);
         FarPlaneDistance = Mathf.Clamp(FarPlaneDistance, NearPlaneDistance + 0.001f, Mathf.Infinity);
-        Matrix4x4 perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(OpenTK.Mathematics.MathHelper.DegreesToRadians(FieldOfView),
+        Matrix4x4 perspectiveMatrix = Matrix4x4.CreatePerspectiveFieldOfView(
+            OpenTK.Mathematics.MathHelper.DegreesToRadians(FieldOfView),
             Size.X / Size.Y, NearPlaneDistance, FarPlaneDistance);
 
         // .CreatePerspective gives us great depth, but fieldofview doesnt?....
@@ -210,7 +219,6 @@ public class Camera : Component, IComponentUpdateable
 
     public Matrix4x4 GetLightViewMatrix()
     {
-        
         Vector3 forwardWorld =
             Transform.WorldPosition + Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
         Vector3 upLocal = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
@@ -221,6 +229,7 @@ public class Camera : Component, IComponentUpdateable
 
         return view;
     }
+
     public Matrix4x4 GetLightViewMatrixNotWoring()
     {
         // Vector3 oldRotation = Transform.Rotation;

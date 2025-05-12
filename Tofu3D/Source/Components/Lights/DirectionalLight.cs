@@ -87,25 +87,25 @@ public class DirectionalLight : LightBase
 
     private void ConfigureCameraForShadowMapping()
     {
-        _cameraBeforeTransformationWorldPosition = Camera.GameViewCamera.Transform.WorldPosition;
-        _cameraBeforeTransformationRotation = Camera.GameViewCamera.Transform.Rotation;
-        _cameraBeforeTransformationIsOrthographic = Camera.GameViewCamera.IsOrthographic;
-        _cameraBeforeTransformationOrthographicSize = Camera.GameViewCamera.OrthographicSize;
-        _cameraBeforeTransformationSize = Camera.GameViewCamera.Size;
-        _cameraBeforeTransformationNearPlaneDistance = Camera.GameViewCamera.NearPlaneDistance;
-        _cameraBeforeTransformationFarPlaneDistance = Camera.GameViewCamera.FarPlaneDistance;
+        _cameraBeforeTransformationWorldPosition = Camera.CurrentlyRenderingCamera.Transform.WorldPosition;
+        _cameraBeforeTransformationRotation = Camera.CurrentlyRenderingCamera.Transform.Rotation;
+        _cameraBeforeTransformationIsOrthographic = Camera.CurrentlyRenderingCamera.IsOrthographic;
+        _cameraBeforeTransformationOrthographicSize = Camera.CurrentlyRenderingCamera.OrthographicSize;
+        _cameraBeforeTransformationSize = Camera.CurrentlyRenderingCamera.Size;
+        _cameraBeforeTransformationNearPlaneDistance = Camera.CurrentlyRenderingCamera.NearPlaneDistance;
+        _cameraBeforeTransformationFarPlaneDistance = Camera.CurrentlyRenderingCamera.FarPlaneDistance;
 
-        Camera.GameViewCamera.IsOrthographic = true;
-        Camera.GameViewCamera.OrthographicSize = OrthographicSize;
-        Camera.GameViewCamera.Transform.WorldPosition =
+        Camera.CurrentlyRenderingCamera.IsOrthographic = true;
+        Camera.CurrentlyRenderingCamera.OrthographicSize = OrthographicSize;
+        Camera.CurrentlyRenderingCamera.Transform.WorldPosition =
             Transform.WorldPosition; // * new Vector3(1, 1, 1); // TODO: well this is weird
-        Camera.GameViewCamera.Transform.Rotation = Transform.Rotation;
-        Camera.GameViewCamera.Size = Size;
-        Camera.GameViewCamera.NearPlaneDistance = NearPlaneDistance;
-        Camera.GameViewCamera.FarPlaneDistance = FarPlaneDistance;
-        Camera.GameViewCamera.UpdateMatrices();
+        Camera.CurrentlyRenderingCamera.Transform.Rotation = Transform.Rotation;
+        Camera.CurrentlyRenderingCamera.Size = Size;
+        Camera.CurrentlyRenderingCamera.NearPlaneDistance = NearPlaneDistance;
+        Camera.CurrentlyRenderingCamera.FarPlaneDistance = FarPlaneDistance;
+        Camera.CurrentlyRenderingCamera.UpdateMatrices();
 
-        LightSpaceViewProjectionMatrix = Camera.GameViewCamera.GetLightViewMatrix() *
-                                         Camera.GameViewCamera.GetLightProjectionMatrix(OrthographicSize);
+        LightSpaceViewProjectionMatrix = Camera.CurrentlyRenderingCamera.GetLightViewMatrix() *
+                                         Camera.CurrentlyRenderingCamera.GetLightProjectionMatrix(OrthographicSize);
     }
 }

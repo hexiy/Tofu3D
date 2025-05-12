@@ -18,22 +18,25 @@ public class RenderPassTransparency : RenderPass
 
         base.Initialize();
     }
+
     protected override void Render_GL()
     {
         Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.Transparent);
     }
+
     protected override void PreBindFrameBuffer()
     {
         GL.Enable(EnableCap.Blend);
         // GL.Enable(EnableCap.DepthTest);
-     
-        GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassZPrePass.I.MainFramebuffer.FrameBufferID);
+
+        GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer,
+            RenderTargetPipeline.ZPrePass.MainFramebuffer.FrameBufferID);
         GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, MainFramebuffer.FrameBufferID);
         int sizeX = (int)MainFramebuffer.Size.X;
         int sizeY = (int)MainFramebuffer.Size.Y;
         GL.BlitFramebuffer(0, 0, sizeX, sizeY, 0, 0, sizeX, sizeY, ClearBufferMask.DepthBufferBit,
             BlitFramebufferFilter.Nearest);
-        
+
         // blit skybox to this
         // GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassSkybox.I.MainFramebuffer.FrameBufferID);
         // GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, MainFramebuffer.FrameBufferID);

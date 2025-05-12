@@ -104,7 +104,7 @@ public class InstancedRenderingSystem
             Tofu.ShaderManager.UseShader(_mousePickingMaterial.Shader);
 
             _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
-                Camera.GameViewCamera.ViewMatrix * Camera.GameViewCamera.ProjectionMatrix);
+                Camera.CurrentlyRenderingCamera.ViewMatrix * Camera.CurrentlyRenderingCamera.ProjectionMatrix);
         }
 
         else if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType
@@ -116,7 +116,7 @@ public class InstancedRenderingSystem
 
             // not material-dependent
             _depthMaterial.Shader.SetMatrix4X4("u_viewProjection",
-                Camera.GameViewCamera.ViewMatrix * Camera.GameViewCamera.ProjectionMatrix);
+                Camera.CurrentlyRenderingCamera.ViewMatrix * Camera.CurrentlyRenderingCamera.ProjectionMatrix);
         }
 
         // Iterate over shader groups
@@ -380,15 +380,15 @@ public class InstancedRenderingSystem
         shader.SetInt("_pointLightsCount", Tofu.LightRenderingManager.PointLightsCount);
 
         shader.SetFloat("u_cameraFrustumLength",
-            Camera.GameViewCamera.FarPlaneDistance - Camera.GameViewCamera.NearPlaneDistance);
+            Camera.CurrentlyRenderingCamera.FarPlaneDistance - Camera.CurrentlyRenderingCamera.NearPlaneDistance);
 
         shader.SetFloat("u_renderMode",
             (int)Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
 
         shader.SetMatrix4X4("u_viewProjection",
-            Camera.GameViewCamera.ViewMatrix * Camera.GameViewCamera.ProjectionMatrix);
+            Camera.CurrentlyRenderingCamera.ViewMatrix * Camera.CurrentlyRenderingCamera.ProjectionMatrix);
 
-        shader.SetVector3("u_camPosWorldSpace", Camera.GameViewCamera.Transform.WorldPosition);
+        shader.SetVector3("u_camPosWorldSpace", Camera.CurrentlyRenderingCamera.Transform.WorldPosition);
 
         // LIGHTING
         shader.SetMatrix4X4("u_lightSpaceViewProjection", DirectionalLight.LightSpaceViewProjectionMatrix);
@@ -535,11 +535,11 @@ public class InstancedRenderingSystem
 
 
             material.Shader.SetInt("u_hasEnvironmentCubemap",
-                Camera.GameViewCamera?.GetComponent<Skybox>() != null ? 1 : 0);
-            if (Camera.GameViewCamera?.GetComponent<Skybox>() != null && material.Shader.EnvironmentTextureUnit != null)
+                Camera.CurrentlyRenderingCamera?.GetComponent<Skybox>() != null ? 1 : 0);
+            if (Camera.CurrentlyRenderingCamera?.GetComponent<Skybox>() != null && material.Shader.EnvironmentTextureUnit != null)
             {
                 GL.ActiveTexture(material.Shader.EnvironmentTextureUnit.Value);
-                TextureHelper.BindTexture(Camera.GameViewCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
+                TextureHelper.BindTexture(Camera.CurrentlyRenderingCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
                     TextureType.Cubemap);
             }
 

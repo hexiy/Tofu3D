@@ -32,15 +32,15 @@ public partial class TransformHandle : Component, IComponentUpdateable
             HandleModeChanges();
         }
 
-        if (Camera.GameViewCamera.IsOrthographic)
+        if (Camera.CurrentlyRenderingCamera.IsOrthographic)
         {
-            Transform.LocalScale = Vector3.One * Camera.GameViewCamera.OrthographicSize * 1.5f;
+            Transform.LocalScale = Vector3.One * Camera.CurrentlyRenderingCamera.OrthographicSize * 1.5f;
         }
         else
         {
             Transform.LocalScale = Vector3.One *
                                    Vector3.Distance(Transform.WorldPosition,
-                                       Camera.GameViewCamera.Transform.WorldPosition) * 0.2f;
+                                       Camera.CurrentlyRenderingCamera.Transform.WorldPosition) * 0.2f;
         }
 
         if (Tofu.MouseInput.IsButtonUp())
@@ -261,7 +261,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
     public void Move(Vector3 deltaVector)
     {
         // return;
-        deltaVector = Camera.GameViewCamera.ScreenToWorld(deltaVector) * 100;
+        deltaVector = Camera.ActivelyInteractedWithCamera.ScreenToWorld(deltaVector) * 100;
 
         Vector3 axisDirection = Vector3.Zero;
         Vector3 moveVector = Vector3.Zero;
@@ -300,7 +300,8 @@ public partial class TransformHandle : Component, IComponentUpdateable
                 moveVector -= new Vector3(deltaVector.Z, 0, deltaVector.X);
                 break;
             case TransformHandleAxis.Xy:
-                moveVector += Camera.GameViewCamera.Transform.TransformVectorToWorldSpaceVector(deltaVector);
+                moveVector +=
+                    Camera.ActivelyInteractedWithCamera.Transform.TransformVectorToWorldSpaceVector(deltaVector);
                 break;
         }
 
