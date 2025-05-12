@@ -15,7 +15,8 @@ public static class EditorThemeing
         style.WindowMenuButtonPosition = ImGuiDir.None; // no arrow to "hide tab bar"
         style.WindowRounding = 0;
         style.WindowBorderSize = 0.2f;
-        
+        style.TabBorderSize = 0.0f;
+
         RangeAccessor<System.Numerics.Vector4> colors = style.Colors;
 
         if (themeIndex == 0)

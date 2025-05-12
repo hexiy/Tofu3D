@@ -6,7 +6,7 @@ public class EditorPanelToolbar : EditorPanel
 {
     public static EditorPanelToolbar I { get; private set; }
     public override string Name => "Toolbar";
-    public static int Height => 64;
+    public static int Height => 40;
 
 
     public override void Init()
@@ -55,14 +55,16 @@ public class EditorPanelToolbar : EditorPanel
                 Tofu.Editor.EditorTextures.PlayIcon.AtlasGLTextureArrayId,
                 Tofu.Editor.EditorTextures.PlayIcon.IndexInAtlasTextureArray);
             Vector4 textureBoundsInAtlas = Tofu.Editor.EditorTextures.PlayIcon.BoundingBoxInAtlas;
+            
+            ImGui.SetCursorPosY(Height/2f - 30f/2f);
 
-            ImGui.Image(textureId, new System.Numerics.Vector2(50, 50), textureBoundsInAtlas.XW,
+            ImGui.Image(textureId, new System.Numerics.Vector2(30, 30), textureBoundsInAtlas.XW,
                 textureBoundsInAtlas.ZY,
                 new Vector4(1, 1, 1, 1));
 
             // ImGui.ImageButton(textureId, new System.Numerics.Vector2(50, 50), textureBoundsInAtlas.XW,
-            //     textureBoundsInAtlas.ZY, 0,
-            //     new Vector4(1, 1, 1, 1));
+            // textureBoundsInAtlas.ZY, 0,
+            // new Vector4(1, 0, 0, 1));
 
             bool buttonClicked = ImGui.IsItemClicked();
 

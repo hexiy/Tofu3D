@@ -36,7 +36,7 @@ public class EditorPanelMenuBar : EditorPanel
             ImGui.BeginMainMenuBar();
 
             using TofuImGuiSetItemSpacingGuard itemSpacingGuard =
-                new TofuImGuiSetItemSpacingGuard(newSpacingX: TofuImGui.DefaultItemSpacing.X + 5);
+                new TofuImGuiSetItemSpacingGuard(newSpacingX: TofuImGui.DefaultItemSpacing.X + 8);
             // using TofuImGuiSetItemSpacingGuard itemSpacingGuard =
                 // TofuImGui.SetTemporaryItemSpacingForCurrentScope(x: TofuImGui.DefaultItemSpacing.X + 5);
 
