@@ -6,9 +6,8 @@ public class EditorPanelToolbar : EditorPanel
 {
     public static EditorPanelToolbar I { get; private set; }
     public override string Name => "Toolbar";
-    public static int Height => 48;
+    public static int Height => 64;
 
-    private int buttonWidth = -1;
 
     public override void Init()
     {
@@ -49,16 +48,27 @@ public class EditorPanelToolbar : EditorPanel
             ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
 
 
-            ImGui.SetCursorPosX(ImGui.GetContentRegionAvail().X / 2f - ImGui.CalcTextSize("play").X/2f);
-            bool playButtonClicked = ImGui.Button("play");
-            if (buttonWidth == -1)
-            {
-                buttonWidth = (int)ImGui.CalcItemWidth();
-            }
+            ImGui.SetCursorPosX(ImGui.GetContentRegionAvail().X / 2f - 25f);
+
+
+            IntPtr textureId = ImGuiController.EncodeTextureArrayId(
+                Tofu.Editor.EditorTextures.PlayIcon.AtlasGLTextureArrayId,
+                Tofu.Editor.EditorTextures.PlayIcon.IndexInAtlasTextureArray);
+            Vector4 textureBoundsInAtlas = Tofu.Editor.EditorTextures.PlayIcon.BoundingBoxInAtlas;
+
+            ImGui.Image(textureId, new System.Numerics.Vector2(50, 50), textureBoundsInAtlas.XW,
+                textureBoundsInAtlas.ZY,
+                new Vector4(1, 1, 1, 1));
+
+            // ImGui.ImageButton(textureId, new System.Numerics.Vector2(50, 50), textureBoundsInAtlas.XW,
+            //     textureBoundsInAtlas.ZY, 0,
+            //     new Vector4(1, 1, 1, 1));
+
+            bool buttonClicked = ImGui.IsItemClicked();
 
             ImGui.PopStyleColor();
 
-            if (playButtonClicked)
+            if (buttonClicked)
             {
                 if (Global.GameRunning)
                 {
