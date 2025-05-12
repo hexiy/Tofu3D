@@ -41,7 +41,9 @@ public class EditorPanelSceneView : EditorPanel
                 _renderTargetPipeline.FinalFramebuffer.Size /
                 Screen.Scale; // + new Vector2(0, tooltipsPanelHeight);
 
-            ImGui.SetNextWindowSize(_renderTargetPipeline.FinalFramebuffer.Size,
+            float controlsBarHeight = 64;
+            Vector2 controlsBarHeightVector = new Vector2(0, controlsBarHeight);
+            ImGui.SetNextWindowSize(_renderTargetPipeline.FinalFramebuffer.Size + controlsBarHeightVector,
                 ImGuiCond.FirstUseEver);
 
             ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
@@ -54,15 +56,12 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.Begin(Name, flags);
 
-            if ((Vector2)ImGui.GetWindowSize() != _camera.Size)
+            if ((Vector2)ImGui.GetWindowSize() - controlsBarHeightVector != _camera.Size)
             {
-                _camera.SetSize(ImGui.GetWindowSize());
+                _camera.SetSize(ImGui.GetWindowSize() - controlsBarHeightVector);
                 // Debug.Log("SetSize");
             }
 
-
-            // ImGui.SetCursorPosX(0);
-            ImGui.SetCursorPos(new Vector2(0, 0));
 
             Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(),
                 ImGuiHelper.FlipYToGoodSpace(ImGui.GetCursorPosY()) -
@@ -70,21 +69,10 @@ public class EditorPanelSceneView : EditorPanel
 
             // Debug.StatSetValue("aaaa", $"scne size {Tofu.RenderPassSystem.FinalFramebuffer.Size.Y / Screen.Scale}");
 
-            if (_renderTargetPipeline.CanRender)
-            {
-                TofuImGui.ImageTexture2D(_renderTargetPipeline.FinalFramebuffer.TextureId,
-                    _renderTargetPipeline.FinalFramebuffer.Size,
-                    new Vector4(0, 1, 1, 0));
-            }
-            else
-            {
-                ImGui.Dummy(_renderTargetPipeline.FinalFramebuffer.Size);
-            }
+            // ImGui.SetCursorPos(controlsBarHeightVector);
+            //
+            //
 
-            HandleModelDragDrop();
-
-
-            Tofu.MouseInput.IsMouseInSceneView = ImGui.IsItemHovered();
 
             // ImGui.Image((IntPtr) RenderPassManager.FinalRenderTexture.ColorAttachment, RenderPassManager.FinalRenderTexture.Size * 0.9f,
             //             new Vector2(-0.5f, 0.5f), new Vector2(0.5f, -0.5f), Color.White.ToVector4(), Color.Aqua.ToVector4());
@@ -155,8 +143,15 @@ public class EditorPanelSceneView : EditorPanel
             }
 
             ImGui.SetCursorPos(System.Numerics.Vector2.Zero);
+            // ImGui.SetCursorPosX(0);
+            ImGui.SetCursorPos(new Vector2(0, 0));
+            ImGui.Dummy(new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, 50));
+            // ImGui.SameLine();
+            ImGui.SetCursorPos(new Vector2(0, controlsBarHeight/2));
 
-            ImGui.SetCursorPosX(_camera.Size.X / 2 - 200 * Screen.ScaleI);
+            // ImGui.SetCursorPos(new Vector2(0, 0));
+
+            // ImGui.SetCursorPosX(_camera.Size.X / 2 - 200 * Screen.ScaleI);
 
             Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
             Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
@@ -282,25 +277,24 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.SameLine();
 
-            ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
-
-            bool playButtonClicked = ImGui.Button("play");
-
-            ImGui.PopStyleColor();
-
-            if (playButtonClicked)
-            {
-                if (Global.GameRunning)
-                {
-                    Playmode.PlayMode_Stop();
-                }
-                else
-                {
-                    Playmode.PlayMode_Start();
-                }
-            }
-
-            ImGui.SameLine();
+            // ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
+            // bool playButtonClicked = ImGui.Button("play");
+            //
+            // ImGui.PopStyleColor();
+            //
+            // if (playButtonClicked)
+            // {
+            //     if (Global.GameRunning)
+            //     {
+            //         Playmode.PlayMode_Stop();
+            //     }
+            //     else
+            //     {
+            //         Playmode.PlayMode_Start();
+            //     }
+            // }
+            //
+            // ImGui.SameLine();
 
             ImGui.SetNextItemWidth(200);
 
@@ -318,6 +312,23 @@ public class EditorPanelSceneView : EditorPanel
                     Tofu.SceneViewController.SetProjectionMode(ProjectionMode.Orthographic);
                 }
             }
+
+            // SCENE IMAGE
+            if (_renderTargetPipeline.CanRender)
+            {
+                TofuImGui.ImageTexture2D(_renderTargetPipeline.FinalFramebuffer.TextureId,
+                    _renderTargetPipeline.FinalFramebuffer.Size,
+                    new Vector4(0, 1, 1, 0));
+            }
+            else
+            {
+                ImGui.Dummy(_renderTargetPipeline.FinalFramebuffer.Size);
+            }
+
+            HandleModelDragDrop();
+
+
+            Tofu.MouseInput.IsMouseInSceneView = ImGui.IsItemHovered();
 
             ImGui.End();
 

@@ -12,7 +12,7 @@ public class Editor
 
     public static readonly ImGuiWindowFlags
         ImGuiDefaultWindowFlags =
-            ImGuiWindowFlags.NoCollapse// | ImGuiWindowFlags.NoMove /* | ImGuiWindowFlags.AlwaysAutoResize*/
+            ImGuiWindowFlags.NoCollapse // | ImGuiWindowFlags.NoMove /* | ImGuiWindowFlags.AlwaysAutoResize*/
         /* | ImGuiWindowFlags.NoDocking*/;
 
     private EditorDialogManager _editorDialogManager;
@@ -37,11 +37,12 @@ public class Editor
 
     public Vector2 SceneViewSize = new Vector2(0, 0);
 
-    
+
     // Left Bottom corner of the scene view
     public Vector2 GameViewPosition = new Vector2(0, 0);
 
     public Vector2 GameViewSize = new Vector2(0, 0);
+
     public unsafe void Initialize()
     {
         _editorLayoutManager = new EditorLayoutManager();
@@ -59,6 +60,7 @@ public class Editor
             _editorPanels = new EditorPanel[]
             {
                 new EditorPanelMenuBar(_editorLayoutManager),
+                new EditorPanelToolbar(),
                 new EditorPanelHierarchy(),
                 new EditorPanelInspector(),
                 new EditorPanelBrowser(),
@@ -153,25 +155,58 @@ public class Editor
     {
         BeforeDraw.Invoke();
         BeforeDraw = () => { };
-        ImGuiViewportPtr viewportPtr = ImGui.GetWindowViewport();
+        ImGuiViewportPtr viewport = ImGui.GetMainViewport();
 
-        ImGui.DockSpaceOverViewport(viewportPtr,
-            ImGuiDockNodeFlags.PassthruCentralNode /*, ImGuiDockNodeFlags.NoDockingInCentralNode*/);
+        System.Numerics.Vector2 dockspacePos =
+            viewport.WorkPos + new System.Numerics.Vector2(0, EditorPanelToolbar.Height);
+        System.Numerics.Vector2
+            dockspaceSize = viewport.WorkSize - new System.Numerics.Vector2(0, EditorPanelToolbar.Height);
 
-        if (_sceneViewFullscreen || Global.EditorAttached == false)
+        ImGui.SetNextWindowPos(dockspacePos);
+        ImGui.SetNextWindowSize(dockspaceSize);
+        ImGui.SetNextWindowViewport(viewport.ID);
+
+        ImGuiWindowFlags hostWindowFlags = ImGuiWindowFlags.NoDocking |
+                                           ImGuiWindowFlags.NoTitleBar |
+                                           ImGuiWindowFlags.NoCollapse |
+                                           ImGuiWindowFlags.NoResize |
+                                           ImGuiWindowFlags.NoMove |
+                                           ImGuiWindowFlags.NoBringToFrontOnFocus |
+                                           ImGuiWindowFlags.NoNavFocus |
+                                           ImGuiWindowFlags.NoBackground;
+
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, System.Numerics.Vector2.Zero);
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
+
+        if (ImGui.Begin("DockSpaceHostWindow", hostWindowFlags))
         {
-            EditorPanelMenuBar.I.Draw();
+            ImGui.PopStyleVar(3);
 
-            EditorPanelSceneView.I.IsFullscreen = true;
-            EditorPanelSceneView.I.Draw();
+            uint dockspaceId = ImGui.GetID("MyDockSpace");
+            ImGui.DockSpace(dockspaceId, System.Numerics.Vector2.Zero, ImGuiDockNodeFlags.PassthruCentralNode);
+
+            if (_sceneViewFullscreen || Global.EditorAttached == false)
+            {
+                EditorPanelMenuBar.I.Draw();
+
+                EditorPanelSceneView.I.IsFullscreen = true;
+                EditorPanelSceneView.I.Draw();
+            }
+            else
+            {
+                for (int i = 0; i < _editorPanels.Length; i++)
+                {
+                    _editorPanels[i].Draw();
+                }
+            }
         }
         else
         {
-            for (int i = 0; i < _editorPanels.Length; i++)
-            {
-                _editorPanels[i].Draw();
-            }
+            ImGui.PopStyleVar(3);
         }
+
+        ImGui.End();
 
         _editorDialogManager.Draw();
 
