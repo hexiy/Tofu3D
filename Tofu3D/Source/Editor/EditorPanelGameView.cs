@@ -107,7 +107,7 @@ public class EditorPanelGameView : EditorPanel
         {
             ImGui.SetNextWindowSize(_camera.Size + new Vector2(0, 50), ImGuiCond.Always);
             ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.Always, new Vector2(0, 0));
-            ImGui.Begin("Scene View",
+            ImGui.Begin("Game View",
                 ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize |
                 ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration);
 

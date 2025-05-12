@@ -11,11 +11,11 @@ public static class EditorThemeing
 
     public static void SetTheme(int themeIndex = 0)
     {
-        ImGui.GetStyle().WindowRounding = 0;
-        ImGui.GetStyle().WindowBorderSize = 0.2f;
-        // ImGui.GetStyle().WindowPadding = new Vector2(0,0);
-
         ImGuiStylePtr style = ImGui.GetStyle();
+        style.WindowMenuButtonPosition = ImGuiDir.None; // no arrow to "hide tab bar"
+        style.WindowRounding = 0;
+        style.WindowBorderSize = 0.2f;
+        
         RangeAccessor<System.Numerics.Vector4> colors = style.Colors;
 
         if (themeIndex == 0)

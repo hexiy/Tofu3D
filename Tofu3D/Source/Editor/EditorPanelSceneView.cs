@@ -43,9 +43,11 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.SetNextWindowSize(_renderTargetPipeline.FinalFramebuffer.Size,
                 ImGuiCond.FirstUseEver);
+
             ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
             ImGuiWindowFlags flags = Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar |
                                      ImGuiWindowFlags.NoScrollWithMouse;
+
             if (IsFullscreen)
             {
             }

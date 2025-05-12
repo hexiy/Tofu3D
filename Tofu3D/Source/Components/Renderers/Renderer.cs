@@ -6,7 +6,10 @@ namespace Scripts;
 public abstract class Renderer : Component, IComponentRenderable, IComponentUpdateable,
     IHasMaterial
 {
+    [Hide]
     public uint MousePickingId = 0; // => (uint)this.GameObjectId;
+
+    [Hide]
     public bool MousePickingEnabled = true;
 
     [Hide]
@@ -265,7 +268,8 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 // 	return _scale * Matrix4x4.Identity * _rotation * _translation * Camera.I.viewMatrix * Camera.I.projectionMatrix;
 // }
     public virtual Matrix4x4 GetModelViewProjectionFromBoxShape() =>
-        GetModelMatrix() * Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.ViewMatrix * Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.ProjectionMatrix;
+        GetModelMatrix() * Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.ViewMatrix *
+        Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.ProjectionMatrix;
 
     internal void GL_DrawArrays(PrimitiveType primitiveType, int first, int count)
     {
@@ -382,7 +386,8 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
         new Vector4(BoxShape.Size.X * Transform.LocalScale.X, BoxShape.Size.Y * Transform.LocalScale.Y, 1, 1);
 
     private float CalculateDistanceFromCamera() =>
-        Vector3.Distance(Transform.WorldPosition, Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.Transform.WorldPosition);
+        Vector3.Distance(Transform.WorldPosition,
+            Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.Transform.WorldPosition);
 
     internal void UpdateMvp()
     {
@@ -390,9 +395,10 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
         {
             return;
         }
+
         LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
 
-        if (ObjectInstancingData?.MatrixDirty==true || GameObject.IsStatic == false || LatestModelMatrix == null)
+        if (ObjectInstancingData?.MatrixDirty == true || GameObject.IsStatic == false || LatestModelMatrix == null)
         {
             // LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
             LatestModelMatrix = GetModelMatrix();
