@@ -159,7 +159,7 @@ public static class MousePickingSystem
             else if (HoveredRenderer == null)
                 // else if(HoveredRenderer?.GameObjectId!=TransformHandle.I.GameObjectId) // if we're dragging transformhandle we dont want to deselect anything
             {
-                Tofu.GameObjectSelectionManager.Deselect();
+                // Tofu.GameObjectSelectionManager.Deselect();
             }
         }
         // Color color = new Color(_pixels);

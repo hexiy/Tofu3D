@@ -236,17 +236,17 @@ public class EditorPanelSceneView : EditorPanel
                 {
                     foreach (ViewRenderMode mode in Enum.GetValues(typeof(ViewRenderMode)))
                     {
-                        bool isEnabled =_renderTargetPipeline.RenderSettings
+                        bool isEnabled = _renderTargetPipeline.RenderSettings
                             .RenderModeSettings.CurrentRenderMode == mode;
                         bool wasEnabled = isEnabled;
                         bool clicked = ImGui.Checkbox(mode.ToString(), ref isEnabled);
                         bool hovered = ImGui.IsItemHovered();
                         if (hovered)
                         {
-                            bool isNew =_renderTargetPipeline.RenderSettings
+                            bool isNew = _renderTargetPipeline.RenderSettings
                                 .RenderModeSettings.CurrentRenderMode != mode;
-                            
-                            
+
+
                             _renderTargetPipeline.RenderSettings.RenderModeSettings
                                 .CurrentRenderMode = mode;
                             // if (isNew)
@@ -335,7 +335,8 @@ public class EditorPanelSceneView : EditorPanel
             {
                 TofuImGui.ImageTexture2D(_renderTargetPipeline.FinalFramebuffer.TextureId,
                     _renderTargetPipeline.FinalFramebuffer.Size,
-                    new Vector4(0, 1, 1, 0));//, tint_col: LastUsedView==this? Color.White : new Vector4(0.5f,0.5f,0.5f,1));
+                    new Vector4(0, 1, 1,
+                        0)); //, tint_col: LastUsedView==this? Color.White : new Vector4(0.5f,0.5f,0.5f,1));
             }
             else
             {
@@ -345,7 +346,7 @@ public class EditorPanelSceneView : EditorPanel
             HandleModelDragDrop();
 
             Tofu.MouseInput.IsMouseInSceneView = ImGui.IsItemHovered() || Tofu.MouseInput.IsMouseInSceneView;
-            if (ImGui.IsItemHovered() && LastUsedView != this)
+            if (ImGui.IsItemHovered() && LastUsedView != this && Tofu.MouseInput.IsButtonDown())
             {
                 LastUsedView = this;
             }
