@@ -383,7 +383,7 @@ public class InstancedRenderingSystem
             Camera.CurrentlyRenderingCamera.FarPlaneDistance - Camera.CurrentlyRenderingCamera.NearPlaneDistance);
 
         shader.SetFloat("u_renderMode",
-            (int)Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
+            (int)Tofu.RenderingSystem.CurrentlyExecutingPipeline.RenderSettings.RenderModeSettings.CurrentRenderMode);
 
         shader.SetMatrix4X4("u_viewProjection",
             Camera.CurrentlyRenderingCamera.ViewMatrix * Camera.CurrentlyRenderingCamera.ProjectionMatrix);

@@ -30,7 +30,7 @@ public class SceneViewController
     public PersistentObject<ProjectionMode> CurrentProjectionMode =
         ("sceneViewProjectionMode", ProjectionMode.Perspective);
 
-    private Camera _camera => EditorPanelSceneView.I._camera;
+    private Camera _camera => EditorPanelSceneView.LastUsedView._camera;
     public bool IsPanningCamera { get; private set; }
 
     public bool AllowPassThroughEdges { get; set; }

@@ -16,14 +16,18 @@ public class RenderTargetPipeline
     public bool CanRender => Camera.IsActive == true && _initialized;
     public Camera Camera;
     public RenderPass ZPrePass;
+    public RenderSettings RenderSettings;
+
 
     public RenderTargetPipeline(RenderTargetPipelineType type)
     {
         ViewType = type;
+        RenderSettings = new RenderSettings();
     }
 
     public void Initialize()
     {
+        // RenderSettings.LoadSavedData();
         CreatePasses();
         RebuildRenderTextures(ViewSize);
         Scene.SceneLoaded += SetupCamera;
@@ -74,7 +78,7 @@ public class RenderTargetPipeline
         RenderPassPointLightShadowDepth renderPassPointLightShadowDepth = new RenderPassPointLightShadowDepth(this);
         RenderPassZPrePass renderPassZPrePass = new RenderPassZPrePass(this);
         ZPrePass = renderPassZPrePass;
-        
+
         RenderPassOpaques renderPassOpaques = new RenderPassOpaques(this);
         // mouse picking for now must come before transparency pass for it to work
 
@@ -135,7 +139,6 @@ public class RenderTargetPipeline
             }
 
             renderPass.Clear();
-            
         }
 
         foreach (RenderPass renderPass in RenderPasses)

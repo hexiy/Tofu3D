@@ -153,7 +153,7 @@
             }
 
             Material.Shader.SetFloat("u_renderMode",
-                (int)Tofu.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
+                (int)Tofu.RenderingSystem.CurrentlyExecutingPipeline.RenderSettings.CurrentRenderModeSettings.CurrentRenderMode);
             Material.Shader.SetFloat("u_time", Time.EditorElapsedTime);
 
             var fogEnabled = Tofu.SceneManager.CurrentScene.SceneFogManager.FogEnabled;

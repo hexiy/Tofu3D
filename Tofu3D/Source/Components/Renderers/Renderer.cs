@@ -281,7 +281,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 
     internal void RenderWireframe(int indicesCount)
     {
-        if (Tofu.RenderSettings.CurrentWireframeRenderSettings.WireframeVisible)
+        if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.RenderSettings.WireframeRenderSettings.WireframeVisible)
         {
             Material.Shader.SetColor("u_rendererColor", Color.Black);
             // GL.LineWidth(RenderSettings.CurrentWireframeRenderSettings.WireframeLineWidth / (DistanceFromCamera * 10));

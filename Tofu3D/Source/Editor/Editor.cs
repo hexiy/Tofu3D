@@ -67,6 +67,7 @@ public class Editor
                 new EditorPanelConsole(),
                 new EditorPanelProfiler(),
                 new EditorPanelSceneView(),
+                new EditorPanelSceneView(),
                 new EditorPanelGameView(),
                 new EditorPanelEditorSettings(),
                 // new EditorPanelTextureViewer(),
@@ -190,8 +191,8 @@ public class Editor
             {
                 EditorPanelMenuBar.I.Draw();
 
-                EditorPanelSceneView.I.IsFullscreen = true;
-                EditorPanelSceneView.I.Draw();
+                EditorPanelSceneView.LastUsedView.IsFullscreen = true;
+                EditorPanelSceneView.LastUsedView.Draw();
             }
             else
             {

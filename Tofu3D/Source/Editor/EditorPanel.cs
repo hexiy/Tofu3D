@@ -6,7 +6,7 @@ public abstract class EditorPanel
 {
     private int _currentId;
 
-    internal virtual bool IsActive { get;}= true;
+    internal virtual bool IsActive { get; } = true;
 
     internal bool IsPanelHovered;
     public int WindowWidth;
@@ -28,6 +28,7 @@ public abstract class EditorPanel
     {
         ImGui.PushID(id);
     }
+
     internal void PushNextId()
     {
         ImGui.PushID(_currentId++);
@@ -39,6 +40,7 @@ public abstract class EditorPanel
         {
             ImGui.PopID();
         }
+
         ResetId();
     }
 

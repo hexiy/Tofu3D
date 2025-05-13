@@ -32,7 +32,6 @@ internal static class Tofu
     internal static StatusWindow StatusWindow;
 
     // RENDERING
-    internal static RenderSettings RenderSettings;
     internal static RenderingSystem RenderingSystem;
     internal static ShaderManager ShaderManager;
     internal static BasicMeshesCollection BasicMeshesCollection;
@@ -97,7 +96,7 @@ internal static class Tofu
         AssetLoadManager = new AssetLoadManager();
         SceneManager = new SceneManager();
         SceneSerializer = new SceneSerializer();
-        RenderSettings = new RenderSettings();
+        // RenderSettings = new RenderSettings();
         AssetsWatcher = new AssetsWatcher();
         ShaderManager = new ShaderManager();
         TweenManager = new TweenManager();
@@ -106,7 +105,6 @@ internal static class Tofu
         PhysicsController = new PhysicsController();
 
 
-        RenderSettings.LoadSavedData();
         EditorSettingsAll.LoadSavedData();
         AssetsWatcher.StartWatching();
         ShaderManager.Initialize();
@@ -279,7 +277,8 @@ internal static class Tofu
         GL.Viewport(0, 0, Window.ClientSize.X, Window.ClientSize.Y);
 
         ImGuiController.WindowResized(Window.ClientSize.X, Window.ClientSize.Y);
-
+        
+        Tofu.MouseInput.IsMouseInSceneView = false;// set to false, and the scene views toggle it to true if mouse is over any of em
         Editor.Draw();
 
         ImGuiController.Render();

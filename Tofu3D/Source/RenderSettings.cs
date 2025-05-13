@@ -2,23 +2,27 @@
 
 public class RenderSettings
 {
-    public ViewRenderModeSettings CurrentRenderModeSettings;
-    public WireframeRenderSettings CurrentWireframeRenderSettings;
+    public ViewRenderModeSettings RenderModeSettings;
+    public WireframeRenderSettings WireframeRenderSettings;
 
-
-    public void SaveData()
+    public RenderSettings()
     {
-        PersistentData.Set("RenderSettings.Wireframe", CurrentWireframeRenderSettings);
-        PersistentData.Set("RenderSettings.ViewRenderMode", CurrentRenderModeSettings);
+        RenderModeSettings = new ViewRenderModeSettings();
+        WireframeRenderSettings = new WireframeRenderSettings();
     }
+    // public void SaveData()
+    // {
+    //     PersistentData.Set("RenderSettings.Wireframe", CurrentWireframeRenderSettings);
+    //     PersistentData.Set("RenderSettings.ViewRenderMode", CurrentRenderModeSettings);
+    // }
 
-    public void LoadSavedData()
-    {
-        CurrentWireframeRenderSettings =
-            PersistentData.Get("RenderSettings.Wireframe", () => new WireframeRenderSettings()) as
-                WireframeRenderSettings;
-        CurrentRenderModeSettings =
-            PersistentData.Get("RenderSettings.ViewRenderMode", () => new ViewRenderModeSettings()) as
-                ViewRenderModeSettings;
-    }
+    // public void LoadSavedData()
+    // {
+    //     CurrentWireframeRenderSettings =
+    //         PersistentData.Get("RenderSettings.Wireframe", () => new WireframeRenderSettings()) as
+    //             WireframeRenderSettings;
+    //     CurrentRenderModeSettings =
+    //         PersistentData.Get("RenderSettings.ViewRenderMode", () => new ViewRenderModeSettings()) as
+    //             ViewRenderModeSettings;
+    // }
 }
