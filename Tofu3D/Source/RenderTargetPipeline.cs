@@ -131,6 +131,7 @@ public class RenderTargetPipeline
             return;
         }
 
+        Debug.StatAddValue("RenderTargetPipelines rendering:", 1);
         // GL.Enable(EnableCap.Blend);
         GL.Enable(EnableCap.DepthTest);
 
@@ -163,12 +164,12 @@ public class RenderTargetPipeline
 
     private void RenderFinalRenderTexture()
     {
-        FinalFramebuffer.Clear();
-
         if (CanRender == false)
         {
             return;
         }
+
+        FinalFramebuffer.Clear();
 
         foreach (RenderPass renderPass in RenderPasses)
         {

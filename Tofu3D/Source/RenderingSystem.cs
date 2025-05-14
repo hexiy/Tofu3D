@@ -23,6 +23,14 @@ public class RenderingSystem
         return pipeline;
     }
 
+    public void DestroyPipeline(ref RenderTargetPipeline pipeline)
+    {
+        _renderTargetPipelines.Remove(pipeline);
+        pipeline.Camera.GameObject.Destroy();
+
+        pipeline = null;
+    }
+
     public void RenderAllRenderTargetPipelines()
     {
         foreach (RenderTargetPipeline pipeline in _renderTargetPipelines)

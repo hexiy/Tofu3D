@@ -87,6 +87,7 @@ public abstract class EditorPanel
             {
                 Tofu.Editor.AfterDraw += () =>
                 {
+                    OnClosed();
                     this.IsVisible = false;
                     Tofu.Editor.CloseWindow(this);
                 };
@@ -110,6 +111,7 @@ public abstract class EditorPanel
         }
     }
 
+    protected virtual void OnClosed(){}
     public void EndWindow()
     {
         // IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);

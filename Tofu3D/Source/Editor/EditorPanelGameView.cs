@@ -11,11 +11,21 @@ public class EditorPanelGameView : EditorPanel
 {
     public override string Name => "Game View";
     public static EditorPanelGameView I { get; private set; }
-    private RenderTargetPipeline _renderTargetPipeline;
-    public Camera _camera => _renderTargetPipeline.Camera;
+    private RenderTargetPipeline? _renderTargetPipeline;
+    public Camera? _camera => _renderTargetPipeline?.Camera;
 
     public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.NoScrollbar |
                                                               ImGuiWindowFlags.NoScrollWithMouse;
+
+    protected override void OnClosed()
+    {
+        if (_renderTargetPipeline != null)
+        {
+            Tofu.RenderingSystem.DestroyPipeline(ref _renderTargetPipeline);
+        }
+
+        base.OnClosed();
+    }
 
     public override void Draw()
     {
@@ -24,7 +34,27 @@ public class EditorPanelGameView : EditorPanel
             ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
             ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 
+            bool oldIsVisible = IsVisible;
+
             BeginWindowDefault();
+
+            if (oldIsVisible == false && IsVisible == true && _renderTargetPipeline == null)
+            {
+                _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.GameView);
+            }
+
+            if (oldIsVisible && IsVisible == false && _renderTargetPipeline != null)
+            {
+                Tofu.RenderingSystem.DestroyPipeline(ref _renderTargetPipeline);
+            }
+
+
+            if (IsVisible == false)
+            {
+                ImGui.End();
+                return;
+            }
+
 
             if ((Vector2)ImGui.GetWindowSize() != _camera.Size)
             {

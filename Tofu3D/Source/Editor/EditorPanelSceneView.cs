@@ -16,8 +16,8 @@ public class EditorPanelSceneView : EditorPanel
     public int Id { get; set; } = 0;
     public static int CountOfSceneViews { get; set; } = 0;
     public static EditorPanelSceneView LastUsedView { get; private set; }
-    private RenderTargetPipeline _renderTargetPipeline;
-    public Camera _camera => _renderTargetPipeline.Camera;
+    private RenderTargetPipeline? _renderTargetPipeline;
+    public Camera? _camera => _renderTargetPipeline?.Camera;
 
     public EditorPanelSceneView()
     {
@@ -25,8 +25,28 @@ public class EditorPanelSceneView : EditorPanel
         CountOfSceneViews++;
     }
 
+    protected override void OnClosed()
+    {
+        if (_renderTargetPipeline != null)
+        {
+            Tofu.RenderingSystem.DestroyPipeline(ref _renderTargetPipeline);
+        }
+
+        if (LastUsedView == this)
+        {
+            LastUsedView = null;
+        }
+
+        base.OnClosed();
+    }
+
     public override void Draw()
     {
+        if (LastUsedView == null)
+        {
+            LastUsedView = this;
+        }
+
         if (Global.EditorAttached)
         {
             _renderCameraViews = true || /*Global.Debug &&*/
@@ -55,15 +75,27 @@ public class EditorPanelSceneView : EditorPanel
             {
             }
 
+            bool oldIsVisible = IsVisible;
             IsVisible = ImGui.Begin($"{Name}##{Id}", flags);
 
             CheckForTabOptionsClick();
+
+            if (oldIsVisible == false && IsVisible == true && _renderTargetPipeline == null)
+            {
+                _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.SceneView);
+            }
+
+            if (oldIsVisible && IsVisible == false && _renderTargetPipeline != null)
+            {
+                Tofu.RenderingSystem.DestroyPipeline(ref _renderTargetPipeline);
+            }
 
             if (IsVisible == false)
             {
                 ImGui.End();
                 return;
             }
+
 
             if ((Vector2)ImGui.GetWindowSize() - controlsBarHeightVector != _camera.Size)
             {
