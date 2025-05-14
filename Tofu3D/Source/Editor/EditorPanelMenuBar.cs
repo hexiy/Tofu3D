@@ -22,11 +22,6 @@ public class EditorPanelMenuBar : EditorPanel
 
     public override void Draw()
     {
-        if (IsActive == false)
-        {
-            return;
-        }
-
         if (Global.EditorAttached)
         {
             ImGui.SetNextWindowSize(new Vector2(Tofu.Window.Size.X * 2, 50), ImGuiCond.FirstUseEver);
@@ -43,11 +38,14 @@ public class EditorPanelMenuBar : EditorPanel
             bool tofu3dMenuOpened = ImGui.BeginMenu("Tofu3D");
             if (tofu3dMenuOpened)
             {
-                bool settingsButtonClicked = ImGui.Button("Settings");
+                bool settingsButtonClicked = ImGui.MenuItem("Settings");
                 if (settingsButtonClicked)
                 {
                     Tofu.Editor.AfterDraw +=
-                        () => EditorPanelEditorSettings.I.Toggle(true);
+                        () =>
+                        {
+                            Tofu.Editor.OpenWindow( new EditorPanelEditorSettings());
+                        };
                     ImGui.CloseCurrentPopup();
                 }
 
@@ -66,7 +64,7 @@ public class EditorPanelMenuBar : EditorPanel
                 //     ImGui.CloseCurrentPopup();
                 // }
 
-                bool saveSceneButtonClicked = ImGui.Button("Save scene");
+                bool saveSceneButtonClicked = ImGui.MenuItem("Save scene");
                 if (saveSceneButtonClicked)
                 {
                     Tofu.Editor.AfterDraw +=
@@ -74,7 +72,7 @@ public class EditorPanelMenuBar : EditorPanel
                     ImGui.CloseCurrentPopup();
                 }
 
-                bool realodSceneButtonClicked = ImGui.Button("Reload scene");
+                bool realodSceneButtonClicked = ImGui.MenuItem("Reload scene");
                 if (realodSceneButtonClicked)
                 {
                     Tofu.Editor.AfterDraw +=
@@ -98,7 +96,7 @@ public class EditorPanelMenuBar : EditorPanel
                 bool layoutMenuOpened = ImGui.BeginMenu("Layout");
                 if (layoutMenuOpened)
                 {
-                    bool saveCurrentLayoutButtonClicked = ImGui.Button("Save Current Layout");
+                    bool saveCurrentLayoutButtonClicked = ImGui.MenuItem("Save Current Layout");
                     if (saveCurrentLayoutButtonClicked)
                     {
                         ImGui.CloseCurrentPopup();
@@ -106,7 +104,7 @@ public class EditorPanelMenuBar : EditorPanel
                         _editorLayoutManager.SaveCurrentLayout();
                     }
 
-                    bool loadDefaultLayoutButtonClicked = ImGui.Button("Load Default Layout");
+                    bool loadDefaultLayoutButtonClicked = ImGui.MenuItem("Load Default Layout");
                     if (loadDefaultLayoutButtonClicked)
                     {
                         ImGui.CloseCurrentPopup();
@@ -116,7 +114,7 @@ public class EditorPanelMenuBar : EditorPanel
                                 .LoadDefaultLayout; // load layout before drawing anything, otherwise we break the layout by calling imgui after this editor panel
                     }
 
-                    bool saveDefaultLayoutButtonClicked = ImGui.Button("Save Default Layout");
+                    bool saveDefaultLayoutButtonClicked = ImGui.MenuItem("Save Default Layout");
                     if (saveDefaultLayoutButtonClicked)
                     {
                         ImGui.CloseCurrentPopup();

@@ -133,14 +133,13 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
 
     public override void Draw()
     {
-        if (IsActive == false)
-        {
-            return;
-        }
-
         //WindowWidth = 800;
         BeginWindowDefault();
-
+        if (IsVisible == false)
+        {
+            ImGui.End();
+            return;
+        }
         ResetId();
         ImGui.SetScrollX(0);
         _padding = (int)ImGui.GetStyle().WindowPadding.X;

@@ -30,11 +30,6 @@ public class EditorPanelConsole : EditorPanel
 
     public override void Draw()
     {
-        if (IsActive == false)
-        {
-            return;
-        }
-
         BeginWindowDefault();
 
         if (ImGui.Button("Clear"))

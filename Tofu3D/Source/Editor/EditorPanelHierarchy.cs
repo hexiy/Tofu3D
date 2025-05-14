@@ -170,15 +170,15 @@ public class EditorPanelHierarchy : EditorPanel
 
     public override void Draw()
     {
-        if (IsActive == false)
-        {
-            return;
-        }
-
         ResetId();
 
         BeginWindowDefault();
 
+        if (IsVisible == false)
+        {
+            ImGui.End();
+            return;
+        }
         if (ImGui.Button("+"))
         {
             GameObject go = GameObject.Create(name: "GameObject");

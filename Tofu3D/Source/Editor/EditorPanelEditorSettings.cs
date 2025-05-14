@@ -10,8 +10,6 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
     public bool IsOpened { get; set; }
 
-    internal override bool IsActive => IsOpened;
-
     public override Vector2 Position => Screen.Center;
     public override Vector2 Pivot => Vector2.Half;
 
@@ -20,14 +18,14 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
     public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.NoDocking;
 
 
-    public static EditorPanelEditorSettings I { get; private set; }
+    // public static EditorPanelEditorSettings I { get; private set; }
     private EditorPanelSideBar _sideBar;
     private Vector2 InspectorSize => Size - new Vector2(_sidebarWidth, 0);
     private const float _sidebarWidth = 250;
 
     public override void Init()
     {
-        I = this;
+        // I = this;
 
         _inspector = new Inspector(drawInspectableHeader: false);
         _inspector.FieldChangedByUser += OnAnyFieldChangedByUser;
@@ -43,9 +41,6 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         ]);
         _sideBar.SelectedItemChanged += OnSidebarSelectedItemChanged;
         SelectInspectable(Tofu.EditorSettingsAll.EditorSettingsGeneral);
-
-
-        // Toggle(true);
     }
 
     private void OnSidebarSelectedItemChanged(int itemIndex)
@@ -81,11 +76,6 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
     public override void Draw()
     {
-        if (IsActive == false)
-        {
-            return;
-        }
-
         BeginWindow();
         ResetId();
         ImGui.SetScrollX(0);
@@ -203,6 +193,11 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         if (IsOpened == tgl)
         {
             return;
+        }
+
+        if (tgl == false)
+        {
+            Tofu.Editor.CloseWindow(this);
         }
 
         Tofu.EditorWindowsManager.ToggleWindow(this, tgl);

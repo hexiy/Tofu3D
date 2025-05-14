@@ -212,12 +212,6 @@ public class EditorPanelBrowser : EditorPanel
 
     public override void Draw()
     {
-        // return;
-        if (IsActive == false)
-        {
-            return;
-        }
-
         BeginWindowDefault();
         ResetId();
 

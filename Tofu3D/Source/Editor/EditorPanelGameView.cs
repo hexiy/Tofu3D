@@ -19,11 +19,6 @@ public class EditorPanelGameView : EditorPanel
 
     public override void Draw()
     {
-        if (IsActive == false)
-        {
-            return;
-        }
-
         if (Global.EditorAttached)
         {
             ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);

@@ -32,11 +32,6 @@ public class EditorPanelTextureViewer : EditorPanel
 
     public override void Draw()
     {
-        if (IsActive == false)
-        {
-            return;
-        }
-
         if (Global.EditorAttached == false)
         {
             return;

@@ -16,11 +16,6 @@ public class EditorPanelToolbar : EditorPanel
 
     public override void Draw()
     {
-        if (IsActive == false)
-        {
-            return;
-        }
-
         if (Global.EditorAttached)
         {
             Vector2 barHeightVector = new Vector2(0, Height);

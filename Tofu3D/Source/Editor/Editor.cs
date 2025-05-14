@@ -69,7 +69,6 @@ public class Editor
                 new EditorPanelSceneView(),
                 new EditorPanelSceneView(),
                 new EditorPanelGameView(),
-                new EditorPanelEditorSettings(),
                 // new EditorPanelTextureViewer(),
             };
         }
@@ -223,9 +222,14 @@ public class Editor
         _editorDialogManager.HideDialog(dialogHandle);
     }
 
-    public void OpenTab(EditorPanel editorPanel)
+    public void OpenWindow(EditorPanel editorPanel)
     {
         editorPanel.Init();
         _editorPanels.Add(editorPanel);
+    }
+
+    public void CloseWindow(EditorPanel editorPanel)
+    {
+        _editorPanels.Remove(editorPanel);
     }
 }

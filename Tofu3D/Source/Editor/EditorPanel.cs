@@ -6,7 +6,7 @@ public abstract class EditorPanel
 {
     private int _currentId;
 
-    internal virtual bool IsActive { get; set; } = true;
+    internal bool IsVisible { get; set; } = true;
 
     internal bool IsPanelHovered;
     public int WindowWidth;
@@ -66,7 +66,8 @@ public abstract class EditorPanel
         ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);
         ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
 
-        ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | AdditionalWindowFlags);
+        IsVisible = ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | AdditionalWindowFlags);
+
         IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
         Size = ImGui.GetWindowSize() / Screen.ScaleI;
         Position = ImGui.GetWindowPos() / Screen.ScaleI;
@@ -84,7 +85,11 @@ public abstract class EditorPanel
             bool closeTabClicked = ImGui.MenuItem("[x] Close tab");
             if (closeTabClicked)
             {
-                this.IsActive = false;
+                Tofu.Editor.AfterDraw += () =>
+                {
+                    this.IsVisible = false;
+                    Tofu.Editor.CloseWindow(this);
+                };
             }
 
             ImGui.Separator();
@@ -95,7 +100,7 @@ public abstract class EditorPanel
                 bool sceneViewItemClicked = ImGui.MenuItem("Scene view");
                 if (sceneViewItemClicked)
                 {
-                    Tofu.Editor.OpenTab(new EditorPanelSceneView());
+                    Tofu.Editor.OpenWindow(new EditorPanelSceneView());
                 }
 
                 ImGui.EndMenu();

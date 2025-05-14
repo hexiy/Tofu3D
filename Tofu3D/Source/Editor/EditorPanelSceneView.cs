@@ -27,12 +27,6 @@ public class EditorPanelSceneView : EditorPanel
 
     public override void Draw()
     {
-        // return;
-        if (IsActive == false)
-        {
-            return;
-        }
-
         if (Global.EditorAttached)
         {
             _renderCameraViews = true || /*Global.Debug &&*/
@@ -61,9 +55,15 @@ public class EditorPanelSceneView : EditorPanel
             {
             }
 
-            ImGui.Begin($"{Name}##{Id}", flags);
-            
+            IsVisible = ImGui.Begin($"{Name}##{Id}", flags);
+
             CheckForTabOptionsClick();
+
+            if (IsVisible == false)
+            {
+                ImGui.End();
+                return;
+            }
 
             if ((Vector2)ImGui.GetWindowSize() - controlsBarHeightVector != _camera.Size)
             {
@@ -182,6 +182,8 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.SameLine();*/
 //////////
+
+            ImGui.SetCursorPosX(10);
             bool renderPassesButtonClicked = ImGui.Button("Render passes");
 
             if (renderPassesButtonClicked)

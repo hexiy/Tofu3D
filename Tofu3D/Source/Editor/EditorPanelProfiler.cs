@@ -16,13 +16,12 @@ public class EditorPanelProfiler : EditorPanel
 
     public override void Draw()
     {
-        if (IsActive == false)
+        BeginWindowDefault();
+        if (IsVisible == false)
         {
+            ImGui.End();
             return;
         }
-
-        BeginWindowDefault();
-
         ImGui.Text($"GameObjects in scene: {Tofu.SceneManager.CurrentScene.GameObjects.Count}");
 
         foreach (KeyValuePair<string, string> stat in Debug.Stats)
