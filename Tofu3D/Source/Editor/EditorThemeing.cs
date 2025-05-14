@@ -22,6 +22,7 @@ public static class EditorThemeing
         if (themeIndex == 0)
         {
             Vector4 cTransparent = new Vector4(0, 0, 0, 0);
+            Vector4 cBeigeLighter = new Vector4(1f, 0.98f, 0.93f, 1.00f);
             Vector4 cBeige = new Vector4(1f, 0.96f, 0.90f, 1.00f);
             Vector4 cBeigeMid = new Vector4(0.97f, 0.94f, 0.88f, 1f);
             Vector4 cBeigeDarker = new Vector4(0.94f, 0.91f, 0.85f, 1f);
@@ -62,11 +63,11 @@ public static class EditorThemeing
             colors[(int)ImGuiCol.ResizeGrip] = new Vector4(0.80f, 0.80f, 0.80f, 0.56f);
             colors[(int)ImGuiCol.ResizeGripHovered] = new Vector4(0.39f, 0.39f, 0.40f, 0.67f);
             colors[(int)ImGuiCol.ResizeGripActive] = new Vector4(0.39f, 0.39f, 0.40f, 0.67f);
-            colors[(int)ImGuiCol.Tab] = cBeige;
+            colors[(int)ImGuiCol.Tab] = cBeigeEvenDarker;
             colors[(int)ImGuiCol.TabActive] = cBeige;
             colors[(int)ImGuiCol.TabUnfocused] = cBeige;
             colors[(int)ImGuiCol.TabUnfocusedActive] = cBeige;
-            colors[(int)ImGuiCol.TabHovered] = cBeige;
+            colors[(int)ImGuiCol.TabHovered] = cBeigeLighter;
             // colors[(int)ImGuiCol.CloseButton]            = new Vector4(0.59f, 0.59f, 0.59f, 0.50f);
             // colors[(int)ImGuiCol.ButtonHovered]     = new Vector4(0.98f, 0.39f, 0.36f, 1.00f);
             // colors[(int)ImGuiCol.ButtonActive]      = new Vector4(0.98f, 0.39f, 0.36f, 1.00f);

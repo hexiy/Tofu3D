@@ -20,7 +20,7 @@ public class Editor
     private EditorLayoutManager _editorLayoutManager;
 
     //private ImGuiRenderer _imGuiRenderer;
-    private EditorPanel[] _editorPanels;
+    private List<EditorPanel> _editorPanels;
     private EditorDialogHandle _exitDialogHandle;
 
     private ImGuiWindowClassPtr _panelWindowClassPtr;
@@ -57,7 +57,7 @@ public class Editor
 
         if (Global.EditorAttached)
         {
-            _editorPanels = new EditorPanel[]
+            _editorPanels = new List<EditorPanel>
             {
                 new EditorPanelMenuBar(_editorLayoutManager),
                 new EditorPanelToolbar(),
@@ -75,14 +75,14 @@ public class Editor
         }
         else
         {
-            _editorPanels = new EditorPanel[]
+            _editorPanels = new List<EditorPanel>
             {
                 new EditorPanelMenuBar(_editorLayoutManager),
                 new EditorPanelSceneView()
             };
         }
 
-        for (int i = 0; i < _editorPanels.Length; i++)
+        for (int i = 0; i < _editorPanels.Count; i++)
         {
             _editorPanels[i].Init();
         }
@@ -99,7 +99,7 @@ public class Editor
     {
         _editorLayoutManager.Update();
 
-        for (int i = 0; i < _editorPanels.Length; i++)
+        for (int i = 0; i < _editorPanels.Count; i++)
         {
             _editorPanels[i].Update();
         }
@@ -196,7 +196,7 @@ public class Editor
             }
             else
             {
-                for (int i = 0; i < _editorPanels.Length; i++)
+                for (int i = 0; i < _editorPanels.Count; i++)
                 {
                     _editorPanels[i].Draw();
                 }
@@ -221,5 +221,11 @@ public class Editor
     public void HideDialog(EditorDialogHandle dialogHandle)
     {
         _editorDialogManager.HideDialog(dialogHandle);
+    }
+
+    public void OpenTab(EditorPanel editorPanel)
+    {
+        editorPanel.Init();
+        _editorPanels.Add(editorPanel);
     }
 }

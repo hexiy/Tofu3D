@@ -6,7 +6,7 @@ public abstract class EditorPanel
 {
     private int _currentId;
 
-    internal virtual bool IsActive { get; } = true;
+    internal virtual bool IsActive { get; set; } = true;
 
     internal bool IsPanelHovered;
     public int WindowWidth;
@@ -14,7 +14,7 @@ public abstract class EditorPanel
 
     public Vector2 Size = new Vector2(Tofu.Window.ClientSize.X / 10f, Tofu.Window.ClientSize.Y / 10f);
 
-    public virtual Vector2 Position => new Vector2(0, Tofu.Window.ClientSize.Y);
+    public virtual Vector2 Position { get; set; } = new Vector2(0, Tofu.Window.ClientSize.Y);
     public virtual Vector2 Pivot => new Vector2(0, 1);
     public virtual ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.None;
     public bool IsFullscreen { get; set; }
@@ -65,9 +65,44 @@ public abstract class EditorPanel
     {
         ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);
         ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
+
         ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | AdditionalWindowFlags);
         IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
-        Size = ImGui.GetWindowSize();
+        Size = ImGui.GetWindowSize() / Screen.ScaleI;
+        Position = ImGui.GetWindowPos() / Screen.ScaleI;
+
+        CheckForTabOptionsClick();
+    }
+
+    protected void CheckForTabOptionsClick()
+    {
+        ImGui.OpenPopupOnItemClick("TabOptions", ImGuiPopupFlags.MouseButtonRight);
+
+        if (ImGui.BeginPopup("TabOptions"))
+        {
+            // bool selected = ImGui.Selectable("aaaaaaa");
+            bool closeTabClicked = ImGui.MenuItem("[x] Close tab");
+            if (closeTabClicked)
+            {
+                this.IsActive = false;
+            }
+
+            ImGui.Separator();
+
+            bool layoutMenuOpened = ImGui.BeginMenu("Add tab");
+            if (layoutMenuOpened)
+            {
+                bool sceneViewItemClicked = ImGui.MenuItem("Scene view");
+                if (sceneViewItemClicked)
+                {
+                    Tofu.Editor.OpenTab(new EditorPanelSceneView());
+                }
+
+                ImGui.EndMenu();
+            }
+
+            ImGui.EndPopup();
+        }
     }
 
     public void EndWindow()

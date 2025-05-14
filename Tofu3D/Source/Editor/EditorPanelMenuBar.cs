@@ -132,42 +132,28 @@ public class EditorPanelMenuBar : EditorPanel
             }
 
 
-            bool skyboxButtonClicked = ImGui.BeginMenu("Skybox");
+            bool skyboxButtonClicked = ImGui.MenuItem("Skybox");
             if (skyboxButtonClicked)
             {
                 EditorPanelInspector.I.SelectInspectable(Tofu.SceneManager.CurrentScene.FindComponent<Skybox>());
-
-                ImGui.CloseCurrentPopup();
-
-
-                ImGui.EndMenu();
             }
 
-            bool instancedRenderingClicked = ImGui.BeginMenu("Instanced Rendering");
+            bool instancedRenderingClicked = ImGui.MenuItem("Instanced Rendering");
             if (instancedRenderingClicked)
             {
                 EditorPanelInspector.I.SelectInspectable(Tofu.InstancedRenderingSystem);
-
-                ImGui.CloseCurrentPopup();
-
-
-                ImGui.EndMenu();
             }
 
-            bool fpsLimiterButtonClicked = ImGui.BeginMenu($"FPS Limiter [{Tofu.Window.FrameLimiterEnabled}]");
+            bool fpsLimiterButtonClicked = ImGui.MenuItem($"FPS Limiter [{Tofu.Window.FrameLimiterEnabled}]");
             if (fpsLimiterButtonClicked)
             {
                 Tofu.Window.FrameLimiterEnabled = !Tofu.Window.FrameLimiterEnabled;
-                ImGui.CloseCurrentPopup();
-
-
-                ImGui.EndMenu();
             }
 
             bool showDebugButton = true; // KeyboardInput.IsKeyDown(Keys.LeftAlt);
             if (showDebugButton)
             {
-                bool debugButtonClicked = ImGui.SmallButton($"Debug [{(Global.Debug ? "ON" : "OFF")}]");
+                bool debugButtonClicked = ImGui.MenuItem($"Debug [{(Global.Debug ? "ON" : "OFF")}]");
                 if (debugButtonClicked)
                 {
                     Global.Debug = !Global.Debug;

@@ -14,6 +14,8 @@ public class EditorPanelGameView : EditorPanel
     private RenderTargetPipeline _renderTargetPipeline;
     public Camera _camera => _renderTargetPipeline.Camera;
 
+    public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.NoScrollbar |
+                                                              ImGuiWindowFlags.NoScrollWithMouse;
 
     public override void Draw()
     {
@@ -27,20 +29,7 @@ public class EditorPanelGameView : EditorPanel
             ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
             ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 
-            // Tofu.Editor.GameViewSize =
-            // _renderTargetPipeline.FinalFramebuffer.Size /
-            // Screen.Scale;
-
-            // ImGui.SetNextWindowSize(_renderTargetPipeline.FinalFramebuffer.Size,
-            // ImGuiCond.FirstUseEver);
-            ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
-            ImGuiWindowFlags flags = Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar |
-                                     ImGuiWindowFlags.NoScrollWithMouse;
-            if (IsFullscreen)
-            {
-            }
-
-            ImGui.Begin(Name, flags);
+            BeginWindowDefault();
 
             if ((Vector2)ImGui.GetWindowSize() != _camera.Size)
             {

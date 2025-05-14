@@ -62,6 +62,8 @@ public class EditorPanelSceneView : EditorPanel
             }
 
             ImGui.Begin($"{Name}##{Id}", flags);
+            
+            CheckForTabOptionsClick();
 
             if ((Vector2)ImGui.GetWindowSize() - controlsBarHeightVector != _camera.Size)
             {
@@ -275,7 +277,7 @@ public class EditorPanelSceneView : EditorPanel
 
             //////////
             /// 
-            ImGui.PushStyleColor(ImGuiCol.Text,
+            /*ImGui.PushStyleColor(ImGuiCol.Text,
                 _renderTargetPipeline.RenderSettings.WireframeRenderSettings
                     .WireframeVisible
                     ? activeColor
@@ -292,7 +294,7 @@ public class EditorPanelSceneView : EditorPanel
 
             ImGui.PopStyleColor();
 
-            ImGui.SameLine();
+            ImGui.SameLine();*/
 
             // ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
             // bool playButtonClicked = ImGui.Button("play");

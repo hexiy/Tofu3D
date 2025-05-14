@@ -4,7 +4,8 @@ namespace TofuEngine;
 
 public class SceneManager
 {
-    public Scene CurrentScene { get; private set; }
+    public bool IsSceneLoaded => CurrentScene != null;
+    public Scene? CurrentScene { get; private set; }
 
     // public PersistentObject<string> LastOpenedScene = ("lastOpenedScene", "Assets/Scenes/scene1.scene");
     public string LastOpenedSceneName

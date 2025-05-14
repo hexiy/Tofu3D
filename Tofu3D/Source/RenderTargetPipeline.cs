@@ -31,6 +31,10 @@ public class RenderTargetPipeline
         CreatePasses();
         RebuildRenderTextures(ViewSize);
         Scene.SceneLoaded += SetupCamera;
+        if (Tofu.SceneManager.IsSceneLoaded)
+        {
+            SetupCamera();
+        }
     }
 
     private void SetupCamera()

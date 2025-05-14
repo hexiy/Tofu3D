@@ -122,7 +122,8 @@ public class InstancedRenderingSystem
         // Iterate over shader groups
         foreach (KeyValuePair<int, ShaderGroup> shaderGroup in _shaderGroups)
         {
-            if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
+            if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.Opaques
+                or RenderPassType.UI
                 or RenderPassType.Transparency)
             {
                 Shader shader = _groupDefinitions[shaderGroup.Value.GroupDefinitionIndexes[0]].Material.Shader;
@@ -249,7 +250,8 @@ public class InstancedRenderingSystem
             }
         }
 
-        else if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.Opaques or RenderPassType.UI
+        else if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.Opaques
+                 or RenderPassType.UI
                  or RenderPassType.Transparency)
         {
             RenderObjects_Opaques_UI_Transparency(meshVao: meshVao, numberOfObjects: numberOfObjects,
@@ -345,7 +347,7 @@ public class InstancedRenderingSystem
             if (indicesCount > 0)
             {
                 GL_DrawElementsInstanced(PrimitiveType.Triangles, indicesCount,
-                    numberOfObjects);
+                numberOfObjects);
             }
         }
         else
@@ -536,10 +538,12 @@ public class InstancedRenderingSystem
 
             material.Shader.SetInt("u_hasEnvironmentCubemap",
                 Camera.CurrentlyRenderingCamera?.GetComponent<Skybox>() != null ? 1 : 0);
-            if (Camera.CurrentlyRenderingCamera?.GetComponent<Skybox>() != null && material.Shader.EnvironmentTextureUnit != null)
+            if (Camera.CurrentlyRenderingCamera?.GetComponent<Skybox>() != null &&
+                material.Shader.EnvironmentTextureUnit != null)
             {
                 GL.ActiveTexture(material.Shader.EnvironmentTextureUnit.Value);
-                TextureHelper.BindTexture(Camera.CurrentlyRenderingCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
+                TextureHelper.BindTexture(
+                    Camera.CurrentlyRenderingCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
                     TextureType.Cubemap);
             }
 
