@@ -175,7 +175,6 @@ public class TextureAtlasManager
             texture.OnDeserialized();
 
             FillAtlasPixels(ref _atlasPixels, rectangle, texture.Pixels);
-            texture.CleanPixelData();
 
             Vector4 box = new Vector4(
                 rectangle.X,
@@ -197,6 +196,9 @@ public class TextureAtlasManager
             texture.IndexInAtlasTextureArray = atlasIndex;
 
             Tofu.AssetLoadManager.Save<Asset_Texture>(texture.PathInLibraryFolder, texture);
+
+            texture.CleanPixelData(); // this was causing it to not serialize with the bounding box.... putting this after the serialization
+
             // Tofu.AssetFileCache.AddAsset(texture);
         }
 

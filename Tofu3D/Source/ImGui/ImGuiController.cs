@@ -526,6 +526,7 @@ if(isArray == 1)
                     throw new NotImplementedException();
                 }
 
+
                 //
                 // int textureArrayID, layerIndex;
                 // DecodeTextureArray(pcmd.TextureId, out textureArrayID, out layerIndex);

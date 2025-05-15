@@ -99,10 +99,11 @@ public class Scene
         {
             gameObject.SetActive(false);
         }
-        // while (GameObjects.Count > 0)
-        // {
-        // 	GameObjects[0].Destroy();
-        // }
+
+        while (GameObjects.Count > 0)
+        {
+            GameObjects[0].Destroy();
+        }
 
         // GameObjects.Clear();
         // GameObjects = new List<GameObject>();

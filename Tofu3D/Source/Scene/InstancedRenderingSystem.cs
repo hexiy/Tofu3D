@@ -36,7 +36,6 @@ public class InstancedRenderingSystem
             _depthMaterial.LoadShader();
         }
 
-
         // {
         //     _customDepthMaterial = new Asset_Material()
         //     {
