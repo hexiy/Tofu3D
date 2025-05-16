@@ -5,6 +5,9 @@ public class ModelRendererInstanced : Renderer
 {
     private bool _isInRenderQueue = true;
 
+    [Show]
+    private int StartingIndexInBuffer => ObjectInstancingData?.StartingIndexInBuffer ?? -1;
+
     public override void Awake()
     {
         ObjectInstancingData = new ObjectInstancingData();
@@ -155,6 +158,8 @@ public class ModelRendererInstanced : Renderer
         {
             Tofu.SceneManager.CurrentScene._renderableComponentQueue.AddComponent(this);
             _isInRenderQueue = true;
+            // ObjectInstancingData.InstancingDataDirty = true;
+            // UploadRenderData();
         }
 
         base.Update();

@@ -110,6 +110,8 @@ public class SharedInstancingBuffer
                 oid.StartingIndexInBuffer - InstancedVertexDataLayoutDefinition.CountOfFloats;
             ObjectInstancingDatas[i] = oid;
         }
+
+        NeedsUpload = true;
     }
 
     private int GetEmptyIndex()
