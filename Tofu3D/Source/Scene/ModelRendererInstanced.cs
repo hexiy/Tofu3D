@@ -91,7 +91,7 @@ public class ModelRendererInstanced : Renderer
 
     public override void UploadRenderData()
     {
-        UpdateMvp(); // update here because when we have multiple viewports we need to update mvp for each one...
+        // UpdateMvp(); // update here because when we have multiple viewports we need to update mvp for each one...
 
         if (LatestModelMatrix == null)
         {

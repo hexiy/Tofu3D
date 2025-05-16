@@ -97,7 +97,7 @@ public class TextRendererInstanced : ModelRendererInstanced
 
     public override void UploadRenderData()
     {
-        UpdateMvp();
+        UpdateModelMatrix();
 
         if (this.GameObject.ActiveInHierarchy == false)
         {

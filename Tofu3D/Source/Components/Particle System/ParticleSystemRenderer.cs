@@ -48,7 +48,7 @@ public class ParticleSystemRenderer : Renderer
 
     public override void UploadRenderData()
     {
-        UpdateMvp();
+        UpdateModelMatrix();
         if (LatestModelMatrix == null)
         {
             return;

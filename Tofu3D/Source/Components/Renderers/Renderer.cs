@@ -55,9 +55,6 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     public float Layer { get; set; }
 
     [XmlIgnore]
-    public Matrix4x4 LatestModelViewProjection { get; private set; }
-
-    [XmlIgnore]
     public Matrix4x4? LatestModelMatrix { get; private set; } = null;
 
     [Hide]
@@ -184,7 +181,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
             // Material.IsValid = true;
         }*/
 
-        // UpdateMvp();
+        UpdateModelMatrix();
 
         // if (Material.RenderMode == RenderMode.Transparent)
         // {
@@ -267,9 +264,9 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 //
 // 	return _scale * Matrix4x4.Identity * _rotation * _translation * Camera.I.viewMatrix * Camera.I.projectionMatrix;
 // }
-    public virtual Matrix4x4 GetModelViewProjectionFromBoxShape() =>
-        GetModelMatrix() * Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.ViewMatrix *
-        Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.ProjectionMatrix;
+    // public virtual Matrix4x4 GetModelMatrixFromBoxShape() =>
+        // GetModelMatrix();// * Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.ViewMatrix *
+        //Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.ProjectionMatrix;
 
     internal void GL_DrawArrays(PrimitiveType primitiveType, int first, int count)
     {
@@ -389,14 +386,14 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
         Vector3.Distance(Transform.WorldPosition,
             Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.Transform.WorldPosition);
 
-    internal void UpdateMvp()
+    internal void UpdateModelMatrix()
     {
         if (BoxShape == null)
         {
             return;
         }
 
-        LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
+        // LatestModelMatrix = GetModelMatrix();
 
         if (ObjectInstancingData?.MatrixDirty == true || GameObject.IsStatic == false || LatestModelMatrix == null)
         {
