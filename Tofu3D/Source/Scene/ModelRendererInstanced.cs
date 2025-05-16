@@ -24,6 +24,7 @@ public class ModelRendererInstanced : Renderer
     {
         Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData, remove: true,
             isStatic: this.GameObject.IsStatic);
+
         base.OnDisabled();
     }
 
@@ -144,13 +145,12 @@ public class ModelRendererInstanced : Renderer
 
         if (this.GameObject.IsStatic)
         {
-         RemoveFromRenderQueue();
+            RemoveFromRenderQueue();
         }
     }
 
     public override void Update()
     {
-        // when IsStatic is toggled to false
         if (GameObject.IsStatic == false && _isInRenderQueue == false)
         {
             Tofu.SceneManager.CurrentScene._renderableComponentQueue.AddComponent(this);
