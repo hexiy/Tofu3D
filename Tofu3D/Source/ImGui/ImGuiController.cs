@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Text;
 using ImGuiNET;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
@@ -62,16 +63,17 @@ public class ImGuiController : IDisposable
         io.ConfigWindowsResizeFromEdges = true;
         io.WantSaveIniSettings = false;
 
-        // unsafe
-        // {
-        //     var filename = TofuPath.Combine(Folders.Data, "imguiConfig.ini");
-        //     // filename = Folders.GetPathRelativeToProjectFolder(filename);
-        //     byte[] filenameBytes = Encoding.UTF8.GetBytes(filename + "\0"); // Add null terminator
-        //     fixed (byte* bytePtr = filenameBytes)
-        //     {
-        //         ImGui.GetIO().NativePtr->IniFilename = bytePtr;
-        //     }
-        // }
+        unsafe
+        {
+            var filename = TofuPath.Combine(Folders.Data, "imgui.ini");
+            byte[] filenameBytes = Encoding.UTF8.GetBytes(filename + "\0"); // needs null terminator
+            fixed (byte* bytePtr = filenameBytes)
+            {
+                ImGui.GetIO().NativePtr->IniFilename = bytePtr;
+            }
+
+            ImGui.SaveIniSettingsToDisk(filename);
+        }
 
         // io.IniSavingRate = 5;
 
