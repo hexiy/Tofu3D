@@ -140,6 +140,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
             ImGui.End();
             return;
         }
+
         ResetId();
         ImGui.SetScrollX(0);
         _padding = (int)ImGui.GetStyle().WindowPadding.X;
@@ -198,7 +199,6 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
         _inspector._editing = false;
         if (gameObject)
         {
-
             PushId(gameObject.Id);
 
             string? gameObjectName = gameObject.Name;
@@ -264,7 +264,10 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
         if (gameObject)
         {
             bool justOpened = false;
-            if (ImGui.Button("[+] Add Component"))
+            
+            // ImGui.Button("xdd",
+                // new Vector2(TofuImGui.GetContentRegionAvailWithPadding().X, ImGui.GetFrameHeight()));
+            if (TofuImGui.ButtonFullWidth("[+] Add Component"))
             {
                 ImGui.OpenPopup("AddComponentPopup");
                 justOpened = true;

@@ -36,6 +36,31 @@ public static class TofuImGui
         }
     }
 
+    public static bool Button(string text, Vector2 size)
+    {
+        return Button(text, size.X, size.Y);
+    }
+
+    public static bool Button(string text, float width, float height)
+    {
+        return ImGui.Button(text, new Vector2(width, height));
+    }
+
+    public static bool Button(string text, float width)
+    {
+        return ImGui.Button(text, new Vector2(width, ImGui.GetFrameHeight()));
+    }
+
+    public static bool ButtonFullWidth(string text)
+    {
+        return Button(text, width: TofuImGui.GetContentRegionAvailWithPadding().X);
+    }
+
+    public static bool Button(string text)
+    {
+        return ImGui.Button(text);
+    }
+
     public static void ImageButtonTexture2DArray(RuntimeTexture runtimeTexture,
         Vector2 size, Vector4? bg_col = null, Vector4? tint_col = null)
     {
@@ -143,5 +168,6 @@ public static class TofuImGui
     {
         ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X - TofuImGui.DefaultWindowPadding.X);
     }
+
     public const float WindowMenuBarHeight = 25;
 }
