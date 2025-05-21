@@ -63,7 +63,7 @@ public class AssetsWatcher
             return;
         }
 
-        Debug.Log($"file changed:{e.Name}");
+        // Debug.Log($"file changed:{e.Name}");
 
         string assetsRelativePath = TofuPath.Combine("Assets", Path.GetRelativePath("Assets", e.FullPath));
         // some files have junk after the extension

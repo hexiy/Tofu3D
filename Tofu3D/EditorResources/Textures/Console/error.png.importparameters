@@ -1,12 +1,12 @@
 ﻿{
-  "PathToSourceAsset": "Resources/dot.png",
+  "PathToSourceAsset": "Resources/Console/error.png",
   "FilterMode": 9729,
   "WrapMode": 10497,
   "IsSrgb": false,
   "BlackIsTransparency": false,
-  "AssetID": -18192564
-}}>
-  <PathToSourceAsset>Resources/dot.png</PathToSourceAsset>
+  "AssetID": 206509643
+}
+}SourceAsset>Resources/Console/error.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>
   <IsSrgb>false</IsSrgb>

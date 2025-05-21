@@ -32,7 +32,7 @@ public class EditorSettingsGeneral
     private void FillFontPathsCollection()
     {
         // to keep what we added but also load new fonts
-        string[] fonts = Directory.GetFiles(Folders.FontsInResources, "*.ttf");
+        string[] fonts = Directory.GetFiles(Folders.EditorResourcesFonts, "*.ttf");
         HashSet<string> fontsHashSet = new HashSet<string>();
         for (int i = 0; i < fonts.Length; i++)
         {

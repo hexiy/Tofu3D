@@ -78,7 +78,7 @@ public class ImGuiController : IDisposable
         // io.IniSavingRate = 5;
 
         LoadFont(Tofu.EditorSettingsAll.EditorSettingsGeneral.FontSize,
-            TofuPath.Combine(Folders.FontsInResources, "inconsolata.ttf"));
+            TofuPath.Combine(Folders.EditorResourcesFonts, "inconsolata.ttf"));
         //io.Fonts.AddFontDefault();
 
         io.BackendFlags = ImGuiBackendFlags.None; // ImGuiBackendFlags.RendererHasVtxOffset;

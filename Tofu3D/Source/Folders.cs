@@ -8,9 +8,10 @@ public class Folders
     public static string ProjectFullPath;
     public static string EditorResources;
     public static string EditorResourcesProjectFiles => TofuPath.Combine(EditorResources, "ProjectFiles");
+    public static string EditorResourcesFonts => TofuPath.Combine(EditorResources, "Fonts");
+    public static string EditorResourcesTextures => TofuPath.Combine(EditorResources, "Textures");
+
     public static string ProjectSettings => TofuPath.Combine(ProjectFullPath, "ProjectSettings");
-    public static string Resources => TofuPath.Combine(ProjectFullPath, "Resources");
-    public static string FontsInResources => TofuPath.Combine(Resources, "Fonts");
     public static string Library => TofuPath.Combine(ProjectFullPath, "Library");
     public static string Data => TofuPath.Combine(ProjectFullPath, "Data");
     public static string ModelsInLibrary => TofuPath.Combine(Library, "Models");
@@ -115,7 +116,7 @@ public class Folders
 
     public static string Get2DAssetPath(string assetName) => TofuPath.Combine(TexturesInAssets, assetName);
 
-    public static string GetResourcePath(string assetName) => TofuPath.Combine(Resources, assetName);
+    public static string GetEditorResourcePath(string assetName) => TofuPath.Combine(EditorResources, assetName);
 
     /// <summary>
     ///     From "Desktop/project/bin/Assets/2D/xx.png" to "bin/Assets/2D/xx.png"

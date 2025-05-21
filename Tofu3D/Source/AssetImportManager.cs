@@ -226,7 +226,7 @@ public class AssetImportManager
     {
         List<string> allPaths = new List<string>();
         allPaths.AddRange(Directory.GetFiles(Folders.Assets, "", SearchOption.AllDirectories));
-        allPaths.AddRange(Directory.GetFiles(Folders.Resources, "", SearchOption.AllDirectories));
+        allPaths.AddRange(Directory.GetFiles(Folders.EditorResources, "", SearchOption.AllDirectories));
         // scan Assets folder
         // string[] rawAssetPaths = new[] { file };
 
@@ -241,12 +241,12 @@ public class AssetImportManager
     {
         List<string> allPaths = new List<string>();
         allPaths.AddRange(Directory.GetFiles(Folders.Assets, "", SearchOption.AllDirectories));
-        allPaths.AddRange(Directory.GetFiles(Folders.Resources, "", SearchOption.AllDirectories));
+        allPaths.AddRange(Directory.GetFiles(Folders.EditorResources, "", SearchOption.AllDirectories));
 
         // Console.WriteLine("****** ImportAllTextures at paths ");
         // allPaths.ForEach((s) => Console.WriteLine(s));
         // Console.WriteLine("******");
-        
+
         // Debug.Log($"Environment.CurrentDirectory(should be project path):{Environment.CurrentDirectory}");
         Environment.CurrentDirectory = Folders.ProjectFullPath;
         // Debug.Log($"Environment.CurrentDirectory(now?):{Environment.CurrentDirectory}");

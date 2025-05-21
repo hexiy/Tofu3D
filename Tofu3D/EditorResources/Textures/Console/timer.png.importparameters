@@ -1,11 +1,11 @@
 ﻿{
-  "PathToSourceAsset": "Resources/Console/error.png",
+  "PathToSourceAsset": "Resources/Console/timer.png",
   "FilterMode": 9729,
   "WrapMode": 10497,
   "IsSrgb": false,
   "BlackIsTransparency": false,
-  "AssetID": 1724000255
-}oSourceAsset>Resources/Console/error.png</PathToSourceAsset>
+  "AssetID": 1421460601
+}}SourceAsset>Resources/Console/timer.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>
   <IsSrgb>false</IsSrgb>

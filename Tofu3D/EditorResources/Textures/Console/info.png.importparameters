@@ -1,11 +1,12 @@
 ﻿{
-  "PathToSourceAsset": "Resources/FileIcon_b.png",
+  "PathToSourceAsset": "Resources/Console/info.png",
   "FilterMode": 9729,
   "WrapMode": 10497,
   "IsSrgb": false,
   "BlackIsTransparency": false,
-  "AssetID": -620651684
-}thToSourceAsset>Resources/FileIcon_b.png</PathToSourceAsset>
+  "AssetID": 91321053
+}
+}}oSourceAsset>Resources/Console/info.png</PathToSourceAsset>
   <FilterMode>Bilinear</FilterMode>
   <WrapMode>Repeat</WrapMode>
   <IsSrgb>false</IsSrgb>

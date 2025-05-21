@@ -29,12 +29,12 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
         _texture = new RuntimeCubemapTexture();
         string[] texturePaths =
         {
-            TofuPath.Combine(Folders.Resources, "defaultSkybox", "Daylight Box_Right.bmp"),
-            TofuPath.Combine(Folders.Resources, "defaultSkybox", "Daylight Box_Left.bmp"),
-            TofuPath.Combine(Folders.Resources, "defaultSkybox", "Daylight Box_Top.bmp"),
-            TofuPath.Combine(Folders.Resources, "defaultSkybox", "Daylight Box_Bottom.bmp"),
-            TofuPath.Combine(Folders.Resources, "defaultSkybox", "Daylight Box_Front.bmp"),
-            TofuPath.Combine(Folders.Resources, "defaultSkybox", "Daylight Box_Back.bmp")
+            TofuPath.Combine(Folders.EditorResourcesTextures, "defaultSkybox", "Daylight Box_Right.bmp"),
+            TofuPath.Combine(Folders.EditorResourcesTextures, "defaultSkybox", "Daylight Box_Left.bmp"),
+            TofuPath.Combine(Folders.EditorResourcesTextures, "defaultSkybox", "Daylight Box_Top.bmp"),
+            TofuPath.Combine(Folders.EditorResourcesTextures, "defaultSkybox", "Daylight Box_Bottom.bmp"),
+            TofuPath.Combine(Folders.EditorResourcesTextures, "defaultSkybox", "Daylight Box_Front.bmp"),
+            TofuPath.Combine(Folders.EditorResourcesTextures, "defaultSkybox", "Daylight Box_Back.bmp")
         };
 
         AssetLoadParameters_CubemapTexture loadParameters = new AssetLoadParameters_CubemapTexture
@@ -53,8 +53,10 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
         }
 
 
-        Vector3 forwardLocal = Camera.CurrentlyRenderingCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
-        Vector3 upLocal = Camera.CurrentlyRenderingCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
+        Vector3 forwardLocal =
+            Camera.CurrentlyRenderingCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
+        Vector3 upLocal =
+            Camera.CurrentlyRenderingCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
 
         Matrix4x4 viewMatrix = Matrix4x4.CreateLookAt(Vector3.Zero, forwardLocal, upLocal) *
                                Matrix4x4.CreateScale(-1, 1, 1);
