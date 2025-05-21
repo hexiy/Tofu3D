@@ -1,7 +1,7 @@
 ﻿/*using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class CubemapTextureLoader : AssetLoader<CubemapTexture>
 {

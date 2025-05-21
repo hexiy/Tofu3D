@@ -44,6 +44,50 @@ public static class BufferFactory
         geometryBuffer.EnableAttribs(false, 2, 2);
     }
 
+    public static void CreatePlaneMesh(ref RuntimeMesh runtimeMesh)
+    {
+        float[] vertices =
+        {
+            -1.0f, 0.0f, 1.0f, // Position
+            0.0f, 1.0f, 0.0f, // Normal
+            0.0f, 0.0f, // UV
+
+            1.0f, 0.0f, 1.0f,
+            0.0f, 1.0f, 0.0f,
+            1.0f, 0.0f,
+
+            1.0f, 0.0f, -1.0f,
+            0.0f, 1.0f, 0.0f,
+            1.0f, 1.0f,
+
+            -1.0f, 0.0f, -1.0f,
+            0.0f, 1.0f, 0.0f,
+            0.0f, 1.0f
+        };
+
+        uint[] indices =
+        {
+            0, 1, 2,
+            2, 3, 0
+        };
+
+        runtimeMesh.Mesh = new Mesh();
+        runtimeMesh.Mesh.CountsOfElements = new[] { 3, 3, 2 };
+        runtimeMesh.Mesh.GeometryBufferData = vertices;
+        runtimeMesh.Mesh.VerticesCount = 4;
+        runtimeMesh.Mesh.Name = "Plane";
+        runtimeMesh.Mesh.Indices = indices;
+        runtimeMesh.Mesh.IndicesLength = indices.Length;
+
+        runtimeMesh.Vao = GL.GenVertexArray();
+        Tofu.ShaderManager.BindVertexArray(runtimeMesh.Vao);
+
+        GeometryBuffer geometryBuffer = GeometryBuffer.Create(BufferTarget.ArrayBuffer, vertices, 8);
+        geometryBuffer.EnableAttribs(false, 3, 3, 2);
+
+        GeometryBuffer indexBuffer = GeometryBuffer.Create(BufferTarget.ElementArrayBuffer, indices, 3);
+    }
+
     public static void CreateSpriteRendererBuffer(ref int vao)
     {
         float[] spriteVertexBufferData =
@@ -64,7 +108,8 @@ public static class BufferFactory
         // CreateGenericBuffer(ref vao, spriteVertexBufferData, countsOfElements);
     }
 
-    public static void CreateGeometryBuffer(ref int vao, ref int ebo, float[] geometryBufferData, int[] countsOfElements,
+    public static void CreateGeometryBuffer(ref int vao, ref int ebo, float[] geometryBufferData,
+        int[] countsOfElements,
         bool isDynamic = false, uint[]? indices = null)
     {
         // GL.Enable(EnableCap.DepthTest);

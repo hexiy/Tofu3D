@@ -1,6 +1,6 @@
 using TofuEngine.Rendering;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class RenderingSystem
 {

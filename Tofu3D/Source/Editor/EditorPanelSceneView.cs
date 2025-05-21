@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.InteropServices;
 using ImGuiNET;
-using Tofu3D;
+using TofuEngine;
 using TofuEngine.Rendering;
 
 namespace TofuEngine;

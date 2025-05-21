@@ -78,7 +78,7 @@ public class AssetImportManager
 
 
         bool assetImportParametersFileExistsForThisAsset = File.Exists(importParametersFilePath);
-        const bool FORCE_NEW_IMPORT_PARAMETERS = false;
+        const bool FORCE_NEW_IMPORT_PARAMETERS = true;
         if (FORCE_NEW_IMPORT_PARAMETERS)
         {
             assetImportParametersFileExistsForThisAsset = false;

@@ -1,4 +1,4 @@
-// namespace Tofu3D;
+// namespace TofuEngine;
 //
 // internal struct MousePickingObject
 // {

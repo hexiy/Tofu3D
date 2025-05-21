@@ -78,9 +78,9 @@ public class TextRendererInstanced : ModelRendererInstanced
         base.Start();
     }
 
-    public override void SetDefaultMaterial()
+    public override void SetupMeshAndMaterial()
     {
-        base.SetDefaultMaterial();
+        base.SetupMeshAndMaterial();
 
         Asset_Model model =
             Tofu.AssetLoadManager.Get<Asset_Model>(TofuPath.Combine(Folders.BasicModelsInAssets, "plane.obj"));

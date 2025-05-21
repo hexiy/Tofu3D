@@ -77,10 +77,10 @@ public class SceneSerializer
     {
         SceneFile prefabSceneFile = SceneFile.CreateForOneGameObject(go);
 
-        SaveGameObjects(prefabSceneFile, TofuPath.Combine(Folders.Data, "clipboardGameObject"));
+        SaveGameObjects(prefabSceneFile, TofuPath.Combine(Folders.TempInLibrary, "clipboardGameObject"));
     }
 
-    public GameObject LoadClipboardGameObject() => LoadPrefab(TofuPath.Combine(Folders.Data, "clipboardGameObject"));
+    public GameObject LoadClipboardGameObject() => LoadPrefab(TofuPath.Combine(Folders.TempInLibrary, "clipboardGameObject"));
 
     public GameObject LoadPrefab(string prefabPath, bool inBackground = false)
     {

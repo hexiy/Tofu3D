@@ -103,7 +103,7 @@ public class ParticleSystemRenderer : Renderer
         }
     }
 
-    public override void SetDefaultMaterial()
+    public override void SetupMeshAndMaterial()
     {
         /////////////////////// MESH
 

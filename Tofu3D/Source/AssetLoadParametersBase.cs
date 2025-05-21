@@ -1,3 +1,5 @@
+namespace TofuEngine;
+
 public class AssetLoadParametersBase
 {
     /// <summary>

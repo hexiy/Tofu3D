@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using Microsoft.Build.Locator;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using Tofu3D;
+using TofuEngine;
 using TofuEngine.Physics;
 using TofuEngine.Rendering;
 using TofuEngine.Rendering.Instancing;

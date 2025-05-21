@@ -1,6 +1,6 @@
 /*using System.Diagnostics;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 // ReSharper disable once InconsistentNaming
 public static class RiderIDE

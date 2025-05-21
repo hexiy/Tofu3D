@@ -31,10 +31,13 @@ public class ModelRendererInstanced : Renderer
         base.OnDisabled();
     }
 
-    public override void SetDefaultMaterial()
+    public override void SetupMeshAndMaterial()
     {
         /////////////////////// MESH
-
+        if (NeedsToSetupMeshAndMaterial == false)
+        {
+            return;
+        }
 
         // RuntimeMesh.Mesh.Indices
         if (RuntimeMesh?.Mesh?.PathInLibraryFolder?.Length > 0)

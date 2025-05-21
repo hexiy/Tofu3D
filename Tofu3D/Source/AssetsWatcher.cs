@@ -9,7 +9,8 @@ public class AssetsWatcher
 
     // ShaderCache can register for ".shader" file changes, so we only check the extension once 
     private readonly Dictionary<AssetSupportedFileNameExtensions, Action<FileChangedInfo>>
-        _fileWithExtensionChangedConsumers = new Dictionary<AssetSupportedFileNameExtensions, Action<FileChangedInfo>>();
+        _fileWithExtensionChangedConsumers =
+            new Dictionary<AssetSupportedFileNameExtensions, Action<FileChangedInfo>>();
 
     private FileSystemWatcher _watcher;
 
@@ -38,12 +39,14 @@ public class AssetsWatcher
     {
         _watcher = new FileSystemWatcher(Folders.Assets);
         _watcher.IncludeSubdirectories = true;
-        _watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.LastAccess |
-                                NotifyFilters.Attributes;
+        _watcher.NotifyFilter = NotifyFilters.LastWrite;// | NotifyFilters.Size | NotifyFilters.LastAccess |
+                                //NotifyFilters.Attributes;
         _watcher.EnableRaisingEvents = true;
         _watcher.Filter = "";
         _watcher.Changed += OnFileManipulated;
         _watcher.Deleted += OnFileManipulated;
+        _watcher.Created += OnFileManipulated;
+        _watcher.Renamed += OnFileManipulated;
         //_watcher.Created += OnFileCreated;
         _watcher.Error += (sender, args) => throw args.GetException();
     }
@@ -59,6 +62,8 @@ public class AssetsWatcher
         {
             return;
         }
+
+        Debug.Log($"file changed:{e.Name}");
 
         string assetsRelativePath = TofuPath.Combine("Assets", Path.GetRelativePath("Assets", e.FullPath));
         // some files have junk after the extension
@@ -86,9 +91,10 @@ public class AssetsWatcher
         {
             Tofu.ShaderManager.QueueShaderReload(assetsRelativePath);
         }
+
         if (AssetPathExtensions.IsFileScript(assetsRelativePath))
         {
-           Tofu.ScriptsReloader.QueueScriptsReload();
+            Tofu.ScriptsReloader.QueueScriptsReload();
         }
     }
 
@@ -108,7 +114,8 @@ public class AssetsWatcher
 
                 string fileExtension = Path.GetExtension(fileManipulatedInfo.Path);
 
-                foreach (KeyValuePair<AssetSupportedFileNameExtensions, Action<FileChangedInfo>> fileWithExtensionChangedConsumer in _fileWithExtensionChangedConsumers)
+                foreach (KeyValuePair<AssetSupportedFileNameExtensions, Action<FileChangedInfo>>
+                             fileWithExtensionChangedConsumer in _fileWithExtensionChangedConsumers)
                 {
                     if (fileWithExtensionChangedConsumer.Key.Extensions.Contains(fileExtension) ||
                         fileWithExtensionChangedConsumer.Key.Extensions.Contains("*"))

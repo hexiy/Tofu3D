@@ -1,10 +1,10 @@
-/*using System.IO;
+using System.IO;
 
 [ExecuteInEditMode]
 public class Grid : Component, IComponentUpdateable
 {
     private BoxShape _boxShape;
-    private SpriteRenderer _spriteRenderer;
+    private ModelRendererInstanced _renderer;
     public Vector2 PanSpeed = Vector2.Zero;
 
     public void Update()
@@ -12,23 +12,36 @@ public class Grid : Component, IComponentUpdateable
         // float clampedOrthoSize = Mathf.ClampMin(Camera.I.OrthographicSize, 1);
         // _boxShape.Size = Camera.I.Size;
         // _spriteRenderer.Tiling = _boxShape.Size / 100f / (10 / Camera.I.OrthographicSize);
-        _spriteRenderer.Offset = Camera.MainCamera.Transform.WorldPosition * PanSpeed / _spriteRenderer.Tiling;
-        Transform.LocalScale = Vector3.One;
-        Transform.LocalPosition = Vector3.Zero;
+        // _spriteRenderer.Offset = Camera.MainCamera.Transform.WorldPosition * PanSpeed / _spriteRenderer.Tiling;
+
+        // Transform.LocalScale = Vector3.One;
+        // Transform.LocalPosition = Vector3.Zero;
+
+        // Transform.WorldPosition = new Vector3(0, -10, 0);
+        // // Transform.LocalScale = new Vector3(100, 1, 100);
+        // Transform.LocalScale = new Vector3(3, 1, 3);
     }
 
     public override void Awake()
     {
         _boxShape = GetComponent<BoxShape>() ?? AddComponent<BoxShape>();
-        _spriteRenderer = GetComponent<SpriteRenderer>() ?? AddComponent<SpriteRenderer>();
+        _renderer = GetComponent<ModelRendererInstanced>() ?? AddComponent<ModelRendererInstanced>();
 
 
-        _spriteRenderer.Texture = Tofu.AssetLoadManager.Load<RuntimeTexture>(TofuPath.Combine(Folders.Textures, "gridX.png"));
-            //,TextureLoadSettings.DefaultSettingsSpritePixelArt);
-        _spriteRenderer.Color = new Color(255, 255, 255, 255);
-        _spriteRenderer.Layer = -10;
-        _spriteRenderer.Batched = false;
-        Transform.Pivot = new Vector3(0.5f, 0.5f, 0.5f);
+        _renderer.SetupMeshAndMaterial();
+        _renderer.Material.AlbedoTexture =
+            Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.TexturesInAssets, "gridX.png"));
+        //,TextureLoadSettings.DefaultSettingsSpritePixelArt);
+        _renderer.Color = new Color(255, 255, 255, 255);
+        _renderer.Layer = -10;
+
+
+        _renderer.RuntimeMesh =
+            Tofu.BasicMeshesCollection.PlaneMesh;
+        _renderer.NeedsToSetupMeshAndMaterial = false;
+
+        Transform.WorldPosition = new Vector3(0, -1, 0);
+        Transform.LocalScale = new Vector3(5, 1, 5);
         base.Awake();
     }
 
@@ -36,4 +49,4 @@ public class Grid : Component, IComponentUpdateable
     {
         base.Start();
     }
-}*/
+}

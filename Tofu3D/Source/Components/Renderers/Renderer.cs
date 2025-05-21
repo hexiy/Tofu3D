@@ -51,6 +51,8 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     [Show]
     public RuntimeMesh RuntimeMesh;
 
+    public bool NeedsToSetupMeshAndMaterial = true;
+    
     // internal bool OnScreen = true;
     public float Layer { get; set; }
 
@@ -242,12 +244,12 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
             BoxShape = GetComponent<BoxShape>();
         }
 
-        SetDefaultMaterial();
+        SetupMeshAndMaterial();
 
         base.Awake();
     }
 
-    public virtual void SetDefaultMaterial()
+    public virtual void SetupMeshAndMaterial()
     {
         Material?.LoadShader();
     }

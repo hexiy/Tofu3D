@@ -1,6 +1,6 @@
 ﻿/*using Microsoft.DotNet.PlatformAbstractions;
 
-namespace Tofu3D;
+namespace TofuEngine;
 
 public class MaterialLoadSettings : AssetLoadSettings<Material>
 {

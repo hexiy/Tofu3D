@@ -232,7 +232,7 @@ public class TextureAtlasManager
     private void SaveAtlasAsset(byte[] atlasPixels, TextureAtlasMember[] atlasMembers, int atlasIndex)
     {
         ///////////////////////////////////////////////////////////// PNG
-        // if (false)
+        if (false)
         {
             using Image<Rgba32>? image =
                 Image.LoadPixelData<Rgba32>(atlasPixels, AtlasWidth, AtlasWidth);
@@ -244,6 +244,7 @@ public class TextureAtlasManager
             string path = Path.Combine(Folders.TextureAtlasesInLibrary, $"atlas_{atlasIndex}.png");
             image.SaveAsPng(path);
         }
+
         /////////////////////////////////////////////////////////////
         string textFile = "";
         for (int i = 0; i < atlasMembers.Length; i++)

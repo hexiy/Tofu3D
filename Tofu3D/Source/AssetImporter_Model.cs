@@ -106,10 +106,21 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 break;
             }
 
+            if (lineStartIndex >= data.Length - 1)
+            {
+                importParameters.ImportAsSingleMesh = true;
+                break;
+            }
+
             if (lineStartIndex == lineStartIndexBefore)
             {
                 lineStartIndex++;
                 // break;
+            }
+
+            if (importParameters.ImportAsSingleMesh)
+            {
+                break;
             }
         }
 
@@ -348,7 +359,6 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 }
             }
 
-       
 
             if (
                 ((line.StartsWith("g") || line.StartsWith("o ")) && singleMesh == false))
@@ -361,6 +371,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
                 isInMesh = true;
             }
+
             if (line.StartsWith("g ", StringComparison.OrdinalIgnoreCase) ||
                 line.StartsWith("o ", StringComparison.OrdinalIgnoreCase))
             {
@@ -369,6 +380,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                     foundMeshName = lineSplits[1];
                 }
             }
+
             if (line.StartsWith("usemtl") && objMaterialFileDefinition != null)
             {
                 objMaterialDefinition =
@@ -545,7 +557,9 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
         };
 
 
-        string meshFileName = AssetPathExtensions.ModelToMeshFileName(modelFilePath, meshIndex);
+        string meshFileName = singleMesh
+            ? modelFilePath + ".tofumesh"
+            : AssetPathExtensions.ModelToMeshFileName(modelFilePath, meshIndex);
         string meshPath = AssetPathExtensions.GetPathOfAssetInLibraryFromSourceAssetPathOrName(meshFileName);
 
         meshFile.Mesh.Name = foundMeshName ?? Path.GetFileNameWithoutExtension(meshPath);
