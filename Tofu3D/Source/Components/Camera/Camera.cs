@@ -7,7 +7,7 @@ public class Camera : Component, IComponentUpdateable
 
     //public int antialiasingStrength = 0;
     public Color Color = new Color(34, 34, 34);
-    public float FarPlaneDistance = 100;
+    public float FarPlaneDistance = 1000;
 
     [ShowIfNot(nameof(IsOrthographic))]
     public float FieldOfView = 60;

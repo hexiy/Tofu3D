@@ -1,3 +1,4 @@
+using Tofu3D;
 using TofuEngine;
 
 namespace TofuEngine.Rendering;
@@ -18,6 +19,7 @@ public class RenderTargetPipeline
     public RenderPass ZPrePass;
     public RenderSettings RenderSettings;
 
+    private SceneViewData _sceneViewData;
 
     public RenderTargetPipeline(RenderTargetPipelineType type)
     {
@@ -25,8 +27,16 @@ public class RenderTargetPipeline
         RenderSettings = new RenderSettings();
     }
 
-    public void Initialize()
+    public void Initialize(int id)
     {
+        if (id != -1)
+        {
+            _sceneViewData = PersistentData.Get<SceneViewData>(key: $"SceneViewData_{id}", () => new SceneViewData());
+
+
+            Tofu.Window.Closing += c => SaveSceneViewData(id);
+        }
+
         // RenderSettings.LoadSavedData();
         CreatePasses();
         RebuildRenderTextures(ViewSize);
@@ -35,6 +45,13 @@ public class RenderTargetPipeline
         {
             SetupCamera();
         }
+    }
+
+    private void SaveSceneViewData(int id)
+    {
+        _sceneViewData.CameraPosition = Camera.Transform.WorldPosition;
+        _sceneViewData.CameraRotation = Camera.Transform.WorldRotation;
+        PersistentData.Set(key: $"SceneViewData_{id}", _sceneViewData);
     }
 
     private void SetupCamera()
@@ -53,6 +70,10 @@ public class RenderTargetPipeline
             runtimeOnly: true);
 
         Camera = camGo.AddComponent<Camera>();
+
+        Camera.Transform.WorldPosition = _sceneViewData.CameraPosition;
+        Camera.Transform.Rotation = _sceneViewData.CameraRotation;
+
         Camera.SceneViewCamera = Camera;
         Camera.AllCameras.Add(Camera);
         Camera.CameraSizeChanged += RebuildRenderTextures;

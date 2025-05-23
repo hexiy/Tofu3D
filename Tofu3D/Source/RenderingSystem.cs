@@ -12,10 +12,10 @@ public class RenderingSystem
         _renderTargetPipelines = new List<RenderTargetPipeline>();
     }
 
-    public RenderTargetPipeline CreatePipeline(RenderTargetPipelineType type)
+    public RenderTargetPipeline CreatePipeline(RenderTargetPipelineType type, int id)
     {
         RenderTargetPipeline pipeline = new RenderTargetPipeline(type);
-        pipeline.Initialize();
+        pipeline.Initialize(id);
 
 
         _renderTargetPipelines.Add(pipeline);

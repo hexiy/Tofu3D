@@ -82,7 +82,7 @@ public class EditorPanelSceneView : EditorPanel
 
             if (oldIsVisible == false && IsVisible == true && _renderTargetPipeline == null)
             {
-                _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.SceneView);
+                _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.SceneView, Id);
             }
 
             if (oldIsVisible && IsVisible == false && _renderTargetPipeline != null)
@@ -518,6 +518,6 @@ public class EditorPanelSceneView : EditorPanel
     {
         LastUsedView = this;
 
-        _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.SceneView);
+        _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.SceneView, Id);
     }
 }

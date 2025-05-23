@@ -40,7 +40,7 @@ public class EditorPanelGameView : EditorPanel
 
             if (oldIsVisible == false && IsVisible == true && _renderTargetPipeline == null)
             {
-                _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.GameView);
+                _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.GameView, -1);
             }
 
             if (oldIsVisible && IsVisible == false && _renderTargetPipeline != null)
@@ -145,6 +145,6 @@ public class EditorPanelGameView : EditorPanel
     {
         I = this;
 
-        _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.GameView);
+        _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.GameView,-1);
     }
 }
