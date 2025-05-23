@@ -321,6 +321,11 @@ public class TextureAtlasManager
             (int)TextureWrapMode.ClampToBorder);
         GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureWrapT,
             (int)TextureWrapMode.ClampToBorder);
+
+
+        // GL.GetFloat(GetPName.MaxTextureMaxAnisotropy, out float maxAniso);
+        // GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMaxAnisotropy,
+        //     maxAniso);
     }
 
     /*private void GenerateAtlasesForTextures(List<Asset_Texture> textures)
