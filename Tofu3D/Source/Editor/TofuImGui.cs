@@ -103,7 +103,8 @@ public static class TofuImGui
 
         if (border_col != null)
         {
-            ImGui.Image(textureId, size, uvBoundingBox.XW, uvBoundingBox.ZY, tint_col.Value,
+            ImGui.Image(textureId, size, uvBoundingBox.XW, uvBoundingBox.ZY,
+                tint_col ?? new Vector4(1,1,1,1),
                 border_col.Value);
         }
         else if (tint_col != null)

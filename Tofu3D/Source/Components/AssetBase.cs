@@ -1,6 +1,7 @@
 ﻿[Serializable]
 public abstract class AssetBase : IHasPath
 {
+    [XmlIgnore]
     public AssetImportParametersBase? AssetImportParameters;
     public AssetLoadParametersBase? AssetLoadParameters;
 

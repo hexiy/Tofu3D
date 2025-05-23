@@ -48,22 +48,23 @@ public static class BufferFactory
     {
         float[] vertices =
         {
-            -1.0f, 0.0f, 1.0f, // Position
+            0.0f, 0.5f, 1.0f, // Position (was -1, 0, 1)
             0.0f, 1.0f, 0.0f, // Normal
-            0.0f, 0.0f, // UV
+            0.0f, 0.0f,       // UV
 
-            1.0f, 0.0f, 1.0f,
-            0.0f, 1.0f, 0.0f,
-            1.0f, 0.0f,
+            1.0f, 0.5f, 1.0f, // Position (was 1, 0, 1)
+            0.0f, 1.0f, 0.0f, // Normal
+            1.0f, 0.0f,       // UV
 
-            1.0f, 0.0f, -1.0f,
-            0.0f, 1.0f, 0.0f,
-            1.0f, 1.0f,
+            1.0f, 0.5f, 0.0f, // Position (was 1, 0, -1)
+            0.0f, 1.0f, 0.0f, // Normal
+            1.0f, 1.0f,       // UV
 
-            -1.0f, 0.0f, -1.0f,
-            0.0f, 1.0f, 0.0f,
-            0.0f, 1.0f
+            0.0f, 0.5f, 0.0f, // Position (was -1, 0, -1)
+            0.0f, 1.0f, 0.0f, // Normal
+            0.0f, 1.0f        // UV
         };
+
 
         uint[] indices =
         {

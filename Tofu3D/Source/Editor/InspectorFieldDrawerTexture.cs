@@ -9,17 +9,23 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
     public override void Draw(FieldOrPropertyInfo info, InspectableData componentInspectorData)
     {
         RuntimeTexture? texture = GetValue(info, componentInspectorData);
-        string? textureName = texture == null ? "" : Path.GetFileName(texture.AnyPath);
+        string textureName = texture == null ? "None" : Path.GetFileName(texture.AnyPath);
 
         int posX = (int)ImGui.GetCursorPosX();
 
         if (texture == null)
         {
-            ImGui.Dummy(new Vector2(150, 150));
+            // TofuImGui.ImageTexture2DArray(Tofu.Editor.EditorTextures.TransparentPixel, size: new Vector2(150, 150),
+            // border_col: new Color(0.3f, 0.3f, 0.3f, 1));
+            TofuImGui.Button("-", new Vector2(150, 150));
         }
         else
         {
-            TofuImGui.ImageTexture2DArray(texture, size: new Vector2(150, 150));
+            Vector2 pos = ImGui.GetCursorPos();
+            TofuImGui.ImageTexture2DArray(Tofu.Editor.EditorTextures.Checkerboard, size: new Vector2(150, 150));
+            ImGui.SetCursorPos(pos);
+            TofuImGui.ImageTexture2DArray(texture, size: new Vector2(150, 150),
+                border_col: new Color(0.3f, 0.3f, 0.3f, 1));
         }
 
         if (ImGui.IsItemClicked())
@@ -43,6 +49,11 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
 
         void NavigateToFileInBrowser()
         {
+            if (texture == null)
+            {
+                return;
+            }
+
             EditorPanelInspector.I.AddActionToActionQueue(() =>
             {
                 EditorPanelBrowser.I.GoToFile(texture.PathInAssetsFolder);
@@ -66,11 +77,14 @@ public class InspectorFieldDrawerTexture : InspectorFieldDrawable<RuntimeTexture
                 {
                     payload = Path.GetRelativePath(Folders.ProjectFullPath, payload);
 
-                    textureName = payload;
+                    if (ImGui.IsMouseDragging(ImGuiMouseButton.Left) == false)
+                    {
+                        textureName = payload;
 
-                    RuntimeTexture? loadedTexture = Tofu.AssetLoadManager.Get<RuntimeTexture>(textureName);
+                        RuntimeTexture? loadedTexture = Tofu.AssetLoadManager.Get<RuntimeTexture>(textureName);
 
-                    SetValue(info, componentInspectorData, loadedTexture);
+                        SetValue(info, componentInspectorData, loadedTexture);
+                    }
                 }
             }
         }

@@ -37,7 +37,7 @@ public static class SystemConfig
         }
         
 
-        Debug.Log($"Folders.EditorResources:{Folders.EditorResources}");
+        // Debug.Log($"Folders.EditorResources:{Folders.EditorResources}");
 
         // DirectoryInfo directoryInfo = Directory.GetParent(Environment.CurrentDirectory);
 

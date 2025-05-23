@@ -399,6 +399,13 @@ public class EditorPanelBrowser : EditorPanel
         {
             if (_textures.ContainsKey(assetPath)) // && _textures[assetIndex].Loaded)
             {
+                // if (fileType is FileType.Texture)
+                // {
+                //     Vector2 pos = ImGui.GetCursorPos();
+                //     TofuImGui.ImageTexture2DArray(Tofu.Editor.EditorTextures.Checkerboard, size: _iconSize);
+                //     ImGui.SetCursorPos(pos);
+                // }
+
                 ImDrawListPtr dl = ImGui.GetWindowDrawList();
                 Vector2 cursor = ImGui.GetCursorPos();
                 Vector2 p_min = ImGui.GetCursorScreenPos();

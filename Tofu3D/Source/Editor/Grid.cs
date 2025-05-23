@@ -34,13 +34,16 @@ public class Grid : Component, IComponentUpdateable
         //,TextureLoadSettings.DefaultSettingsSpritePixelArt);
         _renderer.Color = new Color(255, 255, 255, 255);
         _renderer.Layer = -10;
+        _renderer.Material.BlendMode = BlendMode.PremultipliedAlpha;
 
 
         _renderer.RuntimeMesh =
-            Tofu.BasicMeshesCollection.PlaneMesh;
+            Tofu.AssetLoadManager.Get<Asset_Model>(TofuPath.Combine(Folders.BasicModelsInAssets, "plane.obj"))
+                .GetMesh(0);
         _renderer.NeedsToSetupMeshAndMaterial = false;
 
-        Transform.WorldPosition = new Vector3(0, -1, 0);
+        Transform.WorldPosition = new Vector3(0, 0, 20);
+        Transform.Rotation = new Vector3(90, 0, 0);
         Transform.LocalScale = new Vector3(5, 1, 5);
         base.Awake();
     }
