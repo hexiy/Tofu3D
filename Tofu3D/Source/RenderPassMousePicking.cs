@@ -5,8 +5,10 @@ public class RenderPassMousePicking : RenderPass
     public static RenderPassMousePicking I { get; private set; }
     public override bool DrawsToTheFinalColorFramebuffer => false;
 
+    
     public override bool CanRender() =>
         Tofu.MouseInput.IsMouseInSceneView && Tofu.MouseInput.IsButtonDown() && base.CanRender();
+// make sure to check if mouse is in current scene view, not just any scene view
 
     public RenderPassMousePicking(RenderTargetPipeline pipeline) : base(RenderPassType.MousePicking, pipeline)
     {

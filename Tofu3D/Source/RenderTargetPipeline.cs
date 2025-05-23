@@ -109,7 +109,7 @@ public class RenderTargetPipeline
 
         RenderPassTransparency renderPassTransparency = new RenderPassTransparency(this);
         RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking(this);
-
+        renderPassMousePicking.Enabled = false;
 
         RenderPasses.AddRange([
             renderPassSkybox,
