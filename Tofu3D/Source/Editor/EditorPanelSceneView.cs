@@ -499,9 +499,9 @@ public class EditorPanelSceneView : EditorPanel
         BoxShape boxShape = go.AddComponent<BoxShape>();
         boxShape.Pivot = Vector3.Half;
         boxShape.Size = new Vector3(3, 3, 3);
-        ModelRendererInstanced modelRendererInstanced = go.AddComponent<ModelRendererInstanced>();
+        ModelRenderer modelRenderer = go.AddComponent<ModelRenderer>();
 
-        modelRendererInstanced.RuntimeMesh = mesh;
+        modelRenderer.RuntimeMesh = mesh;
 
         go.Awake();
 

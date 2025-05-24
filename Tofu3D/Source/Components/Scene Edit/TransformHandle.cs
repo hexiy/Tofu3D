@@ -15,11 +15,11 @@ public partial class TransformHandle : Component, IComponentUpdateable
     private TransformHandleMode _mode = TransformHandleMode.Position;
 
     public TransformHandleAxis? CurrentAxisSelected;
-    public ModelRendererInstanced ModelRendererX;
-    public ModelRendererInstanced ModelRendererXy;
-    public ModelRendererInstanced ModelRendererY;
+    public ModelRenderer ModelRendererX;
+    public ModelRenderer ModelRendererXy;
+    public ModelRenderer ModelRendererY;
 
-    public ModelRendererInstanced ModelRendererZ;
+    public ModelRenderer ModelRendererZ;
 
 // create children gameobjects for position handle, rotation handle and scale handle
     public bool ObjectSelected;
@@ -199,10 +199,10 @@ public partial class TransformHandle : Component, IComponentUpdateable
         BoxColliderXy.Size = new Vector3(0.1f, 0.1f, 0.1f);
         //boxColliderXY.offset = new Vector3(5, 5,-5)/Units.OneWorldUnit;
 
-        ModelRendererX = GameObject.AddComponent<ModelRendererInstanced>();
-        ModelRendererY = GameObject.AddComponent<ModelRendererInstanced>();
-        ModelRendererZ = GameObject.AddComponent<ModelRendererInstanced>();
-        ModelRendererXy = GameObject.AddComponent<ModelRendererInstanced>();
+        ModelRendererX = GameObject.AddComponent<ModelRenderer>();
+        ModelRendererY = GameObject.AddComponent<ModelRenderer>();
+        ModelRendererZ = GameObject.AddComponent<ModelRenderer>();
+        ModelRendererXy = GameObject.AddComponent<ModelRenderer>();
 
         // Material unlitMaterial = Tofu.AssetManager.Load<Asset_Material>("ModelRendererUnlit");
         Asset_Material standardMaterial =

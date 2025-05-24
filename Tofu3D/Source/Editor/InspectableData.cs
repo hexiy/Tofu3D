@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace TofuEngine;
 
@@ -48,7 +49,7 @@ public class InspectableData
             else
             {
                 Infos[i] = new FieldOrPropertyInfo((PropertyInfo)memberInfo, Inspectable, this);
-                if (Infos[i].GetValue(Inspectable) == null)
+                if (Infos[i].GetValue(Inspectable) == null && Infos[i].HasCustomAttribute<NullableAttribute>()==false)
                 {
                     Infos[i].CanShowInEditor = false;
                 }

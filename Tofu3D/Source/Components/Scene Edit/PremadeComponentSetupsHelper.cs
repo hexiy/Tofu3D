@@ -4,7 +4,7 @@ namespace TofuEngine;
 
 public static class PremadeComponentSetupsHelper
 {
-    public static ModelRendererInstanced PrepareCube(ModelRendererInstanced modelRenderer)
+    public static ModelRenderer PrepareCube(ModelRenderer modelRenderer)
     {
         if (modelRenderer.Material == null)
         {

@@ -1,7 +1,7 @@
 using System.Linq;
 using TofuEngine.Rendering.Instancing;
 
-public class TextRendererInstanced : ModelRendererInstanced
+public class TextRenderer : ModelRenderer
 {
     private readonly Dictionary<char, int> _fontMappings = new Dictionary<char, int>
     {

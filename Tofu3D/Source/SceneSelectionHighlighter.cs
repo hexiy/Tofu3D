@@ -34,7 +34,7 @@ public class SceneSelectionHighlighter
 
 
         BoxShape boxShape = _selectionBoxGameObject.AddComponent<BoxShape>();
-        ModelRendererInstanced modelRenderer = _selectionBoxGameObject.AddComponent<ModelRendererInstanced>();
+        ModelRenderer modelRenderer = _selectionBoxGameObject.AddComponent<ModelRenderer>();
         modelRenderer.MousePickingEnabled = false;
 
         Asset_Material runtimeMaterial = Tofu.AssetLoadManager
@@ -61,7 +61,7 @@ public class SceneSelectionHighlighter
     private void StartFadingAnimation()
     {
         Tweener.Kill(this);
-        ModelRendererInstanced modelRenderer = _selectionBoxGameObject.GetComponent<ModelRendererInstanced>();
+        ModelRenderer modelRenderer = _selectionBoxGameObject.GetComponent<ModelRenderer>();
         Tweener.Tween(0.45f, 0.27f, 1.8f, (f) =>
             {
                 // runtimeMaterial.AlbedoTint doesnt do anything... this only works when referencing material like this "modelRenderer.Material"

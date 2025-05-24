@@ -95,11 +95,11 @@ public class SceneViewController
             newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Y : 0,
             tweenDuration,
             f => { _camera.Transform.Rotation = _camera.Transform.Rotation.Set(y: f); });
-        Tweener.Tween(_camera.Transform.WorldPosition.Z,
-            newProjectionMode == ProjectionMode.Perspective
-                ? _cameraPositionInPerspectiveMode.Value.Z
-                : _camera.Transform.WorldPosition.Z - 350, tweenDuration,
-            f => { _camera.Transform.WorldPosition = _camera.Transform.WorldPosition.Set(z: f); });
+        // Tweener.Tween(_camera.Transform.WorldPosition.Z,
+        //     newProjectionMode == ProjectionMode.Perspective
+        //         ? _cameraPositionInPerspectiveMode.Value.Z
+        //         : _camera.Transform.WorldPosition.Z - 350, tweenDuration,
+        //     f => { _camera.Transform.WorldPosition = _camera.Transform.WorldPosition.Set(z: f); });
 
         Tween tween = Tweener.Tween(_camera.Transform.Rotation.Z,
             newProjectionMode == ProjectionMode.Perspective ? _cameraRotationInPerspectiveMode.Value.Z : 0,

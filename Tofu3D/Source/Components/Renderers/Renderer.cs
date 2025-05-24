@@ -49,10 +49,11 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 
 
     [Show]
-    public RuntimeMesh RuntimeMesh;
+    public virtual RuntimeMesh RuntimeMesh { get; set; }
 
+    [Hide]
     public bool NeedsToSetupMeshAndMaterial = true;
-    
+
     // internal bool OnScreen = true;
     public float Layer { get; set; }
 
@@ -267,8 +268,8 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 // 	return _scale * Matrix4x4.Identity * _rotation * _translation * Camera.I.viewMatrix * Camera.I.projectionMatrix;
 // }
     // public virtual Matrix4x4 GetModelMatrixFromBoxShape() =>
-        // GetModelMatrix();// * Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.ViewMatrix *
-        //Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.ProjectionMatrix;
+    // GetModelMatrix();// * Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.ViewMatrix *
+    //Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera.ProjectionMatrix;
 
     internal void GL_DrawArrays(PrimitiveType primitiveType, int first, int count)
     {

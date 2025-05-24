@@ -4,7 +4,7 @@ using System.IO;
 public class Grid : Component, IComponentUpdateable
 {
     private BoxShape _boxShape;
-    private ModelRendererInstanced _renderer;
+    private ModelRenderer _renderer;
     public Vector2 PanSpeed = Vector2.Zero;
 
     public void Update()
@@ -25,7 +25,7 @@ public class Grid : Component, IComponentUpdateable
     public override void Awake()
     {
         _boxShape = GetComponent<BoxShape>() ?? AddComponent<BoxShape>();
-        _renderer = GetComponent<ModelRendererInstanced>() ?? AddComponent<ModelRendererInstanced>();
+        _renderer = GetComponent<ModelRenderer>() ?? AddComponent<ModelRenderer>();
 
 
         _renderer.SetupMeshAndMaterial();

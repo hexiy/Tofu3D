@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using TofuEngine.Rendering.Instancing;
 
-public class ModelRendererInstanced : Renderer
+public class ModelRenderer : Renderer
 {
     private bool _isInRenderQueue = true;
 
