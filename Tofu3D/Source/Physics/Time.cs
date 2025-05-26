@@ -91,7 +91,7 @@ public static class Time
         EditorElapsedTicks++;
 
 
-        if (Global.GameRunning)
+        if (Playmode.GameRunning)
         {
             DeltaTime = EditorDeltaTime;
 

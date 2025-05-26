@@ -76,8 +76,7 @@ public class Editor
         {
             _editorPanels = new List<EditorPanel>
             {
-                new EditorPanelMenuBar(_editorLayoutManager),
-                new EditorPanelSceneView()
+                new EditorPanelGameView()
             };
         }
 
@@ -107,7 +106,7 @@ public class Editor
 
         if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.WasKeyJustPressed(Keys.S))
         {
-            if (Global.GameRunning == false)
+            if (Playmode.GameRunning == false)
             {
                 Tofu.SceneManager.SaveScene();
             }
@@ -115,7 +114,7 @@ public class Editor
 
         if (KeyboardInput.IsKeyDown(Keys.LeftControl) && KeyboardInput.WasKeyJustPressed(Keys.R))
         {
-            if (Global.GameRunning == false)
+            if (Playmode.GameRunning == false)
             {
                 Tofu.SceneManager.ReloadScene();
             }
@@ -179,31 +178,46 @@ public class Editor
         ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
         ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
 
-        if (ImGui.Begin("DockSpaceHostWindow", hostWindowFlags))
+        if (Global.EditorAttached == false)
         {
-            ImGui.PopStyleVar(3);
-
-            uint dockspaceId = ImGui.GetID("MyDockSpace");
-            ImGui.DockSpace(dockspaceId, System.Numerics.Vector2.Zero, ImGuiDockNodeFlags.PassthruCentralNode);
-
-            if (_sceneViewFullscreen || Global.EditorAttached == false)
-            {
-                EditorPanelMenuBar.I.Draw();
-
-                EditorPanelSceneView.LastUsedView.IsFullscreen = true;
-                EditorPanelSceneView.LastUsedView.Draw();
-            }
-            else
-            {
-                for (int i = 0; i < _editorPanels.Count; i++)
-                {
-                    _editorPanels[i].Draw();
-                }
-            }
+            EditorPanelGameView.I.IsFullscreen = true;
+            EditorPanelGameView.I.Draw();
         }
         else
         {
-            ImGui.PopStyleVar(3);
+            if (ImGui.Begin("DockSpaceHostWindow", hostWindowFlags))
+            {
+                ImGui.PopStyleVar(3);
+
+                uint dockspaceId = ImGui.GetID("MyDockSpace");
+                ImGui.DockSpace(dockspaceId, System.Numerics.Vector2.Zero, ImGuiDockNodeFlags.PassthruCentralNode);
+
+                // if (Global.EditorAttached == false)
+                // {
+                //     EditorPanelGameView.I.IsFullscreen = true;
+                //     EditorPanelGameView.I.Draw();
+                // }
+
+                /*else*/
+                if (_sceneViewFullscreen)
+                {
+                    EditorPanelMenuBar.I.Draw();
+
+                    EditorPanelSceneView.LastUsedView.IsFullscreen = true;
+                    EditorPanelSceneView.LastUsedView.Draw();
+                }
+                else
+                {
+                    for (int i = 0; i < _editorPanels.Count; i++)
+                    {
+                        _editorPanels[i].Draw();
+                    }
+                }
+            }
+            else
+            {
+                ImGui.PopStyleVar(3);
+            }
         }
 
         ImGui.End();

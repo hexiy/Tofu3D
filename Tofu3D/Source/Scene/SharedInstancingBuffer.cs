@@ -27,7 +27,7 @@ public class SharedInstancingBuffer
     // public SharedInstancingBuffer(Shader shader)
     // {
     // }
-    
+
 
     public SharedInstancingBuffer(InstancedGroupDefinition instancedGroupDefinition)
     {
@@ -167,7 +167,7 @@ public class SharedInstancingBuffer
                 int bytesOffset = 0;
                 int vertexAttribPointerIndex = 5;
 
-                for (int i = 0; i < InstancedVertexDataLayoutDefinition.Members.Count; i++)
+                for (int i = 0; i < InstancedVertexDataLayoutDefinition.Members.Length; i++)
                 {
                     int numberOfFloatsInAttribute = InstancedVertexDataLayoutDefinition.Members[i];
                     GL.VertexAttribPointer(vertexAttribPointerIndex++, numberOfFloatsInAttribute,
@@ -176,21 +176,18 @@ public class SharedInstancingBuffer
                         bytesOffset);
                     bytesOffset += numberOfFloatsInAttribute * sizeof(float);
                 }
-            }
 
-            if (newBuffer)
-            {
+
                 // unique attribs for each instance
                 int vertexAttribArrayIndex = 5;
                 int vertexAttribDivisorIndex = 5;
 
-                for (int i = 0; i < InstancedVertexDataLayoutDefinition.Members.Count; i++)
+                for (int i = 0; i < InstancedVertexDataLayoutDefinition.Members.Length; i++)
                 {
                     GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
                     GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
                 }
             }
-
 
             GL.BufferData(BufferTarget.ArrayBuffer,
                 sizeof(float) * this.InstancingBuffer.Length,

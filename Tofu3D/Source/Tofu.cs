@@ -67,6 +67,12 @@ internal static class Tofu
 
     internal static void Launch(string projectPath)
     {
+        if (Global.EditorAttached == false)
+        {
+            Playmode.GameRunning = true;
+        }
+        Playmode.GameRunning = true;
+
         MSBuildLocator.RegisterDefaults(); // this needs to be here at start
         SystemConfig.Configure(projectPath);
 
@@ -175,10 +181,9 @@ internal static class Tofu
         SceneSelectionHighlighter.Init();
 
         GameObjectSelectionManager = new GameObjectSelectionManager();
-        
-        
-        Debug.EndAndLogTimer("Engine start time");
 
+
+        Debug.EndAndLogTimer("Engine start time");
     }
 
     // static Stopwatch sw = new Stopwatch();
@@ -261,12 +266,12 @@ internal static class Tofu
         {
             camera.UpdateMatrices();
         }
-        
-        
+
+
         // uploading render data is now in RenderingSystem.RenderAllRenderTargetPipelines 
         // SceneManager.CurrentScene.UploadRenderData(InstancingRenderMode.All);
-        
-        
+
+
         RenderingSystem.RenderAllRenderTargetPipelines();
 
         Debug.EndGraphTimer("Scene Render");
@@ -277,8 +282,9 @@ internal static class Tofu
         GL.Viewport(0, 0, Window.ClientSize.X, Window.ClientSize.Y);
 
         ImGuiController.WindowResized(Window.ClientSize.X, Window.ClientSize.Y);
-        
-        Tofu.MouseInput.IsMouseInSceneView = false;// set to false, and the scene views toggle it to true if mouse is over any of em
+
+        Tofu.MouseInput.IsMouseInSceneView =
+            false; // set to false, and the scene views toggle it to true if mouse is over any of em
         Editor.Draw();
 
         ImGuiController.Render();

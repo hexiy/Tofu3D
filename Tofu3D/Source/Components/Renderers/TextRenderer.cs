@@ -3,7 +3,7 @@ using TofuEngine.Rendering.Instancing;
 
 public class TextRenderer : ModelRenderer
 {
-    private readonly Dictionary<char, int> _fontMappings = new Dictionary<char, int>
+    private static readonly Dictionary<char, int> _fontMappings = new Dictionary<char, int>
     {
         { ' ', 0 },
         { '0', 48 },
@@ -74,8 +74,22 @@ public class TextRenderer : ModelRenderer
 
     public override void Start()
     {
-        BoxShape.Pivot = new Vector3(0, 0.5f, 1f);
+        if (BoxShape != null)
+        {
+            BoxShape.Pivot = new Vector3(0, 0.5f, 1f);
+        }
+
         base.Start();
+    }
+
+    public override void Update()
+    {
+        if (Material != null)
+        {
+            Material.Offset = Vector3.Zero;
+        }
+
+        base.Update();
     }
 
     public override void SetupMeshAndMaterial()

@@ -40,7 +40,7 @@ public class EditorPanelToolbar : EditorPanel
             Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
             Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
 
-            ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
+            ImGui.PushStyleColor(ImGuiCol.Text, Playmode.GameRunning ? activeColor : inactiveColor);
 
 
             ImGui.SetCursorPosX(ImGui.GetContentRegionAvail().X / 2f - 25f);
@@ -67,7 +67,7 @@ public class EditorPanelToolbar : EditorPanel
 
             if (buttonClicked)
             {
-                if (Global.GameRunning)
+                if (Playmode.GameRunning)
                 {
                     Playmode.PlayMode_Stop();
                 }

@@ -1,10 +1,11 @@
+using System.Collections.Immutable;
 using System.Linq;
 using System.Runtime.InteropServices;
 
 public static class InstancedVertexDataLayoutDefinition
 {
     // value, number of floats
-    public static List<int> Members = new List<int>()
+    public static readonly int[] Members = new int[]
     {
         3, // Model1
         3, // Model2
@@ -12,6 +13,7 @@ public static class InstancedVertexDataLayoutDefinition
         3, // Model4
         1, // MousePickingId
         4, // AlbedoTextureBoundsAndAtlasIndexPacked
+        2, // uv offset
     };
 
     private static int _countOfFloatsCached = -1;

@@ -83,7 +83,7 @@ public class PhysicsController
         {
             while (true)
             {
-                if (Running && Global.GameRunning)
+                if (Running && Playmode.GameRunning)
                 {
                     UpdatePhysicsWorldRigidbodyData();
 

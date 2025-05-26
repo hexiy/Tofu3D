@@ -49,6 +49,10 @@ public class Camera : Component, IComponentUpdateable
             Transform.LocalScale = Vector3.One;
         }
 
+        if (Global.EditorAttached == false)
+        {
+            Transform._rotation += new Vector3(0, Time.DeltaTime*3, 0);
+        }
         // UpdateMatrices();
     }
 

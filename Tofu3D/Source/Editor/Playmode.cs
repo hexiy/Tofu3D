@@ -2,10 +2,12 @@
 
 public static class Playmode
 {
+    public static bool GameRunning = false;
+
     public static void PlayMode_Start()
     {
         // Tofu.SceneManager.SaveScene();
-        Global.GameRunning = true;
+        Playmode.GameRunning = true;
         Tofu.SceneManager.LoadScene(Tofu.SceneManager.CurrentScene.ScenePath);
 
         // EditorPanelHierarchy.I?.SelectGameObject(-1);
@@ -13,7 +15,7 @@ public static class Playmode
 
     public static void PlayMode_Stop()
     {
-        Global.GameRunning = false;
+        Playmode.GameRunning = false;
         Tofu.SceneManager.LoadScene(Tofu.SceneManager.CurrentScene.ScenePath);
     }
 }

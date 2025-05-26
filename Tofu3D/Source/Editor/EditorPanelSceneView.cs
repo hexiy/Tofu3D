@@ -62,7 +62,7 @@ public class EditorPanelSceneView : EditorPanel
                 _renderTargetPipeline.FinalFramebuffer.Size /
                 Screen.Scale; // + new Vector2(0, tooltipsPanelHeight);
 
-            float controlsBarHeight = 64;
+           float controlsBarHeight = 64; 
             Vector2 controlsBarHeightVector = new Vector2(0, controlsBarHeight);
             ImGui.SetNextWindowSize(_renderTargetPipeline.FinalFramebuffer.Size + controlsBarHeightVector,
                 ImGuiCond.FirstUseEver);
@@ -194,8 +194,8 @@ public class EditorPanelSceneView : EditorPanel
 
             // ImGui.SetCursorPosX(_camera.Size.X / 2 - 200 * Screen.ScaleI);
 
-            Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
-            Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
+            // Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
+            // Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
             /*ImGui.PushStyleColor(ImGuiCol.Text, PhysicsController.Running ? activeColor : inactiveColor);
             bool physicsButtonClicked = ImGui.Button("physics");
             if (physicsButtonClicked)

@@ -65,13 +65,16 @@ public abstract class EditorPanel
     {
         ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);
         ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
-
         IsVisible = ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | AdditionalWindowFlags);
 
+        DoPostWindowChecks();
+    }
+
+    public void DoPostWindowChecks()
+    {
         IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
         Size = ImGui.GetWindowSize() / Screen.ScaleI;
         Position = ImGui.GetWindowPos() / Screen.ScaleI;
-
         CheckForTabOptionsClick();
     }
 
@@ -111,7 +114,10 @@ public abstract class EditorPanel
         }
     }
 
-    protected virtual void OnClosed(){}
+    protected virtual void OnClosed()
+    {
+    }
+
     public void EndWindow()
     {
         // IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);

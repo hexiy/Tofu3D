@@ -27,8 +27,9 @@ public class RenderTargetPipeline
         RenderSettings = new RenderSettings();
     }
 
-    public void Initialize(int id)
+    public void Initialize(int id, Vector2? viewSize = null)
     {
+        ViewSize = viewSize ?? ViewSize;
         if (id != -1)
         {
             _sceneViewData = PersistentData.Get<SceneViewData>(key: $"SceneViewData_{id}", () => new SceneViewData());

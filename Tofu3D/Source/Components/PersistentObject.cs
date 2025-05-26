@@ -3,10 +3,12 @@
 public class PersistentObject<T>
 {
     private readonly string _name;
+    private readonly T? _defaultValue;
 
-    public PersistentObject(string name)
+    public PersistentObject(string name, T? defaultValue = default)
     {
         _name = name;
+        _defaultValue = defaultValue;
     }
 
     private PersistentObject(T assignValue, string name)
@@ -18,7 +20,7 @@ public class PersistentObject<T>
         {
             _name = name;
 
-            if (PersistentData.Get($"PersistentObject_{_name}") ==
+            if (PersistentData.Get($"PersistentObject_{_name}", () => _defaultValue) ==
                 null)
             {
                 Value = assignValue; // only assign default value if this persistent object isnt initialized
@@ -31,7 +33,7 @@ public class PersistentObject<T>
     {
         get
         {
-            object? obj = PersistentData.Get($"PersistentObject_{_name}");
+            object? obj = PersistentData.Get($"PersistentObject_{_name}", ()=>_defaultValue);
             if (obj == null)
             {
                 return default;

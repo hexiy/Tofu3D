@@ -346,7 +346,7 @@ public class InstancedRenderingSystem
             if (indicesCount > 0)
             {
                 GL_DrawElementsInstanced(PrimitiveType.Triangles, indicesCount,
-                numberOfObjects);
+                    numberOfObjects);
             }
         }
         else
@@ -726,12 +726,6 @@ public class InstancedRenderingSystem
 
         buffer[bufferIndex++] = mousePickingId;
 
-        // if (uvOffset != null)
-        // {
-        //     buffer[bufferIndex++] = uvOffset.Value.X;
-        //     buffer[bufferIndex++] = uvOffset.Value.Y;
-        // }
-
 
         // i dont have to add the atlas index to the whole vector4 but for now i will
         buffer[bufferIndex++] =
@@ -746,5 +740,11 @@ public class InstancedRenderingSystem
         // uv = 1 - 2 = atlas 1
 
         // buffer[bufferIndex++] = material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+
+        // if (uvOffset != null)
+        // {
+        buffer[bufferIndex++] = uvOffset?.X ?? 0;
+        buffer[bufferIndex++] = uvOffset?.Y ?? 0;
+        // }
     }
 }

@@ -11,7 +11,7 @@ public class Transform : Component
 
     private Vector3 _localScale = Vector3.One;
 
-    private Vector3 _rotation = Vector3.Zero;
+    public Vector3 _rotation = Vector3.Zero;
 
     private Vector3 _worldPosition;
 

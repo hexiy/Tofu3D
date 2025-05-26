@@ -30,7 +30,7 @@ public static class PersistentData
         Save();
     }
 
-    public static T Get<T>(string key, Func<T>? defaultValueFunc) where T : class
+    public static T Get<T>(string key, Func<T>? defaultValueFunc)
     {
         if (_data.Count == 0)
         {
@@ -48,7 +48,7 @@ public static class PersistentData
                     return defaultValueFunc.Invoke();
                 }
 
-                return null;
+                return default;
             }
 
             return deserializedObject; //(T) _data[key];
@@ -60,7 +60,7 @@ public static class PersistentData
                 return defaultValueFunc.Invoke();
             }
 
-            return null;
+            return default;
         }
     }
 
