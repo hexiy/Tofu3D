@@ -1,7 +1,7 @@
 ﻿public static class Global
 {
     public const string DebugFlag = nameof(Debug);
-    public static bool EditorAttached = false;
+    public static bool EditorAttached = true;
     private static bool _debug;
 
     public static event Action<bool> DebugStateChanged = b => { };

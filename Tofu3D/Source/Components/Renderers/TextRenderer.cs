@@ -201,17 +201,18 @@ public class TextRenderer : ModelRenderer
 
                 int columnIndex = glyphMappingIndex % (int)_spritesCountInSpritesheet.X;
                 int rowIndex = (int)Math.Floor(glyphMappingIndex / _spritesCountInSpritesheet.X);
+                rowIndex = 8 - rowIndex -1;
 
+                Material.Tiling = new Vector2(-1f / _spritesCountInSpritesheet.X, 1f / _spritesCountInSpritesheet.Y);
 
-                Material.Tiling = new Vector2(1f / _spritesCountInSpritesheet.X, 1f / _spritesCountInSpritesheet.Y);
+                // Vector2 offset =
+                //     new Vector2(1f / _spritesCountInSpritesheet.X,
+                //         1f / _spritesCountInSpritesheet.Y) +
+                //     new Vector2(1f / _spritesCountInSpritesheet.X * columnIndex,
+                //         1f / -_spritesCountInSpritesheet.Y * rowIndex);
+                Vector2 unit = Vector2.One / _spritesCountInSpritesheet;
 
-                Vector2 offset =
-                    new Vector2(1f / _spritesCountInSpritesheet.X,
-                        1f / _spritesCountInSpritesheet.Y) +
-                    new Vector2(1f / _spritesCountInSpritesheet.X * columnIndex,
-                        1f - 1f / -_spritesCountInSpritesheet.Y * rowIndex);
-
-
+                Vector2 offset = unit.VectorX() + new Vector2(unit.X * columnIndex, unit.Y * rowIndex);
                 Matrix4x4 offsetTranslation =
                     Matrix4x4.CreateTranslation(currentX + xOffset, 0, currentY);
                 BoxShape.Pivot = new Vector3(0, 0.5f, 1f);

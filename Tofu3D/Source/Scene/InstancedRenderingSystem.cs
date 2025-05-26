@@ -121,6 +121,11 @@ public class InstancedRenderingSystem
         // Iterate over shader groups
         foreach (KeyValuePair<int, ShaderGroup> shaderGroup in _shaderGroups)
         {
+            if (shaderGroup.Value.GroupDefinitionIndexes.Count == 0)
+            {
+                continue;
+            }
+
             if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.Opaques
                 or RenderPassType.UI
                 or RenderPassType.Transparency)
