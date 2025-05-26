@@ -5,7 +5,21 @@ public class TextRenderer : ModelRenderer
 {
     private static readonly Dictionary<char, int> _fontMappings = new Dictionary<char, int>
     {
-        { ' ', 0 },
+        { ' ', 35 },
+        { '!', 36 },
+        { '"', 37 },
+        { '#', 38 },
+        { '$', 39 },
+        { '%', 40 },
+        { '&', 41 },
+        { '*', 42 },
+        { '+', 43 },
+        { ',', 44 },
+        { '-', 45 },
+        { '.', 46 },
+        { '/', 47 },
+
+
         { '0', 48 },
         { '1', 49 },
         { '2', 50 },
@@ -16,6 +30,15 @@ public class TextRenderer : ModelRenderer
         { '7', 55 },
         { '8', 56 },
         { '9', 57 },
+
+        { ':', 58 },
+        { ';', 59 },
+        { '<', 60 },
+        { '=', 61 },
+        { '>', 62 },
+        { '?', 63 },
+        { '@', 64 },
+
 
         { 'A', 65 },
         { 'B', 66 },
@@ -42,7 +65,47 @@ public class TextRenderer : ModelRenderer
         { 'W', 87 },
         { 'X', 88 },
         { 'Y', 89 },
-        { 'Z', 90 }
+        { 'Z', 90 },
+
+        { '[', 91 },
+        { '\\', 92 },
+        { ']', 93 },
+        { '^', 94 },
+        { '_', 95 },
+        { '`', 96 },
+
+
+        { 'a', 97 },
+        { 'b', 98 },
+        { 'c', 99 },
+        { 'd', 100 },
+        { 'e', 101 },
+        { 'f', 102 },
+        { 'g', 103 },
+        { 'h', 104 },
+        { 'i', 105 },
+        { 'j', 106 },
+        { 'k', 107 },
+        { 'l', 108 },
+        { 'm', 109 },
+        { 'n', 110 },
+        { 'o', 111 },
+        { 'p', 112 },
+        { 'q', 113 },
+        { 'r', 114 },
+        { 's', 115 },
+        { 't', 116 },
+        { 'u', 117 },
+        { 'v', 118 },
+        { 'w', 119 },
+        { 'x', 120 },
+        { 'y', 121 },
+        { 'z', 122 },
+
+        { '{', 123 },
+        { '|', 124 },
+        { '}', 125 },
+        { '~', 126 },
     };
 
     private Vector2 _spritesCountInSpritesheet = new Vector2(16, 8);
@@ -105,6 +168,8 @@ public class TextRenderer : ModelRenderer
             Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.TexturesInAssets, "font.png"));
 
         Material.RenderMode = RenderMode.Transparent;
+        Material.BlendMode = BlendMode.Cutout;
+        Material.MaterialType = MaterialType.Unlit;
         Material.UVOffsetIsInstanced = true;
         Material.LoadShader();
     }
@@ -194,14 +259,14 @@ public class TextRenderer : ModelRenderer
             {
                 int glyphMappingIndex = 0;
 
-                if (_fontMappings.TryGetValue(ch.ToString().ToUpper()[0], out int mapping))
+                if (_fontMappings.TryGetValue(ch.ToString()[0], out int mapping))
                 {
                     glyphMappingIndex = mapping;
                 }
 
                 int columnIndex = glyphMappingIndex % (int)_spritesCountInSpritesheet.X;
                 int rowIndex = (int)Math.Floor(glyphMappingIndex / _spritesCountInSpritesheet.X);
-                rowIndex = 8 - rowIndex -1;
+                rowIndex = 8 - rowIndex - 1;
 
                 Material.Tiling = new Vector2(-1f / _spritesCountInSpritesheet.X, 1f / _spritesCountInSpritesheet.Y);
 

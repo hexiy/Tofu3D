@@ -23,10 +23,14 @@ public class Asset_Material : Asset<Asset_Material>
 
     public bool SmoothShadows = false;
 
+    [Space]
     public bool RefractionEnabled = false;
+
     public float RefractiveIndex = 1.309f;
 
+    [Space]
     public bool SpecularHighlightsEnabled;
+
     public float SpecularSmoothness;
 
     [SliderF(0, 1)]
@@ -35,14 +39,19 @@ public class Asset_Material : Asset<Asset_Material>
     [SliderF(0, 1)]
     public float Smoothness;
 
+    [Space]
     public Vector2 Tiling = new Vector2(1, 1);
+
     public Vector2 Offset = new Vector2(0, 0);
     public bool UVOffsetIsInstanced = false;
 
     public RenderMode RenderMode = RenderMode.Opaque;
     public BlendMode BlendMode = BlendMode.Opaque;
     public MaterialType MaterialType = MaterialType.Lit;
+
+    [Space]
     public bool IgnoreDepth = false;
+
     public bool NoDepth = false;
 
     public override int GetHashCode()

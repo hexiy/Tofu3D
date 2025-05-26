@@ -7,6 +7,7 @@ public abstract class AssetBase : IHasPath
 
     [XmlIgnore]
     [JsonIgnore]
+    [Hide]
     public bool CanBeSerialized = true;
 
     [Hide]
