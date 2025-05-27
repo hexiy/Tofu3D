@@ -38,10 +38,10 @@ public class EditorPanelSceneView : EditorPanel
             Tofu.RenderingSystem.DestroyPipeline(ref _renderTargetPipeline);
         }
 
-        if (LastUsedView == this)
-        {
-            LastUsedView = null;
-        }
+        // if (LastUsedView == this)
+        // {
+            // LastUsedView = null;
+        // }
 
         base.OnClosed();
     }
@@ -64,10 +64,10 @@ public class EditorPanelSceneView : EditorPanel
 
     protected override void ExecuteImGuiDrawCommands()
     {
-        if (LastUsedView == null)
-        {
-            LastUsedView = this;
-        }
+        // if (LastUsedView == null)
+        // {
+            // LastUsedView = this;
+        // }
 
         //_renderCameraViews = true || //Global.Debug &&
         // Tofu.GameObjectSelectionManager.GetSelectedGameObject()
@@ -380,10 +380,10 @@ public class EditorPanelSceneView : EditorPanel
         HandleModelDragDrop();
 
         Tofu.MouseInput.IsMouseInSceneView = ImGui.IsItemHovered() || Tofu.MouseInput.IsMouseInSceneView;
-        if (ImGui.IsItemHovered() && LastUsedView != this && Tofu.MouseInput.IsButtonDown())
-        {
-            LastUsedView = this;
-        }
+        // if (ImGui.IsItemHovered() && LastUsedView != this && Tofu.MouseInput.IsButtonDown())
+        // {
+            // LastUsedView = this;
+        // }
     }
 
     private void HandleModelDragDrop()
@@ -489,8 +489,16 @@ public class EditorPanelSceneView : EditorPanel
 
     public override void Init()
     {
-        LastUsedView = this;
-
+        // LastUsedView = this;
+        AnyPanelFocused += OnAnyPanelFocused;
         _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.SceneView, Id);
+    }
+
+    private void OnAnyPanelFocused(EditorPanel panel)
+    {
+        if (panel is EditorPanelSceneView v)
+        {
+            LastUsedView = v;
+        }
     }
 }

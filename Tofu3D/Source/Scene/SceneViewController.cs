@@ -126,6 +126,7 @@ public class SceneViewController
 
     public void Update()
     {
+        bool isSceneViewFocused = EditorPanelSceneView.LastUsedView?.IsPanelFocused ?? false;
         if (_camera == null)
         {
             return;
@@ -158,7 +159,7 @@ public class SceneViewController
         Debug.StatSetValue("isMouseOverSceneView",
             isMouseOverSceneView ? isMouseOverSceneViewStringYes : isMouseOverSceneViewStringNo);
         bool justClicked = Tofu.MouseInput.ButtonPressed() |
-                           Tofu.MouseInput.ButtonPressed(MouseButtons.Right);
+            Tofu.MouseInput.ButtonPressed(MouseButtons.Right) && isSceneViewFocused;
         if (justClicked)
         {
             _clickedInsideScene = isMouseOverSceneView;
@@ -166,13 +167,13 @@ public class SceneViewController
 
         AllowPassThroughEdges = false;
 
-        if (isMouseOverSceneView)
+        if (isMouseOverSceneView && isSceneViewFocused)
         {
             HandleMouseScroll();
         }
 
-        bool validInput = ((isMouseOverSceneView || _clickedInsideScene) && _clickedInsideScene) ||
-                          (justClicked == false && isMouseOverSceneView && _clickedInsideScene);
+        bool validInput = (((isMouseOverSceneView || _clickedInsideScene) && _clickedInsideScene) ||
+                           (justClicked == false && isMouseOverSceneView && _clickedInsideScene)) && isSceneViewFocused;
         if (Tofu.MouseInput.IsButtonDown() || Tofu.MouseInput.IsButtonDown(MouseButtons.Right))
         {
             if (validInput)
@@ -221,7 +222,7 @@ public class SceneViewController
             float keyboardMoveSpeed = MoveSpeed;
 
             _keyboardInputDirectionVector = Vector3.Zero;
-            if (KeyboardInput.IsKeyDown(Keys.LeftControl) == false)
+            if (KeyboardInput.IsKeyDown(Keys.LeftControl) == false && isSceneViewFocused)
             {
                 if (KeyboardInput.IsKeyDown(Keys.W))
                 {
@@ -245,7 +246,7 @@ public class SceneViewController
             }
 
 
-            if (KeyboardInput.IsKeyDown(Keys.LeftShift))
+            if (KeyboardInput.IsKeyDown(Keys.LeftShift) && isSceneViewFocused)
             {
                 _moveSpeedMultiplier = Mathf.Lerp(_moveSpeedMultiplier, 2, Time.EditorDeltaTime * 10);
             }

@@ -20,6 +20,7 @@ public abstract class EditorPanel
     public virtual ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.None;
     public virtual bool CreatesWindow => true;
     public bool IsFullscreen { get; set; }
+    protected static Action<EditorPanel> AnyPanelFocused = (panel) => { };
 
     internal void ResetId()
     {
@@ -53,6 +54,12 @@ public abstract class EditorPanel
 
     public virtual void Init()
     {
+        AnyPanelFocused += OnAnyPanelFocused;
+    }
+
+    private void OnAnyPanelFocused(EditorPanel panel)
+    {
+        IsPanelFocused = panel == this;
     }
 
     public virtual void Update()
@@ -86,12 +93,27 @@ public abstract class EditorPanel
         }
     }
 
+    // private bool _a = false;
+
     protected virtual void BeforeWindowCreated()
     {
+        // if (IsPanelFocused)
+        // {
+        //     // ImGui.PushStyleColor(ImGuiCol.WindowBg, Color.Red.ToVector4());
+        //     _a = true;
+        // }
+        // else
+        // {
+        //     _a = false;
+        // }
     }
 
     protected virtual void AfterWindowEnded()
     {
+        // if (_a)
+        // {
+        //     ImGui.PopStyleColor();
+        // }
     }
 
     protected virtual void OnVisibilityChanged()
@@ -115,7 +137,17 @@ public abstract class EditorPanel
     private void DoChecksAfterWindowCreated()
     {
         IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
-        IsPanelFocused = ImGui.IsWindowFocused();
+        if (ImGui.IsMouseClicked(ImGuiMouseButton.Left))
+        {
+            if (IsPanelFocused == false && IsPanelHovered == true)
+            {
+                AnyPanelFocused.Invoke(this);
+            }
+            
+            IsPanelFocused = IsPanelHovered;
+
+        }
+
         Size = ImGui.GetWindowSize() / Screen.ScaleI;
         Position = ImGui.GetWindowPos() / Screen.ScaleI;
         CheckForTabOptionsClick();
@@ -160,6 +192,7 @@ public abstract class EditorPanel
 
     protected virtual void OnClosed()
     {
+        
     }
 
     protected void EndWindow()
