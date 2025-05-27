@@ -8,35 +8,32 @@ public class EditorPanelToolbar : EditorPanel
     public override string Name => "Toolbar";
     public static int Height => 40;
 
+    public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.NoScrollbar |
+                                                              ImGuiWindowFlags.NoScrollWithMouse |
+                                                              ImGuiWindowFlags.NoDecoration |
+                                                              ImGuiWindowFlags.NoMove |
+                                                              ImGuiWindowFlags.NoTitleBar |
+                                                              ImGuiWindowFlags.NoResize |
+                                                              ImGuiWindowFlags.NoDocking;
+
 
     public override void Init()
     {
         I = this;
     }
 
-    public override void Draw()
+    protected override void BeforeWindowCreated()
+    {
+        ImGui.SetNextWindowSize(new Vector2(Tofu.Window.Size.X * Screen.Scale, Height), ImGuiCond.Always);
+        ImGui.SetNextWindowPos(new Vector2(0, 30), ImGuiCond.Always, new Vector2(0, 0));
+
+        base.BeforeWindowCreated();
+    }
+
+    protected override void ExecuteImGuiDrawCommands()
     {
         if (Global.EditorAttached)
         {
-            Vector2 barHeightVector = new Vector2(0, Height);
-
-            ImGui.SetNextWindowSize(new Vector2(Tofu.Window.Size.X * Screen.Scale, Height), ImGuiCond.Always);
-            ImGui.SetNextWindowPos(new Vector2(0, 30), ImGuiCond.Always, new Vector2(0, 0));
-
-
-            ImGuiWindowFlags flags = Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar |
-                                     ImGuiWindowFlags.NoScrollWithMouse |
-                                     ImGuiWindowFlags.NoDecoration |
-                                     ImGuiWindowFlags.NoMove |
-                                     ImGuiWindowFlags.NoTitleBar |
-                                     ImGuiWindowFlags.NoResize |
-                                     ImGuiWindowFlags.NoDocking
-                ;
-
-            // ImGui.PushStyleColor(ImGuiCol.WindowBg, Color.Red.ToVector4());
-            // ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoTitleBar);
-            ImGui.Begin(Name, flags);
-
             Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
             Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
 
@@ -50,8 +47,8 @@ public class EditorPanelToolbar : EditorPanel
                 Tofu.Editor.EditorTextures.PlayIcon.AtlasGLTextureArrayId,
                 Tofu.Editor.EditorTextures.PlayIcon.IndexInAtlasTextureArray);
             Vector4 textureBoundsInAtlas = Tofu.Editor.EditorTextures.PlayIcon.BoundingBoxInAtlas;
-            
-            ImGui.SetCursorPosY(Height/2f - 30f/2f);
+
+            ImGui.SetCursorPosY(Height / 2f - 30f / 2f);
 
             ImGui.Image(textureId, new System.Numerics.Vector2(30, 30), textureBoundsInAtlas.XW,
                 textureBoundsInAtlas.ZY,

@@ -74,7 +74,7 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         _inspector.SelectInspectables(inspectables);
     }
 
-    public override void Draw()
+    protected override void ExecuteImGuiDrawCommands()
     {
         BeginWindow();
         ResetId();

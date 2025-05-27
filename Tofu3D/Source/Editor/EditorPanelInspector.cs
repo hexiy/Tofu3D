@@ -131,7 +131,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
     }
 
 
-    public override void Draw()
+    protected override void ExecuteImGuiDrawCommands()
     {
         //WindowWidth = 800;
         BeginWindowDefault();

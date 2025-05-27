@@ -168,7 +168,7 @@ public class EditorPanelHierarchy : EditorPanel
         _selectedGameObjects.Add(go);
     }
 
-    public override void Draw()
+    protected override void ExecuteImGuiDrawCommands()
     {
         ResetId();
 

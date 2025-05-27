@@ -14,14 +14,8 @@ public class EditorPanelProfiler : EditorPanel
         I = this;
     }
 
-    public override void Draw()
+    protected override void ExecuteImGuiDrawCommands()
     {
-        BeginWindowDefault();
-        if (IsVisible == false)
-        {
-            ImGui.End();
-            return;
-        }
         ImGui.Text($"GameObjects in scene: {Tofu.SceneManager.CurrentScene.GameObjects.Count}");
 
         foreach (KeyValuePair<string, string> stat in Debug.Stats)

@@ -8,16 +8,22 @@ namespace TofuEngine;
 
 public class EditorPanelSceneView : EditorPanel
 {
-    private static bool _renderCameraViews = true;
+    // private static bool _renderCameraViews = true;
 
     private bool _renderModeWindowOpened;
     private bool _renderPassesWindowOpened;
-    public override string Name => "Scene View";
+    public override string Name => $"Scene View##{Id}";
     public int Id { get; set; } = 0;
     public static int CountOfSceneViews { get; set; } = 0;
     public static EditorPanelSceneView LastUsedView { get; private set; }
     private RenderTargetPipeline? _renderTargetPipeline;
     public Camera? _camera => _renderTargetPipeline?.Camera;
+
+    public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.NoScrollbar |
+                                                              ImGuiWindowFlags.NoScrollWithMouse;
+
+    const float _controlsBarHeight = 64;
+    Vector2 _controlsBarHeightVector = new Vector2(0, _controlsBarHeight);
 
     public EditorPanelSceneView()
     {
@@ -40,376 +46,343 @@ public class EditorPanelSceneView : EditorPanel
         base.OnClosed();
     }
 
-    public override void Draw()
+    protected override void BeforeWindowCreated()
+    {
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
+
+        base.BeforeWindowCreated();
+    }
+
+    protected override void AfterWindowEnded()
+    {
+        ImGui.PopStyleVar();
+        ImGui.PopStyleVar();
+
+        base.AfterWindowEnded();
+    }
+
+    protected override void ExecuteImGuiDrawCommands()
     {
         if (LastUsedView == null)
         {
             LastUsedView = this;
         }
 
-        if (Global.EditorAttached)
+        //_renderCameraViews = true || //Global.Debug &&
+        // Tofu.GameObjectSelectionManager.GetSelectedGameObject()
+        //     ?.GetComponent<DirectionalLight>() !=
+        // null;
+
+        // int tooltipsPanelHeight = 70;
+
+        Tofu.Editor.SceneViewSize =
+            _renderTargetPipeline.FinalFramebuffer.Size /
+            Screen.Scale; // + new Vector2(0, tooltipsPanelHeight);
+
+
+        bool oldIsVisible = IsVisible;
+
+
+        if (oldIsVisible == false && IsVisible == true && _renderTargetPipeline == null)
         {
-            _renderCameraViews = true || /*Global.Debug &&*/
-                                 Tofu.GameObjectSelectionManager.GetSelectedGameObject()
-                                     ?.GetComponent<DirectionalLight>() !=
-                                 null;
+            _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.SceneView, Id);
+        }
 
-            // int tooltipsPanelHeight = 70;
-            ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
-            ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
+        if (oldIsVisible && IsVisible == false && _renderTargetPipeline != null)
+        {
+            Tofu.RenderingSystem.DestroyPipeline(ref _renderTargetPipeline);
+        }
 
-            Tofu.Editor.SceneViewSize =
-                _renderTargetPipeline.FinalFramebuffer.Size /
-                Screen.Scale; // + new Vector2(0, tooltipsPanelHeight);
 
-           float controlsBarHeight = 64; 
-            Vector2 controlsBarHeightVector = new Vector2(0, controlsBarHeight);
-            ImGui.SetNextWindowSize(_renderTargetPipeline.FinalFramebuffer.Size + controlsBarHeightVector,
-                ImGuiCond.FirstUseEver);
+        if ((Vector2)ImGui.GetWindowSize() - _controlsBarHeightVector != _camera.Size)
+        {
+            _camera.SetSize(ImGui.GetWindowSize() - _controlsBarHeightVector);
+            // Debug.Log("SetSize");
+        }
 
-            ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
-            ImGuiWindowFlags flags = Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar |
-                                     ImGuiWindowFlags.NoScrollWithMouse;
 
-            if (IsFullscreen)
+        Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(),
+            ImGuiHelper.FlipYToGoodSpace(ImGui.GetCursorPosY()) -
+            _renderTargetPipeline.FinalFramebuffer.Size.Y / Screen.Scale - 15);
+
+        // Debug.StatSetValue("aaaa", $"scne size {Tofu.RenderPassSystem.FinalFramebuffer.Size.Y / Screen.Scale}");
+
+        // ImGui.SetCursorPos(_controlsBarHeightVector);
+        //
+        //
+
+
+        // ImGui.Image((IntPtr) RenderPassManager.FinalRenderTexture.ColorAttachment, RenderPassManager.FinalRenderTexture.Size * 0.9f,
+        //             new Vector2(-0.5f, 0.5f), new Vector2(0.5f, -0.5f), Color.White.ToVector4(), Color.Aqua.ToVector4());
+        // if (RenderPassOpaques.I != null)
+        // {
+        // 	ImGui.Image((IntPtr) RenderPassOpaques.I.PassRenderTexture.ColorAttachment, RenderPassOpaques.I.PassRenderTexture.Size,
+        // 	           new Vector2(0, 1), new Vector2(1, 0));
+        // }
+        // if (_renderCameraViews && RenderPassDirectionalLightShadowDepth.I?.DebugDepthVisualisationTexture != null)
+        // {
+        //     var ratio = RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.Y /
+        //                 RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.X;
+        //     var sizeX = Mathf.ClampMax(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.X, 400);
+        //     var sizeY = sizeX * ratio;
+        //
+        //     ImGui.SetCursorPos(new Vector2(5, 75));
+        //
+        //     ImGui.Image(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.TextureId,
+        //         new Vector2(sizeX, sizeY),
+        //         new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
+        // }
+
+        bool showBloomTextures = false;
+        if (showBloomTextures)
+        {
+            if (RenderPassBloomThreshold.I?.MainFramebuffer != null)
             {
+                float ratio = RenderPassBloomThreshold.I.MainFramebuffer.Size.Y /
+                              RenderPassBloomThreshold.I.MainFramebuffer.Size.X;
+                float sizeX = Mathf.ClampMax(RenderPassBloomThreshold.I.MainFramebuffer.Size.X, 400);
+                float sizeY = sizeX * ratio;
+
+                ImGui.SetCursorPos(new Vector2(5, 75));
+
+                Vector4 whitePixelAtlasBounds = Tofu.Editor.EditorTextures.WhitePixel.BoundingBoxInAtlas;
+                ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.AtlasGLTextureArrayId,
+                    new Vector2(sizeX, sizeY),
+                    whitePixelAtlasBounds.XY, whitePixelAtlasBounds.ZW, Color.BlanchedAlmond.ToVector4(),
+                    Color.Red.ToVector4());
+
+                ImGui.SetCursorPos(new Vector2(5, 75));
+
+                ImGui.Image(RenderPassBloomThreshold.I.MainFramebuffer.TextureId,
+                    new Vector2(sizeX, sizeY),
+                    new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
             }
 
-            bool oldIsVisible = IsVisible;
-            IsVisible = ImGui.Begin($"{Name}##{Id}", flags);
-
-            CheckForTabOptionsClick();
-
-            if (oldIsVisible == false && IsVisible == true && _renderTargetPipeline == null)
+            if (RenderPassBloomPostProcess.I?.MainFramebuffer != null)
             {
-                _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.SceneView, Id);
-            }
+                float ratio = RenderPassBloomPostProcess.I.MainFramebuffer.Size.Y /
+                              RenderPassBloomPostProcess.I.MainFramebuffer.Size.X;
+                float sizeX = Mathf.ClampMax(RenderPassBloomPostProcess.I.MainFramebuffer.Size.X, 400);
+                float sizeY = sizeX * ratio;
 
-            if (oldIsVisible && IsVisible == false && _renderTargetPipeline != null)
+                ImGui.SetCursorPos(new Vector2(405, 75));
+
+                TofuImGui.ImageTexture2DArray(
+                    runtimeTexture: Tofu.Editor.EditorTextures.WhitePixel,
+                    size: new Vector2(sizeX, sizeY),
+                    Color.Black.ToVector4(), Color.Red.ToVector4());
+
+                ImGui.SetCursorPos(new Vector2(405, 75));
+
+                TofuImGui.ImageTexture2D(RenderPassBloomPostProcess.I.BloomFramebufferVertical.TextureId,
+                    size: new Vector2(sizeX, sizeY), new Vector4(0, 1, 1, 0), Color.White.ToVector4(),
+                    Color.Red.ToVector4());
+            }
+        }
+
+        ImGui.SetCursorPos(System.Numerics.Vector2.Zero);
+        // ImGui.SetCursorPosX(0);
+        ImGui.SetCursorPos(new Vector2(0, 0));
+        ImGui.Dummy(new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, 50));
+        // ImGui.SameLine();
+        ImGui.SetCursorPos(new Vector2(0, _controlsBarHeight / 2));
+
+        // ImGui.SetCursorPos(new Vector2(0, 0));
+
+        // ImGui.SetCursorPosX(_camera.Size.X / 2 - 200 * Screen.ScaleI);
+
+        // Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
+        // Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
+        /*ImGui.PushStyleColor(ImGuiCol.Text, PhysicsController.Running ? activeColor : inactiveColor);
+        bool physicsButtonClicked = ImGui.Button("physics");
+        if (physicsButtonClicked)
+        {
+            if (PhysicsController.Running == false)
             {
-                Tofu.RenderingSystem.DestroyPipeline(ref _renderTargetPipeline);
+                PhysicsController.StartPhysics();
             }
-
-            if (IsVisible == false)
+            else if (PhysicsController.Running)
             {
-                ImGui.End();
-                return;
+                PhysicsController.StopPhysics();
             }
+        }
 
+        ImGui.PopStyleColor();
 
-            if ((Vector2)ImGui.GetWindowSize() - controlsBarHeightVector != _camera.Size)
-            {
-                _camera.SetSize(ImGui.GetWindowSize() - controlsBarHeightVector);
-                // Debug.Log("SetSize");
-            }
-
-
-            Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(),
-                ImGuiHelper.FlipYToGoodSpace(ImGui.GetCursorPosY()) -
-                _renderTargetPipeline.FinalFramebuffer.Size.Y / Screen.Scale - 15);
-
-            // Debug.StatSetValue("aaaa", $"scne size {Tofu.RenderPassSystem.FinalFramebuffer.Size.Y / Screen.Scale}");
-
-            // ImGui.SetCursorPos(controlsBarHeightVector);
-            //
-            //
-
-
-            // ImGui.Image((IntPtr) RenderPassManager.FinalRenderTexture.ColorAttachment, RenderPassManager.FinalRenderTexture.Size * 0.9f,
-            //             new Vector2(-0.5f, 0.5f), new Vector2(0.5f, -0.5f), Color.White.ToVector4(), Color.Aqua.ToVector4());
-            // if (RenderPassOpaques.I != null)
-            // {
-            // 	ImGui.Image((IntPtr) RenderPassOpaques.I.PassRenderTexture.ColorAttachment, RenderPassOpaques.I.PassRenderTexture.Size,
-            // 	           new Vector2(0, 1), new Vector2(1, 0));
-            // }
-            // if (_renderCameraViews && RenderPassDirectionalLightShadowDepth.I?.DebugDepthVisualisationTexture != null)
-            // {
-            //     var ratio = RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.Y /
-            //                 RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.X;
-            //     var sizeX = Mathf.ClampMax(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.Size.X, 400);
-            //     var sizeY = sizeX * ratio;
-            //
-            //     ImGui.SetCursorPos(new Vector2(5, 75));
-            //
-            //     ImGui.Image(RenderPassDirectionalLightShadowDepth.I.DebugDepthVisualisationTexture.TextureId,
-            //         new Vector2(sizeX, sizeY),
-            //         new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
-            // }
-
-            bool showBloomTextures = false;
-            if (showBloomTextures)
-            {
-                if (RenderPassBloomThreshold.I?.MainFramebuffer != null)
-                {
-                    float ratio = RenderPassBloomThreshold.I.MainFramebuffer.Size.Y /
-                                  RenderPassBloomThreshold.I.MainFramebuffer.Size.X;
-                    float sizeX = Mathf.ClampMax(RenderPassBloomThreshold.I.MainFramebuffer.Size.X, 400);
-                    float sizeY = sizeX * ratio;
-
-                    ImGui.SetCursorPos(new Vector2(5, 75));
-
-                    Vector4 whitePixelAtlasBounds = Tofu.Editor.EditorTextures.WhitePixel.BoundingBoxInAtlas;
-                    ImGui.Image(Tofu.Editor.EditorTextures.WhitePixel.AtlasGLTextureArrayId,
-                        new Vector2(sizeX, sizeY),
-                        whitePixelAtlasBounds.XY, whitePixelAtlasBounds.ZW, Color.BlanchedAlmond.ToVector4(),
-                        Color.Red.ToVector4());
-
-                    ImGui.SetCursorPos(new Vector2(5, 75));
-
-                    ImGui.Image(RenderPassBloomThreshold.I.MainFramebuffer.TextureId,
-                        new Vector2(sizeX, sizeY),
-                        new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
-                }
-
-                if (RenderPassBloomPostProcess.I?.MainFramebuffer != null)
-                {
-                    float ratio = RenderPassBloomPostProcess.I.MainFramebuffer.Size.Y /
-                                  RenderPassBloomPostProcess.I.MainFramebuffer.Size.X;
-                    float sizeX = Mathf.ClampMax(RenderPassBloomPostProcess.I.MainFramebuffer.Size.X, 400);
-                    float sizeY = sizeX * ratio;
-
-                    ImGui.SetCursorPos(new Vector2(405, 75));
-
-                    TofuImGui.ImageTexture2DArray(
-                        runtimeTexture: Tofu.Editor.EditorTextures.WhitePixel,
-                        size: new Vector2(sizeX, sizeY),
-                        Color.Black.ToVector4(), Color.Red.ToVector4());
-
-                    ImGui.SetCursorPos(new Vector2(405, 75));
-
-                    TofuImGui.ImageTexture2D(RenderPassBloomPostProcess.I.BloomFramebufferVertical.TextureId,
-                        size: new Vector2(sizeX, sizeY), new Vector4(0, 1, 1, 0), Color.White.ToVector4(),
-                        Color.Red.ToVector4());
-                }
-            }
-
-            ImGui.SetCursorPos(System.Numerics.Vector2.Zero);
-            // ImGui.SetCursorPosX(0);
-            ImGui.SetCursorPos(new Vector2(0, 0));
-            ImGui.Dummy(new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, 50));
-            // ImGui.SameLine();
-            ImGui.SetCursorPos(new Vector2(0, controlsBarHeight / 2));
-
-            // ImGui.SetCursorPos(new Vector2(0, 0));
-
-            // ImGui.SetCursorPosX(_camera.Size.X / 2 - 200 * Screen.ScaleI);
-
-            // Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
-            // Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
-            /*ImGui.PushStyleColor(ImGuiCol.Text, PhysicsController.Running ? activeColor : inactiveColor);
-            bool physicsButtonClicked = ImGui.Button("physics");
-            if (physicsButtonClicked)
-            {
-                if (PhysicsController.Running == false)
-                {
-                    PhysicsController.StartPhysics();
-                }
-                else if (PhysicsController.Running)
-                {
-                    PhysicsController.StopPhysics();
-                }
-            }
-
-            ImGui.PopStyleColor();
-
-            ImGui.SameLine();*/
+        ImGui.SameLine();*/
 //////////
 
-            ImGui.SetCursorPosX(10);
-            bool renderPassesButtonClicked = ImGui.Button("Render passes");
+        ImGui.SetCursorPosX(10);
+        bool renderPassesButtonClicked = ImGui.Button("Render passes");
 
-            if (renderPassesButtonClicked)
-            {
-                _renderPassesWindowOpened = !_renderPassesWindowOpened;
-                if (_renderPassesWindowOpened)
-                {
-                    ImGui.OpenPopup("Render passes");
-                }
-            }
-
+        if (renderPassesButtonClicked)
+        {
+            _renderPassesWindowOpened = !_renderPassesWindowOpened;
             if (_renderPassesWindowOpened)
             {
-                if (ImGui.BeginPopupContextWindow("Render passes"))
-                {
-                    foreach (RenderPass renderPass in _renderTargetPipeline.RenderPasses)
-                    {
-                        bool isEnabled = renderPass.Enabled;
-                        bool wasEnabled = isEnabled;
-                        bool clicked = ImGui.Checkbox(renderPass.RenderPassType.ToString(), ref isEnabled);
-
-                        if (clicked)
-                        {
-                            renderPass.Enabled = !renderPass.Enabled;
-                        }
-                    }
-
-                    ImGui.EndPopup();
-                }
-
-                if (ImGui.IsPopupOpen("Render passes") == false && _renderPassesWindowOpened)
-                    // clicked away
-                {
-                    _renderPassesWindowOpened = false;
-                }
+                ImGui.OpenPopup("Render passes");
             }
+        }
 
-            ImGui.SameLine();
-            //////////
-            bool renderModeButtonClicked = ImGui.Button("Render mode");
-
-            if (renderModeButtonClicked)
+        if (_renderPassesWindowOpened)
+        {
+            if (ImGui.BeginPopupContextWindow("Render passes"))
             {
-                _renderModeWindowOpened = !_renderModeWindowOpened;
-                if (_renderModeWindowOpened)
+                foreach (RenderPass renderPass in _renderTargetPipeline.RenderPasses)
                 {
-                    ImGui.OpenPopup("RenderMode");
+                    bool isEnabled = renderPass.Enabled;
+                    bool wasEnabled = isEnabled;
+                    bool clicked = ImGui.Checkbox(renderPass.RenderPassType.ToString(), ref isEnabled);
+
+                    if (clicked)
+                    {
+                        renderPass.Enabled = !renderPass.Enabled;
+                    }
                 }
+
+                ImGui.EndPopup();
             }
 
+            if (ImGui.IsPopupOpen("Render passes") == false && _renderPassesWindowOpened)
+                // clicked away
+            {
+                _renderPassesWindowOpened = false;
+            }
+        }
+
+        ImGui.SameLine();
+        //////////
+        bool renderModeButtonClicked = ImGui.Button("Render mode");
+
+        if (renderModeButtonClicked)
+        {
+            _renderModeWindowOpened = !_renderModeWindowOpened;
             if (_renderModeWindowOpened)
             {
-                if (ImGui.BeginPopupContextWindow("RenderMode"))
+                ImGui.OpenPopup("RenderMode");
+            }
+        }
+
+        if (_renderModeWindowOpened)
+        {
+            if (ImGui.BeginPopupContextWindow("RenderMode"))
+            {
+                foreach (ViewRenderMode mode in Enum.GetValues(typeof(ViewRenderMode)))
                 {
-                    foreach (ViewRenderMode mode in Enum.GetValues(typeof(ViewRenderMode)))
+                    bool isEnabled = _renderTargetPipeline.RenderSettings
+                        .RenderModeSettings.CurrentRenderMode == mode;
+                    bool wasEnabled = isEnabled;
+                    bool clicked = ImGui.Checkbox(mode.ToString(), ref isEnabled);
+                    bool hovered = ImGui.IsItemHovered();
+                    if (hovered)
                     {
-                        bool isEnabled = _renderTargetPipeline.RenderSettings
-                            .RenderModeSettings.CurrentRenderMode == mode;
-                        bool wasEnabled = isEnabled;
-                        bool clicked = ImGui.Checkbox(mode.ToString(), ref isEnabled);
-                        bool hovered = ImGui.IsItemHovered();
-                        if (hovered)
-                        {
-                            bool isNew = _renderTargetPipeline.RenderSettings
-                                .RenderModeSettings.CurrentRenderMode != mode;
+                        bool isNew = _renderTargetPipeline.RenderSettings
+                            .RenderModeSettings.CurrentRenderMode != mode;
 
 
-                            _renderTargetPipeline.RenderSettings.RenderModeSettings
-                                .CurrentRenderMode = mode;
-                            // if (isNew)
-                            // {
-                            // Tofu.RenderSettings.SaveData();
-                            // }
-                        }
-
-                        if (clicked)
-                        {
-                            _renderModeWindowOpened = false;
-                        }
+                        _renderTargetPipeline.RenderSettings.RenderModeSettings
+                            .CurrentRenderMode = mode;
+                        // if (isNew)
+                        // {
+                        // Tofu.RenderSettings.SaveData();
+                        // }
                     }
 
-                    ImGui.EndPopup();
+                    if (clicked)
+                    {
+                        _renderModeWindowOpened = false;
+                    }
                 }
 
-                if (ImGui.IsPopupOpen("RenderMode") == false && _renderModeWindowOpened)
-                    // clicked away
-                {
-                    _renderModeWindowOpened = false;
-                }
+                ImGui.EndPopup();
             }
 
-            ImGui.SameLine();
-
-            //////////
-            /// 
-            /*ImGui.PushStyleColor(ImGuiCol.Text,
-                _renderTargetPipeline.RenderSettings.WireframeRenderSettings
-                    .WireframeVisible
-                    ? activeColor
-                    : inactiveColor);
-            bool wireframeButtonClicked = ImGui.Button("Wireframe");
-            if (wireframeButtonClicked)
+            if (ImGui.IsPopupOpen("RenderMode") == false && _renderModeWindowOpened)
+                // clicked away
             {
-                _renderTargetPipeline.RenderSettings.WireframeRenderSettings
-                        .WireframeVisible =
-                    !_renderTargetPipeline.RenderSettings.WireframeRenderSettings
-                        .WireframeVisible;
-                // _renderTargetPipeline.RenderSettings.SaveData();
+                _renderModeWindowOpened = false;
             }
+        }
 
-            ImGui.PopStyleColor();
+        ImGui.SameLine();
 
-            ImGui.SameLine();*/
+        //////////
+        /// 
+        /*ImGui.PushStyleColor(ImGuiCol.Text,
+            _renderTargetPipeline.RenderSettings.WireframeRenderSettings
+                .WireframeVisible
+                ? activeColor
+                : inactiveColor);
+        bool wireframeButtonClicked = ImGui.Button("Wireframe");
+        if (wireframeButtonClicked)
+        {
+            _renderTargetPipeline.RenderSettings.WireframeRenderSettings
+                    .WireframeVisible =
+                !_renderTargetPipeline.RenderSettings.WireframeRenderSettings
+                    .WireframeVisible;
+            // _renderTargetPipeline.RenderSettings.SaveData();
+        }
 
-            // ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
-            // bool playButtonClicked = ImGui.Button("play");
-            //
-            // ImGui.PopStyleColor();
-            //
-            // if (playButtonClicked)
-            // {
-            //     if (Global.GameRunning)
-            //     {
-            //         Playmode.PlayMode_Stop();
-            //     }
-            //     else
-            //     {
-            //         Playmode.PlayMode_Start();
-            //     }
-            // }
-            //
-            // ImGui.SameLine();
+        ImGui.PopStyleColor();
 
-            ImGui.SetNextItemWidth(200);
+        ImGui.SameLine();*/
 
-            string projectionModeButtonText =
-                Tofu.SceneViewController.CurrentProjectionMode == ProjectionMode.Orthographic ? "2D" : "3D";
-            bool projectionButtonClicked = ImGui.Button(projectionModeButtonText);
-            if (projectionButtonClicked)
+        // ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
+        // bool playButtonClicked = ImGui.Button("play");
+        //
+        // ImGui.PopStyleColor();
+        //
+        // if (playButtonClicked)
+        // {
+        //     if (Global.GameRunning)
+        //     {
+        //         Playmode.PlayMode_Stop();
+        //     }
+        //     else
+        //     {
+        //         Playmode.PlayMode_Start();
+        //     }
+        // }
+        //
+        // ImGui.SameLine();
+
+        ImGui.SetNextItemWidth(200);
+
+        string projectionModeButtonText =
+            Tofu.SceneViewController.CurrentProjectionMode == ProjectionMode.Orthographic ? "2D" : "3D";
+        bool projectionButtonClicked = ImGui.Button(projectionModeButtonText);
+        if (projectionButtonClicked)
+        {
+            if (Tofu.SceneViewController.CurrentProjectionMode == ProjectionMode.Orthographic)
             {
-                if (Tofu.SceneViewController.CurrentProjectionMode == ProjectionMode.Orthographic)
-                {
-                    Tofu.SceneViewController.SetProjectionMode(ProjectionMode.Perspective);
-                }
-                else
-                {
-                    Tofu.SceneViewController.SetProjectionMode(ProjectionMode.Orthographic);
-                }
-            }
-
-            // SCENE IMAGE
-            if (_renderTargetPipeline.CanRender)
-            {
-                TofuImGui.ImageTexture2D(_renderTargetPipeline.FinalFramebuffer.TextureId,
-                    _renderTargetPipeline.FinalFramebuffer.Size,
-                    new Vector4(0, 1, 1,
-                        0)); //, tint_col: LastUsedView==this? Color.White : new Vector4(0.5f,0.5f,0.5f,1));
+                Tofu.SceneViewController.SetProjectionMode(ProjectionMode.Perspective);
             }
             else
             {
-                ImGui.Dummy(_renderTargetPipeline.FinalFramebuffer.Size);
+                Tofu.SceneViewController.SetProjectionMode(ProjectionMode.Orthographic);
             }
-
-            HandleModelDragDrop();
-
-            Tofu.MouseInput.IsMouseInSceneView = ImGui.IsItemHovered() || Tofu.MouseInput.IsMouseInSceneView;
-            if (ImGui.IsItemHovered() && LastUsedView != this && Tofu.MouseInput.IsButtonDown())
-            {
-                LastUsedView = this;
-            }
-
-            ImGui.End();
-
-            ImGui.PopStyleVar();
-            ImGui.PopStyleVar();
         }
 
-        else
-
+        // SCENE IMAGE
+        if (_renderTargetPipeline.CanRender)
         {
-            ImGui.SetNextWindowSize(_camera.Size + new Vector2(0, 50), ImGuiCond.Always);
-            ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.Always, new Vector2(0, 0));
-            ImGui.Begin("Scene View",
-                ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize |
-                ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration);
-
-            ImGui.SetCursorPosX(0);
-            Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
-
             TofuImGui.ImageTexture2D(_renderTargetPipeline.FinalFramebuffer.TextureId,
                 _renderTargetPipeline.FinalFramebuffer.Size,
-                new Vector4(0, 1, 1, 0));
+                new Vector4(0, 1, 1,
+                    0)); //, tint_col: LastUsedView==this? Color.White : new Vector4(0.5f,0.5f,0.5f,1));
+        }
+        else
+        {
+            ImGui.Dummy(_renderTargetPipeline.FinalFramebuffer.Size);
+        }
 
-            ImGui.End();
+        HandleModelDragDrop();
+
+        Tofu.MouseInput.IsMouseInSceneView = ImGui.IsItemHovered() || Tofu.MouseInput.IsMouseInSceneView;
+        if (ImGui.IsItemHovered() && LastUsedView != this && Tofu.MouseInput.IsButtonDown())
+        {
+            LastUsedView = this;
         }
     }
 

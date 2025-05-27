@@ -28,7 +28,7 @@ public class EditorPanelConsole : EditorPanel
         I = this;
     }
 
-    public override void Draw()
+    protected override void ExecuteImGuiDrawCommands()
     {
         BeginWindowDefault();
 

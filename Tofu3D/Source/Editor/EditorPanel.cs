@@ -9,6 +9,7 @@ public abstract class EditorPanel
     internal bool IsVisible { get; set; } = true;
 
     internal bool IsPanelHovered;
+    internal bool IsPanelFocused;
     public int WindowWidth;
     public virtual string Name => "";
 
@@ -17,6 +18,7 @@ public abstract class EditorPanel
     public virtual Vector2 Position { get; set; } = new Vector2(0, Tofu.Window.ClientSize.Y);
     public virtual Vector2 Pivot => new Vector2(0, 1);
     public virtual ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.None;
+    public virtual bool CreatesWindow => true;
     public bool IsFullscreen { get; set; }
 
     internal void ResetId()
@@ -57,28 +59,70 @@ public abstract class EditorPanel
     {
     }
 
-    public virtual void Draw()
+    protected abstract void ExecuteImGuiDrawCommands();
+
+    public void Draw()
+    {
+        if (CreatesWindow)
+        {
+            BeforeWindowCreated();
+
+            BeginWindowDefault();
+
+            if (IsVisible == false)
+            {
+                ImGui.End();
+                return;
+            }
+
+            DoChecksAfterWindowCreated();
+        }
+
+        ExecuteImGuiDrawCommands();
+
+        if (CreatesWindow)
+        {
+            AfterWindowEnded();
+        }
+    }
+
+    protected virtual void BeforeWindowCreated()
     {
     }
 
-    public void BeginWindowDefault()
+    protected virtual void AfterWindowEnded()
+    {
+    }
+
+    protected virtual void OnVisibilityChanged()
+    {
+    }
+
+    protected void BeginWindowDefault()
     {
         ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);
         ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
+        bool visibleBefore = IsVisible;
         IsVisible = ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | AdditionalWindowFlags);
+        if (visibleBefore != IsVisible)
+        {
+            OnVisibilityChanged();
+        }
 
-        DoPostWindowChecks();
+        DoChecksAfterWindowCreated();
     }
 
-    public void DoPostWindowChecks()
+    private void DoChecksAfterWindowCreated()
     {
         IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
+        IsPanelFocused = ImGui.IsWindowFocused();
         Size = ImGui.GetWindowSize() / Screen.ScaleI;
         Position = ImGui.GetWindowPos() / Screen.ScaleI;
         CheckForTabOptionsClick();
     }
 
-    protected void CheckForTabOptionsClick()
+
+    private void CheckForTabOptionsClick()
     {
         ImGui.OpenPopupOnItemClick("TabOptions", ImGuiPopupFlags.MouseButtonRight);
 
@@ -118,7 +162,7 @@ public abstract class EditorPanel
     {
     }
 
-    public void EndWindow()
+    protected void EndWindow()
     {
         // IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
 

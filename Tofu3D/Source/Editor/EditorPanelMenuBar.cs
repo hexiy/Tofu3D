@@ -14,13 +14,14 @@ public class EditorPanelMenuBar : EditorPanel
 
     public static EditorPanelMenuBar I { get; private set; }
     public override string Name => "Menu Bar";
+    public override bool CreatesWindow => false;
 
     public override void Init()
     {
         I = this;
     }
 
-    public override void Draw()
+    protected override void ExecuteImGuiDrawCommands()
     {
         if (Global.EditorAttached)
         {

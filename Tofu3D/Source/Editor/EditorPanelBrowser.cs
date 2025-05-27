@@ -31,6 +31,8 @@ public class EditorPanelBrowser : EditorPanel
     /// </summary>
     private List<int> _expandedAssets = new List<int>();
 
+    private int _hoveredAssetIndex = -1;
+
     public DirectoryInfo CurrentDirectoryInfo;
 
     private string CurrentDirectoryPathCached
@@ -208,11 +210,9 @@ public class EditorPanelBrowser : EditorPanel
         }
     }
 
-    private int hoveredAssetIndex = -1;
 
-    public override void Draw()
+    protected override void ExecuteImGuiDrawCommands()
     {
-        BeginWindowDefault();
         ResetId();
 
         if (ImGui.BeginPopupContextWindow("yeh"))
@@ -304,7 +304,7 @@ public class EditorPanelBrowser : EditorPanel
         //	ImGui.EndGroup();
         //}
         _subAssetsDrawnCount = 0;
-        hoveredAssetIndex = -1;
+        _hoveredAssetIndex = -1;
         for (int assetIndex = 0; assetIndex < _assets.Length; assetIndex++)
         {
             string assetPath = _assets[assetIndex];
@@ -323,9 +323,6 @@ public class EditorPanelBrowser : EditorPanel
         }
 
         PopAllIds();
-        ImGui.End();
-
-        base.Draw();
     }
 
 
@@ -694,9 +691,9 @@ public class EditorPanelBrowser : EditorPanel
         }
 
         ImGui.EndGroup();
-        if (ImGui.IsItemHovered() && hoveredAssetIndex != assetIndex)
+        if (ImGui.IsItemHovered() && _hoveredAssetIndex != assetIndex)
         {
-            hoveredAssetIndex = assetIndex;
+            _hoveredAssetIndex = assetIndex;
         }
 
         if (fileType is not FileType.Mesh && isDirectory == false)

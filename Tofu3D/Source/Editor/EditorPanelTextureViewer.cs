@@ -30,7 +30,7 @@ public class EditorPanelTextureViewer : EditorPanel
         _textures.Add(data);
     }
 
-    public override void Draw()
+    protected override void ExecuteImGuiDrawCommands()
     {
         if (Global.EditorAttached == false)
         {

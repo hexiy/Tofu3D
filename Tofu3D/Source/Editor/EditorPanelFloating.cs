@@ -11,7 +11,7 @@ public class EditorPanelFloating : EditorPanel
         I = this;
     }
 
-    public override void Draw()
+    protected override void ExecuteImGuiDrawCommands()
     {
         //ImGui.SetNextWindowBgAlpha (0);
         ImGui.Begin("Floating", ImGuiWindowFlags.NoCollapse);

@@ -18,6 +18,8 @@ public class EditorPanelGameView : EditorPanel
     public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.NoScrollbar |
                                                               ImGuiWindowFlags.NoScrollWithMouse;
 
+    float _controlsBarHeight = 64;
+
     private Vector2[] _resolutions = new[]
     {
         new Vector2(-1, -1),
@@ -54,53 +56,48 @@ public class EditorPanelGameView : EditorPanel
         base.OnClosed();
     }
 
-    public override void Draw()
+    protected override void BeforeWindowCreated()
+    {
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
+
+        base.BeforeWindowCreated();
+    }
+
+    protected override void AfterWindowEnded()
+    {
+        ImGui.PopStyleVar();
+        ImGui.PopStyleVar();
+
+        base.AfterWindowEnded();
+    }
+
+    protected override void OnVisibilityChanged()
+    {
+        if (IsVisible && _renderTargetPipeline == null)
+        {
+            _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.GameView, -1);
+        }
+
+        if (IsVisible == false && _renderTargetPipeline != null)
+        {
+            Tofu.RenderingSystem.DestroyPipeline(ref _renderTargetPipeline);
+        }
+
+        base.OnVisibilityChanged();
+    }
+
+    protected override void ExecuteImGuiDrawCommands()
     {
         if (_renderTargetPipeline == null)
         {
-            return;}
+            return;
+        }
+
         if (Global.EditorAttached)
         {
-            ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
-            ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
-
-            bool oldIsVisible = IsVisible;
-
-
-            ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);
-            ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
-
-            float controlsBarHeight = 64;
-            Vector2 actualSpaceForGameView = Size - new Vector2(controlsBarHeight / Screen.Scale);
-            Vector2 controlsBarHeightVector = new Vector2(0, controlsBarHeight);
-            ImGui.SetNextWindowSize(_renderTargetPipeline.FinalFramebuffer.Size + controlsBarHeightVector,
-                ImGuiCond.FirstUseEver);
-
-            ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.FirstUseEver, new Vector2(0, 0));
-            ImGuiWindowFlags flags = Editor.ImGuiDefaultWindowFlags | ImGuiWindowFlags.NoScrollbar |
-                                     ImGuiWindowFlags.NoScrollWithMouse;
-            IsVisible = ImGui.Begin(Name, flags);
-
-            DoPostWindowChecks();
-            // BeginWindowDefault();
-
-            if (oldIsVisible == false && IsVisible == true && _renderTargetPipeline == null)
-            {
-                _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.GameView, -1);
-            }
-
-            if (oldIsVisible && IsVisible == false && _renderTargetPipeline != null)
-            {
-                Tofu.RenderingSystem.DestroyPipeline(ref _renderTargetPipeline);
-            }
-
-
-            if (IsVisible == false)
-            {
-                ImGui.End();
-                return;
-            }
-
+            Vector2 actualSpaceForGameView = Size - new Vector2(_controlsBarHeight / Screen.Scale);
+            Vector2 controlsBarHeightVector = new Vector2(0, _controlsBarHeight);
 
             if (_currentResolutionPersistent != _camera.Size && _currentResolutionInPopup.Value.X <= 0)
             {
@@ -109,9 +106,11 @@ public class EditorPanelGameView : EditorPanel
                 // Debug.Log("SetSize");
             }
 
+            Size = _renderTargetPipeline.FinalFramebuffer.Size + controlsBarHeightVector;
+
 
             // ImGui.SetCursorPosX(0);
-            ImGui.SetCursorPos(new Vector2(0, controlsBarHeight));
+            ImGui.SetCursorPos(new Vector2(0, _controlsBarHeight));
 
             Vector2 gameViewDisplaySize = new Vector2(_renderTargetPipeline.FinalFramebuffer.Size.X,
                 _renderTargetPipeline.FinalFramebuffer.Size.Y);
@@ -150,7 +149,7 @@ public class EditorPanelGameView : EditorPanel
             ImGui.SetCursorPos(new Vector2(0, 0));
             ImGui.Dummy(new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, 50));
             // ImGui.SameLine();
-            ImGui.SetCursorPos(new Vector2(0, controlsBarHeight / 2));
+            ImGui.SetCursorPos(new Vector2(0, _controlsBarHeight / 2));
 
             ImGui.SetCursorPosX(10);
 
@@ -193,19 +192,9 @@ public class EditorPanelGameView : EditorPanel
                     _resolutionsPopupOpened = false;
                 }
             }
-
-
-            ImGui.End();
-
-            ImGui.PopStyleVar();
-            ImGui.PopStyleVar();
         }
-
         else
-
-
         {
-            ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, 0);
             if (_camera.Size != Tofu.Window.ClientSize.ToVector2())
             {
                 _currentResolutionPersistent.Value = Tofu.Window.ClientSize.ToVector2();
@@ -213,22 +202,12 @@ public class EditorPanelGameView : EditorPanel
                 // Debug.Log("SetSize");
             }
 
-            ImGui.SetNextWindowSize(_camera.Size, ImGuiCond.Always);
-            ImGui.SetNextWindowPos(new Vector2(0, 0), ImGuiCond.Always, new Vector2(0, 0));
-            ImGui.Begin("Game View",
-                ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize |
-                ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoDecoration);
-
             ImGui.SetCursorPosX(0);
             Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
 
             TofuImGui.ImageTexture2D(_renderTargetPipeline.FinalFramebuffer.TextureId,
                 _renderTargetPipeline.FinalFramebuffer.Size,
                 new Vector4(0, 1, 1, 0));
-
-            ImGui.End();
-
-            ImGui.PopStyleVar();
         }
     }
 
