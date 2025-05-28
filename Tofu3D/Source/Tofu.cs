@@ -71,7 +71,6 @@ internal static class Tofu
         {
             Playmode.GameRunning = true;
         }
-        Playmode.GameRunning = true;
 
         MSBuildLocator.RegisterDefaults(); // this needs to be here at start
         SystemConfig.Configure(projectPath);
