@@ -363,7 +363,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
     {
         // GameObject.SetActive(selection != null);
         // GameObject.SetActive(false);
-        Transform.MockIsInCanvas = false;
+        // Transform.MockIsInCanvas = false;
 
         if (selection == null)
         {
@@ -385,10 +385,10 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
             if (go != null)
             {
-                if (go.Transform.IsInCanvas)
-                {
-                    Transform.MockIsInCanvas = true;
-                }
+                // if (go.Transform.IsInCanvas)
+                // {
+                //     Transform.MockIsInCanvas = true;
+                // }
 
                 _selectedTransforms.Add(go.Transform);
             }

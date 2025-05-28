@@ -295,10 +295,10 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 
     public Matrix4x4 GetModelMatrix()
     {
-        // if (Transform.IsInCanvas)
-        // {
-        //     return GetModelMatrixForCanvasObject();
-        // }
+        if (Transform.IsInCanvas)
+        {
+            return GetModelMatrixForCanvasObject();
+        }
 
         // Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
         Matrix4x4 translation =
@@ -308,20 +308,23 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 
     public Matrix4x4 GetModelMatrixWithoutBoxShape()
     {
-        // if (Transform.IsInCanvas)
-        // {
-        //     return GetModelMatrixForCanvasObject();
-        // }
+        if (Transform.IsInCanvas)
+        {
+            return GetModelMatrixForCanvasObject();
+        }
 
         // Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
         Matrix4x4 translation =
             Matrix4x4.CreateTranslation(Transform.WorldPosition * Transform.WorldScale);
         return ScalePivotRotationMatrixWithoutBoxShape * translation;
     }
-// public Matrix4x4 GetModelMatrixForCanvasObject()
-// {
-//
-// }
+
+    public Matrix4x4 GetModelMatrixForCanvasObject()
+    {
+        Matrix4x4 translation =
+            Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale);
+        return ScalePivotRotationMatrix * translation;
+    }
 
 // public Matrix4x4 GetModelMatrixForLight()
 // {
@@ -400,6 +403,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
         if (ObjectInstancingData?.MatrixDirty == true || GameObject.IsStatic == false || LatestModelMatrix == null)
         {
             // LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
+            LatestModelMatrix = GetModelMatrix();
             LatestModelMatrix = GetModelMatrix();
             if (ObjectInstancingData != null)
             {

@@ -22,7 +22,7 @@ public class Transform : Component
     [Hide]
     public List<int> ChildrenIDs = new List<int>();
 
-    public bool MockIsInCanvas = false;
+    // public bool MockIsInCanvas = false;
     //[Hide] public Vector3 localPosition { get { return position - GetParentPosition(); } set { position = GetParentPosition() + value; } }
     //[Hide] public Vector3 initialAngleDifferenceFromParent = Vector3.Zero;
     //[Hide] public Vector3 up { get { return position + TransformVector(new Vector3(0, 1, 0)); } }
@@ -42,7 +42,7 @@ public class Transform : Component
 
     [Hide]
     public int ParentId = -1;
-    
+
     public override bool CanBeDisabled => false;
 
     [Hide]
@@ -146,10 +146,10 @@ public class Transform : Component
     }
 
     [Show]
-    internal bool IsInCanvas => MockIsInCanvas; /*
+    internal bool IsInCanvas
     {
-        get { return Transform.Parent?.GetComponent<Canvas>() != null || MockIsInCanvas; }
-    }*/
+        get { return Transform.Parent?.GetComponent<Canvas>() != null; }
+    }
 
     public Vector3 Rotation
     {

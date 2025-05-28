@@ -36,6 +36,7 @@ public class RenderTargetPipeline
 
 
             Tofu.Window.Closing += c => SaveSceneViewData(id);
+            Scene.SceneStartedDisposing += () => SaveSceneViewData(id);
         }
 
         // RenderSettings.LoadSavedData();
