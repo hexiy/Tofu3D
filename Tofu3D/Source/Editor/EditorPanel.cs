@@ -79,6 +79,7 @@ public abstract class EditorPanel
             if (IsVisible == false)
             {
                 ImGui.End();
+                AfterWindowEnded();
                 return;
             }
 
