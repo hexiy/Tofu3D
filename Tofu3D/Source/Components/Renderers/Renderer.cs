@@ -318,7 +318,6 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
             Matrix4x4.CreateTranslation(Transform.WorldPosition * Transform.WorldScale);
         return ScalePivotRotationMatrixWithoutBoxShape * translation;
     }
-
 // public Matrix4x4 GetModelMatrixForCanvasObject()
 // {
 //
