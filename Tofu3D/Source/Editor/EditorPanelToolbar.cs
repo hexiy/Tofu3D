@@ -42,21 +42,13 @@ public class EditorPanelToolbar : EditorPanel
 
             ImGui.SetCursorPosX(ImGui.GetContentRegionAvail().X / 2f - 25f);
 
-
-            IntPtr textureId = ImGuiController.EncodeTextureArrayId(
-                Tofu.Editor.EditorTextures.PlayIcon.AtlasGLTextureArrayId,
-                Tofu.Editor.EditorTextures.PlayIcon.IndexInAtlasTextureArray);
-            Vector4 textureBoundsInAtlas = Tofu.Editor.EditorTextures.PlayIcon.BoundingBoxInAtlas;
+            RuntimeTexture icon = Playmode.GameRunning
+                ? Tofu.Editor.EditorTextures.PauseIcon
+                : Tofu.Editor.EditorTextures.PlayIcon;
 
             ImGui.SetCursorPosY(Height / 2f - 30f / 2f);
 
-            ImGui.Image(textureId, new System.Numerics.Vector2(30, 30), textureBoundsInAtlas.XW,
-                textureBoundsInAtlas.ZY,
-                new Vector4(1, 1, 1, 1));
-
-            // ImGui.ImageButton(textureId, new System.Numerics.Vector2(50, 50), textureBoundsInAtlas.XW,
-            // textureBoundsInAtlas.ZY, 0,
-            // new Vector4(1, 0, 0, 1));
+            TofuImGui.ImageTexture2DArray(icon, new Vector2(30, 30));
 
             bool buttonClicked = ImGui.IsItemClicked();
 
