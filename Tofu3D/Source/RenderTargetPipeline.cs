@@ -6,7 +6,7 @@ namespace TofuEngine.Rendering;
 public class RenderTargetPipeline
 {
     private bool _initialized;
-    private RenderTargetPipelineType ViewType;
+    public RenderTargetPipelineType ViewType { get; init; }
     public List<RenderPass> RenderPasses { get; } = new List<RenderPass>();
 
     public RenderPassType CurrentRenderPassType { get; private set; } = RenderPassType.DirectionalLightShadowDepth;
@@ -113,6 +113,9 @@ public class RenderTargetPipeline
         RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking(this);
         renderPassMousePicking.Enabled = false;
 
+        RenderPassUI renderPassUI = new RenderPassUI(this);
+
+
         RenderPasses.AddRange([
             renderPassSkybox,
             renderPassDirectionalLightShadowDepth,
@@ -121,12 +124,12 @@ public class RenderTargetPipeline
             renderPassZPrePass,
             renderPassOpaques,
             renderPassTransparency,
-            renderPassMousePicking
+            renderPassMousePicking,
+            renderPassUI
         ]);
         // RenderPassBloomThreshold renderPassBloomThreshold = new();
         // RenderPassBloomPostProcess renderPassBloomPostProcess = new(renderPassBloomThreshold);
         // RenderPassPostProcess renderPassPostProcess = new();
-        // RenderPassUI renderPassUI = new();
 
 
         // RenderPassTransparency renderPassTransparency = new RenderPassTransparency();

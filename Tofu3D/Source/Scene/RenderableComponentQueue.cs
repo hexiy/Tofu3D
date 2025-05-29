@@ -5,11 +5,10 @@ public class RenderableComponentQueue : IComponentQueue
     // bool _renderQueueChanged;
     private readonly List<IComponentRenderable> _opaqueRenderables = new List<IComponentRenderable>();
     private readonly List<IComponentRenderable> _transparentRenderables = new List<IComponentRenderable>();
+    private readonly List<IComponentRenderable> _uiRenderables = new List<IComponentRenderable>();
     private readonly List<IComponentRenderable> _opaqueRenderablesToRemove = new List<IComponentRenderable>();
     private readonly List<IComponentRenderable> _transparentRenderablesToRemove = new List<IComponentRenderable>();
-
-    // public List<Renderer> RenderQueueWorld { get; private set; } = new();
-    // public List<Renderer> RenderQueueUI { get; private set; } = new();
+    private readonly List<IComponentRenderable> _uiRenderablesToRemove = new List<IComponentRenderable>();
 
     public RenderableComponentQueue()
     {
@@ -27,9 +26,13 @@ public class RenderableComponentQueue : IComponentQueue
             {
                 _opaqueRenderables.Add(componentRenderable);
             }
-            else
+            else if (componentRenderable.RenderMode == RenderMode.Transparent)
             {
                 _transparentRenderables.Add(componentRenderable);
+            }
+            else if (componentRenderable.RenderMode == RenderMode.UI)
+            {
+                _uiRenderables.Add(componentRenderable);
             }
         }
     }
@@ -42,9 +45,13 @@ public class RenderableComponentQueue : IComponentQueue
             {
                 _opaqueRenderables.Remove(componentRenderable);
             }
-            else
+            else if (componentRenderable.RenderMode == RenderMode.Transparent)
             {
                 _transparentRenderables.Remove(componentRenderable);
+            }
+            else if (componentRenderable.RenderMode == RenderMode.UI)
+            {
+                _uiRenderables.Remove(componentRenderable);
             }
         }
     }
@@ -60,6 +67,7 @@ public class RenderableComponentQueue : IComponentQueue
     {
         _opaqueRenderables.Clear();
         _transparentRenderables.Clear();
+        _uiRenderables.Clear();
     }
 
     public void AddComponent(IComponentRenderable component)
@@ -73,9 +81,13 @@ public class RenderableComponentQueue : IComponentQueue
 
             _opaqueRenderables.Add(component);
         }
-        else
+        else if (component.RenderMode == RenderMode.Transparent)
         {
             _transparentRenderables.Add(component);
+        }
+        else if (component.RenderMode == RenderMode.UI)
+        {
+            _uiRenderables.Add(component);
         }
     }
 
@@ -85,9 +97,13 @@ public class RenderableComponentQueue : IComponentQueue
         {
             _opaqueRenderablesToRemove.Add(component);
         }
-        else
+        else if (component.RenderMode == RenderMode.Transparent)
         {
             _transparentRenderablesToRemove.Add(component);
+        }
+        else if (component.RenderMode == RenderMode.UI)
+        {
+            _uiRenderablesToRemove.Add(component);
         }
     }
 
@@ -136,6 +152,24 @@ public class RenderableComponentQueue : IComponentQueue
         if (_transparentRenderablesToRemove.Count > 0)
         {
             _transparentRenderablesToRemove.Clear();
+        }
+    }
+    public void UploadRenderDataUI()
+    {
+        // _transparentRenderables.Sort();
+        for (int i = 0; i < _uiRenderables.Count; i++)
+        {
+            _uiRenderables[i].UploadRenderData();
+        }
+
+        for (int i = 0; i < _uiRenderablesToRemove.Count; i++)
+        {
+            _uiRenderables.Remove(_uiRenderablesToRemove[i]);
+        }
+
+        if (_uiRenderablesToRemove.Count > 0)
+        {
+            _uiRenderablesToRemove.Clear();
         }
     }
 // public void Update()

@@ -51,7 +51,7 @@ public class Camera : Component, IComponentUpdateable
 
         if (Global.EditorAttached == false)
         {
-            Transform._rotation += new Vector3(0, Time.DeltaTime*3, 0);
+            Transform.Rotation += new Vector3(0, Time.DeltaTime*3, 0);
         }
         // UpdateMatrices();
     }
@@ -96,23 +96,12 @@ public class Camera : Component, IComponentUpdateable
 
     private Matrix4x4 GetViewMatrix()
     {
-        //  const float radius = 500.0f;
-        //  float camX = (float) Math.Sin(Time.EditorElapsedTime) * radius; //sin(glfwGetTime()) * radius;
-        //  float camZ = (float) Math.Cos(Time.EditorElapsedTime) * radius; //cos(glfwGetTime()) * radius;
-        //  float camY = (float) Math.Cos(Time.EditorElapsedTime) * radius; //cos(glfwGetTime()) * radius;
-        //  Matrix4x4 view = Matrix4x4.CreateLookAt(new Vector3(camX, camY, camZ), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-        // return view;
-
-
         Vector3 forwardWorld =
             Transform.WorldPosition + Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
         Vector3 upLocal = Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 1, 0));
 
-        //Debug.Log($"Forward{forwardWorld}");
-        //Debug.Log($"Up{upLocal}");
         Matrix4x4 view = Matrix4x4.CreateLookAt(Transform.WorldPosition, forwardWorld, upLocal)
                          * Matrix4x4.CreateScale(-1, 1, 1);
-        ; // * Matrix4x4.CreateTranslation(Transform.WorldPosition * Units.OneWorldUnit * new Vector3(-1, -1, 1));
         return view;
     }
 
@@ -139,7 +128,7 @@ public class Camera : Component, IComponentUpdateable
         return perspectiveMatrix;
     }
 
-    private Matrix4x4 GetOrthographicProjectionMatrix()
+    public Matrix4x4 GetOrthographicProjectionMatrix()
     {
         float left = -OrthographicSize;
         float right = OrthographicSize;
@@ -151,7 +140,18 @@ public class Camera : Component, IComponentUpdateable
 
         return orthoMatrix;
     }
+    public Matrix4x4 GetOrthographicProjectionMatrixForUI()
+    {
+        float left = -Size.X;
+        float right = Size.X;
+        float bottom = -Size.Y;
+        float top = Size.Y;
 
+        Matrix4x4 orthoMatrix =
+            Matrix4x4.CreateOrthographicOffCenter(left, right, bottom, top, NearPlaneDistance, FarPlaneDistance);
+
+        return orthoMatrix;
+    }
 
     private Matrix4x4 GetTranslationRotationMatrix()
     {

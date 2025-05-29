@@ -8,6 +8,14 @@ public class Canvas : Component, IComponentUpdateable
 
     public override void Awake()
     {
+        foreach (Transform transformChild in Transform.Children)
+        {
+            if (transformChild.GetComponent<Renderer>(out var renderer))
+            {
+                renderer.Material.RenderMode = RenderMode.UI;
+            }
+        }
+
         base.Awake();
     }
 

@@ -11,7 +11,7 @@ public class Transform : Component
 
     private Vector3 _localScale = Vector3.One;
 
-    public Vector3 _rotation = Vector3.Zero;
+    private Vector3 _rotation = Vector3.Zero;
 
     private Vector3 _worldPosition;
 
@@ -43,6 +43,7 @@ public class Transform : Component
     [Hide]
     public int ParentId = -1;
 
+    [Hide]
     public override bool CanBeDisabled => false;
 
     [Hide]
@@ -145,7 +146,7 @@ public class Transform : Component
         }
     }
 
-    [Show]
+    // [Show]
     internal bool IsInCanvas
     {
         get { return Transform.Parent?.GetComponent<Canvas>() != null; }

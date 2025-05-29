@@ -391,8 +391,17 @@ public class InstancedRenderingSystem
         shader.SetFloat("u_renderMode",
             (int)Tofu.RenderingSystem.CurrentlyExecutingPipeline.RenderSettings.RenderModeSettings.CurrentRenderMode);
 
-        shader.SetMatrix4X4("u_viewProjection",
-            Camera.CurrentlyRenderingCamera.ViewMatrix * Camera.CurrentlyRenderingCamera.ProjectionMatrix);
+        if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.UI &&
+            Tofu.RenderingSystem.CurrentlyExecutingPipeline.ViewType is RenderTargetPipelineType.GameView)
+        {
+            shader.SetMatrix4X4("u_viewProjection",
+                Matrix4x4.Identity * Camera.CurrentlyRenderingCamera.GetOrthographicProjectionMatrix());
+        }
+        else
+        {
+            shader.SetMatrix4X4("u_viewProjection",
+                Camera.CurrentlyRenderingCamera.ViewMatrix * Camera.CurrentlyRenderingCamera.ProjectionMatrix);
+        }
 
         shader.SetVector3("u_camPosWorldSpace", Camera.CurrentlyRenderingCamera.Transform.WorldPosition);
 

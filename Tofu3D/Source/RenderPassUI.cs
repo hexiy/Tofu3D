@@ -17,10 +17,29 @@ public class RenderPassUI : RenderPass
 
         base.Initialize();
     }
+
     protected override void Render_GL()
     {
-        
+        // ConfigureCameraForUIRender();
+
+        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.UI);
+
+        // ConfigureCameraForSceneRender();
     }
+
+    // private void ConfigureCameraForUIRender()
+    // {
+    // }
+    //
+    // private void ConfigureCameraForSceneRender()
+    // {
+    // }
+
+    protected override void PreRender()
+    {
+        base.PreRender();
+    }
+
     protected override void SetupRenderTexture()
     {
         if (MainFramebuffer != null)

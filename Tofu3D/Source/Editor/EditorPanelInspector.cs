@@ -264,9 +264,9 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
         if (gameObject)
         {
             bool justOpened = false;
-            
+
             // ImGui.Button("xdd",
-                // new Vector2(TofuImGui.GetContentRegionAvailWithPadding().X, ImGui.GetFrameHeight()));
+            // new Vector2(TofuImGui.GetContentRegionAvailWithPadding().X, ImGui.GetFrameHeight()));
             if (TofuImGui.ButtonFullWidth("[+] Add Component"))
             {
                 ImGui.OpenPopup("AddComponentPopup");
@@ -298,6 +298,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
                                 // this.RefreshInspector();
                                 // this.QueueInspectorRefresh();
                                 ImGui.CloseCurrentPopup();
+                                _addComponentPopupText = string.Empty;
                                 break;
                             }
                         }
@@ -314,6 +315,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
                             // this.QueueInspectorRefresh();
 
                             ImGui.CloseCurrentPopup();
+                            _addComponentPopupText = string.Empty;
                         }
                     }
                 }

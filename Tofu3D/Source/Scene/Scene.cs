@@ -275,21 +275,20 @@ public class Scene
     //     RestoreOpenGLState();
     // }
 
-    public void UploadRenderData(InstancingRenderMode instancingRenderMode)
+    public void UploadRenderData( /*InstancingRenderMode instancingRenderMode*/)
     {
         SetOpenGLState(); // works without this,opaques atleast
 
-        // GL.ClearDepth(1000);
-        // GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
-        if (instancingRenderMode is InstancingRenderMode.All or InstancingRenderMode.Opaque)
-        {
-            _renderableComponentQueue.UploadRenderDataOpaques();
-        }
+        // if (instancingRenderMode is InstancingRenderMode.All or InstancingRenderMode.Opaque)
+        // {
+        _renderableComponentQueue.UploadRenderDataOpaques();
+        // }
 
-        if (instancingRenderMode is InstancingRenderMode.All or InstancingRenderMode.Transparent)
-        {
-            _renderableComponentQueue.UploadRenderDataTransparency();
-        }
+        // if (instancingRenderMode is InstancingRenderMode.All or InstancingRenderMode.Transparent)
+        // {
+        _renderableComponentQueue.UploadRenderDataTransparency();
+        // }
+        _renderableComponentQueue.UploadRenderDataUI();
 
         RestoreOpenGLState(); // works without this,opaques atleast
     }

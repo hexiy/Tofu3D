@@ -33,7 +33,7 @@ public class RenderingSystem
 
     public void RenderAllRenderTargetPipelines()
     {
-        Tofu.SceneManager.CurrentScene.UploadRenderData(InstancingRenderMode.All);
+        Tofu.SceneManager.CurrentScene.UploadRenderData(/*InstancingRenderMode.All*/);
 
         foreach (RenderTargetPipeline pipeline in _renderTargetPipelines)
         {
