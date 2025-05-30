@@ -402,7 +402,7 @@ public class InstancedRenderingSystem
             // this commented makes it work, so we're overwriting "u_viewProjection" before rendering the opaques? somehow???, idk
             shader.SetMatrix4X4("u_viewProjection",
                 Camera.CurrentlyRenderingCamera.ViewMatrix *
-                Camera.CurrentlyRenderingCamera.GetPerspectiveProjectionMatrix());
+                Camera.CurrentlyRenderingCamera.ProjectionMatrix);
         }
 
         shader.SetVector3("u_camPosWorldSpace", Camera.CurrentlyRenderingCamera.Transform.WorldPosition);
