@@ -17,8 +17,8 @@ public class ModelRenderer : Renderer
 
     public override void OnEnabled()
     {
-        ObjectInstancingData.InstancingDataDirty = true;
-        ObjectInstancingData.MatrixDirty = true;
+        // ObjectInstancingData.InstancingDataDirty = true;
+        // ObjectInstancingData.MatrixDirty = true;
 
         base.OnEnabled();
     }
@@ -34,58 +34,59 @@ public class ModelRenderer : Renderer
     public override void SetupMeshAndMaterial()
     {
         /////////////////////// MESH
-        if (NeedsToSetupMeshAndMaterial == false)
+        if (NeedsToSetupMesh)
         {
-            return;
-        }
-
-        // RuntimeMesh.Mesh.Indices
-        if (RuntimeMesh?.Mesh?.PathInLibraryFolder?.Length > 0)
-        {
-            RuntimeMesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(RuntimeMesh.Mesh.PathInLibraryFolder);
-        }
-        else
-        {
-            Asset_Model model =
-                Tofu.AssetLoadManager.Get<Asset_Model>(
-                    TofuPath.Combine(Folders.BasicModelsInAssets, "defaultCube.obj"));
-            RuntimeMesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(model.PathsToMeshAssets.First());
-
-            // RuntimeMesh = null;
-        }
-
-        /////////////////////// MATERIAL
-        string? pathToObjMaterial = RuntimeMesh?.Mesh?.PathToObjMaterial;
-
-        // for now, always load obj material
-        if (pathToObjMaterial != null)
-        {
-            Material = Tofu.AssetLoadManager.Get<Asset_Material>(pathToObjMaterial);
-        }
-        else
-        {
-            if (Material == null || Material?.IsRuntimeCopy == false)
+            // RuntimeMesh.Mesh.Indices
+            if (RuntimeMesh?.Mesh?.PathInLibraryFolder?.Length > 0)
             {
-                if (Material?.PathInLibraryFolder.Length == 0 || Material == null)
-                {
-                    Material = Tofu.AssetLoadManager.Get<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets,
-                        "ModelRendererInstanced.mat"));
-                }
-                else
-                {
-                    Material = Tofu.AssetLoadManager.Get<Asset_Material>(Material.PathInLibraryFolder);
-                }
+                RuntimeMesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(RuntimeMesh.Mesh.PathInLibraryFolder);
             }
             else
             {
-                if (Material != null)
-                {
-                    Debug.Log(
-                        "Not automatically creating material instances, because when tweening higlight box it was losing the reference... only create runtime copy if it was serialized as runtime copy");
+                Asset_Model model =
+                    Tofu.AssetLoadManager.Get<Asset_Model>(
+                        TofuPath.Combine(Folders.BasicModelsInAssets, "defaultCube.obj"));
+                RuntimeMesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(model.PathsToMeshAssets.First());
 
-                    if (Material.IsRuntimeCopy)
+                // RuntimeMesh = null;
+            }
+        }
+
+        if (NeedsToSetupMaterial)
+        {
+            /////////////////////// MATERIAL
+            string? pathToObjMaterial = RuntimeMesh?.Mesh?.PathToObjMaterial;
+
+            // for now, always load obj material
+            if (pathToObjMaterial != null)
+            {
+                Material = Tofu.AssetLoadManager.Get<Asset_Material>(pathToObjMaterial);
+            }
+            else
+            {
+                if (Material == null || Material?.IsRuntimeCopy == false)
+                {
+                    if (Material?.PathInLibraryFolder.Length == 0 || Material == null)
                     {
-                        Material = Tofu.AssetLoadManager.CreateCopyFile(Material);
+                        Material = Tofu.AssetLoadManager.Get<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets,
+                            "ModelRendererInstanced.mat"));
+                    }
+                    else
+                    {
+                        Material = Tofu.AssetLoadManager.Get<Asset_Material>(Material.PathInLibraryFolder);
+                    }
+                }
+                else
+                {
+                    if (Material != null)
+                    {
+                        Debug.Log(
+                            "Not automatically creating material instances, because when tweening higlight box it was losing the reference... only create runtime copy if it was serialized as runtime copy");
+
+                        if (Material.IsRuntimeCopy)
+                        {
+                            Material = Tofu.AssetLoadManager.CreateCopyFile(Material);
+                        }
                     }
                 }
             }

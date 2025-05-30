@@ -88,12 +88,14 @@ public class Component : IDestroyable, ICloneable
         bool methodHasExecuteInEditModeAttrib = false;
         if (_executeInEditModeMethods.ContainsKey(typeAndMethodString) == false)
         {
-            methodHasExecuteInEditModeAttrib = type.GetCustomAttribute(typeof(ExecuteInEditModeAttribute), true) != null;
+            methodHasExecuteInEditModeAttrib =
+                type.GetCustomAttribute(typeof(ExecuteInEditModeAttribute), true) != null;
 
             MethodInfo? info = type.GetMethod(methodName);
             if (methodHasExecuteInEditModeAttrib == false)
             {
-                methodHasExecuteInEditModeAttrib = info.GetCustomAttribute(typeof(ExecuteInEditModeAttribute), true) != null;
+                methodHasExecuteInEditModeAttrib =
+                    info.GetCustomAttribute(typeof(ExecuteInEditModeAttribute), true) != null;
             }
 
             _executeInEditModeMethods[typeAndMethodString] = methodHasExecuteInEditModeAttrib ? info : null;
@@ -145,10 +147,37 @@ public class Component : IDestroyable, ICloneable
         }
     }
 
-    public T GetComponent<T>(int? index = null) where T : Component => GameObject.GetComponent<T>(index);
+    public T? GetComponent<T>(int? index = null) where T : Component? => GameObject.GetComponent<T>(index);
 
-    public T GetComponent<T>(out T component, int? index = null) where T : Component =>
+    public T? GetComponent<T>(out T? component, int? index = null) where T : Component? =>
         GameObject.GetComponent<T>(out component, index);
+
+    public T? GetComponentInParents<T>(int? index = null) where T : Component?
+    {
+        return GetComponentInParents<T>(out _, index);
+    }
+
+    public T? GetComponentInParents<T>(out T? component, int? index = null) where T : Component?
+    {
+        Transform? parent = Transform.Parent;
+        while (parent != null)
+        {
+            parent.GetComponent<T>(out component, index);
+
+            if (component != null)
+            {
+                return component;
+            }
+            else
+            {
+                parent = parent.Parent;
+            }
+        }
+
+        component = null;
+        return null;
+    }
+
 
     public TComponent AddComponent<TComponent>() where TComponent : Component, new()
     {

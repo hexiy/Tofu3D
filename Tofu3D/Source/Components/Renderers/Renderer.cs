@@ -52,7 +52,9 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     public virtual RuntimeMesh RuntimeMesh { get; set; }
 
     [Hide]
-    public bool NeedsToSetupMeshAndMaterial = true;
+    public bool NeedsToSetupMaterial = true;
+    [Hide]
+    public bool NeedsToSetupMesh = true;
 
     // internal bool OnScreen = true;
     public float Layer { get; set; }
@@ -63,7 +65,10 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     [Hide]
     public virtual bool CanRender => true; // && Enabled && GameObject.Awoken && GameObject.ActiveInHierarchy;
 
-    public RenderMode RenderMode => Material?.RenderMode ?? RenderMode.Opaque;
+    public RenderMode RenderMode => Transform.IsInCanvas
+        ? RenderMode.UI
+        : (Material?.RenderMode ?? RenderMode.Opaque);
+
     public int RenderOrder { get; set; }
 
     [XmlIgnore]

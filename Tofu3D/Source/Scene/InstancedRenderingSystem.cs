@@ -391,7 +391,7 @@ public class InstancedRenderingSystem
         shader.SetFloat("u_renderMode",
             (int)Tofu.RenderingSystem.CurrentlyExecutingPipeline.RenderSettings.RenderModeSettings.CurrentRenderMode);
 
-        if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.UI &&
+        if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType == RenderPassType.UI &&
             Tofu.RenderingSystem.CurrentlyExecutingPipeline.ViewType is RenderTargetPipelineType.GameView)
         {
             shader.SetMatrix4X4("u_viewProjection",
@@ -399,8 +399,10 @@ public class InstancedRenderingSystem
         }
         else
         {
+            // this commented makes it work, so we're overwriting "u_viewProjection" before rendering the opaques? somehow???, idk
             shader.SetMatrix4X4("u_viewProjection",
-                Camera.CurrentlyRenderingCamera.ViewMatrix * Camera.CurrentlyRenderingCamera.ProjectionMatrix);
+                Camera.CurrentlyRenderingCamera.ViewMatrix *
+                Camera.CurrentlyRenderingCamera.GetPerspectiveProjectionMatrix());
         }
 
         shader.SetVector3("u_camPosWorldSpace", Camera.CurrentlyRenderingCamera.Transform.WorldPosition);

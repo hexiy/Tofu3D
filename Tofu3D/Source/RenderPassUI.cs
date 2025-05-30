@@ -6,10 +6,7 @@ public class RenderPassUI : RenderPass
 
     public RenderPassUI(RenderTargetPipeline pipeline) : base(RenderPassType.UI, pipeline)
     {
-        I = this;
     }
-
-    public static RenderPassUI I { get; private set; }
 
     public override void Initialize()
     {

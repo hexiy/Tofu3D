@@ -149,7 +149,7 @@ public class Transform : Component
     // [Show]
     internal bool IsInCanvas
     {
-        get { return Transform.Parent?.GetComponent<Canvas>() != null; }
+        get { return Transform.GetComponentInParents<Canvas>() != null; }
     }
 
     public Vector3 Rotation

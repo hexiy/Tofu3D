@@ -40,7 +40,7 @@ public class Grid : Component, IComponentUpdateable
         _renderer.RuntimeMesh =
             Tofu.AssetLoadManager.Get<Asset_Model>(TofuPath.Combine(Folders.BasicModelsInAssets, "plane.obj"))
                 .GetMesh(0);
-        _renderer.NeedsToSetupMeshAndMaterial = false;
+        _renderer.NeedsToSetupMaterial = false;
 
         Transform.WorldPosition = new Vector3(0, 0, 20);
         Transform.Rotation = new Vector3(90, 0, 0);

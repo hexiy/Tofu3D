@@ -1,11 +1,6 @@
 [ExecuteInEditMode]
-public class Canvas : Component, IComponentUpdateable
+public class Canvas : Component
 {
-    public void Update()
-    {
-        return;
-    }
-
     public override void Awake()
     {
         foreach (Transform transformChild in Transform.Children)
@@ -13,14 +8,10 @@ public class Canvas : Component, IComponentUpdateable
             if (transformChild.GetComponent<Renderer>(out var renderer))
             {
                 renderer.Material.RenderMode = RenderMode.UI;
+                renderer.NeedsToSetupMaterial = false;
             }
         }
 
         base.Awake();
-    }
-
-    public override void Start()
-    {
-        base.Start();
     }
 }
