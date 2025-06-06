@@ -395,7 +395,7 @@ public class InstancedRenderingSystem
             Tofu.RenderingSystem.CurrentlyExecutingPipeline.ViewType is RenderTargetPipelineType.GameView)
         {
             shader.SetMatrix4X4("u_viewProjection",
-                Matrix4x4.Identity * Camera.CurrentlyRenderingCamera.GetOrthographicProjectionMatrix());
+                Matrix4x4.Identity * Camera.CurrentlyRenderingCamera.GetOrthographicProjectionMatrixForUI());
         }
         else
         {

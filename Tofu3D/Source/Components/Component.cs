@@ -215,6 +215,7 @@ public class Component : IDestroyable, ICloneable
     public virtual void OnEnabled()
     {
         Scene.OnComponentEnabled(this);
+        LinkComponentFields();
     }
 
     /// <summary>
@@ -263,6 +264,69 @@ public class Component : IDestroyable, ICloneable
 
     public virtual void OnNewComponentAdded(Component comp)
     {
+    }
+
+    public void LinkComponentFields()
+    {
+        foreach (Component otherComponent in GameObject.Components)
+        {
+            if (otherComponent == this)
+            {
+                continue;
+            }
+
+            Type otherComponentType = otherComponent.GetType();
+
+            List<MemberInfo> infos = this.GetType().GetPropertiesOrFields();
+            for (int i = 0; i < infos.Count; i++)
+            {
+                LinkableComponent? linkableComponentAttribute = infos[i].GetCustomAttribute<LinkableComponent>();
+                if (linkableComponentAttribute != null)
+                {
+                    if (infos[i].MemberType == MemberTypes.Field)
+                    {
+                        Type infoType = (infos[i] as FieldInfo).FieldType;
+                        if (infoType == otherComponentType)
+                        {
+                            (infos[i] as FieldInfo).SetValue(this, otherComponent);
+                        }
+                    }
+
+                    if (infos[i].MemberType == MemberTypes.Property)
+                    {
+                        Type infoType = (infos[i] as PropertyInfo).PropertyType;
+
+                        if (infoType == otherComponentType)
+                        {
+                            (infos[i] as PropertyInfo).SetValue(this, otherComponent);
+                        }
+                    }
+
+                    // Type parentType = sourceType1;
+                    // while (parentType.BaseType != null &&
+                    //        parentType.BaseType.Name.Equals("Component") ==
+                    //        false) // while we  arent in component, go to parent class and find all fields there
+                    // {
+                    //     parentType = parentType.BaseType;
+                    //
+                    //     FieldInfo[] parentClassInfos = parentType.GetFields();
+                    //     for (int j = 0; j < parentClassInfos.Length; j++)
+                    //     {
+                    //         if (parentClassInfos[j].GetCustomAttribute<LinkableComponent>() != null &&
+                    //             infos[i].FieldType == sourceType2) // found linkable field in parent class
+                    //         {
+                    //             if (component.GetType() != Components[compIndex1].GetType())
+                    //             {
+                    //                 continue;
+                    //             }
+                    //
+                    //             parentClassInfos[j].SetValue(Components[compIndex1], component);
+                    //         }
+                    //     }
+                    // }
+                }
+            }
+        }
     }
 
     public int CompareTo(bool other)

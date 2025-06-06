@@ -103,7 +103,15 @@ public class Inspector
             {
                 continue;
             }
+        }
 
+        foreach (object? inspectable in inspectables)
+        {
+            if (inspectable == null)
+            {
+                continue;
+            }
+            
             InspectableData inspectableData = new InspectableData(inspectable, inspector: this);
             CurrentInspectableDatas.Add(inspectableData);
         }

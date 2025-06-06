@@ -633,6 +633,24 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
         Components.Add(component);
 
+        // RequireComponentAttribute
+        RequireComponentAttribute? requireComponentAttrib =
+            component.GetType().GetCustomAttribute<RequireComponentAttribute>();
+        if (requireComponentAttrib != null)
+        {
+            if (HasComponent(requireComponentAttrib.RequiredComponentType) == false)
+            {
+                RequireComponentAttribute? requireComponentAttribForNewComponent =
+                    requireComponentAttrib.RequiredComponentType.GetCustomAttribute<RequireComponentAttribute>();
+                if (requireComponentAttribForNewComponent == null ||
+                    requireComponentAttribForNewComponent.RequiredComponentType !=
+                    type) // in case comp1 requires comp2, and comp2 requires comp1
+                {
+                    AddComponent(requireComponentAttrib.RequiredComponentType);
+                }
+            }
+        }
+
         if (Awoken && component.Awoken == false)
         {
             if (Playmode.GameRunning == false)
@@ -709,7 +727,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         {
             component.OnSelectedChanged(selected);
         }
-        
     }
 
     public T GetComponent<T>(int? index = null) where T : Component
@@ -757,6 +774,19 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         for (int i = 0; i < Components.Count; i++)
         {
             if (Components[i] is T)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool HasComponent(Type type)
+    {
+        for (int i = 0; i < Components.Count; i++)
+        {
+            if (Components[i].GetType() == type)
             {
                 return true;
             }

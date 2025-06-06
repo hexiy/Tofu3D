@@ -164,7 +164,7 @@ public static class Extensions
     public static Color ToColor(this Vector4 vector) => new Color(vector.X, vector.Y, vector.Z, vector.W);
 
     public static List<MemberInfo> GetPropertiesOrFields(this Type t,
-        BindingFlags bf = BindingFlags.Public | BindingFlags.Instance)
+        BindingFlags bf = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic)
     {
         return t.GetMembers(bf).Where(mi => mi.MemberType == MemberTypes.Field || mi.MemberType == MemberTypes.Property)
             .ToList();
