@@ -142,9 +142,9 @@ public class Camera : Component, IComponentUpdateable
     }
     public Matrix4x4 GetOrthographicProjectionMatrixForUI()
     {
-        float left = -Size.X;
+        float left = 0;
         float right = Size.X;
-        float bottom = -Size.Y;
+        float bottom = 0;
         float top = Size.Y;
 
         Matrix4x4 orthoMatrix =
