@@ -1,4 +1,5 @@
 [ExecuteInEditMode]
+[RequireComponent(typeof(RectTransform))]
 public class Canvas : Component
 {
     public override void Awake()

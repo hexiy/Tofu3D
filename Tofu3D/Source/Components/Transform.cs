@@ -38,7 +38,7 @@ public class Transform : Component
         }
     }*/
     [XmlIgnore]
-    public Transform Parent;
+    public Transform? Parent;
 
     [Hide]
     public int ParentId = -1;
@@ -223,6 +223,19 @@ public class Transform : Component
         }
     }
 
+    public void AddChild(Transform child)
+    {
+        if (Children.Contains(child) == false)
+        {
+            Children.Add(child);
+        }
+
+        if (ChildrenIDs.Contains(child.GameObjectId) == false)
+        {
+            ChildrenIDs.Add(child.GameObjectId);
+        }
+    }
+
     public void SetParent(Transform par, bool updateTransform = false)
     {
         // if (ParentId != -1 && Tofu.SceneManager.CurrentScene.GetGameObject(ParentId) != null)
@@ -247,8 +260,7 @@ public class Transform : Component
 
         if (par != null)
         {
-            par.Children.Add(this);
-            par.ChildrenIDs.Add(GameObjectId);
+            par.AddChild(this);
         }
     }
 

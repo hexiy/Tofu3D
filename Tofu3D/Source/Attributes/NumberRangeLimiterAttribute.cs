@@ -21,4 +21,10 @@ public class NumberRangeLimiterAttribute : Attribute
         MinValueInt = min;
         MaxValueInt = max;
     }
+    
+    public NumberRangeLimiterAttribute(int min, int max)
+    {
+        MinValueInt = min;
+        MaxValueInt = max;
+    }
 }

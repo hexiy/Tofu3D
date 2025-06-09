@@ -126,6 +126,11 @@ public class InstancedRenderingSystem
                 continue;
             }
 
+            if (shaderGroup.Value.GroupDefinitionIndexes[0] >= _groupDefinitions.Count)
+            {
+                continue;
+            }
+
             if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.Opaques
                 or RenderPassType.UI
                 or RenderPassType.Transparency)

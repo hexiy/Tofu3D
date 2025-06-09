@@ -208,7 +208,7 @@ public class EditorPanelHierarchy : EditorPanel
         }
 
         ImGui.SameLine();
-        if (ImGui.Button("Add children"))
+        if (ImGui.Button("Add child"))
         {
             foreach (GameObject gameObject in _selectedGameObjects)
             {

@@ -323,7 +323,7 @@ public class SceneSerializer
 
         for (int compIndex = 0; compIndex < comps.Length; compIndex++)
         {
-            if (comps[compIndex].GetType() == typeof(Transform))
+            if (comps[compIndex].GetType() == typeof(Transform) || comps[compIndex].GetType()==typeof(RectTransform))
             {
                 Transform? tr = comps[compIndex] as Transform;
                 for (int goIndex = 0; goIndex < gos.Length; goIndex++)
