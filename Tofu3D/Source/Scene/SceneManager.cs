@@ -71,6 +71,8 @@ public class SceneManager
             CurrentScene.AddGameObjectToScene(sceneFile.GameObjects[i]);
         }
 
+        CurrentScene.CreateDefaultObjects();
+
         Debug.StartTimer("Awake");
         for (int i = 0; i < sceneFile.GameObjects.Count; i++)
         {
@@ -89,7 +91,6 @@ public class SceneManager
             }
         }
 
-        CurrentScene.CreateDefaultObjects();
 
         Scene.OnSceneLoaded();
         Debug.EndAndLogTimer("LoadScene");

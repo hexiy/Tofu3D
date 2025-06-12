@@ -174,6 +174,9 @@ public static class Extensions
 
     public static Vector3 ToVector3(this Vector2 point) => new Vector3(point.X, point.Y, 0);
 
+    public static Vector3 ToVector3XY(this Vector2 point, float z) => new Vector3(point.X, point.Y, z);
+    public static Vector3 ToVector3XZ(this Vector2 point, float y) => new Vector3(point.X, y, point.Y);
+
     public static Vector3 ToVector3(this Vector4 v4) => new Vector3(v4.X, v4.Y, v4.Z);
 
     public static Vector3 Normalized(this Vector3 vec)

@@ -111,7 +111,7 @@ public class ModelRenderer : Renderer
             return;
         }
 
-        if (RuntimeMesh == null || BoxShape == null)
+        if (RuntimeMesh == null || (BoxShape == null && RectTransform == null))
         {
             return;
         }

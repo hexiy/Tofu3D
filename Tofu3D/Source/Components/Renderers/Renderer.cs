@@ -17,7 +17,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 
     //[LinkableComponent]
     [XmlIgnore]
-    public BoxShape BoxShape;
+    public BoxShape? BoxShape;
 
     private Color _color = TofuEngine.Color.White;
 
@@ -53,6 +53,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 
     [Hide]
     public bool NeedsToSetupMaterial = true;
+
     [Hide]
     public bool NeedsToSetupMesh = true;
 
@@ -93,8 +94,16 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     {
         get
         {
-            Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale);
-            return scale * IdentityPivotRotationMatrix;
+            if (RectTransform == null)
+            {
+                Matrix4x4 scale = Matrix4x4.CreateScale(BoxShape.Size * Transform.WorldScale);
+                return scale * IdentityPivotRotationMatrix;
+            }
+            else
+            {
+                Matrix4x4 scale = Matrix4x4.CreateScale(RectTransform.SizeForRendering.ToVector3XZ(y: 1) * Transform.WorldScale);
+                return scale * IdentityPivotRotationMatrix;
+            }
         }
     }
 
@@ -111,8 +120,17 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     {
         get
         {
-            Vector3 worldPositionPivotOffset =
-                BoxShape.Size * Transform.WorldScale * (Vector3.One - BoxShape.Pivot * 2);
+            Vector3 worldPositionPivotOffset;
+            if (RectTransform == null)
+            {
+                worldPositionPivotOffset =
+                    BoxShape.Size * Transform.WorldScale * (Vector3.One - BoxShape.Pivot * 2);
+            }
+            else
+            {
+                worldPositionPivotOffset =
+                    RectTransform.SizeForRendering * Transform.WorldScale * (Vector3.One - RectTransform.Pivot * 2);
+            }
 
             Matrix4x4 pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
 
@@ -128,8 +146,10 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     {
         get
         {
+            // Vector3 worldPositionPivotOffset =
+                // Transform.WorldScale * (Vector3.One - BoxShape.Pivot * 2);
             Vector3 worldPositionPivotOffset =
-                Transform.WorldScale * (Vector3.One - BoxShape.Pivot * 2);
+                Transform.WorldScale;
 
             Matrix4x4 pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
 
@@ -306,9 +326,19 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
         // }
 
         // Matrix4x4 translation = Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale + (GameObject.IndexInHierarchy * Vector3.One * 0.0001f));
-        Matrix4x4 translation =
-            Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale);
-        return ScalePivotRotationMatrix * translation;
+
+        if (RectTransform == null)
+        {
+            Matrix4x4 translation =
+                Matrix4x4.CreateTranslation(Transform.WorldPosition + BoxShape.Offset * Transform.WorldScale);
+            return ScalePivotRotationMatrix * translation;
+        }
+        else
+        {
+            Matrix4x4 translation =
+                Matrix4x4.CreateTranslation(RectTransform.PositionForRendering.ToVector3() * Transform.WorldScale);
+            return ScalePivotRotationMatrix * translation;
+        }
     }
 
     public Matrix4x4 GetModelMatrixWithoutBoxShape()
@@ -391,7 +421,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 
     internal void UpdateModelMatrix()
     {
-        if (BoxShape == null)
+        if (BoxShape == null && RectTransform == null)
         {
             return;
         }

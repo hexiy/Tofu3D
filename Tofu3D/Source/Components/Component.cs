@@ -59,7 +59,13 @@ public class Component : IDestroyable, ICloneable
         get => GameObject.Transform;
         set => GameObject.Transform = value;
     }
+    [XmlIgnore]
+    public RectTransform? RectTransform
 
+    {
+        get => GameObject.RectTransform;
+        set => GameObject.Transform = value;
+    }
     public object Clone() => MemberwiseClone();
 
     /*object memberwiseClone = this.MemberwiseClone();
@@ -226,9 +232,9 @@ public class Component : IDestroyable, ICloneable
         Scene.OnComponentDisabled(this);
     }
 
-    public virtual void EditorUpdate()
-    {
-    }
+    // public virtual void EditorUpdate()
+    // {
+    // }
 
     // public virtual void Update()
     // {

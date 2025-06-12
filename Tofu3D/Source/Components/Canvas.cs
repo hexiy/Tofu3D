@@ -1,6 +1,6 @@
 [ExecuteInEditMode]
 [RequireComponent(typeof(RectTransform))]
-public class Canvas : Component
+public class Canvas : Component, IComponentUpdateable
 {
     public override void Awake()
     {
@@ -13,6 +13,14 @@ public class Canvas : Component
             }
         }
 
+        RectTransform.Size = Camera.GameViewCamera.Size;
+        RectTransform.Pivot = Vector3.Zero;
+
         base.Awake();
+    }
+
+    public void Update()
+    {
+        Transform.Rotation = new Vector3(90, 0, 0);
     }
 }

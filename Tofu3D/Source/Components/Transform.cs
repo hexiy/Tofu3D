@@ -147,6 +147,7 @@ public class Transform : Component
     }
 
     // [Show]
+    [Hide]
     internal bool IsInCanvas
     {
         get { return Transform.GetComponentInParents<Canvas>() != null; }
@@ -192,15 +193,15 @@ public class Transform : Component
         //LocalPosition = LocalPosition;
         base.Awake();
     }
+    //
+    // public override void EditorUpdate()
+    // {
+    //     Update();
+    // }
 
-    public override void EditorUpdate()
-    {
-        Update();
-    }
-
-    public void Update()
-    {
-    }
+    // public void Update()
+    // {
+    // }
 
     public void RemoveChild(int id)
     {

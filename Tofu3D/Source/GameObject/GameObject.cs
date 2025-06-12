@@ -97,6 +97,9 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     [XmlIgnore]
     public Transform Transform { get; set; }
 
+    [XmlIgnore]
+    public RectTransform? RectTransform => Transform as RectTransform;
+
     public int CompareTo(bool other)
     {
         if (this == null)
