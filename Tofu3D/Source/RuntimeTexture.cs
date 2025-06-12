@@ -3,6 +3,7 @@ namespace TofuEngine;
 public class RuntimeTexture : Asset<RuntimeTexture>
 {
     public Vector4 BoundingBoxInAtlas;
+    public Vector2 Size;
 
     public int AtlasGLTextureArrayId => Tofu.TextureAtlasManager.GLTextureArrayId;
     public int IndexInAtlasTextureArray;

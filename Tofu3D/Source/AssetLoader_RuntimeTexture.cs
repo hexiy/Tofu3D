@@ -32,6 +32,7 @@ public class AssetLoader_RuntimeTexture : AssetLoader<RuntimeTexture>
             IndexInAtlasTextureArray = assetTexture.IndexInAtlasTextureArray,
             PathInLibraryFolder = assetTexture.PathInLibraryFolder,
             PathInAssetsFolder = assetTexture.PathInAssetsFolder,
+            Size = assetTexture.TextureSize,
         };
         runtimeTexture.AssetLoadParameters = loadParameters;
 

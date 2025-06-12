@@ -18,7 +18,7 @@ public class Component : IDestroyable, ICloneable
     public bool Awoken;
 
     [XmlIgnore]
-    public GameObject GameObject;
+    public GameObject? GameObject;
 
     public int GameObjectId;
     public bool Started;
@@ -59,22 +59,30 @@ public class Component : IDestroyable, ICloneable
         get => GameObject.Transform;
         set => GameObject.Transform = value;
     }
+
     [XmlIgnore]
     public RectTransform? RectTransform
 
     {
-        get => GameObject.RectTransform;
-        set => GameObject.Transform = value;
+        get => GameObject?.RectTransform;
+        set
+        {
+            if (GameObject != null)
+            {
+                GameObject.Transform = value;
+            }
+        }
     }
+
     public object Clone() => MemberwiseClone();
 
-    /*object memberwiseClone = this.MemberwiseClone();
-        Component clone = (Component) memberwiseClone;
+/*object memberwiseClone = this.MemberwiseClone();
+    Component clone = (Component) memberwiseClone;
 
-        clone.GameObjectId = -1;
-        clone.GameObject = null;
+    clone.GameObjectId = -1;
+    clone.GameObject = null;
 
-        return (object) clone;*/
+    return (object) clone;*/
     public virtual void OnDestroyed()
     {
         Scene.OnComponentRemoved(this);
@@ -196,7 +204,7 @@ public class Component : IDestroyable, ICloneable
 
     public List<T> GetComponents<T>() where T : Component => GameObject.GetComponents<T>();
 
-    // Doesnt respect rotation
+// Doesnt respect rotation
     public Vector3 TransformToWorld(Vector3 localPoint) => localPoint + Transform.WorldPosition;
 
     public virtual void Awake()
@@ -232,14 +240,13 @@ public class Component : IDestroyable, ICloneable
         Scene.OnComponentDisabled(this);
     }
 
-    // public virtual void EditorUpdate()
-    // {
-    // }
+// public virtual void EditorUpdate()
+// {
+// }
 
-    // public virtual void Update()
-    // {
-    // }
-
+// public virtual void Update()
+// {
+// }
     public virtual void FixedUpdate()
     {
     }

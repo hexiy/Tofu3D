@@ -15,11 +15,17 @@ public class RectTransform : Transform, IComponentUpdateable
     [PositiveNumber]
     public Vector2 Size = new Vector2(100, 100);
 
+    [PositiveNumber]
     public Vector2 AnchorMin = new Vector2(0.5f, 0.5f);
+
+    [PositiveNumber]
     public Vector2 AnchorMax = new Vector2(0.5f, 0.5f);
 
     [Space]
     public Vector2 Pivot = new Vector2(0.5f, 0.5f);
+
+    [Hide]
+    public float? AspectRatio = null;
 
 
     public override void Awake()
@@ -115,11 +121,27 @@ public class RectTransform : Transform, IComponentUpdateable
 
         Vector2 parentSize = ParentRectTransform.CalculatedSize;
         Vector2 parentWorldBottomLeft =
-            (Vector2)ParentRectTransform.WorldPosition - (parentSize * ParentRectTransform.Pivot);
+            (Vector2)ParentRectTransform.CalculatedPosition - (parentSize * ParentRectTransform.Pivot);
 
         Vector2 anchorBoxWorldSize = (AnchorMax - AnchorMin) * parentSize;
         CalculatedSize.X = AnchorMin.X == AnchorMax.X ? Size.X : anchorBoxWorldSize.X;
         CalculatedSize.Y = AnchorMin.Y == AnchorMax.Y ? Size.Y : anchorBoxWorldSize.Y;
+        CalculatedSize = CalculatedSize / Screen.Scale;
+        if (AspectRatio != null)
+        {
+            float currentAspectRatio = CalculatedSize.X / CalculatedSize.Y;
+            if (currentAspectRatio != AspectRatio.Value)
+            {
+                if (currentAspectRatio > AspectRatio.Value)
+                {
+                    CalculatedSize.X = CalculatedSize.Y * AspectRatio.Value;
+                }
+                else
+                {
+                    CalculatedSize.Y = CalculatedSize.X / AspectRatio.Value;
+                }
+            }
+        }
 
         Vector2 anchorMinWorldPoint = parentWorldBottomLeft + (parentSize * AnchorMin);
 
