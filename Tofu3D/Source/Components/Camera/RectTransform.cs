@@ -7,9 +7,10 @@ public class RectTransform : Transform, IComponentUpdateable
     public Canvas? Canvas => GetComponentInParents<Canvas>();
 
     [Hide]
-    public Vector2 SizeForRendering = new Vector2(100, 100);
+    public Vector2 CalculatedSize = new Vector2(100, 100);
+
     [Hide]
-    public Vector2 PositionForRendering = new Vector2(0,0);
+    public Vector2 CalculatedPosition = new Vector2(0, 0);
 
     [PositiveNumber]
     public Vector2 Size = new Vector2(100, 100);
@@ -85,29 +86,45 @@ public class RectTransform : Transform, IComponentUpdateable
     public void Update()
     {
         ClampAnchors();
-        UpdateTransform();
     }
 
-    private void UpdateTransform()
+    internal void CalculateLayoutForSelfAndChildren()
+    {
+        CalculateLayout();
+
+        foreach (Transform transform in Transform.Children)
+        {
+            RectTransform rectTransform = transform as RectTransform;
+            if (rectTransform == null)
+            {
+                continue;
+            }
+
+            rectTransform.CalculateLayoutForSelfAndChildren();
+        }
+    }
+
+    private void CalculateLayout()
     {
         if (ParentRectTransform == null)
         {
-            SizeForRendering = Size;
-            PositionForRendering = WorldPosition;
+            CalculatedSize = Size;
+            CalculatedPosition = WorldPosition;
             return;
         }
 
-        Vector2 parentSize = ParentRectTransform.SizeForRendering;
-        Vector2 parentWorldBottomLeft = (Vector2)ParentRectTransform.WorldPosition - (parentSize * ParentRectTransform.Pivot);
+        Vector2 parentSize = ParentRectTransform.CalculatedSize;
+        Vector2 parentWorldBottomLeft =
+            (Vector2)ParentRectTransform.WorldPosition - (parentSize * ParentRectTransform.Pivot);
 
         Vector2 anchorBoxWorldSize = (AnchorMax - AnchorMin) * parentSize;
-        SizeForRendering.X = AnchorMin.X == AnchorMax.X ? Size.X : anchorBoxWorldSize.X;
-        SizeForRendering.Y = AnchorMin.Y == AnchorMax.Y ? Size.Y : anchorBoxWorldSize.Y;
+        CalculatedSize.X = AnchorMin.X == AnchorMax.X ? Size.X : anchorBoxWorldSize.X;
+        CalculatedSize.Y = AnchorMin.Y == AnchorMax.Y ? Size.Y : anchorBoxWorldSize.Y;
 
         Vector2 anchorMinWorldPoint = parentWorldBottomLeft + (parentSize * AnchorMin);
 
         Vector2 pivotReferencePoint = anchorMinWorldPoint + (anchorBoxWorldSize * Pivot);
 
-        PositionForRendering = pivotReferencePoint + (Vector2)LocalPosition;
+        CalculatedPosition = pivotReferencePoint + (Vector2)LocalPosition;
     }
 }

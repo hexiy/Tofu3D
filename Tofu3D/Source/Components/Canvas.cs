@@ -22,5 +22,6 @@ public class Canvas : Component, IComponentUpdateable
     public void Update()
     {
         Transform.Rotation = new Vector3(90, 0, 0);
+        RectTransform.CalculateLayoutForSelfAndChildren();
     }
 }

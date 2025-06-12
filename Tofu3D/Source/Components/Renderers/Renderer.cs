@@ -101,7 +101,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
             }
             else
             {
-                Matrix4x4 scale = Matrix4x4.CreateScale(RectTransform.SizeForRendering.ToVector3XZ(y: 1) * Transform.WorldScale);
+                Matrix4x4 scale = Matrix4x4.CreateScale(RectTransform.CalculatedSize.ToVector3XZ(y: 1) * Transform.WorldScale);
                 return scale * IdentityPivotRotationMatrix;
             }
         }
@@ -129,7 +129,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
             else
             {
                 worldPositionPivotOffset =
-                    RectTransform.SizeForRendering * Transform.WorldScale * (Vector3.One - RectTransform.Pivot * 2);
+                    RectTransform.CalculatedSize * Transform.WorldScale * (Vector3.One - RectTransform.Pivot * 2);
             }
 
             Matrix4x4 pivot = Matrix4x4.CreateTranslation(worldPositionPivotOffset);
@@ -336,7 +336,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
         else
         {
             Matrix4x4 translation =
-                Matrix4x4.CreateTranslation(RectTransform.PositionForRendering.ToVector3() * Transform.WorldScale);
+                Matrix4x4.CreateTranslation(RectTransform.CalculatedPosition.ToVector3() * Transform.WorldScale);
             return ScalePivotRotationMatrix * translation;
         }
     }
