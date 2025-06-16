@@ -190,6 +190,13 @@ public class Transform : Component
 
     public override void Awake()
     {
+        if (this is not TofuEngine.RectTransform && GetComponentInParents<RectTransform>()!=null)
+        {
+            AddComponent<RectTransform>().Awake();
+            Debug.Log("replacing transform with recttransform");
+            return;
+        }
+
         //LocalPosition = LocalPosition;
         base.Awake();
     }

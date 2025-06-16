@@ -132,13 +132,15 @@ public class RectTransform : Transform, IComponentUpdateable
             float currentAspectRatio = CalculatedSize.X / CalculatedSize.Y;
             if (currentAspectRatio != AspectRatio.Value)
             {
-                if (currentAspectRatio > AspectRatio.Value)
+                if (currentAspectRatio > AspectRatio.Value) // current is too wide
                 {
                     CalculatedSize.X = CalculatedSize.Y * AspectRatio.Value;
+                    CalculatedSize.Y = CalculatedSize.X / AspectRatio.Value;
                 }
                 else
                 {
                     CalculatedSize.Y = CalculatedSize.X / AspectRatio.Value;
+                    CalculatedSize.X = CalculatedSize.Y / AspectRatio.Value;
                 }
             }
         }
