@@ -67,7 +67,7 @@ public class Editor
                 new EditorPanelConsole(),
                 new EditorPanelProfiler(),
                 new EditorPanelSceneView(),
-                new EditorPanelSceneView(),
+                // new EditorPanelSceneView(),
                 new EditorPanelGameView(),
                 // new EditorPanelTextureViewer(),
             };

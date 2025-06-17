@@ -114,7 +114,7 @@ public class
         if (Path.Contains(
                 ".mat")) // IF ITS mat  not .glsl, just assign SpriteRenderer so we can fix it without crashing
         {
-            Path = TofuPath.Combine(Folders.ShadersInAssets, "SpriteRenderer.glsl");
+            Path = TofuPath.Combine(Folders.EngineResourcesShaders, "SpriteRenderer.glsl");
         }
 
         if (AssetPathExtensions.Exists(Path) == false)

@@ -38,7 +38,8 @@ public class SceneSelectionHighlighter
         modelRenderer.MousePickingEnabled = false;
 
         Asset_Material runtimeMaterial = Tofu.AssetLoadManager
-            .Get<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets, "ModelRendererInstanced.mat"));
+            .GetDefaultModelRendererInstancedMaterial();
+        
         runtimeMaterial = Tofu.AssetLoadManager.CreateCopyFile(runtimeMaterial);
 
         modelRenderer.Material = runtimeMaterial;

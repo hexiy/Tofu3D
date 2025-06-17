@@ -6,10 +6,12 @@ namespace TofuEngine;
 public class Folders
 {
     public static string ProjectFullPath;
-    public static string EditorResources;
-    public static string EditorResourcesProjectFiles => TofuPath.Combine(EditorResources, "ProjectFiles");
-    public static string EditorResourcesFonts => TofuPath.Combine(EditorResources, "Fonts");
-    public static string EditorResourcesTextures => TofuPath.Combine(EditorResources, "Textures");
+    public static string EngineResources;
+    public static string EngineResourcesProjectFiles => TofuPath.Combine(EngineResources, "ProjectFiles");
+    public static string EngineResourcesFonts => TofuPath.Combine(EngineResources, "Fonts");
+    public static string EngineResourcesTextures => TofuPath.Combine(EngineResources, "Textures");
+    public static string EngineResourcesShaders => TofuPath.Combine(EngineResources, "Shaders");
+    public static string EngineResourcesMaterials => TofuPath.Combine(EngineResources, "Materials");
 
     public static string ProjectSettings => TofuPath.Combine(ProjectFullPath, "ProjectSettings");
     public static string Library => TofuPath.Combine(ProjectFullPath, "Library");
@@ -48,16 +50,16 @@ public class Folders
         var foldersInside = Directory.GetDirectories(ProjectFullPath);
         if (foldersInside.Length < 2)
         {
-            foreach (string dirPath in Directory.GetDirectories(EditorResourcesProjectFiles, "*",
+            foreach (string dirPath in Directory.GetDirectories(EngineResourcesProjectFiles, "*",
                          SearchOption.AllDirectories))
             {
-                Directory.CreateDirectory(dirPath.Replace(EditorResourcesProjectFiles, ProjectFullPath));
+                Directory.CreateDirectory(dirPath.Replace(EngineResourcesProjectFiles, ProjectFullPath));
             }
 
-            foreach (string newPath in Directory.GetFiles(EditorResourcesProjectFiles, "*.*",
+            foreach (string newPath in Directory.GetFiles(EngineResourcesProjectFiles, "*.*",
                          SearchOption.AllDirectories))
             {
-                File.Copy(newPath, newPath.Replace(EditorResourcesProjectFiles, ProjectFullPath), true);
+                File.Copy(newPath, newPath.Replace(EngineResourcesProjectFiles, ProjectFullPath), true);
             }
         }
         
@@ -116,7 +118,7 @@ public class Folders
 
     public static string Get2DAssetPath(string assetName) => TofuPath.Combine(TexturesInAssets, assetName);
 
-    public static string GetEditorResourcePath(string assetName) => TofuPath.Combine(EditorResources, assetName);
+    public static string GetEngineResourcePath(string assetName) => TofuPath.Combine(EngineResources, assetName);
 
     /// <summary>
     ///     From "Desktop/project/bin/Assets/2D/xx.png" to "bin/Assets/2D/xx.png"

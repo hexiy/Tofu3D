@@ -154,7 +154,7 @@ public class SceneViewController
         // }
         // todo MoveToGameObject(Tofu.GameObjectSelectionManager.GetSelectedGameObject());
 
-        bool isMouseOverSceneView = Tofu.MouseInput.IsMouseInSceneView;
+        bool isMouseOverSceneView = Tofu.MouseInput.IsMouseInView;
 // Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
         Debug.StatSetValue("isMouseOverSceneView",
             isMouseOverSceneView ? isMouseOverSceneViewStringYes : isMouseOverSceneViewStringNo);

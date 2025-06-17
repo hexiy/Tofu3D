@@ -379,7 +379,7 @@ public class EditorPanelSceneView : EditorPanel
 
         HandleModelDragDrop();
 
-        Tofu.MouseInput.IsMouseInSceneView = ImGui.IsItemHovered() || Tofu.MouseInput.IsMouseInSceneView;
+        Tofu.MouseInput.IsMouseInView = ImGui.IsItemHovered() || Tofu.MouseInput.IsMouseInView;
         // if (ImGui.IsItemHovered() && LastUsedView != this && Tofu.MouseInput.IsButtonDown())
         // {
             // LastUsedView = this;

@@ -16,15 +16,15 @@ public class EditorTextures
 
     public EditorTextures()
     {
-        LogCategoryErrorIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EditorResourcesTextures,"Console/error.png"));
-        LogCategoryInfoIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EditorResourcesTextures,"Console/info.png"));
-        LogCategoryTimerIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EditorResourcesTextures,"Console/timer.png"));
-        LogCategoryWarningIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EditorResourcesTextures,"Console/warning.png"));
-        PlayIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EditorResourcesTextures,"play.png"));
-        PauseIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EditorResourcesTextures,"pause.png"));
+        LogCategoryErrorIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EngineResourcesTextures,"Console/error.png"));
+        LogCategoryInfoIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EngineResourcesTextures,"Console/info.png"));
+        LogCategoryTimerIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EngineResourcesTextures,"Console/timer.png"));
+        LogCategoryWarningIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EngineResourcesTextures,"Console/warning.png"));
+        PlayIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EngineResourcesTextures,"play.png"));
+        PauseIcon = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EngineResourcesTextures,"pause.png"));
         
-        WhitePixel = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EditorResourcesTextures,"whitePixel.png"));
-        TransparentPixel = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EditorResourcesTextures,"transparent.png"));
-        Checkerboard = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EditorResourcesTextures,"checkerboard.png"));
+        WhitePixel = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EngineResourcesTextures,"whitePixel.png"));
+        TransparentPixel = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EngineResourcesTextures,"transparent.png"));
+        Checkerboard = Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.EngineResourcesTextures,"checkerboard.png"));
     }
 }

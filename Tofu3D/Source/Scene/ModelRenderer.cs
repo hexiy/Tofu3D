@@ -68,8 +68,7 @@ public class ModelRenderer : Renderer
                 {
                     if (Material?.PathInLibraryFolder.Length == 0 || Material == null)
                     {
-                        Material = Tofu.AssetLoadManager.Get<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets,
-                            "ModelRendererInstanced.mat"));
+                        Material = Tofu.AssetLoadManager.GetDefaultModelRendererInstancedMaterial();
                     }
                     else
                     {

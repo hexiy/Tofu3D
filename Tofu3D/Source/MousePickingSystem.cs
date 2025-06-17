@@ -112,6 +112,10 @@ public static class MousePickingSystem
         GL.ReadPixels((int)Tofu.MouseInput.PositionInView.X * Screen.ScaleI,
             (int)Tofu.MouseInput.PositionInView.Y * Screen.ScaleI, 1, 1,
             PixelFormat.Rgba, PixelType.UnsignedByte, ref _currentPixel);
+        if (_currentPixel != 0)
+        {
+            Debug.Log("Mouse picking hitt");
+        }
 
         // GL.Viewport();
         // GL.ReadPixels(idk, idk, 1, 1,
@@ -121,10 +125,10 @@ public static class MousePickingSystem
     // find renderer in Update, so we're not slowing down rendering/inflating the numbers
     public static void Update()
     {
-        if (Tofu.MouseInput.IsMouseInSceneView == false || Tofu.MouseInput.IsButtonDown() == false)
-        {
-            return;
-        }
+        // if (Tofu.MouseInput.IsMouseInSceneView == false || Tofu.MouseInput.IsButtonDown() == false)
+        // {
+            // return;
+        // }
 
         if (_currentPixel != _lastPixel)
         {
@@ -145,7 +149,9 @@ public static class MousePickingSystem
             {
                 // Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
             }
+
         }
+        Debug.StatSetValue("HoveredRenderer",$"HoveredRenderer {HoveredRenderer?.GameObject?.Name}");
 
         if (Tofu.MouseInput.ButtonPressed())
         {

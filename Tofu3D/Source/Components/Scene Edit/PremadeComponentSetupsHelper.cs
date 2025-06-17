@@ -9,7 +9,7 @@ public static class PremadeComponentSetupsHelper
         if (modelRenderer.Material == null)
         {
             modelRenderer.Material =
-                Tofu.AssetLoadManager.Get<Asset_Material>(TofuPath.Combine(Folders.MaterialsInAssets,"ModelRendererInstanced.mat"));
+                Tofu.AssetLoadManager.GetDefaultModelRendererInstancedMaterial();
         }
 
         modelRenderer.Material.AlbedoTexture = Tofu.Editor.EditorTextures.WhitePixel;

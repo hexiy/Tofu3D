@@ -282,7 +282,7 @@ internal static class Tofu
 
         ImGuiController.WindowResized(Window.ClientSize.X, Window.ClientSize.Y);
 
-        Tofu.MouseInput.IsMouseInSceneView =
+        Tofu.MouseInput.IsMouseInView =
             false; // set to false, and the scene views toggle it to true if mouse is over any of em
         Editor.Draw();
 

@@ -27,7 +27,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
     public void Update()
     {
-        if (Tofu.MouseInput.IsMouseInSceneView)
+        if (Tofu.MouseInput.IsMouseInView)
         {
             HandleModeChanges();
         }
@@ -206,7 +206,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
         // Material unlitMaterial = Tofu.AssetManager.Load<Asset_Material>("ModelRendererUnlit");
         Asset_Material standardMaterial =
-            Tofu.AssetLoadManager.Get<Asset_Material>("Assets/Materials/ModelRendererInstanced.mat");
+            Tofu.AssetLoadManager.GetDefaultModelRendererInstancedMaterial();
 
 
         Asset_Material materialCopy = Tofu.AssetLoadManager.CreateCopyFile(standardMaterial);

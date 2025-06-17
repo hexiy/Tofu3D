@@ -2,21 +2,24 @@
 
 namespace TofuEngine;
 
-public class Button : Component
+[RequireComponent(typeof(RectShape))]
+public class Button : Component, IComponentUpdateable
 {
     public delegate void MouseAction();
 
     private bool _clicked;
     private bool _mouseIsOver;
 
-    [XmlIgnore] private MouseAction _onClickedAction;
+    [XmlIgnore]
+    private MouseAction _onClickedAction;
 
-    //[LinkableComponent]
-    public BoxShape BoxShape;
+    [LinkableComponent]
+    public RectShape RectShape;
 
-    [XmlIgnore] public MouseAction OnReleasedAction;
+    [XmlIgnore]
+    public MouseAction OnReleasedAction;
 
-    //[LinkableComponent]
+    [LinkableComponent]
     public Renderer Renderer;
 
     public override void Awake()
@@ -31,19 +34,22 @@ public class Button : Component
         }
 
         Renderer = GetComponent<Renderer>();
-        BoxShape = GetComponent<BoxShape>();
+        // RectShape = GetComponent<RectShape>();
 
         base.Awake();
     }
 
     public void Update()
     {
-        if (Renderer == false || BoxShape == false)
+        if (Renderer == false || RectShape == false)
         {
             return;
         }
 
-        _mouseIsOver = Tofu.MouseInput.WorldPosition.In(BoxShape);
+        Renderer.MousePickingEnabled = true;
+
+        // _mouseIsOver = Tofu.MouseInput.WorldPosition.In(RectShape);
+        _mouseIsOver = MousePickingSystem.HoveredRenderer == Renderer;
         if (Tofu.MouseInput.ButtonPressed() && _mouseIsOver)
         {
             _onClickedAction?.Invoke();

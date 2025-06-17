@@ -209,6 +209,8 @@ public class EditorPanelGameView : EditorPanel
                 _renderTargetPipeline.FinalFramebuffer.Size,
                 new Vector4(0, 1, 1, 0));
         }
+        // Tofu.MouseInput.IsMouseInView = ImGui.IsItemHovered() || Tofu.MouseInput.IsMouseInView;
+
     }
 
 

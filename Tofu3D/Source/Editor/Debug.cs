@@ -16,6 +16,7 @@ public class Debug
 
     public static bool Paused = false;
 
+    [Conditional("TRACE")]
     private static void Log(string message, LogCategory logCategory = LogCategory.Info)
     {
         if (Paused)
@@ -49,21 +50,25 @@ public class Debug
         Console.WriteLine($"{logEntry.Time} : {logCategory} | {message}");
     }
 
+    [Conditional("TRACE")]
     public static void LogWarning(object message)
     {
         Log(message, LogCategory.Warning);
     }
 
+    [Conditional("TRACE")]
     public static void LogError(object message)
     {
         Log(message, LogCategory.Error);
     }
 
+    [Conditional("TRACE")]
     public static void Log(object message, LogCategory logCategory = LogCategory.Info)
     {
         Log(message.ToString(), logCategory);
     }
 
+    [Conditional("TRACE")]
     public static void LogDebug(object message, LogCategory logCategory = LogCategory.Info)
     {
         if (Global.Debug)
@@ -72,6 +77,7 @@ public class Debug
         }
     }
 
+    [Conditional("TRACE")]
     public static void StartGraphTimer(string timerName,
         DebugGraphTimer.SourceGroup group = DebugGraphTimer.SourceGroup.None, TimeSpan? redline = null,
         int drawOrder = 0)
@@ -97,6 +103,7 @@ public class Debug
         }
     }
 
+    [Conditional("TRACE")]
     public static void StartTimer(string timerName)
     {
         if (Global.EditorAttached == false)
@@ -120,6 +127,7 @@ public class Debug
         }
     }
 
+    [Conditional("TRACE")]
     public static void StatAddValue(string statName, float value)
     {
         if (Global.EditorAttached == false)
@@ -137,6 +145,7 @@ public class Debug
         }
     }
 
+    [Conditional("TRACE")]
     public static void StatSetAdditiveValue(string statName, float value)
     {
         if (Global.EditorAttached == false)
@@ -153,6 +162,7 @@ public class Debug
         AdditiveStats[statName] = value;
     }
 
+    [Conditional("TRACE")]
     public static void StatSetValue(string statName, object value)
     {
         if (Global.EditorAttached == false)
@@ -169,6 +179,7 @@ public class Debug
         Stats[statName] = value.ToString();
     }
 
+    [Conditional("TRACE")]
     public static void EndGraphTimer(string timerName)
     {
         if (Global.EditorAttached == false)
@@ -197,6 +208,7 @@ public class Debug
         return msDuration;
     }
 
+    [Conditional("TRACE")]
     public static void EndAndLogGraphTimer(string timerName)
     {
         if (Global.EditorAttached == false)
@@ -210,6 +222,7 @@ public class Debug
         StatSetValue(timerName, msDuration);
     }
 
+    [Conditional("TRACE")]
     public static void EndAndStatTimer(string timerName, bool additiveStat = false)
     {
         if (Global.EditorAttached == false)
@@ -245,6 +258,7 @@ public class Debug
         return msDuration;
     }
 
+    [Conditional("TRACE")]
     public static void ResetTimers()
     {
         //Timers.Clear();
@@ -265,12 +279,14 @@ public class Debug
         }
     }
 
+    [Conditional("TRACE")]
     public static void ClearAdditiveStats()
     {
         AdditiveStats.Clear();
         //Stats.Clear();
     }
 
+    [Conditional("TRACE")]
     public static void ClearLogs()
     {
         _logs.Clear();
@@ -279,6 +295,7 @@ public class Debug
     public static ref List<LogEntry> GetLogsRef() => ref _logs;
 
     [Conditional("TOFU_ASSERTIONS")]
+    [Conditional("TRACE")]
     public static void Assert(bool condition, object? message = null)
     {
         if (condition == false)

@@ -16,7 +16,7 @@ public class MouseInput
     private bool _skipOneFrame;
 
 
-    public bool IsMouseInSceneView = false;
+    public bool IsMouseInView = false;
 
     public Vector2 ScreenDelta { get; private set; }
 
@@ -48,7 +48,7 @@ public class MouseInput
     {
         get
         {
-            if (IsMouseInSceneView == false)
+            if (IsMouseInView == false)
             {
                 return 0;
             }
@@ -89,7 +89,7 @@ public class MouseInput
 
     public bool IsButtonUp(MouseButtons mouseButton = MouseButtons.Left)
     {
-        if (IsMouseInSceneView == false)
+        if (IsMouseInView == false)
         {
             return false;
         }

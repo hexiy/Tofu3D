@@ -20,7 +20,7 @@ public class InstancedRenderingSystem
         {
             _mousePickingMaterial = new Asset_Material()
             {
-                Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
+                Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.EngineResourcesShaders,
                     "ModelMousePicking.glsl"))
             };
             _mousePickingMaterial.LoadShader();
@@ -29,7 +29,7 @@ public class InstancedRenderingSystem
         {
             _depthMaterial = new Asset_Material()
             {
-                Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
+                Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.EngineResourcesShaders,
                     "ModelRendererInstancedDepth.glsl"))
             };
 
@@ -242,8 +242,8 @@ public class InstancedRenderingSystem
         if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType == RenderPassType.MousePicking)
         {
             RenderObjects_MousePickingPass(meshVao: meshVao, numberOfObjects: numberOfObjects,
-                indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
-                vbo: sharedInstancingBuffer.Vbo);
+            indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
+            vbo: sharedInstancingBuffer.Vbo);
         }
 
         else if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType

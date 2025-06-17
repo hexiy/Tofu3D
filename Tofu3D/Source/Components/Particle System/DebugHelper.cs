@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace TofuEngine;
 
 public static class DebugHelper
 {
+    [Conditional("TRACE")]
     public static void LogDrawCall([CallerFilePath] string filePath = "")
     {
         Debug.StatAddValue("Draw Calls", 1);
@@ -20,6 +22,7 @@ public static class DebugHelper
         }
     }
 
+    [Conditional("TRACE")]
     public static void LogVerticesDrawCall([CallerFilePath] string filePath = "", int verticesCount = 0)
     {
         Debug.StatAddValue("Total vertices:", verticesCount);

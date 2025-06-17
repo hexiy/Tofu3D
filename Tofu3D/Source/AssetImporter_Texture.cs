@@ -13,7 +13,7 @@ public class AssetImporter_Texture : AssetImporter<Asset_Texture>
         string path = assetImportParameters.PathToSourceAsset;
         if (File.Exists(path) == false)
         {
-            path = Folders.GetEditorResourcePath("purple.png");
+            path = TofuPath.Combine(Folders.EngineResourcesTextures ,"purple.png");
         }
 
         Vector2 imageSize = Vector2.Zero;

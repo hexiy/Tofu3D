@@ -24,17 +24,17 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
     {
         // _material = Tofu.AssetLoadManager.Load<Asset_Material>("/Assets/Materials/Skybox.mat");
         _material = new Asset_Material()
-            { Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets, "Skybox.glsl")) };
+            { Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.EngineResourcesShaders, "Skybox.glsl")) };
         _material.LoadShader();
         _texture = new RuntimeCubemapTexture();
         string[] texturePaths =
         {
-            TofuPath.Combine(Folders.EditorResourcesTextures, "defaultSkybox", "Daylight Box_Right.bmp"),
-            TofuPath.Combine(Folders.EditorResourcesTextures, "defaultSkybox", "Daylight Box_Left.bmp"),
-            TofuPath.Combine(Folders.EditorResourcesTextures, "defaultSkybox", "Daylight Box_Top.bmp"),
-            TofuPath.Combine(Folders.EditorResourcesTextures, "defaultSkybox", "Daylight Box_Bottom.bmp"),
-            TofuPath.Combine(Folders.EditorResourcesTextures, "defaultSkybox", "Daylight Box_Front.bmp"),
-            TofuPath.Combine(Folders.EditorResourcesTextures, "defaultSkybox", "Daylight Box_Back.bmp")
+            TofuPath.Combine(Folders.EngineResourcesTextures, "defaultSkybox", "Daylight Box_Right.bmp"),
+            TofuPath.Combine(Folders.EngineResourcesTextures, "defaultSkybox", "Daylight Box_Left.bmp"),
+            TofuPath.Combine(Folders.EngineResourcesTextures, "defaultSkybox", "Daylight Box_Top.bmp"),
+            TofuPath.Combine(Folders.EngineResourcesTextures, "defaultSkybox", "Daylight Box_Bottom.bmp"),
+            TofuPath.Combine(Folders.EngineResourcesTextures, "defaultSkybox", "Daylight Box_Front.bmp"),
+            TofuPath.Combine(Folders.EngineResourcesTextures, "defaultSkybox", "Daylight Box_Back.bmp")
         };
 
         AssetLoadParameters_CubemapTexture loadParameters = new AssetLoadParameters_CubemapTexture

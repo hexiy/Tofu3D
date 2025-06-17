@@ -111,7 +111,7 @@ public class RenderTargetPipeline
 
         RenderPassTransparency renderPassTransparency = new RenderPassTransparency(this);
         RenderPassMousePicking renderPassMousePicking = new RenderPassMousePicking(this);
-        renderPassMousePicking.Enabled = false;
+        // renderPassMousePicking.Enabled = false;
 
         RenderPassUI renderPassUI = new RenderPassUI(this);
 

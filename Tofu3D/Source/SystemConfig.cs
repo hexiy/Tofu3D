@@ -20,20 +20,20 @@ public static class SystemConfig
 
         if (OperatingSystem.IsMacOS)
         {
-            Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "../Resources/EditorResources");
-            if (Directory.Exists(Folders.EditorResources) == false)
+            Folders.EngineResources = Path.Combine(AppContext.BaseDirectory, "../Resources/EditorResources");
+            if (Directory.Exists(Folders.EngineResources) == false)
             {
-                Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "../../../../EditorResources");
+                Folders.EngineResources = Path.Combine(AppContext.BaseDirectory, "../../../../EditorResources");
             }
-            if (Directory.Exists(Folders.EditorResources) == false)
+            if (Directory.Exists(Folders.EngineResources) == false)
             {
-                Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "EditorResources");
+                Folders.EngineResources = Path.Combine(AppContext.BaseDirectory, "EditorResources");
             }
         }
     
         if (OperatingSystem.IsWindows || OperatingSystem.IsLinux)
         {
-            Folders.EditorResources = Path.Combine(AppContext.BaseDirectory, "EditorResources");
+            Folders.EngineResources = Path.Combine(AppContext.BaseDirectory, "EditorResources");
         }
         
 

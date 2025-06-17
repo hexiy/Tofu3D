@@ -580,7 +580,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
 
         Asset_Material material = new Asset_Material
         {
-            Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
+            Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.EngineResourcesShaders,
                 "ModelRendererInstanced.glsl")),
             SmoothShadows = true,
             AlbedoColor = materialDefinition.AlbedoColor

@@ -16,7 +16,7 @@ public static class ScriptsManager
     {
         _componentScriptTemplate =
             File.ReadAllText(
-                TofuPath.Combine(Folders.EditorResources,
+                TofuPath.Combine(Folders.EngineResources,
                     "ScriptTemplates", "ComponentScriptTemplate.txt"));
     }
 
@@ -29,7 +29,7 @@ public static class ScriptsManager
 
     public static void CopyDllsToProjectFolder()
     {
-        File.Copy(TofuPath.Combine(Folders.EditorResources, "Tofu3D.dll"), TofuPath.Combine(Folders.Dlls, "Tofu3D.dll"),
+        File.Copy(TofuPath.Combine(Folders.EngineResources, "Tofu3D.dll"), TofuPath.Combine(Folders.Dlls, "Tofu3D.dll"),
             overwrite: true);
     }
 

@@ -34,7 +34,7 @@ public class Framebuffer : ITexture
         _renderTextureMaterial =
             Tofu.AssetLoadManager.Get<Asset_Material>(TofuPath.Combine(Folders.MaterialsInLibrary,
                 "RenderTexture.mat.tofumaterial"));
-        _renderTextureMaterial.Shader = Tofu.ShaderManager.LoadShader("Assets/Shaders/RenderTexture.glsl");
+        _renderTextureMaterial.Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.EngineResourcesShaders,"RenderTexture.glsl"));
         // _renderTextureMaterial = new Asset_Material()
         // { Shader = new Shader("Assets/Shaders/RenderTexture.glsl") };
         _renderTextureMaterial.LoadShader();

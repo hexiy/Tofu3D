@@ -244,7 +244,7 @@ public class AssetLoadManager
     {
         Asset_Material mat = new Asset_Material()
         {
-            Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.ShadersInAssets,
+            Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.EngineResourcesShaders,
                 "ModelRendererInstanced.glsl"))
         }; // default shader for now
         mat.LoadShader();
@@ -303,5 +303,11 @@ public class AssetLoadManager
                   (importParameters?.GetHashCode() ?? 0)).GetHashCode();
         // int id = (pathToAssetInLibrary).GetHashCode();
         return id;
+    }
+
+    public Asset_Material GetDefaultModelRendererInstancedMaterial()
+    {
+        return Get<Asset_Material>(TofuPath.Combine(Folders.EngineResourcesMaterials,
+            "ModelRendererInstanced.mat"));
     }
 }
