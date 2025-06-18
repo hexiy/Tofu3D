@@ -66,7 +66,7 @@ public class ModelRenderer : Renderer
             {
                 if (Material == null || Material?.IsRuntimeCopy == false)
                 {
-                    if (Material?.PathInLibraryFolder.Length == 0 || Material == null)
+                    if (string.IsNullOrEmpty(Material?.PathInLibraryFolder) || Material == null)
                     {
                         Material = Tofu.AssetLoadManager.GetDefaultModelRendererInstancedMaterial();
                     }
