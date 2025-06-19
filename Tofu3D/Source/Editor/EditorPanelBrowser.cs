@@ -268,7 +268,7 @@ public class EditorPanelBrowser : EditorPanel
                     TofuPath.Combine("Assets", CurrentDirectoryInfo.Name,
                         Tofu.GameObjectSelectionManager.GetSelectedGameObject().Name + ".prefab"));
 
-                EditorPanelBrowser.I.RefreshAssets();
+                I.RefreshAssets();
             }
         }
 

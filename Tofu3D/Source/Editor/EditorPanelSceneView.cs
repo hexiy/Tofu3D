@@ -6,7 +6,7 @@ using TofuEngine.Rendering;
 
 namespace TofuEngine;
 
-public class EditorPanelSceneView : EditorPanel
+public class EditorPanelSceneView : EditorPanelGenericView
 {
     // private static bool _renderCameraViews = true;
 
@@ -15,9 +15,6 @@ public class EditorPanelSceneView : EditorPanel
     public override string Name => $"Scene View##{Id}";
     public int Id { get; set; } = 0;
     public static int CountOfSceneViews { get; set; } = 0;
-    public static EditorPanelSceneView LastUsedView { get; private set; }
-    private RenderTargetPipeline? _renderTargetPipeline;
-    public Camera? _camera => _renderTargetPipeline?.Camera;
 
     public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.NoScrollbar |
                                                               ImGuiWindowFlags.NoScrollWithMouse;
@@ -31,6 +28,14 @@ public class EditorPanelSceneView : EditorPanel
         CountOfSceneViews++;
     }
 
+    public override void Init()
+    {
+        // LastUsedView = this;
+        _renderTargetPipeline = Tofu.RenderingSystem.CreatePipelineForView(this,RenderTargetPipelineType.SceneView, Id);
+
+        base.Init();
+    }
+
     protected override void OnClosed()
     {
         if (_renderTargetPipeline != null)
@@ -40,7 +45,7 @@ public class EditorPanelSceneView : EditorPanel
 
         // if (LastUsedView == this)
         // {
-            // LastUsedView = null;
+        // LastUsedView = null;
         // }
 
         base.OnClosed();
@@ -66,7 +71,7 @@ public class EditorPanelSceneView : EditorPanel
     {
         // if (LastUsedView == null)
         // {
-            // LastUsedView = this;
+        // LastUsedView = this;
         // }
 
         //_renderCameraViews = true || //Global.Debug &&
@@ -76,7 +81,7 @@ public class EditorPanelSceneView : EditorPanel
 
         // int tooltipsPanelHeight = 70;
 
-        Tofu.Editor.SceneViewSize =
+        ActualViewSize =
             _renderTargetPipeline.FinalFramebuffer.Size /
             Screen.Scale; // + new Vector2(0, tooltipsPanelHeight);
 
@@ -86,7 +91,7 @@ public class EditorPanelSceneView : EditorPanel
 
         if (oldIsVisible == false && IsVisible == true && _renderTargetPipeline == null)
         {
-            _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.SceneView, Id);
+            _renderTargetPipeline = Tofu.RenderingSystem.CreatePipelineForView(this,RenderTargetPipelineType.SceneView, Id);
         }
 
         if (oldIsVisible && IsVisible == false && _renderTargetPipeline != null)
@@ -95,16 +100,18 @@ public class EditorPanelSceneView : EditorPanel
         }
 
 
-        if ((Vector2)ImGui.GetWindowSize() - _controlsBarHeightVector != _camera.Size)
+        if ((Vector2)ImGui.GetWindowSize() - _controlsBarHeightVector != Camera.Size)
         {
-            _camera.SetSize(ImGui.GetWindowSize() - _controlsBarHeightVector);
+            Camera.SetSize(ImGui.GetWindowSize() - _controlsBarHeightVector);
             // Debug.Log("SetSize");
         }
 
-
-        Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(),
+        ActualViewPosition = new Vector2(ImGui.GetCursorPosX(),
             ImGuiHelper.FlipYToGoodSpace(ImGui.GetCursorPosY()) -
-            _renderTargetPipeline.FinalFramebuffer.Size.Y / Screen.Scale - 15);
+            _renderTargetPipeline.FinalFramebuffer.Size.Y / Screen.Scale - _controlsBarHeight +25);
+        
+        // Debug.LogVariable(nameof(ActualViewPosition), ActualViewPosition);
+        // Debug.LogVariable("GetCursorPosY", ImGuiHelper.FlipYToGoodSpace(ImGui.GetCursorPosY()));
 
         // Debug.StatSetValue("aaaa", $"scne size {Tofu.RenderPassSystem.FinalFramebuffer.Size.Y / Screen.Scale}");
 
@@ -190,7 +197,7 @@ public class EditorPanelSceneView : EditorPanel
 
         // ImGui.SetCursorPos(new Vector2(0, 0));
 
-        // ImGui.SetCursorPosX(_camera.Size.X / 2 - 200 * Screen.ScaleI);
+        // ImGui.SetCursorPosX(Camera.Size.X / 2 - 200 * Screen.ScaleI);
 
         // Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
         // Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
@@ -379,10 +386,10 @@ public class EditorPanelSceneView : EditorPanel
 
         HandleModelDragDrop();
 
-        Tofu.MouseInput.IsMouseInView = ImGui.IsItemHovered() || Tofu.MouseInput.IsMouseInView;
+        // Tofu.MouseInput.AnyViewIsHovered = ImGui.IsItemHovered() || Tofu.MouseInput.AnyViewIsHovered;
         // if (ImGui.IsItemHovered() && LastUsedView != this && Tofu.MouseInput.IsButtonDown())
         // {
-            // LastUsedView = this;
+        // LastUsedView = this;
         // }
     }
 
@@ -441,7 +448,7 @@ public class EditorPanelSceneView : EditorPanel
                 if (parent == null)
                 {
                     Vector3 worldPosition =
-                        _camera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
+                        Camera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
 
                     string modelName =
                         Path.GetFileNameWithoutExtension(model.PathInAssetsFolder);
@@ -459,7 +466,7 @@ public class EditorPanelSceneView : EditorPanel
 
     private GameObject SpawnMeshIntoScene(RuntimeMesh mesh, int indexOfMesh, bool isSingleMeshInModel)
     {
-        Vector3 worldPosition = _camera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
+        Vector3 worldPosition = Camera.Transform.TransformVectorToWorldSpaceVector(Vector3.Forward * 10);
 
         string name =
             Path.GetFileNameWithoutExtension(mesh.Mesh.Name);
@@ -485,20 +492,5 @@ public class EditorPanelSceneView : EditorPanel
 
     public override void Update()
     {
-    }
-
-    public override void Init()
-    {
-        // LastUsedView = this;
-        AnyPanelFocused += OnAnyPanelFocused;
-        _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.SceneView, Id);
-    }
-
-    private void OnAnyPanelFocused(EditorPanel panel)
-    {
-        if (panel is EditorPanelSceneView v)
-        {
-            LastUsedView = v;
-        }
     }
 }

@@ -69,6 +69,12 @@ public class Debug
     }
 
     [Conditional("TRACE")]
+    public static void LogVariable(string variableName, object variable)
+    {
+        Log($"{variableName}:{variable.ToString()}", LogCategory.Info);
+    }
+
+    [Conditional("TRACE")]
     public static void LogDebug(object message, LogCategory logCategory = LogCategory.Info)
     {
         if (Global.Debug)
@@ -300,7 +306,7 @@ public class Debug
     {
         if (condition == false)
         {
-            Debug.LogError($"Assertion failed. {message ?? string.Empty}");
+            LogError($"Assertion failed. {message ?? string.Empty}");
         }
     }
 }

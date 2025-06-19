@@ -30,7 +30,7 @@ public class EditorPanelConsole : EditorPanel
 
     protected override void ExecuteImGuiDrawCommands()
     {
-        BeginWindowDefault();
+        // BeginWindowDefault();
 
         if (ImGui.Button("Clear"))
         {
@@ -270,7 +270,7 @@ public class EditorPanelConsole : EditorPanel
             ImGui.Separator();
         }
 
-        ImGui.End();
+        // ImGui.End();
     }
 
     private Color GetLogCategoryTextColor(LogCategory logCategory)

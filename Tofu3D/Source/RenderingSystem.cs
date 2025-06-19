@@ -12,9 +12,10 @@ public class RenderingSystem
         _renderTargetPipelines = new List<RenderTargetPipeline>();
     }
 
-    public RenderTargetPipeline CreatePipeline(RenderTargetPipelineType type, int id, Vector2? viewSize = null)
+    public RenderTargetPipeline CreatePipelineForView(EditorPanelGenericView view, RenderTargetPipelineType type,
+        int id, Vector2? viewSize = null)
     {
-        RenderTargetPipeline pipeline = new RenderTargetPipeline(type);
+        RenderTargetPipeline pipeline = new RenderTargetPipeline(view, type);
         pipeline.Initialize(id, viewSize);
 
 
@@ -33,7 +34,7 @@ public class RenderingSystem
 
     public void RenderAllRenderTargetPipelines()
     {
-        Tofu.SceneManager.CurrentScene.UploadRenderData(/*InstancingRenderMode.All*/);
+        Tofu.SceneManager.CurrentScene.UploadRenderData( /*InstancingRenderMode.All*/);
 
         foreach (RenderTargetPipeline pipeline in _renderTargetPipelines)
         {

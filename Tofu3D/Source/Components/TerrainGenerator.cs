@@ -165,7 +165,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
         List<GameObject> gameObjects = new List<GameObject>(20000);
         for (int i = 0; i < 20000; i++)
         {
-            GameObject go = TofuEngine.GameObject.Create(name: i.ToString(), addToScene: false);
+            GameObject go = GameObject.Create(name: i.ToString(), addToScene: false);
             gameObjects.Add(go);
             Debug.Log(i);
         }

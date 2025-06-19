@@ -7,13 +7,11 @@ using TofuEngine.Rendering;
 
 namespace TofuEngine;
 
-public class EditorPanelGameView : EditorPanel
+public class EditorPanelGameView : EditorPanelGenericView
 {
     public override string Name => "Game View";
-    public static EditorPanelGameView I { get; private set; }
-    private RenderTargetPipeline? _renderTargetPipeline;
     private bool _resolutionsPopupOpened;
-    public Camera? _camera => _renderTargetPipeline?.Camera;
+
 
     public override ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.NoScrollbar |
                                                               ImGuiWindowFlags.NoScrollWithMouse;
@@ -36,14 +34,13 @@ public class EditorPanelGameView : EditorPanel
 
     public override void Init()
     {
-        I = this;
         if (_currentResolutionPersistent.Value.X <= 0)
         {
             _currentResolutionPersistent.Value = Size;
         }
 
         _renderTargetPipeline =
-            Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.GameView, -1, _currentResolutionPersistent);
+            Tofu.RenderingSystem.CreatePipelineForView(this,RenderTargetPipelineType.GameView, -1, _currentResolutionPersistent);
     }
 
     protected override void OnClosed()
@@ -76,7 +73,7 @@ public class EditorPanelGameView : EditorPanel
     {
         if (IsVisible && _renderTargetPipeline == null)
         {
-            _renderTargetPipeline = Tofu.RenderingSystem.CreatePipeline(RenderTargetPipelineType.GameView, -1);
+            _renderTargetPipeline = Tofu.RenderingSystem.CreatePipelineForView(this,RenderTargetPipelineType.GameView, -1);
         }
 
         if (IsVisible == false && _renderTargetPipeline != null)
@@ -99,10 +96,10 @@ public class EditorPanelGameView : EditorPanel
             Vector2 actualSpaceForGameView = Size - new Vector2(_controlsBarHeight / Screen.Scale);
             Vector2 controlsBarHeightVector = new Vector2(0, _controlsBarHeight);
 
-            if (_currentResolutionPersistent != _camera.Size && _currentResolutionInPopup.Value.X <= 0)
+            if (_currentResolutionPersistent != Camera.Size && _currentResolutionInPopup.Value.X <= 0)
             {
                 _currentResolutionPersistent.Value = actualSpaceForGameView;
-                _camera.SetSize(_currentResolutionPersistent);
+                Camera.SetSize(_currentResolutionPersistent);
                 // Debug.Log("SetSize");
             }
 
@@ -112,37 +109,39 @@ public class EditorPanelGameView : EditorPanel
             // ImGui.SetCursorPosX(0);
             ImGui.SetCursorPos(new Vector2(0, _controlsBarHeight));
 
-            Vector2 gameViewDisplaySize = new Vector2(_renderTargetPipeline.FinalFramebuffer.Size.X,
+            ActualViewSize = new Vector2(_renderTargetPipeline.FinalFramebuffer.Size.X,
                 _renderTargetPipeline.FinalFramebuffer.Size.Y);
 
-            if (gameViewDisplaySize.X > Size.X)
+            if (ActualViewSize.X > Size.X)
             {
-                gameViewDisplaySize = gameViewDisplaySize / (gameViewDisplaySize.X / Size.X);
+                ActualViewSize = ActualViewSize / (ActualViewSize.X / Size.X);
             }
 
-            if (gameViewDisplaySize.Y > actualSpaceForGameView.Y)
+            if (ActualViewSize.Y > actualSpaceForGameView.Y)
             {
-                gameViewDisplaySize = gameViewDisplaySize / (gameViewDisplaySize.Y / actualSpaceForGameView.Y);
+                ActualViewSize = ActualViewSize / (ActualViewSize.Y / actualSpaceForGameView.Y);
             }
 
-            gameViewDisplaySize *= Screen.Scale;
+            ActualViewSize *= Screen.Scale;
 
-            Tofu.Editor.GameViewPosition = new Vector2(ImGui.GetCursorPosX(),
-                ImGuiHelper.FlipYToGoodSpace(ImGui.GetCursorPosY()) -
-                _renderTargetPipeline.FinalFramebuffer.Size.Y / Screen.Scale - 15);
+            // Tofu.Editor.GameViewPosition = new Vector2(ImGui.GetCursorPosX(),
+            // ImGuiHelper.FlipYToGoodSpace(ImGui.GetCursorPosY()) -
+            // _renderTargetPipeline.FinalFramebuffer.Size.Y / Screen.Scale - 15);
 
             // Debug.StatSetValue("aaaa", $"scne size {Tofu.RenderPassSystem.FinalFramebuffer.Size.Y / Screen.Scale}");
 
             if (_renderTargetPipeline.CanRender)
             {
                 TofuImGui.ImageTexture2D(_renderTargetPipeline.FinalFramebuffer.TextureId,
-                    gameViewDisplaySize,
+                    ActualViewSize,
                     new Vector4(0, 1, 1, 0));
             }
             else
             {
-                ImGui.Dummy(gameViewDisplaySize);
+                ImGui.Dummy(ActualViewSize);
             }
+
+            // Tofu.MouseInput.AnyViewIsHovered = ImGui.IsItemHovered() || Tofu.MouseInput.AnyViewIsHovered;
 
             ImGui.SetCursorPos(System.Numerics.Vector2.Zero);
             // ImGui.SetCursorPosX(0);
@@ -195,22 +194,23 @@ public class EditorPanelGameView : EditorPanel
         }
         else
         {
-            if (_camera.Size != Tofu.Window.ClientSize.ToVector2())
+            if (Camera.Size != Tofu.Window.ClientSize.ToVector2())
             {
                 _currentResolutionPersistent.Value = Tofu.Window.ClientSize.ToVector2();
-                _camera.SetSize(_currentResolutionPersistent);
+                Camera.SetSize(_currentResolutionPersistent);
                 // Debug.Log("SetSize");
             }
 
             ImGui.SetCursorPosX(0);
-            Tofu.Editor.SceneViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
+            ActualViewPosition = new Vector2(ImGui.GetCursorPosX(), ImGui.GetCursorPosY());
 
             TofuImGui.ImageTexture2D(_renderTargetPipeline.FinalFramebuffer.TextureId,
                 _renderTargetPipeline.FinalFramebuffer.Size,
                 new Vector4(0, 1, 1, 0));
-        }
-        // Tofu.MouseInput.IsMouseInView = ImGui.IsItemHovered() || Tofu.MouseInput.IsMouseInView;
 
+            // IsPanelHovered=
+            // Tofu.MouseInput.AnyViewIsHovered = ImGui.IsItemHovered() || Tofu.MouseInput.AnyViewIsHovered;
+        }
     }
 
 

@@ -32,17 +32,6 @@ public class Editor
 
     public EditorTextures EditorTextures;
 
-    // Left Bottom corner of the scene view
-    public Vector2 SceneViewPosition = new Vector2(0, 0);
-
-    public Vector2 SceneViewSize = new Vector2(0, 0);
-
-
-    // Left Bottom corner of the scene view
-    public Vector2 GameViewPosition = new Vector2(0, 0);
-
-    public Vector2 GameViewSize = new Vector2(0, 0);
-
     public unsafe void Initialize()
     {
         _editorLayoutManager = new EditorLayoutManager();
@@ -180,8 +169,9 @@ public class Editor
 
         if (Global.EditorAttached == false)
         {
-            EditorPanelGameView.I.IsFullscreen = true;
-            EditorPanelGameView.I.Draw();
+            Debug.Log("todo fullscreen");
+            // EditorPanelGameView.I.IsFullscreen = true;
+            // EditorPanelGameView.I.Draw();
         }
         else
         {
@@ -203,8 +193,8 @@ public class Editor
                 {
                     EditorPanelMenuBar.I.Draw();
 
-                    EditorPanelSceneView.LastUsedView.IsFullscreen = true;
-                    EditorPanelSceneView.LastUsedView.Draw();
+                    EditorViewManager.LastUsedView.IsFullscreen = true;
+                    EditorViewManager.LastUsedView.Draw();
                 }
                 else
                 {

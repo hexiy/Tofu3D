@@ -93,7 +93,7 @@ public class Window : GameWindow
             // WindowState = WindowState.Normal,
         })
     {
-        this.VSync = VSyncMode.Off;
+        VSync = VSyncMode.Off;
         FrameLimiterEnabled = FrameLimiterEnabled;
 
         // LoadIcon();
@@ -126,7 +126,7 @@ public class Window : GameWindow
                     };
 
                 Cursor* cursor = GLFW.CreateCursor(ref glfwImage, 0, 0);
-                GLFW.SetCursor(this.WindowPtr, cursor);
+                GLFW.SetCursor(WindowPtr, cursor);
             }
         }
     }

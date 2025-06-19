@@ -53,7 +53,7 @@ public static class TofuImGui
 
     public static bool ButtonFullWidth(string text)
     {
-        return Button(text, width: TofuImGui.GetContentRegionAvailWithPadding().X);
+        return Button(text, width: GetContentRegionAvailWithPadding().X);
     }
 
     public static bool Button(string text)
@@ -167,7 +167,7 @@ public static class TofuImGui
 
     public static void SetItemWidthToFullSpan()
     {
-        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X - TofuImGui.DefaultWindowPadding.X);
+        ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X - DefaultWindowPadding.X);
     }
 
     public const float WindowMenuBarHeight = 25;

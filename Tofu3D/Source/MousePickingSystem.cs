@@ -73,7 +73,7 @@ public static class MousePickingSystem
 
         // Pack the RGBA values into a single uint
         return (uint)(a << 24 | r << 16 | g << 8 | b);*/
-        
+
         // int r = (int) Mathf.ClampMax(_renderers.Count, 255);
         // int g = (int) Mathf.ClampMax(_renderers.Count % 255 - r, 255);
         // int b = (int) Mathf.ClampMax((_renderers.Count % 255) % 255 - r - g, 255);
@@ -102,24 +102,47 @@ public static class MousePickingSystem
 
     public static unsafe void ReadPixelAtMousePos()
     {
-        // GL.ReadPixels(0,0,1,1,PixelFormat.Rgb, PixelType.UnsignedByte, ref pixels);
+        GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassMousePicking.I.MainFramebuffer.FrameBufferID);
+        GL.Viewport(0, 0, RenderPassMousePicking.I.MainFramebuffer.Size.Xi,
+            RenderPassMousePicking.I.MainFramebuffer.Size.Yi);
+
+        uint bb = 0;
+        GL.ReadPixels(Tofu.MouseInput.PositionInHoveredView.Xi, Tofu.MouseInput.PositionInHoveredView.Yi, 1, 1,
+            PixelFormat.RedInteger,
+            PixelType.UnsignedInt, ref bb);
+
+        if (bb != 0)
+        {
+            Debug.Log($"bb:{bb}");
+        }
 
         if (_renderers.Count == 0)
         {
             return;
         }
 
-        GL.ReadPixels((int)Tofu.MouseInput.PositionInView.X * Screen.ScaleI,
+        /*GL.ReadPixels((int)Tofu.MouseInput.PositionInView.X * Screen.ScaleI,
             (int)Tofu.MouseInput.PositionInView.Y * Screen.ScaleI, 1, 1,
             PixelFormat.Rgba, PixelType.UnsignedByte, ref _currentPixel);
         if (_currentPixel != 0)
         {
-            Debug.Log("Mouse picking hitt");
-        }
+            // Debug.Log($"Mouse picking hit {new Color(_currentPixel)}");
+
+            byte a = (byte)((_currentPixel >> 24) & 0xFF);
+            byte r = (byte)((_currentPixel >> 16) & 0xFF);
+            byte g = (byte)((_currentPixel >> 8) & 0xFF);
+            byte b = (byte)(_currentPixel & 0xFF);
+            Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
+
+            // Color color = new Color(_pixels);
+            // Debug.Log($"picking pixel changed to {_currentPixel}");
+        }*/
 
         // GL.Viewport();
         // GL.ReadPixels(idk, idk, 1, 1,
         // PixelFormat.Rgba, PixelType.UnsignedByte, ref _tempPixels);
+
+        GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, 0);
     }
 
     // find renderer in Update, so we're not slowing down rendering/inflating the numbers
@@ -127,20 +150,20 @@ public static class MousePickingSystem
     {
         // if (Tofu.MouseInput.IsMouseInSceneView == false || Tofu.MouseInput.IsButtonDown() == false)
         // {
-            // return;
+        // return;
         // }
 
         if (_currentPixel != _lastPixel)
         {
             _lastPixel = _currentPixel;
             HoveredRenderer = GetRenderer(_currentPixel); // only find renderer if we're hovering a different color
-            
+
             // byte a = (byte)((_currentPixel >> 24) & 0xFF);
             // byte r = (byte)((_currentPixel >> 16) & 0xFF);
             // byte g = (byte)((_currentPixel >> 8) & 0xFF);
             // byte b = (byte)(_currentPixel & 0xFF);
             // Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
-            
+
             // Color color = new Color(_pixels);
             // Debug.Log($"picking pixel changed to {_currentPixel}");
 
@@ -149,9 +172,9 @@ public static class MousePickingSystem
             {
                 // Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
             }
-
         }
-        Debug.StatSetValue("HoveredRenderer",$"HoveredRenderer {HoveredRenderer?.GameObject?.Name}");
+
+        Debug.StatSetValue("HoveredRenderer", $"HoveredRenderer {HoveredRenderer?.GameObject?.Name}");
 
         if (Tofu.MouseInput.ButtonPressed())
         {
@@ -160,7 +183,8 @@ public static class MousePickingSystem
             // dont detect clicks on the transformhandle/selection highlighter box
             if (HoveredRenderer?.GameObject.VisibleInHierarchy == true)
             {
-                Tofu.Editor.AfterDraw += () => Tofu.GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObject);
+                Tofu.Editor.AfterDraw += () =>
+                    Tofu.GameObjectSelectionManager.SelectGameObject(HoveredRenderer.GameObject);
             }
             else if (HoveredRenderer == null)
                 // else if(HoveredRenderer?.GameObjectId!=TransformHandle.I.GameObjectId) // if we're dragging transformhandle we dont want to deselect anything

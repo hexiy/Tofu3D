@@ -67,19 +67,19 @@ public class SharedInstancingBuffer
 
     public void ExpandBuffer()
     {
-        this.MaxNumberOfObjects += 5;
-        if (this.MaxNumberOfObjects > 50)
+        MaxNumberOfObjects += 5;
+        if (MaxNumberOfObjects > 50)
         {
-            this.MaxNumberOfObjects += 20;
+            MaxNumberOfObjects += 20;
         }
 
         // Debug.Log($"Resizing buffer to new size:{this.MaxNumberOfObjects}");
 
-        Array.Resize(ref this.InstancingBuffer,
-            this.MaxNumberOfObjects * InstancedVertexDataLayoutDefinition.CountOfFloats);
-        GL.DeleteBuffer(this.Vbo);
-        this.Vbo = -1;
-        this.NeedsUpload = true;
+        Array.Resize(ref InstancingBuffer,
+            MaxNumberOfObjects * InstancedVertexDataLayoutDefinition.CountOfFloats);
+        GL.DeleteBuffer(Vbo);
+        Vbo = -1;
+        NeedsUpload = true;
     }
 
     public void RemoveObject(ObjectInstancingData removedObjectInstancingData)
@@ -143,10 +143,10 @@ public class SharedInstancingBuffer
 
     public void SetupInstancedBufferAndUploadIfNeeded()
     {
-        Tofu.ShaderManager.BindVertexArray(this.Vao);
+        Tofu.ShaderManager.BindVertexArray(Vao);
 
 
-        bool newBuffer = this.Vbo == -1;
+        bool newBuffer = Vbo == -1;
         if (newBuffer)
         {
             NeedsUpload = true;
@@ -154,10 +154,10 @@ public class SharedInstancingBuffer
 
         if (newBuffer)
         {
-            this.Vbo = GL.GenBuffer();
+            Vbo = GL.GenBuffer();
         }
 
-        GL.BindBuffer(BufferTarget.ArrayBuffer, this.Vbo);
+        GL.BindBuffer(BufferTarget.ArrayBuffer, Vbo);
         if (NeedsUpload)
         {
             if (newBuffer)
@@ -190,10 +190,10 @@ public class SharedInstancingBuffer
             }
 
             GL.BufferData(BufferTarget.ArrayBuffer,
-                sizeof(float) * this.InstancingBuffer.Length,
-                this.InstancingBuffer, BufferUsageHint.StaticDraw);
+                sizeof(float) * InstancingBuffer.Length,
+                InstancingBuffer, BufferUsageHint.StaticDraw);
 
-            this.NeedsUpload = false;
+            NeedsUpload = false;
         }
     }
 }

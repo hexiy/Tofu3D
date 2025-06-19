@@ -20,7 +20,6 @@ public abstract class EditorPanel
     public virtual ImGuiWindowFlags AdditionalWindowFlags => ImGuiWindowFlags.None;
     public virtual bool CreatesWindow => true;
     public bool IsFullscreen { get; set; }
-    protected static Action<EditorPanel> AnyPanelFocused = (panel) => { };
 
     internal void ResetId()
     {
@@ -54,7 +53,7 @@ public abstract class EditorPanel
 
     public virtual void Init()
     {
-        AnyPanelFocused += OnAnyPanelFocused;
+        EditorViewManager.AnyPanelFocused += OnAnyPanelFocused;
     }
 
     private void OnAnyPanelFocused(EditorPanel panel)
@@ -121,7 +120,7 @@ public abstract class EditorPanel
     {
     }
 
-    protected void BeginWindowDefault()
+    private void BeginWindowDefault()
     {
         ImGui.SetNextWindowSize(Size, ImGuiCond.FirstUseEver);
         ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
@@ -132,21 +131,26 @@ public abstract class EditorPanel
             OnVisibilityChanged();
         }
 
-        DoChecksAfterWindowCreated();
+        // DoChecksAfterWindowCreated();
     }
 
     private void DoChecksAfterWindowCreated()
     {
+        bool isPanelHoveredBefore = IsPanelHovered;
         IsPanelHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
         if (ImGui.IsMouseClicked(ImGuiMouseButton.Left))
         {
             if (IsPanelFocused == false && IsPanelHovered == true)
             {
-                AnyPanelFocused.Invoke(this);
+                EditorViewManager.AnyPanelFocused.Invoke(this);
             }
-            
-            IsPanelFocused = IsPanelHovered;
 
+            IsPanelFocused = IsPanelHovered;
+        }
+
+        if (isPanelHoveredBefore == false && IsPanelHovered == true)
+        {
+            EditorViewManager.AnyPanelHovered.Invoke(this);
         }
 
         Size = ImGui.GetWindowSize() / Screen.ScaleI;
@@ -168,7 +172,7 @@ public abstract class EditorPanel
                 Tofu.Editor.AfterDraw += () =>
                 {
                     OnClosed();
-                    this.IsVisible = false;
+                    IsVisible = false;
                     Tofu.Editor.CloseWindow(this);
                 };
             }
@@ -193,7 +197,6 @@ public abstract class EditorPanel
 
     protected virtual void OnClosed()
     {
-        
     }
 
     protected void EndWindow()

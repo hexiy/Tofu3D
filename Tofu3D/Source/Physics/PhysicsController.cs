@@ -255,7 +255,7 @@ public class PhysicsController
             return;
         }
 
-        Scripts.Shape shape = rb.FirstPhysicsEnabledShape;
+        Shape shape = rb.FirstPhysicsEnabledShape;
         if (shape == null)
         {
             return;

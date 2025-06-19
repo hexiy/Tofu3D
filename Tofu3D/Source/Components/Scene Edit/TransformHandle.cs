@@ -27,7 +27,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
     public void Update()
     {
-        if (Tofu.MouseInput.IsMouseInView)
+        if (EditorViewManager.LastUsedView?.ViewType is RenderTargetPipelineType.SceneView)
         {
             HandleModeChanges();
         }

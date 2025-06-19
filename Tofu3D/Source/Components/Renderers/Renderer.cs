@@ -19,7 +19,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     [XmlIgnore]
     public BoxShape? BoxShape;
 
-    private Color _color = TofuEngine.Color.White;
+    private Color _color = Color.White;
 
     public Color Color
     {
@@ -172,7 +172,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
         // return (GameObject.IndexInHierarchy * 1e-15f + Layer).CompareTo(comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer);
         // return (comparePart.DistanceFromCamera + (comparePart.GameObject.IndexInHierarchy * 1e-15f + comparePart.Layer)).CompareTo(DistanceFromCamera + (GameObject.IndexInHierarchy * 1e-15f + Layer));
         return (other.RenderOrder).CompareTo(
-            this.RenderOrder);
+            RenderOrder);
 
         //return Layer.CompareTo(comparePart.Layer + comparePart.LayerFromHierarchy);
     }

@@ -26,7 +26,7 @@ public class ModelRenderer : Renderer
     public override void OnDisabled()
     {
         Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData, remove: true,
-            isStatic: this.GameObject.IsStatic);
+            isStatic: GameObject.IsStatic);
 
         base.OnDisabled();
     }
@@ -143,13 +143,13 @@ public class ModelRenderer : Renderer
         bool updatedData =
             Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData,
                 // VertexBufferStructureType.Model, 
-                isStatic: this.GameObject.IsStatic);
+                isStatic: GameObject.IsStatic);
         if (updatedData)
         {
             ObjectInstancingData.InstancingDataDirty = false;
         }
 
-        if (this.GameObject.IsStatic)
+        if (GameObject.IsStatic)
         {
             RemoveFromRenderQueue();
         }

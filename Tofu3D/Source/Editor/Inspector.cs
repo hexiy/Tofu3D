@@ -427,11 +427,11 @@ public class Inspector
 
         if (info.FieldOrPropertyType.BaseType == typeof(Enum))
         {
-            Inspector._inspectorFieldDrawables[typeof(Enum)].Draw(info, componentInspectorData);
+            _inspectorFieldDrawables[typeof(Enum)].Draw(info, componentInspectorData);
         }
         else
         {
-            if (Inspector._inspectorFieldDrawables.TryGetValue(info.FieldOrPropertyType,
+            if (_inspectorFieldDrawables.TryGetValue(info.FieldOrPropertyType,
                     out var inspectorFieldDrawable))
             {
                 inspectorFieldDrawable.Draw(info, componentInspectorData);

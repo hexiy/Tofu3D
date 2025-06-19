@@ -5,6 +5,7 @@ namespace TofuEngine.Rendering;
 
 public class RenderTargetPipeline
 {
+    public EditorPanelGenericView EditorPanelView;
     private bool _initialized;
     public RenderTargetPipelineType ViewType { get; init; }
     public List<RenderPass> RenderPasses { get; } = new List<RenderPass>();
@@ -21,8 +22,9 @@ public class RenderTargetPipeline
 
     private SceneViewData _sceneViewData;
 
-    public RenderTargetPipeline(RenderTargetPipelineType type)
+    public RenderTargetPipeline(EditorPanelGenericView editorPanelView,RenderTargetPipelineType type)
     {
+        EditorPanelView = editorPanelView;
         ViewType = type;
         RenderSettings = new RenderSettings();
     }

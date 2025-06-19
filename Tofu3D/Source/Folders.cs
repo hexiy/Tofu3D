@@ -105,7 +105,7 @@ public class Folders
             return path;
         }
 
-        int lastIndexOfDirectorySeparator = path.LastIndexOf(System.IO.Path.DirectorySeparatorChar);
+        int lastIndexOfDirectorySeparator = path.LastIndexOf(Path.DirectorySeparatorChar);
 
         if (lastIndexOfDirectorySeparator == -1)
         {

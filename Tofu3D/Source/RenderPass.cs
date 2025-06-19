@@ -80,7 +80,7 @@ public abstract class RenderPass : IComparable<RenderPass>
         // its 1380,
         if (attachment == FramebufferAttachment.Color && MainFramebuffer.TextureId != -1)
         {
-            target.RenderColorAttachmentToThis(MainFramebuffer.TextureId, this.BlendMode);
+            target.RenderColorAttachmentToThis(MainFramebuffer.TextureId, BlendMode);
         }
 
         if (attachment == FramebufferAttachment.Depth && target.DepthTextureId != -1 &&

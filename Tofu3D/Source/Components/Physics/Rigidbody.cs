@@ -73,7 +73,7 @@ public class Rigidbody : Component
 
     public override void OnNewComponentAdded(Component comp)
     {
-        if (comp is Scripts.Shape shape)
+        if (comp is Shape shape)
         {
             CreateBody();
         }

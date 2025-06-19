@@ -13,7 +13,7 @@ public class InspectorFieldDrawerCurve : InspectorFieldDrawable<Curve>
         Vector2 pos = ImGui.GetCursorPos();
         Vector2 screenPos = TofuImGui.GetCursorScreenPos();
         // screenPos = screenPos * new Vector2(1, -1);
-        Vector2 mousePos = Tofu.MouseInput.PositionInWindow;
+        Vector2 mousePos = Tofu.MouseInput.PositionInEditorWindow;
         Vector2 mousePosRelativeToGraph =
             (mousePos - screenPos) * Tofu.Window.MonitorScale + new Vector2(0, graphSize.Y);
         Vector2 mousePosInGraphNormalizedCoordinates = mousePosRelativeToGraph / graphSize;

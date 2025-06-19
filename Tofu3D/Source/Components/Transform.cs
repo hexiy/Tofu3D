@@ -63,7 +63,7 @@ public class Transform : Component
                 }
 
                 // Create a local transformation matrix for this transform
-                Matrix4x4 localMatrix = this.MatrixLocalPosition;
+                Matrix4x4 localMatrix = MatrixLocalPosition;
 
                 // Combine the parent's matrix with the local matrix to transform to world space
                 Matrix4x4 combinedMatrix = Matrix4x4.Multiply(localMatrix, allParentsMatrix);

@@ -122,7 +122,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
     {
         object materialInspectable = Tofu.AssetLoadManager.Get<Asset_Material>(materialPath);
 
-        EditorPanelInspector.I.SelectInspectable(materialInspectable,
+        I.SelectInspectable(materialInspectable,
             anyValueChanged: (fieldName) =>
             {
                 Serializer.SaveFileJSON<Asset_Material>(
@@ -134,10 +134,10 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
     protected override void ExecuteImGuiDrawCommands()
     {
         //WindowWidth = 800;
-        BeginWindowDefault();
+        // BeginWindowDefault();
         if (IsVisible == false)
         {
-            ImGui.End();
+            // ImGui.End();
             return;
         }
 
@@ -171,7 +171,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
 
         ImGui.PopStyleVar(2); // Restore all styles
         PopAllIds();
-        ImGui.End();
+        // ImGui.End();
     }
 
 

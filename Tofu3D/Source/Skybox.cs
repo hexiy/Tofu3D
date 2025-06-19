@@ -63,7 +63,7 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
 
         Fov = Mathf.Clamp(Fov, 0.000001f, 179);
         Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(
-            OpenTK.Mathematics.MathHelper.DegreesToRadians(Fov),
+            MathHelper.DegreesToRadians(Fov),
             Camera.CurrentlyRenderingCamera.Size.X / Camera.CurrentlyRenderingCamera.Size.Y, 0.01f, 1);
 
 

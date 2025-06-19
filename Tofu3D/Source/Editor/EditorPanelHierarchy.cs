@@ -172,11 +172,11 @@ public class EditorPanelHierarchy : EditorPanel
     {
         ResetId();
 
-        BeginWindowDefault();
+        // BeginWindowDefault();
 
         if (IsVisible == false)
         {
-            ImGui.End();
+            // ImGui.End();
             return;
         }
         if (ImGui.Button("+"))

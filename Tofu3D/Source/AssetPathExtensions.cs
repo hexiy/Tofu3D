@@ -247,10 +247,10 @@ public static class AssetPathExtensions
             assetPath = Folders.GetPathRelativeToProjectFolder(assetPath);
         }
 
-        if (AssetPathExtensions.Exists(assetPath) == false)
+        if (Exists(assetPath) == false)
         {
             string assetPathInAssetsFolder = TofuPath.Combine("Assets", assetPath);
-            if (AssetPathExtensions.Exists(assetPathInAssetsFolder))
+            if (Exists(assetPathInAssetsFolder))
             {
                 assetPath = assetPathInAssetsFolder;
             }

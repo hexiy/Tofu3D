@@ -290,7 +290,7 @@ public class Component : IDestroyable, ICloneable
 
             Type otherComponentType = otherComponent.GetType();
 
-            List<MemberInfo> infos = this.GetType().GetPropertiesOrFields();
+            List<MemberInfo> infos = GetType().GetPropertiesOrFields();
             for (int i = 0; i < infos.Count; i++)
             {
                 LinkableComponent? linkableComponentAttribute = infos[i].GetCustomAttribute<LinkableComponent>();

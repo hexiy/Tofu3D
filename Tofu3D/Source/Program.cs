@@ -9,7 +9,7 @@ public static class Program
     {
         Debug.StartTimer("Engine start time");
 
-        TofuEngine.Debug.Log($"args: {string.Join(" | ", args)}");
+        Debug.Log($"args: {string.Join(" | ", args)}");
 
         // foreach (string s in args)
         // {

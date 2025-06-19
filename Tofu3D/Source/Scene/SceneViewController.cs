@@ -30,7 +30,7 @@ public class SceneViewController
     public PersistentObject<ProjectionMode> CurrentProjectionMode =
         ("sceneViewProjectionMode", ProjectionMode.Perspective);
 
-    private Camera? _camera => EditorPanelSceneView.LastUsedView?._camera;
+    private Camera? _camera => EditorViewManager.LastUsedView?.Camera;
     public bool IsPanningCamera { get; private set; }
 
     public bool AllowPassThroughEdges { get; set; }
@@ -67,7 +67,7 @@ public class SceneViewController
         {
             // Debug.Log("TWEENING:" + progress);
             _camera.OrthographicSize =
-                cameraOrthoSize + (float)OpenTK.Mathematics.MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
+                cameraOrthoSize + (float)MathHelper.Sin(progress * Mathf.Pi) * 0.8f;
             _camera.Transform.LocalPosition = Vector3.Lerp(cameraStartPos, cameraEndPos, progress);
         });
     }
@@ -126,7 +126,7 @@ public class SceneViewController
 
     public void Update()
     {
-        bool isSceneViewFocused = EditorPanelSceneView.LastUsedView?.IsPanelFocused ?? false;
+        bool isSceneViewFocused = EditorViewManager.LastUsedView?.IsPanelFocused ?? false;
         if (_camera == null)
         {
             return;
@@ -154,7 +154,7 @@ public class SceneViewController
         // }
         // todo MoveToGameObject(Tofu.GameObjectSelectionManager.GetSelectedGameObject());
 
-        bool isMouseOverSceneView = Tofu.MouseInput.IsMouseInView;
+        bool isMouseOverSceneView = EditorViewManager.CurrentlyHoveredView?.ViewType == RenderTargetPipelineType.SceneView;
 // Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
         Debug.StatSetValue("isMouseOverSceneView",
             isMouseOverSceneView ? isMouseOverSceneViewStringYes : isMouseOverSceneViewStringNo);

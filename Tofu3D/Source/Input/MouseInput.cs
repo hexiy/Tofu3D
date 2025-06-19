@@ -8,24 +8,19 @@ public class MouseInput
 
     private readonly List<Func<bool>> _passThroughEdgesConditions = new List<Func<bool>>();
 
-    //
-    // Summary:
-    //     Specifies the buttons of a mouse.
-    private float _sceneViewPadding = 20;
-
     private bool _skipOneFrame;
 
 
-    public bool IsMouseInView = false;
+    // public bool AnyViewIsHovered=> EditorViewManager.AnyViewHovered;
 
     public Vector2 ScreenDelta { get; private set; }
 
     /// <summary>
     ///     Screen position of mouse
     /// </summary>
-    public Vector2 PositionInView { get; private set; } = Vector2.Zero;
+    public Vector2 PositionInHoveredView { get; private set; } = Vector2.Zero;
 
-    public Vector2 PositionInWindow { get; private set; } = Vector2.Zero;
+    public Vector2 PositionInEditorWindow { get; private set; } = Vector2.Zero;
 
     // public static EventHandler<Func<bool>> PassThroughEdgesConditions;
 
@@ -42,13 +37,13 @@ public class MouseInput
         }
     }
 
-    public Vector2 WorldPosition => Camera.ActivelyInteractedWithCamera.ScreenToWorld(PositionInView);
+    public Vector2 WorldPosition => Camera.ActivelyInteractedWithCamera.ScreenToWorld(PositionInHoveredView);
 
     public float ScrollDelta
     {
         get
         {
-            if (IsMouseInView == false)
+            if (EditorViewManager.IsAnyPanelHovered == false)
             {
                 return 0;
             }
@@ -89,7 +84,7 @@ public class MouseInput
 
     public bool IsButtonUp(MouseButtons mouseButton = MouseButtons.Left)
     {
-        if (IsMouseInView == false)
+        if (EditorViewManager.IsAnyPanelHovered == false)
         {
             return false;
         }
@@ -127,7 +122,7 @@ public class MouseInput
 
         // Debug.StatSetValue("MouseInput AllowPassthroughEdges", $"AllowPassthroughEdges {allowPassThroughEdges}");
 
-        Vector2 oldPosition = PositionInWindow;
+        Vector2 oldPosition = PositionInEditorWindow;
 
         Vector2 pos = new Vector2();
         // Vector2 pos = Tofu.Window.MouseState.Position; //new Vector2();
@@ -138,34 +133,35 @@ public class MouseInput
             pos = new Vector2((float)x, (float)y);
         }
 
-        PositionInWindow = ImGuiHelper.FlipYToGoodSpace(pos);
+        PositionInEditorWindow = ImGuiHelper.FlipYToGoodSpace(pos);
 
-        ScreenDelta = PositionInWindow - oldPosition;
+        ScreenDelta = PositionInEditorWindow - oldPosition;
 
-        Vector2 mousePosCorrected = new Vector2(PositionInWindow.X, Tofu.Window.Size.Y - PositionInWindow.Y);
+        // Vector2 mousePosCorrected =
+        //     new Vector2(PositionInEditorWindow.X, Tofu.Window.Size.Y - PositionInEditorWindow.Y);
         // Debug.StatSetValue("mousePos", $"MousePos:{mousePosCorrected}");
         bool passedThroughEdge = false;
         if (allowPassThroughEdges)
         {
-            if (mousePosCorrected.X < 1 && ScreenDelta.X < 0)
+            if (PositionInEditorWindow.X < 1 && ScreenDelta.X < 0)
             {
                 Tofu.Window.MousePosition =
                     new OpenTK.Mathematics.Vector2(Tofu.Window.Size.X - 5, Tofu.Window.MousePosition.Y);
                 passedThroughEdge = true;
             }
             // do what the if statement above does but for the right side of the screen
-            else if (mousePosCorrected.X > Tofu.Window.Size.X - 2 && ScreenDelta.X > 0)
+            else if (PositionInEditorWindow.X > Tofu.Window.Size.X - 2 && ScreenDelta.X > 0)
             {
                 Tofu.Window.MousePosition = new OpenTK.Mathematics.Vector2(5, Tofu.Window.MousePosition.Y);
                 passedThroughEdge = true;
             }
-            else if (mousePosCorrected.Y > Tofu.Window.Size.Y - 2 && ScreenDelta.Y > 0)
+            else if (PositionInEditorWindow.Y > Tofu.Window.Size.Y - 2 && ScreenDelta.Y > 0)
             {
                 Tofu.Window.MousePosition =
                     new OpenTK.Mathematics.Vector2(Tofu.Window.MousePosition.X, Tofu.Window.Size.Y);
                 passedThroughEdge = true;
             }
-            else if (mousePosCorrected.Y < 1 && ScreenDelta.Y < 0)
+            else if (PositionInEditorWindow.Y < 1 && ScreenDelta.Y < 0)
             {
                 Tofu.Window.MousePosition = new OpenTK.Mathematics.Vector2(Tofu.Window.MousePosition.X, 5);
                 passedThroughEdge = true;
@@ -193,19 +189,9 @@ public class MouseInput
         // 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
         // }
 
+        PositionInHoveredView = PositionInEditorWindow - EditorViewManager.LastHoveredView.ActualViewPosition;
 
-        PositionInView = new Vector2(PositionInWindow.X - Tofu.Editor.SceneViewPosition.X,
-            PositionInWindow.Y - Tofu.Editor.SceneViewPosition.Y);
-
-        Debug.StatSetValue("MousePos", $"Mouse Position In Editor:{PositionInWindow}");
-        Debug.StatSetValue("Mouse Position In View", $"Mouse Position In View:{PositionInView}");
-        // Debug.StatSetValue("SceneViewPos", $"SceneViewPos:{Tofu.Editor.SceneViewPosition}");
-        // Debug.StatSetValue("SceneViewPos", $"SceneViewPos:{Tofu.Editor.SceneViewPosition.X},{Tofu.Editor.SceneViewPosition.Y}");
-        // Debug.StatSetValue("MousePosFlipped",$"mouse pos flipped:{ImGuiHelper.FlipYToGoodSpace(Tofu.Window.MousePosition)}");
-        // Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
-        // Debug.StatSetValue("Mouse position editor", $"Mouse pos in editor: {PositionInWindow}");
-        // Debug.StatSetValue("Mouse position scene view", $"Mouse pos in scene view: {PositionInView}");
-        // Debug.StatSetValue("SceneViewPosition", $"sceneViewPosition: {Tofu.Editor.SceneViewPosition}");
-        // Debug.StatSetValue("imgui mouse pos", $"imgui mmouse pos: {ImGui.GetMousePos()}");
+        Debug.StatSetValue("MousePos", $"Mouse Position In Editor:{PositionInEditorWindow}");
+        Debug.StatSetValue("Mouse Position In View", $"Mouse Position In View:{PositionInHoveredView}");
     }
 }

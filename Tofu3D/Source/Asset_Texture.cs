@@ -48,17 +48,17 @@ public class Asset_Texture : Asset<Asset_Texture>, IComparable<Asset_Texture>
 
     public int CompareTo(Asset_Texture? other)
     {
-        if (this.TextureSize.X * this.TextureSize.Y > other.TextureSize.X * other.TextureSize.Y)
+        if (TextureSize.X * TextureSize.Y > other.TextureSize.X * other.TextureSize.Y)
         {
             return 1;
         }
 
-        if (this.TextureSize.X * this.TextureSize.Y == other.TextureSize.X * other.TextureSize.Y)
+        if (TextureSize.X * TextureSize.Y == other.TextureSize.X * other.TextureSize.Y)
         {
             return 0;
         }
 
-        if (this.TextureSize.X * this.TextureSize.Y < other.TextureSize.X * other.TextureSize.Y)
+        if (TextureSize.X * TextureSize.Y < other.TextureSize.X * other.TextureSize.Y)
         {
             return -1;
         }
