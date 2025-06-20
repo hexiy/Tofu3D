@@ -69,11 +69,11 @@ public class RenderPassBloomThreshold : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = RenderTargetPipeline.ViewSize/3;
+            MainFramebuffer.Size = RenderTargetPipeline.FramebufferSize/3;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize/3, true, false, downsampleFactor: 1);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.FramebufferSize/3, true, false, downsampleFactor: 1);
     }
 }

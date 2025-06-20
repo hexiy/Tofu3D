@@ -30,6 +30,7 @@ internal static class Tofu
     internal static EditorSettingsAll EditorSettingsAll;
     internal static EditorWindowsManager EditorWindowsManager;
     internal static StatusWindow StatusWindow;
+    internal static EditorViewManager EditorViewManager;
 
     // RENDERING
     internal static RenderingSystem RenderingSystem;
@@ -168,6 +169,8 @@ internal static class Tofu
         Editor = new Editor();
         Editor.Initialize();
 
+        EditorViewManager = new EditorViewManager();
+
         TofuImGui.Init();
 
         SceneViewController = new SceneViewController();
@@ -283,7 +286,7 @@ internal static class Tofu
         ImGuiController.WindowResized(Window.ClientSize.X, Window.ClientSize.Y);
 
         // Tofu.MouseInput.AnyViewIsHovered =
-            // false; // set to false, and the scene views toggle it to true if mouse is over any of em
+        // false; // set to false, and the scene views toggle it to true if mouse is over any of em
         Editor.Draw();
 
         ImGuiController.Render();

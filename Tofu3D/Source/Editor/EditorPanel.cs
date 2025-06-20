@@ -126,6 +126,7 @@ public abstract class EditorPanel
         ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
         bool visibleBefore = IsVisible;
         IsVisible = ImGui.Begin(Name, Editor.ImGuiDefaultWindowFlags | AdditionalWindowFlags);
+
         if (visibleBefore != IsVisible)
         {
             OnVisibilityChanged();
@@ -155,6 +156,7 @@ public abstract class EditorPanel
 
         Size = ImGui.GetWindowSize() / Screen.ScaleI;
         Position = ImGui.GetWindowPos() / Screen.ScaleI;
+
         CheckForTabOptionsClick();
     }
 

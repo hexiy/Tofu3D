@@ -42,6 +42,6 @@ public class RenderPassSkybox : RenderPass
 
     protected override void SetupRenderTexture()
     {
-        MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize, true);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.FramebufferSize, true);
     }
 }

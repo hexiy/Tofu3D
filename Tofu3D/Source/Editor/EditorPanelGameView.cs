@@ -41,6 +41,12 @@ public class EditorPanelGameView : EditorPanelGenericView
 
         _renderTargetPipeline =
             Tofu.RenderingSystem.CreatePipelineForView(this,RenderTargetPipelineType.GameView, -1, _currentResolutionPersistent);
+        
+        EditorPanelTextureViewer.AddTexture(new TextureViewerTextureData()
+        {
+            Name = "Gameview",
+            Texture = this._renderTargetPipeline.FinalFramebuffer
+        });
     }
 
     protected override void OnClosed()
@@ -107,22 +113,38 @@ public class EditorPanelGameView : EditorPanelGenericView
 
 
             // ImGui.SetCursorPosX(0);
-            ImGui.SetCursorPos(new Vector2(0, _controlsBarHeight));
+            // ImGui.SetCursorPos(new Vector2(0, _controlsBarHeight));
 
             ActualViewSize = new Vector2(_renderTargetPipeline.FinalFramebuffer.Size.X,
                 _renderTargetPipeline.FinalFramebuffer.Size.Y);
 
-            if (ActualViewSize.X > Size.X)
-            {
-                ActualViewSize = ActualViewSize / (ActualViewSize.X / Size.X);
-            }
+            
+            Vector2 spaceAvailable = ImGui.GetContentRegionAvail();
+            float ratio = ActualViewSize.Y /
+                          ActualViewSize.X;
+            ActualViewSize.X = Mathf.ClampMax(ActualViewSize.X, spaceAvailable.X);
+            ActualViewSize.Y = ActualViewSize.X * ratio;
+            ActualViewSize.Y = Mathf.ClampMax(ActualViewSize.Y, spaceAvailable.Y);
+            ActualViewSize.X = ActualViewSize.Y / ratio;
+            
+            
+            Vector2 offset = (spaceAvailable - ActualViewSize) * 0.5f + new Vector2(0,  _controlsBarHeight);
 
-            if (ActualViewSize.Y > actualSpaceForGameView.Y)
-            {
-                ActualViewSize = ActualViewSize / (ActualViewSize.Y / actualSpaceForGameView.Y);
-            }
+            ImGui.SetCursorPos(offset);
 
-            ActualViewSize *= Screen.Scale;
+            ActualViewPosition = Position+offset;
+            
+            // if (ActualViewSize.X > Size.X)
+            // {
+            //     ActualViewSize = ActualViewSize / (ActualViewSize.X / Size.X);
+            // }
+            //
+            // if (ActualViewSize.Y > actualSpaceForGameView.Y)
+            // {
+            //     ActualViewSize = ActualViewSize / (ActualViewSize.Y / actualSpaceForGameView.Y);
+            // }
+            //
+            // ActualViewSize *= Screen.Scale;
 
             // Tofu.Editor.GameViewPosition = new Vector2(ImGui.GetCursorPosX(),
             // ImGuiHelper.FlipYToGoodSpace(ImGui.GetCursorPosY()) -

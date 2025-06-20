@@ -62,11 +62,11 @@ public class RenderPassOpaques : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = RenderTargetPipeline.ViewSize;
+            MainFramebuffer.Size = RenderTargetPipeline.FramebufferSize;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize, true, true);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.FramebufferSize, true, true);
     }
 }

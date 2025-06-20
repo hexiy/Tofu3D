@@ -133,7 +133,8 @@ public class InstancedRenderingSystem
 
             if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.Opaques
                 or RenderPassType.UI
-                or RenderPassType.Transparency)
+                or RenderPassType.Transparency
+                or RenderPassType.MousePicking)
             {
                 Shader shader = _groupDefinitions[shaderGroup.Value.GroupDefinitionIndexes[0]].Material.Shader;
                 // shader = Tofu.ShaderManager.LoadShader(shader.Path);
@@ -242,8 +243,8 @@ public class InstancedRenderingSystem
         if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType == RenderPassType.MousePicking)
         {
             RenderObjects_MousePickingPass(meshVao: meshVao, numberOfObjects: numberOfObjects,
-            indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
-            vbo: sharedInstancingBuffer.Vbo);
+                indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
+                vbo: sharedInstancingBuffer.Vbo);
         }
 
         else if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType
@@ -396,7 +397,7 @@ public class InstancedRenderingSystem
         shader.SetFloat("u_renderMode",
             (int)Tofu.RenderingSystem.CurrentlyExecutingPipeline.RenderSettings.RenderModeSettings.CurrentRenderMode);
 
-        if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType == RenderPassType.UI &&
+        if (material.RenderMode is RenderMode.UI &&
             Tofu.RenderingSystem.CurrentlyExecutingPipeline.ViewType is RenderTargetPipelineType.GameView)
         {
             shader.SetMatrix4X4("u_viewProjection",

@@ -12,6 +12,7 @@ public enum RenderPassType
     Opaques,
     Transparency,
     MousePicking,
+    
 
     BloomThreshold,
     BloomPostProcess,

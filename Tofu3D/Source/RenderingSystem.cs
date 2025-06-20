@@ -1,3 +1,4 @@
+using System.Linq;
 using TofuEngine.Rendering;
 
 namespace TofuEngine;
@@ -6,6 +7,9 @@ public class RenderingSystem
 {
     private List<RenderTargetPipeline> _renderTargetPipelines = new List<RenderTargetPipeline>();
     public RenderTargetPipeline? CurrentlyExecutingPipeline;
+
+    public RenderTargetPipeline GetGameViewPipeline() =>
+        _renderTargetPipelines.First(pipeline => pipeline.ViewType is RenderTargetPipelineType.GameView);
 
     public void Initialize()
     {

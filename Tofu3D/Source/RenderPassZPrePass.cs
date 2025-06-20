@@ -40,11 +40,11 @@ public class RenderPassZPrePass : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = RenderTargetPipeline.ViewSize;
+            MainFramebuffer.Size = RenderTargetPipeline.FramebufferSize;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize, false, true);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.FramebufferSize, false, true);
     }
 }

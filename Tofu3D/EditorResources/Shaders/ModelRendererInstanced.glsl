@@ -641,8 +641,9 @@ void main() {
 		float b = float(v_id & 0xFFu) / 255.0;         // Extract blue (lowest byte)
 
 //		fragColor = vec4(r, g, b, a); // RGB color with alpha = 1.0
+		fragColor = vec4(0,1,0, 1); // RGB color with alpha = 1.0
 		
-		fragColor = vec4(1,0,1,1);
+//		fragColor = vec4(1,0,1,1);
 	}
 	else if (u_renderMode == 10) // UVs
 	{

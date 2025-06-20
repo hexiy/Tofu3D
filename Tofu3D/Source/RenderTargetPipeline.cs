@@ -14,7 +14,7 @@ public class RenderTargetPipeline
 
     public Framebuffer FinalFramebuffer { get; private set; }
 
-    public Vector2 ViewSize { get; private set; } = new Vector2(100, 100);
+    public Vector2 FramebufferSize { get; private set; } = new Vector2(100, 100);
     public bool CanRender => Camera.IsActive == true && _initialized;
     public Camera Camera;
     public RenderPass ZPrePass;
@@ -31,7 +31,7 @@ public class RenderTargetPipeline
 
     public void Initialize(int id, Vector2? viewSize = null)
     {
-        ViewSize = viewSize ?? ViewSize;
+        FramebufferSize = viewSize ?? FramebufferSize;
         if (id != -1)
         {
             _sceneViewData = PersistentData.Get<SceneViewData>(key: $"SceneViewData_{id}", () => new SceneViewData());
@@ -43,7 +43,7 @@ public class RenderTargetPipeline
 
         // RenderSettings.LoadSavedData();
         CreatePasses();
-        RebuildRenderTextures(ViewSize);
+        RebuildRenderTextures(FramebufferSize);
         Scene.SceneLoaded += SetupCamera;
         if (Tofu.SceneManager.IsSceneLoaded)
         {
@@ -87,8 +87,8 @@ public class RenderTargetPipeline
 
     public void RebuildRenderTextures(Vector2 viewSize)
     {
-        ViewSize = viewSize;
-        FinalFramebuffer = new Framebuffer(ViewSize, true);
+        FramebufferSize = viewSize;
+        FinalFramebuffer = new Framebuffer(FramebufferSize, true);
 
         foreach (RenderPass renderPass in RenderPasses)
         {

@@ -1,3 +1,4 @@
+using System.Linq;
 using TofuEngine.Rendering;
 
 namespace TofuEngine;
@@ -83,14 +84,13 @@ public static class MousePickingSystem
     public static void Initialize()
     {
         //_renderers = new HashSet<MousePickingObject>();
-        if (RenderPassMousePicking.I?.Enabled == true)
+
+        EditorPanelTextureViewer.AddTexture(new TextureViewerTextureData()
         {
-            EditorPanelTextureViewer.AddTexture(new TextureViewerTextureData()
-            {
-                Name = "Mouse Picking",
-                Texture = RenderPassMousePicking.I.MainFramebuffer
-            });
-        }
+            Name = "Mouse Picking",
+            Texture = Tofu.RenderingSystem.GetGameViewPipeline().RenderPasses
+                .First(pass => pass.RenderPassType is RenderPassType.MousePicking).MainFramebuffer
+        });
     }
 
     // static void RenderPassMousePicking()
@@ -100,20 +100,19 @@ public static class MousePickingSystem
     //     Tofu.SceneManager.CurrentScene.RenderTransparency();
     // }
 
-    public static unsafe void ReadPixelAtMousePos()
+    public static unsafe void ReadPixelAtMousePos(RenderPass renderPass)
     {
-        GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, RenderPassMousePicking.I.MainFramebuffer.FrameBufferID);
-        GL.Viewport(0, 0, RenderPassMousePicking.I.MainFramebuffer.Size.Xi,
-            RenderPassMousePicking.I.MainFramebuffer.Size.Yi);
+        GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, renderPass.MainFramebuffer.FrameBufferID);
+        // GL.Viewport(0, 0, RenderPassMousePicking.I.MainFramebuffer.Size.Xi,
+            // RenderPassMousePicking.I.MainFramebuffer.Size.Yi);
 
-        uint bb = 0;
-        GL.ReadPixels(Tofu.MouseInput.PositionInHoveredView.Xi, Tofu.MouseInput.PositionInHoveredView.Yi, 1, 1,
-            PixelFormat.RedInteger,
-            PixelType.UnsignedInt, ref bb);
+        // GL.ReadPixels(Tofu.MouseInput.PositionInHoveredView.Xi, Tofu.MouseInput.PositionInHoveredView.Yi, 1, 1,
+            // PixelFormat.Rgba,
+            // PixelType.UnsignedByte, ref _currentPixel);
 
-        if (bb != 0)
+        if (_currentPixel != 0)
         {
-            Debug.Log($"bb:{bb}");
+            // Debug.Log($"bb:{bb}");
         }
 
         if (_renderers.Count == 0)
@@ -121,8 +120,8 @@ public static class MousePickingSystem
             return;
         }
 
-        /*GL.ReadPixels((int)Tofu.MouseInput.PositionInView.X * Screen.ScaleI,
-            (int)Tofu.MouseInput.PositionInView.Y * Screen.ScaleI, 1, 1,
+        GL.ReadPixels((int)Tofu.MouseInput.PositionInHoveredView.X,
+            (int)Tofu.MouseInput.PositionInHoveredView.Y, 1, 1,
             PixelFormat.Rgba, PixelType.UnsignedByte, ref _currentPixel);
         if (_currentPixel != 0)
         {
@@ -132,11 +131,11 @@ public static class MousePickingSystem
             byte r = (byte)((_currentPixel >> 16) & 0xFF);
             byte g = (byte)((_currentPixel >> 8) & 0xFF);
             byte b = (byte)(_currentPixel & 0xFF);
-            Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
+            // Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
 
-            // Color color = new Color(_pixels);
-            // Debug.Log($"picking pixel changed to {_currentPixel}");
-        }*/
+            // Color color = new Color(r,g,b,a);
+            // Debug.Log($"picking pixel color: {color}");
+        }
 
         // GL.Viewport();
         // GL.ReadPixels(idk, idk, 1, 1,
@@ -158,11 +157,11 @@ public static class MousePickingSystem
             _lastPixel = _currentPixel;
             HoveredRenderer = GetRenderer(_currentPixel); // only find renderer if we're hovering a different color
 
-            // byte a = (byte)((_currentPixel >> 24) & 0xFF);
-            // byte r = (byte)((_currentPixel >> 16) & 0xFF);
-            // byte g = (byte)((_currentPixel >> 8) & 0xFF);
-            // byte b = (byte)(_currentPixel & 0xFF);
-            // Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
+            byte a = (byte)((_currentPixel >> 24) & 0xFF);
+            byte r = (byte)((_currentPixel >> 16) & 0xFF);
+            byte g = (byte)((_currentPixel >> 8) & 0xFF);
+            byte b = (byte)(_currentPixel & 0xFF);
+            Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
 
             // Color color = new Color(_pixels);
             // Debug.Log($"picking pixel changed to {_currentPixel}");
@@ -170,7 +169,11 @@ public static class MousePickingSystem
 
             if (HoveredRenderer != null)
             {
-                // Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
+                Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
+            }
+            else
+            {
+                Debug.Log("Couldn't find any renderer hovered");
             }
         }
 

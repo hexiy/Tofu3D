@@ -12,6 +12,8 @@ public class EditorPanelGenericView : EditorPanel
     // public Vector2 MousePositionInView;
     public Vector2 ActualViewSize;
     public Vector2 ActualViewPosition;
+    public float Scale => (float)ActualViewSize.X / _renderTargetPipeline.FramebufferSize.X;
+
 
     public override void Init()
     {

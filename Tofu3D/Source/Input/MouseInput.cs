@@ -16,7 +16,7 @@ public class MouseInput
     public Vector2 ScreenDelta { get; private set; }
 
     /// <summary>
-    ///     Screen position of mouse
+    ///     Screen position of mouse, scales from 0 to the framebuffer size, not actual real rendered view size
     /// </summary>
     public Vector2 PositionInHoveredView { get; private set; } = Vector2.Zero;
 
@@ -189,7 +189,8 @@ public class MouseInput
         // 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
         // }
 
-        PositionInHoveredView = PositionInEditorWindow - EditorViewManager.LastHoveredView.ActualViewPosition;
+        PositionInHoveredView = (PositionInEditorWindow - EditorViewManager.LastHoveredView.ActualViewPosition) *
+            Screen.Scale * EditorViewManager.LastHoveredView.Scale * 2;
 
         Debug.StatSetValue("MousePos", $"Mouse Position In Editor:{PositionInEditorWindow}");
         Debug.StatSetValue("Mouse Position In View", $"Mouse Position In View:{PositionInHoveredView}");

@@ -2,7 +2,6 @@ namespace TofuEngine.Rendering;
 
 public class RenderPassMousePicking : RenderPass
 {
-    public static RenderPassMousePicking I { get; private set; }
     public override bool DrawsToTheFinalColorFramebuffer => false;
 
 
@@ -14,7 +13,6 @@ public class RenderPassMousePicking : RenderPass
 
     public RenderPassMousePicking(RenderTargetPipeline pipeline) : base(RenderPassType.MousePicking, pipeline)
     {
-        I = this;
     }
 
 
@@ -25,29 +23,38 @@ public class RenderPassMousePicking : RenderPass
         base.Initialize();
     }
 
+    protected override void PreRender()
+    {
+        // Clear the framebuffer with 0 (no object)
+
+        GL.ClearColor(0, 0, 0, 255);
+        GL.Clear(ClearBufferMask.ColorBufferBit);
+        base.PreRender();
+    }
 
     protected override void Render_GL()
     {
         Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.All);
     }
+    protected override void PostRender()
+    {
+        Debug.StartTimer("Mouse picking pass time");
+        MousePickingSystem.ReadPixelAtMousePos(this);
+        Debug.EndAndStatTimer("Mouse picking pass time");
 
+        base.PostRender();
+    }
     protected override void SetupRenderTexture()
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = RenderTargetPipeline.ViewSize;
+            MainFramebuffer.Size = RenderTargetPipeline.FramebufferSize;
             MainFramebuffer.Invalidate(false);
             return;
         }
 
-        MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize, true, false, isIntegerFramebuffer: true);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.FramebufferSize, true, false, isIntegerFramebuffer: false);
     }
 
-    protected override void PostRender()
-    {
-        Debug.StartTimer("Mouse picking pass time");
-        MousePickingSystem.ReadPixelAtMousePos();
-        Debug.EndAndStatTimer("Mouse picking pass time");
-        base.PostRender();
-    }
+
 }

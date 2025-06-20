@@ -148,27 +148,27 @@ public class RenderPassBloomPostProcess : RenderPass
     {
         if (MainFramebuffer != null)
         {
-            MainFramebuffer.Size = RenderTargetPipeline.ViewSize;
+            MainFramebuffer.Size = RenderTargetPipeline.FramebufferSize;
             MainFramebuffer.Invalidate(false);
         }
         else
         {
-            MainFramebuffer = new Framebuffer(RenderTargetPipeline.ViewSize, true, false);
+            MainFramebuffer = new Framebuffer(RenderTargetPipeline.FramebufferSize, true, false);
         }
 
         if (BloomFramebufferHorizontal != null)
         {
-            BloomFramebufferHorizontal.Size = RenderTargetPipeline.ViewSize / 3f;
+            BloomFramebufferHorizontal.Size = RenderTargetPipeline.FramebufferSize / 3f;
             BloomFramebufferHorizontal.Invalidate(false);
-            BloomFramebufferVertical.Size = RenderTargetPipeline.ViewSize / 3f;
+            BloomFramebufferVertical.Size = RenderTargetPipeline.FramebufferSize / 3f;
             BloomFramebufferVertical.Invalidate(false);
         }
         else
         {
             BloomFramebufferHorizontal =
-                new Framebuffer(RenderTargetPipeline.ViewSize, true, false, downsampleFactor: 3);
+                new Framebuffer(RenderTargetPipeline.FramebufferSize, true, false, downsampleFactor: 3);
             BloomFramebufferVertical =
-                new Framebuffer(RenderTargetPipeline.ViewSize, true, false, downsampleFactor: 3);
+                new Framebuffer(RenderTargetPipeline.FramebufferSize, true, false, downsampleFactor: 3);
         }
     }
 }

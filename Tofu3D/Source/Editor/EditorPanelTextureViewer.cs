@@ -37,8 +37,8 @@ public class EditorPanelTextureViewer : EditorPanel
             return;
         }
 
-        ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
-        ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
+        // ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+        // ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 
         ImGuiWindowFlags flags = ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoScrollbar |
                                  ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.Modal;
@@ -46,12 +46,13 @@ public class EditorPanelTextureViewer : EditorPanel
         ImGui.SetNextWindowPos(Position, ImGuiCond.FirstUseEver, Pivot);
         ImGui.Begin(Name, flags);
 
-        ImGui.SetCursorPos(new Vector2(0, 0));
+        // ImGui.SetCursorPos(new Vector2(0, 0));
 
         float yAvailable = ImGui.GetContentRegionAvail().Y;
-        float yAvailablePerOneTexture = yAvailable / (float)_textures.Count;
+        float yAvailablePerOneTexture = yAvailable / (float)_textures.Count -50; // -50 because we need space for label
         foreach (TextureViewerTextureData textureData in _textures)
         {
+            ImGui.Text(textureData.Name);
             float ratio = textureData.Texture.Size.Y /
                           textureData.Texture.Size.X;
 
@@ -65,20 +66,21 @@ public class EditorPanelTextureViewer : EditorPanel
             Vector2 cursorScreenPos = ImGui.GetCursorScreenPos();
             Vector2 textureEnd = cursorScreenPos + size;
 
-            ImDrawListPtr drawList = ImGui.GetWindowDrawList();
-            drawList.AddRectFilled(
-                cursorScreenPos,
-                textureEnd,
-                ImGui.ColorConvertFloat4ToU32(new Vector4(0.2f, 0.2f, 0.2f, 1.0f)) // Background color (RGBA)
-            );
+            // ImDrawListPtr drawList = ImGui.GetWindowDrawList();
+            // drawList.AddRectFilled(
+            //     cursorScreenPos,
+            //     textureEnd,
+            //     ImGui.ColorConvertFloat4ToU32(new Vector4(0.2f, 0.2f, 0.2f, 1.0f)) // Background color (RGBA)
+            // );
 
+            TofuImGui.ImageTexture2D(textureData.Texture.TextureId, size, uvBoundingBox:new Vector4(0,1,1,0));
             // ImGui.Image(textureData.Texture.TextureId,
             //     size,
             //     new Vector2(0, 1), new Vector2(1, 0));
             ImGui.NewLine();
         }
 
-        ImGui.PopStyleVar(2);
+        // ImGui.PopStyleVar(2);
     }
 
     public override void Update()
