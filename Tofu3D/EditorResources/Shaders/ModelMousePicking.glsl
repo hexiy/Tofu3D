@@ -31,20 +31,15 @@ void main(void)
 
 //[FRAGMENT]
 #version 410 core
-//layout (location = 0) out uint fragColor;
 layout (location = 0) out vec4 fragColor;
 flat in uint v_id;
 void main(void)
 {
-	float a = float((v_id >> 24) & 0xFFu) / 255.0; // Extract alpha (highest byte)
-	float r = float((v_id >> 16) & 0xFFu) / 255.0; // Extract red (highest byte)
-	float g = float((v_id >> 8) & 0xFFu) / 255.0;  // Extract green (middle byte)
-	float b = float(v_id & 0xFFu) / 255.0;         // Extract blue (lowest byte)
-
-	fragColor = vec4(r, g, b, a); // RGB color with alpha = 1.0
-
-//fragColor = vec4(int(v_id)/255.0,0,0,255);
-
+	float a = float((v_id >> 24) & 0xFFu) / 255.0; // highest byte
+	float r = float((v_id >> 16) & 0xFFu) / 255.0; // red
+	float g = float((v_id >> 8) & 0xFFu) / 255.0;  // green
+	float b = float(v_id & 0xFFu) / 255.0;         // blue
+	fragColor = vec4(r, g, b, a);
 }
 
 

@@ -131,7 +131,7 @@ public static class MousePickingSystem
             byte r = (byte)((_currentPixel >> 16) & 0xFF);
             byte g = (byte)((_currentPixel >> 8) & 0xFF);
             byte b = (byte)(_currentPixel & 0xFF);
-            // Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
+            Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
 
             // Color color = new Color(r,g,b,a);
             // Debug.Log($"picking pixel color: {color}");

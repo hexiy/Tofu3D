@@ -101,9 +101,18 @@ public class InstancedRenderingSystem
         {
             // _mousePickingMaterial = Tofu.AssetLoadManager.Load<Asset_Material>("ModelMousePicking.mat");
             Tofu.ShaderManager.UseShader(_mousePickingMaterial.Shader);
-
-            _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
-                Camera.CurrentlyRenderingCamera.ViewMatrix * Camera.CurrentlyRenderingCamera.ProjectionMatrix);
+            if (renderMode is InstancingRenderMode.UI &&
+                Tofu.RenderingSystem.CurrentlyExecutingPipeline.ViewType is RenderTargetPipelineType.GameView)
+            {
+                _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
+                    Matrix4x4.Identity * Camera.CurrentlyRenderingCamera.GetOrthographicProjectionMatrixForUI());
+            }
+            else
+            {
+                _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
+                    Camera.CurrentlyRenderingCamera.ViewMatrix *
+                    Camera.CurrentlyRenderingCamera.ProjectionMatrix);
+            }
         }
 
         else if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType
@@ -133,14 +142,32 @@ public class InstancedRenderingSystem
 
             if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.Opaques
                 or RenderPassType.UI
-                or RenderPassType.Transparency
-                or RenderPassType.MousePicking)
+                or RenderPassType.Transparency)
             {
                 Shader shader = _groupDefinitions[shaderGroup.Value.GroupDefinitionIndexes[0]].Material.Shader;
                 // shader = Tofu.ShaderManager.LoadShader(shader.Path);
                 Tofu.ShaderManager.UseShader(shader);
 
                 SetGlobalUniforms(_groupDefinitions[shaderGroup.Value.GroupDefinitionIndexes[0]].Material);
+            }
+
+            if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is
+                RenderPassType.MousePicking)
+            {
+                Tofu.ShaderManager.UseShader(_mousePickingMaterial.Shader);
+                if (renderMode is InstancingRenderMode.UI &&
+                    Tofu.RenderingSystem.CurrentlyExecutingPipeline.ViewType is RenderTargetPipelineType.GameView)
+                {
+                    _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
+                        Matrix4x4.Identity * Camera.CurrentlyRenderingCamera.GetOrthographicProjectionMatrixForUI());
+                }
+                else
+                {
+                    _mousePickingMaterial.Shader.SetMatrix4X4("u_viewProjection",
+                        Camera.CurrentlyRenderingCamera.ViewMatrix *
+                        Camera.CurrentlyRenderingCamera.ProjectionMatrix);
+                }
+                // SetGlobalUniforms(_mousePickingMaterial);
             }
 
             foreach (int definitionIndexInThisShaderGroup in shaderGroup.Value.GroupDefinitionIndexes)
@@ -768,5 +795,13 @@ public class InstancedRenderingSystem
         buffer[bufferIndex++] = uvOffset?.X ?? 0;
         buffer[bufferIndex++] = uvOffset?.Y ?? 0;
         // }
+    }
+
+    public void Reset()
+    {
+        foreach (KeyValuePair<int, SharedInstancingBuffer> sharedInstancingBuffer in _sharedInstancedBuffers)
+        {
+            sharedInstancingBuffer.Value.NeedsUpload = true;
+        }
     }
 }

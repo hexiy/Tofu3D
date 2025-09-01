@@ -6,9 +6,9 @@ public class RenderPassMousePicking : RenderPass
 
 
     public override bool CanRender() =>
-        RenderTargetPipeline.EditorPanelView.IsPanelHovered
+        //RenderTargetPipeline.EditorPanelView.IsPanelHovered && 
         //&& Tofu.MouseInput.IsButtonDown()
-        && base.CanRender();
+        base.CanRender();
 // make sure to check if mouse is in current scene view, not just any scene view
 
     public RenderPassMousePicking(RenderTargetPipeline pipeline) : base(RenderPassType.MousePicking, pipeline)
@@ -25,10 +25,13 @@ public class RenderPassMousePicking : RenderPass
 
     protected override void PreRender()
     {
+        // Ensure depth testing is enabled for correct nearest-surface selection
+        GL.Enable(EnableCap.DepthTest);
+        GL.Disable(EnableCap.Blend);
         // Clear the framebuffer with 0 (no object)
-
-        GL.ClearColor(0, 0, 0, 255);
-        GL.Clear(ClearBufferMask.ColorBufferBit);
+        // Clear to transparent background so "no object" reads as 0 in all channels
+        GL.ClearColor(0, 0, 0, 0);
+        GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         base.PreRender();
     }
 
@@ -49,11 +52,19 @@ public class RenderPassMousePicking : RenderPass
         if (MainFramebuffer != null)
         {
             MainFramebuffer.Size = RenderTargetPipeline.FramebufferSize;
-            MainFramebuffer.Invalidate(false);
+            // Ensure depth attachment exists; recreate if missing
+            if (MainFramebuffer.DepthTextureId == -1)
+            {
+                MainFramebuffer = new Framebuffer(RenderTargetPipeline.FramebufferSize, true, true, isIntegerFramebuffer: false);
+            }
+            else
+            {
+                MainFramebuffer.Invalidate(false);
+            }
             return;
         }
 
-        MainFramebuffer = new Framebuffer(RenderTargetPipeline.FramebufferSize, true, false, isIntegerFramebuffer: false);
+        MainFramebuffer = new Framebuffer(RenderTargetPipeline.FramebufferSize, true, true, isIntegerFramebuffer: false);
     }
 
 

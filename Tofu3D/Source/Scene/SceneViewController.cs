@@ -148,13 +148,19 @@ public class SceneViewController
             return;
         }
 
+        if (EditorViewManager.LastUsedView?.ViewType == RenderTargetPipelineType.GameView)
+        {
+            return;
+        }
+
         // if (KeyboardInput.WasKeyJustPressed(Keys.F))
         // {
         //     Debug.Log("TODO");
         // }
         // todo MoveToGameObject(Tofu.GameObjectSelectionManager.GetSelectedGameObject());
 
-        bool isMouseOverSceneView = EditorViewManager.CurrentlyHoveredView?.ViewType == RenderTargetPipelineType.SceneView;
+        bool isMouseOverSceneView =
+            EditorViewManager.CurrentlyHoveredView?.ViewType == RenderTargetPipelineType.SceneView;
 // Debug.Log($"isMouseOverSceneView:{isMouseOverSceneView}");
         Debug.StatSetValue("isMouseOverSceneView",
             isMouseOverSceneView ? isMouseOverSceneViewStringYes : isMouseOverSceneViewStringNo);
