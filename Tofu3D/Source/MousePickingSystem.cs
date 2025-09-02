@@ -9,7 +9,7 @@ public static class MousePickingSystem
 
     static uint _lastPixel;
 
-    private static uint _currentPixel;
+    private static uint _currentId;
 
     public static Renderer HoveredRenderer { get; private set; }
 
@@ -110,31 +110,26 @@ public static class MousePickingSystem
             // PixelFormat.Rgba,
             // PixelType.UnsignedByte, ref _currentPixel);
 
-        if (_currentPixel != 0)
-        {
-            // Debug.Log($"bb:{bb}");
-        }
-
         if (_renderers.Count == 0)
         {
             return;
         }
 
+        byte[] pixel = new byte[4];
         GL.ReadPixels((int)Tofu.MouseInput.PositionInHoveredView.X,
             (int)Tofu.MouseInput.PositionInHoveredView.Y, 1, 1,
-            PixelFormat.Rgba, PixelType.UnsignedByte, ref _currentPixel);
-        if (_currentPixel != 0)
+            PixelFormat.Rgba, PixelType.UnsignedByte, pixel);
+
+        byte r = pixel[0];
+        byte g = pixel[1];
+        byte b = pixel[2];
+        byte a = pixel[3];
+
+        _currentId = (uint)((a << 24) | (r << 16) | (g << 8) | b);
+
+        if (_currentId != 0)
         {
-            // Debug.Log($"Mouse picking hit {new Color(_currentPixel)}");
-
-            byte a = (byte)((_currentPixel >> 24) & 0xFF);
-            byte r = (byte)((_currentPixel >> 16) & 0xFF);
-            byte g = (byte)((_currentPixel >> 8) & 0xFF);
-            byte b = (byte)(_currentPixel & 0xFF);
-            // Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
-
-            // Color color = new Color(r,g,b,a);
-            // Debug.Log($"picking pixel color: {color}");
+            // Debug.Log($"Mouse picking hit id={_currentId} rgba=({r},{g},{b},{a})");
         }
 
         // GL.Viewport();
@@ -152,24 +147,20 @@ public static class MousePickingSystem
         // return;
         // }
 
-        if (_currentPixel != _lastPixel)
+        if (_currentId != _lastPixel)
         {
-            _lastPixel = _currentPixel;
-            HoveredRenderer = GetRenderer(_currentPixel); // only find renderer if we're hovering a different color
+            _lastPixel = _currentId;
+            HoveredRenderer = GetRenderer(_currentId); // find renderer by decoded id
 
-            byte a = (byte)((_currentPixel >> 24) & 0xFF);
-            byte r = (byte)((_currentPixel >> 16) & 0xFF);
-            byte g = (byte)((_currentPixel >> 8) & 0xFF);
-            byte b = (byte)(_currentPixel & 0xFF);
-            // Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
-
-            // Color color = new Color(_pixels);
-            // Debug.Log($"picking pixel changed to {_currentPixel}");
-
+            byte a = (byte)((_currentId >> 24) & 0xFF);
+            byte r = (byte)((_currentId >> 16) & 0xFF);
+            byte g = (byte)((_currentId >> 8) & 0xFF);
+            byte b = (byte)(_currentId & 0xFF);
+            // Debug.Log($"Extracted ID bytes: R={r}, G={g}, B={b}, A={a}");
 
             if (HoveredRenderer != null)
             {
-                // Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
+                Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
             }
             else
             {
