@@ -49,7 +49,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
                 float z = float.Parse(lineSplits[3]);
                 if (lineSplits[1].Length == 0 || lineSplits[1] == " ")
                 {
-                    var a = 0;
+                    int a = 0;
                 }
 
                 positions.Add(x);
@@ -145,7 +145,7 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             return;
         }
 
-        if (_objMaterialFiles.TryGetValue(objMaterialPath, out var materialFile))
+        if (_objMaterialFiles.TryGetValue(objMaterialPath, out ObjMaterialFileDefinition? materialFile))
         {
             objMaterialFileDefinition = materialFile;
             return;

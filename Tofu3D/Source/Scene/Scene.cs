@@ -144,7 +144,7 @@ public class Scene
     private void CreateGrid()
     {
         return;
-        var gridGameObject = GameObject.Create(runtimeOnly: true);
+        GameObject gridGameObject = GameObject.Create(runtimeOnly: true);
         gridGameObject.AddComponent<Grid>();
         gridGameObject.AlwaysUpdate = true;
         gridGameObject.Name = "Grid";

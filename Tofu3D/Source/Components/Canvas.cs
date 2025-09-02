@@ -6,7 +6,7 @@ public class Canvas : Component, IComponentUpdateable
     {
         foreach (Transform transformChild in Transform.Children)
         {
-            if (transformChild.GetComponent<Renderer>(out var renderer))
+            if (transformChild.GetComponent<Renderer>(out Renderer? renderer))
             {
                 renderer.Material.RenderMode = RenderMode.UI;
                 renderer.NeedsToSetupMaterial = false;

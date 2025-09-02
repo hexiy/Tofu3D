@@ -50,9 +50,9 @@ public class InspectorFieldDrawerEnum : InspectorFieldDrawable<Enum>
             {
                 // ImGui.SetNextItemWidth(ImGui.GetContentRegionAvail().X - TofuImGui.DefaultWindowPadding.X);
 
-                for (var i = 0; i < enumValuesNames.Length; i++)
+                for (int i = 0; i < enumValuesNames.Length; i++)
                 {
-                    var val = enumValuesNames[i];
+                    string val = enumValuesNames[i];
                     TofuImGui.SetItemWidthToFullSpan(); //doesnt work ;)
                     bool clicked = ImGui.Button(val);
                     if (ImGui.IsItemClicked())

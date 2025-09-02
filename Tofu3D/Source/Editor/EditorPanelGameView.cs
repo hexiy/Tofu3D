@@ -40,8 +40,9 @@ public class EditorPanelGameView : EditorPanelGenericView
         }
 
         _renderTargetPipeline =
-            Tofu.RenderingSystem.CreatePipelineForView(this,RenderTargetPipelineType.GameView, -1, _currentResolutionPersistent);
-        
+            Tofu.RenderingSystem.CreatePipelineForView(this, RenderTargetPipelineType.GameView, -1,
+                _currentResolutionPersistent);
+
         EditorPanelTextureViewer.AddTexture(new TextureViewerTextureData()
         {
             Name = "Gameview",
@@ -79,7 +80,8 @@ public class EditorPanelGameView : EditorPanelGenericView
     {
         if (IsVisible && _renderTargetPipeline == null)
         {
-            _renderTargetPipeline = Tofu.RenderingSystem.CreatePipelineForView(this,RenderTargetPipelineType.GameView, -1);
+            _renderTargetPipeline =
+                Tofu.RenderingSystem.CreatePipelineForView(this, RenderTargetPipelineType.GameView, -1);
         }
 
         if (IsVisible == false && _renderTargetPipeline != null)
@@ -118,7 +120,7 @@ public class EditorPanelGameView : EditorPanelGenericView
             ActualViewSize = new Vector2(_renderTargetPipeline.FinalFramebuffer.Size.X,
                 _renderTargetPipeline.FinalFramebuffer.Size.Y);
 
-            
+
             Vector2 spaceAvailable = ImGui.GetContentRegionAvail();
             float ratio = ActualViewSize.Y /
                           ActualViewSize.X;
@@ -126,14 +128,14 @@ public class EditorPanelGameView : EditorPanelGenericView
             ActualViewSize.Y = ActualViewSize.X * ratio;
             ActualViewSize.Y = Mathf.ClampMax(ActualViewSize.Y, spaceAvailable.Y);
             ActualViewSize.X = ActualViewSize.Y / ratio;
-            
-            
-            Vector2 offset = (spaceAvailable - ActualViewSize) * 0.5f + new Vector2(0,  _controlsBarHeight);
+
+
+            Vector2 offset = (spaceAvailable - ActualViewSize) * 0.5f + new Vector2(0, _controlsBarHeight);
 
             ImGui.SetCursorPos(offset);
 
-            ActualViewPosition = Position+offset;
-            
+            ActualViewPosition = Position + offset;
+
             // if (ActualViewSize.X > Size.X)
             // {
             //     ActualViewSize = ActualViewSize / (ActualViewSize.X / Size.X);
@@ -157,6 +159,23 @@ public class EditorPanelGameView : EditorPanelGenericView
                 TofuImGui.ImageTexture2D(_renderTargetPipeline.FinalFramebuffer.TextureId,
                     ActualViewSize,
                     new Vector4(0, 1, 1, 0));
+
+
+                System.Numerics.Vector2 mouse = ImGui.GetMousePos();
+                System.Numerics.Vector2 min = ImGui.GetItemRectMin(); // top-left of the image in ImGui coords
+                System.Numerics.Vector2 max = ImGui.GetItemRectMax(); // bottom-right
+                System.Numerics.Vector2 size = max - min;
+
+                System.Numerics.Vector2 mousePosInImage = new System.Numerics.Vector2(mouse.X - min.X, (mouse.Y - max.Y) * -1);
+
+                System.Numerics.Vector2 normalized = new System.Numerics.Vector2(
+                    size.X > 0 ? Mathf.Clamp(mousePosInImage.X / size.X, 0f, 1f) : 0f,
+                    size.Y > 0 ? Mathf.Clamp(mousePosInImage.Y / size.Y, 0f, 1f) : 0f
+                );
+                Vector2 scaledMousePos = normalized * _renderTargetPipeline.FramebufferSize;
+                MousePositionRelativeToFramebuffer = scaledMousePos;
+
+                // Debug.Log(scaledMousePos);
             }
             else
             {

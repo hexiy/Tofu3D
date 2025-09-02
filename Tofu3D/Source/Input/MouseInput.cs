@@ -189,10 +189,12 @@ public class MouseInput
         // 	ScreenDelta = new Vector2(state.Delta.X, -state.Delta.Y) * Global.EditorScale / Units.OneWorldUnit;
         // }
 
-        PositionInHoveredView = (PositionInEditorWindow - EditorViewManager.LastHoveredView.ActualViewPosition) *
-            Screen.Scale * EditorViewManager.LastHoveredView.Scale * 2;
+        // PositionInHoveredView = (PositionInEditorWindow - EditorViewManager.LastHoveredView.ActualViewPosition) *
+        // Screen.Scale * EditorViewManager.LastHoveredView.Scale * 2;
+
+        PositionInHoveredView = EditorViewManager.LastHoveredView.MousePositionRelativeToFramebuffer;
 
         Debug.StatSetValue("MousePos", $"Mouse Position In Editor:{PositionInEditorWindow}");
-        Debug.StatSetValue("Mouse Position In View", $"Mouse Position In View:{PositionInHoveredView}");
+        Debug.StatSetValue("Mouse Position In View", $"Mouse Position In Hovered View:{PositionInHoveredView}");
     }
 }

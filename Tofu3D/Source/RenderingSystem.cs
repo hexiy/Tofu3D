@@ -10,6 +10,8 @@ public class RenderingSystem
 
     public RenderTargetPipeline GetGameViewPipeline() =>
         _renderTargetPipelines.First(pipeline => pipeline.ViewType is RenderTargetPipelineType.GameView);
+    public RenderTargetPipeline GetSceneViewPipeline() =>
+        _renderTargetPipelines.First(pipeline => pipeline.ViewType is RenderTargetPipelineType.SceneView);
 
     public void Initialize()
     {

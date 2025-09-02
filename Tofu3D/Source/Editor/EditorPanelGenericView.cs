@@ -9,7 +9,7 @@ public class EditorPanelGenericView : EditorPanel
 
     public Camera? Camera => _renderTargetPipeline?.Camera;
 
-    // public Vector2 MousePositionInView;
+    public Vector2 MousePositionRelativeToFramebuffer;
     public Vector2 ActualViewSize;
     public Vector2 ActualViewPosition;
     public float Scale => (float)ActualViewSize.X / _renderTargetPipeline.FramebufferSize.X;

@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace TofuEngine;
 
 public static class EngineBuildInfo
@@ -10,8 +12,8 @@ public static class EngineBuildInfo
         {
             if (_versionCached == null)
             {
-                var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-                var assemblyName = assembly.GetName();
+                Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                AssemblyName assemblyName = assembly.GetName();
 
                 _versionCached =
                     $"{assemblyName.Version.Major}.{assemblyName.Version.Minor}.{assemblyName.Version.Build}";

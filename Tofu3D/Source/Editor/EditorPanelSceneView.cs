@@ -383,7 +383,22 @@ public class EditorPanelSceneView : EditorPanelGenericView
         {
             ImGui.Dummy(_renderTargetPipeline.FinalFramebuffer.Size);
         }
+        
+        
+        
+        System.Numerics.Vector2 mouse = ImGui.GetMousePos();
+        System.Numerics.Vector2 min = ImGui.GetItemRectMin();
+        System.Numerics.Vector2 max = ImGui.GetItemRectMax();
+        System.Numerics.Vector2 size = max - min;
 
+        System.Numerics.Vector2 mousePosInImage = new System.Numerics.Vector2(mouse.X - min.X, (mouse.Y - max.Y) * -1);
+
+        System.Numerics.Vector2 normalized = new System.Numerics.Vector2(
+            size.X > 0 ? Mathf.Clamp(mousePosInImage.X / size.X, 0f, 1f) : 0f,
+            size.Y > 0 ? Mathf.Clamp(mousePosInImage.Y / size.Y, 0f, 1f) : 0f
+        );
+        Vector2 scaledMousePos = normalized * _renderTargetPipeline.FramebufferSize;
+        MousePositionRelativeToFramebuffer = scaledMousePos;
         HandleModelDragDrop();
 
         // Tofu.MouseInput.AnyViewIsHovered = ImGui.IsItemHovered() || Tofu.MouseInput.AnyViewIsHovered;

@@ -88,7 +88,7 @@ public static class MousePickingSystem
         EditorPanelTextureViewer.AddTexture(new TextureViewerTextureData()
         {
             Name = "Mouse Picking",
-            Texture = Tofu.RenderingSystem.GetGameViewPipeline().RenderPasses
+            Texture = Tofu.RenderingSystem.GetSceneViewPipeline().RenderPasses
                 .First(pass => pass.RenderPassType is RenderPassType.MousePicking).MainFramebuffer
         });
     }

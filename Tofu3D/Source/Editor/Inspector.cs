@@ -432,7 +432,7 @@ public class Inspector
         else
         {
             if (_inspectorFieldDrawables.TryGetValue(info.FieldOrPropertyType,
-                    out var inspectorFieldDrawable))
+                    out IInspectorFieldDrawable? inspectorFieldDrawable))
             {
                 inspectorFieldDrawable.Draw(info, componentInspectorData);
             }

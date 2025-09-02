@@ -99,14 +99,14 @@ public class ParticleSystem : Component, IComponentUpdateable
 
         while (!token.IsCancellationRequested)
         {
-            var particleChunks = Particles
+            IEnumerable<Particle[]> particleChunks = Particles
                 .ToArray()
                 .Chunk(ChunkSize);
 
             Parallel.ForEach(particleChunks,
                 new ParallelOptions() { CancellationToken = token }, chunk =>
                 {
-                    foreach (var particle in chunk) 
+                    foreach (Particle particle in chunk) 
                     {
                         particle.Velocity += StartVelocity * Time.EditorDeltaTime;
 
@@ -138,9 +138,9 @@ public class ParticleSystem : Component, IComponentUpdateable
 
     private void CleanupParticles()
     {
-        while (Particles.TryPeek(out var particle) && particle.Lifetime > MaxLifetime)
+        while (Particles.TryPeek(out Particle? particle) && particle.Lifetime > MaxLifetime)
         {
-            if (Particles.TryDequeue(out var expiredParticle))
+            if (Particles.TryDequeue(out Particle? expiredParticle))
             {
                 _pool.PutObject(expiredParticle);
             }
@@ -172,7 +172,7 @@ public class ParticleSystem : Component, IComponentUpdateable
             return;
         }
 
-        var p = _pool.GetObject();
+        Particle p = _pool.GetObject();
         LatestParticle = p;
         p.Visible = true;
         p.Lifetime = 0;

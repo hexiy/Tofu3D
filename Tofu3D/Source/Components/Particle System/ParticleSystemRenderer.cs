@@ -17,7 +17,7 @@ public class ParticleSystemRenderer : Renderer
             return;
         }
 
-        foreach (var particle in _particleSystem?.Particles)
+        foreach (Particle particle in _particleSystem?.Particles)
         {
             particle.ObjectInstancingData.InstancingDataDirty = true;
             particle.ObjectInstancingData.MatrixDirty = true;
@@ -26,7 +26,7 @@ public class ParticleSystemRenderer : Renderer
 
     private void RemoveAllParticlesFromInstancedRenderingSystem()
     {
-        foreach (var particle in _particleSystem?.Particles)
+        foreach (Particle particle in _particleSystem?.Particles)
         {
             Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.ObjectInstancingData, remove: true);
         }
@@ -95,8 +95,8 @@ public class ParticleSystemRenderer : Renderer
         }*/
         foreach (Particle particle in _particleSystem.Particles)
         {
-            var particleModelMatrix = Matrix4x4.CreateScale(particle.Size * (particle.Visible ? 1 : 0)) *
-                                      Matrix4x4.CreateTranslation(particle.WorldPosition * Transform.WorldScale);
+            Matrix4x4 particleModelMatrix = Matrix4x4.CreateScale(particle.Size * (particle.Visible ? 1 : 0)) *
+                                            Matrix4x4.CreateTranslation(particle.WorldPosition * Transform.WorldScale);
 
             Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref particle.ObjectInstancingData, particleModelMatrix,
                 color: particle.Color);

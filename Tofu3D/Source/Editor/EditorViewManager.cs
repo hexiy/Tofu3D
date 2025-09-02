@@ -31,6 +31,7 @@ public class EditorViewManager
     {
         if (panel is EditorPanelGenericView v)
         {
+            // Debug.Log($"Hovered view : {v.Name}");
             LastHoveredView = v;
             CurrentlyHoveredView = v;
         }

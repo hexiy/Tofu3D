@@ -47,7 +47,7 @@ public class Folders
             Directory.CreateDirectory(ProjectFullPath);
         }
 
-        var foldersInside = Directory.GetDirectories(ProjectFullPath);
+        string[] foldersInside = Directory.GetDirectories(ProjectFullPath);
         if (foldersInside.Length < 2)
         {
             foreach (string dirPath in Directory.GetDirectories(EngineResourcesProjectFiles, "*",
