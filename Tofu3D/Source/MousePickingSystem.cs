@@ -161,7 +161,7 @@ public static class MousePickingSystem
             byte r = (byte)((_currentPixel >> 16) & 0xFF);
             byte g = (byte)((_currentPixel >> 8) & 0xFF);
             byte b = (byte)(_currentPixel & 0xFF);
-            Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
+            // Debug.Log($"Extracted Color: R={r}, G={g}, B={b}, A={a}");
 
             // Color color = new Color(_pixels);
             // Debug.Log($"picking pixel changed to {_currentPixel}");
@@ -169,11 +169,11 @@ public static class MousePickingSystem
 
             if (HoveredRenderer != null)
             {
-                Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
+                // Debug.Log($"HoveredRenderer:{HoveredRenderer.GameObject.Name}");
             }
             else
             {
-                Debug.Log("Couldn't find any renderer hovered");
+                // Debug.Log("Couldn't find any renderer hovered");
             }
         }
 
