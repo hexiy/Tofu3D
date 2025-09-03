@@ -145,12 +145,12 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
         ImGui.SetScrollX(0);
         _padding = (int)ImGui.GetStyle().WindowPadding.X;
         // Ensure we disable horizontal scrolling and clip overflow
-        ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
-        ImGui.PushStyleVar(ImGuiStyleVar.ChildBorderSize, 0);
+        TofuImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+        TofuImGui.PushStyleVar(ImGuiStyleVar.ChildBorderSize, 0);
 
         if (_inspector.HasInspectableData)
         {
-            ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 2);
+            TofuImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 2);
 
             if (ImGui.BeginChild("InspectorChild",
                     ImGui.GetContentRegionAvail() - new System.Numerics.Vector2(_padding, 0), false,
@@ -159,7 +159,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
                 DrawInspectables(_inspector.CurrentInspectableDatas);
             }
 
-            ImGui.PopStyleVar(1);
+            TofuImGui.PopStyleVar(1);
 
 
             // properties with ShowIf and ShowIfNot attributes need to be reevaluated to show or not
@@ -169,7 +169,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
             // }
         }
 
-        ImGui.PopStyleVar(2); // Restore all styles
+        TofuImGui.PopStyleVar(2); // Restore all styles
         PopAllIds();
         // ImGui.End();
     }
@@ -210,7 +210,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
             bool wasStatic = gameObject.IsStaticSelf;
             if (gameObject.IsStaticSelf)
             {
-                ImGui.PushStyleColor(ImGuiCol.Text, EditorColors.StaticLabel.ToVector4());
+                TofuImGui.PushStyleColor(ImGuiCol.Text, EditorColors.StaticLabel.ToVector4());
             }
 
             bool staticButtonClicked = ImGui.Button("STATIC");
@@ -227,7 +227,7 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
 
             if (wasStatic)
             {
-                ImGui.PopStyleColor();
+                TofuImGui.PopStyleColor();
             }
 
             ImGui.SameLine();

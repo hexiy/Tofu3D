@@ -284,9 +284,9 @@ public class EditorPanelBrowser : EditorPanel
         //	PushNextID();
         //
         //
-        //	ImGui.PushStyleColor(ImGuiCol.Button, new Color(13, 27, 30).ToVector4());
+        //	TofuImGui.PushStyleColor(ImGuiCol.Button, new Color(13, 27, 30).ToVector4());
         //	bool directoryClicked = ImGui.Button("FOLDER", new Vector2(100, 100));
-        //	ImGui.PopStyleColor();
+        //	TofuImGui.PopStyleColor();
         //	if (directoryClicked)
         //	{
         //		currentDirectory = new DirectoryInfo(directories[i]);
@@ -357,13 +357,13 @@ public class EditorPanelBrowser : EditorPanel
 
         PushNextId();
 
-        //ImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0,0,0,0));
+        //TofuImGui.PushStyleColor(ImGuiCol.Button, new Vector4(0,0,0,0));
 
-        ImGui.PushStyleColor(ImGuiCol.Button, Color.Transparent.ToVector4());
+        TofuImGui.PushStyleColor(ImGuiCol.Button, Color.Transparent.ToVector4());
         if (_expandedAssets.Contains(assetIndex))
         {
-            ImGui.PushStyleColor(ImGuiCol.Button, Color.AntiqueWhite.ToVector4());
-            // ImGui.PushStyleColor(ImGuiCol.ButtonHovered, Color.MidnightBlue.ToVector4());
+            TofuImGui.PushStyleColor(ImGuiCol.Button, Color.AntiqueWhite.ToVector4());
+            // TofuImGui.PushStyleColor(ImGuiCol.ButtonHovered, Color.MidnightBlue.ToVector4());
         }
 
         //
@@ -418,12 +418,12 @@ public class EditorPanelBrowser : EditorPanel
                     ImGui.GetColorU32(new System.Numerics.Vector4(1, 1, 1, 1)),
                     10);
 
-                ImGui.PushStyleColor(ImGuiCol.ButtonHovered, new System.Numerics.Vector4(1, 1, 1, 0));
+                TofuImGui.PushStyleColor(ImGuiCol.ButtonHovered, new System.Numerics.Vector4(1, 1, 1, 0));
                 TofuImGui.ImageButtonTexture2DArray(_textures[assetPath], _iconSize, bg_col: Vector4.Zero,
                     tint_col: Vector4.Zero);
                 // ImGui.ImageButton(_textures[assetPath].AtlasGLTextureArrayId, _iconSize, new System.Numerics.Vector2(0, 0),
                 // new System.Numerics.Vector2(1, 1), 0, System.Numerics.Vector4.Zero, System.Numerics.Vector4.Zero);
-                ImGui.PopStyleColor();
+                TofuImGui.PopStyleColor();
             }
             else
             {
@@ -432,10 +432,10 @@ public class EditorPanelBrowser : EditorPanel
             }
         }
 
-        ImGui.PopStyleColor();
+        TofuImGui.PopStyleColor();
         if (_expandedAssets.Contains(assetIndex))
         {
-            ImGui.PopStyleColor();
+            TofuImGui.PopStyleColor();
         }
 
         if (fileType is FileType.Texture)

@@ -334,7 +334,7 @@ public class EditorPanelHierarchy : EditorPanel
                 : new Color(70, 0, 70, 130).ToVector4();
         }
 
-        ImGui.PushStyleColor(ImGuiCol.Text, nameColor);
+        TofuImGui.PushStyleColor(ImGuiCol.Text, nameColor);
 
         string rowText = (Global.Debug ? $"[{currentGameObject.Id}] " : "") + currentGameObject.Name;
         flags |= ImGuiTreeNodeFlags.SpanFullWidth;
@@ -397,7 +397,7 @@ public class EditorPanelHierarchy : EditorPanel
             ImGui.EndDragDropTarget();
         }
 
-        ImGui.PopStyleColor();
+        TofuImGui.PopStyleColor();
 
         if (ImGui.IsItemClicked(ImGuiMouseButton.Left) && KeyboardInput.IsKeyDown(Keys.LeftShift))
         {
@@ -475,7 +475,7 @@ public class EditorPanelHierarchy : EditorPanel
         ImGui.Dummy(new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, height));
         if (ImGui.BeginDragDropTarget())
         {
-            ImGui.PushStyleColor(ImGuiCol.DragDropTarget, Color.MediumPurple.ToVector4());
+            TofuImGui.PushStyleColor(ImGuiCol.DragDropTarget, Color.MediumPurple.ToVector4());
 
             ImGui.AcceptDragDropPayload(DragDropPayloadTypes.GameObject, ImGuiDragDropFlags.None);
 
@@ -500,7 +500,7 @@ public class EditorPanelHierarchy : EditorPanel
             }
 
             ImGui.EndDragDropTarget();
-            ImGui.PopStyleColor();
+            TofuImGui.PopStyleColor();
         }
     }
 

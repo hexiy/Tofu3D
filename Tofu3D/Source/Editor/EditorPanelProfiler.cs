@@ -48,7 +48,7 @@ public class EditorPanelProfiler : EditorPanel
             bool redlineHasValue = timerPair.Value.Redline.HasValue;
             if (redlineHasValue)
             {
-                ImGui.PushStyleColor(ImGuiCol.Text,
+                TofuImGui.PushStyleColor(ImGuiCol.Text,
                     Color.Lerp(Color.Black, Color.Red, Mathf.Clamp(msDuration / timerPair.Value.Redline.Value, 0, 1))
                         .ToVector4());
             }
@@ -56,7 +56,7 @@ public class EditorPanelProfiler : EditorPanel
 
             if (redlineHasValue)
             {
-                ImGui.PushStyleVar(ImGuiStyleVar.DisabledAlpha, 1);
+                TofuImGui.PushStyleVar(ImGuiStyleVar.DisabledAlpha, 1);
             }
 
             // dont change alpha, we only BeginDisable so we dont see any hover toolips
@@ -67,7 +67,7 @@ public class EditorPanelProfiler : EditorPanel
             }
 
             bool clickedOnAnyControl = false;
-            // ImGui.PushStyleColor(ImGuiCol.PlotHistogram, Color.DarkRed.ToVector4());
+            // TofuImGui.PushStyleColor(ImGuiCol.PlotHistogram, Color.DarkRed.ToVector4());
 
 
             if (timerPair.Value.Collapsed)
@@ -100,7 +100,7 @@ public class EditorPanelProfiler : EditorPanel
                     new Vector2(plotWidth, 100));
             }
 
-            // ImGui.PopStyleColor();
+            // TofuImGui.PopStyleColor();
 
             clickedOnAnyControl |= ImGui.IsItemClicked();
 
@@ -111,7 +111,7 @@ public class EditorPanelProfiler : EditorPanel
 
             if (redlineHasValue)
             {
-                ImGui.PopStyleVar();
+                TofuImGui.PopStyleVar();
             }
 
             if (clickedOnAnyControl)
@@ -123,13 +123,13 @@ public class EditorPanelProfiler : EditorPanel
 
             if (redlineHasValue)
             {
-                ImGui.PopStyleColor();
+                TofuImGui.PopStyleColor();
             }
 
             // float timerDuration = (float) timerPair.Value.Stopwatch.Elapsed.TotalMilliseconds;
-            // ImGui.PushStyleColor(ImGuiCol.Text, Color.Lerp(Color.White, Color.Red, Mathf.Clamp(timerDuration / 40 - 1, 0, 1)).ToVector4());
+            // TofuImGui.PushStyleColor(ImGuiCol.Text, Color.Lerp(Color.White, Color.Red, Mathf.Clamp(timerDuration / 40 - 1, 0, 1)).ToVector4());
             // ImGui.Text($"{timerPair.Key} : {timerDuration} ms");
-            // ImGui.PopStyleColor();
+            // TofuImGui.PopStyleColor();
             //ResetID();
         }
 

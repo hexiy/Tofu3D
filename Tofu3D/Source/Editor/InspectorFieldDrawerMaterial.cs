@@ -30,7 +30,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
         if (material?.IsRuntimeCopy == true)
         {
             Vector4 headerColor = Color.DarkGoldenrod.ToVector4();
-            ImGui.PushStyleColor(ImGuiCol.Text, headerColor);
+            TofuImGui.PushStyleColor(ImGuiCol.Text, headerColor);
         }
 
 
@@ -79,7 +79,7 @@ public class InspectorFieldDrawerMaterial : InspectorFieldDrawable<Asset_Materia
 
         if (material?.IsRuntimeCopy == true)
         {
-            ImGui.PopStyleColor();
+            TofuImGui.PopStyleColor();
         }
     }
 }

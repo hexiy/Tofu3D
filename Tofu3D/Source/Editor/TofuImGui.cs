@@ -12,10 +12,59 @@ public static class TofuImGui
             Tofu.Window.WindowSize.Y -
             ImGui.GetCursorScreenPos().Y / Tofu.Window.MonitorScale); // * new Vector2(-1, 1);
 
+    private static int PushedStyleColorCount = 0;
+    private static int PushedStyleVarCount = 0;
+
     public static void Init()
     {
         DefaultItemSpacing = ImGui.GetStyle().ItemSpacing;
         DefaultWindowPadding = ImGui.GetStyle().WindowPadding;
+    }
+
+    public static void PushStyleVar(ImGuiStyleVar idx, float val)
+    {
+        ImGui.PushStyleVar(idx, val);
+
+        PushedStyleVarCount++;
+    }
+
+    public static void PushStyleVar(ImGuiStyleVar idx, Vector2 v2)
+    {
+        ImGui.PushStyleVar(idx, v2);
+
+        PushedStyleVarCount++;
+    }
+
+    public static void PopStyleVar(int count = 1)
+    {
+        if (PushedStyleVarCount < count)
+        {
+            count = PushedStyleVarCount;
+        }
+
+        ImGui.PopStyleVar(count);
+
+        PushedStyleVarCount -= count;
+    }
+
+
+    public static void PushStyleColor(ImGuiCol idx, Vector4 v4)
+    {
+        ImGui.PushStyleColor(idx, v4);
+
+        PushedStyleColorCount++;
+    }
+
+    public static void PopStyleColor(int count = 1)
+    {
+        if (PushedStyleColorCount < count)
+        {
+            count = PushedStyleColorCount;
+        }
+
+        ImGui.PopStyleColor(count);
+
+        PushedStyleColorCount -= count;
     }
 
     /// <summary>
@@ -104,7 +153,7 @@ public static class TofuImGui
         if (border_col != null)
         {
             ImGui.Image(textureId, size, uvBoundingBox.XW, uvBoundingBox.ZY,
-                tint_col ?? new Vector4(1,1,1,1),
+                tint_col ?? new Vector4(1, 1, 1, 1),
                 border_col.Value);
         }
         else if (tint_col != null)

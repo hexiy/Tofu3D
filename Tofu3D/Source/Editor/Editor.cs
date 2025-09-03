@@ -163,9 +163,9 @@ public class Editor
                                            ImGuiWindowFlags.NoNavFocus |
                                            ImGuiWindowFlags.NoBackground;
 
-        ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, System.Numerics.Vector2.Zero);
-        ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
-        ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
+        TofuImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, System.Numerics.Vector2.Zero);
+        TofuImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
+        TofuImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
 
         if (Global.EditorAttached == false)
         {
@@ -177,7 +177,7 @@ public class Editor
         {
             if (ImGui.Begin("DockSpaceHostWindow", hostWindowFlags))
             {
-                ImGui.PopStyleVar(3);
+                TofuImGui.PopStyleVar(3);
 
                 uint dockspaceId = ImGui.GetID("MyDockSpace");
                 ImGui.DockSpace(dockspaceId, System.Numerics.Vector2.Zero, ImGuiDockNodeFlags.PassthruCentralNode);
@@ -206,7 +206,7 @@ public class Editor
             }
             else
             {
-                ImGui.PopStyleVar(3);
+                TofuImGui.PopStyleVar(3);
             }
         }
 

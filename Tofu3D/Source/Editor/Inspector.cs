@@ -232,7 +232,7 @@ public class Inspector
                     headerColor = Color.Gold.ToVector4();
                 }
 
-                // ImGui.PushStyleColor(ImGuiCol.Header, headerColor);
+                // TofuImGui.PushStyleColor(ImGuiCol.Header, headerColor);
             }
 
             bool headerClicked = true;
@@ -243,7 +243,7 @@ public class Inspector
 
             if (componentInspectorData.InspectableType == typeof(Asset_Material))
             {
-                // ImGui.PopStyleColor();
+                // TofuImGui.PopStyleColor();
             }
 
             if (headerClicked)

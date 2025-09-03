@@ -36,14 +36,14 @@ public class EditorDialog
         ImGui.SetNextWindowSize(bgPanelSize, ImGuiCond.Always);
         ImGui.SetNextWindowPos(Screen.Center, ImGuiCond.Always, new Vector2(0.5f, 0.5f));
 
-        ImGui.PushStyleColor(ImGuiCol.WindowBg, new Vector4(0,0,0,0.9f));
+        TofuImGui.PushStyleColor(ImGuiCol.WindowBg, new Vector4(0,0,0,0.9f));
         ImGui.Begin("Dialog",
             ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoDecoration
             // | ImGuiWindowFlags.NoBackground
             );
         // TofuImGui.ImageTexture2DArray(Tofu.Editor.EditorTextures.WhitePixel, bgPanelSize, tint_col:
             // new Vector4(0f, 0f, 0f, 0.9f));
-        ImGui.PopStyleColor();
+        TofuImGui.PopStyleColor();
         
         bool hoveringBackground = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly);
 

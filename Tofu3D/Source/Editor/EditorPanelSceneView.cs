@@ -53,16 +53,17 @@ public class EditorPanelSceneView : EditorPanelGenericView
 
     protected override void BeforeWindowCreated()
     {
-        ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
-        ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
+        
+        TofuImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+        TofuImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 
         base.BeforeWindowCreated();
     }
 
     protected override void AfterWindowEnded()
     {
-        ImGui.PopStyleVar();
-        ImGui.PopStyleVar();
+        TofuImGui.PopStyleVar();
+        TofuImGui.PopStyleVar();
 
         base.AfterWindowEnded();
     }
@@ -201,7 +202,7 @@ public class EditorPanelSceneView : EditorPanelGenericView
 
         // Vector4 activeColor = Color.ForestGreen.ToVector4(); //ImGui.GetStyle().Colors[(int) ImGuiCol.Text];
         // Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
-        /*ImGui.PushStyleColor(ImGuiCol.Text, PhysicsController.Running ? activeColor : inactiveColor);
+        /*TofuImGui.PushStyleColor(ImGuiCol.Text, PhysicsController.Running ? activeColor : inactiveColor);
         bool physicsButtonClicked = ImGui.Button("physics");
         if (physicsButtonClicked)
         {
@@ -215,7 +216,7 @@ public class EditorPanelSceneView : EditorPanelGenericView
             }
         }
 
-        ImGui.PopStyleColor();
+        TofuImGui.PopStyleColor();
 
         ImGui.SameLine();*/
 //////////
@@ -316,7 +317,7 @@ public class EditorPanelSceneView : EditorPanelGenericView
 
         //////////
         /// 
-        /*ImGui.PushStyleColor(ImGuiCol.Text,
+        /*TofuImGui.PushStyleColor(ImGuiCol.Text,
             _renderTargetPipeline.RenderSettings.WireframeRenderSettings
                 .WireframeVisible
                 ? activeColor
@@ -331,14 +332,14 @@ public class EditorPanelSceneView : EditorPanelGenericView
             // _renderTargetPipeline.RenderSettings.SaveData();
         }
 
-        ImGui.PopStyleColor();
+        TofuImGui.PopStyleColor();
 
         ImGui.SameLine();*/
 
-        // ImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
+        // TofuImGui.PushStyleColor(ImGuiCol.Text, Global.GameRunning ? activeColor : inactiveColor);
         // bool playButtonClicked = ImGui.Button("play");
         //
-        // ImGui.PopStyleColor();
+        // TofuImGui.PopStyleColor();
         //
         // if (playButtonClicked)
         // {

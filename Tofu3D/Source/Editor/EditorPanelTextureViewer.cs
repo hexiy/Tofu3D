@@ -37,8 +37,8 @@ public class EditorPanelTextureViewer : EditorPanel
             return;
         }
 
-        // ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
-        // ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
+        // TofuImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+        // TofuImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 
         ImGuiWindowFlags flags = ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoScrollbar |
                                  ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.Modal;
@@ -80,7 +80,7 @@ public class EditorPanelTextureViewer : EditorPanel
             ImGui.NewLine();
         }
 
-        // ImGui.PopStyleVar(2);
+        // TofuImGui.PopStyleVar(2);
     }
 
     public override void Update()

@@ -34,8 +34,8 @@ public class InspectorFieldDrawerFloat : InspectorFieldDrawable<float>
                 bool isCustomValue = fieldValue < sliderAttrib.MinValue || fieldValue > sliderAttrib.MaxValue;
                 if (isCustomValue)
                 {
-                    ImGui.PushStyleColor(ImGuiCol.SliderGrab, Color.Teal.ToVector4());
-                    ImGui.PushStyleColor(ImGuiCol.Text, Color.Teal.ToVector4());
+                    TofuImGui.PushStyleColor(ImGuiCol.SliderGrab, Color.Teal.ToVector4());
+                    TofuImGui.PushStyleColor(ImGuiCol.Text, Color.Teal.ToVector4());
                 }
 
                 bool sliderValueChanged =
@@ -54,7 +54,7 @@ public class InspectorFieldDrawerFloat : InspectorFieldDrawable<float>
 
                 if (isCustomValue)
                 {
-                    ImGui.PopStyleColor(2);
+                    TofuImGui.PopStyleColor(2);
                 }
             }
             else

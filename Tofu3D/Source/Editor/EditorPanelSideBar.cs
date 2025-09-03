@@ -26,7 +26,7 @@ public class EditorPanelSideBar
         // ImGui.Begin("sidebar", ImGuiWindowFlags.ChildWindow | ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.NoMove);
         // using TofuImGuiSetFramePaddingGuard setFramePaddingGuard = new TofuImGuiSetFramePaddingGuard(newPadding: 0);
 
-        // ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Vector2(0, 0));
+        // TofuImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Vector2(0, 0));
 
         Vector2 size = new Vector2(250, ImGui.GetContentRegionAvail().Y + TofuImGui.WindowMenuBarHeight - 12f);
         // ImGui.SetNextWindowPos(System.Numerics.Vector2.Zero);
@@ -39,10 +39,10 @@ public class EditorPanelSideBar
         ImGui.SetNextItemWidth(size.X);
         ImGui.ListBox("", ref _selectedItemIndex, _itemsLabels, _itemsLabels.Length);
         // ImGui.End();
-        // ImGui.PopStyleVar();
+        // TofuImGui.PopStyleVar();
 
         ImGui.EndChildFrame();
-        // ImGui.PopStyleVar();
+        // TofuImGui.PopStyleVar();
 
         if (_selectedItemIndex != _indexBefore)
         {

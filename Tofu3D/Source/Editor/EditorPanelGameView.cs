@@ -62,16 +62,16 @@ public class EditorPanelGameView : EditorPanelGenericView
 
     protected override void BeforeWindowCreated()
     {
-        ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
-        ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
+        TofuImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+        TofuImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, Vector2.Zero);
 
         base.BeforeWindowCreated();
     }
 
     protected override void AfterWindowEnded()
     {
-        ImGui.PopStyleVar();
-        ImGui.PopStyleVar();
+        TofuImGui.PopStyleVar();
+        TofuImGui.PopStyleVar();
 
         base.AfterWindowEnded();
     }

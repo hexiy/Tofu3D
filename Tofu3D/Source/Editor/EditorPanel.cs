@@ -99,7 +99,7 @@ public abstract class EditorPanel
     {
         // if (IsPanelFocused)
         // {
-        //     // ImGui.PushStyleColor(ImGuiCol.WindowBg, Color.Red.ToVector4());
+        //     // TofuImGui.PushStyleColor(ImGuiCol.WindowBg, Color.Red.ToVector4());
         //     _a = true;
         // }
         // else
@@ -112,7 +112,7 @@ public abstract class EditorPanel
     {
         // if (_a)
         // {
-        //     ImGui.PopStyleColor();
+        //     TofuImGui.PopStyleColor();
         // }
     }
 

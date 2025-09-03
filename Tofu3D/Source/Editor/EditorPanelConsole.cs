@@ -40,14 +40,14 @@ public class EditorPanelConsole : EditorPanel
         ImGui.SameLine();
         Vector4 activeColor = Color.ForestGreen.ToVector4();
         Vector4 inactiveColor = ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
-        ImGui.PushStyleColor(ImGuiCol.Text, Debug.Paused ? activeColor : inactiveColor);
+        TofuImGui.PushStyleColor(ImGuiCol.Text, Debug.Paused ? activeColor : inactiveColor);
         bool pauseBtnClicked = ImGui.Button("Pause");
         if (pauseBtnClicked)
         {
             Debug.Paused = !Debug.Paused;
         }
 
-        ImGui.PopStyleColor();
+        TofuImGui.PopStyleColor();
 
         ImGui.SameLine();
 
@@ -235,8 +235,8 @@ public class EditorPanelConsole : EditorPanel
             // Vector4 cBeige = new Vector4(1f, 0.96f, 0.90f, 1.00f);
             //
             // Vector4 cBeigeMid = new Vector4(0.97f, 0.94f, 0.88f, 1f); // greenish
-            // ImGui.PushStyleColor(ImGuiCol.FrameBg, cBeigeMid);
-            // ImGui.PushStyleColor(ImGuiCol.HeaderHovered, cBeige);
+            // TofuImGui.PushStyleColor(ImGuiCol.FrameBg, cBeigeMid);
+            // TofuImGui.PushStyleColor(ImGuiCol.HeaderHovered, cBeige);
             ImGui.BeginChildFrame(1, ImGui.GetContentRegionAvail());
             LogEntry log = Debug.GetLogsRef()[_selectedMessageIndex];
             Color color = GetLogCategoryTextColor(log.LogCategory);
@@ -261,8 +261,8 @@ public class EditorPanelConsole : EditorPanel
 
             ImGui.EndChildFrame();
 
-            // ImGui.PopStyleColor();
-            // ImGui.PopStyleColor();
+            // TofuImGui.PopStyleColor();
+            // TofuImGui.PopStyleColor();
         }
 
         if (logsCount > 0)

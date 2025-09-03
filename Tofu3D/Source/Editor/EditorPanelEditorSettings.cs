@@ -84,8 +84,8 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
         // using TofuImGuiSetWindowPaddingGuard windowPaddingGuard =
         // TofuImGui.SetTemporaryWindowPaddingForCurrentScope(TofuImGui.DefaultWindowPadding + new Vector2(50));
 
-        ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
-        ImGui.PushStyleVar(ImGuiStyleVar.ChildBorderSize, 0);
+        TofuImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+        TofuImGui.PushStyleVar(ImGuiStyleVar.ChildBorderSize, 0);
 
 
         float topY = ImGui.GetCursorPosY();
@@ -99,14 +99,14 @@ public class EditorPanelEditorSettings : EditorPanel, IHasInspector, IEditorWind
 
         if (_inspector.HasInspectableData)
         {
-            ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 2);
+            TofuImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 2);
 
             DrawInspectables(_inspector.CurrentInspectableDatas);
 
-            ImGui.PopStyleVar(1);
+            TofuImGui.PopStyleVar(1);
         }
 
-        ImGui.PopStyleVar(2); // Restore all styles
+        TofuImGui.PopStyleVar(2); // Restore all styles
         PopAllIds();
         ImGui.End();
         ImGui.End();
