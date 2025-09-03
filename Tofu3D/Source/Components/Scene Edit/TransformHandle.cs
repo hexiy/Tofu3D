@@ -32,6 +32,11 @@ public partial class TransformHandle : Component, IComponentUpdateable
             HandleModeChanges();
         }
 
+        if (Camera.CurrentlyRenderingCamera == null)
+        {
+            return;
+        }
+
         if (Camera.CurrentlyRenderingCamera.IsOrthographic)
         {
             Transform.LocalScale = Vector3.One * Camera.CurrentlyRenderingCamera.OrthographicSize * 1.5f;

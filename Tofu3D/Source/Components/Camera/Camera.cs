@@ -33,7 +33,7 @@ public class Camera : Component, IComponentUpdateable
 
     public static Camera GameViewCamera; // { get; private set; } // game view camera
     public static Camera SceneViewCamera; // { get; private set; } // game view camera
-    public static Camera CurrentlyRenderingCamera => Tofu.RenderingSystem.CurrentlyExecutingPipeline.Camera;
+    public static Camera? CurrentlyRenderingCamera => Tofu.RenderingSystem.CurrentlyExecutingPipeline?.Camera;
     public static Camera ActivelyInteractedWithCamera => SceneViewCamera;
     public static List<Camera> AllCameras = new List<Camera>();
 
