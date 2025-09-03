@@ -6,9 +6,7 @@ public class RenderPassMousePicking : RenderPass
 
 
     public override bool CanRender() =>
-        //RenderTargetPipeline.EditorPanelView.IsPanelHovered && 
-        //&& Tofu.MouseInput.IsButtonDown()
-        base.CanRender();
+        base.CanRender() && RenderTargetPipeline.EditorPanelView == EditorViewManager.CurrentlyHoveredView;
 // make sure to check if mouse is in current scene view, not just any scene view
 
     public RenderPassMousePicking(RenderTargetPipeline pipeline) : base(RenderPassType.MousePicking, pipeline)
