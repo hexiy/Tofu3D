@@ -154,12 +154,11 @@ public class Scene
 
     private void CreateTransformHandle()
     {
-        return;
-        GameObject transformHandleGameObject = GameObject.Create(visibleInHierarchy: false, runtimeOnly: true);
+        // return;
+        GameObject transformHandleGameObject =
+            GameObject.Create(name: "Transform Handle", visibleInHierarchy: false, runtimeOnly: true);
         TransformHandle = transformHandleGameObject.AddComponent<TransformHandle>();
-        transformHandleGameObject.RuntimeOnly = true;
         transformHandleGameObject.AlwaysUpdate = true;
-        transformHandleGameObject.Name = "Transform Handle";
         transformHandleGameObject.SetActive(false);
         transformHandleGameObject.Awake();
 
