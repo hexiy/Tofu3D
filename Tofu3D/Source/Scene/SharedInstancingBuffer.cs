@@ -161,37 +161,37 @@ public class SharedInstancingBuffer
         }
 
         GL.BindBuffer(BufferTarget.ArrayBuffer, Vbo);
+        
+        // this should be called only once but it simply doesnt work... i need to call GL.VertexAttribPointer every frame
+        // https://stackoverflow.com/a/28597384
+        int bytesOffset = 0;
+        int vertexAttribPointerIndex = 5;
+
+        for (int i = 0; i < InstancedVertexDataLayoutDefinition.Members.Length; i++)
+        {
+            int numberOfFloatsInAttribute = InstancedVertexDataLayoutDefinition.Members[i];
+            GL.VertexAttribPointer(vertexAttribPointerIndex++, numberOfFloatsInAttribute,
+                VertexAttribPointerType.Float, false,
+                InstancedVertexDataLayoutDefinition.TotalSizeOfVertexInBytes,
+                bytesOffset);
+            bytesOffset += numberOfFloatsInAttribute * sizeof(float);
+        }
+
+        if (newBuffer)
+        {
+            // unique attribs for each instance
+            int vertexAttribArrayIndex = 5;
+            int vertexAttribDivisorIndex = 5;
+
+            for (int i = 0; i < InstancedVertexDataLayoutDefinition.Members.Length; i++)
+            {
+                GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
+                GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
+            }
+        }
+        
         if (NeedsUpload)
         {
-            if (newBuffer)
-            {
-                // this should be called only once but it simply doesnt work... i need to call GL.VertexAttribPointer every frame
-                // https://stackoverflow.com/a/28597384
-                int bytesOffset = 0;
-                int vertexAttribPointerIndex = 5;
-
-                for (int i = 0; i < InstancedVertexDataLayoutDefinition.Members.Length; i++)
-                {
-                    int numberOfFloatsInAttribute = InstancedVertexDataLayoutDefinition.Members[i];
-                    GL.VertexAttribPointer(vertexAttribPointerIndex++, numberOfFloatsInAttribute,
-                        VertexAttribPointerType.Float, false,
-                        InstancedVertexDataLayoutDefinition.TotalSizeOfVertexInBytes,
-                        bytesOffset);
-                    bytesOffset += numberOfFloatsInAttribute * sizeof(float);
-                }
-
-
-                // unique attribs for each instance
-                int vertexAttribArrayIndex = 5;
-                int vertexAttribDivisorIndex = 5;
-
-                for (int i = 0; i < InstancedVertexDataLayoutDefinition.Members.Length; i++)
-                {
-                    GL.EnableVertexAttribArray(vertexAttribArrayIndex++);
-                    GL.VertexAttribDivisor(vertexAttribDivisorIndex++, 1);
-                }
-            }
-
             GL.BufferData(BufferTarget.ArrayBuffer,
                 sizeof(float) * InstancingBuffer.Length,
                 InstancingBuffer, BufferUsageHint.StaticDraw);

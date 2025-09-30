@@ -27,10 +27,6 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
     public void Update()
     {
-        var a = ModelRendererX.BoxShape;
-        var b = ModelRendererY.BoxShape;
-        var c = ModelRendererZ.BoxShape;
-        var d = ModelRendererXy.BoxShape;
         if (EditorViewManager.LastUsedView?.ViewType is RenderTargetPipelineType.SceneView)
         {
             HandleModeChanges();
@@ -191,21 +187,25 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
         BoxColliderX = GameObject.AddComponent<BoxShape>();
         BoxColliderX.Size = new Vector3(0.5f, 0.05f, 0.05f);
-        BoxColliderX.Offset = new Vector3(-0.01f, 0.01f, -0.01f);
+        BoxColliderX.Pivot = new Vector3(0,0,0);
+        BoxColliderX.Offset = new Vector3(0,0,0);
         //boxColliderX.offset = new Vector2(25, 2.5f);
 
         BoxColliderY = GameObject.AddComponent<BoxShape>();
         BoxColliderY.Size = new Vector3(0.05f, 0.5f, 0.05f);
-        BoxColliderY.Offset = new Vector3(-0.01f, 0.01f, -0.01f);
+        BoxColliderY.Pivot = new Vector3(0,0,0);
+        BoxColliderY.Offset = new Vector3(0,0,0);
 
         BoxColliderZ = GameObject.AddComponent<BoxShape>();
         BoxColliderZ.Size = new Vector3(0.05f, 0.05f, 0.5f);
-        BoxColliderZ.Offset = new Vector3(-0.01f, 0.01f, -0.01f);
+        BoxColliderZ.Offset = new Vector3(0,0,0);
+        BoxColliderZ.Pivot = new Vector3(0,0,1);
 
         //boxColliderY.offset = new Vector2(2.5f, 25);
 
         BoxColliderXy = GameObject.AddComponent<BoxShape>();
         BoxColliderXy.Size = new Vector3(0.1f, 0.1f, 0.1f);
+        BoxColliderXy.Pivot = new Vector3(0.5f,0.5f,0.5f);
         //boxColliderXY.offset = new Vector3(5, 5,-5)/Units.OneWorldUnit;
 
         ModelRendererX = GameObject.AddComponent<ModelRenderer>();
