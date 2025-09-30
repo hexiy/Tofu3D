@@ -470,7 +470,8 @@ void main() {
 
 	// phong specular reflections because ggx doesnt work :(
 	vec3 reflectDir = reflect(-lightDir, normalWorldSpace);
-	float spec = pow(max(dot(-viewDir, reflectDir), 0.0), 32) * 5;
+	float shininess = u_smoothness * 127.0 + 1.0; // Convert smoothness (0-1) to shininess range
+	float spec = pow(max(dot(-viewDir, reflectDir), 0.0), shininess) * u_metallic;
 	vec3 specular = spec * u_directionalLightColor.rgb * u_directionalLightColor.a * 1;
 
 

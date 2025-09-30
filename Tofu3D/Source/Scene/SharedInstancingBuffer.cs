@@ -84,6 +84,9 @@ public class SharedInstancingBuffer
 
     public void RemoveObject(ObjectInstancingData removedObjectInstancingData)
     {
+        if (removedObjectInstancingData.StartingIndexInBuffer < 0)
+        {
+            return;}
         for (int i = removedObjectInstancingData.StartingIndexInBuffer;
              i < InstancingBuffer.Length - InstancedVertexDataLayoutDefinition.CountOfFloats;
              i++)

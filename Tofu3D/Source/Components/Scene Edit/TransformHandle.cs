@@ -215,7 +215,7 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
 
         Asset_Material materialCopy = Tofu.AssetLoadManager.CreateCopyFile(standardMaterial);
-        materialCopy.SpecularSmoothness = 0;
+        // materialCopy.SpecularSmoothness = 0;
         materialCopy.MetallicTextureStrength = 0;
         materialCopy.Smoothness = 0;
         materialCopy.MaterialType = MaterialType.Unlit;

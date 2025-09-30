@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.IO;
 using System.Threading;
 
 namespace TofuEngine;
@@ -10,7 +11,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
     private readonly float _cubeModelSize = 2;
 
     private int _threadsWorkingCount = -1;
-    public GameObject CubePrefab;
+    private GameObject? _cubePrefab;
 
     [XmlIgnore] public Action Despawn;
 
@@ -21,6 +22,42 @@ public class TerrainGenerator : Component, IComponentUpdateable
     public int TerrainSize = 10;
     public int ThreadsToUse = 2;
 
+    
+    public override void Awake()
+    {
+        Spawn += StartTerrainGenerationOnNewThread;
+        SpawnSingleThreaded += StartTerrainGenerationOnNewThread;
+        Despawn += DestroyTerrain;
+        
+        base.Awake();
+    }
+
+    /*public override void Start()
+    {
+        Spawn.Invoke();
+        base.Start();
+    }*/
+
+    private void CreateCubePrefab()
+    {
+        _cubePrefab = GameObject.Create(name: "cube");
+        _cubePrefab.AddComponent<BoxShape>();
+        ModelRenderer modelRenderer = _cubePrefab.AddComponent<ModelRenderer>();
+        modelRenderer.NeedsToSetupMesh = false;
+
+        _cubePrefab.Awake();
+
+        string modelPath = Path.Combine("3D", "Minecraft_Grass_Block_OBJ", "Grass_Block.obj");
+        Asset_Model model =  Tofu.AssetLoadManager.Get<Asset_Model>(modelPath);
+        modelRenderer.RuntimeMesh = model.GetMesh(0);
+
+        string texturePath = Path.Combine("3D", "Minecraft_Grass_Block_OBJ", "Grass_Block_TEX.png");
+
+        modelRenderer.Material.AlbedoTexture = Tofu.AssetLoadManager.Get<RuntimeTexture>(texturePath);
+        modelRenderer.Material.MetallicTextureStrength = 0.2f;
+        modelRenderer.Material.Smoothness = 0f;
+
+    }
     public void Update()
     {
         if (_threadsWorkingCount == 0)
@@ -35,19 +72,6 @@ public class TerrainGenerator : Component, IComponentUpdateable
         }
     }
 
-    public override void Awake()
-    {
-        Spawn += StartTerrainGenerationOnNewThread;
-        SpawnSingleThreaded += StartTerrainGenerationOnNewThread;
-        Despawn += DestroyTerrain;
-        base.Awake();
-    }
-
-    /*public override void Start()
-    {
-        Spawn.Invoke();
-        base.Start();
-    }*/
 
     private void DestroyTerrain()
     {
@@ -61,12 +85,12 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void StartTerrainGenerationOnNewThread()
     {
-        if (CubePrefab == null)
+        if (_cubePrefab == null)
         {
-            return;
+            CreateCubePrefab();
         }
 
-        Tofu.SceneSerializer.SaveClipboardGameObject(CubePrefab);
+        Tofu.SceneSerializer.SaveClipboardGameObject(_cubePrefab);
 
         DestroyTerrain();
         _concurrentBag.Clear();
@@ -81,7 +105,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
         {
             int capturedThreadIndex = threadIndex;
             Thread thread = new Thread(() =>
-                GenerateTerrain(TerrainSize, CubePrefab, capturedThreadIndex, numberOfThreads));
+                GenerateTerrain(TerrainSize, _cubePrefab, capturedThreadIndex, numberOfThreads));
             threads.Add(thread);
         }
 
@@ -90,17 +114,17 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void StartTerrainGenerationOnMainThread()
     {
-        if (CubePrefab == null)
+        if (_cubePrefab == null)
         {
             return;
         }
 
-        Tofu.SceneSerializer.SaveClipboardGameObject(CubePrefab);
+        Tofu.SceneSerializer.SaveClipboardGameObject(_cubePrefab);
 
         DestroyTerrain();
         _concurrentBag.Clear();
 
-        GenerateTerrain(TerrainSize, CubePrefab, 0, 1);
+        GenerateTerrain(TerrainSize, _cubePrefab, 0, 1);
     }
 
     private void GenerateTerrain(int terrainSize, GameObject referenceGameObject, int threadIndex, int numberOfThreads)

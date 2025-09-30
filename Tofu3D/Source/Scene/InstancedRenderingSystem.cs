@@ -546,7 +546,26 @@ public class InstancedRenderingSystem
                 TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthTextureId);
             }
         }
+        
+        
+        material.Shader.SetFloat("u_metallic", material.MetallicTextureStrength);
+        material.Shader.SetFloat("u_smoothness", material.Smoothness);
 
+        // Metallic Texture
+        // material.Shader.SetInt("u_hasMetallicTexture", material.MetallicTexture != null ? 1 : 0);
+
+        // if (material.MetallicTexture != null && material.Shader.MetallicTextureUnit != null)
+        // {
+        //     GL.ActiveTexture(material.Shader.MetallicTextureUnit.Value);
+        //     TextureHelper.BindTexture(material.MetallicTexture.AtlasGLTextureArrayId);
+        // }
+
+        // material.Shader.SetVector4("u_emissiveColor", material.EmissiveColor);
+        // if (material.EmissiveTexture != null && material.Shader.EmissiveTextureUnit != null)
+        // {
+        //     GL.ActiveTexture(material.Shader.EmissiveTextureUnit.Value);
+        //     TextureHelper.BindTexture(material.EmissiveTexture.AtlasGLTextureArrayId);
+        // }
         if (false)
         {
             // Albedo Texture
@@ -604,24 +623,7 @@ public class InstancedRenderingSystem
             //     TextureHelper.BindTexture(material.RoughnessTexture.AtlasGLTextureArrayId);
             // }
 
-            material.Shader.SetFloat("u_metallic", material.MetallicTextureStrength);
-            material.Shader.SetFloat("u_smoothness", material.Smoothness);
 
-            // Metallic Texture
-            material.Shader.SetInt("u_hasMetallicTexture", material.MetallicTexture != null ? 1 : 0);
-
-            // if (material.MetallicTexture != null && material.Shader.MetallicTextureUnit != null)
-            // {
-            //     GL.ActiveTexture(material.Shader.MetallicTextureUnit.Value);
-            //     TextureHelper.BindTexture(material.MetallicTexture.AtlasGLTextureArrayId);
-            // }
-
-            material.Shader.SetVector4("u_emissiveColor", material.EmissiveColor);
-            // if (material.EmissiveTexture != null && material.Shader.EmissiveTextureUnit != null)
-            // {
-            //     GL.ActiveTexture(material.Shader.EmissiveTextureUnit.Value);
-            //     TextureHelper.BindTexture(material.EmissiveTexture.AtlasGLTextureArrayId);
-            // }
         }
     }
 
@@ -756,45 +758,52 @@ public class InstancedRenderingSystem
         int startingIndex, Asset_Material material,
         Vector2? uvOffset = null, uint mousePickingId = 0)
     {
-        int bufferIndex = startingIndex;
-        buffer[bufferIndex++] = modelMatrix.M11;
-        buffer[bufferIndex++] = modelMatrix.M12;
-        buffer[bufferIndex++] = modelMatrix.M13;
+        lock (buffer)
+        {
+            int bufferIndex = startingIndex;
+            buffer[bufferIndex++] = modelMatrix.M11;
+            buffer[bufferIndex++] = modelMatrix.M12;
+            buffer[bufferIndex++] = modelMatrix.M13;
 
-        buffer[bufferIndex++] = modelMatrix.M21;
-        buffer[bufferIndex++] = modelMatrix.M22;
-        buffer[bufferIndex++] = modelMatrix.M23;
+            buffer[bufferIndex++] = modelMatrix.M21;
+            buffer[bufferIndex++] = modelMatrix.M22;
+            buffer[bufferIndex++] = modelMatrix.M23;
 
-        buffer[bufferIndex++] = modelMatrix.M31;
-        buffer[bufferIndex++] = modelMatrix.M32;
-        buffer[bufferIndex++] = modelMatrix.M33;
+            buffer[bufferIndex++] = modelMatrix.M31;
+            buffer[bufferIndex++] = modelMatrix.M32;
+            buffer[bufferIndex++] = modelMatrix.M33;
 
-        buffer[bufferIndex++] = modelMatrix.M41;
-        buffer[bufferIndex++] = modelMatrix.M42;
-        buffer[bufferIndex++] = modelMatrix.M43;
+            buffer[bufferIndex++] = modelMatrix.M41;
+            buffer[bufferIndex++] = modelMatrix.M42;
+            buffer[bufferIndex++] = modelMatrix.M43;
 
-        buffer[bufferIndex++] = mousePickingId;
+            buffer[bufferIndex++] = mousePickingId;
 
 
-        // i dont have to add the atlas index to the whole vector4 but for now i will
-        buffer[bufferIndex++] =
-            (material.AlbedoTexture?.BoundingBoxInAtlas.X ?? 0) + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
-        buffer[bufferIndex++] =
-            (material.AlbedoTexture?.BoundingBoxInAtlas.Y ?? 0) + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
-        buffer[bufferIndex++] =
-            (material.AlbedoTexture?.BoundingBoxInAtlas.Z ?? 0) + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
-        buffer[bufferIndex++] =
-            (material.AlbedoTexture?.BoundingBoxInAtlas.W ?? 0) + material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
-        // uv = 0 - 1 = atlas 0
-        // uv = 1 - 2 = atlas 1
+            // i dont have to add the atlas index to the whole vector4 but for now i will
+            buffer[bufferIndex++] =
+                (material.AlbedoTexture?.BoundingBoxInAtlas.X ?? 0) +
+                material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+            buffer[bufferIndex++] =
+                (material.AlbedoTexture?.BoundingBoxInAtlas.Y ?? 0) +
+                material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+            buffer[bufferIndex++] =
+                (material.AlbedoTexture?.BoundingBoxInAtlas.Z ?? 0) +
+                material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+            buffer[bufferIndex++] =
+                (material.AlbedoTexture?.BoundingBoxInAtlas.W ?? 0) +
+                material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+            // uv = 0 - 1 = atlas 0
+            // uv = 1 - 2 = atlas 1
 
-        // buffer[bufferIndex++] = material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
+            // buffer[bufferIndex++] = material.AlbedoTexture?.IndexInAtlasTextureArray ?? 0;
 
-        // if (uvOffset != null)
-        // {
-        buffer[bufferIndex++] = uvOffset?.X ?? 0;
-        buffer[bufferIndex++] = uvOffset?.Y ?? 0;
-        // }
+            // if (uvOffset != null)
+            // {
+            buffer[bufferIndex++] = uvOffset?.X ?? 0;
+            buffer[bufferIndex++] = uvOffset?.Y ?? 0;
+            // }
+        }
     }
 
     public void Reset()

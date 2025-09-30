@@ -28,10 +28,10 @@ public class Asset_Material : Asset<Asset_Material>
 
     public float RefractiveIndex = 1.309f;
 
-    [Space]
-    public bool SpecularHighlightsEnabled;
+    // [Space]
+    // public bool SpecularHighlightsEnabled;
 
-    public float SpecularSmoothness;
+    // public float SpecularSmoothness;
 
     [SliderF(0, 1)]
     public float MetallicTextureStrength;

@@ -136,7 +136,7 @@
 
     <ItemGroup>
         <None Update="EditorResources\**\*">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 

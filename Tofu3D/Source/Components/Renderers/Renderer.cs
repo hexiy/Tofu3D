@@ -262,7 +262,8 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     {
         if (MousePickingEnabled)
         {
-            MousePickingId = MousePickingSystem.RegisterObject(this);
+            // cannot d
+            // MousePickingId = MousePickingSystem.RegisterObject(this);
         }
 
         if (AutomaticallyFindBoxShape)
