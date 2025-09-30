@@ -20,7 +20,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
     [XmlIgnore] public Action SpawnSingleThreaded;
 
     public int TerrainSize = 10;
-    public int ThreadsToUse = 2;
+    public int ThreadsToUse = 5;
 
     
     public override void Awake()
@@ -40,7 +40,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void CreateCubePrefab()
     {
-        _cubePrefab = GameObject.Create(name: "cube");
+        _cubePrefab = GameObject.Create(name: "cube", runtimeOnly:true, visibleInHierarchy:false);
         _cubePrefab.AddComponent<BoxShape>();
         ModelRenderer modelRenderer = _cubePrefab.AddComponent<ModelRenderer>();
         modelRenderer.NeedsToSetupMesh = false;
@@ -89,6 +89,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
         {
             CreateCubePrefab();
         }
+        _cubePrefab.SetActive(true);
 
         Tofu.SceneSerializer.SaveClipboardGameObject(_cubePrefab);
 
@@ -182,6 +183,9 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
         Debug.EndAndLogTimer(
             $"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");
+        
+        _cubePrefab.SetActive(false);
+
     }
 
     private void LongTask()

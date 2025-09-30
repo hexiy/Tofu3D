@@ -27,6 +27,10 @@ public partial class TransformHandle : Component, IComponentUpdateable
 
     public void Update()
     {
+        var a = ModelRendererX.BoxShape;
+        var b = ModelRendererY.BoxShape;
+        var c = ModelRendererZ.BoxShape;
+        var d = ModelRendererXy.BoxShape;
         if (EditorViewManager.LastUsedView?.ViewType is RenderTargetPipelineType.SceneView)
         {
             HandleModeChanges();
@@ -241,17 +245,16 @@ public partial class TransformHandle : Component, IComponentUpdateable
         ModelRendererY.BoxShape = BoxColliderY;
         ModelRendererZ.BoxShape = BoxColliderZ;
 
-
-        ModelRendererX.Material.AlbedoColor = Color.Red;
-        ModelRendererY.Material.AlbedoColor = Color.YellowGreen;
-        ModelRendererXy.Material.AlbedoColor = Color.Gold;
-        ModelRendererZ.Material.AlbedoColor = Color.Cyan;
-
         ModelRendererX.AutomaticallyFindBoxShape = false;
         ModelRendererY.AutomaticallyFindBoxShape = false;
         ModelRendererZ.AutomaticallyFindBoxShape = false;
         ModelRendererXy.AutomaticallyFindBoxShape = false;
-
+        
+        ModelRendererX.Material.AlbedoColor = Color.Red;
+        ModelRendererY.Material.AlbedoColor = Color.YellowGreen;
+        ModelRendererXy.Material.AlbedoColor = Color.Gold;
+        ModelRendererZ.Material.AlbedoColor = Color.Cyan;
+        
         base.Awake();
     }
 

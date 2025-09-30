@@ -307,7 +307,14 @@ public class AssetLoadManager
 
     public Asset_Material GetDefaultModelRendererInstancedMaterial()
     {
-        return Get<Asset_Material>(TofuPath.Combine(Folders.EngineResourcesMaterials,
+        Asset_Material material = Get<Asset_Material>(TofuPath.Combine(Folders.EngineResourcesMaterials,
             "ModelRendererInstanced.mat"));
+        return material;
+    }
+
+    public Asset_Material CreatePersistentCopyOfDefaultModelRendererMaterial()
+    {
+        return Tofu.AssetLoadManager.CreateCopyFile<Asset_Material>(GetDefaultModelRendererInstancedMaterial(),
+            folder: Folders.MaterialsInAssets);
     }
 }

@@ -39,7 +39,11 @@ public static class Serializer
         //         writer.Write(JsonConvert.SerializeObject(content, Formatting.Indented));
         //     }
         // }
-
+        string directory = Path.GetDirectoryName(path);
+        if (Directory.Exists(path)==false)
+        {
+            Directory.CreateDirectory(directory);
+        }
         using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
         using (StreamWriter streamWriter = new StreamWriter(stream, Encoding.UTF8))
         using (JsonTextWriter jsonWriter = new JsonTextWriter(streamWriter))

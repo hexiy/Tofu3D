@@ -137,7 +137,7 @@ public class ParticleSystemRenderer : Renderer
             {
                 if (Material?.PathInLibraryFolder.Length == 0 || Material == null)
                 {
-                    Material = Tofu.AssetLoadManager.GetDefaultModelRendererInstancedMaterial();
+                    Material = Tofu.AssetLoadManager.CreatePersistentCopyOfDefaultModelRendererMaterial();
                 }
                 else
                 {
