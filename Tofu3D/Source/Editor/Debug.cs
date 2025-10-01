@@ -1,11 +1,16 @@
 ﻿using System.Diagnostics;
 using System.Linq;
+using System.Threading.Channels;
+using System.Threading.Tasks;
 
 namespace TofuEngine;
 
 public class Debug
 {
     private static List<LogEntry> _logs = new List<LogEntry>();
+    private static readonly Channel<LogEntry> _logChannel;
+    private static readonly ChannelWriter<LogEntry> _logWriter;
+    private static readonly Task _logProcessorTask;
 
     public static readonly int Limit = 3000;
 
@@ -15,6 +20,31 @@ public class Debug
     public static Dictionary<string, float> AdditiveStats = new Dictionary<string, float>();
 
     public static bool Paused = false;
+
+    static Debug()
+    {
+        _logChannel = Channel.CreateUnbounded<LogEntry>();
+        _logWriter = _logChannel.Writer;
+        _logProcessorTask = Task.Run(ProcessLogEntries);
+    }
+
+    private static async Task ProcessLogEntries()
+    {
+        await foreach (var logEntry in _logChannel.Reader.ReadAllAsync())
+        {
+            lock (_logs)
+            {
+                _logs.Add(logEntry);
+
+                if (_logs.Count > Limit + 1)
+                {
+                    _logs.RemoveAt(0);
+                }
+            }
+
+            Console.WriteLine($"{logEntry.Time} : {logEntry.LogCategory} | {logEntry.Message}");
+        }
+    }
 
     [Conditional("TRACE")]
     private static void Log(string message, LogCategory logCategory = LogCategory.Info)
@@ -35,19 +65,8 @@ public class Debug
             Message = message, StackTrace = stackTrace,
             Time = $"[{DateTime.Now:HH:mm:ss}:{DateTime.Now.Millisecond:000}]", LogCategory = logCategory
         };
-        lock (_logs)
-        {
-            _logs.Add(logEntry);
 
-            //Tofu.Window.Title = logs.Last();
-
-            if (_logs.Count > Limit + 1)
-            {
-                _logs.RemoveAt(0);
-            }
-        }
-
-        Console.WriteLine($"{logEntry.Time} : {logCategory} | {message}");
+        _logWriter.TryWrite(logEntry);
     }
 
     [Conditional("TRACE")]
