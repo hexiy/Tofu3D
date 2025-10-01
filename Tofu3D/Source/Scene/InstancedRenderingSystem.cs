@@ -758,8 +758,9 @@ public class InstancedRenderingSystem
         int startingIndex, Asset_Material material,
         Vector2? uvOffset = null, uint mousePickingId = 0)
     {
-        lock (buffer)
+        if (startingIndex == -1)
         {
+            return;}
             int bufferIndex = startingIndex;
             buffer[bufferIndex++] = modelMatrix.M11;
             buffer[bufferIndex++] = modelMatrix.M12;
@@ -803,7 +804,6 @@ public class InstancedRenderingSystem
             buffer[bufferIndex++] = uvOffset?.X ?? 0;
             buffer[bufferIndex++] = uvOffset?.Y ?? 0;
             // }
-        }
     }
 
     public void Reset()
