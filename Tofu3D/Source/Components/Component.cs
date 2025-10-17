@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace Scripts;
 
+[DebuggerDisplay("Component of gameobject {GameObjectName} id {GameObjectId} | EnabledSelf:{EnabledSelf} | IsActive:{IsActive}")]
 public class Component : IDestroyable, ICloneable
 {
     private bool _enabledSelfSelf = true;
@@ -19,6 +21,8 @@ public class Component : IDestroyable, ICloneable
 
     [XmlIgnore]
     public GameObject? GameObject;
+
+    private string GameObjectName => GameObject?.Name ?? String.Empty;
 
     public int GameObjectId;
     public bool Started;

@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Component = Scripts.Component;
 
 namespace TofuEngine;
 
+[DebuggerDisplay("GameObject [{Name}|id:{Id}] : {ComponentsCount} Components")]
 public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 {
     private bool _activeSelf = true;
@@ -22,6 +24,8 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     [XmlIgnore]
     public List<Component> Components = new List<Component>();
 
+    private int ComponentsCount => Components.Count;
+    
     public float DestroyTimer = 2;
     public int Id = -1;
 
