@@ -224,7 +224,9 @@ public partial class TransformHandle : Component, IComponentUpdateable
         materialCopy.Smoothness = 0;
         materialCopy.MaterialType = MaterialType.Unlit;
         materialCopy.RenderMode = RenderMode.Transparent;
-        materialCopy.IgnoreDepth = true;
+        // materialCopy.NoDepth = false;
+        materialCopy.DepthOverrideEnabled = true;
+        materialCopy.DepthOverride = -0.48f;
         ModelRendererX.Material = Tofu.AssetLoadManager.CreateCopyFile(materialCopy);
         ModelRendererY.Material = Tofu.AssetLoadManager.CreateCopyFile(materialCopy);
         ModelRendererXy.Material = Tofu.AssetLoadManager.CreateCopyFile(materialCopy);
@@ -234,11 +236,6 @@ public partial class TransformHandle : Component, IComponentUpdateable
         PremadeComponentSetupsHelper.PrepareCube(ModelRendererY);
         PremadeComponentSetupsHelper.PrepareCube(ModelRendererXy);
         PremadeComponentSetupsHelper.PrepareCube(ModelRendererZ);
-
-        ModelRendererXy.Layer = 1000;
-        ModelRendererX.Layer = 1000;
-        ModelRendererY.Layer = 1000;
-        ModelRendererZ.Layer = 1000;
 
         ModelRendererX.BoxShape = BoxColliderX;
         ModelRendererXy.BoxShape = BoxColliderXy;
@@ -254,7 +251,6 @@ public partial class TransformHandle : Component, IComponentUpdateable
         ModelRendererY.Material.AlbedoColor = Color.YellowGreen;
         ModelRendererXy.Material.AlbedoColor = Color.Gold;
         ModelRendererZ.Material.AlbedoColor = Color.Cyan;
-        
         base.Awake();
     }
 

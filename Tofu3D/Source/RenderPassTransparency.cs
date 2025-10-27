@@ -49,7 +49,9 @@ public class RenderPassTransparency : RenderPass
 
     protected override void PreRender()
     {
-        // GL.DepthMask(false);
+        GL.Enable(EnableCap.DepthTest);
+        GL.DepthMask(false);  // Transparent objects don't write depth
+        GL.DepthFunc(DepthFunction.Lequal);  // But still test against existing depth
     }
 
     protected override void SetupRenderTexture()

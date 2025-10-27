@@ -19,6 +19,8 @@ uniform mat4 u_viewProjection;
 uniform mat4 u_lightSpaceViewProjection;
 uniform vec2 u_tiling;
 uniform vec2 u_offset;
+uniform float u_depthOverrideEnabled=0;
+uniform float u_depthOverride=0;
 
 out vec3 vertexPositionWorld;
 out vec2 uv;
@@ -39,6 +41,9 @@ void main(void)
 	mat4 a_model = mat4(vec4(a_model_1, 0), vec4(a_model_2, 0), vec4(a_model_3, 0), vec4(a_model_4, 1));
 	mat4 mvp = u_viewProjection * a_model;
 	gl_Position = mvp * vec4(a_pos.xyz, 1.0);
+	if(u_depthOverrideEnabled==1) {
+		gl_Position.z += (u_depthOverride * 2.0 - 1.0) * gl_Position.w;
+	}
 
 	albedoAtlasIndex = uint(floor(a_albedoBoundingBoxAndIndexInAtlas.x)); // extract from a_albedoBoundingBoxAndIndexInAtlas,
 	albedoBoundingBox = a_albedoBoundingBoxAndIndexInAtlas - vec4(albedoAtlasIndex);

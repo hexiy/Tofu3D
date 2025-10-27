@@ -5,22 +5,25 @@ namespace TofuEngine;
 
 public static class MousePickingSystem
 {
-    static Dictionary<uint, Renderer> _renderers = new Dictionary<uint, Renderer>();
+    private static readonly Dictionary<uint, Renderer> _renderers = new Dictionary<uint, Renderer>();
 
     static uint _lastPixel;
 
     private static uint _currentId;
 
-    public static Renderer HoveredRenderer { get; private set; }
+    public static Renderer? HoveredRenderer { get; private set; }
 
     public static uint RegisterObject(Renderer renderer)
     {
-        // MousePickingObject mousePickingObject = new MousePickingObject() {Renderer = renderer, Color = GetFreeColor()};
-        uint col = GetFreeColor();
-        // Debug.Log($"registered mouse picking object with color {col}:rgba:{new Color(col)}, {col}");
-        _renderers[col] = renderer;
-        // _renderers.Add(mousePickingObject);
-        return col;
+        lock (_renderers)
+        {
+            // MousePickingObject mousePickingObject = new MousePickingObject() {Renderer = renderer, Color = GetFreeColor()};
+            uint col = GetFreeColor();
+            // Debug.Log($"registered mouse picking object with color {col}:rgba:{new Color(col)}, {col}");
+            _renderers[col] = renderer;
+            // _renderers.Add(mousePickingObject);
+            return col;
+        }
     }
 
     public static void RemoveObject(Renderer renderer)
@@ -150,7 +153,10 @@ public static class MousePickingSystem
         if (_currentId != _lastPixel)
         {
             _lastPixel = _currentId;
-            HoveredRenderer = GetRenderer(_currentId); // find renderer by decoded id
+            lock (_renderers)
+            {
+                HoveredRenderer = GetRenderer(_currentId); // find renderer by decoded id
+            }
 
             byte a = (byte)((_currentId >> 24) & 0xFF);
             byte r = (byte)((_currentId >> 16) & 0xFF);

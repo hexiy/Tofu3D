@@ -13,6 +13,7 @@ public class InstancedRenderingSystem
 
     private Asset_Material _mousePickingMaterial;
     private Asset_Material _depthMaterial;
+    private Asset_Material _depthWithOverrideMaterial;
     // private Asset_Material _customDepthMaterial;
 
     public InstancedRenderingSystem()
@@ -31,9 +32,15 @@ public class InstancedRenderingSystem
             {
                 Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.EngineResourcesShaders,
                     "ModelRendererInstancedDepth.glsl"))
-            };
-
+            };           
             _depthMaterial.LoadShader();
+
+            _depthWithOverrideMaterial = new Asset_Material()
+            {
+                Shader = Tofu.ShaderManager.LoadShader(TofuPath.Combine(Folders.EngineResourcesShaders,
+                    "ModelRendererDepthOverride.glsl"))
+            };
+            _depthWithOverrideMaterial.LoadShader();
         }
 
         // {
@@ -167,6 +174,7 @@ public class InstancedRenderingSystem
                         Camera.CurrentlyRenderingCamera.ViewMatrix *
                         Camera.CurrentlyRenderingCamera.ProjectionMatrix);
                 }
+                
                 // SetGlobalUniforms(_mousePickingMaterial);
             }
 
@@ -252,7 +260,7 @@ public class InstancedRenderingSystem
         int meshVao = definition.RuntimeMesh.Vao;
         int indicesCount = definition.RuntimeMesh.Mesh.IndicesLength;
         int numberOfObjects = sharedInstancingBuffer.NumberOfObjects;
-        if (material.IgnoreDepth || material.NoDepth)
+        if (material.NoDepth)
         {
             GL.Disable(EnableCap.DepthTest);
         }
@@ -269,6 +277,11 @@ public class InstancedRenderingSystem
         // }
         if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType == RenderPassType.MousePicking)
         {
+            Tofu.ShaderManager.UseShader(_mousePickingMaterial.Shader);
+
+            _mousePickingMaterial.Shader.SetFloat("u_depthOverrideEnabled", material.DepthOverrideEnabled ? 1 :0);
+            _mousePickingMaterial.Shader.SetFloat("u_depthOverride", material.DepthOverride);
+
             RenderObjects_MousePickingPass(meshVao: meshVao, numberOfObjects: numberOfObjects,
                 indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
                 vbo: sharedInstancingBuffer.Vbo);
@@ -279,12 +292,12 @@ public class InstancedRenderingSystem
                  or RenderPassType.PointLightShadowDepth
                  or RenderPassType.ZPrePass)
         {
-            if (material.NoDepth == false)
-            {
+            // if (material.NoDepth == false)
+            // {
                 RenderObjects_DepthPasses(meshVao: meshVao, numberOfObjects: numberOfObjects,
                     indicesCount: indicesCount, verticesCount: definition.RuntimeMesh.Mesh.VerticesCount,
                     material: material, vbo: sharedInstancingBuffer.Vbo);
-            }
+            // }
         }
 
         else if (Tofu.RenderingSystem.CurrentlyExecutingPipeline.CurrentRenderPassType is RenderPassType.Opaques
@@ -296,7 +309,7 @@ public class InstancedRenderingSystem
                 material: material, vbo: sharedInstancingBuffer.Vbo);
         }
 
-        if (material.IgnoreDepth || material.NoDepth)
+        if (material.NoDepth)
         {
             GL.Enable(EnableCap.DepthTest);
         }
@@ -332,6 +345,19 @@ public class InstancedRenderingSystem
     private void RenderObjects_DepthPasses(int meshVao, int numberOfObjects, int indicesCount, int verticesCount,
         Asset_Material material, int vbo)
     {
+        bool usesDepthOverride = material.DepthOverrideEnabled; // Or whatever property you use
+        
+        if (usesDepthOverride)
+        {
+            Tofu.ShaderManager.UseShader(_depthWithOverrideMaterial.Shader);
+            _depthWithOverrideMaterial.Shader.SetMatrix4X4("u_viewProjection",
+                Camera.CurrentlyRenderingCamera.ViewMatrix * Camera.CurrentlyRenderingCamera.ProjectionMatrix);
+            
+            // Set your custom depth override value
+            _depthWithOverrideMaterial.Shader.SetFloat("u_depthOverride", material.DepthOverride);
+
+
+        }
         // if (material.CustomRenderQueue != null)
         // {
         //     Tofu.ShaderManager.UseShader(_customDepthMaterial.Shader);
@@ -362,10 +388,10 @@ public class InstancedRenderingSystem
                 numberOfObjects);
         }
 
-        // if (material.CustomRenderQueue != null)
-        // {
-        // Tofu.ShaderManager.UseShader(_depthMaterial.Shader);
-        // }
+        if (usesDepthOverride)
+        {
+            Tofu.ShaderManager.UseShader(_depthMaterial.Shader);
+        }
     }
 
     private void RenderObjects_Opaques_UI_Transparency(int meshVao, int numberOfObjects, int indicesCount,
@@ -376,6 +402,11 @@ public class InstancedRenderingSystem
 
         RenderingBlendingHelper.SetBlendMode(material.BlendMode);
 
+        if (material.DepthOverrideEnabled && Tofu.RenderingSystem.CurrentlyExecutingPipeline.ZPrePass.Enabled)
+        {
+            GL.DepthFunc(DepthFunction.Equal);
+        }
+        
         // Tofu.ShaderManager.BindVertexArray(meshVao);
         // GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
@@ -391,6 +422,11 @@ public class InstancedRenderingSystem
         {
             GL_DrawArraysInstanced(PrimitiveType.Triangles, 0, verticesCount,
                 numberOfObjects);
+        }
+
+        if (material.DepthOverrideEnabled && Tofu.RenderingSystem.CurrentlyExecutingPipeline.ZPrePass.Enabled)
+        {
+            GL.DepthFunc(DepthFunction.Lequal);
         }
     }
 
@@ -491,6 +527,9 @@ public class InstancedRenderingSystem
     {
         material.Shader.SetInt("u_materialType", (int)material.MaterialType);
 
+    
+        material.Shader.SetFloat("u_depthOverrideEnabled", material.DepthOverrideEnabled ? 1 :0);
+        material.Shader.SetFloat("u_depthOverride", material.DepthOverride);
 
         if (material.ObjectSelected)
         {

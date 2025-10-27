@@ -16,9 +16,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
     [XmlIgnore] public Action Despawn;
 
     [XmlIgnore] public Action Spawn;
-
-    [XmlIgnore] public Action SpawnSingleThreaded;
-
+    
     public int TerrainSize = 10;
     public int ThreadsToUse = 5;
 
@@ -26,7 +24,6 @@ public class TerrainGenerator : Component, IComponentUpdateable
     public override void Awake()
     {
         Spawn += StartTerrainGenerationOnNewThread;
-        SpawnSingleThreaded += StartTerrainGenerationOnNewThread;
         Despawn += DestroyTerrain;
         
         base.Awake();
@@ -169,6 +166,10 @@ public class TerrainGenerator : Component, IComponentUpdateable
             go.Transform.SetParent(Transform);
 
             float positionY = Mathf.Sin(x / 10f) * Mathf.Cos((float)z / 10) * 15;
+            if (positionY < 0)
+            {
+                positionY = 0;
+            }
             positionY = positionY.TranslateToGrid(2);
 
             go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);

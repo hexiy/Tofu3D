@@ -50,7 +50,18 @@ public class RenderPassOpaques : RenderPass
 
     protected override void PreRender()
     {
-        GL.DepthMask(true);
+        GL.Enable(EnableCap.DepthTest);
+
+        if (RenderTargetPipeline.ZPrePass.Enabled)
+        {
+            GL.DepthMask(false);
+            GL.DepthFunc(DepthFunction.Equal);
+        }
+        else
+        {
+            GL.DepthMask(true);
+            GL.DepthFunc(DepthFunction.Lequal);
+        }
     }
 
     protected override void Render_GL()

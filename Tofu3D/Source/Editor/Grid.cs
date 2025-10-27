@@ -33,7 +33,8 @@ public class Grid : Component, IComponentUpdateable
             Tofu.AssetLoadManager.Get<RuntimeTexture>(TofuPath.Combine(Folders.TexturesInAssets, "gridX.png"));
         //,TextureLoadSettings.DefaultSettingsSpritePixelArt);
         _renderer.Color = new Color(255, 255, 255, 255);
-        _renderer.Layer = -10;
+        _renderer.Material.DepthOverrideEnabled = true;
+        _renderer.Material.DepthOverride = -10;
         _renderer.Material.BlendMode = BlendMode.PremultipliedAlpha;
 
 

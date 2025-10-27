@@ -120,9 +120,9 @@ public class RenderTargetPipeline
 
         RenderPasses.AddRange([
             renderPassSkybox,
-            renderPassDirectionalLightShadowDepth,
-            renderPassPointLightShadowDepth,
-            renderPassPointLightShadowDepth,
+            // renderPassDirectionalLightShadowDepth,
+            // renderPassPointLightShadowDepth,
+            // renderPassPointLightShadowDepth,
             renderPassZPrePass,
             renderPassOpaques,
             renderPassTransparency,

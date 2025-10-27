@@ -18,6 +18,8 @@ layout (location = 11) in vec2 a_uv_offset;
 uniform mat4 u_viewProjection;
 
 flat out uint v_id;
+uniform float u_depthOverrideEnabled=0;
+uniform float u_depthOverride;
 
 void main(void)
 {
@@ -27,6 +29,11 @@ void main(void)
 	v_id = uint(a_id);
 
 	gl_Position = mvp * vec4(a_pos.xyz, 1.0);
+//
+//	if(u_depthOverrideEnabled==1) {
+//		gl_Position.z = (u_depthOverride * 2.0 - 1.0) * gl_Position.w;
+//	}
+
 }
 
 //[FRAGMENT]

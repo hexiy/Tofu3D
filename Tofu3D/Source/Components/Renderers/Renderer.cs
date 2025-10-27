@@ -58,7 +58,6 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     public bool NeedsToSetupMesh = true;
 
     // internal bool OnScreen = true;
-    public float Layer { get; set; }
 
     [XmlIgnore]
     public Matrix4x4? LatestModelMatrix { get; private set; } = null;

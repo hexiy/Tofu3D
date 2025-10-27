@@ -25,10 +25,13 @@ public class RenderPassMousePicking : RenderPass
     {
         // Ensure depth testing is enabled for correct nearest-surface selection
         GL.Enable(EnableCap.DepthTest);
+        GL.DepthMask(true);  // Write depth during mouse picking
+        GL.DepthFunc(DepthFunction.Lequal);
         GL.Disable(EnableCap.Blend);
         // Clear the framebuffer with 0 (no object)
         // Clear to transparent background so "no object" reads as 0 in all channels
         GL.ClearColor(0, 0, 0, 0);
+        GL.ClearDepth(1);
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         base.PreRender();
     }

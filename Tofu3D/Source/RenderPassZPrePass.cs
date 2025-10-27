@@ -17,23 +17,21 @@ public class RenderPassZPrePass : RenderPass
     protected override void Render_GL()
     {
         Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.Opaque);
+        Tofu.InstancedRenderingSystem.RenderShaderGroups(InstancingRenderMode.Transparent);
     }
     protected override void PreRender()
     {
-        // GL.Enable(EnableCap.DepthTest);
-
+        GL.Enable(EnableCap.DepthTest); // Make sure depth test is enabled
         GL.DepthMask(true);
+        GL.DepthFunc(DepthFunction.Lequal);
 
         GL.ClearDepth(1);
         GL.Clear(ClearBufferMask.DepthBufferBit);
-        // GL.DepthRange(0, Camera.MainCamera.FarPlaneDistance);
         GL.DepthRange(0, 1);
-        GL.DepthFunc(DepthFunction.Lequal);
     }
 
     protected override void PostUnbindFrameBuffer()
     {
-        GL.DepthMask(false);
     }
 
     protected override void SetupRenderTexture()

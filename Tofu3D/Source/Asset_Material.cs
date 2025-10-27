@@ -50,10 +50,11 @@ public class Asset_Material : Asset<Asset_Material>
     public MaterialType MaterialType = MaterialType.Lit;
 
     [Space]
-    public bool IgnoreDepth = false;
-
     public bool NoDepth = false;
-
+    [Space]
+    public bool DepthOverrideEnabled { get; set; } = false;
+    public float DepthOverride { get; set; } = 0;
+    
     public override int GetHashCode()
     {
         HashCodeCombiner hashCodeCombiner = HashCodeCombiner.Start();
