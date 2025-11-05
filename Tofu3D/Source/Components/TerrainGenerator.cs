@@ -13,19 +13,23 @@ public class TerrainGenerator : Component, IComponentUpdateable
     private int _threadsWorkingCount = -1;
     private GameObject? _cubePrefab;
 
-    [XmlIgnore] public Action Despawn;
+    [XmlIgnore]
+    public Action Despawn;
 
-    [XmlIgnore] public Action Spawn;
-    
+    [XmlIgnore]
+    public Action Spawn;
+
     public int TerrainSize = 10;
     public int ThreadsToUse = 5;
 
-    
+    private Asset_Material? _grassMaterial = null;
+    private Asset_Material? _waterMaterial = null;
+
     public override void Awake()
     {
         Spawn += StartTerrainGenerationOnNewThread;
         Despawn += DestroyTerrain;
-        
+
         base.Awake();
     }
 
@@ -37,7 +41,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void CreateCubePrefab()
     {
-        _cubePrefab = GameObject.Create(name: "cube", runtimeOnly:true, visibleInHierarchy:false);
+        _cubePrefab = GameObject.Create(name: "cube", runtimeOnly: true, visibleInHierarchy: false);
         _cubePrefab.AddComponent<BoxShape>();
         ModelRenderer modelRenderer = _cubePrefab.AddComponent<ModelRenderer>();
         modelRenderer.NeedsToSetupMesh = false;
@@ -45,7 +49,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
         _cubePrefab.Awake();
 
         string modelPath = Path.Combine("3D", "Minecraft_Grass_Block_OBJ", "Grass_Block.obj");
-        Asset_Model model =  Tofu.AssetLoadManager.Get<Asset_Model>(modelPath);
+        Asset_Model model = Tofu.AssetLoadManager.Get<Asset_Model>(modelPath);
         modelRenderer.RuntimeMesh = model.GetMesh(0);
 
         string texturePath = Path.Combine("3D", "Minecraft_Grass_Block_OBJ", "Grass_Block_TEX.png");
@@ -53,8 +57,23 @@ public class TerrainGenerator : Component, IComponentUpdateable
         modelRenderer.Material.AlbedoTexture = Tofu.AssetLoadManager.Get<RuntimeTexture>(texturePath);
         modelRenderer.Material.MetallicTextureStrength = 0.2f;
         modelRenderer.Material.Smoothness = 0f;
+        if (_grassMaterial == null)
+        {
+            _grassMaterial = Tofu.AssetLoadManager.CreateCopyFile<Asset_Material>(modelRenderer.Material,
+                folder: Folders.MaterialsInAssets);
 
+            _waterMaterial = Tofu.AssetLoadManager.CreateCopyFile<Asset_Material>(modelRenderer.Material,
+                folder: Folders.MaterialsInAssets);
+
+            _waterMaterial.AlbedoTexture = Tofu.Editor.EditorTextures.WhitePixel;
+            _waterMaterial.AlbedoColor = Color.Blue;
+            _waterMaterial.AlbedoColor.SetAlpha(0.2f);
+
+            _waterMaterial.MaterialType = MaterialType.Unlit;
+            _waterMaterial.RenderMode = RenderMode.Transparent;
+        }
     }
+
     public void Update()
     {
         if (_threadsWorkingCount == 0)
@@ -86,6 +105,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
         {
             CreateCubePrefab();
         }
+
         _cubePrefab.SetActive(true);
 
         Tofu.SceneSerializer.SaveClipboardGameObject(_cubePrefab);
@@ -166,10 +186,18 @@ public class TerrainGenerator : Component, IComponentUpdateable
             go.Transform.SetParent(Transform);
 
             float positionY = Mathf.Sin(x / 10f) * Mathf.Cos((float)z / 10) * 15;
-            if (positionY < 0)
+            bool isWater = positionY < -1;
+            if (isWater)
+            {
+                go.GetComponent<Renderer>().Material = _waterMaterial;
+            }
+
+            if (positionY < -1)
             {
                 positionY = 0;
             }
+
+
             positionY = positionY.TranslateToGrid(2);
 
             go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
@@ -184,9 +212,8 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
         Debug.EndAndLogTimer(
             $"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");
-        
-        _cubePrefab.SetActive(false);
 
+        _cubePrefab.SetActive(false);
     }
 
     private void LongTask()

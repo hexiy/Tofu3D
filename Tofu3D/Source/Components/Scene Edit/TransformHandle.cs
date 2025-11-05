@@ -262,10 +262,10 @@ public partial class TransformHandle : Component, IComponentUpdateable
         // }
     }
 
-    public void Move(Vector3 deltaVector)
+    public void Move(Vector3 screenDelta)
     {
         // return;
-        deltaVector = Camera.ActivelyInteractedWithCamera.ScreenToWorld(deltaVector) * 100;
+        Vector3 worldDelta =  Camera.ActivelyInteractedWithCamera.ScreenToWorld(screenDelta) * 100;
 
         Vector3 axisDirection = Vector3.Zero;
         Vector3 moveVector = Vector3.Zero;
@@ -284,10 +284,10 @@ public partial class TransformHandle : Component, IComponentUpdateable
         }
 
         // Vector3 deltaVectorInWorld
-        float similarityInDirection = Vector3.Dot(deltaVector.Normalized(), axisDirection);
+        float similarityInDirection = Vector3.Dot(worldDelta.Normalized(), axisDirection);
 
         // todo,
-        if (deltaVector.MaxVectorMember() > 0.01f)
+        if (worldDelta.MaxVectorMember() > 0.01f)
         {
             // Debug.Log("similarityInDirection:" + similarityInDirection);
         }
@@ -295,17 +295,17 @@ public partial class TransformHandle : Component, IComponentUpdateable
         switch (CurrentAxisSelected)
         {
             case TransformHandleAxis.X:
-                moveVector += deltaVector.VectorX().Abs() * similarityInDirection;
+                moveVector += worldDelta.VectorX().Abs() * similarityInDirection;
                 break;
             case TransformHandleAxis.Y:
-                moveVector += deltaVector.VectorY().Abs() * similarityInDirection;
+                moveVector += worldDelta.VectorY().Abs() * similarityInDirection;
                 break;
             case TransformHandleAxis.Z:
-                moveVector -= new Vector3(deltaVector.Z, 0, deltaVector.X);
+                moveVector -= new Vector3(worldDelta.Z, 0, worldDelta.X);
                 break;
             case TransformHandleAxis.Xy:
                 moveVector +=
-                    Camera.ActivelyInteractedWithCamera.Transform.TransformVectorToWorldSpaceVector(deltaVector);
+                    Camera.ActivelyInteractedWithCamera.Transform.TransformVectorToWorldSpaceVector(screenDelta);
                 break;
         }
 
