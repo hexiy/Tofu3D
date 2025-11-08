@@ -267,11 +267,11 @@ public class InstancedRenderingSystem
             GL.Disable(EnableCap.DepthTest);
         }
 
-        // if (material.RenderMode == RenderMode.Transparent)
-        // {
-        //     GL.Disable(EnableCap.CullFace);
-        //     GL.CullFace(CullFaceMode.Back);
-        // }
+        if (material.RenderMode == RenderMode.Transparent)
+        {
+            GL.Disable(EnableCap.CullFace);
+            GL.CullFace(CullFaceMode.Back);
+        }
         // else
         // {
         //     GL.Enable(EnableCap.CullFace);

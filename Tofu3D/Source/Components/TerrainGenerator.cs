@@ -11,7 +11,8 @@ public class TerrainGenerator : Component, IComponentUpdateable
     private readonly float _cubeModelSize = 2;
 
     private int _threadsWorkingCount = -1;
-    private GameObject? _cubePrefab;
+    private GameObject? _grassPrefab;
+    private GameObject? _waterPrefab;
 
     [XmlIgnore]
     public Action Despawn;
@@ -41,12 +42,12 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void CreateCubePrefab()
     {
-        _cubePrefab = GameObject.Create(name: "cube", runtimeOnly: true, visibleInHierarchy: false);
-        _cubePrefab.AddComponent<BoxShape>();
-        ModelRenderer modelRenderer = _cubePrefab.AddComponent<ModelRenderer>();
+        _grassPrefab = GameObject.Create(name: "cube", runtimeOnly: true, visibleInHierarchy: false);
+        _grassPrefab.AddComponent<BoxShape>();
+        ModelRenderer modelRenderer = _grassPrefab.AddComponent<ModelRenderer>();
         modelRenderer.NeedsToSetupMesh = false;
 
-        _cubePrefab.Awake();
+        _grassPrefab.Awake();
 
         string modelPath = Path.Combine("3D", "Minecraft_Grass_Block_OBJ", "Grass_Block.obj");
         Asset_Model model = Tofu.AssetLoadManager.Get<Asset_Model>(modelPath);
@@ -61,15 +62,38 @@ public class TerrainGenerator : Component, IComponentUpdateable
         {
             _grassMaterial = Tofu.AssetLoadManager.CreateCopyFile<Asset_Material>(modelRenderer.Material,
                 folder: Folders.MaterialsInAssets);
+        }
+    }
 
+    private void CreateWaterPrefab()
+    {
+        _waterPrefab = GameObject.Create(name: "water", runtimeOnly: true, visibleInHierarchy: false);
+        BoxShape boxShape =_waterPrefab.AddComponent<BoxShape>();
+        boxShape.Pivot = new Vector3(0.5f, 0f,0.5f);
+        ModelRenderer modelRenderer = _waterPrefab.AddComponent<ModelRenderer>();
+        modelRenderer.NeedsToSetupMesh = false;
+
+        _waterPrefab.Awake();
+
+        string modelPath = Path.Combine("3D", "Basic", "plane.obj");
+        Asset_Model model = Tofu.AssetLoadManager.Get<Asset_Model>(modelPath);
+        modelRenderer.RuntimeMesh = model.GetMesh(0);
+
+
+        if (_waterMaterial == null)
+        {
             _waterMaterial = Tofu.AssetLoadManager.CreateCopyFile<Asset_Material>(modelRenderer.Material,
                 folder: Folders.MaterialsInAssets);
 
-            _waterMaterial.AlbedoTexture = Tofu.Editor.EditorTextures.WhitePixel;
-            _waterMaterial.AlbedoColor = Color.Blue;
-            _waterMaterial.AlbedoColor.SetAlpha(0.2f);
+            _waterMaterial.MetallicTextureStrength = 0.2f;
+            _waterMaterial.Smoothness = 0f;
+
+            _waterMaterial.AlbedoTexture =
+                Tofu.AssetLoadManager.Get<RuntimeTexture>(Folders.Get2DAssetPath("water_still.png"));
+            _waterMaterial.AlbedoColor = new Color(0, 255, 255, 255);
 
             _waterMaterial.MaterialType = MaterialType.Unlit;
+            _waterMaterial.Tiling = new Vector2(6, 0.5f);
             _waterMaterial.RenderMode = RenderMode.Transparent;
         }
     }
@@ -101,14 +125,20 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void StartTerrainGenerationOnNewThread()
     {
-        if (_cubePrefab == null)
+        if (_grassPrefab == null)
         {
             CreateCubePrefab();
         }
 
-        _cubePrefab.SetActive(true);
+        if (_waterPrefab == null)
+        {
+            CreateWaterPrefab();
+        }
 
-        Tofu.SceneSerializer.SaveClipboardGameObject(_cubePrefab);
+        _grassPrefab.SetActive(true);
+        _waterPrefab.SetActive(true);
+
+        Tofu.SceneSerializer.SaveClipboardGameObject(_grassPrefab);
 
         DestroyTerrain();
         _concurrentBag.Clear();
@@ -123,7 +153,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
         {
             int capturedThreadIndex = threadIndex;
             Thread thread = new Thread(() =>
-                GenerateTerrain(TerrainSize, _cubePrefab, capturedThreadIndex, numberOfThreads));
+                GenerateTerrain(capturedThreadIndex, numberOfThreads));
             threads.Add(thread);
         }
 
@@ -132,39 +162,77 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void StartTerrainGenerationOnMainThread()
     {
-        if (_cubePrefab == null)
+        if (_grassPrefab == null)
         {
             return;
         }
 
-        Tofu.SceneSerializer.SaveClipboardGameObject(_cubePrefab);
+        Tofu.SceneSerializer.SaveClipboardGameObject(_grassPrefab);
 
         DestroyTerrain();
         _concurrentBag.Clear();
 
-        GenerateTerrain(TerrainSize, _cubePrefab, 0, 1);
+        GenerateTerrain(0, 1);
     }
 
-    private void GenerateTerrain(int terrainSize, GameObject referenceGameObject, int threadIndex, int numberOfThreads)
+
+    private void GenerateTerrain(int threadIndex, int numberOfThreads)
     {
         Debug.StartTimer($"Thread #{threadIndex} finished");
 
-        int totalBlocks = terrainSize * terrainSize;
+        int totalBlocks = TerrainSize * TerrainSize;
         int blocksPerThread = totalBlocks / numberOfThreads;
         int startIndex = blocksPerThread * threadIndex;
-        int endIndex = blocksPerThread + threadIndex * blocksPerThread;
-
+        int endIndex;
+        if (threadIndex == numberOfThreads - 1)
+        {
+           endIndex= totalBlocks;
+        }
+        else
+        {
+            endIndex = blocksPerThread + threadIndex * blocksPerThread;
+        }
 
         for (int i = startIndex; i < endIndex; i++)
         {
-            // Debug.Log(i);
-            GameObject go = (GameObject)referenceGameObject.Clone(false);
+            int x = i % TerrainSize;
+            int z = i / TerrainSize;
+            
+
+            float positionY = Mathf.Sin(x / 10f) * Mathf.Cos((float)z / 10) * 15;
+            bool isWater = positionY < -1;
+
+            if (positionY < -1)
+            {
+                positionY = 0;
+            }
+
+            GameObject go;
+            if (isWater)
+            {
+                go = (GameObject)_waterPrefab.Clone(false);
+                go.GetComponent<Renderer>().Material = _waterMaterial;
+            }
+            else
+            {
+                go = (GameObject)_grassPrefab.Clone(false);
+                go.GetComponent<Renderer>().Material = _grassMaterial;
+
+            }
+
             go.Name = $"Thread:{threadIndex} go {i}";
             go.RuntimeOnly = true;
 
+
+            positionY = positionY.TranslateToGrid(2);
+
+            go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
+            go.SetActive(true);
+
+  
+
             _concurrentBag.Enqueue(go);
         }
-
 
         Debug.EndAndLogTimer($"Thread #{threadIndex} finished");
 
@@ -177,58 +245,34 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void AddBlocksToScene()
     {
-        int x = 0;
-        int z = 0;
-
         Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
         foreach (GameObject go in _concurrentBag)
         {
             go.Transform.SetParent(Transform);
-
-            float positionY = Mathf.Sin(x / 10f) * Mathf.Cos((float)z / 10) * 15;
-            bool isWater = positionY < -1;
-            if (isWater)
-            {
-                go.GetComponent<Renderer>().Material = _waterMaterial;
-            }
-
-            if (positionY < -1)
-            {
-                positionY = 0;
-            }
-
-
-            positionY = positionY.TranslateToGrid(2);
-
-            go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
-            go.SetActive(true);
-            x++;
-            if (x > TerrainSize)
-            {
-                x = 0;
-                z++;
-            }
+            
+            // go.SetActive(true);
         }
 
         Debug.EndAndLogTimer(
             $"TerrainGeneration {TerrainSize}x{TerrainSize} - Total of {TerrainSize * TerrainSize} blocks");
 
-        _cubePrefab.SetActive(false);
+        _grassPrefab.SetActive(false);
+        _waterPrefab.SetActive(false);
     }
 
-    private void LongTask()
-    {
-        List<GameObject> gameObjects = new List<GameObject>(20000);
-        for (int i = 0; i < 20000; i++)
-        {
-            GameObject go = GameObject.Create(name: i.ToString(), addToScene: false);
-            gameObjects.Add(go);
-            Debug.Log(i);
-        }
-
-        lock (Tofu.SceneManager.CurrentScene.GameObjects)
-        {
-            Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(gameObjects);
-        }
-    }
+    // private void LongTask()
+    // {
+    //     List<GameObject> gameObjects = new List<GameObject>(20000);
+    //     for (int i = 0; i < 20000; i++)
+    //     {
+    //         GameObject go = GameObject.Create(name: i.ToString(), addToScene: false);
+    //         gameObjects.Add(go);
+    //         Debug.Log(i);
+    //     }
+    //
+    //     lock (Tofu.SceneManager.CurrentScene.GameObjects)
+    //     {
+    //         Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(gameObjects);
+    //     }
+    // }
 }
