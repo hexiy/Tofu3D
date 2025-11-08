@@ -29,6 +29,7 @@ public class RenderPassTransparency : RenderPass
         GL.Enable(EnableCap.Blend);
         // GL.Enable(EnableCap.DepthTest);
 
+        // blit depth(opaques only drawn in depth pre pass) so we dont draw transparent objects over everything
         GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer,
             RenderTargetPipeline.ZPrePass.MainFramebuffer.FrameBufferID);
         GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, MainFramebuffer.FrameBufferID);
