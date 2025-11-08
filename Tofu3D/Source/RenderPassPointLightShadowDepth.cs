@@ -2,12 +2,10 @@ namespace TofuEngine.Rendering;
 
 public class RenderPassPointLightShadowDepth : RenderPass
 {
-    public static RenderPassPointLightShadowDepth I { get; private set; }
     public override bool DrawsToTheFinalColorFramebuffer => false;
 
     public RenderPassPointLightShadowDepth(RenderTargetPipeline pipeline) : base(RenderPassType.PointLightShadowDepth,pipeline)
     {
-        I = this;
     }
 
     public override bool CanRender() => Tofu.LightRenderingManager.PointLightsCount > 0 && Enabled;

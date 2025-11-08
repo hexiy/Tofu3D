@@ -1,4 +1,6 @@
-﻿namespace TofuEngine.Rendering.Instancing;
+﻿using System.Linq;
+
+namespace TofuEngine.Rendering.Instancing;
 
 public class InstancedRenderingSystem
 {
@@ -573,8 +575,9 @@ public class InstancedRenderingSystem
 
         // Shadowmap
         {
-            bool shadowMapReady = RenderPassDirectionalLightShadowDepth.I?.MainFramebuffer != null &&
-                                  RenderPassDirectionalLightShadowDepth.I.Enabled &&
+            RenderPassDirectionalLightShadowDepth? directionalLightShadowDepthPass = Tofu.RenderingSystem.CurrentlyExecutingPipeline.DirectionalLightShadowDepthRenderPass;
+            bool shadowMapReady = directionalLightShadowDepthPass?.MainFramebuffer != null &&
+                                  directionalLightShadowDepthPass.Enabled &&
                                   material.Shader.ShadowMapTextureUnit != null;
 
             material.Shader.SetInt("u_hasShadowmapTexture", shadowMapReady ? 1 : 0);
@@ -582,7 +585,7 @@ public class InstancedRenderingSystem
             if (shadowMapReady)
             {
                 GL.ActiveTexture(material.Shader.ShadowMapTextureUnit.Value);
-                TextureHelper.BindTexture(RenderPassDirectionalLightShadowDepth.I.MainFramebuffer.DepthTextureId);
+                TextureHelper.BindTexture(directionalLightShadowDepthPass.MainFramebuffer.DepthTextureId);
             }
         }
         

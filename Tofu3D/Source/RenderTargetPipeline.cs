@@ -22,6 +22,12 @@ public class RenderTargetPipeline
 
     private SceneViewData _sceneViewData;
 
+    public RenderPassDirectionalLightShadowDepth? DirectionalLightShadowDepthRenderPass
+    {
+        get;
+        private set;
+    }
+    
     public RenderTargetPipeline(EditorPanelGenericView editorPanelView,RenderTargetPipelineType type)
     {
         EditorPanelView = editorPanelView;
@@ -104,6 +110,8 @@ public class RenderTargetPipeline
         RenderPassSkybox renderPassSkybox = new RenderPassSkybox(this);
         RenderPassDirectionalLightShadowDepth renderPassDirectionalLightShadowDepth =
             new RenderPassDirectionalLightShadowDepth(this);
+
+        DirectionalLightShadowDepthRenderPass = renderPassDirectionalLightShadowDepth;
         RenderPassPointLightShadowDepth renderPassPointLightShadowDepth = new RenderPassPointLightShadowDepth(this);
         RenderPassZPrePass renderPassZPrePass = new RenderPassZPrePass(this);
         ZPrePass = renderPassZPrePass;
@@ -213,5 +221,43 @@ public class RenderTargetPipeline
 
             renderPass.RenderThisAsFullscreenQuadToTargetFramebuffer(FinalFramebuffer, FramebufferAttachment.Color);
         }
+    }
+    public T? GetRenderPass<T>(int? index = null) where T : RenderPass
+    {
+        int k = index == null ? 0 : (int)index;
+        for (int i = 0; i < RenderPasses.Count; i++)
+        {
+            if (RenderPasses[i] is T)
+            {
+                if (k == 0)
+                {
+                    return (T)RenderPasses[i];
+                }
+
+                k--;
+            }
+        }
+
+        return null;
+    }
+    public T? GetRenderPass<T>(out T renderPass, int? index = null) where T : RenderPass
+    {
+        int k = index == null ? 0 : (int)index;
+        for (int i = 0; i < RenderPasses.Count; i++)
+        {
+            if (RenderPasses[i] is T)
+            {
+                if (k == 0)
+                {
+                    renderPass = (T)RenderPasses[i];
+                    return (T)RenderPasses[i];
+                }
+
+                k--;
+            }
+        }
+
+        renderPass = null;
+        return null;
     }
 }

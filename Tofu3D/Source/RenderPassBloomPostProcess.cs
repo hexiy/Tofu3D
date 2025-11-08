@@ -9,14 +9,11 @@ public class RenderPassBloomPostProcess : RenderPass
     private RenderPassBloomThreshold _renderPassBloomThreshold;
     public Framebuffer BloomFramebufferHorizontal { get; protected set; }
     public Framebuffer BloomFramebufferVertical { get; protected set; }
-
-    public static RenderPassBloomPostProcess I;
-
+    
     public RenderPassBloomPostProcess(RenderPassBloomThreshold renderPassBloomThreshold, RenderTargetPipeline pipeline)
         : base(RenderPassType
             .BloomPostProcess, pipeline)
     {
-        I = this;
         _renderPassBloomThreshold = renderPassBloomThreshold;
     }
 

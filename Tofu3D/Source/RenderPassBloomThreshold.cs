@@ -3,11 +3,9 @@ namespace TofuEngine.Rendering;
 public class RenderPassBloomThreshold : RenderPass
 {
     private Asset_Material _bloomThresholdMaterial;
-    public static RenderPassBloomThreshold I;
 
     public RenderPassBloomThreshold(RenderTargetPipeline pipeline) : base(RenderPassType.BloomThreshold, pipeline)
     {
-        I = this;
     }
 
 

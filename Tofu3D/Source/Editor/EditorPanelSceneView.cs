@@ -145,11 +145,12 @@ public class EditorPanelSceneView : EditorPanelGenericView
         bool showBloomTextures = false;
         if (showBloomTextures)
         {
-            if (RenderPassBloomThreshold.I?.MainFramebuffer != null)
+            _renderTargetPipeline.GetRenderPass<RenderPassBloomThreshold>(out RenderPassBloomThreshold bloomThresholdPass);
+            if (bloomThresholdPass?.MainFramebuffer != null)
             {
-                float ratio = RenderPassBloomThreshold.I.MainFramebuffer.Size.Y /
-                              RenderPassBloomThreshold.I.MainFramebuffer.Size.X;
-                float sizeX = Mathf.ClampMax(RenderPassBloomThreshold.I.MainFramebuffer.Size.X, 400);
+                float ratio = bloomThresholdPass.MainFramebuffer.Size.Y /
+                              bloomThresholdPass.MainFramebuffer.Size.X;
+                float sizeX = Mathf.ClampMax(bloomThresholdPass.MainFramebuffer.Size.X, 400);
                 float sizeY = sizeX * ratio;
 
                 ImGui.SetCursorPos(new Vector2(5, 75));
@@ -162,16 +163,17 @@ public class EditorPanelSceneView : EditorPanelGenericView
 
                 ImGui.SetCursorPos(new Vector2(5, 75));
 
-                ImGui.Image(RenderPassBloomThreshold.I.MainFramebuffer.TextureId,
+                ImGui.Image(bloomThresholdPass.MainFramebuffer.TextureId,
                     new Vector2(sizeX, sizeY),
                     new Vector2(0, 1), new Vector2(1, 0), Color.White.ToVector4(), Color.Red.ToVector4());
             }
+            _renderTargetPipeline.GetRenderPass<RenderPassBloomPostProcess>(out RenderPassBloomPostProcess bloomPostProcess);
 
-            if (RenderPassBloomPostProcess.I?.MainFramebuffer != null)
+            if (bloomPostProcess?.MainFramebuffer != null)
             {
-                float ratio = RenderPassBloomPostProcess.I.MainFramebuffer.Size.Y /
-                              RenderPassBloomPostProcess.I.MainFramebuffer.Size.X;
-                float sizeX = Mathf.ClampMax(RenderPassBloomPostProcess.I.MainFramebuffer.Size.X, 400);
+                float ratio = bloomPostProcess.MainFramebuffer.Size.Y /
+                              bloomPostProcess.MainFramebuffer.Size.X;
+                float sizeX = Mathf.ClampMax(bloomPostProcess.MainFramebuffer.Size.X, 400);
                 float sizeY = sizeX * ratio;
 
                 ImGui.SetCursorPos(new Vector2(405, 75));
@@ -183,7 +185,7 @@ public class EditorPanelSceneView : EditorPanelGenericView
 
                 ImGui.SetCursorPos(new Vector2(405, 75));
 
-                TofuImGui.ImageTexture2D(RenderPassBloomPostProcess.I.BloomFramebufferVertical.TextureId,
+                TofuImGui.ImageTexture2D(bloomPostProcess.BloomFramebufferVertical.TextureId,
                     size: new Vector2(sizeX, sizeY), new Vector4(0, 1, 1, 0), Color.White.ToVector4(),
                     Color.Red.ToVector4());
             }

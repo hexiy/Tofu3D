@@ -7,10 +7,7 @@ public class RenderPassPostProcess : RenderPass
 
     public RenderPassPostProcess(RenderTargetPipeline pipeline) : base(RenderPassType.PostProcess,pipeline)
     {
-        I = this;
     }
-
-    public static RenderPassPostProcess I { get; private set; }
 
 
     public override bool CanRender() => Enabled;

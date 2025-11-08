@@ -3,6 +3,8 @@ namespace TofuEngine;
 [ExecuteInEditMode]
 public class DirectionalLight : LightBase
 {
+    public static event Action<DirectionalLight> DirectionalLightAwoken = dirLight => { };
+
     public static Matrix4x4 LightSpaceViewProjectionMatrix { get; private set; } = Matrix4x4.Identity;
 
 
@@ -37,7 +39,8 @@ public class DirectionalLight : LightBase
     {
         // DepthRenderTexture = new RenderTexture(size: Size, colorAttachment: false, depthAttachment: true);
         // DisplayDepthRenderTexture = new RenderTexture(size: Size, colorAttachment: true, depthAttachment: false);
-        RenderPassDirectionalLightShadowDepth.I?.SetDirectionalLight(this);
+        
+        DirectionalLightAwoken?.Invoke(this);
         base.Awake();
     }
 

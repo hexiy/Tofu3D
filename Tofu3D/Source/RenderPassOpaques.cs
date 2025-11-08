@@ -4,12 +4,9 @@ public class RenderPassOpaques : RenderPass
 {
     public RenderPassOpaques(RenderTargetPipeline pipeline) : base(RenderPassType.Opaques, pipeline)
     {
-        I = this;
     }
 
     public override bool DrawsToTheFinalColorFramebuffer => true;
-
-    public static RenderPassOpaques I { get; private set; }
 
     public override void Initialize()
     {

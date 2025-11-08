@@ -7,10 +7,7 @@ public class RenderPassTransparency : RenderPass
 
     public RenderPassTransparency(RenderTargetPipeline pipeline) : base(RenderPassType.Transparency, pipeline)
     {
-        I = this;
     }
-
-    public static RenderPassTransparency I { get; private set; }
 
     public override void Initialize()
     {

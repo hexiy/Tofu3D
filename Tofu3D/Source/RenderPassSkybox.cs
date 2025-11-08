@@ -9,10 +9,8 @@ public class RenderPassSkybox : RenderPass
 
     public RenderPassSkybox(RenderTargetPipeline pipeline) : base(RenderPassType.Skybox, pipeline)
     {
-        I = this;
     }
 
-    public static RenderPassSkybox I { get; private set; }
     // protected override bool CanRender()
     // {
     // 	return _directionalLight?.IsActive == true;

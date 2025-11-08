@@ -9,10 +9,8 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
 
     public RenderPassDirectionalLightShadowDepth(RenderTargetPipeline pipeline) : base(RenderPassType.DirectionalLightShadowDepth, pipeline)
     {
-        I = this;
+        DirectionalLight.DirectionalLightAwoken += SetDirectionalLight;
     }
-
-    public static RenderPassDirectionalLightShadowDepth I { get; private set; }
 
     // shadows depth map
     public Framebuffer DebugDepthVisualisationTexture { get; private set; }
@@ -23,6 +21,7 @@ public class RenderPassDirectionalLightShadowDepth : RenderPass
     {
         base.Initialize();
     }
+
 
     public void SetDirectionalLight(DirectionalLight directionalLight)
     {
