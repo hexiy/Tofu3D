@@ -228,7 +228,6 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
             go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
             
-            // go.IsStaticSelf = true;
             go.SetActive(true);
 
 
@@ -263,8 +262,11 @@ public class TerrainGenerator : Component, IComponentUpdateable
         _grassPrefab.SetActive(false);
         _waterPrefab.SetActive(false);
         
-        // GameObject.IsStaticSelf = true;
-
+        GameObject.IsStaticSelf = true;
+        foreach (Transform child in GameObject.Transform.Children)
+        {
+            child.GameObject.IsStaticSelf =true;
+        }
     }
 
     // private void LongTask()
