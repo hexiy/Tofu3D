@@ -335,8 +335,7 @@ public class SceneSerializer
                             // we change ID of a parent, but if theres multiple children, we change it again? that dont work
                             if (goIndexes[goIndex] == -1)
                             {
-                                gos[goIndex].Id = IDsManager.GameObjectNextId;
-                                IDsManager.GameObjectNextId++;
+                                gos[goIndex].Id = IdManager.GetNextGameObjectIdAndIncrementIt();
 
                                 goIndexes[goIndex] = gos[goIndex].Id;
                             }
@@ -345,8 +344,7 @@ public class SceneSerializer
                                 gos[goIndex].Id = goIndexes[goIndex];
                             }
 
-                            comps[compIndex].GameObject.Id = IDsManager.GameObjectNextId;
-                            IDsManager.GameObjectNextId++;
+                            comps[compIndex].GameObject.Id = IdManager.GetNextGameObjectIdAndIncrementIt();
                         }
 
                         (comps[compIndex] as Transform).SetParent(gos[goIndex].Transform);
@@ -367,8 +365,7 @@ public class SceneSerializer
             {
                 if (newIDs)
                 {
-                    gos[goIndex].Id = IDsManager.GameObjectNextId;
-                    IDsManager.GameObjectNextId++;
+                    gos[goIndex].Id = IdManager.GetNextGameObjectIdAndIncrementIt();
                 }
 
                 for (int i = 0; i < gos[goIndex].Transform.Children.Count; i++)

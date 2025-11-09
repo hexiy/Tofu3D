@@ -42,7 +42,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void CreateCubePrefab()
     {
-        _grassPrefab = GameObject.Create(name: "cube", runtimeOnly: true, visibleInHierarchy: false);
+        _grassPrefab = GameObject.Create(name: "cube", runtimeOnly: true, visibleInHierarchy: true);
         _grassPrefab.AddComponent<BoxShape>();
         ModelRenderer modelRenderer = _grassPrefab.AddComponent<ModelRenderer>();
         modelRenderer.NeedsToSetupMesh = false;
@@ -67,7 +67,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void CreateWaterPrefab()
     {
-        _waterPrefab = GameObject.Create(name: "water", runtimeOnly: true, visibleInHierarchy: false);
+        _waterPrefab = GameObject.Create(name: "water", runtimeOnly: true, visibleInHierarchy: true);
         BoxShape boxShape = _waterPrefab.AddComponent<BoxShape>();
         boxShape.Pivot = new Vector3(0.5f, 0f, 0.5f);
         ModelRenderer modelRenderer = _waterPrefab.AddComponent<ModelRenderer>();
@@ -93,7 +93,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
             _waterMaterial.AlbedoColor = new Color(0, 255, 255, 255);
 
             _waterMaterial.MaterialType = MaterialType.Unlit;
-            _waterMaterial.Tiling = new Vector2(1, 0.1f);
+            _waterMaterial.Tiling = new Vector2(1, 0.05f);
             _waterMaterial.RenderMode = RenderMode.Transparent;
         }
     }

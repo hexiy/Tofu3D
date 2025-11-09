@@ -195,8 +195,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public void AssignNewId()
     {
-        Id = IDsManager.GameObjectNextId;
-        IDsManager.GameObjectNextId++;
+        Id=IdManager.GetNextGameObjectIdAndIncrementIt();
 
 
         for (int i = 0; i < Components.Count; i++)

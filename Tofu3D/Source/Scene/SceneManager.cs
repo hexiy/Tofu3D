@@ -58,7 +58,7 @@ public class SceneManager
         SceneFile sceneFile = Tofu.SceneSerializer.LoadSceneFile(path);
 
         Tofu.SceneSerializer.ConnectGameObjectsWithComponents(sceneFile);
-        IDsManager.GameObjectNextId = sceneFile.GameObjectNextId + 1;
+        IdManager.SetNextGameObjectId(sceneFile.GameObjectNextId + 1);
 
         Tofu.SceneSerializer.ConnectParentsAndChildren(sceneFile);
         for (int i = 0; i < sceneFile.GameObjects.Count; i++)

@@ -19,7 +19,9 @@ public class Scene
     private UpdateableComponentQueue _updateableComponentQueue;
 
     // List<GameObject> _gameObjects = new();
-    public List<GameObject> GameObjects = new List<GameObject>();
+    public List<GameObject> GameObjectsList = new List<GameObject>();
+    public Dictionary<int, GameObject> GameObjectsDictionary = new Dictionary<int, GameObject>();
+    public List<int> SelectedGameObjectsIdList = new List<int>();
 
 
     internal static void OnComponentRemoved(Component component)
@@ -95,14 +97,14 @@ public class Scene
         // 	GameObjects[0].Destroy();
         // }
 
-        foreach (GameObject gameObject in GameObjects)
+        foreach (GameObject gameObject in GameObjectsList)
         {
             gameObject.SetActive(false);
         }
 
-        while (GameObjects.Count > 0)
+        while (GameObjectsList.Count > 0)
         {
-            GameObjects[0].Destroy();
+            GameObjectsList[0].Destroy();
         }
 
         // GameObjects.Clear();
@@ -317,26 +319,26 @@ public class Scene
             Components = [],
             GameObjects = []
         };
-        for (int i = 0; i < GameObjects.Count; i++)
+        for (int i = 0; i < GameObjectsList.Count; i++)
         {
-            GameObjects[i].IndexInHierarchy = i;
+            GameObjectsList[i].IndexInHierarchy = i;
 
-            if (GameObjects[i].RuntimeOnly)
+            if (GameObjectsList[i].RuntimeOnly)
             {
                 continue;
             }
 
-            sf.Components.AddRange(GameObjects[i].Components);
-            sf.GameObjects.Add(GameObjects[i]);
+            sf.Components.AddRange(GameObjectsList[i].Components);
+            sf.GameObjects.Add(GameObjectsList[i]);
         }
 
-        sf.GameObjectNextId = IDsManager.GameObjectNextId;
+        sf.GameObjectNextId = IdManager.GetNextGameObjectIdAndIncrementIt();
         return sf;
     }
 
     public GameObject FindComponent(Type type)
     {
-        foreach (GameObject gameObject in GameObjects)
+        foreach (GameObject gameObject in GameObjectsList)
         {
             Component? bl = gameObject.GetComponent(type);
             if (bl != null)
@@ -350,7 +352,7 @@ public class Scene
 
     public T? FindComponent<T>(bool ignoreInactive = false) where T : Component
     {
-        foreach (GameObject gameObject in GameObjects)
+        foreach (GameObject gameObject in GameObjectsList)
         {
             Component bl = gameObject.GetComponent<T>();
             if (bl != null && ((ignoreInactive && bl.IsActive) || ignoreInactive == false))
@@ -364,7 +366,7 @@ public class Scene
 
     public T? FindComponent<T>(out T component, bool ignoreInactive = false) where T : Component
     {
-        foreach (GameObject gameObject in GameObjects)
+        foreach (GameObject gameObject in GameObjectsList)
         {
             Component bl = gameObject.GetComponent<T>();
             if (bl != null && ((ignoreInactive && bl.IsActive) || ignoreInactive == false))
@@ -381,7 +383,7 @@ public class Scene
     public List<T> FindComponentsInScene<T>(bool ignoreInactive = false) where T : Component
     {
         List<T> components = new List<T>();
-        foreach (GameObject gameObject in GameObjects)
+        foreach (GameObject gameObject in GameObjectsList)
         {
             T? bl = gameObject.GetComponent<T>();
             if (bl != null)
@@ -398,28 +400,24 @@ public class Scene
         return components;
     }
 
-    public GameObject GetGameObjectByID(int id)
+    public GameObject? GetGameObjectByID(int id)
     {
-        for (int i = 0; i < GameObjects.Count; i++)
-        {
-            if (GameObjects[i].Id == id)
-            {
-                return GameObjects[i];
-            }
-        }
+        bool found = GameObjectsDictionary.TryGetValue(id, out var go);
 
-        return null;
+        return found ? go : null;
     }
 
     public List<GameObject> GetGameObjectsByIDs(List<int> ids)
     {
         List<GameObject> foundGameObjects = new List<GameObject>();
-        for (int i = 0; i < GameObjects.Count; i++)
+        for (int i = 0; i < ids.Count; i++)
         {
-            if (ids.Contains(GameObjects[i].Id))
+            bool found = GameObjectsDictionary.TryGetValue(ids[i], out var go);
+            if (found)
             {
-                foundGameObjects.Add(GameObjects[i]);
+                foundGameObjects.Add(go);
             }
+
         }
 
         return foundGameObjects;
@@ -427,33 +425,46 @@ public class Scene
 
     public void AddGameObjectToScene(GameObject gameObject)
     {
-        GameObjects.Add(gameObject);
+        GameObjectsList.Add(gameObject);
+        GameObjectsDictionary.Add(gameObject.Id, gameObject);
         UpdateGameobjectsIndexInHierarchy();
         // _renderableComponentQueue.RenderQueueChanged();
     }
 
     public void AddGameObjectsToScene(IEnumerable<GameObject> gameObjects)
     {
-        GameObjects.AddRange(gameObjects);
+        int oldLength = GameObjectsList.Count;
+        GameObjectsList.AddRange(gameObjects);
+
+        for (int i = oldLength; i < GameObjectsList.Count; i++)
+        {
+            GameObjectsDictionary.Add(GameObjectsList[i].Id, GameObjectsList[i]);
+        }
+
         UpdateGameobjectsIndexInHierarchy();
         // _renderableComponentQueue.RenderQueueChanged();
     }
 
     public void SetupAndSaveEmptyScene(string path)
     {
-        IDsManager.GameObjectNextId = 0;
+        IdManager.ResetGameObjectNextId();
         Tofu.SceneManager.LastOpenedSceneName = path;
-        GameObjects = new List<GameObject>();
+        GameObjectsList = new List<GameObject>();
+        GameObjectsDictionary = new Dictionary<int, GameObject>();
+        SelectedGameObjectsIdList = new List<int>();
         //CreateDefaultObjects();
         Tofu.SceneSerializer.SaveGameObjects(GetSceneFile(), path);
     }
 
     public void OnGameObjectDestroyed(GameObject gameObject)
     {
-        if (GameObjects.Contains(gameObject))
+        if (GameObjectsList.Contains(gameObject))
         {
-            GameObjects.Remove(gameObject);
+            GameObjectsList.Remove(gameObject);
         }
+
+        GameObjectsDictionary.Remove(gameObject.Id);
+        SelectedGameObjectsIdList.Remove(gameObject.Id);
 
         UpdateGameobjectsIndexInHierarchy();
         // SceneModified.Invoke();
@@ -461,9 +472,9 @@ public class Scene
 
     public void UpdateGameobjectsIndexInHierarchy()
     {
-        for (int i = 0; i < GameObjects.Count; i++)
+        for (int i = 0; i < GameObjectsList.Count; i++)
         {
-            GameObjects[i].IndexInHierarchy = i;
+            GameObjectsList[i].IndexInHierarchy = i;
         }
     }
 

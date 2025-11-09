@@ -165,7 +165,7 @@ public class StressTestGameObjectSpawner : Component
             Debug.Log(i);
         }
 
-        lock (Tofu.SceneManager.CurrentScene.GameObjects)
+        lock (Tofu.SceneManager.CurrentScene.GameObjectsList)
         {
             Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(gameObjects);
         }

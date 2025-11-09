@@ -16,7 +16,7 @@ public class EditorPanelProfiler : EditorPanel
 
     protected override void ExecuteImGuiDrawCommands()
     {
-        ImGui.Text($"GameObjects in scene: {Tofu.SceneManager.CurrentScene.GameObjects.Count}");
+        ImGui.Text($"GameObjects in scene: {Tofu.SceneManager.CurrentScene.GameObjectsList.Count}");
 
         foreach (KeyValuePair<string, string> stat in Debug.Stats)
         {
