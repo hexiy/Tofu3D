@@ -68,8 +68,8 @@ public class TerrainGenerator : Component, IComponentUpdateable
     private void CreateWaterPrefab()
     {
         _waterPrefab = GameObject.Create(name: "water", runtimeOnly: true, visibleInHierarchy: false);
-        BoxShape boxShape =_waterPrefab.AddComponent<BoxShape>();
-        boxShape.Pivot = new Vector3(0.5f, 0f,0.5f);
+        BoxShape boxShape = _waterPrefab.AddComponent<BoxShape>();
+        boxShape.Pivot = new Vector3(0.5f, 0f, 0.5f);
         ModelRenderer modelRenderer = _waterPrefab.AddComponent<ModelRenderer>();
         modelRenderer.NeedsToSetupMesh = false;
 
@@ -93,7 +93,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
             _waterMaterial.AlbedoColor = new Color(0, 255, 255, 255);
 
             _waterMaterial.MaterialType = MaterialType.Unlit;
-            _waterMaterial.Tiling = new Vector2(6, 0.5f);
+            _waterMaterial.Tiling = new Vector2(1, 0.1f);
             _waterMaterial.RenderMode = RenderMode.Transparent;
         }
     }
@@ -186,7 +186,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
         int endIndex;
         if (threadIndex == numberOfThreads - 1)
         {
-           endIndex= totalBlocks;
+            endIndex = totalBlocks;
         }
         else
         {
@@ -197,7 +197,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
         {
             int x = i % TerrainSize;
             int z = i / TerrainSize;
-            
+
 
             float positionY = Mathf.Sin(x / 10f) * Mathf.Cos((float)z / 10) * 15;
             bool isWater = positionY < -1;
@@ -217,7 +217,6 @@ public class TerrainGenerator : Component, IComponentUpdateable
             {
                 go = (GameObject)_grassPrefab.Clone(false);
                 go.GetComponent<Renderer>().Material = _grassMaterial;
-
             }
 
             go.Name = $"Thread:{threadIndex} go {i}";
@@ -229,7 +228,6 @@ public class TerrainGenerator : Component, IComponentUpdateable
             go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
             go.SetActive(true);
 
-  
 
             _concurrentBag.Enqueue(go);
         }
@@ -248,8 +246,11 @@ public class TerrainGenerator : Component, IComponentUpdateable
         Tofu.SceneManager.CurrentScene.AddGameObjectsToScene(_concurrentBag);
         foreach (GameObject go in _concurrentBag)
         {
+            // Vector3 oldPosition = Transform.WorldPosition;
+            Transform.WorldPosition = Vector3.Zero;
             go.Transform.SetParent(Transform);
-            
+
+            // Transform.WorldPosition = oldPosition;
             // go.SetActive(true);
         }
 
