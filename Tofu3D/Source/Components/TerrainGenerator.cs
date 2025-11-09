@@ -31,6 +31,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
         Spawn += StartTerrainGenerationOnNewThread;
         Despawn += DestroyTerrain;
 
+        // GameObject.IsStaticSelf = true;
         base.Awake();
     }
 
@@ -226,6 +227,8 @@ public class TerrainGenerator : Component, IComponentUpdateable
             positionY = positionY.TranslateToGrid(2);
 
             go.Transform.LocalPosition = new Vector3(x * _cubeModelSize, positionY, z * _cubeModelSize);
+            
+            // go.IsStaticSelf = true;
             go.SetActive(true);
 
 
@@ -259,6 +262,9 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
         _grassPrefab.SetActive(false);
         _waterPrefab.SetActive(false);
+        
+        // GameObject.IsStaticSelf = true;
+
     }
 
     // private void LongTask()

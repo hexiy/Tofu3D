@@ -25,7 +25,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public List<Component> Components = new List<Component>();
 
     private int ComponentsCount => Components.Count;
-    
+
     public float DestroyTimer = 2;
     public int Id = -1;
 
@@ -137,13 +137,15 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     private void OnEnable()
     {
-        Components.ForEach(c =>
+        foreach (Component component in Components)
         {
-            if (c.EnabledSelf)
+            if (component.EnabledSelf)
             {
-                c.OnEnabled();
-            } // check for c.Enabled, before it loaded a scene with disabled component but put it in the update queue because this enabled it...
-        });
+                component.OnEnabled();
+                //check for c.Enabled, before it loaded a scene with disabled component but put it in the update queue because this enabled it...
+            }
+        }
+
         foreach (Transform child in Transform.Children)
         {
             child.GameObject.OnEnable();
@@ -152,7 +154,12 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     private void OnDisable()
     {
-        Components.ForEach(c => c.OnDisabled());
+        foreach (Component component in Components)
+        {
+            component.OnDisabled();
+            //check for c.Enabled, before it loaded a scene with disabled component but put it in the update queue because this enabled it...
+        }
+
         if (Transform?.Children != null)
         {
             foreach (Transform child in Transform.Children)
@@ -204,7 +211,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public void AssignNewId()
     {
-        Id=IdManager.GetNextGameObjectIdAndIncrementIt();
+        Id = IdManager.GetNextGameObjectIdAndIncrementIt();
 
 
         for (int i = 0; i < Components.Count; i++)
@@ -451,7 +458,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         {
             child.GameObject.Awake();
         }
-        
+
         if (callStartAfterAwake)
         {
             Start();
@@ -495,6 +502,7 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
                 // }
             }
         }
+
         foreach (Transform child in Transform.Children)
         {
             child.GameObject.Start();

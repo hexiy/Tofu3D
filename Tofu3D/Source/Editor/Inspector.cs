@@ -122,7 +122,10 @@ public class Inspector
     /// </summary>
     public void Refresh()
     {
-        CurrentInspectableDatas.ForEach(data => data.InitInfos());
+        foreach (var data in CurrentInspectableDatas)
+        {
+            data.InitInfos();
+        }
     }
 
     private void RefreshInspectable(object inspectable)
