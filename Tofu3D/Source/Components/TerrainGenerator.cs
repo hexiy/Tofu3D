@@ -115,12 +115,12 @@ public class TerrainGenerator : Component, IComponentUpdateable
 
     private void DestroyTerrain()
     {
-        for (int i = 0; i < Transform.Children.Count; i++)
+        foreach (Transform child in Transform.Children)
         {
-            Transform.Children[0].GameObject.Destroy();
+            child.GameObject.Destroy();
         }
 
-        Transform.Children = new List<Transform>();
+        Transform.Children = new HashSet<Transform>();
     }
 
     private void StartTerrainGenerationOnNewThread()

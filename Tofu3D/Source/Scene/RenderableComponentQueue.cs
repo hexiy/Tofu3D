@@ -1,14 +1,22 @@
+using System.Linq;
+
 namespace TofuEngine;
 
 public class RenderableComponentQueue : IComponentQueue
 {
     // bool _renderQueueChanged;
-    private readonly List<IComponentRenderable> _opaqueRenderables = new List<IComponentRenderable>();
-    private readonly List<IComponentRenderable> _transparentRenderables = new List<IComponentRenderable>();
-    private readonly List<IComponentRenderable> _uiRenderables = new List<IComponentRenderable>();
-    private readonly List<IComponentRenderable> _opaqueRenderablesToRemove = new List<IComponentRenderable>();
-    private readonly List<IComponentRenderable> _transparentRenderablesToRemove = new List<IComponentRenderable>();
-    private readonly List<IComponentRenderable> _uiRenderablesToRemove = new List<IComponentRenderable>();
+    private readonly HashSet<IComponentRenderable> _opaqueRenderables = new HashSet<IComponentRenderable>();
+    private readonly HashSet<IComponentRenderable> _transparentRenderables = new HashSet<IComponentRenderable>();
+    private readonly HashSet<IComponentRenderable> _uiRenderables = new HashSet<IComponentRenderable>();
+    private readonly HashSet<IComponentRenderable> _opaqueRenderablesToRemove = new HashSet<IComponentRenderable>();
+
+    private readonly HashSet<IComponentRenderable>
+        _transparentRenderablesToRemove = new HashSet<IComponentRenderable>();
+
+    private readonly HashSet<IComponentRenderable> _uiRenderablesToRemove = new HashSet<IComponentRenderable>();
+
+    private readonly object _transparentLock = new();
+    private readonly object _opaqueLock = new();
 
     public RenderableComponentQueue()
     {
@@ -24,11 +32,17 @@ public class RenderableComponentQueue : IComponentQueue
         {
             if (componentRenderable.RenderMode == RenderMode.Opaque)
             {
-                _opaqueRenderables.Add(componentRenderable);
+                lock (_opaqueLock)
+                {
+                    _opaqueRenderables.Add(componentRenderable);
+                }
             }
             else if (componentRenderable.RenderMode == RenderMode.Transparent)
             {
-                _transparentRenderables.Add(componentRenderable);
+                lock (_transparentLock)
+                {
+                    _transparentRenderables.Add(componentRenderable);
+                }
             }
             else if (componentRenderable.RenderMode == RenderMode.UI)
             {
@@ -43,11 +57,17 @@ public class RenderableComponentQueue : IComponentQueue
         {
             if (componentRenderable.RenderMode == RenderMode.Opaque)
             {
-                _opaqueRenderables.Remove(componentRenderable);
+                lock (_opaqueLock)
+                {
+                    _opaqueRenderables.Remove(componentRenderable);
+                }
             }
             else if (componentRenderable.RenderMode == RenderMode.Transparent)
             {
-                _transparentRenderables.Remove(componentRenderable);
+                lock (_transparentLock)
+                {
+                    _transparentRenderables.Remove(componentRenderable);
+                }
             }
             else if (componentRenderable.RenderMode == RenderMode.UI)
             {
@@ -74,16 +94,22 @@ public class RenderableComponentQueue : IComponentQueue
     {
         if (component.RenderMode == RenderMode.Opaque)
         {
-            if (_opaqueRenderables.Contains(component))
+            lock (_opaqueLock)
             {
-                return;
-            }
+                if (_opaqueRenderables.Contains(component))
+                {
+                    return;
+                }
 
-            _opaqueRenderables.Add(component);
+                _opaqueRenderables.Add(component);
+            }
         }
         else if (component.RenderMode == RenderMode.Transparent)
         {
-            _transparentRenderables.Add(component);
+            lock (_transparentLock)
+            {
+                _transparentRenderables.Add(component);
+            }
         }
         else if (component.RenderMode == RenderMode.UI)
         {
@@ -118,54 +144,73 @@ public class RenderableComponentQueue : IComponentQueue
         Debug.StatSetValue("Renderable queue components",
             $"Renderable queue components: {_opaqueRenderables.Count + _transparentRenderables.Count}");
 
-        // _opaqueRenderables.Sort();
-
-        for (int i = 0; i < _opaqueRenderables.Count; i++)
+        IComponentRenderable[] snapshot;
+        lock (_opaqueLock)
         {
-            _opaqueRenderables[i].UploadRenderData();
+            snapshot = _opaqueRenderables.ToArray();
         }
 
-        for (int i = 0; i < _opaqueRenderablesToRemove.Count; i++)
+        foreach (IComponentRenderable renderable in snapshot)
         {
-            _opaqueRenderables.Remove(_opaqueRenderablesToRemove[i]);
+            renderable.UploadRenderData();
         }
 
-        if (_opaqueRenderablesToRemove.Count > 0)
+
+        lock (_opaqueLock)
         {
-            _opaqueRenderablesToRemove.Clear();
+            if (_opaqueRenderablesToRemove.Count > 0)
+            {
+                foreach (var r in _opaqueRenderablesToRemove)
+                    _opaqueRenderables.Remove(r);
+
+                _opaqueRenderablesToRemove.Clear();
+            }
         }
     }
 
     public void UploadRenderDataTransparency()
     {
         // _transparentRenderables.Sort();
-        for (int i = 0; i < _transparentRenderables.Count; i++)
+
+        IComponentRenderable[] snapshot;
+        lock (_transparentLock)
         {
-            _transparentRenderables[i].UploadRenderData();
+            snapshot = _transparentRenderables.ToArray();
         }
 
-        for (int i = 0; i < _transparentRenderablesToRemove.Count; i++)
+        foreach (IComponentRenderable renderable in snapshot)
         {
-            _transparentRenderables.Remove(_transparentRenderablesToRemove[i]);
+            renderable.UploadRenderData();
         }
 
-        if (_transparentRenderablesToRemove.Count > 0)
+
+        lock (_transparentLock)
         {
-            _transparentRenderablesToRemove.Clear();
+            if (_transparentRenderablesToRemove.Count > 0)
+            {
+                foreach (var r in _transparentRenderablesToRemove)
+                    _transparentRenderables.Remove(r);
+
+                _transparentRenderablesToRemove.Clear();
+            }
         }
     }
+
     public void UploadRenderDataUI()
     {
         // _transparentRenderables.Sort();
-        for (int i = 0; i < _uiRenderables.Count; i++)
+
+        foreach (IComponentRenderable renderable in _uiRenderables.ToArray())
         {
-            _uiRenderables[i].UploadRenderData();
+            renderable.UploadRenderData();
         }
 
-        for (int i = 0; i < _uiRenderablesToRemove.Count; i++)
+        foreach (IComponentRenderable renderableToRemove in _uiRenderablesToRemove)
         {
-            _uiRenderables.Remove(_uiRenderablesToRemove[i]);
+            _uiRenderables.Remove(renderableToRemove);
         }
+
+        _uiRenderablesToRemove.Clear();
 
         if (_uiRenderablesToRemove.Count > 0)
         {

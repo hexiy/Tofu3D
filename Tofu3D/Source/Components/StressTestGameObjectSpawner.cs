@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Threading;
 
 namespace TofuEngine;
@@ -24,7 +25,7 @@ public class StressTestGameObjectSpawner : Component
     {
         Spawn += StartSpawningOnNewThread;
         Despawn += Destroy;
-        
+
         base.Awake();
     }
 
@@ -57,12 +58,12 @@ public class StressTestGameObjectSpawner : Component
 
     private void Destroy()
     {
-        for (int i = 0; i < Transform.Children.Count; i++)
+        foreach (Transform child in Transform.Children)
         {
-            Transform.Children[0].GameObject.Destroy();
+            child.GameObject.Destroy();
         }
 
-        Transform.Children = new List<Transform>();
+        Transform.Children = new HashSet<Transform>();
     }
 
     private void StartSpawningOnNewThread()
@@ -97,7 +98,10 @@ public class StressTestGameObjectSpawner : Component
         int numberOfThreads = ThreadsToUse;
         _threadsWorkingCount = numberOfThreads;
         List<Thread> threads = new List<Thread>();
-        GameObject go = Transform.Children[0].GameObject;
+        GameObject go = Transform.Children
+                .Aggregate((r1, r2) => r1.GameObject.IndexInHierarchy < r2.GameObject.IndexInHierarchy ? r1 : r2)
+                .GameObject
+            ;
         for (int threadIndex = 0; threadIndex < numberOfThreads; threadIndex++)
         {
             int capturedThreadIndex = threadIndex;

@@ -53,7 +53,7 @@ public class RectTransform : Transform, IComponentUpdateable
         ParentId = Transform.ParentId;
 
         Children = Transform.Children;
-        ChildrenIDs = Transform.ChildrenIDs;
+        ChildrenIds = Transform.ChildrenIds;
 
         GameObject.RemoveComponent<Transform>();
         Transform = this;

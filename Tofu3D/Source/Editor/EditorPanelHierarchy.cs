@@ -445,13 +445,13 @@ public class EditorPanelHierarchy : EditorPanel
         {
             if (currentGameObject.Transform.Children.Count > 0)
             {
-                List<Transform>? children = currentGameObject.Transform.Children;
                 ImGui.TreePush();
 
-                for (int childrenIndex = 0; childrenIndex < children.Count; childrenIndex++)
+                foreach (Transform child in currentGameObject.Transform.Children)
                 {
-                    DrawGameObjectRow(children[childrenIndex].GameObject.IndexInHierarchy, true);
+                    DrawGameObjectRow(child.GameObject.IndexInHierarchy, true);
                 }
+     
                 ImGui.TreePop();
 
             }

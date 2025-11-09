@@ -144,13 +144,22 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
                 c.OnEnabled();
             } // check for c.Enabled, before it loaded a scene with disabled component but put it in the update queue because this enabled it...
         });
-        Transform?.Children.ForEach(child => child.GameObject.OnEnable());
+        foreach (Transform child in Transform.Children)
+        {
+            child.GameObject.OnEnable();
+        }
     }
 
     private void OnDisable()
     {
         Components.ForEach(c => c.OnDisabled());
-        Transform?.Children.ForEach(child => child.GameObject.OnDisable());
+        if (Transform?.Children != null)
+        {
+            foreach (Transform child in Transform.Children)
+            {
+                child.GameObject.OnDisable();
+            }
+        }
     }
     //private List<Component> ComponentsWaitingToBePaired = new List<Component>();
 
@@ -207,9 +216,9 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     private void DestroyChildren()
     {
-        for (int i = 0; i < Transform.Children.Count; i++)
+        foreach (Transform child in Transform.Children)
         {
-            Transform.Children[i].GameObject.Destroy();
+            child.GameObject.Destroy();
         }
     }
 
@@ -438,8 +447,11 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
         }
 
         Awoken = true;
-        Transform?.Children.ForEach(child => child.GameObject.Awake());
-
+        foreach (Transform child in Transform.Children)
+        {
+            child.GameObject.Awake();
+        }
+        
         if (callStartAfterAwake)
         {
             Start();
@@ -483,8 +495,10 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
                 // }
             }
         }
-
-        Transform?.Children.ForEach(child => child.GameObject.Start());
+        foreach (Transform child in Transform.Children)
+        {
+            child.GameObject.Start();
+        }
 
         if (ActiveInHierarchy)
         {

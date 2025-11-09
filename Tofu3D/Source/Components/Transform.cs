@@ -17,10 +17,10 @@ public class Transform : Component
 
     [XmlIgnore]
     [Hide]
-    public List<Transform> Children = new List<Transform>();
+    public HashSet<Transform> Children = new HashSet<Transform>();
 
     [Hide]
-    public List<int> ChildrenIDs = new List<int>();
+    public HashSet<int> ChildrenIds = new HashSet<int>();
 
     // public bool MockIsInCanvas = false;
     //[Hide] public Vector3 localPosition { get { return position - GetParentPosition(); } set { position = GetParentPosition() + value; } }
@@ -212,20 +212,20 @@ public class Transform : Component
 
     public void RemoveChild(int id)
     {
-        for (int i = 0; i < Children.Count; i++)
+        foreach (Transform child in Children)
         {
-            if (Children[i].GameObjectId == id)
+            if (child.GameObjectId == id)
             {
-                Children.RemoveAt(i);
+                Children.Remove(child);
                 break;
             }
         }
 
-        for (int i = 0; i < ChildrenIDs.Count; i++)
+        foreach (int childId in ChildrenIds)
         {
-            if (ChildrenIDs[i] == id)
+            if (childId== id)
             {
-                ChildrenIDs.RemoveAt(i);
+                ChildrenIds.Remove(id);
                 break;
             }
         }
@@ -233,15 +233,9 @@ public class Transform : Component
 
     public void AddChild(Transform child)
     {
-        if (Children.Contains(child) == false)
-        {
-            Children.Add(child);
-        }
+        Children.Add(child);
 
-        if (ChildrenIDs.Contains(child.GameObjectId) == false)
-        {
-            ChildrenIDs.Add(child.GameObjectId);
-        }
+        ChildrenIds.Add(child.GameObjectId);
     }
 
     public void SetParent(Transform par, bool updateTransform = false)

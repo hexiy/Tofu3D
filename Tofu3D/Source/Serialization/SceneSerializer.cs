@@ -368,9 +368,10 @@ public class SceneSerializer
                     gos[goIndex].Id = IdManager.GetNextGameObjectIdAndIncrementIt();
                 }
 
-                for (int i = 0; i < gos[goIndex].Transform.Children.Count; i++)
+                foreach (Transform child in gos[goIndex].Transform.Children)
                 {
-                    gos[goIndex].Transform.Children[i].ParentId = gos[goIndex].Id;
+                    child.ParentId = gos[goIndex].Id;
+
                 }
             }
         }
