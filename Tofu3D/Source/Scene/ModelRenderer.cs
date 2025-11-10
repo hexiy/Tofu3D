@@ -4,6 +4,7 @@ using TofuEngine.Rendering.Instancing;
 public class ModelRenderer : Renderer
 {
     private bool _isInRenderQueue = true;
+    private bool _isInUpdateQueue = true;
 
     [Show]
     private int StartingIndexInBuffer => ObjectInstancingData?.StartingIndexInBuffer ?? -1;
@@ -26,7 +27,7 @@ public class ModelRenderer : Renderer
     public override void OnDisabled()
     {
         Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData, remove: true,
-            isStatic: GameObject.IsStatic);
+            isStatic: GameObject.IsStaticSelf);
 
         base.OnDisabled();
     }
@@ -101,7 +102,7 @@ public class ModelRenderer : Renderer
             return;
         }
 
-        if (GameObject.IsStatic
+        if (GameObject.IsStaticSelf
             && ObjectInstancingData.InstancingDataDirty == false
             && ObjectInstancingData.MatrixDirty == false)
         {
@@ -143,13 +144,13 @@ public class ModelRenderer : Renderer
         bool updatedData =
             Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref ObjectInstancingData,
                 // VertexBufferStructureType.Model, 
-                isStatic: GameObject.IsStatic);
+                isStatic: GameObject.IsStaticSelf);
         if (updatedData)
         {
             ObjectInstancingData.InstancingDataDirty = false;
         }
 
-        if (GameObject.IsStatic)
+        if (GameObject.IsStaticSelf)
         {
             RemoveFromRenderQueue();
         }
@@ -157,7 +158,7 @@ public class ModelRenderer : Renderer
 
     public override void Update()
     {
-        if (GameObject.IsStatic == false && _isInRenderQueue == false)
+        if (GameObject.IsStaticSelf == false && _isInRenderQueue == false)
         {
             Tofu.SceneManager.CurrentScene._renderableComponentQueue.AddComponent(this);
             _isInRenderQueue = true;
@@ -172,5 +173,8 @@ public class ModelRenderer : Renderer
     {
         Tofu.SceneManager.CurrentScene._renderableComponentQueue.QueueRemove(this);
         _isInRenderQueue = false;
+        
+        Tofu.SceneManager.CurrentScene._updateableComponentQueue.QueueRemove(this);
+        _isInUpdateQueue = false;
     }
 }

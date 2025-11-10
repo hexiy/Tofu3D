@@ -217,11 +217,11 @@ public class EditorPanelInspector : EditorPanel, IHasInspector
 
             if (staticButtonClicked)
             {
-                gameObject.IsStaticSelf = !gameObject.IsStaticSelf;
+                gameObject.SetStatic(!gameObject.IsStaticSelf);
 
                 foreach (Transform child in gameObject.Transform.Children)
                 {
-                    child.GameObject.IsStaticSelf = gameObject.IsStaticSelf;
+                    child.GameObject.SetStatic(gameObject.IsStaticSelf);
                 }
             }
 

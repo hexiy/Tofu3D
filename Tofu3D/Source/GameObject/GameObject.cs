@@ -33,7 +33,18 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
     public int IndexInHierarchy = 0;
 
     public bool IsPrefab = false;
-    public bool IsStaticSelf = false;
+    
+    public bool IsStaticSelf { get; set; }= false;
+
+    public void SetStatic(bool isStatic)
+    {
+        IsStaticSelf = isStatic;
+
+        foreach (Transform child in Transform.Children)
+        {
+            child.GameObject.SetStatic(isStatic);
+        }
+    }
     public string Name = "";
     public string PrefabPath = "";
     public bool Selected = false;
@@ -72,7 +83,6 @@ public class GameObject : IEqualityComparer<GameObject>, IComparable<bool>
 
     public bool UpdateWhenDisabled = false;
 
-    public bool IsStatic => IsStaticSelf; // || Transform?.Parent?.GameObject.IsStatic == true;
 
     public bool ActiveSelf
     {

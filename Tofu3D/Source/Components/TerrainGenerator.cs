@@ -262,11 +262,7 @@ public class TerrainGenerator : Component, IComponentUpdateable
         _grassPrefab.SetActive(false);
         _waterPrefab.SetActive(false);
         
-        GameObject.IsStaticSelf = true;
-        foreach (Transform child in GameObject.Transform.Children)
-        {
-            child.GameObject.IsStaticSelf =true;
-        }
+        GameObject.SetStatic(true);
     }
 
     // private void LongTask()

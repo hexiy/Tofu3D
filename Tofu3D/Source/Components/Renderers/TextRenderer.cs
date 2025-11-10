@@ -125,7 +125,7 @@ public class TextRenderer : ModelRenderer
         {
             ObjectInstancingData objectInstancingData = RendererInstancingDatas[i];
             Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref objectInstancingData, remove: true,
-                isStatic: GameObject.IsStatic);
+                isStatic: GameObject.IsStaticSelf);
         }
 
         base.OnDisabled();
@@ -184,7 +184,7 @@ public class TextRenderer : ModelRenderer
             return;
         }
 
-        if (GameObject.IsStatic && ObjectInstancingData.InstancingDataDirty == false &&
+        if (GameObject.IsStaticSelf && ObjectInstancingData.InstancingDataDirty == false &&
             ObjectInstancingData.MatrixDirty == false)
         {
             return;
@@ -221,7 +221,7 @@ public class TextRenderer : ModelRenderer
                 ObjectInstancingData objectInstancingData = RendererInstancingDatas[i];
 
                 Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref objectInstancingData, remove: true,
-                    isStatic: GameObject.IsStatic);
+                    isStatic: GameObject.IsStaticSelf);
             }
 
             RendererInstancingDatas.RemoveRange(RendererInstancingDatas.Count - instancingDatasToRemove,
@@ -287,13 +287,13 @@ public class TextRenderer : ModelRenderer
                 BoxShape.Pivot = new Vector3(0, 0.5f, 0f);
 
                 ObjectInstancingData objectInstancingData = RendererInstancingDatas[i];
-                if (GameObject.IsStatic == false || objectInstancingData.InstancingDataDirty ||
+                if (GameObject.IsStaticSelf == false || objectInstancingData.InstancingDataDirty ||
                     objectInstancingData.MatrixDirty)
                 {
                     bool updatedData =
                         Tofu.InstancedRenderingSystem.UpdateObjectData(this, ref objectInstancingData,
                             modelMatrix: modelMatrix, uvOffset: offset,
-                            indexForMultipleObjectsPerRenderer: i, isStatic: GameObject.IsStatic);
+                            indexForMultipleObjectsPerRenderer: i, isStatic: GameObject.IsStaticSelf);
 
                     if (updatedData)
                     {

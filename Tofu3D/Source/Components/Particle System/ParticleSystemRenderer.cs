@@ -54,7 +54,7 @@ public class ParticleSystemRenderer : Renderer
             return;
         }
 
-        if (GameObject.IsStatic
+        if (GameObject.IsStaticSelf
             && ObjectInstancingData.InstancingDataDirty == false
             && ObjectInstancingData.MatrixDirty == false)
         {

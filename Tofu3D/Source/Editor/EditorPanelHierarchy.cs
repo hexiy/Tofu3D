@@ -312,7 +312,7 @@ public class EditorPanelHierarchy : EditorPanel
             ? ImGui.GetStyle().Colors[(int)ImGuiCol.Text]
             : ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled];
 
-        if (currentGameObject.IsStatic)
+        if (currentGameObject.IsStaticSelf)
         {
             nameColor = currentGameObject.ActiveInHierarchy
                 ? EditorColors.StaticLabel

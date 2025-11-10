@@ -267,7 +267,7 @@ public class PhysicsController
             return;
         }
 
-        bool isStatic = rb.GameObject.IsStatic || rb.IsStaticBody;
+        bool isStatic = rb.GameObject.IsStaticSelf || rb.IsStaticBody;
         if (shape.ShapeType is ShapeType.Box)
         {
             Vector3 boxShapeSize = (shape as BoxShape).Size;

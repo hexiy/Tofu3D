@@ -5,6 +5,7 @@ namespace TofuEngine;
 public class UpdateableComponentQueue : IComponentQueue
 {
     private readonly HashSet<IComponentUpdateable> _components = new HashSet<IComponentUpdateable>();
+    private readonly HashSet<IComponentUpdateable> _componentsToRemove = new HashSet<IComponentUpdateable>();
     private readonly object _componentsLock = new();
 
     public UpdateableComponentQueue()
@@ -27,7 +28,7 @@ public class UpdateableComponentQueue : IComponentQueue
     {
         if (component is IComponentUpdateable componentUpdateable)
         {
-            RemoveComponent(componentUpdateable);
+            QueueRemove(componentUpdateable);
         }
     }
 
@@ -66,6 +67,17 @@ public class UpdateableComponentQueue : IComponentQueue
         {
             updateable.Update();
         }
+        
+        lock (_componentsLock)
+        {
+            if (_componentsToRemove.Count > 0)
+            {
+                foreach (var r in _componentsToRemove)
+                    _components.Remove(r);
+
+                _componentsToRemove.Clear();
+            }
+        }
     }
 
     public void AddComponent(IComponentUpdateable component)
@@ -75,12 +87,10 @@ public class UpdateableComponentQueue : IComponentQueue
             _components.Add(component);
         }
     }
+    
 
-    public void RemoveComponent(IComponentUpdateable component)
+    public void QueueRemove(IComponentUpdateable component)
     {
-        lock (_componentsLock)
-        {
-            _components.Remove(component);
-        }
+        _componentsToRemove.Add(component);
     }
 }

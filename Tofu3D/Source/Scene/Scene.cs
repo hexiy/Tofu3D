@@ -16,7 +16,7 @@ public class Scene
 
     public RenderableComponentQueue _renderableComponentQueue;
     private SceneLightingManager _sceneLightingManager;
-    private UpdateableComponentQueue _updateableComponentQueue;
+    public UpdateableComponentQueue _updateableComponentQueue;
 
     // List<GameObject> _gameObjects = new();
     public List<GameObject> GameObjectsList = new List<GameObject>();

@@ -197,10 +197,10 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
     public virtual void Update()
     {
         RenderOrder = GameObject.IndexInHierarchy;
-        if (GameObjectId == TransformHandle.I?.GameObjectId)
-        {
-            RenderOrder += 1000;
-        }
+        // if (GameObjectId == TransformHandle.I?.GameObjectId)
+        // {
+        //     RenderOrder += 1000;
+        // }
         /*if (Material != null && Material.IsValid == false)
         {
             Debug.LogError("Material invalid, reloading");
@@ -428,7 +428,7 @@ public abstract class Renderer : Component, IComponentRenderable, IComponentUpda
 
         // LatestModelMatrix = GetModelMatrix();
 
-        if (ObjectInstancingData?.MatrixDirty == true || GameObject.IsStatic == false || LatestModelMatrix == null)
+        if (ObjectInstancingData?.MatrixDirty == true || GameObject.IsStaticSelf == false || LatestModelMatrix == null)
         {
             // LatestModelViewProjection = GetModelViewProjectionFromBoxShape();
             // LatestModelMatrix = GetModelMatrix();
