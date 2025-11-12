@@ -43,6 +43,8 @@ public class Transform : Component
     [Hide]
     public int ParentId = -1;
 
+    public bool HasParent => ParentId != -1;
+
     [Hide]
     public override bool CanBeDisabled => false;
 

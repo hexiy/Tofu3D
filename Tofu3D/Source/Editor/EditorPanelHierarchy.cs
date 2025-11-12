@@ -241,15 +241,15 @@ public class EditorPanelHierarchy : EditorPanel
         for (int goIndex = 0; goIndex < Tofu.SceneManager.CurrentScene.GameObjectsList.Count; goIndex++)
         {
             // PushNextId();
-            if (Tofu.SceneManager.CurrentScene.GameObjectsList[goIndex].Transform.Parent != null)
-            {
-                /*// TODO fix this nonsense, i just quickly did this so closed gameobject with 130k children doesnt suck cpu cycles
-                 // yeah this crashes the engine when adding a child lawl
-                goIndex =
-                    Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Transform.Parent.GameObject.IndexInHierarchy +
-                    Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Transform.Parent.ChildrenIDs.Count - 1;*/
-                continue;
-            }
+            // if (Tofu.SceneManager.CurrentScene.GameObjectsList[goIndex].Transform.ParentId != -1)
+            // {
+            //     /*// TODO fix this nonsense, i just quickly did this so closed gameobject with 130k children doesnt suck cpu cycles
+            //      // yeah this crashes the engine when adding a child lawl
+            //     goIndex =
+            //         Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Transform.Parent.GameObject.IndexInHierarchy +
+            //         Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Transform.Parent.ChildrenIDs.Count - 1;*/
+            //     continue;
+            // }
 
             // if (ImGui.IsItemVisible() == false)
             // {
@@ -257,7 +257,7 @@ public class EditorPanelHierarchy : EditorPanel
             // }
             // else
             // {
-            DrawGameObjectRow(goIndex);
+            DrawGameObjectRow(goIndex, ref goIndex);
             // }
         }
 
@@ -267,17 +267,19 @@ public class EditorPanelHierarchy : EditorPanel
     }
 
 
-    private void DrawGameObjectRow(int goIndex, bool isChild = false)
+    private void DrawGameObjectRow(int goIndex, ref int goIndexRef, bool isChild = false)
     {
-        int gameObjectID = Tofu.SceneManager.CurrentScene.GameObjectsList[goIndex].Id;
+        Debug.StatAddValue("drawGameObjectRow", 1);
+        GameObject currentGameObject=Tofu.SceneManager.CurrentScene.GameObjectsList[goIndex];
+
+        int gameObjectID = currentGameObject.Id;
 
         // if (isChild == false)
         // PushNextId(Tofu.SceneManager.CurrentScene.GameObjects[goIndex].Id.ToString());
         PushNextId();
 
 
-        GameObject currentGameObject = Tofu.SceneManager.CurrentScene.GetGameObjectByID(gameObjectID);
-        if (currentGameObject.Transform.Parent != null &&
+        if (currentGameObject.Transform.HasParent &&
             isChild == false) // only draw children from recursive DrawGameObjectRow calls
         {
             return;
@@ -339,12 +341,13 @@ public class EditorPanelHierarchy : EditorPanel
         flags |= ImGuiTreeNodeFlags.SpanFullWidth;
         flags |= ImGuiTreeNodeFlags.OpenOnDoubleClick;
 
-        if (_selectedGameObjectsParents.Contains(currentGameObject))
-        {
-            // ImGui.SetNextItemOpen(true);
-        }
+        // if (_selectedGameObjectsParents.Contains(currentGameObject))
+        // {
+        //     // ImGui.SetNextItemOpen(true);
+        // }
 
         bool opened = ImGui.TreeNodeEx(rowText, flags);
+        
         // set opened if a children is selected
 
         if (ImGui.IsItemClicked(ImGuiMouseButton.Right))
@@ -449,7 +452,8 @@ public class EditorPanelHierarchy : EditorPanel
 
                 foreach (Transform child in currentGameObject.Transform.Children)
                 {
-                    DrawGameObjectRow(child.GameObject.IndexInHierarchy, true);
+                    int x = 0;
+                    DrawGameObjectRow(child.GameObject.IndexInHierarchy, ref x,true);
                 }
      
                 ImGui.TreePop();
@@ -457,6 +461,11 @@ public class EditorPanelHierarchy : EditorPanel
             }
 
             ImGui.TreePop();
+        }
+
+        if (opened == false && hasAnyChildren)
+        {
+            goIndexRef += currentGameObject.Transform.ChildrenIds.Count - 3;
         }
         // if (opened)
         // {
