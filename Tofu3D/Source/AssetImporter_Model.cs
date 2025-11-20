@@ -224,7 +224,14 @@ public class AssetImporter_Model : AssetImporter<Asset_Model>
             if (lineSplits[0].Equals("map_bump", StringComparison.OrdinalIgnoreCase) ||
                 lineSplits[0].Equals("bump", StringComparison.OrdinalIgnoreCase)) // diffuse/albedo texture
             {
-                string normalTextureName = TofuPath.Combine(objMaterialDirectory, lineSplits[1]);
+
+                int pathIndex = 1;
+                if (lineSplits[1].Equals("-bm", StringComparison.OrdinalIgnoreCase))
+                {
+                    pathIndex = 3;
+                }
+
+                string normalTextureName = TofuPath.Combine(objMaterialDirectory, lineSplits[pathIndex]);
                 currentObjMaterialDefinition.NormalTexturePath = normalTextureName;
                 Tofu.AssetImportManager
                     .ImportAsset(

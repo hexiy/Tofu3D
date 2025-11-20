@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -7,6 +8,8 @@ namespace TofuEngine;
 
 public class Debug
 {
+    private static string _logFilePath;
+
     private static List<LogEntry> _logs = new List<LogEntry>();
     private static readonly Channel<LogEntry> _logChannel;
     private static readonly ChannelWriter<LogEntry> _logWriter;
@@ -28,6 +31,27 @@ public class Debug
         _logProcessorTask = Task.Run(ProcessLogEntries);
     }
 
+    public static void Init()
+    {
+        CreateLogFile();
+    }
+
+    private static void CreateLogFile()
+    {
+        _logFilePath = Path.Combine(path1: Folders.Data, path2: "logs.txt");
+        try
+        {
+            string? dir = Path.GetDirectoryName(path: _logFilePath);
+            if (!string.IsNullOrEmpty(value: dir))
+            {
+                Directory.CreateDirectory(path: dir);
+            }
+        }
+        catch
+        {
+        }
+    }
+
     private static async Task ProcessLogEntries()
     {
         await foreach (var logEntry in _logChannel.Reader.ReadAllAsync())
@@ -42,7 +66,20 @@ public class Debug
                 }
             }
 
-            Console.WriteLine($"{logEntry.Time} : {logEntry.LogCategory} | {logEntry.Message}");
+
+            string fullMessage = $"[{logEntry.Time}] : {logEntry.LogCategory} | {logEntry.Message}";
+
+            Console.WriteLine(value: fullMessage);
+
+            try
+            {
+                await File.AppendAllTextAsync(path: _logFilePath,
+                    contents: $"{fullMessage}{Environment.NewLine}");
+            }
+            catch (Exception ex)
+            {
+                // ignored
+            }
         }
     }
 

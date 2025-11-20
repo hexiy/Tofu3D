@@ -82,7 +82,7 @@ internal static class Tofu
         {
             ProjectDataManager.EditorVersion = EngineBuildInfo.Version;
         }
-
+        Debug.Init();
         Global.LoadSavedData();
         Folders.CreateDefaultFolders();
 
