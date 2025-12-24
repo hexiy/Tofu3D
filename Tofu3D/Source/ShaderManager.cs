@@ -11,6 +11,7 @@ public class ShaderManager
 
     public Shader LoadShader(string shaderFile, bool forceReload = false)
     {
+        shaderFile = Path.DirectorySeparatorChar + Path.GetRelativePath("/", shaderFile);
         if (_shaders.TryGetValue(shaderFile, out Shader shader))
         {
             if (shader.IsLoaded == false || forceReload == true)
@@ -99,9 +100,12 @@ public class ShaderManager
         List<Asset_Material> allLoadedMaterials = Tofu.AssetLoadManager.GetAllLoadedAssetsOfType<Asset_Material>();
         foreach (Asset_Material loadedMaterial in allLoadedMaterials)
         {
-            if (loadedMaterial.Shader?.Path == shaderPath)
+
+            string a = Path.GetRelativePath("/", loadedMaterial.Shader?.Path);
+            string b = Path.DirectorySeparatorChar+Path.GetRelativePath("/", shaderPath);
+            if (a==b) // relativepath to remove ../../
             {
-                Shader shader = LoadShader(shaderPath, forceReload: true);
+                Shader shader = LoadShader(b, forceReload: true);
 
                 // shader.Load();
 

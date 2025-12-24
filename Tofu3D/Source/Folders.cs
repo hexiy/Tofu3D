@@ -31,7 +31,6 @@ public class Folders
 
     public static string TexturesInAssets => TofuPath.Combine(Assets, "2D");
 
-    public static string ShadersInAssets => TofuPath.Combine(Assets, "Shaders");
     public static string ScenesInAssets => TofuPath.Combine(Assets, "Scenes");
 
     public static string MaterialsInAssets => TofuPath.Combine(Assets, "Materials");

@@ -47,6 +47,7 @@ internal static class Tofu
     internal static AssetLoadManager AssetLoadManager;
     internal static SceneSerializer SceneSerializer;
     internal static AssetsWatcher AssetsWatcher;
+    internal static EditorResourcesAssetsWatcher EditorResourcesAssetsWatcher;
 
     // SCENE
     internal static SceneManager SceneManager;
@@ -104,6 +105,8 @@ internal static class Tofu
         SceneSerializer = new SceneSerializer();
         // RenderSettings = new RenderSettings();
         AssetsWatcher = new AssetsWatcher();
+        EditorResourcesAssetsWatcher = new EditorResourcesAssetsWatcher();
+        
         ShaderManager = new ShaderManager();
         TweenManager = new TweenManager();
         MouseInput = new MouseInput();
@@ -113,6 +116,8 @@ internal static class Tofu
 
         EditorSettingsAll.LoadSavedData();
         AssetsWatcher.StartWatching();
+        EditorResourcesAssetsWatcher.StartWatching();
+        
         ShaderManager.Initialize();
 
         ScriptsReloader = new ScriptsReloader();
