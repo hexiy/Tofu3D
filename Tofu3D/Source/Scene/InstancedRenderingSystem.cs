@@ -593,6 +593,17 @@ public class InstancedRenderingSystem
         material.Shader.SetFloat("u_metallic", material.MetallicTextureStrength);
         material.Shader.SetFloat("u_smoothness", material.Smoothness);
 
+        material.Shader.SetInt("u_hasEnvironmentCubemap",
+            Camera.CurrentlyRenderingCamera?.GetComponent<Skybox>() != null ? 1 : 0);
+        if (Camera.CurrentlyRenderingCamera?.GetComponent<Skybox>() != null &&
+            material.Shader.EnvironmentTextureUnit != null)
+        {
+            GL.ActiveTexture(material.Shader.EnvironmentTextureUnit.Value);
+            TextureHelper.BindTexture(
+                Camera.CurrentlyRenderingCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
+                TextureType.Cubemap);
+        }
+        
         // Metallic Texture
         // material.Shader.SetInt("u_hasMetallicTexture", material.MetallicTexture != null ? 1 : 0);
 
@@ -645,16 +656,7 @@ public class InstancedRenderingSystem
             // }
 
 
-            material.Shader.SetInt("u_hasEnvironmentCubemap",
-                Camera.CurrentlyRenderingCamera?.GetComponent<Skybox>() != null ? 1 : 0);
-            if (Camera.CurrentlyRenderingCamera?.GetComponent<Skybox>() != null &&
-                material.Shader.EnvironmentTextureUnit != null)
-            {
-                GL.ActiveTexture(material.Shader.EnvironmentTextureUnit.Value);
-                TextureHelper.BindTexture(
-                    Camera.CurrentlyRenderingCamera.GetComponent<Skybox>().GetCubemapTexture().TextureId,
-                    TextureType.Cubemap);
-            }
+          
 
             // Roughness Texture
             material.Shader.SetInt("u_hasRoughnessTexture", material.RoughnessTexture != null ? 1 : 0);

@@ -19,8 +19,8 @@ uniform mat4 u_viewProjection;
 uniform mat4 u_lightSpaceViewProjection;
 uniform vec2 u_tiling;
 uniform vec2 u_offset;
-uniform float u_depthOverrideEnabled=0;
-uniform float u_depthOverride=0;
+uniform float u_depthOverrideEnabled = 0;
+uniform float u_depthOverride = 0;
 
 out vec3 vertexPositionWorld;
 out vec2 uv;
@@ -41,7 +41,7 @@ void main(void)
 	mat4 a_model = mat4(vec4(a_model_1, 0), vec4(a_model_2, 0), vec4(a_model_3, 0), vec4(a_model_4, 1));
 	mat4 mvp = u_viewProjection * a_model;
 	gl_Position = mvp * vec4(a_pos.xyz, 1.0);
-	if(u_depthOverrideEnabled==1) {
+	if (u_depthOverrideEnabled == 1) {
 		gl_Position.z += (u_depthOverride * 2.0 - 1.0) * gl_Position.w;
 	}
 
@@ -131,6 +131,7 @@ uniform vec4 u_directionalLightColor;
 uniform vec3 u_directionalLightDirection;
 uniform float u_smoothness;
 uniform float u_metallic;
+uniform float u_refractionStrength = 0;
 uniform float u_renderMode = 0;
 uniform float u_cameraFrustumLength = 100;
 uniform int u_discardTransparentPixels = 1;
@@ -367,7 +368,7 @@ void main() {
 	uvCoords = fract(uvCoords);
 
 	uvCoords = boundingBoxStart + uvCoords * boundingBoxSize;
-	
+
 	// map these uvCoords to uvcoords in the atlas
 
 	//	if(u_hasAlbedoTexture==1)
@@ -501,32 +502,34 @@ void main() {
 	vec3 pointLight = calculatePointLightsLighting(normalWorldSpace, viewDir, vertexPositionWorld);
 	lighting += pointLight;
 
-	//	// Environmental Reflections
-	//	vec3 reflection = vec3(0.0);
-	//	//	if (metallicValue > 0.0) {
-	//
-	//	vec3 reflectionI = normalize(vertexPositionWorld - u_camPosWorldSpace);
-	//	vec3 reflectionDir = reflect(reflectionI, normalize(normalWorldSpace));
-	//
-	//	float MAX_LOD = 7.0; // Maximum level-of-detail for the cubemap mipmaps
-	//	vec3 environmentReflection = textureLod(u_environmentCubemap, reflectionDir, roughnessValue * MAX_LOD).rgb;
-	//	//		reflection = texture(u_environmentCubemap, reflectionDir).rgb;
-	//
-	//	// Adjust reflection intensity (optional for non-metallic surfaces)
-	//	reflection *= mix(0.04, 1.0, metallicValue); // Base reflectivity: Dielectric vs Metal
-	//
-	//	// Reflection scaling based on metallic and roughness
-	//	vec3 surfaceReflectivity = mix(vec3(0.04), albedo.rgb, metallicValue); // Non-metallic uses F0 ~ 0.04
-	//	reflection = environmentReflection * surfaceReflectivity;
-	//	// Roughness reduces reflection intensity
-	//	// Roughness impact on sharpness, not intensity
-	//	reflection = mix(reflection, vec3(0.0), roughnessValue); // Soften reflections without killing intensity
-	//	reflection = sRGBToLinear(reflection);
-	//	//	}
-	//
-	//	// Combine Lighting and Reflections
-	//	vec3 color = lighting + reflection;
-	vec3 color = lighting;
+		// Environmental Reflections
+		vec3 reflection = vec3(0.0);
+		//	if (metallicValue > 0.0) {
+
+		vec3 reflectionI = normalize(vertexPositionWorld - u_camPosWorldSpace);
+		vec3 reflectionDir = reflect(reflectionI, normalize(normalWorldSpace));
+
+		float MAX_LOD = 7.0; // Maximum level-of-detail for the cubemap mipmaps
+		vec3 environmentReflection = textureLod(u_environmentCubemap, reflectionDir, roughnessValue * MAX_LOD).rgb;
+		//		reflection = texture(u_environmentCubemap, reflectionDir).rgb;
+
+		// Adjust reflection intensity (optional for non-metallic surfaces)
+		reflection *= mix(0.04, 1.0, metallicValue); // Base reflectivity: Dielectric vs Metal
+
+		// Reflection scaling based on metallic and roughness
+		vec3 surfaceReflectivity = mix(vec3(0.04), albedo.rgb, metallicValue); // Non-metallic uses F0 ~ 0.04
+		reflection = environmentReflection * surfaceReflectivity;
+		// Roughness reduces reflection intensity
+		// Roughness impact on sharpness, not intensity
+		reflection = mix(reflection, vec3(0.0), roughnessValue); // Soften reflections without killing intensity
+		reflection = sRGBToLinear(reflection);
+		//	}
+
+		// Combine Lighting and Reflections
+		vec3 color = lighting * reflection;
+	
+
+	//	vec3 color = lighting;
 	// Emissive Lighting (if available)
 	//	if (u_hasEmissiveTexture == 1) {
 	//		color += texture(u_emissiveTexture, uvCoords).rgb * baseColor;
@@ -646,10 +649,10 @@ void main() {
 		float g = float((v_id >> 8) & 0xFFu) / 255.0;  // Extract green (middle byte)
 		float b = float(v_id & 0xFFu) / 255.0;         // Extract blue (lowest byte)
 
-//		fragColor = vec4(r, g, b, a); // RGB color with alpha = 1.0
-		fragColor = vec4(0,1,0, 1); // RGB color with alpha = 1.0
-		
-//		fragColor = vec4(1,0,1,1);
+		//		fragColor = vec4(r, g, b, a); // RGB color with alpha = 1.0
+		fragColor = vec4(0, 1, 0, 1); // RGB color with alpha = 1.0
+
+		//		fragColor = vec4(1,0,1,1);
 	}
 	else if (u_renderMode == 10) // UVs
 	{
