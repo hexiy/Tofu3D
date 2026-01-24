@@ -132,6 +132,7 @@ uniform vec3 u_directionalLightDirection;
 uniform float u_smoothness;
 uniform float u_metallic;
 uniform float u_refractionStrength = 0;
+uniform float u_refractiveIndex = 1.48;
 uniform float u_renderMode = 0;
 uniform float u_cameraFrustumLength = 100;
 uniform int u_discardTransparentPixels = 1;
@@ -502,31 +503,29 @@ void main() {
 	vec3 pointLight = calculatePointLightsLighting(normalWorldSpace, viewDir, vertexPositionWorld);
 	lighting += pointLight;
 
-		// Environmental Reflections
-		vec3 reflection = vec3(0.0);
-		//	if (metallicValue > 0.0) {
+	// <<<<<<<<<<<< REFLECTION / REFRACTION
+	vec3 I = normalize(vertexPositionWorld - u_camPosWorldSpace);
+	vec3 R = reflect(I, normalize(normalWorldSpace));
 
-		vec3 reflectionI = normalize(vertexPositionWorld - u_camPosWorldSpace);
-		vec3 reflectionDir = reflect(reflectionI, normalize(normalWorldSpace));
+	float ratio = 1.00 / u_refractiveIndex;
+	vec3 refractionDirection = refract(I, normalize(normalWorldSpace), ratio);
 
-		float MAX_LOD = 7.0; // Maximum level-of-detail for the cubemap mipmaps
-		vec3 environmentReflection = textureLod(u_environmentCubemap, reflectionDir, roughnessValue * MAX_LOD).rgb;
-		//		reflection = texture(u_environmentCubemap, reflectionDir).rgb;
+	float MAX_LOD = 7.0;
+	vec3 reflectionEnv = textureLod(u_environmentCubemap, R, roughnessValue * MAX_LOD).rgb;
+	vec3 refractionEnv = textureLod(u_environmentCubemap, refractionDirection, roughnessValue * MAX_LOD).rgb;
 
-		// Adjust reflection intensity (optional for non-metallic surfaces)
-		reflection *= mix(0.04, 1.0, metallicValue); // Base reflectivity: Dielectric vs Metal
+	float f0_dielectric = pow((1.0 - u_refractiveIndex) / (1.0 + u_refractiveIndex), 2.0);
+	vec3 F0 = mix(vec3(f0_dielectric), baseColor, u_metallic);
 
-		// Reflection scaling based on metallic and roughness
-		vec3 surfaceReflectivity = mix(vec3(0.04), albedo.rgb, metallicValue); // Non-metallic uses F0 ~ 0.04
-		reflection = environmentReflection * surfaceReflectivity;
-		// Roughness reduces reflection intensity
-		// Roughness impact on sharpness, not intensity
-		reflection = mix(reflection, vec3(0.0), roughnessValue); // Soften reflections without killing intensity
-		reflection = sRGBToLinear(reflection);
-		//	}
+	float cosTheta = max(dot(normalize(normalWorldSpace), viewDir), 0.0);
+	vec3 F = F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
 
-		// Combine Lighting and Reflections
-		vec3 color = lighting * reflection;
+	vec3 refractOrDiffuse = mix(lighting, refractionEnv * baseColor, u_refractionStrength);
+
+	vec3 color = (reflectionEnv * F) + (refractOrDiffuse * (vec3(1.0) - F) * (1.0 - u_metallic));
+
+	color = mix(color, reflectionEnv * baseColor, u_metallic);
+	// REFLECTION / REFRACTION >>>>>>>>>>>>>>>>>>
 	
 
 	//	vec3 color = lighting;
