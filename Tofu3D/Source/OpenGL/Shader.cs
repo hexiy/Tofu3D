@@ -117,6 +117,7 @@ public class
             Path = TofuPath.Combine(Folders.EngineResourcesShaders, "SpriteRenderer.glsl");
         }
 
+        Path = System.IO.Path.GetFullPath(Path);
         if (AssetPathExtensions.Exists(Path) == false)
         {
             Debug.Log($"Couldn't find shader:{Path}");

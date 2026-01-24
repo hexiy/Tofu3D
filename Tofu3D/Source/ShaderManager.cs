@@ -101,8 +101,9 @@ public class ShaderManager
         foreach (Asset_Material loadedMaterial in allLoadedMaterials)
         {
 
-            string a = Path.GetRelativePath("/", loadedMaterial.Shader?.Path);
+            string a = Path.DirectorySeparatorChar+Path.GetRelativePath("/", loadedMaterial.Shader?.Path);
             string b = Path.DirectorySeparatorChar+Path.GetRelativePath("/", shaderPath);
+
             if (a==b) // relativepath to remove ../../
             {
                 Shader shader = LoadShader(b, forceReload: true);
