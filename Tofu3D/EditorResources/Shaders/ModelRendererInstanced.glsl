@@ -505,26 +505,31 @@ void main() {
 
 	// <<<<<<<<<<<< REFLECTION / REFRACTION
 	vec3 I = normalize(vertexPositionWorld - u_camPosWorldSpace);
-	vec3 R = reflect(I, normalize(normalWorldSpace));
+	vec3 N = normalize(normalWorldSpace);
+	vec3 R = reflect(I, N);
 
 	float ratio = 1.00 / u_refractiveIndex;
-	vec3 refractionDirection = refract(I, normalize(normalWorldSpace), ratio);
+	vec3 refractionDirection = refract(I, N, ratio);
 
 	float MAX_LOD = 7.0;
+	// smoothness-environment blurriness
 	vec3 reflectionEnv = textureLod(u_environmentCubemap, R, roughnessValue * MAX_LOD).rgb;
 	vec3 refractionEnv = textureLod(u_environmentCubemap, refractionDirection, roughnessValue * MAX_LOD).rgb;
 
 	float f0_dielectric = pow((1.0 - u_refractiveIndex) / (1.0 + u_refractiveIndex), 2.0);
 	vec3 F0 = mix(vec3(f0_dielectric), baseColor, u_metallic);
 
-	float cosTheta = max(dot(normalize(normalWorldSpace), viewDir), 0.0);
+	float cosTheta = max(dot(N, viewDir), 0.0);
 	vec3 F = F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
+
+	F *= u_smoothness;
 
 	vec3 refractOrDiffuse = mix(lighting, refractionEnv * baseColor, u_refractionStrength);
 
-	vec3 color = (reflectionEnv * F) + (refractOrDiffuse * (vec3(1.0) - F) * (1.0 - u_metallic));
+	vec3 color = mix(refractOrDiffuse, reflectionEnv, F);
 
-	color = mix(color, reflectionEnv * baseColor, u_metallic);
+	vec3 metalColor = reflectionEnv * baseColor;
+	color = mix(color, metalColor, u_metallic);
 	// REFLECTION / REFRACTION >>>>>>>>>>>>>>>>>>
 	
 

@@ -591,6 +591,7 @@ public class InstancedRenderingSystem
         
         
         material.Shader.SetFloat("u_metallic", material.MetallicTextureStrength);
+        material.Shader.SetFloat("u_refractionStrength", material.RefractionEnabled ? 1 : 0);
         material.Shader.SetFloat("u_smoothness", material.Smoothness);
 
         material.Shader.SetInt("u_hasEnvironmentCubemap",
