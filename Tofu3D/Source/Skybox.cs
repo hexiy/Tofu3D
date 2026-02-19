@@ -13,6 +13,10 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
 
     public RuntimeCubemapTexture GetCubemapTexture() => _texture;
 
+    private float _dayNight = 0;
+    private float _dayNightTarget = 0;
+
+
     public void Update()
     {
         // Debug.StatSetValue("SkyboxList Textures", $"{Textures.Count}");
@@ -45,6 +49,7 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
         base.Awake();
     }
 
+
     public void RenderSkybox()
     {
         if (EnabledSelf == false || GameObject.ActiveInHierarchy == false)
@@ -52,6 +57,10 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
             return;
         }
 
+        if (KeyboardInput.WasKeyJustPressed(Keys.Tab))
+        {
+            _dayNightTarget = _dayNightTarget > 0.5f ? 0f : 1f;
+        }
 
         Vector3 forwardLocal =
             Camera.CurrentlyRenderingCamera.Transform.TransformVectorToWorldSpaceVector(new Vector3(0, 0, 1));
@@ -72,6 +81,11 @@ public class Skybox : Component, IComponentUpdateable, IHasMaterial
 
         _material.Shader.SetMatrix4X4("u_view", viewMatrix);
         _material.Shader.SetMatrix4X4("u_projection", projectionMatrix);
+        _material.Shader.SetFloat("u_time", Time.EditorElapsedTime);
+
+        _dayNight = MathHelper.Lerp(_dayNight, _dayNightTarget, Time.EditorDeltaTime * 2.5f);
+
+        _material.Shader.SetFloat("u_dayNight", _dayNight);
 
         Tofu.ShaderManager.BindVertexArray(Tofu.BasicMeshesCollection.CubemapMesh.Vao);
 
