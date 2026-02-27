@@ -21,6 +21,13 @@ public class EditorPanelHierarchy : EditorPanel
 
     public override string Name => "Hierarchy";
 
+    internal PlaceholderGameObjectsSpawner _placeholderGameObjectsSpawner;
+
+    public EditorPanelHierarchy(PlaceholderGameObjectsSpawner placeholderGameObjectsSpawner)
+    {
+        _placeholderGameObjectsSpawner = placeholderGameObjectsSpawner;
+    }
+
     public override void Init()
     {
         I = this;
@@ -95,7 +102,7 @@ public class EditorPanelHierarchy : EditorPanel
             return;
         }
 
-        int firstSelectedGameObjectIndex =_selectedGameObjects[0].IndexInHierarchy;
+        int firstSelectedGameObjectIndex = _selectedGameObjects[0].IndexInHierarchy;
         foreach (GameObject selectedGameObject in Tofu.GameObjectSelectionManager.GetSelectedGameObjects())
         {
             _selectedGameObjects.Remove(selectedGameObject);
@@ -178,6 +185,29 @@ public class EditorPanelHierarchy : EditorPanel
             // ImGui.End();
             return;
         }
+
+        if (ImGui.IsItemClicked(ImGuiMouseButton.Right))
+        {
+            ImGui.OpenPopup("HierarchyRightClickPopup");
+        }
+
+        if (ImGui.BeginPopupContextWindow("HierarchyRightClickPopup"))
+        {
+            if (ImGui.BeginMenu("3D Objects"))
+            {
+                if (ImGui.MenuItem("Cube"))
+                {
+                    GameObject cube = _placeholderGameObjectsSpawner.SpawnCube();
+
+                    Tofu.GameObjectSelectionManager.SelectGameObject(cube);
+                }
+
+                ImGui.EndMenu();
+            }
+
+            ImGui.EndPopup();
+        }
+
         if (ImGui.Button("+"))
         {
             GameObject go = GameObject.Create(name: "GameObject");
@@ -270,7 +300,7 @@ public class EditorPanelHierarchy : EditorPanel
     private void DrawGameObjectRow(int goIndex, ref int goIndexRef, bool isChild = false)
     {
         Debug.StatAddValue("drawGameObjectRow", 1);
-        GameObject currentGameObject=Tofu.SceneManager.CurrentScene.GameObjectsList[goIndex];
+        GameObject currentGameObject = Tofu.SceneManager.CurrentScene.GameObjectsList[goIndex];
 
         int gameObjectID = currentGameObject.Id;
 
@@ -347,7 +377,7 @@ public class EditorPanelHierarchy : EditorPanel
         // }
 
         bool opened = ImGui.TreeNodeEx(rowText, flags);
-        
+
         // set opened if a children is selected
 
         if (ImGui.IsItemClicked(ImGuiMouseButton.Right))
@@ -453,11 +483,10 @@ public class EditorPanelHierarchy : EditorPanel
                 foreach (Transform child in currentGameObject.Transform.Children)
                 {
                     int x = 0;
-                    DrawGameObjectRow(child.GameObject.IndexInHierarchy, ref x,true);
+                    DrawGameObjectRow(child.GameObject.IndexInHierarchy, ref x, true);
                 }
-     
-                ImGui.TreePop();
 
+                ImGui.TreePop();
             }
 
             ImGui.TreePop();

@@ -32,7 +32,7 @@ public class Editor
 
     public EditorTextures EditorTextures;
 
-    public unsafe void Initialize()
+    public unsafe void Initialize(PlaceholderGameObjectsSpawner placeholderGameObjectsSpawner)
     {
         _editorLayoutManager = new EditorLayoutManager();
         _editorLayoutManager.LoadLastLayout();
@@ -50,7 +50,7 @@ public class Editor
             {
                 new EditorPanelMenuBar(_editorLayoutManager),
                 new EditorPanelToolbar(),
-                new EditorPanelHierarchy(),
+                new EditorPanelHierarchy(placeholderGameObjectsSpawner),
                 new EditorPanelInspector(),
                 new EditorPanelBrowser(),
                 new EditorPanelConsole(),

@@ -57,6 +57,7 @@ internal static class Tofu
     internal static TweenManager TweenManager;
     internal static PhysicsController PhysicsController;
     internal static CoroutineManager CoroutineManager;
+    private static PlaceholderGameObjectsSpawner PlaceholderGameObjectsSpawner;
 
     // INPUT
     internal static MouseInput MouseInput;
@@ -150,7 +151,7 @@ internal static class Tofu
     private static void OnWindowLoad()
     {
         BasicMeshesCollection = new BasicMeshesCollection();
-
+        PlaceholderGameObjectsSpawner = new PlaceholderGameObjectsSpawner();
         PhysicsController.Init();
 
         // first import textures so we can setup atlases
@@ -172,7 +173,7 @@ internal static class Tofu
         ImGuiController = new ImGuiController();
 
         Editor = new Editor();
-        Editor.Initialize();
+        Editor.Initialize(PlaceholderGameObjectsSpawner);
 
         EditorViewManager = new EditorViewManager();
 
