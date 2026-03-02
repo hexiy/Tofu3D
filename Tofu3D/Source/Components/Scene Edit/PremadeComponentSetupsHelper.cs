@@ -19,4 +19,20 @@ public static class PremadeComponentSetupsHelper
 
         return modelRenderer;
     }
+
+    public static ModelRenderer PreparePlane(ModelRenderer modelRenderer)
+    {
+        if (modelRenderer.Material == null)
+        {
+            modelRenderer.Material =
+                Tofu.AssetLoadManager.GetDefaultModelRendererInstancedMaterial();
+        }
+
+        modelRenderer.Material.AlbedoTexture = Tofu.Editor.EditorTextures.WhitePixel;
+        Asset_Model model =
+            Tofu.AssetLoadManager.Get<Asset_Model>(TofuPath.Combine(Folders.BasicModelsInAssets, "plane.obj"));
+        modelRenderer.RuntimeMesh = Tofu.AssetLoadManager.Get<RuntimeMesh>(model.PathsToMeshAssets.First());
+
+        return modelRenderer;
+    }
 }

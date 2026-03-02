@@ -205,6 +205,18 @@ public class EditorPanelHierarchy : EditorPanel
                 ImGui.EndMenu();
             }
 
+            if (ImGui.BeginMenu("2D Objects"))
+            {
+                if (ImGui.MenuItem("Sprite"))
+                {
+                    GameObject sprite = _placeholderGameObjectsSpawner.SpawnSprite();
+
+                    Tofu.GameObjectSelectionManager.SelectGameObject(sprite);
+                }
+
+                ImGui.EndMenu();
+            }
+
             ImGui.EndPopup();
         }
 
