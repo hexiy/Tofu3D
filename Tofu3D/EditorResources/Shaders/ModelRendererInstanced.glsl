@@ -520,8 +520,11 @@ void main() {
 	vec3 F0 = mix(vec3(f0_dielectric), baseColor, u_metallic);
 
 	float cosTheta = max(dot(N, viewDir), 0.0);
-	vec3 F = F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
 
+	vec3 F_base = F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
+
+	vec3 F = F_base * u_smoothness;
+	
 	F *= u_smoothness;
 
 	vec3 refractOrDiffuse = mix(lighting, refractionEnv * baseColor, u_refractionStrength);
@@ -573,6 +576,9 @@ void main() {
 
 	float alpha = albedo.a;
 
+	float glassAlpha = clamp(max(F_base.x, max(F_base.y, F_base.z)) + 0.1, 0.0, 1.0);
+	alpha = mix(alpha, glassAlpha, u_refractionStrength);
+
 	//	if (u_hasAlphaMaskTexture == 1) {
 	//		vec4 alphaMask = texture(u_alphaMaskTexture, uvCoords);
 	//		alphaMask.rgb *= alphaMask.a;
@@ -588,12 +594,12 @@ void main() {
 	// Final Output
 	if (u_renderMode == 0) // regular
 	{
-		if (alpha < 0.9 && u_discardTransparentPixels == 1) {
+		if (alpha < 0.9 && u_discardTransparentPixels == 1 && u_refractionStrength == 0) {
 			//		alpha = 0;
 			discard;
 		}
-		//		fragColor = vec4(color, alpha);
-		fragColor = vec4(color, 1);
+				fragColor = vec4(color, alpha);
+//		fragColor = vec4(color, 1);
 
 		//		fragColor = vec4(color, alpha);
 	}
